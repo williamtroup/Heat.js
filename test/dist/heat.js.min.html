@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no" />
+        <title>Heat.js - Minimized</title>
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../../dist/heat.js.min.css" />
+        <script src="../../dist/heat.min.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 id="header">Heat.js - Minimized</h1>
+            <p>This is a basic example of how to use Heat.js.</p>
+        </div>
+
+        <div class="contents">
+        </div>
+    </body>
+
+    <script>
+        document.title += " v" + $heat.getVersion();
+        document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
+    </script>
+</html>
