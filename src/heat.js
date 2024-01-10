@@ -1,7 +1,7 @@
 /**
  * Heat.js
  * 
- * A lightweight JavaScript library.
+ * A lightweight, and easy-to-use, JavaScript library for generating high quality heat maps for dates.
  * 
  * @file        observe.js
  * @version     v0.1.0
