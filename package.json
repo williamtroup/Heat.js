@@ -14,7 +14,11 @@
     "keywords": [
       "javascript",
       "css",
-      "heat.js"
+      "heat.js",
+      "html",
+      "date",
+      "heatmap",
+      "generator"
     ],
     "bugs": {
       "url": "https://github.com/williamtroup/Heat.js/issues"
