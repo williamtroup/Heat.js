@@ -16,6 +16,7 @@
   --container-background-color: #22272e;
   --container-border-color: #454c56;
   --day-background-color: #2d333b;
+  --day-background-color-hover: #454c56;
   --border-radius: 0.5rem;
   --border-radius-day: 0.25rem;
   --border-size: 0.5px;
@@ -81,4 +82,9 @@ div.heat-js div.months div.month div.day-columns div.day-column div.day-disabled
 div.heat-js div.months div.month div.day-columns div.day-column div.day {
   background-color: var(--day-background-color);
   border: var(--border-size) solid var(--day-background-color);
+}
+div.heat-js div.months div.month div.day-columns div.day-column div.day:hover {
+  cursor: pointer;
+  background: var(--day-background-color-hover);
+  transition: var(--transition);
 }/*# sourceMappingURL=heat.js.css.map */

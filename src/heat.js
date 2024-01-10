@@ -102,7 +102,9 @@
             bindingOptions.currentView.year = new Date().getFullYear();
         }
 
-        var days = createElement( "div", "days" );
+        var currentYear = bindingOptions.currentView.year,
+            days = createElement( "div", "days" );
+
         bindingOptions.element.appendChild( days );
 
         for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
@@ -125,13 +127,13 @@
             var dayColumns = createElement( "div", "day-columns" );
             month.appendChild( dayColumns );
 
-            var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex ),
+            var totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
                 currentDayColumn = createElement( "div", "day-column" ),
                 startFillingDays = false;
 
             dayColumns.appendChild( currentDayColumn );
 
-            var firstDayInMonth = new Date( bindingOptions.currentView.year, monthIndex, 1 ),
+            var firstDayInMonth = new Date( currentYear, monthIndex, 1 ),
                 firstDayNumberInMonth = getWeekdayNumber( firstDayInMonth );
 
             totalDaysInMonth += firstDayNumberInMonth;
@@ -146,7 +148,7 @@
                 }
 
                 if ( startFillingDays ) {
-                    renderControlViewMonthDay( currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, bindingOptions.currentView.year );
+                    renderControlViewMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear );
     
                     if ( ( dayIndex + 1 ) % 7 === 0 ) {
                         currentDayColumn = createElement( "div", "day-column" );
@@ -157,12 +159,16 @@
         }
     }
 
-    function renderControlViewMonthDay( currentDayColumn, day, month, year ) {
+    function renderControlViewMonthDay( bindingOptions, currentDayColumn, day, month, year ) {
         var actualDay = day + 1,
             day = createElement( "div", "day" );
 
         day.title = actualDay.toString() + getDayOrdinal( actualDay ) + _string.space + _configuration.monthNames[ month ] + _string.space + year;
         currentDayColumn.appendChild( day );
+
+        day.onclick = function() {
+            fireCustomTrigger( bindingOptions.onDayClick, new Date( year, month, actualDay ) );
+        };
     }
 
 
@@ -188,7 +194,7 @@
     }
 
     function buildAttributeOptionCustomTriggers( options ) {
-        options.onRenderComplete = getDefaultFunction( options.onRenderComplete, null );
+        options.onDayClick = getDefaultFunction( options.onDayClick, null );
 
         return options;
     }
