@@ -135,6 +135,7 @@
                     bindingOptions.currentView.year--;
         
                     renderControl( bindingOptions );
+                    fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
                 };
         
                 bindingOptions.currentView.yearText = createElement( "div", "year-text" );
@@ -149,6 +150,7 @@
                     bindingOptions.currentView.year++;
         
                     renderControl( bindingOptions );
+                    fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
                 };
             }
         }
@@ -310,6 +312,8 @@
 
     function buildAttributeOptionCustomTriggers( options ) {
         options.onDayClick = getDefaultFunction( options.onDayClick, null );
+        options.onBackYear = getDefaultFunction( options.onBackYear, null );
+        options.onNextYear = getDefaultFunction( options.onNextYear, null );
 
         return options;
     }
