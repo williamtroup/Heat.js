@@ -20,6 +20,15 @@
         </div>
 
         <div class="contents">
+            <h2>Manage Dates:</h2>
+            <button class="btn btn-primary" onclick="addDates();">Add Dates</button>
+            <br />
+
+            <h2>Manage Instances:</h2>
+            <button class="btn btn-primary" onclick="$heat.refresh( 'heat-map' );">Refresh</button>
+            <button class="btn btn-primary" onclick="$heat.refreshAll();">Refresh All</button>
+            <br />
+
             <h2>Configuration:</h2>
             <button class="btn btn-primary" onclick="setupConfiguration();">Set Configuration</button>
             <br />
@@ -37,6 +46,21 @@
             $heat.setConfiguration( {
                 safeMode: false
             } );
+        }
+
+        function addDates() {
+            var date = new Date( new Date().getFullYear(), 1, 1 );
+
+            for ( var dayNumber = 0; dayNumber < 365; dayNumber++ ) {
+                var daysToIncrease = Math.floor( Math.random() * 365 ),
+                    newDate = new Date( date );
+
+                newDate.setDate( newDate.getDate() + daysToIncrease );
+
+                $heat.addDate( "heat-map", newDate, false );
+            }
+
+            $heat.refreshAll();
         }
 
         function onDayClick( date ) {

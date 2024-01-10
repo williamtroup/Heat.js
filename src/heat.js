@@ -28,6 +28,9 @@
         // Variables: Elements
         _elements_Type = {},
 
+        // Variables: Date Counts
+        _elements_DateCounts = {},
+
         // Variables: Attribute Names
         _attribute_Name_Options = "data-heat-options";
 
@@ -74,6 +77,10 @@
                     }
 
                     element.removeAttribute( _attribute_Name_Options );
+
+                    _elements_DateCounts[ element.id ] = {
+                        options: bindingOptions
+                    };
 
                     renderControl( bindingOptions );
 
@@ -500,6 +507,95 @@
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Public Functions:  Manage Dates
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    /**
+     * addDate().
+     * 
+     * Adds a date for a specific element ID, and refreshes the UI (if specified).
+     * 
+     * @public
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
+     * @param       {Date}      date                                        The date to add.
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refresh (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.addDate = function( elementId, date, triggerRefresh ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+
+            var storageDate = toStorageDate( date );
+
+            if ( !_elements_DateCounts[ elementId ].hasOwnProperty( storageDate ) ) {
+                _elements_DateCounts[ elementId ][ storageDate ] = 0;
+            }
+    
+            _elements_DateCounts[ elementId ][ storageDate ]++;
+
+            if ( triggerRefresh ) {
+                renderControl( _elements_DateCounts[ elementId ].options );
+            }
+        }
+
+        return this;
+    };
+
+    function toStorageDate( date ) {
+        return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Public Functions:  Manage Instances
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    /**
+     * refresh().
+     * 
+     * Refreshes a Heat.js instance.
+     * 
+     * @public
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should be refreshed.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.refresh = function( elementId ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            renderControl( _elements_DateCounts[ elementId ].options );
+        }
+
+        return this;
+    };
+
+    /**
+     * refreshAll().
+     * 
+     * Refreshes all of the rendered Heat.js instances.
+     * 
+     * @public
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.refreshAll = function() {
+        for ( var elementId in _elements_DateCounts ) {
+            if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                renderControl( _elements_DateCounts[ elementId ].options );
+            }
+        }
+
+        return this;
+    };
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Public Functions:  Configuration
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -511,7 +607,7 @@
      * 
      * @public
      * 
-     * @param       {Options}   newConfiguration                            All the configuration options that should be set (refer to "Options" documentation for properties).
+     * @param       {Object}   newConfiguration                             All the configuration options that should be set (refer to "Options" documentation for properties).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
