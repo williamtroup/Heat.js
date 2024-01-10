@@ -50,7 +50,7 @@ div.heat-js {
 
     div.days {
         margin-right: calc( var(--spacing) * 3 );
-        margin-top: calc( var(--spacing-font-size) + var(--spacing) );
+        margin-top: calc( var(--spacing-font-size) + var(--spacing) + 1px );
 
         div.day-name {
             font-weight: 300;
@@ -86,7 +86,7 @@ div.heat-js {
                         width: var(--spacing-font-size);
                         height: var(--spacing-font-size);
                         margin-right: 2px;
-                        margin-bottom: 6.8px;
+                        margin-bottom: 6.3px;
 
                         &:last-child {
                             margin-bottom: 0;
