@@ -230,7 +230,7 @@
         for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
             var mapRangeColor = _configuration.mapRangeColors[ mapRangeColorsIndex ];
 
-            var day = createElement( "div", "day " + mapRangeColor.cssClass );
+            var day = createElement( "div", "day " + mapRangeColor.cssClassName );
             days.appendChild( day );
         }
 
@@ -484,19 +484,19 @@
         _configuration.mapRangeColors = getDefaultArray( _configuration.mapRangeColors, [
             {
                 range: 10,
-                cssClass: "day-color-1"
+                cssClassName: "day-color-1"
             },
             {
                 range: 15,
-                cssClass: "day-color-2"
+                cssClassName: "day-color-2"
             },
             {
                 range: 20,
-                cssClass: "day-color-3"
+                cssClassName: "day-color-3"
             },
             {
                 range: 25,
-                cssClass: "day-color-4"
+                cssClassName: "day-color-4"
             }
         ] );
 

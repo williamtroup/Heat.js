@@ -154,7 +154,10 @@ div.heat-js div.guide div.days div.day {
   border-radius: var(--border-radius-day);
   width: var(--spacing-font-size);
   height: var(--spacing-font-size);
-  margin-right: 2px;
+  margin-right: 3px;
+}
+div.heat-js div.guide div.days div.day:last-child {
+  margin-right: 0;
 }
 div.heat-js div.day-color-1 {
   background-color: rgb(57, 211, 83);

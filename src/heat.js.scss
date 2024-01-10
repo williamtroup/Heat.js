@@ -189,7 +189,11 @@ div.heat-js {
                 border-radius: var(--border-radius-day);
                 width: var(--spacing-font-size);
                 height: var(--spacing-font-size);
-                margin-right: 2px;
+                margin-right: 3px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
             }
         }
     }
