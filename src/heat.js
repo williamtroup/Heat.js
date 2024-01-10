@@ -145,9 +145,9 @@
 
         map.appendChild( days );
 
-        for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
+        for ( var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++ ) {
             var dayName = createElement( "div", "day-name" );
-            dayName.innerHTML = _configuration.dayNames[ dayIndex ];
+            dayName.innerHTML = _configuration.dayNames[ dayNameIndex ];
             days.appendChild( dayName );
         }
 
@@ -197,8 +197,8 @@
         }
     }
 
-    function renderControlViewMonthDay( bindingOptions, currentDayColumn, day, month, year ) {
-        var actualDay = day + 1,
+    function renderControlViewMonthDay( bindingOptions, currentDayColumn, dayNumber, month, year ) {
+        var actualDay = dayNumber + 1,
             day = createElement( "div", "day" );
 
         day.title = actualDay.toString() + getDayOrdinal( actualDay ) + _string.space + _configuration.monthNames[ month ] + _string.space + year;
