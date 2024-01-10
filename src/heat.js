@@ -407,13 +407,6 @@
         return result;
     }
 
-    function cancelBubble( e ) {
-        if ( e !== null ) {
-            e.preventDefault();
-            e.cancelBubble = true;
-        }
-    }
-
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -448,10 +441,6 @@
 
     function getDefaultArray( value, defaultValue ) {
         return isDefinedArray( value ) ? value : defaultValue;
-    }
-
-    function getDefaultNumber( value, defaultValue ) {
-        return isDefinedNumber( value ) ? value : defaultValue;
     }
 
     function getDefaultStringOrArray( value, defaultValue ) {
