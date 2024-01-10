@@ -26,13 +26,13 @@
     -------------------------------------------------------------------------
 */
 div.heat-js {
-  display: flex;
+  display: inline-flex;
+  flex-direction: row;
   border-radius: var(--border-radius);
   background-color: var(--color-black);
   color: var(--color-white);
   border: var(--border-size) solid var(--color-gray);
   padding: var(--spacing);
-  max-width: 1024px;
   font-size: var(--spacing-font-size);
 }
 div.heat-js div.days {
@@ -49,7 +49,6 @@ div.heat-js div.months {
 }
 div.heat-js div.months div.month {
   flex: 1;
-  width: 8.3333333333%;
   margin-right: calc(var(--spacing) / 2);
 }
 div.heat-js div.months div.month:last-child {
@@ -66,9 +65,9 @@ div.heat-js div.months div.month div.day-columns {
 div.heat-js div.months div.month div.day-columns div.day-column div.day,
 div.heat-js div.months div.month div.day-columns div.day-column div.day-disabled {
   border-radius: var(--border-radius);
-  width: 100%;
+  width: var(--spacing-font-size);
   height: var(--spacing-font-size);
-  margin-right: 10px;
+  margin-right: 1px;
   margin-bottom: 6.8px;
 }
 div.heat-js div.months div.month div.day-columns div.day-column div.day:last-child,

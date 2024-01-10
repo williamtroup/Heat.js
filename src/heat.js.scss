@@ -38,13 +38,13 @@
 */
 
 div.heat-js {
-    display: flex;
+    display: inline-flex;
+    flex-direction: row;
     border-radius: var(--border-radius);
     background-color: var(--color-black);
     color: var(--color-white);
     border: var(--border-size) solid var(--color-gray);
     padding: var(--spacing);
-    max-width: 1024px;
     font-size: var(--spacing-font-size);
 
     div.days {
@@ -63,7 +63,6 @@ div.heat-js {
 
         div.month {
             flex: 1;
-            width: calc( 100% / 12 );
             margin-right: calc( var(--spacing) / 2 );
 
             &:last-child {
@@ -83,9 +82,9 @@ div.heat-js {
                     div.day,
                     div.day-disabled {
                         border-radius: var(--border-radius);
-                        width: 100%;
+                        width: var(--spacing-font-size);
                         height: var(--spacing-font-size);
-                        margin-right: 10px;
+                        margin-right: 1px;
                         margin-bottom: 6.8px;
 
                         &:last-child {
