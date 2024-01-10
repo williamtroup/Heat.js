@@ -19,11 +19,6 @@
         // Variables: Configuration
         _configuration = {},
 
-        // Variables: Enums
-        _enum_KeyCodes = {
-            escape: 27
-        },
-
         // Variables: Strings
         _string = {
             empty: "",
@@ -32,9 +27,6 @@
 
         // Variables: Elements
         _elements_Type = {},
-
-        // Variables: Control Elements
-        _control_Elements = [],
 
         // Variables: Attribute Names
         _attribute_Name_Options = "data-heat-options";
@@ -74,8 +66,12 @@
 
                 if ( bindingOptions.parsed && isDefinedObject( bindingOptions.result ) ) {
                     bindingOptions = buildAttributeOptions( bindingOptions.result );
+                    bindingOptions.element = element;
+                    bindingOptions.currentView = {};
 
                     element.removeAttribute( _attribute_Name_Options );
+
+                    renderControl( bindingOptions );
 
                 } else {
                     if ( !_configuration.safeMode ) {
@@ -93,6 +89,18 @@
         }
 
         return result;
+    }
+
+    function renderControl( bindingOptions ) {
+        bindingOptions.element.className = "heat-js";
+
+        renderControlView( bindingOptions );
+    }
+
+    function renderControlView( bindingOptions ) {
+        if ( !isDefinedNumber( bindingOptions.currentView.year ) ) {
+            bindingOptions.currentView.year = new Date().getFullYear();
+        }
     }
 
 

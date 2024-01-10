@@ -17,4 +17,17 @@
   --border-size: 0.5px;
   --spacing: 10px;
   --transition: all .3s;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Container
+    -------------------------------------------------------------------------
+*/
+div.heat-js {
+  border-radius: var(--border-radius);
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border: var(--border-size) solid var(--color-gray);
+  padding: 10px;
 }/*# sourceMappingURL=heat.js.css.map */

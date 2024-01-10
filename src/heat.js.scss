@@ -28,3 +28,18 @@
     // Transitions
     --transition: all .3s;
 }
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Container
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    border-radius: var(--border-radius);
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border: var(--border-size) solid var(--color-gray);
+    padding: 10px;
+}
