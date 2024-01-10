@@ -102,9 +102,6 @@
             bindingOptions.currentView.year = new Date().getFullYear();
         }
 
-        var currentYear = new Date( bindingOptions.currentView.year, 1, 1 ),
-            currentYearTotalDays = getTotalDaysBetweenDates( currentYear, new Date( bindingOptions.currentView.year, 12, 31 ) );
-
         var days = createElement( "div", "days" );
         bindingOptions.element.appendChild( days );
 
@@ -124,6 +121,24 @@
             var monthName = createElement( "div", "month-name" );
             monthName.innerHTML = _configuration.monthNames[ monthIndex ];
             month.appendChild( monthName );
+
+            var dayColumns = createElement( "div", "day-columns" );
+            month.appendChild( dayColumns );
+
+            var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex ),
+                currentDayColumn = createElement( "div", "day-column" );
+
+            dayColumns.appendChild( currentDayColumn );
+
+            for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                var day = createElement( "div", "day" );
+                currentDayColumn.appendChild( day );
+
+                if ( ( dayIndex + 1 ) % 7 === 0 ) {
+                    currentDayColumn = createElement( "div", "day-column" );
+                    dayColumns.appendChild( currentDayColumn );
+                }
+            }
         }
     }
 
@@ -169,6 +184,10 @@
             differenceDays = Math.ceil( differenceTime / ( 1000 * 60 * 60 * 24 ) ); 
         
         return differenceDays;
+    }
+
+    function getTotalDaysInMonth( year, month ) {
+        return new Date( year, month + 1, 0 ).getDate();
     }
 
 

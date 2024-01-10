@@ -49,10 +49,10 @@ div.heat-js {
 
     div.days {
         margin-right: calc( var(--spacing) * 3 );
-        margin-top: var(--spacing-font-size);
+        margin-top: calc( var(--spacing-font-size) + var(--spacing) );
 
         div.day-name {
-
+            font-weight: 300;
         }
     }
 
@@ -64,16 +64,35 @@ div.heat-js {
         div.month {
             flex: 1;
             width: calc( 100% / 12 );
+            margin-right: calc( var(--spacing) );
 
-            div.month-name {
-
+            &:last-child {
+                margin-right: 0;
             }
 
-            div.day {
-                width: 20px;
-                height: 20px;
-                margin: 2px;
-                border: var(--border-size) solid var(--color-gray);
+            div.month-name {
+                font-weight: 300;
+                margin-bottom: var(--spacing);
+            }
+
+            div.day-columns {
+                display: flex;
+                justify-content: space-between;
+
+                div.day-column {
+                    div.day {
+                        border-radius: var(--border-radius);
+                        width: 100%;
+                        height: var(--spacing-font-size);
+                        margin-right: 10px;
+                        margin-bottom: 6.8px;
+                        border: var(--border-size) solid var(--color-gray);
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
             }
         }
     }
