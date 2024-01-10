@@ -14,6 +14,7 @@
   --color-white: #F5F5F5;
   --color-gray: #AAAAAA;
   --border-radius: 0.5rem;
+  --border-radius-day: 0.25rem;
   --border-size: 0.5px;
   --spacing: 10px;
   --spacing-font-size: 0.9rem;
@@ -64,10 +65,10 @@ div.heat-js div.months div.month div.day-columns {
 }
 div.heat-js div.months div.month div.day-columns div.day-column div.day,
 div.heat-js div.months div.month div.day-columns div.day-column div.day-disabled {
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-day);
   width: var(--spacing-font-size);
   height: var(--spacing-font-size);
-  margin-right: 1px;
+  margin-right: 1.5px;
   margin-bottom: 6.8px;
 }
 div.heat-js div.months div.month div.day-columns div.day-column div.day:last-child,

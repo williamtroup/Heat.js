@@ -20,6 +20,7 @@
 
     // Borders
     --border-radius: 0.5rem;
+    --border-radius-day: 0.25rem;
     --border-size: 0.5px;
 
     // Sizes
@@ -81,10 +82,10 @@ div.heat-js {
                 div.day-column {
                     div.day,
                     div.day-disabled {
-                        border-radius: var(--border-radius);
+                        border-radius: var(--border-radius-day);
                         width: var(--spacing-font-size);
                         height: var(--spacing-font-size);
-                        margin-right: 1px;
+                        margin-right: 1.5px;
                         margin-bottom: 6.8px;
 
                         &:last-child {
