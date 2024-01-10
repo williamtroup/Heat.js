@@ -47,7 +47,7 @@
       return D.range - t.range;
     });
     for (f = 0; 12 > f; f++) {
-      if (-1 < a.monthsToShow.indexOf(f)) {
+      if (-1 < a.monthsToShow.indexOf(f + 1)) {
         var l = g("div", "month");
         h.appendChild(l);
         k = g("div", "month-name");

@@ -181,7 +181,7 @@
         } );
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
-            if ( bindingOptions.monthsToShow.indexOf( monthIndex ) > -1 ) {
+            if ( bindingOptions.monthsToShow.indexOf( monthIndex + 1 ) > -1 ) {
                 var month = createElement( "div", "month" );
                 months.appendChild( month );
     
