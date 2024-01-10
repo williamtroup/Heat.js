@@ -168,42 +168,44 @@
         map.appendChild( months );
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
-            var month = createElement( "div", "month" );
-            months.appendChild( month );
-
-            var monthName = createElement( "div", "month-name" );
-            monthName.innerHTML = _configuration.monthNames[ monthIndex ];
-            month.appendChild( monthName );
-
-            var dayColumns = createElement( "div", "day-columns" );
-            month.appendChild( dayColumns );
-
-            var totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
-                currentDayColumn = createElement( "div", "day-column" ),
-                startFillingDays = false;
-
-            dayColumns.appendChild( currentDayColumn );
-
-            var firstDayInMonth = new Date( currentYear, monthIndex, 1 ),
-                firstDayNumberInMonth = getWeekdayNumber( firstDayInMonth );
-
-            totalDaysInMonth += firstDayNumberInMonth;
-
-            for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                if ( dayIndex >= firstDayNumberInMonth ) {
-                    startFillingDays = true;
-
-                } else {
-                    var day = createElement( "div", "day-disabled" );
-                    currentDayColumn.appendChild( day );
-                }
-
-                if ( startFillingDays ) {
-                    renderControlViewMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear );
+            if ( bindingOptions.monthsToShow.indexOf( monthIndex ) > -1 ) {
+                var month = createElement( "div", "month" );
+                months.appendChild( month );
     
-                    if ( ( dayIndex + 1 ) % 7 === 0 ) {
-                        currentDayColumn = createElement( "div", "day-column" );
-                        dayColumns.appendChild( currentDayColumn );
+                var monthName = createElement( "div", "month-name" );
+                monthName.innerHTML = _configuration.monthNames[ monthIndex ];
+                month.appendChild( monthName );
+    
+                var dayColumns = createElement( "div", "day-columns" );
+                month.appendChild( dayColumns );
+    
+                var totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
+                    currentDayColumn = createElement( "div", "day-column" ),
+                    startFillingDays = false;
+    
+                dayColumns.appendChild( currentDayColumn );
+    
+                var firstDayInMonth = new Date( currentYear, monthIndex, 1 ),
+                    firstDayNumberInMonth = getWeekdayNumber( firstDayInMonth );
+    
+                totalDaysInMonth += firstDayNumberInMonth;
+    
+                for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                    if ( dayIndex >= firstDayNumberInMonth ) {
+                        startFillingDays = true;
+    
+                    } else {
+                        var day = createElement( "div", "day-disabled" );
+                        currentDayColumn.appendChild( day );
+                    }
+    
+                    if ( startFillingDays ) {
+                        renderControlViewMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear );
+        
+                        if ( ( dayIndex + 1 ) % 7 === 0 ) {
+                            currentDayColumn = createElement( "div", "day-column" );
+                            dayColumns.appendChild( currentDayColumn );
+                        }
                     }
                 }
             }
@@ -266,6 +268,7 @@
         options.showGuide = getDefaultBoolean( options.showGuide, true );
         options.showTitle = getDefaultBoolean( options.showTitle, true );
         options.showYearSelector = getDefaultBoolean( options.showYearSelector, true );
+        options.monthsToShow = getDefaultArray( options.monthsToShow, [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ] );
 
         options = buildAttributeOptionStrings( options );
 
