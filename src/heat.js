@@ -268,7 +268,10 @@
         options.showGuide = getDefaultBoolean( options.showGuide, true );
         options.showTitle = getDefaultBoolean( options.showTitle, true );
         options.showYearSelector = getDefaultBoolean( options.showYearSelector, true );
-        options.monthsToShow = getDefaultArray( options.monthsToShow, [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ] );
+
+        if ( isInvalidOptionArray( _configuration.monthsToShow, 12 ) ) {
+            options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
+        }
 
         options = buildAttributeOptionStrings( options );
 
