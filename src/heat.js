@@ -102,10 +102,13 @@
             bindingOptions.currentView.year = new Date().getFullYear();
         }
 
+        var map = createElement( "div", "map" );
+        bindingOptions.element.appendChild( map );
+
         var currentYear = bindingOptions.currentView.year,
             days = createElement( "div", "days" );
 
-        bindingOptions.element.appendChild( days );
+        map.appendChild( days );
 
         for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
             var dayName = createElement( "div", "day-name" );
@@ -114,7 +117,7 @@
         }
 
         var months = createElement( "div", "months" );
-        bindingOptions.element.appendChild( months );
+        map.appendChild( months );
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             var month = createElement( "div", "month" );

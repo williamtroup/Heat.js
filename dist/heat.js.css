@@ -40,50 +40,59 @@ div.heat-js {
   padding: var(--spacing);
   font-size: var(--spacing-font-size);
 }
-div.heat-js div.days {
-  margin-right: calc(var(--spacing) * 3);
-  margin-top: calc(var(--spacing-font-size) + var(--spacing) + 1px);
+div.heat-js div.map {
+  display: inline-flex;
+  flex-direction: row;
+  max-width: 700px;
+  overflow-y: scroll;
 }
-div.heat-js div.days div.day-name {
+div.heat-js div.map div.days {
+  background-color: var(--container-background-color);
+  padding-right: calc(var(--spacing) * 3);
+  padding-top: calc(var(--spacing-font-size) + var(--spacing) + 1px);
+  position: sticky;
+  left: 0;
+}
+div.heat-js div.map div.days div.day-name {
   font-weight: 300;
 }
-div.heat-js div.months {
+div.heat-js div.map div.months {
   display: flex;
   justify-content: space-between;
   flex-grow: 1;
 }
-div.heat-js div.months div.month {
+div.heat-js div.map div.months div.month {
   flex: 1;
   margin-right: calc(var(--spacing) / 2);
 }
-div.heat-js div.months div.month:last-child {
+div.heat-js div.map div.months div.month:last-child {
   margin-right: 0;
 }
-div.heat-js div.months div.month div.month-name {
+div.heat-js div.map div.months div.month div.month-name {
   font-weight: 300;
   margin-bottom: var(--spacing);
 }
-div.heat-js div.months div.month div.day-columns {
+div.heat-js div.map div.months div.month div.day-columns {
   display: flex;
   justify-content: space-between;
 }
-div.heat-js div.months div.month div.day-columns div.day-column div.day,
-div.heat-js div.months div.month div.day-columns div.day-column div.day-disabled {
+div.heat-js div.map div.months div.month div.day-columns div.day-column div.day,
+div.heat-js div.map div.months div.month div.day-columns div.day-column div.day-disabled {
   border-radius: var(--border-radius-day);
   width: var(--spacing-font-size);
   height: var(--spacing-font-size);
   margin-right: 2px;
   margin-bottom: 6.3px;
 }
-div.heat-js div.months div.month div.day-columns div.day-column div.day:last-child,
-div.heat-js div.months div.month div.day-columns div.day-column div.day-disabled:last-child {
+div.heat-js div.map div.months div.month div.day-columns div.day-column div.day:last-child,
+div.heat-js div.map div.months div.month div.day-columns div.day-column div.day-disabled:last-child {
   margin-bottom: 0;
 }
-div.heat-js div.months div.month div.day-columns div.day-column div.day {
+div.heat-js div.map div.months div.month div.day-columns div.day-column div.day {
   background-color: var(--day-background-color);
   border: var(--border-size) solid var(--day-background-color);
 }
-div.heat-js div.months div.month div.day-columns div.day-column div.day:hover {
+div.heat-js div.map div.months div.month div.day-columns div.day-column div.day:hover {
   cursor: pointer;
   background: var(--day-background-color-hover);
   transition: var(--transition);
