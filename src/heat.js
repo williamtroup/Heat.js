@@ -109,51 +109,59 @@
             bindingOptions.currentView.year = new Date().getFullYear();
         }
 
-        var year = createElement( "div", "year" );
-        bindingOptions.element.appendChild( year );
-
-        var title = createElement( "div", "title" );
-        title.innerHTML = bindingOptions.titleText;
-        year.appendChild( title );
-
-        var back = createElement( "button", "back" );
-        back.innerHTML = _configuration.backButtonText;
-        year.appendChild( back );
-
-        back.onclick = function() {
-            bindingOptions.currentView.year--;
-
-            renderControl( bindingOptions );
-        };
-
-        bindingOptions.currentView.yearText = createElement( "div", "year-text" );
-        bindingOptions.currentView.yearText.innerHTML = bindingOptions.currentView.year;
-        year.appendChild( bindingOptions.currentView.yearText );
-
-        var next = createElement( "button", "next" );
-        next.innerHTML = _configuration.nextButtonText;
-        year.appendChild( next );
-
-        next.onclick = function() {
-            bindingOptions.currentView.year++;
-
-            renderControl( bindingOptions );
-        };
+        if ( bindingOptions.showTitle || bindingOptions.showYearSelector ) {
+            var year = createElement( "div", "year" );
+            bindingOptions.element.appendChild( year );
+    
+            if ( bindingOptions.showTitle ) {
+                var title = createElement( "div", "title" );
+                title.innerHTML = bindingOptions.titleText;
+                year.appendChild( title );
+            }
+    
+            if ( bindingOptions.showYearSelector ) {
+                var back = createElement( "button", "back" );
+                back.innerHTML = _configuration.backButtonText;
+                year.appendChild( back );
+        
+                back.onclick = function() {
+                    bindingOptions.currentView.year--;
+        
+                    renderControl( bindingOptions );
+                };
+        
+                bindingOptions.currentView.yearText = createElement( "div", "year-text" );
+                bindingOptions.currentView.yearText.innerHTML = bindingOptions.currentView.year;
+                year.appendChild( bindingOptions.currentView.yearText );
+        
+                var next = createElement( "button", "next" );
+                next.innerHTML = _configuration.nextButtonText;
+                year.appendChild( next );
+        
+                next.onclick = function() {
+                    bindingOptions.currentView.year++;
+        
+                    renderControl( bindingOptions );
+                };
+            }
+        }
     }
 
     function renderControlMap( bindingOptions ) {
         var map = createElement( "div", "map" );
         bindingOptions.element.appendChild( map );
 
-        var currentYear = bindingOptions.currentView.year,
-            days = createElement( "div", "days" );
+        var currentYear = bindingOptions.currentView.year;
 
-        map.appendChild( days );
-
-        for ( var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++ ) {
-            var dayName = createElement( "div", "day-name" );
-            dayName.innerHTML = _configuration.dayNames[ dayNameIndex ];
-            days.appendChild( dayName );
+        if ( bindingOptions.showDayNames ) {
+            var days = createElement( "div", "days" );
+            map.appendChild( days );
+    
+            for ( var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++ ) {
+                var dayName = createElement( "div", "day-name" );
+                dayName.innerHTML = _configuration.dayNames[ dayNameIndex ];
+                days.appendChild( dayName );
+            }
         }
 
         var months = createElement( "div", "months" );
@@ -215,32 +223,34 @@
     }
 
     function renderControlViewGuide( bindingOptions ) {
-        var guide = createElement( "div", "guide" );
-        bindingOptions.element.appendChild( guide );
-
-        var lessText = createElement( "div", "less-text" );
-        lessText.innerHTML = _configuration.lessText;
-        guide.appendChild( lessText );
-
-        var days = createElement( "div", "days" );
-        guide.appendChild( days );
-
-        var mapRangeColorsLength = _configuration.mapRangeColors.length;
-
-        _configuration.mapRangeColors = _configuration.mapRangeColors.sort( function( a, b ) {
-            return b.range - a.range;
-        } );
-
-        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            var mapRangeColor = _configuration.mapRangeColors[ mapRangeColorsIndex ];
-
-            var day = createElement( "div", "day " + mapRangeColor.cssClassName );
-            days.appendChild( day );
+        if ( bindingOptions.showGuide ) {
+            var guide = createElement( "div", "guide" );
+            bindingOptions.element.appendChild( guide );
+    
+            var lessText = createElement( "div", "less-text" );
+            lessText.innerHTML = _configuration.lessText;
+            guide.appendChild( lessText );
+    
+            var days = createElement( "div", "days" );
+            guide.appendChild( days );
+    
+            var mapRangeColorsLength = _configuration.mapRangeColors.length;
+    
+            _configuration.mapRangeColors = _configuration.mapRangeColors.sort( function( a, b ) {
+                return b.range - a.range;
+            } );
+    
+            for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+                var mapRangeColor = _configuration.mapRangeColors[ mapRangeColorsIndex ];
+    
+                var day = createElement( "div", "day " + mapRangeColor.cssClassName );
+                days.appendChild( day );
+            }
+    
+            var moreText = createElement( "div", "more-text" );
+            moreText.innerHTML = _configuration.moreText;
+            guide.appendChild( moreText );
         }
-
-        var moreText = createElement( "div", "more-text" );
-        moreText.innerHTML = _configuration.moreText;
-        guide.appendChild( moreText );
     }
 
 
@@ -252,7 +262,10 @@
 
     function buildAttributeOptions( newOptions ) {
         var options = !isDefinedObject( newOptions ) ? {} : newOptions;
-        options.render = getDefaultBoolean( options.render, true );
+        options.showDayNames = getDefaultBoolean( options.showDayNames, true );
+        options.showGuide = getDefaultBoolean( options.showGuide, true );
+        options.showTitle = getDefaultBoolean( options.showTitle, true );
+        options.showYearSelector = getDefaultBoolean( options.showYearSelector, true );
 
         options = buildAttributeOptionStrings( options );
 
