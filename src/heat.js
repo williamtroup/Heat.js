@@ -115,6 +115,12 @@
         back.innerHTML = _configuration.backButtonText;
         year.appendChild( back );
 
+        back.onclick = function() {
+            bindingOptions.currentView.year--;
+
+            renderControl( bindingOptions );
+        };
+
         bindingOptions.currentView.yearText = createElement( "div", "year-text" );
         bindingOptions.currentView.yearText.innerHTML = bindingOptions.currentView.year;
         year.appendChild( bindingOptions.currentView.yearText );
@@ -122,6 +128,12 @@
         var next = createElement( "button", "next" );
         next.innerHTML = _configuration.nextButtonText;
         year.appendChild( next );
+
+        next.onclick = function() {
+            bindingOptions.currentView.year++;
+
+            renderControl( bindingOptions );
+        };
     }
 
     function renderControlMap( bindingOptions ) {
