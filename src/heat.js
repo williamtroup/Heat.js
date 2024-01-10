@@ -243,7 +243,7 @@
         for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
             var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
 
-            if ( dateCount >= mapRangeColor.range ) {
+            if ( dateCount >= mapRangeColor.minimum ) {
                 day.className += _string.space + mapRangeColor.cssClassName;
                 break;
             }
@@ -634,19 +634,19 @@
         _configuration.domElementTypes = getDefaultStringOrArray( _configuration.domElementTypes, [ "*" ] );
         _configuration.mapRangeColors = getDefaultArray( _configuration.mapRangeColors, [
             {
-                range: 10,
+                minimum: 10,
                 cssClassName: "day-color-1"
             },
             {
-                range: 15,
+                minimum: 15,
                 cssClassName: "day-color-2"
             },
             {
-                range: 20,
+                minimum: 20,
                 cssClassName: "day-color-3"
             },
             {
-                range: 25,
+                minimum: 25,
                 cssClassName: "day-color-4"
             }
         ] );

@@ -59,8 +59,8 @@ div.heat-js div.year button {
   border-radius: var(--border-radius);
   padding-top: 5px;
   padding-bottom: 5px;
-  padding-left: 7px;
-  padding-right: 7px;
+  padding-left: 9px;
+  padding-right: 9px;
 }
 div.heat-js div.year button:hover {
   cursor: pointer;

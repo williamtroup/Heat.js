@@ -19,7 +19,6 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 
 
 ## String Options:
-<br/>
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
