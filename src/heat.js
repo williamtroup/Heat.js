@@ -93,15 +93,38 @@
 
     function renderControl( bindingOptions ) {
         bindingOptions.element.className = "heat-js";
+        bindingOptions.element.innerHTML = _string.empty;
 
-        renderControlView( bindingOptions );
+        renderControlYear( bindingOptions );
+        renderControlMap( bindingOptions );
     }
 
-    function renderControlView( bindingOptions ) {
+    function renderControlYear( bindingOptions ) {
         if ( !isDefinedNumber( bindingOptions.currentView.year ) ) {
             bindingOptions.currentView.year = new Date().getFullYear();
         }
 
+        var year = createElement( "div", "year" );
+        bindingOptions.element.appendChild( year );
+
+        var title = createElement( "div", "title" );
+        title.innerHTML = bindingOptions.titleText;
+        year.appendChild( title );
+
+        var back = createElement( "button", "back" );
+        back.innerHTML = _configuration.backButtonText;
+        year.appendChild( back );
+
+        bindingOptions.currentView.yearText = createElement( "div", "year-text" );
+        bindingOptions.currentView.yearText.innerHTML = bindingOptions.currentView.year;
+        year.appendChild( bindingOptions.currentView.yearText );
+
+        var next = createElement( "button", "next" );
+        next.innerHTML = _configuration.nextButtonText;
+        year.appendChild( next );
+    }
+
+    function renderControlMap( bindingOptions ) {
         var map = createElement( "div", "map" );
         bindingOptions.element.appendChild( map );
 
@@ -191,7 +214,7 @@
     }
 
     function buildAttributeOptionStrings( options ) {
-        options.removeText = getDefaultString( options.removeText, "X" );
+        options.titleText = getDefaultString( options.titleText, "Heat.js" );
 
         return options;
     }
@@ -426,6 +449,8 @@
         _configuration.ndText = getDefaultString( _configuration.ndText, "nd" );
         _configuration.rdText = getDefaultString( _configuration.rdText, "rd" );
         _configuration.thText = getDefaultString( _configuration.thText, "th" );
+        _configuration.backButtonText = getDefaultString( _configuration.backButtonText, "Back" );
+        _configuration.nextButtonText = getDefaultString( _configuration.nextButtonText, "Next" );
     }
 
     function buildDefaultConfigurationArrays() {

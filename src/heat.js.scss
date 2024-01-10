@@ -26,6 +26,11 @@
     --day-background-color: #2d333b;
     --day-background-color-hover: #454c56;
 
+    // Button
+    --button-background-color: #2d333b;
+    --button-border-color: #454c56;
+    --button-background-color-hover: #454c56;
+
     // Borders
     --border-radius: 0.5rem;
     --border-radius-day: 0.25rem;
@@ -47,14 +52,47 @@
 */
 
 div.heat-js {
-    display: inline-flex;
-    flex-direction: row;
+    display: inline-block;
     border-radius: var(--border-radius);
     background-color: var(--container-background-color);
     color: var(--color-white);
     border: var(--border-size) solid var(--container-border-color);
     padding: var(--spacing);
     font-size: var(--spacing-font-size);
+
+    div.year {
+        text-align: right;
+        margin-bottom: var(--spacing);
+
+        div.title {
+            float: left;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        button {
+            background-color: var(--button-background-color);
+            border: var(--border-size) solid var(--button-border-color);
+            color: var(--color-white);
+            border-radius: var(--border-radius);
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 7px;
+            padding-right: 7px;
+
+            &:hover {
+                cursor: pointer;
+                background: var(--button-background-color-hover);
+                transition: var(--transition);
+            }
+        }
+
+        div.year-text {
+            margin-left: var(--spacing);
+            margin-right: var(--spacing);
+            display: inline-block;
+        }
+    }
     
     div.map {
         display: inline-flex;
