@@ -50,7 +50,7 @@ div.heat-js div.months {
 div.heat-js div.months div.month {
   flex: 1;
   width: 8.3333333333%;
-  margin-right: calc(var(--spacing));
+  margin-right: calc(var(--spacing) / 2);
 }
 div.heat-js div.months div.month:last-child {
   margin-right: 0;
@@ -63,14 +63,18 @@ div.heat-js div.months div.month div.day-columns {
   display: flex;
   justify-content: space-between;
 }
-div.heat-js div.months div.month div.day-columns div.day-column div.day {
+div.heat-js div.months div.month div.day-columns div.day-column div.day,
+div.heat-js div.months div.month div.day-columns div.day-column div.day-disabled {
   border-radius: var(--border-radius);
   width: 100%;
   height: var(--spacing-font-size);
   margin-right: 10px;
   margin-bottom: 6.8px;
-  border: var(--border-size) solid var(--color-gray);
 }
-div.heat-js div.months div.month div.day-columns div.day-column div.day:last-child {
+div.heat-js div.months div.month div.day-columns div.day-column div.day:last-child,
+div.heat-js div.months div.month div.day-columns div.day-column div.day-disabled:last-child {
   margin-bottom: 0;
+}
+div.heat-js div.months div.month div.day-columns div.day-column div.day {
+  border: var(--border-size) solid var(--color-gray);
 }/*# sourceMappingURL=heat.js.css.map */

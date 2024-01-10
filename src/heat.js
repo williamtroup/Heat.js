@@ -126,17 +126,33 @@
             month.appendChild( dayColumns );
 
             var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex ),
-                currentDayColumn = createElement( "div", "day-column" );
+                currentDayColumn = createElement( "div", "day-column" ),
+                startFillingDays = false;
 
             dayColumns.appendChild( currentDayColumn );
 
-            for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                var day = createElement( "div", "day" );
-                currentDayColumn.appendChild( day );
+            var firstDayInMonth = new Date( bindingOptions.currentView.year, monthIndex, 1 ),
+                firstDayNumberInMonth = getWeekdayNumber( firstDayInMonth );
 
-                if ( ( dayIndex + 1 ) % 7 === 0 ) {
-                    currentDayColumn = createElement( "div", "day-column" );
-                    dayColumns.appendChild( currentDayColumn );
+            totalDaysInMonth += firstDayNumberInMonth;
+
+            for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                if ( dayIndex >= firstDayNumberInMonth ) {
+                    startFillingDays = true;
+                    
+                } else {
+                    var day = createElement( "div", "day-disabled" );
+                    currentDayColumn.appendChild( day );
+                }
+
+                if ( startFillingDays ) {
+                    var day = createElement( "div", "day" );
+                    currentDayColumn.appendChild( day );
+    
+                    if ( ( dayIndex + 1 ) % 7 === 0 ) {
+                        currentDayColumn = createElement( "div", "day-column" );
+                        dayColumns.appendChild( currentDayColumn );
+                    }
                 }
             }
         }
@@ -177,17 +193,12 @@
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function getTotalDaysBetweenDates( from, to ) {
-        var fromDate = new Date( from.getFullYear(), from.getMonth(), from.getDate() ),
-            toDate = new Date( to.getFullYear(), to.getMonth(), to.getDate() ),
-            differenceTime = Math.abs( toDate - fromDate ),
-            differenceDays = Math.ceil( differenceTime / ( 1000 * 60 * 60 * 24 ) ); 
-        
-        return differenceDays;
-    }
-
     function getTotalDaysInMonth( year, month ) {
         return new Date( year, month + 1, 0 ).getDate();
+    }
+
+    function getWeekdayNumber( date ) {
+        return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
     }
 
 

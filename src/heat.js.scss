@@ -64,7 +64,7 @@ div.heat-js {
         div.month {
             flex: 1;
             width: calc( 100% / 12 );
-            margin-right: calc( var(--spacing) );
+            margin-right: calc( var(--spacing) / 2 );
 
             &:last-child {
                 margin-right: 0;
@@ -80,17 +80,21 @@ div.heat-js {
                 justify-content: space-between;
 
                 div.day-column {
-                    div.day {
+                    div.day,
+                    div.day-disabled {
                         border-radius: var(--border-radius);
                         width: 100%;
                         height: var(--spacing-font-size);
                         margin-right: 10px;
                         margin-bottom: 6.8px;
-                        border: var(--border-size) solid var(--color-gray);
 
                         &:last-child {
                             margin-bottom: 0;
                         }
+                    }
+
+                    div.day {
+                        border: var(--border-size) solid var(--color-gray);
                     }
                 }
             }
