@@ -4,11 +4,6 @@
  * Copyright 2024 Bunoon
  * Released under the MIT License
  */
-/*
-    -------------------------------------------------------------------------
-    Heat.js - Variables
-    -------------------------------------------------------------------------
-*/
 :root {
   --color-black: #3b3a3a;
   --color-white: #F5F5F5;
@@ -34,6 +29,12 @@
     -------------------------------------------------------------------------
 */
 div.heat-js {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
   display: inline-block;
   border-radius: var(--border-radius);
   background-color: var(--container-background-color);

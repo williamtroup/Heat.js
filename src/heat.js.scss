@@ -6,11 +6,7 @@
  */
 
 
-/*
-    -------------------------------------------------------------------------
-    Heat.js - Variables
-    -------------------------------------------------------------------------
-*/
+@import "foundation/styles";
 
 :root {
     // Colors
@@ -52,6 +48,7 @@
 */
 
 div.heat-js {
+    @include no-selection-allowed;
     display: inline-block;
     border-radius: var(--border-radius);
     background-color: var(--container-background-color);
