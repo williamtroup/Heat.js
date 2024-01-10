@@ -139,15 +139,14 @@
             for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                 if ( dayIndex >= firstDayNumberInMonth ) {
                     startFillingDays = true;
-                    
+
                 } else {
                     var day = createElement( "div", "day-disabled" );
                     currentDayColumn.appendChild( day );
                 }
 
                 if ( startFillingDays ) {
-                    var day = createElement( "div", "day" );
-                    currentDayColumn.appendChild( day );
+                    renderControlViewMonthDay( currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, bindingOptions.currentView.year );
     
                     if ( ( dayIndex + 1 ) % 7 === 0 ) {
                         currentDayColumn = createElement( "div", "day-column" );
@@ -156,6 +155,14 @@
                 }
             }
         }
+    }
+
+    function renderControlViewMonthDay( currentDayColumn, day, month, year ) {
+        var actualDay = day + 1,
+            day = createElement( "div", "day" );
+
+        day.title = actualDay.toString() + getDayOrdinal( actualDay ) + _string.space + _configuration.monthNames[ month ] + _string.space + year;
+        currentDayColumn.appendChild( day );
     }
 
 
@@ -199,6 +206,20 @@
 
     function getWeekdayNumber( date ) {
         return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
+    }
+
+    function getDayOrdinal( value ) {
+        var result = _configuration.thText;
+
+        if ( value === 31 || value === 21 || value === 1 ) {
+            result = _configuration.stText;
+        } else if ( value === 22 || value === 2 ) {
+            result = _configuration.ndText;
+        } else if ( value === 23 || value === 3 ) {
+            result = _configuration.rdText;
+        }
+
+        return result;
     }
 
 
@@ -387,7 +408,15 @@
         _configuration.safeMode = getDefaultBoolean( _configuration.safeMode, true );
         _configuration.domElementTypes = getDefaultStringOrArray( _configuration.domElementTypes, [ "*" ] );
 
+        buildDefaultConfigurationStrings();
         buildDefaultConfigurationArrays();
+    }
+
+    function buildDefaultConfigurationStrings() {
+        _configuration.stText = getDefaultString( _configuration.stText, "st" );
+        _configuration.ndText = getDefaultString( _configuration.ndText, "nd" );
+        _configuration.rdText = getDefaultString( _configuration.rdText, "rd" );
+        _configuration.thText = getDefaultString( _configuration.thText, "th" );
     }
 
     function buildDefaultConfigurationArrays() {
