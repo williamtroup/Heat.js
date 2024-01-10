@@ -9,7 +9,7 @@ Heat.js
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://github.com/williamtroup)
 </h1>
 
-> <p align="center">A lightweight, and easy-to-use, JavaScript library for generating high quality heat maps for dates.</p>
+> <p align="center">🌞 A lightweight, and easy-to-use, JavaScript library for generating high quality heat maps for dates.</p>
 > <p align="center">v0.1.0</p>
 <br />
 

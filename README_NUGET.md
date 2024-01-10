@@ -7,7 +7,7 @@
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://github.com/williamtroup)
 
-> A lightweight, and easy-to-use, JavaScript library for generating high quality heat maps for dates.
+> 🌞 A lightweight, and easy-to-use, JavaScript library for generating high quality heat maps for dates.
 
 
 ## What features does Heat.js have?
