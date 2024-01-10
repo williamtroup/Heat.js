@@ -5,6 +5,41 @@ Below is a list of all the public functions that can be called from the Heat.js 
 <br>
 
 
+
+## Manage Dates:
+
+### **addDate( *elementId*, *date*, *[triggerRefresh]* )**:
+Adds a date for a specific element ID, and refreshes the UI (if specified).
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the new date.
+<br>
+***Parameter: date***: '*Date*' - The date to add.
+<br>
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refresh (defaults to true).
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+<br>
+
+
+## Manage Instances:
+
+### **refresh( *elementId* )**:
+Refreshes a Heat.js instance.
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should be refreshed.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **refreshAll()**:
+Refreshes all of the rendered Heat.js instances.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+<br>
+
+
 ## Configuration:
 
 ### **setConfiguration( *newOptions* )**:
