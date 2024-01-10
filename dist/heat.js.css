@@ -128,4 +128,43 @@ div.heat-js div.map div.months div.month div.day-columns div.day-column div.day:
   cursor: pointer;
   background: var(--day-background-color-hover);
   transition: var(--transition);
+}
+div.heat-js div.guide {
+  margin-top: var(--spacing);
+  text-align: right;
+}
+div.heat-js div.guide div.less-text,
+div.heat-js div.guide div.more-text {
+  vertical-align: middle;
+  display: inline-block;
+  font-weight: 300;
+}
+div.heat-js div.guide div.less-text {
+  margin-right: var(--spacing);
+}
+div.heat-js div.guide div.more-text {
+  margin-left: var(--spacing);
+}
+div.heat-js div.guide div.days {
+  display: inline-block;
+}
+div.heat-js div.guide div.days div.day {
+  vertical-align: middle;
+  display: inline-block;
+  border-radius: var(--border-radius-day);
+  width: var(--spacing-font-size);
+  height: var(--spacing-font-size);
+  margin-right: 2px;
+}
+div.heat-js div.day-color-1 {
+  background-color: rgb(57, 211, 83);
+}
+div.heat-js div.day-color-2 {
+  background-color: rgba(57, 211, 83, 0.75);
+}
+div.heat-js div.day-color-3 {
+  background-color: rgba(57, 211, 83, 0.5);
+}
+div.heat-js div.day-color-4 {
+  background-color: rgba(57, 211, 83, 0.25);
 }/*# sourceMappingURL=heat.js.css.map */

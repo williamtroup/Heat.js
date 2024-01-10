@@ -160,4 +160,53 @@ div.heat-js {
             }
         }
     }
+
+    div.guide {
+        margin-top: var(--spacing);
+        text-align: right;
+
+        div.less-text,
+        div.more-text {
+            vertical-align: middle;
+            display: inline-block;
+            font-weight: 300;
+        }
+
+        div.less-text {
+            margin-right: var(--spacing);
+        }
+
+        div.more-text {
+            margin-left: var(--spacing);
+        }
+
+        div.days {
+            display: inline-block;
+            
+            div.day {
+                vertical-align: middle;
+                display: inline-block;
+                border-radius: var(--border-radius-day);
+                width: var(--spacing-font-size);
+                height: var(--spacing-font-size);
+                margin-right: 2px;
+            }
+        }
+    }
+
+    div.day-color-1 {
+        background-color: rgba( 57, 211, 83, 1 );
+    }
+
+    div.day-color-2 {
+        background-color: rgba( 57, 211, 83, 0.75 );
+    }
+
+    div.day-color-3 {
+        background-color: rgba( 57, 211, 83, 0.5 );
+    }
+
+    div.day-color-4 {
+        background-color: rgba( 57, 211, 83, 0.25 );
+    }
 }

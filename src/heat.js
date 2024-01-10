@@ -97,6 +97,7 @@
 
         renderControlYear( bindingOptions );
         renderControlMap( bindingOptions );
+        renderControlViewGuide( bindingOptions );
     }
 
     function renderControlYear( bindingOptions ) {
@@ -207,6 +208,35 @@
         day.onclick = function() {
             fireCustomTrigger( bindingOptions.onDayClick, new Date( year, month, actualDay ) );
         };
+    }
+
+    function renderControlViewGuide( bindingOptions ) {
+        var guide = createElement( "div", "guide" );
+        bindingOptions.element.appendChild( guide );
+
+        var lessText = createElement( "div", "less-text" );
+        lessText.innerHTML = _configuration.lessText;
+        guide.appendChild( lessText );
+
+        var days = createElement( "div", "days" );
+        guide.appendChild( days );
+
+        var mapRangeColorsLength = _configuration.mapRangeColors.length;
+
+        _configuration.mapRangeColors = _configuration.mapRangeColors.sort( function( a, b ) {
+            return b.range - a.range;
+        } );
+
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            var mapRangeColor = _configuration.mapRangeColors[ mapRangeColorsIndex ];
+
+            var day = createElement( "div", "day " + mapRangeColor.cssClass );
+            days.appendChild( day );
+        }
+
+        var moreText = createElement( "div", "more-text" );
+        moreText.innerHTML = _configuration.moreText;
+        guide.appendChild( moreText );
     }
 
 
@@ -451,6 +481,24 @@
     function buildDefaultConfiguration() {
         _configuration.safeMode = getDefaultBoolean( _configuration.safeMode, true );
         _configuration.domElementTypes = getDefaultStringOrArray( _configuration.domElementTypes, [ "*" ] );
+        _configuration.mapRangeColors = getDefaultArray( _configuration.mapRangeColors, [
+            {
+                range: 10,
+                cssClass: "day-color-1"
+            },
+            {
+                range: 15,
+                cssClass: "day-color-2"
+            },
+            {
+                range: 20,
+                cssClass: "day-color-3"
+            },
+            {
+                range: 25,
+                cssClass: "day-color-4"
+            }
+        ] );
 
         buildDefaultConfigurationStrings();
         buildDefaultConfigurationArrays();
@@ -463,6 +511,8 @@
         _configuration.thText = getDefaultString( _configuration.thText, "th" );
         _configuration.backButtonText = getDefaultString( _configuration.backButtonText, "Back" );
         _configuration.nextButtonText = getDefaultString( _configuration.nextButtonText, "Next" );
+        _configuration.lessText = getDefaultString( _configuration.lessText, "Less" );
+        _configuration.moreText = getDefaultString( _configuration.moreText, "More" );
     }
 
     function buildDefaultConfigurationArrays() {
