@@ -16,12 +16,16 @@
         </div>
 
         <div class="contents">
-            <div data-heat-options="{}"></div>
+            <div data-heat-options="{ 'onDayClick': onDayClick }"></div>
         </div>
     </body>
 
     <script>
         document.title += " v" + $heat.getVersion();
         document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
+
+        function onDayClick( date ) {
+            console.log( "Day clicked for: " + date.toString() );
+        }
     </script>
 </html>

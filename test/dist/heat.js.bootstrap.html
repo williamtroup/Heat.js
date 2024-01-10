@@ -16,7 +16,7 @@
         </div>
 
         <div class="contents">
-            <div data-heat-options="{}"></div>
+            <div data-heat-options="{ 'onDayClick': onDayClick }"></div>
         </div>
 
         <div class="contents">
@@ -37,6 +37,10 @@
             $heat.setConfiguration( {
                 safeMode: false
             } );
+        }
+
+        function onDayClick( date ) {
+            console.log( "Day clicked for: " + date.toString() );
         }
     </script>
 </html>
