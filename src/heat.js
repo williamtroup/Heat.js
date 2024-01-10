@@ -101,6 +101,11 @@
         if ( !isDefinedNumber( bindingOptions.currentView.year ) ) {
             bindingOptions.currentView.year = new Date().getFullYear();
         }
+
+        var currentYear = new Date( bindingOptions.currentView.year, 1, 1 ),
+            currentYearTotalDays = getTotalDaysBetweenDates( currentYear, new Date( bindingOptions.currentView.year, 12, 31 ) );
+
+        
     }
 
 
@@ -129,6 +134,22 @@
         options.onRenderComplete = getDefaultFunction( options.onRenderComplete, null );
 
         return options;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Date/Time
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getTotalDaysBetweenDates( from, to ) {
+        var fromDate = new Date( from.getFullYear(), from.getMonth(), from.getDate() ),
+            toDate = new Date( to.getFullYear(), to.getMonth(), to.getDate() ),
+            differenceTime = Math.abs( toDate - fromDate ),
+            differenceDays = Math.ceil( differenceTime / ( 1000 * 60 * 60 * 24 ) ); 
+        
+        return differenceDays;
     }
 
 
