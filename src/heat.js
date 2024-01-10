@@ -174,6 +174,10 @@
         var months = createElement( "div", "months" );
         map.appendChild( months );
 
+        var mapRangeColors = _configuration.mapRangeColors.sort( function( a, b ) {
+            return b.range - a.range;
+        } );
+
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             if ( bindingOptions.monthsToShow.indexOf( monthIndex ) > -1 ) {
                 var month = createElement( "div", "month" );
@@ -207,7 +211,7 @@
                     }
     
                     if ( startFillingDays ) {
-                        renderControlViewMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear );
+                        renderControlViewMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors );
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
                             currentDayColumn = createElement( "div", "day-column" );
@@ -219,16 +223,29 @@
         }
     }
 
-    function renderControlViewMonthDay( bindingOptions, currentDayColumn, dayNumber, month, year ) {
+    function renderControlViewMonthDay( bindingOptions, currentDayColumn, dayNumber, month, year, mapRangeColors ) {
         var actualDay = dayNumber + 1,
-            day = createElement( "div", "day" );
+            day = createElement( "div", "day" ),
+            date = new Date( year, month, actualDay ),
+            dateCount = _elements_DateCounts[ bindingOptions.element.id ][ toStorageDate( date ) ];
 
         day.title = actualDay.toString() + getDayOrdinal( actualDay ) + _string.space + _configuration.monthNames[ month ] + _string.space + year;
         currentDayColumn.appendChild( day );
 
         day.onclick = function() {
-            fireCustomTrigger( bindingOptions.onDayClick, new Date( year, month, actualDay ) );
+            fireCustomTrigger( bindingOptions.onDayClick, date );
         };
+
+        var mapRangeColorsLength = _configuration.mapRangeColors.length;
+    
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
+
+            if ( dateCount >= mapRangeColor.range ) {
+                day.className += _string.space + mapRangeColor.cssClassName;
+                break;
+            }
+        }
     }
 
     function renderControlViewGuide( bindingOptions ) {
@@ -242,15 +259,15 @@
     
             var days = createElement( "div", "days" );
             guide.appendChild( days );
-    
-            var mapRangeColorsLength = _configuration.mapRangeColors.length;
-    
-            _configuration.mapRangeColors = _configuration.mapRangeColors.sort( function( a, b ) {
+
+            var mapRangeColors = _configuration.mapRangeColors.sort( function( a, b ) {
                 return b.range - a.range;
             } );
+
+            var mapRangeColorsLength = mapRangeColors.length;
     
             for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-                var mapRangeColor = _configuration.mapRangeColors[ mapRangeColorsIndex ];
+                var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
     
                 var day = createElement( "div", "day " + mapRangeColor.cssClassName );
                 days.appendChild( day );
