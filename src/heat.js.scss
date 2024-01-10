@@ -25,7 +25,7 @@
 
     // Sizes
     --spacing: 10px;
-    --spacing-font-size: 0.9rem;
+    --spacing-font-size: 0.85rem;
 
     // Transitions
     --transition: all .3s;
@@ -85,7 +85,7 @@ div.heat-js {
                         border-radius: var(--border-radius-day);
                         width: var(--spacing-font-size);
                         height: var(--spacing-font-size);
-                        margin-right: 1.5px;
+                        margin-right: 2px;
                         margin-bottom: 6.8px;
 
                         &:last-child {
