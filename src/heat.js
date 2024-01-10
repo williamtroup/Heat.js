@@ -69,6 +69,10 @@
                     bindingOptions.element = element;
                     bindingOptions.currentView = {};
 
+                    if ( !isDefinedString( element.id ) ) {
+                        element.id = newGuid();
+                    }
+
                     element.removeAttribute( _attribute_Name_Options );
 
                     renderControl( bindingOptions );
@@ -450,6 +454,28 @@
             parsed: parsed,
             result: result
         };
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * String Handling
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function newGuid() {
+        var result = [];
+
+        for ( var charIndex = 0; charIndex < 32; charIndex++ ) {
+            if ( charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20 ) {
+                result.push( "-" );
+            }
+
+            var character = Math.floor( Math.random() * 16 ).toString( 16 );
+            result.push( character );
+        }
+
+        return result.join( _string.empty );
     }
 
 
