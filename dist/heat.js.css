@@ -13,6 +13,9 @@
   --color-black: #3b3a3a;
   --color-white: #F5F5F5;
   --color-gray: #AAAAAA;
+  --container-background-color: #22272e;
+  --container-border-color: #454c56;
+  --day-background-color: #2d333b;
   --border-radius: 0.5rem;
   --border-radius-day: 0.25rem;
   --border-size: 0.5px;
@@ -30,9 +33,9 @@ div.heat-js {
   display: inline-flex;
   flex-direction: row;
   border-radius: var(--border-radius);
-  background-color: var(--color-black);
+  background-color: var(--container-background-color);
   color: var(--color-white);
-  border: var(--border-size) solid var(--color-gray);
+  border: var(--border-size) solid var(--container-border-color);
   padding: var(--spacing);
   font-size: var(--spacing-font-size);
 }
@@ -76,5 +79,6 @@ div.heat-js div.months div.month div.day-columns div.day-column div.day-disabled
   margin-bottom: 0;
 }
 div.heat-js div.months div.month div.day-columns div.day-column div.day {
-  border: var(--border-size) solid var(--color-gray);
+  background-color: var(--day-background-color);
+  border: var(--border-size) solid var(--day-background-color);
 }/*# sourceMappingURL=heat.js.css.map */
