@@ -105,7 +105,26 @@
         var currentYear = new Date( bindingOptions.currentView.year, 1, 1 ),
             currentYearTotalDays = getTotalDaysBetweenDates( currentYear, new Date( bindingOptions.currentView.year, 12, 31 ) );
 
-        
+        var days = createElement( "div", "days" );
+        bindingOptions.element.appendChild( days );
+
+        for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
+            var dayName = createElement( "div", "day-name" );
+            dayName.innerHTML = _configuration.dayNames[ dayIndex ];
+            days.appendChild( dayName );
+        }
+
+        var months = createElement( "div", "months" );
+        bindingOptions.element.appendChild( months );
+
+        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+            var month = createElement( "div", "month" );
+            months.appendChild( month );
+
+            var monthName = createElement( "div", "month-name" );
+            monthName.innerHTML = _configuration.monthNames[ monthIndex ];
+            month.appendChild( monthName );
+        }
     }
 
 
@@ -337,6 +356,45 @@
     function buildDefaultConfiguration() {
         _configuration.safeMode = getDefaultBoolean( _configuration.safeMode, true );
         _configuration.domElementTypes = getDefaultStringOrArray( _configuration.domElementTypes, [ "*" ] );
+
+        buildDefaultConfigurationArrays();
+    }
+
+    function buildDefaultConfigurationArrays() {
+        if ( isInvalidOptionArray( _configuration.monthNames, 12 ) ) {
+            _configuration.monthNames = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ];
+        }
+
+        if ( isInvalidOptionArray( _configuration.dayNames, 7 ) ) {
+            _configuration.dayNames = [
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat",
+                "Sun"
+            ];
+        }
+    }
+
+    function isInvalidOptionArray( array, minimumLength ) {
+        minimumLength = isDefinedNumber( minimumLength ) ? minimumLength : 1;
+
+        return !isDefinedArray( array ) || array.length < minimumLength;
     }
 
 

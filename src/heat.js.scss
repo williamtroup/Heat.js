@@ -24,6 +24,7 @@
 
     // Sizes
     --spacing: 10px;
+    --spacing-font-size: 0.9rem;
 
     // Transitions
     --transition: all .3s;
@@ -37,9 +38,43 @@
 */
 
 div.heat-js {
+    display: flex;
     border-radius: var(--border-radius);
     background-color: var(--color-black);
     color: var(--color-white);
     border: var(--border-size) solid var(--color-gray);
-    padding: 10px;
+    padding: var(--spacing);
+    max-width: 1024px;
+    font-size: var(--spacing-font-size);
+
+    div.days {
+        margin-right: calc( var(--spacing) * 3 );
+        margin-top: var(--spacing-font-size);
+
+        div.day-name {
+
+        }
+    }
+
+    div.months {
+        display: flex;
+        justify-content: space-between;
+        flex-grow: 1;
+
+        div.month {
+            flex: 1;
+            width: calc( 100% / 12 );
+
+            div.month-name {
+
+            }
+
+            div.day {
+                width: 20px;
+                height: 20px;
+                margin: 2px;
+                border: var(--border-size) solid var(--color-gray);
+            }
+        }
+    }
 }
