@@ -182,9 +182,11 @@
             map.appendChild( days );
     
             for ( var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++ ) {
-                var dayName = createElement( "div", "day-name" );
-                dayName.innerHTML = _configuration.dayNames[ dayNameIndex ];
-                days.appendChild( dayName );
+                if ( bindingOptions.daysToShow.indexOf( dayNameIndex + 1 ) > -1 ) {
+                    var dayName = createElement( "div", "day-name" );
+                    dayName.innerHTML = _configuration.dayNames[ dayNameIndex ];
+                    days.appendChild( dayName );
+                }
             }
         }
 
@@ -214,7 +216,8 @@
                 dayColumns.appendChild( currentDayColumn );
     
                 var firstDayInMonth = new Date( currentYear, monthIndex, 1 ),
-                    firstDayNumberInMonth = getWeekdayNumber( firstDayInMonth );
+                    firstDayNumberInMonth = getWeekdayNumber( firstDayInMonth ),
+                    actualDay = 1;
     
                 totalDaysInMonth += firstDayNumberInMonth;
     
@@ -228,13 +231,18 @@
                     }
     
                     if ( startFillingDays ) {
-                        renderControlViewMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors );
+                        if ( bindingOptions.daysToShow.indexOf( actualDay ) > -1 ) {
+                            renderControlViewMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors );
+                        }
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
                             currentDayColumn = createElement( "div", "day-column" );
                             dayColumns.appendChild( currentDayColumn );
+                            actualDay = 0;
                         }
                     }
+
+                    actualDay++;
                 }
 
                 if ( firstDayNumberInMonth > 0 && isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps ) {
@@ -323,8 +331,12 @@
         options.showMonthDayGaps = getDefaultBoolean( options.showMonthDayGaps, true );
         options.showRefreshButton = getDefaultBoolean( options.showRefreshButton, false );
 
-        if ( isInvalidOptionArray( _configuration.monthsToShow, 12 ) ) {
+        if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
+        }
+
+        if ( isInvalidOptionArray( options.daysToShow ) ) {
+            options.daysToShow = [ 1, 2, 3, 4, 5, 6, 7 ];
         }
 
         options = buildAttributeOptionStrings( options );

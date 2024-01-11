@@ -16,6 +16,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
 | *boolean* | showMonthDayGaps | States if the gaps between the days in each month should be shown (defaults to true). |
 | *boolean* | showRefreshButton | States if the "Refresh" button should be shown (defaults to false). |
+| *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
 
 <br/>
 

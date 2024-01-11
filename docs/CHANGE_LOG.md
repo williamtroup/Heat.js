@@ -5,12 +5,16 @@
 #### **Binding Options:**
 - Added a new binding option called "showMonthDayGaps", which states if the gaps between the days in each month should be shown (defaults to true).
 - Added a new binding option called "showRefreshButton", which states if the "Refresh" button should be shown (defaults to false).
+- Added a new binding option called "daysToShow", which states the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]).
 
 #### **Configuration Options:**
 - Added a new configuration option called "refreshButtonText", which states the text that should be shown for the "Refresh" button (defaults to "Refresh").
 
 #### **CSS:**
 - Added slightly darker borders around the default day CSS classes "div.day-color-*".
+
+#### **Fixes:**
+- Fixed the binding option "monthsToShow" not being read when set.
 
 <br>
 
