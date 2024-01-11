@@ -1,8 +1,8 @@
 /*! Heat.js v0.2.0 | (c) Bunoon 2024 | MIT License */
 (function() {
-  function v(a) {
+  function r(a) {
     a.element.className = "heat-js";
-    a.element.innerHTML = r.empty;
+    a.element.innerHTML = t.empty;
     O(a);
     P(a);
     Q(a);
@@ -19,11 +19,11 @@
       }
       a.showYearSelector && (c = g("button", "back"), c.innerHTML = d.backButtonText, b.appendChild(c), c.onclick = function() {
         a.currentView.year--;
-        v(a);
+        r(a);
         y(a.onBackYear, a.currentView.year);
       }, a.currentView.yearText = g("div", "year-text"), a.currentView.yearText.innerHTML = a.currentView.year, b.appendChild(a.currentView.yearText), c = g("button", "next"), c.innerHTML = d.nextButtonText, b.appendChild(c), c.onclick = function() {
         a.currentView.year++;
-        v(a);
+        r(a);
         y(a.onNextYear, a.currentView.year);
       });
     }
@@ -33,31 +33,31 @@
     a.element.appendChild(b);
     var c = a.currentView.year;
     if (a.showDayNames) {
-      var h = g("div", "days");
-      b.appendChild(h);
+      var k = g("div", "days");
+      b.appendChild(k);
       for (var f = 0; 7 > f; f++) {
-        var k = g("div", "day-name");
-        k.innerHTML = d.dayNames[f];
-        h.appendChild(k);
+        var l = g("div", "day-name");
+        l.innerHTML = d.dayNames[f];
+        k.appendChild(l);
       }
     }
-    h = g("div", "months");
-    b.appendChild(h);
-    b = d.mapRangeColors.sort(function(t, E) {
-      return E.range - t.range;
+    k = g("div", "months");
+    b.appendChild(k);
+    b = d.mapRangeColors.sort(function(u, F) {
+      return F.range - u.range;
     });
     for (f = 0; 12 > f; f++) {
       if (-1 < a.monthsToShow.indexOf(f + 1)) {
         var m = g("div", "month");
-        h.appendChild(m);
-        k = g("div", "month-name");
-        k.innerHTML = d.monthNames[f];
-        m.appendChild(k);
-        k = g("div", "day-columns");
-        m.appendChild(k);
+        k.appendChild(m);
+        l = g("div", "month-name");
+        l.innerHTML = d.monthNames[f];
+        m.appendChild(l);
+        l = g("div", "day-columns");
+        m.appendChild(l);
         m = (new Date(c, f + 1, 0)).getDate();
         var n = g("div", "day-column"), p = !1;
-        k.appendChild(n);
+        l.appendChild(n);
         var w = R(new Date(c, f, 1));
         m += w;
         for (var e = 0; e < m; e++) {
@@ -67,24 +67,24 @@
             var x = g("div", "day-disabled");
             n.appendChild(x);
           }
-          p && (S(a, n, e - w, f, c, b), 0 === (e + 1) % 7 && (n = g("div", "day-column"), k.appendChild(n)));
+          p && (S(a, n, e - w, f, c, b), 0 === (e + 1) % 7 && (n = g("div", "day-column"), l.appendChild(n)));
         }
       }
     }
   }
-  function S(a, b, c, h, f, k) {
+  function S(a, b, c, k, f, l) {
     var m = c + 1;
     c = g("div", "day");
-    var n = new Date(f, h, m), p = l[a.element.id][F(n)];
-    c.title = m.toString() + T(m) + r.space + d.monthNames[h] + r.space + f;
+    var n = new Date(f, k, m), p = h[a.element.id][G(n)];
+    c.title = m.toString() + T(m) + t.space + d.monthNames[k] + t.space + f;
     b.appendChild(c);
     c.onclick = function() {
       y(a.onDayClick, n);
     };
     b = d.mapRangeColors.length;
-    for (h = 0; h < b; h++) {
-      if (f = k[h], p >= f.minimum) {
-        c.className += r.space + f.cssClassName;
+    for (k = 0; k < b; k++) {
+      if (f = l[k], p >= f.minimum) {
+        c.className += t.space + f.cssClassName;
         break;
       }
     }
@@ -100,9 +100,9 @@
       b.appendChild(a);
       for (var c = d.mapRangeColors.sort(function(m, n) {
         return n.range - m.range;
-      }), h = c.length, f = 0; f < h; f++) {
-        var k = g("div", "day " + c[f].cssClassName);
-        a.appendChild(k);
+      }), k = c.length, f = 0; f < k; f++) {
+        var l = g("div", "day " + c[f].cssClassName);
+        a.appendChild(l);
       }
       a = g("div", "more-text");
       a.innerHTML = d.moreText;
@@ -123,33 +123,33 @@
     }
     return b;
   }
-  function u(a) {
-    return null !== a && void 0 !== a && a !== r.empty;
+  function v(a) {
+    return null !== a && void 0 !== a && a !== t.empty;
   }
   function C(a) {
-    return u(a) && "object" === typeof a;
+    return v(a) && "object" === typeof a;
   }
-  function G(a) {
-    return u(a) && "boolean" === typeof a;
+  function D(a) {
+    return v(a) && "boolean" === typeof a;
   }
   function z(a) {
-    return u(a) && "string" === typeof a;
+    return v(a) && "string" === typeof a;
   }
   function H(a) {
-    return u(a) && "function" === typeof a;
+    return v(a) && "function" === typeof a;
   }
   function M(a) {
-    return u(a) && "number" === typeof a;
+    return v(a) && "number" === typeof a;
   }
   function I(a) {
     return C(a) && a instanceof Array;
   }
   function g(a, b) {
     var c = a.toLowerCase();
-    var h = "text" === c;
-    J.hasOwnProperty(c) || (J[c] = h ? A.createTextNode(r.empty) : A.createElement(c));
+    var k = "text" === c;
+    J.hasOwnProperty(c) || (J[c] = k ? A.createTextNode(t.empty) : A.createElement(c));
     c = J[c].cloneNode(!1);
-    u(b) && (c.className = b);
+    v(b) && (c.className = b);
     return c;
   }
   function y(a) {
@@ -159,31 +159,31 @@
     return z(a) ? a : b;
   }
   function B(a, b) {
-    return G(a) ? a : b;
+    return D(a) ? a : b;
   }
-  function D(a, b) {
+  function E(a, b) {
     return H(a) ? a : b;
   }
   function U(a) {
     var b = !0, c = null;
     try {
       z(a) && (c = JSON.parse(a));
-    } catch (h) {
+    } catch (k) {
       try {
         c = eval("(" + a + ")"), H(c) && (c = c());
       } catch (f) {
-        d.safeMode || (console.error("Errors in object: " + h.message + ", " + f.message), b = !1), c = null;
+        d.safeMode || (console.error("Errors in object: " + k.message + ", " + f.message), b = !1), c = null;
       }
     }
     return {parsed:b, result:c};
   }
-  function F(a) {
+  function G(a) {
     return a.getFullYear() + "-" + a.getMonth() + "-" + a.getDate();
   }
   function N() {
     d.safeMode = B(d.safeMode, !0);
     var a = d, b = d.domElementTypes, c = ["*"];
-    z(b) ? (b = b.split(r.space), 0 === b.length && (b = c)) : b = I(b) ? b : c;
+    z(b) ? (b = b.split(t.space), 0 === b.length && (b = c)) : b = I(b) ? b : c;
     a.domElementTypes = b;
     a = d;
     c = d.mapRangeColors;
@@ -205,24 +205,34 @@
     b = M(b) ? b : 1;
     return !I(a) || a.length < b;
   }
-  var A = null, L = null, d = {}, r = {empty:"", space:" "}, J = {}, l = {};
+  var A = null, L = null, d = {}, t = {empty:"", space:" "}, J = {}, h = {};
   this.addDate = function(a, b, c) {
-    l.hasOwnProperty(a) && (c = G(c) ? c : !0, b = F(b), l[a].hasOwnProperty(b) || (l[a][b] = 0), l[a][b]++, c && v(l[a].options));
+    h.hasOwnProperty(a) && (c = D(c) ? c : !0, b = G(b), h[a].hasOwnProperty(b) || (h[a][b] = 0), h[a][b]++, c && r(h[a].options));
     return this;
   };
   this.removeDate = function(a, b, c) {
-    l.hasOwnProperty(a) && (b = F(b), l[a].hasOwnProperty(b) && (c = G(c) ? c : !0, l[a][b]--, c && v(l[a].options)));
+    h.hasOwnProperty(a) && (b = G(b), h[a].hasOwnProperty(b) && (c = D(c) ? c : !0, h[a][b]--, c && r(h[a].options)));
+    return this;
+  };
+  this.reset = function(a, b) {
+    if (h.hasOwnProperty(a)) {
+      b = D(b) ? b : !0;
+      var c = h[a].options;
+      h[a] = {};
+      h[a].options = c;
+      b && r(h[a].options);
+    }
     return this;
   };
   this.refresh = function(a) {
-    l.hasOwnProperty(a) && (a = l[a].options, v(a), y(a.onRefresh, a.element));
+    h.hasOwnProperty(a) && (a = h[a].options, r(a), y(a.onRefresh, a.element));
     return this;
   };
   this.refreshAll = function() {
-    for (var a in l) {
-      if (l.hasOwnProperty(a)) {
-        var b = l[a].options;
-        v(b);
+    for (var a in h) {
+      if (h.hasOwnProperty(a)) {
+        var b = h[a].options;
+        r(b);
         y(b.onRefresh, b.element);
       }
     }
@@ -241,12 +251,12 @@
     L = b;
     N();
     A.addEventListener("DOMContentLoaded", function() {
-      for (var c = d.domElementTypes, h = c.length, f = 0; f < h; f++) {
-        var k = A.getElementsByTagName(c[f]);
-        k = [].slice.call(k);
-        for (var m = k.length, n = 0; n < m; n++) {
-          var p = k[n], w = !0;
-          if (u(p) && p.hasAttribute("data-heat-options")) {
+      for (var c = d.domElementTypes, k = c.length, f = 0; f < k; f++) {
+        var l = A.getElementsByTagName(c[f]);
+        l = [].slice.call(l);
+        for (var m = l.length, n = 0; n < m; n++) {
+          var p = l[n], w = !0;
+          if (v(p) && p.hasAttribute("data-heat-options")) {
             var e = p.getAttribute("data-heat-options");
             if (z(e)) {
               if (e = U(e), e.parsed && C(e.result)) {
@@ -258,25 +268,25 @@
                 e.showYearSelector = B(e.showYearSelector, !0);
                 K(d.monthsToShow, 12) && (e.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
                 e.titleText = q(e.titleText, "Heat.js");
-                e.onDayClick = D(e.onDayClick, null);
-                e.onBackYear = D(e.onBackYear, null);
-                e.onNextYear = D(e.onNextYear, null);
-                e.onRefresh = D(e.onRefresh, null);
+                e.onDayClick = E(e.onDayClick, null);
+                e.onBackYear = E(e.onBackYear, null);
+                e.onNextYear = E(e.onNextYear, null);
+                e.onRefresh = E(e.onRefresh, null);
                 e.element = p;
                 e.currentView = {};
                 if (!z(p.id)) {
                   var x = [];
-                  for (var t = 0; 32 > t; t++) {
-                    8 !== t && 12 !== t && 16 !== t && 20 !== t || x.push("-");
-                    var E = Math.floor(16 * Math.random()).toString(16);
-                    x.push(E);
+                  for (var u = 0; 32 > u; u++) {
+                    8 !== u && 12 !== u && 16 !== u && 20 !== u || x.push("-");
+                    var F = Math.floor(16 * Math.random()).toString(16);
+                    x.push(F);
                   }
-                  x = x.join(r.empty);
+                  x = x.join(t.empty);
                   p.id = x;
                 }
                 p.removeAttribute("data-heat-options");
-                l[p.id] = {options:e};
-                v(e);
+                h[p.id] = {options:e};
+                r(e);
               } else {
                 d.safeMode || (console.error("The attribute 'data-heat-options' is not a valid object."), w = !1);
               }
@@ -290,6 +300,6 @@
         }
       }
     });
-    u(L.$heat) || (L.$heat = this);
+    v(L.$heat) || (L.$heat = this);
   })(document, window);
 })();

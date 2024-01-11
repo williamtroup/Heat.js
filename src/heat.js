@@ -586,6 +586,35 @@
         return this;
     };
 
+    /**
+     * reset().
+     * 
+     * Removes all the dates for a specific element ID, and refreshes the UI (if specified).
+     * 
+     * @public
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refresh (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.reset = function( elementId, triggerRefresh ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+            
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+            _elements_DateCounts[ elementId ] = {};
+            _elements_DateCounts[ elementId ].options = bindingOptions;
+
+            if ( triggerRefresh ) {
+                renderControl( _elements_DateCounts[ elementId ].options );
+            }
+        }
+
+        return this;
+    };
+
     function toStorageDate( date ) {
         return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
     }
