@@ -2,7 +2,7 @@
 (function() {
   function v(a) {
     a.element.className = "heat-js";
-    a.element.innerHTML = A.empty;
+    a.element.innerHTML = y.empty;
     S(a);
     T(a);
     U(a);
@@ -63,19 +63,19 @@
         m.appendChild(n);
         var p = (new Date(b, g + 1, 0)).getDate(), w = h("div", "day-column"), d = !1;
         n.appendChild(w);
-        var r = O(new Date(b, g, 1)), t = 1;
-        p += r;
-        for (var y = 0; y < p; y++) {
-          if (y >= r) {
+        var t = O(new Date(b, g, 1)), u = 1;
+        p += t;
+        for (var z = 0; z < p; z++) {
+          if (z >= t) {
             d = !0;
           } else {
             var X = h("div", "day-disabled");
             w.appendChild(X);
           }
-          d && (-1 < a.daysToShow.indexOf(t) && Y(a, w, y - r, g, b, c), 0 === (y + 1) % 7 && (w = h("div", "day-column"), n.appendChild(w), t = 0));
-          t++;
+          d && (-1 < a.daysToShow.indexOf(u) && Y(a, w, z - t, g, b, c), 0 === (z + 1) % 7 && (w = h("div", "day-column"), n.appendChild(w), u = 0));
+          u++;
         }
-        0 < r && u(E) && !a.showMonthDayGaps && l && (m.style.marginLeft = -E + "px");
+        0 < t && q(E) && !a.showMonthDayGaps && l && (m.style.marginLeft = -E + "px");
         l = !0;
       }
     }
@@ -91,13 +91,17 @@
       x(a.onDayClick, n);
     };
     c = e.mapRangeColors.length;
-    for (f = 0; f < c; f++) {
-      if (m = g[f], l >= m.minimum) {
-        b.className += A.space + m.cssClassName;
+    f = null;
+    for (m = 0; m < c; m++) {
+      var p = g[m];
+      if (l >= p.minimum) {
+        f = y.space + p.cssClassName;
+      } else {
         break;
       }
     }
-    u(E) || a.showMonthDayGaps || (g = P(b, "margin-left"), c = P(b, "margin-right"), E = b.offsetWidth + parseInt(g, 10) + parseInt(c, 10));
+    q(f) && (b.className += y.space + f);
+    q(E) || a.showMonthDayGaps || (g = P(b, "margin-left"), c = P(b, "margin-right"), E = b.offsetWidth + parseInt(g, 10) + parseInt(c, 10));
   }
   function U(a) {
     if (a.showGuide) {
@@ -145,23 +149,23 @@
     b = b.replace("{yy}", c.getFullYear().toString().substring(2));
     return b = b.replace("{y}", parseInt(c.getFullYear().toString().substring(2)).toString());
   }
-  function u(a) {
-    return null !== a && void 0 !== a && a !== A.empty;
+  function q(a) {
+    return null !== a && void 0 !== a && a !== y.empty;
   }
   function F(a) {
-    return u(a) && "object" === typeof a;
+    return q(a) && "object" === typeof a;
   }
   function G(a) {
-    return u(a) && "boolean" === typeof a;
+    return q(a) && "boolean" === typeof a;
   }
   function C(a) {
-    return u(a) && "string" === typeof a;
+    return q(a) && "string" === typeof a;
   }
   function K(a) {
-    return u(a) && "function" === typeof a;
+    return q(a) && "function" === typeof a;
   }
   function N(a) {
-    return u(a) && "number" === typeof a;
+    return q(a) && "number" === typeof a;
   }
   function L(a) {
     return F(a) && a instanceof Array;
@@ -169,9 +173,9 @@
   function h(a, c) {
     var b = a.toLowerCase();
     var l = "text" === b;
-    M.hasOwnProperty(b) || (M[b] = l ? D.createTextNode(A.empty) : D.createElement(b));
+    M.hasOwnProperty(b) || (M[b] = l ? D.createTextNode(y.empty) : D.createElement(b));
     b = M[b].cloneNode(!1);
-    u(c) && (b.className = c);
+    q(c) && (b.className = c);
     return b;
   }
   function P(a, c) {
@@ -182,10 +186,10 @@
   function x(a) {
     K(a) && a.apply(null, [].slice.call(arguments, 1));
   }
-  function q(a, c) {
+  function r(a, c) {
     return C(a) ? a : c;
   }
-  function z(a, c) {
+  function A(a, c) {
     return G(a) ? a : c;
   }
   function B(a, c) {
@@ -212,24 +216,24 @@
     return a.getFullYear() + "-" + a.getMonth() + "-" + a.getDate();
   }
   function R() {
-    e.safeMode = z(e.safeMode, !0);
+    e.safeMode = A(e.safeMode, !0);
     var a = e, c = e.domElementTypes, b = ["*"];
-    C(c) ? (c = c.split(A.space), 0 === c.length && (c = b)) : c = L(c) ? c : b;
+    C(c) ? (c = c.split(y.space), 0 === c.length && (c = b)) : c = L(c) ? c : b;
     a.domElementTypes = c;
     a = e;
     b = e.mapRangeColors;
     c = [{minimum:10, cssClassName:"day-color-1"}, {minimum:15, cssClassName:"day-color-2"}, {minimum:20, cssClassName:"day-color-3"}, {minimum:25, cssClassName:"day-color-4"}];
     b = L(b) ? b : c;
     a.mapRangeColors = b;
-    e.stText = q(e.stText, "st");
-    e.ndText = q(e.ndText, "nd");
-    e.rdText = q(e.rdText, "rd");
-    e.thText = q(e.thText, "th");
-    e.backButtonText = q(e.backButtonText, "Back");
-    e.nextButtonText = q(e.nextButtonText, "Next");
-    e.refreshButtonText = q(e.refreshButtonText, "Refresh");
-    e.lessText = q(e.lessText, "Less");
-    e.moreText = q(e.moreText, "More");
+    e.stText = r(e.stText, "st");
+    e.ndText = r(e.ndText, "nd");
+    e.rdText = r(e.rdText, "rd");
+    e.thText = r(e.thText, "th");
+    e.backButtonText = r(e.backButtonText, "Back");
+    e.nextButtonText = r(e.nextButtonText, "Next");
+    e.refreshButtonText = r(e.refreshButtonText, "Refresh");
+    e.lessText = r(e.lessText, "Less");
+    e.moreText = r(e.moreText, "More");
     I(e.monthNames, 12) && (e.monthNames = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" "));
     I(e.dayNames, 7) && (e.dayNames = "Mon Tue Wed Thu Fri Sat Sun".split(" "));
   }
@@ -237,7 +241,7 @@
     c = N(c) ? c : 1;
     return !L(a) || a.length < c;
   }
-  var D = null, H = null, e = {}, A = {empty:"", space:" "}, M = {}, E = null, k = {};
+  var D = null, H = null, e = {}, y = {empty:"", space:" "}, M = {}, E = null, k = {};
   this.addDate = function(a, c, b) {
     k.hasOwnProperty(a) && (b = G(b) ? b : !0, c = J(c), k[a].hasOwnProperty(c) || (k[a][c] = 0), k[a][c]++, b && v(k[a].options));
     return this;
@@ -288,22 +292,22 @@
         g = [].slice.call(g);
         for (var m = g.length, n = 0; n < m; n++) {
           var p = g[n], w = !0;
-          if (u(p) && p.hasAttribute("data-heat-options")) {
+          if (q(p) && p.hasAttribute("data-heat-options")) {
             var d = p.getAttribute("data-heat-options");
             if (C(d)) {
               if (d = aa(d), d.parsed && F(d.result)) {
                 d = d.result;
                 d = F(d) ? d : {};
-                d.showDayNames = z(d.showDayNames, !0);
-                d.showGuide = z(d.showGuide, !0);
-                d.showTitle = z(d.showTitle, !0);
-                d.showYearSelector = z(d.showYearSelector, !0);
-                d.showMonthDayGaps = z(d.showMonthDayGaps, !0);
-                d.showRefreshButton = z(d.showRefreshButton, !1);
+                d.showDayNames = A(d.showDayNames, !0);
+                d.showGuide = A(d.showGuide, !0);
+                d.showTitle = A(d.showTitle, !0);
+                d.showYearSelector = A(d.showYearSelector, !0);
+                d.showMonthDayGaps = A(d.showMonthDayGaps, !0);
+                d.showRefreshButton = A(d.showRefreshButton, !1);
                 I(d.monthsToShow) && (d.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
                 I(d.daysToShow) && (d.daysToShow = [1, 2, 3, 4, 5, 6, 7]);
-                d.titleText = q(d.titleText, "Heat.js");
-                d.dayToolTipText = q(d.dayToolTipText, "{d}{o} {mmmm} {yyyy}");
+                d.titleText = r(d.titleText, "Heat.js");
+                d.dayToolTipText = r(d.dayToolTipText, "{d}{o} {mmmm} {yyyy}");
                 d.onDayClick = B(d.onDayClick, null);
                 d.onBackYear = B(d.onBackYear, null);
                 d.onNextYear = B(d.onNextYear, null);
@@ -314,14 +318,14 @@
                 d.currentView = {};
                 x(d.onBeforeRender, p);
                 if (!C(p.id)) {
-                  var r = [];
-                  for (var t = 0; 32 > t; t++) {
-                    8 !== t && 12 !== t && 16 !== t && 20 !== t || r.push("-");
-                    var y = Math.floor(16 * Math.random()).toString(16);
-                    r.push(y);
+                  var t = [];
+                  for (var u = 0; 32 > u; u++) {
+                    8 !== u && 12 !== u && 16 !== u && 20 !== u || t.push("-");
+                    var z = Math.floor(16 * Math.random()).toString(16);
+                    t.push(z);
                   }
-                  r = r.join(A.empty);
-                  p.id = r;
+                  t = t.join(y.empty);
+                  p.id = t;
                 }
                 p.removeAttribute("data-heat-options");
                 k[p.id] = {options:d};
@@ -340,6 +344,6 @@
         }
       }
     });
-    u(H.$heat) || (H.$heat = this);
+    q(H.$heat) || (H.$heat = this);
   })(document, window);
 })();

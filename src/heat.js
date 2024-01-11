@@ -268,15 +268,21 @@
             fireCustomTrigger( bindingOptions.onDayClick, date );
         };
 
-        var mapRangeColorsLength = _configuration.mapRangeColors.length;
+        var mapRangeColorsLength = _configuration.mapRangeColors.length,
+            className = null;
     
         for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
             var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
 
             if ( dateCount >= mapRangeColor.minimum ) {
-                day.className += _string.space + mapRangeColor.cssClassName;
+                className = _string.space + mapRangeColor.cssClassName;
+            } else {
                 break;
             }
+        }
+
+        if ( isDefined( className ) ) {
+            day.className += _string.space + className;
         }
 
         if ( !isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps ) {
