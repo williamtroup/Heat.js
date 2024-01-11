@@ -237,7 +237,7 @@
                     }
                 }
 
-                if ( firstDayNumberInMonth > 0 && isDefined( _elements_Day_Width ) && bindingOptions.showMonthDayGaps ) {
+                if ( firstDayNumberInMonth > 0 && isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps ) {
                     month.style.marginLeft = -_elements_Day_Width + "px";
                 }
             }
@@ -268,7 +268,7 @@
             }
         }
 
-        if ( !isDefined( _elements_Day_Width ) && bindingOptions.showMonthDayGaps ) {
+        if ( !isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps ) {
             var marginLeft = getStyleValueByName( day, "margin-left" ).replace( "px", _string.empty ),
                 marginRight = getStyleValueByName( day, "margin-right" ).replace( "px", _string.empty );
             

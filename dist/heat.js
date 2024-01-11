@@ -72,7 +72,7 @@
           }
           z && (W(a, m, q - e, f, b, c), 0 === (q + 1) % 7 && (m = h("div", "day-column"), n.appendChild(m)));
         }
-        0 < e && t(D) && a.showMonthDayGaps && (g.style.marginLeft = -D + "px");
+        0 < e && t(D) && !a.showMonthDayGaps && (g.style.marginLeft = -D + "px");
       }
     }
   }
@@ -93,7 +93,7 @@
         break;
       }
     }
-    !t(D) && a.showMonthDayGaps && (g = P(b, "margin-left").replace("px", v.empty), c = P(b, "margin-right").replace("px", v.empty), D = b.offsetWidth + parseInt(g) + parseInt(c));
+    t(D) || a.showMonthDayGaps || (g = P(b, "margin-left").replace("px", v.empty), c = P(b, "margin-right").replace("px", v.empty), D = b.offsetWidth + parseInt(g) + parseInt(c));
   }
   function U(a) {
     if (a.showGuide) {

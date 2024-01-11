@@ -3,7 +3,7 @@
 ## Version 0.3.0:
 
 #### **Binding Options:**
-- Added a new binding option called "showMonthDayGaps", which states if the gaps between the days in each month should be shown (defaults to false).
+- Added a new binding option called "showMonthDayGaps", which states if the gaps between the days in each month should be shown (defaults to true).
 - Added a new binding option called "showRefreshButton", which states if the "Refresh" button should be shown (defaults to false).
 
 #### **Configuration Options:**
