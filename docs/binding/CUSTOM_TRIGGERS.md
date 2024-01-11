@@ -29,12 +29,12 @@ Fires when the rendering of an element is complete.
 ## For Year Selections:
 
 ### options.onBackYear( *year* ):
-Fires when the year is moved back one.
+Fires when the year is moved back.
 <br>
 ***Parameter:*** year: '*number*' - The year that is now being viewed.
 
 ### options.onNextYear( *year* ):
-Fires when the year is moved forward one.
+Fires when the year is moved forward.
 <br>
 ***Parameter:*** year: '*number*' - The year that is now being viewed.
 <br>

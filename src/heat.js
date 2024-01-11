@@ -565,7 +565,7 @@
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
      * @param       {Date}      date                                        The date to add.
-     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refresh (defaults to true).
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
@@ -598,7 +598,7 @@
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date}      date                                        The date to removed.
-     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refresh (defaults to true).
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
@@ -628,7 +628,7 @@
      * @public
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
-     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refresh (defaults to true).
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */

@@ -8,7 +8,7 @@ Below is the format that is expected for a map range object when calling "setCon
 | Type: | Name: | Description: |
 | --- | --- | --- |
 | *number* | minimum | The minimum count the date has reached before showing this CSS class. |
-| *string* | cssClassName | The CSS class name to apply to the day when the minium value is met. |
+| *string* | cssClassName | The CSS class name to apply to the day when the minimum value is met. |
 
 <br>
 

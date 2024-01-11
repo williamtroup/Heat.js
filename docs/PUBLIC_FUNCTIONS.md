@@ -15,7 +15,7 @@ Adds a date for a specific element ID, and refreshes the UI (if specified). If t
 <br>
 ***Parameter: date***: '*Date*' - The date to add.
 <br>
-***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refresh (defaults to true).
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
@@ -27,7 +27,7 @@ Removes a date for a specific element ID, and refreshes the UI (if specified). I
 <br>
 ***Parameter: date***: '*Date*' - The date to remove.
 <br>
-***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refresh (defaults to true).
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
@@ -37,7 +37,7 @@ Removes all the dates for a specific element ID, and refreshes the UI (if specif
 <br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
 <br>
-***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refresh (defaults to true).
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
@@ -67,7 +67,7 @@ Refreshes all of the rendered Heat.js instances.
 ### **setConfiguration( *newOptions* )**:
 Sets the specific configuration options that should be used.
 <br>
-***Parameter: newOptions***: '*Options*' - All the configuration options that should be set (refer to ["Configuration Options"](configuration/OPTIONS.md) documentation for properties).
+***Parameter: newOptions***: '*Object*' - All the configuration options that should be set (refer to ["Configuration Options"](configuration/OPTIONS.md) documentation for properties).
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
