@@ -9,6 +9,9 @@
 #### **Configuration Options:**
 - Added a new configuration option called "refreshButtonText", which states the text that should be shown for the "Refresh" button (defaults to "Refresh").
 
+#### **CSS:**
+- Added slightly darker borders around the default day CSS classes "div.day-color-*".
+
 <br>
 
 
