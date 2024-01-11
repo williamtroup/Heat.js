@@ -4,6 +4,10 @@
 
 #### **Binding Options:**
 - Added a new binding option called "showMonthDayGaps", which states if the gaps between the days in each month should be shown (defaults to false).
+- Added a new binding option called "showRefreshButton", which states if the "Refresh" button should be shown (defaults to false).
+
+#### **Configuration Options:**
+- Added a new configuration option called "refreshButtonText", which states the text that should be shown for the "Refresh" button (defaults to "Refresh").
 
 <br>
 

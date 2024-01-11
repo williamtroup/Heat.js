@@ -120,7 +120,7 @@
             bindingOptions.currentView.year = new Date().getFullYear();
         }
 
-        if ( bindingOptions.showTitle || bindingOptions.showYearSelector ) {
+        if ( bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton ) {
             var year = createElement( "div", "year" );
             bindingOptions.element.appendChild( year );
     
@@ -128,6 +128,17 @@
                 var title = createElement( "div", "title" );
                 title.innerHTML = bindingOptions.titleText;
                 year.appendChild( title );
+            }
+
+            if ( bindingOptions.showRefreshButton ) {
+                var refresh = createElement( "button", "refresh" );
+                refresh.innerHTML = _configuration.refreshButtonText;
+                year.appendChild( refresh );
+        
+                refresh.onclick = function() {
+                    renderControl( bindingOptions );
+                    fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.element );
+                };
             }
     
             if ( bindingOptions.showYearSelector ) {
@@ -310,6 +321,7 @@
         options.showTitle = getDefaultBoolean( options.showTitle, true );
         options.showYearSelector = getDefaultBoolean( options.showYearSelector, true );
         options.showMonthDayGaps = getDefaultBoolean( options.showMonthDayGaps, true );
+        options.showRefreshButton = getDefaultBoolean( options.showRefreshButton, false );
 
         if ( isInvalidOptionArray( _configuration.monthsToShow, 12 ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -789,6 +801,7 @@
         _configuration.thText = getDefaultString( _configuration.thText, "th" );
         _configuration.backButtonText = getDefaultString( _configuration.backButtonText, "Back" );
         _configuration.nextButtonText = getDefaultString( _configuration.nextButtonText, "Next" );
+        _configuration.refreshButtonText = getDefaultString( _configuration.refreshButtonText, "Refresh" );
         _configuration.lessText = getDefaultString( _configuration.lessText, "Less" );
         _configuration.moreText = getDefaultString( _configuration.moreText, "More" );
     }

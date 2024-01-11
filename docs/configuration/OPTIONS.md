@@ -24,6 +24,7 @@ Below are all the configuration options that can be passed to the "setConfigurat
 | *string* | thText | The day ordinal text for "th". |
 | *string* | backButtonText | The text that should be shown for the "Back" button. |
 | *string* | nextButtonText | The text that should be shown for the "Next" button. |
+| *string* | refreshButtonText | The text that should be shown for the "Refresh" button. |
 | *string* | lessText | The text that should be shown for the "Less" label. |
 | *string* | moreText | The text that should be shown for the "More" label. |
 | *string[]* | monthNames | The month names (defaults to '[ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]'). |
