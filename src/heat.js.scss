@@ -31,6 +31,7 @@
     --border-radius: 0.5rem;
     --border-radius-day: 0.25rem;
     --border-size: 0.5px;
+    --border-size-day: 1px;
 
     // Sizes
     --spacing: 10px;
@@ -185,12 +186,15 @@ div.heat-js {
             display: inline-block;
             
             div.day {
+                background-color: var(--day-background-color);
+                border: var(--border-size) solid var(--day-background-color);
                 vertical-align: middle;
                 display: inline-block;
                 border-radius: var(--border-radius-day);
                 width: var(--spacing-font-size);
                 height: var(--spacing-font-size);
                 margin-right: 3px;
+                cursor: pointer;
 
                 &:last-child {
                     margin-right: 0;
@@ -201,21 +205,37 @@ div.heat-js {
 
     div.day-color-1 {
         background-color: rgba( 57, 211, 83, 0.25 ) !important;
-        border: var(--border-size) solid rgba( 57, 211, 83, 0.15 ) !important;
+        border: var(--border-size-day) solid rgba( 57, 211, 83, 0.15 ) !important;
+
+        &:hover {
+            opacity: 0.7;
+        }
     }
 
     div.day-color-2 {
         background-color: rgba( 57, 211, 83, 0.5 ) !important;
-        border: var(--border-size) solid rgba( 57, 211, 83, 0.25 ) !important;
+        border: var(--border-size-day) solid rgba( 57, 211, 83, 0.25 ) !important;
+
+        &:hover {
+            opacity: 0.7;
+        }
     }
 
     div.day-color-3 {
         background-color: rgba( 57, 211, 83, 0.75 ) !important;
-        border: var(--border-size) solid rgba( 57, 211, 83, 0.5 ) !important;
+        border: var(--border-size-day) solid rgba( 57, 211, 83, 0.5 ) !important;
+
+        &:hover {
+            opacity: 0.7;
+        }
     }
 
     div.day-color-4 {
         background-color: rgba( 57, 211, 83, 1 ) !important;
-        border: var(--border-size) solid rgba( 57, 211, 83, 0.75 ) !important;
+        border: var(--border-size-day) solid rgba( 57, 211, 83, 0.75 ) !important;
+
+        &:hover {
+            opacity: 0.7;
+        }
     }
 }

@@ -17,6 +17,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | showMonthDayGaps | States if the gaps between the days in each month should be shown (defaults to true). |
 | *boolean* | showRefreshButton | States if the "Refresh" button should be shown (defaults to false). |
 | *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
+| *Object[]* | mapRangeColors | The heap-map ranges that should be used for specific colors (first default is [ { minimum: 10, cssClassName: 'day-color-1' } ]). |
 
 <br/>
 

@@ -4,7 +4,7 @@
  * A lightweight, and easy-to-use, JavaScript library for generating high quality heat maps for dates.
  * 
  * @file        observe.js
- * @version     v0.3.0
+ * @version     v0.4.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -72,6 +72,7 @@
                     bindingOptions = buildAttributeOptions( bindingOptions.result );
                     bindingOptions.element = element;
                     bindingOptions.currentView = {};
+                    bindingOptions.currentView.colorsVisible = {};
 
                     fireCustomTrigger( bindingOptions.onBeforeRender, element );
 
@@ -194,7 +195,7 @@
         var months = createElement( "div", "months" );
         map.appendChild( months );
 
-        var mapRangeColors = _configuration.mapRangeColors.sort( function( a, b ) {
+        var mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
             return b.range - a.range;
         } );
 
@@ -268,21 +269,21 @@
             fireCustomTrigger( bindingOptions.onDayClick, date );
         };
 
-        var mapRangeColorsLength = _configuration.mapRangeColors.length,
-            className = null;
+        var mapRangeColorsLength = bindingOptions.mapRangeColors.length,
+            useMapRangeColor = null;
     
         for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
             var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
 
             if ( dateCount >= mapRangeColor.minimum ) {
-                className = _string.space + mapRangeColor.cssClassName;
+                useMapRangeColor = mapRangeColor;
             } else {
                 break;
             }
         }
 
-        if ( isDefined( className ) ) {
-            day.className += _string.space + className;
+        if ( isDefined( useMapRangeColor ) && isHeatMapColorVisible( bindingOptions, useMapRangeColor.id ) ) {
+            day.className += _string.space + useMapRangeColor.cssClassName;
         }
 
         if ( !isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps ) {
@@ -305,23 +306,52 @@
             var days = createElement( "div", "days" );
             guide.appendChild( days );
 
-            var mapRangeColors = _configuration.mapRangeColors.sort( function( a, b ) {
+            var mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
                 return b.range - a.range;
             } );
 
             var mapRangeColorsLength = mapRangeColors.length;
     
             for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-                var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
-    
-                var day = createElement( "div", "day " + mapRangeColor.cssClassName );
-                days.appendChild( day );
+                renderControlViewGuideDay( bindingOptions, days, mapRangeColors[ mapRangeColorsIndex ] );
             }
     
             var moreText = createElement( "div", "more-text" );
             moreText.innerHTML = _configuration.moreText;
             guide.appendChild( moreText );
         }
+    }
+
+    function renderControlViewGuideDay( bindingOptions, days, mapRangeColor ) {
+        var day = createElement( "div" );
+        day.title = mapRangeColor.tooltipText;
+        days.appendChild( day );
+
+        if ( isHeatMapColorVisible( bindingOptions, mapRangeColor.id ) ) {
+            day.className = "day " + mapRangeColor.cssClassName;
+        } else {
+            day.className = "day";
+        }
+
+        day.onclick = function() {
+            if ( !bindingOptions.currentView.colorsVisible.hasOwnProperty( mapRangeColor.id ) ) {
+                bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] = true;
+            }
+
+            if ( bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] ) {
+                day.className = "day";
+            } else {
+                day.className = "day " + mapRangeColor.cssClassName;
+            }
+
+            bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] = !bindingOptions.currentView.colorsVisible[ mapRangeColor.id ];
+
+            renderControl( bindingOptions );
+        };
+    }
+
+    function isHeatMapColorVisible( bindingOptions, id ) {
+        return !bindingOptions.currentView.colorsVisible.hasOwnProperty( id ) || bindingOptions.currentView.colorsVisible[ id ];
     }
 
 
@@ -348,6 +378,37 @@
             options.daysToShow = [ 1, 2, 3, 4, 5, 6, 7 ];
         }
 
+        options.mapRangeColors = getDefaultArray( options.mapRangeColors, [
+            {
+                minimum: 10,
+                cssClassName: "day-color-1",
+                tooltipText: "Day Color 1"
+            },
+            {
+                minimum: 15,
+                cssClassName: "day-color-2",
+                tooltipText: "Day Color 2"
+            },
+            {
+                minimum: 20,
+                cssClassName: "day-color-3",
+                tooltipText: "Day Color 3"
+            },
+            {
+                minimum: 25,
+                cssClassName: "day-color-4",
+                tooltipText: "Day Color 4"
+            }
+        ] );
+
+        var mapRangeColorsLength = options.mapRangeColors.length;
+
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            if ( !isDefinedString( options.mapRangeColors[ mapRangeColorsIndex ].id ) ) {
+                options.mapRangeColors[ mapRangeColorsIndex ].id = newGuid();
+            }
+        }
+
         options = buildAttributeOptionStrings( options );
 
         return buildAttributeOptionCustomTriggers( options );
@@ -367,6 +428,7 @@
         options.onRefresh = getDefaultFunction( options.onRefresh, null );
         options.onBeforeRender = getDefaultFunction( options.onBeforeRender, null );
         options.onRenderComplete = getDefaultFunction( options.onRenderComplete, null );
+        options.onDestroy = getDefaultFunction( options.onDestroy, null );
 
         return options;
     }
@@ -766,6 +828,65 @@
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Public Functions:  Destroying
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    /**
+     * destroyAll().
+     * 
+     * Reverts all rendered elements back to their original state (without render attributes).
+     * 
+     * @public
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.destroyAll = function() {
+        for ( var elementId in _elements_DateCounts ) {
+            if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+                bindingOptions.element.innerHTML = _string.empty;
+                bindingOptions.element.className = _string.empty;
+
+                fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.element );
+            }
+        }
+
+        _elements_DateCounts = {};
+
+        return this;
+    };
+
+    /**
+     * destroy().
+     * 
+     * Reverts an element back to its original state (without render attributes).
+     * 
+     * @public
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID to destroy.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.destroy = function( elementId ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+            bindingOptions.element.innerHTML = _string.empty;
+            bindingOptions.element.className = _string.empty;
+
+            fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.element );
+
+            delete _elements_DateCounts[ elementId ];
+        }
+
+        return this;
+    };
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Public Functions:  Configuration
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -792,24 +913,6 @@
     function buildDefaultConfiguration() {
         _configuration.safeMode = getDefaultBoolean( _configuration.safeMode, true );
         _configuration.domElementTypes = getDefaultStringOrArray( _configuration.domElementTypes, [ "*" ] );
-        _configuration.mapRangeColors = getDefaultArray( _configuration.mapRangeColors, [
-            {
-                minimum: 10,
-                cssClassName: "day-color-1"
-            },
-            {
-                minimum: 15,
-                cssClassName: "day-color-2"
-            },
-            {
-                minimum: 20,
-                cssClassName: "day-color-3"
-            },
-            {
-                minimum: 25,
-                cssClassName: "day-color-4"
-            }
-        ] );
 
         buildDefaultConfigurationStrings();
         buildDefaultConfigurationArrays();
@@ -881,7 +984,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "0.3.0";
+        return "0.4.0";
     };
 
 

@@ -23,6 +23,11 @@ Fires when the rendering of an element is complete.
 <br>
 ***Parameter:*** element: '*object*' - The DOM element that was rendered.
 
+### options.onDestroy( *element* ):
+Fires when the element is destroyed (reverted back to its original state).
+<br>
+***Parameter:*** element: '*object*' - The DOM element that was destroyed.
+
 <br>
 
 
