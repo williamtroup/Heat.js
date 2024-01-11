@@ -16,7 +16,7 @@
 #### **Fixes:**
 - Fixed the binding option "monthsToShow" not being read when set.
 - Fixed the CSS classes "div.day-color-*" being in the opacity order.
-- Fixed a major fault that prevented the heat map showing the other CSS classes for days correctly.
+- Fixed a major fault that prevented the heat map from showing the other CSS classes for days correctly.
 
 <br>
 
