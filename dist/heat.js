@@ -2,7 +2,7 @@
 (function() {
   function u(a) {
     a.element.className = "heat-js";
-    a.element.innerHTML = v.empty;
+    a.element.innerHTML = y.empty;
     S(a);
     T(a);
     U(a);
@@ -19,16 +19,16 @@
       }
       a.showRefreshButton && (b = h("button", "refresh"), b.innerHTML = d.refreshButtonText, c.appendChild(b), b.onclick = function() {
         u(a);
-        w(a.onRefresh, a.element);
+        v(a.onRefresh, a.element);
       });
       a.showYearSelector && (b = h("button", "back"), b.innerHTML = d.backButtonText, c.appendChild(b), b.onclick = function() {
         a.currentView.year--;
         u(a);
-        w(a.onBackYear, a.currentView.year);
+        v(a.onBackYear, a.currentView.year);
       }, a.currentView.yearText = h("div", "year-text"), a.currentView.yearText.innerHTML = a.currentView.year, c.appendChild(a.currentView.yearText), b = h("button", "next"), b.innerHTML = d.nextButtonText, c.appendChild(b), b.onclick = function() {
         a.currentView.year++;
         u(a);
-        w(a.onNextYear, a.currentView.year);
+        v(a.onNextYear, a.currentView.year);
       });
     }
   }
@@ -67,8 +67,8 @@
           if (q >= e) {
             z = !0;
           } else {
-            var x = h("div", "day-disabled");
-            m.appendChild(x);
+            var w = h("div", "day-disabled");
+            m.appendChild(w);
           }
           z && (W(a, m, q - e, f, b, c), 0 === (q + 1) % 7 && (m = h("div", "day-column"), n.appendChild(m)));
         }
@@ -84,16 +84,16 @@
     b.title = X(a.dayToolTipText, p);
     c.appendChild(b);
     b.onclick = function() {
-      w(a.onDayClick, p);
+      v(a.onDayClick, p);
     };
     c = d.mapRangeColors.length;
     for (f = 0; f < c; f++) {
       if (n = g[f], k >= n.minimum) {
-        b.className += v.space + n.cssClassName;
+        b.className += y.space + n.cssClassName;
         break;
       }
     }
-    t(D) || a.showMonthDayGaps || (g = P(b, "margin-left").replace("px", v.empty), c = P(b, "margin-right").replace("px", v.empty), D = b.offsetWidth + parseInt(g) + parseInt(c));
+    t(D) || a.showMonthDayGaps || (g = P(b, "margin-left"), c = P(b, "margin-right"), D = b.offsetWidth + parseInt(g, 10) + parseInt(c, 10));
   }
   function U(a) {
     if (a.showGuide) {
@@ -142,7 +142,7 @@
     return b = b.replace("{y}", parseInt(c.getFullYear().toString().substring(2)).toString());
   }
   function t(a) {
-    return null !== a && void 0 !== a && a !== v.empty;
+    return null !== a && void 0 !== a && a !== y.empty;
   }
   function E(a) {
     return t(a) && "object" === typeof a;
@@ -165,7 +165,7 @@
   function h(a, c) {
     var b = a.toLowerCase();
     var k = "text" === b;
-    L.hasOwnProperty(b) || (L[b] = k ? C.createTextNode(v.empty) : C.createElement(b));
+    L.hasOwnProperty(b) || (L[b] = k ? C.createTextNode(y.empty) : C.createElement(b));
     b = L[b].cloneNode(!1);
     t(c) && (b.className = c);
     return b;
@@ -175,13 +175,13 @@
     G.getComputedStyle ? b = document.defaultView.getComputedStyle(a, null).getPropertyValue(c) : a.currentStyle && (b = a.currentStyle[c]);
     return b;
   }
-  function w(a) {
+  function v(a) {
     J(a) && a.apply(null, [].slice.call(arguments, 1));
   }
   function r(a, c) {
     return B(a) ? a : c;
   }
-  function y(a, c) {
+  function x(a, c) {
     return F(a) ? a : c;
   }
   function A(a, c) {
@@ -208,9 +208,9 @@
     return a.getFullYear() + "-" + a.getMonth() + "-" + a.getDate();
   }
   function R() {
-    d.safeMode = y(d.safeMode, !0);
+    d.safeMode = x(d.safeMode, !0);
     var a = d, c = d.domElementTypes, b = ["*"];
-    B(c) ? (c = c.split(v.space), 0 === c.length && (c = b)) : c = K(c) ? c : b;
+    B(c) ? (c = c.split(y.space), 0 === c.length && (c = b)) : c = K(c) ? c : b;
     a.domElementTypes = c;
     a = d;
     b = d.mapRangeColors;
@@ -233,7 +233,7 @@
     c = N(c) ? c : 1;
     return !K(a) || a.length < c;
   }
-  var C = null, G = null, d = {}, v = {empty:"", space:" "}, L = {}, D = null, l = {};
+  var C = null, G = null, d = {}, y = {empty:"", space:" "}, L = {}, D = null, l = {};
   this.addDate = function(a, c, b) {
     l.hasOwnProperty(a) && (b = F(b) ? b : !0, c = I(c), l[a].hasOwnProperty(c) || (l[a][c] = 0), l[a][c]++, b && u(l[a].options));
     return this;
@@ -253,7 +253,7 @@
     return this;
   };
   this.refresh = function(a) {
-    l.hasOwnProperty(a) && (a = l[a].options, u(a), w(a.onRefresh, a.element));
+    l.hasOwnProperty(a) && (a = l[a].options, u(a), v(a.onRefresh, a.element));
     return this;
   };
   this.refreshAll = function() {
@@ -261,7 +261,7 @@
       if (l.hasOwnProperty(a)) {
         var c = l[a].options;
         u(c);
-        w(c.onRefresh, c.element);
+        v(c.onRefresh, c.element);
       }
     }
     return this;
@@ -290,12 +290,12 @@
               if (e = Y(e), e.parsed && E(e.result)) {
                 e = e.result;
                 e = E(e) ? e : {};
-                e.showDayNames = y(e.showDayNames, !0);
-                e.showGuide = y(e.showGuide, !0);
-                e.showTitle = y(e.showTitle, !0);
-                e.showYearSelector = y(e.showYearSelector, !0);
-                e.showMonthDayGaps = y(e.showMonthDayGaps, !0);
-                e.showRefreshButton = y(e.showRefreshButton, !1);
+                e.showDayNames = x(e.showDayNames, !0);
+                e.showGuide = x(e.showGuide, !0);
+                e.showTitle = x(e.showTitle, !0);
+                e.showYearSelector = x(e.showYearSelector, !0);
+                e.showMonthDayGaps = x(e.showMonthDayGaps, !0);
+                e.showRefreshButton = x(e.showRefreshButton, !1);
                 M(d.monthsToShow, 12) && (e.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
                 e.titleText = r(e.titleText, "Heat.js");
                 e.dayToolTipText = r(e.dayToolTipText, "{d}{o} {mmmm} {yyyy}");
@@ -307,21 +307,21 @@
                 e.onRenderComplete = A(e.onRenderComplete, null);
                 e.element = m;
                 e.currentView = {};
-                w(e.onBeforeRender, m);
+                v(e.onBeforeRender, m);
                 if (!B(m.id)) {
                   var q = [];
-                  for (var x = 0; 32 > x; x++) {
-                    8 !== x && 12 !== x && 16 !== x && 20 !== x || q.push("-");
+                  for (var w = 0; 32 > w; w++) {
+                    8 !== w && 12 !== w && 16 !== w && 20 !== w || q.push("-");
                     var H = Math.floor(16 * Math.random()).toString(16);
                     q.push(H);
                   }
-                  q = q.join(v.empty);
+                  q = q.join(y.empty);
                   m.id = q;
                 }
                 m.removeAttribute("data-heat-options");
                 l[m.id] = {options:e};
                 u(e);
-                w(e.onRenderComplete, m);
+                v(e.onRenderComplete, m);
               } else {
                 d.safeMode || (console.error("The attribute 'data-heat-options' is not a valid object."), z = !1);
               }

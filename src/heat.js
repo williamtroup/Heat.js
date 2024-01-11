@@ -269,10 +269,10 @@
         }
 
         if ( !isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps ) {
-            var marginLeft = getStyleValueByName( day, "margin-left" ).replace( "px", _string.empty ),
-                marginRight = getStyleValueByName( day, "margin-right" ).replace( "px", _string.empty );
+            var marginLeft = getStyleValueByName( day, "margin-left" ),
+                marginRight = getStyleValueByName( day, "margin-right" );
             
-            _elements_Day_Width = day.offsetWidth + parseInt( marginLeft ) + parseInt( marginRight );
+            _elements_Day_Width = day.offsetWidth + parseInt( marginLeft, 10 ) + parseInt( marginRight, 10 );
         }
     }
 
