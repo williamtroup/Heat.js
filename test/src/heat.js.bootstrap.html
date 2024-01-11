@@ -17,18 +17,23 @@
         </div>
 
         <div class="contents">
-            <div id="heat-map" data-heat-options="{ 'onDayClick': onDayClick }"></div>
+            <div id="heat-map-1" data-heat-options="{ 'onDayClick': onDayClick }"></div>
+            <br>
+            <br>
+            <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': false }"></div>
         </div>
 
         <div class="contents">
             <h2>Manage Dates:</h2>
             <button class="btn btn-primary" onclick="updateDates( false );">Add Dates</button>
             <button class="btn btn-primary" onclick="updateDates( true );">Remove Dates</button>
-            <button class="btn btn-primary" onclick="$heat.reset( 'heat-map' );">Reset</button>
+            <button class="btn btn-primary" onclick="$heat.reset( 'heat-map-1' );">Reset (1)</button>
+            <button class="btn btn-primary" onclick="$heat.reset( 'heat-map-2' );">Reset (2)</button>
             <br />
 
             <h2>Manage Instances:</h2>
-            <button class="btn btn-primary" onclick="$heat.refresh( 'heat-map' );">Refresh</button>
+            <button class="btn btn-primary" onclick="$heat.refresh( 'heat-map-1' );">Refresh (1)</button>
+            <button class="btn btn-primary" onclick="$heat.refresh( 'heat-map-2' );">Refresh (2)</button>
             <button class="btn btn-primary" onclick="$heat.refreshAll();">Refresh All</button>
             <br />
 
@@ -61,9 +66,11 @@
                 newDate.setDate( newDate.getDate() + daysToIncrease );
 
                 if ( !remove ) {
-                    $heat.addDate( "heat-map", newDate, false );
+                    $heat.addDate( "heat-map-1", newDate, false );
+                    $heat.addDate( "heat-map-2", newDate, false );
                 } else {
-                    $heat.removeDate( "heat-map", newDate, false );
+                    $heat.removeDate( "heat-map-1", newDate, false );
+                    $heat.removeDate( "heat-map-2", newDate, false );
                 }
             }
 

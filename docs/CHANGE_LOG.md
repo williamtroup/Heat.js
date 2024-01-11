@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 0.3.0:
-- 
+
+#### **Binding Options:**
+- Added a new binding option called "showMonthDayGaps", which states if the gaps between the days in each month should be shown (defaults to false).
 
 <br>
 

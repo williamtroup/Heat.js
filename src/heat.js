@@ -27,6 +27,7 @@
 
         // Variables: Elements
         _elements_Type = {},
+        _elements_Day_Width = null,
 
         // Variables: Date Counts
         _elements_DateCounts = {},
@@ -224,6 +225,10 @@
                         }
                     }
                 }
+
+                if ( firstDayNumberInMonth > 0 && isDefined( _elements_Day_Width ) && bindingOptions.showMonthDayGaps ) {
+                    month.style.marginLeft = -_elements_Day_Width + "px";
+                }
             }
         }
     }
@@ -250,6 +255,13 @@
                 day.className += _string.space + mapRangeColor.cssClassName;
                 break;
             }
+        }
+
+        if ( !isDefined( _elements_Day_Width ) && bindingOptions.showMonthDayGaps ) {
+            var marginLeft = getStyleValueByName( day, "margin-left" ).replace( "px", _string.empty ),
+                marginRight = getStyleValueByName( day, "margin-right" ).replace( "px", _string.empty );
+            
+            _elements_Day_Width = day.offsetWidth + parseInt( marginLeft ) + parseInt( marginRight );
         }
     }
 
@@ -297,6 +309,7 @@
         options.showGuide = getDefaultBoolean( options.showGuide, true );
         options.showTitle = getDefaultBoolean( options.showTitle, true );
         options.showYearSelector = getDefaultBoolean( options.showYearSelector, true );
+        options.showMonthDayGaps = getDefaultBoolean( options.showMonthDayGaps, true );
 
         if ( isInvalidOptionArray( _configuration.monthsToShow, 12 ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -434,6 +447,19 @@
         }
 
         return result;
+    }
+
+    function getStyleValueByName( element, stylePropertyName ) {
+        var value = null;
+
+        if ( _parameter_Window.getComputedStyle ) {
+            value = document.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
+        }  
+        else if ( element.currentStyle ) {
+            value = element.currentStyle[ stylePropertyName ];
+        }                     
+
+        return value;
     }
 
 

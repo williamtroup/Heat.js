@@ -116,7 +116,7 @@ div.heat-js {
     
             div.month {
                 flex: 1;
-                margin-right: calc( var(--spacing) / 2 );
+                pointer-events: none;
     
                 &:last-child {
                     margin-right: 0;
@@ -146,6 +146,7 @@ div.heat-js {
                         }
     
                         div.day {
+                            pointer-events: all !important;
                             background-color: var(--day-background-color);
                             border: var(--border-size) solid var(--day-background-color);
     
