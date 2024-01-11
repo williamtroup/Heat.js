@@ -23,6 +23,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | Type: | Name: | Description: |
 | --- | --- | --- |
 | *string* | titleText | The text that should be shown for the main title (defaults to "Heat.js"). |
+| *string* | dayToolTipText | The tooltip text that should be shown for a day (defaults to "{d}{o} {mmmm} {yyyy}"). Refer to ["Date Formatting"](/docs/DATE_FORMATS.md) documentation for options. |
 
 <br/>
 

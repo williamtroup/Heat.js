@@ -234,7 +234,7 @@
             date = new Date( year, month, actualDay ),
             dateCount = _elements_DateCounts[ bindingOptions.element.id ][ toStorageDate( date ) ];
 
-        day.title = actualDay.toString() + getDayOrdinal( actualDay ) + _string.space + _configuration.monthNames[ month ] + _string.space + year;
+        day.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
         currentDayColumn.appendChild( day );
 
         day.onclick = function() {
@@ -309,6 +309,7 @@
 
     function buildAttributeOptionStrings( options ) {
         options.titleText = getDefaultString( options.titleText, "Heat.js" );
+        options.dayToolTipText = getDefaultString( options.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
 
         return options;
     }
@@ -349,6 +350,28 @@
         } else if ( value === 23 || value === 3 ) {
             result = _configuration.rdText;
         }
+
+        return result;
+    }
+
+    function getCustomFormattedDateText( dateFormat, date ) {
+        var result = dateFormat,
+            weekDayNumber = getWeekdayNumber( date );
+
+        result = result.replace( "{dddd}", _configuration.dayNames[ weekDayNumber ] );
+        result = result.replace( "{dd}", padNumber( date.getDate() ) );
+        result = result.replace( "{d}", date.getDate() );
+
+        result = result.replace( "{o}", getDayOrdinal( date.getDate() ) );
+
+        result = result.replace( "{mmmm}", _configuration.monthNames[ date.getMonth() ] );
+        result = result.replace( "{mm}", padNumber( date.getMonth() + 1 ) );
+        result = result.replace( "{m}", date.getMonth() + 1 );
+
+        result = result.replace( "{yyyy}", date.getFullYear() );
+        result = result.replace( "{yyy}", date.getFullYear().toString().substring( 1 ) );
+        result = result.replace( "{yy}", date.getFullYear().toString().substring( 2 ) );
+        result = result.replace( "{y}", parseInt( date.getFullYear().toString().substring( 2 ) ).toString() );
 
         return result;
     }
@@ -518,6 +541,12 @@
         }
 
         return result.join( _string.empty );
+    }
+
+    function padNumber( number ) {
+        var numberString = number.toString();
+
+        return numberString.length === 1 ? "0" + numberString : numberString;
     }
 
 
