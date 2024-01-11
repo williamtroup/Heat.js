@@ -27,17 +27,20 @@ Heat.js
 <br />
 <br />
 
+
 <h1>What browsers are supported?</h1>
 
 All modern browsers (such as Google Chrome, FireFox, and Opera) are fully supported.
 <br>
 <br>
 
+
 <h1>What are the most recent changes?</h1>
 
 To see a list of all the most recent changes, click [here](docs/CHANGE_LOG.md).
 <br>
 <br>
+
 
 <h1>How do I get started?</h1>
 
@@ -54,6 +57,7 @@ Make sure you include the "DOCTYPE html" tag at the top of your HTML, as follows
 ```
 <br>
 
+
 ### 2. Include Files:
 
 ```markdown
@@ -62,10 +66,11 @@ Make sure you include the "DOCTYPE html" tag at the top of your HTML, as follows
 ```
 <br>
 
+
 ### 3. DOM Element Binding:
 
 ```markdown
-<div data-heat-options="{ 'showDayNames': true }">
+<div id="heat-map" data-heat-options="{ 'showDayNames': true }">
     Your HTML.
 </div>
 ```
@@ -76,7 +81,24 @@ To see a list of all the available custom triggers you can use for "data-heat-op
 
 <br>
 
-### 4. Finishing Up:
+
+### 5. Adding Dates:
+
+Now, you can add/remove dates, which will update the heat map automatically!
+
+```markdown
+<script>
+  var newDateObject = new Date();
+
+  $heat.addDate( "heat-map", newDateObject, false );
+  $heat.removeDate( "heat-map", newDateObject, false );
+</script>
+```
+<br>
+<br>
+
+
+### 5. Finishing Up:
 
 That's it! Nice and simple. Please refer to the code if you need more help (fully documented).
 <br>
@@ -87,6 +109,7 @@ That's it! Nice and simple. Please refer to the code if you need more help (full
 To customize, and get more out of Heat.js, please read through the following documentation.
 <br>
 <br>
+
 
 ### 1. Public Functions:
 

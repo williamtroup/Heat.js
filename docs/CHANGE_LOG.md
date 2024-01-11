@@ -14,6 +14,9 @@
 - Added new public function "removeDate()", which will remove a specific date from a heat map (or decrease the date if more than one exists).
 - Added new public function "reset()", which will remove all the dates from a the heat map.
 
+#### **Documentation:**
+- Improved documentation in the main README files.
+
 <br>
 
 

@@ -51,7 +51,7 @@ Make sure you include the "DOCTYPE html" tag at the top of your HTML, as follows
 ### 3. DOM Element Binding:
 
 ```markdown
-<div data-heat-options="{ 'showDayNames': true }">
+<div id="heat-map" data-heat-options="{ 'showDayNames': true }">
     Your HTML.
 </div>
 ```
@@ -61,7 +61,21 @@ To see a list of all the available binding options you can use for "data-heat-op
 To see a list of all the available custom triggers you can use for "data-heat-options", click [here](https://github.com/williamtroup/Heat.js/blob/main/docs/binding/options/CUSTOM_TRIGGERS.md).
 
 
-### 4. Finishing Up:
+### 4. Adding Dates:
+
+Now, you can add/remove dates, which will update the heat map automatically!
+
+```markdown
+<script>
+  var newDateObject = new Date();
+
+  $heat.addDate( "heat-map", newDateObject, false );
+  $heat.removeDate( "heat-map", newDateObject, false );
+</script>
+```
+
+
+### 5. Finishing Up:
 
 That's it! Nice and simple. Please refer to the code if you need more help (fully documented).
 
