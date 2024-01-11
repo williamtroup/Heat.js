@@ -9,13 +9,35 @@ Below is a list of all the public functions that can be called from the Heat.js 
 ## Manage Dates:
 
 ### **addDate( *elementId*, *date*, *[triggerRefresh]* )**:
-Adds a date for a specific element ID, and refreshes the UI (if specified).
+Adds a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is increased by one.
 <br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the new date.
 <br>
 ***Parameter: date***: '*Date*' - The date to add.
 <br>
-***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refresh (defaults to true).
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **removeDate( *elementId*, *date*, *[triggerRefresh]* )**:
+Removes a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is decreased by one.
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the updated date.
+<br>
+***Parameter: date***: '*Date*' - The date to remove.
+<br>
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **reset( *elementId*, *[triggerRefresh]* )**:
+Removes all the dates for a specific element ID, and refreshes the UI (if specified).
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
+<br>
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
@@ -45,7 +67,7 @@ Refreshes all of the rendered Heat.js instances.
 ### **setConfiguration( *newOptions* )**:
 Sets the specific configuration options that should be used.
 <br>
-***Parameter: newOptions***: '*Options*' - All the configuration options that should be set (refer to ["Configuration Options"](configuration/OPTIONS.md) documentation for properties).
+***Parameter: newOptions***: '*Object*' - All the configuration options that should be set (refer to ["Configuration Options"](configuration/OPTIONS.md) documentation for properties).
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>

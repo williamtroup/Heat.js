@@ -4,7 +4,7 @@
  * A lightweight, and easy-to-use, JavaScript library for generating high quality heat maps for dates.
  * 
  * @file        observe.js
- * @version     v0.1.0
+ * @version     v0.2.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -72,6 +72,8 @@
                     bindingOptions.element = element;
                     bindingOptions.currentView = {};
 
+                    fireCustomTrigger( bindingOptions.onBeforeRender, element );
+
                     if ( !isDefinedString( element.id ) ) {
                         element.id = newGuid();
                     }
@@ -83,6 +85,7 @@
                     };
 
                     renderControl( bindingOptions );
+                    fireCustomTrigger( bindingOptions.onRenderComplete, element );
 
                 } else {
                     if ( !_configuration.safeMode ) {
@@ -231,7 +234,7 @@
             date = new Date( year, month, actualDay ),
             dateCount = _elements_DateCounts[ bindingOptions.element.id ][ toStorageDate( date ) ];
 
-        day.title = actualDay.toString() + getDayOrdinal( actualDay ) + _string.space + _configuration.monthNames[ month ] + _string.space + year;
+        day.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
         currentDayColumn.appendChild( day );
 
         day.onclick = function() {
@@ -306,6 +309,7 @@
 
     function buildAttributeOptionStrings( options ) {
         options.titleText = getDefaultString( options.titleText, "Heat.js" );
+        options.dayToolTipText = getDefaultString( options.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
 
         return options;
     }
@@ -314,6 +318,9 @@
         options.onDayClick = getDefaultFunction( options.onDayClick, null );
         options.onBackYear = getDefaultFunction( options.onBackYear, null );
         options.onNextYear = getDefaultFunction( options.onNextYear, null );
+        options.onRefresh = getDefaultFunction( options.onRefresh, null );
+        options.onBeforeRender = getDefaultFunction( options.onBeforeRender, null );
+        options.onRenderComplete = getDefaultFunction( options.onRenderComplete, null );
 
         return options;
     }
@@ -343,6 +350,28 @@
         } else if ( value === 23 || value === 3 ) {
             result = _configuration.rdText;
         }
+
+        return result;
+    }
+
+    function getCustomFormattedDateText( dateFormat, date ) {
+        var result = dateFormat,
+            weekDayNumber = getWeekdayNumber( date );
+
+        result = result.replace( "{dddd}", _configuration.dayNames[ weekDayNumber ] );
+        result = result.replace( "{dd}", padNumber( date.getDate() ) );
+        result = result.replace( "{d}", date.getDate() );
+
+        result = result.replace( "{o}", getDayOrdinal( date.getDate() ) );
+
+        result = result.replace( "{mmmm}", _configuration.monthNames[ date.getMonth() ] );
+        result = result.replace( "{mm}", padNumber( date.getMonth() + 1 ) );
+        result = result.replace( "{m}", date.getMonth() + 1 );
+
+        result = result.replace( "{yyyy}", date.getFullYear() );
+        result = result.replace( "{yyy}", date.getFullYear().toString().substring( 1 ) );
+        result = result.replace( "{yy}", date.getFullYear().toString().substring( 2 ) );
+        result = result.replace( "{y}", parseInt( date.getFullYear().toString().substring( 2 ) ).toString() );
 
         return result;
     }
@@ -514,6 +543,12 @@
         return result.join( _string.empty );
     }
 
+    function padNumber( number ) {
+        var numberString = number.toString();
+
+        return numberString.length === 1 ? "0" + numberString : numberString;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -524,13 +559,13 @@
     /**
      * addDate().
      * 
-     * Adds a date for a specific element ID, and refreshes the UI (if specified).
+     * Adds a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is increased by one.
      * 
      * @public
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
      * @param       {Date}      date                                        The date to add.
-     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refresh (defaults to true).
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
@@ -545,6 +580,66 @@
             }
     
             _elements_DateCounts[ elementId ][ storageDate ]++;
+
+            if ( triggerRefresh ) {
+                renderControl( _elements_DateCounts[ elementId ].options );
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * removeDate().
+     * 
+     * Removes a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is decreased by one.
+     * 
+     * @public
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
+     * @param       {Date}      date                                        The date to removed.
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.removeDate = function( elementId, date, triggerRefresh ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var storageDate = toStorageDate( date );
+
+            if ( _elements_DateCounts[ elementId ].hasOwnProperty( storageDate ) ) {
+                triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+
+                _elements_DateCounts[ elementId ][ storageDate ]--;
+
+                if ( triggerRefresh ) {
+                    renderControl( _elements_DateCounts[ elementId ].options );
+                }
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * reset().
+     * 
+     * Removes all the dates for a specific element ID, and refreshes the UI (if specified).
+     * 
+     * @public
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.reset = function( elementId, triggerRefresh ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+            
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+            _elements_DateCounts[ elementId ] = {};
+            _elements_DateCounts[ elementId ].options = bindingOptions;
 
             if ( triggerRefresh ) {
                 renderControl( _elements_DateCounts[ elementId ].options );
@@ -578,7 +673,10 @@
      */
     this.refresh = function( elementId ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
-            renderControl( _elements_DateCounts[ elementId ].options );
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+            renderControl( bindingOptions );
+            fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.element );
         }
 
         return this;
@@ -596,7 +694,10 @@
     this.refreshAll = function() {
         for ( var elementId in _elements_DateCounts ) {
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
-                renderControl( _elements_DateCounts[ elementId ].options );
+                var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+                renderControl( bindingOptions );
+                fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.element );
             }
         }
 
@@ -720,7 +821,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "0.1.0";
+        return "0.2.0";
     };
 
 
