@@ -175,7 +175,8 @@
         var map = createElement( "div", "map" );
         bindingOptions.element.appendChild( map );
 
-        var currentYear = bindingOptions.currentView.year;
+        var currentYear = bindingOptions.currentView.year,
+            monthAdded = false;
 
         if ( bindingOptions.showDayNames ) {
             var days = createElement( "div", "days" );
@@ -245,9 +246,11 @@
                     actualDay++;
                 }
 
-                if ( firstDayNumberInMonth > 0 && isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps ) {
+                if ( firstDayNumberInMonth > 0 && isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps && monthAdded ) {
                     month.style.marginLeft = -_elements_Day_Width + "px";
                 }
+
+                monthAdded = true;
             }
         }
     }
