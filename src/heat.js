@@ -4,7 +4,7 @@
  * A lightweight, and easy-to-use, JavaScript library for generating high quality heat maps for dates.
  * 
  * @file        observe.js
- * @version     v0.3.0
+ * @version     v0.4.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -881,7 +881,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "0.3.0";
+        return "0.4.0";
     };
 
 
