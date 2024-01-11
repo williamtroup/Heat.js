@@ -525,7 +525,7 @@
     /**
      * addDate().
      * 
-     * Adds a date for a specific element ID, and refreshes the UI (if specified).
+     * Adds a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is increased by one.
      * 
      * @public
      * 
@@ -549,6 +549,37 @@
 
             if ( triggerRefresh ) {
                 renderControl( _elements_DateCounts[ elementId ].options );
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * removeDate().
+     * 
+     * Removes a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is decreased by one.
+     * 
+     * @public
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
+     * @param       {Date}      date                                        The date to removed.
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refresh (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.removeDate = function( elementId, date, triggerRefresh ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var storageDate = toStorageDate( date );
+
+            if ( _elements_DateCounts[ elementId ].hasOwnProperty( storageDate ) ) {
+                triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+
+                _elements_DateCounts[ elementId ][ storageDate ]--;
+
+                if ( triggerRefresh ) {
+                    renderControl( _elements_DateCounts[ elementId ].options );
+                }
             }
         }
 

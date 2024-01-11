@@ -21,7 +21,8 @@
 
         <div class="contents">
             <h2>Manage Dates:</h2>
-            <button class="btn btn-primary" onclick="addDates();">Add Dates</button>
+            <button class="btn btn-primary" onclick="updateDates( false );">Add Dates</button>
+            <button class="btn btn-primary" onclick="updateDates( true );">Remove Dates</button>
             <br />
 
             <h2>Manage Instances:</h2>
@@ -48,7 +49,7 @@
             } );
         }
 
-        function addDates() {
+        function updateDates( remove ) {
             var date = new Date( new Date().getFullYear(), 0, 1 );
 
             for ( var dayNumber = 0; dayNumber < 3500; dayNumber++ ) {
@@ -57,7 +58,11 @@
 
                 newDate.setDate( newDate.getDate() + daysToIncrease );
 
-                $heat.addDate( "heat-map", newDate, false );
+                if ( !remove ) {
+                    $heat.addDate( "heat-map", newDate, false );
+                } else {
+                    $heat.removeDate( "heat-map", newDate, false );
+                }
             }
 
             $heat.refreshAll();

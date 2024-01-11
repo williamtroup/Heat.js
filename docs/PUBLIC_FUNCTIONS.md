@@ -9,7 +9,7 @@ Below is a list of all the public functions that can be called from the Heat.js 
 ## Manage Dates:
 
 ### **addDate( *elementId*, *date*, *[triggerRefresh]* )**:
-Adds a date for a specific element ID, and refreshes the UI (if specified).
+Adds a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is increased by one.
 <br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the new date.
 <br>
@@ -18,6 +18,19 @@ Adds a date for a specific element ID, and refreshes the UI (if specified).
 ***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refresh (defaults to true).
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **removeDate( *elementId*, *date*, *[triggerRefresh]* )**:
+Removes a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is decreased by one.
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the updated date.
+<br>
+***Parameter: date***: '*Date*' - The date to remove.
+<br>
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refresh (defaults to true).
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
 <br>
 <br>
 
