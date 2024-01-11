@@ -3,20 +3,20 @@
 ## Version 0.4.0:
 
 #### **New Features:**
-- The heat map colors that are displayed can now be toggled on/off by clicking the associated color inn the guide.
+- The heat map colors that are displayed can now be toggled on/off by clicking the associated color in the guide.
 
 #### **Binding Options - Custom Triggers:**
 - Added a new binding option called "onDestroy", which states an event that should be triggered when a heatmap is destroyed.
 - Added a new binding option called "mapRangeColors", which works as it did before, but can now be set per heatmap.
-- Added "id" support for "mapRangeColors", which states a unique identifier to use for the color item.
-- Added "tooltipText" support for "mapRangeColors", which states the tooltip text to use for the color item in the guide.
+- Added "id" support for "mapRangeColors", which states a unique identifier to use for the color item (optional).
+- Added "tooltipText" support for "mapRangeColors", which states the tooltip text to use for the color item in the guide (optional).
 
 #### **Configuration Options:**
 - Removed the configuration option called "mapRangeColors".
 
 #### **Public Functions:**
-- Added new public function "destroy()", which will revert a heatmap DOM element back to its original state.
-- Added new public function "destroyAll()", which will revert all heatmap DOM elements back to their original state.
+- Added new public function "destroy()", which will revert a heatmap DOM element to its original state.
+- Added new public function "destroyAll()", which will revert all heatmap DOM elements to their original state.
 
 #### **CSS:**
 - Added a new ":root" variable called "--border-size-day", which states the border size for the days shown in the heatmap (now slightly thicker).
