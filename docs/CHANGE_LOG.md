@@ -9,6 +9,9 @@
 - Added new public function "destroy()", which will revert a heatmap DOM element back to its original state.
 - Added new public function "destroyAll()", which will revert all heatmap DOM elements back to their original state.
 
+#### **CSS:**
+- Added a new ":root" variable called "--border-size-day", which states the border size for the days shown in the heatmap (now slightly thicker).
+
 <br>
 
 

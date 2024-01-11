@@ -18,6 +18,7 @@
   --border-radius: 0.5rem;
   --border-radius-day: 0.25rem;
   --border-size: 0.5px;
+  --border-size-day: 1px;
   --spacing: 10px;
   --spacing-font-size: 0.85rem;
   --transition: all .3s;
@@ -162,17 +163,17 @@ div.heat-js div.guide div.days div.day:last-child {
 }
 div.heat-js div.day-color-1 {
   background-color: rgba(57, 211, 83, 0.25) !important;
-  border: var(--border-size) solid rgba(57, 211, 83, 0.15) !important;
+  border: var(--border-size-day) solid rgba(57, 211, 83, 0.15) !important;
 }
 div.heat-js div.day-color-2 {
   background-color: rgba(57, 211, 83, 0.5) !important;
-  border: var(--border-size) solid rgba(57, 211, 83, 0.25) !important;
+  border: var(--border-size-day) solid rgba(57, 211, 83, 0.25) !important;
 }
 div.heat-js div.day-color-3 {
   background-color: rgba(57, 211, 83, 0.75) !important;
-  border: var(--border-size) solid rgba(57, 211, 83, 0.5) !important;
+  border: var(--border-size-day) solid rgba(57, 211, 83, 0.5) !important;
 }
 div.heat-js div.day-color-4 {
   background-color: rgb(57, 211, 83) !important;
-  border: var(--border-size) solid rgba(57, 211, 83, 0.75) !important;
+  border: var(--border-size-day) solid rgba(57, 211, 83, 0.75) !important;
 }/*# sourceMappingURL=heat.js.css.map */
