@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>jHeat.js</id>
-        <version>0.2.0</version>
+        <version>0.3.0</version>
         <title>Heat.js</title>
         <description>A lightweight, and easy-to-use, JavaScript library for generating high quality heat maps for dates.</description>
         <authors>William Troup</authors>
