@@ -165,15 +165,27 @@ div.heat-js div.day-color-1 {
   background-color: rgba(57, 211, 83, 0.25) !important;
   border: var(--border-size-day) solid rgba(57, 211, 83, 0.15) !important;
 }
+div.heat-js div.day-color-1:hover {
+  opacity: 0.7;
+}
 div.heat-js div.day-color-2 {
   background-color: rgba(57, 211, 83, 0.5) !important;
   border: var(--border-size-day) solid rgba(57, 211, 83, 0.25) !important;
+}
+div.heat-js div.day-color-2:hover {
+  opacity: 0.7;
 }
 div.heat-js div.day-color-3 {
   background-color: rgba(57, 211, 83, 0.75) !important;
   border: var(--border-size-day) solid rgba(57, 211, 83, 0.5) !important;
 }
+div.heat-js div.day-color-3:hover {
+  opacity: 0.7;
+}
 div.heat-js div.day-color-4 {
   background-color: rgb(57, 211, 83) !important;
   border: var(--border-size-day) solid rgba(57, 211, 83, 0.75) !important;
+}
+div.heat-js div.day-color-4:hover {
+  opacity: 0.7;
 }/*# sourceMappingURL=heat.js.css.map */

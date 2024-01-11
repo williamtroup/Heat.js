@@ -203,20 +203,36 @@ div.heat-js {
     div.day-color-1 {
         background-color: rgba( 57, 211, 83, 0.25 ) !important;
         border: var(--border-size-day) solid rgba( 57, 211, 83, 0.15 ) !important;
+
+        &:hover {
+            opacity: 0.7;
+        }
     }
 
     div.day-color-2 {
         background-color: rgba( 57, 211, 83, 0.5 ) !important;
         border: var(--border-size-day) solid rgba( 57, 211, 83, 0.25 ) !important;
+
+        &:hover {
+            opacity: 0.7;
+        }
     }
 
     div.day-color-3 {
         background-color: rgba( 57, 211, 83, 0.75 ) !important;
         border: var(--border-size-day) solid rgba( 57, 211, 83, 0.5 ) !important;
+
+        &:hover {
+            opacity: 0.7;
+        }
     }
 
     div.day-color-4 {
         background-color: rgba( 57, 211, 83, 1 ) !important;
         border: var(--border-size-day) solid rgba( 57, 211, 83, 0.75 ) !important;
+
+        &:hover {
+            opacity: 0.7;
+        }
     }
 }

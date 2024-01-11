@@ -11,6 +11,7 @@
 
 #### **CSS:**
 - Added a new ":root" variable called "--border-size-day", which states the border size for the days shown in the heatmap (now slightly thicker).
+- Added hover effects to the day CSS classes "div.day-color-*".
 
 <br>
 
