@@ -5,6 +5,16 @@ Below is a list of all the custom triggers supported in the "data-heat-options" 
 <br>
 
 
+## For Rendering:
+
+### options.onRefresh( *element* ):
+Fires when a rendered heat map is refreshed.
+<br>
+***Parameter:*** element: '*Object*' - The element that was refreshed.
+<br>
+<br>
+
+
 ## For Year Selections:
 
 ### options.onBackYear( *year* ):

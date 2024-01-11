@@ -20,11 +20,11 @@
       a.showYearSelector && (c = g("button", "back"), c.innerHTML = d.backButtonText, b.appendChild(c), c.onclick = function() {
         a.currentView.year--;
         x(a);
-        C(a.onBackYear, a.currentView.year);
+        y(a.onBackYear, a.currentView.year);
       }, a.currentView.yearText = g("div", "year-text"), a.currentView.yearText.innerHTML = a.currentView.year, b.appendChild(a.currentView.yearText), c = g("button", "next"), c.innerHTML = d.nextButtonText, b.appendChild(c), c.onclick = function() {
         a.currentView.year++;
         x(a);
-        C(a.onNextYear, a.currentView.year);
+        y(a.onNextYear, a.currentView.year);
       });
     }
   }
@@ -43,8 +43,8 @@
     }
     h = g("div", "months");
     b.appendChild(h);
-    b = d.mapRangeColors.sort(function(t, D) {
-      return D.range - t.range;
+    b = d.mapRangeColors.sort(function(t, E) {
+      return E.range - t.range;
     });
     for (f = 0; 12 > f; f++) {
       if (-1 < a.monthsToShow.indexOf(f + 1)) {
@@ -79,7 +79,7 @@
     c.title = l.toString() + T(l) + r.space + d.monthNames[h] + r.space + f;
     b.appendChild(c);
     c.onclick = function() {
-      C(a.onDayClick, m);
+      y(a.onDayClick, m);
     };
     b = d.mapRangeColors.length;
     for (h = 0; h < b; h++) {
@@ -126,51 +126,51 @@
   function u(a) {
     return null !== a && void 0 !== a && a !== r.empty;
   }
-  function B(a) {
+  function C(a) {
     return u(a) && "object" === typeof a;
   }
   function M(a) {
     return u(a) && "boolean" === typeof a;
   }
-  function y(a) {
+  function z(a) {
     return u(a) && "string" === typeof a;
   }
-  function E(a) {
+  function F(a) {
     return u(a) && "function" === typeof a;
   }
   function K(a) {
     return u(a) && "number" === typeof a;
   }
-  function F(a) {
-    return B(a) && a instanceof Array;
+  function G(a) {
+    return C(a) && a instanceof Array;
   }
   function g(a, b) {
     var c = a.toLowerCase();
     var h = "text" === c;
-    G.hasOwnProperty(c) || (G[c] = h ? z.createTextNode(r.empty) : z.createElement(c));
-    c = G[c].cloneNode(!1);
+    H.hasOwnProperty(c) || (H[c] = h ? A.createTextNode(r.empty) : A.createElement(c));
+    c = H[c].cloneNode(!1);
     u(b) && (c.className = b);
     return c;
   }
-  function C(a) {
-    E(a) && a.apply(null, [].slice.call(arguments, 1));
+  function y(a) {
+    F(a) && a.apply(null, [].slice.call(arguments, 1));
   }
   function q(a, b) {
-    return y(a) ? a : b;
+    return z(a) ? a : b;
   }
-  function A(a, b) {
+  function B(a, b) {
     return M(a) ? a : b;
   }
-  function H(a, b) {
-    return E(a) ? a : b;
+  function D(a, b) {
+    return F(a) ? a : b;
   }
   function U(a) {
     var b = !0, c = null;
     try {
-      y(a) && (c = JSON.parse(a));
+      z(a) && (c = JSON.parse(a));
     } catch (h) {
       try {
-        c = eval("(" + a + ")"), E(c) && (c = c());
+        c = eval("(" + a + ")"), F(c) && (c = c());
       } catch (f) {
         d.safeMode || (console.error("Errors in object: " + h.message + ", " + f.message), b = !1), c = null;
       }
@@ -181,14 +181,14 @@
     return a.getFullYear() + "-" + a.getMonth() + "-" + a.getDate();
   }
   function N() {
-    d.safeMode = A(d.safeMode, !0);
+    d.safeMode = B(d.safeMode, !0);
     var a = d, b = d.domElementTypes, c = ["*"];
-    y(b) ? (b = b.split(r.space), 0 === b.length && (b = c)) : b = F(b) ? b : c;
+    z(b) ? (b = b.split(r.space), 0 === b.length && (b = c)) : b = G(b) ? b : c;
     a.domElementTypes = b;
     a = d;
     c = d.mapRangeColors;
     b = [{minimum:10, cssClassName:"day-color-1"}, {minimum:15, cssClassName:"day-color-2"}, {minimum:20, cssClassName:"day-color-3"}, {minimum:25, cssClassName:"day-color-4"}];
-    c = F(c) ? c : b;
+    c = G(c) ? c : b;
     a.mapRangeColors = c;
     d.stText = q(d.stText, "st");
     d.ndText = q(d.ndText, "nd");
@@ -203,25 +203,29 @@
   }
   function I(a, b) {
     b = K(b) ? b : 1;
-    return !F(a) || a.length < b;
+    return !G(a) || a.length < b;
   }
-  var z = null, J = null, d = {}, r = {empty:"", space:" "}, G = {}, p = {};
+  var A = null, J = null, d = {}, r = {empty:"", space:" "}, H = {}, p = {};
   this.addDate = function(a, b, c) {
     p.hasOwnProperty(a) && (c = M(c) ? c : !0, b = L(b), p[a].hasOwnProperty(b) || (p[a][b] = 0), p[a][b]++, c && x(p[a].options));
     return this;
   };
   this.refresh = function(a) {
-    p.hasOwnProperty(a) && x(p[a].options);
+    p.hasOwnProperty(a) && (a = p[a].options, x(a), y(a.onRefresh, a.element));
     return this;
   };
   this.refreshAll = function() {
     for (var a in p) {
-      p.hasOwnProperty(a) && x(p[a].options);
+      if (p.hasOwnProperty(a)) {
+        var b = p[a].options;
+        x(b);
+        y(b.onRefresh, b.element);
+      }
     }
     return this;
   };
   this.setConfiguration = function(a) {
-    d = B(a) ? a : {};
+    d = C(a) ? a : {};
     N();
     return this;
   };
@@ -229,38 +233,39 @@
     return "0.2.0";
   };
   (function(a, b) {
-    z = a;
+    A = a;
     J = b;
     N();
-    z.addEventListener("DOMContentLoaded", function() {
+    A.addEventListener("DOMContentLoaded", function() {
       for (var c = d.domElementTypes, h = c.length, f = 0; f < h; f++) {
-        var k = z.getElementsByTagName(c[f]);
+        var k = A.getElementsByTagName(c[f]);
         k = [].slice.call(k);
         for (var l = k.length, m = 0; m < l; m++) {
           var n = k[m], v = !0;
           if (u(n) && n.hasAttribute("data-heat-options")) {
             var e = n.getAttribute("data-heat-options");
-            if (y(e)) {
-              if (e = U(e), e.parsed && B(e.result)) {
+            if (z(e)) {
+              if (e = U(e), e.parsed && C(e.result)) {
                 e = e.result;
-                e = B(e) ? e : {};
-                e.showDayNames = A(e.showDayNames, !0);
-                e.showGuide = A(e.showGuide, !0);
-                e.showTitle = A(e.showTitle, !0);
-                e.showYearSelector = A(e.showYearSelector, !0);
+                e = C(e) ? e : {};
+                e.showDayNames = B(e.showDayNames, !0);
+                e.showGuide = B(e.showGuide, !0);
+                e.showTitle = B(e.showTitle, !0);
+                e.showYearSelector = B(e.showYearSelector, !0);
                 I(d.monthsToShow, 12) && (e.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
                 e.titleText = q(e.titleText, "Heat.js");
-                e.onDayClick = H(e.onDayClick, null);
-                e.onBackYear = H(e.onBackYear, null);
-                e.onNextYear = H(e.onNextYear, null);
+                e.onDayClick = D(e.onDayClick, null);
+                e.onBackYear = D(e.onBackYear, null);
+                e.onNextYear = D(e.onNextYear, null);
+                e.onRefresh = D(e.onRefresh, null);
                 e.element = n;
                 e.currentView = {};
-                if (!y(n.id)) {
+                if (!z(n.id)) {
                   var w = [];
                   for (var t = 0; 32 > t; t++) {
                     8 !== t && 12 !== t && 16 !== t && 20 !== t || w.push("-");
-                    var D = Math.floor(16 * Math.random()).toString(16);
-                    w.push(D);
+                    var E = Math.floor(16 * Math.random()).toString(16);
+                    w.push(E);
                   }
                   w = w.join(r.empty);
                   n.id = w;

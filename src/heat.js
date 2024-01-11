@@ -314,6 +314,7 @@
         options.onDayClick = getDefaultFunction( options.onDayClick, null );
         options.onBackYear = getDefaultFunction( options.onBackYear, null );
         options.onNextYear = getDefaultFunction( options.onNextYear, null );
+        options.onRefresh = getDefaultFunction( options.onRefresh, null );
 
         return options;
     }
@@ -578,7 +579,10 @@
      */
     this.refresh = function( elementId ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
-            renderControl( _elements_DateCounts[ elementId ].options );
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+            renderControl( bindingOptions );
+            fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.element );
         }
 
         return this;
@@ -596,7 +600,10 @@
     this.refreshAll = function() {
         for ( var elementId in _elements_DateCounts ) {
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
-                renderControl( _elements_DateCounts[ elementId ].options );
+                var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+                renderControl( bindingOptions );
+                fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.element );
             }
         }
 
