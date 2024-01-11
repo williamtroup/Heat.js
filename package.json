@@ -2,7 +2,7 @@
     "name": "jheat.js",
     "title": "Heat.js",
     "description": "A lightweight, and easy-to-use, JavaScript library for generating high quality heat maps for dates.",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "main": "dist/heat.js",
     "author": {
       "name": "Bunoon"
