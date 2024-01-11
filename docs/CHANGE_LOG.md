@@ -3,7 +3,11 @@
 ## Version 0.4.0:
 
 #### **Binding Options - Custom Triggers:**
-- Added a new binding option called "onDestroy", which states an event that should be triggered when a heatmap is destroyed
+- Added a new binding option called "onDestroy", which states an event that should be triggered when a heatmap is destroyed.
+- Added a new binding option called "mapRangeColors", which works as it did before, but can now be set per heatmap.
+
+#### **Configuration Options:**
+- Removed the configuration option called "mapRangeColors".
 
 #### **Public Functions:**
 - Added new public function "destroy()", which will revert a heatmap DOM element back to its original state.

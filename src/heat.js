@@ -194,7 +194,7 @@
         var months = createElement( "div", "months" );
         map.appendChild( months );
 
-        var mapRangeColors = _configuration.mapRangeColors.sort( function( a, b ) {
+        var mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
             return b.range - a.range;
         } );
 
@@ -268,7 +268,7 @@
             fireCustomTrigger( bindingOptions.onDayClick, date );
         };
 
-        var mapRangeColorsLength = _configuration.mapRangeColors.length,
+        var mapRangeColorsLength = bindingOptions.mapRangeColors.length,
             className = null;
     
         for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
@@ -305,7 +305,7 @@
             var days = createElement( "div", "days" );
             guide.appendChild( days );
 
-            var mapRangeColors = _configuration.mapRangeColors.sort( function( a, b ) {
+            var mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
                 return b.range - a.range;
             } );
 
@@ -347,6 +347,25 @@
         if ( isInvalidOptionArray( options.daysToShow ) ) {
             options.daysToShow = [ 1, 2, 3, 4, 5, 6, 7 ];
         }
+
+        options.mapRangeColors = getDefaultArray( options.mapRangeColors, [
+            {
+                minimum: 10,
+                cssClassName: "day-color-1"
+            },
+            {
+                minimum: 15,
+                cssClassName: "day-color-2"
+            },
+            {
+                minimum: 20,
+                cssClassName: "day-color-3"
+            },
+            {
+                minimum: 25,
+                cssClassName: "day-color-4"
+            }
+        ] );
 
         options = buildAttributeOptionStrings( options );
 
@@ -852,24 +871,6 @@
     function buildDefaultConfiguration() {
         _configuration.safeMode = getDefaultBoolean( _configuration.safeMode, true );
         _configuration.domElementTypes = getDefaultStringOrArray( _configuration.domElementTypes, [ "*" ] );
-        _configuration.mapRangeColors = getDefaultArray( _configuration.mapRangeColors, [
-            {
-                minimum: 10,
-                cssClassName: "day-color-1"
-            },
-            {
-                minimum: 15,
-                cssClassName: "day-color-2"
-            },
-            {
-                minimum: 20,
-                cssClassName: "day-color-3"
-            },
-            {
-                minimum: 25,
-                cssClassName: "day-color-4"
-            }
-        ] );
 
         buildDefaultConfigurationStrings();
         buildDefaultConfigurationArrays();
