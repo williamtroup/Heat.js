@@ -367,6 +367,7 @@
         options.onRefresh = getDefaultFunction( options.onRefresh, null );
         options.onBeforeRender = getDefaultFunction( options.onBeforeRender, null );
         options.onRenderComplete = getDefaultFunction( options.onRenderComplete, null );
+        options.onDestroy = getDefaultFunction( options.onDestroy, null );
 
         return options;
     }
@@ -758,6 +759,65 @@
                 renderControl( bindingOptions );
                 fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.element );
             }
+        }
+
+        return this;
+    };
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Public Functions:  Destroying
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    /**
+     * destroyAll().
+     * 
+     * Reverts all rendered elements back to their original state (without render attributes).
+     * 
+     * @public
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.destroyAll = function() {
+        for ( var elementId in _elements_DateCounts ) {
+            if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+                bindingOptions.element.innerHTML = _string.empty;
+                bindingOptions.element.className = _string.empty;
+
+                fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.element );
+            }
+        }
+
+        _elements_DateCounts = {};
+
+        return this;
+    };
+
+    /**
+     * destroy().
+     * 
+     * Reverts an element back to its original state (without render attributes).
+     * 
+     * @public
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID to destroy.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.destroy = function( elementId ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+            bindingOptions.element.innerHTML = _string.empty;
+            bindingOptions.element.className = _string.empty;
+
+            fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.element );
+
+            delete _elements_DateCounts[ elementId ];
         }
 
         return this;

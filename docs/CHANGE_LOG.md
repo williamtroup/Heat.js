@@ -1,7 +1,13 @@
 # Heat.js - Change Log:
 
 ## Version 0.4.0:
--
+
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option called "onDestroy", which states an event that should be triggered when a heatmap is destroyed
+
+#### **Public Functions:**
+- Added new public function "destroy()", which will revert a heatmap DOM element back to its original state.
+- Added new public function "destroyAll()", which will revert all heatmap DOM elements back to their original state.
 
 <br>
 

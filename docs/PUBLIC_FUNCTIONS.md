@@ -62,6 +62,23 @@ Refreshes all of the rendered Heat.js instances.
 <br>
 
 
+## Destroying:
+
+### **destroy( *elementId* )**:
+Reverts an element back to its original state (without render attributes).
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID to destroy.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+
+### **destroyAll()**:
+Reverts all rendered elements back to their original state (without render attributes).
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+<br>
+
+
 ## Configuration:
 
 ### **setConfiguration( *newOptions* )**:
