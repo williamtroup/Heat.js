@@ -157,6 +157,7 @@ div.heat-js div.guide div.days div.day {
   width: var(--spacing-font-size);
   height: var(--spacing-font-size);
   margin-right: 3px;
+  pointer-events: none;
 }
 div.heat-js div.guide div.days div.day:last-child {
   margin-right: 0;

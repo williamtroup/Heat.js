@@ -192,6 +192,7 @@ div.heat-js {
                 width: var(--spacing-font-size);
                 height: var(--spacing-font-size);
                 margin-right: 3px;
+                pointer-events: none;
 
                 &:last-child {
                     margin-right: 0;
