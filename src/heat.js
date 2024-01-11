@@ -4,7 +4,7 @@
  * A lightweight, and easy-to-use, JavaScript library for generating high quality heat maps for dates.
  * 
  * @file        observe.js
- * @version     v0.2.0
+ * @version     v0.3.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -27,6 +27,7 @@
 
         // Variables: Elements
         _elements_Type = {},
+        _elements_Day_Width = null,
 
         // Variables: Date Counts
         _elements_DateCounts = {},
@@ -119,7 +120,7 @@
             bindingOptions.currentView.year = new Date().getFullYear();
         }
 
-        if ( bindingOptions.showTitle || bindingOptions.showYearSelector ) {
+        if ( bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton ) {
             var year = createElement( "div", "year" );
             bindingOptions.element.appendChild( year );
     
@@ -127,6 +128,17 @@
                 var title = createElement( "div", "title" );
                 title.innerHTML = bindingOptions.titleText;
                 year.appendChild( title );
+            }
+
+            if ( bindingOptions.showRefreshButton ) {
+                var refresh = createElement( "button", "refresh" );
+                refresh.innerHTML = _configuration.refreshButtonText;
+                year.appendChild( refresh );
+        
+                refresh.onclick = function() {
+                    renderControl( bindingOptions );
+                    fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.element );
+                };
             }
     
             if ( bindingOptions.showYearSelector ) {
@@ -163,16 +175,19 @@
         var map = createElement( "div", "map" );
         bindingOptions.element.appendChild( map );
 
-        var currentYear = bindingOptions.currentView.year;
+        var currentYear = bindingOptions.currentView.year,
+            monthAdded = false;
 
         if ( bindingOptions.showDayNames ) {
             var days = createElement( "div", "days" );
             map.appendChild( days );
     
             for ( var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++ ) {
-                var dayName = createElement( "div", "day-name" );
-                dayName.innerHTML = _configuration.dayNames[ dayNameIndex ];
-                days.appendChild( dayName );
+                if ( bindingOptions.daysToShow.indexOf( dayNameIndex + 1 ) > -1 ) {
+                    var dayName = createElement( "div", "day-name" );
+                    dayName.innerHTML = _configuration.dayNames[ dayNameIndex ];
+                    days.appendChild( dayName );
+                }
             }
         }
 
@@ -202,7 +217,8 @@
                 dayColumns.appendChild( currentDayColumn );
     
                 var firstDayInMonth = new Date( currentYear, monthIndex, 1 ),
-                    firstDayNumberInMonth = getWeekdayNumber( firstDayInMonth );
+                    firstDayNumberInMonth = getWeekdayNumber( firstDayInMonth ),
+                    actualDay = 1;
     
                 totalDaysInMonth += firstDayNumberInMonth;
     
@@ -216,14 +232,25 @@
                     }
     
                     if ( startFillingDays ) {
-                        renderControlViewMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors );
+                        if ( bindingOptions.daysToShow.indexOf( actualDay ) > -1 ) {
+                            renderControlViewMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors );
+                        }
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
                             currentDayColumn = createElement( "div", "day-column" );
                             dayColumns.appendChild( currentDayColumn );
+                            actualDay = 0;
                         }
                     }
+
+                    actualDay++;
                 }
+
+                if ( firstDayNumberInMonth > 0 && isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps && monthAdded ) {
+                    month.style.marginLeft = -_elements_Day_Width + "px";
+                }
+
+                monthAdded = true;
             }
         }
     }
@@ -241,15 +268,28 @@
             fireCustomTrigger( bindingOptions.onDayClick, date );
         };
 
-        var mapRangeColorsLength = _configuration.mapRangeColors.length;
+        var mapRangeColorsLength = _configuration.mapRangeColors.length,
+            className = null;
     
         for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
             var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
 
             if ( dateCount >= mapRangeColor.minimum ) {
-                day.className += _string.space + mapRangeColor.cssClassName;
+                className = _string.space + mapRangeColor.cssClassName;
+            } else {
                 break;
             }
+        }
+
+        if ( isDefined( className ) ) {
+            day.className += _string.space + className;
+        }
+
+        if ( !isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps ) {
+            var marginLeft = getStyleValueByName( day, "margin-left" ),
+                marginRight = getStyleValueByName( day, "margin-right" );
+            
+            _elements_Day_Width = day.offsetWidth + parseInt( marginLeft, 10 ) + parseInt( marginRight, 10 );
         }
     }
 
@@ -297,9 +337,15 @@
         options.showGuide = getDefaultBoolean( options.showGuide, true );
         options.showTitle = getDefaultBoolean( options.showTitle, true );
         options.showYearSelector = getDefaultBoolean( options.showYearSelector, true );
+        options.showMonthDayGaps = getDefaultBoolean( options.showMonthDayGaps, true );
+        options.showRefreshButton = getDefaultBoolean( options.showRefreshButton, false );
 
-        if ( isInvalidOptionArray( _configuration.monthsToShow, 12 ) ) {
+        if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
+        }
+
+        if ( isInvalidOptionArray( options.daysToShow ) ) {
+            options.daysToShow = [ 1, 2, 3, 4, 5, 6, 7 ];
         }
 
         options = buildAttributeOptionStrings( options );
@@ -434,6 +480,19 @@
         }
 
         return result;
+    }
+
+    function getStyleValueByName( element, stylePropertyName ) {
+        var value = null;
+
+        if ( _parameter_Window.getComputedStyle ) {
+            value = document.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
+        }  
+        else if ( element.currentStyle ) {
+            value = element.currentStyle[ stylePropertyName ];
+        }                     
+
+        return value;
     }
 
 
@@ -763,6 +822,7 @@
         _configuration.thText = getDefaultString( _configuration.thText, "th" );
         _configuration.backButtonText = getDefaultString( _configuration.backButtonText, "Back" );
         _configuration.nextButtonText = getDefaultString( _configuration.nextButtonText, "Next" );
+        _configuration.refreshButtonText = getDefaultString( _configuration.refreshButtonText, "Refresh" );
         _configuration.lessText = getDefaultString( _configuration.lessText, "Less" );
         _configuration.moreText = getDefaultString( _configuration.moreText, "More" );
     }
@@ -821,7 +881,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "0.2.0";
+        return "0.3.0";
     };
 
 

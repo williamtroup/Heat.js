@@ -95,7 +95,7 @@ div.heat-js div.map div.months {
 }
 div.heat-js div.map div.months div.month {
   flex: 1;
-  margin-right: calc(var(--spacing) / 2);
+  pointer-events: none;
 }
 div.heat-js div.map div.months div.month:last-child {
   margin-right: 0;
@@ -121,6 +121,7 @@ div.heat-js div.map div.months div.month div.day-columns div.day-column div.day-
   margin-bottom: 0;
 }
 div.heat-js div.map div.months div.month div.day-columns div.day-column div.day {
+  pointer-events: all !important;
   background-color: var(--day-background-color);
   border: var(--border-size) solid var(--day-background-color);
 }
@@ -160,14 +161,18 @@ div.heat-js div.guide div.days div.day:last-child {
   margin-right: 0;
 }
 div.heat-js div.day-color-1 {
-  background-color: rgb(57, 211, 83) !important;
+  background-color: rgba(57, 211, 83, 0.25) !important;
+  border: var(--border-size) solid rgba(57, 211, 83, 0.15) !important;
 }
 div.heat-js div.day-color-2 {
-  background-color: rgba(57, 211, 83, 0.75) !important;
+  background-color: rgba(57, 211, 83, 0.5) !important;
+  border: var(--border-size) solid rgba(57, 211, 83, 0.25) !important;
 }
 div.heat-js div.day-color-3 {
-  background-color: rgba(57, 211, 83, 0.5) !important;
+  background-color: rgba(57, 211, 83, 0.75) !important;
+  border: var(--border-size) solid rgba(57, 211, 83, 0.5) !important;
 }
 div.heat-js div.day-color-4 {
-  background-color: rgba(57, 211, 83, 0.25) !important;
+  background-color: rgb(57, 211, 83) !important;
+  border: var(--border-size) solid rgba(57, 211, 83, 0.75) !important;
 }/*# sourceMappingURL=heat.js.css.map */

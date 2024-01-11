@@ -16,18 +16,25 @@
         </div>
 
         <div class="contents">
-            <div id="heat-map" data-heat-options="{ 'onDayClick': onDayClick }"></div>
+            <div id="heat-map-1" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': true }"></div>
+            <br>
+            <br>
+            <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': false, 'showRefreshButton': true }"></div>
         </div>
 
         <div class="contents">
             <h2>Manage Dates:</h2>
             <button class="btn btn-primary" onclick="updateDates( false );">Add Dates</button>
+            <button class="btn btn-primary" onclick="updateDatesFixed( false );">Add Date [Fixed]</button>
             <button class="btn btn-primary" onclick="updateDates( true );">Remove Dates</button>
-            <button class="btn btn-primary" onclick="$heat.reset( 'heat-map' );">Reset</button>
+            <button class="btn btn-primary" onclick="updateDatesFixed( true );">Remove Dates [Fixed]</button>
+            <button class="btn btn-primary" onclick="$heat.reset( 'heat-map-1' );">Reset (1)</button>
+            <button class="btn btn-primary" onclick="$heat.reset( 'heat-map-2' );">Reset (2)</button>
             <br />
 
             <h2>Manage Instances:</h2>
-            <button class="btn btn-primary" onclick="$heat.refresh( 'heat-map' );">Refresh</button>
+            <button class="btn btn-primary" onclick="$heat.refresh( 'heat-map-1' );">Refresh (1)</button>
+            <button class="btn btn-primary" onclick="$heat.refresh( 'heat-map-2' );">Refresh (2)</button>
             <button class="btn btn-primary" onclick="$heat.refreshAll();">Refresh All</button>
             <br />
 
@@ -50,23 +57,45 @@
             } );
         }
 
+        function updateDatesFixed( remove ) {
+            var date = new Date( new Date().getFullYear(), new Date().getMonth(), 1 ),
+                dateNumbers = [ 10, 15, 20, 25 ],
+                dateNumbersLength = dateNumbers.length;
+
+            for ( var dateNumbersIndex = 0; dateNumbersIndex < dateNumbersLength; dateNumbersIndex++ ) {
+                date.setDate( date.getDate() + 2 );
+
+                for ( var dateNumber = 0; dateNumber < dateNumbers[ dateNumbersIndex ]; dateNumber++ ) {
+                    addRemoveDates( date, remove );
+                }
+            }
+
+            $heat.refreshAll();
+        }
+
         function updateDates( remove ) {
             var date = new Date( new Date().getFullYear(), 0, 1 );
 
-            for ( var dayNumber = 0; dayNumber < 3500; dayNumber++ ) {
+            for ( var dayNumber = 0; dayNumber < 5000; dayNumber++ ) {
                 var daysToIncrease = Math.floor( Math.random() * 365 ),
                     newDate = new Date( date );
 
                 newDate.setDate( newDate.getDate() + daysToIncrease );
 
-                if ( !remove ) {
-                    $heat.addDate( "heat-map", newDate, false );
-                } else {
-                    $heat.removeDate( "heat-map", newDate, false );
-                }
+                addRemoveDates( newDate, remove );
             }
 
             $heat.refreshAll();
+        }
+
+        function addRemoveDates( newDate, remove ) {
+            if ( !remove ) {
+                $heat.addDate( "heat-map-1", newDate, false );
+                $heat.addDate( "heat-map-2", newDate, false );
+            } else {
+                $heat.removeDate( "heat-map-1", newDate, false );
+                $heat.removeDate( "heat-map-2", newDate, false );
+            }
         }
 
         function onDayClick( date ) {

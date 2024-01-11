@@ -116,7 +116,7 @@ div.heat-js {
     
             div.month {
                 flex: 1;
-                margin-right: calc( var(--spacing) / 2 );
+                pointer-events: none;
     
                 &:last-child {
                     margin-right: 0;
@@ -146,6 +146,7 @@ div.heat-js {
                         }
     
                         div.day {
+                            pointer-events: all !important;
                             background-color: var(--day-background-color);
                             border: var(--border-size) solid var(--day-background-color);
     
@@ -199,18 +200,22 @@ div.heat-js {
     }
 
     div.day-color-1 {
-        background-color: rgba( 57, 211, 83, 1 ) !important;
+        background-color: rgba( 57, 211, 83, 0.25 ) !important;
+        border: var(--border-size) solid rgba( 57, 211, 83, 0.15 ) !important;
     }
 
     div.day-color-2 {
-        background-color: rgba( 57, 211, 83, 0.75 ) !important;
+        background-color: rgba( 57, 211, 83, 0.5 ) !important;
+        border: var(--border-size) solid rgba( 57, 211, 83, 0.25 ) !important;
     }
 
     div.day-color-3 {
-        background-color: rgba( 57, 211, 83, 0.5 ) !important;
+        background-color: rgba( 57, 211, 83, 0.75 ) !important;
+        border: var(--border-size) solid rgba( 57, 211, 83, 0.5 ) !important;
     }
 
     div.day-color-4 {
-        background-color: rgba( 57, 211, 83, 0.25 ) !important;
+        background-color: rgba( 57, 211, 83, 1 ) !important;
+        border: var(--border-size) solid rgba( 57, 211, 83, 0.75 ) !important;
     }
 }
