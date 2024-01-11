@@ -12,6 +12,17 @@ Fires when a rendered heat map is refreshed.
 <br>
 ***Parameter:*** element: '*Object*' - The element that was refreshed.
 <br>
+
+### options.onBeforeRender( *element* ):
+Fires before the rendering of an element.
+<br>
+***Parameter:*** element: '*object*' - The DOM element that is going to be rendered.
+
+### options.onRenderComplete( *element* ):
+Fires when the rendering of an element is complete.
+<br>
+***Parameter:*** element: '*object*' - The DOM element that was rendered.
+
 <br>
 
 

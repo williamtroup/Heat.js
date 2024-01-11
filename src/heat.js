@@ -72,6 +72,8 @@
                     bindingOptions.element = element;
                     bindingOptions.currentView = {};
 
+                    fireCustomTrigger( bindingOptions.onBeforeRender, element );
+
                     if ( !isDefinedString( element.id ) ) {
                         element.id = newGuid();
                     }
@@ -83,6 +85,7 @@
                     };
 
                     renderControl( bindingOptions );
+                    fireCustomTrigger( bindingOptions.onRenderComplete, element );
 
                 } else {
                     if ( !_configuration.safeMode ) {
@@ -315,6 +318,8 @@
         options.onBackYear = getDefaultFunction( options.onBackYear, null );
         options.onNextYear = getDefaultFunction( options.onNextYear, null );
         options.onRefresh = getDefaultFunction( options.onRefresh, null );
+        options.onBeforeRender = getDefaultFunction( options.onBeforeRender, null );
+        options.onRenderComplete = getDefaultFunction( options.onRenderComplete, null );
 
         return options;
     }
