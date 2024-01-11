@@ -151,13 +151,15 @@ div.heat-js div.guide div.days {
   display: inline-block;
 }
 div.heat-js div.guide div.days div.day {
+  background-color: var(--day-background-color);
+  border: var(--border-size) solid var(--day-background-color);
   vertical-align: middle;
   display: inline-block;
   border-radius: var(--border-radius-day);
   width: var(--spacing-font-size);
   height: var(--spacing-font-size);
   margin-right: 3px;
-  pointer-events: none;
+  cursor: pointer;
 }
 div.heat-js div.guide div.days div.day:last-child {
   margin-right: 0;

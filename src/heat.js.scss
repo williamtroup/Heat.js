@@ -186,13 +186,15 @@ div.heat-js {
             display: inline-block;
             
             div.day {
+                background-color: var(--day-background-color);
+                border: var(--border-size) solid var(--day-background-color);
                 vertical-align: middle;
                 display: inline-block;
                 border-radius: var(--border-radius-day);
                 width: var(--spacing-font-size);
                 height: var(--spacing-font-size);
                 margin-right: 3px;
-                pointer-events: none;
+                cursor: pointer;
 
                 &:last-child {
                     margin-right: 0;

@@ -2,9 +2,14 @@
 
 ## Version 0.4.0:
 
+#### **New Features:**
+- The heat map colors that are displayed can now be toggled on/off by clicking the associated color inn the guide.
+
 #### **Binding Options - Custom Triggers:**
 - Added a new binding option called "onDestroy", which states an event that should be triggered when a heatmap is destroyed.
 - Added a new binding option called "mapRangeColors", which works as it did before, but can now be set per heatmap.
+- Added "id" support for "mapRangeColors", which states a unique identifier to use for the color item.
+- Added "tooltipText" support for "mapRangeColors", which states the tooltip text to use for the color item in the guide.
 
 #### **Configuration Options:**
 - Removed the configuration option called "mapRangeColors".
