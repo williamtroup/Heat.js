@@ -2,11 +2,21 @@
 
 ## Version 0.5.0:
 
+#### **New Features:**
+- The heat map can now export all data to a CSV file (off by default).
+
 #### **Binding Options:**
 - Added a new binding option called "showMonthNames", which states if the month names should be shown (defaults to true).
+- Added a new binding option called "showExportButton", which states if the "Export" button should be shown (defaults to false).
 
 #### **Binding Options - Custom Triggers:**
 - The binding option "onDayClick" now has two parameters: Date, Count.
+- Added a new binding option called "onExport", which states an event that should be triggered the a heatmap data is exported.
+
+#### **Configuration Options:**
+- Added a new configuration option called "exportButtonText", which states the text that should be shown for the "Export" button (defaults to "Export").
+- Added a new configuration option called "dateText", which states the text that should be shown for the "Date" CSV header (defaults to "Date").
+- Added a new configuration option called "countText", which states the text that should be shown for the "Count" CSV header (defaults to "Count").
 
 #### **General:**
 - Updated the projects main description.

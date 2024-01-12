@@ -22,7 +22,8 @@
         // Variables: Strings
         _string = {
             empty: "",
-            space: " "
+            space: " ",
+            newLine: "\n",
         },
 
         // Variables: Elements
@@ -121,7 +122,7 @@
             bindingOptions.currentView.year = new Date().getFullYear();
         }
 
-        if ( bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton ) {
+        if ( bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton ) {
             var year = createElement( "div", "year" );
             bindingOptions.element.appendChild( year );
     
@@ -129,6 +130,17 @@
                 var title = createElement( "div", "title" );
                 title.innerHTML = bindingOptions.titleText;
                 year.appendChild( title );
+            }
+
+            if ( bindingOptions.showExportButton ) {
+                var exportData = createElement( "button", "export" );
+                exportData.innerHTML = _configuration.exportButtonText;
+                year.appendChild( exportData );
+        
+                exportData.onclick = function() {
+                    exportAllData( bindingOptions );
+                    fireCustomTrigger( bindingOptions.onExport, bindingOptions.element );
+                };
             }
 
             if ( bindingOptions.showRefreshButton ) {
@@ -364,6 +376,77 @@
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Export
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function exportAllData( bindingOptions ) {
+        var csvContents = getCsvContent( bindingOptions );
+
+        if ( csvContents !== _string.empty ) {
+            var tempLink = createElement( "a" );
+            tempLink.style.display = "none";
+            tempLink.setAttribute( "target", "_blank" );
+            tempLink.setAttribute( "href", "data:text/csv;charset=utf-8," + encodeURIComponent( csvContents ) );
+            tempLink.setAttribute( "download", getCsvFilename() );
+    
+            _parameter_Document.body.appendChild( tempLink );
+            tempLink.click();
+            _parameter_Document.body.removeChild( tempLink );
+        }
+    }
+
+    function getCsvContent( bindingOptions ) {
+        var csvData = _elements_DateCounts[ bindingOptions.element.id ],
+            csvContents = [],
+            csvStorageDates = [];
+
+        csvContents.push( getCsvValueLine( [ getCsvValue( _configuration.dateText ), getCsvValue( _configuration.countText ) ] ) );
+
+        for ( var storageDate1 in csvData ) {
+            if ( csvData.hasOwnProperty( storageDate1 ) && storageDate1 !== "options" ) {
+                csvStorageDates.push( storageDate1 );
+            }
+        }
+
+        csvStorageDates.sort();
+
+        var csvStorageDatesLength = csvStorageDates.length;
+
+        for ( var csvStorageDateIndex = 0; csvStorageDateIndex < csvStorageDatesLength; csvStorageDateIndex++ ) {
+            var storageDate2 = csvStorageDates[ csvStorageDateIndex ];
+
+            if ( csvData.hasOwnProperty( storageDate2 ) && storageDate2 !== "options" ) {
+                csvContents.push( getCsvValueLine( [ getCsvValue( storageDate2 ), getCsvValue( csvData[ storageDate2 ] ) ] ) );
+            }
+        }
+        
+        return csvContents.join( _string.newLine );
+    }
+
+    function getCsvFilename() {
+        var date = new Date(),
+            datePart = padNumber( date.getDate() ) + "-" + padNumber( date.getMonth() + 1 ) + "-" + date.getFullYear(),
+            timePart = padNumber( date.getHours() ) + "-" + padNumber( date.getMinutes() );
+
+        return datePart + "_" + timePart + ".csv";
+    }
+
+    function getCsvValue( text ) {
+        text = text.toString().replace( /(\r\n|\n|\r)/gm, _string.empty ).replace( /(\s\s)/gm, _string.space );
+        text = text.replace( /"/g, '""' );
+        text = '"' + text + '"';
+
+        return text;
+    }
+
+    function getCsvValueLine( csvValues ) {
+        return csvValues.join( "," );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Options
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -377,6 +460,7 @@
         options.showMonthDayGaps = getDefaultBoolean( options.showMonthDayGaps, true );
         options.showRefreshButton = getDefaultBoolean( options.showRefreshButton, false );
         options.showMonthNames = getDefaultBoolean( options.showMonthNames, true );
+        options.showExportButton = getDefaultBoolean( options.showExportButton, false );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -437,6 +521,7 @@
         options.onBeforeRender = getDefaultFunction( options.onBeforeRender, null );
         options.onRenderComplete = getDefaultFunction( options.onRenderComplete, null );
         options.onDestroy = getDefaultFunction( options.onDestroy, null );
+        options.onExport = getDefaultFunction( options.onExport, null );
 
         return options;
     }
@@ -779,7 +864,7 @@
     };
 
     function toStorageDate( date ) {
-        return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+        return date.getFullYear() + "-" + padNumber( date.getMonth() + 1 ) + "-" + padNumber( date.getDate() );
     }
 
 
@@ -934,8 +1019,11 @@
         _configuration.backButtonText = getDefaultString( _configuration.backButtonText, "Back" );
         _configuration.nextButtonText = getDefaultString( _configuration.nextButtonText, "Next" );
         _configuration.refreshButtonText = getDefaultString( _configuration.refreshButtonText, "Refresh" );
+        _configuration.exportButtonText = getDefaultString( _configuration.exportButtonText, "Export" );
         _configuration.lessText = getDefaultString( _configuration.lessText, "Less" );
         _configuration.moreText = getDefaultString( _configuration.moreText, "More" );
+        _configuration.dateText = getDefaultString( _configuration.dateText, "Date" );
+        _configuration.countText = getDefaultString( _configuration.countText, "Count" );
     }
 
     function buildDefaultConfigurationArrays() {

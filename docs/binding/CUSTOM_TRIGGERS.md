@@ -58,6 +58,16 @@ Fires when a day is clicked in the heat map.
 <br>
 
 
+## For Data:
+
+### options.onExport( *element* ):
+Fires when the data for a heatmap is exported.
+<br>
+***Parameter:*** element: '*Object*' - The element that the data was export for.
+<br>
+<br>
+
+
 ## Binding Example:
 
 ```markdown
