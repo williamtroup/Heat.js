@@ -11,7 +11,7 @@
 
 #### **Binding Options - Custom Triggers:**
 - The binding option "onDayClick" now has two parameters: Date, Count.
-- Added a new binding option called "onExport", which states an event that should be triggered the a heatmap data is exported.
+- Added a new binding option called "onExport", which states an event that should be triggered when heatmap data is exported.
 
 #### **Configuration Options:**
 - Added a new configuration option called "exportButtonText", which states the text that should be shown for the "Export" button (defaults to "Export").
@@ -22,7 +22,7 @@
 - Added some spacing between the "Back" button and the "Refresh" and "Export" buttons.
 
 #### **General:**
-- Updated the projects main description.
+- Updated the project description.
 
 <br>
 
