@@ -1,7 +1,7 @@
 {
     "name": "jheat.js",
     "title": "Heat.js",
-    "description": "A lightweight, and easy-to-use, JavaScript library for generating high quality heat maps for dates.",
+    "description": "A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.",
     "version": "0.5.0",
     "main": "dist/heat.js",
     "author": {
