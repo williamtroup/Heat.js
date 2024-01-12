@@ -182,6 +182,11 @@
         if ( bindingOptions.showDayNames ) {
             var days = createElement( "div", "days" );
             map.appendChild( days );
+
+            if ( !bindingOptions.showMonthNames ) {
+                days.style.paddingTop = "0px";
+                days.style.marginTop = "-5px";
+            }
     
             for ( var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++ ) {
                 if ( bindingOptions.daysToShow.indexOf( dayNameIndex + 1 ) > -1 ) {
@@ -204,9 +209,11 @@
                 var month = createElement( "div", "month" );
                 months.appendChild( month );
     
-                var monthName = createElement( "div", "month-name" );
-                monthName.innerHTML = _configuration.monthNames[ monthIndex ];
-                month.appendChild( monthName );
+                if ( bindingOptions.showMonthNames ) {
+                    var monthName = createElement( "div", "month-name" );
+                    monthName.innerHTML = _configuration.monthNames[ monthIndex ];
+                    month.appendChild( monthName );
+                }
     
                 var dayColumns = createElement( "div", "day-columns" );
                 month.appendChild( dayColumns );
@@ -369,6 +376,7 @@
         options.showYearSelector = getDefaultBoolean( options.showYearSelector, true );
         options.showMonthDayGaps = getDefaultBoolean( options.showMonthDayGaps, true );
         options.showRefreshButton = getDefaultBoolean( options.showRefreshButton, false );
+        options.showMonthNames = getDefaultBoolean( options.showMonthNames, true );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];

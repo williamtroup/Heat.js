@@ -2,6 +2,9 @@
 
 ## Version 0.5.0:
 
+#### **Binding Options:**
+- Added a new binding option called "showMonthNames", which states if the month names should be shown (defaults to true).
+
 #### **Binding Options - Custom Triggers:**
 - The binding option "onDayClick" now has two parameters: Date, Count.
 
