@@ -16,8 +16,9 @@
 - Full API available via public functions.
 - Fully styled in CSS/SASS and compatible with the Bootstrap library.
 - Full CSS theme support (using :root variables).
-- Fully configurable per DOM element!
-- Toggling colors on/off support!
+- Fully configurable per DOM element.
+- Toggling colors on/off support.
+- Export all data to CSV.
 
 
 ## What browsers are supported?
