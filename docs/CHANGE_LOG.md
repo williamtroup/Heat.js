@@ -2,6 +2,9 @@
 
 ## Version 0.5.0:
 
+#### **Binding Options - Custom Triggers:**
+- The binding option "onDayClick" now has two parameters: Date, Count.
+
 #### **General:**
 - Updated the projects main description.
 

@@ -266,7 +266,7 @@
         currentDayColumn.appendChild( day );
 
         day.onclick = function() {
-            fireCustomTrigger( bindingOptions.onDayClick, date );
+            fireCustomTrigger( bindingOptions.onDayClick, date, dateCount );
         };
 
         var mapRangeColorsLength = bindingOptions.mapRangeColors.length,

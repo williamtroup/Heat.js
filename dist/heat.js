@@ -35,27 +35,27 @@
   function V(a) {
     var c = l("div", "map");
     a.element.appendChild(c);
-    var b = a.currentView.year, k = !1;
+    var b = a.currentView.year, g = !1;
     if (a.showDayNames) {
-      var g = l("div", "days");
-      c.appendChild(g);
+      var k = l("div", "days");
+      c.appendChild(k);
       for (var f = 0; 7 > f; f++) {
         if (-1 < a.daysToShow.indexOf(f + 1)) {
           var m = l("div", "day-name");
           m.innerHTML = e.dayNames[f];
-          g.appendChild(m);
+          k.appendChild(m);
         }
       }
     }
-    g = l("div", "months");
-    c.appendChild(g);
+    k = l("div", "months");
+    c.appendChild(k);
     c = a.mapRangeColors.sort(function(X, Y) {
       return Y.range - X.range;
     });
     for (f = 0; 12 > f; f++) {
       if (-1 < a.monthsToShow.indexOf(f + 1)) {
         m = l("div", "month");
-        g.appendChild(m);
+        k.appendChild(m);
         var n = l("div", "month-name");
         n.innerHTML = e.monthNames[f];
         m.appendChild(n);
@@ -75,27 +75,25 @@
           d && (-1 < a.daysToShow.indexOf(q) && aa(a, x, z - y, f, b, c), 0 === (z + 1) % 7 && (x = l("div", "day-column"), n.appendChild(x), q = 0));
           q++;
         }
-        0 < y && r(E) && !a.showMonthDayGaps && k && (m.style.marginLeft = -E + "px");
-        k = !0;
+        0 < y && r(E) && !a.showMonthDayGaps && g && (m.style.marginLeft = -E + "px");
+        g = !0;
       }
     }
   }
-  function aa(a, c, b, k, g, f) {
+  function aa(a, c, b, g, k, f) {
     var m = b + 1;
     b = l("div", "day");
-    var n = new Date(g, k, m);
-    k = h[a.element.id][J(n)];
+    var n = new Date(k, g, m), p = h[a.element.id][J(n)];
     b.title = ba(a.dayToolTipText, n);
     c.appendChild(b);
     b.onclick = function() {
-      w(a.onDayClick, n);
+      w(a.onDayClick, n, p);
     };
     c = a.mapRangeColors.length;
     g = null;
-    for (m = 0; m < c; m++) {
-      var p = f[m];
-      if (k >= p.minimum) {
-        g = p;
+    for (k = 0; k < c; k++) {
+      if (m = f[k], p >= m.minimum) {
+        g = m;
       } else {
         break;
       }
@@ -112,10 +110,10 @@
       c.appendChild(b);
       b = l("div", "days");
       c.appendChild(b);
-      for (var k = a.mapRangeColors.sort(function(m, n) {
+      for (var g = a.mapRangeColors.sort(function(m, n) {
         return n.range - m.range;
-      }), g = k.length, f = 0; f < g; f++) {
-        ca(a, b, k[f]);
+      }), k = g.length, f = 0; f < k; f++) {
+        ca(a, b, g[f]);
       }
       a = l("div", "more-text");
       a.innerHTML = e.moreText;
@@ -123,13 +121,13 @@
     }
   }
   function ca(a, c, b) {
-    var k = l("div");
-    k.title = b.tooltipText;
-    c.appendChild(k);
-    P(a, b.id) ? k.className = "day " + b.cssClassName : k.className = "day";
-    k.onclick = function() {
+    var g = l("div");
+    g.title = b.tooltipText;
+    c.appendChild(g);
+    P(a, b.id) ? g.className = "day " + b.cssClassName : g.className = "day";
+    g.onclick = function() {
       a.currentView.colorsVisible.hasOwnProperty(b.id) || (a.currentView.colorsVisible[b.id] = !0);
-      k.className = a.currentView.colorsVisible[b.id] ? "day" : "day " + b.cssClassName;
+      g.className = a.currentView.colorsVisible[b.id] ? "day" : "day " + b.cssClassName;
       a.currentView.colorsVisible[b.id] = !a.currentView.colorsVisible[b.id];
       u(a);
     };
@@ -141,20 +139,20 @@
     return 0 > a.getDay() - 1 ? 6 : a.getDay() - 1;
   }
   function ba(a, c) {
-    var b = a, k = O(c);
-    b = b.replace("{dddd}", e.dayNames[k]);
+    var b = a, g = O(c);
+    b = b.replace("{dddd}", e.dayNames[g]);
     b = b.replace("{dd}", R(c.getDate()));
     b = b.replace("{d}", c.getDate());
-    k = b.replace;
-    var g = c.getDate(), f = e.thText;
-    if (31 === g || 21 === g || 1 === g) {
+    g = b.replace;
+    var k = c.getDate(), f = e.thText;
+    if (31 === k || 21 === k || 1 === k) {
       f = e.stText;
-    } else if (22 === g || 2 === g) {
+    } else if (22 === k || 2 === k) {
       f = e.ndText;
-    } else if (23 === g || 3 === g) {
+    } else if (23 === k || 3 === k) {
       f = e.rdText;
     }
-    b = k.call(b, "{o}", f);
+    b = g.call(b, "{o}", f);
     b = b.replace("{mmmm}", e.monthNames[c.getMonth()]);
     b = b.replace("{mm}", R(c.getMonth() + 1));
     b = b.replace("{m}", c.getMonth() + 1);
@@ -186,8 +184,8 @@
   }
   function l(a, c) {
     var b = a.toLowerCase();
-    var k = "text" === b;
-    M.hasOwnProperty(b) || (M[b] = k ? D.createTextNode(v.empty) : D.createElement(b));
+    var g = "text" === b;
+    M.hasOwnProperty(b) || (M[b] = g ? D.createTextNode(v.empty) : D.createElement(b));
     b = M[b].cloneNode(!1);
     r(c) && (b.className = c);
     return b;
@@ -213,11 +211,11 @@
     var c = !0, b = null;
     try {
       C(a) && (b = JSON.parse(a));
-    } catch (k) {
+    } catch (g) {
       try {
         b = eval("(" + a + ")"), K(b) && (b = b());
-      } catch (g) {
-        e.safeMode || (console.error("Errors in object: " + k.message + ", " + g.message), c = !1), b = null;
+      } catch (k) {
+        e.safeMode || (console.error("Errors in object: " + g.message + ", " + k.message), c = !1), b = null;
       }
     }
     return {parsed:c, result:b};
@@ -326,8 +324,8 @@
     H = c;
     T();
     D.addEventListener("DOMContentLoaded", function() {
-      for (var b = e.domElementTypes, k = b.length, g = 0; g < k; g++) {
-        var f = D.getElementsByTagName(b[g]);
+      for (var b = e.domElementTypes, g = b.length, k = 0; k < g; k++) {
+        var f = D.getElementsByTagName(b[k]);
         f = [].slice.call(f);
         for (var m = f.length, n = 0; n < m; n++) {
           var p = f[n], x = !0;
