@@ -85,6 +85,10 @@ div.heat-js {
             }
         }
 
+        button.back {
+            margin-left: calc( var(--spacing) * 2 ) !important;
+        }
+
         div.year-text {
             margin-left: var(--spacing);
             margin-right: var(--spacing);

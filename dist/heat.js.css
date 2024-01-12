@@ -68,6 +68,9 @@ div.heat-js div.year button:hover {
   background: var(--button-background-color-hover);
   transition: var(--transition);
 }
+div.heat-js div.year button.back {
+  margin-left: calc(var(--spacing) * 2) !important;
+}
 div.heat-js div.year div.year-text {
   margin-left: var(--spacing);
   margin-right: var(--spacing);

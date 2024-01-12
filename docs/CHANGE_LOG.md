@@ -18,6 +18,9 @@
 - Added a new configuration option called "dateText", which states the text that should be shown for the "Date" CSV header (defaults to "Date").
 - Added a new configuration option called "countText", which states the text that should be shown for the "Count" CSV header (defaults to "Count").
 
+#### **CSS:**
+- Added some spacing between the "Back" button and the "Refresh" and "Export" buttons.
+
 #### **General:**
 - Updated the projects main description.
 
