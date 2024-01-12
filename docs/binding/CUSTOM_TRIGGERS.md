@@ -48,10 +48,22 @@ Fires when the year is moved forward.
 
 ## For Day Clicking:
 
-### options.onDayClick( *date* ):
+### options.onDayClick( *date*, *count* ):
 Fires when a day is clicked in the heat map.
 <br>
 ***Parameter:*** date: '*Date*' - The date that was clicked.
+<br>
+***Parameter:*** count: '*Number*' - The number of items for the date available.
+<br>
+<br>
+
+
+## For Data:
+
+### options.onExport( *element* ):
+Fires when the data for a heatmap is exported.
+<br>
+***Parameter:*** element: '*Object*' - The element that the data was exported for.
 <br>
 <br>
 

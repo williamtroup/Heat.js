@@ -19,7 +19,7 @@
             <div id="heat-map-1" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': true }"></div>
             <br>
             <br>
-            <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': false, 'showRefreshButton': true }"></div>
+            <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': false, 'showRefreshButton': true, 'showExportButton': true }"></div>
         </div>
 
         <div class="contents">
@@ -104,8 +104,8 @@
             }
         }
 
-        function onDayClick( date ) {
-            console.log( "Day clicked for: " + date.toString() );
+        function onDayClick( date, count ) {
+            console.log( "Day clicked for: " + date.toString() + ", Count: " + count );
         }
     </script>
 </html>
