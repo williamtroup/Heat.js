@@ -18,21 +18,21 @@
         c.appendChild(b);
       }
       a.showExportButton && (b = m("button", "export"), b.innerHTML = e.exportButtonText, c.appendChild(b), b.onclick = function() {
-        var f = l[a.element.id];
+        var f = k[a.element.id];
         var g = [];
         var h = [];
         g.push([F(e.dateText), F(e.countText)].join());
-        for (var k in f) {
-          f.hasOwnProperty(k) && "options" !== k && h.push(k);
+        for (var l in f) {
+          f.hasOwnProperty(l) && "options" !== l && h.push(l);
         }
         h.sort();
-        k = h.length;
-        for (var p = 0; p < k; p++) {
+        l = h.length;
+        for (var p = 0; p < l; p++) {
           var n = h[p];
           f.hasOwnProperty(n) && "options" !== n && g.push([F(n), F(f[n])].join());
         }
         g = g.join(q.newLine);
-        g !== q.empty && (f = m("a"), f.style.display = "none", f.setAttribute("target", "_blank"), f.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(g)), g = f.setAttribute, k = new Date(), h = z(k.getDate()) + "-" + z(k.getMonth() + 1) + "-" + k.getFullYear(), k = z(k.getHours()) + "-" + z(k.getMinutes()), g.call(f, "download", h + "_" + k + ".csv"), C.body.appendChild(f), f.click(), C.body.removeChild(f));
+        g !== q.empty && (f = m("a"), f.style.display = "none", f.setAttribute("target", "_blank"), f.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(g)), g = f.setAttribute, l = new Date(), h = z(l.getDate()) + "-" + z(l.getMonth() + 1) + "-" + l.getFullYear(), l = z(l.getHours()) + "-" + z(l.getMinutes()), g.call(f, "download", h + "_" + l + ".csv"), C.body.appendChild(f), f.click(), C.body.removeChild(f));
         u(a.onExport, a.element);
       });
       a.showRefreshButton && (b = m("button", "refresh"), b.innerHTML = e.refreshButtonText, c.appendChild(b), b.onclick = function() {
@@ -60,9 +60,9 @@
       a.showMonthNames || (g.style.paddingTop = "0px", g.style.marginTop = "-5px");
       for (var h = 0; 7 > h; h++) {
         if (-1 < a.daysToShow.indexOf(h + 1)) {
-          var k = m("div", "day-name");
-          k.innerHTML = e.dayNames[h];
-          g.appendChild(k);
+          var l = m("div", "day-name");
+          l.innerHTML = e.dayNames[h];
+          g.appendChild(l);
         }
       }
     }
@@ -73,15 +73,15 @@
     });
     for (h = 0; 12 > h; h++) {
       if (-1 < a.monthsToShow.indexOf(h + 1)) {
-        k = m("div", "month");
-        g.appendChild(k);
+        l = m("div", "month");
+        g.appendChild(l);
         if (a.showMonthNames) {
           var p = m("div", "month-name");
           p.innerHTML = e.monthNames[h];
-          k.appendChild(p);
+          l.appendChild(p);
         }
         p = m("div", "day-columns");
-        k.appendChild(p);
+        l.appendChild(p);
         var n = (new Date(b, h + 1, 0)).getDate(), x = m("div", "day-column"), d = !1;
         p.appendChild(x);
         var A = Q(new Date(b, h, 1)), t = 1;
@@ -96,15 +96,15 @@
           d && (-1 < a.daysToShow.indexOf(t) && ba(a, x, D - A, h, b, c), 0 === (D + 1) % 7 && (x = m("div", "day-column"), p.appendChild(x), t = 0));
           t++;
         }
-        0 < A && v(G) && !a.showMonthDayGaps && f && (k.style.marginLeft = -G + "px");
+        0 < A && v(G) && !a.showMonthDayGaps && f && (l.style.marginLeft = -G + "px");
         f = !0;
       }
     }
   }
   function ba(a, c, b, f, g, h) {
-    var k = b + 1;
+    var l = b + 1;
     b = m("div", "day");
-    var p = new Date(g, f, k), n = l[a.element.id][L(p)];
+    var p = new Date(g, f, l), n = k[a.element.id][L(p)];
     b.title = ca(a.dayToolTipText, p);
     c.appendChild(b);
     b.onclick = function() {
@@ -113,8 +113,8 @@
     c = a.mapRangeColors.length;
     f = null;
     for (g = 0; g < c; g++) {
-      if (k = h[g], n >= k.minimum) {
-        f = k;
+      if (l = h[g], n >= l.minimum) {
+        f = l;
       } else {
         break;
       }
@@ -131,8 +131,8 @@
       c.appendChild(b);
       b = m("div", "days");
       c.appendChild(b);
-      for (var f = a.mapRangeColors.sort(function(k, p) {
-        return p.range - k.range;
+      for (var f = a.mapRangeColors.sort(function(l, p) {
+        return p.range - l.range;
       }), g = f.length, h = 0; h < g; h++) {
         da(a, b, f[h]);
       }
@@ -285,33 +285,33 @@
     c = P(c) ? c : 1;
     return !N(a) || a.length < c;
   }
-  var C = null, J = null, e = {}, q = {empty:"", space:" ", newLine:"\n"}, O = {}, G = null, l = {};
+  var C = null, J = null, e = {}, q = {empty:"", space:" ", newLine:"\n"}, O = {}, G = null, k = {};
   this.addDate = function(a, c, b) {
-    l.hasOwnProperty(a) && (b = I(b) ? b : !0, c = L(c), l[a].hasOwnProperty(c) || (l[a][c] = 0), l[a][c]++, b && w(l[a].options));
+    k.hasOwnProperty(a) && (b = I(b) ? b : !0, c = L(c), k[a].hasOwnProperty(c) || (k[a][c] = 0), k[a][c]++, b && w(k[a].options));
     return this;
   };
   this.removeDate = function(a, c, b) {
-    l.hasOwnProperty(a) && (c = L(c), l[a].hasOwnProperty(c) && (b = I(b) ? b : !0, l[a][c]--, b && w(l[a].options)));
+    k.hasOwnProperty(a) && (c = L(c), k[a].hasOwnProperty(c) && (b = I(b) ? b : !0, 0 < k[a][c] && k[a][c]--, b && w(k[a].options)));
     return this;
   };
   this.reset = function(a, c) {
-    if (l.hasOwnProperty(a)) {
+    if (k.hasOwnProperty(a)) {
       c = I(c) ? c : !0;
-      var b = l[a].options;
-      l[a] = {};
-      l[a].options = b;
-      c && w(l[a].options);
+      var b = k[a].options;
+      k[a] = {};
+      k[a].options = b;
+      c && w(k[a].options);
     }
     return this;
   };
   this.refresh = function(a) {
-    l.hasOwnProperty(a) && (a = l[a].options, w(a), u(a.onRefresh, a.element));
+    k.hasOwnProperty(a) && (a = k[a].options, w(a), u(a.onRefresh, a.element));
     return this;
   };
   this.refreshAll = function() {
-    for (var a in l) {
-      if (l.hasOwnProperty(a)) {
-        var c = l[a].options;
+    for (var a in k) {
+      if (k.hasOwnProperty(a)) {
+        var c = k[a].options;
         w(c);
         u(c.onRefresh, c.element);
       }
@@ -319,24 +319,24 @@
     return this;
   };
   this.destroyAll = function() {
-    for (var a in l) {
-      if (l.hasOwnProperty(a)) {
-        var c = l[a].options;
+    for (var a in k) {
+      if (k.hasOwnProperty(a)) {
+        var c = k[a].options;
         c.element.innerHTML = q.empty;
         c.element.className = q.empty;
         u(c.onDestroy, c.element);
       }
     }
-    l = {};
+    k = {};
     return this;
   };
   this.destroy = function(a) {
-    if (l.hasOwnProperty(a)) {
-      var c = l[a].options;
+    if (k.hasOwnProperty(a)) {
+      var c = k[a].options;
       c.element.innerHTML = q.empty;
       c.element.className = q.empty;
       u(c.onDestroy, c.element);
-      delete l[a];
+      delete k[a];
     }
     return this;
   };
@@ -356,7 +356,7 @@
       for (var b = e.domElementTypes, f = b.length, g = 0; g < f; g++) {
         var h = C.getElementsByTagName(b[g]);
         h = [].slice.call(h);
-        for (var k = h.length, p = 0; p < k; p++) {
+        for (var l = h.length, p = 0; p < l; p++) {
           var n = h[p], x = !0;
           if (v(n) && n.hasAttribute("data-heat-options")) {
             var d = n.getAttribute("data-heat-options");
@@ -399,7 +399,7 @@
                 u(d.onBeforeRender, n);
                 E(n.id) || (n.id = T());
                 n.removeAttribute("data-heat-options");
-                l[n.id] = {options:d};
+                k[n.id] = {options:d};
                 w(d);
                 u(d.onRenderComplete, n);
               } else {

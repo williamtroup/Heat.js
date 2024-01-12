@@ -823,7 +823,9 @@
             if ( _elements_DateCounts[ elementId ].hasOwnProperty( storageDate ) ) {
                 triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
 
-                _elements_DateCounts[ elementId ][ storageDate ]--;
+                if ( _elements_DateCounts[ elementId ][ storageDate ] > 0 ) {
+                    _elements_DateCounts[ elementId ][ storageDate ]--;
+                }
 
                 if ( triggerRefresh ) {
                     renderControl( _elements_DateCounts[ elementId ].options );
