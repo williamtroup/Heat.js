@@ -1,6 +1,6 @@
 # Heat.js - Change Log:
 
-## Version 0.6.0:
+## Version 0.5.1:
 
 #### **Fixes:**
 - Fixed a fault that allowed date counts to go into negative values (when calling "removeDate()").
