@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v0.5.0
+ * @version     v0.5.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -306,10 +306,10 @@
         }
 
         if ( !isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps ) {
-            var marginLeft = getStyleValueByName( day, "margin-left" ),
-                marginRight = getStyleValueByName( day, "margin-right" );
+            var marginLeft = getStyleValueByName( day, "margin-left", true ),
+                marginRight = getStyleValueByName( day, "margin-right", true );
             
-            _elements_Day_Width = day.offsetWidth + parseInt( marginLeft, 10 ) + parseInt( marginRight, 10 );
+            _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
         }
     }
 
@@ -637,15 +637,21 @@
         return result;
     }
 
-    function getStyleValueByName( element, stylePropertyName ) {
+    function getStyleValueByName( element, stylePropertyName, toNumber ) {
         var value = null;
 
+        toNumber = isDefined( toNumber ) ? toNumber : false;
+
         if ( _parameter_Window.getComputedStyle ) {
-            value = document.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
+            value = _parameter_Document.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
         }  
         else if ( element.currentStyle ) {
             value = element.currentStyle[ stylePropertyName ];
-        }                     
+        }   
+        
+        if ( toNumber ) {
+            value = parseInt( value, 10 );
+        }
 
         return value;
     }
@@ -823,7 +829,9 @@
             if ( _elements_DateCounts[ elementId ].hasOwnProperty( storageDate ) ) {
                 triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
 
-                _elements_DateCounts[ elementId ][ storageDate ]--;
+                if ( _elements_DateCounts[ elementId ][ storageDate ] > 0 ) {
+                    _elements_DateCounts[ elementId ][ storageDate ]--;
+                }
 
                 if ( triggerRefresh ) {
                     renderControl( _elements_DateCounts[ elementId ].options );
@@ -1080,7 +1088,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "0.5.0";
+        return "0.5.1";
     };
 
 
