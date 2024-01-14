@@ -4,6 +4,7 @@
 
 #### **Fixes:**
 - Fixed a fault that allowed date counts to go into negative values (when calling "removeDate()").
+- Minor code improvement for future work plans.
 
 <br>
 

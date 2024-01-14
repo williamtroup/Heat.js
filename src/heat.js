@@ -306,10 +306,10 @@
         }
 
         if ( !isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps ) {
-            var marginLeft = getStyleValueByName( day, "margin-left" ),
-                marginRight = getStyleValueByName( day, "margin-right" );
+            var marginLeft = getStyleValueByName( day, "margin-left", true ),
+                marginRight = getStyleValueByName( day, "margin-right", true );
             
-            _elements_Day_Width = day.offsetWidth + parseInt( marginLeft, 10 ) + parseInt( marginRight, 10 );
+            _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
         }
     }
 
@@ -637,15 +637,21 @@
         return result;
     }
 
-    function getStyleValueByName( element, stylePropertyName ) {
+    function getStyleValueByName( element, stylePropertyName, toNumber ) {
         var value = null;
 
+        toNumber = isDefined( toNumber ) ? toNumber : false;
+
         if ( _parameter_Window.getComputedStyle ) {
-            value = document.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
+            value = _parameter_Document.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
         }  
         else if ( element.currentStyle ) {
             value = element.currentStyle[ stylePropertyName ];
-        }                     
+        }   
+        
+        if ( toNumber ) {
+            value = parseInt( value, 10 );
+        }
 
         return value;
     }
