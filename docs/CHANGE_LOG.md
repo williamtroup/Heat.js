@@ -5,6 +5,9 @@
 #### **New Features:**
 - Trend types support! This allows you to add data for various trend types, which can then be toggled in the guide under the map!
 
+#### **CSS:**
+- Renamed the "year" CSS class to "title-bar".
+
 #### **Fixes:**
 - Fixed the entire heatmap rendering slightly incorrectly when bootstrap is not available.
 

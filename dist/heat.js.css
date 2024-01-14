@@ -52,16 +52,16 @@ div.heat-js *::before, div.heat-js *::after {
   box-sizing: border-box;
   line-height: normal;
 }
-div.heat-js div.year {
+div.heat-js div.title-bar {
   text-align: right;
   margin-bottom: var(--spacing);
 }
-div.heat-js div.year div.title {
+div.heat-js div.title-bar div.title {
   float: left;
   font-weight: 800;
   font-size: 1.2rem;
 }
-div.heat-js div.year button {
+div.heat-js div.title-bar button {
   background-color: var(--button-background-color);
   border: var(--border-size) solid var(--button-border-color);
   color: var(--color-white);
@@ -71,20 +71,20 @@ div.heat-js div.year button {
   padding-left: 9px;
   padding-right: 9px;
 }
-div.heat-js div.year button:hover {
+div.heat-js div.title-bar button:hover {
   cursor: pointer;
   background: var(--button-background-color-hover);
   transition: var(--transition);
 }
-div.heat-js div.year button.active {
+div.heat-js div.title-bar button.active {
   cursor: default;
   background: var(--button-background-color-hover);
   transition: var(--transition);
 }
-div.heat-js div.year button.back {
+div.heat-js div.title-bar button.back {
   margin-left: calc(var(--spacing) * 2) !important;
 }
-div.heat-js div.year div.year-text {
+div.heat-js div.title-bar div.year-text {
   margin-left: var(--spacing);
   margin-right: var(--spacing);
   display: inline-block;

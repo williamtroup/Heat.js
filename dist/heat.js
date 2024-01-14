@@ -9,7 +9,7 @@
   function W(a) {
     P(a.currentView.year) || (a.currentView.year = (new Date()).getFullYear());
     if (a.showTitle || a.showYearSelector || a.showRefreshButton || a.showExportButton) {
-      var c = m("div", "year");
+      var c = m("div", "title-bar");
       a.element.appendChild(c);
       if (a.showTitle) {
         var b = m("div", "title");

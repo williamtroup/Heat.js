@@ -112,29 +112,29 @@
         bindingOptions.element.className = "heat-js";
         bindingOptions.element.innerHTML = _string.empty;
 
-        renderControlYear( bindingOptions );
+        renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions );
     }
 
-    function renderControlYear( bindingOptions ) {
+    function renderControlTitleBar( bindingOptions ) {
         if ( !isDefinedNumber( bindingOptions.currentView.year ) ) {
             bindingOptions.currentView.year = new Date().getFullYear();
         }
 
         if ( bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton ) {
-            var year = createElement( "div", "year" );
-            bindingOptions.element.appendChild( year );
+            var titleBar = createElement( "div", "title-bar" );
+            bindingOptions.element.appendChild( titleBar );
     
             if ( bindingOptions.showTitle ) {
                 var title = createElement( "div", "title" );
                 title.innerHTML = bindingOptions.titleText;
-                year.appendChild( title );
+                titleBar.appendChild( title );
             }
 
             if ( bindingOptions.showExportButton ) {
                 var exportData = createElement( "button", "export" );
                 exportData.innerHTML = _configuration.exportButtonText;
-                year.appendChild( exportData );
+                titleBar.appendChild( exportData );
         
                 exportData.onclick = function() {
                     exportAllData( bindingOptions );
@@ -145,7 +145,7 @@
             if ( bindingOptions.showRefreshButton ) {
                 var refresh = createElement( "button", "refresh" );
                 refresh.innerHTML = _configuration.refreshButtonText;
-                year.appendChild( refresh );
+                titleBar.appendChild( refresh );
         
                 refresh.onclick = function() {
                     renderControl( bindingOptions );
@@ -156,7 +156,7 @@
             if ( bindingOptions.showYearSelector ) {
                 var back = createElement( "button", "back" );
                 back.innerHTML = _configuration.backButtonText;
-                year.appendChild( back );
+                titleBar.appendChild( back );
         
                 back.onclick = function() {
                     bindingOptions.currentView.year--;
@@ -167,11 +167,11 @@
         
                 bindingOptions.currentView.yearText = createElement( "div", "year-text" );
                 bindingOptions.currentView.yearText.innerHTML = bindingOptions.currentView.year;
-                year.appendChild( bindingOptions.currentView.yearText );
+                titleBar.appendChild( bindingOptions.currentView.yearText );
         
                 var next = createElement( "button", "next" );
                 next.innerHTML = _configuration.nextButtonText;
-                year.appendChild( next );
+                titleBar.appendChild( next );
         
                 next.onclick = function() {
                     bindingOptions.currentView.year++;
