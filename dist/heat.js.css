@@ -68,6 +68,11 @@ div.heat-js div.year button:hover {
   background: var(--button-background-color-hover);
   transition: var(--transition);
 }
+div.heat-js div.year button.active {
+  cursor: default;
+  background: var(--button-background-color-hover);
+  transition: var(--transition);
+}
 div.heat-js div.year button.back {
   margin-left: calc(var(--spacing) * 2) !important;
 }
@@ -136,27 +141,64 @@ div.heat-js div.map div.months div.month div.day-columns div.day-column div.day:
 }
 div.heat-js div.guide {
   margin-top: var(--spacing);
-  text-align: right;
+  display: flex;
 }
-div.heat-js div.guide div.less-text,
-div.heat-js div.guide div.more-text {
-  vertical-align: middle;
+div.heat-js div.guide div.map-types,
+div.heat-js div.guide div.map-toggles {
+  flex-basis: 100%;
+}
+div.heat-js div.guide div.map-types {
+  text-align: left;
+}
+div.heat-js div.guide div.map-types button {
+  background-color: var(--button-background-color);
+  border: var(--border-size) solid var(--button-border-color);
+  color: var(--color-white);
+  border-radius: var(--border-radius);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 9px;
+  padding-right: 9px;
+}
+div.heat-js div.guide div.map-types button:hover {
+  cursor: pointer;
+  background: var(--button-background-color-hover);
+  transition: var(--transition);
+}
+div.heat-js div.guide div.map-types button.active {
+  cursor: default;
+  background: var(--button-background-color-hover);
+  transition: var(--transition);
+}
+div.heat-js div.guide div.map-types button {
+  margin-left: 0 !important;
+  margin-right: var(--spacing) !important;
+}
+div.heat-js div.guide div.map-toggles {
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+div.heat-js div.guide div.map-toggles div.less-text,
+div.heat-js div.guide div.map-toggles div.more-text {
   display: inline-block;
   font-weight: 300;
 }
-div.heat-js div.guide div.less-text {
+div.heat-js div.guide div.map-toggles div.less-text {
   margin-right: var(--spacing);
 }
-div.heat-js div.guide div.more-text {
+div.heat-js div.guide div.map-toggles div.more-text {
   margin-left: var(--spacing);
 }
-div.heat-js div.guide div.days {
-  display: inline-block;
+div.heat-js div.guide div.map-toggles div.days {
+  display: inline-flex;
+  align-items: center;
+  justify-content: right;
 }
-div.heat-js div.guide div.days div.day {
+div.heat-js div.guide div.map-toggles div.days div.day {
   background-color: var(--day-background-color);
   border: var(--border-size) solid var(--day-background-color);
-  vertical-align: middle;
   display: inline-block;
   border-radius: var(--border-radius-day);
   width: var(--spacing-font-size);
@@ -164,7 +206,7 @@ div.heat-js div.guide div.days div.day {
   margin-right: 3px;
   cursor: pointer;
 }
-div.heat-js div.guide div.days div.day:last-child {
+div.heat-js div.guide div.map-toggles div.days div.day:last-child {
   margin-right: 0;
 }
 div.heat-js div.day-color-1 {

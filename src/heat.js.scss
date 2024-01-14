@@ -48,6 +48,31 @@
     -------------------------------------------------------------------------
 */
 
+@mixin buttons {
+    button {
+        background-color: var(--button-background-color);
+        border: var(--border-size) solid var(--button-border-color);
+        color: var(--color-white);
+        border-radius: var(--border-radius);
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 9px;
+        padding-right: 9px;
+
+        &:hover {
+            cursor: pointer;
+            background: var(--button-background-color-hover);
+            transition: var(--transition);
+        }
+    }
+
+    button.active {
+        cursor: default;
+        background: var(--button-background-color-hover);
+        transition: var(--transition);
+    }
+}
+
 div.heat-js {
     @include no-selection-allowed;
     display: inline-block;
@@ -68,22 +93,7 @@ div.heat-js {
             font-size: 1.2rem;
         }
 
-        button {
-            background-color: var(--button-background-color);
-            border: var(--border-size) solid var(--button-border-color);
-            color: var(--color-white);
-            border-radius: var(--border-radius);
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-left: 9px;
-            padding-right: 9px;
-
-            &:hover {
-                cursor: pointer;
-                background: var(--button-background-color-hover);
-                transition: var(--transition);
-            }
-        }
+        @include buttons;
 
         button.back {
             margin-left: calc( var(--spacing) * 2 ) !important;
@@ -169,39 +179,62 @@ div.heat-js {
 
     div.guide {
         margin-top: var(--spacing);
-        text-align: right;
+        display: flex;
 
-        div.less-text,
-        div.more-text {
-            vertical-align: middle;
-            display: inline-block;
-            font-weight: 300;
+        div.map-types,
+        div.map-toggles {
+            flex-basis: 100%;
         }
 
-        div.less-text {
-            margin-right: var(--spacing);
+        div.map-types {
+            text-align: left;
+
+            @include buttons;
+
+            button {
+                margin-left: 0 !important;
+                margin-right: var(--spacing) !important;
+            }
         }
 
-        div.more-text {
-            margin-left: var(--spacing);
-        }
+        div.map-toggles {
+            text-align: right;
+            display: flex;
+            align-items: center;
+            justify-content: right;
 
-        div.days {
-            display: inline-block;
-            
-            div.day {
-                background-color: var(--day-background-color);
-                border: var(--border-size) solid var(--day-background-color);
-                vertical-align: middle;
+            div.less-text,
+            div.more-text {
                 display: inline-block;
-                border-radius: var(--border-radius-day);
-                width: var(--spacing-font-size);
-                height: var(--spacing-font-size);
-                margin-right: 3px;
-                cursor: pointer;
+                font-weight: 300;
+            }
+    
+            div.less-text {
+                margin-right: var(--spacing);
+            }
+    
+            div.more-text {
+                margin-left: var(--spacing);
+            }
+    
+            div.days {
+                display: inline-flex;
+                align-items: center;
+                justify-content: right;
 
-                &:last-child {
-                    margin-right: 0;
+                div.day {
+                    background-color: var(--day-background-color);
+                    border: var(--border-size) solid var(--day-background-color);
+                    display: inline-block;
+                    border-radius: var(--border-radius-day);
+                    width: var(--spacing-font-size);
+                    height: var(--spacing-font-size);
+                    margin-right: 3px;
+                    cursor: pointer;
+    
+                    &:last-child {
+                        margin-right: 0;
+                    }
                 }
             }
         }

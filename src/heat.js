@@ -32,6 +32,7 @@
 
         // Variables: Date Counts
         _elements_DateCounts = {},
+        _elements_DateCounts_DefaultType = "None",
 
         // Variables: Attribute Names
         _attribute_Name_Options = "data-heat-options";
@@ -74,6 +75,8 @@
                     bindingOptions.element = element;
                     bindingOptions.currentView = {};
                     bindingOptions.currentView.colorsVisible = {};
+                    bindingOptions.currentView.year = null;
+                    bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
 
                     fireCustomTrigger( bindingOptions.onBeforeRender, element );
 
@@ -83,10 +86,7 @@
 
                     element.removeAttribute( _attribute_Name_Options );
 
-                    _elements_DateCounts[ element.id ] = {
-                        options: bindingOptions
-                    };
-
+                    createDateStorageForElement( element.id, bindingOptions );
                     renderControl( bindingOptions );
                     fireCustomTrigger( bindingOptions.onRenderComplete, element );
 
@@ -114,7 +114,6 @@
 
         renderControlYear( bindingOptions );
         renderControlMap( bindingOptions );
-        renderControlViewGuide( bindingOptions );
     }
 
     function renderControlYear( bindingOptions ) {
@@ -187,6 +186,8 @@
     function renderControlMap( bindingOptions ) {
         var map = createElement( "div", "map" );
         bindingOptions.element.appendChild( map );
+
+        renderControlViewGuide( bindingOptions );
 
         var currentYear = bindingOptions.currentView.year,
             monthAdded = false;
@@ -279,7 +280,7 @@
         var actualDay = dayNumber + 1,
             day = createElement( "div", "day" ),
             date = new Date( year, month, actualDay ),
-            dateCount = _elements_DateCounts[ bindingOptions.element.id ][ toStorageDate( date ) ];
+            dateCount = _elements_DateCounts[ bindingOptions.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
 
         day.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
         currentDayColumn.appendChild( day );
@@ -317,13 +318,39 @@
         if ( bindingOptions.showGuide ) {
             var guide = createElement( "div", "guide" );
             bindingOptions.element.appendChild( guide );
+
+            var mapTypes = createElement( "div", "map-types" );
+            guide.appendChild( mapTypes );
+
+            var noneTypeCount = 0;
+            for ( var storageDate in _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ] ) {
+                if ( _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ].hasOwnProperty( storageDate ) ) {
+                    noneTypeCount++;
+                    break;
+                }
+            }
+
+            if ( _elements_DateCounts[ bindingOptions.element.id ].types > 1 ) {
+                for ( var type in _elements_DateCounts[ bindingOptions.element.id ].type ) {
+                    if ( type !== _elements_DateCounts_DefaultType || noneTypeCount > 0 ) {
+                        if ( noneTypeCount === 0 && bindingOptions.currentView.type === _elements_DateCounts_DefaultType ) {
+                            bindingOptions.currentView.type = type;
+                        }
+
+                        renderControlViewGuideTypeButton( bindingOptions, mapTypes, type );
+                    }
+                }
+            }
+
+            var mapToggles = createElement( "div", "map-toggles" );
+            guide.appendChild( mapToggles );
     
             var lessText = createElement( "div", "less-text" );
             lessText.innerHTML = _configuration.lessText;
-            guide.appendChild( lessText );
+            mapToggles.appendChild( lessText );
     
             var days = createElement( "div", "days" );
-            guide.appendChild( days );
+            mapToggles.appendChild( days );
 
             var mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
                 return b.range - a.range;
@@ -337,8 +364,24 @@
     
             var moreText = createElement( "div", "more-text" );
             moreText.innerHTML = _configuration.moreText;
-            guide.appendChild( moreText );
+            mapToggles.appendChild( moreText );
         }
+    }
+
+    function renderControlViewGuideTypeButton( bindingOptions, mapTypes, type ) {
+        var typeButton = createElement( "button", "type" );
+        typeButton.innerHTML = type;
+        mapTypes.appendChild( typeButton );
+
+        if ( bindingOptions.currentView.type === type ) {
+            typeButton.className += _string.space + "active";
+        }
+
+        typeButton.onclick = function() {
+            bindingOptions.currentView.type = type;
+
+            renderControl( bindingOptions );
+        };
     }
 
     function renderControlViewGuideDay( bindingOptions, days, mapRangeColor ) {
@@ -373,6 +416,16 @@
         return !bindingOptions.currentView.colorsVisible.hasOwnProperty( id ) || bindingOptions.currentView.colorsVisible[ id ];
     }
 
+    function createDateStorageForElement( elementId, bindingOptions ) {
+        _elements_DateCounts[ elementId ] = {
+            options: bindingOptions,
+            type: {},
+            types: 1
+        };
+
+        _elements_DateCounts[ elementId ].type[ _elements_DateCounts_DefaultType ] = {};
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -397,14 +450,14 @@
     }
 
     function getCsvContent( bindingOptions ) {
-        var csvData = _elements_DateCounts[ bindingOptions.element.id ],
+        var csvData = _elements_DateCounts[ bindingOptions.element.id ].type[ bindingOptions.currentView.type ],
             csvContents = [],
             csvStorageDates = [];
 
         csvContents.push( getCsvValueLine( [ getCsvValue( _configuration.dateText ), getCsvValue( _configuration.countText ) ] ) );
 
         for ( var storageDate1 in csvData ) {
-            if ( csvData.hasOwnProperty( storageDate1 ) && storageDate1 !== "options" ) {
+            if ( csvData.hasOwnProperty( storageDate1 ) ) {
                 csvStorageDates.push( storageDate1 );
             }
         }
@@ -416,7 +469,7 @@
         for ( var csvStorageDateIndex = 0; csvStorageDateIndex < csvStorageDatesLength; csvStorageDateIndex++ ) {
             var storageDate2 = csvStorageDates[ csvStorageDateIndex ];
 
-            if ( csvData.hasOwnProperty( storageDate2 ) && storageDate2 !== "options" ) {
+            if ( csvData.hasOwnProperty( storageDate2 ) ) {
                 csvContents.push( getCsvValueLine( [ getCsvValue( storageDate2 ), getCsvValue( csvData[ storageDate2 ] ) ] ) );
             }
         }
@@ -785,21 +838,28 @@
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
      * @param       {Date}      date                                        The date to add.
+     * @param       {string}    [type]                                      The trend type (defaults to "None").
      * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.addDate = function( elementId, date, triggerRefresh ) {
+    this.addDate = function( elementId, date, type, triggerRefresh ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+            type = !isDefinedString( type ) ? _elements_DateCounts_DefaultType : type;
 
             var storageDate = toStorageDate( date );
 
-            if ( !_elements_DateCounts[ elementId ].hasOwnProperty( storageDate ) ) {
-                _elements_DateCounts[ elementId ][ storageDate ] = 0;
+            if ( !_elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
+                _elements_DateCounts[ elementId ].type[ type ] = {};
+                _elements_DateCounts[ elementId ].types++;
+            }
+
+            if ( !_elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
+                _elements_DateCounts[ elementId ].type[ type ][ storageDate ] = 0;
             }
     
-            _elements_DateCounts[ elementId ][ storageDate ]++;
+            _elements_DateCounts[ elementId ].type[ type ][ storageDate ]++;
 
             if ( triggerRefresh ) {
                 renderControl( _elements_DateCounts[ elementId ].options );
@@ -818,19 +878,22 @@
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date}      date                                        The date to removed.
+     * @param       {string}    [type]                                      The trend type (defaults to "None").
      * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.removeDate = function( elementId, date, triggerRefresh ) {
+    this.removeDate = function( elementId, date, type, triggerRefresh ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            type = !isDefinedString( type ) ? _elements_DateCounts_DefaultType : type;
+
             var storageDate = toStorageDate( date );
 
-            if ( _elements_DateCounts[ elementId ].hasOwnProperty( storageDate ) ) {
+            if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
                 triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
 
-                if ( _elements_DateCounts[ elementId ][ storageDate ] > 0 ) {
-                    _elements_DateCounts[ elementId ][ storageDate ]--;
+                if ( _elements_DateCounts[ elementId ].type[ type ][ storageDate ] > 0 ) {
+                    _elements_DateCounts[ elementId ].type[ type ][ storageDate ]--;
                 }
 
                 if ( triggerRefresh ) {
@@ -859,9 +922,9 @@
             triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
             
             var bindingOptions = _elements_DateCounts[ elementId ].options;
+            bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
 
-            _elements_DateCounts[ elementId ] = {};
-            _elements_DateCounts[ elementId ].options = bindingOptions;
+            createDateStorageForElement( elementId, bindingOptions );
 
             if ( triggerRefresh ) {
                 renderControl( _elements_DateCounts[ elementId ].options );

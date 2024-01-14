@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 0.6.0:
-- 
+
+#### **New Features:**
+- Trend types support! This allows you to add data for various trend types, which can then be toggled in the guide under the map!
 
 <br>
 

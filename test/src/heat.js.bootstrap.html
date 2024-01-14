@@ -81,27 +81,32 @@
         }
 
         function updateDates( remove ) {
-            var date = new Date( new Date().getFullYear(), 0, 1 );
+            var types = [ "Type 1", "Type 2" ],
+                typesLength = types.length;
 
-            for ( var dayNumber = 0; dayNumber < 5000; dayNumber++ ) {
-                var daysToIncrease = Math.floor( Math.random() * 365 ),
-                    newDate = new Date( date );
+            for ( var typeIndex = 0; typeIndex < typesLength; typeIndex++ ) {
+                var date = new Date( new Date().getFullYear(), 0, 1 );
 
-                newDate.setDate( newDate.getDate() + daysToIncrease );
+                for ( var dayNumber = 0; dayNumber < 5000; dayNumber++ ) {
+                    var daysToIncrease = Math.floor( Math.random() * 365 ),
+                        newDate = new Date( date );
 
-                addRemoveDates( newDate, remove );
+                    newDate.setDate( newDate.getDate() + daysToIncrease );
+
+                    addRemoveDates( newDate, remove, types[ typeIndex ] );
+                }
             }
 
             $heat.refreshAll();
         }
 
-        function addRemoveDates( newDate, remove ) {
+        function addRemoveDates( newDate, remove, type ) {
             if ( !remove ) {
-                $heat.addDate( "heat-map-1", newDate, false );
-                $heat.addDate( "heat-map-2", newDate, false );
+                $heat.addDate( "heat-map-1", newDate, type, false );
+                $heat.addDate( "heat-map-2", newDate, type, false );
             } else {
-                $heat.removeDate( "heat-map-1", newDate, false );
-                $heat.removeDate( "heat-map-2", newDate, false );
+                $heat.removeDate( "heat-map-1", newDate, type, false );
+                $heat.removeDate( "heat-map-2", newDate, type, false );
             }
         }
 
