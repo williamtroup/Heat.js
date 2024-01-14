@@ -83,6 +83,17 @@ div.heat-js {
     padding: var(--spacing);
     font-size: var(--spacing-font-size);
 
+    * {
+        box-sizing: border-box;
+        line-height: normal;
+
+        &::before,
+        &::after {
+            box-sizing: border-box;
+            line-height: normal;
+        }
+    }
+
     div.year {
         text-align: right;
         margin-bottom: var(--spacing);
@@ -121,6 +132,7 @@ div.heat-js {
     
             div.day-name {
                 font-weight: 300;
+                margin-bottom: 4px;
             }
         }
     
