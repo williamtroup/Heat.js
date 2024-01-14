@@ -5,6 +5,9 @@
 #### **New Features:**
 - Trend types support! This allows you to add data for various trend types, which can then be toggled in the guide under the map!
 
+#### **General Improvements:**
+- The "More" and "Less" labels can now be clicked, which will toggle all map ranges colors on/off.
+
 #### **CSS:**
 - Renamed the "year" CSS class to "title-bar".
 

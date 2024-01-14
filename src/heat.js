@@ -348,6 +348,10 @@
             var lessText = createElement( "div", "less-text" );
             lessText.innerHTML = _configuration.lessText;
             mapToggles.appendChild( lessText );
+
+            lessText.onclick = function() {
+                updateMapRangeColorToggles( bindingOptions, false );
+            };
     
             var days = createElement( "div", "days" );
             mapToggles.appendChild( days );
@@ -365,6 +369,10 @@
             var moreText = createElement( "div", "more-text" );
             moreText.innerHTML = _configuration.moreText;
             mapToggles.appendChild( moreText );
+
+            moreText.onclick = function() {
+                updateMapRangeColorToggles( bindingOptions, true );
+            };
         }
     }
 
@@ -424,6 +432,16 @@
         };
 
         _elements_DateCounts[ elementId ].type[ _elements_DateCounts_DefaultType ] = {};
+    }
+
+    function updateMapRangeColorToggles( bindingOptions, flag ) {
+        var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            bindingOptions.currentView.colorsVisible[ bindingOptions.mapRangeColors[ mapRangeColorsIndex ].id ] = flag;
+        }
+
+        renderControl( bindingOptions );
     }
 
 

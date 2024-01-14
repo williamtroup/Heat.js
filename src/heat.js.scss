@@ -219,6 +219,11 @@ div.heat-js {
             div.more-text {
                 display: inline-block;
                 font-weight: 300;
+
+                &:hover {
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
             }
     
             div.less-text {

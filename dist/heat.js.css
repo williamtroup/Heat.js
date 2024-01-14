@@ -194,6 +194,11 @@ div.heat-js div.guide div.map-toggles div.more-text {
   display: inline-block;
   font-weight: 300;
 }
+div.heat-js div.guide div.map-toggles div.less-text:hover,
+div.heat-js div.guide div.map-toggles div.more-text:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
 div.heat-js div.guide div.map-toggles div.less-text {
   margin-right: var(--spacing);
 }
