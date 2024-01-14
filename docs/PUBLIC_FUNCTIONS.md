@@ -15,6 +15,8 @@ Adds a date for a specific element ID, and refreshes the UI (if specified). If t
 <br>
 ***Parameter: date***: '*Date*' - The date to add.
 <br>
+***Parameter: [type]***: '*string*' - The trend type (defaults to "None").
+<br>
 ***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
@@ -26,6 +28,8 @@ Removes a date for a specific element ID, and refreshes the UI (if specified). I
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the updated date.
 <br>
 ***Parameter: date***: '*Date*' - The date to remove.
+<br>
+***Parameter: [type]***: '*string*' - The trend type (defaults to "None").
 <br>
 ***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
 <br>

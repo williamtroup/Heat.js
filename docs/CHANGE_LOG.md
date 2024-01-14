@@ -1,5 +1,22 @@
 # Heat.js - Change Log:
 
+## Version 0.6.0:
+
+#### **New Features:**
+- Trend types support! This allows you to add data for various trend types, which can then be toggled in the guide under the map!
+
+#### **General Improvements:**
+- The "More" and "Less" labels can now be clicked, which will toggle all map range colors on/off.
+
+#### **CSS:**
+- Renamed the "year" CSS class to "title-bar".
+
+#### **Fixes:**
+- Fixed the entire heatmap rendering slightly incorrectly when bootstrap is not available.
+
+<br>
+
+
 ## Version 0.5.1:
 
 #### **Fixes:**
