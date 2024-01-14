@@ -173,8 +173,7 @@
     c.appendChild(d);
     a.currentView.type === b && (d.className += q.space + "active");
     d.onclick = function() {
-      a.currentView.type = b;
-      u(a);
+      a.currentView.type !== b && (a.currentView.type = b, u(a));
     };
   }
   function ha(a, c, b) {

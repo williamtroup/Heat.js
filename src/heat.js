@@ -386,9 +386,11 @@
         }
 
         typeButton.onclick = function() {
-            bindingOptions.currentView.type = type;
+            if ( bindingOptions.currentView.type !== type ) {
+                bindingOptions.currentView.type = type;
 
-            renderControl( bindingOptions );
+                renderControl( bindingOptions );
+            }
         };
     }
 
