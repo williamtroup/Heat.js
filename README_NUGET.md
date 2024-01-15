@@ -1,8 +1,8 @@
-# Heat.js v0.6.0
+# Heat.js v0.6.1
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Heat.js%2C%20a%20free%20JavaScript%heat%20map&url=https://github.com/williamtroup/Heat.js&hashtags=javascript,heat,map)
-[![npm](https://img.shields.io/badge/npmjs-v0.6.0-blue)](https://www.npmjs.com/package/jheat.js)
-[![nuget](https://img.shields.io/badge/nuget-v0.6.0-purple)](https://www.nuget.org/packages/jHeat.js/)
+[![npm](https://img.shields.io/badge/npmjs-v0.6.1-blue)](https://www.npmjs.com/package/jheat.js)
+[![nuget](https://img.shields.io/badge/nuget-v0.6.1-purple)](https://www.nuget.org/packages/jHeat.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Heat.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://github.com/williamtroup)
@@ -71,8 +71,8 @@ Now, you can add/remove dates, which will update the heat map automatically!
 <script>
   var newDateObject = new Date();
 
-  $heat.addDate( "heat-map", newDateObject, false );
-  $heat.removeDate( "heat-map", newDateObject, false );
+  $heat.addDate( "heat-map", newDateObject, "Trend Type 1", true );
+  $heat.removeDate( "heat-map", newDateObject, "Trend Type 1", true );
 </script>
 ```
 
