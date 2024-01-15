@@ -92,8 +92,8 @@ Now, you can add/remove dates, which will update the heat map automatically!
 <script>
   var newDateObject = new Date();
 
-  $heat.addDate( "heat-map", newDateObject, false );
-  $heat.removeDate( "heat-map", newDateObject, false );
+  $heat.addDate( "heat-map", newDateObject, "Trend Type 1", true );
+  $heat.removeDate( "heat-map", newDateObject, "Trend Type 1", true );
 </script>
 ```
 <br>
