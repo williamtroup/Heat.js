@@ -192,6 +192,9 @@ div.heat-js div.guide div.map-toggles {
   align-items: center;
   justify-content: right;
 }
+div.heat-js div.guide div.map-toggles div.no-click {
+  pointer-events: none;
+}
 div.heat-js div.guide div.map-toggles div.less-text,
 div.heat-js div.guide div.map-toggles div.more-text {
   display: inline-block;

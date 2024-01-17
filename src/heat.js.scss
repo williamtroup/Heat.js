@@ -219,6 +219,10 @@ div.heat-js {
             align-items: center;
             justify-content: right;
 
+            div.no-click {
+                pointer-events: none;
+            }
+
             div.less-text,
             div.more-text {
                 display: inline-block;

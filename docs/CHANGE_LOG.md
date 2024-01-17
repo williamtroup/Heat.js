@@ -2,6 +2,9 @@
 
 ## Version 0.8.0:
 
+#### **Binding Options:**
+- Added a new binding option called "mapTogglesEnabled", which states if the map toggles are enabled (defaults to true).
+
 #### **General Improvements:**
 - The map layout is now fully responsive with mobile views.
 - When exporting the map details, the type selected is now included in the filename (if types are available).

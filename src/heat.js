@@ -352,9 +352,14 @@
             lessText.innerHTML = _configuration.lessText;
             mapToggles.appendChild( lessText );
 
-            lessText.onclick = function() {
-                updateMapRangeColorToggles( bindingOptions, false );
-            };
+            if ( bindingOptions.mapTogglesEnabled ) {
+                lessText.onclick = function() {
+                    updateMapRangeColorToggles( bindingOptions, false );
+                };
+
+            } else {
+                lessText.className += _string.space + "no-click";
+            }
     
             var days = createElement( "div", "days" );
             mapToggles.appendChild( days );
@@ -373,9 +378,14 @@
             moreText.innerHTML = _configuration.moreText;
             mapToggles.appendChild( moreText );
 
-            moreText.onclick = function() {
-                updateMapRangeColorToggles( bindingOptions, true );
-            };
+            if ( bindingOptions.mapTogglesEnabled ) {
+                moreText.onclick = function() {
+                    updateMapRangeColorToggles( bindingOptions, true );
+                };
+
+            } else {
+                moreText.className += _string.space + "no-click";
+            }
         }
     }
 
@@ -408,21 +418,26 @@
             day.className = "day";
         }
 
-        day.onclick = function() {
-            if ( !bindingOptions.currentView.colorsVisible.hasOwnProperty( mapRangeColor.id ) ) {
-                bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] = true;
-            }
+        if ( bindingOptions.mapTogglesEnabled ) {
+            day.onclick = function() {
+                if ( !bindingOptions.currentView.colorsVisible.hasOwnProperty( mapRangeColor.id ) ) {
+                    bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] = true;
+                }
+    
+                if ( bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] ) {
+                    day.className = "day";
+                } else {
+                    day.className = "day " + mapRangeColor.cssClassName;
+                }
+    
+                bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] = !bindingOptions.currentView.colorsVisible[ mapRangeColor.id ];
+    
+                renderControl( bindingOptions );
+            };
 
-            if ( bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] ) {
-                day.className = "day";
-            } else {
-                day.className = "day " + mapRangeColor.cssClassName;
-            }
-
-            bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] = !bindingOptions.currentView.colorsVisible[ mapRangeColor.id ];
-
-            renderControl( bindingOptions );
-        };
+        } else {
+            day.className += _string.space + "no-click";
+        }
     }
 
     function isHeatMapColorVisible( bindingOptions, id ) {
@@ -542,6 +557,7 @@
         options.showRefreshButton = getDefaultBoolean( options.showRefreshButton, false );
         options.showMonthNames = getDefaultBoolean( options.showMonthNames, true );
         options.showExportButton = getDefaultBoolean( options.showExportButton, false );
+        options.mapTogglesEnabled = getDefaultBoolean( options.mapTogglesEnabled, true );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];

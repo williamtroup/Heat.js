@@ -20,6 +20,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *Object[]* | mapRangeColors | The heap-map ranges that should be used for specific colors (first default is [ { minimum: 10, cssClassName: 'day-color-1' } ]). |
 | *boolean* | showMonthNames | States if the month names are shown (defaults to true). |
 | *boolean* | showExportButton | States if the "Export" button should be shown (defaults to false). |
+| *boolean* | mapTogglesEnabled | States if the heat map toggles are enabled (defaults to true). |
 
 <br/>
 
