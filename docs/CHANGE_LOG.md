@@ -15,6 +15,7 @@
 - The buttons will no longer show a focused outline effect when Bootstrap is being used.
 - Added new ":root" variable "--heat-js-day-border-color", which states the border color to use for the days.
 - Added new ":root" variable "--heat-js-day-spacing", which states the spacing to use for the days (now all even).
+- Improved the spacing around the main buttons.
 
 <br>
 

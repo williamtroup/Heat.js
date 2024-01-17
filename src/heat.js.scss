@@ -115,6 +115,10 @@ div.heat-js {
             margin-left: calc( var(--heat-js-spacing) * 2 ) !important;
         }
 
+        button.export {
+            margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
+        }
+
         div.year-text {
             margin-left: var(--heat-js-spacing);
             margin-right: var(--heat-js-spacing);

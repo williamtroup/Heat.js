@@ -89,6 +89,9 @@ div.heat-js div.title-bar button.active {
 div.heat-js div.title-bar button.back {
   margin-left: calc(var(--heat-js-spacing) * 2) !important;
 }
+div.heat-js div.title-bar button.export {
+  margin-right: calc(var(--heat-js-spacing) / 2) !important;
+}
 div.heat-js div.title-bar div.year-text {
   margin-left: var(--heat-js-spacing);
   margin-right: var(--heat-js-spacing);
