@@ -21,7 +21,7 @@ Heat.js
 
 - Zero-dependencies and extremely lightweight!
 - Full API available via public functions.
-- Fully styled in CSS/SASS and compatible with the Bootstrap library.
+- Fully styled in CSS/SASS, fully responsive, and compatible with the Bootstrap library.
 - Full CSS theme support (using :root variables).
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
