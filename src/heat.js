@@ -270,8 +270,12 @@
                     actualDay++;
                 }
 
-                if ( firstDayNumberInMonth > 0 && isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps && monthAdded ) {
-                    month.style.marginLeft = -_elements_Day_Width + "px";
+                if ( monthAdded && isDefined( _elements_Day_Width ) ) {
+                    if ( firstDayNumberInMonth > 0 && !bindingOptions.showMonthDayGaps ) {
+                        month.style.marginLeft = -_elements_Day_Width + "px";
+                    } else if ( firstDayNumberInMonth === 0 && bindingOptions.showMonthDayGaps ) {
+                        month.style.marginLeft = _elements_Day_Width + "px";
+                    }
                 }
 
                 monthAdded = true;
@@ -309,7 +313,7 @@
             day.className += _string.space + useMapRangeColor.cssClassName;
         }
 
-        if ( !isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps ) {
+        if ( !isDefined( _elements_Day_Width ) ) {
             var marginLeft = getStyleValueByName( day, "margin-left", true ),
                 marginRight = getStyleValueByName( day, "margin-right", true );
             

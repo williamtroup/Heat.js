@@ -20,7 +20,7 @@
         var d = h[a.element.id].type[a.currentView.type];
         var g = [];
         var k = [];
-        g.push([F(f.dateText), F(f.countText)].join());
+        g.push([G(f.dateText), G(f.countText)].join());
         for (var l in d) {
           d.hasOwnProperty(l) && k.push(l);
         }
@@ -28,11 +28,11 @@
         l = k.length;
         for (var n = 0; n < l; n++) {
           var q = k[n];
-          d.hasOwnProperty(q) && g.push([F(q), F(d[q])].join());
+          d.hasOwnProperty(q) && g.push([G(q), G(d[q])].join());
         }
         g = g.join(p.newLine);
-        g !== p.empty && (d = m("a"), d.style.display = "none", d.setAttribute("target", "_blank"), d.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(g)), g = d.setAttribute, l = new Date(), k = A(l.getDate()) + "-" + A(l.getMonth() + 1) + "-" + l.getFullYear(), l = A(l.getHours()) + "-" + A(l.getMinutes()), n = p.empty, "None" !== a.currentView.type && (n = a.currentView.type.toLowerCase().replace(p.space, "_") + "_"), g.call(d, "download", n + k + "_" + l + ".csv"), B.body.appendChild(d), 
-        d.click(), B.body.removeChild(d));
+        g !== p.empty && (d = m("a"), d.style.display = "none", d.setAttribute("target", "_blank"), d.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(g)), g = d.setAttribute, l = new Date(), k = B(l.getDate()) + "-" + B(l.getMonth() + 1) + "-" + l.getFullYear(), l = B(l.getHours()) + "-" + B(l.getMinutes()), n = p.empty, "None" !== a.currentView.type && (n = a.currentView.type.toLowerCase().replace(p.space, "_") + "_"), g.call(d, "download", n + k + "_" + l + ".csv"), C.body.appendChild(d), 
+        d.click(), C.body.removeChild(d));
         v(a.onExport, a.element);
       });
       a.showRefreshButton && (b = m("button", "refresh"), b.innerHTML = f.refreshButtonText, c.appendChild(b), b.onclick = function() {
@@ -88,19 +88,19 @@
         l.appendChild(n);
         var q = (new Date(c, k + 1, 0)).getDate(), y = m("div", "day-column"), e = !1;
         n.appendChild(y);
-        var C = Q(new Date(c, k, 1)), u = 1;
-        q += C;
+        var z = Q(new Date(c, k, 1)), u = 1;
+        q += z;
         for (var E = 0; E < q; E++) {
-          if (E >= C) {
+          if (E >= z) {
             e = !0;
           } else {
             var ca = m("div", "day-disabled");
             y.appendChild(ca);
           }
-          e && (-1 < a.daysToShow.indexOf(u) && da(a, y, E - C, k, c, b), 0 === (E + 1) % 7 && (y = m("div", "day-column"), n.appendChild(y), u = 0));
+          e && (-1 < a.daysToShow.indexOf(u) && da(a, y, E - z, k, c, b), 0 === (E + 1) % 7 && (y = m("div", "day-column"), n.appendChild(y), u = 0));
           u++;
         }
-        0 < C && w(G) && !a.showMonthDayGaps && d && (l.style.marginLeft = -G + "px");
+        d && w(F) && (0 < z && !a.showMonthDayGaps ? l.style.marginLeft = -F + "px" : 0 === z && a.showMonthDayGaps && (l.style.marginLeft = F + "px"));
         d = !0;
       }
     }
@@ -124,7 +124,7 @@
       }
     }
     w(d) && R(a, d.id) && (b.className += p.space + d.cssClassName);
-    w(G) || a.showMonthDayGaps || (k = S(b, "margin-left", !0), c = S(b, "margin-right", !0), G = b.offsetWidth + k + c);
+    w(F) || (k = S(b, "margin-left", !0), c = S(b, "margin-right", !0), F = b.offsetWidth + k + c);
   }
   function Z(a) {
     if (a.showGuide) {
@@ -205,7 +205,7 @@
     }
     t(a);
   }
-  function F(a) {
+  function G(a) {
     a = a.toString().replace(/(\r\n|\n|\r)/gm, p.empty).replace(/(\s\s)/gm, p.space);
     a = a.replace(/"/g, '""');
     return '"' + a + '"';
@@ -216,7 +216,7 @@
   function ea(a, c) {
     var b = a, d = Q(c);
     b = b.replace("{dddd}", f.dayNames[d]);
-    b = b.replace("{dd}", A(c.getDate()));
+    b = b.replace("{dd}", B(c.getDate()));
     b = b.replace("{d}", c.getDate());
     d = b.replace;
     var g = c.getDate(), k = f.thText;
@@ -229,7 +229,7 @@
     }
     b = d.call(b, "{o}", k);
     b = b.replace("{mmmm}", f.monthNames[c.getMonth()]);
-    b = b.replace("{mm}", A(c.getMonth() + 1));
+    b = b.replace("{mm}", B(c.getMonth() + 1));
     b = b.replace("{m}", c.getMonth() + 1);
     b = b.replace("{yyyy}", c.getFullYear());
     b = b.replace("{yyy}", c.getFullYear().toString().substring(1));
@@ -260,7 +260,7 @@
   function m(a, c) {
     var b = a.toLowerCase();
     var d = "text" === b;
-    O.hasOwnProperty(b) || (O[b] = d ? B.createTextNode(p.empty) : B.createElement(b));
+    O.hasOwnProperty(b) || (O[b] = d ? C.createTextNode(p.empty) : C.createElement(b));
     b = O[b].cloneNode(!1);
     w(c) && (b.className = c);
     return b;
@@ -268,7 +268,7 @@
   function S(a, c, b) {
     var d = null;
     b = w(b) ? b : !1;
-    J.getComputedStyle ? d = B.defaultView.getComputedStyle(a, null).getPropertyValue(c) : a.currentStyle && (d = a.currentStyle[c]);
+    J.getComputedStyle ? d = C.defaultView.getComputedStyle(a, null).getPropertyValue(c) : a.currentStyle && (d = a.currentStyle[c]);
     b && (d = parseInt(d, 10));
     return d;
   }
@@ -281,7 +281,7 @@
   function x(a, c) {
     return I(a) ? a : c;
   }
-  function z(a, c) {
+  function A(a, c) {
     return M(a) ? a : c;
   }
   function ia(a) {
@@ -305,12 +305,12 @@
     }
     return a.join(p.empty);
   }
-  function A(a) {
+  function B(a) {
     a = a.toString();
     return 1 === a.length ? "0" + a : a;
   }
   function L(a) {
-    return a.getFullYear() + "-" + A(a.getMonth() + 1) + "-" + A(a.getDate());
+    return a.getFullYear() + "-" + B(a.getMonth() + 1) + "-" + B(a.getDate());
   }
   function W() {
     f.safeMode = x(f.safeMode, !0);
@@ -336,7 +336,7 @@
     c = P(c) ? c : 1;
     return !N(a) || a.length < c;
   }
-  var B = null, J = null, f = {}, p = {empty:"", space:" ", newLine:"\n"}, O = {}, G = null, h = {};
+  var C = null, J = null, f = {}, p = {empty:"", space:" ", newLine:"\n"}, O = {}, F = null, h = {};
   this.addDate = function(a, c, b, d) {
     h.hasOwnProperty(a) && (d = I(d) ? d : !0, b = D(b) ? b : "None", c = L(c), h[a].type.hasOwnProperty(b) || (h[a].type[b] = {}, h[a].types++), h[a].type[b].hasOwnProperty(c) || (h[a].type[b][c] = 0), h[a].type[b][c]++, d && t(h[a].options));
     return this;
@@ -414,12 +414,12 @@
     return "0.9.0";
   };
   (function(a, c) {
-    B = a;
+    C = a;
     J = c;
     W();
-    B.addEventListener("DOMContentLoaded", function() {
+    C.addEventListener("DOMContentLoaded", function() {
       for (var b = f.domElementTypes, d = b.length, g = 0; g < d; g++) {
-        var k = B.getElementsByTagName(b[g]);
+        var k = C.getElementsByTagName(b[g]);
         k = [].slice.call(k);
         for (var l = k.length, n = 0; n < l; n++) {
           var q = k[n], y = !0;
@@ -440,26 +440,26 @@
                 e.mapTogglesEnabled = x(e.mapTogglesEnabled, !0);
                 K(e.monthsToShow) && (e.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
                 K(e.daysToShow) && (e.daysToShow = [1, 2, 3, 4, 5, 6, 7]);
-                var C = e;
+                var z = e;
                 var u = e.mapRangeColors;
                 var E = [{minimum:10, cssClassName:"day-color-1", tooltipText:"Day Color 1"}, {minimum:15, cssClassName:"day-color-2", tooltipText:"Day Color 2"}, {minimum:20, cssClassName:"day-color-3", tooltipText:"Day Color 3"}, {minimum:25, cssClassName:"day-color-4", tooltipText:"Day Color 4"}];
                 u = N(u) ? u : E;
-                C.mapRangeColors = u;
-                C = e.mapRangeColors.length;
-                for (u = 0; u < C; u++) {
+                z.mapRangeColors = u;
+                z = e.mapRangeColors.length;
+                for (u = 0; u < z; u++) {
                   D(e.mapRangeColors[u].id) || (e.mapRangeColors[u].id = V());
                 }
                 e.titleText = r(e.titleText, "Heat.js");
                 e.dayToolTipText = r(e.dayToolTipText, "{d}{o} {mmmm} {yyyy}");
-                e.onDayClick = z(e.onDayClick, null);
-                e.onBackYear = z(e.onBackYear, null);
-                e.onNextYear = z(e.onNextYear, null);
-                e.onRefresh = z(e.onRefresh, null);
-                e.onBeforeRender = z(e.onBeforeRender, null);
-                e.onRenderComplete = z(e.onRenderComplete, null);
-                e.onDestroy = z(e.onDestroy, null);
-                e.onExport = z(e.onExport, null);
-                e.onSetYear = z(e.onSetYear, null);
+                e.onDayClick = A(e.onDayClick, null);
+                e.onBackYear = A(e.onBackYear, null);
+                e.onNextYear = A(e.onNextYear, null);
+                e.onRefresh = A(e.onRefresh, null);
+                e.onBeforeRender = A(e.onBeforeRender, null);
+                e.onRenderComplete = A(e.onRenderComplete, null);
+                e.onDestroy = A(e.onDestroy, null);
+                e.onExport = A(e.onExport, null);
+                e.onSetYear = A(e.onSetYear, null);
                 e.element = q;
                 e.currentView = {};
                 e.currentView.colorsVisible = {};

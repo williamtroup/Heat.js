@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 0.9.0:
-- 
+
+#### **General Improvements:**
+- When the binding option "showMonthDayGaps" is set to true, gaps are now always shown between the months (even if the first day is a monday).
 
 <br>
 
