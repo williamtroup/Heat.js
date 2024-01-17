@@ -43,6 +43,8 @@ div.heat-js {
   border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   padding: var(--heat-js-spacing);
   font-size: var(--heat-js-spacing-font-size);
+  width: 100%;
+  max-width: 700px;
 }
 div.heat-js * {
   box-sizing: border-box;
@@ -89,11 +91,12 @@ div.heat-js div.title-bar div.year-text {
   margin-right: var(--heat-js-spacing);
   display: inline-block;
 }
+div.heat-js div.map-contents {
+  overflow-y: scroll;
+}
 div.heat-js div.map {
   display: inline-flex;
   flex-direction: row;
-  max-width: 700px;
-  overflow-y: scroll;
 }
 div.heat-js div.map div.days {
   background-color: var(--heat-js-container-background-color);

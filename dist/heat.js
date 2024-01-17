@@ -50,13 +50,16 @@
     }
   }
   function Y(a) {
-    var c = m("div", "map");
+    var c = m("div", "map-contents");
     a.element.appendChild(c);
+    var b = m("div", "map");
+    c.appendChild(b);
     Z(a);
-    var b = a.currentView.year, d = !1;
+    c = a.currentView.year;
+    var d = !1;
     if (a.showDayNames) {
       var g = m("div", "days");
-      c.appendChild(g);
+      b.appendChild(g);
       a.showMonthNames || (g.style.paddingTop = "0px", g.style.marginTop = "-5px");
       for (var k = 0; 7 > k; k++) {
         if (-1 < a.daysToShow.indexOf(k + 1)) {
@@ -67,8 +70,8 @@
       }
     }
     g = m("div", "months");
-    c.appendChild(g);
-    c = a.mapRangeColors.sort(function(aa, ba) {
+    b.appendChild(g);
+    b = a.mapRangeColors.sort(function(aa, ba) {
       return ba.range - aa.range;
     });
     for (k = 0; 12 > k; k++) {
@@ -82,9 +85,9 @@
         }
         n = m("div", "day-columns");
         l.appendChild(n);
-        var p = (new Date(b, k + 1, 0)).getDate(), x = m("div", "day-column"), e = !1;
+        var p = (new Date(c, k + 1, 0)).getDate(), x = m("div", "day-column"), e = !1;
         n.appendChild(x);
-        var B = Q(new Date(b, k, 1)), t = 1;
+        var B = Q(new Date(c, k, 1)), t = 1;
         p += B;
         for (var E = 0; E < p; E++) {
           if (E >= B) {
@@ -93,7 +96,7 @@
             var ca = m("div", "day-disabled");
             x.appendChild(ca);
           }
-          e && (-1 < a.daysToShow.indexOf(t) && da(a, x, E - B, k, b, c), 0 === (E + 1) % 7 && (x = m("div", "day-column"), n.appendChild(x), t = 0));
+          e && (-1 < a.daysToShow.indexOf(t) && da(a, x, E - B, k, c, b), 0 === (E + 1) % 7 && (x = m("div", "day-column"), n.appendChild(x), t = 0));
           t++;
         }
         0 < B && v(G) && !a.showMonthDayGaps && d && (l.style.marginLeft = -G + "px");

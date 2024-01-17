@@ -184,8 +184,11 @@
     }
 
     function renderControlMap( bindingOptions ) {
+        var mapContents = createElement( "div", "map-contents" );
+        bindingOptions.element.appendChild( mapContents );
+
         var map = createElement( "div", "map" );
-        bindingOptions.element.appendChild( map );
+        mapContents.appendChild( map );
 
         renderControlViewGuide( bindingOptions );
 

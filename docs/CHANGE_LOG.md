@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 0.8.0:
--
+
+#### **General Improvements:**
+- The map layout is now fully responsive with mobile views.
 
 <br>
 
