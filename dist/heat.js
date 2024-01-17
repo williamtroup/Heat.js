@@ -33,20 +33,20 @@
         g = g.join(q.newLine);
         g !== q.empty && (e = m("a"), e.style.display = "none", e.setAttribute("target", "_blank"), e.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(g)), g = e.setAttribute, l = new Date(), k = z(l.getDate()) + "-" + z(l.getMonth() + 1) + "-" + l.getFullYear(), l = z(l.getHours()) + "-" + z(l.getMinutes()), n = q.empty, "None" !== a.currentView.type && (n = a.currentView.type.toLowerCase().replace(q.space, "_") + "_"), g.call(e, "download", n + k + "_" + l + ".csv"), A.body.appendChild(e), 
         e.click(), A.body.removeChild(e));
-        v(a.onExport, a.element);
+        u(a.onExport, a.element);
       });
       a.showRefreshButton && (b = m("button", "refresh"), b.innerHTML = f.refreshButtonText, c.appendChild(b), b.onclick = function() {
         t(a);
-        v(a.onRefresh, a.element);
+        u(a.onRefresh, a.element);
       });
       a.showYearSelector && (b = m("button", "back"), b.innerHTML = f.backButtonText, c.appendChild(b), b.onclick = function() {
         a.currentView.year--;
         t(a);
-        v(a.onBackYear, a.currentView.year);
+        u(a.onBackYear, a.currentView.year);
       }, a.currentView.yearText = m("div", "year-text"), a.currentView.yearText.innerHTML = a.currentView.year, c.appendChild(a.currentView.yearText), b = m("button", "next"), b.innerHTML = f.nextButtonText, c.appendChild(b), b.onclick = function() {
         a.currentView.year++;
         t(a);
-        v(a.onNextYear, a.currentView.year);
+        u(a.onNextYear, a.currentView.year);
       });
     }
   }
@@ -91,7 +91,7 @@
         var D = (new Date(c, k + 1, 0)).getDate(), d = m("div", "day-column"), E = !1;
         p.appendChild(d);
         n = Q(new Date(c, k, 1));
-        var u = 1;
+        var v = 1;
         D += n;
         for (var C = 0; C < D; C++) {
           if (C >= n) {
@@ -100,8 +100,8 @@
             var ca = m("div", "day-disabled");
             d.appendChild(ca);
           }
-          E && (-1 < a.daysToShow.indexOf(u) && da(a, d, C - n, k, c, b), 0 === (C + 1) % 7 && (d = m("div", "day-column"), p.appendChild(d), u = 0));
-          u++;
+          E && (-1 < a.daysToShow.indexOf(v) && da(a, d, C - n, k, c, b), 0 === (C + 1) % 7 && (d = m("div", "day-column"), p.appendChild(d), v = 0));
+          v++;
         }
         a.showMonthNames && a.placeMonthNamesOnTheBottom && (p = m("div", "month-name-bottom"), p.innerHTML = f.monthNames[k], l.appendChild(p));
         e && w(F) && (0 < n && !a.showMonthDayGaps ? l.style.marginLeft = -F + "px" : 0 === n && a.showMonthDayGaps && (l.style.marginLeft = F + "px"));
@@ -116,7 +116,7 @@
     b.title = ea(a.dayToolTipText, n);
     c.appendChild(b);
     b.onclick = function() {
-      v(a.onDayClick, n, p);
+      u(a.onDayClick, n, p);
     };
     c = a.mapRangeColors.length;
     e = null;
@@ -181,7 +181,7 @@
     c.appendChild(e);
     a.currentView.type === b && (e.className += q.space + "active");
     e.onclick = function() {
-      a.currentView.type !== b && (a.currentView.type = b, t(a));
+      a.currentView.type !== b && (a.currentView.type = b, u(a.onTypeSwitch, b), t(a));
     };
   }
   function ha(a, c, b) {
@@ -276,7 +276,7 @@
     b && (e = parseInt(e, 10));
     return e;
   }
-  function v(a) {
+  function u(a) {
     M(a) && a.apply(null, [].slice.call(arguments, 1));
   }
   function r(a, c) {
@@ -360,7 +360,7 @@
     return this;
   };
   this.refresh = function(a) {
-    h.hasOwnProperty(a) && (a = h[a].options, t(a), v(a.onRefresh, a.element));
+    h.hasOwnProperty(a) && (a = h[a].options, t(a), u(a.onRefresh, a.element));
     return this;
   };
   this.refreshAll = function() {
@@ -368,7 +368,7 @@
       if (h.hasOwnProperty(a)) {
         var c = h[a].options;
         t(c);
-        v(c.onRefresh, c.element);
+        u(c.onRefresh, c.element);
       }
     }
     return this;
@@ -378,7 +378,7 @@
       var b = h[a].options;
       b.currentView.year = c;
       t(b);
-      v(b.onSetYear, b.currentView.year);
+      u(b.onSetYear, b.currentView.year);
     }
     return this;
   };
@@ -393,7 +393,7 @@
         var c = h[a].options;
         c.element.innerHTML = q.empty;
         c.element.className = q.empty;
-        v(c.onDestroy, c.element);
+        u(c.onDestroy, c.element);
       }
     }
     h = {};
@@ -404,7 +404,7 @@
       var c = h[a].options;
       c.element.innerHTML = q.empty;
       c.element.className = q.empty;
-      v(c.onDestroy, c.element);
+      u(c.onDestroy, c.element);
       delete h[a];
     }
     return this;
@@ -446,13 +446,13 @@
                 K(d.monthsToShow) && (d.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
                 K(d.daysToShow) && (d.daysToShow = [1, 2, 3, 4, 5, 6, 7]);
                 var E = d;
-                var u = d.mapRangeColors;
+                var v = d.mapRangeColors;
                 var C = [{minimum:10, cssClassName:"day-color-1", tooltipText:"Day Color 1"}, {minimum:15, cssClassName:"day-color-2", tooltipText:"Day Color 2"}, {minimum:20, cssClassName:"day-color-3", tooltipText:"Day Color 3"}, {minimum:25, cssClassName:"day-color-4", tooltipText:"Day Color 4"}];
-                u = N(u) ? u : C;
-                E.mapRangeColors = u;
+                v = N(v) ? v : C;
+                E.mapRangeColors = v;
                 E = d.mapRangeColors.length;
-                for (u = 0; u < E; u++) {
-                  B(d.mapRangeColors[u].id) || (d.mapRangeColors[u].id = V());
+                for (v = 0; v < E; v++) {
+                  B(d.mapRangeColors[v].id) || (d.mapRangeColors[v].id = V());
                 }
                 d.titleText = r(d.titleText, "Heat.js");
                 d.dayToolTipText = r(d.dayToolTipText, "{d}{o} {mmmm} {yyyy}");
@@ -465,17 +465,18 @@
                 d.onDestroy = y(d.onDestroy, null);
                 d.onExport = y(d.onExport, null);
                 d.onSetYear = y(d.onSetYear, null);
+                d.onTypeSwitch = y(d.onTypeSwitch, null);
                 d.element = p;
                 d.currentView = {};
                 d.currentView.colorsVisible = {};
                 d.currentView.year = null;
                 d.currentView.type = "None";
-                v(d.onBeforeRender, p);
+                u(d.onBeforeRender, p);
                 B(p.id) || (p.id = V());
                 p.removeAttribute("data-heat-options");
                 U(p.id, d);
                 t(d);
-                v(d.onRenderComplete, p);
+                u(d.onRenderComplete, p);
               } else {
                 f.safeMode || (console.error("The attribute 'data-heat-options' is not a valid object."), D = !1);
               }

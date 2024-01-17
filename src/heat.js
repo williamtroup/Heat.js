@@ -412,6 +412,7 @@
             if ( bindingOptions.currentView.type !== type ) {
                 bindingOptions.currentView.type = type;
 
+                fireCustomTrigger( bindingOptions.onTypeSwitch, type );
                 renderControl( bindingOptions );
             }
         };
@@ -631,6 +632,7 @@
         options.onDestroy = getDefaultFunction( options.onDestroy, null );
         options.onExport = getDefaultFunction( options.onExport, null );
         options.onSetYear = getDefaultFunction( options.onSetYear, null );
+        options.onTypeSwitch = getDefaultFunction( options.onTypeSwitch, null );
 
         return options;
     }

@@ -74,6 +74,16 @@ Fires when the data for a heatmap is exported.
 <br>
 
 
+## For Types:
+
+### options.onTypeSwitch( *type* ):
+Fires when the trend type being viewed is switched.
+<br>
+***Parameter:*** type: '*string*' - The trend type selected.
+<br>
+<br>
+
+
 ## Binding Example:
 
 ```markdown

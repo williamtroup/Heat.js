@@ -5,6 +5,9 @@
 #### **Binding Options:**
 - Added a new binding option called "placeMonthNamesOnTheBottom", which states if the month names should be placed at the bottom (defaults to false).
 
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option called "onTypeSwitch", which states an event that should be triggered when the trend type being viewed is switched.
+
 #### **General Improvements:**
 - When the binding option "showMonthDayGaps" is set to true, gaps are now always shown between the months (even if the first day is a monday).
 
