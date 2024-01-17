@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v0.8.0
+ * @version     v0.9.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -199,9 +199,9 @@
             var days = createElement( "div", "days" );
             map.appendChild( days );
 
-            if ( !bindingOptions.showMonthNames ) {
+            if ( !bindingOptions.showMonthNames || bindingOptions.placeMonthNamesOnTheBottom ) {
                 days.style.paddingTop = "0px";
-                days.style.marginTop = "-5px";
+                days.style.marginTop = !bindingOptions.placeMonthNamesOnTheBottom ? "-5px":  "-2px";
             }
     
             for ( var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++ ) {
@@ -225,10 +225,10 @@
                 var month = createElement( "div", "month" );
                 months.appendChild( month );
     
-                if ( bindingOptions.showMonthNames ) {
-                    var monthName = createElement( "div", "month-name" );
-                    monthName.innerHTML = _configuration.monthNames[ monthIndex ];
-                    month.appendChild( monthName );
+                if ( bindingOptions.showMonthNames && !bindingOptions.placeMonthNamesOnTheBottom ) {
+                    var monthNameTop = createElement( "div", "month-name" );
+                    monthNameTop.innerHTML = _configuration.monthNames[ monthIndex ];
+                    month.appendChild( monthNameTop );
                 }
     
                 var dayColumns = createElement( "div", "day-columns" );
@@ -270,8 +270,18 @@
                     actualDay++;
                 }
 
-                if ( firstDayNumberInMonth > 0 && isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps && monthAdded ) {
-                    month.style.marginLeft = -_elements_Day_Width + "px";
+                if ( bindingOptions.showMonthNames && bindingOptions.placeMonthNamesOnTheBottom ) {
+                    var monthNameBottom = createElement( "div", "month-name-bottom" );
+                    monthNameBottom.innerHTML = _configuration.monthNames[ monthIndex ];
+                    month.appendChild( monthNameBottom );
+                }
+
+                if ( monthAdded && isDefined( _elements_Day_Width ) ) {
+                    if ( firstDayNumberInMonth > 0 && !bindingOptions.showMonthDayGaps ) {
+                        month.style.marginLeft = -_elements_Day_Width + "px";
+                    } else if ( firstDayNumberInMonth === 0 && bindingOptions.showMonthDayGaps ) {
+                        month.style.marginLeft = _elements_Day_Width + "px";
+                    }
                 }
 
                 monthAdded = true;
@@ -309,7 +319,7 @@
             day.className += _string.space + useMapRangeColor.cssClassName;
         }
 
-        if ( !isDefined( _elements_Day_Width ) && !bindingOptions.showMonthDayGaps ) {
+        if ( !isDefined( _elements_Day_Width ) ) {
             var marginLeft = getStyleValueByName( day, "margin-left", true ),
                 marginRight = getStyleValueByName( day, "margin-right", true );
             
@@ -402,6 +412,7 @@
             if ( bindingOptions.currentView.type !== type ) {
                 bindingOptions.currentView.type = type;
 
+                fireCustomTrigger( bindingOptions.onTypeSwitch, type );
                 renderControl( bindingOptions );
             }
         };
@@ -558,6 +569,7 @@
         options.showMonthNames = getDefaultBoolean( options.showMonthNames, true );
         options.showExportButton = getDefaultBoolean( options.showExportButton, false );
         options.mapTogglesEnabled = getDefaultBoolean( options.mapTogglesEnabled, true );
+        options.placeMonthNamesOnTheBottom = getDefaultBoolean( options.placeMonthNamesOnTheBottom, false );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -620,6 +632,7 @@
         options.onDestroy = getDefaultFunction( options.onDestroy, null );
         options.onExport = getDefaultFunction( options.onExport, null );
         options.onSetYear = getDefaultFunction( options.onSetYear, null );
+        options.onTypeSwitch = getDefaultFunction( options.onTypeSwitch, null );
 
         return options;
     }
@@ -1243,7 +1256,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "0.8.0";
+        return "0.9.0";
     };
 
 

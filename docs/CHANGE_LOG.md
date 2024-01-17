@@ -1,5 +1,25 @@
 # Heat.js - Change Log:
 
+## Version 0.9.0:
+
+#### **Binding Options:**
+- Added a new binding option called "placeMonthNamesOnTheBottom", which states if the month names should be placed at the bottom (defaults to false).
+
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option called "onTypeSwitch", which states an event that should be triggered when the trend type being viewed is switched.
+
+#### **General Improvements:**
+- When the binding option "showMonthDayGaps" is set to true, gaps are now always shown between the months (even if the first day is a Monday).
+
+#### **CSS:**
+- The buttons will no longer show a focused outline effect when Bootstrap is being used.
+- Added new ":root" variable "--heat-js-day-border-color", which states the border color to use for the days.
+- Added new ":root" variable "--heat-js-day-spacing", which states the spacing to use for the days (now all even).
+- Improved the spacing around the main buttons.
+
+<br>
+
+
 ## Version 0.8.0:
 
 #### **Binding Options:**

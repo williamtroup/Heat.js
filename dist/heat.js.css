@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v0.8.0
+ * Heat.js Library v0.9.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -11,7 +11,9 @@
   --heat-js-container-background-color: #22272e;
   --heat-js-container-border-color: #454c56;
   --heat-js-day-background-color: #2d333b;
+  --heat-js-day-border-color: #454c56;
   --heat-js-day-background-color-hover: #454c56;
+  --heat-js-day-spacing: 6.3px;
   --heat-js-button-background-color: #2d333b;
   --heat-js-button-border-color: #454c56;
   --heat-js-button-background-color-hover: #454c56;
@@ -72,6 +74,7 @@ div.heat-js div.title-bar button {
   padding-bottom: 5px;
   padding-left: 9px;
   padding-right: 9px;
+  outline: none;
 }
 div.heat-js div.title-bar button:hover {
   cursor: pointer;
@@ -85,6 +88,9 @@ div.heat-js div.title-bar button.active {
 }
 div.heat-js div.title-bar button.back {
   margin-left: calc(var(--heat-js-spacing) * 2) !important;
+}
+div.heat-js div.title-bar button.export {
+  margin-right: calc(var(--heat-js-spacing) / 2) !important;
 }
 div.heat-js div.title-bar div.year-text {
   margin-left: var(--heat-js-spacing);
@@ -121,9 +127,15 @@ div.heat-js div.map div.months div.month {
 div.heat-js div.map div.months div.month:last-child {
   margin-right: 0;
 }
-div.heat-js div.map div.months div.month div.month-name {
+div.heat-js div.map div.months div.month div.month-name,
+div.heat-js div.map div.months div.month div.month-name-bottom {
   font-weight: 300;
+}
+div.heat-js div.map div.months div.month div.month-name {
   margin-bottom: var(--heat-js-spacing);
+}
+div.heat-js div.map div.months div.month div.month-name-bottom {
+  margin-top: var(--heat-js-spacing);
 }
 div.heat-js div.map div.months div.month div.day-columns {
   display: flex;
@@ -134,8 +146,8 @@ div.heat-js div.map div.months div.month div.day-columns div.day-column div.day-
   border-radius: var(--heat-js-border-radius-day);
   width: var(--heat-js-spacing-font-size);
   height: var(--heat-js-spacing-font-size);
-  margin-right: 2px;
-  margin-bottom: 6.3px;
+  margin-right: var(--heat-js-day-spacing);
+  margin-bottom: var(--heat-js-day-spacing);
 }
 div.heat-js div.map div.months div.month div.day-columns div.day-column div.day:last-child,
 div.heat-js div.map div.months div.month div.day-columns div.day-column div.day-disabled:last-child {
@@ -144,7 +156,7 @@ div.heat-js div.map div.months div.month div.day-columns div.day-column div.day-
 div.heat-js div.map div.months div.month div.day-columns div.day-column div.day {
   pointer-events: all !important;
   background-color: var(--heat-js-day-background-color);
-  border: var(--heat-js-border-size) solid var(--heat-js-day-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
 }
 div.heat-js div.map div.months div.month div.day-columns div.day-column div.day:hover {
   cursor: pointer;
@@ -152,7 +164,7 @@ div.heat-js div.map div.months div.month div.day-columns div.day-column div.day:
   transition: var(--heat-js-transition);
 }
 div.heat-js div.guide {
-  margin-top: var(--heat-js-spacing);
+  margin-top: calc(var(--heat-js-spacing) + var(--heat-js-spacing) / 2);
   display: flex;
 }
 div.heat-js div.guide div.map-types,
@@ -171,6 +183,7 @@ div.heat-js div.guide div.map-types button {
   padding-bottom: 5px;
   padding-left: 9px;
   padding-right: 9px;
+  outline: none;
 }
 div.heat-js div.guide div.map-types button:hover {
   cursor: pointer;
@@ -218,12 +231,12 @@ div.heat-js div.guide div.map-toggles div.days {
 }
 div.heat-js div.guide div.map-toggles div.days div.day {
   background-color: var(--heat-js-day-background-color);
-  border: var(--heat-js-border-size) solid var(--heat-js-day-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   display: inline-block;
   border-radius: var(--heat-js-border-radius-day);
   width: var(--heat-js-spacing-font-size);
   height: var(--heat-js-spacing-font-size);
-  margin-right: 3px;
+  margin-right: var(--heat-js-day-spacing);
   cursor: pointer;
 }
 div.heat-js div.guide div.map-toggles div.days div.day:last-child {

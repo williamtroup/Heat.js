@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v0.8.0
+ * Heat.js Library v0.9.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -20,7 +20,9 @@
     
     // Days
     --heat-js-day-background-color: #2d333b;
+    --heat-js-day-border-color: #454c56;;
     --heat-js-day-background-color-hover: #454c56;
+    --heat-js-day-spacing: 6.3px;
 
     // Button
     --heat-js-button-background-color: #2d333b;
@@ -58,6 +60,7 @@
         padding-bottom: 5px;
         padding-left: 9px;
         padding-right: 9px;
+        outline: none;
 
         &:hover {
             cursor: pointer;
@@ -112,6 +115,10 @@ div.heat-js {
             margin-left: calc( var(--heat-js-spacing) * 2 ) !important;
         }
 
+        button.export {
+            margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
+        }
+
         div.year-text {
             margin-left: var(--heat-js-spacing);
             margin-right: var(--heat-js-spacing);
@@ -153,9 +160,17 @@ div.heat-js {
                     margin-right: 0;
                 }
     
-                div.month-name {
+                div.month-name,
+                div.month-name-bottom {
                     font-weight: 300;
+                }
+
+                div.month-name {
                     margin-bottom: var(--heat-js-spacing);
+                }
+
+                div.month-name-bottom {
+                    margin-top: var(--heat-js-spacing);
                 }
     
                 div.day-columns {
@@ -168,8 +183,8 @@ div.heat-js {
                             border-radius: var(--heat-js-border-radius-day);
                             width: var(--heat-js-spacing-font-size);
                             height: var(--heat-js-spacing-font-size);
-                            margin-right: 2px;
-                            margin-bottom: 6.3px;
+                            margin-right: var(--heat-js-day-spacing);
+                            margin-bottom: var(--heat-js-day-spacing);
     
                             &:last-child {
                                 margin-bottom: 0;
@@ -179,7 +194,7 @@ div.heat-js {
                         div.day {
                             pointer-events: all !important;
                             background-color: var(--heat-js-day-background-color);
-                            border: var(--heat-js-border-size) solid var(--heat-js-day-background-color);
+                            border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
     
                             &:hover {
                                 cursor: pointer;
@@ -194,7 +209,7 @@ div.heat-js {
     }
 
     div.guide {
-        margin-top: var(--heat-js-spacing);
+        margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
         display: flex;
 
         div.map-types,
@@ -249,12 +264,12 @@ div.heat-js {
 
                 div.day {
                     background-color: var(--heat-js-day-background-color);
-                    border: var(--heat-js-border-size) solid var(--heat-js-day-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     display: inline-block;
                     border-radius: var(--heat-js-border-radius-day);
                     width: var(--heat-js-spacing-font-size);
                     height: var(--heat-js-spacing-font-size);
-                    margin-right: 3px;
+                    margin-right: var(--heat-js-day-spacing);
                     cursor: pointer;
     
                     &:last-child {
