@@ -6,7 +6,7 @@
 - Added a new binding option called "mapTogglesEnabled", which states if the map toggles are enabled (defaults to true).
 
 #### **General Improvements:**
-- The map layout is now fully responsive with mobile views.
+- The heat map layout is now fully responsive with mobile and tablet views.
 - When exporting the map details, the type selected is now included in the filename (if types are available).
 
 <br>
