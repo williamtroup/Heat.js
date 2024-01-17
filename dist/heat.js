@@ -378,6 +378,11 @@
     }
     return this;
   };
+  this.getYear = function(a) {
+    var c = null;
+    h.hasOwnProperty(a) && (c = h[a].options.currentView.year);
+    return c;
+  };
   this.destroyAll = function() {
     for (var a in h) {
       if (h.hasOwnProperty(a)) {

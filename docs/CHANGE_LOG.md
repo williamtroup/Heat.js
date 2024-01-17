@@ -10,6 +10,7 @@
 
 #### **Public Functions:**
 - Added new public function "setYear()", which will set the year being displayed for a heat map DOM element.
+- Added new public function "getYear()", which will return the year being displayed.
 
 #### **General Improvements:**
 - The heat map layout is now fully responsive with mobile and tablet views.

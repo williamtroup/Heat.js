@@ -1037,7 +1037,7 @@
     /**
      * setYear().
      * 
-     * Sets the year currently being displayed.
+     * Sets the year to be displayed.
      * 
      * @public
      * 
@@ -1056,6 +1056,29 @@
         }
 
         return this;
+    };
+
+    /**
+     * getYear().
+     * 
+     * Gets the year being displayed.
+     * 
+     * @public
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID.
+     * 
+     * @returns     {Object}                                                The year being displayed (or null).
+     */
+    this.getYear = function( elementId ) {
+        var result = null;
+
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+            result = bindingOptions.currentView.year;
+        }
+
+        return result;
     };
 
 
