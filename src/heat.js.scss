@@ -153,9 +153,17 @@ div.heat-js {
                     margin-right: 0;
                 }
     
-                div.month-name {
+                div.month-name,
+                div.month-name-bottom {
                     font-weight: 300;
+                }
+
+                div.month-name {
                     margin-bottom: var(--heat-js-spacing);
+                }
+
+                div.month-name-bottom {
+                    margin-top: var(--heat-js-spacing);
                 }
     
                 div.day-columns {
@@ -194,7 +202,7 @@ div.heat-js {
     }
 
     div.guide {
-        margin-top: var(--heat-js-spacing);
+        margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
         display: flex;
 
         div.map-types,

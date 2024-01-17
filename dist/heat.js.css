@@ -121,9 +121,15 @@ div.heat-js div.map div.months div.month {
 div.heat-js div.map div.months div.month:last-child {
   margin-right: 0;
 }
-div.heat-js div.map div.months div.month div.month-name {
+div.heat-js div.map div.months div.month div.month-name,
+div.heat-js div.map div.months div.month div.month-name-bottom {
   font-weight: 300;
+}
+div.heat-js div.map div.months div.month div.month-name {
   margin-bottom: var(--heat-js-spacing);
+}
+div.heat-js div.map div.months div.month div.month-name-bottom {
+  margin-top: var(--heat-js-spacing);
 }
 div.heat-js div.map div.months div.month div.day-columns {
   display: flex;
@@ -152,7 +158,7 @@ div.heat-js div.map div.months div.month div.day-columns div.day-column div.day:
   transition: var(--heat-js-transition);
 }
 div.heat-js div.guide {
-  margin-top: var(--heat-js-spacing);
+  margin-top: calc(var(--heat-js-spacing) + var(--heat-js-spacing) / 2);
   display: flex;
 }
 div.heat-js div.guide div.map-types,

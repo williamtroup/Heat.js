@@ -21,6 +21,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | showMonthNames | States if the month names are shown (defaults to true). |
 | *boolean* | showExportButton | States if the "Export" button should be shown (defaults to false). |
 | *boolean* | mapTogglesEnabled | States if the heat map toggles are enabled (defaults to true). |
+| *boolean* | placeMonthNamesOnTheBottom | States if the month names should be placed at the bottom (defaults to false). |
 
 <br/>
 
