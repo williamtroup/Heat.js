@@ -1033,6 +1033,29 @@
         return this;
     };
 
+    /**
+     * setYear().
+     * 
+     * Sets the year currently being displayed.
+     * 
+     * @public
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
+     * @param       {number}    year                                        The year that should be shown.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.setYear = function( elementId, year ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+            bindingOptions.currentView.year = year;
+
+            renderControl( bindingOptions );
+        }
+
+        return this;
+    };
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

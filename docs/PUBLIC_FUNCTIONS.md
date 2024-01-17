@@ -63,6 +63,16 @@ Refreshes all of the rendered Heat.js instances.
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
+
+### **setYear( *elementId*, *year* )**:
+Sets the year currently being displayed.
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
+<br>
+***Parameter: year***: '*number*' - The year that should be shown.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
 <br>
 
 
