@@ -72,6 +72,7 @@ div.heat-js div.title-bar button {
   padding-bottom: 5px;
   padding-left: 9px;
   padding-right: 9px;
+  outline: none;
 }
 div.heat-js div.title-bar button:hover {
   cursor: pointer;
@@ -177,6 +178,7 @@ div.heat-js div.guide div.map-types button {
   padding-bottom: 5px;
   padding-left: 9px;
   padding-right: 9px;
+  outline: none;
 }
 div.heat-js div.guide div.map-types button:hover {
   cursor: pointer;

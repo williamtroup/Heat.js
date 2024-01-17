@@ -8,6 +8,9 @@
 #### **General Improvements:**
 - When the binding option "showMonthDayGaps" is set to true, gaps are now always shown between the months (even if the first day is a monday).
 
+#### **CSS:**
+- The buttons will no longer show a focused outline effect when bootstrap is being used.
+
 <br>
 
 
