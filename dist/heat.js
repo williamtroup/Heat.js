@@ -31,7 +31,8 @@
           d.hasOwnProperty(p) && g.push([F(p), F(d[p])].join());
         }
         g = g.join(q.newLine);
-        g !== q.empty && (d = m("a"), d.style.display = "none", d.setAttribute("target", "_blank"), d.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(g)), g = d.setAttribute, l = new Date(), k = z(l.getDate()) + "-" + z(l.getMonth() + 1) + "-" + l.getFullYear(), l = z(l.getHours()) + "-" + z(l.getMinutes()), g.call(d, "download", k + "_" + l + ".csv"), A.body.appendChild(d), d.click(), A.body.removeChild(d));
+        g !== q.empty && (d = m("a"), d.style.display = "none", d.setAttribute("target", "_blank"), d.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(g)), g = d.setAttribute, l = new Date(), k = z(l.getDate()) + "-" + z(l.getMonth() + 1) + "-" + l.getFullYear(), l = z(l.getHours()) + "-" + z(l.getMinutes()), n = q.empty, "None" !== a.currentView.type && (n = a.currentView.type.toLowerCase().replace(q.space, "_") + "_"), g.call(d, "download", n + k + "_" + l + ".csv"), A.body.appendChild(d), 
+        d.click(), A.body.removeChild(d));
         w(a.onExport, a.element);
       });
       a.showRefreshButton && (b = m("button", "refresh"), b.innerHTML = f.refreshButtonText, c.appendChild(b), b.onclick = function() {

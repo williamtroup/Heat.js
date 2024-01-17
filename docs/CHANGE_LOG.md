@@ -4,6 +4,7 @@
 
 #### **General Improvements:**
 - The map layout is now fully responsive with mobile views.
+- When exporting the map details, the type selected is now included in the filename (if types are available).
 
 <br>
 

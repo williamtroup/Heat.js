@@ -464,7 +464,7 @@
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
             tempLink.setAttribute( "href", "data:text/csv;charset=utf-8," + encodeURIComponent( csvContents ) );
-            tempLink.setAttribute( "download", getCsvFilename() );
+            tempLink.setAttribute( "download", getCsvFilename( bindingOptions ) );
     
             _parameter_Document.body.appendChild( tempLink );
             tempLink.click();
@@ -500,12 +500,17 @@
         return csvContents.join( _string.newLine );
     }
 
-    function getCsvFilename() {
+    function getCsvFilename( bindingOptions ) {
         var date = new Date(),
             datePart = padNumber( date.getDate() ) + "-" + padNumber( date.getMonth() + 1 ) + "-" + date.getFullYear(),
-            timePart = padNumber( date.getHours() ) + "-" + padNumber( date.getMinutes() );
+            timePart = padNumber( date.getHours() ) + "-" + padNumber( date.getMinutes() ),
+            filenameStart = _string.empty;
 
-        return datePart + "_" + timePart + ".csv";
+        if ( bindingOptions.currentView.type !== _elements_DateCounts_DefaultType ) {
+            filenameStart = bindingOptions.currentView.type.toLowerCase().replace( _string.space, "_" ) + "_";
+        }
+
+        return filenameStart + datePart + "_" + timePart + ".csv";
     }
 
     function getCsvValue( text ) {
