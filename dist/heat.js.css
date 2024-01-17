@@ -11,7 +11,9 @@
   --heat-js-container-background-color: #22272e;
   --heat-js-container-border-color: #454c56;
   --heat-js-day-background-color: #2d333b;
+  --heat-js-day-border-color: #454c56;
   --heat-js-day-background-color-hover: #454c56;
+  --heat-js-day-spacing: 6.3px;
   --heat-js-button-background-color: #2d333b;
   --heat-js-button-border-color: #454c56;
   --heat-js-button-background-color-hover: #454c56;
@@ -141,8 +143,8 @@ div.heat-js div.map div.months div.month div.day-columns div.day-column div.day-
   border-radius: var(--heat-js-border-radius-day);
   width: var(--heat-js-spacing-font-size);
   height: var(--heat-js-spacing-font-size);
-  margin-right: 2px;
-  margin-bottom: 6.3px;
+  margin-right: var(--heat-js-day-spacing);
+  margin-bottom: var(--heat-js-day-spacing);
 }
 div.heat-js div.map div.months div.month div.day-columns div.day-column div.day:last-child,
 div.heat-js div.map div.months div.month div.day-columns div.day-column div.day-disabled:last-child {
@@ -151,7 +153,7 @@ div.heat-js div.map div.months div.month div.day-columns div.day-column div.day-
 div.heat-js div.map div.months div.month div.day-columns div.day-column div.day {
   pointer-events: all !important;
   background-color: var(--heat-js-day-background-color);
-  border: var(--heat-js-border-size) solid var(--heat-js-day-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
 }
 div.heat-js div.map div.months div.month div.day-columns div.day-column div.day:hover {
   cursor: pointer;
@@ -226,12 +228,12 @@ div.heat-js div.guide div.map-toggles div.days {
 }
 div.heat-js div.guide div.map-toggles div.days div.day {
   background-color: var(--heat-js-day-background-color);
-  border: var(--heat-js-border-size) solid var(--heat-js-day-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   display: inline-block;
   border-radius: var(--heat-js-border-radius-day);
   width: var(--heat-js-spacing-font-size);
   height: var(--heat-js-spacing-font-size);
-  margin-right: 3px;
+  margin-right: var(--heat-js-day-spacing);
   cursor: pointer;
 }
 div.heat-js div.guide div.map-toggles div.days div.day:last-child {

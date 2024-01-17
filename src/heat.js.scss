@@ -20,7 +20,9 @@
     
     // Days
     --heat-js-day-background-color: #2d333b;
+    --heat-js-day-border-color: #454c56;;
     --heat-js-day-background-color-hover: #454c56;
+    --heat-js-day-spacing: 6.3px;
 
     // Button
     --heat-js-button-background-color: #2d333b;
@@ -177,8 +179,8 @@ div.heat-js {
                             border-radius: var(--heat-js-border-radius-day);
                             width: var(--heat-js-spacing-font-size);
                             height: var(--heat-js-spacing-font-size);
-                            margin-right: 2px;
-                            margin-bottom: 6.3px;
+                            margin-right: var(--heat-js-day-spacing);
+                            margin-bottom: var(--heat-js-day-spacing);
     
                             &:last-child {
                                 margin-bottom: 0;
@@ -188,7 +190,7 @@ div.heat-js {
                         div.day {
                             pointer-events: all !important;
                             background-color: var(--heat-js-day-background-color);
-                            border: var(--heat-js-border-size) solid var(--heat-js-day-background-color);
+                            border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
     
                             &:hover {
                                 cursor: pointer;
@@ -258,12 +260,12 @@ div.heat-js {
 
                 div.day {
                     background-color: var(--heat-js-day-background-color);
-                    border: var(--heat-js-border-size) solid var(--heat-js-day-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     display: inline-block;
                     border-radius: var(--heat-js-border-radius-day);
                     width: var(--heat-js-spacing-font-size);
                     height: var(--heat-js-spacing-font-size);
-                    margin-right: 3px;
+                    margin-right: var(--heat-js-day-spacing);
                     cursor: pointer;
     
                     &:last-child {
