@@ -1,5 +1,11 @@
 # Heat.js - Change Log:
 
+## Version 0.8.0:
+-
+
+<br>
+
+
 ## Version 0.7.0:
 - BREAKING: All ":root" variables now start with "--heat-js-", which will prevent collisions with other libraries.
 - Updated project homepage URL.
