@@ -31,22 +31,22 @@
           d.hasOwnProperty(q) && g.push([F(q), F(d[q])].join());
         }
         g = g.join(p.newLine);
-        g !== p.empty && (d = m("a"), d.style.display = "none", d.setAttribute("target", "_blank"), d.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(g)), g = d.setAttribute, l = new Date(), k = z(l.getDate()) + "-" + z(l.getMonth() + 1) + "-" + l.getFullYear(), l = z(l.getHours()) + "-" + z(l.getMinutes()), n = p.empty, "None" !== a.currentView.type && (n = a.currentView.type.toLowerCase().replace(p.space, "_") + "_"), g.call(d, "download", n + k + "_" + l + ".csv"), A.body.appendChild(d), 
-        d.click(), A.body.removeChild(d));
-        w(a.onExport, a.element);
+        g !== p.empty && (d = m("a"), d.style.display = "none", d.setAttribute("target", "_blank"), d.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(g)), g = d.setAttribute, l = new Date(), k = A(l.getDate()) + "-" + A(l.getMonth() + 1) + "-" + l.getFullYear(), l = A(l.getHours()) + "-" + A(l.getMinutes()), n = p.empty, "None" !== a.currentView.type && (n = a.currentView.type.toLowerCase().replace(p.space, "_") + "_"), g.call(d, "download", n + k + "_" + l + ".csv"), B.body.appendChild(d), 
+        d.click(), B.body.removeChild(d));
+        v(a.onExport, a.element);
       });
       a.showRefreshButton && (b = m("button", "refresh"), b.innerHTML = f.refreshButtonText, c.appendChild(b), b.onclick = function() {
         t(a);
-        w(a.onRefresh, a.element);
+        v(a.onRefresh, a.element);
       });
       a.showYearSelector && (b = m("button", "back"), b.innerHTML = f.backButtonText, c.appendChild(b), b.onclick = function() {
         a.currentView.year--;
         t(a);
-        w(a.onBackYear, a.currentView.year);
+        v(a.onBackYear, a.currentView.year);
       }, a.currentView.yearText = m("div", "year-text"), a.currentView.yearText.innerHTML = a.currentView.year, c.appendChild(a.currentView.yearText), b = m("button", "next"), b.innerHTML = f.nextButtonText, c.appendChild(b), b.onclick = function() {
         a.currentView.year++;
         t(a);
-        w(a.onNextYear, a.currentView.year);
+        v(a.onNextYear, a.currentView.year);
       });
     }
   }
@@ -88,19 +88,19 @@
         l.appendChild(n);
         var q = (new Date(c, k + 1, 0)).getDate(), y = m("div", "day-column"), e = !1;
         n.appendChild(y);
-        var B = Q(new Date(c, k, 1)), u = 1;
-        q += B;
+        var C = Q(new Date(c, k, 1)), u = 1;
+        q += C;
         for (var E = 0; E < q; E++) {
-          if (E >= B) {
+          if (E >= C) {
             e = !0;
           } else {
             var ca = m("div", "day-disabled");
             y.appendChild(ca);
           }
-          e && (-1 < a.daysToShow.indexOf(u) && da(a, y, E - B, k, c, b), 0 === (E + 1) % 7 && (y = m("div", "day-column"), n.appendChild(y), u = 0));
+          e && (-1 < a.daysToShow.indexOf(u) && da(a, y, E - C, k, c, b), 0 === (E + 1) % 7 && (y = m("div", "day-column"), n.appendChild(y), u = 0));
           u++;
         }
-        0 < B && v(G) && !a.showMonthDayGaps && d && (l.style.marginLeft = -G + "px");
+        0 < C && w(G) && !a.showMonthDayGaps && d && (l.style.marginLeft = -G + "px");
         d = !0;
       }
     }
@@ -112,7 +112,7 @@
     b.title = ea(a.dayToolTipText, n);
     c.appendChild(b);
     b.onclick = function() {
-      w(a.onDayClick, n, q);
+      v(a.onDayClick, n, q);
     };
     c = a.mapRangeColors.length;
     d = null;
@@ -123,8 +123,8 @@
         break;
       }
     }
-    v(d) && R(a, d.id) && (b.className += p.space + d.cssClassName);
-    v(G) || a.showMonthDayGaps || (k = S(b, "margin-left", !0), c = S(b, "margin-right", !0), G = b.offsetWidth + k + c);
+    w(d) && R(a, d.id) && (b.className += p.space + d.cssClassName);
+    w(G) || a.showMonthDayGaps || (k = S(b, "margin-left", !0), c = S(b, "margin-right", !0), G = b.offsetWidth + k + c);
   }
   function Z(a) {
     if (a.showGuide) {
@@ -216,7 +216,7 @@
   function ea(a, c) {
     var b = a, d = Q(c);
     b = b.replace("{dddd}", f.dayNames[d]);
-    b = b.replace("{dd}", z(c.getDate()));
+    b = b.replace("{dd}", A(c.getDate()));
     b = b.replace("{d}", c.getDate());
     d = b.replace;
     var g = c.getDate(), k = f.thText;
@@ -229,30 +229,30 @@
     }
     b = d.call(b, "{o}", k);
     b = b.replace("{mmmm}", f.monthNames[c.getMonth()]);
-    b = b.replace("{mm}", z(c.getMonth() + 1));
+    b = b.replace("{mm}", A(c.getMonth() + 1));
     b = b.replace("{m}", c.getMonth() + 1);
     b = b.replace("{yyyy}", c.getFullYear());
     b = b.replace("{yyy}", c.getFullYear().toString().substring(1));
     b = b.replace("{yy}", c.getFullYear().toString().substring(2));
     return b = b.replace("{y}", parseInt(c.getFullYear().toString().substring(2)).toString());
   }
-  function v(a) {
+  function w(a) {
     return null !== a && void 0 !== a && a !== p.empty;
   }
   function H(a) {
-    return v(a) && "object" === typeof a;
+    return w(a) && "object" === typeof a;
   }
   function I(a) {
-    return v(a) && "boolean" === typeof a;
+    return w(a) && "boolean" === typeof a;
   }
-  function C(a) {
-    return v(a) && "string" === typeof a;
+  function D(a) {
+    return w(a) && "string" === typeof a;
   }
   function M(a) {
-    return v(a) && "function" === typeof a;
+    return w(a) && "function" === typeof a;
   }
   function P(a) {
-    return v(a) && "number" === typeof a;
+    return w(a) && "number" === typeof a;
   }
   function N(a) {
     return H(a) && a instanceof Array;
@@ -260,34 +260,34 @@
   function m(a, c) {
     var b = a.toLowerCase();
     var d = "text" === b;
-    O.hasOwnProperty(b) || (O[b] = d ? A.createTextNode(p.empty) : A.createElement(b));
+    O.hasOwnProperty(b) || (O[b] = d ? B.createTextNode(p.empty) : B.createElement(b));
     b = O[b].cloneNode(!1);
-    v(c) && (b.className = c);
+    w(c) && (b.className = c);
     return b;
   }
   function S(a, c, b) {
     var d = null;
-    b = v(b) ? b : !1;
-    J.getComputedStyle ? d = A.defaultView.getComputedStyle(a, null).getPropertyValue(c) : a.currentStyle && (d = a.currentStyle[c]);
+    b = w(b) ? b : !1;
+    J.getComputedStyle ? d = B.defaultView.getComputedStyle(a, null).getPropertyValue(c) : a.currentStyle && (d = a.currentStyle[c]);
     b && (d = parseInt(d, 10));
     return d;
   }
-  function w(a) {
+  function v(a) {
     M(a) && a.apply(null, [].slice.call(arguments, 1));
   }
   function r(a, c) {
-    return C(a) ? a : c;
+    return D(a) ? a : c;
   }
   function x(a, c) {
     return I(a) ? a : c;
   }
-  function D(a, c) {
+  function z(a, c) {
     return M(a) ? a : c;
   }
   function ia(a) {
     var c = !0, b = null;
     try {
-      C(a) && (b = JSON.parse(a));
+      D(a) && (b = JSON.parse(a));
     } catch (d) {
       try {
         b = eval("(" + a + ")"), M(b) && (b = b());
@@ -305,17 +305,17 @@
     }
     return a.join(p.empty);
   }
-  function z(a) {
+  function A(a) {
     a = a.toString();
     return 1 === a.length ? "0" + a : a;
   }
   function L(a) {
-    return a.getFullYear() + "-" + z(a.getMonth() + 1) + "-" + z(a.getDate());
+    return a.getFullYear() + "-" + A(a.getMonth() + 1) + "-" + A(a.getDate());
   }
   function W() {
     f.safeMode = x(f.safeMode, !0);
     var a = f, c = f.domElementTypes, b = ["*"];
-    C(c) ? (c = c.split(p.space), 0 === c.length && (c = b)) : c = N(c) ? c : b;
+    D(c) ? (c = c.split(p.space), 0 === c.length && (c = b)) : c = N(c) ? c : b;
     a.domElementTypes = c;
     f.stText = r(f.stText, "st");
     f.ndText = r(f.ndText, "nd");
@@ -336,13 +336,13 @@
     c = P(c) ? c : 1;
     return !N(a) || a.length < c;
   }
-  var A = null, J = null, f = {}, p = {empty:"", space:" ", newLine:"\n"}, O = {}, G = null, h = {};
+  var B = null, J = null, f = {}, p = {empty:"", space:" ", newLine:"\n"}, O = {}, G = null, h = {};
   this.addDate = function(a, c, b, d) {
-    h.hasOwnProperty(a) && (d = I(d) ? d : !0, b = C(b) ? b : "None", c = L(c), h[a].type.hasOwnProperty(b) || (h[a].type[b] = {}, h[a].types++), h[a].type[b].hasOwnProperty(c) || (h[a].type[b][c] = 0), h[a].type[b][c]++, d && t(h[a].options));
+    h.hasOwnProperty(a) && (d = I(d) ? d : !0, b = D(b) ? b : "None", c = L(c), h[a].type.hasOwnProperty(b) || (h[a].type[b] = {}, h[a].types++), h[a].type[b].hasOwnProperty(c) || (h[a].type[b][c] = 0), h[a].type[b][c]++, d && t(h[a].options));
     return this;
   };
   this.removeDate = function(a, c, b, d) {
-    h.hasOwnProperty(a) && (b = C(b) ? b : "None", c = L(c), h[a].type.hasOwnProperty(b) && h[a].type[b].hasOwnProperty(c) && (d = I(d) ? d : !0, 0 < h[a].type[b][c] && h[a].type[b][c]--, d && t(h[a].options)));
+    h.hasOwnProperty(a) && (b = D(b) ? b : "None", c = L(c), h[a].type.hasOwnProperty(b) && h[a].type[b].hasOwnProperty(c) && (d = I(d) ? d : !0, 0 < h[a].type[b][c] && h[a].type[b][c]--, d && t(h[a].options)));
     return this;
   };
   this.reset = function(a, c) {
@@ -356,7 +356,7 @@
     return this;
   };
   this.refresh = function(a) {
-    h.hasOwnProperty(a) && (a = h[a].options, t(a), w(a.onRefresh, a.element));
+    h.hasOwnProperty(a) && (a = h[a].options, t(a), v(a.onRefresh, a.element));
     return this;
   };
   this.refreshAll = function() {
@@ -364,7 +364,7 @@
       if (h.hasOwnProperty(a)) {
         var c = h[a].options;
         t(c);
-        w(c.onRefresh, c.element);
+        v(c.onRefresh, c.element);
       }
     }
     return this;
@@ -374,6 +374,7 @@
       var b = h[a].options;
       b.currentView.year = c;
       t(b);
+      v(b.onSetYear, b.currentView.year);
     }
     return this;
   };
@@ -383,7 +384,7 @@
         var c = h[a].options;
         c.element.innerHTML = p.empty;
         c.element.className = p.empty;
-        w(c.onDestroy, c.element);
+        v(c.onDestroy, c.element);
       }
     }
     h = {};
@@ -394,7 +395,7 @@
       var c = h[a].options;
       c.element.innerHTML = p.empty;
       c.element.className = p.empty;
-      w(c.onDestroy, c.element);
+      v(c.onDestroy, c.element);
       delete h[a];
     }
     return this;
@@ -408,18 +409,18 @@
     return "0.8.0";
   };
   (function(a, c) {
-    A = a;
+    B = a;
     J = c;
     W();
-    A.addEventListener("DOMContentLoaded", function() {
+    B.addEventListener("DOMContentLoaded", function() {
       for (var b = f.domElementTypes, d = b.length, g = 0; g < d; g++) {
-        var k = A.getElementsByTagName(b[g]);
+        var k = B.getElementsByTagName(b[g]);
         k = [].slice.call(k);
         for (var l = k.length, n = 0; n < l; n++) {
           var q = k[n], y = !0;
-          if (v(q) && q.hasAttribute("data-heat-options")) {
+          if (w(q) && q.hasAttribute("data-heat-options")) {
             var e = q.getAttribute("data-heat-options");
-            if (C(e)) {
+            if (D(e)) {
               if (e = ia(e), e.parsed && H(e.result)) {
                 e = e.result;
                 e = H(e) ? e : {};
@@ -434,36 +435,37 @@
                 e.mapTogglesEnabled = x(e.mapTogglesEnabled, !0);
                 K(e.monthsToShow) && (e.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
                 K(e.daysToShow) && (e.daysToShow = [1, 2, 3, 4, 5, 6, 7]);
-                var B = e;
+                var C = e;
                 var u = e.mapRangeColors;
                 var E = [{minimum:10, cssClassName:"day-color-1", tooltipText:"Day Color 1"}, {minimum:15, cssClassName:"day-color-2", tooltipText:"Day Color 2"}, {minimum:20, cssClassName:"day-color-3", tooltipText:"Day Color 3"}, {minimum:25, cssClassName:"day-color-4", tooltipText:"Day Color 4"}];
                 u = N(u) ? u : E;
-                B.mapRangeColors = u;
-                B = e.mapRangeColors.length;
-                for (u = 0; u < B; u++) {
-                  C(e.mapRangeColors[u].id) || (e.mapRangeColors[u].id = V());
+                C.mapRangeColors = u;
+                C = e.mapRangeColors.length;
+                for (u = 0; u < C; u++) {
+                  D(e.mapRangeColors[u].id) || (e.mapRangeColors[u].id = V());
                 }
                 e.titleText = r(e.titleText, "Heat.js");
                 e.dayToolTipText = r(e.dayToolTipText, "{d}{o} {mmmm} {yyyy}");
-                e.onDayClick = D(e.onDayClick, null);
-                e.onBackYear = D(e.onBackYear, null);
-                e.onNextYear = D(e.onNextYear, null);
-                e.onRefresh = D(e.onRefresh, null);
-                e.onBeforeRender = D(e.onBeforeRender, null);
-                e.onRenderComplete = D(e.onRenderComplete, null);
-                e.onDestroy = D(e.onDestroy, null);
-                e.onExport = D(e.onExport, null);
+                e.onDayClick = z(e.onDayClick, null);
+                e.onBackYear = z(e.onBackYear, null);
+                e.onNextYear = z(e.onNextYear, null);
+                e.onRefresh = z(e.onRefresh, null);
+                e.onBeforeRender = z(e.onBeforeRender, null);
+                e.onRenderComplete = z(e.onRenderComplete, null);
+                e.onDestroy = z(e.onDestroy, null);
+                e.onExport = z(e.onExport, null);
+                e.onSetYear = z(e.onSetYear, null);
                 e.element = q;
                 e.currentView = {};
                 e.currentView.colorsVisible = {};
                 e.currentView.year = null;
                 e.currentView.type = "None";
-                w(e.onBeforeRender, q);
-                C(q.id) || (q.id = V());
+                v(e.onBeforeRender, q);
+                D(q.id) || (q.id = V());
                 q.removeAttribute("data-heat-options");
                 U(q.id, e);
                 t(e);
-                w(e.onRenderComplete, q);
+                v(e.onRenderComplete, q);
               } else {
                 f.safeMode || (console.error("The attribute 'data-heat-options' is not a valid object."), y = !1);
               }
@@ -477,6 +479,6 @@
         }
       }
     });
-    v(J.$heat) || (J.$heat = this);
+    w(J.$heat) || (J.$heat = this);
   })(document, window);
 })();

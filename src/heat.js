@@ -619,6 +619,7 @@
         options.onRenderComplete = getDefaultFunction( options.onRenderComplete, null );
         options.onDestroy = getDefaultFunction( options.onDestroy, null );
         options.onExport = getDefaultFunction( options.onExport, null );
+        options.onSetYear = getDefaultFunction( options.onSetYear, null );
 
         return options;
     }
@@ -1051,6 +1052,7 @@
             bindingOptions.currentView.year = year;
 
             renderControl( bindingOptions );
+            fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
         }
 
         return this;

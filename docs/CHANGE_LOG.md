@@ -5,6 +5,9 @@
 #### **Binding Options:**
 - Added a new binding option called "mapTogglesEnabled", which states if the map toggles are enabled (defaults to true).
 
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option called "onSetYear", which states an event that should be triggered when the year is manually set.
+
 #### **Public Functions:**
 - Added new public function "setYear()", which will set the year being displayed for a heat map DOM element.
 

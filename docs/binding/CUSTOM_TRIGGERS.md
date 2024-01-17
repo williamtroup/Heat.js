@@ -43,6 +43,12 @@ Fires when the year is moved forward.
 <br>
 ***Parameter:*** year: '*number*' - The year that is now being viewed.
 <br>
+
+### options.onSetYear( *year* ):
+Fires when the year is manually set.
+<br>
+***Parameter:*** year: '*number*' - The year that is now being viewed.
+<br>
 <br>
 
 
