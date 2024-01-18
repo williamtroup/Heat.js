@@ -63,7 +63,7 @@ Make sure you include the "DOCTYPE html" tag at the top of your HTML, as follows
 ### 2. Include Files:
 
 ```markdown
-<link rel="stylesheet" href="dist/heat.js.css" />
+<link rel="stylesheet" href="dist/heat.js.css">
 <script src="dist/heat.js"></script>
 ```
 <br>

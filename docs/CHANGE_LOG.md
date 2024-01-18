@@ -14,6 +14,10 @@
 #### **Fixes:**
 - Fixed a fault caused the trend type buttons to be hidden when the binding option "showGuide" is set to false.
 - Fixed a fault that caused "undefined" to be passed to the "count" parameter for the binding custom trigger "onDayClick".
+- Fixed HTML files using the wrong formatting for meta, and imports being missing.
+
+#### **Documentation:**
+- Improved documentation in the main README files.
 
 <br>
 
