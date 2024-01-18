@@ -328,56 +328,56 @@
     }
 
     function renderControlViewGuide( bindingOptions ) {
-        if ( bindingOptions.showGuide ) {
-            var guide = createElement( "div", "guide" );
-            bindingOptions.element.appendChild( guide );
+        var guide = createElement( "div", "guide" );
+        bindingOptions.element.appendChild( guide );
 
-            var mapTypes = createElement( "div", "map-types" );
-            guide.appendChild( mapTypes );
+        var mapTypes = createElement( "div", "map-types" );
+        guide.appendChild( mapTypes );
 
-            var noneTypeCount = 0;
-            for ( var storageDate in _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ] ) {
-                if ( _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ].hasOwnProperty( storageDate ) ) {
-                    noneTypeCount++;
-                    break;
-                }
+        var noneTypeCount = 0;
+        for ( var storageDate in _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ] ) {
+            if ( _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ].hasOwnProperty( storageDate ) ) {
+                noneTypeCount++;
+                break;
             }
+        }
 
-            if ( _elements_DateCounts[ bindingOptions.element.id ].types > 1 ) {
-                for ( var type in _elements_DateCounts[ bindingOptions.element.id ].type ) {
-                    if ( type !== _elements_DateCounts_DefaultType || noneTypeCount > 0 ) {
-                        if ( noneTypeCount === 0 && bindingOptions.currentView.type === _elements_DateCounts_DefaultType ) {
-                            bindingOptions.currentView.type = type;
-                        }
-
-                        renderControlViewGuideTypeButton( bindingOptions, mapTypes, type );
+        if ( _elements_DateCounts[ bindingOptions.element.id ].types > 1 ) {
+            for ( var type in _elements_DateCounts[ bindingOptions.element.id ].type ) {
+                if ( type !== _elements_DateCounts_DefaultType || noneTypeCount > 0 ) {
+                    if ( noneTypeCount === 0 && bindingOptions.currentView.type === _elements_DateCounts_DefaultType ) {
+                        bindingOptions.currentView.type = type;
                     }
+
+                    renderControlViewGuideTypeButton( bindingOptions, mapTypes, type );
                 }
             }
+        }
 
+        if ( bindingOptions.showGuide ) {
             var mapToggles = createElement( "div", "map-toggles" );
             guide.appendChild( mapToggles );
     
             var lessText = createElement( "div", "less-text" );
             lessText.innerHTML = _configuration.lessText;
             mapToggles.appendChild( lessText );
-
+    
             if ( bindingOptions.mapTogglesEnabled ) {
                 lessText.onclick = function() {
                     updateMapRangeColorToggles( bindingOptions, false );
                 };
-
+    
             } else {
                 lessText.className += _string.space + "no-click";
             }
     
             var days = createElement( "div", "days" );
             mapToggles.appendChild( days );
-
+    
             var mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
                 return b.range - a.range;
             } );
-
+    
             var mapRangeColorsLength = mapRangeColors.length;
     
             for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
@@ -387,12 +387,12 @@
             var moreText = createElement( "div", "more-text" );
             moreText.innerHTML = _configuration.moreText;
             mapToggles.appendChild( moreText );
-
+    
             if ( bindingOptions.mapTogglesEnabled ) {
                 moreText.onclick = function() {
                     updateMapRangeColorToggles( bindingOptions, true );
                 };
-
+    
             } else {
                 moreText.className += _string.space + "no-click";
             }

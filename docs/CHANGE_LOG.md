@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 1.0.0:
-- 
+
+#### **Fixes:**
+- Fixed a fault caused the trend type buttons to be hidden when the binding option "showGuide" is set to false.
 
 <br>
 
