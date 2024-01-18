@@ -2,6 +2,9 @@
 
 ## Version 1.0.0:
 
+#### **Binding Options:**
+- Added a new binding option called "exportOnlyYearBeingViewed", which states if only the data for the year being viewed should be exported (defaults to true).
+
 #### **Binding Options - Custom Triggers:**
 - An onclick event is now only assigned to the days when the binding custom trigger "onDayClick" is set.
 

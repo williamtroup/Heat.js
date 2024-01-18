@@ -516,13 +516,30 @@
 
         csvStorageDates.sort();
 
-        var csvStorageDatesLength = csvStorageDates.length;
+        if ( bindingOptions.exportOnlyYearBeingViewed ) {
+            for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+                if ( bindingOptions.monthsToShow.indexOf( monthIndex + 1 ) > -1 ) {
+                    var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
+        
+                    for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                        var storageDate2 = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
 
-        for ( var csvStorageDateIndex = 0; csvStorageDateIndex < csvStorageDatesLength; csvStorageDateIndex++ ) {
-            var storageDate2 = csvStorageDates[ csvStorageDateIndex ];
+                        if ( csvData.hasOwnProperty( storageDate2 ) ) {
+                            csvContents.push( getCsvValueLine( [ getCsvValue( storageDate2 ), getCsvValue( csvData[ storageDate2 ] ) ] ) );
+                        }
+                    }
+                }
+            }
 
-            if ( csvData.hasOwnProperty( storageDate2 ) ) {
-                csvContents.push( getCsvValueLine( [ getCsvValue( storageDate2 ), getCsvValue( csvData[ storageDate2 ] ) ] ) );
+        } else {
+            var csvStorageDatesLength = csvStorageDates.length;
+
+            for ( var csvStorageDateIndex = 0; csvStorageDateIndex < csvStorageDatesLength; csvStorageDateIndex++ ) {
+                var storageDate3 = csvStorageDates[ csvStorageDateIndex ];
+    
+                if ( csvData.hasOwnProperty( storageDate3 ) ) {
+                    csvContents.push( getCsvValueLine( [ getCsvValue( storageDate3 ), getCsvValue( csvData[ storageDate3 ] ) ] ) );
+                }
             }
         }
         
@@ -573,6 +590,7 @@
         options.showExportButton = getDefaultBoolean( options.showExportButton, false );
         options.mapTogglesEnabled = getDefaultBoolean( options.mapTogglesEnabled, true );
         options.placeMonthNamesOnTheBottom = getDefaultBoolean( options.placeMonthNamesOnTheBottom, false );
+        options.exportOnlyYearBeingViewed = getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];

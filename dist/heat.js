@@ -369,12 +369,28 @@
       }
     }
     csvStorageDates.sort();
-    var csvStorageDatesLength = csvStorageDates.length;
-    var csvStorageDateIndex = 0;
-    for (; csvStorageDateIndex < csvStorageDatesLength; csvStorageDateIndex++) {
-      var storageDate2 = csvStorageDates[csvStorageDateIndex];
-      if (csvData.hasOwnProperty(storageDate2)) {
-        csvContents.push(getCsvValueLine([getCsvValue(storageDate2), getCsvValue(csvData[storageDate2])]));
+    if (bindingOptions.exportOnlyYearBeingViewed) {
+      var monthIndex = 0;
+      for (; monthIndex < 12; monthIndex++) {
+        if (bindingOptions.monthsToShow.indexOf(monthIndex + 1) > -1) {
+          var totalDaysInMonth = getTotalDaysInMonth(bindingOptions.currentView.year, monthIndex);
+          var dayIndex = 0;
+          for (; dayIndex < totalDaysInMonth; dayIndex++) {
+            var storageDate2 = toStorageDate(new Date(bindingOptions.currentView.year, monthIndex, dayIndex + 1));
+            if (csvData.hasOwnProperty(storageDate2)) {
+              csvContents.push(getCsvValueLine([getCsvValue(storageDate2), getCsvValue(csvData[storageDate2])]));
+            }
+          }
+        }
+      }
+    } else {
+      var csvStorageDatesLength = csvStorageDates.length;
+      var csvStorageDateIndex = 0;
+      for (; csvStorageDateIndex < csvStorageDatesLength; csvStorageDateIndex++) {
+        var storageDate3 = csvStorageDates[csvStorageDateIndex];
+        if (csvData.hasOwnProperty(storageDate3)) {
+          csvContents.push(getCsvValueLine([getCsvValue(storageDate3), getCsvValue(csvData[storageDate3])]));
+        }
       }
     }
     return csvContents.join(_string.newLine);
@@ -410,6 +426,7 @@
     options.showExportButton = getDefaultBoolean(options.showExportButton, false);
     options.mapTogglesEnabled = getDefaultBoolean(options.mapTogglesEnabled, true);
     options.placeMonthNamesOnTheBottom = getDefaultBoolean(options.placeMonthNamesOnTheBottom, false);
+    options.exportOnlyYearBeingViewed = getDefaultBoolean(options.exportOnlyYearBeingViewed, true);
     if (isInvalidOptionArray(options.monthsToShow)) {
       options.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     }
