@@ -518,15 +518,13 @@
 
         if ( bindingOptions.exportOnlyYearBeingViewed ) {
             for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
-                if ( bindingOptions.monthsToShow.indexOf( monthIndex + 1 ) > -1 ) {
-                    var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
+                var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
         
-                    for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                        var storageDate2 = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
+                for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                    var storageDate2 = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
 
-                        if ( csvData.hasOwnProperty( storageDate2 ) ) {
-                            csvContents.push( getCsvValueLine( [ getCsvValue( storageDate2 ), getCsvValue( csvData[ storageDate2 ] ) ] ) );
-                        }
+                    if ( csvData.hasOwnProperty( storageDate2 ) ) {
+                        csvContents.push( getCsvValueLine( [ getCsvValue( storageDate2 ), getCsvValue( csvData[ storageDate2 ] ) ] ) );
                     }
                 }
             }

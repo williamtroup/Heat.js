@@ -372,14 +372,12 @@
     if (bindingOptions.exportOnlyYearBeingViewed) {
       var monthIndex = 0;
       for (; monthIndex < 12; monthIndex++) {
-        if (bindingOptions.monthsToShow.indexOf(monthIndex + 1) > -1) {
-          var totalDaysInMonth = getTotalDaysInMonth(bindingOptions.currentView.year, monthIndex);
-          var dayIndex = 0;
-          for (; dayIndex < totalDaysInMonth; dayIndex++) {
-            var storageDate2 = toStorageDate(new Date(bindingOptions.currentView.year, monthIndex, dayIndex + 1));
-            if (csvData.hasOwnProperty(storageDate2)) {
-              csvContents.push(getCsvValueLine([getCsvValue(storageDate2), getCsvValue(csvData[storageDate2])]));
-            }
+        var totalDaysInMonth = getTotalDaysInMonth(bindingOptions.currentView.year, monthIndex);
+        var dayIndex = 0;
+        for (; dayIndex < totalDaysInMonth; dayIndex++) {
+          var storageDate2 = toStorageDate(new Date(bindingOptions.currentView.year, monthIndex, dayIndex + 1));
+          if (csvData.hasOwnProperty(storageDate2)) {
+            csvContents.push(getCsvValueLine([getCsvValue(storageDate2), getCsvValue(csvData[storageDate2])]));
           }
         }
       }
