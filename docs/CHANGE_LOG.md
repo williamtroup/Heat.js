@@ -2,11 +2,15 @@
 
 ## Version 1.0.0:
 
+#### **Binding Options - Custom Triggers:**
+- An onclick event is now only assigned to the days when the binding custom trigger "onDayClick" is set.
+
 #### **CSS:**
 - Split up the SCSS file into sections.
 
 #### **Fixes:**
 - Fixed a fault caused the trend type buttons to be hidden when the binding option "showGuide" is set to false.
+- Fixed a fault that caused "undefined" to be passed to the "count" parameter for the binding custom trigger "onDayClick".
 
 <br>
 

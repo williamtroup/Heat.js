@@ -201,11 +201,14 @@
     var day = createElement("div", "day");
     var date = new Date(year, month, actualDay);
     var dateCount = _elements_DateCounts[bindingOptions.element.id].type[bindingOptions.currentView.type][toStorageDate(date)];
+    dateCount = isDefinedNumber(dateCount) ? dateCount : 0;
     day.title = getCustomFormattedDateText(bindingOptions.dayToolTipText, date);
     currentDayColumn.appendChild(day);
-    day.onclick = function() {
-      fireCustomTrigger(bindingOptions.onDayClick, date, dateCount);
-    };
+    if (isDefinedFunction(bindingOptions.onDayClick)) {
+      day.onclick = function() {
+        fireCustomTrigger(bindingOptions.onDayClick, date, dateCount);
+      };
+    }
     var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
     var useMapRangeColor = null;
     var mapRangeColorsIndex = 0;

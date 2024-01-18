@@ -295,12 +295,15 @@
             date = new Date( year, month, actualDay ),
             dateCount = _elements_DateCounts[ bindingOptions.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
 
+        dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
         day.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
         currentDayColumn.appendChild( day );
 
-        day.onclick = function() {
-            fireCustomTrigger( bindingOptions.onDayClick, date, dateCount );
-        };
+        if ( isDefinedFunction( bindingOptions.onDayClick ) ) {
+            day.onclick = function() {
+                fireCustomTrigger( bindingOptions.onDayClick, date, dateCount );
+            };
+        }
 
         var mapRangeColorsLength = bindingOptions.mapRangeColors.length,
             useMapRangeColor = null;
