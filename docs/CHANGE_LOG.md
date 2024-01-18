@@ -1,5 +1,27 @@
 # Heat.js - Change Log:
 
+## Version 1.0.0:
+
+#### **Binding Options:**
+- Added a new binding option called "exportOnlyYearBeingViewed", which states that only the data for the year being viewed should be exported (defaults to true).
+
+#### **Binding Options - Custom Triggers:**
+- An on click event is now only assigned to the days when the binding custom trigger "onDayClick" is set.
+
+#### **CSS:**
+- Split up the SCSS file into sections.
+
+#### **Fixes:**
+- Fixed a fault that caused the trend type buttons to be hidden when the binding option "showGuide" is set to false.
+- Fixed a fault that caused "undefined" to be passed to the "count" parameter for the binding custom trigger "onDayClick".
+- Fixed HTML files using the wrong formatting for meta, and imports being missing.
+
+#### **Documentation:**
+- Improved documentation in the main README files.
+
+<br>
+
+
 ## Version 0.9.0:
 
 #### **Binding Options:**

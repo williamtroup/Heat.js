@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v0.9.0
+ * @version     v1.0.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -295,12 +295,15 @@
             date = new Date( year, month, actualDay ),
             dateCount = _elements_DateCounts[ bindingOptions.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
 
+        dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
         day.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
         currentDayColumn.appendChild( day );
 
-        day.onclick = function() {
-            fireCustomTrigger( bindingOptions.onDayClick, date, dateCount );
-        };
+        if ( isDefinedFunction( bindingOptions.onDayClick ) ) {
+            day.onclick = function() {
+                fireCustomTrigger( bindingOptions.onDayClick, date, dateCount );
+            };
+        }
 
         var mapRangeColorsLength = bindingOptions.mapRangeColors.length,
             useMapRangeColor = null;
@@ -328,56 +331,56 @@
     }
 
     function renderControlViewGuide( bindingOptions ) {
-        if ( bindingOptions.showGuide ) {
-            var guide = createElement( "div", "guide" );
-            bindingOptions.element.appendChild( guide );
+        var guide = createElement( "div", "guide" );
+        bindingOptions.element.appendChild( guide );
 
-            var mapTypes = createElement( "div", "map-types" );
-            guide.appendChild( mapTypes );
+        var mapTypes = createElement( "div", "map-types" );
+        guide.appendChild( mapTypes );
 
-            var noneTypeCount = 0;
-            for ( var storageDate in _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ] ) {
-                if ( _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ].hasOwnProperty( storageDate ) ) {
-                    noneTypeCount++;
-                    break;
-                }
+        var noneTypeCount = 0;
+        for ( var storageDate in _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ] ) {
+            if ( _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ].hasOwnProperty( storageDate ) ) {
+                noneTypeCount++;
+                break;
             }
+        }
 
-            if ( _elements_DateCounts[ bindingOptions.element.id ].types > 1 ) {
-                for ( var type in _elements_DateCounts[ bindingOptions.element.id ].type ) {
-                    if ( type !== _elements_DateCounts_DefaultType || noneTypeCount > 0 ) {
-                        if ( noneTypeCount === 0 && bindingOptions.currentView.type === _elements_DateCounts_DefaultType ) {
-                            bindingOptions.currentView.type = type;
-                        }
-
-                        renderControlViewGuideTypeButton( bindingOptions, mapTypes, type );
+        if ( _elements_DateCounts[ bindingOptions.element.id ].types > 1 ) {
+            for ( var type in _elements_DateCounts[ bindingOptions.element.id ].type ) {
+                if ( type !== _elements_DateCounts_DefaultType || noneTypeCount > 0 ) {
+                    if ( noneTypeCount === 0 && bindingOptions.currentView.type === _elements_DateCounts_DefaultType ) {
+                        bindingOptions.currentView.type = type;
                     }
+
+                    renderControlViewGuideTypeButton( bindingOptions, mapTypes, type );
                 }
             }
+        }
 
+        if ( bindingOptions.showGuide ) {
             var mapToggles = createElement( "div", "map-toggles" );
             guide.appendChild( mapToggles );
     
             var lessText = createElement( "div", "less-text" );
             lessText.innerHTML = _configuration.lessText;
             mapToggles.appendChild( lessText );
-
+    
             if ( bindingOptions.mapTogglesEnabled ) {
                 lessText.onclick = function() {
                     updateMapRangeColorToggles( bindingOptions, false );
                 };
-
+    
             } else {
                 lessText.className += _string.space + "no-click";
             }
     
             var days = createElement( "div", "days" );
             mapToggles.appendChild( days );
-
+    
             var mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
                 return b.range - a.range;
             } );
-
+    
             var mapRangeColorsLength = mapRangeColors.length;
     
             for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
@@ -387,12 +390,12 @@
             var moreText = createElement( "div", "more-text" );
             moreText.innerHTML = _configuration.moreText;
             mapToggles.appendChild( moreText );
-
+    
             if ( bindingOptions.mapTogglesEnabled ) {
                 moreText.onclick = function() {
                     updateMapRangeColorToggles( bindingOptions, true );
                 };
-
+    
             } else {
                 moreText.className += _string.space + "no-click";
             }
@@ -513,13 +516,28 @@
 
         csvStorageDates.sort();
 
-        var csvStorageDatesLength = csvStorageDates.length;
+        if ( bindingOptions.exportOnlyYearBeingViewed ) {
+            for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+                var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
+        
+                for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                    var storageDate2 = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
 
-        for ( var csvStorageDateIndex = 0; csvStorageDateIndex < csvStorageDatesLength; csvStorageDateIndex++ ) {
-            var storageDate2 = csvStorageDates[ csvStorageDateIndex ];
+                    if ( csvData.hasOwnProperty( storageDate2 ) ) {
+                        csvContents.push( getCsvValueLine( [ getCsvValue( storageDate2 ), getCsvValue( csvData[ storageDate2 ] ) ] ) );
+                    }
+                }
+            }
 
-            if ( csvData.hasOwnProperty( storageDate2 ) ) {
-                csvContents.push( getCsvValueLine( [ getCsvValue( storageDate2 ), getCsvValue( csvData[ storageDate2 ] ) ] ) );
+        } else {
+            var csvStorageDatesLength = csvStorageDates.length;
+
+            for ( var csvStorageDateIndex = 0; csvStorageDateIndex < csvStorageDatesLength; csvStorageDateIndex++ ) {
+                var storageDate3 = csvStorageDates[ csvStorageDateIndex ];
+    
+                if ( csvData.hasOwnProperty( storageDate3 ) ) {
+                    csvContents.push( getCsvValueLine( [ getCsvValue( storageDate3 ), getCsvValue( csvData[ storageDate3 ] ) ] ) );
+                }
             }
         }
         
@@ -570,6 +588,7 @@
         options.showExportButton = getDefaultBoolean( options.showExportButton, false );
         options.mapTogglesEnabled = getDefaultBoolean( options.mapTogglesEnabled, true );
         options.placeMonthNamesOnTheBottom = getDefaultBoolean( options.placeMonthNamesOnTheBottom, false );
+        options.exportOnlyYearBeingViewed = getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -1256,7 +1275,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "0.9.0";
+        return "1.0.0";
     };
 
 

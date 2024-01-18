@@ -59,7 +59,7 @@ Fires when a day is clicked in the heat map.
 <br>
 ***Parameter:*** date: '*Date*' - The date that was clicked.
 <br>
-***Parameter:*** count: '*Number*' - The number of items for the date available.
+***Parameter:*** count: '*number*' - The number of items for the date available.
 <br>
 <br>
 
