@@ -2,6 +2,9 @@
 
 ## Version 1.0.0:
 
+#### **CSS:**
+- Split up the SCSS file into sections.
+
 #### **Fixes:**
 - Fixed a fault caused the trend type buttons to be hidden when the binding option "showGuide" is set to false.
 

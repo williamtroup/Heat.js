@@ -28,6 +28,11 @@
 
 /*
     -------------------------------------------------------------------------
+    Heat.js - Buttons
+    -------------------------------------------------------------------------
+*/
+/*
+    -------------------------------------------------------------------------
     Heat.js - Container
     -------------------------------------------------------------------------
 */
@@ -56,6 +61,12 @@ div.heat-js *::before, div.heat-js *::after {
   box-sizing: border-box;
   line-height: normal;
 }
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Title Bar
+    -------------------------------------------------------------------------
+*/
 div.heat-js div.title-bar {
   text-align: right;
   margin-bottom: var(--heat-js-spacing);
@@ -97,72 +108,84 @@ div.heat-js div.title-bar div.year-text {
   margin-right: var(--heat-js-spacing);
   display: inline-block;
 }
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Map
+    -------------------------------------------------------------------------
+*/
 div.heat-js div.map-contents {
   overflow-y: scroll;
 }
-div.heat-js div.map {
+div.heat-js div.map-contents div.map {
   display: inline-flex;
   flex-direction: row;
 }
-div.heat-js div.map div.days {
+div.heat-js div.map-contents div.map div.days {
   background-color: var(--heat-js-container-background-color);
   padding-right: calc(var(--heat-js-spacing) * 3);
   padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
   position: sticky;
   left: 0;
 }
-div.heat-js div.map div.days div.day-name {
+div.heat-js div.map-contents div.map div.days div.day-name {
   font-weight: 300;
   margin-bottom: 4px;
 }
-div.heat-js div.map div.months {
+div.heat-js div.map-contents div.map div.months {
   display: flex;
   justify-content: space-between;
   flex-grow: 1;
 }
-div.heat-js div.map div.months div.month {
+div.heat-js div.map-contents div.map div.months div.month {
   flex: 1;
   pointer-events: none;
 }
-div.heat-js div.map div.months div.month:last-child {
+div.heat-js div.map-contents div.map div.months div.month:last-child {
   margin-right: 0;
 }
-div.heat-js div.map div.months div.month div.month-name,
-div.heat-js div.map div.months div.month div.month-name-bottom {
+div.heat-js div.map-contents div.map div.months div.month div.month-name,
+div.heat-js div.map-contents div.map div.months div.month div.month-name-bottom {
   font-weight: 300;
 }
-div.heat-js div.map div.months div.month div.month-name {
+div.heat-js div.map-contents div.map div.months div.month div.month-name {
   margin-bottom: var(--heat-js-spacing);
 }
-div.heat-js div.map div.months div.month div.month-name-bottom {
+div.heat-js div.map-contents div.map div.months div.month div.month-name-bottom {
   margin-top: var(--heat-js-spacing);
 }
-div.heat-js div.map div.months div.month div.day-columns {
+div.heat-js div.map-contents div.map div.months div.month div.day-columns {
   display: flex;
   justify-content: space-between;
 }
-div.heat-js div.map div.months div.month div.day-columns div.day-column div.day,
-div.heat-js div.map div.months div.month div.day-columns div.day-column div.day-disabled {
+div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day,
+div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day-disabled {
   border-radius: var(--heat-js-border-radius-day);
   width: var(--heat-js-spacing-font-size);
   height: var(--heat-js-spacing-font-size);
   margin-right: var(--heat-js-day-spacing);
   margin-bottom: var(--heat-js-day-spacing);
 }
-div.heat-js div.map div.months div.month div.day-columns div.day-column div.day:last-child,
-div.heat-js div.map div.months div.month div.day-columns div.day-column div.day-disabled:last-child {
+div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:last-child,
+div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day-disabled:last-child {
   margin-bottom: 0;
 }
-div.heat-js div.map div.months div.month div.day-columns div.day-column div.day {
+div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day {
   pointer-events: all !important;
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
 }
-div.heat-js div.map div.months div.month div.day-columns div.day-column div.day:hover {
+div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:hover {
   cursor: pointer;
   background: var(--heat-js-day-background-color-hover);
   transition: var(--heat-js-transition);
 }
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Guide
+    -------------------------------------------------------------------------
+*/
 div.heat-js div.guide {
   margin-top: calc(var(--heat-js-spacing) + var(--heat-js-spacing) / 2);
   display: flex;
@@ -242,6 +265,12 @@ div.heat-js div.guide div.map-toggles div.days div.day {
 div.heat-js div.guide div.map-toggles div.days div.day:last-child {
   margin-right: 0;
 }
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Colors
+    -------------------------------------------------------------------------
+*/
 div.heat-js div.day-color-1 {
   background-color: rgba(57, 211, 83, 0.25) !important;
   border: var(--heat-js-border-size-day) solid rgba(57, 211, 83, 0.15) !important;
