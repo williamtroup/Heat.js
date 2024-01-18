@@ -1,4 +1,4 @@
-/*! Heat.js v0.9.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.0.0 | (c) Bunoon 2024 | MIT License */
 (function() {
   function t(a) {
     a.element.className = "heat-js";
@@ -415,7 +415,7 @@
     return this;
   };
   this.getVersion = function() {
-    return "0.9.0";
+    return "1.0.0";
   };
   (function(a, c) {
     A = a;

@@ -1,5 +1,11 @@
 # Heat.js - Change Log:
 
+## Version 1.0.0:
+- 
+
+<br>
+
+
 ## Version 0.9.0:
 
 #### **Binding Options:**
