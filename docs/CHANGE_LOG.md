@@ -2,6 +2,10 @@
 
 ## Version 1.2.0:
 
+#### **Themes:**
+- Added a new folder under "dist" called "themes", which will house all the default theme files.
+- Added a new light theme called "heat.js.light.theme.css".
+
 #### **Binding Options:**
 - Added a new binding option called "year", which states the year that should be shown when the heat map is rendered for the first time (defaults to current year).
 
@@ -14,6 +18,14 @@
 - Added an ":active" state for less/more toggles (now shows a slightly darker text color).
 - Added new ":root" variable "--heat-js-day-opacity-hover", which states the opacity to use for days when they are hovered.
 - All hover transition effects now work for hovering, and not hovering, which results in a smoother display.
+- Added new ":root" variable "--heat-js-day-color-1-background-color".
+- Added new ":root" variable "--heat-js-day-color-2-background-color".
+- Added new ":root" variable "--heat-js-day-color-3-background-color".
+- Added new ":root" variable "--heat-js-day-color-4-background-color".
+- Added new ":root" variable "--heat-js-day-color-1-border-color".
+- Added new ":root" variable "--heat-js-day-color-2-border-color".
+- Added new ":root" variable "--heat-js-day-color-3-border-color".
+- Added new ":root" variable "--heat-js-day-color-4-border-color".
 
 #### **General Improvements:**
 - Removed a large amount of duplicated code.

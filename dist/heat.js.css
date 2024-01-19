@@ -15,6 +15,14 @@
   --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
   --heat-js-day-spacing: 6.3px;
   --heat-js-day-opacity-hover: 0.7;
+  --heat-js-day-color-1-background-color: rgba( 57, 211, 83, 0.25 );
+  --heat-js-day-color-1-border-color: rgba( 57, 211, 83, 0.15 );
+  --heat-js-day-color-2-background-color: rgba( 57, 211, 83, 0.50 );
+  --heat-js-day-color-2-border-color: rgba( 57, 211, 83, 0.25 );
+  --heat-js-day-color-3-background-color: rgba( 57, 211, 83, 0.75 );
+  --heat-js-day-color-3-border-color: rgba( 57, 211, 83, 0.50 );
+  --heat-js-day-color-4-background-color: rgba( 57, 211, 83, 1 );
+  --heat-js-day-color-4-border-color: rgba( 57, 211, 83, 0.75 );
   --heat-js-button-background-color: var(--heat-js-day-background-color);
   --heat-js-button-border-color: var(--heat-js-container-border-color);
   --heat-js-button-background-color-hover: var(--heat-js-container-border-color);
@@ -287,29 +295,29 @@ div.heat-js div.guide div.map-toggles div.days div.day:last-child {
     -------------------------------------------------------------------------
 */
 div.heat-js div.day-color-1 {
-  background-color: rgba(57, 211, 83, 0.25) !important;
-  border: var(--heat-js-border-size-day) solid rgba(57, 211, 83, 0.15) !important;
+  background-color: var(--heat-js-day-color-1-background-color) !important;
+  border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-1-border-color) !important;
 }
 div.heat-js div.day-color-1:hover {
   opacity: var(--heat-js-day-opacity-hover);
 }
 div.heat-js div.day-color-2 {
-  background-color: rgba(57, 211, 83, 0.5) !important;
-  border: var(--heat-js-border-size-day) solid rgba(57, 211, 83, 0.25) !important;
+  background-color: var(--heat-js-day-color-2-background-color) !important;
+  border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-2-border-color) !important;
 }
 div.heat-js div.day-color-2:hover {
   opacity: var(--heat-js-day-opacity-hover);
 }
 div.heat-js div.day-color-3 {
-  background-color: rgba(57, 211, 83, 0.75) !important;
-  border: var(--heat-js-border-size-day) solid rgba(57, 211, 83, 0.5) !important;
+  background-color: var(--heat-js-day-color-3-background-color) !important;
+  border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-3-border-color) !important;
 }
 div.heat-js div.day-color-3:hover {
   opacity: var(--heat-js-day-opacity-hover);
 }
 div.heat-js div.day-color-4 {
-  background-color: rgb(57, 211, 83) !important;
-  border: var(--heat-js-border-size-day) solid rgba(57, 211, 83, 0.75) !important;
+  background-color: var(--heat-js-day-color-4-background-color) !important;
+  border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-4-border-color) !important;
 }
 div.heat-js div.day-color-4:hover {
   opacity: var(--heat-js-day-opacity-hover);
