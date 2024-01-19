@@ -96,9 +96,9 @@ Make sure you include the "DOCTYPE html" tag at the top of your HTML, as follows
 </div>
 ```
 
-To see a list of all the available binding options you can use for "data-heat-options", click [here](docs/binding/options/OPTIONS.md).
+To see a list of all the available binding options you can use for "data-heat-options", click [here](docs/binding/OPTIONS.md).
 
-To see a list of all the available custom triggers you can use for "data-heat-options", click [here](docs/binding/options/CUSTOM_TRIGGERS.md).
+To see a list of all the available custom triggers you can use for "data-heat-options", click [here](docs/binding/CUSTOM_TRIGGERS.md).
 
 <br>
 

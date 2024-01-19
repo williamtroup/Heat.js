@@ -7,6 +7,7 @@
 
 #### **Fixes:**
 - Fixed a fault that prevented decimal values for CSS margins being converted correctly.
+- Fixed broken documentation links.
 
 <br>
 
