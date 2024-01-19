@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.1.0
+ * Heat.js Library v1.2.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -20,14 +20,26 @@
     
     // Days
     --heat-js-day-background-color: #2d333b;
-    --heat-js-day-border-color: #454c56;;
-    --heat-js-day-background-color-hover: #454c56;
+    --heat-js-day-border-color: var(--heat-js-container-border-color);
+    --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
     --heat-js-day-spacing: 6.3px;
+    --heat-js-day-opacity-hover: 0.7;
+
+    // Days - Colors
+    --heat-js-day-color-1-background-color: rgba( 57, 211, 83, 0.25 );
+    --heat-js-day-color-1-border-color: rgba( 57, 211, 83, 0.15 );
+    --heat-js-day-color-2-background-color: rgba( 57, 211, 83, 0.50 );
+    --heat-js-day-color-2-border-color: rgba( 57, 211, 83, 0.25 );
+    --heat-js-day-color-3-background-color: rgba( 57, 211, 83, 0.75 );
+    --heat-js-day-color-3-border-color: rgba( 57, 211, 83, 0.50 );
+    --heat-js-day-color-4-background-color: rgba( 57, 211, 83, 1 );
+    --heat-js-day-color-4-border-color: rgba( 57, 211, 83, 0.75 );
 
     // Button
-    --heat-js-button-background-color: #2d333b;
-    --heat-js-button-border-color: #454c56;
-    --heat-js-button-background-color-hover: #454c56;
+    --heat-js-button-background-color: var(--heat-js-day-background-color);
+    --heat-js-button-border-color: var(--heat-js-container-border-color);
+    --heat-js-button-background-color-hover: var(--heat-js-container-border-color);
+    --heat-js-button-background-color-active: #616b79;
 
     // Borders
     --heat-js-border-radius: 0.5rem;
@@ -61,11 +73,15 @@
         padding-left: 9px;
         padding-right: 9px;
         outline: none;
+        transition: var(--heat-js-transition);
+
+        &:active {
+            background: var(--heat-js-button-background-color-active) !important;
+        }
 
         &:hover {
             cursor: pointer;
             background: var(--heat-js-button-background-color-hover);
-            transition: var(--heat-js-transition);
         }
     }
 
@@ -93,6 +109,7 @@ div.heat-js {
     font-size: var(--heat-js-spacing-font-size);
     width: 100%;
     max-width: 700px;
+    margin: 0 !important;
 
     * {
         box-sizing: border-box;
@@ -116,7 +133,7 @@ div.heat-js {
 div.heat-js {
     div.title-bar {
         text-align: right;
-        margin-bottom: var(--heat-js-spacing);
+        margin-bottom: calc( var(--heat-js-spacing) + var(--heat-js-spacing) / 2 );
 
         div.title {
             float: left;
@@ -180,7 +197,15 @@ div.heat-js {
                     pointer-events: none;
         
                     &:last-child {
-                        margin-right: 0;
+                        div.day-columns {
+                            div.day-column {
+                                &:last-child {
+                                    div.day {
+                                        margin-right: 0 !important;
+                                    }
+                                }
+                            }
+                        }
                     }
         
                     div.month-name,
@@ -218,11 +243,11 @@ div.heat-js {
                                 pointer-events: all !important;
                                 background-color: var(--heat-js-day-background-color);
                                 border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
-        
+                                transition: var(--heat-js-transition);
+
                                 &:hover {
                                     cursor: pointer;
                                     background: var(--heat-js-day-background-color-hover);
-                                    transition: var(--heat-js-transition);
                                 }
                             }
                         }
@@ -257,7 +282,7 @@ div.heat-js {
 
             button {
                 margin-left: 0 !important;
-                margin-right: var(--heat-js-spacing) !important;
+                margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
             }
         }
 
@@ -275,10 +300,15 @@ div.heat-js {
             div.more-text {
                 display: inline-block;
                 font-weight: 300;
+                transition: var(--heat-js-transition);
 
                 &:hover {
                     cursor: pointer;
                     text-decoration: underline;
+                }
+
+                &:active {
+                    color: var(--heat-js-color-gray);
                 }
             }
     
@@ -304,6 +334,7 @@ div.heat-js {
                     height: var(--heat-js-spacing-font-size);
                     margin-right: var(--heat-js-day-spacing);
                     cursor: pointer;
+                    transition: var(--heat-js-transition);
     
                     &:last-child {
                         margin-right: 0;
@@ -323,38 +354,38 @@ div.heat-js {
 
 div.heat-js {
     div.day-color-1 {
-        background-color: rgba( 57, 211, 83, 0.25 ) !important;
-        border: var(--heat-js-border-size-day) solid rgba( 57, 211, 83, 0.15 ) !important;
+        background-color: var(--heat-js-day-color-1-background-color) !important;
+        border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-1-border-color) !important;
 
         &:hover {
-            opacity: 0.7;
+            opacity: var(--heat-js-day-opacity-hover);
         }
     }
 
     div.day-color-2 {
-        background-color: rgba( 57, 211, 83, 0.5 ) !important;
-        border: var(--heat-js-border-size-day) solid rgba( 57, 211, 83, 0.25 ) !important;
+        background-color: var(--heat-js-day-color-2-background-color) !important;
+        border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-2-border-color) !important;
 
         &:hover {
-            opacity: 0.7;
+            opacity: var(--heat-js-day-opacity-hover);
         }
     }
 
     div.day-color-3 {
-        background-color: rgba( 57, 211, 83, 0.75 ) !important;
-        border: var(--heat-js-border-size-day) solid rgba( 57, 211, 83, 0.5 ) !important;
+        background-color: var(--heat-js-day-color-3-background-color) !important;
+        border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-3-border-color) !important;
 
         &:hover {
-            opacity: 0.7;
+            opacity: var(--heat-js-day-opacity-hover);
         }
     }
 
     div.day-color-4 {
-        background-color: rgba( 57, 211, 83, 1 ) !important;
-        border: var(--heat-js-border-size-day) solid rgba( 57, 211, 83, 0.75 ) !important;
+        background-color: var(--heat-js-day-color-4-background-color) !important;
+        border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-4-border-color) !important;
 
         &:hover {
-            opacity: 0.7;
+            opacity: var(--heat-js-day-opacity-hover);
         }
     }
 }

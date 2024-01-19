@@ -20,7 +20,7 @@
             <div id="heat-map-1" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': true }"></div>
             <br>
             <br>
-            <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': false, 'showRefreshButton': true, 'showExportButton': true, 'placeMonthNamesOnTheBottom': true }"></div>
+            <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': false, 'showRefreshButton': true, 'showExportButton': true, 'placeMonthNamesOnTheBottom': true, 'year': __CURRENT_YEAR + 1 }"></div>
         </div>
 
         <div class="contents">
@@ -59,6 +59,8 @@
     </body>
 
     <script>
+        var __CURRENT_YEAR = new Date().getFullYear();
+
         document.title += " v" + $heat.getVersion();
         document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
 

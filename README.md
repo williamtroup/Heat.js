@@ -2,15 +2,15 @@
 Heat.js
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Heat.js%2C%20a%20free%20JavaScript%heat%20map&url=https://github.com/williamtroup/Heat.js&hashtags=javascript,heat,map)
-[![npm](https://img.shields.io/badge/npmjs-v1.1.0-blue)](https://www.npmjs.com/package/jheat.js)
-[![nuget](https://img.shields.io/badge/nuget-v1.1.0-purple)](https://www.nuget.org/packages/jHeat.js/)
+[![npm](https://img.shields.io/badge/npmjs-v1.2.0-blue)](https://www.npmjs.com/package/jheat.js)
+[![nuget](https://img.shields.io/badge/nuget-v1.2.0-purple)](https://www.nuget.org/packages/jHeat.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Heat.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
-[![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://github.com/williamtroup)
+[![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://william-troup.com/)
 </h1>
 
 > <p align="center">🌞 A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.</p>
-> <p align="center">v1.1.0</p>
+> <p align="center">v1.2.0</p>
 <br />
 
 ![Heat.js](docs/images/main.png)
@@ -96,9 +96,9 @@ Make sure you include the "DOCTYPE html" tag at the top of your HTML, as follows
 </div>
 ```
 
-To see a list of all the available binding options you can use for "data-heat-options", click [here](docs/binding/options/OPTIONS.md).
+To see a list of all the available binding options you can use for "data-heat-options", click [here](docs/binding/OPTIONS.md).
 
-To see a list of all the available custom triggers you can use for "data-heat-options", click [here](docs/binding/options/CUSTOM_TRIGGERS.md).
+To see a list of all the available custom triggers you can use for "data-heat-options", click [here](docs/binding/CUSTOM_TRIGGERS.md).
 
 <br>
 

@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.1.0
+ * Heat.js Library v1.2.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -11,12 +11,22 @@
   --heat-js-container-background-color: #22272e;
   --heat-js-container-border-color: #454c56;
   --heat-js-day-background-color: #2d333b;
-  --heat-js-day-border-color: #454c56;
-  --heat-js-day-background-color-hover: #454c56;
+  --heat-js-day-border-color: var(--heat-js-container-border-color);
+  --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
   --heat-js-day-spacing: 6.3px;
-  --heat-js-button-background-color: #2d333b;
-  --heat-js-button-border-color: #454c56;
-  --heat-js-button-background-color-hover: #454c56;
+  --heat-js-day-opacity-hover: 0.7;
+  --heat-js-day-color-1-background-color: rgba( 57, 211, 83, 0.25 );
+  --heat-js-day-color-1-border-color: rgba( 57, 211, 83, 0.15 );
+  --heat-js-day-color-2-background-color: rgba( 57, 211, 83, 0.50 );
+  --heat-js-day-color-2-border-color: rgba( 57, 211, 83, 0.25 );
+  --heat-js-day-color-3-background-color: rgba( 57, 211, 83, 0.75 );
+  --heat-js-day-color-3-border-color: rgba( 57, 211, 83, 0.50 );
+  --heat-js-day-color-4-background-color: rgba( 57, 211, 83, 1 );
+  --heat-js-day-color-4-border-color: rgba( 57, 211, 83, 0.75 );
+  --heat-js-button-background-color: var(--heat-js-day-background-color);
+  --heat-js-button-border-color: var(--heat-js-container-border-color);
+  --heat-js-button-background-color-hover: var(--heat-js-container-border-color);
+  --heat-js-button-background-color-active: #616b79;
   --heat-js-border-radius: 0.5rem;
   --heat-js-border-radius-day: 0.25rem;
   --heat-js-border-size: 0.5px;
@@ -52,6 +62,7 @@ div.heat-js {
   font-size: var(--heat-js-spacing-font-size);
   width: 100%;
   max-width: 700px;
+  margin: 0 !important;
 }
 div.heat-js * {
   box-sizing: border-box;
@@ -69,7 +80,7 @@ div.heat-js *::before, div.heat-js *::after {
 */
 div.heat-js div.title-bar {
   text-align: right;
-  margin-bottom: var(--heat-js-spacing);
+  margin-bottom: calc(var(--heat-js-spacing) + var(--heat-js-spacing) / 2);
 }
 div.heat-js div.title-bar div.title {
   float: left;
@@ -86,11 +97,14 @@ div.heat-js div.title-bar button {
   padding-left: 9px;
   padding-right: 9px;
   outline: none;
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.title-bar button:active {
+  background: var(--heat-js-button-background-color-active) !important;
 }
 div.heat-js div.title-bar button:hover {
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
-  transition: var(--heat-js-transition);
 }
 div.heat-js div.title-bar button.active {
   cursor: default;
@@ -141,8 +155,8 @@ div.heat-js div.map-contents div.map div.months div.month {
   flex: 1;
   pointer-events: none;
 }
-div.heat-js div.map-contents div.map div.months div.month:last-child {
-  margin-right: 0;
+div.heat-js div.map-contents div.map div.months div.month:last-child div.day-columns div.day-column:last-child div.day {
+  margin-right: 0 !important;
 }
 div.heat-js div.map-contents div.map div.months div.month div.month-name,
 div.heat-js div.map-contents div.map div.months div.month div.month-name-bottom {
@@ -174,11 +188,11 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
   pointer-events: all !important;
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+  transition: var(--heat-js-transition);
 }
 div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:hover {
   cursor: pointer;
   background: var(--heat-js-day-background-color-hover);
-  transition: var(--heat-js-transition);
 }
 
 /*
@@ -207,11 +221,14 @@ div.heat-js div.guide div.map-types button {
   padding-left: 9px;
   padding-right: 9px;
   outline: none;
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.guide div.map-types button:active {
+  background: var(--heat-js-button-background-color-active) !important;
 }
 div.heat-js div.guide div.map-types button:hover {
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
-  transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-types button.active {
   cursor: default;
@@ -220,7 +237,7 @@ div.heat-js div.guide div.map-types button.active {
 }
 div.heat-js div.guide div.map-types button {
   margin-left: 0 !important;
-  margin-right: var(--heat-js-spacing) !important;
+  margin-right: calc(var(--heat-js-spacing) / 2) !important;
 }
 div.heat-js div.guide div.map-toggles {
   text-align: right;
@@ -235,11 +252,16 @@ div.heat-js div.guide div.map-toggles div.less-text,
 div.heat-js div.guide div.map-toggles div.more-text {
   display: inline-block;
   font-weight: 300;
+  transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-toggles div.less-text:hover,
 div.heat-js div.guide div.map-toggles div.more-text:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+div.heat-js div.guide div.map-toggles div.less-text:active,
+div.heat-js div.guide div.map-toggles div.more-text:active {
+  color: var(--heat-js-color-gray);
 }
 div.heat-js div.guide div.map-toggles div.less-text {
   margin-right: var(--heat-js-spacing);
@@ -261,6 +283,7 @@ div.heat-js div.guide div.map-toggles div.days div.day {
   height: var(--heat-js-spacing-font-size);
   margin-right: var(--heat-js-day-spacing);
   cursor: pointer;
+  transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-toggles div.days div.day:last-child {
   margin-right: 0;
@@ -272,30 +295,30 @@ div.heat-js div.guide div.map-toggles div.days div.day:last-child {
     -------------------------------------------------------------------------
 */
 div.heat-js div.day-color-1 {
-  background-color: rgba(57, 211, 83, 0.25) !important;
-  border: var(--heat-js-border-size-day) solid rgba(57, 211, 83, 0.15) !important;
+  background-color: var(--heat-js-day-color-1-background-color) !important;
+  border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-1-border-color) !important;
 }
 div.heat-js div.day-color-1:hover {
-  opacity: 0.7;
+  opacity: var(--heat-js-day-opacity-hover);
 }
 div.heat-js div.day-color-2 {
-  background-color: rgba(57, 211, 83, 0.5) !important;
-  border: var(--heat-js-border-size-day) solid rgba(57, 211, 83, 0.25) !important;
+  background-color: var(--heat-js-day-color-2-background-color) !important;
+  border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-2-border-color) !important;
 }
 div.heat-js div.day-color-2:hover {
-  opacity: 0.7;
+  opacity: var(--heat-js-day-opacity-hover);
 }
 div.heat-js div.day-color-3 {
-  background-color: rgba(57, 211, 83, 0.75) !important;
-  border: var(--heat-js-border-size-day) solid rgba(57, 211, 83, 0.5) !important;
+  background-color: var(--heat-js-day-color-3-background-color) !important;
+  border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-3-border-color) !important;
 }
 div.heat-js div.day-color-3:hover {
-  opacity: 0.7;
+  opacity: var(--heat-js-day-opacity-hover);
 }
 div.heat-js div.day-color-4 {
-  background-color: rgb(57, 211, 83) !important;
-  border: var(--heat-js-border-size-day) solid rgba(57, 211, 83, 0.75) !important;
+  background-color: var(--heat-js-day-color-4-background-color) !important;
+  border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-4-border-color) !important;
 }
 div.heat-js div.day-color-4:hover {
-  opacity: 0.7;
+  opacity: var(--heat-js-day-opacity-hover);
 }/*# sourceMappingURL=heat.js.css.map */
