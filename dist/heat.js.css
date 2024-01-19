@@ -254,6 +254,11 @@ div.heat-js div.guide div.map-toggles div.more-text:hover {
   cursor: pointer;
   text-decoration: underline;
 }
+div.heat-js div.guide div.map-toggles div.less-text:active,
+div.heat-js div.guide div.map-toggles div.more-text:active {
+  color: var(--heat-js-color-gray);
+  transition: var(--heat-js-transition);
+}
 div.heat-js div.guide div.map-toggles div.less-text {
   margin-right: var(--heat-js-spacing);
 }

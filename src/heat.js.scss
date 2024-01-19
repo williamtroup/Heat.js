@@ -297,6 +297,11 @@ div.heat-js {
                     cursor: pointer;
                     text-decoration: underline;
                 }
+
+                &:active {
+                    color: var(--heat-js-color-gray);
+                    transition: var(--heat-js-transition);
+                }
             }
     
             div.less-text {
