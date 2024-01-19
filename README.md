@@ -37,6 +37,7 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 <br>
 <br>
 
+
 <h1>What languages are supported?</h1>
 
 - Arabic
