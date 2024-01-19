@@ -6,7 +6,7 @@ Heat.js
 [![nuget](https://img.shields.io/badge/nuget-v1.2.0-purple)](https://www.nuget.org/packages/jHeat.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Heat.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
-[![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://github.com/williamtroup)
+[![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://william-troup.com/)
 </h1>
 
 > <p align="center">🌞 A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.</p>
