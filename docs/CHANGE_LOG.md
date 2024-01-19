@@ -5,6 +5,9 @@
 #### **Binding Options:**
 - Added a new binding option called "year", which states the year that should be shown when the heat map is rendered for the first time (defaults to current year).
 
+#### **General Improvements:**
+- Removed a large amount of duplicated code.
+
 #### **Fixes:**
 - Fixed a fault that prevented decimal values for CSS margins being converted correctly.
 - Fixed broken documentation links.

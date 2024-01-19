@@ -118,19 +118,14 @@
 
     function renderControlTitleBar( bindingOptions ) {
         if ( bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton ) {
-            var titleBar = createElement( "div", "title-bar" );
-            bindingOptions.element.appendChild( titleBar );
+            var titleBar = createElement( "div", "title-bar", bindingOptions.element );
     
             if ( bindingOptions.showTitle ) {
-                var title = createElement( "div", "title" );
-                title.innerHTML = bindingOptions.titleText;
-                titleBar.appendChild( title );
+                createElementWithHTML( titleBar, "div", "title", bindingOptions.titleText );
             }
 
             if ( bindingOptions.showExportButton ) {
-                var exportData = createElement( "button", "export" );
-                exportData.innerHTML = _configuration.exportButtonText;
-                titleBar.appendChild( exportData );
+                var exportData = createElementWithHTML( titleBar, "button", "export", _configuration.exportButtonText );
         
                 exportData.onclick = function() {
                     exportAllData( bindingOptions );
@@ -139,9 +134,7 @@
             }
 
             if ( bindingOptions.showRefreshButton ) {
-                var refresh = createElement( "button", "refresh" );
-                refresh.innerHTML = _configuration.refreshButtonText;
-                titleBar.appendChild( refresh );
+                var refresh = createElementWithHTML( titleBar, "button", "refresh", _configuration.refreshButtonText );
         
                 refresh.onclick = function() {
                     renderControl( bindingOptions );
@@ -150,9 +143,7 @@
             }
     
             if ( bindingOptions.showYearSelector ) {
-                var back = createElement( "button", "back" );
-                back.innerHTML = _configuration.backButtonText;
-                titleBar.appendChild( back );
+                var back = createElementWithHTML( titleBar, "button", "back", _configuration.backButtonText );
         
                 back.onclick = function() {
                     bindingOptions.currentView.year--;
@@ -160,14 +151,10 @@
                     renderControl( bindingOptions );
                     fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
                 };
+
+                bindingOptions.currentView.yearText = createElementWithHTML( titleBar, "div", "year-text", bindingOptions.currentView.year );
         
-                bindingOptions.currentView.yearText = createElement( "div", "year-text" );
-                bindingOptions.currentView.yearText.innerHTML = bindingOptions.currentView.year;
-                titleBar.appendChild( bindingOptions.currentView.yearText );
-        
-                var next = createElement( "button", "next" );
-                next.innerHTML = _configuration.nextButtonText;
-                titleBar.appendChild( next );
+                var next = createElementWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
         
                 next.onclick = function() {
                     bindingOptions.currentView.year++;
@@ -180,11 +167,8 @@
     }
 
     function renderControlMap( bindingOptions ) {
-        var mapContents = createElement( "div", "map-contents" );
-        bindingOptions.element.appendChild( mapContents );
-
-        var map = createElement( "div", "map" );
-        mapContents.appendChild( map );
+        var mapContents = createElement( "div", "map-contents", bindingOptions.element ),
+            map = createElement( "div", "map", mapContents );
 
         renderControlViewGuide( bindingOptions );
 
@@ -192,8 +176,7 @@
             monthAdded = false;
 
         if ( bindingOptions.showDayNames ) {
-            var days = createElement( "div", "days" );
-            map.appendChild( days );
+            var days = createElement( "div", "days", map );
 
             if ( !bindingOptions.showMonthNames || bindingOptions.placeMonthNamesOnTheBottom ) {
                 days.style.paddingTop = "0px";
@@ -202,15 +185,12 @@
     
             for ( var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++ ) {
                 if ( bindingOptions.daysToShow.indexOf( dayNameIndex + 1 ) > -1 ) {
-                    var dayName = createElement( "div", "day-name" );
-                    dayName.innerHTML = _configuration.dayNames[ dayNameIndex ];
-                    days.appendChild( dayName );
+                    createElementWithHTML( days, "div", "day-name", _configuration.dayNames[ dayNameIndex ] );
                 }
             }
         }
 
-        var months = createElement( "div", "months" );
-        map.appendChild( months );
+        var months = createElement( "div", "months", map );
 
         var mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
             return b.range - a.range;
@@ -218,23 +198,17 @@
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             if ( bindingOptions.monthsToShow.indexOf( monthIndex + 1 ) > -1 ) {
-                var month = createElement( "div", "month" );
-                months.appendChild( month );
+                var month = createElement( "div", "month", months );
     
                 if ( bindingOptions.showMonthNames && !bindingOptions.placeMonthNamesOnTheBottom ) {
-                    var monthNameTop = createElement( "div", "month-name" );
-                    monthNameTop.innerHTML = _configuration.monthNames[ monthIndex ];
-                    month.appendChild( monthNameTop );
+                    createElementWithHTML( month, "div", "month-name", _configuration.monthNames[ monthIndex ] );
                 }
     
-                var dayColumns = createElement( "div", "day-columns" );
-                month.appendChild( dayColumns );
+                var dayColumns = createElement( "div", "day-columns", month );
     
                 var totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
-                    currentDayColumn = createElement( "div", "day-column" ),
+                    currentDayColumn = createElement( "div", "day-column", dayColumns ),
                     startFillingDays = false;
-    
-                dayColumns.appendChild( currentDayColumn );
     
                 var firstDayInMonth = new Date( currentYear, monthIndex, 1 ),
                     firstDayNumberInMonth = getWeekdayNumber( firstDayInMonth ),
@@ -247,8 +221,7 @@
                         startFillingDays = true;
     
                     } else {
-                        var day = createElement( "div", "day-disabled" );
-                        currentDayColumn.appendChild( day );
+                        createElement( "div", "day-disabled", currentDayColumn );
                     }
     
                     if ( startFillingDays ) {
@@ -257,8 +230,7 @@
                         }
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
-                            currentDayColumn = createElement( "div", "day-column" );
-                            dayColumns.appendChild( currentDayColumn );
+                            currentDayColumn = createElement( "div", "day-column", dayColumns );
                             actualDay = 0;
                         }
                     }
@@ -267,9 +239,7 @@
                 }
 
                 if ( bindingOptions.showMonthNames && bindingOptions.placeMonthNamesOnTheBottom ) {
-                    var monthNameBottom = createElement( "div", "month-name-bottom" );
-                    monthNameBottom.innerHTML = _configuration.monthNames[ monthIndex ];
-                    month.appendChild( monthNameBottom );
+                    createElementWithHTML( month, "div", "month-name-bottom", _configuration.monthNames[ monthIndex ] );
                 }
 
                 if ( monthAdded && isDefined( _elements_Day_Width ) ) {
@@ -287,13 +257,12 @@
 
     function renderControlViewMonthDay( bindingOptions, currentDayColumn, dayNumber, month, year, mapRangeColors ) {
         var actualDay = dayNumber + 1,
-            day = createElement( "div", "day" ),
+            day = createElement( "div", "day", currentDayColumn ),
             date = new Date( year, month, actualDay ),
             dateCount = _elements_DateCounts[ bindingOptions.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
 
         dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
         day.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
-        currentDayColumn.appendChild( day );
 
         if ( isDefinedFunction( bindingOptions.onDayClick ) ) {
             day.onclick = function() {
@@ -327,11 +296,8 @@
     }
 
     function renderControlViewGuide( bindingOptions ) {
-        var guide = createElement( "div", "guide" );
-        bindingOptions.element.appendChild( guide );
-
-        var mapTypes = createElement( "div", "map-types" );
-        guide.appendChild( mapTypes );
+        var guide = createElement( "div", "guide", bindingOptions.element ),
+            mapTypes = createElement( "div", "map-types", guide );
 
         var noneTypeCount = 0;
         for ( var storageDate in _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ] ) {
@@ -354,12 +320,8 @@
         }
 
         if ( bindingOptions.showGuide ) {
-            var mapToggles = createElement( "div", "map-toggles" );
-            guide.appendChild( mapToggles );
-    
-            var lessText = createElement( "div", "less-text" );
-            lessText.innerHTML = _configuration.lessText;
-            mapToggles.appendChild( lessText );
+            var mapToggles = createElement( "div", "map-toggles", guide ),
+                lessText = createElementWithHTML( mapToggles, "div", "less-text", _configuration.lessText );
     
             if ( bindingOptions.mapTogglesEnabled ) {
                 lessText.onclick = function() {
@@ -370,12 +332,10 @@
                 lessText.className += _string.space + "no-click";
             }
     
-            var days = createElement( "div", "days" );
-            mapToggles.appendChild( days );
-    
-            var mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
-                return b.range - a.range;
-            } );
+            var days = createElement( "div", "days", mapToggles ),
+                mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
+                    return b.range - a.range;
+                } );
     
             var mapRangeColorsLength = mapRangeColors.length;
     
@@ -383,9 +343,7 @@
                 renderControlViewGuideDay( bindingOptions, days, mapRangeColors[ mapRangeColorsIndex ] );
             }
     
-            var moreText = createElement( "div", "more-text" );
-            moreText.innerHTML = _configuration.moreText;
-            mapToggles.appendChild( moreText );
+            var moreText = createElementWithHTML( mapToggles, "div", "more-text", _configuration.moreText );
     
             if ( bindingOptions.mapTogglesEnabled ) {
                 moreText.onclick = function() {
@@ -399,9 +357,7 @@
     }
 
     function renderControlViewGuideTypeButton( bindingOptions, mapTypes, type ) {
-        var typeButton = createElement( "button", "type" );
-        typeButton.innerHTML = type;
-        mapTypes.appendChild( typeButton );
+        var typeButton = createElementWithHTML( mapTypes, "button", "type", type );
 
         if ( bindingOptions.currentView.type === type ) {
             typeButton.className += _string.space + "active";
@@ -418,9 +374,8 @@
     }
 
     function renderControlViewGuideDay( bindingOptions, days, mapRangeColor ) {
-        var day = createElement( "div" );
+        var day = createElement( "div", null, days );
         day.title = mapRangeColor.tooltipText;
-        days.appendChild( day );
 
         if ( isHeatMapColorVisible( bindingOptions, mapRangeColor.id ) ) {
             day.className = "day " + mapRangeColor.cssClassName;
@@ -485,14 +440,13 @@
         var csvContents = getCsvContent( bindingOptions );
 
         if ( csvContents !== _string.empty ) {
-            var tempLink = createElement( "a" );
+            var tempLink = createElement( "a", null, _parameter_Document.body );
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
             tempLink.setAttribute( "href", "data:text/csv;charset=utf-8," + encodeURIComponent( csvContents ) );
             tempLink.setAttribute( "download", getCsvFilename( bindingOptions ) );
-    
-            _parameter_Document.body.appendChild( tempLink );
             tempLink.click();
+            
             _parameter_Document.body.removeChild( tempLink );
         }
     }
@@ -746,7 +700,7 @@
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function createElement( type, className ) {
+    function createElement( type, className, container ) {
         var result = null,
             nodeType = type.toLowerCase(),
             isText = nodeType === "text";
@@ -761,7 +715,18 @@
             result.className = className;
         }
 
+        if ( isDefined( container ) ) {
+            container.appendChild( result );
+        }
+
         return result;
+    }
+
+    function createElementWithHTML( container, type, className, html ) {
+        var element = createElement( type, className, container );
+        element.innerHTML = html;
+
+        return element;
     }
 
     function getStyleValueByName( element, stylePropertyName, toNumber ) {
