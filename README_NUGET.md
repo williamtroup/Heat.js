@@ -27,6 +27,22 @@
 All modern browsers (such as Google Chrome, FireFox, and Opera) are fully supported.
 
 
+## What languages are supported?
+
+- Arabic
+- Bengali
+- Chinese (simplified)
+- English
+- French
+- German
+- Hindi
+- Japanese
+- Polish
+- Portuguese
+- Spanish
+- Turkish
+
+
 ## What are the most recent changes?
 
 To see a list of all the most recent changes, click [here](https://github.com/williamtroup/Heat.js/blob/main/docs/CHANGE_LOG.md).

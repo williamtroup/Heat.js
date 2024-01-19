@@ -37,6 +37,23 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 <br>
 <br>
 
+<h1>What languages are supported?</h1>
+
+- Arabic
+- Bengali
+- Chinese (simplified)
+- English
+- French
+- German
+- Hindi
+- Japanese
+- Polish
+- Portuguese
+- Spanish
+- Turkish
+<br>
+<br>
+
 
 <h1>What are the most recent changes?</h1>
 
