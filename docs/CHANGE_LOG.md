@@ -1,5 +1,11 @@
 # Heat.js - Change Log:
 
+## Version 1.2.0:
+- 
+
+<br>
+
+
 ## Version 1.1.0:
 
 #### **Translations:**
