@@ -11,7 +11,7 @@
     
     /* Days */
     --heat-js-day-background-color: var(--heat-js-color-black);
-    --heat-js-day-border-color: var(--heat-js-container-border-color);
+    --heat-js-day-border-color: var(--heat-js-color-gray);
     --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
     --heat-js-day-spacing: 6.3px;
     --heat-js-day-opacity-hover: 0.7;
