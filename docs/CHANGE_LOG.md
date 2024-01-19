@@ -5,6 +5,11 @@
 #### **Binding Options:**
 - Added a new binding option called "year", which states the year that should be shown when the heat map is rendered for the first time (defaults to current year).
 
+#### **CSS:**
+- Increased the margin under the title bar.
+- Decreased the margin used around the "type" buttons shown in the guide.
+- Removed the "margin-right" CSS property for the last days in the last month.
+
 #### **General Improvements:**
 - Removed a large amount of duplicated code.
 
