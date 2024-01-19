@@ -2,15 +2,15 @@
 Heat.js
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Heat.js%2C%20a%20free%20JavaScript%heat%20map&url=https://github.com/williamtroup/Heat.js&hashtags=javascript,heat,map)
-[![npm](https://img.shields.io/badge/npmjs-v1.0.0-blue)](https://www.npmjs.com/package/jheat.js)
-[![nuget](https://img.shields.io/badge/nuget-v1.0.0-purple)](https://www.nuget.org/packages/jHeat.js/)
+[![npm](https://img.shields.io/badge/npmjs-v1.1.0-blue)](https://www.npmjs.com/package/jheat.js)
+[![nuget](https://img.shields.io/badge/nuget-v1.1.0-purple)](https://www.nuget.org/packages/jHeat.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Heat.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://github.com/williamtroup)
 </h1>
 
 > <p align="center">🌞 A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.</p>
-> <p align="center">v1.0.0</p>
+> <p align="center">v1.1.0</p>
 <br />
 
 ![Heat.js](docs/images/main.png)
@@ -26,6 +26,7 @@ Heat.js
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
 - Export all data to CSV.
+- 12 language translations available!
 <br />
 <br />
 
@@ -33,6 +34,23 @@ Heat.js
 <h1>What browsers are supported?</h1>
 
 All modern browsers (such as Google Chrome, FireFox, and Opera) are fully supported.
+<br>
+<br>
+
+<h1>What languages are supported?</h1>
+
+- Arabic
+- Bengali
+- Chinese (simplified)
+- English
+- French
+- German
+- Hindi
+- Japanese
+- Polish
+- Portuguese
+- Spanish
+- Turkish
 <br>
 <br>
 
