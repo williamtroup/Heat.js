@@ -1,9 +1,9 @@
 /*! Heat.js v1.1.0 | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
-        "stText": "st",
-        "ndText": "e",
-        "rdText": "terceiro",
-        "thText": "º",
+        "stText": "",
+        "ndText": "",
+        "rdText": "",
+        "thText": "",
         "backButtonText": "Voltar",
         "nextButtonText": "Próximo",
         "refreshButtonText": "Atualizar",
