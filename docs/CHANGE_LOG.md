@@ -10,6 +10,7 @@
 - Decreased the margin used around the "type" buttons shown in the guide.
 - Removed the "margin-right" CSS property for the last days in the last month.
 - Added an ":active" state for all buttons (now shows a slightly lighter background color).
+- Removed replicated HEX colors (all now reference the original ":root" variable).
 
 #### **General Improvements:**
 - Removed a large amount of duplicated code.
