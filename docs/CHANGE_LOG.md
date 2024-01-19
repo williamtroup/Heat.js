@@ -31,7 +31,7 @@
 - Removed a large amount of duplicated code.
 
 #### **Fixes:**
-- Fixed a fault that prevented decimal values for CSS margins being converted correctly.
+- Fixed a fault that prevented decimal values for CSS margins from being converted correctly.
 - Fixed broken documentation links.
 
 <br>
