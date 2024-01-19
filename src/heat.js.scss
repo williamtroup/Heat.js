@@ -181,23 +181,21 @@ div.heat-js {
                 display: flex;
                 justify-content: space-between;
                 flex-grow: 1;
-
-                &:last-child {
-                    div.day-columns {
-                        div.day-column {
-                            &:last-child div.day {
-                                margin-right: 0 !important;
-                            }
-                        }
-                    }
-                }
         
                 div.month {
                     flex: 1;
                     pointer-events: none;
         
                     &:last-child {
-                        margin-right: 0;
+                        div.day-columns {
+                            div.day-column {
+                                &:last-child {
+                                    div.day {
+                                        margin-right: 0 !important;
+                                    }
+                                }
+                            }
+                        }
                     }
         
                     div.month-name,

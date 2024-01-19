@@ -143,15 +143,12 @@ div.heat-js div.map-contents div.map div.months {
   justify-content: space-between;
   flex-grow: 1;
 }
-div.heat-js div.map-contents div.map div.months:last-child div.day-columns div.day-column:last-child div.day {
-  margin-right: 0 !important;
-}
 div.heat-js div.map-contents div.map div.months div.month {
   flex: 1;
   pointer-events: none;
 }
-div.heat-js div.map-contents div.map div.months div.month:last-child {
-  margin-right: 0;
+div.heat-js div.map-contents div.map div.months div.month:last-child div.day-columns div.day-column:last-child div.day {
+  margin-right: 0 !important;
 }
 div.heat-js div.map-contents div.map div.months div.month div.month-name,
 div.heat-js div.map-contents div.map div.months div.month div.month-name-bottom {

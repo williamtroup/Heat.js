@@ -225,13 +225,22 @@
                     }
     
                     if ( startFillingDays ) {
+                        var day = null;
+
                         if ( bindingOptions.daysToShow.indexOf( actualDay ) > -1 ) {
-                            renderControlViewMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors );
+                            day = renderControlViewMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors );
                         }
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
                             currentDayColumn = createElement( dayColumns, "div", "day-column" );
                             actualDay = 0;
+
+                            if ( !isDefined( _elements_Day_Width ) && isDefined( day ) ) {
+                                var marginLeft = getStyleValueByName( day, "margin-left", true ),
+                                    marginRight = getStyleValueByName( day, "margin-right", true );
+                                
+                                _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
+                            }
                         }
                     }
 
@@ -287,12 +296,7 @@
             day.className += _string.space + useMapRangeColor.cssClassName;
         }
 
-        if ( !isDefined( _elements_Day_Width ) ) {
-            var marginLeft = getStyleValueByName( day, "margin-left", true ),
-                marginRight = getStyleValueByName( day, "margin-right", true );
-            
-            _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
-        }
+        return day;
     }
 
     function renderControlViewGuide( bindingOptions ) {

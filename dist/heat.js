@@ -141,12 +141,18 @@
             createElement(currentDayColumn, "div", "day-disabled");
           }
           if (startFillingDays) {
+            var day = null;
             if (bindingOptions.daysToShow.indexOf(actualDay) > -1) {
-              renderControlViewMonthDay(bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors);
+              day = renderControlViewMonthDay(bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors);
             }
             if ((dayIndex + 1) % 7 === 0) {
               currentDayColumn = createElement(dayColumns, "div", "day-column");
               actualDay = 0;
+              if (!isDefined(_elements_Day_Width) && isDefined(day)) {
+                var marginLeft = getStyleValueByName(day, "margin-left", true);
+                var marginRight = getStyleValueByName(day, "margin-right", true);
+                _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
+              }
             }
           }
           actualDay++;
@@ -191,11 +197,7 @@
     if (isDefined(useMapRangeColor) && isHeatMapColorVisible(bindingOptions, useMapRangeColor.id)) {
       day.className += _string.space + useMapRangeColor.cssClassName;
     }
-    if (!isDefined(_elements_Day_Width)) {
-      var marginLeft = getStyleValueByName(day, "margin-left", true);
-      var marginRight = getStyleValueByName(day, "margin-right", true);
-      _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
-    }
+    return day;
   }
   function renderControlViewGuide(bindingOptions) {
     var guide = createElement(bindingOptions.element, "div", "guide");
