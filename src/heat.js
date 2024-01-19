@@ -75,7 +75,7 @@
                     bindingOptions.element = element;
                     bindingOptions.currentView = {};
                     bindingOptions.currentView.colorsVisible = {};
-                    bindingOptions.currentView.year = null;
+                    bindingOptions.currentView.year = bindingOptions.year;
                     bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
 
                     fireCustomTrigger( bindingOptions.onBeforeRender, element );
@@ -117,10 +117,6 @@
     }
 
     function renderControlTitleBar( bindingOptions ) {
-        if ( !isDefinedNumber( bindingOptions.currentView.year ) ) {
-            bindingOptions.currentView.year = new Date().getFullYear();
-        }
-
         if ( bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton ) {
             var titleBar = createElement( "div", "title-bar" );
             bindingOptions.element.appendChild( titleBar );
@@ -589,6 +585,7 @@
         options.mapTogglesEnabled = getDefaultBoolean( options.mapTogglesEnabled, true );
         options.placeMonthNamesOnTheBottom = getDefaultBoolean( options.placeMonthNamesOnTheBottom, false );
         options.exportOnlyYearBeingViewed = getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
+        options.year = getDefaultNumber( options.year, new Date().getFullYear() );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -820,6 +817,10 @@
 
     function getDefaultArray( value, defaultValue ) {
         return isDefinedArray( value ) ? value : defaultValue;
+    }
+
+    function getDefaultNumber( value, defaultValue ) {
+        return isDefinedNumber( value ) ? value : defaultValue;
     }
 
     function getDefaultStringOrArray( value, defaultValue ) {

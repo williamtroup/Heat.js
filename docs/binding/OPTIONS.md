@@ -23,6 +23,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | mapTogglesEnabled | States if the heat map toggles are enabled (defaults to true). |
 | *boolean* | placeMonthNamesOnTheBottom | States if the month names should be placed at the bottom (defaults to false). |
 | *boolean* | exportOnlyYearBeingViewed | States if only the data for the year being viewed should be exported (defaults to true). |
+| *number* | year | States the year that should be shown when the heat map is rendered for the first time (defaults to the current year). |
 
 <br/>
 

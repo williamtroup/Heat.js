@@ -2,6 +2,9 @@
 
 ## Version 1.2.0:
 
+#### **Binding Options:**
+- Added a new binding option called "year", which states the year that should be shown when the heat map is rendered for the first time (defaults to current year).
+
 #### **Fixes:**
 - Fixed a fault that prevented decimal values for CSS margins being converted correctly.
 
