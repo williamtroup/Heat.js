@@ -324,6 +324,7 @@ div.heat-js {
                     height: var(--heat-js-spacing-font-size);
                     margin-right: var(--heat-js-day-spacing);
                     cursor: pointer;
+                    transition: var(--heat-js-transition);
     
                     &:last-child {
                         margin-right: 0;

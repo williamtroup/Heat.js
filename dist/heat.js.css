@@ -275,6 +275,7 @@ div.heat-js div.guide div.map-toggles div.days div.day {
   height: var(--heat-js-spacing-font-size);
   margin-right: var(--heat-js-day-spacing);
   cursor: pointer;
+  transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-toggles div.days div.day:last-child {
   margin-right: 0;
