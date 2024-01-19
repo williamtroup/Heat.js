@@ -20,7 +20,7 @@
     
     // Days
     --heat-js-day-background-color: #2d333b;
-    --heat-js-day-border-color: #454c56;;
+    --heat-js-day-border-color: #454c56;
     --heat-js-day-background-color-hover: #454c56;
     --heat-js-day-spacing: 6.3px;
 
@@ -28,6 +28,7 @@
     --heat-js-button-background-color: #2d333b;
     --heat-js-button-border-color: #454c56;
     --heat-js-button-background-color-hover: #454c56;
+    --heat-js-button-background-color-active: #616b79;
 
     // Borders
     --heat-js-border-radius: 0.5rem;
@@ -61,6 +62,11 @@
         padding-left: 9px;
         padding-right: 9px;
         outline: none;
+
+        &:active {
+            background: var(--heat-js-button-background-color-active) !important;
+            transition: var(--heat-js-transition);
+        }
 
         &:hover {
             cursor: pointer;

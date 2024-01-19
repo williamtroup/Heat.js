@@ -17,6 +17,7 @@
   --heat-js-button-background-color: #2d333b;
   --heat-js-button-border-color: #454c56;
   --heat-js-button-background-color-hover: #454c56;
+  --heat-js-button-background-color-active: #616b79;
   --heat-js-border-radius: 0.5rem;
   --heat-js-border-radius-day: 0.25rem;
   --heat-js-border-size: 0.5px;
@@ -87,6 +88,10 @@ div.heat-js div.title-bar button {
   padding-left: 9px;
   padding-right: 9px;
   outline: none;
+}
+div.heat-js div.title-bar button:active {
+  background: var(--heat-js-button-background-color-active) !important;
+  transition: var(--heat-js-transition);
 }
 div.heat-js div.title-bar button:hover {
   cursor: pointer;
@@ -211,6 +216,10 @@ div.heat-js div.guide div.map-types button {
   padding-left: 9px;
   padding-right: 9px;
   outline: none;
+}
+div.heat-js div.guide div.map-types button:active {
+  background: var(--heat-js-button-background-color-active) !important;
+  transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-types button:hover {
   cursor: pointer;
