@@ -4,7 +4,19 @@
 
 #### **Translations:**
 - Added a new folder under "dist" called "translations", which will house all the translations files for languages supported.
-- 
+- Added support for the following languages:
+  1. Arabic
+  2. Bengali
+  3. Chinese (simplified)
+  4. English
+  5. French
+  6. German
+  7. Hindi
+  8. Japanese
+  9. Polish
+  10. Portuguese
+  11. Spanish
+  12. Turkish
 
 <br>
 
