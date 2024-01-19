@@ -1,7 +1,7 @@
 # Heat.js - Change Log:
 
 ## Version 1.2.1:
-- 
+- Fixed a minor fault that caused the month names to be centered.
 
 <br>
 

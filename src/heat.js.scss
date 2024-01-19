@@ -184,6 +184,7 @@ div.heat-js {
                 div.day-name {
                     font-weight: 300;
                     margin-bottom: 4px;
+                    text-align: left !important;
                 }
             }
         
@@ -211,6 +212,7 @@ div.heat-js {
                     div.month-name,
                     div.month-name-bottom {
                         font-weight: 300;
+                        text-align: left !important;
                     }
     
                     div.month-name {
