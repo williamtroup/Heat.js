@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 1.2.0:
-- 
+
+#### **Fixes:**
+- Fixed a fault that prevented decimal values for CSS margins being converted correctly.
 
 <br>
 
