@@ -19,6 +19,7 @@
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
 - Export all data to CSV.
+- 12 language translations available!
 
 
 ## What browsers are supported?
