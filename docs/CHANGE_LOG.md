@@ -12,6 +12,8 @@
 - Added an ":active" state for all buttons (now shows a slightly lighter background color).
 - Removed replicated HEX colors (all now reference the original ":root" variable).
 - Added an ":active" state for less/more toggles (now shows a slightly darker text color).
+- Added new ":root" variable "--heat-js-day-opacity-hover", which states the opacity to use for days when they are hovered.
+- All hover transition effects now work for hovering, and not hovering, which results in a smoother display.
 
 #### **General Improvements:**
 - Removed a large amount of duplicated code.

@@ -14,6 +14,7 @@
   --heat-js-day-border-color: var(--heat-js-container-border-color);
   --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
   --heat-js-day-spacing: 6.3px;
+  --heat-js-day-opacity-hover: 0.7;
   --heat-js-button-background-color: var(--heat-js-day-background-color);
   --heat-js-button-border-color: var(--heat-js-container-border-color);
   --heat-js-button-background-color-hover: var(--heat-js-container-border-color);
@@ -88,15 +89,14 @@ div.heat-js div.title-bar button {
   padding-left: 9px;
   padding-right: 9px;
   outline: none;
+  transition: var(--heat-js-transition);
 }
 div.heat-js div.title-bar button:active {
   background: var(--heat-js-button-background-color-active) !important;
-  transition: var(--heat-js-transition);
 }
 div.heat-js div.title-bar button:hover {
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
-  transition: var(--heat-js-transition);
 }
 div.heat-js div.title-bar button.active {
   cursor: default;
@@ -183,11 +183,11 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
   pointer-events: all !important;
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+  transition: var(--heat-js-transition);
 }
 div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:hover {
   cursor: pointer;
   background: var(--heat-js-day-background-color-hover);
-  transition: var(--heat-js-transition);
 }
 
 /*
@@ -216,15 +216,14 @@ div.heat-js div.guide div.map-types button {
   padding-left: 9px;
   padding-right: 9px;
   outline: none;
+  transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-types button:active {
   background: var(--heat-js-button-background-color-active) !important;
-  transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-types button:hover {
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
-  transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-types button.active {
   cursor: default;
@@ -248,6 +247,7 @@ div.heat-js div.guide div.map-toggles div.less-text,
 div.heat-js div.guide div.map-toggles div.more-text {
   display: inline-block;
   font-weight: 300;
+  transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-toggles div.less-text:hover,
 div.heat-js div.guide div.map-toggles div.more-text:hover {
@@ -257,7 +257,6 @@ div.heat-js div.guide div.map-toggles div.more-text:hover {
 div.heat-js div.guide div.map-toggles div.less-text:active,
 div.heat-js div.guide div.map-toggles div.more-text:active {
   color: var(--heat-js-color-gray);
-  transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-toggles div.less-text {
   margin-right: var(--heat-js-spacing);
@@ -294,26 +293,26 @@ div.heat-js div.day-color-1 {
   border: var(--heat-js-border-size-day) solid rgba(57, 211, 83, 0.15) !important;
 }
 div.heat-js div.day-color-1:hover {
-  opacity: 0.7;
+  opacity: var(--heat-js-day-opacity-hover);
 }
 div.heat-js div.day-color-2 {
   background-color: rgba(57, 211, 83, 0.5) !important;
   border: var(--heat-js-border-size-day) solid rgba(57, 211, 83, 0.25) !important;
 }
 div.heat-js div.day-color-2:hover {
-  opacity: 0.7;
+  opacity: var(--heat-js-day-opacity-hover);
 }
 div.heat-js div.day-color-3 {
   background-color: rgba(57, 211, 83, 0.75) !important;
   border: var(--heat-js-border-size-day) solid rgba(57, 211, 83, 0.5) !important;
 }
 div.heat-js div.day-color-3:hover {
-  opacity: 0.7;
+  opacity: var(--heat-js-day-opacity-hover);
 }
 div.heat-js div.day-color-4 {
   background-color: rgb(57, 211, 83) !important;
   border: var(--heat-js-border-size-day) solid rgba(57, 211, 83, 0.75) !important;
 }
 div.heat-js div.day-color-4:hover {
-  opacity: 0.7;
+  opacity: var(--heat-js-day-opacity-hover);
 }/*# sourceMappingURL=heat.js.css.map */
