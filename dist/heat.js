@@ -60,7 +60,7 @@
   }
   function renderControlTitleBar(bindingOptions) {
     if (bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton) {
-      var titleBar = createElement("div", "title-bar", bindingOptions.element);
+      var titleBar = createElement(bindingOptions.element, "div", "title-bar");
       if (bindingOptions.showTitle) {
         createElementWithHTML(titleBar, "div", "title", bindingOptions.titleText);
       }
@@ -96,13 +96,13 @@
     }
   }
   function renderControlMap(bindingOptions) {
-    var mapContents = createElement("div", "map-contents", bindingOptions.element);
-    var map = createElement("div", "map", mapContents);
+    var mapContents = createElement(bindingOptions.element, "div", "map-contents");
+    var map = createElement(mapContents, "div", "map");
     renderControlViewGuide(bindingOptions);
     var currentYear = bindingOptions.currentView.year;
     var monthAdded = false;
     if (bindingOptions.showDayNames) {
-      var days = createElement("div", "days", map);
+      var days = createElement(map, "div", "days");
       if (!bindingOptions.showMonthNames || bindingOptions.placeMonthNamesOnTheBottom) {
         days.style.paddingTop = "0px";
         days.style.marginTop = !bindingOptions.placeMonthNamesOnTheBottom ? "-5px" : "-2px";
@@ -114,20 +114,20 @@
         }
       }
     }
-    var months = createElement("div", "months", map);
+    var months = createElement(map, "div", "months");
     var mapRangeColors = bindingOptions.mapRangeColors.sort(function(a, b) {
       return b.range - a.range;
     });
     var monthIndex = 0;
     for (; monthIndex < 12; monthIndex++) {
       if (bindingOptions.monthsToShow.indexOf(monthIndex + 1) > -1) {
-        var month = createElement("div", "month", months);
+        var month = createElement(months, "div", "month");
         if (bindingOptions.showMonthNames && !bindingOptions.placeMonthNamesOnTheBottom) {
           createElementWithHTML(month, "div", "month-name", _configuration.monthNames[monthIndex]);
         }
-        var dayColumns = createElement("div", "day-columns", month);
+        var dayColumns = createElement(month, "div", "day-columns");
         var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex);
-        var currentDayColumn = createElement("div", "day-column", dayColumns);
+        var currentDayColumn = createElement(dayColumns, "div", "day-column");
         var startFillingDays = false;
         var firstDayInMonth = new Date(currentYear, monthIndex, 1);
         var firstDayNumberInMonth = getWeekdayNumber(firstDayInMonth);
@@ -138,14 +138,14 @@
           if (dayIndex >= firstDayNumberInMonth) {
             startFillingDays = true;
           } else {
-            createElement("div", "day-disabled", currentDayColumn);
+            createElement(currentDayColumn, "div", "day-disabled");
           }
           if (startFillingDays) {
             if (bindingOptions.daysToShow.indexOf(actualDay) > -1) {
               renderControlViewMonthDay(bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors);
             }
             if ((dayIndex + 1) % 7 === 0) {
-              currentDayColumn = createElement("div", "day-column", dayColumns);
+              currentDayColumn = createElement(dayColumns, "div", "day-column");
               actualDay = 0;
             }
           }
@@ -167,7 +167,7 @@
   }
   function renderControlViewMonthDay(bindingOptions, currentDayColumn, dayNumber, month, year, mapRangeColors) {
     var actualDay = dayNumber + 1;
-    var day = createElement("div", "day", currentDayColumn);
+    var day = createElement(currentDayColumn, "div", "day");
     var date = new Date(year, month, actualDay);
     var dateCount = _elements_DateCounts[bindingOptions.element.id].type[bindingOptions.currentView.type][toStorageDate(date)];
     dateCount = isDefinedNumber(dateCount) ? dateCount : 0;
@@ -198,8 +198,8 @@
     }
   }
   function renderControlViewGuide(bindingOptions) {
-    var guide = createElement("div", "guide", bindingOptions.element);
-    var mapTypes = createElement("div", "map-types", guide);
+    var guide = createElement(bindingOptions.element, "div", "guide");
+    var mapTypes = createElement(guide, "div", "map-types");
     var noneTypeCount = 0;
     var storageDate;
     for (storageDate in _elements_DateCounts[bindingOptions.element.id].type[_elements_DateCounts_DefaultType]) {
@@ -220,7 +220,7 @@
       }
     }
     if (bindingOptions.showGuide) {
-      var mapToggles = createElement("div", "map-toggles", guide);
+      var mapToggles = createElement(guide, "div", "map-toggles");
       var lessText = createElementWithHTML(mapToggles, "div", "less-text", _configuration.lessText);
       if (bindingOptions.mapTogglesEnabled) {
         lessText.onclick = function() {
@@ -229,7 +229,7 @@
       } else {
         lessText.className += _string.space + "no-click";
       }
-      var days = createElement("div", "days", mapToggles);
+      var days = createElement(mapToggles, "div", "days");
       var mapRangeColors = bindingOptions.mapRangeColors.sort(function(a, b) {
         return b.range - a.range;
       });
@@ -262,7 +262,7 @@
     };
   }
   function renderControlViewGuideDay(bindingOptions, days, mapRangeColor) {
-    var day = createElement("div", null, days);
+    var day = createElement(days, "div");
     day.title = mapRangeColor.tooltipText;
     if (isHeatMapColorVisible(bindingOptions, mapRangeColor.id)) {
       day.className = "day " + mapRangeColor.cssClassName;
@@ -304,7 +304,7 @@
   function exportAllData(bindingOptions) {
     var csvContents = getCsvContent(bindingOptions);
     if (csvContents !== _string.empty) {
-      var tempLink = createElement("a", null, _parameter_Document.body);
+      var tempLink = createElement(_parameter_Document.body, "a");
       tempLink.style.display = "none";
       tempLink.setAttribute("target", "_blank");
       tempLink.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(csvContents));
@@ -471,7 +471,7 @@
   function isDefinedArray(object) {
     return isDefinedObject(object) && object instanceof Array;
   }
-  function createElement(type, className, container) {
+  function createElement(container, type, className) {
     var result = null;
     var nodeType = type.toLowerCase();
     var isText = nodeType === "text";
@@ -482,13 +482,11 @@
     if (isDefined(className)) {
       result.className = className;
     }
-    if (isDefined(container)) {
-      container.appendChild(result);
-    }
+    container.appendChild(result);
     return result;
   }
   function createElementWithHTML(container, type, className, html) {
-    var element = createElement(type, className, container);
+    var element = createElement(container, type, className);
     element.innerHTML = html;
     return element;
   }

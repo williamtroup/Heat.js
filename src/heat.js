@@ -118,7 +118,7 @@
 
     function renderControlTitleBar( bindingOptions ) {
         if ( bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton ) {
-            var titleBar = createElement( "div", "title-bar", bindingOptions.element );
+            var titleBar = createElement( bindingOptions.element, "div", "title-bar" );
     
             if ( bindingOptions.showTitle ) {
                 createElementWithHTML( titleBar, "div", "title", bindingOptions.titleText );
@@ -167,8 +167,8 @@
     }
 
     function renderControlMap( bindingOptions ) {
-        var mapContents = createElement( "div", "map-contents", bindingOptions.element ),
-            map = createElement( "div", "map", mapContents );
+        var mapContents = createElement( bindingOptions.element, "div", "map-contents" ),
+            map = createElement( mapContents, "div", "map" );
 
         renderControlViewGuide( bindingOptions );
 
@@ -176,7 +176,7 @@
             monthAdded = false;
 
         if ( bindingOptions.showDayNames ) {
-            var days = createElement( "div", "days", map );
+            var days = createElement( map, "div", "days" );
 
             if ( !bindingOptions.showMonthNames || bindingOptions.placeMonthNamesOnTheBottom ) {
                 days.style.paddingTop = "0px";
@@ -190,7 +190,7 @@
             }
         }
 
-        var months = createElement( "div", "months", map );
+        var months = createElement( map, "div", "months" );
 
         var mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
             return b.range - a.range;
@@ -198,16 +198,16 @@
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             if ( bindingOptions.monthsToShow.indexOf( monthIndex + 1 ) > -1 ) {
-                var month = createElement( "div", "month", months );
+                var month = createElement( months, "div", "month" );
     
                 if ( bindingOptions.showMonthNames && !bindingOptions.placeMonthNamesOnTheBottom ) {
                     createElementWithHTML( month, "div", "month-name", _configuration.monthNames[ monthIndex ] );
                 }
     
-                var dayColumns = createElement( "div", "day-columns", month );
+                var dayColumns = createElement( month, "div", "day-columns" );
     
                 var totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
-                    currentDayColumn = createElement( "div", "day-column", dayColumns ),
+                    currentDayColumn = createElement( dayColumns, "div", "day-column" ),
                     startFillingDays = false;
     
                 var firstDayInMonth = new Date( currentYear, monthIndex, 1 ),
@@ -221,7 +221,7 @@
                         startFillingDays = true;
     
                     } else {
-                        createElement( "div", "day-disabled", currentDayColumn );
+                        createElement( currentDayColumn, "div", "day-disabled" );
                     }
     
                     if ( startFillingDays ) {
@@ -230,7 +230,7 @@
                         }
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
-                            currentDayColumn = createElement( "div", "day-column", dayColumns );
+                            currentDayColumn = createElement( dayColumns, "div", "day-column" );
                             actualDay = 0;
                         }
                     }
@@ -257,7 +257,7 @@
 
     function renderControlViewMonthDay( bindingOptions, currentDayColumn, dayNumber, month, year, mapRangeColors ) {
         var actualDay = dayNumber + 1,
-            day = createElement( "div", "day", currentDayColumn ),
+            day = createElement( currentDayColumn, "div", "day" ),
             date = new Date( year, month, actualDay ),
             dateCount = _elements_DateCounts[ bindingOptions.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
 
@@ -296,8 +296,8 @@
     }
 
     function renderControlViewGuide( bindingOptions ) {
-        var guide = createElement( "div", "guide", bindingOptions.element ),
-            mapTypes = createElement( "div", "map-types", guide );
+        var guide = createElement( bindingOptions.element, "div", "guide" ),
+            mapTypes = createElement( guide, "div", "map-types" );
 
         var noneTypeCount = 0;
         for ( var storageDate in _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ] ) {
@@ -320,7 +320,7 @@
         }
 
         if ( bindingOptions.showGuide ) {
-            var mapToggles = createElement( "div", "map-toggles", guide ),
+            var mapToggles = createElement( guide, "div", "map-toggles" ),
                 lessText = createElementWithHTML( mapToggles, "div", "less-text", _configuration.lessText );
     
             if ( bindingOptions.mapTogglesEnabled ) {
@@ -332,7 +332,7 @@
                 lessText.className += _string.space + "no-click";
             }
     
-            var days = createElement( "div", "days", mapToggles ),
+            var days = createElement( mapToggles, "div", "days" ),
                 mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
                     return b.range - a.range;
                 } );
@@ -374,7 +374,7 @@
     }
 
     function renderControlViewGuideDay( bindingOptions, days, mapRangeColor ) {
-        var day = createElement( "div", null, days );
+        var day = createElement( days, "div" );
         day.title = mapRangeColor.tooltipText;
 
         if ( isHeatMapColorVisible( bindingOptions, mapRangeColor.id ) ) {
@@ -440,7 +440,7 @@
         var csvContents = getCsvContent( bindingOptions );
 
         if ( csvContents !== _string.empty ) {
-            var tempLink = createElement( "a", null, _parameter_Document.body );
+            var tempLink = createElement( _parameter_Document.body, "a" );
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
             tempLink.setAttribute( "href", "data:text/csv;charset=utf-8," + encodeURIComponent( csvContents ) );
@@ -700,7 +700,7 @@
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function createElement( type, className, container ) {
+    function createElement( container, type, className ) {
         var result = null,
             nodeType = type.toLowerCase(),
             isText = nodeType === "text";
@@ -715,15 +715,13 @@
             result.className = className;
         }
 
-        if ( isDefined( container ) ) {
-            container.appendChild( result );
-        }
+        container.appendChild( result );
 
         return result;
     }
 
     function createElementWithHTML( container, type, className, html ) {
-        var element = createElement( type, className, container );
+        var element = createElement( container, type, className );
         element.innerHTML = html;
 
         return element;
