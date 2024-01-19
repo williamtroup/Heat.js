@@ -4,7 +4,7 @@
 
 #### **Translations:**
 - Added a new folder under "dist" called "translations", which will house all the translations files for languages supported.
-- Added translation support for Germen.
+- 
 
 <br>
 
