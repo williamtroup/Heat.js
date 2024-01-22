@@ -280,15 +280,28 @@ div.heat-js {
 div.heat-js {
     div.guide {
         margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
-        display: flex;
+        display: block;
+    
+        @media (min-width: $minimum-width) { 
+            display: flex;
+        }
 
         div.map-types,
         div.map-toggles {
-            flex-basis: 100%;
+            margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
+
+            @media (min-width: $minimum-width) { 
+                flex-basis: 100%;
+                margin-bottom: 0;
+            }
         }
 
         div.map-types {
-            text-align: left;
+            text-align: center;
+
+            @media (min-width: $minimum-width) { 
+                text-align: left;
+            }
 
             @include buttons;
 
@@ -299,10 +312,15 @@ div.heat-js {
         }
 
         div.map-toggles {
-            text-align: right;
             display: flex;
             align-items: center;
-            justify-content: right;
+            justify-content: center;
+            text-align: center;
+
+            @media (min-width: $minimum-width) { 
+                text-align: right;
+                justify-content: right;
+            }
 
             div.no-click {
                 pointer-events: none;
