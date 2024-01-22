@@ -225,7 +225,6 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
     -------------------------------------------------------------------------
 */
 div.heat-js div.guide {
-  margin-top: calc(var(--heat-js-spacing) + var(--heat-js-spacing) / 2);
   display: block;
 }
 @media (min-width: 768px) {
