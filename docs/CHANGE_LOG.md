@@ -1,5 +1,22 @@
 # Heat.js - Change Log:
 
+## Version 1.2.1:
+- Fixed a minor fault that caused the month names to be centred.
+- Fixed the day name labels shown on the right, so are now the same height/margin as the days, allowing them to align correctly.
+- Added new ":root" variable "--heat-js-border-size-day", which states the size to use the days/day name heights.
+- Fixed the day name labels not being aligned to the middle vertically.
+- Increased the default size of the days from 0.85rem to 1.1rem.
+- The day names are now hidden in mobile view.
+- The type/guide toggles are now stacked in mobile view and centred (make them much easier to access and see).
+- The export/refresh buttons are now hidden in mobile view.
+- Added new ":root" variable "--heat-js-button-text-color", which will allow you to override the button text colors.
+- The light mode theme buttons now use a darker background color (so they stand out).
+- Added the button margin back in for the test files.
+- Documentation improvements.
+
+<br>
+
+
 ## Version 1.2.0:
 
 #### **Themes:**

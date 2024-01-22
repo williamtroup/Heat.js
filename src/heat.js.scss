@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.2.0
+ * Heat.js Library v1.2.1
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -24,6 +24,7 @@
     --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
     --heat-js-day-spacing: 6.3px;
     --heat-js-day-opacity-hover: 0.7;
+    --heat-js-day-size: 1.1rem;
 
     // Days - Colors
     --heat-js-day-color-1-background-color: rgba( 57, 211, 83, 0.25 );
@@ -38,6 +39,7 @@
     // Button
     --heat-js-button-background-color: var(--heat-js-day-background-color);
     --heat-js-button-border-color: var(--heat-js-container-border-color);
+    --heat-js-button-text-color: var(--heat-js-color-white);
     --heat-js-button-background-color-hover: var(--heat-js-container-border-color);
     --heat-js-button-background-color-active: #616b79;
 
@@ -66,7 +68,7 @@
     button {
         background-color: var(--heat-js-button-background-color);
         border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
-        color: var(--heat-js-color-white);
+        color: var(--heat-js-button-text-color);
         border-radius: var(--heat-js-border-radius);
         padding-top: 5px;
         padding-bottom: 5px;
@@ -156,6 +158,15 @@ div.heat-js {
             margin-right: var(--heat-js-spacing);
             display: inline-block;
         }
+
+        button.export,
+        button.refresh {
+            display: none;
+    
+            @media (min-width: $minimum-width) { 
+                display: inline-block;
+            }
+        }
     }
 }
 
@@ -180,10 +191,20 @@ div.heat-js {
                 padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
                 position: sticky;
                 left: 0;
+                display: none;
+    
+                @media (min-width: $minimum-width) { 
+                    display: block;
+                }
         
                 div.day-name {
                     font-weight: 300;
-                    margin-bottom: 4px;
+                    text-align: left !important;
+                    height: var(--heat-js-day-size);
+                    margin-bottom: var(--heat-js-day-spacing);
+                    display: inline-flex;
+                    justify-content: center;
+                    flex-direction: column;
                 }
             }
         
@@ -211,6 +232,7 @@ div.heat-js {
                     div.month-name,
                     div.month-name-bottom {
                         font-weight: 300;
+                        text-align: left !important;
                     }
     
                     div.month-name {
@@ -229,8 +251,8 @@ div.heat-js {
                             div.day,
                             div.day-disabled {
                                 border-radius: var(--heat-js-border-radius-day);
-                                width: var(--heat-js-spacing-font-size);
-                                height: var(--heat-js-spacing-font-size);
+                                width: var(--heat-js-day-size);
+                                height: var(--heat-js-day-size);
                                 margin-right: var(--heat-js-day-spacing);
                                 margin-bottom: var(--heat-js-day-spacing);
         
@@ -267,16 +289,28 @@ div.heat-js {
 
 div.heat-js {
     div.guide {
-        margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
-        display: flex;
+        display: block;
+    
+        @media (min-width: $minimum-width) { 
+            display: flex;
+        }
 
         div.map-types,
         div.map-toggles {
-            flex-basis: 100%;
+            margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
+
+            @media (min-width: $minimum-width) { 
+                flex-basis: 100%;
+                margin-bottom: 0;
+            }
         }
 
         div.map-types {
-            text-align: left;
+            text-align: center;
+
+            @media (min-width: $minimum-width) { 
+                text-align: left;
+            }
 
             @include buttons;
 
@@ -287,10 +321,15 @@ div.heat-js {
         }
 
         div.map-toggles {
-            text-align: right;
             display: flex;
             align-items: center;
-            justify-content: right;
+            justify-content: center;
+            text-align: center;
+
+            @media (min-width: $minimum-width) { 
+                text-align: right;
+                justify-content: right;
+            }
 
             div.no-click {
                 pointer-events: none;
@@ -330,8 +369,8 @@ div.heat-js {
                     border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     display: inline-block;
                     border-radius: var(--heat-js-border-radius-day);
-                    width: var(--heat-js-spacing-font-size);
-                    height: var(--heat-js-spacing-font-size);
+                    width: var(--heat-js-day-size);
+                    height: var(--heat-js-day-size);
                     margin-right: var(--heat-js-day-spacing);
                     cursor: pointer;
                     transition: var(--heat-js-transition);

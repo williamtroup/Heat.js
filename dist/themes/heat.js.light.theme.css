@@ -1,4 +1,4 @@
-/*! Heat.js v1.2.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.2.1 | (c) Bunoon 2024 | MIT License */
 :root {
     /* Colors */
     --heat-js-color-black: #F5F5F5;
@@ -13,8 +13,6 @@
     --heat-js-day-background-color: var(--heat-js-color-black);
     --heat-js-day-border-color: var(--heat-js-color-gray);
     --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
-    --heat-js-day-spacing: 6.3px;
-    --heat-js-day-opacity-hover: 0.7;
 
     /* Days - Colors */
     --heat-js-day-color-1-background-color: rgba( 255, 0, 0, 0.25 );
@@ -27,8 +25,9 @@
     --heat-js-day-color-4-border-color: rgba( 255, 0, 0, 0.75 );
 
     /* Button */
-    --heat-js-button-background-color: var(--heat-js-container-background-color);
+    --heat-js-button-background-color: var(--heat-js-color-white);
     --heat-js-button-border-color: var(--heat-js-container-border-color);
-    --heat-js-button-background-color-hover: var(--heat-js-color-gray);
+    --heat-js-button-text-color: var(--heat-js-color-black);
+    --heat-js-button-background-color-hover: #6e7988;
     --heat-js-button-background-color-active: #616b79;
 }
