@@ -190,11 +190,10 @@
             }
         }
 
-        var months = createElement( map, "div", "months" );
-
-        var mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
-            return b.range - a.range;
-        } );
+        var months = createElement( map, "div", "months" ),
+            mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
+                return b.range - a.range;
+            } );
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             if ( bindingOptions.monthsToShow.indexOf( monthIndex + 1 ) > -1 ) {
@@ -204,13 +203,11 @@
                     createElementWithHTML( month, "div", "month-name", _configuration.monthNames[ monthIndex ] );
                 }
     
-                var dayColumns = createElement( month, "div", "day-columns" );
-    
-                var totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
+                var dayColumns = createElement( month, "div", "day-columns" ),
+                    totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
                     currentDayColumn = createElement( dayColumns, "div", "day-column" ),
-                    startFillingDays = false;
-    
-                var firstDayInMonth = new Date( currentYear, monthIndex, 1 ),
+                    startFillingDays = false,
+                    firstDayInMonth = new Date( currentYear, monthIndex, 1 ),
                     firstDayNumberInMonth = getWeekdayNumber( firstDayInMonth ),
                     actualDay = 1;
     
@@ -313,9 +310,9 @@
 
     function renderControlViewGuide( bindingOptions ) {
         var guide = createElement( bindingOptions.element, "div", "guide" ),
-            mapTypes = createElement( guide, "div", "map-types" );
+            mapTypes = createElement( guide, "div", "map-types" ),
+            noneTypeCount = 0;
 
-        var noneTypeCount = 0;
         for ( var storageDate in _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ] ) {
             if ( _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ].hasOwnProperty( storageDate ) ) {
                 noneTypeCount++;
@@ -351,9 +348,8 @@
             var days = createElement( mapToggles, "div", "days" ),
                 mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
                     return b.range - a.range;
-                } );
-    
-            var mapRangeColorsLength = mapRangeColors.length;
+                } ),
+                mapRangeColorsLength = mapRangeColors.length;
     
             for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
                 renderControlViewGuideDay( bindingOptions, days, mapRangeColors[ mapRangeColorsIndex ] );
