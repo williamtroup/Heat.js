@@ -1,5 +1,11 @@
 # Heat.js - Change Log:
 
+## Version 1.3.0:
+- 
+
+<br>
+
+
 ## Version 1.2.1:
 - Fixed a minor fault that caused the month names to be centred.
 - Fixed the day name labels shown on the right, so are now the same height/margin as the days, allowing them to align correctly.
