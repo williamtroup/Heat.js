@@ -39,6 +39,7 @@
     // Button
     --heat-js-button-background-color: var(--heat-js-day-background-color);
     --heat-js-button-border-color: var(--heat-js-container-border-color);
+    --heat-js-button-text-color: var(--heat-js-color-white);
     --heat-js-button-background-color-hover: var(--heat-js-container-border-color);
     --heat-js-button-background-color-active: #616b79;
 
@@ -67,7 +68,7 @@
     button {
         background-color: var(--heat-js-button-background-color);
         border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
-        color: var(--heat-js-color-white);
+        color: var(--heat-js-button-text-color);
         border-radius: var(--heat-js-border-radius);
         padding-top: 5px;
         padding-bottom: 5px;
