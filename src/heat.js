@@ -286,6 +286,9 @@
             day.onclick = function() {
                 fireCustomTrigger( bindingOptions.onDayClick, date, dateCount );
             };
+
+        } else {
+            day.className += _string.space + "no-click";
         }
 
         var mapRangeColorsLength = bindingOptions.mapRangeColors.length,

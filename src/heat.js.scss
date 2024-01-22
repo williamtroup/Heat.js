@@ -118,6 +118,10 @@ div.heat-js {
     max-width: 700px;
     margin: 0 !important;
 
+    div.no-click {
+        pointer-events: none !important;
+    }
+
     * {
         box-sizing: border-box;
         line-height: normal;
@@ -272,7 +276,7 @@ div.heat-js {
                             }
         
                             div.day {
-                                pointer-events: all !important;
+                                pointer-events: all;
                                 background-color: var(--heat-js-day-background-color);
                                 border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                                 transition: var(--heat-js-transition);
@@ -339,10 +343,6 @@ div.heat-js {
             @media (min-width: $minimum-width) { 
                 text-align: right;
                 justify-content: right;
-            }
-
-            div.no-click {
-                pointer-events: none;
             }
 
             div.less-text,

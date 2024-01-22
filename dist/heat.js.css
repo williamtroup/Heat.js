@@ -71,6 +71,9 @@ div.heat-js {
   max-width: 700px;
   margin: 0 !important;
 }
+div.heat-js div.no-click {
+  pointer-events: none !important;
+}
 div.heat-js * {
   box-sizing: border-box;
   line-height: normal;
@@ -219,7 +222,7 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
   margin-bottom: 0;
 }
 div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day {
-  pointer-events: all !important;
+  pointer-events: all;
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   transition: var(--heat-js-transition);
@@ -300,9 +303,6 @@ div.heat-js div.guide div.map-toggles {
     text-align: right;
     justify-content: right;
   }
-}
-div.heat-js div.guide div.map-toggles div.no-click {
-  pointer-events: none;
 }
 div.heat-js div.guide div.map-toggles div.less-text,
 div.heat-js div.guide div.map-toggles div.more-text {

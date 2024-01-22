@@ -15,6 +15,9 @@
 - Added new ":root" variable "--heat-js-day-color-4-text-color".
 - Added an ":active" state for days (now shows a slightly different opacity).
 
+#### **Fixes:**
+- Fixed a fault that allowed the hover/active CSS states to still be shown when no event is assigned to the days.
+
 <br>
 
 
