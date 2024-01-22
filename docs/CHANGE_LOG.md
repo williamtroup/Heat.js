@@ -8,6 +8,7 @@
 - Increased the default size of the days from 0.85rem to 1.1rem.
 - The day names are now hidden in mobile view.
 - The type / guide toggles are now stacked in mobile view and centered (make them much easier to access and see).
+- The export / refresh buttons are now hidden in mobile view.
 - 
 
 <br>

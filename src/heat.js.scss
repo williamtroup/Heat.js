@@ -157,6 +157,15 @@ div.heat-js {
             margin-right: var(--heat-js-spacing);
             display: inline-block;
         }
+
+        button.export,
+        button.refresh {
+            display: none;
+    
+            @media (min-width: $minimum-width) { 
+                display: inline-block;
+            }
+        }
     }
 }
 
