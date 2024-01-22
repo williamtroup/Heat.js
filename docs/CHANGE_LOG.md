@@ -6,6 +6,7 @@
 - Added new ":root" variable "--heat-js-border-size-day", which states the size to use the days / day name heights.
 - Fixed the day name labels not being aligned to the middle vertically.
 - Increased the default size of the days from 0.85rem to 1.1rem.
+- The day names are now hidden in mobile view.
 - 
 
 <br>
