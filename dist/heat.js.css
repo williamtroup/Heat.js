@@ -144,8 +144,9 @@ div.heat-js div.map-contents div.map div.days {
 }
 div.heat-js div.map-contents div.map div.days div.day-name {
   font-weight: 300;
-  margin-bottom: 4px;
   text-align: left !important;
+  height: var(--heat-js-spacing-font-size);
+  margin-bottom: var(--heat-js-day-spacing);
 }
 div.heat-js div.map-contents div.map div.months {
   display: flex;

@@ -2,6 +2,8 @@
 
 ## Version 1.2.1:
 - Fixed a minor fault that caused the month names to be centered.
+- Fixed the day name labels shown on the right, so are now the same height/margin as the days, allowing them to align correctly.
+- 
 
 <br>
 

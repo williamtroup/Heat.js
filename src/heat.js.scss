@@ -183,8 +183,9 @@ div.heat-js {
         
                 div.day-name {
                     font-weight: 300;
-                    margin-bottom: 4px;
                     text-align: left !important;
+                    height: var(--heat-js-spacing-font-size);
+                    margin-bottom: var(--heat-js-day-spacing);
                 }
             }
         
