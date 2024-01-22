@@ -43,3 +43,7 @@ h2 {
 div.contents {
     padding: 10px;
 }
+
+button.btn-primary {
+    margin: 3px;
+}

@@ -11,6 +11,7 @@
 - The export / refresh buttons are now hidden in mobile view.
 - Added new ":root" variable "--heat-js-button-text-color", which will allow you to override the button text colors.
 - The light mode theme buttons now use a darker background color (so they stand out).
+- Added the button margin back in for the test files.
 - 
 
 <br>
