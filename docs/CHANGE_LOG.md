@@ -2,6 +2,9 @@
 
 ## Version 1.3.0:
 
+#### **Binding Options:**
+- Added a new binding option called "showDayNumbers", which states if the activity counts should be shown in the days (defaults to false).
+
 #### **Binding Options - Custom Triggers:**
 - Added a new binding option called "onDayToolTipRender", which states an event that should be called for custom rendering the tooltip for a specific day.
 

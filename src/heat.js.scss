@@ -29,12 +29,16 @@
     // Days - Colors
     --heat-js-day-color-1-background-color: rgba( 57, 211, 83, 0.25 );
     --heat-js-day-color-1-border-color: rgba( 57, 211, 83, 0.15 );
+    --heat-js-day-color-1-text-color: var(--heat-js-color-white);
     --heat-js-day-color-2-background-color: rgba( 57, 211, 83, 0.50 );
     --heat-js-day-color-2-border-color: rgba( 57, 211, 83, 0.25 );
+    --heat-js-day-color-2-text-color: var(--heat-js-color-white);
     --heat-js-day-color-3-background-color: rgba( 57, 211, 83, 0.75 );
     --heat-js-day-color-3-border-color: rgba( 57, 211, 83, 0.50 );
+    --heat-js-day-color-3-text-color: var(--heat-js-color-white);
     --heat-js-day-color-4-background-color: rgba( 57, 211, 83, 1 );
     --heat-js-day-color-4-border-color: rgba( 57, 211, 83, 0.75 );
+    --heat-js-day-color-4-text-color: var(--heat-js-color-black);
 
     // Button
     --heat-js-button-background-color: var(--heat-js-day-background-color);
@@ -255,6 +259,10 @@ div.heat-js {
                                 height: var(--heat-js-day-size);
                                 margin-right: var(--heat-js-day-spacing);
                                 margin-bottom: var(--heat-js-day-spacing);
+                                text-align: center;
+                                font-size: 0.6rem;
+                                line-height: calc( var(--heat-js-day-size) - 2px );
+                                overflow: hidden;
         
                                 &:last-child {
                                     margin-bottom: 0;
@@ -395,6 +403,7 @@ div.heat-js {
     div.day-color-1 {
         background-color: var(--heat-js-day-color-1-background-color) !important;
         border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-1-border-color) !important;
+        color: var(--heat-js-day-color-1-text-color);
 
         &:hover {
             opacity: var(--heat-js-day-opacity-hover);
@@ -404,6 +413,7 @@ div.heat-js {
     div.day-color-2 {
         background-color: var(--heat-js-day-color-2-background-color) !important;
         border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-2-border-color) !important;
+        color: var(--heat-js-day-color-2-text-color);
 
         &:hover {
             opacity: var(--heat-js-day-opacity-hover);
@@ -413,6 +423,7 @@ div.heat-js {
     div.day-color-3 {
         background-color: var(--heat-js-day-color-3-background-color) !important;
         border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-3-border-color) !important;
+        color: var(--heat-js-day-color-3-text-color);
 
         &:hover {
             opacity: var(--heat-js-day-opacity-hover);
@@ -422,6 +433,7 @@ div.heat-js {
     div.day-color-4 {
         background-color: var(--heat-js-day-color-4-background-color) !important;
         border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-4-border-color) !important;
+        color: var(--heat-js-day-color-4-text-color);
 
         &:hover {
             opacity: var(--heat-js-day-opacity-hover);

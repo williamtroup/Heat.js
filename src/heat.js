@@ -278,6 +278,10 @@
             day.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
         }
 
+        if ( bindingOptions.showDayNumbers && dateCount > 0 ) {
+            day.innerHTML = dateCount.toString();
+        }
+
         if ( isDefinedFunction( bindingOptions.onDayClick ) ) {
             day.onclick = function() {
                 fireCustomTrigger( bindingOptions.onDayClick, date, dateCount );
@@ -549,6 +553,7 @@
         options.placeMonthNamesOnTheBottom = getDefaultBoolean( options.placeMonthNamesOnTheBottom, false );
         options.exportOnlyYearBeingViewed = getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
         options.year = getDefaultNumber( options.year, new Date().getFullYear() );
+        options.showDayNumbers = getDefaultBoolean( options.showDayNumbers, false );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
