@@ -8,6 +8,12 @@
 #### **Binding Options - Custom Triggers:**
 - Added a new binding option called "onDayToolTipRender", which states an event that should be called for custom rendering the tooltip for a specific day.
 
+#### **CSS:**
+- Added new ":root" variable "--heat-js-day-color-1-text-color".
+- Added new ":root" variable "--heat-js-day-color-2-text-color".
+- Added new ":root" variable "--heat-js-day-color-3-text-color".
+- Added new ":root" variable "--heat-js-day-color-4-text-color".
+
 <br>
 
 

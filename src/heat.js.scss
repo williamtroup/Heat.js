@@ -254,14 +254,15 @@ div.heat-js {
                         div.day-column {
                             div.day,
                             div.day-disabled {
+                                display: flex;
                                 border-radius: var(--heat-js-border-radius-day);
                                 width: var(--heat-js-day-size);
                                 height: var(--heat-js-day-size);
                                 margin-right: var(--heat-js-day-spacing);
                                 margin-bottom: var(--heat-js-day-spacing);
-                                text-align: center;
                                 font-size: 0.6rem;
-                                line-height: calc( var(--heat-js-day-size) - 2px );
+                                justify-content: center;
+                                align-items: center;
                                 overflow: hidden;
         
                                 &:last-child {

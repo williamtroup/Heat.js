@@ -17,12 +17,16 @@
     /* Days - Colors */
     --heat-js-day-color-1-background-color: rgba( 255, 0, 0, 0.25 );
     --heat-js-day-color-1-border-color: rgba( 255, 0, 0, 0.15 );
+    --heat-js-day-color-1-text-color: var(--heat-js-color-white);
     --heat-js-day-color-2-background-color: rgba( 255, 0, 0, 0.50 );
     --heat-js-day-color-2-border-color: rgba( 255, 0, 0, 0.25 );
+    --heat-js-day-color-2-text-color: var(--heat-js-color-white);
     --heat-js-day-color-3-background-color: rgba( 255, 0, 0, 0.75 );
     --heat-js-day-color-3-border-color: rgba( 255, 0, 0, 0.50 );
+    --heat-js-day-color-3-text-color: var(--heat-js-color-white);
     --heat-js-day-color-4-background-color: rgba( 255, 0, 0, 1 );
     --heat-js-day-color-4-border-color: rgba( 255, 0, 0, 0.75 );
+    --heat-js-day-color-4-text-color: var(--heat-js-color-black);
 
     /* Button */
     --heat-js-button-background-color: var(--heat-js-color-white);
