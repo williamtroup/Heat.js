@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 1.3.0:
-- 
+
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option called "onDayToolTipRender", which states an event that should be called for custom rendering the tooltip for a specific day.
 
 <br>
 

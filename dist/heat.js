@@ -177,7 +177,11 @@
     var date = new Date(year, month, actualDay);
     var dateCount = _elements_DateCounts[bindingOptions.element.id].type[bindingOptions.currentView.type][toStorageDate(date)];
     dateCount = isDefinedNumber(dateCount) ? dateCount : 0;
-    day.title = getCustomFormattedDateText(bindingOptions.dayToolTipText, date);
+    if (isDefinedFunction(bindingOptions.onDayToolTipRender)) {
+      day.title = fireCustomTrigger(bindingOptions.onDayToolTipRender, date, dateCount);
+    } else {
+      day.title = getCustomFormattedDateText(bindingOptions.dayToolTipText, date);
+    }
     if (isDefinedFunction(bindingOptions.onDayClick)) {
       day.onclick = function() {
         fireCustomTrigger(bindingOptions.onDayClick, date, dateCount);
@@ -417,6 +421,7 @@
     options.onExport = getDefaultFunction(options.onExport, null);
     options.onSetYear = getDefaultFunction(options.onSetYear, null);
     options.onTypeSwitch = getDefaultFunction(options.onTypeSwitch, null);
+    options.onDayToolTipRender = getDefaultFunction(options.onDayToolTipRender, null);
     return options;
   }
   function getTotalDaysInMonth(year, month) {
@@ -506,9 +511,11 @@
     return value;
   }
   function fireCustomTrigger(triggerFunction) {
+    var result = null;
     if (isDefinedFunction(triggerFunction)) {
-      triggerFunction.apply(null, [].slice.call(arguments, 1));
+      result = triggerFunction.apply(null, [].slice.call(arguments, 1));
     }
+    return result;
   }
   function getDefaultString(value, defaultValue) {
     return isDefinedString(value) ? value : defaultValue;

@@ -20,7 +20,7 @@
             <div id="heat-map-1" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': true }"></div>
             <br>
             <br>
-            <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': false, 'showRefreshButton': true, 'showExportButton': true, 'placeMonthNamesOnTheBottom': true, 'year': __CURRENT_YEAR + 1 }"></div>
+            <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': false, 'showRefreshButton': true, 'showExportButton': true, 'placeMonthNamesOnTheBottom': true, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
         </div>
 
         <div class="contents">
@@ -118,6 +118,10 @@
 
         function onDayClick( date, count ) {
             console.log( "Day clicked for: " + date.toString() + ", Count: " + count );
+        }
+
+        function onDayToolTipRenderEvent( date, count ) {
+            return "This date '" + date.toString() + "' has " + count.toString() + " events in it.";
         }
     </script>
 </html>

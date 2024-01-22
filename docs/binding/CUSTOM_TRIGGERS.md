@@ -28,6 +28,15 @@ Fires when the element is destroyed (reverted back to its original state).
 <br>
 ***Parameter:*** element: '*object*' - The DOM element that was destroyed.
 
+### options.onDayToolTipRender( *date*, *count* ):
+Fires when a tooltip for a specific day is rendered.
+<br>
+***Parameter:*** date: '*Date*' - The date of the day.
+<br>
+***Parameter:*** count: '*number*' - The number of activities for the day.
+<br>
+***Returns***: '*string*' - The text that you want to use in the tooltip.
+
 <br>
 
 
