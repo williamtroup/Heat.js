@@ -24,6 +24,7 @@
     --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
     --heat-js-day-spacing: 6.3px;
     --heat-js-day-opacity-hover: 0.7;
+    --heat-js-day-opacity-active: 0.5;
     --heat-js-day-size: 1.1rem;
 
     // Days - Colors
@@ -401,43 +402,40 @@ div.heat-js {
 */
 
 div.heat-js {
-    div.day-color-1 {
-        background-color: var(--heat-js-day-color-1-background-color) !important;
-        border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-1-border-color) !important;
-        color: var(--heat-js-day-color-1-text-color);
+    div.day-color-1,
+    div.day-color-2,
+    div.day-color-3,
+    div.day-color-4 {
+        &:active {
+            opacity: var(--heat-js-day-opacity-active) !important;
+        }
 
         &:hover {
             opacity: var(--heat-js-day-opacity-hover);
         }
+    }
+    
+    div.day-color-1 {
+        background-color: var(--heat-js-day-color-1-background-color) !important;
+        border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-1-border-color) !important;
+        color: var(--heat-js-day-color-1-text-color);
     }
 
     div.day-color-2 {
         background-color: var(--heat-js-day-color-2-background-color) !important;
         border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-2-border-color) !important;
         color: var(--heat-js-day-color-2-text-color);
-
-        &:hover {
-            opacity: var(--heat-js-day-opacity-hover);
-        }
     }
 
     div.day-color-3 {
         background-color: var(--heat-js-day-color-3-background-color) !important;
         border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-3-border-color) !important;
         color: var(--heat-js-day-color-3-text-color);
-
-        &:hover {
-            opacity: var(--heat-js-day-opacity-hover);
-        }
     }
 
     div.day-color-4 {
         background-color: var(--heat-js-day-color-4-background-color) !important;
         border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-4-border-color) !important;
         color: var(--heat-js-day-color-4-text-color);
-
-        &:hover {
-            opacity: var(--heat-js-day-opacity-hover);
-        }
     }
 }

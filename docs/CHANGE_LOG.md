@@ -13,6 +13,7 @@
 - Added new ":root" variable "--heat-js-day-color-2-text-color".
 - Added new ":root" variable "--heat-js-day-color-3-text-color".
 - Added new ":root" variable "--heat-js-day-color-4-text-color".
+- Added an ":active" state for days (now shows a slightly different opacity).
 
 <br>
 
