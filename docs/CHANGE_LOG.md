@@ -10,6 +10,7 @@
 - The type / guide toggles are now stacked in mobile view and centered (make them much easier to access and see).
 - The export / refresh buttons are now hidden in mobile view.
 - Added new ":root" variable "--heat-js-button-text-color", which will allow you to override the button text colors.
+- The light mode theme buttons now use a darker background color (so they stand out).
 - 
 
 <br>

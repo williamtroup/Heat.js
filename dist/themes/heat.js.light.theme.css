@@ -25,8 +25,9 @@
     --heat-js-day-color-4-border-color: rgba( 255, 0, 0, 0.75 );
 
     /* Button */
-    --heat-js-button-background-color: var(--heat-js-container-background-color);
+    --heat-js-button-background-color: var(--heat-js-color-white);
     --heat-js-button-border-color: var(--heat-js-container-border-color);
-    --heat-js-button-background-color-hover: var(--heat-js-color-gray);
+    --heat-js-button-text-color: var(--heat-js-color-black);
+    --heat-js-button-background-color-hover: #6e7988;
     --heat-js-button-background-color-active: #616b79;
 }
