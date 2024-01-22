@@ -24,6 +24,7 @@
     --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
     --heat-js-day-spacing: 6.3px;
     --heat-js-day-opacity-hover: 0.7;
+    --heat-js-day-size: 0.85rem;
 
     // Days - Colors
     --heat-js-day-color-1-background-color: rgba( 57, 211, 83, 0.25 );
@@ -184,7 +185,7 @@ div.heat-js {
                 div.day-name {
                     font-weight: 300;
                     text-align: left !important;
-                    height: var(--heat-js-spacing-font-size);
+                    height: var(--heat-js-day-size);
                     margin-bottom: var(--heat-js-day-spacing);
                 }
             }
@@ -232,8 +233,8 @@ div.heat-js {
                             div.day,
                             div.day-disabled {
                                 border-radius: var(--heat-js-border-radius-day);
-                                width: var(--heat-js-spacing-font-size);
-                                height: var(--heat-js-spacing-font-size);
+                                width: var(--heat-js-day-size);
+                                height: var(--heat-js-day-size);
                                 margin-right: var(--heat-js-day-spacing);
                                 margin-bottom: var(--heat-js-day-spacing);
         
@@ -333,8 +334,8 @@ div.heat-js {
                     border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     display: inline-block;
                     border-radius: var(--heat-js-border-radius-day);
-                    width: var(--heat-js-spacing-font-size);
-                    height: var(--heat-js-spacing-font-size);
+                    width: var(--heat-js-day-size);
+                    height: var(--heat-js-day-size);
                     margin-right: var(--heat-js-day-spacing);
                     cursor: pointer;
                     transition: var(--heat-js-transition);
