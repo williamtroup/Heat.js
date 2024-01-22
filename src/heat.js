@@ -563,6 +563,13 @@
             options.daysToShow = [ 1, 2, 3, 4, 5, 6, 7 ];
         }
 
+        options = buildAttributeOptionMapRanges( options );
+        options = buildAttributeOptionStrings( options );
+
+        return buildAttributeOptionCustomTriggers( options );
+    }
+
+    function buildAttributeOptionMapRanges( options ) {
         options.mapRangeColors = getDefaultArray( options.mapRangeColors, [
             {
                 minimum: 10,
@@ -594,9 +601,7 @@
             }
         }
 
-        options = buildAttributeOptionStrings( options );
-
-        return buildAttributeOptionCustomTriggers( options );
+        return options;
     }
 
     function buildAttributeOptionStrings( options ) {

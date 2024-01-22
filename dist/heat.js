@@ -398,6 +398,11 @@
     if (isInvalidOptionArray(options.daysToShow)) {
       options.daysToShow = [1, 2, 3, 4, 5, 6, 7];
     }
+    options = buildAttributeOptionMapRanges(options);
+    options = buildAttributeOptionStrings(options);
+    return buildAttributeOptionCustomTriggers(options);
+  }
+  function buildAttributeOptionMapRanges(options) {
     options.mapRangeColors = getDefaultArray(options.mapRangeColors, [{minimum:10, cssClassName:"day-color-1", tooltipText:"Day Color 1"}, {minimum:15, cssClassName:"day-color-2", tooltipText:"Day Color 2"}, {minimum:20, cssClassName:"day-color-3", tooltipText:"Day Color 3"}, {minimum:25, cssClassName:"day-color-4", tooltipText:"Day Color 4"}]);
     var mapRangeColorsLength = options.mapRangeColors.length;
     var mapRangeColorsIndex = 0;
@@ -406,8 +411,7 @@
         options.mapRangeColors[mapRangeColorsIndex].id = newGuid();
       }
     }
-    options = buildAttributeOptionStrings(options);
-    return buildAttributeOptionCustomTriggers(options);
+    return options;
   }
   function buildAttributeOptionStrings(options) {
     options.titleText = getDefaultString(options.titleText, "Heat.js");
