@@ -4,6 +4,8 @@
 - Fixed a minor fault that caused the month names to be centered.
 - Fixed the day name labels shown on the right, so are now the same height/margin as the days, allowing them to align correctly.
 - Added new ":root" variable "--heat-js-border-size-day", which states the size to use the days / day name heights.
+- Fixed the day name labels not being aligned to the middle vertically.
+- Increased the default size of the days from 0.85rem to 1.1rem.
 - 
 
 <br>
