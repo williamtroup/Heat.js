@@ -1021,6 +1021,10 @@
         return date.getFullYear() + "-" + padNumber( date.getMonth() + 1 ) + "-" + padNumber( date.getDate() );
     }
 
+    function getStorageDateYear( data ) {
+        return data.split( "-" )[ 0 ];
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1091,6 +1095,74 @@
 
             renderControlContainer( bindingOptions );
             fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
+        }
+
+        return this;
+    };
+
+    /**
+     * setYearToHighest().
+     * 
+     * Sets the year to to the highest year available.
+     * 
+     * @public
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.setYearToHighest = function( elementId ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options,
+                data = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ],
+                maximumYear = 0;
+
+            for ( var storageDate in data ) {
+                if ( data.hasOwnProperty( storageDate ) ) {
+                    maximumYear = Math.max( maximumYear, parseInt( getStorageDateYear( storageDate ) ) );
+                }
+            }
+
+            if ( maximumYear > 0 ) {
+                bindingOptions.currentView.year = maximumYear;
+
+                renderControlContainer( bindingOptions );
+                fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * setYearToLowest().
+     * 
+     * Sets the year to to the lowest year available.
+     * 
+     * @public
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.setYearToLowest = function( elementId ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options,
+                data = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ],
+                minimumYear = 9999;
+
+            for ( var storageDate in data ) {
+                if ( data.hasOwnProperty( storageDate ) ) {
+                    minimumYear = Math.min( minimumYear, parseInt( getStorageDateYear( storageDate ) ) );
+                }
+            }
+
+            if ( minimumYear < 9999 ) {
+                bindingOptions.currentView.year = minimumYear;
+
+                renderControlContainer( bindingOptions );
+                fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
+            }
         }
 
         return this;

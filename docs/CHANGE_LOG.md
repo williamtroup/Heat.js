@@ -7,6 +7,8 @@
 
 #### **Public Functions:**
 - Added new public function "render()", which will render a heat map on a specific DOM element using the options you specify.
+- Added new public function "setYearToHighest()", which will set the year being displayed for a heat map DOM element to the highest available.
+- Added new public function "setYearToLowest()", which will set the year being displayed for a heat map DOM element to the lowest available.
 
 #### **CSS:**
 - Added a new ":root" variable "--heat-js-text-bold-weight", which states the font weight to use for all text (now 400).

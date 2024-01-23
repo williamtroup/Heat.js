@@ -610,6 +610,9 @@
   function toStorageDate(date) {
     return date.getFullYear() + "-" + padNumber(date.getMonth() + 1) + "-" + padNumber(date.getDate());
   }
+  function getStorageDateYear(data) {
+    return data.split("-")[0];
+  }
   function buildDefaultConfiguration() {
     _configuration.safeMode = getDefaultBoolean(_configuration.safeMode, true);
     _configuration.domElementTypes = getDefaultStringOrArray(_configuration.domElementTypes, ["*"]);
@@ -723,6 +726,44 @@
       bindingOptions.currentView.year = year;
       renderControlContainer(bindingOptions);
       fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
+    }
+    return this;
+  };
+  this.setYearToHighest = function(elementId) {
+    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      var data = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
+      var maximumYear = 0;
+      var storageDate;
+      for (storageDate in data) {
+        if (data.hasOwnProperty(storageDate)) {
+          maximumYear = Math.max(maximumYear, parseInt(getStorageDateYear(storageDate)));
+        }
+      }
+      if (maximumYear > 0) {
+        bindingOptions.currentView.year = maximumYear;
+        renderControlContainer(bindingOptions);
+        fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
+      }
+    }
+    return this;
+  };
+  this.setYearToLowest = function(elementId) {
+    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      var data = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
+      var minimumYear = 9999;
+      var storageDate;
+      for (storageDate in data) {
+        if (data.hasOwnProperty(storageDate)) {
+          minimumYear = Math.min(minimumYear, parseInt(getStorageDateYear(storageDate)));
+        }
+      }
+      if (minimumYear < 9999) {
+        bindingOptions.currentView.year = minimumYear;
+        renderControlContainer(bindingOptions);
+        fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
+      }
     }
     return this;
   };

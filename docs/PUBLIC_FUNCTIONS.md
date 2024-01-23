@@ -74,6 +74,22 @@ Sets the year to be displayed.
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
 
+### **setYearToHighest( *elementId* )**:
+Sets the year to to the highest year available.
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **setYearToLowest( *elementId* )**:
+Sets the year to to the lowest year available.
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
 ### **getYear( *elementId* )**:
 Gets the year currently being displayed.
 <br>
