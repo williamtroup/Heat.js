@@ -2,8 +2,12 @@
 
 ## Version 1.4.0:
 
+#### **New Features:**
+- The year text (shown between the back/next buttons) now shows a drop-down list of years that can be selected.
+
 #### **Binding Options:**
 - Added a new binding option called "keepScrollPositions", which states if the scroll positions should be maintained when the map is redrawn (or moving year to year, defaults to false).
+- Added a new binding option called "extraSelectionYears", which states the extra years that should be included in the year drop-down list (defaults to 50).
 
 #### **Public Functions:**
 - Added new public function "render()", which will render a heat map on a specific DOM element using the options you specify.
