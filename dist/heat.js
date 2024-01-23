@@ -97,14 +97,16 @@
           fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
         };
         bindingOptions.currentView.yearText = createElementWithHTML(titleBar, "div", "year-text", bindingOptions.currentView.year);
-        var yearList = createElement(bindingOptions.currentView.yearText, "div", "years-list");
-        var years = createElement(yearList, "div", "years");
-        var next = createElementWithHTML(titleBar, "button", "next", _configuration.nextButtonText);
-        var thisYear = (new Date()).getFullYear();
-        var currentYear = thisYear - bindingOptions.extraSelectionYears;
-        for (; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++) {
-          renderControlTitleBarYear(bindingOptions, years, currentYear);
+        if (bindingOptions.showYearSelectionDropDown) {
+          var yearList = createElement(bindingOptions.currentView.yearText, "div", "years-list");
+          var years = createElement(yearList, "div", "years");
+          var thisYear = (new Date()).getFullYear();
+          var currentYear = thisYear - bindingOptions.extraSelectionYears;
+          for (; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++) {
+            renderControlTitleBarYear(bindingOptions, years, currentYear);
+          }
         }
+        var next = createElementWithHTML(titleBar, "button", "next", _configuration.nextButtonText);
         next.onclick = function() {
           bindingOptions.currentView.year++;
           renderControlContainer(bindingOptions);
@@ -425,6 +427,7 @@
     options.showDayNumbers = getDefaultBoolean(options.showDayNumbers, false);
     options.keepScrollPositions = getDefaultBoolean(options.keepScrollPositions, false);
     options.extraSelectionYears = getDefaultNumber(options.extraSelectionYears, 50);
+    options.showYearSelectionDropDown = getDefaultBoolean(options.showYearSelectionDropDown, true);
     if (isInvalidOptionArray(options.monthsToShow)) {
       options.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     }

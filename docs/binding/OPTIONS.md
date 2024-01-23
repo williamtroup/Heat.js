@@ -27,6 +27,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | showDayNumbers | States if the activity counts should be shown in the days (defaults to false). |
 | *boolean* | keepScrollPositions | States if the scroll positions should be maintained when the map is redrawn (or moving year to year, defaults to false). |
 | *number* | extraSelectionYears | States the extra years that should be included in the year drop-down list (defaults to 50). |
+| *boolean* | showYearSelectionDropDown | States if the year selection drop-down menu is shown (defaults to true). |
 
 <br/>
 

@@ -167,16 +167,19 @@
                 };
 
                 bindingOptions.currentView.yearText = createElementWithHTML( titleBar, "div", "year-text", bindingOptions.currentView.year );
-        
-                var yearList = createElement( bindingOptions.currentView.yearText, "div", "years-list" ),
-                    years = createElement( yearList, "div", "years" ),
-                    next = createElementWithHTML( titleBar, "button", "next", _configuration.nextButtonText ),
-                    thisYear = new Date().getFullYear();
 
-                for ( var currentYear = thisYear - bindingOptions.extraSelectionYears; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++ ) {
-                    renderControlTitleBarYear( bindingOptions, years, currentYear );
+                if ( bindingOptions.showYearSelectionDropDown ) {
+                    var yearList = createElement( bindingOptions.currentView.yearText, "div", "years-list" ),
+                        years = createElement( yearList, "div", "years" ),
+                        thisYear = new Date().getFullYear();
+
+                    for ( var currentYear = thisYear - bindingOptions.extraSelectionYears; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++ ) {
+                        renderControlTitleBarYear( bindingOptions, years, currentYear );
+                    }
                 }
-        
+
+                var next = createElementWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
+
                 next.onclick = function() {
                     bindingOptions.currentView.year++;
         
@@ -591,6 +594,7 @@
         options.showDayNumbers = getDefaultBoolean( options.showDayNumbers, false );
         options.keepScrollPositions = getDefaultBoolean( options.keepScrollPositions, false );
         options.extraSelectionYears = getDefaultNumber( options.extraSelectionYears, 50 );
+        options.showYearSelectionDropDown = getDefaultBoolean( options.showYearSelectionDropDown, true );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
