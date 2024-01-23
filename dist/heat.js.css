@@ -141,6 +141,7 @@ div.heat-js div.title-bar div.year-text {
   position: relative;
   padding-top: 5px;
   padding-bottom: 5px;
+  cursor: pointer;
 }
 div.heat-js div.title-bar div.year-text:hover div.years-list {
   display: block;

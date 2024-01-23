@@ -182,6 +182,7 @@ div.heat-js {
             position: relative;
             padding-top: $year-margin;
             padding-bottom: $year-margin;
+            cursor: pointer;
 
             &:hover div.years-list {
                 display: block;
