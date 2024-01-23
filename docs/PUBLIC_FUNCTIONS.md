@@ -53,6 +53,8 @@ Removes all the dates for a specific element ID, and refreshes the UI (if specif
 ### **refresh( *elementId* )**:
 Refreshes a Heat.js instance.
 <br>
+***Fires***:  onRefresh
+<br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should be refreshed.
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
@@ -61,11 +63,15 @@ Refreshes a Heat.js instance.
 ### **refreshAll()**:
 Refreshes all of the rendered Heat.js instances.
 <br>
+***Fires***:  onRefresh
+<br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
 
 ### **setYear( *elementId*, *year* )**:
 Sets the year to be displayed.
+<br>
+***Fires***:  onSetYear
 <br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
 <br>
@@ -77,6 +83,8 @@ Sets the year to be displayed.
 ### **setYearToHighest( *elementId* )**:
 Sets the year to to the highest year available.
 <br>
+***Fires***:  onSetYear
+<br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
@@ -84,6 +92,8 @@ Sets the year to to the highest year available.
 
 ### **setYearToLowest( *elementId* )**:
 Sets the year to to the lowest year available.
+<br>
+***Fires***:  onSetYear
 <br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
 <br>
@@ -121,12 +131,16 @@ Finds all new map elements and renders them.
 ### **destroy( *elementId* )**:
 Reverts an element back to its original state (without render attributes).
 <br>
+***Fires***:  onDestroy
+<br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID to destroy.
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 
 ### **destroyAll()**:
 Reverts all rendered elements back to their original state (without render attributes).
+<br>
+***Fires***:  onDestroy
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>

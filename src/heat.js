@@ -1038,6 +1038,7 @@
      * Refreshes a Heat.js instance.
      * 
      * @public
+     * @fires       onRefresh
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should be refreshed.
      * 
@@ -1060,6 +1061,7 @@
      * Refreshes all of the rendered Heat.js instances.
      * 
      * @public
+     * @fires       onRefresh
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
@@ -1082,6 +1084,7 @@
      * Sets the year to be displayed.
      * 
      * @public
+     * @fires       onSetYear
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
      * @param       {number}    year                                        The year that should be shown.
@@ -1106,6 +1109,7 @@
      * Sets the year to to the highest year available.
      * 
      * @public
+     * @fires       onSetYear
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
      * 
@@ -1140,6 +1144,7 @@
      * Sets the year to to the lowest year available.
      * 
      * @public
+     * @fires       onSetYear
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
      * 
@@ -1237,6 +1242,7 @@
      * Reverts all rendered elements back to their original state (without render attributes).
      * 
      * @public
+     * @fires       onDestroy
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
@@ -1263,6 +1269,7 @@
      * Reverts an element back to its original state (without render attributes).
      * 
      * @public
+     * @fires       onDestroy
      * 
      * @param       {string}    elementId                                   The Heat.js element ID to destroy.
      * 

@@ -17,6 +17,9 @@
 #### **General Improvements:**
 - Removed the possibility that aa binding option can override access to the element.
 
+#### **Documentation:**
+- Improved the documentation to show which public functions fire custom triggers (and which ones).
+
 <br>
 
 
