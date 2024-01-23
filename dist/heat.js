@@ -1,4 +1,4 @@
-/*! Heat.js v1.2.1 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.3.0 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -177,11 +177,20 @@
     var date = new Date(year, month, actualDay);
     var dateCount = _elements_DateCounts[bindingOptions.element.id].type[bindingOptions.currentView.type][toStorageDate(date)];
     dateCount = isDefinedNumber(dateCount) ? dateCount : 0;
-    day.title = getCustomFormattedDateText(bindingOptions.dayToolTipText, date);
+    if (isDefinedFunction(bindingOptions.onDayToolTipRender)) {
+      day.title = fireCustomTrigger(bindingOptions.onDayToolTipRender, date, dateCount);
+    } else {
+      day.title = getCustomFormattedDateText(bindingOptions.dayToolTipText, date);
+    }
+    if (bindingOptions.showDayNumbers && dateCount > 0) {
+      day.innerHTML = dateCount.toString();
+    }
     if (isDefinedFunction(bindingOptions.onDayClick)) {
       day.onclick = function() {
         fireCustomTrigger(bindingOptions.onDayClick, date, dateCount);
       };
+    } else {
+      day.className += _string.space + "no-click";
     }
     var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
     var useMapRangeColor = null;
@@ -384,12 +393,18 @@
     options.placeMonthNamesOnTheBottom = getDefaultBoolean(options.placeMonthNamesOnTheBottom, false);
     options.exportOnlyYearBeingViewed = getDefaultBoolean(options.exportOnlyYearBeingViewed, true);
     options.year = getDefaultNumber(options.year, (new Date()).getFullYear());
+    options.showDayNumbers = getDefaultBoolean(options.showDayNumbers, false);
     if (isInvalidOptionArray(options.monthsToShow)) {
       options.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     }
     if (isInvalidOptionArray(options.daysToShow)) {
       options.daysToShow = [1, 2, 3, 4, 5, 6, 7];
     }
+    options = buildAttributeOptionMapRanges(options);
+    options = buildAttributeOptionStrings(options);
+    return buildAttributeOptionCustomTriggers(options);
+  }
+  function buildAttributeOptionMapRanges(options) {
     options.mapRangeColors = getDefaultArray(options.mapRangeColors, [{minimum:10, cssClassName:"day-color-1", tooltipText:"Day Color 1"}, {minimum:15, cssClassName:"day-color-2", tooltipText:"Day Color 2"}, {minimum:20, cssClassName:"day-color-3", tooltipText:"Day Color 3"}, {minimum:25, cssClassName:"day-color-4", tooltipText:"Day Color 4"}]);
     var mapRangeColorsLength = options.mapRangeColors.length;
     var mapRangeColorsIndex = 0;
@@ -398,8 +413,7 @@
         options.mapRangeColors[mapRangeColorsIndex].id = newGuid();
       }
     }
-    options = buildAttributeOptionStrings(options);
-    return buildAttributeOptionCustomTriggers(options);
+    return options;
   }
   function buildAttributeOptionStrings(options) {
     options.titleText = getDefaultString(options.titleText, "Heat.js");
@@ -417,6 +431,7 @@
     options.onExport = getDefaultFunction(options.onExport, null);
     options.onSetYear = getDefaultFunction(options.onSetYear, null);
     options.onTypeSwitch = getDefaultFunction(options.onTypeSwitch, null);
+    options.onDayToolTipRender = getDefaultFunction(options.onDayToolTipRender, null);
     return options;
   }
   function getTotalDaysInMonth(year, month) {
@@ -506,9 +521,11 @@
     return value;
   }
   function fireCustomTrigger(triggerFunction) {
+    var result = null;
     if (isDefinedFunction(triggerFunction)) {
-      triggerFunction.apply(null, [].slice.call(arguments, 1));
+      result = triggerFunction.apply(null, [].slice.call(arguments, 1));
     }
+    return result;
   }
   function getDefaultString(value, defaultValue) {
     return isDefinedString(value) ? value : defaultValue;
@@ -702,6 +719,10 @@
     }
     return result;
   };
+  this.renderAll = function() {
+    render();
+    return this;
+  };
   this.destroyAll = function() {
     var elementId;
     for (elementId in _elements_DateCounts) {
@@ -731,7 +752,7 @@
     return this;
   };
   this.getVersion = function() {
-    return "1.2.1";
+    return "1.3.0";
   };
   (function(documentObject, windowObject) {
     _parameter_Document = documentObject;

@@ -1,5 +1,29 @@
 # Heat.js - Change Log:
 
+## Version 1.3.0:
+
+#### **Binding Options:**
+- Added a new binding option called "showDayNumbers", which states if the activity counts should be shown in the days (defaults to false).
+
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option called "onDayToolTipRender", which states an event that should be called for custom rendering the tooltip for a specific day.
+
+#### **Public Functions:**
+- Added new public function "renderAll()", which will find all new DOM elements with the "data-heat-options" attribute and render them.
+
+#### **CSS:**
+- Added new ":root" variable "--heat-js-day-color-1-text-color".
+- Added new ":root" variable "--heat-js-day-color-2-text-color".
+- Added new ":root" variable "--heat-js-day-color-3-text-color".
+- Added new ":root" variable "--heat-js-day-color-4-text-color".
+- Added an ":active" state for days (now shows a slightly different opacity).
+
+#### **Fixes:**
+- Fixed a fault that allowed the hover/active CSS states to still be shown when no event is assigned to the days.
+
+<br>
+
+
 ## Version 1.2.1:
 - Fixed a minor fault that caused the month names to be centred.
 - Fixed the day name labels shown on the right, so are now the same height/margin as the days, allowing them to align correctly.

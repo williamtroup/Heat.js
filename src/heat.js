@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v1.2.1
+ * @version     v1.3.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -190,11 +190,10 @@
             }
         }
 
-        var months = createElement( map, "div", "months" );
-
-        var mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
-            return b.range - a.range;
-        } );
+        var months = createElement( map, "div", "months" ),
+            mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
+                return b.range - a.range;
+            } );
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             if ( bindingOptions.monthsToShow.indexOf( monthIndex + 1 ) > -1 ) {
@@ -204,13 +203,11 @@
                     createElementWithHTML( month, "div", "month-name", _configuration.monthNames[ monthIndex ] );
                 }
     
-                var dayColumns = createElement( month, "div", "day-columns" );
-    
-                var totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
+                var dayColumns = createElement( month, "div", "day-columns" ),
+                    totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
                     currentDayColumn = createElement( dayColumns, "div", "day-column" ),
-                    startFillingDays = false;
-    
-                var firstDayInMonth = new Date( currentYear, monthIndex, 1 ),
+                    startFillingDays = false,
+                    firstDayInMonth = new Date( currentYear, monthIndex, 1 ),
                     firstDayNumberInMonth = getWeekdayNumber( firstDayInMonth ),
                     actualDay = 1;
     
@@ -271,12 +268,24 @@
             dateCount = _elements_DateCounts[ bindingOptions.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
 
         dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
-        day.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
+
+        if ( isDefinedFunction( bindingOptions.onDayToolTipRender ) ) {
+            day.title = fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount );
+        } else {
+            day.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
+        }
+
+        if ( bindingOptions.showDayNumbers && dateCount > 0 ) {
+            day.innerHTML = dateCount.toString();
+        }
 
         if ( isDefinedFunction( bindingOptions.onDayClick ) ) {
             day.onclick = function() {
                 fireCustomTrigger( bindingOptions.onDayClick, date, dateCount );
             };
+
+        } else {
+            day.className += _string.space + "no-click";
         }
 
         var mapRangeColorsLength = bindingOptions.mapRangeColors.length,
@@ -301,9 +310,9 @@
 
     function renderControlViewGuide( bindingOptions ) {
         var guide = createElement( bindingOptions.element, "div", "guide" ),
-            mapTypes = createElement( guide, "div", "map-types" );
+            mapTypes = createElement( guide, "div", "map-types" ),
+            noneTypeCount = 0;
 
-        var noneTypeCount = 0;
         for ( var storageDate in _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ] ) {
             if ( _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ].hasOwnProperty( storageDate ) ) {
                 noneTypeCount++;
@@ -339,9 +348,8 @@
             var days = createElement( mapToggles, "div", "days" ),
                 mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
                     return b.range - a.range;
-                } );
-    
-            var mapRangeColorsLength = mapRangeColors.length;
+                } ),
+                mapRangeColorsLength = mapRangeColors.length;
     
             for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
                 renderControlViewGuideDay( bindingOptions, days, mapRangeColors[ mapRangeColorsIndex ] );
@@ -544,6 +552,7 @@
         options.placeMonthNamesOnTheBottom = getDefaultBoolean( options.placeMonthNamesOnTheBottom, false );
         options.exportOnlyYearBeingViewed = getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
         options.year = getDefaultNumber( options.year, new Date().getFullYear() );
+        options.showDayNumbers = getDefaultBoolean( options.showDayNumbers, false );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -553,6 +562,13 @@
             options.daysToShow = [ 1, 2, 3, 4, 5, 6, 7 ];
         }
 
+        options = buildAttributeOptionMapRanges( options );
+        options = buildAttributeOptionStrings( options );
+
+        return buildAttributeOptionCustomTriggers( options );
+    }
+
+    function buildAttributeOptionMapRanges( options ) {
         options.mapRangeColors = getDefaultArray( options.mapRangeColors, [
             {
                 minimum: 10,
@@ -584,9 +600,7 @@
             }
         }
 
-        options = buildAttributeOptionStrings( options );
-
-        return buildAttributeOptionCustomTriggers( options );
+        return options;
     }
 
     function buildAttributeOptionStrings( options ) {
@@ -607,6 +621,7 @@
         options.onExport = getDefaultFunction( options.onExport, null );
         options.onSetYear = getDefaultFunction( options.onSetYear, null );
         options.onTypeSwitch = getDefaultFunction( options.onTypeSwitch, null );
+        options.onDayToolTipRender = getDefaultFunction( options.onDayToolTipRender, null );
 
         return options;
     }
@@ -758,9 +773,13 @@
      */
 
     function fireCustomTrigger( triggerFunction ) {
+        var result = null;
+
         if ( isDefinedFunction( triggerFunction ) ) {
-            triggerFunction.apply( null, [].slice.call( arguments, 1 ) );
+            result = triggerFunction.apply( null, [].slice.call( arguments, 1 ) );
         }
+
+        return result;
     }
 
 
@@ -1081,6 +1100,21 @@
         return result;
     };
 
+    /**
+     * renderAll().
+     * 
+     * Finds all new map elements and renders them.
+     * 
+     * @public
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.renderAll = function() {
+        render();
+
+        return this;
+    };
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1243,7 +1277,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.2.1";
+        return "1.3.0";
     };
 
 
