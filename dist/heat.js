@@ -26,6 +26,8 @@
           bindingOptions = buildAttributeOptions(bindingOptions.result);
           bindingOptions.currentView = {};
           bindingOptions.currentView.element = element;
+          bindingOptions.currentView.mapContents = null;
+          bindingOptions.currentView.mapContentsScrollLeft = 0;
           bindingOptions.currentView.colorsVisible = {};
           bindingOptions.currentView.year = bindingOptions.year;
           bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
@@ -53,6 +55,9 @@
     return result;
   }
   function renderControl(bindingOptions) {
+    if (isDefined(bindingOptions.currentView.mapContents)) {
+      bindingOptions.currentView.mapContentsScrollLeft = bindingOptions.currentView.mapContents.scrollLeft;
+    }
     bindingOptions.currentView.element.className = "heat-js";
     bindingOptions.currentView.element.innerHTML = _string.empty;
     renderControlTitleBar(bindingOptions);
@@ -96,11 +101,11 @@
     }
   }
   function renderControlMap(bindingOptions) {
-    var mapContents = createElement(bindingOptions.currentView.element, "div", "map-contents");
-    var map = createElement(mapContents, "div", "map");
-    renderControlViewGuide(bindingOptions);
+    bindingOptions.currentView.mapContents = createElement(bindingOptions.currentView.element, "div", "map-contents");
+    var map = createElement(bindingOptions.currentView.mapContents, "div", "map");
     var currentYear = bindingOptions.currentView.year;
     var monthAdded = false;
+    renderControlViewGuide(bindingOptions);
     if (bindingOptions.showDayNames) {
       var days = createElement(map, "div", "days");
       if (!bindingOptions.showMonthNames || bindingOptions.placeMonthNamesOnTheBottom) {
@@ -169,6 +174,9 @@
         }
         monthAdded = true;
       }
+    }
+    if (bindingOptions.keepScrollPositions) {
+      bindingOptions.currentView.mapContents.scrollLeft = bindingOptions.currentView.mapContentsScrollLeft;
     }
   }
   function renderControlViewMonthDay(bindingOptions, currentDayColumn, dayNumber, month, year, mapRangeColors) {
@@ -394,6 +402,7 @@
     options.exportOnlyYearBeingViewed = getDefaultBoolean(options.exportOnlyYearBeingViewed, true);
     options.year = getDefaultNumber(options.year, (new Date()).getFullYear());
     options.showDayNumbers = getDefaultBoolean(options.showDayNumbers, false);
+    options.keepScrollPositions = getDefaultBoolean(options.keepScrollPositions, false);
     if (isInvalidOptionArray(options.monthsToShow)) {
       options.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     }

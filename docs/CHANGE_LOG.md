@@ -2,6 +2,9 @@
 
 ## Version 1.4.0:
 
+#### **Binding Options:**
+- Added a new binding option called "keepScrollPositions", which states if the scroll positions should be maintained when the map is redrawn (or moving year to year, defaults to false).
+
 #### **General Improvements:**
 - Removed the possibility that aa binding option can override access to the element.
 
