@@ -131,6 +131,7 @@ div.heat-js div.title-bar div.year-text {
   margin-left: var(--heat-js-spacing);
   margin-right: var(--heat-js-spacing);
   display: inline-block;
+  font-weight: 800;
 }
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.refresh {

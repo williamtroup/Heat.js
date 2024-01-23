@@ -8,6 +8,9 @@
 #### **Public Functions:**
 - Added new public function "render()", which will render a heat map on a specific DOM element using the options you specify.
 
+#### **CSS:**
+- The year text shown between the back/next button is now bolder.
+
 #### **General Improvements:**
 - Removed the possibility that aa binding option can override access to the element.
 
