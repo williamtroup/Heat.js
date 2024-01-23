@@ -41,6 +41,7 @@
   --heat-js-spacing: 10px;
   --heat-js-spacing-font-size: 0.85rem;
   --heat-js-text-bold-weight: 500;
+  --heat-js-title-bold-weight: 800;
   --heat-js-transition: all .3s;
 }
 
@@ -95,7 +96,7 @@ div.heat-js div.title-bar {
 }
 div.heat-js div.title-bar div.title {
   float: left;
-  font-weight: 800;
+  font-weight: var(--heat-js-title-bold-weight);
   font-size: 1.2rem;
 }
 div.heat-js div.title-bar button {
@@ -132,7 +133,7 @@ div.heat-js div.title-bar div.year-text {
   margin-left: var(--heat-js-spacing);
   margin-right: var(--heat-js-spacing);
   display: inline-block;
-  font-weight: 800;
+  font-weight: var(--heat-js-title-bold-weight);
 }
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.refresh {
