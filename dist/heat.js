@@ -23,14 +23,7 @@
       if (isDefinedString(bindingOptionsData)) {
         var bindingOptions = getObjectFromString(bindingOptionsData);
         if (bindingOptions.parsed && isDefinedObject(bindingOptions.result)) {
-          bindingOptions = buildAttributeOptions(bindingOptions.result);
-          bindingOptions.currentView = {};
-          bindingOptions.currentView.element = element;
-          bindingOptions.currentView.mapContents = null;
-          bindingOptions.currentView.mapContentsScrollLeft = 0;
-          bindingOptions.currentView.colorsVisible = {};
-          bindingOptions.currentView.year = bindingOptions.year;
-          bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
+          bindingOptions = renderBindingOptions(bindingOptions, element);
           fireCustomTrigger(bindingOptions.onBeforeRender, element);
           if (!isDefinedString(element.id)) {
             element.id = newGuid();
@@ -53,6 +46,17 @@
       }
     }
     return result;
+  }
+  function renderBindingOptions(bindingOptions, element) {
+    bindingOptions = buildAttributeOptions(bindingOptions.result);
+    bindingOptions.currentView = {};
+    bindingOptions.currentView.element = element;
+    bindingOptions.currentView.mapContents = null;
+    bindingOptions.currentView.mapContentsScrollLeft = 0;
+    bindingOptions.currentView.colorsVisible = {};
+    bindingOptions.currentView.year = bindingOptions.year;
+    bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
+    return bindingOptions;
   }
   function renderControl(bindingOptions) {
     if (isDefined(bindingOptions.currentView.mapContents)) {
