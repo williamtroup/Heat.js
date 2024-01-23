@@ -9,7 +9,7 @@
 - Added new public function "render()", which will render a heat map on a specific DOM element using the options you specify.
 
 #### **CSS:**
-- Added a new ":root" variable "--heat-js-text-bold-weight", which states the font weight to use for all text (now 500).
+- Added a new ":root" variable "--heat-js-text-bold-weight", which states the font weight to use for all text (now 400).
 - Added a new ":root" variable "--heat-js-title-bold-weight", which states the font weight to use for the title text, and the year (set to 800).
 
 #### **General Improvements:**
