@@ -40,6 +40,7 @@
   --heat-js-border-size-day: 1px;
   --heat-js-spacing: 10px;
   --heat-js-spacing-font-size: 0.85rem;
+  --heat-js-text-bold-weight: 500;
   --heat-js-transition: all .3s;
 }
 
@@ -170,7 +171,7 @@ div.heat-js div.map-contents div.map div.days {
   }
 }
 div.heat-js div.map-contents div.map div.days div.day-name {
-  font-weight: 300;
+  font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
   height: var(--heat-js-day-size);
   margin-bottom: var(--heat-js-day-spacing);
@@ -192,7 +193,7 @@ div.heat-js div.map-contents div.map div.months div.month:last-child div.day-col
 }
 div.heat-js div.map-contents div.map div.months div.month div.month-name,
 div.heat-js div.map-contents div.map div.months div.month div.month-name-bottom {
-  font-weight: 300;
+  font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
 }
 div.heat-js div.map-contents div.map div.months div.month div.month-name {
@@ -308,7 +309,7 @@ div.heat-js div.guide div.map-toggles {
 div.heat-js div.guide div.map-toggles div.less-text,
 div.heat-js div.guide div.map-toggles div.more-text {
   display: inline-block;
-  font-weight: 300;
+  font-weight: var(--heat-js-text-bold-weight);
   transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-toggles div.less-text:hover,

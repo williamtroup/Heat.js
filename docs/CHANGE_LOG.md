@@ -10,6 +10,7 @@
 
 #### **CSS:**
 - The year text shown between the back/next button is now bolder.
+- Added a new ":root" variable "--heat-js-text-bold-weight", which states the font weight to use for all text (now 500).
 
 #### **General Improvements:**
 - Removed the possibility that aa binding option can override access to the element.
