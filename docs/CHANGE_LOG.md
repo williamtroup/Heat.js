@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 1.4.0:
-- 
+
+#### **General Improvements:**
+- Removed the possibility that aa binding option can override access to the element.
 
 <br>
 
