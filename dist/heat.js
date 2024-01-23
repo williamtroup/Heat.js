@@ -23,15 +23,7 @@
       if (isDefinedString(bindingOptionsData)) {
         var bindingOptions = getObjectFromString(bindingOptionsData);
         if (bindingOptions.parsed && isDefinedObject(bindingOptions.result)) {
-          bindingOptions = renderBindingOptions(bindingOptions, element);
-          fireCustomTrigger(bindingOptions.onBeforeRender, element);
-          if (!isDefinedString(element.id)) {
-            element.id = newGuid();
-          }
-          element.removeAttribute(_attribute_Name_Options);
-          createDateStorageForElement(element.id, bindingOptions);
-          renderControl(bindingOptions);
-          fireCustomTrigger(bindingOptions.onRenderComplete, element);
+          renderControl(renderBindingOptions(bindingOptions.result, element));
         } else {
           if (!_configuration.safeMode) {
             console.error("The attribute '" + _attribute_Name_Options + "' is not a valid object.");
@@ -47,8 +39,8 @@
     }
     return result;
   }
-  function renderBindingOptions(bindingOptions, element) {
-    bindingOptions = buildAttributeOptions(bindingOptions.result);
+  function renderBindingOptions(data, element) {
+    var bindingOptions = buildAttributeOptions(data);
     bindingOptions.currentView = {};
     bindingOptions.currentView.element = element;
     bindingOptions.currentView.mapContents = null;
@@ -59,6 +51,16 @@
     return bindingOptions;
   }
   function renderControl(bindingOptions) {
+    fireCustomTrigger(bindingOptions.onBeforeRender, bindingOptions.currentView.element);
+    if (!isDefinedString(bindingOptions.currentView.element.id)) {
+      bindingOptions.currentView.element.id = newGuid();
+    }
+    bindingOptions.currentView.element.removeAttribute(_attribute_Name_Options);
+    createDateStorageForElement(bindingOptions.currentView.element.id, bindingOptions);
+    renderControlContainer(bindingOptions);
+    fireCustomTrigger(bindingOptions.onRenderComplete, bindingOptions.currentView.element);
+  }
+  function renderControlContainer(bindingOptions) {
     if (isDefined(bindingOptions.currentView.mapContents)) {
       bindingOptions.currentView.mapContentsScrollLeft = bindingOptions.currentView.mapContents.scrollLeft;
     }
@@ -83,7 +85,7 @@
       if (bindingOptions.showRefreshButton) {
         var refresh = createElementWithHTML(titleBar, "button", "refresh", _configuration.refreshButtonText);
         refresh.onclick = function() {
-          renderControl(bindingOptions);
+          renderControlContainer(bindingOptions);
           fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
         };
       }
@@ -91,14 +93,14 @@
         var back = createElementWithHTML(titleBar, "button", "back", _configuration.backButtonText);
         back.onclick = function() {
           bindingOptions.currentView.year--;
-          renderControl(bindingOptions);
+          renderControlContainer(bindingOptions);
           fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
         };
         bindingOptions.currentView.yearText = createElementWithHTML(titleBar, "div", "year-text", bindingOptions.currentView.year);
         var next = createElementWithHTML(titleBar, "button", "next", _configuration.nextButtonText);
         next.onclick = function() {
           bindingOptions.currentView.year++;
-          renderControl(bindingOptions);
+          renderControlContainer(bindingOptions);
           fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
         };
       }
@@ -280,7 +282,7 @@
       if (bindingOptions.currentView.type !== type) {
         bindingOptions.currentView.type = type;
         fireCustomTrigger(bindingOptions.onTypeSwitch, type);
-        renderControl(bindingOptions);
+        renderControlContainer(bindingOptions);
       }
     };
   }
@@ -303,7 +305,7 @@
           day.className = "day " + mapRangeColor.cssClassName;
         }
         bindingOptions.currentView.colorsVisible[mapRangeColor.id] = !bindingOptions.currentView.colorsVisible[mapRangeColor.id];
-        renderControl(bindingOptions);
+        renderControlContainer(bindingOptions);
       };
     } else {
       day.className += _string.space + "no-click";
@@ -322,7 +324,7 @@
     for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
       bindingOptions.currentView.colorsVisible[bindingOptions.mapRangeColors[mapRangeColorsIndex].id] = flag;
     }
-    renderControl(bindingOptions);
+    renderControlContainer(bindingOptions);
   }
   function exportAllData(bindingOptions) {
     var csvContents = getCsvContent(bindingOptions);
@@ -663,7 +665,7 @@
       }
       _elements_DateCounts[elementId].type[type][storageDate]++;
       if (triggerRefresh) {
-        renderControl(_elements_DateCounts[elementId].options);
+        renderControlContainer(_elements_DateCounts[elementId].options);
       }
     }
     return this;
@@ -678,7 +680,7 @@
           _elements_DateCounts[elementId].type[type][storageDate]--;
         }
         if (triggerRefresh) {
-          renderControl(_elements_DateCounts[elementId].options);
+          renderControlContainer(_elements_DateCounts[elementId].options);
         }
       }
     }
@@ -691,7 +693,7 @@
       bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
       createDateStorageForElement(elementId, bindingOptions);
       if (triggerRefresh) {
-        renderControl(_elements_DateCounts[elementId].options);
+        renderControlContainer(_elements_DateCounts[elementId].options);
       }
     }
     return this;
@@ -699,7 +701,7 @@
   this.refresh = function(elementId) {
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
-      renderControl(bindingOptions);
+      renderControlContainer(bindingOptions);
       fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
     }
     return this;
@@ -709,7 +711,7 @@
     for (elementId in _elements_DateCounts) {
       if (_elements_DateCounts.hasOwnProperty(elementId)) {
         var bindingOptions = _elements_DateCounts[elementId].options;
-        renderControl(bindingOptions);
+        renderControlContainer(bindingOptions);
         fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
       }
     }
@@ -719,7 +721,7 @@
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       bindingOptions.currentView.year = year;
-      renderControl(bindingOptions);
+      renderControlContainer(bindingOptions);
       fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
     }
     return this;
@@ -731,6 +733,10 @@
       result = bindingOptions.currentView.year;
     }
     return result;
+  };
+  this.render = function(element, options) {
+    renderControl(renderBindingOptions(options, element));
+    return this;
   };
   this.renderAll = function() {
     render();

@@ -82,6 +82,16 @@ Gets the year currently being displayed.
 ***Returns***: '*Object*' - The year being displayed (or null).
 <br>
 
+### **render( *element*, *options* )**:
+Renders a new map on a element using the options specified.
+<br>
+***Parameter: element***: '*Object*' - The element to convert to a heat map.
+<br>
+***Parameter: options***: '*Object*' - The options to use (refer to "Binding Options" documentation for properties).
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
 ### **renderAll()**:
 Finds all new map elements and renders them.
 <br>

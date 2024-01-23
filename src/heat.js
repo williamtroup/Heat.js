@@ -71,19 +71,7 @@
                 var bindingOptions = getObjectFromString( bindingOptionsData );
 
                 if ( bindingOptions.parsed && isDefinedObject( bindingOptions.result ) ) {
-                    bindingOptions = renderBindingOptions( bindingOptions, element );
-
-                    fireCustomTrigger( bindingOptions.onBeforeRender, element );
-
-                    if ( !isDefinedString( element.id ) ) {
-                        element.id = newGuid();
-                    }
-
-                    element.removeAttribute( _attribute_Name_Options );
-
-                    createDateStorageForElement( element.id, bindingOptions );
-                    renderControl( bindingOptions );
-                    fireCustomTrigger( bindingOptions.onRenderComplete, element );
+                    renderControl( renderBindingOptions( bindingOptions.result, element ) );
 
                 } else {
                     if ( !_configuration.safeMode ) {
@@ -103,8 +91,8 @@
         return result;
     }
 
-    function renderBindingOptions( bindingOptions, element ) {
-        bindingOptions = buildAttributeOptions( bindingOptions.result );
+    function renderBindingOptions( data, element ) {
+        var bindingOptions = buildAttributeOptions( data );
         bindingOptions.currentView = {};
         bindingOptions.currentView.element = element;
         bindingOptions.currentView.mapContents = null;
@@ -117,6 +105,20 @@
     }
 
     function renderControl( bindingOptions ) {
+        fireCustomTrigger( bindingOptions.onBeforeRender, bindingOptions.currentView.element );
+
+        if ( !isDefinedString( bindingOptions.currentView.element.id ) ) {
+            bindingOptions.currentView.element.id = newGuid();
+        }
+
+        bindingOptions.currentView.element.removeAttribute( _attribute_Name_Options );
+
+        createDateStorageForElement( bindingOptions.currentView.element.id, bindingOptions );
+        renderControlContainer( bindingOptions );
+        fireCustomTrigger( bindingOptions.onRenderComplete, bindingOptions.currentView.element );
+    }
+
+    function renderControlContainer( bindingOptions ) {
         if ( isDefined( bindingOptions.currentView.mapContents ) ) {
             bindingOptions.currentView.mapContentsScrollLeft = bindingOptions.currentView.mapContents.scrollLeft;
         }
@@ -149,7 +151,7 @@
                 var refresh = createElementWithHTML( titleBar, "button", "refresh", _configuration.refreshButtonText );
         
                 refresh.onclick = function() {
-                    renderControl( bindingOptions );
+                    renderControlContainer( bindingOptions );
                     fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
                 };
             }
@@ -160,7 +162,7 @@
                 back.onclick = function() {
                     bindingOptions.currentView.year--;
         
-                    renderControl( bindingOptions );
+                    renderControlContainer( bindingOptions );
                     fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
                 };
 
@@ -171,7 +173,7 @@
                 next.onclick = function() {
                     bindingOptions.currentView.year++;
         
-                    renderControl( bindingOptions );
+                    renderControlContainer( bindingOptions );
                     fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
                 };
             }
@@ -396,7 +398,7 @@
                 bindingOptions.currentView.type = type;
 
                 fireCustomTrigger( bindingOptions.onTypeSwitch, type );
-                renderControl( bindingOptions );
+                renderControlContainer( bindingOptions );
             }
         };
     }
@@ -425,7 +427,7 @@
     
                 bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] = !bindingOptions.currentView.colorsVisible[ mapRangeColor.id ];
     
-                renderControl( bindingOptions );
+                renderControlContainer( bindingOptions );
             };
 
         } else {
@@ -454,7 +456,7 @@
             bindingOptions.currentView.colorsVisible[ bindingOptions.mapRangeColors[ mapRangeColorsIndex ].id ] = flag;
         }
 
-        renderControl( bindingOptions );
+        renderControlContainer( bindingOptions );
     }
 
 
@@ -943,7 +945,7 @@
             _elements_DateCounts[ elementId ].type[ type ][ storageDate ]++;
 
             if ( triggerRefresh ) {
-                renderControl( _elements_DateCounts[ elementId ].options );
+                renderControlContainer( _elements_DateCounts[ elementId ].options );
             }
         }
 
@@ -978,7 +980,7 @@
                 }
 
                 if ( triggerRefresh ) {
-                    renderControl( _elements_DateCounts[ elementId ].options );
+                    renderControlContainer( _elements_DateCounts[ elementId ].options );
                 }
             }
         }
@@ -1008,7 +1010,7 @@
             createDateStorageForElement( elementId, bindingOptions );
 
             if ( triggerRefresh ) {
-                renderControl( _elements_DateCounts[ elementId ].options );
+                renderControlContainer( _elements_DateCounts[ elementId ].options );
             }
         }
 
@@ -1041,7 +1043,7 @@
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
-            renderControl( bindingOptions );
+            renderControlContainer( bindingOptions );
             fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
         }
 
@@ -1062,7 +1064,7 @@
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 var bindingOptions = _elements_DateCounts[ elementId ].options;
 
-                renderControl( bindingOptions );
+                renderControlContainer( bindingOptions );
                 fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
             }
         }
@@ -1087,7 +1089,7 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             bindingOptions.currentView.year = year;
 
-            renderControl( bindingOptions );
+            renderControlContainer( bindingOptions );
             fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
         }
 
@@ -1115,6 +1117,24 @@
         }
 
         return result;
+    };
+
+    /**
+     * render().
+     * 
+     * Renders a new map on a element using the options specified.
+     * 
+     * @public
+     * 
+     * @param       {Object}    element                                     The element to convert to a heat map.
+     * @param       {Object}    options                                     The options to use (refer to "Binding Options" documentation for properties).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.render = function( element, options ) {
+        renderControl( renderBindingOptions( options, element ) );
+
+        return this;
     };
 
     /**
@@ -1205,7 +1225,7 @@
      * 
      * @public
      * 
-     * @param       {Object}   newConfiguration                             All the configuration options that should be set (refer to "Options" documentation for properties).
+     * @param       {Object}   newConfiguration                             All the configuration options that should be set (refer to "Configuration Options" documentation for properties).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */

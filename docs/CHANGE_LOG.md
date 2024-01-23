@@ -5,6 +5,9 @@
 #### **Binding Options:**
 - Added a new binding option called "keepScrollPositions", which states if the scroll positions should be maintained when the map is redrawn (or moving year to year, defaults to false).
 
+#### **Public Functions:**
+- Added new public function "render()", which will render a heat map on a specific DOM element using the options you specify.
+
 #### **General Improvements:**
 - Removed the possibility that aa binding option can override access to the element.
 

@@ -21,6 +21,9 @@
             <br>
             <br>
             <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': false, 'showRefreshButton': true, 'showExportButton': true, 'placeMonthNamesOnTheBottom': true, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
+            <br>
+            <br>
+            <div id="heat-map-3"></div>
         </div>
 
         <div class="contents">
@@ -41,6 +44,7 @@
             <button class="btn btn-primary" onclick="$heat.setYear( 'heat-map-2', new Date().getFullYear() + 1 );">Set Year (2)</button>
             <button class="btn btn-primary" onclick="console.log( $heat.getYear( 'heat-map-1' ) );">Get Year (1)</button>
             <button class="btn btn-primary" onclick="console.log( $heat.getYear( 'heat-map-2' ) );">Get Year (2)</button>
+            <button class="btn btn-primary" onclick="$heat.render( document.getElementById( 'heat-map-3' ) );">Render</button>
             <button class="btn btn-primary" onclick="$heat.renderAll();">Render All</button>
             <br />
 
