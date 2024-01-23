@@ -20,7 +20,7 @@
 - Added a new ":root" variable "--heat-js-title-bold-weight", which states the font weight to use for the title text, and the year (set to 800).
 
 #### **General Improvements:**
-- Removed the possibility that aa binding option can override access to the element.
+- Removed the possibility that a binding option can override access to the element.
 
 #### **Documentation:**
 - Improved the documentation to show which public functions fire custom triggers (and which ones).
