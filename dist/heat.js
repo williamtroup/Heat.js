@@ -719,6 +719,10 @@
     }
     return result;
   };
+  this.renderAll = function() {
+    render();
+    return this;
+  };
   this.destroyAll = function() {
     var elementId;
     for (elementId in _elements_DateCounts) {

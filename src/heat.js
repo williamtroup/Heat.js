@@ -1100,6 +1100,21 @@
         return result;
     };
 
+    /**
+     * renderAll().
+     * 
+     * Finds all new map elements and renders them.
+     * 
+     * @public
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.renderAll = function() {
+        render();
+
+        return this;
+    };
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

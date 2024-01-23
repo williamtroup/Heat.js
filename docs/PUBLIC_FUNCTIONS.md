@@ -81,6 +81,12 @@ Gets the year currently being displayed.
 <br>
 ***Returns***: '*Object*' - The year being displayed (or null).
 <br>
+
+### **renderAll()**:
+Finds all new map elements and renders them.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
 <br>
 
 
