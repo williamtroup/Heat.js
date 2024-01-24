@@ -160,8 +160,9 @@ div.heat-js div.title-bar div.year-text div.years-list div.years {
   background-color: var(--heat-js-years-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-years-border-color);
   color: var(--heat-js-years-text-color);
-  height: 200px;
+  height: 183px;
   overflow-y: scroll;
+  scroll-snap-type: y mandatory;
 }
 div.heat-js div.title-bar div.year-text div.years-list div.years div.year {
   color: var(--heat-js-color-white);
@@ -171,6 +172,7 @@ div.heat-js div.title-bar div.year-text div.years-list div.years div.year {
   text-align: center;
   width: 100%;
   transition: var(--heat-js-transition);
+  scroll-snap-align: start;
 }
 div.heat-js div.title-bar div.year-text div.years-list div.years div.year:active {
   opacity: 0.5 !important;

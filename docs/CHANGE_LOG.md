@@ -7,6 +7,10 @@
 - Added a new binding option called "onRemove", which states an event that should be called when dates are removed.
 - Added a new binding option called "onReset", which states an event that should be called when all data for an element is reset.
 
+#### **CSS:**
+- Decreased the height of the years drop-down list slightly.
+- Added snap to scroll support for the years drop-down list.
+
 <br>
 
 
