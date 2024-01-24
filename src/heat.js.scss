@@ -456,6 +456,7 @@ div.heat-js {
                 }
         
                 div.label-top,
+                div.label-middle,
                 div.label-bottom {
                     font-weight: var(--heat-js-text-bold-weight);
                     text-align: left !important;
@@ -469,6 +470,11 @@ div.heat-js {
 
                 div.label-top {
                     top: 0;
+                }
+
+                div.label-middle {
+                    top: 50%;
+                    transform: translateY(-50%);
                 }
 
                 div.label-bottom {

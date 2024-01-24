@@ -327,6 +327,7 @@
     var totalDays = 0;
     if (largestValueForCurrentYear > 0) {
       createElementWithHTML(labels, "div", "label-top", largestValueForCurrentYear.toString());
+      createElementWithHTML(labels, "div", "label-middle", Math.floor(largestValueForCurrentYear / 2).toString());
       createElementWithHTML(labels, "div", "label-bottom", "0");
     }
     var monthIndex = 0;

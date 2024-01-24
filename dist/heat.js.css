@@ -367,6 +367,7 @@ div.heat-js div.chart-contents div.chart div.labels {
   }
 }
 div.heat-js div.chart-contents div.chart div.labels div.label-top,
+div.heat-js div.chart-contents div.chart div.labels div.label-middle,
 div.heat-js div.chart-contents div.chart div.labels div.label-bottom {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
@@ -379,6 +380,10 @@ div.heat-js div.chart-contents div.chart div.labels div.label-bottom {
 }
 div.heat-js div.chart-contents div.chart div.labels div.label-top {
   top: 0;
+}
+div.heat-js div.chart-contents div.chart div.labels div.label-middle {
+  top: 50%;
+  transform: translateY(-50%);
 }
 div.heat-js div.chart-contents div.chart div.labels div.label-bottom {
   bottom: 0;
