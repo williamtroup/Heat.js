@@ -142,8 +142,18 @@
                     titlesList = createElement( title, "div", "titles-list" ),
                     titles = createElement( titlesList, "div", "titles" );
 
-                createElementWithHTML( titles, "div", "title", "Map" );
-                createElementWithHTML( titles, "div", "title", "Chart" );
+                var optionMap = createElementWithHTML( titles, "div", "title", "Map" ),
+                    optionChart = createElementWithHTML( titles, "div", "title", "Chart" );
+
+                optionMap.onclick = function() {
+                    bindingOptions.currentView.mapContents.style.display = "block";
+                    bindingOptions.currentView.chartContents.style.display = "none";
+                };
+
+                optionChart.onclick = function() {
+                    bindingOptions.currentView.mapContents.style.display = "none";
+                    bindingOptions.currentView.chartContents.style.display = "block";
+                };
             }
 
             if ( bindingOptions.showExportButton ) {

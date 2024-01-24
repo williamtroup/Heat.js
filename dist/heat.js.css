@@ -126,7 +126,6 @@ div.heat-js div.title-bar div.title div.titles-list div.titles {
   border: var(--heat-js-border-size) solid var(--heat-js-title-border-color);
   color: var(--heat-js-title-text-color);
   overflow-y: scroll;
-  scroll-snap-type: y mandatory;
 }
 div.heat-js div.title-bar div.title div.titles-list div.titles div.title {
   color: var(--heat-js-color-white);
@@ -136,7 +135,6 @@ div.heat-js div.title-bar div.title div.titles-list div.titles div.title {
   text-align: left;
   width: 100%;
   transition: var(--heat-js-transition);
-  scroll-snap-align: start;
   font-size: var(--heat-js-spacing-font-size) !important;
 }
 div.heat-js div.title-bar div.title div.titles-list div.titles div.title:active {
