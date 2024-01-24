@@ -44,7 +44,7 @@
     
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Rendering
+     * Render
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
@@ -150,6 +150,56 @@
         }
     }
 
+    function isHeatMapColorVisible( bindingOptions, id ) {
+        return !bindingOptions.currentView.colorsVisible.hasOwnProperty( id ) || bindingOptions.currentView.colorsVisible[ id ];
+    }
+
+    function createDateStorageForElement( elementId, bindingOptions ) {
+        _elements_DateCounts[ elementId ] = {
+            options: bindingOptions,
+            type: {},
+            types: 1
+        };
+
+        _elements_DateCounts[ elementId ].type[ _elements_DateCounts_DefaultType ] = {};
+    }
+
+    function updateMapRangeColorToggles( bindingOptions, flag ) {
+        var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            bindingOptions.currentView.colorsVisible[ bindingOptions.mapRangeColors[ mapRangeColorsIndex ].id ] = flag;
+        }
+
+        renderControlContainer( bindingOptions );
+    }
+
+    function getLargestValueForYear( bindingOptions ) {
+        var result = 0,
+            data = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ];
+
+        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+            var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
+    
+            for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                var storageDate = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
+
+                if ( data.hasOwnProperty( storageDate ) ) {
+                    result = Math.max( result, parseInt( data[ storageDate ] ) );
+                }
+            }
+        }
+
+        return result;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Title Bar
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
     function renderControlTitleBar( bindingOptions ) {
         if ( bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton ) {
             var titleBar = createElement( bindingOptions.currentView.element, "div", "title-bar" );
@@ -248,6 +298,13 @@
             fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
         };
     }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Map
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
 
     function renderControlMap( bindingOptions ) {
         bindingOptions.currentView.mapContents = createElement( bindingOptions.currentView.element, "div", "map-contents" );
@@ -396,6 +453,13 @@
         return day;
     }
 
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Chart
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
     function renderControlChartContents( bindingOptions ) {
         bindingOptions.currentView.chartContents = createElement( bindingOptions.currentView.element, "div", "chart-contents" );
     }
@@ -484,6 +548,13 @@
 
         return dayLine;
     }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Guide
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
 
     function renderControlViewGuide( bindingOptions ) {
         var guide = createElement( bindingOptions.currentView.element, "div", "guide" ),
@@ -592,49 +663,6 @@
         } else {
             day.className += _string.space + "no-click";
         }
-    }
-
-    function isHeatMapColorVisible( bindingOptions, id ) {
-        return !bindingOptions.currentView.colorsVisible.hasOwnProperty( id ) || bindingOptions.currentView.colorsVisible[ id ];
-    }
-
-    function createDateStorageForElement( elementId, bindingOptions ) {
-        _elements_DateCounts[ elementId ] = {
-            options: bindingOptions,
-            type: {},
-            types: 1
-        };
-
-        _elements_DateCounts[ elementId ].type[ _elements_DateCounts_DefaultType ] = {};
-    }
-
-    function updateMapRangeColorToggles( bindingOptions, flag ) {
-        var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
-
-        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            bindingOptions.currentView.colorsVisible[ bindingOptions.mapRangeColors[ mapRangeColorsIndex ].id ] = flag;
-        }
-
-        renderControlContainer( bindingOptions );
-    }
-
-    function getLargestValueForYear( bindingOptions ) {
-        var result = 0,
-            data = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ];
-
-        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
-            var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
-    
-            for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                var storageDate = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
-
-                if ( data.hasOwnProperty( storageDate ) ) {
-                    result = Math.max( result, parseInt( data[ storageDate ] ) );
-                }
-            }
-        }
-
-        return result;
     }
 
 

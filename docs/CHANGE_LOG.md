@@ -18,6 +18,9 @@
 - Decreased the height of the years drop-down list slightly.
 - Added snap to scroll support for the years drop-down list.
 
+#### **General Improvements:**
+- All rendering areas are now sectioned in the JS code.
+
 <br>
 
 
