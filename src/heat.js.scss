@@ -445,6 +445,10 @@ div.heat-js {
                 width: 8px;
                 margin-right: 1px;
                 display: inline-block;
+
+                &:last-child {
+                    margin-right: 0;
+                }
             }
         }
     }

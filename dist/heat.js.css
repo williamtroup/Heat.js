@@ -356,6 +356,9 @@ div.heat-js div.chart-contents div.chart div.day-line {
   margin-right: 1px;
   display: inline-block;
 }
+div.heat-js div.chart-contents div.chart div.day-line:last-child {
+  margin-right: 0;
+}
 
 /*
     -------------------------------------------------------------------------
