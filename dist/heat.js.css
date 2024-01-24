@@ -147,6 +147,11 @@ div.heat-js div.title-bar div.title div.titles-list div.titles div.title:hover {
 div.heat-js div.title-bar div.title div.titles-list div.titles div.title:last-child {
   border-bottom: none;
 }
+div.heat-js div.title-bar div.title div.titles-list div.titles div.title-active {
+  background-color: var(--heat-js-title-background-color-hover);
+  font-weight: 900;
+  cursor: default !important;
+}
 div.heat-js div.title-bar button {
   background-color: var(--heat-js-button-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);

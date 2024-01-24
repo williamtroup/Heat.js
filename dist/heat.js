@@ -92,16 +92,24 @@
         var titles = createElement(titlesList, "div", "titles");
         var optionMap = createElementWithHTML(titles, "div", "title", _configuration.mapText);
         var optionChart = createElementWithHTML(titles, "div", "title", _configuration.chartText);
-        optionMap.onclick = function() {
-          bindingOptions.currentView.mapContents.style.display = "block";
-          bindingOptions.currentView.chartContents.style.display = "none";
-          bindingOptions.currentView.view = _elements_View_Map;
-        };
-        optionChart.onclick = function() {
-          bindingOptions.currentView.mapContents.style.display = "none";
-          bindingOptions.currentView.chartContents.style.display = "block";
-          bindingOptions.currentView.view = _elements_View_Chart;
-        };
+        if (bindingOptions.currentView.view !== _elements_View_Map) {
+          optionMap.onclick = function() {
+            bindingOptions.currentView.view = _elements_View_Map;
+            renderControlContainer(bindingOptions);
+            fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+          };
+        } else {
+          optionMap.className += _string.space + "title-active";
+        }
+        if (bindingOptions.currentView.view !== _elements_View_Chart) {
+          optionChart.onclick = function() {
+            bindingOptions.currentView.view = _elements_View_Chart;
+            renderControlContainer(bindingOptions);
+            fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+          };
+        } else {
+          optionChart.className += _string.space + "title-active";
+        }
       }
       if (bindingOptions.showExportButton) {
         var exportData = createElementWithHTML(titleBar, "button", "export", _configuration.exportButtonText);

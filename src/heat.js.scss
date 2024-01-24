@@ -213,6 +213,12 @@ div.heat-js {
                             border-bottom: none;
                         }
                     }
+
+                    div.title-active {
+                        background-color: var(--heat-js-title-background-color-hover);
+                        font-weight: 900;
+                        cursor: default !important;
+                    }
                 }
             }
         }
