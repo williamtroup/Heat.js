@@ -1,5 +1,33 @@
 # Heat.js - Change Log:
 
+## Version 1.4.0:
+
+#### **New Features:**
+- The year text (shown between the back/next buttons) now shows a drop-down list of years that can be selected.
+
+#### **Binding Options:**
+- Added a new binding option called "keepScrollPositions", which states if the scroll positions should be maintained when the map is redrawn (or moving year to year, defaults to false).
+- Added a new binding option called "extraSelectionYears", which states the extra years that should be included in the year drop-down list (defaults to 50).
+- Added a new binding option called "showYearSelectionDropDown", which states if the year selection drop-down menu is shown (defaults to true).
+
+#### **Public Functions:**
+- Added new public function "render()", which will render a heat map on a specific DOM element using the options you specify.
+- Added new public function "setYearToHighest()", which will set the year being displayed for a heat map DOM element to the highest available.
+- Added new public function "setYearToLowest()", which will set the year being displayed for a heat map DOM element to the lowest available.
+
+#### **CSS:**
+- Added a new ":root" variable "--heat-js-text-bold-weight", which states the font weight to use for all text (now 400).
+- Added a new ":root" variable "--heat-js-title-bold-weight", which states the font weight to use for the title text, and the year (set to 800).
+
+#### **General Improvements:**
+- Removed the possibility that a binding option can override access to the element.
+
+#### **Documentation:**
+- Improved the documentation to show which public functions fire custom triggers (and which ones).
+
+<br>
+
+
 ## Version 1.3.0:
 
 #### **Binding Options:**

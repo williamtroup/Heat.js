@@ -1,4 +1,4 @@
-/*! Heat.js v1.3.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.4.0 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -23,20 +23,7 @@
       if (isDefinedString(bindingOptionsData)) {
         var bindingOptions = getObjectFromString(bindingOptionsData);
         if (bindingOptions.parsed && isDefinedObject(bindingOptions.result)) {
-          bindingOptions = buildAttributeOptions(bindingOptions.result);
-          bindingOptions.element = element;
-          bindingOptions.currentView = {};
-          bindingOptions.currentView.colorsVisible = {};
-          bindingOptions.currentView.year = bindingOptions.year;
-          bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
-          fireCustomTrigger(bindingOptions.onBeforeRender, element);
-          if (!isDefinedString(element.id)) {
-            element.id = newGuid();
-          }
-          element.removeAttribute(_attribute_Name_Options);
-          createDateStorageForElement(element.id, bindingOptions);
-          renderControl(bindingOptions);
-          fireCustomTrigger(bindingOptions.onRenderComplete, element);
+          renderControl(renderBindingOptions(bindingOptions.result, element));
         } else {
           if (!_configuration.safeMode) {
             console.error("The attribute '" + _attribute_Name_Options + "' is not a valid object.");
@@ -52,15 +39,39 @@
     }
     return result;
   }
+  function renderBindingOptions(data, element) {
+    var bindingOptions = buildAttributeOptions(data);
+    bindingOptions.currentView = {};
+    bindingOptions.currentView.element = element;
+    bindingOptions.currentView.mapContents = null;
+    bindingOptions.currentView.mapContentsScrollLeft = 0;
+    bindingOptions.currentView.colorsVisible = {};
+    bindingOptions.currentView.year = bindingOptions.year;
+    bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
+    return bindingOptions;
+  }
   function renderControl(bindingOptions) {
-    bindingOptions.element.className = "heat-js";
-    bindingOptions.element.innerHTML = _string.empty;
+    fireCustomTrigger(bindingOptions.onBeforeRender, bindingOptions.currentView.element);
+    if (!isDefinedString(bindingOptions.currentView.element.id)) {
+      bindingOptions.currentView.element.id = newGuid();
+    }
+    bindingOptions.currentView.element.removeAttribute(_attribute_Name_Options);
+    createDateStorageForElement(bindingOptions.currentView.element.id, bindingOptions);
+    renderControlContainer(bindingOptions);
+    fireCustomTrigger(bindingOptions.onRenderComplete, bindingOptions.currentView.element);
+  }
+  function renderControlContainer(bindingOptions) {
+    if (isDefined(bindingOptions.currentView.mapContents)) {
+      bindingOptions.currentView.mapContentsScrollLeft = bindingOptions.currentView.mapContents.scrollLeft;
+    }
+    bindingOptions.currentView.element.className = "heat-js";
+    bindingOptions.currentView.element.innerHTML = _string.empty;
     renderControlTitleBar(bindingOptions);
     renderControlMap(bindingOptions);
   }
   function renderControlTitleBar(bindingOptions) {
     if (bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton) {
-      var titleBar = createElement(bindingOptions.element, "div", "title-bar");
+      var titleBar = createElement(bindingOptions.currentView.element, "div", "title-bar");
       if (bindingOptions.showTitle) {
         createElementWithHTML(titleBar, "div", "title", bindingOptions.titleText);
       }
@@ -68,39 +79,56 @@
         var exportData = createElementWithHTML(titleBar, "button", "export", _configuration.exportButtonText);
         exportData.onclick = function() {
           exportAllData(bindingOptions);
-          fireCustomTrigger(bindingOptions.onExport, bindingOptions.element);
+          fireCustomTrigger(bindingOptions.onExport, bindingOptions.currentView.element);
         };
       }
       if (bindingOptions.showRefreshButton) {
         var refresh = createElementWithHTML(titleBar, "button", "refresh", _configuration.refreshButtonText);
         refresh.onclick = function() {
-          renderControl(bindingOptions);
-          fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.element);
+          renderControlContainer(bindingOptions);
+          fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
         };
       }
       if (bindingOptions.showYearSelector) {
         var back = createElementWithHTML(titleBar, "button", "back", _configuration.backButtonText);
         back.onclick = function() {
           bindingOptions.currentView.year--;
-          renderControl(bindingOptions);
+          renderControlContainer(bindingOptions);
           fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
         };
         bindingOptions.currentView.yearText = createElementWithHTML(titleBar, "div", "year-text", bindingOptions.currentView.year);
+        if (bindingOptions.showYearSelectionDropDown) {
+          var yearList = createElement(bindingOptions.currentView.yearText, "div", "years-list");
+          var years = createElement(yearList, "div", "years");
+          var thisYear = (new Date()).getFullYear();
+          var currentYear = thisYear - bindingOptions.extraSelectionYears;
+          for (; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++) {
+            renderControlTitleBarYear(bindingOptions, years, currentYear);
+          }
+        }
         var next = createElementWithHTML(titleBar, "button", "next", _configuration.nextButtonText);
         next.onclick = function() {
           bindingOptions.currentView.year++;
-          renderControl(bindingOptions);
+          renderControlContainer(bindingOptions);
           fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
         };
       }
     }
   }
+  function renderControlTitleBarYear(bindingOptions, years, currentYear) {
+    var year = createElementWithHTML(years, "div", "year", currentYear);
+    year.onclick = function() {
+      bindingOptions.currentView.year = currentYear;
+      renderControlContainer(bindingOptions);
+      fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+    };
+  }
   function renderControlMap(bindingOptions) {
-    var mapContents = createElement(bindingOptions.element, "div", "map-contents");
-    var map = createElement(mapContents, "div", "map");
-    renderControlViewGuide(bindingOptions);
+    bindingOptions.currentView.mapContents = createElement(bindingOptions.currentView.element, "div", "map-contents");
+    var map = createElement(bindingOptions.currentView.mapContents, "div", "map");
     var currentYear = bindingOptions.currentView.year;
     var monthAdded = false;
+    renderControlViewGuide(bindingOptions);
     if (bindingOptions.showDayNames) {
       var days = createElement(map, "div", "days");
       if (!bindingOptions.showMonthNames || bindingOptions.placeMonthNamesOnTheBottom) {
@@ -170,12 +198,15 @@
         monthAdded = true;
       }
     }
+    if (bindingOptions.keepScrollPositions) {
+      bindingOptions.currentView.mapContents.scrollLeft = bindingOptions.currentView.mapContentsScrollLeft;
+    }
   }
   function renderControlViewMonthDay(bindingOptions, currentDayColumn, dayNumber, month, year, mapRangeColors) {
     var actualDay = dayNumber + 1;
     var day = createElement(currentDayColumn, "div", "day");
     var date = new Date(year, month, actualDay);
-    var dateCount = _elements_DateCounts[bindingOptions.element.id].type[bindingOptions.currentView.type][toStorageDate(date)];
+    var dateCount = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type][toStorageDate(date)];
     dateCount = isDefinedNumber(dateCount) ? dateCount : 0;
     if (isDefinedFunction(bindingOptions.onDayToolTipRender)) {
       day.title = fireCustomTrigger(bindingOptions.onDayToolTipRender, date, dateCount);
@@ -209,19 +240,19 @@
     return day;
   }
   function renderControlViewGuide(bindingOptions) {
-    var guide = createElement(bindingOptions.element, "div", "guide");
+    var guide = createElement(bindingOptions.currentView.element, "div", "guide");
     var mapTypes = createElement(guide, "div", "map-types");
     var noneTypeCount = 0;
     var storageDate;
-    for (storageDate in _elements_DateCounts[bindingOptions.element.id].type[_elements_DateCounts_DefaultType]) {
-      if (_elements_DateCounts[bindingOptions.element.id].type[_elements_DateCounts_DefaultType].hasOwnProperty(storageDate)) {
+    for (storageDate in _elements_DateCounts[bindingOptions.currentView.element.id].type[_elements_DateCounts_DefaultType]) {
+      if (_elements_DateCounts[bindingOptions.currentView.element.id].type[_elements_DateCounts_DefaultType].hasOwnProperty(storageDate)) {
         noneTypeCount++;
         break;
       }
     }
-    if (_elements_DateCounts[bindingOptions.element.id].types > 1) {
+    if (_elements_DateCounts[bindingOptions.currentView.element.id].types > 1) {
       var type;
-      for (type in _elements_DateCounts[bindingOptions.element.id].type) {
+      for (type in _elements_DateCounts[bindingOptions.currentView.element.id].type) {
         if (type !== _elements_DateCounts_DefaultType || noneTypeCount > 0) {
           if (noneTypeCount === 0 && bindingOptions.currentView.type === _elements_DateCounts_DefaultType) {
             bindingOptions.currentView.type = type;
@@ -268,7 +299,7 @@
       if (bindingOptions.currentView.type !== type) {
         bindingOptions.currentView.type = type;
         fireCustomTrigger(bindingOptions.onTypeSwitch, type);
-        renderControl(bindingOptions);
+        renderControlContainer(bindingOptions);
       }
     };
   }
@@ -291,7 +322,7 @@
           day.className = "day " + mapRangeColor.cssClassName;
         }
         bindingOptions.currentView.colorsVisible[mapRangeColor.id] = !bindingOptions.currentView.colorsVisible[mapRangeColor.id];
-        renderControl(bindingOptions);
+        renderControlContainer(bindingOptions);
       };
     } else {
       day.className += _string.space + "no-click";
@@ -310,7 +341,7 @@
     for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
       bindingOptions.currentView.colorsVisible[bindingOptions.mapRangeColors[mapRangeColorsIndex].id] = flag;
     }
-    renderControl(bindingOptions);
+    renderControlContainer(bindingOptions);
   }
   function exportAllData(bindingOptions) {
     var csvContents = getCsvContent(bindingOptions);
@@ -325,7 +356,7 @@
     }
   }
   function getCsvContent(bindingOptions) {
-    var csvData = _elements_DateCounts[bindingOptions.element.id].type[bindingOptions.currentView.type];
+    var csvData = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
     var csvContents = [];
     var csvStorageDates = [];
     csvContents.push(getCsvValueLine([getCsvValue(_configuration.dateText), getCsvValue(_configuration.countText)]));
@@ -394,6 +425,9 @@
     options.exportOnlyYearBeingViewed = getDefaultBoolean(options.exportOnlyYearBeingViewed, true);
     options.year = getDefaultNumber(options.year, (new Date()).getFullYear());
     options.showDayNumbers = getDefaultBoolean(options.showDayNumbers, false);
+    options.keepScrollPositions = getDefaultBoolean(options.keepScrollPositions, false);
+    options.extraSelectionYears = getDefaultNumber(options.extraSelectionYears, 50);
+    options.showYearSelectionDropDown = getDefaultBoolean(options.showYearSelectionDropDown, true);
     if (isInvalidOptionArray(options.monthsToShow)) {
       options.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     }
@@ -595,6 +629,9 @@
   function toStorageDate(date) {
     return date.getFullYear() + "-" + padNumber(date.getMonth() + 1) + "-" + padNumber(date.getDate());
   }
+  function getStorageDateYear(data) {
+    return data.split("-")[0];
+  }
   function buildDefaultConfiguration() {
     _configuration.safeMode = getDefaultBoolean(_configuration.safeMode, true);
     _configuration.domElementTypes = getDefaultStringOrArray(_configuration.domElementTypes, ["*"]);
@@ -650,7 +687,7 @@
       }
       _elements_DateCounts[elementId].type[type][storageDate]++;
       if (triggerRefresh) {
-        renderControl(_elements_DateCounts[elementId].options);
+        renderControlContainer(_elements_DateCounts[elementId].options);
       }
     }
     return this;
@@ -665,7 +702,7 @@
           _elements_DateCounts[elementId].type[type][storageDate]--;
         }
         if (triggerRefresh) {
-          renderControl(_elements_DateCounts[elementId].options);
+          renderControlContainer(_elements_DateCounts[elementId].options);
         }
       }
     }
@@ -678,7 +715,7 @@
       bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
       createDateStorageForElement(elementId, bindingOptions);
       if (triggerRefresh) {
-        renderControl(_elements_DateCounts[elementId].options);
+        renderControlContainer(_elements_DateCounts[elementId].options);
       }
     }
     return this;
@@ -686,8 +723,8 @@
   this.refresh = function(elementId) {
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
-      renderControl(bindingOptions);
-      fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.element);
+      renderControlContainer(bindingOptions);
+      fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
     }
     return this;
   };
@@ -696,8 +733,8 @@
     for (elementId in _elements_DateCounts) {
       if (_elements_DateCounts.hasOwnProperty(elementId)) {
         var bindingOptions = _elements_DateCounts[elementId].options;
-        renderControl(bindingOptions);
-        fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.element);
+        renderControlContainer(bindingOptions);
+        fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
       }
     }
     return this;
@@ -706,8 +743,46 @@
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       bindingOptions.currentView.year = year;
-      renderControl(bindingOptions);
+      renderControlContainer(bindingOptions);
       fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
+    }
+    return this;
+  };
+  this.setYearToHighest = function(elementId) {
+    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      var data = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
+      var maximumYear = 0;
+      var storageDate;
+      for (storageDate in data) {
+        if (data.hasOwnProperty(storageDate)) {
+          maximumYear = Math.max(maximumYear, parseInt(getStorageDateYear(storageDate)));
+        }
+      }
+      if (maximumYear > 0) {
+        bindingOptions.currentView.year = maximumYear;
+        renderControlContainer(bindingOptions);
+        fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
+      }
+    }
+    return this;
+  };
+  this.setYearToLowest = function(elementId) {
+    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      var data = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
+      var minimumYear = 9999;
+      var storageDate;
+      for (storageDate in data) {
+        if (data.hasOwnProperty(storageDate)) {
+          minimumYear = Math.min(minimumYear, parseInt(getStorageDateYear(storageDate)));
+        }
+      }
+      if (minimumYear < 9999) {
+        bindingOptions.currentView.year = minimumYear;
+        renderControlContainer(bindingOptions);
+        fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
+      }
     }
     return this;
   };
@@ -719,6 +794,10 @@
     }
     return result;
   };
+  this.render = function(element, options) {
+    renderControl(renderBindingOptions(options, element));
+    return this;
+  };
   this.renderAll = function() {
     render();
     return this;
@@ -728,9 +807,9 @@
     for (elementId in _elements_DateCounts) {
       if (_elements_DateCounts.hasOwnProperty(elementId)) {
         var bindingOptions = _elements_DateCounts[elementId].options;
-        bindingOptions.element.innerHTML = _string.empty;
-        bindingOptions.element.className = _string.empty;
-        fireCustomTrigger(bindingOptions.onDestroy, bindingOptions.element);
+        bindingOptions.currentView.element.innerHTML = _string.empty;
+        bindingOptions.currentView.element.className = _string.empty;
+        fireCustomTrigger(bindingOptions.onDestroy, bindingOptions.currentView.element);
       }
     }
     _elements_DateCounts = {};
@@ -739,9 +818,9 @@
   this.destroy = function(elementId) {
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
-      bindingOptions.element.innerHTML = _string.empty;
-      bindingOptions.element.className = _string.empty;
-      fireCustomTrigger(bindingOptions.onDestroy, bindingOptions.element);
+      bindingOptions.currentView.element.innerHTML = _string.empty;
+      bindingOptions.currentView.element.className = _string.empty;
+      fireCustomTrigger(bindingOptions.onDestroy, bindingOptions.currentView.element);
       delete _elements_DateCounts[elementId];
     }
     return this;
@@ -752,7 +831,7 @@
     return this;
   };
   this.getVersion = function() {
-    return "1.3.0";
+    return "1.4.0";
   };
   (function(documentObject, windowObject) {
     _parameter_Document = documentObject;

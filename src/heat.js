@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v1.3.0
+ * @version     v1.4.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -71,24 +71,7 @@
                 var bindingOptions = getObjectFromString( bindingOptionsData );
 
                 if ( bindingOptions.parsed && isDefinedObject( bindingOptions.result ) ) {
-                    bindingOptions = buildAttributeOptions( bindingOptions.result );
-                    bindingOptions.element = element;
-                    bindingOptions.currentView = {};
-                    bindingOptions.currentView.colorsVisible = {};
-                    bindingOptions.currentView.year = bindingOptions.year;
-                    bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
-
-                    fireCustomTrigger( bindingOptions.onBeforeRender, element );
-
-                    if ( !isDefinedString( element.id ) ) {
-                        element.id = newGuid();
-                    }
-
-                    element.removeAttribute( _attribute_Name_Options );
-
-                    createDateStorageForElement( element.id, bindingOptions );
-                    renderControl( bindingOptions );
-                    fireCustomTrigger( bindingOptions.onRenderComplete, element );
+                    renderControl( renderBindingOptions( bindingOptions.result, element ) );
 
                 } else {
                     if ( !_configuration.safeMode ) {
@@ -108,9 +91,40 @@
         return result;
     }
 
+    function renderBindingOptions( data, element ) {
+        var bindingOptions = buildAttributeOptions( data );
+        bindingOptions.currentView = {};
+        bindingOptions.currentView.element = element;
+        bindingOptions.currentView.mapContents = null;
+        bindingOptions.currentView.mapContentsScrollLeft = 0;
+        bindingOptions.currentView.colorsVisible = {};
+        bindingOptions.currentView.year = bindingOptions.year;
+        bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
+
+        return bindingOptions;
+    }
+
     function renderControl( bindingOptions ) {
-        bindingOptions.element.className = "heat-js";
-        bindingOptions.element.innerHTML = _string.empty;
+        fireCustomTrigger( bindingOptions.onBeforeRender, bindingOptions.currentView.element );
+
+        if ( !isDefinedString( bindingOptions.currentView.element.id ) ) {
+            bindingOptions.currentView.element.id = newGuid();
+        }
+
+        bindingOptions.currentView.element.removeAttribute( _attribute_Name_Options );
+
+        createDateStorageForElement( bindingOptions.currentView.element.id, bindingOptions );
+        renderControlContainer( bindingOptions );
+        fireCustomTrigger( bindingOptions.onRenderComplete, bindingOptions.currentView.element );
+    }
+
+    function renderControlContainer( bindingOptions ) {
+        if ( isDefined( bindingOptions.currentView.mapContents ) ) {
+            bindingOptions.currentView.mapContentsScrollLeft = bindingOptions.currentView.mapContents.scrollLeft;
+        }
+
+        bindingOptions.currentView.element.className = "heat-js";
+        bindingOptions.currentView.element.innerHTML = _string.empty;
 
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions );
@@ -118,7 +132,7 @@
 
     function renderControlTitleBar( bindingOptions ) {
         if ( bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton ) {
-            var titleBar = createElement( bindingOptions.element, "div", "title-bar" );
+            var titleBar = createElement( bindingOptions.currentView.element, "div", "title-bar" );
     
             if ( bindingOptions.showTitle ) {
                 createElementWithHTML( titleBar, "div", "title", bindingOptions.titleText );
@@ -129,7 +143,7 @@
         
                 exportData.onclick = function() {
                     exportAllData( bindingOptions );
-                    fireCustomTrigger( bindingOptions.onExport, bindingOptions.element );
+                    fireCustomTrigger( bindingOptions.onExport, bindingOptions.currentView.element );
                 };
             }
 
@@ -137,8 +151,8 @@
                 var refresh = createElementWithHTML( titleBar, "button", "refresh", _configuration.refreshButtonText );
         
                 refresh.onclick = function() {
-                    renderControl( bindingOptions );
-                    fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.element );
+                    renderControlContainer( bindingOptions );
+                    fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
                 };
             }
     
@@ -148,32 +162,53 @@
                 back.onclick = function() {
                     bindingOptions.currentView.year--;
         
-                    renderControl( bindingOptions );
+                    renderControlContainer( bindingOptions );
                     fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
                 };
 
                 bindingOptions.currentView.yearText = createElementWithHTML( titleBar, "div", "year-text", bindingOptions.currentView.year );
-        
+
+                if ( bindingOptions.showYearSelectionDropDown ) {
+                    var yearList = createElement( bindingOptions.currentView.yearText, "div", "years-list" ),
+                        years = createElement( yearList, "div", "years" ),
+                        thisYear = new Date().getFullYear();
+
+                    for ( var currentYear = thisYear - bindingOptions.extraSelectionYears; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++ ) {
+                        renderControlTitleBarYear( bindingOptions, years, currentYear );
+                    }
+                }
+
                 var next = createElementWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
-        
+
                 next.onclick = function() {
                     bindingOptions.currentView.year++;
         
-                    renderControl( bindingOptions );
+                    renderControlContainer( bindingOptions );
                     fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
                 };
             }
         }
     }
 
+    function renderControlTitleBarYear( bindingOptions, years, currentYear ) {
+        var year = createElementWithHTML( years, "div", "year", currentYear );
+
+        year.onclick = function() {
+            bindingOptions.currentView.year = currentYear;
+
+            renderControlContainer( bindingOptions );
+            fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
+        };
+    }
+
     function renderControlMap( bindingOptions ) {
-        var mapContents = createElement( bindingOptions.element, "div", "map-contents" ),
-            map = createElement( mapContents, "div", "map" );
+        bindingOptions.currentView.mapContents = createElement( bindingOptions.currentView.element, "div", "map-contents" );
+
+        var map = createElement( bindingOptions.currentView.mapContents, "div", "map" ),
+            currentYear = bindingOptions.currentView.year,
+            monthAdded = false;
 
         renderControlViewGuide( bindingOptions );
-
-        var currentYear = bindingOptions.currentView.year,
-            monthAdded = false;
 
         if ( bindingOptions.showDayNames ) {
             var days = createElement( map, "div", "days" );
@@ -259,13 +294,17 @@
                 monthAdded = true;
             }
         }
+        
+        if ( bindingOptions.keepScrollPositions ) {
+            bindingOptions.currentView.mapContents.scrollLeft = bindingOptions.currentView.mapContentsScrollLeft;
+        }
     }
 
     function renderControlViewMonthDay( bindingOptions, currentDayColumn, dayNumber, month, year, mapRangeColors ) {
         var actualDay = dayNumber + 1,
             day = createElement( currentDayColumn, "div", "day" ),
             date = new Date( year, month, actualDay ),
-            dateCount = _elements_DateCounts[ bindingOptions.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
+            dateCount = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
 
         dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
 
@@ -309,19 +348,19 @@
     }
 
     function renderControlViewGuide( bindingOptions ) {
-        var guide = createElement( bindingOptions.element, "div", "guide" ),
+        var guide = createElement( bindingOptions.currentView.element, "div", "guide" ),
             mapTypes = createElement( guide, "div", "map-types" ),
             noneTypeCount = 0;
 
-        for ( var storageDate in _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ] ) {
-            if ( _elements_DateCounts[ bindingOptions.element.id ].type[ _elements_DateCounts_DefaultType ].hasOwnProperty( storageDate ) ) {
+        for ( var storageDate in _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ _elements_DateCounts_DefaultType ] ) {
+            if ( _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ _elements_DateCounts_DefaultType ].hasOwnProperty( storageDate ) ) {
                 noneTypeCount++;
                 break;
             }
         }
 
-        if ( _elements_DateCounts[ bindingOptions.element.id ].types > 1 ) {
-            for ( var type in _elements_DateCounts[ bindingOptions.element.id ].type ) {
+        if ( _elements_DateCounts[ bindingOptions.currentView.element.id ].types > 1 ) {
+            for ( var type in _elements_DateCounts[ bindingOptions.currentView.element.id ].type ) {
                 if ( type !== _elements_DateCounts_DefaultType || noneTypeCount > 0 ) {
                     if ( noneTypeCount === 0 && bindingOptions.currentView.type === _elements_DateCounts_DefaultType ) {
                         bindingOptions.currentView.type = type;
@@ -380,7 +419,7 @@
                 bindingOptions.currentView.type = type;
 
                 fireCustomTrigger( bindingOptions.onTypeSwitch, type );
-                renderControl( bindingOptions );
+                renderControlContainer( bindingOptions );
             }
         };
     }
@@ -409,7 +448,7 @@
     
                 bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] = !bindingOptions.currentView.colorsVisible[ mapRangeColor.id ];
     
-                renderControl( bindingOptions );
+                renderControlContainer( bindingOptions );
             };
 
         } else {
@@ -438,7 +477,7 @@
             bindingOptions.currentView.colorsVisible[ bindingOptions.mapRangeColors[ mapRangeColorsIndex ].id ] = flag;
         }
 
-        renderControl( bindingOptions );
+        renderControlContainer( bindingOptions );
     }
 
 
@@ -464,7 +503,7 @@
     }
 
     function getCsvContent( bindingOptions ) {
-        var csvData = _elements_DateCounts[ bindingOptions.element.id ].type[ bindingOptions.currentView.type ],
+        var csvData = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ],
             csvContents = [],
             csvStorageDates = [];
 
@@ -553,6 +592,9 @@
         options.exportOnlyYearBeingViewed = getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
         options.year = getDefaultNumber( options.year, new Date().getFullYear() );
         options.showDayNumbers = getDefaultBoolean( options.showDayNumbers, false );
+        options.keepScrollPositions = getDefaultBoolean( options.keepScrollPositions, false );
+        options.extraSelectionYears = getDefaultNumber( options.extraSelectionYears, 50 );
+        options.showYearSelectionDropDown = getDefaultBoolean( options.showYearSelectionDropDown, true );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -926,7 +968,7 @@
             _elements_DateCounts[ elementId ].type[ type ][ storageDate ]++;
 
             if ( triggerRefresh ) {
-                renderControl( _elements_DateCounts[ elementId ].options );
+                renderControlContainer( _elements_DateCounts[ elementId ].options );
             }
         }
 
@@ -961,7 +1003,7 @@
                 }
 
                 if ( triggerRefresh ) {
-                    renderControl( _elements_DateCounts[ elementId ].options );
+                    renderControlContainer( _elements_DateCounts[ elementId ].options );
                 }
             }
         }
@@ -991,7 +1033,7 @@
             createDateStorageForElement( elementId, bindingOptions );
 
             if ( triggerRefresh ) {
-                renderControl( _elements_DateCounts[ elementId ].options );
+                renderControlContainer( _elements_DateCounts[ elementId ].options );
             }
         }
 
@@ -1000,6 +1042,10 @@
 
     function toStorageDate( date ) {
         return date.getFullYear() + "-" + padNumber( date.getMonth() + 1 ) + "-" + padNumber( date.getDate() );
+    }
+
+    function getStorageDateYear( data ) {
+        return data.split( "-" )[ 0 ];
     }
 
 
@@ -1015,6 +1061,7 @@
      * Refreshes a Heat.js instance.
      * 
      * @public
+     * @fires       onRefresh
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should be refreshed.
      * 
@@ -1024,8 +1071,8 @@
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
-            renderControl( bindingOptions );
-            fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.element );
+            renderControlContainer( bindingOptions );
+            fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
         }
 
         return this;
@@ -1037,6 +1084,7 @@
      * Refreshes all of the rendered Heat.js instances.
      * 
      * @public
+     * @fires       onRefresh
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
@@ -1045,8 +1093,8 @@
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 var bindingOptions = _elements_DateCounts[ elementId ].options;
 
-                renderControl( bindingOptions );
-                fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.element );
+                renderControlContainer( bindingOptions );
+                fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
             }
         }
 
@@ -1059,6 +1107,7 @@
      * Sets the year to be displayed.
      * 
      * @public
+     * @fires       onSetYear
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
      * @param       {number}    year                                        The year that should be shown.
@@ -1070,8 +1119,78 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             bindingOptions.currentView.year = year;
 
-            renderControl( bindingOptions );
+            renderControlContainer( bindingOptions );
             fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
+        }
+
+        return this;
+    };
+
+    /**
+     * setYearToHighest().
+     * 
+     * Sets the year to to the highest year available.
+     * 
+     * @public
+     * @fires       onSetYear
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.setYearToHighest = function( elementId ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options,
+                data = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ],
+                maximumYear = 0;
+
+            for ( var storageDate in data ) {
+                if ( data.hasOwnProperty( storageDate ) ) {
+                    maximumYear = Math.max( maximumYear, parseInt( getStorageDateYear( storageDate ) ) );
+                }
+            }
+
+            if ( maximumYear > 0 ) {
+                bindingOptions.currentView.year = maximumYear;
+
+                renderControlContainer( bindingOptions );
+                fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * setYearToLowest().
+     * 
+     * Sets the year to to the lowest year available.
+     * 
+     * @public
+     * @fires       onSetYear
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.setYearToLowest = function( elementId ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options,
+                data = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ],
+                minimumYear = 9999;
+
+            for ( var storageDate in data ) {
+                if ( data.hasOwnProperty( storageDate ) ) {
+                    minimumYear = Math.min( minimumYear, parseInt( getStorageDateYear( storageDate ) ) );
+                }
+            }
+
+            if ( minimumYear < 9999 ) {
+                bindingOptions.currentView.year = minimumYear;
+
+                renderControlContainer( bindingOptions );
+                fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
+            }
         }
 
         return this;
@@ -1098,6 +1217,24 @@
         }
 
         return result;
+    };
+
+    /**
+     * render().
+     * 
+     * Renders a new map on a element using the options specified.
+     * 
+     * @public
+     * 
+     * @param       {Object}    element                                     The element to convert to a heat map.
+     * @param       {Object}    options                                     The options to use (refer to "Binding Options" documentation for properties).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.render = function( element, options ) {
+        renderControl( renderBindingOptions( options, element ) );
+
+        return this;
     };
 
     /**
@@ -1128,6 +1265,7 @@
      * Reverts all rendered elements back to their original state (without render attributes).
      * 
      * @public
+     * @fires       onDestroy
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
@@ -1136,10 +1274,10 @@
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 var bindingOptions = _elements_DateCounts[ elementId ].options;
 
-                bindingOptions.element.innerHTML = _string.empty;
-                bindingOptions.element.className = _string.empty;
+                bindingOptions.currentView.element.innerHTML = _string.empty;
+                bindingOptions.currentView.element.className = _string.empty;
 
-                fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.element );
+                fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.currentView.element );
             }
         }
 
@@ -1154,6 +1292,7 @@
      * Reverts an element back to its original state (without render attributes).
      * 
      * @public
+     * @fires       onDestroy
      * 
      * @param       {string}    elementId                                   The Heat.js element ID to destroy.
      * 
@@ -1163,10 +1302,10 @@
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
-            bindingOptions.element.innerHTML = _string.empty;
-            bindingOptions.element.className = _string.empty;
+            bindingOptions.currentView.element.innerHTML = _string.empty;
+            bindingOptions.currentView.element.className = _string.empty;
 
-            fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.element );
+            fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.currentView.element );
 
             delete _elements_DateCounts[ elementId ];
         }
@@ -1188,7 +1327,7 @@
      * 
      * @public
      * 
-     * @param       {Object}   newConfiguration                             All the configuration options that should be set (refer to "Options" documentation for properties).
+     * @param       {Object}   newConfiguration                             All the configuration options that should be set (refer to "Configuration Options" documentation for properties).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
@@ -1277,7 +1416,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.3.0";
+        return "1.4.0";
     };
 
 

@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.3.0
+ * Heat.js Library v1.4.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -10,6 +10,10 @@
   --heat-js-color-gray: #AAAAAA;
   --heat-js-container-background-color: #22272e;
   --heat-js-container-border-color: #454c56;
+  --heat-js-years-background-color: var(--heat-js-container-background-color);
+  --heat-js-years-border-color: var(--heat-js-container-border-color);
+  --heat-js-years-text-color: var(--heat-js-color-white);
+  --heat-js-years-background-color-hover: var(--heat-js-button-background-color-hover);
   --heat-js-day-background-color: #2d333b;
   --heat-js-day-border-color: var(--heat-js-container-border-color);
   --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
@@ -40,6 +44,8 @@
   --heat-js-border-size-day: 1px;
   --heat-js-spacing: 10px;
   --heat-js-spacing-font-size: 0.85rem;
+  --heat-js-text-bold-weight: 400;
+  --heat-js-title-bold-weight: 800;
   --heat-js-transition: all .3s;
 }
 
@@ -94,7 +100,7 @@ div.heat-js div.title-bar {
 }
 div.heat-js div.title-bar div.title {
   float: left;
-  font-weight: 800;
+  font-weight: var(--heat-js-title-bold-weight);
   font-size: 1.2rem;
 }
 div.heat-js div.title-bar button {
@@ -131,6 +137,50 @@ div.heat-js div.title-bar div.year-text {
   margin-left: var(--heat-js-spacing);
   margin-right: var(--heat-js-spacing);
   display: inline-block;
+  font-weight: var(--heat-js-title-bold-weight);
+  position: relative;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+div.heat-js div.title-bar div.year-text:hover div.years-list {
+  display: block;
+}
+div.heat-js div.title-bar div.year-text div.years-list {
+  padding: 5px;
+  display: none;
+  position: absolute;
+  width: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 5px;
+}
+div.heat-js div.title-bar div.year-text div.years-list div.years {
+  border-radius: var(--heat-js-border-radius);
+  background-color: var(--heat-js-years-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-years-border-color);
+  color: var(--heat-js-years-text-color);
+  height: 200px;
+  overflow-y: scroll;
+}
+div.heat-js div.title-bar div.year-text div.years-list div.years div.year {
+  color: var(--heat-js-color-white);
+  font-weight: var(--heat-js-text-bold-weight);
+  border-bottom: var(--heat-js-border-size) dashed var(--heat-js-container-border-color);
+  padding: var(--heat-js-spacing);
+  text-align: center;
+  width: 100%;
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.title-bar div.year-text div.years-list div.years div.year:active {
+  opacity: 0.5 !important;
+}
+div.heat-js div.title-bar div.year-text div.years-list div.years div.year:hover {
+  cursor: pointer;
+  background-color: var(--heat-js-years-background-color-hover);
+}
+div.heat-js div.title-bar div.year-text div.years-list div.years div.year:last-child {
+  border-bottom: none;
 }
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.refresh {
@@ -169,7 +219,7 @@ div.heat-js div.map-contents div.map div.days {
   }
 }
 div.heat-js div.map-contents div.map div.days div.day-name {
-  font-weight: 300;
+  font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
   height: var(--heat-js-day-size);
   margin-bottom: var(--heat-js-day-spacing);
@@ -191,7 +241,7 @@ div.heat-js div.map-contents div.map div.months div.month:last-child div.day-col
 }
 div.heat-js div.map-contents div.map div.months div.month div.month-name,
 div.heat-js div.map-contents div.map div.months div.month div.month-name-bottom {
-  font-weight: 300;
+  font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
 }
 div.heat-js div.map-contents div.map div.months div.month div.month-name {
@@ -307,7 +357,7 @@ div.heat-js div.guide div.map-toggles {
 div.heat-js div.guide div.map-toggles div.less-text,
 div.heat-js div.guide div.map-toggles div.more-text {
   display: inline-block;
-  font-weight: 300;
+  font-weight: var(--heat-js-text-bold-weight);
   transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-toggles div.less-text:hover,
