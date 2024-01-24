@@ -12,6 +12,8 @@ $heat.setConfiguration( {
         "moreText": "আরও",
         "dateText": "তারিখ",
         "countText": "গণনা",
+        "mapText": "মানচিত্র",
+        "chartText": "চার্ট",
         "monthNames": [
                 "জান",
                 "ফেব্রুয়ারী",

@@ -12,6 +12,8 @@ $heat.setConfiguration( {
         "moreText": "Daha",
         "dateText": "Tarih",
         "countText": "Saymak",
+        "mapText": "Harita",
+        "chartText": "Çizelge",
         "monthNames": [
                 "Ocak",
                 "Şubat",

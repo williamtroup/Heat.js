@@ -12,6 +12,8 @@ $heat.setConfiguration( {
         "moreText": "もっと",
         "dateText": "日付",
         "countText": "カウント",
+        "mapText": "地図",
+        "chartText": "チャート",
         "monthNames": [
                 "1月",
                 "2月",

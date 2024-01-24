@@ -12,6 +12,8 @@ $heat.setConfiguration( {
         "moreText": "Więcej",
         "dateText": "Data",
         "countText": "Liczyć",
+        "mapText": "Mapa",
+        "chartText": "Wykres",
         "monthNames": [
                 "Sty",
                 "Lut",

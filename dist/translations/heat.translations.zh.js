@@ -12,6 +12,8 @@ $heat.setConfiguration( {
         "moreText": "更多的",
         "dateText": "日期",
         "countText": "数数",
+        "mapText": "地图",
+        "chartText": "图表",
         "monthNames": [
                 "扬",
                 "二月",
