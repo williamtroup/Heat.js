@@ -157,10 +157,9 @@
             if ( bindingOptions.showTitle ) {
                 var title = createElementWithHTML( titleBar, "div", "title", bindingOptions.titleText ),
                     titlesList = createElement( title, "div", "titles-list" ),
-                    titles = createElement( titlesList, "div", "titles" );
-
-                var optionMap = createElementWithHTML( titles, "div", "title", "Map" ),
-                    optionChart = createElementWithHTML( titles, "div", "title", "Chart" );
+                    titles = createElement( titlesList, "div", "titles" ),
+                    optionMap = createElementWithHTML( titles, "div", "title", _configuration.mapText ),
+                    optionChart = createElementWithHTML( titles, "div", "title", _configuration.chartText );
 
                 optionMap.onclick = function() {
                     bindingOptions.currentView.mapContents.style.display = "block";
@@ -1518,6 +1517,8 @@
         _configuration.moreText = getDefaultString( _configuration.moreText, "More" );
         _configuration.dateText = getDefaultString( _configuration.dateText, "Date" );
         _configuration.countText = getDefaultString( _configuration.countText, "Count" );
+        _configuration.mapText = getDefaultString( _configuration.mapText, "Map" );
+        _configuration.chartText = getDefaultString( _configuration.chartText, "Chart" );
     }
 
     function buildDefaultConfigurationArrays() {
