@@ -306,7 +306,7 @@
         }
       }
     }
-    chart.style.width = dayLine.offsetWidth * totalDays + "px";
+    chart.style.width = (dayLine.offsetWidth + getStyleValueByName(dayLine, "margin-right", true)) * totalDays + "px";
     if (bindingOptions.keepScrollPositions) {
       bindingOptions.currentView.chartContents.scrollLeft = bindingOptions.currentView.chartContentsScrollLeft;
     }
@@ -322,6 +322,9 @@
       dayLine.title = getCustomFormattedDateText(bindingOptions.dayToolTipText, date);
     }
     dayLine.style.height = dateCount * pixelsPerNumbers + "px";
+    if (dayLine.offsetHeight > chart.offsetHeight / 2) {
+      dayLine.style.height = dayLine.offsetHeight - 5 + "px";
+    }
     if (isDefinedFunction(bindingOptions.onDayClick)) {
       dayLine.onclick = function() {
         fireCustomTrigger(bindingOptions.onDayClick, date, dateCount);
