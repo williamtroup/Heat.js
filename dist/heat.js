@@ -466,6 +466,9 @@
     options.onSetYear = getDefaultFunction(options.onSetYear, null);
     options.onTypeSwitch = getDefaultFunction(options.onTypeSwitch, null);
     options.onDayToolTipRender = getDefaultFunction(options.onDayToolTipRender, null);
+    options.onAdd = getDefaultFunction(options.onAdd, null);
+    options.onRemove = getDefaultFunction(options.onRemove, null);
+    options.onReset = getDefaultFunction(options.onReset, null);
     return options;
   }
   function getTotalDaysInMonth(year, month) {
@@ -686,6 +689,8 @@
         _elements_DateCounts[elementId].type[type][storageDate] = 0;
       }
       _elements_DateCounts[elementId].type[type][storageDate]++;
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      fireCustomTrigger(bindingOptions.onAdd, bindingOptions.currentView.element);
       if (triggerRefresh) {
         renderControlContainer(_elements_DateCounts[elementId].options);
       }
@@ -701,6 +706,8 @@
         if (_elements_DateCounts[elementId].type[type][storageDate] > 0) {
           _elements_DateCounts[elementId].type[type][storageDate]--;
         }
+        var bindingOptions = _elements_DateCounts[elementId].options;
+        fireCustomTrigger(bindingOptions.onRemove, bindingOptions.currentView.element);
         if (triggerRefresh) {
           renderControlContainer(_elements_DateCounts[elementId].options);
         }
@@ -714,6 +721,7 @@
       var bindingOptions = _elements_DateCounts[elementId].options;
       bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
       createDateStorageForElement(elementId, bindingOptions);
+      fireCustomTrigger(bindingOptions.onReset, bindingOptions.currentView.element);
       if (triggerRefresh) {
         renderControlContainer(_elements_DateCounts[elementId].options);
       }

@@ -664,6 +664,9 @@
         options.onSetYear = getDefaultFunction( options.onSetYear, null );
         options.onTypeSwitch = getDefaultFunction( options.onTypeSwitch, null );
         options.onDayToolTipRender = getDefaultFunction( options.onDayToolTipRender, null );
+        options.onAdd = getDefaultFunction( options.onAdd, null );
+        options.onRemove = getDefaultFunction( options.onRemove, null );
+        options.onReset = getDefaultFunction( options.onReset, null );
 
         return options;
     }
@@ -941,6 +944,7 @@
      * Adds a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is increased by one.
      * 
      * @public
+     * @fires       onAdd
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
      * @param       {Date}      date                                        The date to add.
@@ -967,6 +971,10 @@
     
             _elements_DateCounts[ elementId ].type[ type ][ storageDate ]++;
 
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+            fireCustomTrigger( bindingOptions.onAdd, bindingOptions.currentView.element );
+
             if ( triggerRefresh ) {
                 renderControlContainer( _elements_DateCounts[ elementId ].options );
             }
@@ -981,6 +989,7 @@
      * Removes a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is decreased by one.
      * 
      * @public
+     * @fires       onRemove
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date}      date                                        The date to removed.
@@ -1002,6 +1011,10 @@
                     _elements_DateCounts[ elementId ].type[ type ][ storageDate ]--;
                 }
 
+                var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+                fireCustomTrigger( bindingOptions.onRemove, bindingOptions.currentView.element );
+
                 if ( triggerRefresh ) {
                     renderControlContainer( _elements_DateCounts[ elementId ].options );
                 }
@@ -1017,6 +1030,7 @@
      * Removes all the dates for a specific element ID, and refreshes the UI (if specified).
      * 
      * @public
+     * @fires       onReset
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
      * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
@@ -1031,6 +1045,8 @@
             bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
 
             createDateStorageForElement( elementId, bindingOptions );
+
+            fireCustomTrigger( bindingOptions.onReset, bindingOptions.currentView.element );
 
             if ( triggerRefresh ) {
                 renderControlContainer( _elements_DateCounts[ elementId ].options );
