@@ -426,8 +426,8 @@
     }
 
     function renderControlChartDay( chart, bindingOptions, day, month, year, mapRangeColors, pixelsPerNumbers ) {
-        var date = date = new Date( year, month, day ),
-            dayLine = createElement( chart, "div", "day-line" )
+        var date = new Date( year, month, day ),
+            dayLine = createElement( chart, "div", "day-line" ),
             dateCount = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
 
         dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;

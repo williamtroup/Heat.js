@@ -116,7 +116,7 @@ div.heat-js div.title-bar div.title div.titles-list {
   padding-top: 3px;
   display: none;
   position: absolute;
-  width: 80px;
+  width: 100px;
   margin-top: 3px;
   z-index: 100;
 }
@@ -342,7 +342,7 @@ div.heat-js div.chart-contents div.chart {
   vertical-align: bottom;
 }
 div.heat-js div.chart-contents div.chart div.day-line {
-  width: 5px;
+  width: 8px;
   margin-right: 1px;
   display: inline-block;
 }
