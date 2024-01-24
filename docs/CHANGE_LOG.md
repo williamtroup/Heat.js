@@ -5,6 +5,9 @@
 #### **New Features:**
 - Added chart support! This view can be shown using a new menu available from the title bar!
 
+#### **Binding Options:**
+- Added a new binding option called "view", which states the view that should be shown by default (defaults to "map", also accepts "chart").
+
 #### **Binding Options - Custom Triggers:**
 - Added a new binding option called "onAdd", which states an event that should be called when new dates are added.
 - Added a new binding option called "onRemove", which states an event that should be called when dates are removed.

@@ -106,7 +106,14 @@
         bindingOptions.currentView.colorsVisible = {};
         bindingOptions.currentView.year = bindingOptions.year;
         bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
-        bindingOptions.currentView.view = _elements_View_Map;
+
+        if ( !isDefinedString( bindingOptions.view ) || bindingOptions.view.toLowerCase() === "map" ) {
+            bindingOptions.currentView.view = _elements_View_Map;
+        } else if ( bindingOptions.view.toLowerCase() === "chart" ) {
+            bindingOptions.currentView.view = _elements_View_Chart;
+        } else {
+            bindingOptions.currentView.view = _elements_View_Map;
+        }
 
         return bindingOptions;
     }
@@ -789,6 +796,7 @@
         options.keepScrollPositions = getDefaultBoolean( options.keepScrollPositions, false );
         options.extraSelectionYears = getDefaultNumber( options.extraSelectionYears, 50 );
         options.showYearSelectionDropDown = getDefaultBoolean( options.showYearSelectionDropDown, true );
+        options.view = getDefaultString( options.view, null );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
