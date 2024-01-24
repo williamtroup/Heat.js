@@ -20,6 +20,7 @@
 
 #### **General Improvements:**
 - All rendering areas are now sectioned in the JS code.
+- The year currently selected in the view is now shown in the year drop-down list.
 
 <br>
 

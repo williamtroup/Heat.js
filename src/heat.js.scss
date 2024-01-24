@@ -200,11 +200,11 @@ div.heat-js {
                         transition: var(--heat-js-transition);
                         font-size: var(--heat-js-spacing-font-size) !important;
     
-                        &:active {
+                        &:not(.title-active):active {
                             opacity: 0.5 !important;
                         }
     
-                        &:hover {
+                        &:not(.title-active):hover {
                             cursor: pointer;
                             background-color: var(--heat-js-title-background-color-hover);
                         }
@@ -277,11 +277,11 @@ div.heat-js {
                         transition: var(--heat-js-transition);
                         scroll-snap-align: start;
     
-                        &:active {
+                        &:not(.year-active):active {
                             opacity: 0.5 !important;
                         }
     
-                        &:hover {
+                        &:not(.year-active):hover {
                             cursor: pointer;
                             background-color: var(--heat-js-years-background-color-hover);
                         }
@@ -290,8 +290,13 @@ div.heat-js {
                             border-bottom: none;
                         }
                     }
-                }
 
+                    div.year-active {
+                        background-color: var(--heat-js-years-background-color-hover);
+                        font-weight: 900;
+                        cursor: default !important;
+                    }
+                }
             }
         }
 

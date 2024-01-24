@@ -83,6 +83,37 @@
       bindingOptions.currentView.chartContents.style.display = "block";
     }
   }
+  function isHeatMapColorVisible(bindingOptions, id) {
+    return !bindingOptions.currentView.colorsVisible.hasOwnProperty(id) || bindingOptions.currentView.colorsVisible[id];
+  }
+  function createDateStorageForElement(elementId, bindingOptions) {
+    _elements_DateCounts[elementId] = {options:bindingOptions, type:{}, types:1};
+    _elements_DateCounts[elementId].type[_elements_DateCounts_DefaultType] = {};
+  }
+  function updateMapRangeColorToggles(bindingOptions, flag) {
+    var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+    var mapRangeColorsIndex = 0;
+    for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
+      bindingOptions.currentView.colorsVisible[bindingOptions.mapRangeColors[mapRangeColorsIndex].id] = flag;
+    }
+    renderControlContainer(bindingOptions);
+  }
+  function getLargestValueForYear(bindingOptions) {
+    var result = 0;
+    var data = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
+    var monthIndex = 0;
+    for (; monthIndex < 12; monthIndex++) {
+      var totalDaysInMonth = getTotalDaysInMonth(bindingOptions.currentView.year, monthIndex);
+      var dayIndex = 0;
+      for (; dayIndex < totalDaysInMonth; dayIndex++) {
+        var storageDate = toStorageDate(new Date(bindingOptions.currentView.year, monthIndex, dayIndex + 1));
+        if (data.hasOwnProperty(storageDate)) {
+          result = Math.max(result, parseInt(data[storageDate]));
+        }
+      }
+    }
+    return result;
+  }
   function renderControlTitleBar(bindingOptions) {
     if (bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton) {
       var titleBar = createElement(bindingOptions.currentView.element, "div", "title-bar");
@@ -153,11 +184,15 @@
   }
   function renderControlTitleBarYear(bindingOptions, years, currentYear) {
     var year = createElementWithHTML(years, "div", "year", currentYear);
-    year.onclick = function() {
-      bindingOptions.currentView.year = currentYear;
-      renderControlContainer(bindingOptions);
-      fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
-    };
+    if (bindingOptions.currentView.year !== currentYear) {
+      year.onclick = function() {
+        bindingOptions.currentView.year = currentYear;
+        renderControlContainer(bindingOptions);
+        fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+      };
+    } else {
+      year.className += _string.space + "year-active";
+    }
   }
   function renderControlMap(bindingOptions) {
     bindingOptions.currentView.mapContents = createElement(bindingOptions.currentView.element, "div", "map-contents");
@@ -436,37 +471,6 @@
     } else {
       day.className += _string.space + "no-click";
     }
-  }
-  function isHeatMapColorVisible(bindingOptions, id) {
-    return !bindingOptions.currentView.colorsVisible.hasOwnProperty(id) || bindingOptions.currentView.colorsVisible[id];
-  }
-  function createDateStorageForElement(elementId, bindingOptions) {
-    _elements_DateCounts[elementId] = {options:bindingOptions, type:{}, types:1};
-    _elements_DateCounts[elementId].type[_elements_DateCounts_DefaultType] = {};
-  }
-  function updateMapRangeColorToggles(bindingOptions, flag) {
-    var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
-    var mapRangeColorsIndex = 0;
-    for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
-      bindingOptions.currentView.colorsVisible[bindingOptions.mapRangeColors[mapRangeColorsIndex].id] = flag;
-    }
-    renderControlContainer(bindingOptions);
-  }
-  function getLargestValueForYear(bindingOptions) {
-    var result = 0;
-    var data = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
-    var monthIndex = 0;
-    for (; monthIndex < 12; monthIndex++) {
-      var totalDaysInMonth = getTotalDaysInMonth(bindingOptions.currentView.year, monthIndex);
-      var dayIndex = 0;
-      for (; dayIndex < totalDaysInMonth; dayIndex++) {
-        var storageDate = toStorageDate(new Date(bindingOptions.currentView.year, monthIndex, dayIndex + 1));
-        if (data.hasOwnProperty(storageDate)) {
-          result = Math.max(result, parseInt(data[storageDate]));
-        }
-      }
-    }
-    return result;
   }
   function exportAllData(bindingOptions) {
     var csvContents = getCsvContent(bindingOptions);

@@ -137,10 +137,10 @@ div.heat-js div.title-bar div.title div.titles-list div.titles div.title {
   transition: var(--heat-js-transition);
   font-size: var(--heat-js-spacing-font-size) !important;
 }
-div.heat-js div.title-bar div.title div.titles-list div.titles div.title:active {
+div.heat-js div.title-bar div.title div.titles-list div.titles div.title:not(.title-active):active {
   opacity: 0.5 !important;
 }
-div.heat-js div.title-bar div.title div.titles-list div.titles div.title:hover {
+div.heat-js div.title-bar div.title div.titles-list div.titles div.title:not(.title-active):hover {
   cursor: pointer;
   background-color: var(--heat-js-title-background-color-hover);
 }
@@ -223,15 +223,20 @@ div.heat-js div.title-bar div.year-text div.years-list div.years div.year {
   transition: var(--heat-js-transition);
   scroll-snap-align: start;
 }
-div.heat-js div.title-bar div.year-text div.years-list div.years div.year:active {
+div.heat-js div.title-bar div.year-text div.years-list div.years div.year:not(.year-active):active {
   opacity: 0.5 !important;
 }
-div.heat-js div.title-bar div.year-text div.years-list div.years div.year:hover {
+div.heat-js div.title-bar div.year-text div.years-list div.years div.year:not(.year-active):hover {
   cursor: pointer;
   background-color: var(--heat-js-years-background-color-hover);
 }
 div.heat-js div.title-bar div.year-text div.years-list div.years div.year:last-child {
   border-bottom: none;
+}
+div.heat-js div.title-bar div.year-text div.years-list div.years div.year-active {
+  background-color: var(--heat-js-years-background-color-hover);
+  font-weight: 900;
+  cursor: default !important;
 }
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.refresh {

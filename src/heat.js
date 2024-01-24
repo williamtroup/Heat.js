@@ -291,12 +291,17 @@
     function renderControlTitleBarYear( bindingOptions, years, currentYear ) {
         var year = createElementWithHTML( years, "div", "year", currentYear );
 
-        year.onclick = function() {
-            bindingOptions.currentView.year = currentYear;
+        if ( bindingOptions.currentView.year !== currentYear ) {
+            year.onclick = function() {
+                bindingOptions.currentView.year = currentYear;
+    
+                renderControlContainer( bindingOptions );
+                fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
+            };
 
-            renderControlContainer( bindingOptions );
-            fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
-        };
+        } else {
+            year.className += _string.space + "year-active";
+        }
     }
 
 
