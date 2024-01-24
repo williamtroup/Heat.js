@@ -316,12 +316,19 @@
   }
   function renderControlChart(bindingOptions) {
     var chart = createElement(bindingOptions.currentView.chartContents, "div", "chart");
+    var labels = createElement(chart, "div", "labels");
+    var dayLines = createElement(chart, "div", "day-lines");
     var mapRangeColors = bindingOptions.mapRangeColors.sort(function(a, b) {
       return b.range - a.range;
     });
-    var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / getLargestValueForYear(bindingOptions);
+    var largestValueForCurrentYear = getLargestValueForYear(bindingOptions);
+    var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear;
     var currentYear = bindingOptions.currentView.year;
     var totalDays = 0;
+    if (largestValueForCurrentYear > 0) {
+      createElementWithHTML(labels, "div", "label-top", largestValueForCurrentYear.toString());
+      createElementWithHTML(labels, "div", "label-bottom", "0");
+    }
     var monthIndex = 0;
     for (; monthIndex < 12; monthIndex++) {
       if (bindingOptions.monthsToShow.indexOf(monthIndex + 1) > -1) {
@@ -330,7 +337,7 @@
         var dayIndex = 0;
         for (; dayIndex < totalDaysInMonth; dayIndex++) {
           if (bindingOptions.daysToShow.indexOf(actualDay) > -1) {
-            renderControlChartDay(chart, bindingOptions, dayIndex + 1, monthIndex, currentYear, mapRangeColors, pixelsPerNumbers);
+            renderControlChartDay(dayLines, bindingOptions, dayIndex + 1, monthIndex, currentYear, mapRangeColors, pixelsPerNumbers);
           }
           if ((dayIndex + 1) % 7 === 0) {
             actualDay = 0;
@@ -344,9 +351,9 @@
       bindingOptions.currentView.chartContents.scrollLeft = bindingOptions.currentView.chartContentsScrollLeft;
     }
   }
-  function renderControlChartDay(chart, bindingOptions, day, month, year, mapRangeColors, pixelsPerNumbers) {
+  function renderControlChartDay(dayLines, bindingOptions, day, month, year, mapRangeColors, pixelsPerNumbers) {
     var date = new Date(year, month, day);
-    var dayLine = createElement(chart, "div", "day-line");
+    var dayLine = createElement(dayLines, "div", "day-line");
     var dateCount = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type][toStorageDate(date)];
     dateCount = isDefinedNumber(dateCount) ? dateCount : 0;
     if (isDefinedFunction(bindingOptions.onDayToolTipRender)) {
@@ -355,7 +362,7 @@
       dayLine.title = getCustomFormattedDateText(bindingOptions.dayToolTipText, date);
     }
     dayLine.style.height = dateCount * pixelsPerNumbers + "px";
-    if (dayLine.offsetHeight > chart.offsetHeight / 2) {
+    if (dayLine.offsetHeight > dayLines.offsetHeight / 2) {
       dayLine.style.height = dayLine.offsetHeight - 5 + "px";
     }
     if (isDefinedFunction(bindingOptions.onDayClick)) {

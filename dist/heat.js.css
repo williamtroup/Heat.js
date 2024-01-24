@@ -350,16 +350,50 @@ div.heat-js div.chart-contents {
   white-space: nowrap;
 }
 div.heat-js div.chart-contents div.chart {
-  flex: 1;
-  height: 192px;
-  vertical-align: bottom;
+  display: inline-flex;
+  flex-direction: row;
 }
-div.heat-js div.chart-contents div.chart div.day-line {
+div.heat-js div.chart-contents div.chart div.labels {
+  background-color: var(--heat-js-container-background-color);
+  padding-right: calc(var(--heat-js-spacing) * 3);
+  padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
+  position: sticky;
+  left: 0;
+  display: none;
+}
+@media (min-width: 768px) {
+  div.heat-js div.chart-contents div.chart div.labels {
+    display: block;
+  }
+}
+div.heat-js div.chart-contents div.chart div.labels div.label-top,
+div.heat-js div.chart-contents div.chart div.labels div.label-bottom {
+  font-weight: var(--heat-js-text-bold-weight);
+  text-align: left !important;
+  height: var(--heat-js-day-size);
+  display: inline-flex;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+}
+div.heat-js div.chart-contents div.chart div.labels div.label-top {
+  top: 0;
+}
+div.heat-js div.chart-contents div.chart div.labels div.label-bottom {
+  bottom: 0;
+}
+div.heat-js div.chart-contents div.chart div.day-lines {
+  flex: 1;
+  min-height: 192px;
+  vertical-align: baseline;
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   width: 8px;
   margin-right: 1px;
   display: inline-block;
 }
-div.heat-js div.chart-contents div.chart div.day-line:last-child {
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line:last-child {
   margin-right: 0;
 }
 

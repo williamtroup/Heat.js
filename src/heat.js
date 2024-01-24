@@ -471,13 +471,21 @@
 
     function renderControlChart( bindingOptions ) {
         var chart = createElement( bindingOptions.currentView.chartContents, "div", "chart" ),
+            labels = createElement( chart, "div", "labels" ),
+            dayLines = createElement( chart, "div", "day-lines" ),
             mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
                 return b.range - a.range;
             } ),
-            pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / getLargestValueForYear( bindingOptions ),
+            largestValueForCurrentYear = getLargestValueForYear( bindingOptions ),
+            pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear,
             currentYear = bindingOptions.currentView.year,
             totalDays = 0;
-            
+
+        if ( largestValueForCurrentYear > 0 ) {
+            createElementWithHTML( labels, "div", "label-top", largestValueForCurrentYear.toString() );
+            createElementWithHTML( labels, "div", "label-bottom", "0" );
+        }
+
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             if ( bindingOptions.monthsToShow.indexOf( monthIndex + 1 ) > -1 ) {
                 var totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
@@ -485,7 +493,7 @@
     
                 for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                     if ( bindingOptions.daysToShow.indexOf( actualDay ) > -1 ) {
-                        renderControlChartDay( chart, bindingOptions, dayIndex + 1, monthIndex, currentYear, mapRangeColors, pixelsPerNumbers );
+                        renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, monthIndex, currentYear, mapRangeColors, pixelsPerNumbers );
                     }
     
                     if ( ( dayIndex + 1 ) % 7 === 0 ) {
@@ -503,9 +511,9 @@
         }
     }
 
-    function renderControlChartDay( chart, bindingOptions, day, month, year, mapRangeColors, pixelsPerNumbers ) {
+    function renderControlChartDay( dayLines, bindingOptions, day, month, year, mapRangeColors, pixelsPerNumbers ) {
         var date = new Date( year, month, day ),
-            dayLine = createElement( chart, "div", "day-line" ),
+            dayLine = createElement( dayLines, "div", "day-line" ),
             dateCount = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
 
         dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
@@ -518,7 +526,7 @@
 
         dayLine.style.height = ( dateCount * pixelsPerNumbers ) + "px";
 
-        if ( dayLine.offsetHeight > ( chart.offsetHeight / 2 ) ) {
+        if ( dayLine.offsetHeight > ( dayLines.offsetHeight / 2 ) ) {
             dayLine.style.height = ( dayLine.offsetHeight - 5 ) + "px";
         }
 
