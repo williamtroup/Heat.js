@@ -476,7 +476,6 @@
             } ),
             pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / getLargestValueForYear( bindingOptions ),
             currentYear = bindingOptions.currentView.year,
-            dayLine = null,
             totalDays = 0;
             
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
@@ -486,7 +485,7 @@
     
                 for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                     if ( bindingOptions.daysToShow.indexOf( actualDay ) > -1 ) {
-                        dayLine = renderControlChartDay( chart, bindingOptions, dayIndex + 1, monthIndex, currentYear, mapRangeColors, pixelsPerNumbers );
+                        renderControlChartDay( chart, bindingOptions, dayIndex + 1, monthIndex, currentYear, mapRangeColors, pixelsPerNumbers );
                     }
     
                     if ( ( dayIndex + 1 ) % 7 === 0 ) {
@@ -498,8 +497,6 @@
                 }
             }
         }
-        
-        chart.style.width = ( ( dayLine.offsetWidth + getStyleValueByName( dayLine, "margin-right", true ) ) * totalDays ) + "px";
 
         if ( bindingOptions.keepScrollPositions ) {
             bindingOptions.currentView.chartContents.scrollLeft = bindingOptions.currentView.chartContentsScrollLeft;
@@ -550,8 +547,6 @@
         if ( isDefined( useMapRangeColor ) && isHeatMapColorVisible( bindingOptions, useMapRangeColor.id ) ) {
             dayLine.className += _string.space + useMapRangeColor.cssClassName;
         }
-
-        return dayLine;
     }
 
 

@@ -344,10 +344,13 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
     -------------------------------------------------------------------------
 */
 div.heat-js div.chart-contents {
+  display: flex;
   overflow-y: scroll;
   text-wrap: nowrap;
+  white-space: nowrap;
 }
 div.heat-js div.chart-contents div.chart {
+  flex: 1;
   height: 192px;
   vertical-align: bottom;
 }

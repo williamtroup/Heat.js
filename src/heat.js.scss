@@ -434,10 +434,13 @@ div.heat-js {
 
 div.heat-js {
     div.chart-contents {
+        display: flex;
         overflow-y: scroll;
         text-wrap: nowrap;
+        white-space: nowrap;
 
         div.chart {
+            flex: 1;
             height: 192px;
             vertical-align: bottom;
 
