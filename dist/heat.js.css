@@ -335,10 +335,16 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
 */
 div.heat-js div.chart-contents {
   overflow-y: scroll;
-  display: none;
+  text-wrap: nowrap;
 }
 div.heat-js div.chart-contents div.chart {
-  height: 100%;
+  height: 192px;
+  vertical-align: bottom;
+}
+div.heat-js div.chart-contents div.chart div.day-line {
+  width: 5px;
+  margin-right: 1px;
+  display: inline-block;
 }
 
 /*

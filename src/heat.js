@@ -34,6 +34,10 @@
         _elements_DateCounts = {},
         _elements_DateCounts_DefaultType = "None",
 
+        // Variables: View
+        _elements_View_Map = 1,
+        _elements_View_Chart = 2,
+
         // Variables: Attribute Names
         _attribute_Name_Options = "data-heat-options";
 
@@ -102,6 +106,7 @@
         bindingOptions.currentView.colorsVisible = {};
         bindingOptions.currentView.year = bindingOptions.year;
         bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
+        bindingOptions.currentView.view = _elements_View_Map;
 
         return bindingOptions;
     }
@@ -135,6 +140,14 @@
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions );
         renderControlChart( bindingOptions );
+
+        if ( bindingOptions.currentView.view === _elements_View_Map ) {
+            bindingOptions.currentView.mapContents.style.display = "block";
+            bindingOptions.currentView.chartContents.style.display = "none";
+        } else {
+            bindingOptions.currentView.mapContents.style.display = "none";
+            bindingOptions.currentView.chartContents.style.display = "block";
+        }
     }
 
     function renderControlTitleBar( bindingOptions ) {
@@ -152,11 +165,13 @@
                 optionMap.onclick = function() {
                     bindingOptions.currentView.mapContents.style.display = "block";
                     bindingOptions.currentView.chartContents.style.display = "none";
+                    bindingOptions.currentView.view = _elements_View_Map;
                 };
 
                 optionChart.onclick = function() {
                     bindingOptions.currentView.mapContents.style.display = "none";
                     bindingOptions.currentView.chartContents.style.display = "block";
+                    bindingOptions.currentView.view = _elements_View_Chart;
                 };
             }
 
@@ -283,7 +298,7 @@
                         var day = null;
 
                         if ( bindingOptions.daysToShow.indexOf( actualDay ) > -1 ) {
-                            day = renderControlViewMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors );
+                            day = renderControlMapMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors );
                         }
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
@@ -323,7 +338,7 @@
         }
     }
 
-    function renderControlViewMonthDay( bindingOptions, currentDayColumn, dayNumber, month, year, mapRangeColors ) {
+    function renderControlMapMonthDay( bindingOptions, currentDayColumn, dayNumber, month, year, mapRangeColors ) {
         var actualDay = dayNumber + 1,
             day = createElement( currentDayColumn, "div", "day" ),
             date = new Date( year, month, actualDay ),
@@ -375,11 +390,84 @@
     }
 
     function renderControlChart( bindingOptions ) {
-        var chart = createElement( bindingOptions.currentView.chartContents, "div", "chart" );
+        var chart = createElement( bindingOptions.currentView.chartContents, "div", "chart" ),
+            mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
+                return b.range - a.range;
+            } ),
+            pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / getLargestValueForYear( bindingOptions ),
+            currentYear = bindingOptions.currentView.year,
+            dayLine = null,
+            totalDays = 0;
+            
+        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+            if ( bindingOptions.monthsToShow.indexOf( monthIndex + 1 ) > -1 ) {
+                var totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
+                    actualDay = 1;
+    
+                for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                    if ( bindingOptions.daysToShow.indexOf( actualDay ) > -1 ) {
+                        dayLine = renderControlChartDay( chart, bindingOptions, dayIndex + 1, monthIndex, currentYear, mapRangeColors, pixelsPerNumbers );
+                    }
+    
+                    if ( ( dayIndex + 1 ) % 7 === 0 ) {
+                        actualDay = 0;
+                    }
+
+                    actualDay++;
+                    totalDays++;
+                }
+            }
+        }
+        
+        chart.style.width = ( dayLine.offsetWidth * totalDays ) + "px";
 
         if ( bindingOptions.keepScrollPositions ) {
             bindingOptions.currentView.chartContents.scrollLeft = bindingOptions.currentView.chartContentsScrollLeft;
         }
+    }
+
+    function renderControlChartDay( chart, bindingOptions, day, month, year, mapRangeColors, pixelsPerNumbers ) {
+        var date = date = new Date( year, month, day ),
+            dayLine = createElement( chart, "div", "day-line" )
+            dateCount = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
+
+        dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
+
+        if ( isDefinedFunction( bindingOptions.onDayToolTipRender ) ) {
+            dayLine.title = fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount );
+        } else {
+            dayLine.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
+        }
+
+        dayLine.style.height = ( dateCount * pixelsPerNumbers ) + "px";
+
+        if ( isDefinedFunction( bindingOptions.onDayClick ) ) {
+            dayLine.onclick = function() {
+                fireCustomTrigger( bindingOptions.onDayClick, date, dateCount );
+            };
+
+        } else {
+            dayLine.className += _string.space + "no-click";
+        }
+
+        var mapRangeColorsLength = bindingOptions.mapRangeColors.length,
+            useMapRangeColor = null;
+    
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
+
+            if ( dateCount >= mapRangeColor.minimum ) {
+                useMapRangeColor = mapRangeColor;
+            } else {
+                break;
+            }
+        }
+
+        if ( isDefined( useMapRangeColor ) && isHeatMapColorVisible( bindingOptions, useMapRangeColor.id ) ) {
+            dayLine.className += _string.space + useMapRangeColor.cssClassName;
+        }
+
+        return dayLine;
     }
 
     function renderControlViewGuide( bindingOptions ) {
@@ -513,6 +601,25 @@
         }
 
         renderControlContainer( bindingOptions );
+    }
+
+    function getLargestValueForYear( bindingOptions ) {
+        var result = 0,
+            data = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ];
+
+        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+            var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
+    
+            for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                var storageDate = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
+
+                if ( data.hasOwnProperty( storageDate ) ) {
+                    result = Math.max( result, parseInt( data[ storageDate ] ) );
+                }
+            }
+        }
+
+        return result;
     }
 
 

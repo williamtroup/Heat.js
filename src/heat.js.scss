@@ -424,10 +424,17 @@ div.heat-js {
 div.heat-js {
     div.chart-contents {
         overflow-y: scroll;
-        display: none;
+        text-wrap: nowrap;
 
         div.chart {
-            height: 100%;
+            height: 192px;
+            vertical-align: bottom;
+
+            div.day-line {
+                width: 5px;
+                margin-right: 1px;
+                display: inline-block;
+            }
         }
     }
 }
