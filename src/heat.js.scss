@@ -24,6 +24,12 @@
     --heat-js-years-text-color: var(--heat-js-color-white);
     --heat-js-years-background-color-hover: var(--heat-js-button-background-color-hover);
 
+    // Title
+    --heat-js-title-background-color: var(--heat-js-container-background-color);
+    --heat-js-title-border-color: var(--heat-js-container-border-color);
+    --heat-js-title-text-color: var(--heat-js-color-white);
+    --heat-js-title-background-color-hover: var(--heat-js-button-background-color-hover);
+
     // Days
     --heat-js-day-background-color: #2d333b;
     --heat-js-day-border-color: var(--heat-js-container-border-color);
@@ -157,9 +163,60 @@ div.heat-js {
         margin-bottom: calc( var(--heat-js-spacing) + var(--heat-js-spacing) / 2 );
 
         div.title {
+            $title-margin: 3px;
+
             float: left;
             font-weight: var(--heat-js-title-bold-weight);
             font-size: 1.2rem;
+            padding-bottom: $title-margin;
+            cursor: pointer;
+
+            &:hover div.titles-list {
+                display: block;
+            }
+
+            div.titles-list {
+                padding-top: $title-margin;
+                display: none;
+                position: absolute;
+                width: 80px;
+                margin-top: $title-margin;
+                z-index: 100;
+
+                div.titles {
+                    border-radius: var(--heat-js-border-radius);
+                    background-color: var(--heat-js-title-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-title-border-color);
+                    color: var(--heat-js-title-text-color);
+                    overflow-y: scroll;
+                    scroll-snap-type: y mandatory;
+
+                    div.title {
+                        color: var(--heat-js-color-white);
+                        font-weight: var(--heat-js-text-bold-weight);
+                        border-bottom: var(--heat-js-border-size) dashed var(--heat-js-container-border-color);
+                        padding: var(--heat-js-spacing);
+                        text-align: left;
+                        width: 100%;
+                        transition: var(--heat-js-transition);
+                        scroll-snap-align: start;
+                        font-size: var(--heat-js-spacing-font-size) !important;
+    
+                        &:active {
+                            opacity: 0.5 !important;
+                        }
+    
+                        &:hover {
+                            cursor: pointer;
+                            background-color: var(--heat-js-title-background-color-hover);
+                        }
+    
+                        &:last-child {
+                            border-bottom: none;
+                        }
+                    }
+                }
+            }
         }
 
         @include buttons;
@@ -356,6 +413,23 @@ div.heat-js {
                     }
                 }
             }
+        }
+    }
+}
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Chart
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.chart-contents {
+        overflow-y: scroll;
+        display: none;
+
+        div.chart {
+            height: 100%;
         }
     }
 }

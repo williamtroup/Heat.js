@@ -97,6 +97,8 @@
         bindingOptions.currentView.element = element;
         bindingOptions.currentView.mapContents = null;
         bindingOptions.currentView.mapContentsScrollLeft = 0;
+        bindingOptions.currentView.chartContents = null;
+        bindingOptions.currentView.chartContentsScrollLeft = 0;
         bindingOptions.currentView.colorsVisible = {};
         bindingOptions.currentView.year = bindingOptions.year;
         bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
@@ -128,6 +130,7 @@
 
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions );
+        renderControlChart( bindingOptions );
     }
 
     function renderControlTitleBar( bindingOptions ) {
@@ -135,7 +138,12 @@
             var titleBar = createElement( bindingOptions.currentView.element, "div", "title-bar" );
     
             if ( bindingOptions.showTitle ) {
-                createElementWithHTML( titleBar, "div", "title", bindingOptions.titleText );
+                var title = createElementWithHTML( titleBar, "div", "title", bindingOptions.titleText ),
+                    titlesList = createElement( title, "div", "titles-list" ),
+                    titles = createElement( titlesList, "div", "titles" );
+
+                createElementWithHTML( titles, "div", "title", "Map" );
+                createElementWithHTML( titles, "div", "title", "Chart" );
             }
 
             if ( bindingOptions.showExportButton ) {
@@ -208,6 +216,7 @@
             currentYear = bindingOptions.currentView.year,
             monthAdded = false;
 
+        renderControlChartContents( bindingOptions );
         renderControlViewGuide( bindingOptions );
 
         if ( bindingOptions.showDayNames ) {
@@ -345,6 +354,14 @@
         }
 
         return day;
+    }
+
+    function renderControlChartContents( bindingOptions ) {
+        bindingOptions.currentView.chartContents = createElement( bindingOptions.currentView.element, "div", "chart-contents" );
+    }
+
+    function renderControlChart( bindingOptions ) {
+        var chart = createElement( bindingOptions.currentView.chartContents, "div", "chart" );
     }
 
     function renderControlViewGuide( bindingOptions ) {
