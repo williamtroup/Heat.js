@@ -2,10 +2,17 @@
 
 ## Version 1.5.0:
 
+#### **New Features:**
+- Added chart support! This view can be shown using a new menu available from the title bar!
+
 #### **Binding Options - Custom Triggers:**
 - Added a new binding option called "onAdd", which states an event that should be called when new dates are added.
 - Added a new binding option called "onRemove", which states an event that should be called when dates are removed.
 - Added a new binding option called "onReset", which states an event that should be called when all data for an element is reset.
+
+#### **Configuration Options:**
+- Added a new configuration option called "mapText", which states the text that should be shown for the "Map" label (defaults to "Map").
+- Added a new configuration option called "chartText", which states the text that should be shown for the "Chart" label (defaults to "Chart").
 
 #### **CSS:**
 - Decreased the height of the years drop-down list slightly.
