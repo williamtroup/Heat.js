@@ -125,6 +125,10 @@
             bindingOptions.currentView.mapContentsScrollLeft = bindingOptions.currentView.mapContents.scrollLeft;
         }
 
+        if ( isDefined( bindingOptions.currentView.chartContents ) ) {
+            bindingOptions.currentView.chartContentsScrollLeft = bindingOptions.currentView.chartContents.scrollLeft;
+        }
+
         bindingOptions.currentView.element.className = "heat-js";
         bindingOptions.currentView.element.innerHTML = _string.empty;
 
@@ -372,6 +376,10 @@
 
     function renderControlChart( bindingOptions ) {
         var chart = createElement( bindingOptions.currentView.chartContents, "div", "chart" );
+
+        if ( bindingOptions.keepScrollPositions ) {
+            bindingOptions.currentView.chartContents.scrollLeft = bindingOptions.currentView.chartContentsScrollLeft;
+        }
     }
 
     function renderControlViewGuide( bindingOptions ) {
