@@ -326,6 +326,7 @@
   }
   function renderControlChart(bindingOptions) {
     var chart = createElement(bindingOptions.currentView.chartContents, "div", "chart");
+    var chartMonths = createElement(bindingOptions.currentView.chartContents, "div", "chart-months ");
     var labels = createElement(chart, "div", "labels");
     var dayLines = createElement(chart, "div", "day-lines");
     var mapRangeColors = bindingOptions.mapRangeColors.sort(function(a, b) {
@@ -335,6 +336,8 @@
     var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear;
     var currentYear = bindingOptions.currentView.year;
     var totalDays = 0;
+    var dayLine = null;
+    var labelsWidth = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true);
     if (largestValueForCurrentYear > 0) {
       createElementWithHTML(labels, "div", "label-top", largestValueForCurrentYear.toString());
       createElementWithHTML(labels, "div", "label-middle", Math.floor(largestValueForCurrentYear / 2).toString());
@@ -342,27 +345,38 @@
     }
     if (largestValueForCurrentYear === 0) {
       chart.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
-    }
-    var monthIndex = 0;
-    for (; monthIndex < 12; monthIndex++) {
-      if (bindingOptions.monthsToShow.indexOf(monthIndex + 1) > -1) {
-        var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex);
-        var actualDay = 1;
-        var dayIndex = 0;
-        for (; dayIndex < totalDaysInMonth; dayIndex++) {
-          if (bindingOptions.daysToShow.indexOf(actualDay) > -1) {
-            renderControlChartDay(dayLines, bindingOptions, dayIndex + 1, monthIndex, currentYear, mapRangeColors, pixelsPerNumbers);
+    } else {
+      var totalMonths = 0;
+      var monthIndex1 = 0;
+      for (; monthIndex1 < 12; monthIndex1++) {
+        if (bindingOptions.monthsToShow.indexOf(monthIndex1 + 1) > -1) {
+          var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex1);
+          var actualDay = 1;
+          totalMonths++;
+          var dayIndex = 0;
+          for (; dayIndex < totalDaysInMonth; dayIndex++) {
+            if (bindingOptions.daysToShow.indexOf(actualDay) > -1) {
+              dayLine = renderControlChartDay(dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, mapRangeColors, pixelsPerNumbers);
+            }
+            if ((dayIndex + 1) % 7 === 0) {
+              actualDay = 0;
+            }
+            actualDay++;
+            totalDays++;
           }
-          if ((dayIndex + 1) % 7 === 0) {
-            actualDay = 0;
-          }
-          actualDay++;
-          totalDays++;
         }
       }
-    }
-    if (bindingOptions.keepScrollPositions) {
-      bindingOptions.currentView.chartContents.scrollLeft = bindingOptions.currentView.chartContentsScrollLeft;
+      var linesWidth = dayLines.offsetWidth / totalMonths;
+      var monthIndex2 = 0;
+      for (; monthIndex2 < 12; monthIndex2++) {
+        if (bindingOptions.monthsToShow.indexOf(monthIndex2 + 1) > -1) {
+          var monthName = createElementWithHTML(chartMonths, "div", "month-name", _configuration.monthNames[monthIndex2]);
+          monthName.style.marginLeft = labelsWidth + linesWidth * monthIndex2 + "px";
+        }
+      }
+      if (bindingOptions.keepScrollPositions) {
+        bindingOptions.currentView.chartContents.scrollLeft = bindingOptions.currentView.chartContentsScrollLeft;
+      }
     }
   }
   function renderControlChartDay(dayLines, bindingOptions, day, month, year, mapRangeColors, pixelsPerNumbers) {
@@ -387,6 +401,7 @@
     if (isDefined(useMapRangeColor) && isHeatMapColorVisible(bindingOptions, useMapRangeColor.id)) {
       dayLine.className += _string.space + useMapRangeColor.cssClassName;
     }
+    return dayLine;
   }
   function renderControlViewGuide(bindingOptions) {
     var guide = createElement(bindingOptions.currentView.element, "div", "guide");

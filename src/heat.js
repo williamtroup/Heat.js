@@ -484,6 +484,7 @@
 
     function renderControlChart( bindingOptions ) {
         var chart = createElement( bindingOptions.currentView.chartContents, "div", "chart" ),
+            chartMonths = createElement( bindingOptions.currentView.chartContents, "div", "chart-months " ),
             labels = createElement( chart, "div", "labels" ),
             dayLines = createElement( chart, "div", "day-lines" ),
             mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
@@ -492,7 +493,9 @@
             largestValueForCurrentYear = getLargestValueForYear( bindingOptions ),
             pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear,
             currentYear = bindingOptions.currentView.year,
-            totalDays = 0;
+            totalDays = 0,
+            dayLine = null,
+            labelsWidth = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true );
 
         if ( largestValueForCurrentYear > 0 ) {
             createElementWithHTML( labels, "div", "label-top", largestValueForCurrentYear.toString() );
@@ -502,30 +505,44 @@
 
         if ( largestValueForCurrentYear === 0 ) {
             chart.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
-        }
 
-        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
-            if ( bindingOptions.monthsToShow.indexOf( monthIndex + 1 ) > -1 ) {
-                var totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
-                    actualDay = 1;
-    
-                for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                    if ( bindingOptions.daysToShow.indexOf( actualDay ) > -1 ) {
-                        renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, monthIndex, currentYear, mapRangeColors, pixelsPerNumbers );
-                    }
-    
-                    if ( ( dayIndex + 1 ) % 7 === 0 ) {
-                        actualDay = 0;
-                    }
+        } else {
+            var totalMonths = 0;
 
-                    actualDay++;
-                    totalDays++;
+            for ( var monthIndex1 = 0; monthIndex1 < 12; monthIndex1++ ) {
+                if ( bindingOptions.monthsToShow.indexOf( monthIndex1 + 1 ) > -1 ) {
+                    var totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex1 ),
+                        actualDay = 1;
+                    
+                    totalMonths++;
+
+                    for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                        if ( bindingOptions.daysToShow.indexOf( actualDay ) > -1 ) {
+                            dayLine = renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, mapRangeColors, pixelsPerNumbers );
+                        }
+        
+                        if ( ( dayIndex + 1 ) % 7 === 0 ) {
+                            actualDay = 0;
+                        }
+    
+                        actualDay++;
+                        totalDays++;
+                    }
                 }
             }
-        }
 
-        if ( bindingOptions.keepScrollPositions ) {
-            bindingOptions.currentView.chartContents.scrollLeft = bindingOptions.currentView.chartContentsScrollLeft;
+            var linesWidth = dayLines.offsetWidth / totalMonths;
+
+            for ( var monthIndex2 = 0; monthIndex2 < 12; monthIndex2++ ) {
+                if ( bindingOptions.monthsToShow.indexOf( monthIndex2 + 1 ) > -1 ) {
+                    var monthName = createElementWithHTML( chartMonths, "div", "month-name", _configuration.monthNames[ monthIndex2 ] );
+                    monthName.style.marginLeft = labelsWidth + ( linesWidth * monthIndex2 ) + "px";
+                }
+            }
+    
+            if ( bindingOptions.keepScrollPositions ) {
+                bindingOptions.currentView.chartContents.scrollLeft = bindingOptions.currentView.chartContentsScrollLeft;
+            }
         }
     }
 
@@ -558,6 +575,8 @@
         if ( isDefined( useMapRangeColor ) && isHeatMapColorVisible( bindingOptions, useMapRangeColor.id ) ) {
             dayLine.className += _string.space + useMapRangeColor.cssClassName;
         }
+
+        return dayLine;
     }
 
 
