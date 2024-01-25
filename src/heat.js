@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v1.4.0
+ * @version     v1.5.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -34,13 +34,17 @@
         _elements_DateCounts = {},
         _elements_DateCounts_DefaultType = "None",
 
+        // Variables: View
+        _elements_View_Map = 1,
+        _elements_View_Chart = 2,
+
         // Variables: Attribute Names
         _attribute_Name_Options = "data-heat-options";
 
     
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Rendering
+     * Render
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
@@ -97,9 +101,19 @@
         bindingOptions.currentView.element = element;
         bindingOptions.currentView.mapContents = null;
         bindingOptions.currentView.mapContentsScrollLeft = 0;
+        bindingOptions.currentView.chartContents = null;
+        bindingOptions.currentView.chartContentsScrollLeft = 0;
         bindingOptions.currentView.colorsVisible = {};
         bindingOptions.currentView.year = bindingOptions.year;
         bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
+
+        if ( !isDefinedString( bindingOptions.view ) || bindingOptions.view.toLowerCase() === "map" ) {
+            bindingOptions.currentView.view = _elements_View_Map;
+        } else if ( bindingOptions.view.toLowerCase() === "chart" ) {
+            bindingOptions.currentView.view = _elements_View_Chart;
+        } else {
+            bindingOptions.currentView.view = _elements_View_Map;
+        }
 
         return bindingOptions;
     }
@@ -123,19 +137,127 @@
             bindingOptions.currentView.mapContentsScrollLeft = bindingOptions.currentView.mapContents.scrollLeft;
         }
 
+        if ( isDefined( bindingOptions.currentView.chartContents ) ) {
+            bindingOptions.currentView.chartContentsScrollLeft = bindingOptions.currentView.chartContents.scrollLeft;
+        }
+
         bindingOptions.currentView.element.className = "heat-js";
         bindingOptions.currentView.element.innerHTML = _string.empty;
 
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions );
+        renderControlChart( bindingOptions );
+
+        if ( bindingOptions.currentView.view === _elements_View_Map ) {
+            bindingOptions.currentView.mapContents.style.display = "block";
+            bindingOptions.currentView.chartContents.style.display = "none";
+        } else {
+            bindingOptions.currentView.mapContents.style.display = "none";
+            bindingOptions.currentView.chartContents.style.display = "block";
+        }
     }
+
+    function isHeatMapColorVisible( bindingOptions, id ) {
+        return !bindingOptions.currentView.colorsVisible.hasOwnProperty( id ) || bindingOptions.currentView.colorsVisible[ id ];
+    }
+
+    function createDateStorageForElement( elementId, bindingOptions ) {
+        _elements_DateCounts[ elementId ] = {
+            options: bindingOptions,
+            type: {},
+            types: 1
+        };
+
+        _elements_DateCounts[ elementId ].type[ _elements_DateCounts_DefaultType ] = {};
+    }
+
+    function updateMapRangeColorToggles( bindingOptions, flag ) {
+        var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            bindingOptions.currentView.colorsVisible[ bindingOptions.mapRangeColors[ mapRangeColorsIndex ].id ] = flag;
+        }
+
+        renderControlContainer( bindingOptions );
+    }
+
+    function getLargestValueForYear( bindingOptions ) {
+        var result = 0,
+            data = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ];
+
+        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+            var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
+    
+            for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                var storageDate = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
+
+                if ( data.hasOwnProperty( storageDate ) ) {
+                    result = Math.max( result, parseInt( data[ storageDate ] ) );
+                }
+            }
+        }
+
+        return result;
+    }
+
+    function getMapRangeColor( mapRangeColors, dateCount ) {
+        var mapRangeColorsLength = mapRangeColors.length,
+            useMapRangeColor = null;
+
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
+
+            if ( dateCount >= mapRangeColor.minimum ) {
+                useMapRangeColor = mapRangeColor;
+            } else {
+                break;
+            }
+        }
+
+        return useMapRangeColor;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Title Bar
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
 
     function renderControlTitleBar( bindingOptions ) {
         if ( bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton ) {
             var titleBar = createElement( bindingOptions.currentView.element, "div", "title-bar" );
     
             if ( bindingOptions.showTitle ) {
-                createElementWithHTML( titleBar, "div", "title", bindingOptions.titleText );
+                var title = createElementWithHTML( titleBar, "div", "title", bindingOptions.titleText ),
+                    titlesList = createElement( title, "div", "titles-list" ),
+                    titles = createElement( titlesList, "div", "titles" ),
+                    optionMap = createElementWithHTML( titles, "div", "title", _configuration.mapText ),
+                    optionChart = createElementWithHTML( titles, "div", "title", _configuration.chartText );
+
+                if ( bindingOptions.currentView.view !== _elements_View_Map ) {
+                    optionMap.onclick = function() {
+                        bindingOptions.currentView.view = _elements_View_Map;
+    
+                        renderControlContainer( bindingOptions );
+                        fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
+                    };
+                    
+                } else {
+                    optionMap.className += _string.space + "title-active";
+                }
+
+                if ( bindingOptions.currentView.view !== _elements_View_Chart ) {
+                    optionChart.onclick = function() {
+                        bindingOptions.currentView.view = _elements_View_Chart;
+    
+                        renderControlContainer( bindingOptions );
+                        fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
+                    };
+
+                } else {
+                    optionChart.className += _string.space + "title-active";
+                }
             }
 
             if ( bindingOptions.showExportButton ) {
@@ -193,13 +315,25 @@
     function renderControlTitleBarYear( bindingOptions, years, currentYear ) {
         var year = createElementWithHTML( years, "div", "year", currentYear );
 
-        year.onclick = function() {
-            bindingOptions.currentView.year = currentYear;
+        if ( bindingOptions.currentView.year !== currentYear ) {
+            year.onclick = function() {
+                bindingOptions.currentView.year = currentYear;
+    
+                renderControlContainer( bindingOptions );
+                fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
+            };
 
-            renderControlContainer( bindingOptions );
-            fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
-        };
+        } else {
+            year.className += _string.space + "year-active";
+        }
     }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Map
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
 
     function renderControlMap( bindingOptions ) {
         bindingOptions.currentView.mapContents = createElement( bindingOptions.currentView.element, "div", "map-contents" );
@@ -208,6 +342,7 @@
             currentYear = bindingOptions.currentView.year,
             monthAdded = false;
 
+        renderControlChartContents( bindingOptions );
         renderControlViewGuide( bindingOptions );
 
         if ( bindingOptions.showDayNames ) {
@@ -260,7 +395,7 @@
                         var day = null;
 
                         if ( bindingOptions.daysToShow.indexOf( actualDay ) > -1 ) {
-                            day = renderControlViewMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors );
+                            day = renderControlMapMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors );
                         }
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
@@ -300,7 +435,7 @@
         }
     }
 
-    function renderControlViewMonthDay( bindingOptions, currentDayColumn, dayNumber, month, year, mapRangeColors ) {
+    function renderControlMapMonthDay( bindingOptions, currentDayColumn, dayNumber, month, year, mapRangeColors ) {
         var actualDay = dayNumber + 1,
             day = createElement( currentDayColumn, "div", "day" ),
             date = new Date( year, month, actualDay ),
@@ -327,18 +462,7 @@
             day.className += _string.space + "no-click";
         }
 
-        var mapRangeColorsLength = bindingOptions.mapRangeColors.length,
-            useMapRangeColor = null;
-    
-        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
-
-            if ( dateCount >= mapRangeColor.minimum ) {
-                useMapRangeColor = mapRangeColor;
-            } else {
-                break;
-            }
-        }
+        var useMapRangeColor = getMapRangeColor( mapRangeColors, dateCount );
 
         if ( isDefined( useMapRangeColor ) && isHeatMapColorVisible( bindingOptions, useMapRangeColor.id ) ) {
             day.className += _string.space + useMapRangeColor.cssClassName;
@@ -346,6 +470,128 @@
 
         return day;
     }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Chart
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderControlChartContents( bindingOptions ) {
+        bindingOptions.currentView.chartContents = createElement( bindingOptions.currentView.element, "div", "chart-contents" );
+    }
+
+    function renderControlChart( bindingOptions ) {
+        var chart = createElement( bindingOptions.currentView.chartContents, "div", "chart" ),
+            chartMonths = createElement( bindingOptions.currentView.chartContents, "div", "chart-months " ),
+            labels = createElement( chart, "div", "labels" ),
+            dayLines = createElement( chart, "div", "day-lines" ),
+            mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
+                return b.range - a.range;
+            } ),
+            largestValueForCurrentYear = getLargestValueForYear( bindingOptions ),
+            pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear,
+            currentYear = bindingOptions.currentView.year,
+            totalDays = 0,
+            dayLine = null,
+            labelsWidth = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true );
+
+        if ( largestValueForCurrentYear > 0 ) {
+            createElementWithHTML( labels, "div", "label-top", largestValueForCurrentYear.toString() );
+            createElementWithHTML( labels, "div", "label-middle", Math.floor( largestValueForCurrentYear / 2 ).toString() );
+            createElementWithHTML( labels, "div", "label-bottom", "0" );
+        }
+
+        if ( largestValueForCurrentYear === 0 ) {
+            chart.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
+            labels.style.display = "none";
+
+        } else {
+            var totalMonths = 0;
+
+            for ( var monthIndex1 = 0; monthIndex1 < 12; monthIndex1++ ) {
+                if ( bindingOptions.monthsToShow.indexOf( monthIndex1 + 1 ) > -1 ) {
+                    var totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex1 ),
+                        actualDay = 1;
+                    
+                    totalMonths++;
+
+                    for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                        if ( bindingOptions.daysToShow.indexOf( actualDay ) > -1 ) {
+                            dayLine = renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, mapRangeColors, pixelsPerNumbers );
+                        }
+        
+                        if ( ( dayIndex + 1 ) % 7 === 0 ) {
+                            actualDay = 0;
+                        }
+    
+                        actualDay++;
+                        totalDays++;
+                    }
+                }
+            }
+
+            var linesWidth = dayLines.offsetWidth / totalMonths;
+
+            for ( var monthIndex2 = 0; monthIndex2 < 12; monthIndex2++ ) {
+                if ( bindingOptions.monthsToShow.indexOf( monthIndex2 + 1 ) > -1 ) {
+                    var monthName = createElementWithHTML( chartMonths, "div", "month-name", _configuration.monthNames[ monthIndex2 ] );
+                    monthName.style.marginLeft = labelsWidth + ( linesWidth * monthIndex2 ) + "px";
+                }
+            }
+
+            chartMonths.style.width = dayLines.offsetWidth + "px";
+
+            var monthNameSpace = createElement( chartMonths, "div", "month-name-space" );
+            monthNameSpace.style.height = chartMonths.offsetHeight + "px";
+            monthNameSpace.style.width = labelsWidth + "px";
+    
+            if ( bindingOptions.keepScrollPositions ) {
+                bindingOptions.currentView.chartContents.scrollLeft = bindingOptions.currentView.chartContentsScrollLeft;
+            }
+        }
+    }
+
+    function renderControlChartDay( dayLines, bindingOptions, day, month, year, mapRangeColors, pixelsPerNumbers ) {
+        var date = new Date( year, month, day ),
+            dayLine = createElement( dayLines, "div", "day-line" ),
+            dateCount = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
+
+        dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
+
+        if ( isDefinedFunction( bindingOptions.onDayToolTipRender ) ) {
+            dayLine.title = fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount );
+        } else {
+            dayLine.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
+        }
+
+        dayLine.style.height = ( dateCount * pixelsPerNumbers ) + "px";
+
+        if ( isDefinedFunction( bindingOptions.onDayClick ) ) {
+            dayLine.onclick = function() {
+                fireCustomTrigger( bindingOptions.onDayClick, date, dateCount );
+            };
+
+        } else {
+            dayLine.className += _string.space + "no-click";
+        }
+
+        var useMapRangeColor = getMapRangeColor( mapRangeColors, dateCount );
+
+        if ( isDefined( useMapRangeColor ) && isHeatMapColorVisible( bindingOptions, useMapRangeColor.id ) ) {
+            dayLine.className += _string.space + useMapRangeColor.cssClassName;
+        }
+
+        return dayLine;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Guide
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
 
     function renderControlViewGuide( bindingOptions ) {
         var guide = createElement( bindingOptions.currentView.element, "div", "guide" ),
@@ -454,30 +700,6 @@
         } else {
             day.className += _string.space + "no-click";
         }
-    }
-
-    function isHeatMapColorVisible( bindingOptions, id ) {
-        return !bindingOptions.currentView.colorsVisible.hasOwnProperty( id ) || bindingOptions.currentView.colorsVisible[ id ];
-    }
-
-    function createDateStorageForElement( elementId, bindingOptions ) {
-        _elements_DateCounts[ elementId ] = {
-            options: bindingOptions,
-            type: {},
-            types: 1
-        };
-
-        _elements_DateCounts[ elementId ].type[ _elements_DateCounts_DefaultType ] = {};
-    }
-
-    function updateMapRangeColorToggles( bindingOptions, flag ) {
-        var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
-
-        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            bindingOptions.currentView.colorsVisible[ bindingOptions.mapRangeColors[ mapRangeColorsIndex ].id ] = flag;
-        }
-
-        renderControlContainer( bindingOptions );
     }
 
 
@@ -595,6 +817,7 @@
         options.keepScrollPositions = getDefaultBoolean( options.keepScrollPositions, false );
         options.extraSelectionYears = getDefaultNumber( options.extraSelectionYears, 50 );
         options.showYearSelectionDropDown = getDefaultBoolean( options.showYearSelectionDropDown, true );
+        options.view = getDefaultString( options.view, null );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -664,6 +887,9 @@
         options.onSetYear = getDefaultFunction( options.onSetYear, null );
         options.onTypeSwitch = getDefaultFunction( options.onTypeSwitch, null );
         options.onDayToolTipRender = getDefaultFunction( options.onDayToolTipRender, null );
+        options.onAdd = getDefaultFunction( options.onAdd, null );
+        options.onRemove = getDefaultFunction( options.onRemove, null );
+        options.onReset = getDefaultFunction( options.onReset, null );
 
         return options;
     }
@@ -941,6 +1167,7 @@
      * Adds a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is increased by one.
      * 
      * @public
+     * @fires       onAdd
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
      * @param       {Date}      date                                        The date to add.
@@ -967,6 +1194,10 @@
     
             _elements_DateCounts[ elementId ].type[ type ][ storageDate ]++;
 
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+            fireCustomTrigger( bindingOptions.onAdd, bindingOptions.currentView.element );
+
             if ( triggerRefresh ) {
                 renderControlContainer( _elements_DateCounts[ elementId ].options );
             }
@@ -981,6 +1212,7 @@
      * Removes a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is decreased by one.
      * 
      * @public
+     * @fires       onRemove
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date}      date                                        The date to removed.
@@ -1002,6 +1234,10 @@
                     _elements_DateCounts[ elementId ].type[ type ][ storageDate ]--;
                 }
 
+                var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+                fireCustomTrigger( bindingOptions.onRemove, bindingOptions.currentView.element );
+
                 if ( triggerRefresh ) {
                     renderControlContainer( _elements_DateCounts[ elementId ].options );
                 }
@@ -1017,6 +1253,7 @@
      * Removes all the dates for a specific element ID, and refreshes the UI (if specified).
      * 
      * @public
+     * @fires       onReset
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
      * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
@@ -1031,6 +1268,8 @@
             bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
 
             createDateStorageForElement( elementId, bindingOptions );
+
+            fireCustomTrigger( bindingOptions.onReset, bindingOptions.currentView.element );
 
             if ( triggerRefresh ) {
                 renderControlContainer( _elements_DateCounts[ elementId ].options );
@@ -1360,6 +1599,8 @@
         _configuration.moreText = getDefaultString( _configuration.moreText, "More" );
         _configuration.dateText = getDefaultString( _configuration.dateText, "Date" );
         _configuration.countText = getDefaultString( _configuration.countText, "Count" );
+        _configuration.mapText = getDefaultString( _configuration.mapText, "Map" );
+        _configuration.chartText = getDefaultString( _configuration.chartText, "Chart" );
     }
 
     function buildDefaultConfigurationArrays() {
@@ -1416,7 +1657,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.4.0";
+        return "1.5.0";
     };
 
 

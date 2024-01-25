@@ -1,5 +1,33 @@
 # Heat.js - Change Log:
 
+## Version 1.5.0:
+
+#### **New Features:**
+- Added chart support! This view can be shown using a new menu available from the title bar!
+
+#### **Binding Options:**
+- Added a new binding option called "view", which states the view that should be shown by default (defaults to "map", also accepts "chart").
+
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option called "onAdd", which states an event that should be called when new dates are added.
+- Added a new binding option called "onRemove", which states an event that should be called when dates are removed.
+- Added a new binding option called "onReset", which states an event that should be called when all data for an element is reset.
+
+#### **Configuration Options:**
+- Added a new configuration option called "mapText", which states the text that should be shown for the "Map" label (defaults to "Map").
+- Added a new configuration option called "chartText", which states the text that should be shown for the "Chart" label (defaults to "Chart").
+
+#### **CSS:**
+- Decreased the height of the year's drop-down list slightly.
+- Added snap to scroll support for the year's drop-down list.
+
+#### **General Improvements:**
+- All rendering areas are now sectioned in the JS code.
+- The year currently selected in the view is now shown in the year drop-down list.
+
+<br>
+
+
 ## Version 1.4.0:
 
 #### **New Features:**

@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.4.0
+ * Heat.js Library v1.5.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -23,6 +23,12 @@
     --heat-js-years-border-color: var(--heat-js-container-border-color);
     --heat-js-years-text-color: var(--heat-js-color-white);
     --heat-js-years-background-color-hover: var(--heat-js-button-background-color-hover);
+
+    // Title
+    --heat-js-title-background-color: var(--heat-js-container-background-color);
+    --heat-js-title-border-color: var(--heat-js-container-border-color);
+    --heat-js-title-text-color: var(--heat-js-color-white);
+    --heat-js-title-background-color-hover: var(--heat-js-button-background-color-hover);
 
     // Days
     --heat-js-day-background-color: #2d333b;
@@ -157,9 +163,64 @@ div.heat-js {
         margin-bottom: calc( var(--heat-js-spacing) + var(--heat-js-spacing) / 2 );
 
         div.title {
+            $title-margin: 3px;
+
             float: left;
             font-weight: var(--heat-js-title-bold-weight);
             font-size: 1.2rem;
+            padding-bottom: $title-margin;
+            cursor: pointer;
+
+            &:hover div.titles-list {
+                display: block;
+            }
+
+            div.titles-list {
+                padding-top: $title-margin;
+                display: none;
+                position: absolute;
+                width: 100px;
+                margin-top: $title-margin;
+                z-index: 100;
+
+                div.titles {
+                    border-radius: var(--heat-js-border-radius);
+                    background-color: var(--heat-js-title-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-title-border-color);
+                    color: var(--heat-js-title-text-color);
+                    overflow-y: scroll;
+
+                    div.title {
+                        color: var(--heat-js-color-white);
+                        font-weight: var(--heat-js-text-bold-weight);
+                        border-bottom: var(--heat-js-border-size) dashed var(--heat-js-container-border-color);
+                        padding: var(--heat-js-spacing);
+                        text-align: left;
+                        width: 100%;
+                        transition: var(--heat-js-transition);
+                        font-size: var(--heat-js-spacing-font-size) !important;
+    
+                        &:not(.title-active):active {
+                            opacity: 0.5 !important;
+                        }
+    
+                        &:not(.title-active):hover {
+                            cursor: pointer;
+                            background-color: var(--heat-js-title-background-color-hover);
+                        }
+    
+                        &:last-child {
+                            border-bottom: none;
+                        }
+                    }
+
+                    div.title-active {
+                        background-color: var(--heat-js-title-background-color-hover);
+                        font-weight: 900;
+                        cursor: default !important;
+                    }
+                }
+            }
         }
 
         @include buttons;
@@ -202,8 +263,9 @@ div.heat-js {
                     background-color: var(--heat-js-years-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-years-border-color);
                     color: var(--heat-js-years-text-color);
-                    height: 200px;
+                    height: 183px;
                     overflow-y: scroll;
+                    scroll-snap-type: y mandatory;
 
                     div.year {
                         color: var(--heat-js-color-white);
@@ -213,12 +275,13 @@ div.heat-js {
                         text-align: center;
                         width: 100%;
                         transition: var(--heat-js-transition);
+                        scroll-snap-align: start;
     
-                        &:active {
+                        &:not(.year-active):active {
                             opacity: 0.5 !important;
                         }
     
-                        &:hover {
+                        &:not(.year-active):hover {
                             cursor: pointer;
                             background-color: var(--heat-js-years-background-color-hover);
                         }
@@ -227,8 +290,13 @@ div.heat-js {
                             border-bottom: none;
                         }
                     }
-                }
 
+                    div.year-active {
+                        background-color: var(--heat-js-years-background-color-hover);
+                        font-weight: 900;
+                        cursor: default !important;
+                    }
+                }
             }
         }
 
@@ -265,6 +333,7 @@ div.heat-js {
                 position: sticky;
                 left: 0;
                 display: none;
+                z-index: 50;
     
                 @media (min-width: $minimum-width) { 
                     display: block;
@@ -353,6 +422,103 @@ div.heat-js {
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Chart
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.chart-contents {
+        display: flex;
+        overflow-y: scroll;
+        text-wrap: nowrap;
+        white-space: nowrap;
+
+        div.chart {
+            display: inline-flex;
+            flex-direction: row;
+
+            div.labels {
+                background-color: var(--heat-js-container-background-color);
+                padding-right: calc( var(--heat-js-spacing) * 3 );
+                padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
+                position: sticky;
+                left: 0;
+                display: none;
+                border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+                z-index: 50;
+
+                @media (min-width: $minimum-width) { 
+                    display: block;
+                }
+        
+                div.label-top,
+                div.label-middle,
+                div.label-bottom {
+                    font-weight: var(--heat-js-text-bold-weight);
+                    text-align: left !important;
+                    height: var(--heat-js-day-size);
+                    display: inline-flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    position: absolute;
+                    left: 0;
+                }
+
+                div.label-top {
+                    top: 0;
+                }
+
+                div.label-middle {
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+
+                div.label-bottom {
+                    bottom: 0;
+                }
+            }
+
+            div.day-lines {
+                flex: 1;
+                border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+    
+                div.day-line {
+                    vertical-align: bottom;
+                    width: 8px;
+                    margin-right: 1px;
+                    display: inline-block;
+    
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+
+        div.chart-months {
+            position: relative;
+            height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) );
+
+            div.month-name,
+            div.month-name-space {
+                font-weight: var(--heat-js-text-bold-weight);
+                text-align: left !important;
+                position: absolute;
+                bottom: 0;
+            }
+
+            div.month-name-space {
+                left: 0;
+                top: 0;
+                position: sticky;
+                background-color: var(--heat-js-container-background-color);
             }
         }
     }

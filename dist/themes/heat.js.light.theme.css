@@ -1,4 +1,4 @@
-/*! Heat.js v1.4.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.5.0 | (c) Bunoon 2024 | MIT License */
 :root {
     /* Colors */
     --heat-js-color-black: #F5F5F5;
@@ -14,6 +14,12 @@
     --heat-js-years-border-color: var(--heat-js-container-border-color);
     --heat-js-years-text-color: var(--heat-js-color-black);
     --heat-js-years-background-color-hover: var(--heat-js-color-gray);
+
+    /* Year */
+    --heat-js-title-background-color: var(--heat-js-container-background-color);
+    --heat-js-title-border-color: var(--heat-js-container-border-color);
+    --heat-js-title-text-color: var(--heat-js-color-black);
+    --heat-js-title-background-color-hover: var(--heat-js-color-gray);
 
     /* Days */
     --heat-js-day-background-color: var(--heat-js-color-black);

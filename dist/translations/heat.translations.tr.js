@@ -1,4 +1,4 @@
-/*! Heat.js v1.4.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.5.0 | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -12,6 +12,8 @@ $heat.setConfiguration( {
         "moreText": "Daha",
         "dateText": "Tarih",
         "countText": "Saymak",
+        "mapText": "Harita",
+        "chartText": "Çizelge",
         "monthNames": [
                 "Ocak",
                 "Şubat",

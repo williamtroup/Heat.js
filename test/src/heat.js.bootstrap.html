@@ -23,6 +23,9 @@
             <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': false, 'showRefreshButton': true, 'showExportButton': true, 'placeMonthNamesOnTheBottom': true, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
             <br>
             <br>
+            <div id="heat-map-3" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': true, 'view': 'chart' }"></div>
+            <br>
+            <br>
             <div id="heat-map-3"></div>
         </div>
 
@@ -48,7 +51,7 @@
             <button class="btn btn-primary" onclick="$heat.setYearToLowest( 'heat-map-2' );">Set Year To Lowest (2)</button>
             <button class="btn btn-primary" onclick="console.log( $heat.getYear( 'heat-map-1' ) );">Get Year (1)</button>
             <button class="btn btn-primary" onclick="console.log( $heat.getYear( 'heat-map-2' ) );">Get Year (2)</button>
-            <button class="btn btn-primary" onclick="$heat.render( document.getElementById( 'heat-map-3' ) );">Render</button>
+            <button class="btn btn-primary" onclick="$heat.render( document.getElementById( 'heat-map-4' ) );">Render</button>
             <button class="btn btn-primary" onclick="$heat.renderAll();">Render All</button>
             <br />
 
@@ -119,9 +122,11 @@
             if ( !remove ) {
                 $heat.addDate( "heat-map-1", newDate, type, false );
                 $heat.addDate( "heat-map-2", newDate, type, false );
+                $heat.addDate( "heat-map-3", newDate, type, false );
             } else {
                 $heat.removeDate( "heat-map-1", newDate, type, false );
                 $heat.removeDate( "heat-map-2", newDate, type, false );
+                $heat.removeDate( "heat-map-3", newDate, type, false );
             }
         }
 

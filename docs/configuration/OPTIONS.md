@@ -31,6 +31,8 @@ Below are all the configuration options that can be passed to the "setConfigurat
 | *string[]* | dayNames | The day names (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]'). |
 | *string* | dateText | The text that should be shown for the "Date" CSV header. |
 | *string* | countText | The text that should be shown for the "Count" CSV header. |
+| *string* | mapText | The text that should be shown for the "Map" label. |
+| *string* | chartText | The text that should be shown for the "Chart" label. |
 
 <br/>
 

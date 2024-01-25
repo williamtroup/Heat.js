@@ -1,4 +1,4 @@
-/*! Heat.js v1.4.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.5.0 | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -12,6 +12,8 @@ $heat.setConfiguration( {
         "moreText": "अधिक",
         "dateText": "तारीख",
         "countText": "गिनती करना",
+        "mapText": "नक्शा",
+        "chartText": "चार्ट",
         "monthNames": [
                 "जनवरी",
                 "फ़रवरी",

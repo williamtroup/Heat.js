@@ -75,6 +75,24 @@ Fires when a day is clicked in the heat map.
 
 ## For Data:
 
+### options.onAdd( *element* ):
+Fires when data for a heatmap is added.
+<br>
+***Parameter:*** element: '*Object*' - The element that the data was added for.
+<br>
+
+### options.onRemove( *element* ):
+Fires when data for a heatmap is removed.
+<br>
+***Parameter:*** element: '*Object*' - The element that the data was removed from.
+<br>
+
+### options.oReset( *element* ):
+Fires when data for a heatmap is reset.
+<br>
+***Parameter:*** element: '*Object*' - The element that the data was reset for.
+<br>
+
 ### options.onExport( *element* ):
 Fires when the data for a heatmap is exported.
 <br>
