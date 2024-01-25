@@ -390,7 +390,6 @@ div.heat-js div.chart-contents div.chart div.labels div.label-bottom {
 }
 div.heat-js div.chart-contents div.chart div.day-lines {
   flex: 1;
-  min-height: 192px;
   vertical-align: baseline;
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line {

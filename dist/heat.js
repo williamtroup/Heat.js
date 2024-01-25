@@ -336,6 +336,9 @@
       createElementWithHTML(labels, "div", "label-middle", Math.floor(largestValueForCurrentYear / 2).toString());
       createElementWithHTML(labels, "div", "label-bottom", "0");
     }
+    if (largestValueForCurrentYear === 0) {
+      chart.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
+    }
     var monthIndex = 0;
     for (; monthIndex < 12; monthIndex++) {
       if (bindingOptions.monthsToShow.indexOf(monthIndex + 1) > -1) {
@@ -369,9 +372,6 @@
       dayLine.title = getCustomFormattedDateText(bindingOptions.dayToolTipText, date);
     }
     dayLine.style.height = dateCount * pixelsPerNumbers + "px";
-    if (dayLine.offsetHeight > dayLines.offsetHeight / 2) {
-      dayLine.style.height = dayLine.offsetHeight - 5 + "px";
-    }
     if (isDefinedFunction(bindingOptions.onDayClick)) {
       dayLine.onclick = function() {
         fireCustomTrigger(bindingOptions.onDayClick, date, dateCount);

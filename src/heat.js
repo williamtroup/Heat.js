@@ -494,6 +494,10 @@
             createElementWithHTML( labels, "div", "label-bottom", "0" );
         }
 
+        if ( largestValueForCurrentYear === 0 ) {
+            chart.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
+        }
+
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             if ( bindingOptions.monthsToShow.indexOf( monthIndex + 1 ) > -1 ) {
                 var totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
@@ -533,10 +537,6 @@
         }
 
         dayLine.style.height = ( dateCount * pixelsPerNumbers ) + "px";
-
-        if ( dayLine.offsetHeight > ( dayLines.offsetHeight / 2 ) ) {
-            dayLine.style.height = ( dayLine.offsetHeight - 5 ) + "px";
-        }
 
         if ( isDefinedFunction( bindingOptions.onDayClick ) ) {
             dayLine.onclick = function() {
