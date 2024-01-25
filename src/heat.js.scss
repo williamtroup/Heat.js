@@ -333,6 +333,7 @@ div.heat-js {
                 position: sticky;
                 left: 0;
                 display: none;
+                z-index: 50;
     
                 @media (min-width: $minimum-width) { 
                     display: block;
@@ -450,7 +451,9 @@ div.heat-js {
                 position: sticky;
                 left: 0;
                 display: none;
-    
+                border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+                z-index: 50;
+
                 @media (min-width: $minimum-width) { 
                     display: block;
                 }
@@ -484,9 +487,10 @@ div.heat-js {
 
             div.day-lines {
                 flex: 1;
-                vertical-align: baseline;
+                border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
     
                 div.day-line {
+                    vertical-align: bottom;
                     width: 8px;
                     margin-right: 1px;
                     display: inline-block;

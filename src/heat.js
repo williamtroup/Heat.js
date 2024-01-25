@@ -505,6 +505,7 @@
 
         if ( largestValueForCurrentYear === 0 ) {
             chart.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
+            labels.style.display = "none";
 
         } else {
             var totalMonths = 0;
