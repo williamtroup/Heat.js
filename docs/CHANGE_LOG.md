@@ -18,8 +18,8 @@
 - Added a new configuration option called "chartText", which states the text that should be shown for the "Chart" label (defaults to "Chart").
 
 #### **CSS:**
-- Decreased the height of the years drop-down list slightly.
-- Added snap to scroll support for the years drop-down list.
+- Decreased the height of the year's drop-down list slightly.
+- Added snap to scroll support for the year's drop-down list.
 
 #### **General Improvements:**
 - All rendering areas are now sectioned in the JS code.
