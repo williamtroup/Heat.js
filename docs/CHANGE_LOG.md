@@ -1,5 +1,11 @@
 # Heat.js - Change Log:
 
+## Version 1.5.1:
+- Minor documentation fix.
+
+<br>
+
+
 ## Version 1.5.0:
 
 #### **New Features:**
