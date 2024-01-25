@@ -120,6 +120,20 @@
     }
     return result;
   }
+  function getMapRangeColor(mapRangeColors, dateCount) {
+    var mapRangeColorsLength = mapRangeColors.length;
+    var useMapRangeColor = null;
+    var mapRangeColorsIndex = 0;
+    for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
+      var mapRangeColor = mapRangeColors[mapRangeColorsIndex];
+      if (dateCount >= mapRangeColor.minimum) {
+        useMapRangeColor = mapRangeColor;
+      } else {
+        break;
+      }
+    }
+    return useMapRangeColor;
+  }
   function renderControlTitleBar(bindingOptions) {
     if (bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton) {
       var titleBar = createElement(bindingOptions.currentView.element, "div", "title-bar");
@@ -301,17 +315,7 @@
     } else {
       day.className += _string.space + "no-click";
     }
-    var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
-    var useMapRangeColor = null;
-    var mapRangeColorsIndex = 0;
-    for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
-      var mapRangeColor = mapRangeColors[mapRangeColorsIndex];
-      if (dateCount >= mapRangeColor.minimum) {
-        useMapRangeColor = mapRangeColor;
-      } else {
-        break;
-      }
-    }
+    var useMapRangeColor = getMapRangeColor(mapRangeColors, dateCount);
     if (isDefined(useMapRangeColor) && isHeatMapColorVisible(bindingOptions, useMapRangeColor.id)) {
       day.className += _string.space + useMapRangeColor.cssClassName;
     }
@@ -379,17 +383,7 @@
     } else {
       dayLine.className += _string.space + "no-click";
     }
-    var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
-    var useMapRangeColor = null;
-    var mapRangeColorsIndex = 0;
-    for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
-      var mapRangeColor = mapRangeColors[mapRangeColorsIndex];
-      if (dateCount >= mapRangeColor.minimum) {
-        useMapRangeColor = mapRangeColor;
-      } else {
-        break;
-      }
-    }
+    var useMapRangeColor = getMapRangeColor(mapRangeColors, dateCount);
     if (isDefined(useMapRangeColor) && isHeatMapColorVisible(bindingOptions, useMapRangeColor.id)) {
       dayLine.className += _string.space + useMapRangeColor.cssClassName;
     }
