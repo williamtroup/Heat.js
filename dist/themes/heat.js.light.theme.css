@@ -15,6 +15,12 @@
     --heat-js-years-text-color: var(--heat-js-color-black);
     --heat-js-years-background-color-hover: var(--heat-js-color-gray);
 
+    /* Year */
+    --heat-js-title-background-color: var(--heat-js-container-background-color);
+    --heat-js-title-border-color: var(--heat-js-container-border-color);
+    --heat-js-title-text-color: var(--heat-js-color-black);
+    --heat-js-title-background-color-hover: var(--heat-js-color-gray);
+
     /* Days */
     --heat-js-day-background-color: var(--heat-js-color-black);
     --heat-js-day-border-color: var(--heat-js-color-gray);
