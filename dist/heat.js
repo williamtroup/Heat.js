@@ -375,6 +375,10 @@
           monthName.style.marginLeft = labelsWidth + linesWidth * monthIndex2 + "px";
         }
       }
+      chartMonths.style.width = dayLines.offsetWidth + "px";
+      var monthNameSpace = createElement(chartMonths, "div", "month-name-space");
+      monthNameSpace.style.height = chartMonths.offsetHeight + "px";
+      monthNameSpace.style.width = labelsWidth + "px";
       if (bindingOptions.keepScrollPositions) {
         bindingOptions.currentView.chartContents.scrollLeft = bindingOptions.currentView.chartContentsScrollLeft;
       }
