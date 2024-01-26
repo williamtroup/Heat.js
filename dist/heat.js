@@ -137,30 +137,32 @@
   function renderControlTitleBar(bindingOptions) {
     if (bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton) {
       var titleBar = createElement(bindingOptions.currentView.element, "div", "title-bar");
+      var title = createElement(titleBar, "div", "title");
+      createElement(title, "div", "down-arrow");
       if (bindingOptions.showTitle) {
-        var title = createElementWithHTML(titleBar, "div", "title", bindingOptions.titleText);
-        var titlesList = createElement(title, "div", "titles-list");
-        var titles = createElement(titlesList, "div", "titles");
-        var optionMap = createElementWithHTML(titles, "div", "title", _configuration.mapText);
-        var optionChart = createElementWithHTML(titles, "div", "title", _configuration.chartText);
-        if (bindingOptions.currentView.view !== _elements_View_Map) {
-          optionMap.onclick = function() {
-            bindingOptions.currentView.view = _elements_View_Map;
-            renderControlContainer(bindingOptions);
-            fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
-          };
-        } else {
-          optionMap.className += _string.space + "title-active";
-        }
-        if (bindingOptions.currentView.view !== _elements_View_Chart) {
-          optionChart.onclick = function() {
-            bindingOptions.currentView.view = _elements_View_Chart;
-            renderControlContainer(bindingOptions);
-            fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
-          };
-        } else {
-          optionChart.className += _string.space + "title-active";
-        }
+        title.innerHTML += bindingOptions.titleText;
+      }
+      var titlesList = createElement(title, "div", "titles-list");
+      var titles = createElement(titlesList, "div", "titles");
+      var optionMap = createElementWithHTML(titles, "div", "title", _configuration.mapText);
+      var optionChart = createElementWithHTML(titles, "div", "title", _configuration.chartText);
+      if (bindingOptions.currentView.view !== _elements_View_Map) {
+        optionMap.onclick = function() {
+          bindingOptions.currentView.view = _elements_View_Map;
+          renderControlContainer(bindingOptions);
+          fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+        };
+      } else {
+        optionMap.className += _string.space + "title-active";
+      }
+      if (bindingOptions.currentView.view !== _elements_View_Chart) {
+        optionChart.onclick = function() {
+          bindingOptions.currentView.view = _elements_View_Chart;
+          renderControlContainer(bindingOptions);
+          fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+        };
+      } else {
+        optionChart.className += _string.space + "title-active";
       }
       if (bindingOptions.showExportButton) {
         var exportData = createElementWithHTML(titleBar, "button", "export", _configuration.exportButtonText);
@@ -184,6 +186,7 @@
           fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
         };
         bindingOptions.currentView.yearText = createElementWithHTML(titleBar, "div", "year-text", bindingOptions.currentView.year);
+        createElement(bindingOptions.currentView.yearText, "div", "down-arrow");
         if (bindingOptions.showYearSelectionDropDown) {
           var yearList = createElement(bindingOptions.currentView.yearText, "div", "years-list");
           var years = createElement(yearList, "div", "years");

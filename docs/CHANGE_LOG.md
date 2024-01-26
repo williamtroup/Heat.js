@@ -8,6 +8,7 @@
 - Removed dead code that is no longer needed.
 - Fixed the overflow CSS properties for the chart and map being the wrong type.
 - Added a new binding option called "showChartYLabels", which states if the chart Y axis labels should be shown (defaults to true).
+- Added arrows to the title and year text in the title bar (to help show that a drop-down menu is available for each).
 - 
 
 <br>

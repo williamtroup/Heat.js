@@ -81,7 +81,7 @@
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Buttons
+    Heat.js - Mixins
     -------------------------------------------------------------------------
 */
 
@@ -114,6 +114,25 @@
         transition: var(--heat-js-transition);
     }
 }
+
+@mixin down-arrow($left-right-border-size: 8px, $border-top-size: 14px, $left: true, $margin-size: var(--heat-js-spacing)) {
+    div.down-arrow {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-left: $left-right-border-size solid transparent;
+        border-right: $left-right-border-size solid transparent;
+        border-top: $border-top-size solid var(--heat-js-color-white);
+
+        @if ($left) {
+            margin-right: $margin-size;
+        }
+        @else {
+            margin-left: $margin-size;
+        }
+    }
+}
+
 
 /*
     -------------------------------------------------------------------------
@@ -170,6 +189,8 @@ div.heat-js {
             font-size: 1.2rem;
             padding-bottom: $title-margin;
             cursor: pointer;
+
+            @include down-arrow;
 
             &:hover div.titles-list {
                 display: block;
@@ -244,6 +265,8 @@ div.heat-js {
             padding-top: $year-margin;
             padding-bottom: $year-margin;
             cursor: pointer;
+
+            @include down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );
 
             &:hover div.years-list {
                 display: block;

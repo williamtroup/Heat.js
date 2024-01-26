@@ -55,7 +55,7 @@
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Buttons
+    Heat.js - Mixins
     -------------------------------------------------------------------------
 */
 /*
@@ -108,6 +108,15 @@ div.heat-js div.title-bar div.title {
   font-size: 1.2rem;
   padding-bottom: 3px;
   cursor: pointer;
+}
+div.heat-js div.title-bar div.title div.down-arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 14px solid var(--heat-js-color-white);
+  margin-right: var(--heat-js-spacing);
 }
 div.heat-js div.title-bar div.title:hover div.titles-list {
   display: block;
@@ -191,6 +200,15 @@ div.heat-js div.title-bar div.year-text {
   padding-top: 5px;
   padding-bottom: 5px;
   cursor: pointer;
+}
+div.heat-js div.title-bar div.year-text div.down-arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 9px solid var(--heat-js-color-white);
+  margin-left: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js div.title-bar div.year-text:hover div.years-list {
   display: block;
