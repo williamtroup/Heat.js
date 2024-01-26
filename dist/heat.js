@@ -326,7 +326,6 @@
   }
   function renderControlChart(bindingOptions) {
     var chart = createElement(bindingOptions.currentView.chartContents, "div", "chart");
-    var chartMonths = createElement(bindingOptions.currentView.chartContents, "div", "chart-months ");
     var labels = createElement(chart, "div", "labels");
     var dayLines = createElement(chart, "div", "day-lines");
     var mapRangeColors = bindingOptions.mapRangeColors.sort(function(a, b) {
@@ -367,18 +366,21 @@
           }
         }
       }
-      var linesWidth = dayLines.offsetWidth / totalMonths;
-      var monthIndex2 = 0;
-      for (; monthIndex2 < 12; monthIndex2++) {
-        if (bindingOptions.monthsToShow.indexOf(monthIndex2 + 1) > -1) {
-          var monthName = createElementWithHTML(chartMonths, "div", "month-name", _configuration.monthNames[monthIndex2]);
-          monthName.style.marginLeft = labelsWidth + linesWidth * monthIndex2 + "px";
+      if (bindingOptions.showMonthNames) {
+        var chartMonths = createElement(bindingOptions.currentView.chartContents, "div", "chart-months ");
+        var linesWidth = dayLines.offsetWidth / totalMonths;
+        var monthIndex2 = 0;
+        for (; monthIndex2 < 12; monthIndex2++) {
+          if (bindingOptions.monthsToShow.indexOf(monthIndex2 + 1) > -1) {
+            var monthName = createElementWithHTML(chartMonths, "div", "month-name", _configuration.monthNames[monthIndex2]);
+            monthName.style.marginLeft = labelsWidth + linesWidth * monthIndex2 + "px";
+          }
         }
+        chartMonths.style.width = dayLines.offsetWidth + "px";
+        var monthNameSpace = createElement(chartMonths, "div", "month-name-space");
+        monthNameSpace.style.height = chartMonths.offsetHeight + "px";
+        monthNameSpace.style.width = labelsWidth + "px";
       }
-      chartMonths.style.width = dayLines.offsetWidth + "px";
-      var monthNameSpace = createElement(chartMonths, "div", "month-name-space");
-      monthNameSpace.style.height = chartMonths.offsetHeight + "px";
-      monthNameSpace.style.width = labelsWidth + "px";
       if (bindingOptions.keepScrollPositions) {
         bindingOptions.currentView.chartContents.scrollLeft = bindingOptions.currentView.chartContentsScrollLeft;
       }
