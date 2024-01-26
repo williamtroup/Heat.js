@@ -567,6 +567,7 @@
         }
 
         dayLine.style.height = ( dateCount * pixelsPerNumbers ) + "px";
+        dayLine.style.setProperty( "border-bottom-width", "0", "important" );
 
         if ( isDefinedFunction( bindingOptions.onDayClick ) ) {
             dayLine.onclick = function() {
