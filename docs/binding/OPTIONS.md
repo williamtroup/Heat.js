@@ -29,6 +29,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *number* | extraSelectionYears | States the extra years that should be included in the year drop-down list (defaults to 50). |
 | *boolean* | showYearSelectionDropDown | States if the year selection drop-down menu is shown (defaults to true). |
 | *boolean* | view | States the view that should be shown by default (defaults to "map", also accepts "chart"). |
+| *boolean* | showChartYLabels | States if the chart Y axis labels should be shown (defaults to true). |
 
 <br/>
 

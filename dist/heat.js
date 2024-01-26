@@ -335,17 +335,23 @@
     var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear;
     var currentYear = bindingOptions.currentView.year;
     var totalDays = 0;
-    var labelsWidth = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true);
-    if (largestValueForCurrentYear > 0) {
+    var labelsWidth = 0;
+    if (largestValueForCurrentYear > 0 && bindingOptions.showChartYLabels) {
       createElementWithHTML(labels, "div", "label-0", largestValueForCurrentYear.toString());
       createElementWithHTML(labels, "div", "label-25", (Math.floor(largestValueForCurrentYear / 4) * 3).toString());
       createElementWithHTML(labels, "div", "label-50", Math.floor(largestValueForCurrentYear / 2).toString());
       createElementWithHTML(labels, "div", "label-75", Math.floor(largestValueForCurrentYear / 4).toString());
       createElementWithHTML(labels, "div", "label-100", "0");
+      labelsWidth = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true);
+    } else {
+      labels.parentNode.removeChild(labels);
+      labels = null;
     }
     if (largestValueForCurrentYear === 0) {
       chart.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
-      labels.style.display = "none";
+      if (isDefined(labels)) {
+        labels.style.display = "none";
+      }
     } else {
       var totalMonths = 0;
       var monthIndex1 = 0;
@@ -586,6 +592,7 @@
     options.extraSelectionYears = getDefaultNumber(options.extraSelectionYears, 50);
     options.showYearSelectionDropDown = getDefaultBoolean(options.showYearSelectionDropDown, true);
     options.view = getDefaultString(options.view, null);
+    options.showChartYLabels = getDefaultBoolean(options.showChartYLabels, true);
     if (isInvalidOptionArray(options.monthsToShow)) {
       options.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     }

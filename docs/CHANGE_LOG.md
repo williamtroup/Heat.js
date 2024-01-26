@@ -7,6 +7,7 @@
 - Added extra values for the Y axis on the chart view (now shows 5 values in total).
 - Removed dead code that is no longer needed.
 - Fixed the overflow CSS properties for the chart and map being the wrong type.
+- Added a new binding option called "showChartYLabels", which states if the chart Y axis labels should be shown (defaults to true).
 - 
 
 <br>
