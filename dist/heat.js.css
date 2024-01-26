@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.5.0
+ * Heat.js Library v1.5.1
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -55,7 +55,7 @@
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Buttons
+    Heat.js - Mixins
     -------------------------------------------------------------------------
 */
 /*
@@ -108,6 +108,15 @@ div.heat-js div.title-bar div.title {
   font-size: 1.2rem;
   padding-bottom: 3px;
   cursor: pointer;
+}
+div.heat-js div.title-bar div.title div.down-arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 14px solid var(--heat-js-color-white);
+  margin-right: var(--heat-js-spacing);
 }
 div.heat-js div.title-bar div.title:hover div.titles-list {
   display: block;
@@ -192,6 +201,15 @@ div.heat-js div.title-bar div.year-text {
   padding-bottom: 5px;
   cursor: pointer;
 }
+div.heat-js div.title-bar div.year-text div.down-arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 9px solid var(--heat-js-color-white);
+  margin-left: calc(var(--heat-js-spacing) / 2);
+}
 div.heat-js div.title-bar div.year-text:hover div.years-list {
   display: block;
 }
@@ -255,7 +273,8 @@ div.heat-js div.title-bar button.refresh {
     -------------------------------------------------------------------------
 */
 div.heat-js div.map-contents {
-  overflow-y: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 div.heat-js div.map-contents div.map {
   display: inline-flex;
@@ -346,7 +365,8 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
 */
 div.heat-js div.chart-contents {
   display: flex;
-  overflow-y: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
   text-wrap: nowrap;
   white-space: nowrap;
 }
@@ -369,9 +389,11 @@ div.heat-js div.chart-contents div.chart div.labels {
     display: block;
   }
 }
-div.heat-js div.chart-contents div.chart div.labels div.label-top,
-div.heat-js div.chart-contents div.chart div.labels div.label-middle,
-div.heat-js div.chart-contents div.chart div.labels div.label-bottom {
+div.heat-js div.chart-contents div.chart div.labels div.label-0,
+div.heat-js div.chart-contents div.chart div.labels div.label-25,
+div.heat-js div.chart-contents div.chart div.labels div.label-50,
+div.heat-js div.chart-contents div.chart div.labels div.label-75,
+div.heat-js div.chart-contents div.chart div.labels div.label-100 {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
   height: var(--heat-js-day-size);
@@ -381,14 +403,22 @@ div.heat-js div.chart-contents div.chart div.labels div.label-bottom {
   position: absolute;
   left: 0;
 }
-div.heat-js div.chart-contents div.chart div.labels div.label-top {
+div.heat-js div.chart-contents div.chart div.labels div.label-0 {
   top: 0;
 }
-div.heat-js div.chart-contents div.chart div.labels div.label-middle {
+div.heat-js div.chart-contents div.chart div.labels div.label-25 {
+  top: 25%;
+  transform: translateY(-25%);
+}
+div.heat-js div.chart-contents div.chart div.labels div.label-50 {
   top: 50%;
   transform: translateY(-50%);
 }
-div.heat-js div.chart-contents div.chart div.labels div.label-bottom {
+div.heat-js div.chart-contents div.chart div.labels div.label-75 {
+  top: 75%;
+  transform: translateY(-75%);
+}
+div.heat-js div.chart-contents div.chart div.labels div.label-100 {
   bottom: 0;
 }
 div.heat-js div.chart-contents div.chart div.day-lines {

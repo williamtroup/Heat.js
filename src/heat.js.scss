@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.5.0
+ * Heat.js Library v1.5.1
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -81,7 +81,7 @@
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Buttons
+    Heat.js - Mixins
     -------------------------------------------------------------------------
 */
 
@@ -114,6 +114,25 @@
         transition: var(--heat-js-transition);
     }
 }
+
+@mixin down-arrow($left-right-border-size: 8px, $border-top-size: 14px, $left: true, $margin-size: var(--heat-js-spacing)) {
+    div.down-arrow {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-left: $left-right-border-size solid transparent;
+        border-right: $left-right-border-size solid transparent;
+        border-top: $border-top-size solid var(--heat-js-color-white);
+
+        @if ($left) {
+            margin-right: $margin-size;
+        }
+        @else {
+            margin-left: $margin-size;
+        }
+    }
+}
+
 
 /*
     -------------------------------------------------------------------------
@@ -170,6 +189,8 @@ div.heat-js {
             font-size: 1.2rem;
             padding-bottom: $title-margin;
             cursor: pointer;
+
+            @include down-arrow;
 
             &:hover div.titles-list {
                 display: block;
@@ -244,6 +265,8 @@ div.heat-js {
             padding-top: $year-margin;
             padding-bottom: $year-margin;
             cursor: pointer;
+
+            @include down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );
 
             &:hover div.years-list {
                 display: block;
@@ -320,7 +343,8 @@ div.heat-js {
 
 div.heat-js {
     div.map-contents {
-        overflow-y: scroll;
+        overflow-x: scroll;
+        overflow-y: hidden;
 
         div.map {
             display: inline-flex;
@@ -436,7 +460,8 @@ div.heat-js {
 div.heat-js {
     div.chart-contents {
         display: flex;
-        overflow-y: scroll;
+        overflow-x: scroll;
+        overflow-y: hidden;
         text-wrap: nowrap;
         white-space: nowrap;
 
@@ -458,9 +483,11 @@ div.heat-js {
                     display: block;
                 }
         
-                div.label-top,
-                div.label-middle,
-                div.label-bottom {
+                div.label-0,
+                div.label-25,
+                div.label-50,
+                div.label-75,
+                div.label-100 {
                     font-weight: var(--heat-js-text-bold-weight);
                     text-align: left !important;
                     height: var(--heat-js-day-size);
@@ -471,16 +498,26 @@ div.heat-js {
                     left: 0;
                 }
 
-                div.label-top {
+                div.label-0 {
                     top: 0;
                 }
 
-                div.label-middle {
+                div.label-25 {
+                    top: 25%;
+                    transform: translateY(-25%);
+                }
+
+                div.label-50 {
                     top: 50%;
                     transform: translateY(-50%);
                 }
 
-                div.label-bottom {
+                div.label-75 {
+                    top: 75%;
+                    transform: translateY(-75%);
+                }
+
+                div.label-100 {
                     bottom: 0;
                 }
             }

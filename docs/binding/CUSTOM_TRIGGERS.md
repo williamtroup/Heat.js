@@ -87,7 +87,7 @@ Fires when data for a heatmap is removed.
 ***Parameter:*** element: '*Object*' - The element that the data was removed from.
 <br>
 
-### options.oReset( *element* ):
+### options.onReset( *element* ):
 Fires when data for a heatmap is reset.
 <br>
 ***Parameter:*** element: '*Object*' - The element that the data was reset for.

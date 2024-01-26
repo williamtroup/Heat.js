@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v1.5.0
+ * @version     v1.5.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -226,39 +226,44 @@
 
     function renderControlTitleBar( bindingOptions ) {
         if ( bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton ) {
-            var titleBar = createElement( bindingOptions.currentView.element, "div", "title-bar" );
-    
+            var titleBar = createElement( bindingOptions.currentView.element, "div", "title-bar" ),
+                title = createElement( titleBar, "div", "title" );
+
+            createElement( title, "div", "down-arrow" );
+
             if ( bindingOptions.showTitle ) {
-                var title = createElementWithHTML( titleBar, "div", "title", bindingOptions.titleText ),
-                    titlesList = createElement( title, "div", "titles-list" ),
-                    titles = createElement( titlesList, "div", "titles" ),
-                    optionMap = createElementWithHTML( titles, "div", "title", _configuration.mapText ),
-                    optionChart = createElementWithHTML( titles, "div", "title", _configuration.chartText );
-
-                if ( bindingOptions.currentView.view !== _elements_View_Map ) {
-                    optionMap.onclick = function() {
-                        bindingOptions.currentView.view = _elements_View_Map;
-    
-                        renderControlContainer( bindingOptions );
-                        fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
-                    };
-                    
-                } else {
-                    optionMap.className += _string.space + "title-active";
-                }
-
-                if ( bindingOptions.currentView.view !== _elements_View_Chart ) {
-                    optionChart.onclick = function() {
-                        bindingOptions.currentView.view = _elements_View_Chart;
-    
-                        renderControlContainer( bindingOptions );
-                        fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
-                    };
-
-                } else {
-                    optionChart.className += _string.space + "title-active";
-                }
+                title.innerHTML += bindingOptions.titleText;
             }
+
+            var titlesList = createElement( title, "div", "titles-list" ),
+                titles = createElement( titlesList, "div", "titles" ),
+                optionMap = createElementWithHTML( titles, "div", "title", _configuration.mapText ),
+                optionChart = createElementWithHTML( titles, "div", "title", _configuration.chartText );
+
+            if ( bindingOptions.currentView.view !== _elements_View_Map ) {
+                optionMap.onclick = function() {
+                    bindingOptions.currentView.view = _elements_View_Map;
+
+                    renderControlContainer( bindingOptions );
+                    fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
+                };
+                
+            } else {
+                optionMap.className += _string.space + "title-active";
+            }
+
+            if ( bindingOptions.currentView.view !== _elements_View_Chart ) {
+                optionChart.onclick = function() {
+                    bindingOptions.currentView.view = _elements_View_Chart;
+
+                    renderControlContainer( bindingOptions );
+                    fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
+                };
+
+            } else {
+                optionChart.className += _string.space + "title-active";
+            }
+            
 
             if ( bindingOptions.showExportButton ) {
                 var exportData = createElementWithHTML( titleBar, "button", "export", _configuration.exportButtonText );
@@ -289,6 +294,8 @@
                 };
 
                 bindingOptions.currentView.yearText = createElementWithHTML( titleBar, "div", "year-text", bindingOptions.currentView.year );
+
+                createElement( bindingOptions.currentView.yearText, "div", "down-arrow" );
 
                 if ( bindingOptions.showYearSelectionDropDown ) {
                     var yearList = createElement( bindingOptions.currentView.yearText, "div", "years-list" ),
@@ -484,7 +491,6 @@
 
     function renderControlChart( bindingOptions ) {
         var chart = createElement( bindingOptions.currentView.chartContents, "div", "chart" ),
-            chartMonths = createElement( bindingOptions.currentView.chartContents, "div", "chart-months " ),
             labels = createElement( chart, "div", "labels" ),
             dayLines = createElement( chart, "div", "day-lines" ),
             mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
@@ -494,18 +500,28 @@
             pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear,
             currentYear = bindingOptions.currentView.year,
             totalDays = 0,
-            dayLine = null,
+            labelsWidth = 0;
+
+        if ( largestValueForCurrentYear > 0 && bindingOptions.showChartYLabels ) {
+            createElementWithHTML( labels, "div", "label-0", largestValueForCurrentYear.toString() );
+            createElementWithHTML( labels, "div", "label-25", ( Math.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
+            createElementWithHTML( labels, "div", "label-50", Math.floor( largestValueForCurrentYear / 2 ).toString() );
+            createElementWithHTML( labels, "div", "label-75", Math.floor( largestValueForCurrentYear / 4 ).toString() );
+            createElementWithHTML( labels, "div", "label-100", "0" );
+
             labelsWidth = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true );
 
-        if ( largestValueForCurrentYear > 0 ) {
-            createElementWithHTML( labels, "div", "label-top", largestValueForCurrentYear.toString() );
-            createElementWithHTML( labels, "div", "label-middle", Math.floor( largestValueForCurrentYear / 2 ).toString() );
-            createElementWithHTML( labels, "div", "label-bottom", "0" );
+        } else {
+            labels.parentNode.removeChild( labels );
+            labels = null;
         }
 
         if ( largestValueForCurrentYear === 0 ) {
             chart.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
-            labels.style.display = "none";
+
+            if ( isDefined( labels ) ) {
+                labels.style.display = "none";
+            }
 
         } else {
             var totalMonths = 0;
@@ -519,7 +535,7 @@
 
                     for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                         if ( bindingOptions.daysToShow.indexOf( actualDay ) > -1 ) {
-                            dayLine = renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, mapRangeColors, pixelsPerNumbers );
+                            renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, mapRangeColors, pixelsPerNumbers );
                         }
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
@@ -532,20 +548,23 @@
                 }
             }
 
-            var linesWidth = dayLines.offsetWidth / totalMonths;
+            if ( bindingOptions.showMonthNames ) {
+                var chartMonths = createElement( bindingOptions.currentView.chartContents, "div", "chart-months " ),
+                    linesWidth = dayLines.offsetWidth / totalMonths;
 
-            for ( var monthIndex2 = 0; monthIndex2 < 12; monthIndex2++ ) {
-                if ( bindingOptions.monthsToShow.indexOf( monthIndex2 + 1 ) > -1 ) {
-                    var monthName = createElementWithHTML( chartMonths, "div", "month-name", _configuration.monthNames[ monthIndex2 ] );
-                    monthName.style.marginLeft = labelsWidth + ( linesWidth * monthIndex2 ) + "px";
+                for ( var monthIndex2 = 0; monthIndex2 < 12; monthIndex2++ ) {
+                    if ( bindingOptions.monthsToShow.indexOf( monthIndex2 + 1 ) > -1 ) {
+                        var monthName = createElementWithHTML( chartMonths, "div", "month-name", _configuration.monthNames[ monthIndex2 ] );
+                        monthName.style.marginLeft = labelsWidth + ( linesWidth * monthIndex2 ) + "px";
+                    }
                 }
+
+                chartMonths.style.width = dayLines.offsetWidth + "px";
+
+                var monthNameSpace = createElement( chartMonths, "div", "month-name-space" );
+                monthNameSpace.style.height = chartMonths.offsetHeight + "px";
+                monthNameSpace.style.width = labelsWidth + "px";
             }
-
-            chartMonths.style.width = dayLines.offsetWidth + "px";
-
-            var monthNameSpace = createElement( chartMonths, "div", "month-name-space" );
-            monthNameSpace.style.height = chartMonths.offsetHeight + "px";
-            monthNameSpace.style.width = labelsWidth + "px";
     
             if ( bindingOptions.keepScrollPositions ) {
                 bindingOptions.currentView.chartContents.scrollLeft = bindingOptions.currentView.chartContentsScrollLeft;
@@ -567,6 +586,7 @@
         }
 
         dayLine.style.height = ( dateCount * pixelsPerNumbers ) + "px";
+        dayLine.style.setProperty( "border-bottom-width", "0", "important" );
 
         if ( isDefinedFunction( bindingOptions.onDayClick ) ) {
             dayLine.onclick = function() {
@@ -582,8 +602,6 @@
         if ( isDefined( useMapRangeColor ) && isHeatMapColorVisible( bindingOptions, useMapRangeColor.id ) ) {
             dayLine.className += _string.space + useMapRangeColor.cssClassName;
         }
-
-        return dayLine;
     }
 
 
@@ -818,6 +836,7 @@
         options.extraSelectionYears = getDefaultNumber( options.extraSelectionYears, 50 );
         options.showYearSelectionDropDown = getDefaultBoolean( options.showYearSelectionDropDown, true );
         options.view = getDefaultString( options.view, null );
+        options.showChartYLabels = getDefaultBoolean( options.showChartYLabels, true );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -1657,7 +1676,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.5.0";
+        return "1.5.1";
     };
 
 
