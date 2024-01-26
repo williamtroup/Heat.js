@@ -255,7 +255,8 @@ div.heat-js div.title-bar button.refresh {
     -------------------------------------------------------------------------
 */
 div.heat-js div.map-contents {
-  overflow-y: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 div.heat-js div.map-contents div.map {
   display: inline-flex;
@@ -346,7 +347,8 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
 */
 div.heat-js div.chart-contents {
   display: flex;
-  overflow-y: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
   text-wrap: nowrap;
   white-space: nowrap;
 }
