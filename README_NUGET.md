@@ -7,7 +7,7 @@
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://william-troup.com/)
 
-> 🌞 A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.
+> 🌞 A lightweight JavaScript library that generates customizable heat maps and charts to visualize date-based activity and trends.
 
 
 ## What features does Heat.js have?
