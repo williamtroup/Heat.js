@@ -1,6 +1,7 @@
 # Heat.js - Change Log:
 
 ## Version 1.5.2:
+- Removed a manual margin setter when the month names are shown at the bottom of the map view.
 - 
 
 <br>

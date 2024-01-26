@@ -357,7 +357,6 @@
 
             if ( !bindingOptions.showMonthNames || bindingOptions.placeMonthNamesOnTheBottom ) {
                 days.style.paddingTop = "0px";
-                days.style.marginTop = !bindingOptions.placeMonthNamesOnTheBottom ? "-5px":  "-2px";
             }
     
             for ( var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++ ) {

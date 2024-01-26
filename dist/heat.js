@@ -228,7 +228,6 @@
       var days = createElement(map, "div", "days");
       if (!bindingOptions.showMonthNames || bindingOptions.placeMonthNamesOnTheBottom) {
         days.style.paddingTop = "0px";
-        days.style.marginTop = !bindingOptions.placeMonthNamesOnTheBottom ? "-5px" : "-2px";
       }
       var dayNameIndex = 0;
       for (; dayNameIndex < 7; dayNameIndex++) {
