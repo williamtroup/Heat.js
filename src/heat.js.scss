@@ -525,15 +525,23 @@ div.heat-js {
             div.day-lines {
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-    
+
                 div.day-line {
+                    background-color: var(--heat-js-day-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     vertical-align: bottom;
                     width: 8px;
                     margin-right: 1px;
                     display: inline-block;
+                    transition: var(--heat-js-transition);
     
                     &:last-child {
                         margin-right: 0;
+                    }
+
+                    &:hover {
+                        cursor: pointer;
+                        background: var(--heat-js-day-background-color-hover);
                     }
                 }
             }

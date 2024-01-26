@@ -426,13 +426,20 @@ div.heat-js div.chart-contents div.chart div.day-lines {
   border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
+  background-color: var(--heat-js-day-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   vertical-align: bottom;
   width: 8px;
   margin-right: 1px;
   display: inline-block;
+  transition: var(--heat-js-transition);
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line:last-child {
   margin-right: 0;
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line:hover {
+  cursor: pointer;
+  background: var(--heat-js-day-background-color-hover);
 }
 div.heat-js div.chart-contents div.chart-months {
   position: relative;
