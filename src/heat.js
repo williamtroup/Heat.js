@@ -497,9 +497,11 @@
             labelsWidth = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true );
 
         if ( largestValueForCurrentYear > 0 ) {
-            createElementWithHTML( labels, "div", "label-top", largestValueForCurrentYear.toString() );
-            createElementWithHTML( labels, "div", "label-middle", Math.floor( largestValueForCurrentYear / 2 ).toString() );
-            createElementWithHTML( labels, "div", "label-bottom", "0" );
+            createElementWithHTML( labels, "div", "label-0", largestValueForCurrentYear.toString() );
+            createElementWithHTML( labels, "div", "label-25", ( Math.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
+            createElementWithHTML( labels, "div", "label-50", Math.floor( largestValueForCurrentYear / 2 ).toString() );
+            createElementWithHTML( labels, "div", "label-75", Math.floor( largestValueForCurrentYear / 4 ).toString() );
+            createElementWithHTML( labels, "div", "label-100", "0" );
         }
 
         if ( largestValueForCurrentYear === 0 ) {

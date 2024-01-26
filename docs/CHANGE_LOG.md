@@ -4,6 +4,7 @@
 - Fixed an error in the binding option custom triggers documentation.
 - Fixed the chart view showing the border at the bottom of each bar.
 - Fixed the binding option "showMonthNames" not being used for the chart view.
+- Added extra values for the Y axis on the chart view (now shows 5 values in total).
 - 
 
 <br>
