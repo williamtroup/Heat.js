@@ -493,7 +493,6 @@
             pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear,
             currentYear = bindingOptions.currentView.year,
             totalDays = 0,
-            dayLine = null,
             labelsWidth = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true );
 
         if ( largestValueForCurrentYear > 0 ) {
@@ -520,7 +519,7 @@
 
                     for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                         if ( bindingOptions.daysToShow.indexOf( actualDay ) > -1 ) {
-                            dayLine = renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, mapRangeColors, pixelsPerNumbers );
+                            renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, mapRangeColors, pixelsPerNumbers );
                         }
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
@@ -587,8 +586,6 @@
         if ( isDefined( useMapRangeColor ) && isHeatMapColorVisible( bindingOptions, useMapRangeColor.id ) ) {
             dayLine.className += _string.space + useMapRangeColor.cssClassName;
         }
-
-        return dayLine;
     }
 
 
