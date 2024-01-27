@@ -228,16 +228,18 @@
      */
 
     function renderControlToolTip( bindingOptions ) {
-        bindingOptions.currentView.tooltip = createElement( _parameter_Document.body, "div", "heat-js-tooltip" );
-        bindingOptions.currentView.tooltip.style.display = "none";
-
-        _parameter_Document.body.addEventListener( "mousemove", function() {
-            hideToolTip( bindingOptions );
-        } );
-
-        _parameter_Document.addEventListener( "scroll", function() {
-            hideToolTip( bindingOptions );
-        } );
+        if ( !isDefined( bindingOptions.currentView.tooltip ) ) {
+            bindingOptions.currentView.tooltip = createElement( _parameter_Document.body, "div", "heat-js-tooltip" );
+            bindingOptions.currentView.tooltip.style.display = "none";
+    
+            _parameter_Document.body.addEventListener( "mousemove", function() {
+                hideToolTip( bindingOptions );
+            } );
+    
+            _parameter_Document.addEventListener( "scroll", function() {
+                hideToolTip( bindingOptions );
+            } );
+        }
     }
 
     function addToolTip( element, bindingOptions, text ) {
