@@ -18,6 +18,11 @@
     --heat-js-container-background-color: #22272e;
     --heat-js-container-border-color: #454c56;
 
+    // ToolTip
+    --heat-js-tooltip-background-color: var(--heat-js-container-background-color);
+    --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
+    --heat-js-tooltip-text-color: var(--heat-js-color-white);
+
     // Year
     --heat-js-years-background-color: var(--heat-js-container-background-color);
     --heat-js-years-border-color: var(--heat-js-container-border-color);
@@ -143,6 +148,7 @@
 div.heat-js {
     @include no-selection-allowed;
     display: inline-block;
+    position: relative;
     border-radius: var(--heat-js-border-radius);
     background-color: var(--heat-js-container-background-color);
     color: var(--heat-js-color-white);
@@ -713,4 +719,26 @@ div.heat-js {
         border: var(--heat-js-border-size-day) solid var(--heat-js-day-color-4-border-color) !important;
         color: var(--heat-js-day-color-4-text-color);
     }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - ToolTip
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js-tooltip {
+    @include no-selection-allowed;
+    position: absolute;
+    background-color: var(--heat-js-tooltip-background-color);
+    border: var(--heat-js-border-size) solid var(--heat-js-tooltip-border-color);
+    color: var(--heat-js-tooltip-text-color);
+    border-radius: var(--heat-js-border-radius);
+    z-index: 2000;
+    max-width: 300px;
+    padding: var(--heat-js-spacing);
+    font-size: var(--heat-js-spacing-font-size);
+    font-weight: var(--heat-js-text-bold-weight);
+    display: none;
 }

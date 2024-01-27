@@ -2,6 +2,12 @@
 
 ## Version 1.6.0:
 
+#### **New Features:**
+- Added custom tooltip support! Tooltips will continue to show as normal, but you can now style when using the new ":root" variables.
+
+#### **Binding Options:**
+- Added a new binding option called "tooltipDelay", which states how long the tooltip should wait (in milliseconds) until it's shown (defaults to 1000).
+
 #### **Public Functions:**
 - Added new public function "addDates()", which will add an array of dates (saves all addDate() each time.)
 - Added new public function "removeDates()", which will remove an array of dates (saves all removeDate() each time.)

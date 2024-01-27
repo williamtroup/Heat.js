@@ -99,6 +99,8 @@
         var bindingOptions = buildAttributeOptions( data );
         bindingOptions.currentView = {};
         bindingOptions.currentView.element = element;
+        bindingOptions.currentView.tooltip = null;
+        bindingOptions.currentView.tooltipTimer = null;
         bindingOptions.currentView.mapContents = null;
         bindingOptions.currentView.mapContentsScrollLeft = 0;
         bindingOptions.currentView.chartContents = null;
@@ -144,6 +146,7 @@
         bindingOptions.currentView.element.className = "heat-js";
         bindingOptions.currentView.element.innerHTML = _string.empty;
 
+        renderControlToolTip( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions );
         renderControlChart( bindingOptions );
@@ -215,6 +218,55 @@
         }
 
         return useMapRangeColor;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  ToolTip
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderControlToolTip( bindingOptions ) {
+        bindingOptions.currentView.tooltip = createElement( _parameter_Document.body, "div", "heat-js-tooltip" );
+        bindingOptions.currentView.tooltip.style.display = "none";
+
+        _parameter_Document.body.addEventListener( "mousemove", function() {
+            hideToolTip( bindingOptions );
+        } );
+    }
+
+    function addToolTip( element, bindingOptions, text ) {
+        if ( element !== null ) {
+            element.onmousemove = function( e ) {
+                showToolTip( e, bindingOptions, text );
+            };
+        }
+    }
+
+    function showToolTip( e, bindingOptions, text ) {
+        cancelBubble( e );
+        hideToolTip( bindingOptions );
+
+        bindingOptions.currentView.tooltipTimer = setTimeout( function() {
+            bindingOptions.currentView.tooltip.innerHTML = text;
+            bindingOptions.currentView.tooltip.style.display = "block";
+
+            showElementAtMousePosition( e, bindingOptions.currentView.tooltip );
+        }, bindingOptions.tooltipDelay );
+    }
+
+    function hideToolTip( bindingOptions ) {
+        if ( isDefined( bindingOptions.currentView.tooltip ) ) {
+            if ( isDefined( bindingOptions.currentView.tooltipTimer ) ) {
+                clearTimeout( bindingOptions.currentView.tooltipTimer );
+                bindingOptions.currentView.tooltipTimer = null;
+            }
+    
+            if ( bindingOptions.currentView.tooltip.style.display === "block" ) {
+                bindingOptions.currentView.tooltip.style.display = "none";
+            }
+        }
     }
 
 
@@ -450,9 +502,9 @@
         dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
 
         if ( isDefinedFunction( bindingOptions.onDayToolTipRender ) ) {
-            day.title = fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount );
+            addToolTip( day, bindingOptions, fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount ) );
         } else {
-            day.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
+            addToolTip( day, bindingOptions, getCustomFormattedDateText( bindingOptions.dayToolTipText, date ) );
         }
 
         if ( bindingOptions.showDayNumbers && dateCount > 0 ) {
@@ -579,9 +631,9 @@
         dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
 
         if ( isDefinedFunction( bindingOptions.onDayToolTipRender ) ) {
-            dayLine.title = fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount );
+            addToolTip( dayLine, bindingOptions, fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount ) );
         } else {
-            dayLine.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
+            addToolTip( dayLine, bindingOptions, getCustomFormattedDateText( bindingOptions.dayToolTipText, date ) );
         }
 
         dayLine.style.height = ( dateCount * pixelsPerNumbers ) + "px";
@@ -689,7 +741,8 @@
 
     function renderControlViewGuideDay( bindingOptions, days, mapRangeColor ) {
         var day = createElement( days, "div" );
-        day.title = mapRangeColor.tooltipText;
+
+        addToolTip( day, bindingOptions, mapRangeColor.tooltipText );
 
         if ( isHeatMapColorVisible( bindingOptions, mapRangeColor.id ) ) {
             day.className = "day " + mapRangeColor.cssClassName;
@@ -836,6 +889,7 @@
         options.showYearSelectionDropDown = getDefaultBoolean( options.showYearSelectionDropDown, true );
         options.view = getDefaultString( options.view, null );
         options.showChartYLabels = getDefaultBoolean( options.showChartYLabels, true );
+        options.tooltipDelay = getDefaultNumber( options.tooltipDelay, 1000 );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -1142,6 +1196,53 @@
             parsed: parsed,
             result: result
         };
+    }
+
+    function cancelBubble( e ) {
+        e.preventDefault();
+        e.cancelBubble = true;
+    }
+
+    function getScrollPosition() {
+        var doc = _parameter_Document.documentElement,
+            left = ( _parameter_Window.pageXOffset || doc.scrollLeft )  - ( doc.clientLeft || 0 ),
+            top = ( _parameter_Window.pageYOffset || doc.scrollTop ) - ( doc.clientTop || 0 );
+
+        return {
+            left: left,
+            top: top
+        };
+    }
+
+    function showElementAtMousePosition( e, element ) {
+        var left = e.pageX,
+            top = e.pageY,
+            scrollPosition = getScrollPosition();
+
+        element.style.display = "block";
+
+        if ( left + element.offsetWidth > _parameter_Window.innerWidth ) {
+            left -= element.offsetWidth;
+        } else {
+            left++;
+        }
+
+        if ( top + element.offsetHeight > _parameter_Window.innerHeight ) {
+            top -= element.offsetHeight;
+        } else {
+            top++;
+        }
+
+        if ( left < scrollPosition.left ) {
+            left = e.pageX + 1;
+        }
+
+        if ( top < scrollPosition.top ) {
+            top = e.pageY + 1;
+        }
+        
+        element.style.left = left + "px";
+        element.style.top = top + "px";
     }
 
 
@@ -1608,6 +1709,8 @@
                 bindingOptions.currentView.element.innerHTML = _string.empty;
                 bindingOptions.currentView.element.className = _string.empty;
 
+                _parameter_Document.body.removeChild( bindingOptions.currentView.tooltip );
+
                 fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.currentView.element );
             }
         }
@@ -1635,6 +1738,8 @@
 
             bindingOptions.currentView.element.innerHTML = _string.empty;
             bindingOptions.currentView.element.className = _string.empty;
+
+            _parameter_Document.body.removeChild( bindingOptions.currentView.tooltip );
 
             fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.currentView.element );
 
