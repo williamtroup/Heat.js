@@ -1,7 +1,10 @@
 # Heat.js - Change Log:
 
 ## Version 1.6.0:
-- 
+
+#### **Public Functions:**
+- Added new public function "addDates()", which will add an array of dates (saves all addDate() each time.)
+- Added new public function "removeDates()", which will remove an array of dates (saves all removeDate() each time.)
 
 <br>
 

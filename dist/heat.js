@@ -847,6 +847,23 @@
   var _elements_View_Map = 1;
   var _elements_View_Chart = 2;
   var _attribute_Name_Options = "data-heat-options";
+  this.addDates = function(elementId, dates, type, triggerRefresh) {
+    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+      triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
+      type = !isDefinedString(type) ? _elements_DateCounts_DefaultType : type;
+      var datesLength = dates.length;
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      var dateIndex = 0;
+      for (; dateIndex < datesLength; dateIndex++) {
+        this.addDate(elementId, dates[dateIndex], type, false);
+      }
+      fireCustomTrigger(bindingOptions.onAdd, bindingOptions.currentView.element);
+      if (triggerRefresh) {
+        renderControlContainer(_elements_DateCounts[elementId].options);
+      }
+    }
+    return this;
+  };
   this.addDate = function(elementId, date, type, triggerRefresh) {
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
       triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
@@ -862,6 +879,23 @@
       _elements_DateCounts[elementId].type[type][storageDate]++;
       var bindingOptions = _elements_DateCounts[elementId].options;
       fireCustomTrigger(bindingOptions.onAdd, bindingOptions.currentView.element);
+      if (triggerRefresh) {
+        renderControlContainer(_elements_DateCounts[elementId].options);
+      }
+    }
+    return this;
+  };
+  this.removeDates = function(elementId, dates, type, triggerRefresh) {
+    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+      type = !isDefinedString(type) ? _elements_DateCounts_DefaultType : type;
+      triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
+      var datesLength = dates.length;
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      var dateIndex = 0;
+      for (; dateIndex < datesLength; dateIndex++) {
+        this.removeDate(elementId, dates[dateIndex], type, false);
+      }
+      fireCustomTrigger(bindingOptions.onRemove, bindingOptions.currentView.element);
       if (triggerRefresh) {
         renderControlContainer(_elements_DateCounts[elementId].options);
       }
