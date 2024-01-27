@@ -1,5 +1,12 @@
 # Heat.js - Change Log:
 
+## Version 1.5.2:
+- Removed a manual margin setter when the month names are shown at the bottom of the map view.
+- In the Chart view, if a day does not have a valid value, the default background/border color (as shown on the Map view) is now shown.
+
+<br>
+
+
 ## Version 1.5.1:
 - Fixed an error in the binding option custom triggers documentation.
 - Fixed the chart view showing the border at the bottom of each bar.

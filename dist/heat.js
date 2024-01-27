@@ -1,4 +1,4 @@
-/*! Heat.js v1.5.1 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.5.2 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -228,7 +228,6 @@
       var days = createElement(map, "div", "days");
       if (!bindingOptions.showMonthNames || bindingOptions.placeMonthNamesOnTheBottom) {
         days.style.paddingTop = "0px";
-        days.style.marginTop = !bindingOptions.placeMonthNamesOnTheBottom ? "-5px" : "-2px";
       }
       var dayNameIndex = 0;
       for (; dayNameIndex < 7; dayNameIndex++) {
@@ -1011,7 +1010,7 @@
     return this;
   };
   this.getVersion = function() {
-    return "1.5.1";
+    return "1.5.2";
   };
   (function(documentObject, windowObject) {
     _parameter_Document = documentObject;
