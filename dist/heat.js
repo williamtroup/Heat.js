@@ -143,6 +143,9 @@
     _parameter_Document.body.addEventListener("mousemove", function() {
       hideToolTip(bindingOptions);
     });
+    _parameter_Document.addEventListener("scroll", function() {
+      hideToolTip(bindingOptions);
+    });
   }
   function addToolTip(element, bindingOptions, text) {
     if (element !== null) {
