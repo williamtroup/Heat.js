@@ -1,6 +1,7 @@
 # Heat.js - Change Log:
 
 ## Version 1.6.2:
+- Added hover effect for the guide day toggles that are turned off.
 - 
 
 <br>
