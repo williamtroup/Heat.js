@@ -269,7 +269,7 @@
     if (bindingOptions.showDayNames) {
       var days = createElement(map, "div", "days");
       if (!bindingOptions.showMonthNames || bindingOptions.placeMonthNamesOnTheBottom) {
-        days.style.paddingTop = "0px";
+        days.className = "days-months-bottom";
       }
       var dayNameIndex = 0;
       for (; dayNameIndex < 7; dayNameIndex++) {
@@ -600,13 +600,13 @@
   }
   function getCsvFilename(bindingOptions) {
     var date = new Date();
-    var datePart = padNumber(date.getDate()) + "-" + padNumber(date.getMonth() + 1) + "-" + date.getFullYear();
-    var timePart = padNumber(date.getHours()) + "-" + padNumber(date.getMinutes());
+    var datePart = padNumber(date.getDate()) + _string.dash + padNumber(date.getMonth() + 1) + _string.dash + date.getFullYear();
+    var timePart = padNumber(date.getHours()) + _string.dash + padNumber(date.getMinutes());
     var filenameStart = _string.empty;
     if (bindingOptions.currentView.type !== _elements_DateCounts_DefaultType) {
-      filenameStart = bindingOptions.currentView.type.toLowerCase().replace(_string.space, "_") + "_";
+      filenameStart = bindingOptions.currentView.type.toLowerCase().replace(_string.space, _string.underscore) + _string.underscore;
     }
-    return filenameStart + datePart + "_" + timePart + ".csv";
+    return filenameStart + datePart + _string.underscore + timePart + ".csv";
   }
   function getCsvValue(text) {
     text = text.toString().replace(/(\r\n|\n|\r)/gm, _string.empty).replace(/(\s\s)/gm, _string.space);
@@ -865,7 +865,7 @@
     var charIndex = 0;
     for (; charIndex < 32; charIndex++) {
       if (charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20) {
-        result.push("-");
+        result.push(_string.dash);
       }
       var character = Math.floor(Math.random() * 16).toString(16);
       result.push(character);
@@ -877,10 +877,10 @@
     return numberString.length === 1 ? "0" + numberString : numberString;
   }
   function toStorageDate(date) {
-    return date.getFullYear() + "-" + padNumber(date.getMonth() + 1) + "-" + padNumber(date.getDate());
+    return date.getFullYear() + _string.dash + padNumber(date.getMonth() + 1) + _string.dash + padNumber(date.getDate());
   }
   function getStorageDateYear(data) {
-    return data.split("-")[0];
+    return data.split(_string.dash)[0];
   }
   function buildDefaultConfiguration() {
     _configuration.safeMode = getDefaultBoolean(_configuration.safeMode, true);
@@ -919,7 +919,7 @@
   var _parameter_Document = null;
   var _parameter_Window = null;
   var _configuration = {};
-  var _string = {empty:"", space:" ", newLine:"\n"};
+  var _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_"};
   var _elements_Type = {};
   var _elements_Day_Width = null;
   var _elements_DateCounts = {};

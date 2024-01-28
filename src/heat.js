@@ -24,6 +24,8 @@
             empty: "",
             space: " ",
             newLine: "\n",
+            dash: "-",
+            underscore: "_"
         },
 
         // Variables: Elements
@@ -413,7 +415,7 @@
             var days = createElement( map, "div", "days" );
 
             if ( !bindingOptions.showMonthNames || bindingOptions.placeMonthNamesOnTheBottom ) {
-                days.style.paddingTop = "0px";
+                days.className = "days-months-bottom";
             }
     
             for ( var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++ ) {
@@ -844,15 +846,15 @@
 
     function getCsvFilename( bindingOptions ) {
         var date = new Date(),
-            datePart = padNumber( date.getDate() ) + "-" + padNumber( date.getMonth() + 1 ) + "-" + date.getFullYear(),
-            timePart = padNumber( date.getHours() ) + "-" + padNumber( date.getMinutes() ),
+            datePart = padNumber( date.getDate() ) + _string.dash + padNumber( date.getMonth() + 1 ) + _string.dash + date.getFullYear(),
+            timePart = padNumber( date.getHours() ) + _string.dash + padNumber( date.getMinutes() ),
             filenameStart = _string.empty;
 
         if ( bindingOptions.currentView.type !== _elements_DateCounts_DefaultType ) {
-            filenameStart = bindingOptions.currentView.type.toLowerCase().replace( _string.space, "_" ) + "_";
+            filenameStart = bindingOptions.currentView.type.toLowerCase().replace( _string.space, _string.underscore ) + _string.underscore;
         }
 
-        return filenameStart + datePart + "_" + timePart + ".csv";
+        return filenameStart + datePart + _string.underscore + timePart + ".csv";
     }
 
     function getCsvValue( text ) {
@@ -1266,7 +1268,7 @@
 
         for ( var charIndex = 0; charIndex < 32; charIndex++ ) {
             if ( charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20 ) {
-                result.push( "-" );
+                result.push( _string.dash );
             }
 
             var character = Math.floor( Math.random() * 16 ).toString( 16 );
@@ -1482,11 +1484,11 @@
     };
 
     function toStorageDate( date ) {
-        return date.getFullYear() + "-" + padNumber( date.getMonth() + 1 ) + "-" + padNumber( date.getDate() );
+        return date.getFullYear() + _string.dash + padNumber( date.getMonth() + 1 ) + _string.dash + padNumber( date.getDate() );
     }
 
     function getStorageDateYear( data ) {
-        return data.split( "-" )[ 0 ];
+        return data.split( _string.dash )[ 0 ];
     }
 
 

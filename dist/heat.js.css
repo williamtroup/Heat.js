@@ -284,7 +284,8 @@ div.heat-js div.map-contents div.map {
   display: inline-flex;
   flex-direction: row;
 }
-div.heat-js div.map-contents div.map div.days {
+div.heat-js div.map-contents div.map div.days,
+div.heat-js div.map-contents div.map div.days-months-bottom {
   background-color: var(--heat-js-container-background-color);
   padding-right: calc(var(--heat-js-spacing) * 3);
   padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
@@ -294,11 +295,13 @@ div.heat-js div.map-contents div.map div.days {
   z-index: 50;
 }
 @media (min-width: 768px) {
-  div.heat-js div.map-contents div.map div.days {
+  div.heat-js div.map-contents div.map div.days,
+  div.heat-js div.map-contents div.map div.days-months-bottom {
     display: block;
   }
 }
-div.heat-js div.map-contents div.map div.days div.day-name {
+div.heat-js div.map-contents div.map div.days div.day-name,
+div.heat-js div.map-contents div.map div.days-months-bottom div.day-name {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
   height: var(--heat-js-day-size);
@@ -306,6 +309,9 @@ div.heat-js div.map-contents div.map div.days div.day-name {
   display: inline-flex;
   justify-content: center;
   flex-direction: column;
+}
+div.heat-js div.map-contents div.map div.days-months-bottom {
+  padding-top: 0 !important;
 }
 div.heat-js div.map-contents div.map div.months {
   display: flex;
