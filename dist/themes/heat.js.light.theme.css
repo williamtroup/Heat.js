@@ -1,4 +1,4 @@
-/*! Heat.js v1.5.2 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.6.0 | (c) Bunoon 2024 | MIT License */
 :root {
     /* Colors */
     --heat-js-color-black: #F5F5F5;
@@ -8,6 +8,11 @@
     /* Containers */
     --heat-js-container-background-color: #e8e6e6;
     --heat-js-container-border-color: var(--heat-js-color-white);
+
+    /* ToolTip */
+    --heat-js-tooltip-background-color: var(--heat-js-container-background-color);
+    --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
+    --heat-js-tooltip-text-color: var(--heat-js-color-white);
 
     /* Year */
     --heat-js-years-background-color: var(--heat-js-container-background-color);

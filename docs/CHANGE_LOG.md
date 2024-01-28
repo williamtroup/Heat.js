@@ -1,5 +1,23 @@
 # Heat.js - Change Log:
 
+## Version 1.6.0:
+
+#### **New Features:**
+- Added custom tooltip support! Tooltips will continue to show as normal, but you can now style when using the new ":root" variables.
+
+#### **Binding Options:**
+- Added a new binding option called "tooltipDelay", which states how long the tooltip should wait (in milliseconds) until it's shown (defaults to 1000).
+
+#### **Public Functions:**
+- Added new public function "addDates()", which will add an array of dates (saves all addDate() each time).
+- Added new public function "removeDates()", which will remove an array of dates (saves all removeDate() each time).
+
+#### **CSS:**
+- Added an extra bit of spacing before the first bar in the chart view.
+
+<br>
+
+
 ## Version 1.5.2:
 - Removed a manual margin setter when the month names are shown at the bottom of the map view.
 - In the Chart view, if a day does not have a valid value, the default background/border color (as shown on the Map view) is now shown.

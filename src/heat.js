@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v1.5.2
+ * @version     v1.6.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -99,6 +99,8 @@
         var bindingOptions = buildAttributeOptions( data );
         bindingOptions.currentView = {};
         bindingOptions.currentView.element = element;
+        bindingOptions.currentView.tooltip = null;
+        bindingOptions.currentView.tooltipTimer = null;
         bindingOptions.currentView.mapContents = null;
         bindingOptions.currentView.mapContentsScrollLeft = 0;
         bindingOptions.currentView.chartContents = null;
@@ -144,6 +146,7 @@
         bindingOptions.currentView.element.className = "heat-js";
         bindingOptions.currentView.element.innerHTML = _string.empty;
 
+        renderControlToolTip( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions );
         renderControlChart( bindingOptions );
@@ -215,6 +218,61 @@
         }
 
         return useMapRangeColor;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  ToolTip
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderControlToolTip( bindingOptions ) {
+        if ( !isDefined( bindingOptions.currentView.tooltip ) ) {
+            bindingOptions.currentView.tooltip = createElement( _parameter_Document.body, "div", "heat-js-tooltip" );
+            bindingOptions.currentView.tooltip.style.display = "none";
+    
+            _parameter_Document.body.addEventListener( "mousemove", function() {
+                hideToolTip( bindingOptions );
+            } );
+    
+            _parameter_Document.addEventListener( "scroll", function() {
+                hideToolTip( bindingOptions );
+            } );
+        }
+    }
+
+    function addToolTip( element, bindingOptions, text ) {
+        if ( element !== null ) {
+            element.onmousemove = function( e ) {
+                showToolTip( e, bindingOptions, text );
+            };
+        }
+    }
+
+    function showToolTip( e, bindingOptions, text ) {
+        cancelBubble( e );
+        hideToolTip( bindingOptions );
+
+        bindingOptions.currentView.tooltipTimer = setTimeout( function() {
+            bindingOptions.currentView.tooltip.innerHTML = text;
+            bindingOptions.currentView.tooltip.style.display = "block";
+
+            showElementAtMousePosition( e, bindingOptions.currentView.tooltip );
+        }, bindingOptions.tooltipDelay );
+    }
+
+    function hideToolTip( bindingOptions ) {
+        if ( isDefined( bindingOptions.currentView.tooltip ) ) {
+            if ( isDefined( bindingOptions.currentView.tooltipTimer ) ) {
+                clearTimeout( bindingOptions.currentView.tooltipTimer );
+                bindingOptions.currentView.tooltipTimer = null;
+            }
+    
+            if ( bindingOptions.currentView.tooltip.style.display === "block" ) {
+                bindingOptions.currentView.tooltip.style.display = "none";
+            }
+        }
     }
 
 
@@ -450,9 +508,9 @@
         dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
 
         if ( isDefinedFunction( bindingOptions.onDayToolTipRender ) ) {
-            day.title = fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount );
+            addToolTip( day, bindingOptions, fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount ) );
         } else {
-            day.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
+            addToolTip( day, bindingOptions, getCustomFormattedDateText( bindingOptions.dayToolTipText, date ) );
         }
 
         if ( bindingOptions.showDayNumbers && dateCount > 0 ) {
@@ -579,9 +637,9 @@
         dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
 
         if ( isDefinedFunction( bindingOptions.onDayToolTipRender ) ) {
-            dayLine.title = fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount );
+            addToolTip( dayLine, bindingOptions, fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount ) );
         } else {
-            dayLine.title = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
+            addToolTip( dayLine, bindingOptions, getCustomFormattedDateText( bindingOptions.dayToolTipText, date ) );
         }
 
         dayLine.style.height = ( dateCount * pixelsPerNumbers ) + "px";
@@ -689,7 +747,8 @@
 
     function renderControlViewGuideDay( bindingOptions, days, mapRangeColor ) {
         var day = createElement( days, "div" );
-        day.title = mapRangeColor.tooltipText;
+
+        addToolTip( day, bindingOptions, mapRangeColor.tooltipText );
 
         if ( isHeatMapColorVisible( bindingOptions, mapRangeColor.id ) ) {
             day.className = "day " + mapRangeColor.cssClassName;
@@ -836,6 +895,7 @@
         options.showYearSelectionDropDown = getDefaultBoolean( options.showYearSelectionDropDown, true );
         options.view = getDefaultString( options.view, null );
         options.showChartYLabels = getDefaultBoolean( options.showChartYLabels, true );
+        options.tooltipDelay = getDefaultNumber( options.tooltipDelay, 1000 );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -1144,6 +1204,53 @@
         };
     }
 
+    function cancelBubble( e ) {
+        e.preventDefault();
+        e.cancelBubble = true;
+    }
+
+    function getScrollPosition() {
+        var doc = _parameter_Document.documentElement,
+            left = ( _parameter_Window.pageXOffset || doc.scrollLeft )  - ( doc.clientLeft || 0 ),
+            top = ( _parameter_Window.pageYOffset || doc.scrollTop ) - ( doc.clientTop || 0 );
+
+        return {
+            left: left,
+            top: top
+        };
+    }
+
+    function showElementAtMousePosition( e, element ) {
+        var left = e.pageX,
+            top = e.pageY,
+            scrollPosition = getScrollPosition();
+
+        element.style.display = "block";
+
+        if ( left + element.offsetWidth > _parameter_Window.innerWidth ) {
+            left -= element.offsetWidth;
+        } else {
+            left++;
+        }
+
+        if ( top + element.offsetHeight > _parameter_Window.innerHeight ) {
+            top -= element.offsetHeight;
+        } else {
+            top++;
+        }
+
+        if ( left < scrollPosition.left ) {
+            left = e.pageX + 1;
+        }
+
+        if ( top < scrollPosition.top ) {
+            top = e.pageY + 1;
+        }
+        
+        element.style.left = left + "px";
+        element.style.top = top + "px";
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1178,6 +1285,43 @@
      * Public Functions:  Manage Dates
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
+
+    /**
+     * addDates().
+     * 
+     * Adds an array of dates for a specific element ID, and refreshes the UI (if specified). If the dates already exist, their values are increased by one.
+     * 
+     * @public
+     * @fires       onAdd
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
+     * @param       {Date[]}    dates                                       The dates to add.
+     * @param       {string}    [type]                                      The trend type (defaults to "None").
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.addDates = function( elementId, dates, type, triggerRefresh ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+            type = !isDefinedString( type ) ? _elements_DateCounts_DefaultType : type;
+
+            var datesLength = dates.length,
+                bindingOptions = _elements_DateCounts[ elementId ].options;
+
+            for ( var dateIndex = 0; dateIndex < datesLength; dateIndex++ ) {
+                this.addDate( elementId, dates[ dateIndex ], type, false );
+            }
+
+            fireCustomTrigger( bindingOptions.onAdd, bindingOptions.currentView.element );
+
+            if ( triggerRefresh ) {
+                renderControlContainer( _elements_DateCounts[ elementId ].options );
+            }
+        }
+
+        return this;
+    };
 
     /**
      * addDate().
@@ -1215,6 +1359,43 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
             fireCustomTrigger( bindingOptions.onAdd, bindingOptions.currentView.element );
+
+            if ( triggerRefresh ) {
+                renderControlContainer( _elements_DateCounts[ elementId ].options );
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * removeDates().
+     * 
+     * Removes an array of dates for a specific element ID, and refreshes the UI (if specified). If the dates already exist, their values are decreased by one.
+     * 
+     * @public
+     * @fires       onRemove
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
+     * @param       {Date[]}    dates                                       The dates to removed.
+     * @param       {string}    [type]                                      The trend type (defaults to "None").
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.removeDates = function( elementId, dates, type, triggerRefresh ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            type = !isDefinedString( type ) ? _elements_DateCounts_DefaultType : type;
+            triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+
+            var datesLength = dates.length,
+            bindingOptions = _elements_DateCounts[ elementId ].options;
+
+            for ( var dateIndex = 0; dateIndex < datesLength; dateIndex++ ) {
+                this.removeDate( elementId, dates[ dateIndex ], type, false );
+            }
+
+            fireCustomTrigger( bindingOptions.onRemove, bindingOptions.currentView.element );
 
             if ( triggerRefresh ) {
                 renderControlContainer( _elements_DateCounts[ elementId ].options );
@@ -1534,6 +1715,8 @@
                 bindingOptions.currentView.element.innerHTML = _string.empty;
                 bindingOptions.currentView.element.className = _string.empty;
 
+                _parameter_Document.body.removeChild( bindingOptions.currentView.tooltip );
+
                 fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.currentView.element );
             }
         }
@@ -1561,6 +1744,8 @@
 
             bindingOptions.currentView.element.innerHTML = _string.empty;
             bindingOptions.currentView.element.className = _string.empty;
+
+            _parameter_Document.body.removeChild( bindingOptions.currentView.tooltip );
 
             fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.currentView.element );
 
@@ -1675,7 +1860,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.5.2";
+        return "1.6.0";
     };
 
 

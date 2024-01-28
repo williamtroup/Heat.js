@@ -8,12 +8,40 @@ Below is a list of all the public functions that can be called from the Heat.js 
 
 ## Manage Dates:
 
+### **addDates( *elementId*, *dates*, *[triggerRefresh]* )**:
+Adds an array of dates for a specific element ID, and refreshes the UI (if specified). If the dates already exist, their values are increased by one.
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the new date.
+<br>
+***Parameter: dates***: '*Date[]*' - The dates to add.
+<br>
+***Parameter: [type]***: '*string*' - The trend type (defaults to "None").
+<br>
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
 ### **addDate( *elementId*, *date*, *[triggerRefresh]* )**:
 Adds a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is increased by one.
 <br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the new date.
 <br>
 ***Parameter: date***: '*Date*' - The date to add.
+<br>
+***Parameter: [type]***: '*string*' - The trend type (defaults to "None").
+<br>
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **removeDates( *elementId*, *dates*, *[triggerRefresh]* )**:
+Removes an array of dates for a specific element ID, and refreshes the UI (if specified). If the dates already exist, their values are decreased by one.
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the updated date.
+<br>
+***Parameter: dates***: '*Date[]*' - The dates to remove.
 <br>
 ***Parameter: [type]***: '*string*' - The trend type (defaults to "None").
 <br>
