@@ -29,6 +29,7 @@ Heat.js
 - Export all data to CSV.
 - 12 language translations available!
 - Trend types allows data to be split up and viewed separately.
+- Customizable tooltips.
 <br />
 <br />
 
