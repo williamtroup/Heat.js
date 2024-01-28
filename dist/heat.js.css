@@ -357,7 +357,7 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   transition: var(--heat-js-transition);
 }
-div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:hover {
+div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:not(.no-hover):hover {
   cursor: pointer;
   background: var(--heat-js-day-background-color-hover);
 }
@@ -444,7 +444,7 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line:first-child 
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line:last-child {
   margin-right: 0;
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line:hover {
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line:not(.no-hover):hover {
   cursor: pointer;
   background: var(--heat-js-day-background-color-hover);
 }
@@ -572,7 +572,6 @@ div.heat-js div.guide div.map-toggles div.days div.day {
   width: var(--heat-js-day-size);
   height: var(--heat-js-day-size);
   margin-right: var(--heat-js-day-spacing);
-  cursor: pointer;
   transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-toggles div.days div.day:last-child {
@@ -584,16 +583,17 @@ div.heat-js div.guide div.map-toggles div.days div.day:last-child {
     Heat.js - Colors
     -------------------------------------------------------------------------
 */
-div.heat-js div.day-color-1:active,
-div.heat-js div.day-color-2:active,
-div.heat-js div.day-color-3:active,
-div.heat-js div.day-color-4:active {
+div.heat-js div.day-color-1:not(.no-hover):active,
+div.heat-js div.day-color-2:not(.no-hover):active,
+div.heat-js div.day-color-3:not(.no-hover):active,
+div.heat-js div.day-color-4:not(.no-hover):active {
   opacity: var(--heat-js-day-opacity-active) !important;
 }
-div.heat-js div.day-color-1:hover,
-div.heat-js div.day-color-2:hover,
-div.heat-js div.day-color-3:hover,
-div.heat-js div.day-color-4:hover {
+div.heat-js div.day-color-1:not(.no-hover):hover,
+div.heat-js div.day-color-2:not(.no-hover):hover,
+div.heat-js div.day-color-3:not(.no-hover):hover,
+div.heat-js div.day-color-4:not(.no-hover):hover {
+  cursor: pointer;
   opacity: var(--heat-js-day-opacity-hover);
 }
 div.heat-js div.day-color-1 {

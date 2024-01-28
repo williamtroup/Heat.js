@@ -158,7 +158,7 @@ div.heat-js {
     width: 100%;
     max-width: 700px;
     margin: 0 !important;
-
+    
     div.no-click {
         pointer-events: none !important;
     }
@@ -444,7 +444,7 @@ div.heat-js {
                                 border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                                 transition: var(--heat-js-transition);
 
-                                &:hover {
+                                &:not(.no-hover):hover {
                                     cursor: pointer;
                                     background: var(--heat-js-day-background-color-hover);
                                 }
@@ -549,7 +549,7 @@ div.heat-js {
                         margin-right: 0;
                     }
 
-                    &:hover {
+                    &:not(.no-hover):hover {
                         cursor: pointer;
                         background: var(--heat-js-day-background-color-hover);
                     }
@@ -667,7 +667,6 @@ div.heat-js {
                     width: var(--heat-js-day-size);
                     height: var(--heat-js-day-size);
                     margin-right: var(--heat-js-day-spacing);
-                    cursor: pointer;
                     transition: var(--heat-js-transition);
     
                     &:last-child {
@@ -691,11 +690,12 @@ div.heat-js {
     div.day-color-2,
     div.day-color-3,
     div.day-color-4 {
-        &:active {
+        &:not(.no-hover):active {
             opacity: var(--heat-js-day-opacity-active) !important;
         }
 
-        &:hover {
+        &:not(.no-hover):hover {
+            cursor: pointer;
             opacity: var(--heat-js-day-opacity-hover);
         }
     }

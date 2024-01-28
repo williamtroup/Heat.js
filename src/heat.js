@@ -523,7 +523,7 @@
             };
 
         } else {
-            day.className += _string.space + "no-click";
+            day.className += _string.space + "no-hover";
         }
 
         var useMapRangeColor = getMapRangeColor( mapRangeColors, dateCount );
@@ -651,7 +651,7 @@
             };
 
         } else {
-            dayLine.className += _string.space + "no-click";
+            dayLine.className += _string.space + "no-hover";
         }
 
         var useMapRangeColor = getMapRangeColor( mapRangeColors, dateCount );
@@ -774,7 +774,7 @@
             };
 
         } else {
-            day.className += _string.space + "no-click";
+            day.className += _string.space + "no-hover";
         }
     }
 

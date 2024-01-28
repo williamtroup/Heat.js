@@ -357,7 +357,7 @@
         fireCustomTrigger(bindingOptions.onDayClick, date, dateCount);
       };
     } else {
-      day.className += _string.space + "no-click";
+      day.className += _string.space + "no-hover";
     }
     var useMapRangeColor = getMapRangeColor(mapRangeColors, dateCount);
     if (isDefined(useMapRangeColor) && isHeatMapColorVisible(bindingOptions, useMapRangeColor.id)) {
@@ -454,7 +454,7 @@
         fireCustomTrigger(bindingOptions.onDayClick, date, dateCount);
       };
     } else {
-      dayLine.className += _string.space + "no-click";
+      dayLine.className += _string.space + "no-hover";
     }
     var useMapRangeColor = getMapRangeColor(mapRangeColors, dateCount);
     if (isDefined(useMapRangeColor) && isHeatMapColorVisible(bindingOptions, useMapRangeColor.id)) {
@@ -547,7 +547,7 @@
         renderControlContainer(bindingOptions);
       };
     } else {
-      day.className += _string.space + "no-click";
+      day.className += _string.space + "no-hover";
     }
   }
   function exportAllData(bindingOptions) {
