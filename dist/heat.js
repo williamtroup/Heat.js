@@ -1,4 +1,4 @@
-/*! Heat.js v1.6.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.6.1 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -195,7 +195,7 @@
           fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
         };
       } else {
-        optionMap.className += _string.space + "title-active";
+        addClass(optionMap, "title-active");
       }
       if (bindingOptions.currentView.view !== _elements_View_Chart) {
         optionChart.onclick = function() {
@@ -204,7 +204,7 @@
           fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
         };
       } else {
-        optionChart.className += _string.space + "title-active";
+        addClass(optionChart, "title-active");
       }
       if (bindingOptions.showExportButton) {
         var exportData = createElementWithHTML(titleBar, "button", "export", _configuration.exportButtonText);
@@ -256,7 +256,7 @@
         fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
       };
     } else {
-      year.className += _string.space + "year-active";
+      addClass(year, "year-active");
     }
   }
   function renderControlMap(bindingOptions) {
@@ -269,7 +269,7 @@
     if (bindingOptions.showDayNames) {
       var days = createElement(map, "div", "days");
       if (!bindingOptions.showMonthNames || bindingOptions.placeMonthNamesOnTheBottom) {
-        days.style.paddingTop = "0px";
+        days.className = "days-months-bottom";
       }
       var dayNameIndex = 0;
       for (; dayNameIndex < 7; dayNameIndex++) {
@@ -357,11 +357,11 @@
         fireCustomTrigger(bindingOptions.onDayClick, date, dateCount);
       };
     } else {
-      day.className += _string.space + "no-click";
+      addClass(day, "no-hover");
     }
     var useMapRangeColor = getMapRangeColor(mapRangeColors, dateCount);
     if (isDefined(useMapRangeColor) && isHeatMapColorVisible(bindingOptions, useMapRangeColor.id)) {
-      day.className += _string.space + useMapRangeColor.cssClassName;
+      addClass(day, useMapRangeColor.cssClassName);
     }
     return day;
   }
@@ -454,11 +454,11 @@
         fireCustomTrigger(bindingOptions.onDayClick, date, dateCount);
       };
     } else {
-      dayLine.className += _string.space + "no-click";
+      addClass(dayLine, "no-hover");
     }
     var useMapRangeColor = getMapRangeColor(mapRangeColors, dateCount);
     if (isDefined(useMapRangeColor) && isHeatMapColorVisible(bindingOptions, useMapRangeColor.id)) {
-      dayLine.className += _string.space + useMapRangeColor.cssClassName;
+      addClass(dayLine, useMapRangeColor.cssClassName);
     }
   }
   function renderControlViewGuide(bindingOptions) {
@@ -491,7 +491,7 @@
           updateMapRangeColorToggles(bindingOptions, false);
         };
       } else {
-        lessText.className += _string.space + "no-click";
+        addClass(lessText, "no-click");
       }
       var days = createElement(mapToggles, "div", "days");
       var mapRangeColors = bindingOptions.mapRangeColors.sort(function(a, b) {
@@ -508,14 +508,14 @@
           updateMapRangeColorToggles(bindingOptions, true);
         };
       } else {
-        moreText.className += _string.space + "no-click";
+        addClass(moreText, "no-click");
       }
     }
   }
   function renderControlViewGuideTypeButton(bindingOptions, mapTypes, type) {
     var typeButton = createElementWithHTML(mapTypes, "button", "type", type);
     if (bindingOptions.currentView.type === type) {
-      typeButton.className += _string.space + "active";
+      addClass(typeButton, "active");
     }
     typeButton.onclick = function() {
       if (bindingOptions.currentView.type !== type) {
@@ -547,7 +547,7 @@
         renderControlContainer(bindingOptions);
       };
     } else {
-      day.className += _string.space + "no-click";
+      addClass(day, "no-hover");
     }
   }
   function exportAllData(bindingOptions) {
@@ -600,13 +600,13 @@
   }
   function getCsvFilename(bindingOptions) {
     var date = new Date();
-    var datePart = padNumber(date.getDate()) + "-" + padNumber(date.getMonth() + 1) + "-" + date.getFullYear();
-    var timePart = padNumber(date.getHours()) + "-" + padNumber(date.getMinutes());
+    var datePart = padNumber(date.getDate()) + _string.dash + padNumber(date.getMonth() + 1) + _string.dash + date.getFullYear();
+    var timePart = padNumber(date.getHours()) + _string.dash + padNumber(date.getMinutes());
     var filenameStart = _string.empty;
     if (bindingOptions.currentView.type !== _elements_DateCounts_DefaultType) {
-      filenameStart = bindingOptions.currentView.type.toLowerCase().replace(_string.space, "_") + "_";
+      filenameStart = bindingOptions.currentView.type.toLowerCase().replace(_string.space, _string.underscore) + _string.underscore;
     }
-    return filenameStart + datePart + "_" + timePart + ".csv";
+    return filenameStart + datePart + _string.underscore + timePart + ".csv";
   }
   function getCsvValue(text) {
     text = text.toString().replace(/(\r\n|\n|\r)/gm, _string.empty).replace(/(\s\s)/gm, _string.space);
@@ -767,6 +767,43 @@
     }
     return value;
   }
+  function addClass(element, className) {
+    element.className += _string.space + className;
+  }
+  function cancelBubble(e) {
+    e.preventDefault();
+    e.cancelBubble = true;
+  }
+  function getScrollPosition() {
+    var doc = _parameter_Document.documentElement;
+    var left = (_parameter_Window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
+    var top = (_parameter_Window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+    return {left:left, top:top};
+  }
+  function showElementAtMousePosition(e, element) {
+    var left = e.pageX;
+    var top = e.pageY;
+    var scrollPosition = getScrollPosition();
+    element.style.display = "block";
+    if (left + element.offsetWidth > _parameter_Window.innerWidth) {
+      left = left - element.offsetWidth;
+    } else {
+      left++;
+    }
+    if (top + element.offsetHeight > _parameter_Window.innerHeight) {
+      top = top - element.offsetHeight;
+    } else {
+      top++;
+    }
+    if (left < scrollPosition.left) {
+      left = e.pageX + 1;
+    }
+    if (top < scrollPosition.top) {
+      top = e.pageY + 1;
+    }
+    element.style.left = left + "px";
+    element.style.top = top + "px";
+  }
   function fireCustomTrigger(triggerFunction) {
     var result = null;
     if (isDefinedFunction(triggerFunction)) {
@@ -823,46 +860,12 @@
     }
     return {parsed:parsed, result:result};
   }
-  function cancelBubble(e) {
-    e.preventDefault();
-    e.cancelBubble = true;
-  }
-  function getScrollPosition() {
-    var doc = _parameter_Document.documentElement;
-    var left = (_parameter_Window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
-    var top = (_parameter_Window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
-    return {left:left, top:top};
-  }
-  function showElementAtMousePosition(e, element) {
-    var left = e.pageX;
-    var top = e.pageY;
-    var scrollPosition = getScrollPosition();
-    element.style.display = "block";
-    if (left + element.offsetWidth > _parameter_Window.innerWidth) {
-      left = left - element.offsetWidth;
-    } else {
-      left++;
-    }
-    if (top + element.offsetHeight > _parameter_Window.innerHeight) {
-      top = top - element.offsetHeight;
-    } else {
-      top++;
-    }
-    if (left < scrollPosition.left) {
-      left = e.pageX + 1;
-    }
-    if (top < scrollPosition.top) {
-      top = e.pageY + 1;
-    }
-    element.style.left = left + "px";
-    element.style.top = top + "px";
-  }
   function newGuid() {
     var result = [];
     var charIndex = 0;
     for (; charIndex < 32; charIndex++) {
       if (charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20) {
-        result.push("-");
+        result.push(_string.dash);
       }
       var character = Math.floor(Math.random() * 16).toString(16);
       result.push(character);
@@ -874,10 +877,10 @@
     return numberString.length === 1 ? "0" + numberString : numberString;
   }
   function toStorageDate(date) {
-    return date.getFullYear() + "-" + padNumber(date.getMonth() + 1) + "-" + padNumber(date.getDate());
+    return date.getFullYear() + _string.dash + padNumber(date.getMonth() + 1) + _string.dash + padNumber(date.getDate());
   }
   function getStorageDateYear(data) {
-    return data.split("-")[0];
+    return data.split(_string.dash)[0];
   }
   function buildDefaultConfiguration() {
     _configuration.safeMode = getDefaultBoolean(_configuration.safeMode, true);
@@ -916,7 +919,7 @@
   var _parameter_Document = null;
   var _parameter_Window = null;
   var _configuration = {};
-  var _string = {empty:"", space:" ", newLine:"\n"};
+  var _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_"};
   var _elements_Type = {};
   var _elements_Day_Width = null;
   var _elements_DateCounts = {};
@@ -1123,7 +1126,7 @@
     return this;
   };
   this.getVersion = function() {
-    return "1.6.0";
+    return "1.6.1";
   };
   (function(documentObject, windowObject) {
     _parameter_Document = documentObject;

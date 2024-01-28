@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.6.0
+ * Heat.js Library v1.6.1
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -158,7 +158,7 @@ div.heat-js {
     width: 100%;
     max-width: 700px;
     margin: 0 !important;
-
+    
     div.no-click {
         pointer-events: none !important;
     }
@@ -356,7 +356,8 @@ div.heat-js {
             display: inline-flex;
             flex-direction: row;
     
-            div.days {
+            div.days,
+            div.days-months-bottom {
                 background-color: var(--heat-js-container-background-color);
                 padding-right: calc( var(--heat-js-spacing) * 3 );
                 padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
@@ -378,6 +379,10 @@ div.heat-js {
                     justify-content: center;
                     flex-direction: column;
                 }
+            }
+
+            div.days-months-bottom {
+                padding-top: 0 !important;
             }
         
             div.months {
@@ -444,7 +449,7 @@ div.heat-js {
                                 border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                                 transition: var(--heat-js-transition);
 
-                                &:hover {
+                                &:not(.no-hover):hover {
                                     cursor: pointer;
                                     background: var(--heat-js-day-background-color-hover);
                                 }
@@ -549,7 +554,7 @@ div.heat-js {
                         margin-right: 0;
                     }
 
-                    &:hover {
+                    &:not(.no-hover):hover {
                         cursor: pointer;
                         background: var(--heat-js-day-background-color-hover);
                     }
@@ -667,7 +672,6 @@ div.heat-js {
                     width: var(--heat-js-day-size);
                     height: var(--heat-js-day-size);
                     margin-right: var(--heat-js-day-spacing);
-                    cursor: pointer;
                     transition: var(--heat-js-transition);
     
                     &:last-child {
@@ -691,11 +695,12 @@ div.heat-js {
     div.day-color-2,
     div.day-color-3,
     div.day-color-4 {
-        &:active {
+        &:not(.no-hover):active {
             opacity: var(--heat-js-day-opacity-active) !important;
         }
 
-        &:hover {
+        &:not(.no-hover):hover {
+            cursor: pointer;
             opacity: var(--heat-js-day-opacity-hover);
         }
     }

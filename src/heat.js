@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v1.6.0
+ * @version     v1.6.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -24,6 +24,8 @@
             empty: "",
             space: " ",
             newLine: "\n",
+            dash: "-",
+            underscore: "_"
         },
 
         // Variables: Elements
@@ -307,7 +309,7 @@
                 };
                 
             } else {
-                optionMap.className += _string.space + "title-active";
+                addClass( optionMap, "title-active" );
             }
 
             if ( bindingOptions.currentView.view !== _elements_View_Chart ) {
@@ -319,9 +321,8 @@
                 };
 
             } else {
-                optionChart.className += _string.space + "title-active";
+                addClass( optionChart, "title-active" );
             }
-            
 
             if ( bindingOptions.showExportButton ) {
                 var exportData = createElementWithHTML( titleBar, "button", "export", _configuration.exportButtonText );
@@ -389,7 +390,7 @@
             };
 
         } else {
-            year.className += _string.space + "year-active";
+            addClass( year, "year-active" );
         }
     }
 
@@ -414,7 +415,7 @@
             var days = createElement( map, "div", "days" );
 
             if ( !bindingOptions.showMonthNames || bindingOptions.placeMonthNamesOnTheBottom ) {
-                days.style.paddingTop = "0px";
+                days.className = "days-months-bottom";
             }
     
             for ( var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++ ) {
@@ -523,13 +524,13 @@
             };
 
         } else {
-            day.className += _string.space + "no-click";
+            addClass( day, "no-hover" );
         }
 
         var useMapRangeColor = getMapRangeColor( mapRangeColors, dateCount );
 
         if ( isDefined( useMapRangeColor ) && isHeatMapColorVisible( bindingOptions, useMapRangeColor.id ) ) {
-            day.className += _string.space + useMapRangeColor.cssClassName;
+            addClass( day, useMapRangeColor.cssClassName );
         }
 
         return day;
@@ -651,13 +652,13 @@
             };
 
         } else {
-            dayLine.className += _string.space + "no-click";
+            addClass( dayLine, "no-hover" );
         }
 
         var useMapRangeColor = getMapRangeColor( mapRangeColors, dateCount );
 
         if ( isDefined( useMapRangeColor ) && isHeatMapColorVisible( bindingOptions, useMapRangeColor.id ) ) {
-            dayLine.className += _string.space + useMapRangeColor.cssClassName;
+            addClass( dayLine, useMapRangeColor.cssClassName );
         }
     }
 
@@ -702,7 +703,7 @@
                 };
     
             } else {
-                lessText.className += _string.space + "no-click";
+                addClass( lessText, "no-click" );
             }
     
             var days = createElement( mapToggles, "div", "days" ),
@@ -723,7 +724,7 @@
                 };
     
             } else {
-                moreText.className += _string.space + "no-click";
+                addClass( moreText, "no-click" );
             }
         }
     }
@@ -732,7 +733,7 @@
         var typeButton = createElementWithHTML( mapTypes, "button", "type", type );
 
         if ( bindingOptions.currentView.type === type ) {
-            typeButton.className += _string.space + "active";
+            addClass( typeButton, "active" );
         }
 
         typeButton.onclick = function() {
@@ -774,7 +775,7 @@
             };
 
         } else {
-            day.className += _string.space + "no-click";
+            addClass( day, "no-hover" );
         }
     }
 
@@ -845,15 +846,15 @@
 
     function getCsvFilename( bindingOptions ) {
         var date = new Date(),
-            datePart = padNumber( date.getDate() ) + "-" + padNumber( date.getMonth() + 1 ) + "-" + date.getFullYear(),
-            timePart = padNumber( date.getHours() ) + "-" + padNumber( date.getMinutes() ),
+            datePart = padNumber( date.getDate() ) + _string.dash + padNumber( date.getMonth() + 1 ) + _string.dash + date.getFullYear(),
+            timePart = padNumber( date.getHours() ) + _string.dash + padNumber( date.getMinutes() ),
             filenameStart = _string.empty;
 
         if ( bindingOptions.currentView.type !== _elements_DateCounts_DefaultType ) {
-            filenameStart = bindingOptions.currentView.type.toLowerCase().replace( _string.space, "_" ) + "_";
+            filenameStart = bindingOptions.currentView.type.toLowerCase().replace( _string.space, _string.underscore ) + _string.underscore;
         }
 
-        return filenameStart + datePart + "_" + timePart + ".csv";
+        return filenameStart + datePart + _string.underscore + timePart + ".csv";
     }
 
     function getCsvValue( text ) {
@@ -1111,6 +1112,57 @@
         return value;
     }
 
+    function addClass( element, className ) {
+        element.className += _string.space + className;
+    }
+
+    function cancelBubble( e ) {
+        e.preventDefault();
+        e.cancelBubble = true;
+    }
+
+    function getScrollPosition() {
+        var doc = _parameter_Document.documentElement,
+            left = ( _parameter_Window.pageXOffset || doc.scrollLeft )  - ( doc.clientLeft || 0 ),
+            top = ( _parameter_Window.pageYOffset || doc.scrollTop ) - ( doc.clientTop || 0 );
+
+        return {
+            left: left,
+            top: top
+        };
+    }
+
+    function showElementAtMousePosition( e, element ) {
+        var left = e.pageX,
+            top = e.pageY,
+            scrollPosition = getScrollPosition();
+
+        element.style.display = "block";
+
+        if ( left + element.offsetWidth > _parameter_Window.innerWidth ) {
+            left -= element.offsetWidth;
+        } else {
+            left++;
+        }
+
+        if ( top + element.offsetHeight > _parameter_Window.innerHeight ) {
+            top -= element.offsetHeight;
+        } else {
+            top++;
+        }
+
+        if ( left < scrollPosition.left ) {
+            left = e.pageX + 1;
+        }
+
+        if ( top < scrollPosition.top ) {
+            top = e.pageY + 1;
+        }
+        
+        element.style.left = left + "px";
+        element.style.top = top + "px";
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1204,53 +1256,6 @@
         };
     }
 
-    function cancelBubble( e ) {
-        e.preventDefault();
-        e.cancelBubble = true;
-    }
-
-    function getScrollPosition() {
-        var doc = _parameter_Document.documentElement,
-            left = ( _parameter_Window.pageXOffset || doc.scrollLeft )  - ( doc.clientLeft || 0 ),
-            top = ( _parameter_Window.pageYOffset || doc.scrollTop ) - ( doc.clientTop || 0 );
-
-        return {
-            left: left,
-            top: top
-        };
-    }
-
-    function showElementAtMousePosition( e, element ) {
-        var left = e.pageX,
-            top = e.pageY,
-            scrollPosition = getScrollPosition();
-
-        element.style.display = "block";
-
-        if ( left + element.offsetWidth > _parameter_Window.innerWidth ) {
-            left -= element.offsetWidth;
-        } else {
-            left++;
-        }
-
-        if ( top + element.offsetHeight > _parameter_Window.innerHeight ) {
-            top -= element.offsetHeight;
-        } else {
-            top++;
-        }
-
-        if ( left < scrollPosition.left ) {
-            left = e.pageX + 1;
-        }
-
-        if ( top < scrollPosition.top ) {
-            top = e.pageY + 1;
-        }
-        
-        element.style.left = left + "px";
-        element.style.top = top + "px";
-    }
-
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1263,7 +1268,7 @@
 
         for ( var charIndex = 0; charIndex < 32; charIndex++ ) {
             if ( charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20 ) {
-                result.push( "-" );
+                result.push( _string.dash );
             }
 
             var character = Math.floor( Math.random() * 16 ).toString( 16 );
@@ -1479,11 +1484,11 @@
     };
 
     function toStorageDate( date ) {
-        return date.getFullYear() + "-" + padNumber( date.getMonth() + 1 ) + "-" + padNumber( date.getDate() );
+        return date.getFullYear() + _string.dash + padNumber( date.getMonth() + 1 ) + _string.dash + padNumber( date.getDate() );
     }
 
     function getStorageDateYear( data ) {
-        return data.split( "-" )[ 0 ];
+        return data.split( _string.dash )[ 0 ];
     }
 
 
@@ -1860,7 +1865,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.6.0";
+        return "1.6.1";
     };
 
 
