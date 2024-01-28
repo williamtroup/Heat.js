@@ -438,6 +438,9 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   display: inline-block;
   transition: var(--heat-js-transition);
 }
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line:first-child {
+  margin-left: calc(var(--heat-js-spacing) / 2);
+}
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line:last-child {
   margin-right: 0;
 }

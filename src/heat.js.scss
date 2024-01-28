@@ -540,6 +540,10 @@ div.heat-js {
                     margin-right: 1px;
                     display: inline-block;
                     transition: var(--heat-js-transition);
+
+                    &:first-child {
+                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                    }
     
                     &:last-child {
                         margin-right: 0;
