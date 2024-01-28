@@ -2,6 +2,7 @@
 
 ## Version 1.6.1:
 - Fixed a fault that prevented the tooltips from showing when click events are not assigned, or the map toggles are turned off.
+- Removed more duplicate code.
 - 
 
 <br>

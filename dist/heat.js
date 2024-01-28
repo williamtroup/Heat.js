@@ -195,7 +195,7 @@
           fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
         };
       } else {
-        optionMap.className += _string.space + "title-active";
+        addClass(optionMap, "title-active");
       }
       if (bindingOptions.currentView.view !== _elements_View_Chart) {
         optionChart.onclick = function() {
@@ -204,7 +204,7 @@
           fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
         };
       } else {
-        optionChart.className += _string.space + "title-active";
+        addClass(optionChart, "title-active");
       }
       if (bindingOptions.showExportButton) {
         var exportData = createElementWithHTML(titleBar, "button", "export", _configuration.exportButtonText);
@@ -256,7 +256,7 @@
         fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
       };
     } else {
-      year.className += _string.space + "year-active";
+      addClass(year, "year-active");
     }
   }
   function renderControlMap(bindingOptions) {
@@ -357,11 +357,11 @@
         fireCustomTrigger(bindingOptions.onDayClick, date, dateCount);
       };
     } else {
-      day.className += _string.space + "no-hover";
+      addClass(day, "no-hover");
     }
     var useMapRangeColor = getMapRangeColor(mapRangeColors, dateCount);
     if (isDefined(useMapRangeColor) && isHeatMapColorVisible(bindingOptions, useMapRangeColor.id)) {
-      day.className += _string.space + useMapRangeColor.cssClassName;
+      addClass(day, useMapRangeColor.cssClassName);
     }
     return day;
   }
@@ -454,11 +454,11 @@
         fireCustomTrigger(bindingOptions.onDayClick, date, dateCount);
       };
     } else {
-      dayLine.className += _string.space + "no-hover";
+      addClass(dayLine, "no-hover");
     }
     var useMapRangeColor = getMapRangeColor(mapRangeColors, dateCount);
     if (isDefined(useMapRangeColor) && isHeatMapColorVisible(bindingOptions, useMapRangeColor.id)) {
-      dayLine.className += _string.space + useMapRangeColor.cssClassName;
+      addClass(dayLine, useMapRangeColor.cssClassName);
     }
   }
   function renderControlViewGuide(bindingOptions) {
@@ -491,7 +491,7 @@
           updateMapRangeColorToggles(bindingOptions, false);
         };
       } else {
-        lessText.className += _string.space + "no-click";
+        addClass(lessText, "no-click");
       }
       var days = createElement(mapToggles, "div", "days");
       var mapRangeColors = bindingOptions.mapRangeColors.sort(function(a, b) {
@@ -508,14 +508,14 @@
           updateMapRangeColorToggles(bindingOptions, true);
         };
       } else {
-        moreText.className += _string.space + "no-click";
+        addClass(moreText, "no-click");
       }
     }
   }
   function renderControlViewGuideTypeButton(bindingOptions, mapTypes, type) {
     var typeButton = createElementWithHTML(mapTypes, "button", "type", type);
     if (bindingOptions.currentView.type === type) {
-      typeButton.className += _string.space + "active";
+      addClass(typeButton, "active");
     }
     typeButton.onclick = function() {
       if (bindingOptions.currentView.type !== type) {
@@ -547,7 +547,7 @@
         renderControlContainer(bindingOptions);
       };
     } else {
-      day.className += _string.space + "no-hover";
+      addClass(day, "no-hover");
     }
   }
   function exportAllData(bindingOptions) {
@@ -767,6 +767,43 @@
     }
     return value;
   }
+  function addClass(element, className) {
+    element.className += _string.space + className;
+  }
+  function cancelBubble(e) {
+    e.preventDefault();
+    e.cancelBubble = true;
+  }
+  function getScrollPosition() {
+    var doc = _parameter_Document.documentElement;
+    var left = (_parameter_Window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
+    var top = (_parameter_Window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+    return {left:left, top:top};
+  }
+  function showElementAtMousePosition(e, element) {
+    var left = e.pageX;
+    var top = e.pageY;
+    var scrollPosition = getScrollPosition();
+    element.style.display = "block";
+    if (left + element.offsetWidth > _parameter_Window.innerWidth) {
+      left = left - element.offsetWidth;
+    } else {
+      left++;
+    }
+    if (top + element.offsetHeight > _parameter_Window.innerHeight) {
+      top = top - element.offsetHeight;
+    } else {
+      top++;
+    }
+    if (left < scrollPosition.left) {
+      left = e.pageX + 1;
+    }
+    if (top < scrollPosition.top) {
+      top = e.pageY + 1;
+    }
+    element.style.left = left + "px";
+    element.style.top = top + "px";
+  }
   function fireCustomTrigger(triggerFunction) {
     var result = null;
     if (isDefinedFunction(triggerFunction)) {
@@ -822,40 +859,6 @@
       }
     }
     return {parsed:parsed, result:result};
-  }
-  function cancelBubble(e) {
-    e.preventDefault();
-    e.cancelBubble = true;
-  }
-  function getScrollPosition() {
-    var doc = _parameter_Document.documentElement;
-    var left = (_parameter_Window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
-    var top = (_parameter_Window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
-    return {left:left, top:top};
-  }
-  function showElementAtMousePosition(e, element) {
-    var left = e.pageX;
-    var top = e.pageY;
-    var scrollPosition = getScrollPosition();
-    element.style.display = "block";
-    if (left + element.offsetWidth > _parameter_Window.innerWidth) {
-      left = left - element.offsetWidth;
-    } else {
-      left++;
-    }
-    if (top + element.offsetHeight > _parameter_Window.innerHeight) {
-      top = top - element.offsetHeight;
-    } else {
-      top++;
-    }
-    if (left < scrollPosition.left) {
-      left = e.pageX + 1;
-    }
-    if (top < scrollPosition.top) {
-      top = e.pageY + 1;
-    }
-    element.style.left = left + "px";
-    element.style.top = top + "px";
   }
   function newGuid() {
     var result = [];
