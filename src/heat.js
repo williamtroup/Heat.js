@@ -305,7 +305,6 @@
                     bindingOptions.currentView.view = _elements_View_Map;
 
                     renderControlContainer( bindingOptions );
-                    fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
                 };
                 
             } else {
@@ -317,7 +316,6 @@
                     bindingOptions.currentView.view = _elements_View_Chart;
 
                     renderControlContainer( bindingOptions );
-                    fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
                 };
 
             } else {

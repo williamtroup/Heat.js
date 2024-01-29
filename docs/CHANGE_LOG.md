@@ -1,5 +1,12 @@
 # Heat.js - Change Log:
 
+## Version 1.6.4:
+- Fixed a fault that caused the "onNextYear" custom trigger to fire when the view waa switched.
+- 
+
+<br>
+
+
 ## Version 1.6.3:
 - Increased the bars width shown in the chart view to 10 pixels.
 - Added a top left/right border radius to bars width shown in the chart view. 
