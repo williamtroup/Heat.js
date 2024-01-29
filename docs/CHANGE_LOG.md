@@ -1,7 +1,10 @@
 # Heat.js - Change Log:
 
 ## Version 1.7.0:
-- 
+
+#### **CSS:**
+- Increased the bars width shown in the chart view to 10 pixels.
+- Added a top left/right border radius to bars width shown in the chart view. 
 
 <br>
 
