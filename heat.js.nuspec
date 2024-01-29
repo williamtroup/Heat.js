@@ -2,15 +2,15 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>jHeat.js</id>
-        <version>1.6.1</version>
+        <version>1.6.2</version>
         <title>Heat.js</title>
-        <description>A lightweight JavaScript library that generates customizable heat maps to visualize date-based activity and trends.</description>
+        <description>A lightweight JavaScript library that generates customizable heat maps and charts to visualize date-based activity and trends.</description>
         <authors>William Troup</authors>
         <projectUrl>https://www.william-troup.com/heat-js/</projectUrl>
         <repository type="git" url="https://github.com/williamtroup/Heat.js" branch="main" />
         <readme>README_NUGET.md</readme>
         <license type="expression">MIT</license>
-        <tags>javascript css heat.js html date heatmap generator</tags>
+        <tags>javascript css heat.js html date heatmap generator map chart heat activity trends</tags>
         <icon>docs\images\icon.png</icon>
         <copyright>William Troup</copyright>
     </metadata>

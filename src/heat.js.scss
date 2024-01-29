@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.6.1
+ * Heat.js Library v1.6.2
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -676,6 +676,11 @@ div.heat-js {
     
                     &:last-child {
                         margin-right: 0;
+                    }
+
+                    &:not(.no-hover):hover {
+                        cursor: pointer;
+                        background: var(--heat-js-day-background-color-hover);
                     }
                 }
             }
