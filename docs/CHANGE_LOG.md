@@ -1,5 +1,11 @@
 # Heat.js - Change Log:
 
+## Version 1.7.0:
+- 
+
+<br>
+
+
 ## Version 1.6.2:
 - Added hover effect for the guide day toggles that are turned off.
 - Fixed package keywords and description being wrong.
