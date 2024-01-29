@@ -300,26 +300,26 @@
                 optionMap = createElementWithHTML( titles, "div", "title", _configuration.mapText ),
                 optionChart = createElementWithHTML( titles, "div", "title", _configuration.chartText );
 
-            if ( bindingOptions.currentView.view !== _elements_View_Map ) {
+            if ( bindingOptions.currentView.view === _elements_View_Map ) {
+                addClass( optionMap, "title-active" );
+                
+            } else {
                 optionMap.onclick = function() {
                     bindingOptions.currentView.view = _elements_View_Map;
 
                     renderControlContainer( bindingOptions );
                 };
-                
-            } else {
-                addClass( optionMap, "title-active" );
             }
 
-            if ( bindingOptions.currentView.view !== _elements_View_Chart ) {
+            if ( bindingOptions.currentView.view === _elements_View_Chart ) {
+                addClass( optionChart, "title-active" );
+
+            } else {
                 optionChart.onclick = function() {
                     bindingOptions.currentView.view = _elements_View_Chart;
 
                     renderControlContainer( bindingOptions );
                 };
-
-            } else {
-                addClass( optionChart, "title-active" );
             }
 
             if ( bindingOptions.showExportButton ) {
