@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.6.2
+ * Heat.js Library v1.6.3
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -436,10 +436,12 @@ div.heat-js div.chart-contents div.chart div.day-lines {
   border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
+  border-top-left-radius: var(--heat-js-border-radius-day);
+  border-top-right-radius: var(--heat-js-border-radius-day);
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   vertical-align: bottom;
-  width: 8px;
+  width: 10px;
   margin-right: 1px;
   display: inline-block;
   transition: var(--heat-js-transition);

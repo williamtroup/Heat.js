@@ -1,5 +1,12 @@
 # Heat.js - Change Log:
 
+## Version 1.6.3:
+- Increased the bars width shown in the chart view to 10 pixels.
+- Added a top left/right border radius to bars width shown in the chart view. 
+
+<br>
+
+
 ## Version 1.6.2:
 - Added hover effect for the guide day toggles that are turned off.
 - Fixed package keywords and description being wrong.
