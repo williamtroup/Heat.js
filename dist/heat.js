@@ -196,6 +196,7 @@
       } else {
         optionMap.onclick = function() {
           bindingOptions.currentView.view = _elements_View_Map;
+          fireCustomTrigger(bindingOptions.onViewSwitch, "map");
           renderControlContainer(bindingOptions);
         };
       }
@@ -204,6 +205,7 @@
       } else {
         optionChart.onclick = function() {
           bindingOptions.currentView.view = _elements_View_Chart;
+          fireCustomTrigger(bindingOptions.onViewSwitch, "chart");
           renderControlContainer(bindingOptions);
         };
       }
@@ -699,6 +701,7 @@
     options.onAdd = getDefaultFunction(options.onAdd, null);
     options.onRemove = getDefaultFunction(options.onRemove, null);
     options.onReset = getDefaultFunction(options.onReset, null);
+    options.onViewSwitch = getDefaultFunction(options.onViewSwitch, null);
     return options;
   }
   function getTotalDaysInMonth(year, month) {

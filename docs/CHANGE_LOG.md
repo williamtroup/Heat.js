@@ -5,6 +5,9 @@
 #### **Binding Options:**
 - Added a new binding option called "exportType", which states what format the data should be exported as (defaults to "csv", also accepts "json").
 
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option called "onViewSwitch", which states an event that should be triggered when the view is switched.
+
 #### **Public Functions:**
 - Added new public function "export()", which will export all the data for a specific element ID.
 
