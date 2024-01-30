@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 1.7.0:
-- 
+
+#### **Binding Options:**
+- Added a new binding option called "exportType", which states what format the data should be exported as (defaults to "csv", also accepts "json").
 
 <br>
 
