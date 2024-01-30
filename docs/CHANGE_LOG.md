@@ -11,6 +11,13 @@
 #### **Public Functions:**
 - Added new public function "export()", which will export all the data for a specific element ID.
 
+#### **Thtmes:**
+- Added new theme "heat.js.dark.red.theme.css", which shows a dark theme, but with red day colors.
+- Added new theme "heat.js.dark.blue.theme.css", which shows a dark theme, but with blue day colors.
+- Added new theme "heat.js.light.blue.theme.css", which shows a light theme, but with blue day colors.
+- Renamed the theme "heat.js.light.theme.css" to "heat.js.light.red.theme.css".
+- The theme files are now organised into "dark" and "light" folders.
+
 #### **CSS:**
 - Added a new ":root" variable called "--heat-js-title-opener-text-color-hover", which states the text hover color that should be used foe the drop-down menu openers.
 
