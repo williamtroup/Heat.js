@@ -109,7 +109,7 @@
   }
   function getLargestValueForYear(bindingOptions) {
     var result = 0;
-    var data = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
+    var data = getCurrentViewData(bindingOptions);
     var monthIndex = 0;
     for (; monthIndex < 12; monthIndex++) {
       var totalDaysInMonth = getTotalDaysInMonth(bindingOptions.currentView.year, monthIndex);
@@ -136,6 +136,9 @@
       }
     }
     return useMapRangeColor;
+  }
+  function getCurrentViewData(bindingOptions) {
+    return _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
   }
   function renderControlToolTip(bindingOptions) {
     if (!isDefined(bindingOptions.currentView.tooltip)) {
@@ -438,7 +441,7 @@
   function renderControlChartDay(dayLines, bindingOptions, day, month, year, mapRangeColors, pixelsPerNumbers) {
     var date = new Date(year, month, day);
     var dayLine = createElement(dayLines, "div", "day-line");
-    var dateCount = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type][toStorageDate(date)];
+    var dateCount = getCurrentViewData(bindingOptions)[toStorageDate(date)];
     dateCount = isDefinedNumber(dateCount) ? dateCount : 0;
     if (isDefinedFunction(bindingOptions.onDayToolTipRender)) {
       addToolTip(dayLine, bindingOptions, fireCustomTrigger(bindingOptions.onDayToolTipRender, date, dateCount));
@@ -561,7 +564,7 @@
     }
   }
   function getCsvContent(bindingOptions) {
-    var csvData = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
+    var csvData = getCurrentViewData(bindingOptions);
     var csvContents = [];
     var csvStorageDates = [];
     csvContents.push(getCsvValueLine([getCsvValue(_configuration.dateText), getCsvValue(_configuration.countText)]));
@@ -1042,7 +1045,7 @@
   this.setYearToHighest = function(elementId) {
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
-      var data = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
+      var data = getCurrentViewData(bindingOptions);
       var maximumYear = 0;
       var storageDate;
       for (storageDate in data) {
@@ -1061,7 +1064,7 @@
   this.setYearToLowest = function(elementId) {
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
-      var data = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
+      var data = getCurrentViewData(bindingOptions);
       var minimumYear = 9999;
       var storageDate;
       for (storageDate in data) {
