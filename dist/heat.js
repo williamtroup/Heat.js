@@ -1033,6 +1033,13 @@
     }
     return this;
   };
+  this["export"] = function(elementId) {
+    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      exportAllData(bindingOptions);
+    }
+    return this;
+  };
   this.refresh = function(elementId) {
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;

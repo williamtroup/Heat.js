@@ -1509,6 +1509,28 @@
         return this;
     };
 
+    /**
+     * export().
+     * 
+     * Exports all the data for a specific element ID.
+     * 
+     * @public
+     * @fires       onExport
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID whose data should be exported.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.export = function( elementId ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+            exportAllData( bindingOptions );
+        }
+
+        return this;
+    };
+
     function toStorageDate( date ) {
         return date.getFullYear() + _string.dash + padNumber( date.getMonth() + 1 ) + _string.dash + padNumber( date.getDate() );
     }
