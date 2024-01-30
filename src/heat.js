@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps and charts to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v1.6.3
+ * @version     v1.6.4
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -188,7 +188,7 @@
 
     function getLargestValueForYear( bindingOptions ) {
         var result = 0,
-            data = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ];
+            data = getCurrentViewData( bindingOptions );
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
@@ -220,6 +220,10 @@
         }
 
         return useMapRangeColor;
+    }
+
+    function getCurrentViewData( bindingOptions ) {
+        return _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ];
     }
 
 
@@ -300,28 +304,26 @@
                 optionMap = createElementWithHTML( titles, "div", "title", _configuration.mapText ),
                 optionChart = createElementWithHTML( titles, "div", "title", _configuration.chartText );
 
-            if ( bindingOptions.currentView.view !== _elements_View_Map ) {
+            if ( bindingOptions.currentView.view === _elements_View_Map ) {
+                addClass( optionMap, "title-active" );
+                
+            } else {
                 optionMap.onclick = function() {
                     bindingOptions.currentView.view = _elements_View_Map;
 
                     renderControlContainer( bindingOptions );
-                    fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
                 };
-                
-            } else {
-                addClass( optionMap, "title-active" );
             }
 
-            if ( bindingOptions.currentView.view !== _elements_View_Chart ) {
+            if ( bindingOptions.currentView.view === _elements_View_Chart ) {
+                addClass( optionChart, "title-active" );
+
+            } else {
                 optionChart.onclick = function() {
                     bindingOptions.currentView.view = _elements_View_Chart;
 
                     renderControlContainer( bindingOptions );
-                    fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
                 };
-
-            } else {
-                addClass( optionChart, "title-active" );
             }
 
             if ( bindingOptions.showExportButton ) {
@@ -633,7 +635,7 @@
     function renderControlChartDay( dayLines, bindingOptions, day, month, year, mapRangeColors, pixelsPerNumbers ) {
         var date = new Date( year, month, day ),
             dayLine = createElement( dayLines, "div", "day-line" ),
-            dateCount = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
+            dateCount = getCurrentViewData( bindingOptions )[ toStorageDate( date ) ];
 
         dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
 
@@ -802,7 +804,7 @@
     }
 
     function getCsvContent( bindingOptions ) {
-        var csvData = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ],
+        var csvData = getCurrentViewData( bindingOptions ),
             csvContents = [],
             csvStorageDates = [];
 
@@ -1584,7 +1586,7 @@
     this.setYearToHighest = function( elementId ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
-                data = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ],
+                data = getCurrentViewData( bindingOptions ),
                 maximumYear = 0;
 
             for ( var storageDate in data ) {
@@ -1619,7 +1621,7 @@
     this.setYearToLowest = function( elementId ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
-                data = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ],
+                data = getCurrentViewData( bindingOptions ),
                 minimumYear = 9999;
 
             for ( var storageDate in data ) {
@@ -1865,7 +1867,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.6.3";
+        return "1.6.4";
     };
 
 
