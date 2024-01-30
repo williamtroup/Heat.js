@@ -11,6 +11,9 @@
 #### **Public Functions:**
 - Added new public function "export()", which will export all the data for a specific element ID.
 
+#### **CSS:**
+- Added a new ":root" variable called "--heat-js-title-opener-text-color-hover", which states the text hover color that should be used foe the drop-down menu openers.
+
 <br>
 
 

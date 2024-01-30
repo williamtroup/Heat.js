@@ -17,6 +17,7 @@
   --heat-js-years-border-color: var(--heat-js-container-border-color);
   --heat-js-years-text-color: var(--heat-js-color-white);
   --heat-js-years-background-color-hover: var(--heat-js-button-background-color-hover);
+  --heat-js-title-opener-text-color-hover: var(--heat-js-color-gray);
   --heat-js-title-background-color: var(--heat-js-container-background-color);
   --heat-js-title-border-color: var(--heat-js-container-border-color);
   --heat-js-title-text-color: var(--heat-js-color-white);
@@ -111,7 +112,17 @@ div.heat-js div.title-bar div.title {
   font-weight: var(--heat-js-title-bold-weight);
   font-size: 1.2rem;
   padding-bottom: 3px;
+  transition: var(--heat-js-transition);
   cursor: pointer;
+}
+div.heat-js div.title-bar div.title:hover {
+  color: var(--heat-js-title-opener-text-color-hover);
+}
+div.heat-js div.title-bar div.title:hover div.down-arrow {
+  border-top-color: var(--heat-js-title-opener-text-color-hover);
+}
+div.heat-js div.title-bar div.title:hover div.titles-list {
+  display: block;
 }
 div.heat-js div.title-bar div.title div.down-arrow {
   display: inline-block;
@@ -120,10 +131,8 @@ div.heat-js div.title-bar div.title div.down-arrow {
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
   border-top: 14px solid var(--heat-js-color-white);
+  transition: var(--heat-js-transition);
   margin-right: var(--heat-js-spacing);
-}
-div.heat-js div.title-bar div.title:hover div.titles-list {
-  display: block;
 }
 div.heat-js div.title-bar div.title div.titles-list {
   padding-top: 3px;
@@ -203,7 +212,17 @@ div.heat-js div.title-bar div.year-text {
   position: relative;
   padding-top: 5px;
   padding-bottom: 5px;
+  transition: var(--heat-js-transition);
   cursor: pointer;
+}
+div.heat-js div.title-bar div.year-text:hover {
+  color: var(--heat-js-title-opener-text-color-hover);
+}
+div.heat-js div.title-bar div.year-text:hover div.down-arrow {
+  border-top-color: var(--heat-js-title-opener-text-color-hover);
+}
+div.heat-js div.title-bar div.year-text:hover div.years-list {
+  display: block;
 }
 div.heat-js div.title-bar div.year-text div.down-arrow {
   display: inline-block;
@@ -212,10 +231,8 @@ div.heat-js div.title-bar div.year-text div.down-arrow {
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-top: 9px solid var(--heat-js-color-white);
+  transition: var(--heat-js-transition);
   margin-left: calc(var(--heat-js-spacing) / 2);
-}
-div.heat-js div.title-bar div.year-text:hover div.years-list {
-  display: block;
 }
 div.heat-js div.title-bar div.year-text div.years-list {
   padding: 5px;
