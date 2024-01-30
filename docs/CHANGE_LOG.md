@@ -1,5 +1,11 @@
 # Heat.js - Change Log:
 
+## Version 1.7.0:
+- 
+
+<br>
+
+
 ## Version 1.6.4:
 - Fixed a fault that caused the "onNextYear" custom trigger to fire when the view is switched.
 
