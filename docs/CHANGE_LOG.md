@@ -1,6 +1,7 @@
 # Heat.js - Change Log:
 
 ## Version 1.7.1:
+- Fixed documentation errors.
 - 
 
 <br>
