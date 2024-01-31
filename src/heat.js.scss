@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.6.4
+ * Heat.js Library v1.7.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -30,6 +30,7 @@
     --heat-js-years-background-color-hover: var(--heat-js-button-background-color-hover);
 
     // Title
+    --heat-js-title-opener-text-color-hover: var(--heat-js-color-gray);
     --heat-js-title-background-color: var(--heat-js-container-background-color);
     --heat-js-title-border-color: var(--heat-js-container-border-color);
     --heat-js-title-text-color: var(--heat-js-color-white);
@@ -128,6 +129,7 @@
         border-left: $left-right-border-size solid transparent;
         border-right: $left-right-border-size solid transparent;
         border-top: $border-top-size solid var(--heat-js-color-white);
+        transition: var(--heat-js-transition);
 
         @if ($left) {
             margin-right: $margin-size;
@@ -194,13 +196,22 @@ div.heat-js {
             font-weight: var(--heat-js-title-bold-weight);
             font-size: 1.2rem;
             padding-bottom: $title-margin;
+            transition: var(--heat-js-transition);
             cursor: pointer;
 
-            @include down-arrow;
+            &:hover {
+                color: var(--heat-js-title-opener-text-color-hover);
+            }
+
+            &:hover div.down-arrow {
+                border-top-color:  var(--heat-js-title-opener-text-color-hover);
+            }
 
             &:hover div.titles-list {
                 display: block;
             }
+
+            @include down-arrow;
 
             div.titles-list {
                 padding-top: $title-margin;
@@ -270,13 +281,22 @@ div.heat-js {
             position: relative;
             padding-top: $year-margin;
             padding-bottom: $year-margin;
+            transition: var(--heat-js-transition);
             cursor: pointer;
 
-            @include down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );
+            &:hover {
+                color: var(--heat-js-title-opener-text-color-hover);
+            }
+
+            &:hover div.down-arrow {
+                border-top-color:  var(--heat-js-title-opener-text-color-hover);
+            }
 
             &:hover div.years-list {
                 display: block;
             }
+
+            @include down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );
 
             div.years-list {
                 padding: $year-margin;

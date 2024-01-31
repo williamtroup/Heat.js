@@ -26,7 +26,7 @@
             <div id="heat-map-3" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': true, 'view': 'chart' }"></div>
             <br>
             <br>
-            <div id="heat-map-3"></div>
+            <div id="heat-map-4"></div>
         </div>
 
         <div class="contents">
@@ -35,22 +35,46 @@
             <button class="btn btn-primary" onclick="updateDatesFixed( false );">Add Dates [Fixed]</button>
             <button class="btn btn-primary" onclick="updateDates( true );">Remove Dates</button>
             <button class="btn btn-primary" onclick="updateDatesFixed( true );">Remove Dates [Fixed]</button>
+            <br>
             <button class="btn btn-primary" onclick="$heat.reset( 'heat-map-1' );">Reset (1)</button>
             <button class="btn btn-primary" onclick="$heat.reset( 'heat-map-2' );">Reset (2)</button>
+            <button class="btn btn-primary" onclick="$heat.reset( 'heat-map-3' );">Reset (3)</button>
+            <button class="btn btn-primary" onclick="$heat.reset( 'heat-map-4' );">Reset (4)</button>
+            <br>
+            <button class="btn btn-primary" onclick="$heat.export( 'heat-map-1' );">Export (1)</button>
+            <button class="btn btn-primary" onclick="$heat.export( 'heat-map-2' );">Export (2)</button>
+            <button class="btn btn-primary" onclick="$heat.export( 'heat-map-3' );">Export (3)</button>
+            <button class="btn btn-primary" onclick="$heat.export( 'heat-map-4' );">Export (4)</button>
             <br />
 
             <h2>Manage Instances:</h2>
             <button class="btn btn-primary" onclick="$heat.refresh( 'heat-map-1' );">Refresh (1)</button>
             <button class="btn btn-primary" onclick="$heat.refresh( 'heat-map-2' );">Refresh (2)</button>
+            <button class="btn btn-primary" onclick="$heat.refresh( 'heat-map-3' );">Refresh (3)</button>
+            <button class="btn btn-primary" onclick="$heat.refresh( 'heat-map-4' );">Refresh (4)</button>
+            <br>
             <button class="btn btn-primary" onclick="$heat.refreshAll();">Refresh All</button>
+            <br>
             <button class="btn btn-primary" onclick="$heat.setYear( 'heat-map-1', new Date().getFullYear() + 1 );">Set Year (1)</button>
             <button class="btn btn-primary" onclick="$heat.setYear( 'heat-map-2', new Date().getFullYear() + 1 );">Set Year (2)</button>
+            <button class="btn btn-primary" onclick="$heat.setYear( 'heat-map-3', new Date().getFullYear() + 1 );">Set Year (3)</button>
+            <button class="btn btn-primary" onclick="$heat.setYear( 'heat-map-4', new Date().getFullYear() + 1 );">Set Year (4)</button>
+            <br>
             <button class="btn btn-primary" onclick="$heat.setYearToHighest( 'heat-map-1' );">Set Year To Highest (1)</button>
             <button class="btn btn-primary" onclick="$heat.setYearToHighest( 'heat-map-2' );">Set Year To Highest (2)</button>
+            <button class="btn btn-primary" onclick="$heat.setYearToHighest( 'heat-map-3' );">Set Year To Highest (3)</button>
+            <button class="btn btn-primary" onclick="$heat.setYearToHighest( 'heat-map-4' );">Set Year To Highest (4)</button>
+            <br>
             <button class="btn btn-primary" onclick="$heat.setYearToLowest( 'heat-map-1' );">Set Year To Lowest (1)</button>
             <button class="btn btn-primary" onclick="$heat.setYearToLowest( 'heat-map-2' );">Set Year To Lowest (2)</button>
+            <button class="btn btn-primary" onclick="$heat.setYearToLowest( 'heat-map-3' );">Set Year To Lowest (3)</button>
+            <button class="btn btn-primary" onclick="$heat.setYearToLowest( 'heat-map-4' );">Set Year To Lowest (4)</button>
+            <br>
             <button class="btn btn-primary" onclick="console.log( $heat.getYear( 'heat-map-1' ) );">Get Year (1)</button>
             <button class="btn btn-primary" onclick="console.log( $heat.getYear( 'heat-map-2' ) );">Get Year (2)</button>
+            <button class="btn btn-primary" onclick="console.log( $heat.getYear( 'heat-map-3' ) );">Get Year (3)</button>
+            <button class="btn btn-primary" onclick="console.log( $heat.getYear( 'heat-map-4' ) );">Get Year (4)</button>
+            <br>
             <button class="btn btn-primary" onclick="$heat.render( document.getElementById( 'heat-map-4' ) );">Render</button>
             <button class="btn btn-primary" onclick="$heat.renderAll();">Render All</button>
             <br />
@@ -60,6 +84,7 @@
             <button class="btn btn-primary" onclick="$heat.destroy( 'heat-map-2' );">Destroy (2)</button>
             <button class="btn btn-primary" onclick="$heat.destroy( 'heat-map-3' );">Destroy (3)</button>
             <button class="btn btn-primary" onclick="$heat.destroy( 'heat-map-4' );">Destroy (4)</button>
+            <br>
             <button class="btn btn-primary" onclick="$heat.destroyAll();">Destroy All</button>
             <br />
 

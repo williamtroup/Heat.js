@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps and charts to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v1.6.4
+ * @version     v1.7.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -311,6 +311,7 @@
                 optionMap.onclick = function() {
                     bindingOptions.currentView.view = _elements_View_Map;
 
+                    fireCustomTrigger( bindingOptions.onViewSwitch, "map" );
                     renderControlContainer( bindingOptions );
                 };
             }
@@ -322,6 +323,7 @@
                 optionChart.onclick = function() {
                     bindingOptions.currentView.view = _elements_View_Chart;
 
+                    fireCustomTrigger( bindingOptions.onViewSwitch, "chart" );
                     renderControlContainer( bindingOptions );
                 };
             }
@@ -789,14 +791,21 @@
      */
 
     function exportAllData( bindingOptions ) {
-        var csvContents = getCsvContent( bindingOptions );
+        var contents = null,
+            contentsMimeType = getExportMimeType( bindingOptions );
 
-        if ( csvContents !== _string.empty ) {
+        if ( bindingOptions.exportType.toLowerCase() === "csv" ) {
+            contents = getCsvContent( bindingOptions );
+        } else if ( bindingOptions.exportType.toLowerCase() === "json" ) {
+            contents = getJsonContent( bindingOptions );
+        }
+
+        if ( contents !== _string.empty ) {
             var tempLink = createElement( _parameter_Document.body, "a" );
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
-            tempLink.setAttribute( "href", "data:text/csv;charset=utf-8," + encodeURIComponent( csvContents ) );
-            tempLink.setAttribute( "download", getCsvFilename( bindingOptions ) );
+            tempLink.setAttribute( "href", "data:" + contentsMimeType + ";charset=utf-8," + encodeURIComponent( contents ) );
+            tempLink.setAttribute( "download", getExportFilename( bindingOptions ) );
             tempLink.click();
             
             _parameter_Document.body.removeChild( tempLink );
@@ -846,7 +855,23 @@
         return csvContents.join( _string.newLine );
     }
 
-    function getCsvFilename( bindingOptions ) {
+    function getJsonContent( bindingOptions ) {
+        return JSON.stringify( getCurrentViewData( bindingOptions ) );
+    }
+
+    function getExportMimeType( bindingOptions ) {
+        var result = null;
+
+        if ( bindingOptions.exportType.toLowerCase() === "csv" ) {
+            result = "text/csv";
+        } else if ( bindingOptions.exportType.toLowerCase() === "json" ) {
+            result = "application/json";
+        }
+
+        return result;
+    }
+
+    function getExportFilename( bindingOptions ) {
         var date = new Date(),
             datePart = padNumber( date.getDate() ) + _string.dash + padNumber( date.getMonth() + 1 ) + _string.dash + date.getFullYear(),
             timePart = padNumber( date.getHours() ) + _string.dash + padNumber( date.getMinutes() ),
@@ -856,7 +881,7 @@
             filenameStart = bindingOptions.currentView.type.toLowerCase().replace( _string.space, _string.underscore ) + _string.underscore;
         }
 
-        return filenameStart + datePart + _string.underscore + timePart + ".csv";
+        return filenameStart + datePart + _string.underscore + timePart + "." + bindingOptions.exportType.toLowerCase();
     }
 
     function getCsvValue( text ) {
@@ -899,6 +924,7 @@
         options.view = getDefaultString( options.view, null );
         options.showChartYLabels = getDefaultBoolean( options.showChartYLabels, true );
         options.tooltipDelay = getDefaultNumber( options.tooltipDelay, 1000 );
+        options.exportType = getDefaultString( options.exportType, "csv" );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -971,6 +997,7 @@
         options.onAdd = getDefaultFunction( options.onAdd, null );
         options.onRemove = getDefaultFunction( options.onRemove, null );
         options.onReset = getDefaultFunction( options.onReset, null );
+        options.onViewSwitch = getDefaultFunction( options.onViewSwitch, null );
 
         return options;
     }
@@ -1485,6 +1512,28 @@
         return this;
     };
 
+    /**
+     * export().
+     * 
+     * Exports all the data for a specific element ID.
+     * 
+     * @public
+     * @fires       onExport
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID whose data should be exported.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.export = function( elementId ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+            exportAllData( bindingOptions );
+        }
+
+        return this;
+    };
+
     function toStorageDate( date ) {
         return date.getFullYear() + _string.dash + padNumber( date.getMonth() + 1 ) + _string.dash + padNumber( date.getDate() );
     }
@@ -1867,7 +1916,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.6.4";
+        return "1.7.0";
     };
 
 

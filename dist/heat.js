@@ -1,4 +1,4 @@
-/*! Heat.js v1.6.4 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.7.0 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -196,6 +196,7 @@
       } else {
         optionMap.onclick = function() {
           bindingOptions.currentView.view = _elements_View_Map;
+          fireCustomTrigger(bindingOptions.onViewSwitch, "map");
           renderControlContainer(bindingOptions);
         };
       }
@@ -204,6 +205,7 @@
       } else {
         optionChart.onclick = function() {
           bindingOptions.currentView.view = _elements_View_Chart;
+          fireCustomTrigger(bindingOptions.onViewSwitch, "chart");
           renderControlContainer(bindingOptions);
         };
       }
@@ -552,13 +554,19 @@
     }
   }
   function exportAllData(bindingOptions) {
-    var csvContents = getCsvContent(bindingOptions);
-    if (csvContents !== _string.empty) {
+    var contents = null;
+    var contentsMimeType = getExportMimeType(bindingOptions);
+    if (bindingOptions.exportType.toLowerCase() === "csv") {
+      contents = getCsvContent(bindingOptions);
+    } else if (bindingOptions.exportType.toLowerCase() === "json") {
+      contents = getJsonContent(bindingOptions);
+    }
+    if (contents !== _string.empty) {
       var tempLink = createElement(_parameter_Document.body, "a");
       tempLink.style.display = "none";
       tempLink.setAttribute("target", "_blank");
-      tempLink.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(csvContents));
-      tempLink.setAttribute("download", getCsvFilename(bindingOptions));
+      tempLink.setAttribute("href", "data:" + contentsMimeType + ";charset=utf-8," + encodeURIComponent(contents));
+      tempLink.setAttribute("download", getExportFilename(bindingOptions));
       tempLink.click();
       _parameter_Document.body.removeChild(tempLink);
     }
@@ -599,7 +607,19 @@
     }
     return csvContents.join(_string.newLine);
   }
-  function getCsvFilename(bindingOptions) {
+  function getJsonContent(bindingOptions) {
+    return JSON.stringify(getCurrentViewData(bindingOptions));
+  }
+  function getExportMimeType(bindingOptions) {
+    var result = null;
+    if (bindingOptions.exportType.toLowerCase() === "csv") {
+      result = "text/csv";
+    } else if (bindingOptions.exportType.toLowerCase() === "json") {
+      result = "application/json";
+    }
+    return result;
+  }
+  function getExportFilename(bindingOptions) {
     var date = new Date();
     var datePart = padNumber(date.getDate()) + _string.dash + padNumber(date.getMonth() + 1) + _string.dash + date.getFullYear();
     var timePart = padNumber(date.getHours()) + _string.dash + padNumber(date.getMinutes());
@@ -607,7 +627,7 @@
     if (bindingOptions.currentView.type !== _elements_DateCounts_DefaultType) {
       filenameStart = bindingOptions.currentView.type.toLowerCase().replace(_string.space, _string.underscore) + _string.underscore;
     }
-    return filenameStart + datePart + _string.underscore + timePart + ".csv";
+    return filenameStart + datePart + _string.underscore + timePart + "." + bindingOptions.exportType.toLowerCase();
   }
   function getCsvValue(text) {
     text = text.toString().replace(/(\r\n|\n|\r)/gm, _string.empty).replace(/(\s\s)/gm, _string.space);
@@ -639,6 +659,7 @@
     options.view = getDefaultString(options.view, null);
     options.showChartYLabels = getDefaultBoolean(options.showChartYLabels, true);
     options.tooltipDelay = getDefaultNumber(options.tooltipDelay, 1000);
+    options.exportType = getDefaultString(options.exportType, "csv");
     if (isInvalidOptionArray(options.monthsToShow)) {
       options.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     }
@@ -680,6 +701,7 @@
     options.onAdd = getDefaultFunction(options.onAdd, null);
     options.onRemove = getDefaultFunction(options.onRemove, null);
     options.onReset = getDefaultFunction(options.onReset, null);
+    options.onViewSwitch = getDefaultFunction(options.onViewSwitch, null);
     return options;
   }
   function getTotalDaysInMonth(year, month) {
@@ -1014,6 +1036,13 @@
     }
     return this;
   };
+  this["export"] = function(elementId) {
+    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      exportAllData(bindingOptions);
+    }
+    return this;
+  };
   this.refresh = function(elementId) {
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
@@ -1127,7 +1156,7 @@
     return this;
   };
   this.getVersion = function() {
-    return "1.6.4";
+    return "1.7.0";
   };
   (function(documentObject, windowObject) {
     _parameter_Document = documentObject;

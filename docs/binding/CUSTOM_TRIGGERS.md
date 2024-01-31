@@ -101,12 +101,18 @@ Fires when the data for a heatmap is exported.
 <br>
 
 
-## For Types:
+## For Views:
 
 ### options.onTypeSwitch( *type* ):
 Fires when the trend type being viewed is switched.
 <br>
 ***Parameter:*** type: '*string*' - The trend type selected.
+<br>
+
+### options.onViewSwitch( *view* ):
+Fires when the view is switched.
+<br>
+***Parameter:*** view: '*string*' - The view selected.
 <br>
 <br>
 

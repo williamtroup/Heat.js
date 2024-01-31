@@ -1,5 +1,34 @@
 # Heat.js - Change Log:
 
+## Version 1.7.0:
+
+#### **New Features:**
+- Export to JSON support!
+
+#### **Binding Options:**
+- Added a new binding option called "exportType", which states what format the data should be exported as (defaults to "csv", also accepts "json").
+
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option called "onViewSwitch", which states an event that should be triggered when the view is switched.
+
+#### **Public Functions:**
+- Added new public function "export()", which will export all the data for a specific element ID.
+
+#### **Themes:**
+- The theme files are now organised into "dark" and "light" folders.
+- Added new theme "dist/dark/heat.js.dark.red.theme.css", which shows a dark theme, but with red day colors.
+- Added new theme "dist/dark/heat.js.dark.blue.theme.css", which shows a dark theme, but with blue day colors.
+- Added new theme "dist/dark/heat.js.dark.orange.theme.css", which shows a dark theme, but with orange day colors.
+- Added new theme "dist/light/heat.js.light.blue.theme.css", which shows a light theme, but with blue day colors.
+- Added new theme "dist/light/heat.js.light.orange.theme.css", which shows a light theme, but with orange day colors.
+- Renamed the theme "heat.js.light.theme.css" to "dist/light/heat.js.light.red.theme.css".
+
+#### **CSS:**
+- Added a new ":root" variable called "--heat-js-title-opener-text-color-hover", which states the text hover color that should be used for the drop-down menu openers.
+
+<br>
+
+
 ## Version 1.6.4:
 - Fixed a fault that caused the "onNextYear" custom trigger to fire when the view is switched.
 

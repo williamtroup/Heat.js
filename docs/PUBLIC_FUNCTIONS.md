@@ -73,6 +73,14 @@ Removes all the dates for a specific element ID, and refreshes the UI (if specif
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
+
+### **reset( *elementId* )**:
+Exports all the data for a specific element ID.
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID whose data should be exported.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
 <br>
 
 
