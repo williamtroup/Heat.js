@@ -24,7 +24,7 @@
 - Renamed the theme "heat.js.light.theme.css" to "dist/light/heat.js.light.red.theme.css".
 
 #### **CSS:**
-- Added a new ":root" variable called "--heat-js-title-opener-text-color-hover", which states the text hover color that should be used foe the drop-down menu openers.
+- Added a new ":root" variable called "--heat-js-title-opener-text-color-hover", which states the text hover color that should be used for the drop-down menu openers.
 
 <br>
 
