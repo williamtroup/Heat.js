@@ -2,6 +2,9 @@
 
 ## Version 1.7.0:
 
+#### **New Features:**
+- Export to JSON support!
+
 #### **Binding Options:**
 - Added a new binding option called "exportType", which states what format the data should be exported as (defaults to "csv", also accepts "json").
 
