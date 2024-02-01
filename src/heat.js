@@ -46,6 +46,10 @@
         _elements_View_Chart = 2,
         _elements_View_Statistics = 3,
 
+        // Variables: Export Types
+        _export_Type_Csv = "csv",
+        _export_Type_Json = "json",
+
         // Variables: Attribute Names
         _attribute_Name_Options = "data-heat-options";
 
@@ -940,9 +944,9 @@
         var contents = null,
             contentsMimeType = getExportMimeType( bindingOptions );
 
-        if ( bindingOptions.exportType.toLowerCase() === "csv" ) {
+        if ( bindingOptions.exportType.toLowerCase() === _export_Type_Csv ) {
             contents = getCsvContent( bindingOptions );
-        } else if ( bindingOptions.exportType.toLowerCase() === "json" ) {
+        } else if ( bindingOptions.exportType.toLowerCase() === _export_Type_Json ) {
             contents = getJsonContent( bindingOptions );
         }
 
@@ -1008,9 +1012,9 @@
     function getExportMimeType( bindingOptions ) {
         var result = null;
 
-        if ( bindingOptions.exportType.toLowerCase() === "csv" ) {
+        if ( bindingOptions.exportType.toLowerCase() === _export_Type_Csv ) {
             result = "text/csv";
-        } else if ( bindingOptions.exportType.toLowerCase() === "json" ) {
+        } else if ( bindingOptions.exportType.toLowerCase() === _export_Type_Json ) {
             result = "application/json";
         }
 
@@ -1067,10 +1071,10 @@
         options.keepScrollPositions = getDefaultBoolean( options.keepScrollPositions, false );
         options.extraSelectionYears = getDefaultNumber( options.extraSelectionYears, 50 );
         options.showYearSelectionDropDown = getDefaultBoolean( options.showYearSelectionDropDown, true );
-        options.view = getDefaultString( options.view, null );
+        options.view = getDefaultString( options.view, _elements_View_Name_Map );
         options.showChartYLabels = getDefaultBoolean( options.showChartYLabels, true );
         options.tooltipDelay = getDefaultNumber( options.tooltipDelay, 1000 );
-        options.exportType = getDefaultString( options.exportType, "csv" );
+        options.exportType = getDefaultString( options.exportType, _export_Type_Csv );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];

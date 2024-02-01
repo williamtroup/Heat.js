@@ -662,9 +662,9 @@
   function exportAllData(bindingOptions) {
     var contents = null;
     var contentsMimeType = getExportMimeType(bindingOptions);
-    if (bindingOptions.exportType.toLowerCase() === "csv") {
+    if (bindingOptions.exportType.toLowerCase() === _export_Type_Csv) {
       contents = getCsvContent(bindingOptions);
-    } else if (bindingOptions.exportType.toLowerCase() === "json") {
+    } else if (bindingOptions.exportType.toLowerCase() === _export_Type_Json) {
       contents = getJsonContent(bindingOptions);
     }
     if (contents !== _string.empty) {
@@ -718,9 +718,9 @@
   }
   function getExportMimeType(bindingOptions) {
     var result = null;
-    if (bindingOptions.exportType.toLowerCase() === "csv") {
+    if (bindingOptions.exportType.toLowerCase() === _export_Type_Csv) {
       result = "text/csv";
-    } else if (bindingOptions.exportType.toLowerCase() === "json") {
+    } else if (bindingOptions.exportType.toLowerCase() === _export_Type_Json) {
       result = "application/json";
     }
     return result;
@@ -762,10 +762,10 @@
     options.keepScrollPositions = getDefaultBoolean(options.keepScrollPositions, false);
     options.extraSelectionYears = getDefaultNumber(options.extraSelectionYears, 50);
     options.showYearSelectionDropDown = getDefaultBoolean(options.showYearSelectionDropDown, true);
-    options.view = getDefaultString(options.view, null);
+    options.view = getDefaultString(options.view, _elements_View_Name_Map);
     options.showChartYLabels = getDefaultBoolean(options.showChartYLabels, true);
     options.tooltipDelay = getDefaultNumber(options.tooltipDelay, 1000);
-    options.exportType = getDefaultString(options.exportType, "csv");
+    options.exportType = getDefaultString(options.exportType, _export_Type_Csv);
     if (isInvalidOptionArray(options.monthsToShow)) {
       options.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     }
@@ -1062,6 +1062,8 @@
   var _elements_View_Map = 1;
   var _elements_View_Chart = 2;
   var _elements_View_Statistics = 3;
+  var _export_Type_Csv = "csv";
+  var _export_Type_Json = "json";
   var _attribute_Name_Options = "data-heat-options";
   this.addDates = function(elementId, dates, type, triggerRefresh) {
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
