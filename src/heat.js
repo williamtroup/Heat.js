@@ -1483,6 +1483,28 @@
     };
 
     /**
+     * resetAll().
+     * 
+     * Removes all the dates for all the elements, and refreshes the UI (if specified).
+     * 
+     * @public
+     * @fires       onReset
+     * 
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for each element should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.resetAll = function( triggerRefresh ) {
+        for ( var elementId in _elements_DateCounts ) {
+            if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                this.reset( elementId, triggerRefresh );
+            }
+        }
+
+        return this;
+    };
+
+    /**
      * reset().
      * 
      * Removes all the dates for a specific element ID, and refreshes the UI (if specified).

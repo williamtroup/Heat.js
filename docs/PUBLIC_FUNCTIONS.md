@@ -64,6 +64,14 @@ Removes a date for a specific element ID, and refreshes the UI (if specified). I
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
 
+### **resetAll( *[triggerRefresh]* )**:
+Removes all the dates for all the elements, and refreshes the UI (if specified).
+<br>
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for each element should be refreshed (defaults to true).
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
 ### **reset( *elementId*, *[triggerRefresh]* )**:
 Removes all the dates for a specific element ID, and refreshes the UI (if specified).
 <br>

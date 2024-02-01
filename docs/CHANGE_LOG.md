@@ -4,6 +4,7 @@
 
 #### **Public Functions:**
 - Added new public function "getIds()", which will return all the IDs for the elements that have been rendered.
+- Added new public function "resetAll()", which will reset the data for all elements.
 
 <br>
 

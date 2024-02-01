@@ -1025,6 +1025,15 @@
     }
     return this;
   };
+  this.resetAll = function(triggerRefresh) {
+    var elementId;
+    for (elementId in _elements_DateCounts) {
+      if (_elements_DateCounts.hasOwnProperty(elementId)) {
+        this.reset(elementId, triggerRefresh);
+      }
+    }
+    return this;
+  };
   this.reset = function(elementId, triggerRefresh) {
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
       triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
