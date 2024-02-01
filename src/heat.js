@@ -847,6 +847,11 @@
                     renderControlViewGuideTypeButton( bindingOptions, mapTypes, type );
                 }
             }
+
+        } else {
+            if ( isDefinedString( bindingOptions.noTypesLabel ) ) {
+                createElementWithHTML( mapTypes, "span", "label", bindingOptions.noTypesLabel );
+            }
         }
 
         if ( bindingOptions.showGuide ) {
@@ -1077,6 +1082,7 @@
         options.showChartYLabels = getDefaultBoolean( options.showChartYLabels, true );
         options.tooltipDelay = getDefaultNumber( options.tooltipDelay, 1000 );
         options.exportType = getDefaultString( options.exportType, _export_Type_Csv );
+        options.noTypesLabel = getDefaultString( options.noTypesLabel, null );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
