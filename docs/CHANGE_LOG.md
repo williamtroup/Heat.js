@@ -2,9 +2,19 @@
 
 ## Version 1.8.0:
 
+#### **New Features:**
+- Added new "Statistics" view, which shows you the total count per map range type (in a bar chart).
+
 #### **Public Functions:**
 - Added new public function "getIds()", which will return all the IDs for the elements that have been rendered.
 - Added new public function "resetAll()", which will reset the data for all elements.
+
+#### **Configuration Options:**
+- Added a new configuration option called "statisticsText", which states the text that should be shown for the "Statistics" label (defaults to "Statistics").
+
+#### **Fixes:**
+- Fixed a fault that caused the Y axis labels in the chart view to overlap the chart when a larger number is shown.
+- Fixed a fault that caused the sorting order for the map range types to be ignored when custom ones are used.
 
 <br>
 
