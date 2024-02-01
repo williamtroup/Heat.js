@@ -1910,6 +1910,27 @@
      */
 
     /**
+     * getIds().
+     * 
+     * Returns an array of element IDs that have been rendered.
+     * 
+     * @public
+     * 
+     * @returns     {string[]}                                              The element IDs that have been rendered.
+     */
+    this.getIds = function() {
+        var result = [];
+        
+        for ( var elementId in _elements_DateCounts ) {
+            if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                result.push( elementId );
+            }
+        }
+
+        return result;
+    };
+
+    /**
      * getVersion().
      * 
      * Returns the version of Heat.js.

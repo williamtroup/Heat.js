@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 1.8.0:
-- 
+
+#### **Public Functions:**
+- Added new public function "getIds()", which will return all the IDs for the elements that have been rendered.
 
 <br>
 

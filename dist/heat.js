@@ -1157,6 +1157,16 @@
     buildDefaultConfiguration();
     return this;
   };
+  this.getIds = function() {
+    var result = [];
+    var elementId;
+    for (elementId in _elements_DateCounts) {
+      if (_elements_DateCounts.hasOwnProperty(elementId)) {
+        result.push(elementId);
+      }
+    }
+    return result;
+  };
   this.getVersion = function() {
     return "1.8.0";
   };
