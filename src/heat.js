@@ -967,8 +967,6 @@
             csvContents = [],
             csvStorageDates = [];
 
-        csvContents.push( getCsvValueLine( [ getCsvValue( _configuration.dateText ), getCsvValue( _configuration.countText ) ] ) );
-
         for ( var storageDate1 in csvData ) {
             if ( csvData.hasOwnProperty( storageDate1 ) ) {
                 csvStorageDates.push( storageDate1 );
@@ -1000,6 +998,10 @@
                     csvContents.push( getCsvValueLine( [ getCsvValue( storageDate3 ), getCsvValue( csvData[ storageDate3 ] ) ] ) );
                 }
             }
+        }
+
+        if ( csvContents.length > 0 ) {
+            csvContents.unshift( getCsvValueLine( [ getCsvValue( _configuration.dateText ), getCsvValue( _configuration.countText ) ] ) );
         }
         
         return csvContents.join( _string.newLine );

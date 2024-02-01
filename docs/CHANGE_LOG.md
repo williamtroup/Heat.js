@@ -22,6 +22,7 @@
 #### **Fixes:**
 - Fixed a fault that caused the Y axis labels in the chart view to overlap the chart when a larger number is shown.
 - Fixed a fault that caused the sorting order for the map range types to be ignored when custom ones are used.
+- Fixed a fault that caused empty data sets to be exported to CSV files.
 
 <br>
 
