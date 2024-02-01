@@ -186,10 +186,10 @@ div.heat-js div.title-bar button {
   outline: none;
   transition: var(--heat-js-transition);
 }
-div.heat-js div.title-bar button:active {
+div.heat-js div.title-bar button:not(.active):active {
   background: var(--heat-js-button-background-color-active) !important;
 }
-div.heat-js div.title-bar button:hover {
+div.heat-js div.title-bar button:not(.active):hover {
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
 }
@@ -655,10 +655,10 @@ div.heat-js div.guide div.map-types button {
   outline: none;
   transition: var(--heat-js-transition);
 }
-div.heat-js div.guide div.map-types button:active {
+div.heat-js div.guide div.map-types button:not(.active):active {
   background: var(--heat-js-button-background-color-active) !important;
 }
-div.heat-js div.guide div.map-types button:hover {
+div.heat-js div.guide div.map-types button:not(.active):hover {
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
 }

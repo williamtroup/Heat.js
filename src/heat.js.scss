@@ -104,11 +104,11 @@
         outline: none;
         transition: var(--heat-js-transition);
 
-        &:active {
+        &:not(.active):active {
             background: var(--heat-js-button-background-color-active) !important;
         }
 
-        &:hover {
+        &:not(.active):hover {
             cursor: pointer;
             background: var(--heat-js-button-background-color-hover);
         }
