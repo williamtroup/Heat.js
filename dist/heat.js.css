@@ -396,6 +396,14 @@ div.heat-js div.chart-contents {
   overflow-y: hidden;
   text-wrap: nowrap;
   white-space: nowrap;
+  position: relative;
+}
+div.heat-js div.chart-contents div.no-data-message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: var(--heat-js-text-bold-weight);
 }
 div.heat-js div.chart-contents div.chart {
   display: inline-flex;

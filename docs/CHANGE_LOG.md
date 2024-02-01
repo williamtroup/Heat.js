@@ -2,7 +2,7 @@
 
 ## Version 1.7.1:
 - Fixed documentation errors.
-- 
+- Added a new binding option called "noChartDataMessage", which states the message that should be shown on the chart view when there is no data (defaults to "There is currently no data to view.").
 
 <br>
 

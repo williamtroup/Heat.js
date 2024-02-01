@@ -32,6 +32,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | showChartYLabels | States if the chart Y axis labels should be shown (defaults to true). |
 | *number* | tooltipDelay | States how long the tooltip should wait (in milliseconds) until it's shown (defaults to 1000). |
 | *string* | exportType | States the export file type that should be used (defaults to "csv", also accepts "json"). |
+| *string* | noChartDataMessage | States the message that should be shown on the chart view when there is no data (defaults to "There is currently no data to view."). |
 
 <br/>
 
