@@ -1,4 +1,4 @@
-/*! Heat.js v1.7.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.7.1 | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "st",
         "ndText": "nd",
@@ -14,6 +14,7 @@ $heat.setConfiguration( {
         "countText": "Count",
         "mapText": "Map",
         "chartText": "Chart",
+        "noChartDataMessage": "There is currently no data to view.",
         "monthNames": [
                 "Jan",
                 "Feb",

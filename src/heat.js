@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps and charts to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v1.7.0
+ * @version     v1.7.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -579,11 +579,13 @@
         }
 
         if ( largestValueForCurrentYear === 0 ) {
-            chart.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
+            bindingOptions.currentView.chartContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
 
             if ( isDefined( labels ) ) {
                 labels.style.display = "none";
             }
+
+            createElementWithHTML( bindingOptions.currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage );
 
         } else {
             var totalMonths = 0;
@@ -1860,6 +1862,7 @@
         _configuration.countText = getDefaultString( _configuration.countText, "Count" );
         _configuration.mapText = getDefaultString( _configuration.mapText, "Map" );
         _configuration.chartText = getDefaultString( _configuration.chartText, "Chart" );
+        _configuration.noChartDataMessage = getDefaultString( _configuration.noChartDataMessage, "There is currently no data to view." );
     }
 
     function buildDefaultConfigurationArrays() {
@@ -1916,7 +1919,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.7.0";
+        return "1.7.1";
     };
 
 

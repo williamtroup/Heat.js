@@ -1,4 +1,4 @@
-/*! Heat.js v1.7.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.7.1 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -395,10 +395,11 @@
       labels = null;
     }
     if (largestValueForCurrentYear === 0) {
-      chart.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
+      bindingOptions.currentView.chartContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
       if (isDefined(labels)) {
         labels.style.display = "none";
       }
+      createElementWithHTML(bindingOptions.currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage);
     } else {
       var totalMonths = 0;
       var monthIndex1 = 0;
@@ -926,6 +927,7 @@
     _configuration.countText = getDefaultString(_configuration.countText, "Count");
     _configuration.mapText = getDefaultString(_configuration.mapText, "Map");
     _configuration.chartText = getDefaultString(_configuration.chartText, "Chart");
+    _configuration.noChartDataMessage = getDefaultString(_configuration.noChartDataMessage, "There is currently no data to view.");
   }
   function buildDefaultConfigurationArrays() {
     if (isInvalidOptionArray(_configuration.monthNames, 12)) {
@@ -1156,7 +1158,7 @@
     return this;
   };
   this.getVersion = function() {
-    return "1.7.0";
+    return "1.7.1";
   };
   (function(documentObject, windowObject) {
     _parameter_Document = documentObject;

@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.7.0
+ * Heat.js Library v1.7.1
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -140,7 +140,7 @@ div.heat-js div.title-bar div.title div.titles-list {
   position: absolute;
   width: 100px;
   margin-top: 3px;
-  z-index: 100;
+  z-index: 1000;
 }
 div.heat-js div.title-bar div.title div.titles-list div.titles {
   border-radius: var(--heat-js-border-radius);
@@ -242,6 +242,7 @@ div.heat-js div.title-bar div.year-text div.years-list {
   left: 50%;
   transform: translateX(-50%);
   margin-top: 5px;
+  z-index: 1000;
 }
 div.heat-js div.title-bar div.year-text div.years-list div.years {
   border-radius: var(--heat-js-border-radius);
@@ -396,6 +397,14 @@ div.heat-js div.chart-contents {
   overflow-y: hidden;
   text-wrap: nowrap;
   white-space: nowrap;
+  position: relative;
+}
+div.heat-js div.chart-contents div.no-data-message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: var(--heat-js-text-bold-weight);
 }
 div.heat-js div.chart-contents div.chart {
   display: inline-flex;
