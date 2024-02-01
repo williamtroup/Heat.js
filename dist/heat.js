@@ -535,7 +535,7 @@
     }
   }
   function renderControlStatisticsDay(mapRangeMinimum, dayLines, rangeCount, bindingOptions, mapRangeColors, pixelsPerNumbers) {
-    var rangeLine = createElement(dayLines, "div", "range-line");
+    var rangeLine = createElement(dayLines, "div", "range-line no-hover");
     var mapRangeColor = getMapRangeColorByMinimum(mapRangeColors, mapRangeMinimum);
     rangeLine.style.height = rangeCount * pixelsPerNumbers + "px";
     rangeLine.style.setProperty("border-bottom-width", "0", "important");
