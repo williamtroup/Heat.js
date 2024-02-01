@@ -14,6 +14,7 @@ $heat.setConfiguration( {
         "countText": "গণনা",
         "mapText": "মানচিত্র",
         "chartText": "চার্ট",
+        "noChartDataMessage": "দেখার জন্য বর্তমানে কোন ডেটা নেই।",
         "monthNames": [
                 "জান",
                 "ফেব্রুয়ারী",

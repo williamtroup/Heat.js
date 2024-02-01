@@ -585,7 +585,7 @@
                 labels.style.display = "none";
             }
 
-            createElementWithHTML( bindingOptions.currentView.chartContents, "div", "no-data-message", bindingOptions.noChartDataMessage );
+            createElementWithHTML( bindingOptions.currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage );
 
         } else {
             var totalMonths = 0;
@@ -927,7 +927,6 @@
         options.showChartYLabels = getDefaultBoolean( options.showChartYLabels, true );
         options.tooltipDelay = getDefaultNumber( options.tooltipDelay, 1000 );
         options.exportType = getDefaultString( options.exportType, "csv" );
-        options.noChartDataMessage = getDefaultString( options.noChartDataMessage, "There is currently no data to view." );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -1863,6 +1862,7 @@
         _configuration.countText = getDefaultString( _configuration.countText, "Count" );
         _configuration.mapText = getDefaultString( _configuration.mapText, "Map" );
         _configuration.chartText = getDefaultString( _configuration.chartText, "Chart" );
+        _configuration.noChartDataMessage = getDefaultString( _configuration.noChartDataMessage, "There is currently no data to view." );
     }
 
     function buildDefaultConfigurationArrays() {

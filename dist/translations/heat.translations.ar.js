@@ -14,6 +14,7 @@ $heat.setConfiguration( {
         "countText": "عدد",
         "mapText": "خريطة",
         "chartText": "جدول",
+        "noChartDataMessage": "لا يوجد حاليا أي بيانات لعرضها.",
         "monthNames": [
                 "يناير",
                 "فبراير",

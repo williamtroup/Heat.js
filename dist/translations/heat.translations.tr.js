@@ -14,6 +14,7 @@ $heat.setConfiguration( {
         "countText": "Saymak",
         "mapText": "Harita",
         "chartText": "Çizelge",
+        "noChartDataMessage": "Şu anda görüntülenecek veri yok.",
         "monthNames": [
                 "Ocak",
                 "Şubat",

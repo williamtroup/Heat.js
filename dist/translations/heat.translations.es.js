@@ -14,6 +14,7 @@ $heat.setConfiguration( {
         "countText": "Contar",
         "mapText": "Mapa",
         "chartText": "Cuadro",
+        "noChartDataMessage": "Actualmente no hay datos para ver.",
         "monthNames": [
                 "Ene",
                 "Feb",

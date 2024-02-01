@@ -14,6 +14,7 @@ $heat.setConfiguration( {
         "countText": "数数",
         "mapText": "地图",
         "chartText": "图表",
+        "noChartDataMessage": "目前没有数据可查看。",
         "monthNames": [
                 "扬",
                 "二月",

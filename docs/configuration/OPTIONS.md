@@ -33,6 +33,7 @@ Below are all the configuration options that can be passed to the "setConfigurat
 | *string* | countText | The text that should be shown for the "Count" CSV header. |
 | *string* | mapText | The text that should be shown for the "Map" label. |
 | *string* | chartText | The text that should be shown for the "Chart" label. |
+| *string* | noChartDataMessage | States the message that should be shown on the chart view when there is no data (defaults to "There is currently no data to view."). |
 
 <br/>
 
