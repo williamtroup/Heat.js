@@ -41,6 +41,7 @@
   }
   function renderBindingOptions(data, element) {
     var bindingOptions = buildAttributeOptions(data);
+    var view = !isDefinedString(bindingOptions.view) ? _string.empty : bindingOptions.view.toLowerCase();
     bindingOptions.currentView = {};
     bindingOptions.currentView.element = element;
     bindingOptions.currentView.tooltip = null;
@@ -54,11 +55,11 @@
     bindingOptions.currentView.colorsVisible = {};
     bindingOptions.currentView.year = bindingOptions.year;
     bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
-    if (!isDefinedString(bindingOptions.view) || bindingOptions.view.toLowerCase() === "map") {
+    if (view === _elements_View_Name_Map) {
       bindingOptions.currentView.view = _elements_View_Map;
-    } else if (bindingOptions.view.toLowerCase() === "chart") {
+    } else if (view === _elements_View_Name_Chart) {
       bindingOptions.currentView.view = _elements_View_Chart;
-    } else if (bindingOptions.view.toLowerCase() === "statistics") {
+    } else if (view === _elements_View_Name_Statistics) {
       bindingOptions.currentView.view = _elements_View_Statistics;
     } else {
       bindingOptions.currentView.view = _elements_View_Map;
@@ -207,9 +208,9 @@
       var optionMap = createElementWithHTML(titles, "div", "title", _configuration.mapText);
       var optionChart = createElementWithHTML(titles, "div", "title", _configuration.chartText);
       var statisticsChart = createElementWithHTML(titles, "div", "title", _configuration.statisticsText);
-      renderTitleDropDownClickEvent(bindingOptions, optionMap, _elements_View_Map, "map");
-      renderTitleDropDownClickEvent(bindingOptions, optionChart, _elements_View_Chart, "chart");
-      renderTitleDropDownClickEvent(bindingOptions, statisticsChart, _elements_View_Statistics, "statistics");
+      renderTitleDropDownClickEvent(bindingOptions, optionMap, _elements_View_Map, _elements_View_Name_Map);
+      renderTitleDropDownClickEvent(bindingOptions, optionChart, _elements_View_Chart, _elements_View_Name_Chart);
+      renderTitleDropDownClickEvent(bindingOptions, statisticsChart, _elements_View_Statistics, _elements_View_Name_Statistics);
       if (bindingOptions.showExportButton) {
         var exportData = createElementWithHTML(titleBar, "button", "export", _configuration.exportButtonText);
         exportData.onclick = function() {
@@ -1055,6 +1056,9 @@
   var _elements_Day_Width = null;
   var _elements_DateCounts = {};
   var _elements_DateCounts_DefaultType = "None";
+  var _elements_View_Name_Map = "map";
+  var _elements_View_Name_Chart = "chart";
+  var _elements_View_Name_Statistics = "statistics";
   var _elements_View_Map = 1;
   var _elements_View_Chart = 2;
   var _elements_View_Statistics = 3;

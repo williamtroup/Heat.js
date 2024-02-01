@@ -36,6 +36,11 @@
         _elements_DateCounts = {},
         _elements_DateCounts_DefaultType = "None",
 
+        // Variables: View (names)
+        _elements_View_Name_Map = "map",
+        _elements_View_Name_Chart = "chart",
+        _elements_View_Name_Statistics = "statistics",
+
         // Variables: View
         _elements_View_Map = 1,
         _elements_View_Chart = 2,
@@ -99,7 +104,9 @@
     }
 
     function renderBindingOptions( data, element ) {
-        var bindingOptions = buildAttributeOptions( data );
+        var bindingOptions = buildAttributeOptions( data ),
+            view = !isDefinedString( bindingOptions.view ) ? _string.empty : bindingOptions.view.toLowerCase();
+
         bindingOptions.currentView = {};
         bindingOptions.currentView.element = element;
         bindingOptions.currentView.tooltip = null;
@@ -114,11 +121,11 @@
         bindingOptions.currentView.year = bindingOptions.year;
         bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
 
-        if ( !isDefinedString( bindingOptions.view ) || bindingOptions.view.toLowerCase() === "map" ) {
+        if ( view === _elements_View_Name_Map ) {
             bindingOptions.currentView.view = _elements_View_Map;
-        } else if ( bindingOptions.view.toLowerCase() === "chart" ) {
+        } else if ( view === _elements_View_Name_Chart ) {
             bindingOptions.currentView.view = _elements_View_Chart;
-        } else if ( bindingOptions.view.toLowerCase() === "statistics" ) {
+        } else if ( view === _elements_View_Name_Statistics ) {
             bindingOptions.currentView.view = _elements_View_Statistics;
         } else {
             bindingOptions.currentView.view = _elements_View_Map;
@@ -324,9 +331,9 @@
                 optionChart = createElementWithHTML( titles, "div", "title", _configuration.chartText ),
                 statisticsChart = createElementWithHTML( titles, "div", "title", _configuration.statisticsText );
 
-            renderTitleDropDownClickEvent( bindingOptions, optionMap, _elements_View_Map, "map" );
-            renderTitleDropDownClickEvent( bindingOptions, optionChart, _elements_View_Chart, "chart" );
-            renderTitleDropDownClickEvent( bindingOptions, statisticsChart, _elements_View_Statistics, "statistics" );
+            renderTitleDropDownClickEvent( bindingOptions, optionMap, _elements_View_Map, _elements_View_Name_Map );
+            renderTitleDropDownClickEvent( bindingOptions, optionChart, _elements_View_Chart, _elements_View_Name_Chart );
+            renderTitleDropDownClickEvent( bindingOptions, statisticsChart, _elements_View_Statistics, _elements_View_Name_Statistics );
 
             if ( bindingOptions.showExportButton ) {
                 var exportData = createElementWithHTML( titleBar, "button", "export", _configuration.exportButtonText );
