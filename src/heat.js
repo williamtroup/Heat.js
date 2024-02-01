@@ -745,15 +745,10 @@
             createElementWithHTML( bindingOptions.currentView.statisticsContents, "div", "no-data-message", _configuration.noStatisticsDataMessage );
 
         } else {
-
-            var totalMapRangeTypes = 0;
-
             for ( var type in mapRangeValuesForCurrentYear.types ) {
                 if ( mapRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
                     renderControlStatisticsDay( type, rangeLines, mapRangeValuesForCurrentYear.types[ type ], bindingOptions, mapRangeColors, pixelsPerNumbers );
                     createElementWithHTML( statisticsMonths, "div", "range-name", type + "+" );
-                    
-                    totalMapRangeTypes++;
                 }
             }
     
@@ -764,12 +759,11 @@
     }
 
     function renderControlStatisticsDay( mapRangeMinimum, dayLines, rangeCount, bindingOptions, mapRangeColors, pixelsPerNumbers ) {
-        var rangeLine = createElement( dayLines, "div", "range-line" );
+        var rangeLine = createElement( dayLines, "div", "range-line" ),
+            mapRangeColor = getMapRangeColorByMinimum( mapRangeColors, mapRangeMinimum );
 
         rangeLine.style.height = ( rangeCount * pixelsPerNumbers ) + "px";
         rangeLine.style.setProperty( "border-bottom-width", "0", "important" );
-
-        var mapRangeColor = getMapRangeColorByMinimum( mapRangeColors, mapRangeMinimum );
 
         if ( isDefined( mapRangeColor ) && isHeatMapColorVisible( bindingOptions, mapRangeColor.id ) ) {
             addClass( rangeLine, mapRangeColor.cssClassName );
