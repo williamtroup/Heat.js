@@ -3,7 +3,7 @@
 ## Version 1.8.0:
 
 #### **New Features:**
-- Added new "Statistics" view, which shows you the total count per map range type (in a bar chart).
+- Added a new "Statistics" view, which shows the total count per map range type (in a bar chart).
 
 #### **Public Functions:**
 - Added new public function "getIds()", which will return all the IDs for the elements that have been rendered.
