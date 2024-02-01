@@ -5,7 +5,6 @@ Below is a list of all the public functions that can be called from the Heat.js 
 <br>
 
 
-
 ## Manage Dates:
 
 ### **addDates( *elementId*, *dates*, *[triggerRefresh]* )**:
