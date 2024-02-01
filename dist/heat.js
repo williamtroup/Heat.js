@@ -395,7 +395,7 @@
       labels = null;
     }
     if (largestValueForCurrentYear === 0) {
-      chart.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
+      bindingOptions.currentView.chartContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
       if (isDefined(labels)) {
         labels.style.display = "none";
       }

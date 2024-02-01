@@ -4,7 +4,7 @@
 - Fixed documentation errors.
 - Added a new configuration option called "noChartDataMessage", which states the message that should be shown on the chart view when there is no data (defaults to "There is currently no data to view.").
 - Fixed the years drop-down list not appearing correctly in the chart view when data is available.
-- 
+- Fixed the height of the control changing slightly when no data is available and the view is switched.
 
 <br>
 
