@@ -566,7 +566,7 @@
 
     function renderControlChart( bindingOptions ) {
         var chart = createElement( bindingOptions.currentView.chartContents, "div", "chart" ),
-            labels = createElement( chart, "div", "labels" ),
+            labels = createElement( chart, "div", "y-labels" ),
             dayLines = createElement( chart, "div", "day-lines" ),
             mapRangeColors = getSortedMapRanges( bindingOptions ),
             largestValueForCurrentYear = getLargestValueForChartYear( bindingOptions ),
@@ -576,12 +576,13 @@
             labelsWidth = 0;
 
         if ( largestValueForCurrentYear > 0 && bindingOptions.showChartYLabels ) {
-            createElementWithHTML( labels, "div", "label-0", largestValueForCurrentYear.toString() );
+            var topLabel = createElementWithHTML( labels, "div", "label-0", largestValueForCurrentYear.toString() );
             createElementWithHTML( labels, "div", "label-25", ( Math.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
             createElementWithHTML( labels, "div", "label-50", Math.floor( largestValueForCurrentYear / 2 ).toString() );
             createElementWithHTML( labels, "div", "label-75", Math.floor( largestValueForCurrentYear / 4 ).toString() );
             createElementWithHTML( labels, "div", "label-100", "0" );
 
+            labels.style.width = topLabel.offsetWidth + "px";
             labelsWidth = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true );
 
         } else {
@@ -711,21 +712,22 @@
 
     function renderControlStatistics( bindingOptions ) {
         var statistics = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics" ),
-            labels = createElement( statistics, "div", "labels" ),
-            dayLines = createElement( statistics, "div", "range-lines" ),
+            statisticsMonths = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics-ranges" ),
+            labels = createElement( statistics, "div", "y-labels" ),
+            rangeLines = createElement( statistics, "div", "range-lines" ),
             mapRangeColors = getSortedMapRanges( bindingOptions ),
             mapRangeValuesForCurrentYear = getLargestValuesForEachRangeType( bindingOptions, mapRangeColors ),
-            pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / mapRangeValuesForCurrentYear.largetValue,
-            labelsWidth = 0;
+            pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / mapRangeValuesForCurrentYear.largetValue;
 
         if ( mapRangeValuesForCurrentYear.largetValue > 0 && bindingOptions.showChartYLabels ) {
-            createElementWithHTML( labels, "div", "label-0", mapRangeValuesForCurrentYear.largetValue.toString() );
+            var topLabel = createElementWithHTML( labels, "div", "label-0", mapRangeValuesForCurrentYear.largetValue.toString() );
             createElementWithHTML( labels, "div", "label-25", ( Math.floor( mapRangeValuesForCurrentYear.largetValue / 4 ) * 3 ).toString() );
             createElementWithHTML( labels, "div", "label-50", Math.floor( mapRangeValuesForCurrentYear.largetValue / 2 ).toString() );
             createElementWithHTML( labels, "div", "label-75", Math.floor( mapRangeValuesForCurrentYear.largetValue / 4 ).toString() );
             createElementWithHTML( labels, "div", "label-100", "0" );
 
-            labelsWidth = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true );
+            labels.style.width = topLabel.offsetWidth + "px";
+            statisticsMonths.style.paddingLeft = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true ) + "px";
 
         } else {
             labels.parentNode.removeChild( labels );
@@ -734,12 +736,11 @@
 
         if ( mapRangeValuesForCurrentYear.largetValue === 0 ) {
             bindingOptions.currentView.statisticsContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
+            rangeLines.style.display = "none";
 
             if ( isDefined( labels ) ) {
                 labels.style.display = "none";
             }
-
-            dayLines.style.display = "none";
 
             createElementWithHTML( bindingOptions.currentView.statisticsContents, "div", "no-data-message", _configuration.noChartDataMessage );
 
@@ -749,30 +750,11 @@
 
             for ( var type in mapRangeValuesForCurrentYear.types ) {
                 if ( mapRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
-                    renderControlStatisticsDay( type, dayLines, mapRangeValuesForCurrentYear.types[ type ], bindingOptions, mapRangeColors, pixelsPerNumbers );
+                    renderControlStatisticsDay( type, rangeLines, mapRangeValuesForCurrentYear.types[ type ], bindingOptions, mapRangeColors, pixelsPerNumbers );
+                    createElementWithHTML( statisticsMonths, "div", "range-name", type + "+" );
+                    
                     totalMapRangeTypes++;
                 }
-            }
-
-            if ( bindingOptions.showMonthNames ) {
-                var statisticsMonths = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics-ranges" ),
-                    linesWidth = dayLines.offsetWidth / totalMapRangeTypes,
-                    lineIndex = 0;
-
-                for ( var type in mapRangeValuesForCurrentYear.types ) {
-                    if ( mapRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
-                        var rangeName = createElementWithHTML( statisticsMonths, "div", "range-name", type + "+" );
-                        rangeName.style.marginLeft = labelsWidth + ( linesWidth * lineIndex ) + "px";
-
-                        lineIndex++;
-                    }
-                }
-
-                statisticsMonths.style.width = dayLines.offsetWidth + "px";
-
-                var rangeNameSpace = createElement( statisticsMonths, "div", "range-name-space" );
-                rangeNameSpace.style.height = statisticsMonths.offsetHeight + "px";
-                rangeNameSpace.style.width = labelsWidth + "px";
             }
     
             if ( bindingOptions.keepScrollPositions ) {
@@ -782,7 +764,7 @@
     }
 
     function renderControlStatisticsDay( mapRangeMinimum, dayLines, rangeCount, bindingOptions, mapRangeColors, pixelsPerNumbers ) {
-        var rangeLine = createElement( dayLines, "div", "range-line no-hover" );
+        var rangeLine = createElement( dayLines, "div", "range-line" );
 
         rangeLine.style.height = ( rangeCount * pixelsPerNumbers ) + "px";
         rangeLine.style.setProperty( "border-bottom-width", "0", "important" );
@@ -799,7 +781,7 @@
             largetValue = 0,
             data = getCurrentViewData( bindingOptions );
 
-        types[ "0" ] = 0
+        types[ "0" ] = 0;
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
