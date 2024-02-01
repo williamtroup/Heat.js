@@ -619,6 +619,140 @@ div.heat-js {
 
 /*
     -------------------------------------------------------------------------
+    Heat.js - Statistics
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.statistics-contents {
+        display: flex;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        text-wrap: nowrap;
+        white-space: nowrap;
+        position: relative;
+
+        div.no-data-message {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: var(--heat-js-text-bold-weight);
+        }
+
+        div.statistics {
+            display: inline-flex;
+            flex-direction: row;
+
+            div.labels {
+                background-color: var(--heat-js-container-background-color);
+                padding-right: calc( var(--heat-js-spacing) * 3 );
+                padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
+                position: sticky;
+                left: 0;
+                display: none;
+                border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+                z-index: 50;
+
+                @media (min-width: $minimum-width) { 
+                    display: block;
+                }
+        
+                div.label-0,
+                div.label-25,
+                div.label-50,
+                div.label-75,
+                div.label-100 {
+                    font-weight: var(--heat-js-text-bold-weight);
+                    text-align: left !important;
+                    height: var(--heat-js-day-size);
+                    display: inline-flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    position: absolute;
+                    left: 0;
+                }
+
+                div.label-0 {
+                    top: 0;
+                }
+
+                div.label-25 {
+                    top: 25%;
+                    transform: translateY(-25%);
+                }
+
+                div.label-50 {
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+
+                div.label-75 {
+                    top: 75%;
+                    transform: translateY(-75%);
+                }
+
+                div.label-100 {
+                    bottom: 0;
+                }
+            }
+
+            div.day-lines {
+                flex: 1;
+                border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+
+                div.day-line {
+                    border-top-left-radius: var(--heat-js-border-radius-day);
+                    border-top-right-radius: var(--heat-js-border-radius-day);
+                    background-color: var(--heat-js-day-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+                    vertical-align: bottom;
+                    width: 40px;
+                    margin-right: 1px;
+                    display: inline-block;
+                    transition: var(--heat-js-transition);
+
+                    &:first-child {
+                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                    }
+    
+                    &:last-child {
+                        margin-right: 0;
+                    }
+
+                    &:not(.no-hover):hover {
+                        cursor: pointer;
+                        background: var(--heat-js-day-background-color-hover);
+                    }
+                }
+            }
+        }
+
+        div.statistics-months {
+            position: relative;
+            height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) );
+
+            div.month-name,
+            div.month-name-space {
+                font-weight: var(--heat-js-text-bold-weight);
+                text-align: left !important;
+                position: absolute;
+                bottom: 0;
+            }
+
+            div.month-name-space {
+                left: 0;
+                top: 0;
+                position: sticky;
+                background-color: var(--heat-js-container-background-color);
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
     Heat.js - Guide
     -------------------------------------------------------------------------
 */
