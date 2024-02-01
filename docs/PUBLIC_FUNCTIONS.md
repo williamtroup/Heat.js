@@ -144,6 +144,36 @@ Sets the year to to the lowest year available.
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
 
+### **moveToPreviousYear( *elementId* )**:
+Moves the year back one.
+<br>
+***Fires***:  onSetYear
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **moveToNextYear( *elementId* )**:
+Moves the year forward one.
+<br>
+***Fires***:  onSetYear
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **moveToCurrentYear( *elementId* )**:
+Moves to the current year.
+<br>
+***Fires***:  onSetYear
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
 ### **getYear( *elementId* )**:
 Gets the year currently being displayed.
 <br>

@@ -8,6 +8,9 @@
 #### **Public Functions:**
 - Added new public function "getIds()", which will return all the IDs for the elements that have been rendered.
 - Added new public function "resetAll()", which will reset the data for all elements.
+- Added new public function "moveToPreviousYear()", which will set move the year back one.
+- Added new public function "moveToNextYear()", which will set move the year forward one.
+- Added new public function "moveToCurrentYear()", which will set move the year to the current year.
 
 #### **Configuration Options:**
 - Added a new configuration option called "statisticsText", which states the text that should be shown for the "Statistics" label (defaults to "Statistics").

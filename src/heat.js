@@ -1857,6 +1857,78 @@
     };
 
     /**
+     * moveToPreviousYear().
+     * 
+     * Moves the year back one.
+     * 
+     * @public
+     * @fires       onBackYear
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.moveToPreviousYear = function( elementId ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+            bindingOptions.currentView.year--;
+
+            renderControlContainer( bindingOptions );
+            fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
+        }
+
+        return this;
+    };
+
+    /**
+     * moveToNextYear().
+     * 
+     * Moves the year forward one.
+     * 
+     * @public
+     * @fires       onNextYear
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.moveToNextYear = function( elementId ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+            bindingOptions.currentView.year++;
+
+            renderControlContainer( bindingOptions );
+            fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
+        }
+
+        return this;
+    };
+
+    /**
+     * moveToCurrentYear().
+     * 
+     * Moves to the current year.
+     * 
+     * @public
+     * @fires       onSetYear
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should be updated.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.moveToCurrentYear = function( elementId ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+            bindingOptions.currentView.year = new Date().getFullYear();
+
+            renderControlContainer( bindingOptions );
+            fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
+        }
+
+        return this;
+    };
+
+    /**
      * getYear().
      * 
      * Gets the year being displayed.
