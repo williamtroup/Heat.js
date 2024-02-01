@@ -592,10 +592,7 @@
 
         if ( largestValueForCurrentYear === 0 ) {
             bindingOptions.currentView.chartContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
-
-            if ( isDefined( labels ) ) {
-                labels.style.display = "none";
-            }
+            chart.parentNode.removeChild( chart );
 
             createElementWithHTML( bindingOptions.currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage );
 
@@ -712,7 +709,7 @@
 
     function renderControlStatistics( bindingOptions ) {
         var statistics = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics" ),
-            statisticsMonths = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics-ranges" ),
+            statisticsRanges = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics-ranges" ),
             labels = createElement( statistics, "div", "y-labels" ),
             rangeLines = createElement( statistics, "div", "range-lines" ),
             mapRangeColors = getSortedMapRanges( bindingOptions ),
@@ -727,7 +724,7 @@
             createElementWithHTML( labels, "div", "label-100", "0" );
 
             labels.style.width = topLabel.offsetWidth + "px";
-            statisticsMonths.style.paddingLeft = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true ) + "px";
+            statisticsRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true ) + "px";
 
         } else {
             labels.parentNode.removeChild( labels );
@@ -736,11 +733,8 @@
 
         if ( mapRangeValuesForCurrentYear.largetValue === 0 ) {
             bindingOptions.currentView.statisticsContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
-            rangeLines.style.display = "none";
-
-            if ( isDefined( labels ) ) {
-                labels.style.display = "none";
-            }
+            statistics.parentNode.removeChild( statistics );
+            statisticsRanges.parentNode.removeChild( statisticsRanges );
 
             createElementWithHTML( bindingOptions.currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage );
 
@@ -748,7 +742,7 @@
             for ( var type in mapRangeValuesForCurrentYear.types ) {
                 if ( mapRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
                     renderControlStatisticsDay( type, rangeLines, mapRangeValuesForCurrentYear.types[ type ], bindingOptions, mapRangeColors, pixelsPerNumbers );
-                    createElementWithHTML( statisticsMonths, "div", "range-name", type + "+" );
+                    createElementWithHTML( statisticsRanges, "div", "range-name", type + "+" );
                 }
             }
     

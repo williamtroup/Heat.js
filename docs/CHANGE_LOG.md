@@ -16,6 +16,9 @@
 - Added a new configuration option called "statisticsText", which states the text that should be shown for the "Statistics" label (defaults to "Statistics").
 - Added a new configuration option called "noStatisticsDataMessage", which states the message that should be shown on the chart view when there is no data (defaults to "There is currently no statistics to view.").
 
+#### **General Improvements:**
+- When the no data messages are shown, all other objects in the DOM element are now removed.
+
 #### **Fixes:**
 - Fixed a fault that caused the Y axis labels in the chart view to overlap the chart when a larger number is shown.
 - Fixed a fault that caused the sorting order for the map range types to be ignored when custom ones are used.

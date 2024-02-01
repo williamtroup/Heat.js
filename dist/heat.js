@@ -406,9 +406,7 @@
     }
     if (largestValueForCurrentYear === 0) {
       bindingOptions.currentView.chartContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
-      if (isDefined(labels)) {
-        labels.style.display = "none";
-      }
+      chart.parentNode.removeChild(chart);
       createElementWithHTML(bindingOptions.currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage);
     } else {
       var totalMonths = 0;
@@ -496,7 +494,7 @@
   }
   function renderControlStatistics(bindingOptions) {
     var statistics = createElement(bindingOptions.currentView.statisticsContents, "div", "statistics");
-    var statisticsMonths = createElement(bindingOptions.currentView.statisticsContents, "div", "statistics-ranges");
+    var statisticsRanges = createElement(bindingOptions.currentView.statisticsContents, "div", "statistics-ranges");
     var labels = createElement(statistics, "div", "y-labels");
     var rangeLines = createElement(statistics, "div", "range-lines");
     var mapRangeColors = getSortedMapRanges(bindingOptions);
@@ -509,24 +507,22 @@
       createElementWithHTML(labels, "div", "label-75", Math.floor(mapRangeValuesForCurrentYear.largetValue / 4).toString());
       createElementWithHTML(labels, "div", "label-100", "0");
       labels.style.width = topLabel.offsetWidth + "px";
-      statisticsMonths.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
+      statisticsRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
     } else {
       labels.parentNode.removeChild(labels);
       labels = null;
     }
     if (mapRangeValuesForCurrentYear.largetValue === 0) {
       bindingOptions.currentView.statisticsContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
-      rangeLines.style.display = "none";
-      if (isDefined(labels)) {
-        labels.style.display = "none";
-      }
+      statistics.parentNode.removeChild(statistics);
+      statisticsRanges.parentNode.removeChild(statisticsRanges);
       createElementWithHTML(bindingOptions.currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage);
     } else {
       var type;
       for (type in mapRangeValuesForCurrentYear.types) {
         if (mapRangeValuesForCurrentYear.types.hasOwnProperty(type)) {
           renderControlStatisticsDay(type, rangeLines, mapRangeValuesForCurrentYear.types[type], bindingOptions, mapRangeColors, pixelsPerNumbers);
-          createElementWithHTML(statisticsMonths, "div", "range-name", type + "+");
+          createElementWithHTML(statisticsRanges, "div", "range-name", type + "+");
         }
       }
       if (bindingOptions.keepScrollPositions) {
