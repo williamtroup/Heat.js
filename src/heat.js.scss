@@ -631,13 +631,12 @@ div.heat-js {
 div.heat-js {
     div.statistics-contents {
         display: flex;
-        overflow-x: scroll;
-        overflow-y: hidden;
+        overflow: hidden;
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
 
-        div.no-data-message {
+        div.no-statistics-message {
             position: absolute;
             left: 50%;
             top: 50%;

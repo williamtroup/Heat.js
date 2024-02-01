@@ -742,7 +742,7 @@
                 labels.style.display = "none";
             }
 
-            createElementWithHTML( bindingOptions.currentView.statisticsContents, "div", "no-data-message", _configuration.noStatisticsDataMessage );
+            createElementWithHTML( bindingOptions.currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage );
 
         } else {
             for ( var type in mapRangeValuesForCurrentYear.types ) {
