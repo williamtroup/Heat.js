@@ -219,7 +219,7 @@ div.heat-js {
                 position: absolute;
                 width: 100px;
                 margin-top: $title-margin;
-                z-index: 100;
+                z-index: 1000;
 
                 div.titles {
                     border-radius: var(--heat-js-border-radius);
@@ -306,6 +306,7 @@ div.heat-js {
                 left: 50%;
                 transform: translateX(-50%);
                 margin-top: $year-margin;
+                z-index: 1000;
 
                 div.years {
                     border-radius: var(--heat-js-border-radius);
