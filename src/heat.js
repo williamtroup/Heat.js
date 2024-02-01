@@ -742,7 +742,7 @@
                 labels.style.display = "none";
             }
 
-            createElementWithHTML( bindingOptions.currentView.statisticsContents, "div", "no-data-message", _configuration.noChartDataMessage );
+            createElementWithHTML( bindingOptions.currentView.statisticsContents, "div", "no-data-message", _configuration.noStatisticsDataMessage );
 
         } else {
 
@@ -2034,6 +2034,7 @@
         _configuration.chartText = getDefaultString( _configuration.chartText, "Chart" );
         _configuration.noChartDataMessage = getDefaultString( _configuration.noChartDataMessage, "There is currently no data to view." );
         _configuration.statisticsText = getDefaultString( _configuration.statisticsText, "Statistics" );
+        _configuration.noStatisticsDataMessage = getDefaultString( _configuration.noStatisticsDataMessage, "There is currently no statistics to view." );
     }
 
     function buildDefaultConfigurationArrays() {

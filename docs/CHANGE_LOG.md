@@ -11,6 +11,7 @@
 
 #### **Configuration Options:**
 - Added a new configuration option called "statisticsText", which states the text that should be shown for the "Statistics" label (defaults to "Statistics").
+- Added a new configuration option called "noStatisticsDataMessage", which states the message that should be shown on the chart view when there is no data (defaults to "There is currently no statistics to view.").
 
 #### **Fixes:**
 - Fixed a fault that caused the Y axis labels in the chart view to overlap the chart when a larger number is shown.
