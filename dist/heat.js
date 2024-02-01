@@ -388,9 +388,7 @@
     var dayLines = createElement(chart, "div", "day-lines");
     var mapRangeColors = getSortedMapRanges(bindingOptions);
     var largestValueForCurrentYear = getLargestValueForChartYear(bindingOptions);
-    var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear;
     var currentYear = bindingOptions.currentView.year;
-    var totalDays = 0;
     var labelsWidth = 0;
     if (largestValueForCurrentYear > 0 && bindingOptions.showChartYLabels) {
       var topLabel = createElementWithHTML(labels, "div", "label-0", largestValueForCurrentYear.toString());
@@ -409,7 +407,9 @@
       chart.parentNode.removeChild(chart);
       createElementWithHTML(bindingOptions.currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage);
     } else {
+      var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear;
       var totalMonths = 0;
+      var totalDays = 0;
       var monthIndex1 = 0;
       for (; monthIndex1 < 12; monthIndex1++) {
         if (bindingOptions.monthsToShow.indexOf(monthIndex1 + 1) > -1) {
@@ -499,7 +499,6 @@
     var rangeLines = createElement(statistics, "div", "range-lines");
     var mapRangeColors = getSortedMapRanges(bindingOptions);
     var mapRangeValuesForCurrentYear = getLargestValuesForEachRangeType(bindingOptions, mapRangeColors);
-    var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / mapRangeValuesForCurrentYear.largetValue;
     if (mapRangeValuesForCurrentYear.largetValue > 0 && bindingOptions.showChartYLabels) {
       var topLabel = createElementWithHTML(labels, "div", "label-0", mapRangeValuesForCurrentYear.largetValue.toString());
       createElementWithHTML(labels, "div", "label-25", (Math.floor(mapRangeValuesForCurrentYear.largetValue / 4) * 3).toString());
@@ -518,6 +517,7 @@
       statisticsRanges.parentNode.removeChild(statisticsRanges);
       createElementWithHTML(bindingOptions.currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage);
     } else {
+      var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / mapRangeValuesForCurrentYear.largetValue;
       var type;
       for (type in mapRangeValuesForCurrentYear.types) {
         if (mapRangeValuesForCurrentYear.types.hasOwnProperty(type)) {
