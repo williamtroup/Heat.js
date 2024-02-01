@@ -202,25 +202,6 @@
         renderControlContainer( bindingOptions );
     }
 
-    function getLargestValueForYear( bindingOptions ) {
-        var result = 0,
-            data = getCurrentViewData( bindingOptions );
-
-        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
-            var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
-    
-            for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                var storageDate = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
-
-                if ( data.hasOwnProperty( storageDate ) ) {
-                    result = Math.max( result, parseInt( data[ storageDate ] ) );
-                }
-            }
-        }
-
-        return result;
-    }
-
     function getMapRangeColor( mapRangeColors, dateCount ) {
         var mapRangeColorsLength = mapRangeColors.length,
             useMapRangeColor = null;
@@ -238,8 +219,30 @@
         return useMapRangeColor;
     }
 
+    function getMapRangeColorByMinimum( mapRangeColors, minimum ) {
+        var mapRangeColorsLength = mapRangeColors.length,
+            useMapRangeColor = null;
+
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
+
+            if ( minimum.toString() === mapRangeColor.minimum.toString() ) {
+                useMapRangeColor = mapRangeColor;
+                break;
+            }
+        }
+
+        return useMapRangeColor;
+    }
+
     function getCurrentViewData( bindingOptions ) {
         return _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ];
+    }
+
+    function getSortedMapRanges( bindingOptions ) {
+        return bindingOptions.mapRangeColors.sort( function( a, b ) {
+            return a.minimum - b.minimum;
+        } );
     }
 
 
@@ -442,9 +445,7 @@
         }
 
         var months = createElement( map, "div", "months" ),
-            mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
-                return b.range - a.range;
-            } );
+            mapRangeColors = getSortedMapRanges( bindingOptions );
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             if ( bindingOptions.monthsToShow.indexOf( monthIndex + 1 ) > -1 ) {
@@ -567,10 +568,8 @@
         var chart = createElement( bindingOptions.currentView.chartContents, "div", "chart" ),
             labels = createElement( chart, "div", "labels" ),
             dayLines = createElement( chart, "div", "day-lines" ),
-            mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
-                return b.range - a.range;
-            } ),
-            largestValueForCurrentYear = getLargestValueForYear( bindingOptions ),
+            mapRangeColors = getSortedMapRanges( bindingOptions ),
+            largestValueForCurrentYear = getLargestValueForChartYear( bindingOptions ),
             pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear,
             currentYear = bindingOptions.currentView.year,
             totalDays = 0,
@@ -680,6 +679,25 @@
         }
     }
 
+    function getLargestValueForChartYear( bindingOptions ) {
+        var result = 0,
+            data = getCurrentViewData( bindingOptions );
+
+        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+            var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
+    
+            for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                var storageDate = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
+
+                if ( data.hasOwnProperty( storageDate ) ) {
+                    result = Math.max( result, parseInt( data[ storageDate ] ) );
+                }
+            }
+        }
+
+        return result;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -694,21 +712,17 @@
     function renderControlStatistics( bindingOptions ) {
         var statistics = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics" ),
             labels = createElement( statistics, "div", "labels" ),
-            dayLines = createElement( statistics, "div", "day-lines" ),
-            mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
-                return b.range - a.range;
-            } ),
-            largestValueForCurrentYear = getLargestValueForYear( bindingOptions ),
-            pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear,
-            currentYear = bindingOptions.currentView.year,
-            totalDays = 0,
+            dayLines = createElement( statistics, "div", "range-lines" ),
+            mapRangeColors = getSortedMapRanges( bindingOptions ),
+            mapRangeValuesForCurrentYear = getLargestValuesForEachRangeType( bindingOptions, mapRangeColors ),
+            pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / mapRangeValuesForCurrentYear.largetValue,
             labelsWidth = 0;
 
-        if ( largestValueForCurrentYear > 0 && bindingOptions.showChartYLabels ) {
-            createElementWithHTML( labels, "div", "label-0", largestValueForCurrentYear.toString() );
-            createElementWithHTML( labels, "div", "label-25", ( Math.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
-            createElementWithHTML( labels, "div", "label-50", Math.floor( largestValueForCurrentYear / 2 ).toString() );
-            createElementWithHTML( labels, "div", "label-75", Math.floor( largestValueForCurrentYear / 4 ).toString() );
+        if ( mapRangeValuesForCurrentYear.largetValue > 0 && bindingOptions.showChartYLabels ) {
+            createElementWithHTML( labels, "div", "label-0", mapRangeValuesForCurrentYear.largetValue.toString() );
+            createElementWithHTML( labels, "div", "label-25", ( Math.floor( mapRangeValuesForCurrentYear.largetValue / 4 ) * 3 ).toString() );
+            createElementWithHTML( labels, "div", "label-50", Math.floor( mapRangeValuesForCurrentYear.largetValue / 2 ).toString() );
+            createElementWithHTML( labels, "div", "label-75", Math.floor( mapRangeValuesForCurrentYear.largetValue / 4 ).toString() );
             createElementWithHTML( labels, "div", "label-100", "0" );
 
             labelsWidth = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true );
@@ -718,56 +732,47 @@
             labels = null;
         }
 
-        if ( largestValueForCurrentYear === 0 ) {
+        if ( mapRangeValuesForCurrentYear.largetValue === 0 ) {
             bindingOptions.currentView.statisticsContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
 
             if ( isDefined( labels ) ) {
                 labels.style.display = "none";
             }
 
+            dayLines.style.display = "none";
+
             createElementWithHTML( bindingOptions.currentView.statisticsContents, "div", "no-data-message", _configuration.noChartDataMessage );
 
         } else {
-            var totalMonths = 0;
 
-            for ( var monthIndex1 = 0; monthIndex1 < 12; monthIndex1++ ) {
-                if ( bindingOptions.monthsToShow.indexOf( monthIndex1 + 1 ) > -1 ) {
-                    var totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex1 ),
-                        actualDay = 1;
-                    
-                    totalMonths++;
+            var totalMapRangeTypes = 0;
 
-                    for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                        if ( bindingOptions.daysToShow.indexOf( actualDay ) > -1 ) {
-                            renderControlStatisticsDay( dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, mapRangeColors, pixelsPerNumbers );
-                        }
-        
-                        if ( ( dayIndex + 1 ) % 7 === 0 ) {
-                            actualDay = 0;
-                        }
-    
-                        actualDay++;
-                        totalDays++;
-                    }
+            for ( var type in mapRangeValuesForCurrentYear.types ) {
+                if ( mapRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
+                    renderControlStatisticsDay( type, dayLines, mapRangeValuesForCurrentYear.types[ type ], bindingOptions, mapRangeColors, pixelsPerNumbers );
+                    totalMapRangeTypes++;
                 }
             }
 
             if ( bindingOptions.showMonthNames ) {
-                var chartMonths = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics-months" ),
-                    linesWidth = dayLines.offsetWidth / totalMonths;
+                var statisticsMonths = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics-ranges" ),
+                    linesWidth = dayLines.offsetWidth / totalMapRangeTypes,
+                    lineIndex = 0;
 
-                for ( var monthIndex2 = 0; monthIndex2 < 12; monthIndex2++ ) {
-                    if ( bindingOptions.monthsToShow.indexOf( monthIndex2 + 1 ) > -1 ) {
-                        var monthName = createElementWithHTML( chartMonths, "div", "month-name", _configuration.monthNames[ monthIndex2 ] );
-                        monthName.style.marginLeft = labelsWidth + ( linesWidth * monthIndex2 ) + "px";
+                for ( var type in mapRangeValuesForCurrentYear.types ) {
+                    if ( mapRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
+                        var rangeName = createElementWithHTML( statisticsMonths, "div", "range-name", type + "+" );
+                        rangeName.style.marginLeft = labelsWidth + ( linesWidth * lineIndex ) + "px";
+
+                        lineIndex++;
                     }
                 }
 
-                chartMonths.style.width = dayLines.offsetWidth + "px";
+                statisticsMonths.style.width = dayLines.offsetWidth + "px";
 
-                var monthNameSpace = createElement( chartMonths, "div", "month-name-space" );
-                monthNameSpace.style.height = chartMonths.offsetHeight + "px";
-                monthNameSpace.style.width = labelsWidth + "px";
+                var rangeNameSpace = createElement( statisticsMonths, "div", "range-name-space" );
+                rangeNameSpace.style.height = statisticsMonths.offsetHeight + "px";
+                rangeNameSpace.style.width = labelsWidth + "px";
             }
     
             if ( bindingOptions.keepScrollPositions ) {
@@ -776,36 +781,59 @@
         }
     }
 
-    function renderControlStatisticsDay( dayLines, bindingOptions, day, month, year, mapRangeColors, pixelsPerNumbers ) {
-        var date = new Date( year, month, day ),
-            dayLine = createElement( dayLines, "div", "day-line" ),
-            dateCount = getCurrentViewData( bindingOptions )[ toStorageDate( date ) ];
+    function renderControlStatisticsDay( mapRangeMinimum, dayLines, rangeCount, bindingOptions, mapRangeColors, pixelsPerNumbers ) {
+        var rangeLine = createElement( dayLines, "div", "range-line no-hover" );
 
-        dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
+        rangeLine.style.height = ( rangeCount * pixelsPerNumbers ) + "px";
+        rangeLine.style.setProperty( "border-bottom-width", "0", "important" );
 
-        if ( isDefinedFunction( bindingOptions.onDayToolTipRender ) ) {
-            addToolTip( dayLine, bindingOptions, fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount ) );
-        } else {
-            addToolTip( dayLine, bindingOptions, getCustomFormattedDateText( bindingOptions.dayToolTipText, date ) );
+        var mapRangeColor = getMapRangeColorByMinimum( mapRangeColors, mapRangeMinimum );
+
+        if ( isDefined( mapRangeColor ) && isHeatMapColorVisible( bindingOptions, mapRangeColor.id ) ) {
+            addClass( rangeLine, mapRangeColor.cssClassName );
+        }
+    }
+
+    function getLargestValuesForEachRangeType( bindingOptions, mapRangeColors ) {
+        var types = {},
+            largetValue = 0,
+            data = getCurrentViewData( bindingOptions );
+
+        types[ "0" ] = 0
+
+        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+            var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
+    
+            for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                var storageDate = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
+
+                if ( data.hasOwnProperty( storageDate ) ) {
+                    var useMapRangeColor = getMapRangeColor( mapRangeColors, data[ storageDate ] );
+
+                    if ( !isDefined( useMapRangeColor ) ) {
+                        types[ "0" ]++;
+
+                    } else {
+                        if ( !types.hasOwnProperty( useMapRangeColor.minimum.toString() ) ) {
+                            types[ useMapRangeColor.minimum.toString() ] = 0;
+                        }
+
+                        types[ useMapRangeColor.minimum ]++;
+                    }
+                }
+            }
         }
 
-        dayLine.style.height = ( dateCount * pixelsPerNumbers ) + "px";
-        dayLine.style.setProperty( "border-bottom-width", "0", "important" );
-
-        if ( isDefinedFunction( bindingOptions.onDayClick ) ) {
-            dayLine.onclick = function() {
-                fireCustomTrigger( bindingOptions.onDayClick, date, dateCount );
-            };
-
-        } else {
-            addClass( dayLine, "no-hover" );
+        for ( var type in types ) {
+            if ( types.hasOwnProperty( type ) ) {
+                largetValue = Math.max( largetValue, types[ type ] );
+            }
         }
 
-        var useMapRangeColor = getMapRangeColor( mapRangeColors, dateCount );
-
-        if ( isDefined( useMapRangeColor ) && isHeatMapColorVisible( bindingOptions, useMapRangeColor.id ) ) {
-            addClass( dayLine, useMapRangeColor.cssClassName );
-        }
+        return {
+            types: types,
+            largetValue: largetValue
+        };
     }
 
 
@@ -853,9 +881,7 @@
             }
     
             var days = createElement( mapToggles, "div", "days" ),
-                mapRangeColors = bindingOptions.mapRangeColors.sort( function( a, b ) {
-                    return b.range - a.range;
-                } ),
+                mapRangeColors = getSortedMapRanges( bindingOptions ),
                 mapRangeColorsLength = mapRangeColors.length;
     
             for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
