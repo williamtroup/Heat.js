@@ -609,7 +609,6 @@ div.heat-js div.statistics-contents div.statistics-ranges div.range-name {
   margin-top: var(--heat-js-spacing);
   font-weight: var(--heat-js-text-bold-weight);
   text-align: center !important;
-  width: 60px;
 }
 
 /*
