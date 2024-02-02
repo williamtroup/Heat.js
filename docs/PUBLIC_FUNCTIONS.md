@@ -124,7 +124,7 @@ Sets the year to be displayed.
 <br>
 
 ### **setYearToHighest( *elementId* )**:
-Sets the year to to the highest year available.
+Sets the year to the highest year available.
 <br>
 ***Fires***:  onSetYear
 <br>
@@ -134,7 +134,7 @@ Sets the year to to the highest year available.
 <br>
 
 ### **setYearToLowest( *elementId* )**:
-Sets the year to to the lowest year available.
+Sets the year to the lowest year available.
 <br>
 ***Fires***:  onSetYear
 <br>
@@ -182,7 +182,7 @@ Gets the year currently being displayed.
 <br>
 
 ### **render( *element*, *options* )**:
-Renders a new map on a element using the options specified.
+Renders a new map on an element using the options specified.
 <br>
 ***Parameter: element***: '*Object*' - The element to convert to a heat map.
 <br>
@@ -202,7 +202,7 @@ Finds all new map elements and renders them.
 ## Destroying:
 
 ### **destroy( *elementId* )**:
-Reverts an element back to its original state (without render attributes).
+Reverts an element to its original state (without render attributes).
 <br>
 ***Fires***:  onDestroy
 <br>
@@ -211,7 +211,7 @@ Reverts an element back to its original state (without render attributes).
 ***Returns***: '*Object*' - The Heat.js class instance.
 
 ### **destroyAll()**:
-Reverts all rendered elements back to their original state (without render attributes).
+Reverts all rendered elements to their original state (without render attributes).
 <br>
 ***Fires***:  onDestroy
 <br>

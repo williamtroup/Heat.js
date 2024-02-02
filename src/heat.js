@@ -1803,7 +1803,7 @@
     /**
      * setYearToHighest().
      * 
-     * Sets the year to to the highest year available.
+     * Sets the year to the highest year available.
      * 
      * @public
      * @fires       onSetYear
@@ -1838,7 +1838,7 @@
     /**
      * setYearToLowest().
      * 
-     * Sets the year to to the lowest year available.
+     * Sets the year to the lowest year available.
      * 
      * @public
      * @fires       onSetYear
@@ -2008,7 +2008,7 @@
     /**
      * destroyAll().
      * 
-     * Reverts all rendered elements back to their original state (without render attributes).
+     * Reverts all rendered elements to their original state (without render attributes).
      * 
      * @public
      * @fires       onDestroy
@@ -2037,7 +2037,7 @@
     /**
      * destroy().
      * 
-     * Reverts an element back to its original state (without render attributes).
+     * Reverts an element to its original state (without render attributes).
      * 
      * @public
      * @fires       onDestroy

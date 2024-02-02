@@ -23,6 +23,9 @@
 #### **General Improvements:**
 - When the no data messages are shown, all other objects in the DOM element are now removed.
 
+#### **Documentation:**
+- Lots of improvements to the documentation.
+
 #### **Fixes:**
 - Fixed a fault that caused the Y-axis labels in the chart view to overlap the chart when a larger number is shown.
 - Fixed a fault that caused the sorting order for the map range types to be ignored when custom ones were used.
