@@ -10,6 +10,7 @@
 - Added translation support for Greek (el).
 - Added translation support for Georgian (ka).
 - Added translation support for Korean (ko).
+- Added translation support for Hungarian (hu).
 
 <br>
 
