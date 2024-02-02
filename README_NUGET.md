@@ -16,7 +16,7 @@
 - Full API available via public functions.
 - Fully styled in CSS/SASS, fully responsive, and compatible with the Bootstrap library.
 - Full CSS theme support (using :root variables).
-- 2 views supported: Map and Chart!
+- 3 views supported: Map Chart and Statistics!
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
 - Export all data to CSV.
