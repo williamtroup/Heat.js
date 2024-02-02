@@ -20,7 +20,7 @@
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
 - Export all data to CSV.
-- 27 language translations available!
+- 40 language translations available!
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.
 - 7 themes available (for dark and light mode).
@@ -40,24 +40,37 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `da` Danish
 - `nl` Dutch
 - `en` English (default)
+- `et` Estonian
+- `fa` Farsi
 - `fi` Finnish
 - `fr` French
+- `gl` Galician
 - `ka` Georgian
 - `de` German
 - `el` Greek
+- `he` Hebrew
 - `hi` Hindi
 - `hu` Hungarian
-- `ir` Italian
+- `is` Icelandic
+- `id` Indonesian
+- `ga` Irish
+- `it` Italian
 - `ja` Japanese
 - `ko` Korean
 - `lv` Latvian
 - `lt` Lithuanian
+- `lb` Luxembourgish
+- `ms` Malay
+- `ne` Nepali
 - `no` Norwegian
 - `pl` Polish
 - `pt` Portuguese
 - `ro` Romanian
+- `sk` Slovak
+- `sl` Slovenian
 - `es` Spanish
 - `sv` Swedish
+- `th` Thai
 - `tr` Turkish
 - `uk` Ukrainian
 
