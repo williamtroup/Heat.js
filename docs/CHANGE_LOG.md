@@ -6,6 +6,7 @@
 - Added translation support for Danish (da).
 - Added translation support for Ukrainian (uk).
 - Added translation support for Dutch (nl).
+- Added translation support for Finnish (fi).
 
 <br>
 
