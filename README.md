@@ -2,15 +2,15 @@
 Heat.js
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Heat.js%2C%20a%20free%20JavaScript%heat%20map&url=https://github.com/williamtroup/Heat.js&hashtags=javascript,heat,map)
-[![npm](https://img.shields.io/badge/npmjs-v1.8.0-blue)](https://www.npmjs.com/package/jheat.js)
-[![nuget](https://img.shields.io/badge/nuget-v1.8.0-purple)](https://www.nuget.org/packages/jHeat.js/)
+[![npm](https://img.shields.io/badge/npmjs-v1.8.1-blue)](https://www.npmjs.com/package/jheat.js)
+[![nuget](https://img.shields.io/badge/nuget-v1.8.1-purple)](https://www.nuget.org/packages/jHeat.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Heat.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://william-troup.com/)
 </h1>
 
 > <p align="center">🌞 A lightweight JavaScript library that generates customizable heat maps and charts to visualize date-based activity and trends.</p>
-> <p align="center">v1.8.0</p>
+> <p align="center">v1.8.1</p>
 <br />
 
 ![Heat.js](docs/images/main.png)
@@ -27,7 +27,7 @@ Heat.js
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
 - Export all data to CSV.
-- 12 language translations available!
+- 27 language translations available!
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.
 - 7 themes available (for dark and light mode).
@@ -44,18 +44,33 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 
 <h1>What languages are supported?</h1>
 
-- Arabic
-- Bengali
-- Chinese (simplified)
-- English
-- French
-- German
-- Hindi
-- Japanese
-- Polish
-- Portuguese
-- Spanish
-- Turkish
+- `ar` Arabic
+- `bn` Bengali
+- `bg` Bulgarian
+- `zh` Chinese (simplified)
+- `da` Danish
+- `nl` Dutch
+- `en` English (default)
+- `fi` Finnish
+- `fr` French
+- `ka` Georgian
+- `de` German
+- `el` Greek
+- `hi` Hindi
+- `hu` Hungarian
+- `ir` Italian
+- `ja` Japanese
+- `ko` Korean
+- `lv` Latvian
+- `lt` Lithuanian
+- `no` Norwegian
+- `pl` Polish
+- `pt` Portuguese
+- `ro` Romanian
+- `es` Spanish
+- `sv` Swedish
+- `tr` Turkish
+- `uk` Ukrainian
 <br>
 <br>
 

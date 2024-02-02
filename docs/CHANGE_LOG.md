@@ -1,5 +1,27 @@
 # Heat.js - Change Log:
 
+## Version 1.8.1:
+- Fixed some mistakes in the documentation (GitHub only).
+- The statistics view now shows the bars fully using the available width, which will ensure they show up correctly in mobile view.
+- Added translation support for Danish (da).
+- Added translation support for Ukrainian (uk).
+- Added translation support for Dutch (nl).
+- Added translation support for Finnish (fi).
+- Added translation support for Greek (el).
+- Added translation support for Georgian (ka).
+- Added translation support for Korean (ko).
+- Added translation support for Hungarian (hu).
+- Added translation support for Italian (it).
+- Added translation support for Latvian (lv).
+- Added translation support for Lithuanian (lt).
+- Added translation support for Norwegian (no).
+- Added translation support for Romanian (ro).
+- Added translation support for Swedish (sv).
+- Added translation support for Bulgarian (bg).
+
+<br>
+
+
 ## Version 1.8.0:
 
 #### **New Features:**
