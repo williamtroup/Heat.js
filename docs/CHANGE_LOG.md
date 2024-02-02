@@ -16,16 +16,16 @@
 #### **Public Functions:**
 - Added new public function "getIds()", which will return all the IDs for the elements that have been rendered.
 - Added new public function "resetAll()", which will reset the data for all elements.
-- Added new public function "moveToPreviousYear()", which will set move the year back one.
+- Added new public function "moveToPreviousYear()", which will move the year back one.
 - Added new public function "moveToNextYear()", which will set move the year forward one.
-- Added new public function "moveToCurrentYear()", which will set move the year to the current year.
+- Added new public function "moveToCurrentYear()", which will move the year to the current year.
 
 #### **General Improvements:**
 - When the no data messages are shown, all other objects in the DOM element are now removed.
 
 #### **Fixes:**
-- Fixed a fault that caused the Y axis labels in the chart view to overlap the chart when a larger number is shown.
-- Fixed a fault that caused the sorting order for the map range types to be ignored when custom ones are used.
+- Fixed a fault that caused the Y-axis labels in the chart view to overlap the chart when a larger number is shown.
+- Fixed a fault that caused the sorting order for the map range types to be ignored when custom ones were used.
 - Fixed a fault that caused empty data sets to be exported to CSV files.
 - Fixed a fault that caused the active state for buttons to be shown when the button is disabled.
 
