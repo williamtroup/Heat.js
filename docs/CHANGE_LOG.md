@@ -3,6 +3,7 @@
 ## Version 1.8.1:
 - Fixed some mistakes in the documentation (GitHub only).
 - The statistics view now shows the bars fully using the available width, which will ensure they show up correctly in mobile view.
+- Added translation support for Danish (da).
 
 <br>
 
