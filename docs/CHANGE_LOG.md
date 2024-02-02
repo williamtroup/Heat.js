@@ -14,6 +14,7 @@
 - Added translation support for Italian (it).
 - Added translation support for Latvian (lv).
 - Added translation support for Lithuanian (lt).
+- Added translation support for Norwegian (no).
 
 <br>
 
