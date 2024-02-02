@@ -2,6 +2,7 @@
 
 ## Version 1.8.2:
 - Added translation support for Hebrew (he).
+- Added translation support for Indonesian (id).
 
 <br>
 
