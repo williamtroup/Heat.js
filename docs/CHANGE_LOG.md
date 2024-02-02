@@ -5,6 +5,7 @@
 - Added translation support for Indonesian (id).
 - Added translation support for Estonian (et).
 - Added translation support for Icelandic (is).
+- Added translation support for Nepali (ne).
 
 <br>
 
