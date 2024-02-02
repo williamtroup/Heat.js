@@ -1,5 +1,11 @@
 # Heat.js - Change Log:
 
+## Version 1.8.2:
+- 
+
+<br>
+
+
 ## Version 1.8.1:
 - Fixed some mistakes in the documentation (GitHub only).
 - The statistics view now shows the bars fully using the available width, which will ensure they show up correctly in mobile view.
