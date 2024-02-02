@@ -9,6 +9,7 @@
 - Added translation support for Thai (th).
 - Added translation support for Slovenian (sl).
 - Added translation support for Farsi (fa).
+- Added translation support for Slovak (sk).
 
 <br>
 
