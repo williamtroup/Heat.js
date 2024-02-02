@@ -12,6 +12,7 @@
 - Added translation support for Slovak (sk).
 - Added translation support for Luxembourgish (lb).
 - Added translation support for Irish (ga).
+- Added translation support for Galician (gl).
 
 <br>
 
