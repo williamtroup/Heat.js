@@ -44,33 +44,33 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 
 <h1>What languages are supported?</h1>
 
-- Arabic
-- Bengali
-- Bulgarian
-- Chinese (simplified)
-- Danish
-- Dutch
-- English
-- Finnish
-- French
-- Georgian
-- German
-- Greek
-- Hindi
-- Hungarian
-- Italian
-- Japanese
-- Korean
-- Latvian
-- Lithuanian
-- Norwegian
-- Polish
-- Portuguese
-- Romanian
-- Spanish
-- Swedish
-- Turkish
-- Ukrainian
+- `ar` Arabic
+- `bn` Bengali
+- `bg` Bulgarian
+- `zh` Chinese (simplified)
+- `da` Danish
+- `nl` Dutch
+- `en` English (default)
+- `fi` Finnish
+- `fr` French
+- `ka` Georgian
+- `de` German
+- `el` Greek
+- `hi` Hindi
+- `hu` Hungarian
+- `ir` Italian
+- `ja` Japanese
+- `ko` Korean
+- `lv` Latvian
+- `lt` Lithuanian
+- `no` Norwegian
+- `pl` Polish
+- `pt` Portuguese
+- `ro` Romanian
+- `es` Spanish
+- `sv` Swedish
+- `tr` Turkish
+- `uk` Ukrainian
 <br>
 <br>
 
