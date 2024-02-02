@@ -1,5 +1,11 @@
 # Heat.js - Change Log:
 
+## Version 1.8.1:
+- 
+
+<br>
+
+
 ## Version 1.8.0:
 
 #### **New Features:**
