@@ -6,6 +6,7 @@
 - Added translation support for Estonian (et).
 - Added translation support for Icelandic (is).
 - Added translation support for Nepali (ne).
+- Added translation support for Thai (th).
 
 <br>
 
