@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.7.1
+ * Heat.js Library v1.8.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -186,10 +186,10 @@ div.heat-js div.title-bar button {
   outline: none;
   transition: var(--heat-js-transition);
 }
-div.heat-js div.title-bar button:active {
+div.heat-js div.title-bar button:not(.active):active {
   background: var(--heat-js-button-background-color-active) !important;
 }
-div.heat-js div.title-bar button:hover {
+div.heat-js div.title-bar button:not(.active):hover {
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
 }
@@ -410,7 +410,7 @@ div.heat-js div.chart-contents div.chart {
   display: inline-flex;
   flex-direction: row;
 }
-div.heat-js div.chart-contents div.chart div.labels {
+div.heat-js div.chart-contents div.chart div.y-labels {
   background-color: var(--heat-js-container-background-color);
   padding-right: calc(var(--heat-js-spacing) * 3);
   padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
@@ -421,15 +421,15 @@ div.heat-js div.chart-contents div.chart div.labels {
   z-index: 50;
 }
 @media (min-width: 768px) {
-  div.heat-js div.chart-contents div.chart div.labels {
+  div.heat-js div.chart-contents div.chart div.y-labels {
     display: block;
   }
 }
-div.heat-js div.chart-contents div.chart div.labels div.label-0,
-div.heat-js div.chart-contents div.chart div.labels div.label-25,
-div.heat-js div.chart-contents div.chart div.labels div.label-50,
-div.heat-js div.chart-contents div.chart div.labels div.label-75,
-div.heat-js div.chart-contents div.chart div.labels div.label-100 {
+div.heat-js div.chart-contents div.chart div.y-labels div.label-0,
+div.heat-js div.chart-contents div.chart div.y-labels div.label-25,
+div.heat-js div.chart-contents div.chart div.y-labels div.label-50,
+div.heat-js div.chart-contents div.chart div.y-labels div.label-75,
+div.heat-js div.chart-contents div.chart div.y-labels div.label-100 {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
   height: var(--heat-js-day-size);
@@ -438,23 +438,24 @@ div.heat-js div.chart-contents div.chart div.labels div.label-100 {
   flex-direction: column;
   position: absolute;
   left: 0;
+  padding-right: var(--heat-js-spacing);
 }
-div.heat-js div.chart-contents div.chart div.labels div.label-0 {
+div.heat-js div.chart-contents div.chart div.y-labels div.label-0 {
   top: 0;
 }
-div.heat-js div.chart-contents div.chart div.labels div.label-25 {
+div.heat-js div.chart-contents div.chart div.y-labels div.label-25 {
   top: 25%;
   transform: translateY(-25%);
 }
-div.heat-js div.chart-contents div.chart div.labels div.label-50 {
+div.heat-js div.chart-contents div.chart div.y-labels div.label-50 {
   top: 50%;
   transform: translateY(-50%);
 }
-div.heat-js div.chart-contents div.chart div.labels div.label-75 {
+div.heat-js div.chart-contents div.chart div.y-labels div.label-75 {
   top: 75%;
   transform: translateY(-75%);
 }
-div.heat-js div.chart-contents div.chart div.labels div.label-100 {
+div.heat-js div.chart-contents div.chart div.y-labels div.label-100 {
   bottom: 0;
 }
 div.heat-js div.chart-contents div.chart div.day-lines {
@@ -502,6 +503,116 @@ div.heat-js div.chart-contents div.chart-months div.month-name-space {
 
 /*
     -------------------------------------------------------------------------
+    Heat.js - Statistics
+    -------------------------------------------------------------------------
+*/
+div.heat-js div.statistics-contents {
+  display: flex;
+  overflow: hidden;
+  text-wrap: nowrap;
+  white-space: nowrap;
+  position: relative;
+}
+div.heat-js div.statistics-contents div.no-statistics-message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: var(--heat-js-text-bold-weight);
+}
+div.heat-js div.statistics-contents div.statistics {
+  display: flex;
+  flex-direction: row;
+}
+div.heat-js div.statistics-contents div.statistics div.y-labels {
+  background-color: var(--heat-js-container-background-color);
+  padding-right: calc(var(--heat-js-spacing) * 3);
+  padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
+  position: sticky;
+  left: 0;
+  display: none;
+  border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+  z-index: 50;
+}
+@media (min-width: 768px) {
+  div.heat-js div.statistics-contents div.statistics div.y-labels {
+    display: block;
+  }
+}
+div.heat-js div.statistics-contents div.statistics div.y-labels div.label-0,
+div.heat-js div.statistics-contents div.statistics div.y-labels div.label-25,
+div.heat-js div.statistics-contents div.statistics div.y-labels div.label-50,
+div.heat-js div.statistics-contents div.statistics div.y-labels div.label-75,
+div.heat-js div.statistics-contents div.statistics div.y-labels div.label-100 {
+  font-weight: var(--heat-js-text-bold-weight);
+  text-align: left !important;
+  height: var(--heat-js-day-size);
+  display: inline-flex;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  padding-right: var(--heat-js-spacing);
+}
+div.heat-js div.statistics-contents div.statistics div.y-labels div.label-0 {
+  top: 0;
+}
+div.heat-js div.statistics-contents div.statistics div.y-labels div.label-25 {
+  top: 25%;
+  transform: translateY(-25%);
+}
+div.heat-js div.statistics-contents div.statistics div.y-labels div.label-50 {
+  top: 50%;
+  transform: translateY(-50%);
+}
+div.heat-js div.statistics-contents div.statistics div.y-labels div.label-75 {
+  top: 75%;
+  transform: translateY(-75%);
+}
+div.heat-js div.statistics-contents div.statistics div.y-labels div.label-100 {
+  bottom: 0;
+}
+div.heat-js div.statistics-contents div.statistics div.range-lines {
+  display: flex;
+  align-items: baseline;
+  flex: 1;
+  border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+  justify-content: space-between;
+}
+div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line {
+  border-top-left-radius: var(--heat-js-border-radius-day);
+  border-top-right-radius: var(--heat-js-border-radius-day);
+  background-color: var(--heat-js-day-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+  vertical-align: bottom;
+  width: 60px;
+  margin-right: var(--heat-js-spacing);
+  display: inline-block;
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line:first-child {
+  margin-left: calc(var(--heat-js-spacing) / 2);
+}
+div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line:last-child {
+  margin-right: 0;
+}
+div.heat-js div.statistics-contents div.statistics-ranges {
+  display: flex;
+  flex: 1;
+  position: relative;
+  justify-content: space-between;
+  align-items: baseline;
+  height: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing));
+}
+div.heat-js div.statistics-contents div.statistics-ranges div.range-name {
+  margin-top: var(--heat-js-spacing);
+  font-weight: var(--heat-js-text-bold-weight);
+  text-align: center !important;
+  width: 60px;
+}
+
+/*
+    -------------------------------------------------------------------------
     Heat.js - Guide
     -------------------------------------------------------------------------
 */
@@ -544,10 +655,10 @@ div.heat-js div.guide div.map-types button {
   outline: none;
   transition: var(--heat-js-transition);
 }
-div.heat-js div.guide div.map-types button:active {
+div.heat-js div.guide div.map-types button:not(.active):active {
   background: var(--heat-js-button-background-color-active) !important;
 }
-div.heat-js div.guide div.map-types button:hover {
+div.heat-js div.guide div.map-types button:not(.active):hover {
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
 }
@@ -559,6 +670,9 @@ div.heat-js div.guide div.map-types button.active {
 div.heat-js div.guide div.map-types button {
   margin-left: 0 !important;
   margin-right: calc(var(--heat-js-spacing) / 2) !important;
+}
+div.heat-js div.guide div.map-types span.label {
+  font-weight: var(--heat-js-text-bold-weight);
 }
 div.heat-js div.guide div.map-toggles {
   display: flex;

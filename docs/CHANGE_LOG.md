@@ -1,5 +1,40 @@
 # Heat.js - Change Log:
 
+## Version 1.8.0:
+
+#### **New Features:**
+- Added a new "Statistics" view, which shows the total count per map range type (in a bar chart).
+- Added label support for the bottom right, which allows you to add a description (when no trend types are used).
+
+#### **Binding Options:**
+- Added a new binding option called "noTypesLabel", which states a label that should be shown when no trend types are available (defaults to null).
+
+#### **Configuration Options:**
+- Added a new configuration option called "statisticsText", which states the text that should be shown for the "Statistics" label (defaults to "Statistics").
+- Added a new configuration option called "noStatisticsDataMessage", which states the message that should be shown on the chart view when there is no data (defaults to "There is currently no statistics to view.").
+
+#### **Public Functions:**
+- Added new public function "getIds()", which will return all the IDs for the elements that have been rendered.
+- Added new public function "resetAll()", which will reset the data for all elements.
+- Added new public function "moveToPreviousYear()", which will move the year back one.
+- Added new public function "moveToNextYear()", which will set move the year forward one.
+- Added new public function "moveToCurrentYear()", which will move the year to the current year.
+
+#### **General Improvements:**
+- When the no data messages are shown, all other objects in the DOM element are now removed.
+
+#### **Documentation:**
+- Lots of improvements to the documentation.
+
+#### **Fixes:**
+- Fixed a fault that caused the Y-axis labels in the chart view to overlap the chart when a larger number is shown.
+- Fixed a fault that caused the sorting order for the map range types to be ignored when custom ones were used.
+- Fixed a fault that caused empty data sets to be exported to CSV files.
+- Fixed a fault that caused the active state for buttons to be shown when the button is disabled.
+
+<br>
+
+
 ## Version 1.7.1:
 - Fixed documentation errors.
 - Added a new configuration option called "noChartDataMessage", which states the message that should be shown on the chart view when there is no data (defaults to "There is currently no data to view.").

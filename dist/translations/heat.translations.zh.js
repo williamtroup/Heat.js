@@ -1,4 +1,4 @@
-/*! Heat.js v1.7.1 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.8.0 | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "地图",
         "chartText": "图表",
         "noChartDataMessage": "目前没有数据可查看。",
+        "statisticsText": "统计数据",
         "monthNames": [
                 "扬",
                 "二月",

@@ -7,7 +7,7 @@ Below is the format that is expected for a map range object when calling "setCon
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
-| *number* | minimum | The minimum count the date has reached before showing this items CSS class. |
+| *number* | minimum | The minimum count the date has reached before showing this item's CSS class. |
 | *string* | cssClassName | The CSS class name to apply to the day when the minimum value is met. |
 | *string* | tooltipText | The tooltip text that should be shown for the item in the guide. |
 | *string* | id | The unique identifier for this item. |

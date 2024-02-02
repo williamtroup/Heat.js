@@ -5,7 +5,6 @@ Below is a list of all the public functions that can be called from the Heat.js 
 <br>
 
 
-
 ## Manage Dates:
 
 ### **addDates( *elementId*, *dates*, *[triggerRefresh]* )**:
@@ -64,6 +63,14 @@ Removes a date for a specific element ID, and refreshes the UI (if specified). I
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
 
+### **resetAll( *[triggerRefresh]* )**:
+Removes all the dates for all the elements, and refreshes the UI (if specified).
+<br>
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for each element should be refreshed (defaults to true).
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
 ### **reset( *elementId*, *[triggerRefresh]* )**:
 Removes all the dates for a specific element ID, and refreshes the UI (if specified).
 <br>
@@ -117,7 +124,7 @@ Sets the year to be displayed.
 <br>
 
 ### **setYearToHighest( *elementId* )**:
-Sets the year to to the highest year available.
+Sets the year to the highest year available.
 <br>
 ***Fires***:  onSetYear
 <br>
@@ -127,7 +134,37 @@ Sets the year to to the highest year available.
 <br>
 
 ### **setYearToLowest( *elementId* )**:
-Sets the year to to the lowest year available.
+Sets the year to the lowest year available.
+<br>
+***Fires***:  onSetYear
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **moveToPreviousYear( *elementId* )**:
+Moves the year back one.
+<br>
+***Fires***:  onSetYear
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **moveToNextYear( *elementId* )**:
+Moves the year forward one.
+<br>
+***Fires***:  onSetYear
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **moveToCurrentYear( *elementId* )**:
+Moves to the current year.
 <br>
 ***Fires***:  onSetYear
 <br>
@@ -145,7 +182,7 @@ Gets the year currently being displayed.
 <br>
 
 ### **render( *element*, *options* )**:
-Renders a new map on a element using the options specified.
+Renders a new map on an element using the options specified.
 <br>
 ***Parameter: element***: '*Object*' - The element to convert to a heat map.
 <br>
@@ -165,7 +202,7 @@ Finds all new map elements and renders them.
 ## Destroying:
 
 ### **destroy( *elementId* )**:
-Reverts an element back to its original state (without render attributes).
+Reverts an element to its original state (without render attributes).
 <br>
 ***Fires***:  onDestroy
 <br>
@@ -174,7 +211,7 @@ Reverts an element back to its original state (without render attributes).
 ***Returns***: '*Object*' - The Heat.js class instance.
 
 ### **destroyAll()**:
-Reverts all rendered elements back to their original state (without render attributes).
+Reverts all rendered elements to their original state (without render attributes).
 <br>
 ***Fires***:  onDestroy
 <br>
@@ -196,6 +233,12 @@ Sets the specific configuration options that should be used.
 
 
 ## Additional Data:
+
+### **getIds()**:
+Returns an array of element IDs that have been rendered.
+<br>
+***Returns***: '*string[]*' - The element IDs that have been rendered.
+<br>
 
 ### **getVersion()**:
 Returns the version of Heat.js.

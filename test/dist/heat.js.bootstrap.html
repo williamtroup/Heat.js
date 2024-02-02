@@ -17,7 +17,7 @@
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': true }"></div>
+            <div id="heat-map-1" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': true, 'noTypesLabel': 'A basic example of how to use Heat.js.' }"></div>
             <br>
             <br>
             <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': false, 'showRefreshButton': true, 'showExportButton': true, 'placeMonthNamesOnTheBottom': true, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
@@ -40,6 +40,8 @@
             <button class="btn btn-primary" onclick="$heat.reset( 'heat-map-2' );">Reset (2)</button>
             <button class="btn btn-primary" onclick="$heat.reset( 'heat-map-3' );">Reset (3)</button>
             <button class="btn btn-primary" onclick="$heat.reset( 'heat-map-4' );">Reset (4)</button>
+            <br>
+            <button class="btn btn-primary" onclick="$heat.resetAll();">Reset All</button>
             <br>
             <button class="btn btn-primary" onclick="$heat.export( 'heat-map-1' );">Export (1)</button>
             <button class="btn btn-primary" onclick="$heat.export( 'heat-map-2' );">Export (2)</button>
@@ -70,6 +72,21 @@
             <button class="btn btn-primary" onclick="$heat.setYearToLowest( 'heat-map-3' );">Set Year To Lowest (3)</button>
             <button class="btn btn-primary" onclick="$heat.setYearToLowest( 'heat-map-4' );">Set Year To Lowest (4)</button>
             <br>
+            <button class="btn btn-primary" onclick="$heat.moveToPreviousYear( 'heat-map-1' );">Move To Previous Year (1)</button>
+            <button class="btn btn-primary" onclick="$heat.moveToPreviousYear( 'heat-map-2' );">Move To Previous Year (2)</button>
+            <button class="btn btn-primary" onclick="$heat.moveToPreviousYear( 'heat-map-3' );">Move To Previous Year (3)</button>
+            <button class="btn btn-primary" onclick="$heat.moveToPreviousYear( 'heat-map-4' );">Move To Previous Year (4)</button>
+            <br>
+            <button class="btn btn-primary" onclick="$heat.moveToNextYear( 'heat-map-1' );">Move To Next Year (1)</button>
+            <button class="btn btn-primary" onclick="$heat.moveToNextYear( 'heat-map-2' );">Move To Next Year (2)</button>
+            <button class="btn btn-primary" onclick="$heat.moveToNextYear( 'heat-map-3' );">Move To Next Year (3)</button>
+            <button class="btn btn-primary" onclick="$heat.moveToNextYear( 'heat-map-4' );">Move To Next Year (4)</button>
+            <br>
+            <button class="btn btn-primary" onclick="$heat.moveToCurrentYear( 'heat-map-1' );">Move To Current Year (1)</button>
+            <button class="btn btn-primary" onclick="$heat.moveToCurrentYear( 'heat-map-2' );">Move To Current Year (2)</button>
+            <button class="btn btn-primary" onclick="$heat.moveToCurrentYear( 'heat-map-3' );">Move To Current Year (3)</button>
+            <button class="btn btn-primary" onclick="$heat.moveToCurrentYear( 'heat-map-4' );">Move To Current Year (4)</button>
+            <br>
             <button class="btn btn-primary" onclick="console.log( $heat.getYear( 'heat-map-1' ) );">Get Year (1)</button>
             <button class="btn btn-primary" onclick="console.log( $heat.getYear( 'heat-map-2' ) );">Get Year (2)</button>
             <button class="btn btn-primary" onclick="console.log( $heat.getYear( 'heat-map-3' ) );">Get Year (3)</button>
@@ -93,6 +110,7 @@
             <br />
 
             <h2>Additional Data:</h2>
+            <button class="btn btn-primary" onclick="console.log( $heat.getIds() );">Get Ids</button>
             <button class="btn btn-primary" onclick="console.log( $heat.getVersion() );">Get Version</button>
         </div>
     </body>
