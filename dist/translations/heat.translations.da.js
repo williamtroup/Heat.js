@@ -1,9 +1,9 @@
 /*! Heat.js v1.8.1 - Danish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
-        "stText": "st",
-        "ndText": "nd",
-        "rdText": "rd",
-        "thText": "th",
+        "stText": "",
+        "ndText": "",
+        "rdText": "",
+        "thText": "",
         "backButtonText": "Tilbage",
         "nextButtonText": "Næste",
         "refreshButtonText": "Opdater",

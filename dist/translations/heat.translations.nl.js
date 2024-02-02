@@ -1,9 +1,9 @@
 /*! Heat.js v1.8.1 - Dutch | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
-        "stText": "st",
-        "ndText": "nl",
-        "rdText": "rd",
-        "thText": "e",
+        "stText": "",
+        "ndText": "",
+        "rdText": "",
+        "thText": "",
         "backButtonText": "Rug",
         "nextButtonText": "Volgende",
         "refreshButtonText": "Vernieuwen",
