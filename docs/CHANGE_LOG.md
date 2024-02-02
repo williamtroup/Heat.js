@@ -13,6 +13,7 @@
 - Added translation support for Hungarian (hu).
 - Added translation support for Italian (it).
 - Added translation support for Latvian (lv).
+- Added translation support for Lithuanian (lt).
 
 <br>
 
