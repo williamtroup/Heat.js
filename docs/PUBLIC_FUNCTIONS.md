@@ -146,7 +146,7 @@ Sets the year to the lowest year available.
 ### **moveToPreviousYear( *elementId* )**:
 Moves the year back one.
 <br>
-***Fires***:  onSetYear
+***Fires***:  onBackYear
 <br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
 <br>
@@ -156,7 +156,7 @@ Moves the year back one.
 ### **moveToNextYear( *elementId* )**:
 Moves the year forward one.
 <br>
-***Fires***:  onSetYear
+***Fires***:  onNextYear
 <br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
 <br>

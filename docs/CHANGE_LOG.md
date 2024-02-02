@@ -1,6 +1,7 @@
 # Heat.js - Change Log:
 
 ## Version 1.8.1:
+- Fixed some mistakes in the documentation (GitHub only).
 - 
 
 <br>
