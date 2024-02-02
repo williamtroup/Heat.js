@@ -4,6 +4,7 @@
 - Added translation support for Hebrew (he).
 - Added translation support for Indonesian (id).
 - Added translation support for Estonian (et).
+- Added translation support for Icelandic (is).
 
 <br>
 
