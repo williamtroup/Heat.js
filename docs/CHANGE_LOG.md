@@ -7,6 +7,7 @@
 - Added translation support for Icelandic (is).
 - Added translation support for Nepali (ne).
 - Added translation support for Thai (th).
+- Added translation support for Slovenian (sl).
 
 <br>
 
