@@ -17,6 +17,7 @@
 - Added translation support for Norwegian (no).
 - Added translation support for Romanian (ro).
 - Added translation support for Swedish (sv).
+- Added translation support for Bulgarian (bg).
 
 <br>
 
