@@ -4,6 +4,7 @@
 
 #### **New Features:**
 - Added a new "Statistics" view, which shows the total count per map range type (in a bar chart).
+- Added label support for the bottom right, which allows you to add a description (when no trend types are used).
 
 #### **Binding Options:**
 - Added a new binding option called "noTypesLabel", which states a label that should be shown when no trend types are available (defaults to null).
