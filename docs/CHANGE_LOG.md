@@ -11,6 +11,7 @@
 - Added translation support for Farsi (fa).
 - Added translation support for Slovak (sk).
 - Added translation support for Luxembourgish (lb).
+- Added translation support for Irish (ga).
 
 <br>
 
