@@ -8,6 +8,7 @@
 - Added translation support for Dutch (nl).
 - Added translation support for Finnish (fi).
 - Added translation support for Greek (el).
+- Added translation support for Georgian (ka).
 
 <br>
 
