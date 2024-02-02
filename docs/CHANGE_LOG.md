@@ -11,6 +11,8 @@
 - Added translation support for Georgian (ka).
 - Added translation support for Korean (ko).
 - Added translation support for Hungarian (hu).
+- Added translation support for Italian (it).
+- 
 
 <br>
 
