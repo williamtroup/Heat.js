@@ -5,6 +5,7 @@
 - The statistics view now shows the bars fully using the available width, which will ensure they show up correctly in mobile view.
 - Added translation support for Danish (da).
 - Added translation support for Ukrainian (uk).
+- Added translation support for Dutch (nl).
 
 <br>
 
