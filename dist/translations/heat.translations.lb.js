@@ -1,42 +1,42 @@
-/*! Heat.js v1.8.2 - German | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.8.2 - Luxembourgish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
         "rdText": "",
         "thText": "",
-        "backButtonText": "Zurück",
-        "nextButtonText": "Nächste",
-        "refreshButtonText": "Aktualisierung",
+        "backButtonText": "Zréck",
+        "nextButtonText": "Nächst",
+        "refreshButtonText": "Erfrëschen",
         "exportButtonText": "Export",
-        "lessText": "Weniger",
-        "moreText": "Mehr",
+        "lessText": "Manner",
+        "moreText": "Méi",
         "dateText": "Datum",
-        "countText": "Zählen",
-        "mapText": "Karte",
-        "chartText": "Diagramm",
-        "noChartDataMessage": "Derzeit sind keine Daten verfügbar.",
+        "countText": "Grof",
+        "mapText": "Kaart",
+        "chartText": "Chart",
+        "noChartDataMessage": "Et gi momentan keng Daten ze gesinn.",
         "statisticsText": "Statistiken",
         "monthNames": [
                 "Jan",
                 "Feb",
-                "März",
+                "Mär",
                 "Apr",
-                "Mai",
+                "Mee",
                 "Jun",
-                "Juli",
+                "Jul",
                 "Aug",
-                "Sept",
+                "Sep",
                 "Okt",
                 "Nov",
                 "Dez"
         ],
         "dayNames": [
-                "Mo",
+                "Mon",
                 "Di",
                 "Mi",
                 "Do",
                 "Fr",
                 "Sa",
-                "So"
+                "Sonn"
         ]
 } );

@@ -1,8 +1,8 @@
-# Heat.js v1.8.1
+# Heat.js v1.8.2
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Heat.js%2C%20a%20free%20JavaScript%heat%20map&url=https://github.com/williamtroup/Heat.js&hashtags=javascript,heat,map)
-[![npm](https://img.shields.io/badge/npmjs-v1.8.1-blue)](https://www.npmjs.com/package/jheat.js)
-[![nuget](https://img.shields.io/badge/nuget-v1.8.1-purple)](https://www.nuget.org/packages/jHeat.js/)
+[![npm](https://img.shields.io/badge/npmjs-v1.8.2-blue)](https://www.npmjs.com/package/jheat.js)
+[![nuget](https://img.shields.io/badge/nuget-v1.8.2-purple)](https://www.nuget.org/packages/jHeat.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Heat.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://william-troup.com/)
@@ -20,7 +20,7 @@
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
 - Export all data to CSV.
-- 27 language translations available!
+- 40 language translations available!
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.
 - 7 themes available (for dark and light mode).
@@ -40,24 +40,37 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `da` Danish
 - `nl` Dutch
 - `en` English (default)
+- `et` Estonian
+- `fa` Farsi
 - `fi` Finnish
 - `fr` French
+- `gl` Galician
 - `ka` Georgian
 - `de` German
 - `el` Greek
+- `he` Hebrew
 - `hi` Hindi
 - `hu` Hungarian
-- `ir` Italian
+- `is` Icelandic
+- `id` Indonesian
+- `ga` Irish
+- `it` Italian
 - `ja` Japanese
 - `ko` Korean
 - `lv` Latvian
 - `lt` Lithuanian
+- `lb` Luxembourgish
+- `ms` Malay
+- `ne` Nepali
 - `no` Norwegian
 - `pl` Polish
 - `pt` Portuguese
 - `ro` Romanian
+- `sk` Slovak
+- `sl` Slovenian
 - `es` Spanish
 - `sv` Swedish
+- `th` Thai
 - `tr` Turkish
 - `uk` Ukrainian
 
