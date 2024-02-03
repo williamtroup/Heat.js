@@ -1,4 +1,4 @@
-/*! Heat.js v1.8.2 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.8.3 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -1324,7 +1324,7 @@
     return result;
   };
   this.getVersion = function() {
-    return "1.8.2";
+    return "1.8.3";
   };
   (function(documentObject, windowObject) {
     _parameter_Document = documentObject;
