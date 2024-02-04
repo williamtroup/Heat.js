@@ -8,6 +8,7 @@
 #### **Fixes:**
 - Fixed the years-list having extra padding around the left, right, and bottom, which caused the menu to stay open longer when the mouse leaves the menu.
 - Fixed the "Chart" view lines being positioned using "margin-left" instead of just "left".
+- Fixed some errors in the documentation.
 
 <br>
 
