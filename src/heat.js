@@ -49,6 +49,7 @@
         // Variables: Export Types
         _export_Type_Csv = "csv",
         _export_Type_Json = "json",
+        _export_Type_Xml = "xml",
 
         // Variables: Attribute Names
         _attribute_Name_Options = "data-heat-options";
@@ -962,6 +963,8 @@
             contents = getCsvContent( bindingOptions );
         } else if ( bindingOptions.exportType.toLowerCase() === _export_Type_Json ) {
             contents = getJsonContent( bindingOptions );
+        } else if ( bindingOptions.exportType.toLowerCase() === _export_Type_Xml ) {
+            contents = getXmlContents( bindingOptions );
         }
 
         if ( contents !== _string.empty ) {
@@ -977,40 +980,12 @@
     }
 
     function getCsvContent( bindingOptions ) {
-        var csvData = getCurrentViewData( bindingOptions ),
-            csvContents = [],
-            csvStorageDates = [];
+        var data = getExportData( bindingOptions ),
+            csvContents = [];
 
-        for ( var storageDate1 in csvData ) {
-            if ( csvData.hasOwnProperty( storageDate1 ) ) {
-                csvStorageDates.push( storageDate1 );
-            }
-        }
-
-        csvStorageDates.sort();
-
-        if ( bindingOptions.exportOnlyYearBeingViewed ) {
-            for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
-                var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
-        
-                for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                    var storageDate2 = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
-
-                    if ( csvData.hasOwnProperty( storageDate2 ) ) {
-                        csvContents.push( getCsvValueLine( [ getCsvValue( storageDate2 ), getCsvValue( csvData[ storageDate2 ] ) ] ) );
-                    }
-                }
-            }
-
-        } else {
-            var csvStorageDatesLength = csvStorageDates.length;
-
-            for ( var csvStorageDateIndex = 0; csvStorageDateIndex < csvStorageDatesLength; csvStorageDateIndex++ ) {
-                var storageDate3 = csvStorageDates[ csvStorageDateIndex ];
-    
-                if ( csvData.hasOwnProperty( storageDate3 ) ) {
-                    csvContents.push( getCsvValueLine( [ getCsvValue( storageDate3 ), getCsvValue( csvData[ storageDate3 ] ) ] ) );
-                }
+        for ( var storageDate in data ) {
+            if ( data.hasOwnProperty( storageDate ) ) {
+                csvContents.push( getCsvValueLine( [ getCsvValue( storageDate ), getCsvValue( data[ storageDate ] ) ] ) );
             }
         }
 
@@ -1022,7 +997,69 @@
     }
 
     function getJsonContent( bindingOptions ) {
-        return JSON.stringify( getCurrentViewData( bindingOptions ) );
+        return JSON.stringify( getExportData( bindingOptions ) );
+    }
+
+    function getXmlContents( bindingOptions ) {
+        var data = getExportData( bindingOptions ),
+            contents = [];
+
+        contents.push( "<?xml version=\"1.0\" ?>" );
+        contents.push( "<Dates>" );
+
+        for ( var storageDate in data ) {
+            if ( data.hasOwnProperty( storageDate ) ) {
+                contents.push( "<Date>" );
+                contents.push( "<FullDate>" + storageDate + "</FullDate>" );
+                contents.push( "<Count>" + data[ storageDate ] + "</Count>" );
+                contents.push( "</Date>" );
+            }
+        }
+
+        contents.push( "</Dates>" );
+
+        return contents.join( _string.newLine );
+    }
+
+    function getExportData( bindingOptions ) {
+        var contents = {},
+            storageDates = [],
+            data = getCurrentViewData( bindingOptions );
+
+        for ( var storageDate1 in data ) {
+            if ( data.hasOwnProperty( storageDate1 ) ) {
+                storageDates.push( storageDate1 );
+            }
+        }
+
+        storageDates.sort();
+
+        if ( bindingOptions.exportOnlyYearBeingViewed ) {
+            for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+                var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
+        
+                for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                    var storageDate2 = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
+
+                    if ( data.hasOwnProperty( storageDate2 ) ) {
+                        contents[ storageDate2 ] = data[ storageDate2 ];
+                    }
+                }
+            }
+
+        } else {
+            var storageDatesLength = storageDates.length;
+
+            for ( var storageDateIndex = 0; storageDateIndex < storageDatesLength; storageDateIndex++ ) {
+                var storageDate3 = storageDates[ storageDateIndex ];
+    
+                if ( data.hasOwnProperty( storageDate3 ) ) {
+                    contents[ storageDate3 ] = data[ storageDate3 ];
+                }
+            }
+        }
+
+        return contents;
     }
 
     function getExportMimeType( bindingOptions ) {
@@ -1032,6 +1069,8 @@
             result = "text/csv";
         } else if ( bindingOptions.exportType.toLowerCase() === _export_Type_Json ) {
             result = "application/json";
+        } else if ( bindingOptions.exportType.toLowerCase() === _export_Type_Xml ) {
+            result = "application/xml";
         }
 
         return result;

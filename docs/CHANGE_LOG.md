@@ -2,6 +2,9 @@
 
 ## Version 1.9.0:
 
+#### **New Features:**
+- Export to XML support!
+
 #### **View: Statistics:**
 - The bars shown in the view now show a tooltip, which shows the total count for each range type.
 
@@ -9,6 +12,7 @@
 - Fixed the years-list having extra padding around the left, right, and bottom, which caused the menu to stay open longer when the mouse leaves the menu.
 - Fixed the "Chart" view lines being positioned using "margin-left" instead of just "left".
 - Fixed some errors in the documentation.
+- Fixed a fault that caused exporting data in JSON to ignore the binding option "exportOnlyYearBeingViewed".
 
 <br>
 
