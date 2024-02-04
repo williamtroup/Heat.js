@@ -24,7 +24,9 @@
       "map",
       "heat",
       "activity",
-      "trends"
+      "trends",
+      "statistics",
+      "bar"
     ],
     "bugs": {
       "url": "https://github.com/williamtroup/Heat.js/issues"
