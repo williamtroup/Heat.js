@@ -5,6 +5,9 @@
 #### **View: Statistics:**
 - The bars shown in the view now show a tooltip, which shows the total count for each range type.
 
+#### **Fixes:**
+- Fixed the years-list having extra padding around the left, right, and bottom, which caused the menu to stay open longer when the mouse leaves the menu.
+
 <br>
 
 

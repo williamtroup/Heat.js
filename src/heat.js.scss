@@ -361,7 +361,7 @@ div.heat-js {
             @include down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );
 
             div.years-list {
-                padding: $year-margin;
+                padding-top: $year-margin;
                 display: none;
                 position: absolute;
                 width: 80px;
