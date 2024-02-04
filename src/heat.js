@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps and charts to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v1.8.2
+ * @version     v1.8.3
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -189,10 +189,6 @@
         }
     }
 
-    function isHeatMapColorVisible( bindingOptions, id ) {
-        return !bindingOptions.currentView.colorsVisible.hasOwnProperty( id ) || bindingOptions.currentView.colorsVisible[ id ];
-    }
-
     function createDateStorageForElement( elementId, bindingOptions ) {
         _elements_DateCounts[ elementId ] = {
             options: bindingOptions,
@@ -203,57 +199,8 @@
         _elements_DateCounts[ elementId ].type[ _elements_DateCounts_DefaultType ] = {};
     }
 
-    function updateMapRangeColorToggles( bindingOptions, flag ) {
-        var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
-
-        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            bindingOptions.currentView.colorsVisible[ bindingOptions.mapRangeColors[ mapRangeColorsIndex ].id ] = flag;
-        }
-
-        renderControlContainer( bindingOptions );
-    }
-
-    function getMapRangeColor( mapRangeColors, dateCount ) {
-        var mapRangeColorsLength = mapRangeColors.length,
-            useMapRangeColor = null;
-
-        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
-
-            if ( dateCount >= mapRangeColor.minimum ) {
-                useMapRangeColor = mapRangeColor;
-            } else {
-                break;
-            }
-        }
-
-        return useMapRangeColor;
-    }
-
-    function getMapRangeColorByMinimum( mapRangeColors, minimum ) {
-        var mapRangeColorsLength = mapRangeColors.length,
-            useMapRangeColor = null;
-
-        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
-
-            if ( minimum.toString() === mapRangeColor.minimum.toString() ) {
-                useMapRangeColor = mapRangeColor;
-                break;
-            }
-        }
-
-        return useMapRangeColor;
-    }
-
     function getCurrentViewData( bindingOptions ) {
         return _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ];
-    }
-
-    function getSortedMapRanges( bindingOptions ) {
-        return bindingOptions.mapRangeColors.sort( function( a, b ) {
-            return a.minimum - b.minimum;
-        } );
     }
 
 
@@ -936,6 +883,66 @@
         } else {
             addClass( day, "no-hover" );
         }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Map Ranges
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function isHeatMapColorVisible( bindingOptions, id ) {
+        return !bindingOptions.currentView.colorsVisible.hasOwnProperty( id ) || bindingOptions.currentView.colorsVisible[ id ];
+    }
+
+    function updateMapRangeColorToggles( bindingOptions, flag ) {
+        var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            bindingOptions.currentView.colorsVisible[ bindingOptions.mapRangeColors[ mapRangeColorsIndex ].id ] = flag;
+        }
+
+        renderControlContainer( bindingOptions );
+    }
+
+    function getMapRangeColor( mapRangeColors, dateCount ) {
+        var mapRangeColorsLength = mapRangeColors.length,
+            useMapRangeColor = null;
+
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
+
+            if ( dateCount >= mapRangeColor.minimum ) {
+                useMapRangeColor = mapRangeColor;
+            } else {
+                break;
+            }
+        }
+
+        return useMapRangeColor;
+    }
+
+    function getMapRangeColorByMinimum( mapRangeColors, minimum ) {
+        var mapRangeColorsLength = mapRangeColors.length,
+            useMapRangeColor = null;
+
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
+
+            if ( minimum.toString() === mapRangeColor.minimum.toString() ) {
+                useMapRangeColor = mapRangeColor;
+                break;
+            }
+        }
+
+        return useMapRangeColor;
+    }
+
+    function getSortedMapRanges( bindingOptions ) {
+        return bindingOptions.mapRangeColors.sort( function( a, b ) {
+            return a.minimum - b.minimum;
+        } );
     }
 
 
@@ -2192,7 +2199,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.8.2";
+        return "1.8.3";
     };
 
 

@@ -1,12 +1,12 @@
 /*
- * Heat.js Library v1.8.2
+ * Heat.js Library v1.8.3
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
  */
 :root {
   --heat-js-color-black: #3b3a3a;
-  --heat-js-color-white: #F5F5F5;
+  --heat-js-color-white: #adbac7;
   --heat-js-color-gray: #AAAAAA;
   --heat-js-container-background-color: #22272e;
   --heat-js-container-border-color: #454c56;
@@ -347,6 +347,9 @@ div.heat-js div.map-contents div.map div.months div.month div.month-name,
 div.heat-js div.map-contents div.map div.months div.month div.month-name-bottom {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 div.heat-js div.map-contents div.map div.months div.month div.month-name {
   margin-bottom: var(--heat-js-spacing);

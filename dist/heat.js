@@ -1,4 +1,4 @@
-/*! Heat.js v1.8.2 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.8.3 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -106,55 +106,12 @@
       bindingOptions.currentView.chartContents.style.display = "block";
     }
   }
-  function isHeatMapColorVisible(bindingOptions, id) {
-    return !bindingOptions.currentView.colorsVisible.hasOwnProperty(id) || bindingOptions.currentView.colorsVisible[id];
-  }
   function createDateStorageForElement(elementId, bindingOptions) {
     _elements_DateCounts[elementId] = {options:bindingOptions, type:{}, types:1};
     _elements_DateCounts[elementId].type[_elements_DateCounts_DefaultType] = {};
   }
-  function updateMapRangeColorToggles(bindingOptions, flag) {
-    var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
-    var mapRangeColorsIndex = 0;
-    for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
-      bindingOptions.currentView.colorsVisible[bindingOptions.mapRangeColors[mapRangeColorsIndex].id] = flag;
-    }
-    renderControlContainer(bindingOptions);
-  }
-  function getMapRangeColor(mapRangeColors, dateCount) {
-    var mapRangeColorsLength = mapRangeColors.length;
-    var useMapRangeColor = null;
-    var mapRangeColorsIndex = 0;
-    for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
-      var mapRangeColor = mapRangeColors[mapRangeColorsIndex];
-      if (dateCount >= mapRangeColor.minimum) {
-        useMapRangeColor = mapRangeColor;
-      } else {
-        break;
-      }
-    }
-    return useMapRangeColor;
-  }
-  function getMapRangeColorByMinimum(mapRangeColors, minimum) {
-    var mapRangeColorsLength = mapRangeColors.length;
-    var useMapRangeColor = null;
-    var mapRangeColorsIndex = 0;
-    for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
-      var mapRangeColor = mapRangeColors[mapRangeColorsIndex];
-      if (minimum.toString() === mapRangeColor.minimum.toString()) {
-        useMapRangeColor = mapRangeColor;
-        break;
-      }
-    }
-    return useMapRangeColor;
-  }
   function getCurrentViewData(bindingOptions) {
     return _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
-  }
-  function getSortedMapRanges(bindingOptions) {
-    return bindingOptions.mapRangeColors.sort(function(a, b) {
-      return a.minimum - b.minimum;
-    });
   }
   function renderControlToolTip(bindingOptions) {
     if (!isDefined(bindingOptions.currentView.tooltip)) {
@@ -662,6 +619,49 @@
     } else {
       addClass(day, "no-hover");
     }
+  }
+  function isHeatMapColorVisible(bindingOptions, id) {
+    return !bindingOptions.currentView.colorsVisible.hasOwnProperty(id) || bindingOptions.currentView.colorsVisible[id];
+  }
+  function updateMapRangeColorToggles(bindingOptions, flag) {
+    var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+    var mapRangeColorsIndex = 0;
+    for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
+      bindingOptions.currentView.colorsVisible[bindingOptions.mapRangeColors[mapRangeColorsIndex].id] = flag;
+    }
+    renderControlContainer(bindingOptions);
+  }
+  function getMapRangeColor(mapRangeColors, dateCount) {
+    var mapRangeColorsLength = mapRangeColors.length;
+    var useMapRangeColor = null;
+    var mapRangeColorsIndex = 0;
+    for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
+      var mapRangeColor = mapRangeColors[mapRangeColorsIndex];
+      if (dateCount >= mapRangeColor.minimum) {
+        useMapRangeColor = mapRangeColor;
+      } else {
+        break;
+      }
+    }
+    return useMapRangeColor;
+  }
+  function getMapRangeColorByMinimum(mapRangeColors, minimum) {
+    var mapRangeColorsLength = mapRangeColors.length;
+    var useMapRangeColor = null;
+    var mapRangeColorsIndex = 0;
+    for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
+      var mapRangeColor = mapRangeColors[mapRangeColorsIndex];
+      if (minimum.toString() === mapRangeColor.minimum.toString()) {
+        useMapRangeColor = mapRangeColor;
+        break;
+      }
+    }
+    return useMapRangeColor;
+  }
+  function getSortedMapRanges(bindingOptions) {
+    return bindingOptions.mapRangeColors.sort(function(a, b) {
+      return a.minimum - b.minimum;
+    });
   }
   function exportAllData(bindingOptions) {
     var contents = null;
@@ -1324,7 +1324,7 @@
     return result;
   };
   this.getVersion = function() {
-    return "1.8.2";
+    return "1.8.3";
   };
   (function(documentObject, windowObject) {
     _parameter_Document = documentObject;
