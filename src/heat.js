@@ -718,6 +718,8 @@
         rangeLine.style.height = ( rangeCount * pixelsPerNumbers ) + "px";
         rangeLine.style.setProperty( "border-bottom-width", "0", "important" );
 
+        addToolTip( rangeLine, bindingOptions, rangeCount.toString() );
+
         if ( isDefined( mapRangeColor ) && isHeatMapColorVisible( bindingOptions, mapRangeColor.id ) ) {
             addClass( rangeLine, mapRangeColor.cssClassName );
         }

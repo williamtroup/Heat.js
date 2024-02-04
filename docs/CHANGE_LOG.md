@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 1.9.0:
-- 
+
+#### **View: Statistics:**
+- The bars shown in the view now show a tooltip, which shows the total count for each range type.
 
 <br>
 
