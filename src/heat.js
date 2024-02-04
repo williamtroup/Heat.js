@@ -586,7 +586,7 @@
                 for ( var monthIndex2 = 0; monthIndex2 < 12; monthIndex2++ ) {
                     if ( bindingOptions.monthsToShow.indexOf( monthIndex2 + 1 ) > -1 ) {
                         var monthName = createElementWithHTML( chartMonths, "div", "month-name", _configuration.monthNames[ monthIndex2 ] );
-                        monthName.style.marginLeft = labelsWidth + ( linesWidth * monthIndex2 ) + "px";
+                        monthName.style.left = labelsWidth + ( linesWidth * monthIndex2 ) + "px";
                     }
                 }
 
