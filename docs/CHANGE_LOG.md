@@ -2,6 +2,7 @@
 
 ## Version 1.8.3:
 - The default text color shown in the default dark theme is now slighter darker.
+- Minor code organisation improvements.
 - 
 
 <br>
