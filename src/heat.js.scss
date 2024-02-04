@@ -493,6 +493,9 @@ div.heat-js {
                     div.month-name-bottom {
                         font-weight: var(--heat-js-text-bold-weight);
                         text-align: left !important;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
                     }
     
                     div.month-name {

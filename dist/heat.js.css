@@ -347,6 +347,9 @@ div.heat-js div.map-contents div.map div.months div.month div.month-name,
 div.heat-js div.map-contents div.map div.months div.month div.month-name-bottom {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 div.heat-js div.map-contents div.map div.months div.month div.month-name {
   margin-bottom: var(--heat-js-spacing);

@@ -3,6 +3,7 @@
 ## Version 1.8.3:
 - The default text color shown in the default dark theme is now slighter darker.
 - Minor code organisation improvements.
+- The month names shown in the Map view now use an ellipsis when larger text is shown (for translations).
 - 
 
 <br>
