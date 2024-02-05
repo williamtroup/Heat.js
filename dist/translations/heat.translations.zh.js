@@ -1,4 +1,4 @@
-/*! Heat.js v1.8.3 - Chinese (simplified) | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.9.0 - Chinese (simplified) | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -17,12 +17,12 @@ $heat.setConfiguration( {
         "noChartDataMessage": "目前没有数据可查看。",
         "statisticsText": "统计数据",
         "monthNames": [
-                "扬",
+                "一月",
                 "二月",
                 "三月",
                 "四月",
-                "可能",
-                "君",
+                "五月",
+                "六月",
                 "七月",
                 "八月",
                 "九月",
@@ -31,12 +31,12 @@ $heat.setConfiguration( {
                 "十二月"
         ],
         "dayNames": [
-                "周一",
-                "星期二",
-                "星期三",
-                "星期四",
-                "周五",
-                "星期六",
-                "太阳"
+                "一",
+                "二",
+                "三",
+                "四",
+                "五",
+                "六",
+                "日"
         ]
 } );

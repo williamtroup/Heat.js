@@ -1,5 +1,53 @@
 # Heat.js - Change Log:
 
+## Version 1.9.0:
+
+#### **New Features:**
+- Export to XML support!
+
+#### **Binding Options:**
+- Updated the binding option "tooltipDelay" to have a default value of 750, instead of 1000.
+
+#### **View: Statistics:**
+- The bars shown in the view now show a tooltip, which shows the total count for each range type.
+
+#### **Public Functions:**
+- Added a new public function "switchView()", which will switch the current view for any rendered element.
+- Added a new public function "switchType()", which will switch the selected trend type for any rendered element.
+
+#### **General Improvements:**
+- The drop-down menus for the title bar/years list now fade in when shown.
+- The tooltips shown throughout the display now fade in when shown.
+- Added Math injection directly into the main instance.
+- Added JSON injection directly into the main instance.
+- Added Chinese (simplified) translation improvements.
+- Updated the project description.
+- The entire display now uses the same font, either when an extra library is installed or not.
+
+#### **CSS:**
+- Added a new ":root" variable called "--heat-js-default-font".
+- Added a new ":root" variable called "--heat-js-animation-length".
+- Added a new ":root" variable called "--heat-js-color-snow-white".
+- Added a new ":root" variable called "--heat-js-years-text-color-hover".
+- Added a new ":root" variable called "--heat-js-title-text-color-hover".
+- Added a new ":root" variable called "--heat-js-button-text-color-hover".
+- Added a new ":root" variable called "--heat-js-button-text-color-active".
+- Added a new ":root" variable called "--heat-js-text-bold-weight-active".
+
+#### **Fixes:**
+- Fixed the year's list having extra padding around the left, right, and bottom, which caused the menu to stay open longer when the mouse left the menu.
+- Fixed the "Chart" view lines being positioned using "margin-left" instead of just "left".
+- Fixed some errors in the documentation and added data that was missing.
+- Fixed a fault that caused exporting data in JSON to ignore the binding option "exportOnlyYearBeingViewed".
+- Fixed a fault that caused the "Map" view to render the days in the wrong places when the binding option "daysToShow" is configured to show fewer days.
+- Fixed a fault that caused the "Statistics" view to show data for Days/Months that are hidden via the binding options configuration.
+- Fixed a fault that caused the month names in the "Chart" view to be shown in the wrong position when months are hidden via the binding options configuration.
+- Fixed an extra loop occurring overall data when exporting.
+- Fixed the "heat.js.nuspec" file including the ".github" folder when NuGet PACK is called.
+
+<br>
+
+
 ## Version 1.8.3:
 - The default text color shown in the default dark theme is now slighter darker.
 - Minor code organisation improvements.

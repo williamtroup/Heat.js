@@ -1,13 +1,13 @@
-# Heat.js v1.8.3
+# Heat.js v1.9.0
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Heat.js%2C%20a%20free%20JavaScript%heat%20map&url=https://github.com/williamtroup/Heat.js&hashtags=javascript,heat,map)
-[![npm](https://img.shields.io/badge/npmjs-v1.8.3-blue)](https://www.npmjs.com/package/jheat.js)
-[![nuget](https://img.shields.io/badge/nuget-v1.8.3-purple)](https://www.nuget.org/packages/jHeat.js/)
+[![npm](https://img.shields.io/badge/npmjs-v1.9.0-blue)](https://www.npmjs.com/package/jheat.js)
+[![nuget](https://img.shields.io/badge/nuget-v1.9.0-purple)](https://www.nuget.org/packages/jHeat.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Heat.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://william-troup.com/)
 
-> 🌞 A lightweight JavaScript library that generates customizable heat maps and charts to visualize date-based activity and trends.
+> 🌞 A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
 
 
 ## What features does Heat.js have?
@@ -16,10 +16,10 @@
 - Full API available via public functions.
 - Fully styled in CSS/SASS, fully responsive, and compatible with the Bootstrap library.
 - Full CSS theme support (using :root variables).
-- 3 views supported: Map Chart and Statistics!
+- 3 views supported: Map, Chart and Statistics!
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
-- Export all data to CSV.
+- Export all data to CSV, JSON, and XML.
 - 40 language translations available!
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.

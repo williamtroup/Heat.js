@@ -1,8 +1,8 @@
 {
     "name": "jheat.js",
     "title": "Heat.js",
-    "description": "A lightweight JavaScript library that generates customizable heat maps and charts to visualize date-based activity and trends.",
-    "version": "1.8.3",
+    "description": "A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.",
+    "version": "1.9.0",
     "main": "dist/heat.js",
     "homepage": "https://www.william-troup.com/heat-js/",
     "author": {
@@ -24,7 +24,9 @@
       "map",
       "heat",
       "activity",
-      "trends"
+      "trends",
+      "statistics",
+      "bar"
     ],
     "bugs": {
       "url": "https://github.com/williamtroup/Heat.js/issues"

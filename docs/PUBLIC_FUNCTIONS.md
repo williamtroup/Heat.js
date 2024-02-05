@@ -10,6 +10,8 @@ Below is a list of all the public functions that can be called from the Heat.js 
 ### **addDates( *elementId*, *dates*, *[triggerRefresh]* )**:
 Adds an array of dates for a specific element ID, and refreshes the UI (if specified). If the dates already exist, their values are increased by one.
 <br>
+***Fires***:  onAdd
+<br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the new date.
 <br>
 ***Parameter: dates***: '*Date[]*' - The dates to add.
@@ -23,6 +25,8 @@ Adds an array of dates for a specific element ID, and refreshes the UI (if speci
 
 ### **addDate( *elementId*, *date*, *[triggerRefresh]* )**:
 Adds a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is increased by one.
+<br>
+***Fires***:  onAdd
 <br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the new date.
 <br>
@@ -38,6 +42,8 @@ Adds a date for a specific element ID, and refreshes the UI (if specified). If t
 ### **removeDates( *elementId*, *dates*, *[triggerRefresh]* )**:
 Removes an array of dates for a specific element ID, and refreshes the UI (if specified). If the dates already exist, their values are decreased by one.
 <br>
+***Fires***:  onRemove
+<br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the updated date.
 <br>
 ***Parameter: dates***: '*Date[]*' - The dates to remove.
@@ -51,6 +57,8 @@ Removes an array of dates for a specific element ID, and refreshes the UI (if sp
 
 ### **removeDate( *elementId*, *date*, *[triggerRefresh]* )**:
 Removes a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is decreased by one.
+<br>
+***Fires***:  onRemove
 <br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the updated date.
 <br>
@@ -66,6 +74,8 @@ Removes a date for a specific element ID, and refreshes the UI (if specified). I
 ### **resetAll( *[triggerRefresh]* )**:
 Removes all the dates for all the elements, and refreshes the UI (if specified).
 <br>
+***Fires***:  onReset
+<br>
 ***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for each element should be refreshed (defaults to true).
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
@@ -73,6 +83,8 @@ Removes all the dates for all the elements, and refreshes the UI (if specified).
 
 ### **reset( *elementId*, *[triggerRefresh]* )**:
 Removes all the dates for a specific element ID, and refreshes the UI (if specified).
+<br>
+***Fires***:  onReset
 <br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID that should be updated.
 <br>
@@ -83,6 +95,8 @@ Removes all the dates for a specific element ID, and refreshes the UI (if specif
 
 ### **export( *elementId* )**:
 Exports all the data for a specific element ID.
+<br>
+***Fires***:  onExport
 <br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID whose data should be exported.
 <br>
@@ -193,6 +207,30 @@ Renders a new map on an element using the options specified.
 
 ### **renderAll()**:
 Finds all new map elements and renders them.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **switchView( *elementId*, *viewName* )**:
+Switches the view on an element to either Map, Chart, or Statistics.
+<br>
+***Fires***:  onViewSwitch
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID.
+<br>
+***Parameter: viewName***: '*string*' - The name of the view to switch to (either "map", "chart", or "statistics").
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **switchType( *elementId*, *type* )**:
+Switches the selected trend type on an element.
+<br>
+***Fires***:  onTypeSwitch
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID.
+<br>
+***Parameter: type***: '*string*' - The name of the type to switch to.
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
