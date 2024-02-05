@@ -518,14 +518,19 @@
       for (; dayIndex < totalDaysInMonth; dayIndex++) {
         var storageDate = toStorageDate(new Date(bindingOptions.currentView.year, monthIndex, dayIndex + 1));
         if (data.hasOwnProperty(storageDate)) {
-          var useMapRangeColor = getMapRangeColor(mapRangeColors, data[storageDate]);
-          if (!isDefined(useMapRangeColor)) {
-            types["0"]++;
-          } else {
-            if (!types.hasOwnProperty(useMapRangeColor.minimum.toString())) {
-              types[useMapRangeColor.minimum.toString()] = 0;
+          var storageDateParts = getStorageDate(storageDate);
+          var storageDateObject = new Date(storageDateParts[2], storageDateParts[1], storageDateParts[0]);
+          var weekDayNumber = getWeekdayNumber(storageDateObject);
+          if (isMonthVisible(bindingOptions, storageDateObject.getMonth()) && isDayVisible(bindingOptions, weekDayNumber)) {
+            var useMapRangeColor = getMapRangeColor(mapRangeColors, data[storageDate]);
+            if (!isDefined(useMapRangeColor)) {
+              types["0"]++;
+            } else {
+              if (!types.hasOwnProperty(useMapRangeColor.minimum.toString())) {
+                types[useMapRangeColor.minimum.toString()] = 0;
+              }
+              types[useMapRangeColor.minimum]++;
             }
-            types[useMapRangeColor.minimum]++;
           }
         }
       }
@@ -1055,6 +1060,9 @@
   }
   function toStorageDate(date) {
     return date.getFullYear() + _string.dash + padNumber(date.getMonth() + 1) + _string.dash + padNumber(date.getDate());
+  }
+  function getStorageDate(data) {
+    return data.split(_string.dash);
   }
   function getStorageDateYear(data) {
     return data.split(_string.dash)[0];

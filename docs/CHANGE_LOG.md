@@ -29,6 +29,7 @@
 - Fixed some errors in the documentation and data that was missing.
 - Fixed a fault that caused exporting data in JSON to ignore the binding option "exportOnlyYearBeingViewed".
 - Fixed a fault that caused the "Map" view to render the days in the wrong places when the binding option "daysToShow" is configured to show less days.
+- Fixed a fault that caused the "Statistics" view to show data for Days/Months that are hidden via the binding options configuration.
 
 <br>
 
