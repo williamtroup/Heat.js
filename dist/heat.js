@@ -113,6 +113,12 @@
   function getCurrentViewData(bindingOptions) {
     return _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
   }
+  function isMonthVisible(bindingOptions, month) {
+    return bindingOptions.monthsToShow.indexOf(month + 1) > -1;
+  }
+  function isDayVisible(bindingOptions, day) {
+    return bindingOptions.daysToShow.indexOf(day) > -1;
+  }
   function renderControlToolTip(bindingOptions) {
     if (!isDefined(bindingOptions.currentView.tooltip)) {
       bindingOptions.currentView.tooltip = createElement(_parameter_Document.body, "div", "heat-js-tooltip");
@@ -247,7 +253,7 @@
       }
       var dayNameIndex = 0;
       for (; dayNameIndex < 7; dayNameIndex++) {
-        if (bindingOptions.daysToShow.indexOf(dayNameIndex + 1) > -1) {
+        if (isDayVisible(bindingOptions, dayNameIndex + 1)) {
           createElementWithHTML(days, "div", "day-name", _configuration.dayNames[dayNameIndex]);
         }
       }
@@ -256,7 +262,7 @@
     var mapRangeColors = getSortedMapRanges(bindingOptions);
     var monthIndex = 0;
     for (; monthIndex < 12; monthIndex++) {
-      if (bindingOptions.monthsToShow.indexOf(monthIndex + 1) > -1) {
+      if (isMonthVisible(bindingOptions, monthIndex)) {
         var month = createElement(months, "div", "month");
         if (bindingOptions.showMonthNames && !bindingOptions.placeMonthNamesOnTheBottom) {
           createElementWithHTML(month, "div", "month-name", _configuration.monthNames[monthIndex]);
@@ -274,13 +280,13 @@
           if (dayIndex >= firstDayNumberInMonth) {
             startFillingDays = true;
           } else {
-            if (bindingOptions.daysToShow.indexOf(actualDay) > -1) {
+            if (isDayVisible(bindingOptions, actualDay)) {
               createElement(currentDayColumn, "div", "day-disabled");
             }
           }
           if (startFillingDays) {
             var day = null;
-            if (bindingOptions.daysToShow.indexOf(actualDay) > -1) {
+            if (isDayVisible(bindingOptions, actualDay)) {
               day = renderControlMapMonthDay(bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors);
             }
             if ((dayIndex + 1) % 7 === 0) {
@@ -372,13 +378,13 @@
       var totalDays = 0;
       var monthIndex1 = 0;
       for (; monthIndex1 < 12; monthIndex1++) {
-        if (bindingOptions.monthsToShow.indexOf(monthIndex1 + 1) > -1) {
+        if (isMonthVisible(bindingOptions, monthIndex1)) {
           var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex1);
           var actualDay = 1;
           totalMonths++;
           var dayIndex = 0;
           for (; dayIndex < totalDaysInMonth; dayIndex++) {
-            if (bindingOptions.daysToShow.indexOf(actualDay) > -1) {
+            if (isDayVisible(bindingOptions, actualDay)) {
               renderControlChartDay(dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, mapRangeColors, pixelsPerNumbers);
             }
             if ((dayIndex + 1) % 7 === 0) {
@@ -394,7 +400,7 @@
         var linesWidth = dayLines.offsetWidth / totalMonths;
         var monthIndex2 = 0;
         for (; monthIndex2 < 12; monthIndex2++) {
-          if (bindingOptions.monthsToShow.indexOf(monthIndex2 + 1) > -1) {
+          if (isMonthVisible(bindingOptions, monthIndex2)) {
             var monthName = createElementWithHTML(chartMonths, "div", "month-name", _configuration.monthNames[monthIndex2]);
             monthName.style.left = labelsWidth + linesWidth * monthIndex2 + "px";
           }
