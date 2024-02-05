@@ -730,15 +730,7 @@
   }
   function getExportData(bindingOptions) {
     var contents = {};
-    var storageDates = [];
     var data = getCurrentViewData(bindingOptions);
-    var storageDate1;
-    for (storageDate1 in data) {
-      if (data.hasOwnProperty(storageDate1)) {
-        storageDates.push(storageDate1);
-      }
-    }
-    storageDates.sort();
     if (bindingOptions.exportOnlyYearBeingViewed) {
       var monthIndex = 0;
       for (; monthIndex < 12; monthIndex++) {
@@ -752,6 +744,14 @@
         }
       }
     } else {
+      var storageDates = [];
+      var storageDate1;
+      for (storageDate1 in data) {
+        if (data.hasOwnProperty(storageDate1)) {
+          storageDates.push(storageDate1);
+        }
+      }
+      storageDates.sort();
       var storageDatesLength = storageDates.length;
       var storageDateIndex = 0;
       for (; storageDateIndex < storageDatesLength; storageDateIndex++) {

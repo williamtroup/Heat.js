@@ -55,7 +55,7 @@
   --heat-js-text-bold-weight: 400;
   --heat-js-title-bold-weight: 800;
   --heat-js-transition: all .3s;
-  --heat-js-annimation-length: 0.5s;
+  --heat-js-animation-length: 0.5s;
 }
 
 /*
@@ -136,7 +136,7 @@ div.heat-js div.title-bar div.title div.down-arrow {
   margin-right: var(--heat-js-spacing);
 }
 div.heat-js div.title-bar div.title div.titles-list {
-  animation: fade-in-animation var(--heat-js-annimation-length);
+  animation: fade-in-animation var(--heat-js-animation-length);
   padding-top: 3px;
   display: none;
   position: absolute;
@@ -237,7 +237,7 @@ div.heat-js div.title-bar div.year-text div.down-arrow {
   margin-left: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js div.title-bar div.year-text div.years-list {
-  animation: fade-in-animation var(--heat-js-annimation-length);
+  animation: fade-in-animation var(--heat-js-animation-length);
   padding-top: 5px;
   display: none;
   position: absolute;
@@ -787,7 +787,7 @@ div.heat-js-tooltip {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  animation: fade-in-animation var(--heat-js-annimation-length);
+  animation: fade-in-animation var(--heat-js-animation-length);
   position: absolute;
   background-color: var(--heat-js-tooltip-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-tooltip-border-color);

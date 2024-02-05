@@ -21,7 +21,7 @@
 - JSON injection directly into the main instance.
 
 #### **CSS:**
-- Added a new ":root" variable called "--heat-js-annimation-length", which states how long the animation effects should last (defaults to 0.5s).
+- Added a new ":root" variable called "--heat-js-animation-length", which states how long the animation effects should last (defaults to 0.5s).
 
 #### **Fixes:**
 - Fixed the year's list having extra padding around the left, right, and bottom, which caused the menu to stay open longer when the mouse left the menu.
@@ -31,6 +31,7 @@
 - Fixed a fault that caused the "Map" view to render the days in the wrong places when the binding option "daysToShow" is configured to show fewer days.
 - Fixed a fault that caused the "Statistics" view to show data for Days/Months that are hidden via the binding options configuration.
 - Fixed a fault that caused the month names in the "Chart" view to be shown in the wrong position when months are hidden via the binding options configuration.
+- Fixed an extra loop occurring over all data when exporting.
 
 <br>
 

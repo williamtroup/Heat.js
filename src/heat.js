@@ -1040,16 +1040,7 @@
 
     function getExportData( bindingOptions ) {
         var contents = {},
-            storageDates = [],
             data = getCurrentViewData( bindingOptions );
-
-        for ( var storageDate1 in data ) {
-            if ( data.hasOwnProperty( storageDate1 ) ) {
-                storageDates.push( storageDate1 );
-            }
-        }
-
-        storageDates.sort();
 
         if ( bindingOptions.exportOnlyYearBeingViewed ) {
             for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
@@ -1065,6 +1056,16 @@
             }
 
         } else {
+            var storageDates = [];
+
+            for ( var storageDate1 in data ) {
+                if ( data.hasOwnProperty( storageDate1 ) ) {
+                    storageDates.push( storageDate1 );
+                }
+            }
+    
+            storageDates.sort();
+
             var storageDatesLength = storageDates.length;
 
             for ( var storageDateIndex = 0; storageDateIndex < storageDatesLength; storageDateIndex++ ) {

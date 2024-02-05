@@ -82,7 +82,7 @@
 
     // Transitions
     --heat-js-transition: all .3s;
-    --heat-js-annimation-length: 0.5s;
+    --heat-js-animation-length: 0.5s;
 }
 
 
@@ -277,7 +277,7 @@ div.heat-js {
             @include down-arrow;
 
             div.titles-list {
-                animation: fade-in-animation var(--heat-js-annimation-length);
+                animation: fade-in-animation var(--heat-js-animation-length);
                 padding-top: $title-margin;
                 display: none;
                 position: absolute;
@@ -363,7 +363,7 @@ div.heat-js {
             @include down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );
 
             div.years-list {
-                animation: fade-in-animation var(--heat-js-annimation-length);
+                animation: fade-in-animation var(--heat-js-animation-length);
                 padding-top: $year-margin;
                 display: none;
                 position: absolute;
@@ -869,7 +869,7 @@ div.heat-js {
 
 div.heat-js-tooltip {
     @include no-selection-allowed;
-    animation: fade-in-animation var(--heat-js-annimation-length);
+    animation: fade-in-animation var(--heat-js-animation-length);
     position: absolute;
     background-color: var(--heat-js-tooltip-background-color);
     border: var(--heat-js-border-size) solid var(--heat-js-tooltip-border-color);
