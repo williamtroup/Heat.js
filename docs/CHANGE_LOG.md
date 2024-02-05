@@ -11,6 +11,9 @@
 #### **Public Functions:**
 - Added new public function "switchView()", which will switch the current view for any rendered element.
 
+#### **General Improvements:**
+- The drop-down menus for the title bar / years list now fade in when shown.
+
 #### **Fixes:**
 - Fixed the years-list having extra padding around the left, right, and bottom, which caused the menu to stay open longer when the mouse leaves the menu.
 - Fixed the "Chart" view lines being positioned using "margin-left" instead of just "left".

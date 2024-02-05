@@ -276,6 +276,7 @@ div.heat-js {
             @include down-arrow;
 
             div.titles-list {
+                animation: fade-in-animation 0.5s;
                 padding-top: $title-margin;
                 display: none;
                 position: absolute;
@@ -361,6 +362,7 @@ div.heat-js {
             @include down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );
 
             div.years-list {
+                animation: fade-in-animation 0.5s;
                 padding-top: $year-margin;
                 display: none;
                 position: absolute;
@@ -877,4 +879,20 @@ div.heat-js-tooltip {
     font-size: var(--heat-js-spacing-font-size);
     font-weight: var(--heat-js-text-bold-weight);
     display: none;
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Animations
+    -------------------------------------------------------------------------
+*/
+
+@keyframes fade-in-animation {
+    0% { 
+        opacity: 0;
+    }
+    100% { 
+        opacity: 1;
+    }
 }
