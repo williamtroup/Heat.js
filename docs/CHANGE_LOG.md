@@ -12,23 +12,23 @@
 - The bars shown in the view now show a tooltip, which shows the total count for each range type.
 
 #### **Public Functions:**
-- Added new public function "switchView()", which will switch the current view for any rendered element.
+- Added a new public function "switchView()", which will switch the current view for any rendered element.
 
 #### **General Improvements:**
-- The drop-down menus for the title bar / years list now fade in when shown.
+- The drop-down menus for the title bar/years list now fade in when shown.
 - The tooltips shown throughout the display now fade in when shown.
 - Math injection directly into the main instance.
 - JSON injection directly into the main instance.
 
 #### **CSS:**
-- Added a new ":root" variable called "--heat-js-annimation-length", which states how long the annimation effects should last for (defaults to 0.5s).
+- Added a new ":root" variable called "--heat-js-annimation-length", which states how long the animation effects should last (defaults to 0.5s).
 
 #### **Fixes:**
-- Fixed the years-list having extra padding around the left, right, and bottom, which caused the menu to stay open longer when the mouse leaves the menu.
+- Fixed the year's list having extra padding around the left, right, and bottom, which caused the menu to stay open longer when the mouse left the menu.
 - Fixed the "Chart" view lines being positioned using "margin-left" instead of just "left".
-- Fixed some errors in the documentation and data that was missing.
+- Fixed some errors in the documentation and added data that was missing.
 - Fixed a fault that caused exporting data in JSON to ignore the binding option "exportOnlyYearBeingViewed".
-- Fixed a fault that caused the "Map" view to render the days in the wrong places when the binding option "daysToShow" is configured to show less days.
+- Fixed a fault that caused the "Map" view to render the days in the wrong places when the binding option "daysToShow" is configured to show fewer days.
 - Fixed a fault that caused the "Statistics" view to show data for Days/Months that are hidden via the binding options configuration.
 - Fixed a fault that caused the month names in the "Chart" view to be shown in the wrong position when months are hidden via the binding options configuration.
 
