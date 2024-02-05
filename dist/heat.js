@@ -532,15 +532,10 @@
                 types[useMapRangeColor.minimum.toString()] = 0;
               }
               types[useMapRangeColor.minimum]++;
+              largetValue = _parameter_Math.max(largetValue, types[useMapRangeColor.minimum]);
             }
           }
         }
-      }
-    }
-    var type;
-    for (type in types) {
-      if (types.hasOwnProperty(type)) {
-        largetValue = _parameter_Math.max(largetValue, types[type]);
       }
     }
     return {types:types, largetValue:largetValue};

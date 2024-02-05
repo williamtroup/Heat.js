@@ -771,15 +771,11 @@
                             }
     
                             types[ useMapRangeColor.minimum ]++;
+                            
+                            largetValue = _parameter_Math.max( largetValue, types[ useMapRangeColor.minimum ] );
                         }
                     }
                 }
-            }
-        }
-
-        for ( var type in types ) {
-            if ( types.hasOwnProperty( type ) ) {
-                largetValue = _parameter_Math.max( largetValue, types[ type ] );
             }
         }
 
