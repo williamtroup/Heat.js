@@ -9,7 +9,7 @@ Heat.js
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://william-troup.com/)
 </h1>
 
-> <p align="center">🌞 A lightweight JavaScript library that generates customizable heat maps and charts to visualize date-based activity and trends.</p>
+> <p align="center">🌞 A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.</p>
 > <p align="center">v1.9.0</p>
 <br />
 

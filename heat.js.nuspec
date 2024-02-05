@@ -4,7 +4,7 @@
         <id>jHeat.js</id>
         <version>1.9.0</version>
         <title>Heat.js</title>
-        <description>A lightweight JavaScript library that generates customizable heat maps and charts to visualize date-based activity and trends.</description>
+        <description>A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.</description>
         <authors>William Troup</authors>
         <projectUrl>https://www.william-troup.com/heat-js/</projectUrl>
         <repository type="git" url="https://github.com/williamtroup/Heat.js" branch="main" />

@@ -20,6 +20,7 @@
 - Math injection directly into the main instance.
 - JSON injection directly into the main instance.
 - Chinese (simplified) translation improvements.
+- Updated the project description.
 
 #### **CSS:**
 - Added a new ":root" variable called "--heat-js-animation-length", which states how long the animation effects should last (defaults to 0.5s).

@@ -1,7 +1,7 @@
 /**
  * Heat.js
  * 
- * A lightweight JavaScript library that generates customizable heat maps and charts to visualize date-based activity and trends.
+ * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        observe.js
  * @version     v1.9.0
