@@ -30,7 +30,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | showYearSelectionDropDown | States if the year selection drop-down menu is shown (defaults to true). |
 | *boolean* | view | States the view that should be shown by default (defaults to "map", also accepts "chart" and "statistics"). |
 | *boolean* | showChartYLabels | States if the chart Y axis labels should be shown (defaults to true). |
-| *number* | tooltipDelay | States how long the tooltip should wait (in milliseconds) until it's shown (defaults to 1000). |
+| *number* | tooltipDelay | States how long the tooltip should wait (in milliseconds) until it's shown (defaults to 750). |
 | *string* | exportType | States the export file type that should be used (defaults to "csv", also accepts "json" and "xml"). |
 | *string* | noTypesLabel | States a label that should be shown when no trend types are available (defaults to null). |
 

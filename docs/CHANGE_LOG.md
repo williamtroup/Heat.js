@@ -5,6 +5,9 @@
 #### **New Features:**
 - Export to XML support!
 
+#### **Binding Options:**
+- Updated the binding option "tooltipDelay" to have a default value of 750, instead of 1000.
+
 #### **View: Statistics:**
 - The bars shown in the view now show a tooltip, which shows the total count for each range type.
 

@@ -803,7 +803,7 @@
     options.showYearSelectionDropDown = getDefaultBoolean(options.showYearSelectionDropDown, true);
     options.view = getDefaultString(options.view, _elements_View_Name_Map);
     options.showChartYLabels = getDefaultBoolean(options.showChartYLabels, true);
-    options.tooltipDelay = getDefaultNumber(options.tooltipDelay, 1000);
+    options.tooltipDelay = getDefaultNumber(options.tooltipDelay, 750);
     options.exportType = getDefaultString(options.exportType, _export_Type_Csv);
     options.noTypesLabel = getDefaultString(options.noTypesLabel, null);
     if (isInvalidOptionArray(options.monthsToShow)) {
