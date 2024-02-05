@@ -32,6 +32,7 @@
 - Fixed a fault that caused the "Statistics" view to show data for Days/Months that are hidden via the binding options configuration.
 - Fixed a fault that caused the month names in the "Chart" view to be shown in the wrong position when months are hidden via the binding options configuration.
 - Fixed an extra loop occurring over all data when exporting.
+- Fixed the "heat.js.nuspec" file including the ".github" folder when NuGet PACK is called.
 
 <br>
 

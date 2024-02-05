@@ -15,6 +15,6 @@
         <copyright>William Troup</copyright>
     </metadata>
     <files>
-        <file src="**" target="/" exclude=".git\**;.vscode\**" />
+        <file src="**" target="/" exclude=".git\**;.github\**;.vscode\**" />
     </files>
 </package>
