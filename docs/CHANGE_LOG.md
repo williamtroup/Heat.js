@@ -22,7 +22,7 @@
 - Added JSON injection directly into the main instance.
 - Added Chinese (simplified) translation improvements.
 - Updated the project description.
-- The entire display now uses the same font, either an extra library is installed or not.
+- The entire display now uses the same font, either when an extra library is installed or not.
 
 #### **CSS:**
 - Added a new ":root" variable called "--heat-js-default-font".
@@ -42,7 +42,7 @@
 - Fixed a fault that caused the "Map" view to render the days in the wrong places when the binding option "daysToShow" is configured to show fewer days.
 - Fixed a fault that caused the "Statistics" view to show data for Days/Months that are hidden via the binding options configuration.
 - Fixed a fault that caused the month names in the "Chart" view to be shown in the wrong position when months are hidden via the binding options configuration.
-- Fixed an extra loop occurring over all data when exporting.
+- Fixed an extra loop occurring overall data when exporting.
 - Fixed the "heat.js.nuspec" file including the ".github" folder when NuGet PACK is called.
 
 <br>
