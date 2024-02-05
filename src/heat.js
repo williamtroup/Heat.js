@@ -16,6 +16,7 @@
         _parameter_Document = null,
         _parameter_Window = null,
         _parameter_Math = null,
+        _parameter_JSON = null,
 
         // Variables: Configuration
         _configuration = {},
@@ -998,7 +999,7 @@
     }
 
     function getJsonContent( bindingOptions ) {
-        return JSON.stringify( getExportData( bindingOptions ) );
+        return _parameter_JSON.stringify( getExportData( bindingOptions ) );
     }
 
     function getXmlContents( bindingOptions ) {
@@ -1464,7 +1465,7 @@
 
         try {
             if ( isDefinedString( objectString ) ) {
-                result = JSON.parse( objectString );
+                result = _parameter_JSON.parse( objectString );
             }
 
         } catch ( e1 ) {
@@ -2288,10 +2289,11 @@
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    ( function ( documentObject, windowObject, mathObject ) {
+    ( function ( documentObject, windowObject, mathObject, jsonObject ) {
         _parameter_Document = documentObject;
         _parameter_Window = windowObject;
         _parameter_Math = mathObject;
+        _parameter_JSON = jsonObject;
 
         buildDefaultConfiguration();
 
@@ -2303,5 +2305,5 @@
             _parameter_Window.$heat = this;
         }
 
-    } ) ( document, window, Math );
+    } ) ( document, window, Math, JSON );
 } )();

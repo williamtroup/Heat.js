@@ -699,7 +699,7 @@
     return csvContents.join(_string.newLine);
   }
   function getJsonContent(bindingOptions) {
-    return JSON.stringify(getExportData(bindingOptions));
+    return _parameter_JSON.stringify(getExportData(bindingOptions));
   }
   function getXmlContents(bindingOptions) {
     var data = getExportData(bindingOptions);
@@ -1011,7 +1011,7 @@
     var result = null;
     try {
       if (isDefinedString(objectString)) {
-        result = JSON.parse(objectString);
+        result = _parameter_JSON.parse(objectString);
       }
     } catch (e1) {
       try {
@@ -1091,6 +1091,7 @@
   var _parameter_Document = null;
   var _parameter_Window = null;
   var _parameter_Math = null;
+  var _parameter_JSON = null;
   var _configuration = {};
   var _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_"};
   var _elements_Type = {};
@@ -1380,10 +1381,11 @@
   this.getVersion = function() {
     return "1.9.0";
   };
-  (function(documentObject, windowObject, mathObject) {
+  (function(documentObject, windowObject, mathObject, jsonObject) {
     _parameter_Document = documentObject;
     _parameter_Window = windowObject;
     _parameter_Math = mathObject;
+    _parameter_JSON = jsonObject;
     buildDefaultConfiguration();
     _parameter_Document.addEventListener("DOMContentLoaded", function() {
       render();
@@ -1391,5 +1393,5 @@
     if (!isDefined(_parameter_Window.$heat)) {
       _parameter_Window.$heat = this;
     }
-  })(document, window, Math);
+  })(document, window, Math, JSON);
 })();

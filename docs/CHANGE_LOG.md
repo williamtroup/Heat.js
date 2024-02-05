@@ -18,6 +18,7 @@
 - The drop-down menus for the title bar / years list now fade in when shown.
 - The tooltips shown throughout the display now fade in when shown.
 - Math injection directly into the main instance.
+- JSON injection directly into the main instance.
 
 #### **CSS:**
 - Added a new ":root" variable called "--heat-js-annimation-length", which states how long the annimation effects should last for (defaults to 0.5s).
