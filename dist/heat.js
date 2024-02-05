@@ -274,7 +274,9 @@
           if (dayIndex >= firstDayNumberInMonth) {
             startFillingDays = true;
           } else {
-            createElement(currentDayColumn, "div", "day-disabled");
+            if (bindingOptions.daysToShow.indexOf(actualDay) > -1) {
+              createElement(currentDayColumn, "div", "day-disabled");
+            }
           }
           if (startFillingDays) {
             var day = null;
