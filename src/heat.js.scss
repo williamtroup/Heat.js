@@ -9,6 +9,9 @@
 @import "foundation/styles";
 
 :root {
+    // Fonts
+    --heat-js-default-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
     // Colors
     --heat-js-color-black: #3b3a3a;
     --heat-js-color-white: #adbac7;
@@ -222,6 +225,7 @@
 
 div.heat-js {
     @include no-selection-allowed;
+    font-family: var(--heat-js-default-font);
     display: inline-block;
     position: relative;
     border-radius: var(--heat-js-border-radius);
@@ -883,6 +887,7 @@ div.heat-js {
 
 div.heat-js-tooltip {
     @include no-selection-allowed;
+    font-family: var(--heat-js-default-font);
     animation: fade-in-animation var(--heat-js-animation-length);
     position: absolute;
     background-color: var(--heat-js-tooltip-background-color);

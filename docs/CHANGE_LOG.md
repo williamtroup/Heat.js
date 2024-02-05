@@ -22,8 +22,10 @@
 - Added JSON injection directly into the main instance.
 - Added Chinese (simplified) translation improvements.
 - Updated the project description.
+- The entire display now uses the same font, either an extra library is installed or not.
 
 #### **CSS:**
+- Added a new ":root" variable called "--heat-js-default-font".
 - Added a new ":root" variable called "--heat-js-animation-length".
 - Added a new ":root" variable called "--heat-js-color-snow-white".
 - Added a new ":root" variable called "--heat-js-years-text-color-hover".
