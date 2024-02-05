@@ -1,6 +1,7 @@
 # Heat.js - Change Log:
 
 ## Version 1.9.1:
+- The Chart/Statistics views now hide the margin-left of the first bar when displayed in mobile view.
 - 
 
 <br>

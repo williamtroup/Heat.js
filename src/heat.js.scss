@@ -611,8 +611,10 @@ div.heat-js {
                     display: inline-block;
                     transition: var(--heat-js-transition);
 
-                    &:first-child {
-                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                    @media (min-width: $minimum-width) { 
+                        &:first-child {
+                            margin-left: calc( var(--heat-js-spacing) / 2 );
+                        }
                     }
     
                     &:last-child {
@@ -694,8 +696,10 @@ div.heat-js {
                     display: inline-block;
                     transition: var(--heat-js-transition);
 
-                    &:first-child {
-                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                    @media (min-width: $minimum-width) { 
+                        &:first-child {
+                            margin-left: calc( var(--heat-js-spacing) / 2 );
+                        }
                     }
     
                     &:last-child {
