@@ -24,7 +24,13 @@
 - Updated the project description.
 
 #### **CSS:**
-- Added a new ":root" variable called "--heat-js-animation-length", which states how long the animation effects should last (defaults to 0.5s).
+- Added a new ":root" variable called "--heat-js-animation-length".
+- Added a new ":root" variable called "--heat-js-color-snow-white".
+- Added a new ":root" variable called "--heat-js-years-text-color-hover".
+- Added a new ":root" variable called "--heat-js-title-text-color-hover".
+- Added a new ":root" variable called "--heat-js-button-text-color-hover".
+- Added a new ":root" variable called "--heat-js-button-text-color-active".
+- Added a new ":root" variable called "--heat-js-text-bold-weight-active".
 
 #### **Fixes:**
 - Fixed the year's list having extra padding around the left, right, and bottom, which caused the menu to stay open longer when the mouse left the menu.

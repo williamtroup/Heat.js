@@ -12,6 +12,7 @@
     // Colors
     --heat-js-color-black: #3b3a3a;
     --heat-js-color-white: #adbac7;
+    --heat-js-color-snow-white: #F5F5F5;
     --heat-js-color-gray: #AAAAAA;
 
     // Containers
@@ -28,6 +29,7 @@
     --heat-js-years-border-color: var(--heat-js-container-border-color);
     --heat-js-years-text-color: var(--heat-js-color-white);
     --heat-js-years-background-color-hover: var(--heat-js-button-background-color-hover);
+    --heat-js-years-text-color-hover: var(--heat-js-color-snow-white);
 
     // Title
     --heat-js-title-opener-text-color-hover: var(--heat-js-color-gray);
@@ -35,6 +37,7 @@
     --heat-js-title-border-color: var(--heat-js-container-border-color);
     --heat-js-title-text-color: var(--heat-js-color-white);
     --heat-js-title-background-color-hover: var(--heat-js-button-background-color-hover);
+    --heat-js-title-text-color-hover: var(--heat-js-color-snow-white);
 
     // Days
     --heat-js-day-background-color: #2d333b;
@@ -64,7 +67,9 @@
     --heat-js-button-border-color: var(--heat-js-container-border-color);
     --heat-js-button-text-color: var(--heat-js-color-white);
     --heat-js-button-background-color-hover: var(--heat-js-container-border-color);
+    --heat-js-button-text-color-hover: var(--heat-js-color-snow-white);
     --heat-js-button-background-color-active: #616b79;
+    --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
 
     // Borders
     --heat-js-border-radius: 0.5rem;
@@ -78,7 +83,8 @@
 
     // Fonts
     --heat-js-text-bold-weight: 400;
-    --heat-js-title-bold-weight: 800;
+    --heat-js-title-bold-weight: 900;
+    --heat-js-text-bold-weight-active: 900;
 
     // Transitions
     --heat-js-transition: all .3s;
@@ -107,18 +113,22 @@
 
         &:not(.active):active {
             background: var(--heat-js-button-background-color-active) !important;
+            color: var(--heat-js-button-text-color-active) !important;
         }
 
         &:not(.active):hover {
             cursor: pointer;
             background: var(--heat-js-button-background-color-hover);
+            color: var(--heat-js-button-text-color-hover);
         }
     }
 
     button.active {
         cursor: default;
         background: var(--heat-js-button-background-color-hover);
+        color: var(--heat-js-button-text-color-hover);
         transition: var(--heat-js-transition);
+        font-weight: var(--heat-js-text-bold-weight-active);
     }
 }
 
@@ -309,6 +319,7 @@ div.heat-js {
                         &:not(.title-active):hover {
                             cursor: pointer;
                             background-color: var(--heat-js-title-background-color-hover);
+                            color: var(--heat-js-title-text-color-hover);
                         }
     
                         &:last-child {
@@ -318,7 +329,8 @@ div.heat-js {
 
                     div.title-active {
                         background-color: var(--heat-js-title-background-color-hover);
-                        font-weight: 900;
+                        color: var(--heat-js-title-text-color-hover);
+                        font-weight: var(--heat-js-text-bold-weight-active);
                         cursor: default !important;
                     }
                 }
@@ -399,6 +411,7 @@ div.heat-js {
                         &:not(.year-active):hover {
                             cursor: pointer;
                             background-color: var(--heat-js-years-background-color-hover);
+                            color: var(--heat-js-years-text-color-hover);
                         }
     
                         &:last-child {
@@ -408,7 +421,8 @@ div.heat-js {
 
                     div.year-active {
                         background-color: var(--heat-js-years-background-color-hover);
-                        font-weight: 900;
+                        color: var(--heat-js-years-text-color-hover);
+                        font-weight: var(--heat-js-text-bold-weight-active);
                         cursor: default !important;
                     }
                 }
