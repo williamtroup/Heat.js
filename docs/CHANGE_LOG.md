@@ -13,6 +13,7 @@
 
 #### **Public Functions:**
 - Added a new public function "switchView()", which will switch the current view for any rendered element.
+- Added a new public function "switchType()", which will switch the selected trend type for any rendered element.
 
 #### **General Improvements:**
 - The drop-down menus for the title bar/years list now fade in when shown.

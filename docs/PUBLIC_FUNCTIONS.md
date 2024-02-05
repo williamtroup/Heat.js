@@ -222,6 +222,18 @@ Switches the view on an element to either Map, Chart, or Statistics.
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
+
+### **switchType( *elementId*, *type* )**:
+Switches the selected trend type on an element.
+<br>
+***Fires***:  onTypeSwitch
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID.
+<br>
+***Parameter: type***: '*string*' - The name of the type to switch to.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
 <br>
 
 

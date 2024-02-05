@@ -1351,6 +1351,17 @@
     }
     return this;
   };
+  this.switchType = function(elementId, type) {
+    if (_elements_DateCounts.hasOwnProperty(elementId) && _elements_DateCounts[elementId].type.hasOwnProperty(type)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      if (bindingOptions.currentView.type !== type) {
+        bindingOptions.currentView.type = type;
+        fireCustomTrigger(bindingOptions.onTypeSwitch, type);
+        renderControlContainer(bindingOptions);
+      }
+    }
+    return this;
+  };
   this.destroyAll = function() {
     var elementId;
     for (elementId in _elements_DateCounts) {

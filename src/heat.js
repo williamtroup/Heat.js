@@ -2105,6 +2105,34 @@
         return this;
     };
 
+    /**
+     * switchType().
+     * 
+     * Switches the selected trend type on an element.
+     * 
+     * @public
+     * @fires       onTypeSwitch
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID.
+     * @param       {string}    type                                        The name of the type to switch to.
+     * 
+     * @returns     {Object}                                                The year being displayed (or null).
+     */
+    this.switchType = function( elementId, type ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) && _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+            if ( bindingOptions.currentView.type !== type ) {
+                bindingOptions.currentView.type = type;
+            
+                fireCustomTrigger( bindingOptions.onTypeSwitch, type );
+                renderControlContainer( bindingOptions );
+            }
+        }
+
+        return this;
+    };
+    
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
