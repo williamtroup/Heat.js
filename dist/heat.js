@@ -481,11 +481,11 @@
     var rangeLines = createElement(statistics, "div", "range-lines");
     var mapRangeColors = getSortedMapRanges(bindingOptions);
     var mapRangeValuesForCurrentYear = getLargestValuesForEachRangeType(bindingOptions, mapRangeColors);
-    if (mapRangeValuesForCurrentYear.largetValue > 0 && bindingOptions.showChartYLabels) {
-      var topLabel = createElementWithHTML(labels, "div", "label-0", mapRangeValuesForCurrentYear.largetValue.toString());
-      createElementWithHTML(labels, "div", "label-25", (_parameter_Math.floor(mapRangeValuesForCurrentYear.largetValue / 4) * 3).toString());
-      createElementWithHTML(labels, "div", "label-50", _parameter_Math.floor(mapRangeValuesForCurrentYear.largetValue / 2).toString());
-      createElementWithHTML(labels, "div", "label-75", _parameter_Math.floor(mapRangeValuesForCurrentYear.largetValue / 4).toString());
+    if (mapRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.showChartYLabels) {
+      var topLabel = createElementWithHTML(labels, "div", "label-0", mapRangeValuesForCurrentYear.largestValue.toString());
+      createElementWithHTML(labels, "div", "label-25", (_parameter_Math.floor(mapRangeValuesForCurrentYear.largestValue / 4) * 3).toString());
+      createElementWithHTML(labels, "div", "label-50", _parameter_Math.floor(mapRangeValuesForCurrentYear.largestValue / 2).toString());
+      createElementWithHTML(labels, "div", "label-75", _parameter_Math.floor(mapRangeValuesForCurrentYear.largestValue / 4).toString());
       createElementWithHTML(labels, "div", "label-100", "0");
       labels.style.width = topLabel.offsetWidth + "px";
       statisticsRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
@@ -493,13 +493,13 @@
       labels.parentNode.removeChild(labels);
       labels = null;
     }
-    if (mapRangeValuesForCurrentYear.largetValue === 0) {
+    if (mapRangeValuesForCurrentYear.largestValue === 0) {
       bindingOptions.currentView.statisticsContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
       statistics.parentNode.removeChild(statistics);
       statisticsRanges.parentNode.removeChild(statisticsRanges);
       createElementWithHTML(bindingOptions.currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage);
     } else {
-      var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / mapRangeValuesForCurrentYear.largetValue;
+      var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / mapRangeValuesForCurrentYear.largestValue;
       var type;
       for (type in mapRangeValuesForCurrentYear.types) {
         if (mapRangeValuesForCurrentYear.types.hasOwnProperty(type)) {
@@ -524,7 +524,7 @@
   }
   function getLargestValuesForEachRangeType(bindingOptions, mapRangeColors) {
     var types = {};
-    var largetValue = 0;
+    var largestValue = 0;
     var data = getCurrentViewData(bindingOptions);
     types["0"] = 0;
     var monthIndex = 0;
@@ -546,13 +546,13 @@
                 types[useMapRangeColor.minimum.toString()] = 0;
               }
               types[useMapRangeColor.minimum]++;
-              largetValue = _parameter_Math.max(largetValue, types[useMapRangeColor.minimum]);
+              largestValue = _parameter_Math.max(largestValue, types[useMapRangeColor.minimum]);
             }
           }
         }
       }
     }
-    return {types:types, largetValue:largetValue};
+    return {types:types, largestValue:largestValue};
   }
   function renderControlViewGuide(bindingOptions) {
     var guide = createElement(bindingOptions.currentView.element, "div", "guide");
