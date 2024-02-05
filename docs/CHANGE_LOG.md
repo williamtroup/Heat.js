@@ -13,6 +13,10 @@
 
 #### **General Improvements:**
 - The drop-down menus for the title bar / years list now fade in when shown.
+- The tooltips shown throughout the display now fade in when shown.
+
+#### **CSS:**
+- Added a new ":root" variable called "--heat-js-annimation-length", which states how long the annimation effects should last for (defaults to 0.5s).
 
 #### **Fixes:**
 - Fixed the years-list having extra padding around the left, right, and bottom, which caused the menu to stay open longer when the mouse leaves the menu.
