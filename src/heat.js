@@ -2046,6 +2046,43 @@
         return this;
     };
 
+    /**
+     * switchView().
+     * 
+     * Switches the view on an element to either Map, Chart, or Statistics.
+     * 
+     * @public
+     * @fires       onViewSwitch
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID.
+     * @param       {string}    viewName                                    The name of the view to switch to (either "map", "chart", or "statistics").
+     * 
+     * @returns     {Object}                                                The year being displayed (or null).
+     */
+    this.switchView = function( elementId, viewName ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options,
+                view = null;
+
+            if ( viewName.toLowerCase() === _elements_View_Name_Map ) {
+                view = _elements_View_Map;
+            } else if ( viewName.toLowerCase() === _elements_View_Name_Chart ) {
+                view = _elements_View_Chart;
+            } else if ( viewName.toLowerCase() === _elements_View_Name_Statistics ) {
+                view = _elements_View_Statistics;
+            }
+
+            if ( isDefinedNumber( view ) ) {
+                bindingOptions.currentView.view = view;
+
+                fireCustomTrigger( bindingOptions.onViewSwitch, viewName );
+                renderControlContainer( bindingOptions );
+            }
+        }
+
+        return this;
+    };
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

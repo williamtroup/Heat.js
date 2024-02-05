@@ -196,6 +196,18 @@ Finds all new map elements and renders them.
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
+
+### **switchView( *elementId*, *viewName* )**:
+Switches the view on an element to either Map, Chart, or Statistics.
+<br>
+***Fires***:  onViewSwitch
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID.
+<br>
+***Parameter: viewName***: '*string*' - The name of the view to switch to (either "map", "chart", or "statistics").
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
 <br>
 
 
