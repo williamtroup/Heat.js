@@ -373,7 +373,7 @@ div.heat-js {
             }
 
             &:hover div.years-list {
-                display: block;
+                display: block !important;
             }
 
             @include down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );

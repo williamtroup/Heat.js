@@ -201,10 +201,21 @@
           var yearList = createElement(bindingOptions.currentView.yearText, "div", "years-list");
           var years = createElement(yearList, "div", "years");
           var thisYear = (new Date()).getFullYear();
+          var activeYear = null;
+          yearList.style.display = "block";
+          yearList.style.visibility = "hidden";
           var currentYear = thisYear - bindingOptions.extraSelectionYears;
           for (; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++) {
-            renderControlTitleBarYear(bindingOptions, years, currentYear);
+            var year = renderControlTitleBarYear(bindingOptions, years, currentYear);
+            if (!isDefined(activeYear)) {
+              activeYear = year;
+            }
           }
+          if (isDefined(activeYear)) {
+            years.scrollTop = activeYear.offsetTop - years.offsetHeight / 2;
+          }
+          yearList.style.display = "none";
+          yearList.style.visibility = "visible";
         }
         var next = createElementWithHTML(titleBar, "button", "next", _configuration.nextButtonText);
         next.onclick = function() {
@@ -227,6 +238,7 @@
     }
   }
   function renderControlTitleBarYear(bindingOptions, years, currentYear) {
+    var result = null;
     var year = createElementWithHTML(years, "div", "year", currentYear);
     if (bindingOptions.currentView.year !== currentYear) {
       year.onclick = function() {
@@ -236,7 +248,9 @@
       };
     } else {
       addClass(year, "year-active");
+      result = year;
     }
+    return result;
   }
   function renderControlMap(bindingOptions) {
     bindingOptions.currentView.mapContents = createElement(bindingOptions.currentView.element, "div", "map-contents");

@@ -332,11 +332,26 @@
                 if ( bindingOptions.showYearSelectionDropDown ) {
                     var yearList = createElement( bindingOptions.currentView.yearText, "div", "years-list" ),
                         years = createElement( yearList, "div", "years" ),
-                        thisYear = new Date().getFullYear();
+                        thisYear = new Date().getFullYear(),
+                        activeYear = null;
+
+                    yearList.style.display = "block";
+                    yearList.style.visibility = "hidden";
 
                     for ( var currentYear = thisYear - bindingOptions.extraSelectionYears; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++ ) {
-                        renderControlTitleBarYear( bindingOptions, years, currentYear );
+                        var year = renderControlTitleBarYear( bindingOptions, years, currentYear );
+
+                        if ( !isDefined( activeYear ) ) {
+                            activeYear = year;
+                        }
                     }
+
+                    if ( isDefined( activeYear ) ) {
+                        years.scrollTop = activeYear.offsetTop - ( years.offsetHeight / 2 );
+                    }
+
+                    yearList.style.display = "none";
+                    yearList.style.visibility = "visible";
                 }
 
                 var next = createElementWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
@@ -366,7 +381,8 @@
     }
 
     function renderControlTitleBarYear( bindingOptions, years, currentYear ) {
-        var year = createElementWithHTML( years, "div", "year", currentYear );
+        var result = null,
+            year = createElementWithHTML( years, "div", "year", currentYear );
 
         if ( bindingOptions.currentView.year !== currentYear ) {
             year.onclick = function() {
@@ -378,7 +394,10 @@
 
         } else {
             addClass( year, "year-active" );
+            result = year;
         }
+
+        return result;
     }
 
 

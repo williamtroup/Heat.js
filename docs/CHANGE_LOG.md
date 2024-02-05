@@ -2,6 +2,7 @@
 
 ## Version 1.9.1:
 - The Chart/Statistics views now hide the margin-left of the first bar when displayed in mobile view.
+- The years drop-down list now scrolls to the active year when first opened (or after the year is changed).
 - 
 
 <br>

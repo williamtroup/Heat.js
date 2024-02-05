@@ -238,7 +238,7 @@ div.heat-js div.title-bar div.year-text:hover div.down-arrow {
   border-top-color: var(--heat-js-title-opener-text-color-hover);
 }
 div.heat-js div.title-bar div.year-text:hover div.years-list {
-  display: block;
+  display: block !important;
 }
 div.heat-js div.title-bar div.year-text div.down-arrow {
   display: inline-block;
