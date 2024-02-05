@@ -398,11 +398,13 @@
       if (bindingOptions.showMonthNames) {
         var chartMonths = createElement(bindingOptions.currentView.chartContents, "div", "chart-months");
         var linesWidth = dayLines.offsetWidth / totalMonths;
+        var monthTimesValue = 0;
         var monthIndex2 = 0;
         for (; monthIndex2 < 12; monthIndex2++) {
           if (isMonthVisible(bindingOptions, monthIndex2)) {
             var monthName = createElementWithHTML(chartMonths, "div", "month-name", _configuration.monthNames[monthIndex2]);
-            monthName.style.left = labelsWidth + linesWidth * monthIndex2 + "px";
+            monthName.style.left = labelsWidth + linesWidth * monthTimesValue + "px";
+            monthTimesValue++;
           }
         }
         chartMonths.style.width = dayLines.offsetWidth + "px";
