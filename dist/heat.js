@@ -350,9 +350,9 @@
     var labelsWidth = 0;
     if (largestValueForCurrentYear > 0 && bindingOptions.showChartYLabels) {
       var topLabel = createElementWithHTML(labels, "div", "label-0", largestValueForCurrentYear.toString());
-      createElementWithHTML(labels, "div", "label-25", (Math.floor(largestValueForCurrentYear / 4) * 3).toString());
-      createElementWithHTML(labels, "div", "label-50", Math.floor(largestValueForCurrentYear / 2).toString());
-      createElementWithHTML(labels, "div", "label-75", Math.floor(largestValueForCurrentYear / 4).toString());
+      createElementWithHTML(labels, "div", "label-25", (_parameter_Math.floor(largestValueForCurrentYear / 4) * 3).toString());
+      createElementWithHTML(labels, "div", "label-50", _parameter_Math.floor(largestValueForCurrentYear / 2).toString());
+      createElementWithHTML(labels, "div", "label-75", _parameter_Math.floor(largestValueForCurrentYear / 4).toString());
       createElementWithHTML(labels, "div", "label-100", "0");
       labels.style.width = topLabel.offsetWidth + "px";
       labelsWidth = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true);
@@ -441,7 +441,7 @@
       for (; dayIndex < totalDaysInMonth; dayIndex++) {
         var storageDate = toStorageDate(new Date(bindingOptions.currentView.year, monthIndex, dayIndex + 1));
         if (data.hasOwnProperty(storageDate)) {
-          result = Math.max(result, parseInt(data[storageDate]));
+          result = _parameter_Math.max(result, parseInt(data[storageDate]));
         }
       }
     }
@@ -459,9 +459,9 @@
     var mapRangeValuesForCurrentYear = getLargestValuesForEachRangeType(bindingOptions, mapRangeColors);
     if (mapRangeValuesForCurrentYear.largetValue > 0 && bindingOptions.showChartYLabels) {
       var topLabel = createElementWithHTML(labels, "div", "label-0", mapRangeValuesForCurrentYear.largetValue.toString());
-      createElementWithHTML(labels, "div", "label-25", (Math.floor(mapRangeValuesForCurrentYear.largetValue / 4) * 3).toString());
-      createElementWithHTML(labels, "div", "label-50", Math.floor(mapRangeValuesForCurrentYear.largetValue / 2).toString());
-      createElementWithHTML(labels, "div", "label-75", Math.floor(mapRangeValuesForCurrentYear.largetValue / 4).toString());
+      createElementWithHTML(labels, "div", "label-25", (_parameter_Math.floor(mapRangeValuesForCurrentYear.largetValue / 4) * 3).toString());
+      createElementWithHTML(labels, "div", "label-50", _parameter_Math.floor(mapRangeValuesForCurrentYear.largetValue / 2).toString());
+      createElementWithHTML(labels, "div", "label-75", _parameter_Math.floor(mapRangeValuesForCurrentYear.largetValue / 4).toString());
       createElementWithHTML(labels, "div", "label-100", "0");
       labels.style.width = topLabel.offsetWidth + "px";
       statisticsRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
@@ -525,7 +525,7 @@
     var type;
     for (type in types) {
       if (types.hasOwnProperty(type)) {
-        largetValue = Math.max(largetValue, types[type]);
+        largetValue = _parameter_Math.max(largetValue, types[type]);
       }
     }
     return {types:types, largetValue:largetValue};
@@ -1036,7 +1036,7 @@
       if (charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20) {
         result.push(_string.dash);
       }
-      var character = Math.floor(Math.random() * 16).toString(16);
+      var character = _parameter_Math.floor(_parameter_Math.random() * 16).toString(16);
       result.push(character);
     }
     return result.join(_string.empty);
@@ -1090,6 +1090,7 @@
   }
   var _parameter_Document = null;
   var _parameter_Window = null;
+  var _parameter_Math = null;
   var _configuration = {};
   var _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_"};
   var _elements_Type = {};
@@ -1244,7 +1245,7 @@
       var storageDate;
       for (storageDate in data) {
         if (data.hasOwnProperty(storageDate)) {
-          maximumYear = Math.max(maximumYear, parseInt(getStorageDateYear(storageDate)));
+          maximumYear = _parameter_Math.max(maximumYear, parseInt(getStorageDateYear(storageDate)));
         }
       }
       if (maximumYear > 0) {
@@ -1263,7 +1264,7 @@
       var storageDate;
       for (storageDate in data) {
         if (data.hasOwnProperty(storageDate)) {
-          minimumYear = Math.min(minimumYear, parseInt(getStorageDateYear(storageDate)));
+          minimumYear = _parameter_Math.min(minimumYear, parseInt(getStorageDateYear(storageDate)));
         }
       }
       if (minimumYear < 9999) {
@@ -1379,9 +1380,10 @@
   this.getVersion = function() {
     return "1.9.0";
   };
-  (function(documentObject, windowObject) {
+  (function(documentObject, windowObject, mathObject) {
     _parameter_Document = documentObject;
     _parameter_Window = windowObject;
+    _parameter_Math = mathObject;
     buildDefaultConfiguration();
     _parameter_Document.addEventListener("DOMContentLoaded", function() {
       render();
@@ -1389,5 +1391,5 @@
     if (!isDefined(_parameter_Window.$heat)) {
       _parameter_Window.$heat = this;
     }
-  })(document, window);
+  })(document, window, Math);
 })();
