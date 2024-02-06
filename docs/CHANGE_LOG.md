@@ -6,7 +6,6 @@
 - Fixed some spelling mistakes in the main "src" JS file.
 - Added install instructions into the main README files.
 - Added Chinese (simplified) translation improvements (thank you @ziqiangai).
-- 
 
 <br>
 
