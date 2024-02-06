@@ -124,7 +124,6 @@
         bindingOptions.currentView.chartContentsScrollLeft = 0;
         bindingOptions.currentView.statisticsContents = null;
         bindingOptions.currentView.statisticsContentsScrollLeft = 0;
-        bindingOptions.currentView.colorsVisible = {};
         bindingOptions.currentView.year = bindingOptions.year;
         bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
 
@@ -904,18 +903,7 @@
 
         if ( bindingOptions.mapTogglesEnabled ) {
             day.onclick = function() {
-                if ( !bindingOptions.currentView.colorsVisible.hasOwnProperty( mapRangeColor.id ) ) {
-                    bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] = true;
-                }
-    
-                if ( bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] ) {
-                    day.className = "day";
-                } else {
-                    day.className = "day " + mapRangeColor.cssClassName;
-                }
-    
-                bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] = !bindingOptions.currentView.colorsVisible[ mapRangeColor.id ];
-    
+                toggleMapRangeColorVisibleState( bindingOptions, mapRangeColor.id );
                 renderControlContainer( bindingOptions );
             };
 
@@ -932,17 +920,42 @@
      */
 
     function isHeatMapColorVisible( bindingOptions, id ) {
-        return !bindingOptions.currentView.colorsVisible.hasOwnProperty( id ) || bindingOptions.currentView.colorsVisible[ id ];
+        var result = false,
+            mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            var mapRangeColor = bindingOptions.mapRangeColors[ mapRangeColorsIndex ];
+
+            if ( mapRangeColor.id === id && ( !isDefinedBoolean( mapRangeColor.visible ) || mapRangeColor.visible ) ) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
     }
 
     function updateMapRangeColorToggles( bindingOptions, flag ) {
         var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
 
         for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            bindingOptions.currentView.colorsVisible[ bindingOptions.mapRangeColors[ mapRangeColorsIndex ].id ] = flag;
+            bindingOptions.mapRangeColors[ mapRangeColorsIndex ].visible = flag;
         }
 
         renderControlContainer( bindingOptions );
+    }
+
+    function toggleMapRangeColorVisibleState( bindingOptions, id ) {
+        var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            var mapRangeColor = bindingOptions.mapRangeColors[ mapRangeColorsIndex ];
+
+            if ( mapRangeColor.id === id ) {
+                bindingOptions.mapRangeColors[ mapRangeColorsIndex ].visible = !( isDefinedBoolean( mapRangeColor.visible ) && mapRangeColor.visible );
+                break;
+            }
+        }
     }
 
     function getMapRangeColor( mapRangeColors, dateCount ) {
@@ -1188,22 +1201,26 @@
             {
                 minimum: 10,
                 cssClassName: "day-color-1",
-                tooltipText: "Day Color 1"
+                tooltipText: "Day Color 1",
+                visible: true
             },
             {
                 minimum: 15,
                 cssClassName: "day-color-2",
-                tooltipText: "Day Color 2"
+                tooltipText: "Day Color 2",
+                visible: true
             },
             {
                 minimum: 20,
                 cssClassName: "day-color-3",
-                tooltipText: "Day Color 3"
+                tooltipText: "Day Color 3",
+                visible: true
             },
             {
                 minimum: 25,
                 cssClassName: "day-color-4",
-                tooltipText: "Day Color 4"
+                tooltipText: "Day Color 4",
+                visible: true
             }
         ] );
 
