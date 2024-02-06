@@ -1,7 +1,7 @@
 # Heat.js - Change Log:
 
 ## Version 1.9.2:
-- 
+- Updated the README documentation.
 
 <br>
 
