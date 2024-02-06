@@ -95,6 +95,19 @@ To see a list of all the most recent changes, click [here](docs/CHANGE_LOG.md).
 <br>
 
 
+<h1>How do I install Heat.js?</h1>
+
+You can install the library with npm into your local modules directory using the following command:
+
+```markdown
+npm install jheat.js
+```
+
+Or, you can download the latest zipped up version [here](https://www.william-troup.com/heat-js/download.html).
+<br>
+<br>
+
+
 <h1>How do I get started?</h1>
 
 To get started using Heat.js, do the following steps:
