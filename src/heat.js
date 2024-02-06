@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v1.9.0
+ * @version     v1.9.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -332,11 +332,26 @@
                 if ( bindingOptions.showYearSelectionDropDown ) {
                     var yearList = createElement( bindingOptions.currentView.yearText, "div", "years-list" ),
                         years = createElement( yearList, "div", "years" ),
-                        thisYear = new Date().getFullYear();
+                        thisYear = new Date().getFullYear(),
+                        activeYear = null;
+
+                    yearList.style.display = "block";
+                    yearList.style.visibility = "hidden";
 
                     for ( var currentYear = thisYear - bindingOptions.extraSelectionYears; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++ ) {
-                        renderControlTitleBarYear( bindingOptions, years, currentYear );
+                        var year = renderControlTitleBarYear( bindingOptions, years, currentYear );
+
+                        if ( !isDefined( activeYear ) ) {
+                            activeYear = year;
+                        }
                     }
+
+                    if ( isDefined( activeYear ) ) {
+                        years.scrollTop = activeYear.offsetTop - ( years.offsetHeight / 2 );
+                    }
+
+                    yearList.style.display = "none";
+                    yearList.style.visibility = "visible";
                 }
 
                 var next = createElementWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
@@ -366,7 +381,8 @@
     }
 
     function renderControlTitleBarYear( bindingOptions, years, currentYear ) {
-        var year = createElementWithHTML( years, "div", "year", currentYear );
+        var result = null,
+            year = createElementWithHTML( years, "div", "year", currentYear );
 
         if ( bindingOptions.currentView.year !== currentYear ) {
             year.onclick = function() {
@@ -378,7 +394,10 @@
 
         } else {
             addClass( year, "year-active" );
+            result = year;
         }
+
+        return result;
     }
 
 
@@ -689,11 +708,11 @@
             mapRangeColors = getSortedMapRanges( bindingOptions ),
             mapRangeValuesForCurrentYear = getLargestValuesForEachRangeType( bindingOptions, mapRangeColors );
 
-        if ( mapRangeValuesForCurrentYear.largetValue > 0 && bindingOptions.showChartYLabels ) {
-            var topLabel = createElementWithHTML( labels, "div", "label-0", mapRangeValuesForCurrentYear.largetValue.toString() );
-            createElementWithHTML( labels, "div", "label-25", ( _parameter_Math.floor( mapRangeValuesForCurrentYear.largetValue / 4 ) * 3 ).toString() );
-            createElementWithHTML( labels, "div", "label-50", _parameter_Math.floor( mapRangeValuesForCurrentYear.largetValue / 2 ).toString() );
-            createElementWithHTML( labels, "div", "label-75", _parameter_Math.floor( mapRangeValuesForCurrentYear.largetValue / 4 ).toString() );
+        if ( mapRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.showChartYLabels ) {
+            var topLabel = createElementWithHTML( labels, "div", "label-0", mapRangeValuesForCurrentYear.largestValue.toString() );
+            createElementWithHTML( labels, "div", "label-25", ( _parameter_Math.floor( mapRangeValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
+            createElementWithHTML( labels, "div", "label-50", _parameter_Math.floor( mapRangeValuesForCurrentYear.largestValue / 2 ).toString() );
+            createElementWithHTML( labels, "div", "label-75", _parameter_Math.floor( mapRangeValuesForCurrentYear.largestValue / 4 ).toString() );
             createElementWithHTML( labels, "div", "label-100", "0" );
 
             labels.style.width = topLabel.offsetWidth + "px";
@@ -704,7 +723,7 @@
             labels = null;
         }
 
-        if ( mapRangeValuesForCurrentYear.largetValue === 0 ) {
+        if ( mapRangeValuesForCurrentYear.largestValue === 0 ) {
             bindingOptions.currentView.statisticsContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
             statistics.parentNode.removeChild( statistics );
             statisticsRanges.parentNode.removeChild( statisticsRanges );
@@ -712,7 +731,7 @@
             createElementWithHTML( bindingOptions.currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage );
 
         } else {
-            var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / mapRangeValuesForCurrentYear.largetValue;
+            var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / mapRangeValuesForCurrentYear.largestValue;
 
             for ( var type in mapRangeValuesForCurrentYear.types ) {
                 if ( mapRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
@@ -743,7 +762,7 @@
 
     function getLargestValuesForEachRangeType( bindingOptions, mapRangeColors ) {
         var types = {},
-            largetValue = 0,
+            largestValue = 0,
             data = getCurrentViewData( bindingOptions );
 
         types[ "0" ] = 0;
@@ -772,7 +791,7 @@
     
                             types[ useMapRangeColor.minimum ]++;
                             
-                            largetValue = _parameter_Math.max( largetValue, types[ useMapRangeColor.minimum ] );
+                            largestValue = _parameter_Math.max( largestValue, types[ useMapRangeColor.minimum ] );
                         }
                     }
                 }
@@ -781,7 +800,7 @@
 
         return {
             types: types,
-            largetValue: largetValue
+            largestValue: largestValue
         };
     }
 
@@ -2327,7 +2346,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.9.0";
+        return "1.9.1";
     };
 
 

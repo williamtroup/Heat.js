@@ -1,4 +1,4 @@
-/*! Heat.js v1.9.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.9.1 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -201,10 +201,21 @@
           var yearList = createElement(bindingOptions.currentView.yearText, "div", "years-list");
           var years = createElement(yearList, "div", "years");
           var thisYear = (new Date()).getFullYear();
+          var activeYear = null;
+          yearList.style.display = "block";
+          yearList.style.visibility = "hidden";
           var currentYear = thisYear - bindingOptions.extraSelectionYears;
           for (; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++) {
-            renderControlTitleBarYear(bindingOptions, years, currentYear);
+            var year = renderControlTitleBarYear(bindingOptions, years, currentYear);
+            if (!isDefined(activeYear)) {
+              activeYear = year;
+            }
           }
+          if (isDefined(activeYear)) {
+            years.scrollTop = activeYear.offsetTop - years.offsetHeight / 2;
+          }
+          yearList.style.display = "none";
+          yearList.style.visibility = "visible";
         }
         var next = createElementWithHTML(titleBar, "button", "next", _configuration.nextButtonText);
         next.onclick = function() {
@@ -227,6 +238,7 @@
     }
   }
   function renderControlTitleBarYear(bindingOptions, years, currentYear) {
+    var result = null;
     var year = createElementWithHTML(years, "div", "year", currentYear);
     if (bindingOptions.currentView.year !== currentYear) {
       year.onclick = function() {
@@ -236,7 +248,9 @@
       };
     } else {
       addClass(year, "year-active");
+      result = year;
     }
+    return result;
   }
   function renderControlMap(bindingOptions) {
     bindingOptions.currentView.mapContents = createElement(bindingOptions.currentView.element, "div", "map-contents");
@@ -467,11 +481,11 @@
     var rangeLines = createElement(statistics, "div", "range-lines");
     var mapRangeColors = getSortedMapRanges(bindingOptions);
     var mapRangeValuesForCurrentYear = getLargestValuesForEachRangeType(bindingOptions, mapRangeColors);
-    if (mapRangeValuesForCurrentYear.largetValue > 0 && bindingOptions.showChartYLabels) {
-      var topLabel = createElementWithHTML(labels, "div", "label-0", mapRangeValuesForCurrentYear.largetValue.toString());
-      createElementWithHTML(labels, "div", "label-25", (_parameter_Math.floor(mapRangeValuesForCurrentYear.largetValue / 4) * 3).toString());
-      createElementWithHTML(labels, "div", "label-50", _parameter_Math.floor(mapRangeValuesForCurrentYear.largetValue / 2).toString());
-      createElementWithHTML(labels, "div", "label-75", _parameter_Math.floor(mapRangeValuesForCurrentYear.largetValue / 4).toString());
+    if (mapRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.showChartYLabels) {
+      var topLabel = createElementWithHTML(labels, "div", "label-0", mapRangeValuesForCurrentYear.largestValue.toString());
+      createElementWithHTML(labels, "div", "label-25", (_parameter_Math.floor(mapRangeValuesForCurrentYear.largestValue / 4) * 3).toString());
+      createElementWithHTML(labels, "div", "label-50", _parameter_Math.floor(mapRangeValuesForCurrentYear.largestValue / 2).toString());
+      createElementWithHTML(labels, "div", "label-75", _parameter_Math.floor(mapRangeValuesForCurrentYear.largestValue / 4).toString());
       createElementWithHTML(labels, "div", "label-100", "0");
       labels.style.width = topLabel.offsetWidth + "px";
       statisticsRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
@@ -479,13 +493,13 @@
       labels.parentNode.removeChild(labels);
       labels = null;
     }
-    if (mapRangeValuesForCurrentYear.largetValue === 0) {
+    if (mapRangeValuesForCurrentYear.largestValue === 0) {
       bindingOptions.currentView.statisticsContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
       statistics.parentNode.removeChild(statistics);
       statisticsRanges.parentNode.removeChild(statisticsRanges);
       createElementWithHTML(bindingOptions.currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage);
     } else {
-      var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / mapRangeValuesForCurrentYear.largetValue;
+      var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / mapRangeValuesForCurrentYear.largestValue;
       var type;
       for (type in mapRangeValuesForCurrentYear.types) {
         if (mapRangeValuesForCurrentYear.types.hasOwnProperty(type)) {
@@ -510,7 +524,7 @@
   }
   function getLargestValuesForEachRangeType(bindingOptions, mapRangeColors) {
     var types = {};
-    var largetValue = 0;
+    var largestValue = 0;
     var data = getCurrentViewData(bindingOptions);
     types["0"] = 0;
     var monthIndex = 0;
@@ -532,13 +546,13 @@
                 types[useMapRangeColor.minimum.toString()] = 0;
               }
               types[useMapRangeColor.minimum]++;
-              largetValue = _parameter_Math.max(largetValue, types[useMapRangeColor.minimum]);
+              largestValue = _parameter_Math.max(largestValue, types[useMapRangeColor.minimum]);
             }
           }
         }
       }
     }
-    return {types:types, largetValue:largetValue};
+    return {types:types, largestValue:largestValue};
   }
   function renderControlViewGuide(bindingOptions) {
     var guide = createElement(bindingOptions.currentView.element, "div", "guide");
@@ -1403,7 +1417,7 @@
     return result;
   };
   this.getVersion = function() {
-    return "1.9.0";
+    return "1.9.1";
   };
   (function(documentObject, windowObject, mathObject, jsonObject) {
     _parameter_Document = documentObject;

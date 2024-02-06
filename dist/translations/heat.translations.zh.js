@@ -1,9 +1,9 @@
-/*! Heat.js v1.9.0 - Chinese (simplified) | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.9.1 - Chinese (simplified) | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
-        "stText": "",
-        "ndText": "",
-        "rdText": "",
-        "thText": "",
+        "stText": "日",
+        "ndText": "日",
+        "rdText": "日",
+        "thText": "日",
         "backButtonText": "后退",
         "nextButtonText": "下一个",
         "refreshButtonText": "刷新",

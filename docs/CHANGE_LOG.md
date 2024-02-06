@@ -1,5 +1,15 @@
 # Heat.js - Change Log:
 
+## Version 1.9.1:
+- The Chart/Statistics views now hide the margin-left of the first bar when displayed in mobile view.
+- The years drop-down list now scrolls to the active year when first opened (or after the year is changed).
+- Fixed some spelling mistakes in the main "src" JS file.
+- Added install instructions into the main README files.
+- Added Chinese (simplified) translation improvements (thank you @ziqiangai).
+
+<br>
+
+
 ## Version 1.9.0:
 
 #### **New Features:**

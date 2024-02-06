@@ -1,8 +1,8 @@
-# Heat.js v1.9.0
+# Heat.js v1.9.1
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Heat.js%2C%20a%20free%20JavaScript%heat%20map&url=https://github.com/williamtroup/Heat.js&hashtags=javascript,heat,map)
-[![npm](https://img.shields.io/badge/npmjs-v1.9.0-blue)](https://www.npmjs.com/package/jheat.js)
-[![nuget](https://img.shields.io/badge/nuget-v1.9.0-purple)](https://www.nuget.org/packages/jHeat.js/)
+[![npm](https://img.shields.io/badge/npmjs-v1.9.1-blue)](https://www.npmjs.com/package/jheat.js)
+[![nuget](https://img.shields.io/badge/nuget-v1.9.1-purple)](https://www.nuget.org/packages/jHeat.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Heat.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://william-troup.com/)
@@ -78,6 +78,17 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 ## What are the most recent changes?
 
 To see a list of all the most recent changes, click [here](https://william-troup.com/heat-js/documentation/recent-changes.html).
+
+
+## How do I install Heat.js?
+
+You can install the library with npm into your local modules directory using the following command:
+
+```markdown
+npm install jheat.js
+```
+
+Or, you can download the latest zipped up version [here](https://www.william-troup.com/heat-js/download.html).
 
 
 ## How do I get started?

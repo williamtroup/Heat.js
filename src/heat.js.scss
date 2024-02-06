@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.9.0
+ * Heat.js Library v1.9.1
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -373,7 +373,7 @@ div.heat-js {
             }
 
             &:hover div.years-list {
-                display: block;
+                display: block !important;
             }
 
             @include down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );
@@ -611,8 +611,10 @@ div.heat-js {
                     display: inline-block;
                     transition: var(--heat-js-transition);
 
-                    &:first-child {
-                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                    @media (min-width: $minimum-width) { 
+                        &:first-child {
+                            margin-left: calc( var(--heat-js-spacing) / 2 );
+                        }
                     }
     
                     &:last-child {
@@ -694,8 +696,10 @@ div.heat-js {
                     display: inline-block;
                     transition: var(--heat-js-transition);
 
-                    &:first-child {
-                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                    @media (min-width: $minimum-width) { 
+                        &:first-child {
+                            margin-left: calc( var(--heat-js-spacing) / 2 );
+                        }
                     }
     
                     &:last-child {
