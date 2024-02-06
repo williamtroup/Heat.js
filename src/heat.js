@@ -940,6 +940,8 @@
 
         for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
             bindingOptions.mapRangeColors[ mapRangeColorsIndex ].visible = flag;
+
+            fireCustomTrigger( bindingOptions.onMapRangeTypeToggle, bindingOptions.mapRangeColors[ mapRangeColorsIndex ].id, flag );
         }
 
         renderControlContainer( bindingOptions );
@@ -952,7 +954,9 @@
             var mapRangeColor = bindingOptions.mapRangeColors[ mapRangeColorsIndex ];
 
             if ( mapRangeColor.id === id ) {
-                bindingOptions.mapRangeColors[ mapRangeColorsIndex ].visible = !( isDefinedBoolean( mapRangeColor.visible ) && mapRangeColor.visible );
+                mapRangeColor.visible = !( isDefinedBoolean( mapRangeColor.visible ) && mapRangeColor.visible );
+
+                fireCustomTrigger( bindingOptions.onMapRangeTypeToggle, mapRangeColor.id, mapRangeColor.visible );
                 break;
             }
         }
@@ -1258,6 +1262,7 @@
         options.onRemove = getDefaultFunction( options.onRemove, null );
         options.onReset = getDefaultFunction( options.onReset, null );
         options.onViewSwitch = getDefaultFunction( options.onViewSwitch, null );
+        options.onMapRangeTypeToggle = getDefaultFunction( options.onMapRangeTypeToggle, null );
 
         return options;
     }

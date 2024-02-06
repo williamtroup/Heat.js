@@ -3,7 +3,7 @@
 ## Version 1.9.2:
 - Updated the README documentation.
 - Added a "visible" property to the binding option configuration "mapRangeColors", which will allow you to set the visible ranges on load.
-- 
+- Added a new binding option called "onMapRangeTypeToggle", which states an event that should be triggered when a map ranges visible state is toggled on/off.
 
 <br>
 
