@@ -33,6 +33,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *number* | tooltipDelay | States how long the tooltip should wait (in milliseconds) until it's shown (defaults to 750). |
 | *string* | exportType | States the export file type that should be used (defaults to "csv", also accepts "json" and "xml"). |
 | *string* | noTypesLabel | States a label that should be shown when no trend types are available (defaults to null). |
+| *string* | noTypesLabelLink | States a link that should be used for the "noTypesLabel" label (defaults to null). |
 
 <br/>
 

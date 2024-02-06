@@ -766,8 +766,24 @@ div.heat-js {
                 margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
             }
 
-            span.label {
+            span.label,
+            a.label,
+            a.label:visited {
+                color: var(--heat-js-color-white);
                 font-weight: var(--heat-js-text-bold-weight);
+                text-decoration: none;
+            }
+
+            a.label {
+                transition: var(--heat-js-transition);
+
+                &:active {
+                    color: var(--heat-js-color-gray);
+                }
+
+                &:hover {
+                    text-decoration: underline;
+                }
             }
         }
 

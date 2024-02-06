@@ -835,7 +835,13 @@
 
         } else {
             if ( isDefinedString( bindingOptions.noTypesLabel ) ) {
-                createElementWithHTML( mapTypes, "span", "label", bindingOptions.noTypesLabel );
+                if ( isDefinedString( bindingOptions.noTypesLabelLink ) ) {
+                    var link = createElementWithHTML( mapTypes, "a", "label", bindingOptions.noTypesLabel );
+                    link.href = bindingOptions.noTypesLabelLink;
+
+                } else {
+                    createElementWithHTML( mapTypes, "span", "label", bindingOptions.noTypesLabel );
+                }
             }
         }
 
@@ -1185,6 +1191,7 @@
         options.tooltipDelay = getDefaultNumber( options.tooltipDelay, 750 );
         options.exportType = getDefaultString( options.exportType, _export_Type_Csv );
         options.noTypesLabel = getDefaultString( options.noTypesLabel, null );
+        options.noTypesLabelLink = getDefaultString( options.noTypesLabelLink, null );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
