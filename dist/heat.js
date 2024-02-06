@@ -630,7 +630,6 @@
     if (bindingOptions.mapTogglesEnabled) {
       day.onclick = function() {
         toggleMapRangeColorVisibleState(bindingOptions, mapRangeColor.id);
-        renderControlContainer(bindingOptions);
       };
     } else {
       addClass(day, "no-hover");
@@ -666,6 +665,7 @@
       if (mapRangeColor.id === id) {
         mapRangeColor.visible = !(isDefinedBoolean(mapRangeColor.visible) && mapRangeColor.visible);
         fireCustomTrigger(bindingOptions.onMapRangeTypeToggle, mapRangeColor.id, mapRangeColor.visible);
+        renderControlContainer(bindingOptions);
         break;
       }
     }
