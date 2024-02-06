@@ -2,15 +2,15 @@
 Heat.js
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Heat.js%2C%20a%20free%20JavaScript%heat%20map&url=https://github.com/williamtroup/Heat.js&hashtags=javascript,heat,map)
-[![npm](https://img.shields.io/badge/npmjs-v1.9.1-blue)](https://www.npmjs.com/package/jheat.js)
-[![nuget](https://img.shields.io/badge/nuget-v1.9.1-purple)](https://www.nuget.org/packages/jHeat.js/)
+[![npm](https://img.shields.io/badge/npmjs-v1.9.2-blue)](https://www.npmjs.com/package/jheat.js)
+[![nuget](https://img.shields.io/badge/nuget-v1.9.2-purple)](https://www.nuget.org/packages/jHeat.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Heat.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://william-troup.com/)
 </h1>
 
 > <p align="center">🌞 A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.</p>
-> <p align="center">v1.9.1</p>
+> <p align="center">v1.9.2</p>
 <br />
 
 ![Heat.js](docs/images/main.png)
@@ -90,7 +90,7 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 
 <h1>What are the most recent changes?</h1>
 
-To see a list of all the most recent changes, click [here](docs/CHANGE_LOG.md).
+To see a list of all the most recent changes, click [here](https://william-troup.com/heat-js/documentation/recent-changes.html).
 <br>
 <br>
 
@@ -141,9 +141,9 @@ Make sure you include the "DOCTYPE html" tag at the top of your HTML, as follows
 </div>
 ```
 
-To see a list of all the available binding options you can use for "data-heat-options", click [here](docs/binding/OPTIONS.md).
+To see a list of all the available binding options you can use for "data-heat-options", click [here](https://william-troup.com/heat-js/documentation/binding-options.html).
 
-To see a list of all the available custom triggers you can use for "data-heat-options", click [here](docs/binding/CUSTOM_TRIGGERS.md).
+To see a list of all the available custom triggers you can use for "data-heat-options", click [here](https://william-troup.com/heat-js/documentation/binding-options-custom-triggers.html).
 
 <br>
 
@@ -179,7 +179,7 @@ To customize, and get more out of Heat.js, please read through the following doc
 
 ### 1. Public Functions:
 
-To see a list of all the public functions available, click [here](docs/PUBLIC_FUNCTIONS.md).
+To see a list of all the public functions available, click [here](https://william-troup.com/heat-js/documentation/public-functions.html).
 <br>
 <br>
 
@@ -196,4 +196,4 @@ Configuration options allow you to customize how Heat.js will function.  You can
 </script>
 ```
 
-To see a list of all the available configuration options you can use, click [here](docs/configuration/OPTIONS.md).
+To see a list of all the available configuration options you can use, click [here](https://william-troup.com/heat-js/documentation/options.html).

@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v1.9.1
+ * @version     v1.9.2
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -124,7 +124,6 @@
         bindingOptions.currentView.chartContentsScrollLeft = 0;
         bindingOptions.currentView.statisticsContents = null;
         bindingOptions.currentView.statisticsContentsScrollLeft = 0;
-        bindingOptions.currentView.colorsVisible = {};
         bindingOptions.currentView.year = bindingOptions.year;
         bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
 
@@ -836,7 +835,13 @@
 
         } else {
             if ( isDefinedString( bindingOptions.noTypesLabel ) ) {
-                createElementWithHTML( mapTypes, "span", "label", bindingOptions.noTypesLabel );
+                if ( isDefinedString( bindingOptions.noTypesLabelLink ) ) {
+                    var link = createElementWithHTML( mapTypes, "a", "label", bindingOptions.noTypesLabel );
+                    link.href = bindingOptions.noTypesLabelLink;
+
+                } else {
+                    createElementWithHTML( mapTypes, "span", "label", bindingOptions.noTypesLabel );
+                }
             }
         }
 
@@ -904,19 +909,7 @@
 
         if ( bindingOptions.mapTogglesEnabled ) {
             day.onclick = function() {
-                if ( !bindingOptions.currentView.colorsVisible.hasOwnProperty( mapRangeColor.id ) ) {
-                    bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] = true;
-                }
-    
-                if ( bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] ) {
-                    day.className = "day";
-                } else {
-                    day.className = "day " + mapRangeColor.cssClassName;
-                }
-    
-                bindingOptions.currentView.colorsVisible[ mapRangeColor.id ] = !bindingOptions.currentView.colorsVisible[ mapRangeColor.id ];
-    
-                renderControlContainer( bindingOptions );
+                toggleMapRangeColorVisibleState( bindingOptions, mapRangeColor.id );
             };
 
         } else {
@@ -932,17 +925,47 @@
      */
 
     function isHeatMapColorVisible( bindingOptions, id ) {
-        return !bindingOptions.currentView.colorsVisible.hasOwnProperty( id ) || bindingOptions.currentView.colorsVisible[ id ];
+        var result = false,
+            mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            var mapRangeColor = bindingOptions.mapRangeColors[ mapRangeColorsIndex ];
+
+            if ( mapRangeColor.id === id && ( !isDefinedBoolean( mapRangeColor.visible ) || mapRangeColor.visible ) ) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
     }
 
     function updateMapRangeColorToggles( bindingOptions, flag ) {
         var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
 
         for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            bindingOptions.currentView.colorsVisible[ bindingOptions.mapRangeColors[ mapRangeColorsIndex ].id ] = flag;
+            bindingOptions.mapRangeColors[ mapRangeColorsIndex ].visible = flag;
+
+            fireCustomTrigger( bindingOptions.onMapRangeTypeToggle, bindingOptions.mapRangeColors[ mapRangeColorsIndex ].id, flag );
         }
 
         renderControlContainer( bindingOptions );
+    }
+
+    function toggleMapRangeColorVisibleState( bindingOptions, id ) {
+        var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+
+        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
+            var mapRangeColor = bindingOptions.mapRangeColors[ mapRangeColorsIndex ];
+
+            if ( mapRangeColor.id === id ) {
+                mapRangeColor.visible = !( isDefinedBoolean( mapRangeColor.visible ) && mapRangeColor.visible );
+
+                fireCustomTrigger( bindingOptions.onMapRangeTypeToggle, mapRangeColor.id, mapRangeColor.visible );
+                renderControlContainer( bindingOptions );
+                break;
+            }
+        }
     }
 
     function getMapRangeColor( mapRangeColors, dateCount ) {
@@ -1168,6 +1191,7 @@
         options.tooltipDelay = getDefaultNumber( options.tooltipDelay, 750 );
         options.exportType = getDefaultString( options.exportType, _export_Type_Csv );
         options.noTypesLabel = getDefaultString( options.noTypesLabel, null );
+        options.noTypesLabelLink = getDefaultString( options.noTypesLabelLink, null );
 
         if ( isInvalidOptionArray( options.monthsToShow ) ) {
             options.monthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -1188,22 +1212,26 @@
             {
                 minimum: 10,
                 cssClassName: "day-color-1",
-                tooltipText: "Day Color 1"
+                tooltipText: "Day Color 1",
+                visible: true
             },
             {
                 minimum: 15,
                 cssClassName: "day-color-2",
-                tooltipText: "Day Color 2"
+                tooltipText: "Day Color 2",
+                visible: true
             },
             {
                 minimum: 20,
                 cssClassName: "day-color-3",
-                tooltipText: "Day Color 3"
+                tooltipText: "Day Color 3",
+                visible: true
             },
             {
                 minimum: 25,
                 cssClassName: "day-color-4",
-                tooltipText: "Day Color 4"
+                tooltipText: "Day Color 4",
+                visible: true
             }
         ] );
 
@@ -1241,6 +1269,7 @@
         options.onRemove = getDefaultFunction( options.onRemove, null );
         options.onReset = getDefaultFunction( options.onReset, null );
         options.onViewSwitch = getDefaultFunction( options.onViewSwitch, null );
+        options.onMapRangeTypeToggle = getDefaultFunction( options.onMapRangeTypeToggle, null );
 
         return options;
     }
@@ -2346,7 +2375,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.9.1";
+        return "1.9.2";
     };
 
 

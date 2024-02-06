@@ -1,4 +1,4 @@
-/*! Heat.js v1.9.1 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v1.9.2 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -52,7 +52,6 @@
     bindingOptions.currentView.chartContentsScrollLeft = 0;
     bindingOptions.currentView.statisticsContents = null;
     bindingOptions.currentView.statisticsContentsScrollLeft = 0;
-    bindingOptions.currentView.colorsVisible = {};
     bindingOptions.currentView.year = bindingOptions.year;
     bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
     if (view === _elements_View_Name_Map) {
@@ -577,7 +576,12 @@
       }
     } else {
       if (isDefinedString(bindingOptions.noTypesLabel)) {
-        createElementWithHTML(mapTypes, "span", "label", bindingOptions.noTypesLabel);
+        if (isDefinedString(bindingOptions.noTypesLabelLink)) {
+          var link = createElementWithHTML(mapTypes, "a", "label", bindingOptions.noTypesLabel);
+          link.href = bindingOptions.noTypesLabelLink;
+        } else {
+          createElementWithHTML(mapTypes, "span", "label", bindingOptions.noTypesLabel);
+        }
       }
     }
     if (bindingOptions.showGuide) {
@@ -630,31 +634,46 @@
     }
     if (bindingOptions.mapTogglesEnabled) {
       day.onclick = function() {
-        if (!bindingOptions.currentView.colorsVisible.hasOwnProperty(mapRangeColor.id)) {
-          bindingOptions.currentView.colorsVisible[mapRangeColor.id] = true;
-        }
-        if (bindingOptions.currentView.colorsVisible[mapRangeColor.id]) {
-          day.className = "day";
-        } else {
-          day.className = "day " + mapRangeColor.cssClassName;
-        }
-        bindingOptions.currentView.colorsVisible[mapRangeColor.id] = !bindingOptions.currentView.colorsVisible[mapRangeColor.id];
-        renderControlContainer(bindingOptions);
+        toggleMapRangeColorVisibleState(bindingOptions, mapRangeColor.id);
       };
     } else {
       addClass(day, "no-hover");
     }
   }
   function isHeatMapColorVisible(bindingOptions, id) {
-    return !bindingOptions.currentView.colorsVisible.hasOwnProperty(id) || bindingOptions.currentView.colorsVisible[id];
+    var result = false;
+    var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+    var mapRangeColorsIndex = 0;
+    for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
+      var mapRangeColor = bindingOptions.mapRangeColors[mapRangeColorsIndex];
+      if (mapRangeColor.id === id && (!isDefinedBoolean(mapRangeColor.visible) || mapRangeColor.visible)) {
+        result = true;
+        break;
+      }
+    }
+    return result;
   }
   function updateMapRangeColorToggles(bindingOptions, flag) {
     var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
     var mapRangeColorsIndex = 0;
     for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
-      bindingOptions.currentView.colorsVisible[bindingOptions.mapRangeColors[mapRangeColorsIndex].id] = flag;
+      bindingOptions.mapRangeColors[mapRangeColorsIndex].visible = flag;
+      fireCustomTrigger(bindingOptions.onMapRangeTypeToggle, bindingOptions.mapRangeColors[mapRangeColorsIndex].id, flag);
     }
     renderControlContainer(bindingOptions);
+  }
+  function toggleMapRangeColorVisibleState(bindingOptions, id) {
+    var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+    var mapRangeColorsIndex = 0;
+    for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
+      var mapRangeColor = bindingOptions.mapRangeColors[mapRangeColorsIndex];
+      if (mapRangeColor.id === id) {
+        mapRangeColor.visible = !(isDefinedBoolean(mapRangeColor.visible) && mapRangeColor.visible);
+        fireCustomTrigger(bindingOptions.onMapRangeTypeToggle, mapRangeColor.id, mapRangeColor.visible);
+        renderControlContainer(bindingOptions);
+        break;
+      }
+    }
   }
   function getMapRangeColor(mapRangeColors, dateCount) {
     var mapRangeColorsLength = mapRangeColors.length;
@@ -830,6 +849,7 @@
     options.tooltipDelay = getDefaultNumber(options.tooltipDelay, 750);
     options.exportType = getDefaultString(options.exportType, _export_Type_Csv);
     options.noTypesLabel = getDefaultString(options.noTypesLabel, null);
+    options.noTypesLabelLink = getDefaultString(options.noTypesLabelLink, null);
     if (isInvalidOptionArray(options.monthsToShow)) {
       options.monthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     }
@@ -841,7 +861,7 @@
     return buildAttributeOptionCustomTriggers(options);
   }
   function buildAttributeOptionMapRanges(options) {
-    options.mapRangeColors = getDefaultArray(options.mapRangeColors, [{minimum:10, cssClassName:"day-color-1", tooltipText:"Day Color 1"}, {minimum:15, cssClassName:"day-color-2", tooltipText:"Day Color 2"}, {minimum:20, cssClassName:"day-color-3", tooltipText:"Day Color 3"}, {minimum:25, cssClassName:"day-color-4", tooltipText:"Day Color 4"}]);
+    options.mapRangeColors = getDefaultArray(options.mapRangeColors, [{minimum:10, cssClassName:"day-color-1", tooltipText:"Day Color 1", visible:true}, {minimum:15, cssClassName:"day-color-2", tooltipText:"Day Color 2", visible:true}, {minimum:20, cssClassName:"day-color-3", tooltipText:"Day Color 3", visible:true}, {minimum:25, cssClassName:"day-color-4", tooltipText:"Day Color 4", visible:true}]);
     var mapRangeColorsLength = options.mapRangeColors.length;
     var mapRangeColorsIndex = 0;
     for (; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++) {
@@ -872,6 +892,7 @@
     options.onRemove = getDefaultFunction(options.onRemove, null);
     options.onReset = getDefaultFunction(options.onReset, null);
     options.onViewSwitch = getDefaultFunction(options.onViewSwitch, null);
+    options.onMapRangeTypeToggle = getDefaultFunction(options.onMapRangeTypeToggle, null);
     return options;
   }
   function getTotalDaysInMonth(year, month) {
@@ -1417,7 +1438,7 @@
     return result;
   };
   this.getVersion = function() {
-    return "1.9.1";
+    return "1.9.2";
   };
   (function(documentObject, windowObject, mathObject, jsonObject) {
     _parameter_Document = documentObject;

@@ -1,5 +1,14 @@
 # Heat.js - Change Log:
 
+## Version 1.9.2:
+- Updated the README documentation.
+- Added a "visible" property to the binding option configuration "mapRangeColors", which will allow you to set the visible ranges on load.
+- Added a new binding option custom trigger called "onMapRangeTypeToggle", which states an event that should be triggered when a map range's visible state is toggled on/off.
+- Added a new binding option called "noTypesLabelLink", which states a link that should be used for the "noTypesLabel" label (defaults to null).
+
+<br>
+
+
 ## Version 1.9.1:
 - The Chart/Statistics views now hide the margin-left of the first bar when displayed in mobile view.
 - The years drop-down list now scrolls to the active year when first opened (or after the year is changed).

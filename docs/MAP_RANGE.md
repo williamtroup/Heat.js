@@ -11,6 +11,7 @@ Below is the format that is expected for a map range object when calling "setCon
 | *string* | cssClassName | The CSS class name to apply to the day when the minimum value is met. |
 | *string* | tooltipText | The tooltip text that should be shown for the item in the guide. |
 | *string* | id | The unique identifier for this item. |
+| *boolean* | visible | States if the item should be shown in the views (defaults to true). |
 
 <br>
 
