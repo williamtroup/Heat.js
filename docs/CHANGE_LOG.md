@@ -1,5 +1,11 @@
 # Heat.js - Change Log:
 
+## Version 2.0.0:
+- 
+
+<br>
+
+
 ## Version 1.9.2:
 - Updated the README documentation.
 - Added a "visible" property to the binding option configuration "mapRangeColors", which will allow you to set the visible ranges on load.
