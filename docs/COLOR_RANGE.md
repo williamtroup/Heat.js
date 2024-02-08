@@ -1,6 +1,6 @@
-# Heat.js - Map Range:
+# Heat.js - Color Range:
 
-Below is the format that is expected for a map range object when calling "setConfiguration()".
+Below is the format that is expected for a color range object when calling "setConfiguration()".
 <br>
 <br>
 
@@ -21,7 +21,7 @@ Below is the format that is expected for a map range object when calling "setCon
 ```markdown
 <script> 
   $heat.setConfiguration( {
-      mapRangeColors: [
+      colorRanges: [
         {
             minimum: 10,
             cssClassName: "day-color-1"

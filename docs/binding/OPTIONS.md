@@ -14,7 +14,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | showTitle | States if the title is shown (defaults to true). |
 | *boolean* | showYearSelector | States if the year selector (and buttons) is shown (defaults to true). |
 | *boolean* | showRefreshButton | States if the "Refresh" button should be shown (defaults to false). |
-| *Object[]* | mapRangeColors | The heap-map ranges that should be used for specific colors (first default is [ { minimum: 10, cssClassName: 'day-color-1' } ]). |
+| *Object[]* | colorRanges | The colors that should be used for specific ranges (first default is [ { minimum: 10, cssClassName: 'day-color-1' } ]). |
 | *boolean* | showExportButton | States if the "Export" button should be shown (defaults to false). |
 | *boolean* | mapTogglesEnabled | States if the heat map toggles are enabled (defaults to true). |
 | *boolean* | exportOnlyYearBeingViewed | States if only the data for the year being viewed should be exported (defaults to true). |

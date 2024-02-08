@@ -436,7 +436,7 @@
         }
 
         var months = createElement( map, "div", "months" ),
-            mapRangeColors = getSortedMapRanges( bindingOptions );
+            colorRanges = getSortedMapRanges( bindingOptions );
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             if ( isMonthVisible( bindingOptions.views.map.monthsToShow, monthIndex ) ) {
@@ -470,7 +470,7 @@
                         var day = null;
 
                         if ( isDayVisible( bindingOptions.views.map.daysToShow, actualDay ) ) {
-                            day = renderControlMapMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, mapRangeColors );
+                            day = renderControlMapMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, colorRanges );
                         }
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
@@ -510,7 +510,7 @@
         }
     }
 
-    function renderControlMapMonthDay( bindingOptions, currentDayColumn, dayNumber, month, year, mapRangeColors ) {
+    function renderControlMapMonthDay( bindingOptions, currentDayColumn, dayNumber, month, year, colorRanges ) {
         var actualDay = dayNumber + 1,
             day = createElement( currentDayColumn, "div", "day" ),
             date = new Date( year, month, actualDay ),
@@ -537,10 +537,10 @@
             addClass( day, "no-hover" );
         }
 
-        var useMapRangeColor = getMapRangeColor( mapRangeColors, dateCount );
+        var useColorRange = getColorRange( colorRanges, dateCount );
 
-        if ( isDefined( useMapRangeColor ) && isHeatMapColorVisible( bindingOptions, useMapRangeColor.id ) ) {
-            addClass( day, useMapRangeColor.cssClassName );
+        if ( isDefined( useColorRange ) && isHeatMapColorVisible( bindingOptions, useColorRange.id ) ) {
+            addClass( day, useColorRange.cssClassName );
         }
 
         return day;
@@ -561,7 +561,7 @@
         var chart = createElement( bindingOptions.currentView.chartContents, "div", "chart" ),
             labels = createElement( chart, "div", "y-labels" ),
             dayLines = createElement( chart, "div", "day-lines" ),
-            mapRangeColors = getSortedMapRanges( bindingOptions ),
+            colorRanges = getSortedMapRanges( bindingOptions ),
             largestValueForCurrentYear = getLargestValueForChartYear( bindingOptions ),
             currentYear = bindingOptions.currentView.year,
             labelsWidth = 0;
@@ -601,7 +601,7 @@
 
                     for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                         if ( isDayVisible( bindingOptions.views.chart.daysToShow, actualDay ) ) {
-                            renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, mapRangeColors, pixelsPerNumbers );
+                            renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, colorRanges, pixelsPerNumbers );
                         }
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
@@ -641,7 +641,7 @@
         }
     }
 
-    function renderControlChartDay( dayLines, bindingOptions, day, month, year, mapRangeColors, pixelsPerNumbers ) {
+    function renderControlChartDay( dayLines, bindingOptions, day, month, year, colorRanges, pixelsPerNumbers ) {
         var date = new Date( year, month, day ),
             dayLine = createElement( dayLines, "div", "day-line" ),
             dateCount = getCurrentViewData( bindingOptions )[ toStorageDate( date ) ];
@@ -666,10 +666,10 @@
             addClass( dayLine, "no-hover" );
         }
 
-        var useMapRangeColor = getMapRangeColor( mapRangeColors, dateCount );
+        var useColorRange = getColorRange( colorRanges, dateCount );
 
-        if ( isDefined( useMapRangeColor ) && isHeatMapColorVisible( bindingOptions, useMapRangeColor.id ) ) {
-            addClass( dayLine, useMapRangeColor.cssClassName );
+        if ( isDefined( useColorRange ) && isHeatMapColorVisible( bindingOptions, useColorRange.id ) ) {
+            addClass( dayLine, useColorRange.cssClassName );
         }
     }
 
@@ -708,14 +708,14 @@
             statisticsRanges = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics-ranges" ),
             labels = createElement( statistics, "div", "y-labels" ),
             rangeLines = createElement( statistics, "div", "range-lines" ),
-            mapRangeColors = getSortedMapRanges( bindingOptions ),
-            mapRangeValuesForCurrentYear = getLargestValuesForEachRangeType( bindingOptions, mapRangeColors );
+            colorRanges = getSortedMapRanges( bindingOptions ),
+            colorRangeValuesForCurrentYear = getLargestValuesForEachRangeType( bindingOptions, colorRanges );
 
-        if ( mapRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views.statistics.showChartYLabels ) {
-            var topLabel = createElementWithHTML( labels, "div", "label-0", mapRangeValuesForCurrentYear.largestValue.toString() );
-            createElementWithHTML( labels, "div", "label-25", ( _parameter_Math.floor( mapRangeValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
-            createElementWithHTML( labels, "div", "label-50", _parameter_Math.floor( mapRangeValuesForCurrentYear.largestValue / 2 ).toString() );
-            createElementWithHTML( labels, "div", "label-75", _parameter_Math.floor( mapRangeValuesForCurrentYear.largestValue / 4 ).toString() );
+        if ( colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views.statistics.showChartYLabels ) {
+            var topLabel = createElementWithHTML( labels, "div", "label-0", colorRangeValuesForCurrentYear.largestValue.toString() );
+            createElementWithHTML( labels, "div", "label-25", ( _parameter_Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
+            createElementWithHTML( labels, "div", "label-50", _parameter_Math.floor( colorRangeValuesForCurrentYear.largestValue / 2 ).toString() );
+            createElementWithHTML( labels, "div", "label-75", _parameter_Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ).toString() );
             createElementWithHTML( labels, "div", "label-100", "0" );
 
             labels.style.width = topLabel.offsetWidth + "px";
@@ -726,7 +726,7 @@
             labels = null;
         }
 
-        if ( mapRangeValuesForCurrentYear.largestValue === 0 ) {
+        if ( colorRangeValuesForCurrentYear.largestValue === 0 ) {
             bindingOptions.currentView.statisticsContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
             statistics.parentNode.removeChild( statistics );
             statisticsRanges.parentNode.removeChild( statisticsRanges );
@@ -734,11 +734,11 @@
             createElementWithHTML( bindingOptions.currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage );
 
         } else {
-            var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / mapRangeValuesForCurrentYear.largestValue;
+            var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / colorRangeValuesForCurrentYear.largestValue;
 
-            for ( var type in mapRangeValuesForCurrentYear.types ) {
-                if ( mapRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
-                    renderControlStatisticsDay( type, rangeLines, mapRangeValuesForCurrentYear.types[ type ], bindingOptions, mapRangeColors, pixelsPerNumbers );
+            for ( var type in colorRangeValuesForCurrentYear.types ) {
+                if ( colorRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
+                    renderControlStatisticsDay( type, rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers );
                     createElementWithHTML( statisticsRanges, "div", "range-name", type + "+" );
                 }
             }
@@ -749,21 +749,21 @@
         }
     }
 
-    function renderControlStatisticsDay( mapRangeMinimum, dayLines, rangeCount, bindingOptions, mapRangeColors, pixelsPerNumbers ) {
+    function renderControlStatisticsDay( colorRangeMinimum, dayLines, rangeCount, bindingOptions, colorRanges, pixelsPerNumbers ) {
         var rangeLine = createElement( dayLines, "div", "range-line no-hover" ),
-            mapRangeColor = getMapRangeColorByMinimum( mapRangeColors, mapRangeMinimum );
+            colorRange = getColorRangeByMinimum( colorRanges, colorRangeMinimum );
 
         rangeLine.style.height = ( rangeCount * pixelsPerNumbers ) + "px";
         rangeLine.style.setProperty( "border-bottom-width", "0", "important" );
 
         addToolTip( rangeLine, bindingOptions, rangeCount.toString() );
 
-        if ( isDefined( mapRangeColor ) && isHeatMapColorVisible( bindingOptions, mapRangeColor.id ) ) {
-            addClass( rangeLine, mapRangeColor.cssClassName );
+        if ( isDefined( colorRange ) && isHeatMapColorVisible( bindingOptions, colorRange.id ) ) {
+            addClass( rangeLine, colorRange.cssClassName );
         }
     }
 
-    function getLargestValuesForEachRangeType( bindingOptions, mapRangeColors ) {
+    function getLargestValuesForEachRangeType( bindingOptions, colorRanges ) {
         var types = {},
             largestValue = 0,
             data = getCurrentViewData( bindingOptions );
@@ -782,19 +782,19 @@
                         weekDayNumber = getWeekdayNumber( storageDateObject );
 
                     if ( isMonthVisible( bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.statistics.daysToShow, weekDayNumber ) ) {
-                        var useMapRangeColor = getMapRangeColor( mapRangeColors, data[ storageDate ] );
+                        var useColorRange = getColorRange( colorRanges, data[ storageDate ] );
 
-                        if ( !isDefined( useMapRangeColor ) ) {
+                        if ( !isDefined( useColorRange ) ) {
                             types[ "0" ]++;
     
                         } else {
-                            if ( !types.hasOwnProperty( useMapRangeColor.minimum.toString() ) ) {
-                                types[ useMapRangeColor.minimum.toString() ] = 0;
+                            if ( !types.hasOwnProperty( useColorRange.minimum.toString() ) ) {
+                                types[ useColorRange.minimum.toString() ] = 0;
                             }
     
-                            types[ useMapRangeColor.minimum ]++;
+                            types[ useColorRange.minimum ]++;
                             
-                            largestValue = _parameter_Math.max( largestValue, types[ useMapRangeColor.minimum ] );
+                            largestValue = _parameter_Math.max( largestValue, types[ useColorRange.minimum ] );
                         }
                     }
                 }
@@ -855,7 +855,7 @@
     
             if ( bindingOptions.mapTogglesEnabled ) {
                 lessText.onclick = function() {
-                    updateMapRangeColorToggles( bindingOptions, false );
+                    updateColorRangeToggles( bindingOptions, false );
                 };
     
             } else {
@@ -863,18 +863,18 @@
             }
     
             var days = createElement( mapToggles, "div", "days" ),
-                mapRangeColors = getSortedMapRanges( bindingOptions ),
-                mapRangeColorsLength = mapRangeColors.length;
+                colorRanges = getSortedMapRanges( bindingOptions ),
+                colorRangesLength = colorRanges.length;
     
-            for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-                renderControlViewGuideDay( bindingOptions, days, mapRangeColors[ mapRangeColorsIndex ] );
+            for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+                renderControlViewGuideDay( bindingOptions, days, colorRanges[ colorRangesIndex ] );
             }
     
             var moreText = createElementWithHTML( mapToggles, "div", "more-text", _configuration.moreText );
     
             if ( bindingOptions.mapTogglesEnabled ) {
                 moreText.onclick = function() {
-                    updateMapRangeColorToggles( bindingOptions, true );
+                    updateColorRangeToggles( bindingOptions, true );
                 };
     
             } else {
@@ -900,20 +900,20 @@
         };
     }
 
-    function renderControlViewGuideDay( bindingOptions, days, mapRangeColor ) {
+    function renderControlViewGuideDay( bindingOptions, days, colorRange ) {
         var day = createElement( days, "div" );
 
-        addToolTip( day, bindingOptions, mapRangeColor.tooltipText );
+        addToolTip( day, bindingOptions, colorRange.tooltipText );
 
-        if ( isHeatMapColorVisible( bindingOptions, mapRangeColor.id ) ) {
-            day.className = "day " + mapRangeColor.cssClassName;
+        if ( isHeatMapColorVisible( bindingOptions, colorRange.id ) ) {
+            day.className = "day " + colorRange.cssClassName;
         } else {
             day.className = "day";
         }
 
         if ( bindingOptions.mapTogglesEnabled ) {
             day.onclick = function() {
-                toggleMapRangeColorVisibleState( bindingOptions, mapRangeColor.id );
+                toggleColorRangeVisibleState( bindingOptions, colorRange.id );
             };
 
         } else {
@@ -924,18 +924,18 @@
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Map Ranges
+     * Color Ranges
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
     function isHeatMapColorVisible( bindingOptions, id ) {
         var result = false,
-            mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+            colorRangesLength = bindingOptions.colorRanges.length;
 
-        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            var mapRangeColor = bindingOptions.mapRangeColors[ mapRangeColorsIndex ];
+        for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+            var colorRange = bindingOptions.colorRanges[ colorRangesIndex ];
 
-            if ( mapRangeColor.id === id && ( !isDefinedBoolean( mapRangeColor.visible ) || mapRangeColor.visible ) ) {
+            if ( colorRange.id === id && ( !isDefinedBoolean( colorRange.visible ) || colorRange.visible ) ) {
                 result = true;
                 break;
             }
@@ -944,69 +944,69 @@
         return result;
     }
 
-    function updateMapRangeColorToggles( bindingOptions, flag ) {
-        var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+    function updateColorRangeToggles( bindingOptions, flag ) {
+        var colorRangesLength = bindingOptions.colorRanges.length;
 
-        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            bindingOptions.mapRangeColors[ mapRangeColorsIndex ].visible = flag;
+        for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+            bindingOptions.colorRanges[ colorRangesIndex ].visible = flag;
 
-            fireCustomTrigger( bindingOptions.onMapRangeTypeToggle, bindingOptions.mapRangeColors[ mapRangeColorsIndex ].id, flag );
+            fireCustomTrigger( bindingOptions.onMapRangeTypeToggle, bindingOptions.colorRanges[ colorRangesIndex ].id, flag );
         }
 
         renderControlContainer( bindingOptions );
     }
 
-    function toggleMapRangeColorVisibleState( bindingOptions, id ) {
-        var mapRangeColorsLength = bindingOptions.mapRangeColors.length;
+    function toggleColorRangeVisibleState( bindingOptions, id ) {
+        var colorRangesLength = bindingOptions.colorRanges.length;
 
-        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            var mapRangeColor = bindingOptions.mapRangeColors[ mapRangeColorsIndex ];
+        for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+            var colorRange = bindingOptions.colorRanges[ colorRangesIndex ];
 
-            if ( mapRangeColor.id === id ) {
-                mapRangeColor.visible = !( isDefinedBoolean( mapRangeColor.visible ) && mapRangeColor.visible );
+            if ( colorRange.id === id ) {
+                colorRange.visible = !( isDefinedBoolean( colorRange.visible ) && colorRange.visible );
 
-                fireCustomTrigger( bindingOptions.onMapRangeTypeToggle, mapRangeColor.id, mapRangeColor.visible );
+                fireCustomTrigger( bindingOptions.onMapRangeTypeToggle, colorRange.id, colorRange.visible );
                 renderControlContainer( bindingOptions );
                 break;
             }
         }
     }
 
-    function getMapRangeColor( mapRangeColors, dateCount ) {
-        var mapRangeColorsLength = mapRangeColors.length,
-            useMapRangeColor = null;
+    function getColorRange( colorRanges, dateCount ) {
+        var colorRangesLength = colorRanges.length,
+            useColorRange = null;
 
-        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
+        for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+            var colorRange = colorRanges[ colorRangesIndex ];
 
-            if ( dateCount >= mapRangeColor.minimum ) {
-                useMapRangeColor = mapRangeColor;
+            if ( dateCount >= colorRange.minimum ) {
+                useColorRange = colorRange;
             } else {
                 break;
             }
         }
 
-        return useMapRangeColor;
+        return useColorRange;
     }
 
-    function getMapRangeColorByMinimum( mapRangeColors, minimum ) {
-        var mapRangeColorsLength = mapRangeColors.length,
-            useMapRangeColor = null;
+    function getColorRangeByMinimum( colorRanges, minimum ) {
+        var colorRangesLength = colorRanges.length,
+            useColorRange = null;
 
-        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            var mapRangeColor = mapRangeColors[ mapRangeColorsIndex ];
+        for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+            var colorRange = colorRanges[ colorRangesIndex ];
 
-            if ( minimum.toString() === mapRangeColor.minimum.toString() ) {
-                useMapRangeColor = mapRangeColor;
+            if ( minimum.toString() === colorRange.minimum.toString() ) {
+                useColorRange = colorRange;
                 break;
             }
         }
 
-        return useMapRangeColor;
+        return useColorRange;
     }
 
     function getSortedMapRanges( bindingOptions ) {
-        return bindingOptions.mapRangeColors.sort( function( a, b ) {
+        return bindingOptions.colorRanges.sort( function( a, b ) {
             return a.minimum - b.minimum;
         } );
     }
@@ -1252,7 +1252,7 @@
     }
 
     function buildAttributeOptionMapRanges( options ) {
-        options.mapRangeColors = getDefaultArray( options.mapRangeColors, [
+        options.colorRanges = getDefaultArray( options.colorRanges, [
             {
                 minimum: 10,
                 cssClassName: "day-color-1",
@@ -1279,11 +1279,11 @@
             }
         ] );
 
-        var mapRangeColorsLength = options.mapRangeColors.length;
+        var colorRangesLength = options.colorRanges.length;
 
-        for ( var mapRangeColorsIndex = 0; mapRangeColorsIndex < mapRangeColorsLength; mapRangeColorsIndex++ ) {
-            if ( !isDefinedString( options.mapRangeColors[ mapRangeColorsIndex ].id ) ) {
-                options.mapRangeColors[ mapRangeColorsIndex ].id = newGuid();
+        for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+            if ( !isDefinedString( options.colorRanges[ colorRangesIndex ].id ) ) {
+                options.colorRanges[ colorRangesIndex ].id = newGuid();
             }
         }
 

@@ -5,6 +5,9 @@
 #### **New Features:**
 - BREAKING: All binding options that affect the views and how they look are now split up into categories under a new "views" area.
 
+#### **Binding Options:**
+- BREAKING: Renamed the binding option "mapRangeColors" to "colorRanges" (more consistent with the project), and renamed documentation.
+
 <br>
 
 
