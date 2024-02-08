@@ -113,7 +113,7 @@ Make sure you include the "DOCTYPE html" tag at the top of your HTML, as follows
 ### 3. DOM Element Binding:
 
 ```markdown
-<div id="heat-map" data-heat-options="{ 'showDayNames': true }">
+<div id="heat-map" data-heat-options="{ 'views': { 'map': { 'showDayNames': true } } }">
     Your HTML.
 </div>
 ```

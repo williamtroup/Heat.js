@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 2.0.0:
-- 
+
+#### **New Features:**
+- BREAKING: All binding options that affect the views and how they look are now split up into categories under a new "views" area.
 
 <br>
 
