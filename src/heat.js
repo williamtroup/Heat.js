@@ -736,10 +736,17 @@
         } else {
             var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / colorRangeValuesForCurrentYear.largestValue;
 
+            if ( !bindingOptions.views.statistics.showColorRangeLabels ) {
+                statisticsRanges.parentNode.removeChild( statisticsRanges );
+            }
+
             for ( var type in colorRangeValuesForCurrentYear.types ) {
                 if ( colorRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
                     renderControlStatisticsDay( type, rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers );
-                    createElementWithHTML( statisticsRanges, "div", "range-name", type + "+" );
+
+                    if ( bindingOptions.views.statistics.showColorRangeLabels ) {
+                        createElementWithHTML( statisticsRanges, "div", "range-name", type + "+" );
+                    }
                 }
             }
     
@@ -1239,6 +1246,7 @@
     function buildAttributeOptionStatisticsView( options ) {
         options.views.statistics = !isDefinedObject( options.views.statistics ) ? {} : options.views.statistics;
         options.views.statistics.showChartYLabels = getDefaultBoolean( options.views.statistics.showChartYLabels, true );
+        options.views.statistics.showColorRangeLabels = getDefaultBoolean( options.views.statistics.showColorRangeLabels, true );
 
         if ( isInvalidOptionArray( options.views.statistics.monthsToShow ) ) {
             options.views.statistics.monthsToShow = _default_MonthsToShow;

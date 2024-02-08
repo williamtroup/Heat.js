@@ -7,6 +7,7 @@
 
 #### **Binding Options:**
 - BREAKING: Renamed the binding option "mapRangeColors" to "colorRanges" (more consistent with the project), and renamed documentation.
+- Added a new binding option called "views.statistics.showColorRangeLabels", which states if the chart X color range labels should be shown (defaults to true).
 
 <br>
 

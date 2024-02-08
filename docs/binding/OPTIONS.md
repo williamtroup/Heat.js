@@ -63,6 +63,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | Type: | Name: | Description: |
 | --- | --- | --- |
 | *boolean* | showChartYLabels | States if the chart Y axis labels should be shown (defaults to true). |
+| *boolean* | showColorRangeLabels | States if the chart X color range labels should be shown (defaults to true). |
 | *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
 | *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
 
