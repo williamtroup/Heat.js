@@ -13,9 +13,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | showGuide | States if the heat map guide is shown (defaults to true). |
 | *boolean* | showTitle | States if the title is shown (defaults to true). |
 | *boolean* | showYearSelector | States if the year selector (and buttons) is shown (defaults to true). |
-| *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
 | *boolean* | showRefreshButton | States if the "Refresh" button should be shown (defaults to false). |
-| *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
 | *Object[]* | mapRangeColors | The heap-map ranges that should be used for specific colors (first default is [ { minimum: 10, cssClassName: 'day-color-1' } ]). |
 | *boolean* | showExportButton | States if the "Export" button should be shown (defaults to false). |
 | *boolean* | mapTogglesEnabled | States if the heat map toggles are enabled (defaults to true). |
@@ -42,6 +40,8 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | placeMonthNamesOnTheBottom | States if the month names should be placed at the bottom (defaults to false). |
 | *boolean* | showDayNumbers | States if the activity counts should be shown in the days (defaults to false). |
 | *boolean* | showMonthNames | States if the month names are shown (defaults to true). |
+| *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
+| *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
 
 <br/>
 
@@ -52,6 +52,8 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | --- | --- | --- |
 | *boolean* | showChartYLabels | States if the chart Y axis labels should be shown (defaults to true). |
 | *boolean* | showMonthNames | States if the month names are shown (defaults to true). |
+| *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
+| *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
 
 <br/>
 
@@ -61,6 +63,8 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | Type: | Name: | Description: |
 | --- | --- | --- |
 | *boolean* | showChartYLabels | States if the chart Y axis labels should be shown (defaults to true). |
+| *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
+| *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
 
 <br/>
 
