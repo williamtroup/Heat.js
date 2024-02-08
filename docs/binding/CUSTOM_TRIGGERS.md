@@ -115,12 +115,12 @@ Fires when the view is switched.
 ***Parameter:*** view: '*string*' - The view selected.
 <br>
 
-### options.onMapRangeTypeToggle( *id*, *visible* ):
-Fires when a map range type is toggled on/off
+### options.onColorRangeTypeToggle( *id*, *visible* ):
+Fires when a color range type is toggled on/off
 <br>
-***Parameter:*** id: '*string*' - The ID of the map range.
+***Parameter:*** id: '*string*' - The ID of the color range.
 <br>
-***Parameter:*** visible: '*boolean*' - States if the map range is visible.
+***Parameter:*** visible: '*boolean*' - States if the color range is visible.
 <br>
 <br>
 

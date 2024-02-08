@@ -663,7 +663,7 @@
     var colorRangesIndex = 0;
     for (; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
       bindingOptions.colorRanges[colorRangesIndex].visible = flag;
-      fireCustomTrigger(bindingOptions.onMapRangeTypeToggle, bindingOptions.colorRanges[colorRangesIndex].id, flag);
+      fireCustomTrigger(bindingOptions.onColorRangeTypeToggle, bindingOptions.colorRanges[colorRangesIndex].id, flag);
     }
     renderControlContainer(bindingOptions);
   }
@@ -674,7 +674,7 @@
       var colorRange = bindingOptions.colorRanges[colorRangesIndex];
       if (colorRange.id === id) {
         colorRange.visible = !(isDefinedBoolean(colorRange.visible) && colorRange.visible);
-        fireCustomTrigger(bindingOptions.onMapRangeTypeToggle, colorRange.id, colorRange.visible);
+        fireCustomTrigger(bindingOptions.onColorRangeTypeToggle, colorRange.id, colorRange.visible);
         renderControlContainer(bindingOptions);
         break;
       }
@@ -928,7 +928,7 @@
     options.onRemove = getDefaultFunction(options.onRemove, null);
     options.onReset = getDefaultFunction(options.onReset, null);
     options.onViewSwitch = getDefaultFunction(options.onViewSwitch, null);
-    options.onMapRangeTypeToggle = getDefaultFunction(options.onMapRangeTypeToggle, null);
+    options.onColorRangeTypeToggle = getDefaultFunction(options.onColorRangeTypeToggle, null);
     return options;
   }
   function getTotalDaysInMonth(year, month) {
