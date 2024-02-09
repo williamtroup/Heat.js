@@ -124,12 +124,18 @@
         bindingOptions.currentView.tooltipTimer = null;
         bindingOptions.currentView.mapContents = null;
         bindingOptions.currentView.mapContentsScrollLeft = 0;
-        bindingOptions.currentView.chartContents = null;
-        bindingOptions.currentView.chartContentsScrollLeft = 0;
-        bindingOptions.currentView.statisticsContents = null;
-        bindingOptions.currentView.statisticsContentsScrollLeft = 0;
         bindingOptions.currentView.year = bindingOptions.year;
         bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
+
+        if ( bindingOptions.views.chart.enabled ) {
+            bindingOptions.currentView.chartContents = null;
+            bindingOptions.currentView.chartContentsScrollLeft = 0;
+        }
+        
+        if ( bindingOptions.views.statistics.enabled ) {
+            bindingOptions.currentView.statisticsContents = null;
+            bindingOptions.currentView.statisticsContentsScrollLeft = 0;
+        }
 
         if ( view === _elements_View_Name_Map ) {
             bindingOptions.currentView.view = _elements_View_Map;
@@ -163,11 +169,11 @@
             bindingOptions.currentView.mapContentsScrollLeft = bindingOptions.currentView.mapContents.scrollLeft;
         }
 
-        if ( isDefined( bindingOptions.currentView.chartContents ) ) {
+        if ( bindingOptions.views.chart.enabled && isDefined( bindingOptions.currentView.chartContents ) ) {
             bindingOptions.currentView.chartContentsScrollLeft = bindingOptions.currentView.chartContents.scrollLeft;
         }
 
-        if ( isDefined( bindingOptions.currentView.statisticsContents ) ) {
+        if ( bindingOptions.views.statistics.enabled && isDefined( bindingOptions.currentView.statisticsContents ) ) {
             bindingOptions.currentView.statisticsContentsScrollLeft = bindingOptions.currentView.statisticsContents.scrollLeft;
         }
 
@@ -177,18 +183,26 @@
         renderControlToolTip( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions );
-        renderControlChart( bindingOptions );
-        renderControlStatistics( bindingOptions );
+
+        if ( bindingOptions.views.chart.enabled ) {
+            renderControlChart( bindingOptions );
+
+            bindingOptions.currentView.chartContents.style.display = "none";
+        }
+
+        if ( bindingOptions.views.statistics.enabled ) {
+            renderControlStatistics( bindingOptions );
+
+            bindingOptions.currentView.statisticsContents.style.display = "none";
+        }
 
         bindingOptions.currentView.mapContents.style.display = "none";
-        bindingOptions.currentView.chartContents.style.display = "none";
-        bindingOptions.currentView.statisticsContents.style.display = "none";
 
         if ( bindingOptions.currentView.view === _elements_View_Map ) {
             bindingOptions.currentView.mapContents.style.display = "block";
-        } else if ( bindingOptions.currentView.view === _elements_View_Chart ) {
+        } else if ( bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart ) {
             bindingOptions.currentView.chartContents.style.display = "block";
-        } else if ( bindingOptions.currentView.view === _elements_View_Statistics ) {
+        } else if ( bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics ) {
             bindingOptions.currentView.statisticsContents.style.display = "block";
         } else {
             bindingOptions.currentView.chartContents.style.display = "block";
@@ -284,21 +298,35 @@
             var titleBar = createElement( bindingOptions.currentView.element, "div", "title-bar" ),
                 title = createElement( titleBar, "div", "title" );
 
-            createElement( title, "div", "down-arrow" );
+            if ( bindingOptions.views.chart.enabled || bindingOptions.views.statistics.enabled ) {
+                createElement( title, "div", "down-arrow" );
+            } else {
+                addClass( title, "no-click" );
+            }
 
             if ( bindingOptions.showTitle ) {
                 title.innerHTML += bindingOptions.titleText;
             }
 
-            var titlesList = createElement( title, "div", "titles-list" ),
-                titles = createElement( titlesList, "div", "titles" ),
-                optionMap = createElementWithHTML( titles, "div", "title", _configuration.mapText ),
-                optionChart = createElementWithHTML( titles, "div", "title", _configuration.chartText ),
-                statisticsChart = createElementWithHTML( titles, "div", "title", _configuration.statisticsText );
+            if ( bindingOptions.views.chart.enabled || bindingOptions.views.statistics.enabled ) {
+                var titlesList = createElement( title, "div", "titles-list" ),
+                    titles = createElement( titlesList, "div", "titles" ),
+                    optionMap = createElementWithHTML( titles, "div", "title", _configuration.mapText );
+                    
+                renderTitleDropDownClickEvent( bindingOptions, optionMap, _elements_View_Map, _elements_View_Name_Map );
 
-            renderTitleDropDownClickEvent( bindingOptions, optionMap, _elements_View_Map, _elements_View_Name_Map );
-            renderTitleDropDownClickEvent( bindingOptions, optionChart, _elements_View_Chart, _elements_View_Name_Chart );
-            renderTitleDropDownClickEvent( bindingOptions, statisticsChart, _elements_View_Statistics, _elements_View_Name_Statistics );
+                if ( bindingOptions.views.chart.enabled ) {
+                    var optionChart = createElementWithHTML( titles, "div", "title", _configuration.chartText );
+
+                    renderTitleDropDownClickEvent( bindingOptions, optionChart, _elements_View_Chart, _elements_View_Name_Chart );
+                }
+
+                if ( bindingOptions.views.statistics.enabled ) {
+                    var statisticsChart = createElementWithHTML( titles, "div", "title", _configuration.statisticsText );
+
+                    renderTitleDropDownClickEvent( bindingOptions, statisticsChart, _elements_View_Statistics, _elements_View_Name_Statistics );
+                }
+            }
 
             if ( bindingOptions.showExportButton ) {
                 var exportData = createElementWithHTML( titleBar, "button", "export", _configuration.exportButtonText );
@@ -417,8 +445,14 @@
             currentYear = bindingOptions.currentView.year,
             monthAdded = false;
 
-        renderControlChartContents( bindingOptions );
-        renderControlStatisticsContents( bindingOptions );
+        if ( bindingOptions.views.chart.enabled ) {
+            renderControlChartContents( bindingOptions );
+        }
+        
+        if ( bindingOptions.views.statistics.enabled ) {
+            renderControlStatisticsContents( bindingOptions );
+        }
+
         renderControlViewGuide( bindingOptions );
 
         if ( bindingOptions.views.map.showDayNames ) {
@@ -1229,6 +1263,7 @@
 
     function buildAttributeOptionChartView( options ) {
         options.views.chart = !isDefinedObject( options.views.chart ) ? {} : options.views.chart;
+        options.views.chart.enabled = getDefaultBoolean( options.views.chart.enabled, true );
         options.views.chart.showChartYLabels = getDefaultBoolean( options.views.chart.showChartYLabels, true );
         options.views.chart.showMonthNames = getDefaultBoolean( options.views.chart.showMonthNames, true );
 
@@ -1245,6 +1280,7 @@
 
     function buildAttributeOptionStatisticsView( options ) {
         options.views.statistics = !isDefinedObject( options.views.statistics ) ? {} : options.views.statistics;
+        options.views.statistics.enabled = getDefaultBoolean( options.views.statistics.enabled, true );
         options.views.statistics.showChartYLabels = getDefaultBoolean( options.views.statistics.showChartYLabels, true );
         options.views.statistics.showColorRangeLabels = getDefaultBoolean( options.views.statistics.showColorRangeLabels, true );
 
