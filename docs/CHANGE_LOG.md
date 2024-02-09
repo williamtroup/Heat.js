@@ -20,6 +20,7 @@
 - Added new theme "dist/dark/heat.js.dark.github.theme.css", which shows a dark theme, but with green day colors (the original scheme that looks like GitHub).
 - Added new theme "dist/dark/heat.js.dark.yellow.theme.css", which shows a dark theme, but with yellow day colors.
 - Improved the theme "dist/dark/heat.js.dark.blue.theme.css" (not as dark).
+- Added new theme "dist/light/heat.js.dark.green.theme.css", which shows a light theme, but with green day colors.
 
 #### **Fixes:**
 - Fixed a fault that caused the years drop-down arrow to still appear when the binding option "showYearSelectionDropDown" is set to false.
