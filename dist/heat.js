@@ -1184,7 +1184,7 @@
     _configuration.chartText = getDefaultString(_configuration.chartText, "Chart");
     _configuration.noChartDataMessage = getDefaultString(_configuration.noChartDataMessage, "There is currently no data to view.");
     _configuration.statisticsText = getDefaultString(_configuration.statisticsText, "Statistics");
-    _configuration.noStatisticsDataMessage = getDefaultString(_configuration.noStatisticsDataMessage, "There is currently no statistics to view.");
+    _configuration.noStatisticsDataMessage = getDefaultString(_configuration.noStatisticsDataMessage, "There are currently no statistics to view.");
   }
   function buildDefaultConfigurationArrays() {
     if (isInvalidOptionArray(_configuration.monthNames, 12)) {
