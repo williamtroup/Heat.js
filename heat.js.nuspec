@@ -10,7 +10,7 @@
         <repository type="git" url="https://github.com/williamtroup/Heat.js" branch="main" />
         <readme>README_NUGET.md</readme>
         <license type="expression">MIT</license>
-        <tags>javascript css heat.js html date heatmap generator map chart heat activity trends statistics bar</tags>
+        <tags>javascript css heat.js html date heatmap generator map chart heat activity trends statistics bar themes</tags>
         <icon>docs\images\icon.png</icon>
         <copyright>William Troup</copyright>
     </metadata>
