@@ -16,6 +16,7 @@ $heat.setConfiguration( {
         "chartText": "Kartoittaa",
         "noChartDataMessage": "Tällä hetkellä ei ole tarkasteltavaa dataa.",
         "statisticsText": "Tilastot",
+        "noStatisticsDataMessage": "Tällä hetkellä ei ole tilastoja nähtäväksi.",
         "monthNames": [
                 "tammikuu",
                 "helmikuuta",

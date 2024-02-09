@@ -16,6 +16,7 @@ $heat.setConfiguration( {
         "chartText": "Çizelge",
         "noChartDataMessage": "Şu anda görüntülenecek veri yok.",
         "statisticsText": "İstatistik",
+        "noStatisticsDataMessage": "Şu anda görüntülenecek istatistik yok.",
         "monthNames": [
                 "Ocak",
                 "Şubat",

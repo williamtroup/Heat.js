@@ -16,6 +16,7 @@ $heat.setConfiguration( {
         "chartText": "Գծապատկեր",
         "noChartDataMessage": "Դիտելու համար տվյալներ չկան:",
         "statisticsText": "Վիճակագրություն",
+        "noStatisticsDataMessage": "Ներկայումս դիտելու վիճակագրություն չկա:",
         "monthNames": [
                 "հուն",
                 "փետր",

@@ -16,6 +16,7 @@ $heat.setConfiguration( {
         "chartText": "טבלה",
         "noChartDataMessage": "כרגע אין נתונים לצפייה.",
         "statisticsText": "סטָטִיסטִיקָה",
+        "noStatisticsDataMessage": "כרגע אין נתונים סטטיסטיים לצפייה.",
         "monthNames": [
                 "ינואר",
                 "פברואר",

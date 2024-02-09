@@ -16,6 +16,7 @@ $heat.setConfiguration( {
         "chartText": "Diagramm",
         "noChartDataMessage": "Praegu pole andmeid, mida vaadata.",
         "statisticsText": "Statistika",
+        "noStatisticsDataMessage": "Praegu pole statistikat vaadata.",
         "monthNames": [
                 "jaan",
                 "veebr",

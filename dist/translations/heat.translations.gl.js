@@ -16,6 +16,7 @@ $heat.setConfiguration( {
         "chartText": "Gráfico",
         "noChartDataMessage": "Actualmente non hai datos para ver.",
         "statisticsText": "Estatísticas",
+        "noStatisticsDataMessage": "Actualmente non hai estatísticas para ver.",
         "monthNames": [
                 "Xaneiro",
                 "febreiro",

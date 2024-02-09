@@ -16,6 +16,7 @@ $heat.setConfiguration( {
         "chartText": "Cairt",
         "noChartDataMessage": "Níl aon sonraí le féachaint faoi láthair.",
         "statisticsText": "Staitisticí",
+        "noStatisticsDataMessage": "Níl aon staitisticí le léamh faoi láthair.",
         "monthNames": [
                 "Ean",
                 "Feabh",

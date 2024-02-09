@@ -16,6 +16,7 @@ $heat.setConfiguration( {
         "chartText": "チャート",
         "noChartDataMessage": "現在、表示できるデータはありません。",
         "statisticsText": "統計",
+        "noStatisticsDataMessage": "現在、表示できる統計はありません。",
         "monthNames": [
                 "1月",
                 "2月",

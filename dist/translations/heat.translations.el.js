@@ -16,6 +16,7 @@ $heat.setConfiguration( {
         "chartText": "Διάγραμμα",
         "noChartDataMessage": "Αυτήν τη στιγμή δεν υπάρχουν δεδομένα για προβολή.",
         "statisticsText": "Στατιστική",
+        "noStatisticsDataMessage": "Αυτήν τη στιγμή δεν υπάρχουν στατιστικά στοιχεία για προβολή.",
         "monthNames": [
                 "Ιαν",
                 "Φεβ",

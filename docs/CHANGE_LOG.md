@@ -33,6 +33,7 @@
 #### **Fixes:**
 - Fixed a fault that caused the years drop-down arrow to still appear when the binding option "showYearSelectionDropDown" is set to false.
 - Fixed a grammar mistake in the configuration option "noStatisticsDataMessage".
+- Fixed the configuration option "noStatisticsDataMessage" being missing from all translation files.
 
 <br>
 
