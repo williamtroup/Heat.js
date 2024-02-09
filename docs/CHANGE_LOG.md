@@ -24,7 +24,7 @@
 - Renamed the theme "dist/light/heat.js.light.orange.theme.css" to "heat.js.light.bright-orange.theme.css".
 - Renamed the theme "dist/light/heat.js.light.blue.theme.css" to "heat.js.light.neon-blue.theme.css" (with color improvements).
 - Renamed the theme "dist/dark/heat.js.dark.blue.theme.css" to "heat.js.dark.bright-blue.theme.css" (with color improvements).
-- Renamed the theme "dist/dark/heat.js.dark.orange.theme.css" to "heat.js.dark.bright-orange.theme.css".
+- Renamed the theme "dist/dark/heat.js.dark.orange.theme.css" to "heat.js.dark.bright-orange.theme.css" (with color improvements).
 
 #### **Fixes:**
 - Fixed a fault that caused the years drop-down arrow to still appear when the binding option "showYearSelectionDropDown" is set to false.

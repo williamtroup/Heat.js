@@ -44,7 +44,7 @@
     --heat-js-day-color-2-text-color: var(--heat-js-color-white);
     --heat-js-day-color-3-background-color: rgba( 31, 81, 255, 0.75 );
     --heat-js-day-color-3-border-color: rgba( 31, 81, 255, 0.50 );
-    --heat-js-day-color-3-text-color: var(--heat-js-color-white);
+    --heat-js-day-color-3-text-color: var(--heat-js-color-black);
     --heat-js-day-color-4-background-color: rgba( 31, 81, 255, 1 );
     --heat-js-day-color-4-border-color: rgba( 31, 81, 255, 0.75 );
     --heat-js-day-color-4-text-color: var(--heat-js-color-black);
