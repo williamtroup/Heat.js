@@ -17,26 +17,26 @@ $heat.setConfiguration( {
         "noChartDataMessage": "Daar is tans geen data om te bekyk nie.",
         "statisticsText": "Statistiek",
         "monthNames": [
-          "Jan",
-          "Feb",
-          "Mrt",
-          "Apr",
-          "Mei",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Okt",
-          "Nov",
-          "Des"
+                "Jan",
+                "Feb",
+                "Mrt",
+                "Apr",
+                "Mei",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Okt",
+                "Nov",
+                "Des"
         ],
         "dayNames": [
-          "Ma",
-          "Di",
-          "trou",
-          "Do",
-          "Vr",
-          "Sat",
-          "Son"
+                "Ma",
+                "Di",
+                "trou",
+                "Do",
+                "Vr",
+                "Sat",
+                "Son"
         ]
       } );

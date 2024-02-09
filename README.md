@@ -27,7 +27,7 @@ Heat.js
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
 - Export all data to CSV, JSON, and XML.
-- 40 language translations available!
+- 42 language translations available!
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.
 - 10 additional themes available (for dark and light mode).
@@ -46,6 +46,7 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 
 - `af` Afrikaans
 - `ar` Arabic
+- `hy` Armenian
 - `bn` Bengali
 - `bg` Bulgarian
 - `zh` Chinese (simplified)
