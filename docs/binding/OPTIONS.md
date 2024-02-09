@@ -9,7 +9,6 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
-
 | *boolean* | showGuide | States if the heat map guide is shown (defaults to true). |
 | *boolean* | showTitle | States if the title is shown (defaults to true). |
 | *boolean* | showYearSelector | States if the year selector (and buttons) is shown (defaults to true). |
@@ -33,41 +32,41 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 
 ## View Options: Map:
 
-| Type: | Name: | Description: |
-| --- | --- | --- |
-| *boolean* | showMonthDayGaps | States if the gaps between the days in each month should be shown (defaults to true). |
-| *boolean* | showDayNames | States if the day names are shown (defaults to true). |
-| *boolean* | placeMonthNamesOnTheBottom | States if the month names should be placed at the bottom (defaults to false). |
-| *boolean* | showDayNumbers | States if the activity counts should be shown in the days (defaults to false). |
-| *boolean* | showMonthNames | States if the month names are shown (defaults to true). |
-| *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
-| *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
+| Category: | Type: | Name: | Description: |
+| --- | --- | --- | --- |
+| views.map | *boolean* | showMonthDayGaps | States if the gaps between the days in each month should be shown (defaults to true). |
+| views.map | *boolean* | showDayNames | States if the day names are shown (defaults to true). |
+| views.map | *boolean* | placeMonthNamesOnTheBottom | States if the month names should be placed at the bottom (defaults to false). |
+| views.map | *boolean* | showDayNumbers | States if the activity counts should be shown in the days (defaults to false). |
+| views.map | *boolean* | showMonthNames | States if the month names are shown (defaults to true). |
+| views.map | *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
+| views.map | *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
 
 <br/>
 
 
 ## View Options: Chart:
 
-| Type: | Name: | Description: |
-| --- | --- | --- |
-| *boolean* | enabled | States if this view is enabled (defaults to true). |
-| *boolean* | showChartYLabels | States if the chart Y axis labels should be shown (defaults to true). |
-| *boolean* | showMonthNames | States if the month names are shown (defaults to true). |
-| *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
-| *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
+| Category: | Type: | Name: | Description: |
+| --- | --- | --- | --- |
+| views.chart | *boolean* | enabled | States if this view is enabled (defaults to true). |
+| views.chart | *boolean* | showChartYLabels | States if the chart Y axis labels should be shown (defaults to true). |
+| views.chart | *boolean* | showMonthNames | States if the month names are shown (defaults to true). |
+| views.chart | *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
+| views.chart | *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
 
 <br/>
 
 
 ## View Options: Statistics:
 
-| Type: | Name: | Description: |
-| --- | --- | --- |
-| *boolean* | enabled | States if this view is enabled (defaults to true). |
-| *boolean* | showChartYLabels | States if the chart Y axis labels should be shown (defaults to true). |
-| *boolean* | showColorRangeLabels | States if the chart X color range labels should be shown (defaults to true). |
-| *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
-| *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
+| Category: | Type: | Name: | Description: |
+| --- | --- | --- | --- |
+| views.statistics | *boolean* | enabled | States if this view is enabled (defaults to true). |
+| views.statistics | *boolean* | showChartYLabels | States if the chart Y axis labels should be shown (defaults to true). |
+| views.statistics | *boolean* | showColorRangeLabels | States if the chart X color range labels should be shown (defaults to true). |
+| views.statistics | *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
+| views.statistics | *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
 
 <br/>
 
