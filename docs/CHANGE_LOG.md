@@ -20,6 +20,7 @@
 - Added translation support for Armenian (hy).
 - Added translation support for Belarusian (be).
 - Added translation support for Catalan (ca).
+- Added translation support for Esperanto (eo).
 
 #### **Themes:**
 - The default theme now uses a different shade of green for the days, to move the project away from the GitHub style.

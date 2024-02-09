@@ -44,6 +44,7 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `da` Danish
 - `nl` Dutch
 - `en` English (default)
+- `eo` Esperanto
 - `et` Estonian
 - `fa` Farsi
 - `fi` Finnish
