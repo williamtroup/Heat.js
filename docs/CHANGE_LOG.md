@@ -15,6 +15,9 @@
 #### **Binding Options - Custom Triggers:**
 - BREAKING: Renamed the binding option custom trigger "onMapRangeTypeToggle" to "onColorRangeTypeToggle" (more consistent with the project), and updated documentation.
 
+#### **Translations:**
+- Added translation support for Afrikaans (af).
+
 #### **Themes:**
 - The default theme now uses a different shade of green for the days, to move the project away from the GitHub style.
 - Added new theme "dist/dark/heat.js.dark.github.theme.css", which shows a dark theme, but with green day colors (the original scheme that looks like GitHub).

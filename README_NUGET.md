@@ -33,6 +33,7 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 
 ## What languages are supported?
 
+- `af` Afrikaans
 - `ar` Arabic
 - `bn` Bengali
 - `bg` Bulgarian

@@ -44,6 +44,7 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 
 <h1>What languages are supported?</h1>
 
+- `af` Afrikaans
 - `ar` Arabic
 - `bn` Bengali
 - `bg` Bulgarian
