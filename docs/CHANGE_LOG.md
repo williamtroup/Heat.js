@@ -15,6 +15,9 @@
 #### **Binding Options - Custom Triggers:**
 - BREAKING: Renamed the binding option custom trigger "onMapRangeTypeToggle" to "onColorRangeTypeToggle" (more consistent with the project), and updated documentation.
 
+#### **Fixes:**
+- Fixed a fault that caused the years drop-down arrow to still appear when the binding option "showYearSelectionDropDown" is set to false.
+
 <br>
 
 

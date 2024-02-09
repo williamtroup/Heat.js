@@ -358,9 +358,9 @@
 
                 bindingOptions.currentView.yearText = createElementWithHTML( titleBar, "div", "year-text", bindingOptions.currentView.year );
 
-                createElement( bindingOptions.currentView.yearText, "div", "down-arrow" );
-
                 if ( bindingOptions.showYearSelectionDropDown ) {
+                    createElement( bindingOptions.currentView.yearText, "div", "down-arrow" );
+
                     var yearList = createElement( bindingOptions.currentView.yearText, "div", "years-list" ),
                         years = createElement( yearList, "div", "years" ),
                         thisYear = new Date().getFullYear(),
@@ -383,6 +383,9 @@
 
                     yearList.style.display = "none";
                     yearList.style.visibility = "visible";
+
+                } else {
+                    addClass( bindingOptions.currentView.yearText, "no-click" );
                 }
 
                 var next = createElementWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
