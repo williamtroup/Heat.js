@@ -40,7 +40,6 @@
 
         // Variables: Date Counts
         _elements_DateCounts = {},
-        _elements_DateCounts_DefaultType = "Unknown",
 
         // Variables: View (names)
         _elements_View_Name_Map = "map",
@@ -125,7 +124,7 @@
         bindingOptions.currentView.mapContents = null;
         bindingOptions.currentView.mapContentsScrollLeft = 0;
         bindingOptions.currentView.year = bindingOptions.year;
-        bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
+        bindingOptions.currentView.type = _configuration.unknownTrendText;
 
         if ( bindingOptions.views.chart.enabled ) {
             bindingOptions.currentView.chartContents = null;
@@ -216,7 +215,7 @@
             types: 1
         };
 
-        _elements_DateCounts[ elementId ].type[ _elements_DateCounts_DefaultType ] = {};
+        _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ] = {};
     }
 
     function getCurrentViewData( bindingOptions ) {
@@ -863,8 +862,8 @@
             mapTypes = createElement( guide, "div", "map-types" ),
             noneTypeCount = 0;
 
-        for ( var storageDate in _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ _elements_DateCounts_DefaultType ] ) {
-            if ( _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ _elements_DateCounts_DefaultType ].hasOwnProperty( storageDate ) ) {
+        for ( var storageDate in _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ _configuration.unknownTrendText ] ) {
+            if ( _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ _configuration.unknownTrendText ].hasOwnProperty( storageDate ) ) {
                 noneTypeCount++;
                 break;
             }
@@ -872,8 +871,8 @@
 
         if ( _elements_DateCounts[ bindingOptions.currentView.element.id ].types > 1 ) {
             for ( var type in _elements_DateCounts[ bindingOptions.currentView.element.id ].type ) {
-                if ( type !== _elements_DateCounts_DefaultType || noneTypeCount > 0 ) {
-                    if ( noneTypeCount === 0 && bindingOptions.currentView.type === _elements_DateCounts_DefaultType ) {
+                if ( type !== _configuration.unknownTrendText || noneTypeCount > 0 ) {
+                    if ( noneTypeCount === 0 && bindingOptions.currentView.type === _configuration.unknownTrendText ) {
                         bindingOptions.currentView.type = type;
                     }
 
@@ -1190,7 +1189,7 @@
             timePart = padNumber( date.getHours() ) + _string.dash + padNumber( date.getMinutes() ),
             filenameStart = _string.empty;
 
-        if ( bindingOptions.currentView.type !== _elements_DateCounts_DefaultType ) {
+        if ( bindingOptions.currentView.type !== _configuration.unknownTrendText ) {
             filenameStart = bindingOptions.currentView.type.toLowerCase().replace( _string.space, _string.underscore ) + _string.underscore;
         }
 
@@ -1701,7 +1700,7 @@
     this.addDates = function( elementId, dates, type, triggerRefresh ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
-            type = !isDefinedString( type ) ? _elements_DateCounts_DefaultType : type;
+            type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
 
             var datesLength = dates.length,
                 bindingOptions = _elements_DateCounts[ elementId ].options;
@@ -1738,7 +1737,7 @@
     this.addDate = function( elementId, date, type, triggerRefresh ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
-            type = !isDefinedString( type ) ? _elements_DateCounts_DefaultType : type;
+            type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
 
             var storageDate = toStorageDate( date );
 
@@ -1782,7 +1781,7 @@
      */
     this.removeDates = function( elementId, dates, type, triggerRefresh ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
-            type = !isDefinedString( type ) ? _elements_DateCounts_DefaultType : type;
+            type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
             triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
 
             var datesLength = dates.length,
@@ -1819,7 +1818,7 @@
      */
     this.removeDate = function( elementId, date, type, triggerRefresh ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
-            type = !isDefinedString( type ) ? _elements_DateCounts_DefaultType : type;
+            type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
 
             var storageDate = toStorageDate( date );
 
@@ -1883,7 +1882,7 @@
             triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
             
             var bindingOptions = _elements_DateCounts[ elementId ].options;
-            bindingOptions.currentView.type = _elements_DateCounts_DefaultType;
+            bindingOptions.currentView.type = _configuration.unknownTrendText;
 
             createDateStorageForElement( elementId, bindingOptions );
 
@@ -2389,6 +2388,7 @@
         _configuration.noChartDataMessage = getDefaultString( _configuration.noChartDataMessage, "There is currently no data to view." );
         _configuration.statisticsText = getDefaultString( _configuration.statisticsText, "Statistics" );
         _configuration.noStatisticsDataMessage = getDefaultString( _configuration.noStatisticsDataMessage, "There are currently no statistics to view." );
+        _configuration.unknownTrendText = getDefaultString( _configuration.unknownTrendText, "Unknown" );
     }
 
     function buildDefaultConfigurationArrays() {
