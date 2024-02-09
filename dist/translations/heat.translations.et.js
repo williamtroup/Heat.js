@@ -17,6 +17,7 @@ $heat.setConfiguration( {
         "noChartDataMessage": "Praegu pole andmeid, mida vaadata.",
         "statisticsText": "Statistika",
         "noStatisticsDataMessage": "Praegu pole statistikat vaadata.",
+        "unknownTrendText": "Tundmatu",
         "monthNames": [
                 "jaan",
                 "veebr",

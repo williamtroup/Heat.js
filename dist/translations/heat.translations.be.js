@@ -17,6 +17,7 @@ $heat.setConfiguration( {
         "noChartDataMessage": "Зараз няма даных для прагляду.",
         "statisticsText": "Статыстыка",
         "noStatisticsDataMessage": "Зараз няма статыстыкі для прагляду.",
+        "unknownTrendText": "Невядомы",
         "monthNames": [
                 "Ян",
                 "люты",

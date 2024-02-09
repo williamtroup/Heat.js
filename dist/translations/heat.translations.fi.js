@@ -17,6 +17,7 @@ $heat.setConfiguration( {
         "noChartDataMessage": "Tällä hetkellä ei ole tarkasteltavaa dataa.",
         "statisticsText": "Tilastot",
         "noStatisticsDataMessage": "Tällä hetkellä ei ole tilastoja nähtäväksi.",
+        "unknownTrendText": "Tuntematon",
         "monthNames": [
                 "tammikuu",
                 "helmikuuta",

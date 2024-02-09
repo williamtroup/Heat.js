@@ -17,6 +17,7 @@ $heat.setConfiguration( {
         "noChartDataMessage": "Pašlaik nav datu, ko skatīt.",
         "statisticsText": "Statistika",
         "noStatisticsDataMessage": "Pašlaik nav apskatāmas statistikas.",
+        "unknownTrendText": "Nezināms",
         "monthNames": [
                 "janvāris",
                 "febr",

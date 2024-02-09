@@ -17,6 +17,7 @@ $heat.setConfiguration( {
         "noChartDataMessage": "Դիտելու համար տվյալներ չկան:",
         "statisticsText": "Վիճակագրություն",
         "noStatisticsDataMessage": "Ներկայումս դիտելու վիճակագրություն չկա:",
+        "unknownTrendText": "Անհայտ",
         "monthNames": [
                 "հուն",
                 "փետր",

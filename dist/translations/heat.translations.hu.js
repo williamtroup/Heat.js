@@ -17,6 +17,7 @@ $heat.setConfiguration( {
         "noChartDataMessage": "Jelenleg nincsenek megtekinthető adatok.",
         "statisticsText": "Statisztika",
         "noStatisticsDataMessage": "Jelenleg nincs megtekinthető statisztika.",
+        "unknownTrendText": "Ismeretlen",
         "monthNames": [
                 "jan",
                 "Február",

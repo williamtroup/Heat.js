@@ -17,6 +17,7 @@ $heat.setConfiguration( {
         "noChartDataMessage": "Зараз немає даних для перегляду.",
         "statisticsText": "Статистика",
         "noStatisticsDataMessage": "Наразі немає статистики для перегляду.",
+        "unknownTrendText": "Невідомий",
         "monthNames": [
                 "січня",
                 "лютий",

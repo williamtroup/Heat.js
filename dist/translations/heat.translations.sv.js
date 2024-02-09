@@ -17,6 +17,7 @@ $heat.setConfiguration( {
         "noChartDataMessage": "Det finns för närvarande ingen data att se.",
         "statisticsText": "Statistik",
         "noStatisticsDataMessage": "Det finns för närvarande ingen statistik att se.",
+        "unknownTrendText": "Okänd",
         "monthNames": [
                 "Jan",
                 "feb",

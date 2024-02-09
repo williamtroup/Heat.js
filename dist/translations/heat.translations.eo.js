@@ -17,6 +17,7 @@ $heat.setConfiguration( {
         "noChartDataMessage": "Nuntempe ne estas datumoj por vidi.",
         "statisticsText": "Statistiko",
         "noStatisticsDataMessage": "Nuntempe ne estas statistikoj por vidi.",
+        "unknownTrendText": "Nekonata",
         "monthNames": [
                 "Jan",
                 "Feb",

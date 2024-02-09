@@ -17,6 +17,7 @@ $heat.setConfiguration( {
         "noChartDataMessage": "Şu anda görüntülenecek veri yok.",
         "statisticsText": "İstatistik",
         "noStatisticsDataMessage": "Şu anda görüntülenecek istatistik yok.",
+        "unknownTrendText": "Bilinmeyen",
         "monthNames": [
                 "Ocak",
                 "Şubat",

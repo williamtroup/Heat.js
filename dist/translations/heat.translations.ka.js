@@ -17,6 +17,7 @@ $heat.setConfiguration( {
         "noChartDataMessage": "ამჟამად სანახავი მონაცემები არ არის.",
         "statisticsText": "სტატისტიკა",
         "noStatisticsDataMessage": "ამჟამად არ არის სანახავი სტატისტიკა.",
+        "unknownTrendText": "უცნობი",
         "monthNames": [
                 "იან",
                 "თებ",
