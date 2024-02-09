@@ -40,7 +40,7 @@
 
         // Variables: Date Counts
         _elements_DateCounts = {},
-        _elements_DateCounts_DefaultType = "None",
+        _elements_DateCounts_DefaultType = "Unknown",
 
         // Variables: View (names)
         _elements_View_Name_Map = "map",

@@ -1209,7 +1209,7 @@
   var _elements_Type = {};
   var _elements_Day_Width = null;
   var _elements_DateCounts = {};
-  var _elements_DateCounts_DefaultType = "None";
+  var _elements_DateCounts_DefaultType = "Unknown";
   var _elements_View_Name_Map = "map";
   var _elements_View_Name_Chart = "chart";
   var _elements_View_Name_Statistics = "statistics";
