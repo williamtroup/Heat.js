@@ -4,7 +4,7 @@
 
 #### **New Features:**
 - BREAKING: All binding options that affect the views and how they look are now split up into categories under a new "views" area.
-- Added support to display to the "Chart" and "Statistics" views.
+- Added support to disable to the "Chart" and "Statistics" views.
 
 #### **Binding Options:**
 - BREAKING: Renamed the binding option "mapRangeColors" to "colorRanges" (more consistent with the project), and updated documentation.
