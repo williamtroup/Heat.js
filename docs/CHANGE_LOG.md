@@ -36,6 +36,9 @@
 - Renamed the theme "dist/dark/heat.js.dark.blue.theme.css" to "heat.js.dark.bright-blue.theme.css" (with color improvements).
 - Renamed the theme "dist/dark/heat.js.dark.orange.theme.css" to "heat.js.dark.bright-orange.theme.css" (with color improvements).
 
+#### **CSS:**
+- Changed the default value for "--heat-js-border-radius-day" to 0.35rem.
+
 #### **Fixes:**
 - Fixed a fault that caused the years drop-down arrow to still appear when the binding option "showYearSelectionDropDown" is set to false.
 - Fixed a grammar mistake in the configuration option "noStatisticsDataMessage".
