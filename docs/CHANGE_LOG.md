@@ -19,6 +19,7 @@
 - Added translation support for Afrikaans (af).
 - Added translation support for Armenian (hy).
 - Added translation support for Belarusian (be).
+- Added translation support for Catalan (ca).
 
 #### **Themes:**
 - The default theme now uses a different shade of green for the days, to move the project away from the GitHub style.
