@@ -20,7 +20,7 @@
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
 - Export all data to CSV, JSON, and XML.
-- 44 language translations available!
+- 45 language translations available!
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.
 - 10 additional themes available (for dark and light mode).
