@@ -703,7 +703,7 @@
   function storeDataInLocalStorage(elementId, bindingOptions) {
     if (bindingOptions.useLocalStorageForData && _parameter_Window.localStorage) {
       clearLocalStorageObjects(elementId, bindingOptions);
-      var jsonData = JSON.stringify(_elements_DateCounts[elementId].type);
+      var jsonData = _parameter_JSON.stringify(_elements_DateCounts[elementId].type);
       _parameter_Window.localStorage.setItem(_local_Storage_Start_ID + elementId, jsonData);
     }
   }
