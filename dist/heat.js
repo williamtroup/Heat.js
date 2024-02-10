@@ -79,7 +79,11 @@
     renderControlContainer(bindingOptions);
     fireCustomTrigger(bindingOptions.onRenderComplete, bindingOptions.currentView.element);
   }
-  function renderControlContainer(bindingOptions) {
+  function renderControlContainer(bindingOptions, isForDataRefresh) {
+    isForDataRefresh = isDefined(isForDataRefresh) ? isForDataRefresh : false;
+    if (isForDataRefresh) {
+      storeDataInLocalStorage(bindingOptions.currentView.element.id, bindingOptions);
+    }
     if (isDefined(bindingOptions.currentView.mapContents)) {
       bindingOptions.currentView.mapContentsScrollLeft = bindingOptions.currentView.mapContents.scrollLeft;
     }
@@ -113,9 +117,13 @@
       bindingOptions.currentView.chartContents.style.display = "block";
     }
   }
-  function createDateStorageForElement(elementId, bindingOptions) {
+  function createDateStorageForElement(elementId, bindingOptions, storeLocalData) {
+    storeLocalData = isDefined(storeLocalData) ? storeLocalData : true;
     _elements_DateCounts[elementId] = {options:bindingOptions, type:{}, types:1};
     _elements_DateCounts[elementId].type[_configuration.unknownTrendText] = {};
+    if (storeLocalData) {
+      loadDataFromLocalStorage(elementId, bindingOptions);
+    }
   }
   function getCurrentViewData(bindingOptions) {
     return _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
@@ -669,6 +677,53 @@
       addClass(day, "no-hover");
     }
   }
+  function loadDataFromLocalStorage(elementId, bindingOptions) {
+    if (bindingOptions.useLocalStorageForData && _parameter_Window.localStorage) {
+      var keysLength = _parameter_Window.localStorage.length;
+      var keyIndex = 0;
+      for (; keyIndex < keysLength; keyIndex++) {
+        var key = _parameter_Window.localStorage.key(keyIndex);
+        if (startsWithAnyCase(key, _local_Storage_Start_ID)) {
+          var typesJson = _parameter_Window.localStorage.getItem(key);
+          var typesObject = getObjectFromString(typesJson);
+          if (typesObject.parsed) {
+            _elements_DateCounts[elementId].type = typesObject.result;
+            _elements_DateCounts[elementId].types = 0;
+            var type;
+            for (type in _elements_DateCounts[elementId].type) {
+              if (_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
+                _elements_DateCounts[elementId].types++;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  function storeDataInLocalStorage(elementId, bindingOptions) {
+    if (bindingOptions.useLocalStorageForData && _parameter_Window.localStorage) {
+      clearLocalStorageObjects(elementId, bindingOptions);
+      var jsonData = JSON.stringify(_elements_DateCounts[elementId].type);
+      _parameter_Window.localStorage.setItem(_local_Storage_Start_ID + elementId, jsonData);
+    }
+  }
+  function clearLocalStorageObjects(elementId, bindingOptions) {
+    if (bindingOptions.useLocalStorageForData && _parameter_Window.localStorage) {
+      var keysLength = _parameter_Window.localStorage.length;
+      var keysToRemove = [];
+      var keyIndex = 0;
+      for (; keyIndex < keysLength; keyIndex++) {
+        if (startsWithAnyCase(_parameter_Window.localStorage.key(keyIndex), _local_Storage_Start_ID + elementId)) {
+          keysToRemove.push(_parameter_Window.localStorage.key(keyIndex));
+        }
+      }
+      var keysToRemoveLength = keysToRemove.length;
+      var keyToRemoveIndex = 0;
+      for (; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++) {
+        _parameter_Window.localStorage.removeItem(keysToRemove[keyToRemoveIndex]);
+      }
+    }
+  }
   function isHeatMapColorVisible(bindingOptions, id) {
     var result = false;
     var colorRangesLength = bindingOptions.colorRanges.length;
@@ -874,6 +929,7 @@
     options.exportType = getDefaultString(options.exportType, _export_Type_Csv);
     options.noTypesLabel = getDefaultString(options.noTypesLabel, null);
     options.noTypesLabelLink = getDefaultString(options.noTypesLabelLink, null);
+    options.useLocalStorageForData = getDefaultBoolean(options.useLocalStorageForData, false);
     options = buildAttributeOptionMapView(options);
     options = buildAttributeOptionChartView(options);
     options = buildAttributeOptionStatisticsView(options);
@@ -1152,6 +1208,9 @@
     var numberString = number.toString();
     return numberString.length === 1 ? "0" + numberString : numberString;
   }
+  function startsWithAnyCase(data, start) {
+    return data.substring(0, start.length).toLowerCase() === start.toLowerCase();
+  }
   function toStorageDate(date) {
     return date.getFullYear() + _string.dash + padNumber(date.getMonth() + 1) + _string.dash + padNumber(date.getDate());
   }
@@ -1205,6 +1264,7 @@
   var _parameter_JSON = null;
   var _configuration = {};
   var _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_"};
+  var _local_Storage_Start_ID = "HJS_";
   var _default_MonthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   var _default_DaysToShow = [1, 2, 3, 4, 5, 6, 7];
   var _elements_Type = {};
@@ -1232,7 +1292,7 @@
       }
       fireCustomTrigger(bindingOptions.onAdd, bindingOptions.currentView.element);
       if (triggerRefresh) {
-        renderControlContainer(_elements_DateCounts[elementId].options);
+        renderControlContainer(_elements_DateCounts[elementId].options, true);
       }
     }
     return this;
@@ -1253,7 +1313,7 @@
       var bindingOptions = _elements_DateCounts[elementId].options;
       fireCustomTrigger(bindingOptions.onAdd, bindingOptions.currentView.element);
       if (triggerRefresh) {
-        renderControlContainer(_elements_DateCounts[elementId].options);
+        renderControlContainer(_elements_DateCounts[elementId].options, true);
       }
     }
     return this;
@@ -1270,7 +1330,7 @@
       }
       fireCustomTrigger(bindingOptions.onRemove, bindingOptions.currentView.element);
       if (triggerRefresh) {
-        renderControlContainer(_elements_DateCounts[elementId].options);
+        renderControlContainer(_elements_DateCounts[elementId].options, true);
       }
     }
     return this;
@@ -1287,7 +1347,7 @@
         var bindingOptions = _elements_DateCounts[elementId].options;
         fireCustomTrigger(bindingOptions.onRemove, bindingOptions.currentView.element);
         if (triggerRefresh) {
-          renderControlContainer(_elements_DateCounts[elementId].options);
+          renderControlContainer(_elements_DateCounts[elementId].options, true);
         }
       }
     }
@@ -1307,10 +1367,10 @@
       triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
       var bindingOptions = _elements_DateCounts[elementId].options;
       bindingOptions.currentView.type = _configuration.unknownTrendText;
-      createDateStorageForElement(elementId, bindingOptions);
+      createDateStorageForElement(elementId, bindingOptions, false);
       fireCustomTrigger(bindingOptions.onReset, bindingOptions.currentView.element);
       if (triggerRefresh) {
-        renderControlContainer(_elements_DateCounts[elementId].options);
+        renderControlContainer(_elements_DateCounts[elementId].options, true);
       }
     }
     return this;
@@ -1325,7 +1385,7 @@
   this.refresh = function(elementId) {
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
-      renderControlContainer(bindingOptions);
+      renderControlContainer(bindingOptions, true);
       fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
     }
     return this;
@@ -1335,7 +1395,7 @@
     for (elementId in _elements_DateCounts) {
       if (_elements_DateCounts.hasOwnProperty(elementId)) {
         var bindingOptions = _elements_DateCounts[elementId].options;
-        renderControlContainer(bindingOptions);
+        renderControlContainer(bindingOptions, true);
         fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
       }
     }
