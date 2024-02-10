@@ -8,6 +8,7 @@
 - Added local storage persistent support! This will allow data added/removed between browser usages to be remembered.
 - Added support to show different colors in the "Map", "Chart" and "Statistics" views (see documentation).
 - Added support for 5 new languages!
+- Added support for 3 more themes!
 
 #### **Binding Options:**
 - BREAKING: Renamed the binding option "mapRangeColors" to "colorRanges" (more consistent with the project), and updated documentation.
