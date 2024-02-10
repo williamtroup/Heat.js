@@ -248,68 +248,6 @@
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Local Storage
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function loadDataFromLocalStorage( elementId, bindingOptions ) {
-        if ( bindingOptions.useLocalStorageForData && _parameter_Window.localStorage ) {
-            var keysLength = _parameter_Window.localStorage.length;
-
-            for ( var keyIndex = 0; keyIndex < keysLength; keyIndex++ ) {
-                var key = _parameter_Window.localStorage.key( keyIndex );
-
-                if ( startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
-                    var typesJson = _parameter_Window.localStorage.getItem( key ),
-                        typesObject = getObjectFromString( typesJson );
-
-                    if ( typesObject.parsed ) {
-                        _elements_DateCounts[ elementId ].type = typesObject.result;
-                        _elements_DateCounts[ elementId ].types = 0;
-
-                        for ( var type in _elements_DateCounts[ elementId ].type ) {
-                            if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
-                                _elements_DateCounts[ elementId ].types++;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    function storeDataInLocalStorage( elementId, bindingOptions ) {
-        if ( bindingOptions.useLocalStorageForData && _parameter_Window.localStorage ) {
-            clearLocalStorageObjects( elementId, bindingOptions );
-
-            var jsonData = JSON.stringify( _elements_DateCounts[ elementId ].type );
-
-            _parameter_Window.localStorage.setItem( _local_Storage_Start_ID + elementId, jsonData );
-        }
-    }
-
-    function clearLocalStorageObjects( elementId, bindingOptions ) {
-        if ( bindingOptions.useLocalStorageForData && _parameter_Window.localStorage ) {
-            var keysLength = _parameter_Window.localStorage.length,
-                keysToRemove = [];
-
-            for ( var keyIndex = 0; keyIndex < keysLength; keyIndex++ ) {
-                if ( startsWithAnyCase( _parameter_Window.localStorage.key( keyIndex ), _local_Storage_Start_ID + elementId ) ) {
-                    keysToRemove.push( _parameter_Window.localStorage.key( keyIndex ) );
-                }
-            }
-
-            var keysToRemoveLength = keysToRemove.length;
-
-            for ( var keyToRemoveIndex = 0; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++ ) {
-                _parameter_Window.localStorage.removeItem( keysToRemove[ keyToRemoveIndex ] );
-            }
-        }
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Render:  ToolTip
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -1038,6 +976,68 @@
 
         } else {
             addClass( day, "no-hover" );
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Local Storage
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function loadDataFromLocalStorage( elementId, bindingOptions ) {
+        if ( bindingOptions.useLocalStorageForData && _parameter_Window.localStorage ) {
+            var keysLength = _parameter_Window.localStorage.length;
+
+            for ( var keyIndex = 0; keyIndex < keysLength; keyIndex++ ) {
+                var key = _parameter_Window.localStorage.key( keyIndex );
+
+                if ( startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
+                    var typesJson = _parameter_Window.localStorage.getItem( key ),
+                        typesObject = getObjectFromString( typesJson );
+
+                    if ( typesObject.parsed ) {
+                        _elements_DateCounts[ elementId ].type = typesObject.result;
+                        _elements_DateCounts[ elementId ].types = 0;
+
+                        for ( var type in _elements_DateCounts[ elementId ].type ) {
+                            if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
+                                _elements_DateCounts[ elementId ].types++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function storeDataInLocalStorage( elementId, bindingOptions ) {
+        if ( bindingOptions.useLocalStorageForData && _parameter_Window.localStorage ) {
+            clearLocalStorageObjects( elementId, bindingOptions );
+
+            var jsonData = JSON.stringify( _elements_DateCounts[ elementId ].type );
+
+            _parameter_Window.localStorage.setItem( _local_Storage_Start_ID + elementId, jsonData );
+        }
+    }
+
+    function clearLocalStorageObjects( elementId, bindingOptions ) {
+        if ( bindingOptions.useLocalStorageForData && _parameter_Window.localStorage ) {
+            var keysLength = _parameter_Window.localStorage.length,
+                keysToRemove = [];
+
+            for ( var keyIndex = 0; keyIndex < keysLength; keyIndex++ ) {
+                if ( startsWithAnyCase( _parameter_Window.localStorage.key( keyIndex ), _local_Storage_Start_ID + elementId ) ) {
+                    keysToRemove.push( _parameter_Window.localStorage.key( keyIndex ) );
+                }
+            }
+
+            var keysToRemoveLength = keysToRemove.length;
+
+            for ( var keyToRemoveIndex = 0; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++ ) {
+                _parameter_Window.localStorage.removeItem( keysToRemove[ keyToRemoveIndex ] );
+            }
         }
     }
 
