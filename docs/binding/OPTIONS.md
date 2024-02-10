@@ -26,6 +26,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *string* | exportType | States the export file type that should be used (defaults to "csv", also accepts "json" and "xml"). |
 | *string* | noTypesLabel | States a label that should be shown when no trend types are available (defaults to null). |
 | *string* | noTypesLabelLink | States a link that should be used for the "noTypesLabel" label (defaults to null). |
+| *boolean* | useLocalStorageForData | States if data added should be stored in local storage (remembered between browser usages, defaults to false). |
 
 <br/>
 
