@@ -50,6 +50,7 @@
     --heat-js-day-opacity-hover: 0.7;
     --heat-js-day-opacity-active: 0.5;
     --heat-js-day-size: 1.1rem;
+    --heat-js-day-chart-width: 10px;
 
     // Days - Colors
     --heat-js-day-color-1-background-color: rgba( 80, 200, 120, 0.25 );
@@ -606,7 +607,7 @@ div.heat-js {
                     background-color: var(--heat-js-day-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     vertical-align: bottom;
-                    width: 10px;
+                    width: var(--heat-js-day-chart-width);
                     margin-right: 1px;
                     display: inline-block;
                     transition: var(--heat-js-transition);
@@ -639,6 +640,16 @@ div.heat-js {
                 text-align: left !important;
                 position: absolute;
                 bottom: 0;
+            }
+
+            @media (min-width: $minimum-width) { 
+                div.month-name:first-child {
+                    margin-left: calc( var(--heat-js-spacing) / 2 );
+                }
+            }
+
+            div.month-name:nth-child(2) {
+                margin-left: var(--heat-js-day-chart-width);
             }
 
             div.month-name-space {
