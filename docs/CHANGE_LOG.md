@@ -10,7 +10,6 @@
 - Added support for 5 new languages!
 - Added 4 new themes!
 
-
 ### **Breakdown**:
 
 #### **Binding Options:**
