@@ -591,7 +591,11 @@
         var useColorRange = getColorRange( colorRanges, dateCount );
 
         if ( isDefined( useColorRange ) && isHeatMapColorVisible( bindingOptions, useColorRange.id ) ) {
-            addClass( day, useColorRange.cssClassName );
+            if ( isDefinedString( useColorRange.mapCssClassName ) ) {
+                addClass( day, useColorRange.mapCssClassName );
+            } else {
+                addClass( day, useColorRange.cssClassName );
+            }
         }
 
         return day;
@@ -720,7 +724,11 @@
         var useColorRange = getColorRange( colorRanges, dateCount );
 
         if ( isDefined( useColorRange ) && isHeatMapColorVisible( bindingOptions, useColorRange.id ) ) {
-            addClass( dayLine, useColorRange.cssClassName );
+            if ( isDefinedString( useColorRange.chartCssClassName ) ) {
+                addClass( dayLine, useColorRange.chartCssClassName );
+            } else {
+                addClass( dayLine, useColorRange.cssClassName );
+            }
         }
     }
 
@@ -809,15 +817,19 @@
 
     function renderControlStatisticsDay( colorRangeMinimum, dayLines, rangeCount, bindingOptions, colorRanges, pixelsPerNumbers ) {
         var rangeLine = createElement( dayLines, "div", "range-line no-hover" ),
-            colorRange = getColorRangeByMinimum( colorRanges, colorRangeMinimum );
+            useColorRange = getColorRangeByMinimum( colorRanges, colorRangeMinimum );
 
         rangeLine.style.height = ( rangeCount * pixelsPerNumbers ) + "px";
         rangeLine.style.setProperty( "border-bottom-width", "0", "important" );
 
         addToolTip( rangeLine, bindingOptions, rangeCount.toString() );
 
-        if ( isDefined( colorRange ) && isHeatMapColorVisible( bindingOptions, colorRange.id ) ) {
-            addClass( rangeLine, colorRange.cssClassName );
+        if ( isDefined( useColorRange ) && isHeatMapColorVisible( bindingOptions, useColorRange.id ) ) {
+            if ( isDefinedString( useColorRange.statisticsCssClassName ) ) {
+                addClass( rangeLine, useColorRange.statisticsCssClassName );
+            } else {
+                addClass( rangeLine, useColorRange.cssClassName );
+            }
         }
     }
 
@@ -960,13 +972,20 @@
 
     function renderControlViewGuideDay( bindingOptions, days, colorRange ) {
         var day = createElement( days, "div" );
+        day.className = "day";
 
         addToolTip( day, bindingOptions, colorRange.tooltipText );
 
         if ( isHeatMapColorVisible( bindingOptions, colorRange.id ) ) {
-            day.className = "day " + colorRange.cssClassName;
-        } else {
-            day.className = "day";
+            if ( bindingOptions.currentView.view === _elements_View_Map && isDefinedString( colorRange.mapCssClassName ) ) {
+                addClass( day, colorRange.mapCssClassName );
+            } else if ( bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart && isDefinedString( colorRange.chartCssClassName ) ) {
+                addClass( day, colorRange.chartCssClassName );
+            } else if ( bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics && isDefinedString( colorRange.statisticsCssClassName ) ) {
+                addClass( day, colorRange.statisticsCssClassName );
+            } else {
+                addClass( day, colorRange.cssClassName );
+            }   
         }
 
         if ( bindingOptions.mapTogglesEnabled ) {
@@ -1380,24 +1399,36 @@
             {
                 minimum: 10,
                 cssClassName: "day-color-1",
+                mapCssClassName: "day-color-1",
+                chartCssClassName: "day-color-1",
+                statisticsCssClassName: "day-color-1",
                 tooltipText: "Day Color 1",
                 visible: true
             },
             {
                 minimum: 15,
                 cssClassName: "day-color-2",
+                mapCssClassName: "day-color-2",
+                chartCssClassName: "day-color-2",
+                statisticsCssClassName: "day-color-2",
                 tooltipText: "Day Color 2",
                 visible: true
             },
             {
                 minimum: 20,
                 cssClassName: "day-color-3",
+                mapCssClassName: "day-color-3",
+                chartCssClassName: "day-color-3",
+                statisticsCssClassName: "day-color-3",
                 tooltipText: "Day Color 3",
                 visible: true
             },
             {
                 minimum: 25,
                 cssClassName: "day-color-4",
+                mapCssClassName: "day-color-4",
+                chartCssClassName: "day-color-4",
+                statisticsCssClassName: "day-color-4",
                 tooltipText: "Day Color 4",
                 visible: true
             }

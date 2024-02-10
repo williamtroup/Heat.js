@@ -6,6 +6,7 @@
 - BREAKING: All binding options that affect the views and how they look are now split up into categories under a new "views" area.
 - Added support to disable the "Chart" and "Statistics" views.
 - Added local storage persistent support! This will allow data added/removed between browser usages to be remembered.
+- Added support to show different colors in the "Map", "Chart" and "Statistics" views (see documentation).
 
 #### **Binding Options:**
 - BREAKING: Renamed the binding option "mapRangeColors" to "colorRanges" (more consistent with the project), and updated documentation.
@@ -13,6 +14,11 @@
 - Added a new binding option called "views.chart.enabled", which states if the "Chart" view is enabled (defaults to true).
 - Added a new binding option called "views.statistics.enabled", which states if the "Statistics" view is enabled (defaults to true).
 - Added a new binding option called "useLocalStorageForData", which states if data added/removed should be remembered in local storage (defaults to true).
+
+#### **Binding Options - Color Ranges:**
+- Added a new "colorRanges" binding option called "mapCssClassName", which states a CSS class name to use for items in the "Map" view (overrides the "cssClassName" property).
+- Added a new "colorRanges" binding option called "chartCssClassName", which states a CSS class name to use for items in the "Chart" view (overrides the "cssClassName" property).
+- Added a new "colorRanges" binding option called "statisticsCssClassName", which states a CSS class name to use for items in the "Statistics" view (overrides the "cssClassName" property).
 
 #### **Binding Options - Custom Triggers:**
 - BREAKING: Renamed the binding option custom trigger "onMapRangeTypeToggle" to "onColorRangeTypeToggle" (more consistent with the project), and updated documentation.
