@@ -30,6 +30,9 @@
             underscore: "_"
         },
 
+        // Variables: Local Storage
+        _local_Storage_Start_ID = "HJS_",
+
         // Variables: Defaults
         _default_MonthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
         _default_DaysToShow = [ 1, 2, 3, 4, 5, 6, 7 ],
@@ -163,7 +166,13 @@
         fireCustomTrigger( bindingOptions.onRenderComplete, bindingOptions.currentView.element );
     }
 
-    function renderControlContainer( bindingOptions ) {
+    function renderControlContainer( bindingOptions, isForDataRefresh ) {
+        isForDataRefresh = isDefined( isForDataRefresh ) ? isForDataRefresh : false;
+
+        if ( isForDataRefresh ) {
+            storeDataInLocalStorage( bindingOptions.currentView.element.id, bindingOptions );
+        }
+
         if ( isDefined( bindingOptions.currentView.mapContents ) ) {
             bindingOptions.currentView.mapContentsScrollLeft = bindingOptions.currentView.mapContents.scrollLeft;
         }
@@ -208,7 +217,9 @@
         }
     }
 
-    function createDateStorageForElement( elementId, bindingOptions ) {
+    function createDateStorageForElement( elementId, bindingOptions, storeLocalData ) {
+        storeLocalData = isDefined( storeLocalData ) ? storeLocalData : true;
+
         _elements_DateCounts[ elementId ] = {
             options: bindingOptions,
             type: {},
@@ -216,6 +227,10 @@
         };
 
         _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ] = {};
+
+        if ( storeLocalData ) {
+            loadDataFromLocalStorage( elementId, bindingOptions );
+        }
     }
 
     function getCurrentViewData( bindingOptions ) {
@@ -228,6 +243,68 @@
 
     function isDayVisible( daysToShow, day ) {
         return daysToShow.indexOf( day ) > -1;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Local Storage
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function loadDataFromLocalStorage( elementId, bindingOptions ) {
+        if ( bindingOptions.useLocalStorageForData && _parameter_Window.localStorage ) {
+            var keysLength = _parameter_Window.localStorage.length;
+
+            for ( var keyIndex = 0; keyIndex < keysLength; keyIndex++ ) {
+                var key = _parameter_Window.localStorage.key( keyIndex );
+
+                if ( startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
+                    var typesJson = _parameter_Window.localStorage.getItem( key ),
+                        typesObject = getObjectFromString( typesJson );
+
+                    if ( typesObject.parsed ) {
+                        _elements_DateCounts[ elementId ].type = typesObject.result;
+                        _elements_DateCounts[ elementId ].types = 0;
+
+                        for ( var type in _elements_DateCounts[ elementId ].type ) {
+                            if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
+                                _elements_DateCounts[ elementId ].types++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function storeDataInLocalStorage( elementId, bindingOptions ) {
+        if ( bindingOptions.useLocalStorageForData && _parameter_Window.localStorage ) {
+            clearLocalStorageObjects( elementId, bindingOptions );
+
+            var jsonData = JSON.stringify( _elements_DateCounts[ elementId ].type );
+
+            _parameter_Window.localStorage.setItem( _local_Storage_Start_ID + elementId, jsonData );
+        }
+    }
+
+    function clearLocalStorageObjects( elementId, bindingOptions ) {
+        if ( bindingOptions.useLocalStorageForData && _parameter_Window.localStorage ) {
+            var keysLength = _parameter_Window.localStorage.length,
+                keysToRemove = [];
+
+            for ( var keyIndex = 0; keyIndex < keysLength; keyIndex++ ) {
+                if ( startsWithAnyCase( _parameter_Window.localStorage.key( keyIndex ), _local_Storage_Start_ID + elementId ) ) {
+                    keysToRemove.push( _parameter_Window.localStorage.key( keyIndex ) );
+                }
+            }
+
+            var keysToRemoveLength = keysToRemove.length;
+
+            for ( var keyToRemoveIndex = 0; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++ ) {
+                _parameter_Window.localStorage.removeItem( keysToRemove[ keyToRemoveIndex ] );
+            }
+        }
     }
 
 
@@ -1234,6 +1311,7 @@
         options.exportType = getDefaultString( options.exportType, _export_Type_Csv );
         options.noTypesLabel = getDefaultString( options.noTypesLabel, null );
         options.noTypesLabelLink = getDefaultString( options.noTypesLabelLink, null );
+        options.useLocalStorageForData = getDefaultBoolean( options.useLocalStorageForData, false );
 
         options = buildAttributeOptionMapView( options );
         options = buildAttributeOptionChartView( options );
@@ -1675,6 +1753,10 @@
         return numberString.length === 1 ? "0" + numberString : numberString;
     }
 
+    function startsWithAnyCase( data, start ) {
+        return data.substring( 0, start.length ).toLowerCase() === start.toLowerCase();
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1712,7 +1794,7 @@
             fireCustomTrigger( bindingOptions.onAdd, bindingOptions.currentView.element );
 
             if ( triggerRefresh ) {
-                renderControlContainer( _elements_DateCounts[ elementId ].options );
+                renderControlContainer( _elements_DateCounts[ elementId ].options, true );
             }
         }
 
@@ -1757,7 +1839,7 @@
             fireCustomTrigger( bindingOptions.onAdd, bindingOptions.currentView.element );
 
             if ( triggerRefresh ) {
-                renderControlContainer( _elements_DateCounts[ elementId ].options );
+                renderControlContainer( _elements_DateCounts[ elementId ].options, true );
             }
         }
 
@@ -1794,7 +1876,7 @@
             fireCustomTrigger( bindingOptions.onRemove, bindingOptions.currentView.element );
 
             if ( triggerRefresh ) {
-                renderControlContainer( _elements_DateCounts[ elementId ].options );
+                renderControlContainer( _elements_DateCounts[ elementId ].options, true );
             }
         }
 
@@ -1834,7 +1916,7 @@
                 fireCustomTrigger( bindingOptions.onRemove, bindingOptions.currentView.element );
 
                 if ( triggerRefresh ) {
-                    renderControlContainer( _elements_DateCounts[ elementId ].options );
+                    renderControlContainer( _elements_DateCounts[ elementId ].options, true );
                 }
             }
         }
@@ -1884,12 +1966,11 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             bindingOptions.currentView.type = _configuration.unknownTrendText;
 
-            createDateStorageForElement( elementId, bindingOptions );
-
+            createDateStorageForElement( elementId, bindingOptions, false );
             fireCustomTrigger( bindingOptions.onReset, bindingOptions.currentView.element );
 
             if ( triggerRefresh ) {
-                renderControlContainer( _elements_DateCounts[ elementId ].options );
+                renderControlContainer( _elements_DateCounts[ elementId ].options, true );
             }
         }
 
@@ -1953,7 +2034,7 @@
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
-            renderControlContainer( bindingOptions );
+            renderControlContainer( bindingOptions, true );
             fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
         }
 
@@ -1975,7 +2056,7 @@
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 var bindingOptions = _elements_DateCounts[ elementId ].options;
 
-                renderControlContainer( bindingOptions );
+                renderControlContainer( bindingOptions, true );
                 fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
             }
         }
