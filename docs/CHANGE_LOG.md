@@ -61,6 +61,7 @@
 - Fixed the configuration option "noStatisticsDataMessage" being missing from all translation files.
 - Fixed the default trend type text "None" being missing from all translation files (now configuration, and renamed to "Unknown").
 - Fixed the public functions "addDates()" and "removeDates()" trigger an extra custom trigger (onAdd and onRemove).
+- Fixed some naming mistakes in the markup/code documentation.
 
 <br>
 
