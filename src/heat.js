@@ -2348,7 +2348,7 @@
      * @param       {string}    elementId                                   The Heat.js element ID.
      * @param       {string}    viewName                                    The name of the view to switch to (either "map", "chart", or "statistics").
      * 
-     * @returns     {Object}                                                The year being displayed (or null).
+     * @returns     {Object}                                                The Heat.js class instance.
      */
     this.switchView = function( elementId, viewName ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
@@ -2385,7 +2385,7 @@
      * @param       {string}    elementId                                   The Heat.js element ID.
      * @param       {string}    type                                        The name of the type to switch to.
      * 
-     * @returns     {Object}                                                The year being displayed (or null).
+     * @returns     {Object}                                                The Heat.js class instance.
      */
     this.switchType = function( elementId, type ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) && _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
