@@ -490,6 +490,7 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   border-top-right-radius: var(--heat-js-border-radius-day);
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+  border-bottom: none !important;
   vertical-align: bottom;
   width: var(--heat-js-day-chart-width);
   margin-right: 1px;
@@ -617,6 +618,7 @@ div.heat-js div.statistics-contents div.statistics div.range-lines div.range-lin
   border-top-right-radius: var(--heat-js-border-radius-day);
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+  border-bottom: none !important;
   vertical-align: bottom;
   flex: 1 100%;
   margin-right: var(--heat-js-spacing);

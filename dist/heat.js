@@ -483,7 +483,6 @@
       addToolTip(dayLine, bindingOptions, getCustomFormattedDateText(bindingOptions.dayToolTipText, date));
     }
     dayLine.style.height = dateCount * pixelsPerNumbers + "px";
-    dayLine.style.setProperty("border-bottom-width", "0", "important");
     if (isDefinedFunction(bindingOptions.onDayClick)) {
       dayLine.onclick = function() {
         fireCustomTrigger(bindingOptions.onDayClick, date, dateCount);
@@ -566,7 +565,6 @@
     var rangeLine = createElement(dayLines, "div", "range-line no-hover");
     var useColorRange = getColorRangeByMinimum(colorRanges, colorRangeMinimum);
     rangeLine.style.height = rangeCount * pixelsPerNumbers + "px";
-    rangeLine.style.setProperty("border-bottom-width", "0", "important");
     addToolTip(rangeLine, bindingOptions, rangeCount.toString());
     if (isDefined(useColorRange) && isHeatMapColorVisible(bindingOptions, useColorRange.id)) {
       if (isDefinedString(useColorRange.statisticsCssClassName)) {
