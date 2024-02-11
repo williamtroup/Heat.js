@@ -52,6 +52,7 @@
 - Changed the default value for "--heat-js-border-radius-day" to 0.35rem.
 - Added ":root" variable "--heat-js-day-chart-width", which specifies the width of the bar lines shown in the "Chart" view.
 - Improved the spacing used for the month names in the "Chart" view (they align more with the bars now).
+- Improved thw width of the control when additional libraries are not used.
 
 #### **Fixes:**
 - Fixed a fault that caused the years drop-down arrow to still appear when the binding option "showYearSelectionDropDown" is set to false.
