@@ -23,7 +23,7 @@
 - 45 language translations available!
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.
-- 10 additional themes available (for dark and light mode).
+- 12 additional themes available (for dark and light mode).
 
 
 ## What browsers are supported?

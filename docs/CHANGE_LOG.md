@@ -8,7 +8,7 @@
 - Added local storage persistent support! This will allow data added/removed between browser usages to be remembered.
 - Added support to show different colors in the "Map", "Chart" and "Statistics" views (see documentation).
 - Added support for 5 new languages!
-- Added 4 new themes!
+- Added 6 new themes!
 
 ### **Breakdown**:
 
@@ -48,6 +48,8 @@
 - Renamed the theme "dist/light/heat.js.light.blue.theme.css" to "heat.js.light.neon-blue.theme.css" (with color improvements).
 - Renamed the theme "dist/dark/heat.js.dark.blue.theme.css" to "heat.js.dark.bright-blue.theme.css" (with color improvements).
 - Renamed the theme "dist/dark/heat.js.dark.orange.theme.css" to "heat.js.dark.bright-orange.theme.css" (with color improvements).
+- Added new theme "dist/dark/heat.js.dark.bright-purple.theme.css", which shows a dark theme, but with day colors set to use the color bright purple.
+- Added new theme "dist/light/heat.js.light.bright-purple.theme.css", which shows a light theme, but with day colors set to use the color bright purple.
 
 #### **CSS:**
 - Changed the default value for "--heat-js-border-radius-day" to 0.35rem.
