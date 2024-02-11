@@ -50,6 +50,7 @@
 - Renamed the theme "dist/dark/heat.js.dark.orange.theme.css" to "heat.js.dark.bright-orange.theme.css" (with color improvements).
 - Added new theme "dist/dark/heat.js.dark.bright-purple.theme.css", which shows a dark theme, but with day colors set to use the color bright purple.
 - Added new theme "dist/light/heat.js.light.bright-purple.theme.css", which shows a light theme, but with day colors set to use the color bright purple.
+- Renamed the theme "dist/dark/heat.js.dark.red.theme.css" to "heat.js.dark.cadmium-red.theme.css" (with color improvements).
 
 #### **CSS:**
 - Changed the default value for "--heat-js-border-radius-day" to 0.35rem.
