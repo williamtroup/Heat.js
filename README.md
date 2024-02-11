@@ -2,15 +2,15 @@
 Heat.js
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Heat.js%2C%20a%20free%20JavaScript%heat%20map&url=https://github.com/williamtroup/Heat.js&hashtags=javascript,heat,map)
-[![npm](https://img.shields.io/badge/npmjs-v1.9.2-blue)](https://www.npmjs.com/package/jheat.js)
-[![nuget](https://img.shields.io/badge/nuget-v1.9.2-purple)](https://www.nuget.org/packages/jHeat.js/)
+[![npm](https://img.shields.io/badge/npmjs-v2.0.0-blue)](https://www.npmjs.com/package/jheat.js)
+[![nuget](https://img.shields.io/badge/nuget-v2.0.0-purple)](https://www.nuget.org/packages/jHeat.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Heat.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://william-troup.com/)
 </h1>
 
 > <p align="center">🌞 A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.</p>
-> <p align="center">v1.9.2</p>
+> <p align="center">v2.0.0</p>
 <br />
 
 ![Heat.js](docs/images/main.png)
@@ -27,10 +27,10 @@ Heat.js
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
 - Export all data to CSV, JSON, and XML.
-- 40 language translations available!
+- 45 language translations available!
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.
-- 7 themes available (for dark and light mode).
+- 12 additional themes available (for dark and light mode).
 <br />
 <br />
 
@@ -44,13 +44,18 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 
 <h1>What languages are supported?</h1>
 
+- `af` Afrikaans
 - `ar` Arabic
+- `hy` Armenian
+- `be` Belarusian
 - `bn` Bengali
 - `bg` Bulgarian
+- `ca` Catalan
 - `zh` Chinese (simplified)
 - `da` Danish
 - `nl` Dutch
 - `en` English (default)
+- `eo` Esperanto
 - `et` Estonian
 - `fa` Farsi
 - `fi` Finnish
@@ -136,7 +141,7 @@ Make sure you include the "DOCTYPE html" tag at the top of your HTML, as follows
 ### 3. DOM Element Binding:
 
 ```markdown
-<div id="heat-map" data-heat-options="{ 'showDayNames': true }">
+<div id="heat-map" data-heat-options="{ 'views': { 'map': { 'showDayNames': true } } }">
     Your HTML.
 </div>
 ```

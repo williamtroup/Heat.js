@@ -1,4 +1,4 @@
-/*! Heat.js v1.9.2 - Ukrainian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.0.0 - Ukrainian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -16,6 +16,8 @@ $heat.setConfiguration( {
         "chartText": "Діаграма",
         "noChartDataMessage": "Зараз немає даних для перегляду.",
         "statisticsText": "Статистика",
+        "noStatisticsDataMessage": "Наразі немає статистики для перегляду.",
+        "unknownTrendText": "Невідомий",
         "monthNames": [
                 "січня",
                 "лютий",

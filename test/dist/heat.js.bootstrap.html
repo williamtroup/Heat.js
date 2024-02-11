@@ -17,13 +17,13 @@
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': true, 'noTypesLabel': 'A basic example of how to use Heat.js.', 'noTypesLabelLink': 'https://william-troup.com/heat-js/examples/basic.html' }"></div>
+            <div id="heat-map-1" data-heat-options="{ 'onDayClick': onDayClick, 'views': { 'map': { 'showMonthDayGaps': true } }, 'noTypesLabel': 'A basic example of how to use Heat.js.', 'noTypesLabelLink': 'https://william-troup.com/heat-js/examples/basic.html' }"></div>
             <br>
             <br>
-            <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': false, 'showRefreshButton': true, 'showExportButton': true, 'placeMonthNamesOnTheBottom': true, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
+            <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'views': { 'map': { 'showMonthDayGaps': false, 'placeMonthNamesOnTheBottom': true } }, 'showRefreshButton': true, 'showExportButton': true, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
             <br>
             <br>
-            <div id="heat-map-3" data-heat-options="{ 'onDayClick': onDayClick, 'showMonthDayGaps': true, 'view': 'chart' }"></div>
+            <div id="heat-map-3" data-heat-options="{ 'onDayClick': onDayClick, 'views': { 'map': { 'showMonthDayGaps': true } }, 'view': 'chart' }"></div>
             <br>
             <br>
             <div id="heat-map-4"></div>
@@ -143,7 +143,7 @@
     <script>
         var __CURRENT_YEAR = new Date().getFullYear();
 
-        document.title += " v" + $heat.getVersion();
+        document.title += " - v" + $heat.getVersion();
         document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
 
         function setupConfiguration() {

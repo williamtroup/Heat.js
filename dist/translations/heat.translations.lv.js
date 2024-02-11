@@ -1,4 +1,4 @@
-/*! Heat.js v1.9.2 - Latvian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.0.0 - Latvian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -16,6 +16,8 @@ $heat.setConfiguration( {
         "chartText": "Diagramma",
         "noChartDataMessage": "Pašlaik nav datu, ko skatīt.",
         "statisticsText": "Statistika",
+        "noStatisticsDataMessage": "Pašlaik nav apskatāmas statistikas.",
+        "unknownTrendText": "Nezināms",
         "monthNames": [
                 "janvāris",
                 "febr",

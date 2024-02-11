@@ -1,4 +1,4 @@
-/*! Heat.js v1.9.2 - Japanese | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.0.0 - Japanese | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -16,6 +16,8 @@ $heat.setConfiguration( {
         "chartText": "チャート",
         "noChartDataMessage": "現在、表示できるデータはありません。",
         "statisticsText": "統計",
+        "noStatisticsDataMessage": "現在、表示できる統計はありません。",
+        "unknownTrendText": "未知",
         "monthNames": [
                 "1月",
                 "2月",

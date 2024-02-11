@@ -1,5 +1,74 @@
 # Heat.js - Change Log:
 
+## Version 2.0.0:
+
+#### **New Features:**
+- BREAKING: All binding options that affect the views and how they look are now split up into categories under a new "views" area.
+- Added support to disable the "Chart" and "Statistics" views.
+- Added local storage persistent support! This will allow data added/removed between browser usages to be remembered.
+- Added support to show different colors in the "Map", "Chart" and "Statistics" views (see documentation).
+- Added support for 5 new languages!
+- Added 6 new themes!
+
+### **Breakdown**:
+
+#### **Binding Options:**
+- BREAKING: Renamed the binding option "mapRangeColors" to "colorRanges" (more consistent with the project), and updated documentation.
+- Added a new binding option called "views.statistics.showColorRangeLabels", which states if the chart X color range labels should be shown (defaults to true).
+- Added a new binding option called "views.chart.enabled", which states if the "Chart" view is enabled (defaults to true).
+- Added a new binding option called "views.statistics.enabled", which states if the "Statistics" view is enabled (defaults to true).
+- Added a new binding option called "useLocalStorageForData", which states if data added/removed should be remembered in local storage (defaults to true).
+- Added a new binding option called "views.map.showDaysInReverseOrder", which states if the days of the week should be in reverse order (defaults to false).
+
+#### **Binding Options - Color Ranges:**
+- Added a new "colorRanges" binding option called "mapCssClassName", which states a CSS class name to use for items in the "Map" view (overrides the "cssClassName" property).
+- Added a new "colorRanges" binding option called "chartCssClassName", which states a CSS class name to use for items in the "Chart" view (overrides the "cssClassName" property).
+- Added a new "colorRanges" binding option called "statisticsCssClassName", which states a CSS class name to use for items in the "Statistics" view (overrides the "cssClassName" property).
+
+#### **Binding Options - Custom Triggers:**
+- BREAKING: Renamed the binding option custom trigger "onMapRangeTypeToggle" to "onColorRangeTypeToggle" (more consistent with the project), and updated documentation.
+
+#### **Configuration Options:**
+- Added a new configuration option called "unknownTrendText", which states the text that should be shown for the "Unknown" trend type button (was originally "None").
+
+#### **Translations:**
+- Added translation support for Afrikaans (af).
+- Added translation support for Armenian (hy).
+- Added translation support for Belarusian (be).
+- Added translation support for Catalan (ca).
+- Added translation support for Esperanto (eo).
+
+#### **Themes:**
+- The default theme now uses a different shade of green for the days, to move the project away from the GitHub style.
+- Added new theme "dist/dark/heat.js.dark.github.theme.css", which shows a dark theme, but with green day colors (the original scheme that looks like GitHub).
+- Added new theme "dist/dark/heat.js.dark.bright-yellow.theme.css", which shows a dark theme, but with day colors set to use the color bright yellow.
+- Added new theme "dist/light/heat.js.light.shamrock-green.theme.css", which shows a light theme, but with day colors set to use the color shamrock green.
+- Added new theme "dist/light/heat.js.light.gamboge.theme.css", which shows a light theme, but with day colors set to use the color gamboge.
+- Renamed the theme "dist/light/heat.js.light.orange.theme.css" to "heat.js.light.bright-orange.theme.css".
+- Renamed the theme "dist/light/heat.js.light.blue.theme.css" to "heat.js.light.neon-blue.theme.css" (with color improvements).
+- Renamed the theme "dist/dark/heat.js.dark.blue.theme.css" to "heat.js.dark.bright-blue.theme.css" (with color improvements).
+- Renamed the theme "dist/dark/heat.js.dark.orange.theme.css" to "heat.js.dark.bright-orange.theme.css" (with color improvements).
+- Added new theme "dist/dark/heat.js.dark.bright-purple.theme.css", which shows a dark theme, but with day colors set to use the color bright purple.
+- Added new theme "dist/light/heat.js.light.bright-purple.theme.css", which shows a light theme, but with day colors set to use the color bright purple.
+- Renamed the theme "dist/dark/heat.js.dark.red.theme.css" to "heat.js.dark.cadmium-red.theme.css" (with color improvements).
+
+#### **CSS:**
+- Changed the default value for "--heat-js-border-radius-day" to 0.35rem.
+- Added ":root" variable "--heat-js-day-chart-width", which specifies the width of the bar lines shown in the "Chart" view.
+- Improved the spacing used for the month names in the "Chart" view (they align more with the bars now).
+- Improved the width of the control when additional libraries are not used.
+
+#### **Fixes:**
+- Fixed a fault that caused the years drop-down arrow to still appear when the binding option "showYearSelectionDropDown" is set to false.
+- Fixed a grammar mistake in the configuration option "noStatisticsDataMessage".
+- Fixed the configuration option "noStatisticsDataMessage" being missing from all translation files.
+- Fixed the default trend type text "None" being missing from all translation files (now configuration, and renamed to "Unknown").
+- Fixed the public functions "addDates()" and "removeDates()" trigger an extra custom trigger (onAdd and onRemove).
+- Fixed some naming mistakes in the markup/code documentation.
+
+<br>
+
+
 ## Version 1.9.2:
 - Updated the README documentation.
 - Added a "visible" property to the binding option configuration "mapRangeColors", which will allow you to set the visible ranges on load.

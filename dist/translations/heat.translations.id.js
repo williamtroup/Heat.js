@@ -1,4 +1,4 @@
-/*! Heat.js v1.9.2 - Indonesian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.0.0 - Indonesian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -16,6 +16,8 @@ $heat.setConfiguration( {
         "chartText": "Bagan",
         "noChartDataMessage": "Saat ini tidak ada data untuk dilihat.",
         "statisticsText": "Statistik",
+        "noStatisticsDataMessage": "Saat ini tidak ada statistik untuk dilihat.",
+        "unknownTrendText": "Tidak dikenal",
         "monthNames": [
                 "Januari",
                 "Februari",

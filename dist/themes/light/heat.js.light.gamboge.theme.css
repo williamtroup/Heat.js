@@ -1,4 +1,4 @@
-/*! Heat.js v1.9.2 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.0.0 | (c) Bunoon 2024 | MIT License */
 :root {
     /* Colors */
     --heat-js-color-black: #F5F5F5;
@@ -36,17 +36,17 @@
     --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
 
     /* Days - Colors */
-    --heat-js-day-color-1-background-color: rgba( 255, 172, 28, 0.25 );
-    --heat-js-day-color-1-border-color: rgba( 255, 172, 28, 0.15 );
+    --heat-js-day-color-1-background-color: rgba( 228, 155, 15, 0.25 );
+    --heat-js-day-color-1-border-color: rgba( 228, 155, 15, 0.15 );
     --heat-js-day-color-1-text-color: var(--heat-js-color-white);
-    --heat-js-day-color-2-background-color: rgba( 255, 172, 28, 0.50 );
-    --heat-js-day-color-2-border-color: rgba( 255, 172, 28, 0.25 );
+    --heat-js-day-color-2-background-color: rgba( 228, 155, 15, 0.50 );
+    --heat-js-day-color-2-border-color: rgba( 228, 155, 15, 0.25 );
     --heat-js-day-color-2-text-color: var(--heat-js-color-white);
-    --heat-js-day-color-3-background-color: rgba( 255, 172, 28, 0.75 );
-    --heat-js-day-color-3-border-color: rgba( 255, 172, 28, 0.50 );
-    --heat-js-day-color-3-text-color: var(--heat-js-color-white);
-    --heat-js-day-color-4-background-color: rgba( 255, 172, 28, 1 );
-    --heat-js-day-color-4-border-color: rgba( 255, 172, 28, 0.75 );
+    --heat-js-day-color-3-background-color: rgba( 228, 155, 15, 0.75 );
+    --heat-js-day-color-3-border-color: rgba( 228, 155, 15, 0.50 );
+    --heat-js-day-color-3-text-color: var(--heat-js-color-black);
+    --heat-js-day-color-4-background-color: rgba( 228, 155, 15, 1 );
+    --heat-js-day-color-4-border-color: rgba( 228, 155, 15, 0.75 );
     --heat-js-day-color-4-text-color: var(--heat-js-color-black);
 
     /* Button */

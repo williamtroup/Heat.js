@@ -1,4 +1,4 @@
-/*! Heat.js v1.9.2 - Slovak | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.0.0 - Slovak | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -16,6 +16,8 @@ $heat.setConfiguration( {
         "chartText": "Graf",
         "noChartDataMessage": "Momentálne nie sú k dispozícii žiadne údaje na zobrazenie.",
         "statisticsText": "Štatistiky",
+        "noStatisticsDataMessage": "Momentálne nie sú k dispozícii žiadne štatistiky na zobrazenie.",
+        "unknownTrendText": "Neznámy",
         "monthNames": [
                 "Jan",
                 "feb",

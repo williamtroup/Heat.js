@@ -1,4 +1,4 @@
-/*! Heat.js v1.9.2 - Farsi | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.0.0 - Farsi | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -16,6 +16,8 @@ $heat.setConfiguration( {
         "chartText": "چارت سازمانی",
         "noChartDataMessage": "در حال حاضر هیچ داده ای برای مشاهده وجود ندارد.",
         "statisticsText": "آمار",
+        "noStatisticsDataMessage": "در حال حاضر هیچ آماری برای مشاهده وجود ندارد.",
+        "unknownTrendText": "ناشناخته",
         "monthNames": [
                 "ژان",
                 "فوریه",

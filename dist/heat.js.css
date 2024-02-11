@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v1.9.2
+ * Heat.js Library v2.0.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -33,17 +33,18 @@
   --heat-js-day-opacity-hover: 0.7;
   --heat-js-day-opacity-active: 0.5;
   --heat-js-day-size: 1.1rem;
-  --heat-js-day-color-1-background-color: rgba( 57, 211, 83, 0.25 );
-  --heat-js-day-color-1-border-color: rgba( 57, 211, 83, 0.15 );
+  --heat-js-day-chart-width: 10px;
+  --heat-js-day-color-1-background-color: rgba( 80, 200, 120, 0.25 );
+  --heat-js-day-color-1-border-color: rgba( 80, 200, 120, 0.15 );
   --heat-js-day-color-1-text-color: var(--heat-js-color-white);
-  --heat-js-day-color-2-background-color: rgba( 57, 211, 83, 0.50 );
-  --heat-js-day-color-2-border-color: rgba( 57, 211, 83, 0.25 );
+  --heat-js-day-color-2-background-color: rgba( 80, 200, 120, 0.50 );
+  --heat-js-day-color-2-border-color: rgba( 80, 200, 120, 0.25 );
   --heat-js-day-color-2-text-color: var(--heat-js-color-white);
-  --heat-js-day-color-3-background-color: rgba( 57, 211, 83, 0.75 );
-  --heat-js-day-color-3-border-color: rgba( 57, 211, 83, 0.50 );
-  --heat-js-day-color-3-text-color: var(--heat-js-color-white);
-  --heat-js-day-color-4-background-color: rgba( 57, 211, 83, 1 );
-  --heat-js-day-color-4-border-color: rgba( 57, 211, 83, 0.75 );
+  --heat-js-day-color-3-background-color: rgba( 80, 200, 120, 0.75 );
+  --heat-js-day-color-3-border-color: rgba( 80, 200, 120, 0.50 );
+  --heat-js-day-color-3-text-color: var(--heat-js-color-black);
+  --heat-js-day-color-4-background-color: rgba( 80, 200, 120, 1 );
+  --heat-js-day-color-4-border-color: rgba( 80, 200, 120, 0.75 );
   --heat-js-day-color-4-text-color: var(--heat-js-color-black);
   --heat-js-button-background-color: var(--heat-js-day-background-color);
   --heat-js-button-border-color: var(--heat-js-container-border-color);
@@ -53,7 +54,7 @@
   --heat-js-button-background-color-active: #616b79;
   --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
   --heat-js-border-radius: 0.5rem;
-  --heat-js-border-radius-day: 0.25rem;
+  --heat-js-border-radius-day: 0.35rem;
   --heat-js-border-size: 0.5px;
   --heat-js-border-size-day: 1px;
   --heat-js-spacing: 10px;
@@ -91,7 +92,7 @@ div.heat-js {
   border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   padding: var(--heat-js-spacing);
   font-size: var(--heat-js-spacing-font-size);
-  width: 100%;
+  width: calc(100% - var(--heat-js-spacing) * 2);
   max-width: 700px;
   margin: 0 !important;
 }
@@ -489,8 +490,9 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   border-top-right-radius: var(--heat-js-border-radius-day);
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+  border-bottom: none !important;
   vertical-align: bottom;
-  width: 10px;
+  width: var(--heat-js-day-chart-width);
   margin-right: 1px;
   display: inline-block;
   transition: var(--heat-js-transition);
@@ -517,6 +519,14 @@ div.heat-js div.chart-contents div.chart-months div.month-name-space {
   text-align: left !important;
   position: absolute;
   bottom: 0;
+}
+@media (min-width: 768px) {
+  div.heat-js div.chart-contents div.chart-months div.month-name:first-child {
+    margin-left: calc(var(--heat-js-spacing) / 2);
+  }
+}
+div.heat-js div.chart-contents div.chart-months div.month-name:nth-child(2) {
+  margin-left: var(--heat-js-day-chart-width);
 }
 div.heat-js div.chart-contents div.chart-months div.month-name-space {
   left: 0;
@@ -608,6 +618,7 @@ div.heat-js div.statistics-contents div.statistics div.range-lines div.range-lin
   border-top-right-radius: var(--heat-js-border-radius-day);
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+  border-bottom: none !important;
   vertical-align: bottom;
   flex: 1 100%;
   margin-right: var(--heat-js-spacing);

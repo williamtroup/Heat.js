@@ -1,4 +1,4 @@
-/*! Heat.js v1.9.2 - Hungarian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.0.0 - Hungarian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -16,6 +16,8 @@ $heat.setConfiguration( {
         "chartText": "Diagram",
         "noChartDataMessage": "Jelenleg nincsenek megtekinthető adatok.",
         "statisticsText": "Statisztika",
+        "noStatisticsDataMessage": "Jelenleg nincs megtekinthető statisztika.",
+        "unknownTrendText": "Ismeretlen",
         "monthNames": [
                 "jan",
                 "Február",

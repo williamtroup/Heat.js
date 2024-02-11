@@ -1,4 +1,4 @@
-/*! Heat.js v1.9.2 - Turkish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.0.0 - Turkish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -16,6 +16,8 @@ $heat.setConfiguration( {
         "chartText": "Çizelge",
         "noChartDataMessage": "Şu anda görüntülenecek veri yok.",
         "statisticsText": "İstatistik",
+        "noStatisticsDataMessage": "Şu anda görüntülenecek istatistik yok.",
+        "unknownTrendText": "Bilinmeyen",
         "monthNames": [
                 "Ocak",
                 "Şubat",

@@ -1,4 +1,4 @@
-/*! Heat.js v1.9.2 - Bengali | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.0.0 - Bengali | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -16,6 +16,8 @@ $heat.setConfiguration( {
         "chartText": "চার্ট",
         "noChartDataMessage": "দেখার জন্য বর্তমানে কোন ডেটা নেই।",
         "statisticsText": "পরিসংখ্যান",
+        "noStatisticsDataMessage": "দেখার জন্য বর্তমানে কোন পরিসংখ্যান নেই।",
+        "unknownTrendText": "অজানা",
         "monthNames": [
                 "জান",
                 "ফেব্রুয়ারী",

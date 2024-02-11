@@ -1,8 +1,8 @@
-# Heat.js v1.9.2
+# Heat.js v2.0.0
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Heat.js%2C%20a%20free%20JavaScript%heat%20map&url=https://github.com/williamtroup/Heat.js&hashtags=javascript,heat,map)
-[![npm](https://img.shields.io/badge/npmjs-v1.9.2-blue)](https://www.npmjs.com/package/jheat.js)
-[![nuget](https://img.shields.io/badge/nuget-v1.9.2-purple)](https://www.nuget.org/packages/jHeat.js/)
+[![npm](https://img.shields.io/badge/npmjs-v2.0.0-blue)](https://www.npmjs.com/package/jheat.js)
+[![nuget](https://img.shields.io/badge/nuget-v2.0.0-purple)](https://www.nuget.org/packages/jHeat.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Heat.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://william-troup.com/)
@@ -20,10 +20,10 @@
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
 - Export all data to CSV, JSON, and XML.
-- 40 language translations available!
+- 45 language translations available!
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.
-- 7 themes available (for dark and light mode).
+- 12 additional themes available (for dark and light mode).
 
 
 ## What browsers are supported?
@@ -33,13 +33,18 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 
 ## What languages are supported?
 
+- `af` Afrikaans
 - `ar` Arabic
+- `hy` Armenian
+- `be` Belarusian
 - `bn` Bengali
 - `bg` Bulgarian
+- `ca` Catalan
 - `zh` Chinese (simplified)
 - `da` Danish
 - `nl` Dutch
 - `en` English (default)
+- `eo` Esperanto
 - `et` Estonian
 - `fa` Farsi
 - `fi` Finnish
@@ -113,7 +118,7 @@ Make sure you include the "DOCTYPE html" tag at the top of your HTML, as follows
 ### 3. DOM Element Binding:
 
 ```markdown
-<div id="heat-map" data-heat-options="{ 'showDayNames': true }">
+<div id="heat-map" data-heat-options="{ 'views': { 'map': { 'showDayNames': true } } }">
     Your HTML.
 </div>
 ```

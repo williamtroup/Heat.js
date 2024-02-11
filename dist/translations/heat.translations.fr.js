@@ -1,4 +1,4 @@
-/*! Heat.js v1.9.2 - French | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.0.0 - French | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -16,6 +16,8 @@ $heat.setConfiguration( {
         "chartText": "Graphique",
         "noChartDataMessage": "Il n'y a actuellement aucune donnée à consulter.",
         "statisticsText": "Statistiques",
+        "noStatisticsDataMessage": "Il n'y a actuellement aucune statistique à consulter.",
+        "unknownTrendText": "Inconnu",
         "monthNames": [
                 "Janv",
                 "Févr",

@@ -1,4 +1,4 @@
-/*! Heat.js v1.9.2 - Finnish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.0.0 - Finnish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -16,6 +16,8 @@ $heat.setConfiguration( {
         "chartText": "Kartoittaa",
         "noChartDataMessage": "Tällä hetkellä ei ole tarkasteltavaa dataa.",
         "statisticsText": "Tilastot",
+        "noStatisticsDataMessage": "Tällä hetkellä ei ole tilastoja nähtäväksi.",
+        "unknownTrendText": "Tuntematon",
         "monthNames": [
                 "tammikuu",
                 "helmikuuta",
