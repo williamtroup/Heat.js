@@ -1833,14 +1833,11 @@
             triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
             type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
 
-            var datesLength = dates.length,
-                bindingOptions = _elements_DateCounts[ elementId ].options;
+            var datesLength = dates.length;
 
             for ( var dateIndex = 0; dateIndex < datesLength; dateIndex++ ) {
                 this.addDate( elementId, dates[ dateIndex ], type, false );
             }
-
-            fireCustomTrigger( bindingOptions.onAdd, bindingOptions.currentView.element );
 
             if ( triggerRefresh ) {
                 renderControlContainer( _elements_DateCounts[ elementId ].options, true );
@@ -1915,14 +1912,11 @@
             type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
             triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
 
-            var datesLength = dates.length,
-            bindingOptions = _elements_DateCounts[ elementId ].options;
+            var datesLength = dates.length;
 
             for ( var dateIndex = 0; dateIndex < datesLength; dateIndex++ ) {
                 this.removeDate( elementId, dates[ dateIndex ], type, false );
             }
-
-            fireCustomTrigger( bindingOptions.onRemove, bindingOptions.currentView.element );
 
             if ( triggerRefresh ) {
                 renderControlContainer( _elements_DateCounts[ elementId ].options, true );
