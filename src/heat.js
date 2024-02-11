@@ -1809,6 +1809,25 @@
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Storage Dates
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function toStorageDate( date ) {
+        return date.getFullYear() + _string.dash + padNumber( date.getMonth() + 1 ) + _string.dash + padNumber( date.getDate() );
+    }
+
+    function getStorageDate( data ) {
+        return data.split( _string.dash );
+    }
+
+    function getStorageDateYear( data ) {
+        return data.split( _string.dash )[ 0 ];
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Public Functions:  Manage Dates
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -2041,18 +2060,6 @@
 
         return this;
     };
-
-    function toStorageDate( date ) {
-        return date.getFullYear() + _string.dash + padNumber( date.getMonth() + 1 ) + _string.dash + padNumber( date.getDate() );
-    }
-
-    function getStorageDate( data ) {
-        return data.split( _string.dash );
-    }
-
-    function getStorageDateYear( data ) {
-        return data.split( _string.dash )[ 0 ];
-    }
 
 
     /*
