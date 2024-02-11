@@ -18,6 +18,7 @@
 - Added a new binding option called "views.chart.enabled", which states if the "Chart" view is enabled (defaults to true).
 - Added a new binding option called "views.statistics.enabled", which states if the "Statistics" view is enabled (defaults to true).
 - Added a new binding option called "useLocalStorageForData", which states if data added/removed should be remembered in local storage (defaults to true).
+- Added a new binding option called "views.map.showDaysInReverseOrder", which states if the days of the week should be in reverse order (defaults to false).
 
 #### **Binding Options - Color Ranges:**
 - Added a new "colorRanges" binding option called "mapCssClassName", which states a CSS class name to use for items in the "Map" view (overrides the "cssClassName" property).

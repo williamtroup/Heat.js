@@ -302,6 +302,9 @@
           createElementWithHTML(days, "div", "day-name", _configuration.dayNames[dayNameIndex]);
         }
       }
+      if (bindingOptions.views.map.showDaysInReverseOrder) {
+        reverseElementsOrder(days);
+      }
     }
     var months = createElement(map, "div", "months");
     var colorRanges = getSortedMapRanges(bindingOptions);
@@ -335,6 +338,9 @@
               day = renderControlMapMonthDay(bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, colorRanges);
             }
             if ((dayIndex + 1) % 7 === 0) {
+              if (bindingOptions.views.map.showDaysInReverseOrder) {
+                reverseElementsOrder(currentDayColumn);
+              }
               currentDayColumn = createElement(dayColumns, "div", "day-column");
               actualDay = 0;
               if (!isDefined(_elements_Day_Width) && isDefined(day)) {
@@ -963,6 +969,7 @@
     options.views.map.placeMonthNamesOnTheBottom = getDefaultBoolean(options.views.map.placeMonthNamesOnTheBottom, false);
     options.views.map.showDayNumbers = getDefaultBoolean(options.views.map.showDayNumbers, false);
     options.views.map.showMonthNames = getDefaultBoolean(options.views.map.showMonthNames, true);
+    options.views.map.showDaysInReverseOrder = getDefaultBoolean(options.views.map.showDaysInReverseOrder, false);
     if (isInvalidOptionArray(options.views.map.monthsToShow)) {
       options.views.map.monthsToShow = _default_MonthsToShow;
     }
@@ -1155,6 +1162,13 @@
     }
     element.style.left = left + "px";
     element.style.top = top + "px";
+  }
+  function reverseElementsOrder(parent) {
+    var children = parent.children;
+    var childrenLength = children.length - 1;
+    for (; childrenLength--;) {
+      parent.appendChild(children[childrenLength]);
+    }
   }
   function fireCustomTrigger(triggerFunction) {
     var result = null;
