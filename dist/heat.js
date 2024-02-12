@@ -618,6 +618,11 @@
       }
     }
     if (_elements_DateCounts[bindingOptions.currentView.element.id].types > 1) {
+      if (isDefinedString(bindingOptions.descriptionText)) {
+        var description = createElement(guide, "div", "description");
+        guide.parentNode.insertBefore(description, guide);
+        renderDescription(bindingOptions, description);
+      }
       var type;
       for (type in _elements_DateCounts[bindingOptions.currentView.element.id].type) {
         if (type !== _configuration.unknownTrendText || noneTypeCount > 0) {
@@ -628,14 +633,7 @@
         }
       }
     } else {
-      if (isDefinedString(bindingOptions.descriptionText)) {
-        if (isDefinedString(bindingOptions.descriptionTextLink)) {
-          var link = createElementWithHTML(mapTypes, "a", "label", bindingOptions.descriptionText);
-          link.href = bindingOptions.descriptionTextLink;
-        } else {
-          createElementWithHTML(mapTypes, "span", "label", bindingOptions.descriptionText);
-        }
-      }
+      renderDescription(bindingOptions, mapTypes);
     }
     if (bindingOptions.showGuide) {
       var mapToggles = createElement(guide, "div", "map-toggles");
@@ -698,6 +696,16 @@
       };
     } else {
       addClass(day, "no-hover");
+    }
+  }
+  function renderDescription(bindingOptions, container) {
+    if (isDefinedString(bindingOptions.descriptionText)) {
+      if (isDefinedString(bindingOptions.descriptionTextLink)) {
+        var link = createElementWithHTML(container, "a", "label", bindingOptions.descriptionText);
+        link.href = bindingOptions.descriptionTextLink;
+      } else {
+        createElementWithHTML(container, "span", "label", bindingOptions.descriptionText);
+      }
     }
   }
   function loadDataFromLocalStorage(elementId, bindingOptions) {

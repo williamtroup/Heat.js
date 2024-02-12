@@ -6,6 +6,9 @@
 - BREAKING: Renamed the binding option "noTypesLabel" to "descriptionText", and updated documentation.
 - BREAKING: Renamed the binding option "noTypesLabelLink" to "descriptionTextLink", and updated documentation.
 
+#### **UI Changes:**
+- The "descriptionText" binding option text is now shown no matter if trend types are used (if they are used, the description text is shown above the buttons).
+
 <br>
 
 

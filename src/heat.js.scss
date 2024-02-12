@@ -217,6 +217,34 @@
     font-weight: var(--heat-js-text-bold-weight);
 }
 
+@mixin description {
+    text-align: center;
+
+    @media (min-width: $minimum-width) { 
+        text-align: left;
+    }
+
+    span.label,
+    a.label,
+    a.label:visited {
+        color: var(--heat-js-color-white);
+        font-weight: var(--heat-js-text-bold-weight);
+        text-decoration: none;
+    }
+
+    a.label {
+        transition: var(--heat-js-transition);
+
+        &:active {
+            color: var(--heat-js-color-gray);
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
 
 /*
     -------------------------------------------------------------------------
@@ -740,6 +768,25 @@ div.heat-js {
     }
 }
 
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Guide
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.description {
+        text-align: center;
+        margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
+
+        @media (min-width: $minimum-width) { 
+            text-align: left;
+        }
+
+        @include description;
+    }
+}
+
 
 /*
     -------------------------------------------------------------------------
@@ -773,30 +820,11 @@ div.heat-js {
             }
 
             @include buttons;
+            @include description;
 
             button {
                 margin-left: 0 !important;
                 margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
-            }
-
-            span.label,
-            a.label,
-            a.label:visited {
-                color: var(--heat-js-color-white);
-                font-weight: var(--heat-js-text-bold-weight);
-                text-decoration: none;
-            }
-
-            a.label {
-                transition: var(--heat-js-transition);
-
-                &:active {
-                    color: var(--heat-js-color-gray);
-                }
-
-                &:hover {
-                    text-decoration: underline;
-                }
             }
         }
 

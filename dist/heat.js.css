@@ -653,6 +653,43 @@ div.heat-js div.statistics-contents div.statistics-ranges div.range-name {
     Heat.js - Guide
     -------------------------------------------------------------------------
 */
+div.heat-js div.description {
+  text-align: center;
+  margin-top: calc(var(--heat-js-spacing) + var(--heat-js-spacing) / 2);
+  text-align: center;
+}
+@media (min-width: 768px) {
+  div.heat-js div.description {
+    text-align: left;
+  }
+}
+@media (min-width: 768px) {
+  div.heat-js div.description {
+    text-align: left;
+  }
+}
+div.heat-js div.description span.label,
+div.heat-js div.description a.label,
+div.heat-js div.description a.label:visited {
+  color: var(--heat-js-color-white);
+  font-weight: var(--heat-js-text-bold-weight);
+  text-decoration: none;
+}
+div.heat-js div.description a.label {
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.description a.label:active {
+  color: var(--heat-js-color-gray);
+}
+div.heat-js div.description a.label:hover {
+  text-decoration: underline;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Guide
+    -------------------------------------------------------------------------
+*/
 div.heat-js div.guide {
   display: block;
 }
@@ -673,6 +710,7 @@ div.heat-js div.guide div.map-toggles {
   }
 }
 div.heat-js div.guide div.map-types {
+  text-align: center;
   text-align: center;
 }
 @media (min-width: 768px) {
@@ -708,9 +746,10 @@ div.heat-js div.guide div.map-types button.active {
   transition: var(--heat-js-transition);
   font-weight: var(--heat-js-text-bold-weight-active);
 }
-div.heat-js div.guide div.map-types button {
-  margin-left: 0 !important;
-  margin-right: calc(var(--heat-js-spacing) / 2) !important;
+@media (min-width: 768px) {
+  div.heat-js div.guide div.map-types {
+    text-align: left;
+  }
 }
 div.heat-js div.guide div.map-types span.label,
 div.heat-js div.guide div.map-types a.label,
@@ -727,6 +766,10 @@ div.heat-js div.guide div.map-types a.label:active {
 }
 div.heat-js div.guide div.map-types a.label:hover {
   text-decoration: underline;
+}
+div.heat-js div.guide div.map-types button {
+  margin-left: 0 !important;
+  margin-right: calc(var(--heat-js-spacing) / 2) !important;
 }
 div.heat-js div.guide div.map-toggles {
   display: flex;
