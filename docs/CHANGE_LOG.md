@@ -17,6 +17,7 @@
 
 #### **Fixes:**
 - Fixed the "box-sizing" rules not being applied to the main container (causing width issues in mobile mode).
+- Fixed the "box-sizing" rules not being applied to the tooltip (causing width issues in mobile mode).
 
 <br>
 

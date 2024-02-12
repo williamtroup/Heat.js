@@ -880,6 +880,8 @@ div.heat-js-tooltip {
   -o-user-select: none;
   user-select: none;
   cursor: default;
+  box-sizing: border-box;
+  line-height: normal;
   font-family: var(--heat-js-default-font);
   animation: fade-in-animation var(--heat-js-animation-length);
   position: absolute;

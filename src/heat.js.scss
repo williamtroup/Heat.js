@@ -952,6 +952,7 @@ div.heat-js {
 
 div.heat-js-tooltip {
     @include no-selection-allowed;
+    @include box-sizing;
     font-family: var(--heat-js-default-font);
     animation: fade-in-animation var(--heat-js-animation-length);
     position: absolute;
