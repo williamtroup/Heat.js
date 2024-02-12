@@ -1,5 +1,11 @@
 # Heat.js - Change Log:
 
+## Version 2.1.0:
+- 
+
+<br>
+
+
 ## Version 2.0.0:
 
 #### **New Features:**
