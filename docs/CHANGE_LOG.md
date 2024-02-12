@@ -1,7 +1,10 @@
 # Heat.js - Change Log:
 
 ## Version 2.1.0:
-- 
+
+#### **Binding Options:**
+- BREAKING: Renamed the binding option "noTypesLabel" to "descriptionText", and updated documentation.
+- BREAKING: Renamed the binding option "noTypesLabelLink" to "descriptionTextLink", and updated documentation.
 
 <br>
 

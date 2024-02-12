@@ -24,8 +24,8 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | view | States the view that should be shown by default (defaults to "map", also accepts "chart" and "statistics"). |
 | *number* | tooltipDelay | States how long the tooltip should wait (in milliseconds) until it's shown (defaults to 750). |
 | *string* | exportType | States the export file type that should be used (defaults to "csv", also accepts "json" and "xml"). |
-| *string* | noTypesLabel | States a label that should be shown when no trend types are available (defaults to null). |
-| *string* | noTypesLabelLink | States a link that should be used for the "noTypesLabel" label (defaults to null). |
+| *string* | descriptionText | States a description that should be shown below the active view (defaults to null). |
+| *string* | descriptionTextLink | States a link that should be used for the "descriptionText" label (defaults to null). |
 | *boolean* | useLocalStorageForData | States if data added/removed should be remembered in local storage (remembered between browser usages, defaults to false). |
 
 <br/>

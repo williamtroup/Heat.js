@@ -628,12 +628,12 @@
         }
       }
     } else {
-      if (isDefinedString(bindingOptions.noTypesLabel)) {
-        if (isDefinedString(bindingOptions.noTypesLabelLink)) {
-          var link = createElementWithHTML(mapTypes, "a", "label", bindingOptions.noTypesLabel);
-          link.href = bindingOptions.noTypesLabelLink;
+      if (isDefinedString(bindingOptions.descriptionText)) {
+        if (isDefinedString(bindingOptions.descriptionTextLink)) {
+          var link = createElementWithHTML(mapTypes, "a", "label", bindingOptions.descriptionText);
+          link.href = bindingOptions.descriptionTextLink;
         } else {
-          createElementWithHTML(mapTypes, "span", "label", bindingOptions.noTypesLabel);
+          createElementWithHTML(mapTypes, "span", "label", bindingOptions.descriptionText);
         }
       }
     }
@@ -950,8 +950,8 @@
     options.view = getDefaultString(options.view, _elements_View_Name_Map);
     options.tooltipDelay = getDefaultNumber(options.tooltipDelay, 750);
     options.exportType = getDefaultString(options.exportType, _export_Type_Csv);
-    options.noTypesLabel = getDefaultString(options.noTypesLabel, null);
-    options.noTypesLabelLink = getDefaultString(options.noTypesLabelLink, null);
+    options.descriptionText = getDefaultString(options.descriptionText, null);
+    options.descriptionTextLink = getDefaultString(options.descriptionTextLink, null);
     options.useLocalStorageForData = getDefaultBoolean(options.useLocalStorageForData, false);
     options = buildAttributeOptionMapView(options);
     options = buildAttributeOptionChartView(options);
