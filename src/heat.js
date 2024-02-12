@@ -458,6 +458,8 @@
     function renderControlMap( bindingOptions ) {
         bindingOptions.currentView.mapContents = createElement( bindingOptions.currentView.element, "div", "map-contents" );
 
+        makeAreaDroppable( bindingOptions.currentView.mapContents, bindingOptions );
+
         var map = createElement( bindingOptions.currentView.mapContents, "div", "map" ),
             currentYear = bindingOptions.currentView.year,
             monthAdded = false;
@@ -618,6 +620,8 @@
 
     function renderControlChartContents( bindingOptions ) {
         bindingOptions.currentView.chartContents = createElement( bindingOptions.currentView.element, "div", "chart-contents" );
+
+        makeAreaDroppable( bindingOptions.currentView.chartContents, bindingOptions );
     }
 
     function renderControlChart( bindingOptions ) {
@@ -767,6 +771,8 @@
 
     function renderControlStatisticsContents( bindingOptions ) {
         bindingOptions.currentView.statisticsContents = createElement( bindingOptions.currentView.element, "div", "statistics-contents" );
+
+        makeAreaDroppable( bindingOptions.currentView.statisticsContents, bindingOptions );
     }
 
     function renderControlStatistics( bindingOptions ) {
@@ -1167,6 +1173,79 @@
         } );
     }
 
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Import
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function makeAreaDroppable( element, bindingOptions ) {
+        element.ondragover = cancelBubble;
+        element.ondragenter = cancelBubble;
+        element.ondragleave = cancelBubble;
+
+        element.ondrop = function( e ) {
+            cancelBubble( e );
+
+            if ( isDefined( _parameter_Window.FileReader ) && e.dataTransfer.files.length > 0 ) {
+                importFromFiles( e.dataTransfer.files, bindingOptions );
+            }
+        };
+    }
+
+    function importFromFiles( files, bindingOptions ) {
+        var filesLength = files.length,
+            filesCompleted = [],
+            data = getCurrentViewData( bindingOptions );
+
+        var onLoadEnd = function( filename, readingObject ) {
+            filesCompleted.push( filename );
+
+            for ( var storageDate in readingObject ) {
+                if ( readingObject.hasOwnProperty( storageDate ) ) {
+                    if ( !data.hasOwnProperty( storageDate ) ) {
+                        data[ storageDate ] = 0;
+                    }
+
+                    data[ storageDate ] += readingObject[ storageDate ];
+                }
+            }
+
+            if ( filesCompleted.length === filesLength ) {
+                fireCustomTrigger( bindingOptions.onImport, bindingOptions.currentView.element );
+                renderControlContainer( bindingOptions );
+            }
+        };
+
+        for ( var fileIndex = 0; fileIndex < filesLength; fileIndex++ ) {
+            var file = files[ fileIndex ],
+                fileExtension = file.name.split( "." ).pop().toLowerCase();
+
+            if ( fileExtension === _export_Type_Json ) {
+                importFromJson( file, onLoadEnd );
+            }
+        }
+    }
+
+    function importFromJson( file, onLoadEnd ) {
+        var reader = new FileReader(),
+            readingObject = null;
+
+        reader.readAsText( file );
+
+        reader.onloadend = function() {
+            onLoadEnd( file.name, readingObject );
+        };
+    
+        reader.onload = function( event ) {
+            var jsonObject = getObjectFromString( event.target.result );
+
+            if ( jsonObject.parsed && isDefinedObject( jsonObject.result ) ) {
+                readingObject = jsonObject.result;
+            }
+        };
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1487,6 +1566,7 @@
         options.onReset = getDefaultFunction( options.onReset, null );
         options.onViewSwitch = getDefaultFunction( options.onViewSwitch, null );
         options.onColorRangeTypeToggle = getDefaultFunction( options.onColorRangeTypeToggle, null );
+        options.onImport = getDefaultFunction( options.onImport, null );
 
         return options;
     }

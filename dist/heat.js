@@ -281,6 +281,7 @@
   }
   function renderControlMap(bindingOptions) {
     bindingOptions.currentView.mapContents = createElement(bindingOptions.currentView.element, "div", "map-contents");
+    makeAreaDroppable(bindingOptions.currentView.mapContents, bindingOptions);
     var map = createElement(bindingOptions.currentView.mapContents, "div", "map");
     var currentYear = bindingOptions.currentView.year;
     var monthAdded = false;
@@ -402,6 +403,7 @@
   }
   function renderControlChartContents(bindingOptions) {
     bindingOptions.currentView.chartContents = createElement(bindingOptions.currentView.element, "div", "chart-contents");
+    makeAreaDroppable(bindingOptions.currentView.chartContents, bindingOptions);
   }
   function renderControlChart(bindingOptions) {
     var chart = createElement(bindingOptions.currentView.chartContents, "div", "chart");
@@ -517,6 +519,7 @@
   }
   function renderControlStatisticsContents(bindingOptions) {
     bindingOptions.currentView.statisticsContents = createElement(bindingOptions.currentView.element, "div", "statistics-contents");
+    makeAreaDroppable(bindingOptions.currentView.statisticsContents, bindingOptions);
   }
   function renderControlStatistics(bindingOptions) {
     var statistics = createElement(bindingOptions.currentView.statisticsContents, "div", "statistics");
@@ -822,6 +825,60 @@
       return a.minimum - b.minimum;
     });
   }
+  function makeAreaDroppable(element, bindingOptions) {
+    element.ondragover = cancelBubble;
+    element.ondragenter = cancelBubble;
+    element.ondragleave = cancelBubble;
+    element.ondrop = function(e) {
+      cancelBubble(e);
+      if (isDefined(_parameter_Window.FileReader) && e.dataTransfer.files.length > 0) {
+        importFromFiles(e.dataTransfer.files, bindingOptions);
+      }
+    };
+  }
+  function importFromFiles(files, bindingOptions) {
+    var filesLength = files.length;
+    var filesCompleted = [];
+    var data = getCurrentViewData(bindingOptions);
+    var onLoadEnd = function(filename, readingObject) {
+      filesCompleted.push(filename);
+      var storageDate;
+      for (storageDate in readingObject) {
+        if (readingObject.hasOwnProperty(storageDate)) {
+          if (!data.hasOwnProperty(storageDate)) {
+            data[storageDate] = 0;
+          }
+          data[storageDate] += readingObject[storageDate];
+        }
+      }
+      if (filesCompleted.length === filesLength) {
+        fireCustomTrigger(bindingOptions.onImport, bindingOptions.currentView.element);
+        renderControlContainer(bindingOptions);
+      }
+    };
+    var fileIndex = 0;
+    for (; fileIndex < filesLength; fileIndex++) {
+      var file = files[fileIndex];
+      var fileExtension = file.name.split(".").pop().toLowerCase();
+      if (fileExtension === _export_Type_Json) {
+        importFromJson(file, onLoadEnd);
+      }
+    }
+  }
+  function importFromJson(file, onLoadEnd) {
+    var reader = new FileReader();
+    var readingObject = null;
+    reader.readAsText(file);
+    reader.onloadend = function() {
+      onLoadEnd(file.name, readingObject);
+    };
+    reader.onload = function(event) {
+      var jsonObject = getObjectFromString(event.target.result);
+      if (jsonObject.parsed && isDefinedObject(jsonObject.result)) {
+        readingObject = jsonObject.result;
+      }
+    };
+  }
   function exportAllData(bindingOptions) {
     var contents = null;
     var contentsMimeType = getExportMimeType(bindingOptions);
@@ -1044,6 +1101,7 @@
     options.onReset = getDefaultFunction(options.onReset, null);
     options.onViewSwitch = getDefaultFunction(options.onViewSwitch, null);
     options.onColorRangeTypeToggle = getDefaultFunction(options.onColorRangeTypeToggle, null);
+    options.onImport = getDefaultFunction(options.onImport, null);
     return options;
   }
   function getTotalDaysInMonth(year, month) {

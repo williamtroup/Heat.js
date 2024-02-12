@@ -98,6 +98,12 @@ Fires when the data for a heatmap is exported.
 <br>
 ***Parameter:*** element: '*Object*' - The element that the data was exported for.
 <br>
+
+### options.onImport( *element* ):
+Fires when data for a heatmap is imported.
+<br>
+***Parameter:*** element: '*Object*' - The element that the data was imported for.
+<br>
 <br>
 
 

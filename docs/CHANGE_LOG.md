@@ -2,9 +2,15 @@
 
 ## Version 2.1.0:
 
+#### **New Features:**
+- Added file dropping support to all views, which allows exported JSON daa to be re-imported to the currently selected trend type.
+
 #### **Binding Options:**
 - BREAKING: Renamed the binding option "noTypesLabel" to "descriptionText", and updated documentation.
 - BREAKING: Renamed the binding option "noTypesLabelLink" to "descriptionTextLink", and updated documentation.
+
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option custom trigger called "onImport", which states an event that should be triggered when data is imported.
 
 #### **UI Changes:**
 - The "descriptionText" binding option text is now shown no matter if trend types are used (if they are used, the description text is shown above the buttons).
