@@ -874,8 +874,8 @@
     reader.onloadend = function() {
       onLoadEnd(file.name, readingObject);
     };
-    reader.onload = function(event) {
-      var jsonObject = getObjectFromString(event.target.result);
+    reader.onload = function(e) {
+      var jsonObject = getObjectFromString(e.target.result);
       if (jsonObject.parsed && isDefinedObject(jsonObject.result)) {
         readingObject = jsonObject.result;
       }
