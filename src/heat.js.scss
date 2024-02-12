@@ -245,6 +245,11 @@
     }
 }
 
+@mixin box-sizing {
+    box-sizing: border-box;
+    line-height: normal;
+}
+
 
 /*
     -------------------------------------------------------------------------
@@ -254,6 +259,7 @@
 
 div.heat-js {
     @include no-selection-allowed;
+    @include box-sizing;
     font-family: var(--heat-js-default-font);
     display: inline-block;
     position: relative;
@@ -263,7 +269,7 @@ div.heat-js {
     border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
     padding: var(--heat-js-spacing);
     font-size: var(--heat-js-spacing-font-size);
-    width: calc( 100% - ( var(--heat-js-spacing) * 2 ) );
+    width: 100%;
     max-width: 700px;
     margin: 0 !important;
     
@@ -272,13 +278,11 @@ div.heat-js {
     }
 
     * {
-        box-sizing: border-box;
-        line-height: normal;
+        @include box-sizing;
 
         &::before,
         &::after {
-            box-sizing: border-box;
-            line-height: normal;
+            @include box-sizing;
         }
     }
 }

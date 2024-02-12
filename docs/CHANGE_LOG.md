@@ -9,6 +9,9 @@
 #### **UI Changes:**
 - The "descriptionText" binding option text is now shown no matter if trend types are used (if they are used, the description text is shown above the buttons).
 
+#### **Fixes:**
+- Fixed the "box-sizing" rules not being applied to the main container (causing width issues in mobile mode).
+
 <br>
 
 
