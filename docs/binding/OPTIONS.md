@@ -27,6 +27,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *string* | descriptionText | States a description that should be shown below the active view (defaults to null). |
 | *string* | descriptionTextLink | States a link that should be used for the "descriptionText" label (defaults to null). |
 | *boolean* | useLocalStorageForData | States if data added/removed should be remembered in local storage (remembered between browser usages, defaults to false). |
+| *boolean* | allowFileImports | States if file importing via drag & drop is enabled (defaults to true). |
 
 <br/>
 

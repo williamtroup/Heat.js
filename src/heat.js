@@ -1180,17 +1180,19 @@
      */
 
     function makeAreaDroppable( element, bindingOptions ) {
-        element.ondragover = cancelBubble;
-        element.ondragenter = cancelBubble;
-        element.ondragleave = cancelBubble;
-
-        element.ondrop = function( e ) {
-            cancelBubble( e );
-
-            if ( isDefined( _parameter_Window.FileReader ) && e.dataTransfer.files.length > 0 ) {
-                importFromFiles( e.dataTransfer.files, bindingOptions );
-            }
-        };
+        if ( bindingOptions.allowFileImports ) {
+            element.ondragover = cancelBubble;
+            element.ondragenter = cancelBubble;
+            element.ondragleave = cancelBubble;
+    
+            element.ondrop = function( e ) {
+                cancelBubble( e );
+    
+                if ( isDefined( _parameter_Window.FileReader ) && e.dataTransfer.files.length > 0 ) {
+                    importFromFiles( e.dataTransfer.files, bindingOptions );
+                }
+            };
+        }
     }
 
     function importFromFiles( files, bindingOptions ) {
@@ -1427,6 +1429,7 @@
         options.descriptionText = getDefaultString( options.descriptionText, null );
         options.descriptionTextLink = getDefaultString( options.descriptionTextLink, null );
         options.useLocalStorageForData = getDefaultBoolean( options.useLocalStorageForData, false );
+        options.allowFileImports = getDefaultBoolean( options.allowFileImports, true );
 
         options = buildAttributeOptionMapView( options );
         options = buildAttributeOptionChartView( options );

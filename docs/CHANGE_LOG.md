@@ -8,6 +8,7 @@
 #### **Binding Options:**
 - BREAKING: Renamed the binding option "noTypesLabel" to "descriptionText", and updated documentation.
 - BREAKING: Renamed the binding option "noTypesLabelLink" to "descriptionTextLink", and updated documentation.
+- Added a new binding option called "allowFileImports", which states if file importing via drag & drop is enabled (defaults to true).
 
 #### **Binding Options - Custom Triggers:**
 - Added a new binding option custom trigger called "onImport", which states an event that should be triggered when data is imported.
