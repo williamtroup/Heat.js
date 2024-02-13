@@ -265,6 +265,8 @@ Sets the specific configuration options that should be used.
 <br>
 ***Parameter: newConfiguration***: '*Object*' - All the configuration options that should be set (refer to ["Configuration Options"](configuration/OPTIONS.md) documentation for properties).
 <br>
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for each element should be refreshed (defaults to true).
+<br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
 <br>

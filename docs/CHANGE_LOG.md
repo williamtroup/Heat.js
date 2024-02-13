@@ -13,12 +13,16 @@
 #### **Binding Options - Custom Triggers:**
 - Added a new binding option custom trigger called "onImport", which states an event that should be triggered when data is imported.
 
+#### **Public Functions:**
+- The public function "setConfiguration()" now has an additional parameter called "triggerRefresh" (defaults to true), which will force refresh all rendered maps.
+
 #### **UI Changes:**
 - The "descriptionText" binding option text is now shown no matter if trend types are used (if they are used, the description text is shown above the buttons).
 
 #### **Fixes:**
 - Fixed the "box-sizing" rules not being applied to the main container (causing width issues in mobile mode).
 - Fixed the "box-sizing" rules not being applied to the tooltip (causing width issues in mobile mode).
+- Fixed a fault that caused all other pre-configured settings to be wiped out when calling "setConfiguration()".
 
 <br>
 

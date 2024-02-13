@@ -2573,19 +2573,31 @@
      * 
      * @public
      * 
-     * @param       {Object}   newConfiguration                             All the configuration options that should be set (refer to "Configuration Options" documentation for properties).
+     * @param       {Object}    newConfiguration                            All the configuration options that should be set (refer to "Configuration Options" documentation for properties).
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for each element should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.setConfiguration = function( newConfiguration ) {
-        _configuration = !isDefinedObject( newConfiguration ) ? {} : newConfiguration;
+    this.setConfiguration = function( newConfiguration, triggerRefresh ) {
+        triggerRefresh = !isDefined( triggerRefresh ) ? true: triggerRefresh;
         
-        buildDefaultConfiguration();
+        for ( var propertyName in newConfiguration ) {
+            if ( newConfiguration.hasOwnProperty( propertyName ) ) {
+                _configuration[ propertyName ] = newConfiguration[ propertyName ];
+            }
+        }
+
+        buildDefaultConfiguration( _configuration );
+
+        if ( triggerRefresh ) {
+            this.refreshAll();
+        }
 
         return this;
     };
 
-    function buildDefaultConfiguration() {
+    function buildDefaultConfiguration( newConfiguration ) {
+        _configuration = !isDefinedObject( newConfiguration ) ? {} : newConfiguration;
         _configuration.safeMode = getDefaultBoolean( _configuration.safeMode, true );
         _configuration.domElementTypes = getDefaultStringOrArray( _configuration.domElementTypes, [ "*" ] );
 

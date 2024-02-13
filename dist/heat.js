@@ -1321,7 +1321,8 @@
   function getStorageDateYear(data) {
     return data.split(_string.dash)[0];
   }
-  function buildDefaultConfiguration() {
+  function buildDefaultConfiguration(newConfiguration) {
+    _configuration = !isDefinedObject(newConfiguration) ? {} : newConfiguration;
     _configuration.safeMode = getDefaultBoolean(_configuration.safeMode, true);
     _configuration.domElementTypes = getDefaultStringOrArray(_configuration.domElementTypes, ["*"]);
     buildDefaultConfigurationStrings();
@@ -1643,9 +1644,18 @@
     }
     return this;
   };
-  this.setConfiguration = function(newConfiguration) {
-    _configuration = !isDefinedObject(newConfiguration) ? {} : newConfiguration;
-    buildDefaultConfiguration();
+  this.setConfiguration = function(newConfiguration, triggerRefresh) {
+    triggerRefresh = !isDefined(triggerRefresh) ? true : triggerRefresh;
+    var propertyName;
+    for (propertyName in newConfiguration) {
+      if (newConfiguration.hasOwnProperty(propertyName)) {
+        _configuration[propertyName] = newConfiguration[propertyName];
+      }
+    }
+    buildDefaultConfiguration(_configuration);
+    if (triggerRefresh) {
+      this.refreshAll();
+    }
     return this;
   };
   this.getIds = function() {
