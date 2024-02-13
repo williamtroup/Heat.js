@@ -3,7 +3,7 @@
 ## Version 2.1.0:
 
 #### **New Features:**
-- Added file dropping support to all views, which allows exported JSON daa to be re-imported to the currently selected trend type.
+- Added file-dropping support to all views, which allows exported JSON data to be re-imported to the currently selected trend type.
 
 #### **Binding Options:**
 - BREAKING: Renamed the binding option "noTypesLabel" to "descriptionText", and updated documentation.
