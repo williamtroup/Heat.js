@@ -2572,6 +2572,7 @@
      * Sets the specific configuration options that should be used.
      * 
      * @public
+     * @fires       onRefresh
      * 
      * @param       {Object}    newConfiguration                            All the configuration options that should be set (refer to "Configuration Options" documentation for properties).
      * @param       {boolean}   [triggerRefresh]                            States if the UI for each element should be refreshed (defaults to true).

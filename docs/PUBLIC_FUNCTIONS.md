@@ -263,6 +263,8 @@ Reverts all rendered elements to their original state (without render attributes
 ### **setConfiguration( *newConfiguration* )**:
 Sets the specific configuration options that should be used.
 <br>
+***Fires***:  onRefresh
+<br>
 ***Parameter: newConfiguration***: '*Object*' - All the configuration options that should be set (refer to ["Configuration Options"](configuration/OPTIONS.md) documentation for properties).
 <br>
 ***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for each element should be refreshed (defaults to true).
