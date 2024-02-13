@@ -22,7 +22,7 @@
 #### **Fixes:**
 - Fixed the "box-sizing" rules not being applied to the main container (causing width issues in mobile mode).
 - Fixed the "box-sizing" rules not being applied to the tooltip (causing width issues in mobile mode).
-- Fixed a fault that caused all other pre-configured settings to be wiped out when calling "setConfiguration()".
+- Fixed a fault that caused all pre-configured settings to be wiped out when calling "setConfiguration()".
 
 <br>
 
