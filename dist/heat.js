@@ -1,4 +1,4 @@
-/*! Heat.js v2.0.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.1.0 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -281,6 +281,7 @@
   }
   function renderControlMap(bindingOptions) {
     bindingOptions.currentView.mapContents = createElement(bindingOptions.currentView.element, "div", "map-contents");
+    makeAreaDroppable(bindingOptions.currentView.mapContents, bindingOptions);
     var map = createElement(bindingOptions.currentView.mapContents, "div", "map");
     var currentYear = bindingOptions.currentView.year;
     var monthAdded = false;
@@ -402,6 +403,7 @@
   }
   function renderControlChartContents(bindingOptions) {
     bindingOptions.currentView.chartContents = createElement(bindingOptions.currentView.element, "div", "chart-contents");
+    makeAreaDroppable(bindingOptions.currentView.chartContents, bindingOptions);
   }
   function renderControlChart(bindingOptions) {
     var chart = createElement(bindingOptions.currentView.chartContents, "div", "chart");
@@ -517,6 +519,7 @@
   }
   function renderControlStatisticsContents(bindingOptions) {
     bindingOptions.currentView.statisticsContents = createElement(bindingOptions.currentView.element, "div", "statistics-contents");
+    makeAreaDroppable(bindingOptions.currentView.statisticsContents, bindingOptions);
   }
   function renderControlStatistics(bindingOptions) {
     var statistics = createElement(bindingOptions.currentView.statisticsContents, "div", "statistics");
@@ -618,6 +621,11 @@
       }
     }
     if (_elements_DateCounts[bindingOptions.currentView.element.id].types > 1) {
+      if (isDefinedString(bindingOptions.descriptionText)) {
+        var description = createElement(guide, "div", "description");
+        guide.parentNode.insertBefore(description, guide);
+        renderDescription(bindingOptions, description);
+      }
       var type;
       for (type in _elements_DateCounts[bindingOptions.currentView.element.id].type) {
         if (type !== _configuration.unknownTrendText || noneTypeCount > 0) {
@@ -628,14 +636,7 @@
         }
       }
     } else {
-      if (isDefinedString(bindingOptions.noTypesLabel)) {
-        if (isDefinedString(bindingOptions.noTypesLabelLink)) {
-          var link = createElementWithHTML(mapTypes, "a", "label", bindingOptions.noTypesLabel);
-          link.href = bindingOptions.noTypesLabelLink;
-        } else {
-          createElementWithHTML(mapTypes, "span", "label", bindingOptions.noTypesLabel);
-        }
-      }
+      renderDescription(bindingOptions, mapTypes);
     }
     if (bindingOptions.showGuide) {
       var mapToggles = createElement(guide, "div", "map-toggles");
@@ -698,6 +699,16 @@
       };
     } else {
       addClass(day, "no-hover");
+    }
+  }
+  function renderDescription(bindingOptions, container) {
+    if (isDefinedString(bindingOptions.descriptionText)) {
+      if (isDefinedString(bindingOptions.descriptionTextLink)) {
+        var link = createElementWithHTML(container, "a", "label", bindingOptions.descriptionText);
+        link.href = bindingOptions.descriptionTextLink;
+      } else {
+        createElementWithHTML(container, "span", "label", bindingOptions.descriptionText);
+      }
     }
   }
   function loadDataFromLocalStorage(elementId, bindingOptions) {
@@ -813,6 +824,62 @@
     return bindingOptions.colorRanges.sort(function(a, b) {
       return a.minimum - b.minimum;
     });
+  }
+  function makeAreaDroppable(element, bindingOptions) {
+    if (bindingOptions.allowFileImports) {
+      element.ondragover = cancelBubble;
+      element.ondragenter = cancelBubble;
+      element.ondragleave = cancelBubble;
+      element.ondrop = function(e) {
+        cancelBubble(e);
+        if (isDefined(_parameter_Window.FileReader) && e.dataTransfer.files.length > 0) {
+          importFromFiles(e.dataTransfer.files, bindingOptions);
+        }
+      };
+    }
+  }
+  function importFromFiles(files, bindingOptions) {
+    var filesLength = files.length;
+    var filesCompleted = [];
+    var data = getCurrentViewData(bindingOptions);
+    var onLoadEnd = function(filename, readingObject) {
+      filesCompleted.push(filename);
+      var storageDate;
+      for (storageDate in readingObject) {
+        if (readingObject.hasOwnProperty(storageDate)) {
+          if (!data.hasOwnProperty(storageDate)) {
+            data[storageDate] = 0;
+          }
+          data[storageDate] += readingObject[storageDate];
+        }
+      }
+      if (filesCompleted.length === filesLength) {
+        fireCustomTrigger(bindingOptions.onImport, bindingOptions.currentView.element);
+        renderControlContainer(bindingOptions);
+      }
+    };
+    var fileIndex = 0;
+    for (; fileIndex < filesLength; fileIndex++) {
+      var file = files[fileIndex];
+      var fileExtension = file.name.split(".").pop().toLowerCase();
+      if (fileExtension === _export_Type_Json) {
+        importFromJson(file, onLoadEnd);
+      }
+    }
+  }
+  function importFromJson(file, onLoadEnd) {
+    var reader = new FileReader();
+    var readingObject = null;
+    reader.readAsText(file);
+    reader.onloadend = function() {
+      onLoadEnd(file.name, readingObject);
+    };
+    reader.onload = function(e) {
+      var jsonObject = getObjectFromString(e.target.result);
+      if (jsonObject.parsed && isDefinedObject(jsonObject.result)) {
+        readingObject = jsonObject.result;
+      }
+    };
   }
   function exportAllData(bindingOptions) {
     var contents = null;
@@ -950,9 +1017,10 @@
     options.view = getDefaultString(options.view, _elements_View_Name_Map);
     options.tooltipDelay = getDefaultNumber(options.tooltipDelay, 750);
     options.exportType = getDefaultString(options.exportType, _export_Type_Csv);
-    options.noTypesLabel = getDefaultString(options.noTypesLabel, null);
-    options.noTypesLabelLink = getDefaultString(options.noTypesLabelLink, null);
+    options.descriptionText = getDefaultString(options.descriptionText, null);
+    options.descriptionTextLink = getDefaultString(options.descriptionTextLink, null);
     options.useLocalStorageForData = getDefaultBoolean(options.useLocalStorageForData, false);
+    options.allowFileImports = getDefaultBoolean(options.allowFileImports, true);
     options = buildAttributeOptionMapView(options);
     options = buildAttributeOptionChartView(options);
     options = buildAttributeOptionStatisticsView(options);
@@ -1036,6 +1104,7 @@
     options.onReset = getDefaultFunction(options.onReset, null);
     options.onViewSwitch = getDefaultFunction(options.onViewSwitch, null);
     options.onColorRangeTypeToggle = getDefaultFunction(options.onColorRangeTypeToggle, null);
+    options.onImport = getDefaultFunction(options.onImport, null);
     return options;
   }
   function getTotalDaysInMonth(year, month) {
@@ -1252,7 +1321,8 @@
   function getStorageDateYear(data) {
     return data.split(_string.dash)[0];
   }
-  function buildDefaultConfiguration() {
+  function buildDefaultConfiguration(newConfiguration) {
+    _configuration = !isDefinedObject(newConfiguration) ? {} : newConfiguration;
     _configuration.safeMode = getDefaultBoolean(_configuration.safeMode, true);
     _configuration.domElementTypes = getDefaultStringOrArray(_configuration.domElementTypes, ["*"]);
     buildDefaultConfigurationStrings();
@@ -1574,9 +1644,18 @@
     }
     return this;
   };
-  this.setConfiguration = function(newConfiguration) {
-    _configuration = !isDefinedObject(newConfiguration) ? {} : newConfiguration;
-    buildDefaultConfiguration();
+  this.setConfiguration = function(newConfiguration, triggerRefresh) {
+    triggerRefresh = !isDefined(triggerRefresh) ? true : triggerRefresh;
+    var propertyName;
+    for (propertyName in newConfiguration) {
+      if (newConfiguration.hasOwnProperty(propertyName)) {
+        _configuration[propertyName] = newConfiguration[propertyName];
+      }
+    }
+    buildDefaultConfiguration(_configuration);
+    if (triggerRefresh) {
+      this.refreshAll();
+    }
     return this;
   };
   this.getIds = function() {
@@ -1590,7 +1669,7 @@
     return result;
   };
   this.getVersion = function() {
-    return "2.0.0";
+    return "2.1.0";
   };
   (function(documentObject, windowObject, mathObject, jsonObject) {
     _parameter_Document = documentObject;

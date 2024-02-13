@@ -1,5 +1,32 @@
 # Heat.js - Change Log:
 
+## Version 2.1.0:
+
+#### **New Features:**
+- Added file-dropping support to all views, which allows exported JSON data to be re-imported to the currently selected trend type.
+
+#### **Binding Options:**
+- BREAKING: Renamed the binding option "noTypesLabel" to "descriptionText", and updated documentation.
+- BREAKING: Renamed the binding option "noTypesLabelLink" to "descriptionTextLink", and updated documentation.
+- Added a new binding option called "allowFileImports", which states if file importing via drag & drop is enabled (defaults to true).
+
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option custom trigger called "onImport", which states an event that should be triggered when data is imported.
+
+#### **Public Functions:**
+- The public function "setConfiguration()" now has an additional parameter called "triggerRefresh" (defaults to true), which will force refresh all rendered maps.
+
+#### **UI Changes:**
+- The "descriptionText" binding option text is now shown no matter if trend types are used (if they are used, the description text is shown above the buttons).
+
+#### **Fixes:**
+- Fixed the "box-sizing" rules not being applied to the main container (causing width issues in mobile mode).
+- Fixed the "box-sizing" rules not being applied to the tooltip (causing width issues in mobile mode).
+- Fixed a fault that caused all pre-configured settings to be wiped out when calling "setConfiguration()".
+
+<br>
+
+
 ## Version 2.0.0:
 
 #### **New Features:**
