@@ -1,6 +1,7 @@
 # Heat.js - Change Log:
 
 ## Version 2.1.1:
+- Fixed errors in the "PUBLIC_FUNCTIONS.md" documentation.
 - 
 
 <br>
