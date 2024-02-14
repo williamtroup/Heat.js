@@ -3,6 +3,7 @@
 ## Version 2.1.1:
 - Fixed errors in the "PUBLIC_FUNCTIONS.md" documentation.
 - Updated "README.md" and "README_NUGET.md" documentation.
+- Fixed the years drop-down list triggering the custom trigger "onNextYear" instead of "onSetYear".
 - 
 
 <br>

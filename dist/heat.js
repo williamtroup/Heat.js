@@ -271,7 +271,7 @@
       year.onclick = function() {
         bindingOptions.currentView.year = currentYear;
         renderControlContainer(bindingOptions);
-        fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+        fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
       };
     } else {
       addClass(year, "year-active");
