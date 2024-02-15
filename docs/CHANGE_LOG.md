@@ -1,5 +1,11 @@
 # Heat.js - Change Log:
 
+## Version 2.1.2:
+- 
+
+<br>
+
+
 ## Version 2.1.1:
 - Fixed errors in the "PUBLIC_FUNCTIONS.md" documentation.
 - Updated "README.md" and "README_NUGET.md" documentation.
