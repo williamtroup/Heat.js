@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v2.1.0
+ * @version     v2.1.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -159,6 +159,7 @@
             bindingOptions.currentView.element.id = newGuid();
         }
 
+        bindingOptions.currentView.element.className = "heat-js";
         bindingOptions.currentView.element.removeAttribute( _attribute_Name_Options );
 
         createDateStorageForElement( bindingOptions.currentView.element.id, bindingOptions );
@@ -184,8 +185,7 @@
         if ( bindingOptions.views.statistics.enabled && isDefined( bindingOptions.currentView.statisticsContents ) ) {
             bindingOptions.currentView.statisticsContentsScrollLeft = bindingOptions.currentView.statisticsContents.scrollLeft;
         }
-
-        bindingOptions.currentView.element.className = "heat-js";
+        
         bindingOptions.currentView.element.innerHTML = _string.empty;
 
         renderControlToolTip( bindingOptions );
@@ -437,7 +437,7 @@
                 bindingOptions.currentView.year = currentYear;
     
                 renderControlContainer( bindingOptions );
-                fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
+                fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
             };
 
         } else {
@@ -2702,7 +2702,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.1.0";
+        return "2.1.1";
     };
 
 

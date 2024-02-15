@@ -1,5 +1,15 @@
 # Heat.js - Change Log:
 
+## Version 2.1.1:
+- Fixed errors in the "PUBLIC_FUNCTIONS.md" documentation.
+- Updated "README.md" and "README_NUGET.md" documentation.
+- Fixed the years drop-down list triggering the custom trigger "onNextYear" instead of "onSetYear".
+- Fixed a fault that caused the class of the main container to be constantly reset whenever the view/data changes.
+- Fixes to spacing used in the documentation.
+
+<br>
+
+
 ## Version 2.1.0:
 
 #### **New Features:**

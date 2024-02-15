@@ -1,4 +1,4 @@
-/*! Heat.js v2.1.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.1.1 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -74,6 +74,7 @@
     if (!isDefinedString(bindingOptions.currentView.element.id)) {
       bindingOptions.currentView.element.id = newGuid();
     }
+    bindingOptions.currentView.element.className = "heat-js";
     bindingOptions.currentView.element.removeAttribute(_attribute_Name_Options);
     createDateStorageForElement(bindingOptions.currentView.element.id, bindingOptions);
     renderControlContainer(bindingOptions);
@@ -93,7 +94,6 @@
     if (bindingOptions.views.statistics.enabled && isDefined(bindingOptions.currentView.statisticsContents)) {
       bindingOptions.currentView.statisticsContentsScrollLeft = bindingOptions.currentView.statisticsContents.scrollLeft;
     }
-    bindingOptions.currentView.element.className = "heat-js";
     bindingOptions.currentView.element.innerHTML = _string.empty;
     renderControlToolTip(bindingOptions);
     renderControlTitleBar(bindingOptions);
@@ -271,7 +271,7 @@
       year.onclick = function() {
         bindingOptions.currentView.year = currentYear;
         renderControlContainer(bindingOptions);
-        fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+        fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
       };
     } else {
       addClass(year, "year-active");
@@ -1669,7 +1669,7 @@
     return result;
   };
   this.getVersion = function() {
-    return "2.1.0";
+    return "2.1.1";
   };
   (function(documentObject, windowObject, mathObject, jsonObject) {
     _parameter_Document = documentObject;

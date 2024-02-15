@@ -260,7 +260,7 @@ Reverts all rendered elements to their original state (without render attributes
 
 ## Configuration:
 
-### **setConfiguration( *newConfiguration* )**:
+### **setConfiguration( *newConfiguration*, *[triggerRefresh]* )**:
 Sets the specific configuration options that should be used.
 <br>
 ***Fires***:  onRefresh
