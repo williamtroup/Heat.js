@@ -4,9 +4,8 @@
 - Fixed errors in the "PUBLIC_FUNCTIONS.md" documentation.
 - Updated "README.md" and "README_NUGET.md" documentation.
 - Fixed the years drop-down list triggering the custom trigger "onNextYear" instead of "onSetYear".
-- Fixed a fault that caused the main containers class to be constantly reset whenever the view/data changes.
+- Fixed a fault that caused the class of the main container to be constantly reset whenever the view/data changes.
 - Fixes to spacing used in the documentation.
-- 
 
 <br>
 
