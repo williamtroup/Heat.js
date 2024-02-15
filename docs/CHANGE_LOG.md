@@ -2,6 +2,7 @@
 
 ## Version 2.1.2:
 - Minor README.md fix.
+- Fixed a fault that prevented the "onExport" custom trigger from firing when the public function "export()" is called.
 - 
 
 <br>

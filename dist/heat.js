@@ -203,7 +203,6 @@
         var exportData = createElementWithHTML(titleBar, "button", "export", _configuration.exportButtonText);
         exportData.onclick = function() {
           exportAllData(bindingOptions);
-          fireCustomTrigger(bindingOptions.onExport, bindingOptions.currentView.element);
         };
       }
       if (bindingOptions.showRefreshButton) {
@@ -899,6 +898,7 @@
       tempLink.setAttribute("download", getExportFilename(bindingOptions));
       tempLink.click();
       _parameter_Document.body.removeChild(tempLink);
+      fireCustomTrigger(bindingOptions.onExport, bindingOptions.currentView.element);
     }
   }
   function getCsvContent(bindingOptions) {
@@ -1413,7 +1413,7 @@
       var bindingOptions = _elements_DateCounts[elementId].options;
       fireCustomTrigger(bindingOptions.onAdd, bindingOptions.currentView.element);
       if (triggerRefresh) {
-        renderControlContainer(_elements_DateCounts[elementId].options, true);
+        renderControlContainer(bindingOptions, true);
       }
     }
     return this;
@@ -1445,7 +1445,7 @@
         var bindingOptions = _elements_DateCounts[elementId].options;
         fireCustomTrigger(bindingOptions.onRemove, bindingOptions.currentView.element);
         if (triggerRefresh) {
-          renderControlContainer(_elements_DateCounts[elementId].options, true);
+          renderControlContainer(bindingOptions, true);
         }
       }
     }
@@ -1468,15 +1468,14 @@
       createDateStorageForElement(elementId, bindingOptions, false);
       fireCustomTrigger(bindingOptions.onReset, bindingOptions.currentView.element);
       if (triggerRefresh) {
-        renderControlContainer(_elements_DateCounts[elementId].options, true);
+        renderControlContainer(bindingOptions, true);
       }
     }
     return this;
   };
   this["export"] = function(elementId) {
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      exportAllData(bindingOptions);
+      exportAllData(_elements_DateCounts[elementId].options);
     }
     return this;
   };

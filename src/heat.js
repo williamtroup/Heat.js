@@ -347,7 +347,6 @@
         
                 exportData.onclick = function() {
                     exportAllData( bindingOptions );
-                    fireCustomTrigger( bindingOptions.onExport, bindingOptions.currentView.element );
                 };
             }
 
@@ -1276,6 +1275,8 @@
             tempLink.click();
             
             _parameter_Document.body.removeChild( tempLink );
+
+            fireCustomTrigger( bindingOptions.onExport, bindingOptions.currentView.element );
         }
     }
 
@@ -1996,7 +1997,7 @@
             fireCustomTrigger( bindingOptions.onAdd, bindingOptions.currentView.element );
 
             if ( triggerRefresh ) {
-                renderControlContainer( _elements_DateCounts[ elementId ].options, true );
+                renderControlContainer( bindingOptions, true );
             }
         }
 
@@ -2070,7 +2071,7 @@
                 fireCustomTrigger( bindingOptions.onRemove, bindingOptions.currentView.element );
 
                 if ( triggerRefresh ) {
-                    renderControlContainer( _elements_DateCounts[ elementId ].options, true );
+                    renderControlContainer( bindingOptions, true );
                 }
             }
         }
@@ -2124,7 +2125,7 @@
             fireCustomTrigger( bindingOptions.onReset, bindingOptions.currentView.element );
 
             if ( triggerRefresh ) {
-                renderControlContainer( _elements_DateCounts[ elementId ].options, true );
+                renderControlContainer( bindingOptions, true );
             }
         }
 
@@ -2145,9 +2146,7 @@
      */
     this.export = function( elementId ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
-            var bindingOptions = _elements_DateCounts[ elementId ].options;
-
-            exportAllData( bindingOptions );
+            exportAllData( _elements_DateCounts[ elementId ].options );
         }
 
         return this;
