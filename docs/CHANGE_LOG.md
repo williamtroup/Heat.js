@@ -1,6 +1,7 @@
 # Heat.js - Change Log:
 
 ## Version 2.1.2:
+- Minor README.md fix.
 - 
 
 <br>

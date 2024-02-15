@@ -154,7 +154,7 @@ To see a list of all the available custom triggers you can use for "data-heat-op
 <br>
 
 
-### 5. Adding Dates:
+### 4. Adding Dates:
 
 Now, you can add/remove dates, which will update the heat map automatically!
 
