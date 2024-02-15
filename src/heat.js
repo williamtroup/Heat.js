@@ -159,6 +159,7 @@
             bindingOptions.currentView.element.id = newGuid();
         }
 
+        bindingOptions.currentView.element.className = "heat-js";
         bindingOptions.currentView.element.removeAttribute( _attribute_Name_Options );
 
         createDateStorageForElement( bindingOptions.currentView.element.id, bindingOptions );
@@ -184,8 +185,7 @@
         if ( bindingOptions.views.statistics.enabled && isDefined( bindingOptions.currentView.statisticsContents ) ) {
             bindingOptions.currentView.statisticsContentsScrollLeft = bindingOptions.currentView.statisticsContents.scrollLeft;
         }
-
-        bindingOptions.currentView.element.className = "heat-js";
+        
         bindingOptions.currentView.element.innerHTML = _string.empty;
 
         renderControlToolTip( bindingOptions );
