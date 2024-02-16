@@ -26,7 +26,7 @@ Heat.js
 - 3 views supported: Map, Chart and Statistics!
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
-- Export all data to CSV, JSON, and XML.
+- Export all data to CSV, JSON, XML, and TXT.
 - Import data from JSON.
 - 45 language translations available!
 - Trend types allows data to be split up and viewed separately.

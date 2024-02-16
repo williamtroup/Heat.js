@@ -63,6 +63,7 @@
         _export_Type_Csv = "csv",
         _export_Type_Json = "json",
         _export_Type_Xml = "xml",
+        _export_Type_Txt = "txt",
 
         // Variables: Attribute Names
         _attribute_Name_Options = "data-heat-options";
@@ -1314,6 +1315,8 @@
             contents = getJsonContent( bindingOptions );
         } else if ( bindingOptions.exportType.toLowerCase() === _export_Type_Xml ) {
             contents = getXmlContents( bindingOptions );
+        } else if ( bindingOptions.exportType.toLowerCase() === _export_Type_Txt ) {
+            contents = getTxtContents( bindingOptions );
         }
 
         if ( contents !== _string.empty ) {
@@ -1372,6 +1375,19 @@
         return contents.join( _string.newLine );
     }
 
+    function getTxtContents( bindingOptions ) {
+        var data = getExportData( bindingOptions ),
+            contents = [];
+
+        for ( var storageDate in data ) {
+            if ( data.hasOwnProperty( storageDate ) ) {
+                contents.push( storageDate + ": " + data[ storageDate ].toString() );
+            }
+        }
+
+        return contents.join( _string.newLine );
+    }
+
     function getExportData( bindingOptions ) {
         var contents = {},
             data = getCurrentViewData( bindingOptions );
@@ -1423,6 +1439,8 @@
             result = "application/json";
         } else if ( bindingOptions.exportType.toLowerCase() === _export_Type_Xml ) {
             result = "application/xml";
+        } else if ( bindingOptions.exportType.toLowerCase() === _export_Type_Txt ) {
+            result = "text/plain";
         }
 
         return result;

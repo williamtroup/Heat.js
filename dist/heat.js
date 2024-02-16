@@ -924,6 +924,8 @@
       contents = getJsonContent(bindingOptions);
     } else if (bindingOptions.exportType.toLowerCase() === _export_Type_Xml) {
       contents = getXmlContents(bindingOptions);
+    } else if (bindingOptions.exportType.toLowerCase() === _export_Type_Txt) {
+      contents = getTxtContents(bindingOptions);
     }
     if (contents !== _string.empty) {
       var tempLink = createElement(_parameter_Document.body, "a");
@@ -970,6 +972,17 @@
     contents.push("</Dates>");
     return contents.join(_string.newLine);
   }
+  function getTxtContents(bindingOptions) {
+    var data = getExportData(bindingOptions);
+    var contents = [];
+    var storageDate;
+    for (storageDate in data) {
+      if (data.hasOwnProperty(storageDate)) {
+        contents.push(storageDate + ": " + data[storageDate].toString());
+      }
+    }
+    return contents.join(_string.newLine);
+  }
   function getExportData(bindingOptions) {
     var contents = {};
     var data = getCurrentViewData(bindingOptions);
@@ -1013,6 +1026,8 @@
       result = "application/json";
     } else if (bindingOptions.exportType.toLowerCase() === _export_Type_Xml) {
       result = "application/xml";
+    } else if (bindingOptions.exportType.toLowerCase() === _export_Type_Txt) {
+      result = "text/plain";
     }
     return result;
   }
@@ -1420,6 +1435,7 @@
   var _export_Type_Csv = "csv";
   var _export_Type_Json = "json";
   var _export_Type_Xml = "xml";
+  var _export_Type_Txt = "txt";
   var _attribute_Name_Options = "data-heat-options";
   this.addDates = function(elementId, dates, type, triggerRefresh) {
     if (_elements_DateCounts.hasOwnProperty(elementId)) {
