@@ -60,6 +60,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | views.chart | *boolean* | showMonthNames | States if the month names are shown (defaults to true). |
 | views.chart | *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
 | views.chart | *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
+| views.chart | *boolean* | showDayNumbers | States if the activity counts should be shown in the lines (defaults to false). |
 
 <br/>
 

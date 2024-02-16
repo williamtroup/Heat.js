@@ -501,6 +501,10 @@
     } else {
       addToolTip(dayLine, bindingOptions, getCustomFormattedDateText(bindingOptions.dayToolTipText, date));
     }
+    if (bindingOptions.views.chart.showDayNumbers && dateCount > 0) {
+      addClass(dayLine, "day-line-number");
+      dayLine.innerHTML = dateCount.toString();
+    }
     var dayLineHeight = dateCount * pixelsPerNumbers;
     dayLine.style.height = dayLineHeight + "px";
     if (dayLineHeight <= 0) {
@@ -1115,6 +1119,7 @@
     options.views.chart.enabled = getDefaultBoolean(options.views.chart.enabled, true);
     options.views.chart.showChartYLabels = getDefaultBoolean(options.views.chart.showChartYLabels, true);
     options.views.chart.showMonthNames = getDefaultBoolean(options.views.chart.showMonthNames, true);
+    options.views.chart.showDayNumbers = getDefaultBoolean(options.views.chart.showDayNumbers, false);
     if (isInvalidOptionArray(options.views.chart.monthsToShow)) {
       options.views.chart.monthsToShow = _default_MonthsToShow;
     }

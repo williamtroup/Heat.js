@@ -62,6 +62,7 @@
   --heat-js-border-size-day: 1px;
   --heat-js-spacing: 10px;
   --heat-js-spacing-font-size: 0.85rem;
+  --heat-js-spacing-day-font-size: 0.6rem;
   --heat-js-transition: all .3s;
   --heat-js-animation-length: 0.5s;
 }
@@ -394,7 +395,7 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
   height: var(--heat-js-day-size);
   margin-right: var(--heat-js-day-spacing);
   margin-bottom: var(--heat-js-day-spacing);
-  font-size: 0.6rem;
+  font-size: var(--heat-js-spacing-day-font-size);
   justify-content: center;
   align-items: center;
   overflow: hidden;
@@ -490,6 +491,11 @@ div.heat-js div.chart-contents div.chart div.day-lines {
   flex: 1;
   border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
 }
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line-number {
+  font-size: var(--heat-js-spacing-day-font-size);
+  padding: calc(var(--heat-js-spacing) / 2);
+  overflow: hidden;
+}
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   border-top-left-radius: var(--heat-js-border-radius-day);
   border-top-right-radius: var(--heat-js-border-radius-day);
@@ -497,7 +503,7 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   border-bottom: none !important;
   vertical-align: bottom;
-  width: var(--heat-js-day-chart-width);
+  min-width: var(--heat-js-day-chart-width);
   margin-right: 1px;
   display: inline-block;
   transition: var(--heat-js-transition);
@@ -824,7 +830,7 @@ div.heat-js div.guide div.map-toggles div.days div.day-number {
   align-items: center;
   overflow: hidden;
   text-align: center;
-  font-size: 0.6rem;
+  font-size: var(--heat-js-spacing-day-font-size);
   padding-left: calc(var(--heat-js-spacing) / 2);
   padding-right: calc(var(--heat-js-spacing) / 2);
 }
