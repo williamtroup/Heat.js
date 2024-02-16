@@ -740,6 +740,7 @@
       if (isDefinedString(bindingOptions.descriptionTextLink)) {
         var link = createElementWithHTML(container, "a", "label", bindingOptions.descriptionText);
         link.href = bindingOptions.descriptionTextLink;
+        link.target = "_blank";
       } else {
         createElementWithHTML(container, "span", "label", bindingOptions.descriptionText);
       }

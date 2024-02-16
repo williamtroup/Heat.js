@@ -17,6 +17,7 @@
 
 #### **UI Changes:**
 - When switching views, the target view now fades in (a much smoother display).
+- The description link now opens in a new window/tab instead of the current.
 
 #### **Fixes:**
 - Fixed a minor README.md error.
