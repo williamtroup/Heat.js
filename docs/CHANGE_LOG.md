@@ -4,6 +4,7 @@
 
 #### **Binding Options:**
 - Added a new binding option called "yearsToHide", which states the years that should be hidden (defaults to []).
+- Added a new binding option called "showLessAndMoreLabels", which states if the "Less" and "More" labels are shown (defaults to true).
 
 #### **Fixes:**
 - Fixed a minor README.md error.

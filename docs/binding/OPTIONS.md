@@ -29,6 +29,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | useLocalStorageForData | States if data added/removed should be remembered in local storage (remembered between browser usages, defaults to false). |
 | *boolean* | allowFileImports | States if file importing via drag & drop is enabled (defaults to true). |
 | *number[]* | yearsToHide | States the years that should be hidden (defaults to []). |
+| *boolean* | showLessAndMoreLabels | States if the "Less" and "More" labels are shown (defaults to true). |
 
 <br/>
 

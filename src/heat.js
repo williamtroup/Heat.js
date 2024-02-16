@@ -945,16 +945,19 @@
         }
 
         if ( bindingOptions.showGuide ) {
-            var mapToggles = createElement( guide, "div", "map-toggles" ),
-                lessText = createElementWithHTML( mapToggles, "div", "less-text", _configuration.lessText );
+            var mapToggles = createElement( guide, "div", "map-toggles" );
+
+            if ( bindingOptions.showLessAndMoreLabels ) {
+                var lessText = createElementWithHTML( mapToggles, "div", "less-text", _configuration.lessText );
     
-            if ( bindingOptions.mapTogglesEnabled ) {
-                lessText.onclick = function() {
-                    updateColorRangeToggles( bindingOptions, false );
-                };
-    
-            } else {
-                addClass( lessText, "no-click" );
+                if ( bindingOptions.mapTogglesEnabled ) {
+                    lessText.onclick = function() {
+                        updateColorRangeToggles( bindingOptions, false );
+                    };
+        
+                } else {
+                    addClass( lessText, "no-click" );
+                }
             }
     
             var days = createElement( mapToggles, "div", "days" ),
@@ -964,16 +967,18 @@
             for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
                 renderControlViewGuideDay( bindingOptions, days, colorRanges[ colorRangesIndex ] );
             }
+
+            if ( bindingOptions.showLessAndMoreLabels ) {
+                var moreText = createElementWithHTML( mapToggles, "div", "more-text", _configuration.moreText );
     
-            var moreText = createElementWithHTML( mapToggles, "div", "more-text", _configuration.moreText );
-    
-            if ( bindingOptions.mapTogglesEnabled ) {
-                moreText.onclick = function() {
-                    updateColorRangeToggles( bindingOptions, true );
-                };
-    
-            } else {
-                addClass( moreText, "no-click" );
+                if ( bindingOptions.mapTogglesEnabled ) {
+                    moreText.onclick = function() {
+                        updateColorRangeToggles( bindingOptions, true );
+                    };
+        
+                } else {
+                    addClass( moreText, "no-click" );
+                }
             }
         }
     }
@@ -1447,6 +1452,7 @@
         options.useLocalStorageForData = getDefaultBoolean( options.useLocalStorageForData, false );
         options.allowFileImports = getDefaultBoolean( options.allowFileImports, true );
         options.yearsToHide = getDefaultArray( options.yearsToHide, [] );
+        options.showLessAndMoreLabels = getDefaultBoolean( options.showLessAndMoreLabels, true );
 
         options = buildAttributeOptionMapView( options );
         options = buildAttributeOptionChartView( options );

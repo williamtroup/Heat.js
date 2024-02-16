@@ -647,13 +647,15 @@
     }
     if (bindingOptions.showGuide) {
       var mapToggles = createElement(guide, "div", "map-toggles");
-      var lessText = createElementWithHTML(mapToggles, "div", "less-text", _configuration.lessText);
-      if (bindingOptions.mapTogglesEnabled) {
-        lessText.onclick = function() {
-          updateColorRangeToggles(bindingOptions, false);
-        };
-      } else {
-        addClass(lessText, "no-click");
+      if (bindingOptions.showLessAndMoreLabels) {
+        var lessText = createElementWithHTML(mapToggles, "div", "less-text", _configuration.lessText);
+        if (bindingOptions.mapTogglesEnabled) {
+          lessText.onclick = function() {
+            updateColorRangeToggles(bindingOptions, false);
+          };
+        } else {
+          addClass(lessText, "no-click");
+        }
       }
       var days = createElement(mapToggles, "div", "days");
       var colorRanges = getSortedMapRanges(bindingOptions);
@@ -662,13 +664,15 @@
       for (; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
         renderControlViewGuideDay(bindingOptions, days, colorRanges[colorRangesIndex]);
       }
-      var moreText = createElementWithHTML(mapToggles, "div", "more-text", _configuration.moreText);
-      if (bindingOptions.mapTogglesEnabled) {
-        moreText.onclick = function() {
-          updateColorRangeToggles(bindingOptions, true);
-        };
-      } else {
-        addClass(moreText, "no-click");
+      if (bindingOptions.showLessAndMoreLabels) {
+        var moreText = createElementWithHTML(mapToggles, "div", "more-text", _configuration.moreText);
+        if (bindingOptions.mapTogglesEnabled) {
+          moreText.onclick = function() {
+            updateColorRangeToggles(bindingOptions, true);
+          };
+        } else {
+          addClass(moreText, "no-click");
+        }
       }
     }
   }
@@ -1030,6 +1034,7 @@
     options.useLocalStorageForData = getDefaultBoolean(options.useLocalStorageForData, false);
     options.allowFileImports = getDefaultBoolean(options.allowFileImports, true);
     options.yearsToHide = getDefaultArray(options.yearsToHide, []);
+    options.showLessAndMoreLabels = getDefaultBoolean(options.showLessAndMoreLabels, true);
     options = buildAttributeOptionMapView(options);
     options = buildAttributeOptionChartView(options);
     options = buildAttributeOptionStatisticsView(options);
