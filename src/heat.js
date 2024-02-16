@@ -30,6 +30,11 @@
             underscore: "_"
         },
 
+        // Variables: Values
+        _value = {
+            notFound: -1
+        },
+
         // Variables: Local Storage
         _local_Storage_Start_ID = "HJS_",
 
@@ -238,11 +243,11 @@
     }
 
     function isMonthVisible( monthsToShow, month ) {
-        return monthsToShow.indexOf( month + 1 ) > -1;
+        return monthsToShow.indexOf( month + 1 ) > _value.notFound;
     }
 
     function isDayVisible( daysToShow, day ) {
-        return daysToShow.indexOf( day ) > -1;
+        return daysToShow.indexOf( day ) > _value.notFound;
     }
 
 
@@ -364,6 +369,10 @@
         
                 back.onclick = function() {
                     bindingOptions.currentView.year--;
+
+                    while ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                        bindingOptions.currentView.year--;
+                    }
         
                     renderControlContainer( bindingOptions );
                     fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
@@ -383,10 +392,12 @@
                     yearList.style.visibility = "hidden";
 
                     for ( var currentYear = thisYear - bindingOptions.extraSelectionYears; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++ ) {
-                        var year = renderControlTitleBarYear( bindingOptions, years, currentYear );
+                        if ( bindingOptions.yearsToHide.indexOf( currentYear ) === _value.notFound ) {
+                            var year = renderControlTitleBarYear( bindingOptions, years, currentYear );
 
-                        if ( !isDefined( activeYear ) ) {
-                            activeYear = year;
+                            if ( !isDefined( activeYear ) ) {
+                                activeYear = year;
+                            }
                         }
                     }
 
@@ -405,6 +416,10 @@
 
                 next.onclick = function() {
                     bindingOptions.currentView.year++;
+
+                    while ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                        bindingOptions.currentView.year++;
+                    }
         
                     renderControlContainer( bindingOptions );
                     fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
@@ -1431,6 +1446,7 @@
         options.descriptionTextLink = getDefaultString( options.descriptionTextLink, null );
         options.useLocalStorageForData = getDefaultBoolean( options.useLocalStorageForData, false );
         options.allowFileImports = getDefaultBoolean( options.allowFileImports, true );
+        options.yearsToHide = getDefaultArray( options.yearsToHide, [] );
 
         options = buildAttributeOptionMapView( options );
         options = buildAttributeOptionChartView( options );
@@ -2221,10 +2237,13 @@
     this.setYear = function( elementId, year ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
-            bindingOptions.currentView.year = year;
 
-            renderControlContainer( bindingOptions );
-            fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
+            if ( bindingOptions.yearsToHide.indexOf( year ) === _value.notFound ) {
+                bindingOptions.currentView.year = year;
+
+                renderControlContainer( bindingOptions );
+                fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
+            }
         }
 
         return this;
@@ -2254,7 +2273,7 @@
                 }
             }
 
-            if ( maximumYear > 0 ) {
+            if ( maximumYear > 0 && bindingOptions.yearsToHide.indexOf( maximumYear ) === _value.notFound ) {
                 bindingOptions.currentView.year = maximumYear;
 
                 renderControlContainer( bindingOptions );
@@ -2289,7 +2308,7 @@
                 }
             }
 
-            if ( minimumYear < 9999 ) {
+            if ( minimumYear < 9999 && bindingOptions.yearsToHide.indexOf( minimumYear ) === _value.notFound ) {
                 bindingOptions.currentView.year = minimumYear;
 
                 renderControlContainer( bindingOptions );
@@ -2315,7 +2334,12 @@
     this.moveToPreviousYear = function( elementId ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
+
             bindingOptions.currentView.year--;
+
+            while ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                bindingOptions.currentView.year--;
+            }
 
             renderControlContainer( bindingOptions );
             fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
@@ -2339,7 +2363,12 @@
     this.moveToNextYear = function( elementId ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
+
             bindingOptions.currentView.year++;
+
+            while ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                bindingOptions.currentView.year++;
+            }
 
             renderControlContainer( bindingOptions );
             fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );

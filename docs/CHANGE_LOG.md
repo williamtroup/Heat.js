@@ -2,6 +2,9 @@
 
 ## Version 2.2.0:
 
+#### **Binding Options:**
+- Added a new binding option called "yearsToHide", which states the years that should be hidden (defaults to []).
+
 #### **Fixes:**
 - Fixed a minor README.md error.
 - Fixed a fault that prevented the "onExport" custom trigger from firing when the public function "export()" is called.
