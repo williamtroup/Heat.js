@@ -17,13 +17,12 @@
 
 #### **UI Changes:**
 - When switching views, the target view now fades in (a much smoother display).
-- The description link now opens in a new window/tab instead of the current.
-- If a Chart/Statistic bar is 0 in height, it is now hidden (prevents little borders appearing across the chart baseline).
+- The description link now opens in a new window/tab instead of the current one.
+- If a Chart/Statistic bar is 0 in height, it is now hidden (prevents little borders from appearing across the chart baseline).
 
 #### **Fixes:**
 - Fixed a minor README.md error.
 - Fixed a fault that prevented the "onExport" custom trigger from firing when the public function "export()" is called.
-- 
 
 <br>
 
