@@ -749,7 +749,12 @@
             addToolTip( dayLine, bindingOptions, getCustomFormattedDateText( bindingOptions.dayToolTipText, date ) );
         }
 
-        dayLine.style.height = ( dateCount * pixelsPerNumbers ) + "px";
+        var dayLineHeight = dateCount * pixelsPerNumbers;
+        dayLine.style.height = dayLineHeight + "px";
+
+        if ( dayLineHeight <= 0 ) {
+            dayLine.style.visibility = "hidden";
+        }
 
         if ( isDefinedFunction( bindingOptions.onDayClick ) ) {
             dayLine.onclick = function() {
@@ -866,9 +871,14 @@
 
     function renderControlStatisticsRangeLine( colorRangeMinimum, dayLines, rangeCount, bindingOptions, colorRanges, pixelsPerNumbers ) {
         var rangeLine = createElement( dayLines, "div", "range-line" ),
-            useColorRange = getColorRangeByMinimum( colorRanges, colorRangeMinimum );
+            useColorRange = getColorRangeByMinimum( colorRanges, colorRangeMinimum ),
+            rangeLineHeight = rangeCount * pixelsPerNumbers;
 
-        rangeLine.style.height = ( rangeCount * pixelsPerNumbers ) + "px";
+        rangeLine.style.height = rangeLineHeight + "px";
+
+        if ( rangeLineHeight <= 0 ) {
+            rangeLine.style.visibility = "hidden";
+        }
 
         addToolTip( rangeLine, bindingOptions, rangeCount.toString() );
 

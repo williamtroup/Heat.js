@@ -501,7 +501,11 @@
     } else {
       addToolTip(dayLine, bindingOptions, getCustomFormattedDateText(bindingOptions.dayToolTipText, date));
     }
-    dayLine.style.height = dateCount * pixelsPerNumbers + "px";
+    var dayLineHeight = dateCount * pixelsPerNumbers;
+    dayLine.style.height = dayLineHeight + "px";
+    if (dayLineHeight <= 0) {
+      dayLine.style.visibility = "hidden";
+    }
     if (isDefinedFunction(bindingOptions.onDayClick)) {
       dayLine.onclick = function() {
         fireCustomTrigger(bindingOptions.onDayClick, date, dateCount);
@@ -590,7 +594,11 @@
   function renderControlStatisticsRangeLine(colorRangeMinimum, dayLines, rangeCount, bindingOptions, colorRanges, pixelsPerNumbers) {
     var rangeLine = createElement(dayLines, "div", "range-line");
     var useColorRange = getColorRangeByMinimum(colorRanges, colorRangeMinimum);
-    rangeLine.style.height = rangeCount * pixelsPerNumbers + "px";
+    var rangeLineHeight = rangeCount * pixelsPerNumbers;
+    rangeLine.style.height = rangeLineHeight + "px";
+    if (rangeLineHeight <= 0) {
+      rangeLine.style.visibility = "hidden";
+    }
     addToolTip(rangeLine, bindingOptions, rangeCount.toString());
     if (isDefinedFunction(bindingOptions.onStatisticClick)) {
       rangeLine.onclick = function() {

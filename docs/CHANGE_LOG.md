@@ -18,6 +18,7 @@
 #### **UI Changes:**
 - When switching views, the target view now fades in (a much smoother display).
 - The description link now opens in a new window/tab instead of the current.
+- If a Chart/Statistic bar is 0 in height, it is now hidden (prevents little borders appearing across the chart baseline).
 
 #### **Fixes:**
 - Fixed a minor README.md error.
