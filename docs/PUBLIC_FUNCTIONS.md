@@ -234,6 +234,18 @@ Switches the selected trend type on an element.
 <br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
+
+### **updateOptions( *elementId*, *newOptions* )**:
+Updates the original binding options for an element and refreshes it.
+<br>
+***Fires***:  onRefresh
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID.
+<br>
+***Parameter: newOptions***: '*Object*' - The new options to want to apply to the element.
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
 <br>
 
 

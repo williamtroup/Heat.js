@@ -1641,6 +1641,21 @@
     }
     return this;
   };
+  this.updateOptions = function(elementId, newOptions) {
+    if (_elements_DateCounts.hasOwnProperty(elementId) && isDefinedObject(newOptions)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      var newBindingOptions = buildAttributeOptions(newOptions);
+      var propertyName;
+      for (propertyName in newBindingOptions) {
+        if (newBindingOptions.hasOwnProperty(propertyName) && bindingOptions.hasOwnProperty(propertyName)) {
+          bindingOptions[propertyName] = newBindingOptions[propertyName];
+        }
+      }
+      renderControlContainer(bindingOptions, true);
+      fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
+    }
+    return this;
+  };
   this.destroyAll = function() {
     var elementId;
     for (elementId in _elements_DateCounts) {

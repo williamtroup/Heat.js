@@ -2527,6 +2527,37 @@
 
         return this;
     };
+
+    /**
+     * updateOptions().
+     * 
+     * Updates the original binding options for an element and refreshes it.
+     * 
+     * @public
+     * @fires       onRefresh
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID.
+     * @param       {Object}    newOptions                                  The new options to want to apply to the element.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.updateOptions = function( elementId, newOptions ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) && isDefinedObject( newOptions ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options,
+                newBindingOptions = buildAttributeOptions( newOptions );
+
+            for ( var propertyName in newBindingOptions ) {
+                if ( newBindingOptions.hasOwnProperty( propertyName ) && bindingOptions.hasOwnProperty( propertyName ) ) {
+                    bindingOptions[ propertyName ] = newBindingOptions[ propertyName ];
+                }
+            }
+
+            renderControlContainer( bindingOptions, true );
+            fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
+        }
+
+        return this;
+    };
     
 
     /*
