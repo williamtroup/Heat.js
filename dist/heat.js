@@ -501,7 +501,7 @@
     } else {
       addToolTip(dayLine, bindingOptions, getCustomFormattedDateText(bindingOptions.dayToolTipText, date));
     }
-    if (bindingOptions.views.chart.showDayNumbers && dateCount > 0) {
+    if (bindingOptions.views.chart.showLineNumbers && dateCount > 0) {
       addClass(dayLine, "day-line-number");
       dayLine.innerHTML = dateCount.toString();
     }
@@ -1119,7 +1119,7 @@
     options.views.chart.enabled = getDefaultBoolean(options.views.chart.enabled, true);
     options.views.chart.showChartYLabels = getDefaultBoolean(options.views.chart.showChartYLabels, true);
     options.views.chart.showMonthNames = getDefaultBoolean(options.views.chart.showMonthNames, true);
-    options.views.chart.showDayNumbers = getDefaultBoolean(options.views.chart.showDayNumbers, false);
+    options.views.chart.showLineNumbers = getDefaultBoolean(options.views.chart.showLineNumbers, false);
     if (isInvalidOptionArray(options.views.chart.monthsToShow)) {
       options.views.chart.monthsToShow = _default_MonthsToShow;
     }

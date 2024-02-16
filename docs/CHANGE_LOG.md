@@ -4,7 +4,7 @@
 
 #### **Binding Options:**
 - Added a new binding option called "showNumbersInGuide", which states if the color range numbers should be shown in the guide (defaults to false).
-- Added a new binding option called "views.chart.showDayNumbers", which states if the activity counts should be shown in the lines (defaults to false).
+- Added a new binding option called "views.chart.showLineNumbers", which states if the activity counts should be shown in the lines (defaults to false).
 
 <br>
 
