@@ -12,6 +12,9 @@
 #### **Public Functions:**
 - Added a new public function "updateOptions()", which will update the original binding options for an element and refresh it.
 
+#### **UI Changes:**
+- When switching views, the target view now fades in (a much smoother display).
+
 #### **Fixes:**
 - Fixed a minor README.md error.
 - Fixed a fault that prevented the "onExport" custom trigger from firing when the public function "export()" is called.

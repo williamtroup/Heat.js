@@ -272,6 +272,10 @@ div.heat-js {
     width: 100%;
     max-width: 700px;
     margin: 0 !important;
+
+    div.view-switch {
+        animation: fade-in-animation var(--heat-js-animation-length);
+    }
     
     div.no-click {
         pointer-events: none !important;

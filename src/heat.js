@@ -172,8 +172,9 @@
         fireCustomTrigger( bindingOptions.onRenderComplete, bindingOptions.currentView.element );
     }
 
-    function renderControlContainer( bindingOptions, isForDataRefresh ) {
+    function renderControlContainer( bindingOptions, isForDataRefresh, isForViewSwitch ) {
         isForDataRefresh = isDefined( isForDataRefresh ) ? isForDataRefresh : false;
+        isForViewSwitch = isDefined( isForViewSwitch ) ? isForViewSwitch : false;
 
         if ( isForDataRefresh ) {
             storeDataInLocalStorage( bindingOptions.currentView.element.id, bindingOptions );
@@ -195,16 +196,16 @@
 
         renderControlToolTip( bindingOptions );
         renderControlTitleBar( bindingOptions );
-        renderControlMap( bindingOptions );
+        renderControlMap( bindingOptions, isForViewSwitch );
 
         if ( bindingOptions.views.chart.enabled ) {
-            renderControlChart( bindingOptions );
+            renderControlChart( bindingOptions, isForViewSwitch );
 
             bindingOptions.currentView.chartContents.style.display = "none";
         }
 
         if ( bindingOptions.views.statistics.enabled ) {
-            renderControlStatistics( bindingOptions );
+            renderControlStatistics( bindingOptions, isForViewSwitch );
 
             bindingOptions.currentView.statisticsContents.style.display = "none";
         }
@@ -437,7 +438,7 @@
                 bindingOptions.currentView.view = view;
 
                 fireCustomTrigger( bindingOptions.onViewSwitch, viewName );
-                renderControlContainer( bindingOptions );
+                renderControlContainer( bindingOptions, false, true );
             };
         }
     }
@@ -469,7 +470,7 @@
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlMap( bindingOptions ) {
+    function renderControlMap( bindingOptions, isForViewSwitch ) {
         bindingOptions.currentView.mapContents = createElement( bindingOptions.currentView.element, "div", "map-contents" );
 
         makeAreaDroppable( bindingOptions.currentView.mapContents, bindingOptions );
@@ -477,6 +478,10 @@
         var map = createElement( bindingOptions.currentView.mapContents, "div", "map" ),
             currentYear = bindingOptions.currentView.year,
             monthAdded = false;
+
+        if ( isForViewSwitch ) {
+            addClass( map, "view-switch" );
+        }
 
         if ( bindingOptions.views.chart.enabled ) {
             renderControlChartContents( bindingOptions );
@@ -638,7 +643,7 @@
         makeAreaDroppable( bindingOptions.currentView.chartContents, bindingOptions );
     }
 
-    function renderControlChart( bindingOptions ) {
+    function renderControlChart( bindingOptions, isForViewSwitch ) {
         var chart = createElement( bindingOptions.currentView.chartContents, "div", "chart" ),
             labels = createElement( chart, "div", "y-labels" ),
             dayLines = createElement( chart, "div", "day-lines" ),
@@ -646,6 +651,10 @@
             largestValueForCurrentYear = getLargestValueForChartYear( bindingOptions ),
             currentYear = bindingOptions.currentView.year,
             labelsWidth = 0;
+
+        if ( isForViewSwitch ) {
+            addClass( chart, "view-switch" );
+        }
 
         if ( largestValueForCurrentYear > 0 && bindingOptions.views.chart.showChartYLabels ) {
             var topLabel = createElementWithHTML( labels, "div", "label-0", largestValueForCurrentYear.toString() );
@@ -666,7 +675,11 @@
             bindingOptions.currentView.chartContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
             chart.parentNode.removeChild( chart );
 
-            createElementWithHTML( bindingOptions.currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage );
+            var noDataMessage = createElementWithHTML( bindingOptions.currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage );
+
+            if ( isForViewSwitch ) {
+                addClass( noDataMessage, "view-switch" );
+            }
 
         } else {
             var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear,
@@ -789,13 +802,17 @@
         makeAreaDroppable( bindingOptions.currentView.statisticsContents, bindingOptions );
     }
 
-    function renderControlStatistics( bindingOptions ) {
+    function renderControlStatistics( bindingOptions, isForViewSwitch ) {
         var statistics = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics" ),
             statisticsRanges = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics-ranges" ),
             labels = createElement( statistics, "div", "y-labels" ),
             rangeLines = createElement( statistics, "div", "range-lines" ),
             colorRanges = getSortedMapRanges( bindingOptions ),
             colorRangeValuesForCurrentYear = getLargestValuesForEachRangeType( bindingOptions, colorRanges );
+
+        if ( isForViewSwitch ) {
+            addClass( statistics, "view-switch" );
+        }
 
         if ( colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views.statistics.showChartYLabels ) {
             var topLabel = createElementWithHTML( labels, "div", "label-0", colorRangeValuesForCurrentYear.largestValue.toString() );
@@ -817,7 +834,11 @@
             statistics.parentNode.removeChild( statistics );
             statisticsRanges.parentNode.removeChild( statisticsRanges );
 
-            createElementWithHTML( bindingOptions.currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage );
+            var noDataMessage = createElementWithHTML( bindingOptions.currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage );
+
+            if ( isForViewSwitch ) {
+                addClass( noDataMessage, "view-switch" );
+            }
 
         } else {
             var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / colorRangeValuesForCurrentYear.largestValue;
@@ -2503,7 +2524,7 @@
                 bindingOptions.currentView.view = view;
 
                 fireCustomTrigger( bindingOptions.onViewSwitch, viewName );
-                renderControlContainer( bindingOptions );
+                renderControlContainer( bindingOptions, false, true );
             }
         }
 

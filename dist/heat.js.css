@@ -98,6 +98,9 @@ div.heat-js {
   max-width: 700px;
   margin: 0 !important;
 }
+div.heat-js div.view-switch {
+  animation: fade-in-animation var(--heat-js-animation-length);
+}
 div.heat-js div.no-click {
   pointer-events: none !important;
 }

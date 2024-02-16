@@ -80,8 +80,9 @@
     renderControlContainer(bindingOptions);
     fireCustomTrigger(bindingOptions.onRenderComplete, bindingOptions.currentView.element);
   }
-  function renderControlContainer(bindingOptions, isForDataRefresh) {
+  function renderControlContainer(bindingOptions, isForDataRefresh, isForViewSwitch) {
     isForDataRefresh = isDefined(isForDataRefresh) ? isForDataRefresh : false;
+    isForViewSwitch = isDefined(isForViewSwitch) ? isForViewSwitch : false;
     if (isForDataRefresh) {
       storeDataInLocalStorage(bindingOptions.currentView.element.id, bindingOptions);
     }
@@ -97,13 +98,13 @@
     bindingOptions.currentView.element.innerHTML = _string.empty;
     renderControlToolTip(bindingOptions);
     renderControlTitleBar(bindingOptions);
-    renderControlMap(bindingOptions);
+    renderControlMap(bindingOptions, isForViewSwitch);
     if (bindingOptions.views.chart.enabled) {
-      renderControlChart(bindingOptions);
+      renderControlChart(bindingOptions, isForViewSwitch);
       bindingOptions.currentView.chartContents.style.display = "none";
     }
     if (bindingOptions.views.statistics.enabled) {
-      renderControlStatistics(bindingOptions);
+      renderControlStatistics(bindingOptions, isForViewSwitch);
       bindingOptions.currentView.statisticsContents.style.display = "none";
     }
     bindingOptions.currentView.mapContents.style.display = "none";
@@ -267,7 +268,7 @@
       option.onclick = function() {
         bindingOptions.currentView.view = view;
         fireCustomTrigger(bindingOptions.onViewSwitch, viewName);
-        renderControlContainer(bindingOptions);
+        renderControlContainer(bindingOptions, false, true);
       };
     }
   }
@@ -286,12 +287,15 @@
     }
     return result;
   }
-  function renderControlMap(bindingOptions) {
+  function renderControlMap(bindingOptions, isForViewSwitch) {
     bindingOptions.currentView.mapContents = createElement(bindingOptions.currentView.element, "div", "map-contents");
     makeAreaDroppable(bindingOptions.currentView.mapContents, bindingOptions);
     var map = createElement(bindingOptions.currentView.mapContents, "div", "map");
     var currentYear = bindingOptions.currentView.year;
     var monthAdded = false;
+    if (isForViewSwitch) {
+      addClass(map, "view-switch");
+    }
     if (bindingOptions.views.chart.enabled) {
       renderControlChartContents(bindingOptions);
     }
@@ -412,7 +416,7 @@
     bindingOptions.currentView.chartContents = createElement(bindingOptions.currentView.element, "div", "chart-contents");
     makeAreaDroppable(bindingOptions.currentView.chartContents, bindingOptions);
   }
-  function renderControlChart(bindingOptions) {
+  function renderControlChart(bindingOptions, isForViewSwitch) {
     var chart = createElement(bindingOptions.currentView.chartContents, "div", "chart");
     var labels = createElement(chart, "div", "y-labels");
     var dayLines = createElement(chart, "div", "day-lines");
@@ -420,6 +424,9 @@
     var largestValueForCurrentYear = getLargestValueForChartYear(bindingOptions);
     var currentYear = bindingOptions.currentView.year;
     var labelsWidth = 0;
+    if (isForViewSwitch) {
+      addClass(chart, "view-switch");
+    }
     if (largestValueForCurrentYear > 0 && bindingOptions.views.chart.showChartYLabels) {
       var topLabel = createElementWithHTML(labels, "div", "label-0", largestValueForCurrentYear.toString());
       createElementWithHTML(labels, "div", "label-25", (_parameter_Math.floor(largestValueForCurrentYear / 4) * 3).toString());
@@ -435,7 +442,10 @@
     if (largestValueForCurrentYear === 0) {
       bindingOptions.currentView.chartContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
       chart.parentNode.removeChild(chart);
-      createElementWithHTML(bindingOptions.currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage);
+      var noDataMessage = createElementWithHTML(bindingOptions.currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage);
+      if (isForViewSwitch) {
+        addClass(noDataMessage, "view-switch");
+      }
     } else {
       var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear;
       var totalMonths = 0;
@@ -528,13 +538,16 @@
     bindingOptions.currentView.statisticsContents = createElement(bindingOptions.currentView.element, "div", "statistics-contents");
     makeAreaDroppable(bindingOptions.currentView.statisticsContents, bindingOptions);
   }
-  function renderControlStatistics(bindingOptions) {
+  function renderControlStatistics(bindingOptions, isForViewSwitch) {
     var statistics = createElement(bindingOptions.currentView.statisticsContents, "div", "statistics");
     var statisticsRanges = createElement(bindingOptions.currentView.statisticsContents, "div", "statistics-ranges");
     var labels = createElement(statistics, "div", "y-labels");
     var rangeLines = createElement(statistics, "div", "range-lines");
     var colorRanges = getSortedMapRanges(bindingOptions);
     var colorRangeValuesForCurrentYear = getLargestValuesForEachRangeType(bindingOptions, colorRanges);
+    if (isForViewSwitch) {
+      addClass(statistics, "view-switch");
+    }
     if (colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views.statistics.showChartYLabels) {
       var topLabel = createElementWithHTML(labels, "div", "label-0", colorRangeValuesForCurrentYear.largestValue.toString());
       createElementWithHTML(labels, "div", "label-25", (_parameter_Math.floor(colorRangeValuesForCurrentYear.largestValue / 4) * 3).toString());
@@ -551,7 +564,10 @@
       bindingOptions.currentView.statisticsContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
       statistics.parentNode.removeChild(statistics);
       statisticsRanges.parentNode.removeChild(statisticsRanges);
-      createElementWithHTML(bindingOptions.currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage);
+      var noDataMessage = createElementWithHTML(bindingOptions.currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage);
+      if (isForViewSwitch) {
+        addClass(noDataMessage, "view-switch");
+      }
     } else {
       var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / colorRangeValuesForCurrentYear.largestValue;
       if (!bindingOptions.views.statistics.showColorRangeLabels) {
@@ -1633,7 +1649,7 @@
       if (isDefinedNumber(view)) {
         bindingOptions.currentView.view = view;
         fireCustomTrigger(bindingOptions.onViewSwitch, viewName);
-        renderControlContainer(bindingOptions);
+        renderControlContainer(bindingOptions, false, true);
       }
     }
     return this;
