@@ -64,11 +64,17 @@ Fires when the year is manually set.
 ## For Day Clicking:
 
 ### options.onDayClick( *date*, *count* ):
-Fires when a day is clicked in the heat map.
+Fires when a day is clicked in the "map" or "chart" views.
 <br>
 ***Parameter:*** date: '*Date*' - The date that was clicked.
 <br>
 ***Parameter:*** count: '*number*' - The number of items for the date available.
+<br>
+
+### options.onStatisticClick( *colorRange* ):
+Fires when a statistic is clicked in the "statistics" view.
+<br>
+***Parameter:*** colorRange: '*Object*' - The statistic color range details.
 <br>
 <br>
 
@@ -76,31 +82,31 @@ Fires when a day is clicked in the heat map.
 ## For Data:
 
 ### options.onAdd( *element* ):
-Fires when data for a heatmap is added.
+Fires when data for an element is added.
 <br>
 ***Parameter:*** element: '*Object*' - The element that the data was added for.
 <br>
 
 ### options.onRemove( *element* ):
-Fires when data for a heatmap is removed.
+Fires when data for an element is removed.
 <br>
 ***Parameter:*** element: '*Object*' - The element that the data was removed from.
 <br>
 
 ### options.onReset( *element* ):
-Fires when data for a heatmap is reset.
+Fires when data for an element is reset.
 <br>
 ***Parameter:*** element: '*Object*' - The element that the data was reset for.
 <br>
 
 ### options.onExport( *element* ):
-Fires when the data for a heatmap is exported.
+Fires when the data for an element is exported.
 <br>
 ***Parameter:*** element: '*Object*' - The element that the data was exported for.
 <br>
 
 ### options.onImport( *element* ):
-Fires when data for a heatmap is imported.
+Fires when data for an element is imported.
 <br>
 ***Parameter:*** element: '*Object*' - The element that the data was imported for.
 <br>

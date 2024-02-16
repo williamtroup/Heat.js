@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v2.1.1
+ * @version     v2.2.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -28,6 +28,11 @@
             newLine: "\n",
             dash: "-",
             underscore: "_"
+        },
+
+        // Variables: Values
+        _value = {
+            notFound: -1
         },
 
         // Variables: Local Storage
@@ -58,6 +63,7 @@
         _export_Type_Csv = "csv",
         _export_Type_Json = "json",
         _export_Type_Xml = "xml",
+        _export_Type_Txt = "txt",
 
         // Variables: Attribute Names
         _attribute_Name_Options = "data-heat-options";
@@ -167,8 +173,9 @@
         fireCustomTrigger( bindingOptions.onRenderComplete, bindingOptions.currentView.element );
     }
 
-    function renderControlContainer( bindingOptions, isForDataRefresh ) {
+    function renderControlContainer( bindingOptions, isForDataRefresh, isForViewSwitch ) {
         isForDataRefresh = isDefined( isForDataRefresh ) ? isForDataRefresh : false;
+        isForViewSwitch = isDefined( isForViewSwitch ) ? isForViewSwitch : false;
 
         if ( isForDataRefresh ) {
             storeDataInLocalStorage( bindingOptions.currentView.element.id, bindingOptions );
@@ -190,16 +197,16 @@
 
         renderControlToolTip( bindingOptions );
         renderControlTitleBar( bindingOptions );
-        renderControlMap( bindingOptions );
+        renderControlMap( bindingOptions, isForViewSwitch );
 
         if ( bindingOptions.views.chart.enabled ) {
-            renderControlChart( bindingOptions );
+            renderControlChart( bindingOptions, isForViewSwitch );
 
             bindingOptions.currentView.chartContents.style.display = "none";
         }
 
         if ( bindingOptions.views.statistics.enabled ) {
-            renderControlStatistics( bindingOptions );
+            renderControlStatistics( bindingOptions, isForViewSwitch );
 
             bindingOptions.currentView.statisticsContents.style.display = "none";
         }
@@ -238,11 +245,11 @@
     }
 
     function isMonthVisible( monthsToShow, month ) {
-        return monthsToShow.indexOf( month + 1 ) > -1;
+        return monthsToShow.indexOf( month + 1 ) > _value.notFound;
     }
 
     function isDayVisible( daysToShow, day ) {
-        return daysToShow.indexOf( day ) > -1;
+        return daysToShow.indexOf( day ) > _value.notFound;
     }
 
 
@@ -347,7 +354,6 @@
         
                 exportData.onclick = function() {
                     exportAllData( bindingOptions );
-                    fireCustomTrigger( bindingOptions.onExport, bindingOptions.currentView.element );
                 };
             }
 
@@ -365,6 +371,10 @@
         
                 back.onclick = function() {
                     bindingOptions.currentView.year--;
+
+                    while ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                        bindingOptions.currentView.year--;
+                    }
         
                     renderControlContainer( bindingOptions );
                     fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
@@ -384,10 +394,12 @@
                     yearList.style.visibility = "hidden";
 
                     for ( var currentYear = thisYear - bindingOptions.extraSelectionYears; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++ ) {
-                        var year = renderControlTitleBarYear( bindingOptions, years, currentYear );
+                        if ( bindingOptions.yearsToHide.indexOf( currentYear ) === _value.notFound ) {
+                            var year = renderControlTitleBarYear( bindingOptions, years, currentYear );
 
-                        if ( !isDefined( activeYear ) ) {
-                            activeYear = year;
+                            if ( !isDefined( activeYear ) ) {
+                                activeYear = year;
+                            }
                         }
                     }
 
@@ -406,6 +418,10 @@
 
                 next.onclick = function() {
                     bindingOptions.currentView.year++;
+
+                    while ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                        bindingOptions.currentView.year++;
+                    }
         
                     renderControlContainer( bindingOptions );
                     fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
@@ -423,7 +439,7 @@
                 bindingOptions.currentView.view = view;
 
                 fireCustomTrigger( bindingOptions.onViewSwitch, viewName );
-                renderControlContainer( bindingOptions );
+                renderControlContainer( bindingOptions, false, true );
             };
         }
     }
@@ -455,7 +471,7 @@
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlMap( bindingOptions ) {
+    function renderControlMap( bindingOptions, isForViewSwitch ) {
         bindingOptions.currentView.mapContents = createElement( bindingOptions.currentView.element, "div", "map-contents" );
 
         makeAreaDroppable( bindingOptions.currentView.mapContents, bindingOptions );
@@ -463,6 +479,10 @@
         var map = createElement( bindingOptions.currentView.mapContents, "div", "map" ),
             currentYear = bindingOptions.currentView.year,
             monthAdded = false;
+
+        if ( isForViewSwitch ) {
+            addClass( map, "view-switch" );
+        }
 
         if ( bindingOptions.views.chart.enabled ) {
             renderControlChartContents( bindingOptions );
@@ -624,7 +644,7 @@
         makeAreaDroppable( bindingOptions.currentView.chartContents, bindingOptions );
     }
 
-    function renderControlChart( bindingOptions ) {
+    function renderControlChart( bindingOptions, isForViewSwitch ) {
         var chart = createElement( bindingOptions.currentView.chartContents, "div", "chart" ),
             labels = createElement( chart, "div", "y-labels" ),
             dayLines = createElement( chart, "div", "day-lines" ),
@@ -632,6 +652,10 @@
             largestValueForCurrentYear = getLargestValueForChartYear( bindingOptions ),
             currentYear = bindingOptions.currentView.year,
             labelsWidth = 0;
+
+        if ( isForViewSwitch ) {
+            addClass( chart, "view-switch" );
+        }
 
         if ( largestValueForCurrentYear > 0 && bindingOptions.views.chart.showChartYLabels ) {
             var topLabel = createElementWithHTML( labels, "div", "label-0", largestValueForCurrentYear.toString() );
@@ -652,7 +676,11 @@
             bindingOptions.currentView.chartContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
             chart.parentNode.removeChild( chart );
 
-            createElementWithHTML( bindingOptions.currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage );
+            var noDataMessage = createElementWithHTML( bindingOptions.currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage );
+
+            if ( isForViewSwitch ) {
+                addClass( noDataMessage, "view-switch" );
+            }
 
         } else {
             var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear,
@@ -721,7 +749,12 @@
             addToolTip( dayLine, bindingOptions, getCustomFormattedDateText( bindingOptions.dayToolTipText, date ) );
         }
 
-        dayLine.style.height = ( dateCount * pixelsPerNumbers ) + "px";
+        var dayLineHeight = dateCount * pixelsPerNumbers;
+        dayLine.style.height = dayLineHeight + "px";
+
+        if ( dayLineHeight <= 0 ) {
+            dayLine.style.visibility = "hidden";
+        }
 
         if ( isDefinedFunction( bindingOptions.onDayClick ) ) {
             dayLine.onclick = function() {
@@ -775,13 +808,17 @@
         makeAreaDroppable( bindingOptions.currentView.statisticsContents, bindingOptions );
     }
 
-    function renderControlStatistics( bindingOptions ) {
+    function renderControlStatistics( bindingOptions, isForViewSwitch ) {
         var statistics = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics" ),
             statisticsRanges = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics-ranges" ),
             labels = createElement( statistics, "div", "y-labels" ),
             rangeLines = createElement( statistics, "div", "range-lines" ),
             colorRanges = getSortedMapRanges( bindingOptions ),
             colorRangeValuesForCurrentYear = getLargestValuesForEachRangeType( bindingOptions, colorRanges );
+
+        if ( isForViewSwitch ) {
+            addClass( statistics, "view-switch" );
+        }
 
         if ( colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views.statistics.showChartYLabels ) {
             var topLabel = createElementWithHTML( labels, "div", "label-0", colorRangeValuesForCurrentYear.largestValue.toString() );
@@ -803,7 +840,11 @@
             statistics.parentNode.removeChild( statistics );
             statisticsRanges.parentNode.removeChild( statisticsRanges );
 
-            createElementWithHTML( bindingOptions.currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage );
+            var noDataMessage = createElementWithHTML( bindingOptions.currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage );
+
+            if ( isForViewSwitch ) {
+                addClass( noDataMessage, "view-switch" );
+            }
 
         } else {
             var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / colorRangeValuesForCurrentYear.largestValue;
@@ -814,7 +855,7 @@
 
             for ( var type in colorRangeValuesForCurrentYear.types ) {
                 if ( colorRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
-                    renderControlStatisticsDay( type, rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers );
+                    renderControlStatisticsRangeLine( type, rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers );
 
                     if ( bindingOptions.views.statistics.showColorRangeLabels ) {
                         createElementWithHTML( statisticsRanges, "div", "range-name", type + "+" );
@@ -828,13 +869,27 @@
         }
     }
 
-    function renderControlStatisticsDay( colorRangeMinimum, dayLines, rangeCount, bindingOptions, colorRanges, pixelsPerNumbers ) {
-        var rangeLine = createElement( dayLines, "div", "range-line no-hover" ),
-            useColorRange = getColorRangeByMinimum( colorRanges, colorRangeMinimum );
+    function renderControlStatisticsRangeLine( colorRangeMinimum, dayLines, rangeCount, bindingOptions, colorRanges, pixelsPerNumbers ) {
+        var rangeLine = createElement( dayLines, "div", "range-line" ),
+            useColorRange = getColorRangeByMinimum( colorRanges, colorRangeMinimum ),
+            rangeLineHeight = rangeCount * pixelsPerNumbers;
 
-        rangeLine.style.height = ( rangeCount * pixelsPerNumbers ) + "px";
+        rangeLine.style.height = rangeLineHeight + "px";
+
+        if ( rangeLineHeight <= 0 ) {
+            rangeLine.style.visibility = "hidden";
+        }
 
         addToolTip( rangeLine, bindingOptions, rangeCount.toString() );
+
+        if ( isDefinedFunction( bindingOptions.onStatisticClick ) ) {
+            rangeLine.onclick = function() {
+                fireCustomTrigger( bindingOptions.onStatisticClick, useColorRange );
+            };
+
+        } else {
+            addClass( rangeLine, "no-hover" );
+        }
 
         if ( isDefined( useColorRange ) && isHeatMapColorVisible( bindingOptions, useColorRange.id ) ) {
             if ( isDefinedString( useColorRange.statisticsCssClassName ) ) {
@@ -931,16 +986,19 @@
         }
 
         if ( bindingOptions.showGuide ) {
-            var mapToggles = createElement( guide, "div", "map-toggles" ),
-                lessText = createElementWithHTML( mapToggles, "div", "less-text", _configuration.lessText );
+            var mapToggles = createElement( guide, "div", "map-toggles" );
+
+            if ( bindingOptions.showLessAndMoreLabels ) {
+                var lessText = createElementWithHTML( mapToggles, "div", "less-text", _configuration.lessText );
     
-            if ( bindingOptions.mapTogglesEnabled ) {
-                lessText.onclick = function() {
-                    updateColorRangeToggles( bindingOptions, false );
-                };
-    
-            } else {
-                addClass( lessText, "no-click" );
+                if ( bindingOptions.mapTogglesEnabled ) {
+                    lessText.onclick = function() {
+                        updateColorRangeToggles( bindingOptions, false );
+                    };
+        
+                } else {
+                    addClass( lessText, "no-click" );
+                }
             }
     
             var days = createElement( mapToggles, "div", "days" ),
@@ -950,16 +1008,18 @@
             for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
                 renderControlViewGuideDay( bindingOptions, days, colorRanges[ colorRangesIndex ] );
             }
+
+            if ( bindingOptions.showLessAndMoreLabels ) {
+                var moreText = createElementWithHTML( mapToggles, "div", "more-text", _configuration.moreText );
     
-            var moreText = createElementWithHTML( mapToggles, "div", "more-text", _configuration.moreText );
-    
-            if ( bindingOptions.mapTogglesEnabled ) {
-                moreText.onclick = function() {
-                    updateColorRangeToggles( bindingOptions, true );
-                };
-    
-            } else {
-                addClass( moreText, "no-click" );
+                if ( bindingOptions.mapTogglesEnabled ) {
+                    moreText.onclick = function() {
+                        updateColorRangeToggles( bindingOptions, true );
+                    };
+        
+                } else {
+                    addClass( moreText, "no-click" );
+                }
             }
         }
     }
@@ -1014,6 +1074,7 @@
             if ( isDefinedString( bindingOptions.descriptionTextLink ) ) {
                 var link = createElementWithHTML( container, "a", "label", bindingOptions.descriptionText );
                 link.href = bindingOptions.descriptionTextLink;
+                link.target = "_blank";
 
             } else {
                 createElementWithHTML( container, "span", "label", bindingOptions.descriptionText );
@@ -1265,6 +1326,8 @@
             contents = getJsonContent( bindingOptions );
         } else if ( bindingOptions.exportType.toLowerCase() === _export_Type_Xml ) {
             contents = getXmlContents( bindingOptions );
+        } else if ( bindingOptions.exportType.toLowerCase() === _export_Type_Txt ) {
+            contents = getTxtContents( bindingOptions );
         }
 
         if ( contents !== _string.empty ) {
@@ -1276,6 +1339,8 @@
             tempLink.click();
             
             _parameter_Document.body.removeChild( tempLink );
+
+            fireCustomTrigger( bindingOptions.onExport, bindingOptions.currentView.element );
         }
     }
 
@@ -1317,6 +1382,19 @@
         }
 
         contents.push( "</Dates>" );
+
+        return contents.join( _string.newLine );
+    }
+
+    function getTxtContents( bindingOptions ) {
+        var data = getExportData( bindingOptions ),
+            contents = [];
+
+        for ( var storageDate in data ) {
+            if ( data.hasOwnProperty( storageDate ) ) {
+                contents.push( storageDate + ": " + data[ storageDate ].toString() );
+            }
+        }
 
         return contents.join( _string.newLine );
     }
@@ -1372,6 +1450,8 @@
             result = "application/json";
         } else if ( bindingOptions.exportType.toLowerCase() === _export_Type_Xml ) {
             result = "application/xml";
+        } else if ( bindingOptions.exportType.toLowerCase() === _export_Type_Txt ) {
+            result = "text/plain";
         }
 
         return result;
@@ -1430,6 +1510,8 @@
         options.descriptionTextLink = getDefaultString( options.descriptionTextLink, null );
         options.useLocalStorageForData = getDefaultBoolean( options.useLocalStorageForData, false );
         options.allowFileImports = getDefaultBoolean( options.allowFileImports, true );
+        options.yearsToHide = getDefaultArray( options.yearsToHide, [] );
+        options.showLessAndMoreLabels = getDefaultBoolean( options.showLessAndMoreLabels, true );
 
         options = buildAttributeOptionMapView( options );
         options = buildAttributeOptionChartView( options );
@@ -1570,6 +1652,7 @@
         options.onViewSwitch = getDefaultFunction( options.onViewSwitch, null );
         options.onColorRangeTypeToggle = getDefaultFunction( options.onColorRangeTypeToggle, null );
         options.onImport = getDefaultFunction( options.onImport, null );
+        options.onStatisticClick = getDefaultFunction( options.onStatisticClick, null );
 
         return options;
     }
@@ -1996,7 +2079,7 @@
             fireCustomTrigger( bindingOptions.onAdd, bindingOptions.currentView.element );
 
             if ( triggerRefresh ) {
-                renderControlContainer( _elements_DateCounts[ elementId ].options, true );
+                renderControlContainer( bindingOptions, true );
             }
         }
 
@@ -2070,7 +2153,7 @@
                 fireCustomTrigger( bindingOptions.onRemove, bindingOptions.currentView.element );
 
                 if ( triggerRefresh ) {
-                    renderControlContainer( _elements_DateCounts[ elementId ].options, true );
+                    renderControlContainer( bindingOptions, true );
                 }
             }
         }
@@ -2124,7 +2207,7 @@
             fireCustomTrigger( bindingOptions.onReset, bindingOptions.currentView.element );
 
             if ( triggerRefresh ) {
-                renderControlContainer( _elements_DateCounts[ elementId ].options, true );
+                renderControlContainer( bindingOptions, true );
             }
         }
 
@@ -2145,9 +2228,7 @@
      */
     this.export = function( elementId ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
-            var bindingOptions = _elements_DateCounts[ elementId ].options;
-
-            exportAllData( bindingOptions );
+            exportAllData( _elements_DateCounts[ elementId ].options );
         }
 
         return this;
@@ -2222,10 +2303,13 @@
     this.setYear = function( elementId, year ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
-            bindingOptions.currentView.year = year;
 
-            renderControlContainer( bindingOptions );
-            fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
+            if ( bindingOptions.yearsToHide.indexOf( year ) === _value.notFound ) {
+                bindingOptions.currentView.year = year;
+
+                renderControlContainer( bindingOptions );
+                fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
+            }
         }
 
         return this;
@@ -2255,7 +2339,7 @@
                 }
             }
 
-            if ( maximumYear > 0 ) {
+            if ( maximumYear > 0 && bindingOptions.yearsToHide.indexOf( maximumYear ) === _value.notFound ) {
                 bindingOptions.currentView.year = maximumYear;
 
                 renderControlContainer( bindingOptions );
@@ -2290,7 +2374,7 @@
                 }
             }
 
-            if ( minimumYear < 9999 ) {
+            if ( minimumYear < 9999 && bindingOptions.yearsToHide.indexOf( minimumYear ) === _value.notFound ) {
                 bindingOptions.currentView.year = minimumYear;
 
                 renderControlContainer( bindingOptions );
@@ -2316,7 +2400,12 @@
     this.moveToPreviousYear = function( elementId ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
+
             bindingOptions.currentView.year--;
+
+            while ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                bindingOptions.currentView.year--;
+            }
 
             renderControlContainer( bindingOptions );
             fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
@@ -2340,7 +2429,12 @@
     this.moveToNextYear = function( elementId ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
+
             bindingOptions.currentView.year++;
+
+            while ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                bindingOptions.currentView.year++;
+            }
 
             renderControlContainer( bindingOptions );
             fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
@@ -2459,7 +2553,7 @@
                 bindingOptions.currentView.view = view;
 
                 fireCustomTrigger( bindingOptions.onViewSwitch, viewName );
-                renderControlContainer( bindingOptions );
+                renderControlContainer( bindingOptions, false, true );
             }
         }
 
@@ -2489,6 +2583,37 @@
                 fireCustomTrigger( bindingOptions.onTypeSwitch, type );
                 renderControlContainer( bindingOptions );
             }
+        }
+
+        return this;
+    };
+
+    /**
+     * updateOptions().
+     * 
+     * Updates the original binding options for an element and refreshes it.
+     * 
+     * @public
+     * @fires       onRefresh
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID.
+     * @param       {Object}    newOptions                                  The new options to want to apply to the element.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.updateOptions = function( elementId, newOptions ) {
+        if ( _elements_DateCounts.hasOwnProperty( elementId ) && isDefinedObject( newOptions ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options,
+                newBindingOptions = buildAttributeOptions( newOptions );
+
+            for ( var propertyName in newBindingOptions ) {
+                if ( newBindingOptions.hasOwnProperty( propertyName ) && bindingOptions.hasOwnProperty( propertyName ) ) {
+                    bindingOptions[ propertyName ] = newBindingOptions[ propertyName ];
+                }
+            }
+
+            renderControlContainer( bindingOptions, true );
+            fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
         }
 
         return this;
@@ -2702,7 +2827,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.1.1";
+        return "2.2.0";
     };
 
 

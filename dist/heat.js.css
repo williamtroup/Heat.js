@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v2.1.1
+ * Heat.js Library v2.2.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -97,6 +97,9 @@ div.heat-js {
   width: 100%;
   max-width: 700px;
   margin: 0 !important;
+}
+div.heat-js div.view-switch {
+  animation: fade-in-animation var(--heat-js-animation-length);
 }
 div.heat-js div.no-click {
   pointer-events: none !important;
@@ -634,6 +637,10 @@ div.heat-js div.statistics-contents div.statistics div.range-lines div.range-lin
 }
 div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line:last-child {
   margin-right: 0;
+}
+div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line:not(.no-hover):hover {
+  cursor: pointer;
+  background: var(--heat-js-day-background-color-hover);
 }
 div.heat-js div.statistics-contents div.statistics-ranges {
   display: flex;

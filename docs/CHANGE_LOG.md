@@ -1,5 +1,32 @@
 # Heat.js - Change Log:
 
+## Version 2.2.0:
+
+#### **New Features:**
+- Export to TXT support!
+
+#### **Binding Options:**
+- Added a new binding option called "yearsToHide", which states the years that should be hidden (defaults to []).
+- Added a new binding option called "showLessAndMoreLabels", which states if the "Less" and "More" labels are shown (defaults to true).
+
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option custom trigger called "onStatisticClick", which states an event that should be triggered when a statistic value is clicked.
+
+#### **Public Functions:**
+- Added a new public function "updateOptions()", which will update the original binding options for an element and refresh it.
+
+#### **UI Changes:**
+- When switching views, the target view now fades in (a much smoother display).
+- The description link now opens in a new window/tab instead of the current one.
+- If a Chart/Statistic bar is 0 in height, it is now hidden (prevents little borders from appearing across the chart baseline).
+
+#### **Fixes:**
+- Fixed a minor README.md error.
+- Fixed a fault that prevented the "onExport" custom trigger from firing when the public function "export()" is called.
+
+<br>
+
+
 ## Version 2.1.1:
 - Fixed errors in the "PUBLIC_FUNCTIONS.md" documentation.
 - Updated "README.md" and "README_NUGET.md" documentation.

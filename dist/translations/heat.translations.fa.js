@@ -1,4 +1,4 @@
-/*! Heat.js v2.1.1 - Farsi | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.2.0 - Farsi | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",

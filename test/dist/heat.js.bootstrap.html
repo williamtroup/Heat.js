@@ -17,13 +17,13 @@
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-options="{ 'onDayClick': onDayClick, 'views': { 'map': { 'showMonthDayGaps': true } }, 'descriptionText': 'A basic example of how to use Heat.js.', 'descriptionTextLink': 'https://william-troup.com/heat-js/examples/basic.html' }"></div>
+            <div id="heat-map-1" data-heat-options="{ 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'views': { 'map': { 'showMonthDayGaps': true } }, 'descriptionText': 'A basic example of how to use Heat.js.', 'descriptionTextLink': 'https://william-troup.com/heat-js/examples/basic.html' }"></div>
             <br>
             <br>
-            <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'views': { 'map': { 'showMonthDayGaps': false, 'placeMonthNamesOnTheBottom': true } }, 'showRefreshButton': true, 'showExportButton': true, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
+            <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'views': { 'map': { 'showMonthDayGaps': false, 'placeMonthNamesOnTheBottom': true } }, 'showRefreshButton': true, 'showExportButton': true, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
             <br>
             <br>
-            <div id="heat-map-3" data-heat-options="{ 'onDayClick': onDayClick, 'views': { 'map': { 'showMonthDayGaps': true } }, 'view': 'chart' }"></div>
+            <div id="heat-map-3" data-heat-options="{ 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'views': { 'map': { 'showMonthDayGaps': true } }, 'view': 'chart', 'yearsToHide': [ 2026 ] }"></div>
             <br>
             <br>
             <div id="heat-map-4"></div>
@@ -120,6 +120,11 @@
             <button class="btn btn-primary" onclick="$heat.switchType( 'heat-map-3', 'Type 2' );">Switch Type - Type 2 (3)</button>
             <button class="btn btn-primary" onclick="$heat.switchType( 'heat-map-4', 'Type 2' );">Switch Type - Type 2 (4)</button>
             <br />
+            <button class="btn btn-primary" onclick="$heat.updateOptions( 'heat-map-1', { 'showTitle': false } );">Update Options (1)</button>
+            <button class="btn btn-primary" onclick="$heat.updateOptions( 'heat-map-2', { 'showTitle': false } );">Update Options (2)</button>
+            <button class="btn btn-primary" onclick="$heat.updateOptions( 'heat-map-3', { 'showTitle': false } );">Update Options (3)</button>
+            <button class="btn btn-primary" onclick="$heat.updateOptions( 'heat-map-4', { 'showTitle': false } );">Update Options (4)</button>
+            <br />
 
             <h2>Destroy:</h2>
             <button class="btn btn-primary" onclick="$heat.destroy( 'heat-map-1' );">Destroy (1)</button>
@@ -203,6 +208,10 @@
 
         function onDayClick( date, count ) {
             console.log( "Day clicked for: " + date.toString() + ", Count: " + count );
+        }
+
+        function onStatisticClick( colorRange ) {
+            console.log( "Statistic clicked for: " + JSON.stringify( colorRange ) );
         }
 
         function onDayToolTipRenderEvent( date, count ) {
