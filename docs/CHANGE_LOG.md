@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
-## Version 2.1.2:
-- Minor README.md fix.
+## Version 2.2.0:
+
+#### **Fixes:**
+- Fixed a minor README.md error.
 - Fixed a fault that prevented the "onExport" custom trigger from firing when the public function "export()" is called.
 - 
 
