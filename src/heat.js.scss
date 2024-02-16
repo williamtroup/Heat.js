@@ -11,6 +11,9 @@
 :root {
     // Fonts
     --heat-js-default-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --heat-js-text-bold-weight: 400;
+    --heat-js-title-bold-weight: 900;
+    --heat-js-text-bold-weight-active: 900;
 
     // Colors
     --heat-js-color-black: #3b3a3a;
@@ -84,11 +87,6 @@
     // Sizes
     --heat-js-spacing: 10px;
     --heat-js-spacing-font-size: 0.85rem;
-
-    // Fonts
-    --heat-js-text-bold-weight: 400;
-    --heat-js-title-bold-weight: 900;
-    --heat-js-text-bold-weight-active: 900;
 
     // Transitions
     --heat-js-transition: all .3s;
@@ -881,12 +879,23 @@ div.heat-js {
                 align-items: center;
                 justify-content: right;
 
+                div.day-number {
+                    display: inline-flex !important;
+                    justify-content: center;
+                    align-items: center;
+                    overflow: hidden;
+                    text-align: center;
+                    font-size: 0.6rem;
+                    padding-left: calc( var(--heat-js-spacing) / 2 );
+                    padding-right: calc( var(--heat-js-spacing) / 2 );
+                }
+
                 div.day {
                     background-color: var(--heat-js-day-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     display: inline-block;
                     border-radius: var(--heat-js-border-radius-day);
-                    width: var(--heat-js-day-size);
+                    min-width: var(--heat-js-day-size);
                     height: var(--heat-js-day-size);
                     margin-right: var(--heat-js-day-spacing);
                     transition: var(--heat-js-transition);

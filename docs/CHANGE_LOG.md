@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 2.3.0:
-- 
+
+#### **Binding Options:**
+- Added a new binding option called "showNumbersInGuide", which states if the color range numbers should be shown in the guide (defaults to false).
 
 <br>
 

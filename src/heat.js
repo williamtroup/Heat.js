@@ -27,7 +27,8 @@
             space: " ",
             newLine: "\n",
             dash: "-",
-            underscore: "_"
+            underscore: "_",
+            plus: "+"
         },
 
         // Variables: Values
@@ -858,7 +859,7 @@
                     renderControlStatisticsRangeLine( type, rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers );
 
                     if ( bindingOptions.views.statistics.showColorRangeLabels ) {
-                        createElementWithHTML( statisticsRanges, "div", "range-name", type + "+" );
+                        createElementWithHTML( statisticsRanges, "div", "range-name", type + _string.plus );
                     }
                 }
             }
@@ -1057,6 +1058,12 @@
             } else {
                 addClass( day, colorRange.cssClassName );
             }   
+        }
+
+        if ( bindingOptions.showNumbersInGuide ) {
+            addClass( day, "day-number" );
+
+            day.innerHTML = colorRange.minimum + _string.plus;
         }
 
         if ( bindingOptions.mapTogglesEnabled ) {
@@ -1512,6 +1519,7 @@
         options.allowFileImports = getDefaultBoolean( options.allowFileImports, true );
         options.yearsToHide = getDefaultArray( options.yearsToHide, [] );
         options.showLessAndMoreLabels = getDefaultBoolean( options.showLessAndMoreLabels, true );
+        options.showNumbersInGuide = getDefaultBoolean( options.showNumbersInGuide, false );
 
         options = buildAttributeOptionMapView( options );
         options = buildAttributeOptionChartView( options );

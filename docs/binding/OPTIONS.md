@@ -30,6 +30,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | allowFileImports | States if file importing via drag & drop is enabled (defaults to true). |
 | *number[]* | yearsToHide | States the years that should be hidden (defaults to []). |
 | *boolean* | showLessAndMoreLabels | States if the "Less" and "More" labels are shown (defaults to true). |
+| *boolean* | showNumbersInGuide | States if the color range numbers should be shown in the guide (defaults to false). |
 
 <br/>
 

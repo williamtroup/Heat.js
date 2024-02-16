@@ -6,6 +6,9 @@
  */
 :root {
   --heat-js-default-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heat-js-text-bold-weight: 400;
+  --heat-js-title-bold-weight: 900;
+  --heat-js-text-bold-weight-active: 900;
   --heat-js-color-black: #3b3a3a;
   --heat-js-color-white: #adbac7;
   --heat-js-color-snow-white: #F5F5F5;
@@ -59,9 +62,6 @@
   --heat-js-border-size-day: 1px;
   --heat-js-spacing: 10px;
   --heat-js-spacing-font-size: 0.85rem;
-  --heat-js-text-bold-weight: 400;
-  --heat-js-title-bold-weight: 900;
-  --heat-js-text-bold-weight-active: 900;
   --heat-js-transition: all .3s;
   --heat-js-animation-length: 0.5s;
 }
@@ -818,12 +818,22 @@ div.heat-js div.guide div.map-toggles div.days {
   align-items: center;
   justify-content: right;
 }
+div.heat-js div.guide div.map-toggles div.days div.day-number {
+  display: inline-flex !important;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-align: center;
+  font-size: 0.6rem;
+  padding-left: calc(var(--heat-js-spacing) / 2);
+  padding-right: calc(var(--heat-js-spacing) / 2);
+}
 div.heat-js div.guide div.map-toggles div.days div.day {
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   display: inline-block;
   border-radius: var(--heat-js-border-radius-day);
-  width: var(--heat-js-day-size);
+  min-width: var(--heat-js-day-size);
   height: var(--heat-js-day-size);
   margin-right: var(--heat-js-day-spacing);
   transition: var(--heat-js-transition);
