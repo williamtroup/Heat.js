@@ -560,7 +560,7 @@
       var type;
       for (type in colorRangeValuesForCurrentYear.types) {
         if (colorRangeValuesForCurrentYear.types.hasOwnProperty(type)) {
-          renderControlStatisticsDay(type, rangeLines, colorRangeValuesForCurrentYear.types[type], bindingOptions, colorRanges, pixelsPerNumbers);
+          renderControlStatisticsRangeLine(type, rangeLines, colorRangeValuesForCurrentYear.types[type], bindingOptions, colorRanges, pixelsPerNumbers);
           if (bindingOptions.views.statistics.showColorRangeLabels) {
             createElementWithHTML(statisticsRanges, "div", "range-name", type + "+");
           }
@@ -571,11 +571,18 @@
       }
     }
   }
-  function renderControlStatisticsDay(colorRangeMinimum, dayLines, rangeCount, bindingOptions, colorRanges, pixelsPerNumbers) {
-    var rangeLine = createElement(dayLines, "div", "range-line no-hover");
+  function renderControlStatisticsRangeLine(colorRangeMinimum, dayLines, rangeCount, bindingOptions, colorRanges, pixelsPerNumbers) {
+    var rangeLine = createElement(dayLines, "div", "range-line");
     var useColorRange = getColorRangeByMinimum(colorRanges, colorRangeMinimum);
     rangeLine.style.height = rangeCount * pixelsPerNumbers + "px";
     addToolTip(rangeLine, bindingOptions, rangeCount.toString());
+    if (isDefinedFunction(bindingOptions.onStatisticClick)) {
+      rangeLine.onclick = function() {
+        fireCustomTrigger(bindingOptions.onStatisticClick, useColorRange);
+      };
+    } else {
+      addClass(rangeLine, "no-hover");
+    }
     if (isDefined(useColorRange) && isHeatMapColorVisible(bindingOptions, useColorRange.id)) {
       if (isDefinedString(useColorRange.statisticsCssClassName)) {
         addClass(rangeLine, useColorRange.statisticsCssClassName);
@@ -1119,6 +1126,7 @@
     options.onViewSwitch = getDefaultFunction(options.onViewSwitch, null);
     options.onColorRangeTypeToggle = getDefaultFunction(options.onColorRangeTypeToggle, null);
     options.onImport = getDefaultFunction(options.onImport, null);
+    options.onStatisticClick = getDefaultFunction(options.onStatisticClick, null);
     return options;
   }
   function getTotalDaysInMonth(year, month) {

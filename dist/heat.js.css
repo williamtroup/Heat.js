@@ -635,6 +635,10 @@ div.heat-js div.statistics-contents div.statistics div.range-lines div.range-lin
 div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line:last-child {
   margin-right: 0;
 }
+div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line:not(.no-hover):hover {
+  cursor: pointer;
+  background: var(--heat-js-day-background-color-hover);
+}
 div.heat-js div.statistics-contents div.statistics-ranges {
   display: flex;
   flex: 1;

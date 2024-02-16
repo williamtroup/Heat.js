@@ -6,6 +6,9 @@
 - Added a new binding option called "yearsToHide", which states the years that should be hidden (defaults to []).
 - Added a new binding option called "showLessAndMoreLabels", which states if the "Less" and "More" labels are shown (defaults to true).
 
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option custom trigger called "onStatisticClick", which states an event that should be triggered when a statistic value is clicked.
+
 #### **Public Functions:**
 - Added a new public function "updateOptions()", which will update the original binding options for an element and refresh it.
 
