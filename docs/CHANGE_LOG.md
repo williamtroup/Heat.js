@@ -6,6 +6,9 @@
 - Added a new binding option called "showNumbersInGuide", which states if the color range numbers should be shown in the guide (defaults to false).
 - Added a new binding option called "views.chart.showLineNumbers", which states if the activity counts should be shown in the lines (defaults to false).
 
+#### **Fixes:**
+- Fixed a fault that caused longer month names to mess up the "Map" view (ellipsis is now used for the month name text).
+
 <br>
 
 

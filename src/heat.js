@@ -518,13 +518,8 @@
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             if ( isMonthVisible( bindingOptions.views.map.monthsToShow, monthIndex ) ) {
-                var month = createElement( months, "div", "month" );
-    
-                if ( bindingOptions.views.map.showMonthNames && !bindingOptions.views.map.placeMonthNamesOnTheBottom ) {
-                    createElementWithHTML( month, "div", "month-name", _configuration.monthNames[ monthIndex ] );
-                }
-    
-                var dayColumns = createElement( month, "div", "day-columns" ),
+                var month = createElement( months, "div", "month" ),
+                    dayColumns = createElement( month, "div", "day-columns" ),
                     totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
                     currentDayColumn = createElement( dayColumns, "div", "day-column" ),
                     startFillingDays = false,
@@ -571,8 +566,23 @@
                     actualDay++;
                 }
 
-                if ( bindingOptions.views.map.showMonthNames && bindingOptions.views.map.placeMonthNamesOnTheBottom ) {
-                    createElementWithHTML( month, "div", "month-name-bottom", _configuration.monthNames[ monthIndex ] );
+                if ( bindingOptions.views.map.showMonthNames ) {
+                    var monthName = null,
+                        monthWidth = month.offsetWidth;
+
+                    if ( !bindingOptions.views.map.placeMonthNamesOnTheBottom ) {
+                        monthName = createElementWithHTML( month, "div", "month-name", _configuration.monthNames[ monthIndex ], dayColumns );
+                    } else {
+                        monthName = createElementWithHTML( month, "div", "month-name-bottom", _configuration.monthNames[ monthIndex ] );
+                    }
+
+                    if ( isDefined( monthName ) ) {
+                        if ( bindingOptions.views.map.showMonthDayGaps ) {
+                            monthName.style.width = monthWidth + "px";
+                        } else {
+                            monthName.style.width = ( monthWidth - _elements_Day_Width ) + "px";
+                        }
+                    }
                 }
 
                 if ( monthAdded && isDefined( _elements_Day_Width ) ) {
@@ -972,8 +982,7 @@
 
         if ( _elements_DateCounts[ bindingOptions.currentView.element.id ].types > 1 ) {
             if ( isDefinedString( bindingOptions.descriptionText ) ) {
-                var description = createElement( guide, "div", "description" );
-                guide.parentNode.insertBefore( description, guide );
+                var description = createElement( bindingOptions.currentView.element, "div", "description", guide );
     
                 renderDescription( bindingOptions, description );
             }
@@ -1765,7 +1774,7 @@
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function createElement( container, type, className ) {
+    function createElement( container, type, className, beforeNode ) {
         var result = null,
             nodeType = type.toLowerCase(),
             isText = nodeType === "text";
@@ -1780,13 +1789,17 @@
             result.className = className;
         }
 
-        container.appendChild( result );
+        if ( isDefined( beforeNode ) ) {
+            container.insertBefore( result, beforeNode );
+        } else {
+            container.appendChild( result );
+        }
 
         return result;
     }
 
-    function createElementWithHTML( container, type, className, html ) {
-        var element = createElement( container, type, className );
+    function createElementWithHTML( container, type, className, html, beforeNode ) {
+        var element = createElement( container, type, className, beforeNode );
         element.innerHTML = html;
 
         return element;

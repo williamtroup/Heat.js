@@ -591,6 +591,7 @@ div.heat-js {
                                 background-color: var(--heat-js-day-background-color);
                                 border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                                 transition: var(--heat-js-transition);
+                                transition-property: opacity, background-color, color, border-color;
 
                                 &:not(.no-hover):hover {
                                     cursor: pointer;

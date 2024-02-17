@@ -409,6 +409,7 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   transition: var(--heat-js-transition);
+  transition-property: opacity, background-color, color, border-color;
 }
 div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:not(.no-hover):hover {
   cursor: pointer;
