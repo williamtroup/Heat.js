@@ -196,6 +196,8 @@
         
         bindingOptions.currentView.element.innerHTML = _string.empty;
 
+        hideToolTip( bindingOptions );
+
         renderControlToolTip( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions, isForViewSwitch );

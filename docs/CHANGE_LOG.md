@@ -16,6 +16,7 @@
 
 #### **Fixes:**
 - Fixed a fault that caused longer month names to mess up the "Map" view (ellipsis is now used for the month name text).
+- Fixed a fault that caused the tooltip to remain visible when the UI is refreshed.
 
 <br>
 
