@@ -2,9 +2,16 @@
 
 ## Version 2.3.0:
 
+#### **New Features:**
+- Added a new "Import" button to the title bar, which will allow you to import JSON files (off by default).
+
 #### **Binding Options:**
 - Added a new binding option called "showNumbersInGuide", which states if the color range numbers should be shown in the guide (defaults to false).
 - Added a new binding option called "views.chart.showLineNumbers", which states if the activity counts should be shown in the lines (defaults to false).
+- Added a new binding option called "showImportButton", which states if the "Import" button should be shown (defaults to false).
+
+#### **Configuration Options:**
+- Added a new configuration option called "importButtonText", which states the text that should be shown for the "Import" button (defaults to "Import").
 
 #### **Fixes:**
 - Fixed a fault that caused longer month names to mess up the "Map" view (ellipsis is now used for the month name text).

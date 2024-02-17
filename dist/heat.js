@@ -175,7 +175,7 @@
     }
   }
   function renderControlTitleBar(bindingOptions) {
-    if (bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton) {
+    if (bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton || bindingOptions.showImportButton) {
       var titleBar = createElement(bindingOptions.currentView.element, "div", "title-bar");
       var title = createElement(titleBar, "div", "title");
       if (bindingOptions.views.chart.enabled || bindingOptions.views.statistics.enabled) {
@@ -199,6 +199,12 @@
           var statisticsChart = createElementWithHTML(titles, "div", "title", _configuration.statisticsText);
           renderTitleDropDownClickEvent(bindingOptions, statisticsChart, _elements_View_Statistics, _elements_View_Name_Statistics);
         }
+      }
+      if (bindingOptions.showImportButton) {
+        var importData = createElementWithHTML(titleBar, "button", "import", _configuration.importButtonText);
+        importData.onclick = function() {
+          importFromFilesSelected(bindingOptions);
+        };
       }
       if (bindingOptions.showExportButton) {
         var exportData = createElementWithHTML(titleBar, "button", "export", _configuration.exportButtonText);
@@ -898,6 +904,16 @@
       };
     }
   }
+  function importFromFilesSelected(bindingOptions) {
+    var input = createElementWithNoContainer("input");
+    input.type = "file";
+    input.accept = ".json";
+    input.multiple = "multiple";
+    input.onchange = function() {
+      importFromFiles(input.files, bindingOptions);
+    };
+    input.click();
+  }
   function importFromFiles(files, bindingOptions) {
     var filesLength = files.length;
     var filesCompleted = [];
@@ -1100,6 +1116,7 @@
     options.yearsToHide = getDefaultArray(options.yearsToHide, []);
     options.showLessAndMoreLabels = getDefaultBoolean(options.showLessAndMoreLabels, true);
     options.showNumbersInGuide = getDefaultBoolean(options.showNumbersInGuide, false);
+    options.showImportButton = getDefaultBoolean(options.showImportButton, false);
     options = buildAttributeOptionMapView(options);
     options = buildAttributeOptionChartView(options);
     options = buildAttributeOptionStatisticsView(options);
@@ -1241,6 +1258,16 @@
   }
   function isDefinedArray(object) {
     return isDefinedObject(object) && object instanceof Array;
+  }
+  function createElementWithNoContainer(type) {
+    var result = null;
+    var nodeType = type.toLowerCase();
+    var isText = nodeType === "text";
+    if (!_elements_Type.hasOwnProperty(nodeType)) {
+      _elements_Type[nodeType] = isText ? _parameter_Document.createTextNode(_string.empty) : _parameter_Document.createElement(nodeType);
+    }
+    result = _elements_Type[nodeType].cloneNode(false);
+    return result;
   }
   function createElement(container, type, className, beforeNode) {
     var result = null;
@@ -1432,6 +1459,7 @@
     _configuration.statisticsText = getDefaultString(_configuration.statisticsText, "Statistics");
     _configuration.noStatisticsDataMessage = getDefaultString(_configuration.noStatisticsDataMessage, "There are currently no statistics to view.");
     _configuration.unknownTrendText = getDefaultString(_configuration.unknownTrendText, "Unknown");
+    _configuration.importButtonText = getDefaultString(_configuration.importButtonText, "Import");
   }
   function buildDefaultConfigurationArrays() {
     if (isInvalidOptionArray(_configuration.monthNames, 12)) {

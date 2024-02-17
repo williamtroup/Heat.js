@@ -383,7 +383,8 @@ div.heat-js {
             margin-left: calc( var(--heat-js-spacing) * 2 ) !important;
         }
 
-        button.export {
+        button.export,
+        button.import {
             margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
         }
 
@@ -470,7 +471,8 @@ div.heat-js {
         }
 
         button.export,
-        button.refresh {
+        button.refresh,
+        button.import {
             display: none;
     
             @media (min-width: $minimum-width) { 

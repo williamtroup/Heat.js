@@ -224,7 +224,8 @@ div.heat-js div.title-bar button.active {
 div.heat-js div.title-bar button.back {
   margin-left: calc(var(--heat-js-spacing) * 2) !important;
 }
-div.heat-js div.title-bar button.export {
+div.heat-js div.title-bar button.export,
+div.heat-js div.title-bar button.import {
   margin-right: calc(var(--heat-js-spacing) / 2) !important;
 }
 div.heat-js div.title-bar div.year-text {
@@ -305,12 +306,14 @@ div.heat-js div.title-bar div.year-text div.years-list div.years div.year-active
   cursor: default !important;
 }
 div.heat-js div.title-bar button.export,
-div.heat-js div.title-bar button.refresh {
+div.heat-js div.title-bar button.refresh,
+div.heat-js div.title-bar button.import {
   display: none;
 }
 @media (min-width: 768px) {
   div.heat-js div.title-bar button.export,
-  div.heat-js div.title-bar button.refresh {
+  div.heat-js div.title-bar button.refresh,
+  div.heat-js div.title-bar button.import {
     display: inline-block;
   }
 }
