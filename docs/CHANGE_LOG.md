@@ -4,6 +4,7 @@
 
 #### **New Features:**
 - Added a new "Import" button to the title bar, which will allow you to import JSON files (off by default).
+- Added import from TXT support (via drag & drop, or the new import button).
 
 #### **Binding Options:**
 - Added a new binding option called "showNumbersInGuide", which states if the color range numbers should be shown in the guide (defaults to false).

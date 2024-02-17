@@ -907,7 +907,7 @@
   function importFromFilesSelected(bindingOptions) {
     var input = createElementWithNoContainer("input");
     input.type = "file";
-    input.accept = ".json";
+    input.accept = ".json, .txt";
     input.multiple = "multiple";
     input.onchange = function() {
       importFromFiles(input.files, bindingOptions);
@@ -940,6 +940,8 @@
       var fileExtension = file.name.split(".").pop().toLowerCase();
       if (fileExtension === _export_Type_Json) {
         importFromJson(file, onLoadEnd);
+      } else if (fileExtension === _export_Type_Txt) {
+        importFromTxt(file, onLoadEnd);
       }
     }
   }
@@ -954,6 +956,23 @@
       var jsonObject = getObjectFromString(e.target.result);
       if (jsonObject.parsed && isDefinedObject(jsonObject.result)) {
         readingObject = jsonObject.result;
+      }
+    };
+  }
+  function importFromTxt(file, onLoadEnd) {
+    var reader = new FileReader();
+    var readingObject = {};
+    reader.readAsText(file);
+    reader.onloadend = function() {
+      onLoadEnd(file.name, readingObject);
+    };
+    reader.onload = function(e) {
+      var lines = e.target.result.toString().split(_string.newLine);
+      var linesLength = lines.length;
+      var lineIndex = 0;
+      for (; lineIndex < linesLength; lineIndex++) {
+        var line = lines[lineIndex].split(":");
+        readingObject[line[0].trim()] = parseInt(line[1].trim());
       }
     };
   }
