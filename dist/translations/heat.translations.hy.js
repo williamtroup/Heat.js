@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "Վիճակագրություն",
         "noStatisticsDataMessage": "Ներկայումս դիտելու վիճակագրություն չկա:",
         "unknownTrendText": "Անհայտ",
+        "importButtonText": "Ներմուծում",
         "monthNames": [
                 "հուն",
                 "փետր",

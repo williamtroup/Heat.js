@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "Στατιστική",
         "noStatisticsDataMessage": "Αυτήν τη στιγμή δεν υπάρχουν στατιστικά στοιχεία για προβολή.",
         "unknownTrendText": "Αγνωστος",
+        "importButtonText": "Εισαγωγή",
         "monthNames": [
                 "Ιαν",
                 "Φεβ",

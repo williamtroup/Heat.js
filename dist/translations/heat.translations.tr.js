@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "İstatistik",
         "noStatisticsDataMessage": "Şu anda görüntülenecek istatistik yok.",
         "unknownTrendText": "Bilinmeyen",
+        "importButtonText": "İçe aktarmak",
         "monthNames": [
                 "Ocak",
                 "Şubat",

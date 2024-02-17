@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "Staitisticí",
         "noStatisticsDataMessage": "Níl aon staitisticí le léamh faoi láthair.",
         "unknownTrendText": "Anaithnid",
+        "importButtonText": "Iompórtáil",
         "monthNames": [
                 "Ean",
                 "Feabh",

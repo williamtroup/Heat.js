@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "Statistika",
         "noStatisticsDataMessage": "Pašlaik nav apskatāmas statistikas.",
         "unknownTrendText": "Nezināms",
+        "importButtonText": "Importēt",
         "monthNames": [
                 "janvāris",
                 "febr",

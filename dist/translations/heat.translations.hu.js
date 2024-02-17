@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "Statisztika",
         "noStatisticsDataMessage": "Jelenleg nincs megtekinthető statisztika.",
         "unknownTrendText": "Ismeretlen",
+        "importButtonText": "Importálás",
         "monthNames": [
                 "jan",
                 "Február",

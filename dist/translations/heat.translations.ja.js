@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "統計",
         "noStatisticsDataMessage": "現在、表示できる統計はありません。",
         "unknownTrendText": "未知",
+        "importButtonText": "輸入",
         "monthNames": [
                 "1月",
                 "2月",

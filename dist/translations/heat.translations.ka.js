@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "სტატისტიკა",
         "noStatisticsDataMessage": "ამჟამად არ არის სანახავი სტატისტიკა.",
         "unknownTrendText": "უცნობი",
+        "importButtonText": "იმპორტი",
         "monthNames": [
                 "იან",
                 "თებ",

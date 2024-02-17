@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "Statistiche",
         "noStatisticsDataMessage": "Al momento non ci sono statistiche da visualizzare.",
         "unknownTrendText": "Sconosciuto",
+        "importButtonText": "Importare",
         "monthNames": [
                 "Gen",
                 "Febbraio",
