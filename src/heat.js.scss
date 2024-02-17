@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v2.2.0
+ * Heat.js Library v2.3.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -11,6 +11,9 @@
 :root {
     // Fonts
     --heat-js-default-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --heat-js-text-bold-weight: 400;
+    --heat-js-title-bold-weight: 900;
+    --heat-js-text-bold-weight-active: 900;
 
     // Colors
     --heat-js-color-black: #3b3a3a;
@@ -84,11 +87,7 @@
     // Sizes
     --heat-js-spacing: 10px;
     --heat-js-spacing-font-size: 0.85rem;
-
-    // Fonts
-    --heat-js-text-bold-weight: 400;
-    --heat-js-title-bold-weight: 900;
-    --heat-js-text-bold-weight-active: 900;
+    --heat-js-spacing-day-font-size: 0.6rem;
 
     // Transitions
     --heat-js-transition: all .3s;
@@ -384,7 +383,8 @@ div.heat-js {
             margin-left: calc( var(--heat-js-spacing) * 2 ) !important;
         }
 
-        button.export {
+        button.export,
+        button.import {
             margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
         }
 
@@ -471,7 +471,8 @@ div.heat-js {
         }
 
         button.export,
-        button.refresh {
+        button.refresh,
+        button.import {
             display: none;
     
             @media (min-width: $minimum-width) { 
@@ -577,7 +578,7 @@ div.heat-js {
                                 height: var(--heat-js-day-size);
                                 margin-right: var(--heat-js-day-spacing);
                                 margin-bottom: var(--heat-js-day-spacing);
-                                font-size: 0.6rem;
+                                font-size: var(--heat-js-spacing-day-font-size);
                                 justify-content: center;
                                 align-items: center;
                                 overflow: hidden;
@@ -592,6 +593,7 @@ div.heat-js {
                                 background-color: var(--heat-js-day-background-color);
                                 border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                                 transition: var(--heat-js-transition);
+                                transition-property: opacity, background-color, color, border-color;
 
                                 &:not(.no-hover):hover {
                                     cursor: pointer;
@@ -637,6 +639,12 @@ div.heat-js {
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
 
+                div.day-line-number {
+                    font-size: var(--heat-js-spacing-day-font-size);
+                    padding: calc( var(--heat-js-spacing) / 2 );
+                    overflow: hidden;
+                }
+
                 div.day-line {
                     border-top-left-radius: var(--heat-js-border-radius-day);
                     border-top-right-radius: var(--heat-js-border-radius-day);
@@ -644,7 +652,7 @@ div.heat-js {
                     border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     border-bottom: none !important;
                     vertical-align: bottom;
-                    width: var(--heat-js-day-chart-width);
+                    min-width: var(--heat-js-day-chart-width);
                     margin-right: 1px;
                     display: inline-block;
                     transition: var(--heat-js-transition);
@@ -881,12 +889,23 @@ div.heat-js {
                 align-items: center;
                 justify-content: right;
 
+                div.day-number {
+                    display: inline-flex !important;
+                    justify-content: center;
+                    align-items: center;
+                    overflow: hidden;
+                    text-align: center;
+                    font-size: var(--heat-js-spacing-day-font-size);
+                    padding-left: calc( var(--heat-js-spacing) / 2 );
+                    padding-right: calc( var(--heat-js-spacing) / 2 );
+                }
+
                 div.day {
                     background-color: var(--heat-js-day-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     display: inline-block;
                     border-radius: var(--heat-js-border-radius-day);
-                    width: var(--heat-js-day-size);
+                    min-width: var(--heat-js-day-size);
                     height: var(--heat-js-day-size);
                     margin-right: var(--heat-js-day-spacing);
                     transition: var(--heat-js-transition);

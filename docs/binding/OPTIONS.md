@@ -30,6 +30,8 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | allowFileImports | States if file importing via drag & drop is enabled (defaults to true). |
 | *number[]* | yearsToHide | States the years that should be hidden (defaults to []). |
 | *boolean* | showLessAndMoreLabels | States if the "Less" and "More" labels are shown (defaults to true). |
+| *boolean* | showNumbersInGuide | States if the color range numbers should be shown in the guide (defaults to false). |
+| *boolean* | showImportButton | States if the "Import" button should be shown (defaults to false). |
 
 <br/>
 
@@ -59,6 +61,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | views.chart | *boolean* | showMonthNames | States if the month names are shown (defaults to true). |
 | views.chart | *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
 | views.chart | *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
+| views.chart | *boolean* | showLineNumbers | States if the activity counts should be shown in the lines (defaults to false). |
 
 <br/>
 

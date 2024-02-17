@@ -1,4 +1,4 @@
-/*! Heat.js v2.2.0 - Hindi | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.3.0 - Hindi | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "आंकड़े",
         "noStatisticsDataMessage": "वर्तमान में देखने के लिए कोई आँकड़े नहीं हैं।",
         "unknownTrendText": "अज्ञात",
+        "importButtonText": "आयात",
         "monthNames": [
                 "जनवरी",
                 "फ़रवरी",

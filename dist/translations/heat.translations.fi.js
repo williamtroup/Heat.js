@@ -1,4 +1,4 @@
-/*! Heat.js v2.2.0 - Finnish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.3.0 - Finnish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "Tilastot",
         "noStatisticsDataMessage": "Tällä hetkellä ei ole tilastoja nähtäväksi.",
         "unknownTrendText": "Tuntematon",
+        "importButtonText": "Tuonti",
         "monthNames": [
                 "tammikuu",
                 "helmikuuta",

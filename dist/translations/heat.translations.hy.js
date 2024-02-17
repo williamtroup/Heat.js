@@ -1,4 +1,4 @@
-/*! Heat.js v2.2.0 - Armenian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.3.0 - Armenian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "Վիճակագրություն",
         "noStatisticsDataMessage": "Ներկայումս դիտելու վիճակագրություն չկա:",
         "unknownTrendText": "Անհայտ",
+        "importButtonText": "Ներմուծում",
         "monthNames": [
                 "հուն",
                 "փետր",

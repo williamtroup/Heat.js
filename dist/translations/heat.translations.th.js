@@ -1,4 +1,4 @@
-/*! Heat.js v2.2.0 - Thai | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.3.0 - Thai | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "สถิติ",
         "noStatisticsDataMessage": "ขณะนี้ไม่มีสถิติให้ดู",
         "unknownTrendText": "ไม่ทราบ",
+        "importButtonText": "นำเข้า",
         "monthNames": [
                 "ม.ค",
                 "ก.พ",

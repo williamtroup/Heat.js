@@ -1,4 +1,4 @@
-/*! Heat.js v2.2.0 - Afrikaans | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.3.0 - Afrikaans | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "Statistiek",
         "noStatisticsDataMessage": "Daar is tans geen statistiek om te sien nie.",
         "unknownTrendText": "Onbekend",
+        "importButtonText": "Invoer",
         "monthNames": [
                 "Jan",
                 "Feb",

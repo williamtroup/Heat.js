@@ -1,4 +1,4 @@
-/*! Heat.js v2.2.0 - Hebrew | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.3.0 - Hebrew | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "סטָטִיסטִיקָה",
         "noStatisticsDataMessage": "כרגע אין נתונים סטטיסטיים לצפייה.",
         "unknownTrendText": "לא ידוע",
+        "importButtonText": "יְבוּא",
         "monthNames": [
                 "ינואר",
                 "פברואר",

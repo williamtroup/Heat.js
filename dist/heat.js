@@ -1,4 +1,4 @@
-/*! Heat.js v2.2.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.3.0 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -96,6 +96,7 @@
       bindingOptions.currentView.statisticsContentsScrollLeft = bindingOptions.currentView.statisticsContents.scrollLeft;
     }
     bindingOptions.currentView.element.innerHTML = _string.empty;
+    hideToolTip(bindingOptions);
     renderControlToolTip(bindingOptions);
     renderControlTitleBar(bindingOptions);
     renderControlMap(bindingOptions, isForViewSwitch);
@@ -175,7 +176,7 @@
     }
   }
   function renderControlTitleBar(bindingOptions) {
-    if (bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton) {
+    if (bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton || bindingOptions.showImportButton) {
       var titleBar = createElement(bindingOptions.currentView.element, "div", "title-bar");
       var title = createElement(titleBar, "div", "title");
       if (bindingOptions.views.chart.enabled || bindingOptions.views.statistics.enabled) {
@@ -199,6 +200,12 @@
           var statisticsChart = createElementWithHTML(titles, "div", "title", _configuration.statisticsText);
           renderTitleDropDownClickEvent(bindingOptions, statisticsChart, _elements_View_Statistics, _elements_View_Name_Statistics);
         }
+      }
+      if (bindingOptions.showImportButton) {
+        var importData = createElementWithHTML(titleBar, "button", "import", _configuration.importButtonText);
+        importData.onclick = function() {
+          importFromFilesSelected(bindingOptions);
+        };
       }
       if (bindingOptions.showExportButton) {
         var exportData = createElementWithHTML(titleBar, "button", "export", _configuration.exportButtonText);
@@ -324,9 +331,6 @@
     for (; monthIndex < 12; monthIndex++) {
       if (isMonthVisible(bindingOptions.views.map.monthsToShow, monthIndex)) {
         var month = createElement(months, "div", "month");
-        if (bindingOptions.views.map.showMonthNames && !bindingOptions.views.map.placeMonthNamesOnTheBottom) {
-          createElementWithHTML(month, "div", "month-name", _configuration.monthNames[monthIndex]);
-        }
         var dayColumns = createElement(month, "div", "day-columns");
         var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex);
         var currentDayColumn = createElement(dayColumns, "div", "day-column");
@@ -364,8 +368,21 @@
           }
           actualDay++;
         }
-        if (bindingOptions.views.map.showMonthNames && bindingOptions.views.map.placeMonthNamesOnTheBottom) {
-          createElementWithHTML(month, "div", "month-name-bottom", _configuration.monthNames[monthIndex]);
+        if (bindingOptions.views.map.showMonthNames) {
+          var monthName = null;
+          var monthWidth = month.offsetWidth;
+          if (!bindingOptions.views.map.placeMonthNamesOnTheBottom) {
+            monthName = createElementWithHTML(month, "div", "month-name", _configuration.monthNames[monthIndex], dayColumns);
+          } else {
+            monthName = createElementWithHTML(month, "div", "month-name-bottom", _configuration.monthNames[monthIndex]);
+          }
+          if (isDefined(monthName)) {
+            if (bindingOptions.views.map.showMonthDayGaps) {
+              monthName.style.width = monthWidth + "px";
+            } else {
+              monthName.style.width = monthWidth - _elements_Day_Width + "px";
+            }
+          }
         }
         if (monthAdded && isDefined(_elements_Day_Width)) {
           if (firstDayNumberInMonth > 0 && !bindingOptions.views.map.showMonthDayGaps) {
@@ -501,6 +518,10 @@
     } else {
       addToolTip(dayLine, bindingOptions, getCustomFormattedDateText(bindingOptions.dayToolTipText, date));
     }
+    if (bindingOptions.views.chart.showLineNumbers && dateCount > 0) {
+      addClass(dayLine, "day-line-number");
+      dayLine.innerHTML = dateCount.toString();
+    }
     var dayLineHeight = dateCount * pixelsPerNumbers;
     dayLine.style.height = dayLineHeight + "px";
     if (dayLineHeight <= 0) {
@@ -582,7 +603,7 @@
         if (colorRangeValuesForCurrentYear.types.hasOwnProperty(type)) {
           renderControlStatisticsRangeLine(type, rangeLines, colorRangeValuesForCurrentYear.types[type], bindingOptions, colorRanges, pixelsPerNumbers);
           if (bindingOptions.views.statistics.showColorRangeLabels) {
-            createElementWithHTML(statisticsRanges, "div", "range-name", type + "+");
+            createElementWithHTML(statisticsRanges, "div", "range-name", type + _string.plus);
           }
         }
       }
@@ -660,8 +681,7 @@
     }
     if (_elements_DateCounts[bindingOptions.currentView.element.id].types > 1) {
       if (isDefinedString(bindingOptions.descriptionText)) {
-        var description = createElement(guide, "div", "description");
-        guide.parentNode.insertBefore(description, guide);
+        var description = createElement(bindingOptions.currentView.element, "div", "description", guide);
         renderDescription(bindingOptions, description);
       }
       var type;
@@ -734,6 +754,10 @@
       } else {
         addClass(day, colorRange.cssClassName);
       }
+    }
+    if (bindingOptions.showNumbersInGuide) {
+      addClass(day, "day-number");
+      day.innerHTML = colorRange.minimum + _string.plus;
     }
     if (bindingOptions.mapTogglesEnabled) {
       day.onclick = function() {
@@ -881,6 +905,16 @@
       };
     }
   }
+  function importFromFilesSelected(bindingOptions) {
+    var input = createElementWithNoContainer("input");
+    input.type = "file";
+    input.accept = ".json, .txt";
+    input.multiple = "multiple";
+    input.onchange = function() {
+      importFromFiles(input.files, bindingOptions);
+    };
+    input.click();
+  }
   function importFromFiles(files, bindingOptions) {
     var filesLength = files.length;
     var filesCompleted = [];
@@ -907,6 +941,8 @@
       var fileExtension = file.name.split(".").pop().toLowerCase();
       if (fileExtension === _export_Type_Json) {
         importFromJson(file, onLoadEnd);
+      } else if (fileExtension === _export_Type_Txt) {
+        importFromTxt(file, onLoadEnd);
       }
     }
   }
@@ -921,6 +957,23 @@
       var jsonObject = getObjectFromString(e.target.result);
       if (jsonObject.parsed && isDefinedObject(jsonObject.result)) {
         readingObject = jsonObject.result;
+      }
+    };
+  }
+  function importFromTxt(file, onLoadEnd) {
+    var reader = new FileReader();
+    var readingObject = {};
+    reader.readAsText(file);
+    reader.onloadend = function() {
+      onLoadEnd(file.name, readingObject);
+    };
+    reader.onload = function(e) {
+      var lines = e.target.result.toString().split(_string.newLine);
+      var linesLength = lines.length;
+      var lineIndex = 0;
+      for (; lineIndex < linesLength; lineIndex++) {
+        var line = lines[lineIndex].split(":");
+        readingObject[line[0].trim()] = parseInt(line[1].trim());
       }
     };
   }
@@ -1082,6 +1135,8 @@
     options.allowFileImports = getDefaultBoolean(options.allowFileImports, true);
     options.yearsToHide = getDefaultArray(options.yearsToHide, []);
     options.showLessAndMoreLabels = getDefaultBoolean(options.showLessAndMoreLabels, true);
+    options.showNumbersInGuide = getDefaultBoolean(options.showNumbersInGuide, false);
+    options.showImportButton = getDefaultBoolean(options.showImportButton, false);
     options = buildAttributeOptionMapView(options);
     options = buildAttributeOptionChartView(options);
     options = buildAttributeOptionStatisticsView(options);
@@ -1110,6 +1165,7 @@
     options.views.chart.enabled = getDefaultBoolean(options.views.chart.enabled, true);
     options.views.chart.showChartYLabels = getDefaultBoolean(options.views.chart.showChartYLabels, true);
     options.views.chart.showMonthNames = getDefaultBoolean(options.views.chart.showMonthNames, true);
+    options.views.chart.showLineNumbers = getDefaultBoolean(options.views.chart.showLineNumbers, false);
     if (isInvalidOptionArray(options.views.chart.monthsToShow)) {
       options.views.chart.monthsToShow = _default_MonthsToShow;
     }
@@ -1223,7 +1279,17 @@
   function isDefinedArray(object) {
     return isDefinedObject(object) && object instanceof Array;
   }
-  function createElement(container, type, className) {
+  function createElementWithNoContainer(type) {
+    var result = null;
+    var nodeType = type.toLowerCase();
+    var isText = nodeType === "text";
+    if (!_elements_Type.hasOwnProperty(nodeType)) {
+      _elements_Type[nodeType] = isText ? _parameter_Document.createTextNode(_string.empty) : _parameter_Document.createElement(nodeType);
+    }
+    result = _elements_Type[nodeType].cloneNode(false);
+    return result;
+  }
+  function createElement(container, type, className, beforeNode) {
     var result = null;
     var nodeType = type.toLowerCase();
     var isText = nodeType === "text";
@@ -1234,11 +1300,15 @@
     if (isDefined(className)) {
       result.className = className;
     }
-    container.appendChild(result);
+    if (isDefined(beforeNode)) {
+      container.insertBefore(result, beforeNode);
+    } else {
+      container.appendChild(result);
+    }
     return result;
   }
-  function createElementWithHTML(container, type, className, html) {
-    var element = createElement(container, type, className);
+  function createElementWithHTML(container, type, className, html, beforeNode) {
+    var element = createElement(container, type, className, beforeNode);
     element.innerHTML = html;
     return element;
   }
@@ -1409,6 +1479,7 @@
     _configuration.statisticsText = getDefaultString(_configuration.statisticsText, "Statistics");
     _configuration.noStatisticsDataMessage = getDefaultString(_configuration.noStatisticsDataMessage, "There are currently no statistics to view.");
     _configuration.unknownTrendText = getDefaultString(_configuration.unknownTrendText, "Unknown");
+    _configuration.importButtonText = getDefaultString(_configuration.importButtonText, "Import");
   }
   function buildDefaultConfigurationArrays() {
     if (isInvalidOptionArray(_configuration.monthNames, 12)) {
@@ -1427,7 +1498,7 @@
   var _parameter_Math = null;
   var _parameter_JSON = null;
   var _configuration = {};
-  var _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_"};
+  var _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+"};
   var _value = {notFound:-1};
   var _local_Storage_Start_ID = "HJS_";
   var _default_MonthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -1755,7 +1826,7 @@
     return result;
   };
   this.getVersion = function() {
-    return "2.2.0";
+    return "2.3.0";
   };
   (function(documentObject, windowObject, mathObject, jsonObject) {
     _parameter_Document = documentObject;

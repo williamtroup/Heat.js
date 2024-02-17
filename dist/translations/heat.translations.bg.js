@@ -1,4 +1,4 @@
-/*! Heat.js v2.2.0 - Bulgarian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.3.0 - Bulgarian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "Статистика",
         "noStatisticsDataMessage": "В момента няма статистика за преглед.",
         "unknownTrendText": "неизвестен",
+        "importButtonText": "Импортиране",
         "monthNames": [
                 "януари",
                 "февр",

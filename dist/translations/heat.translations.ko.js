@@ -1,4 +1,4 @@
-/*! Heat.js v2.2.0 - Korean | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.3.0 - Korean | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -18,6 +18,7 @@ $heat.setConfiguration( {
         "statisticsText": "통계",
         "noStatisticsDataMessage": "현재 볼 수 있는 통계가 없습니다.",
         "unknownTrendText": "알려지지 않은",
+        "importButtonText": "수입",
         "monthNames": [
                 "1월",
                 "2월",

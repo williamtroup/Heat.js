@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v2.2.0
+ * @version     v2.3.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -27,7 +27,8 @@
             space: " ",
             newLine: "\n",
             dash: "-",
-            underscore: "_"
+            underscore: "_",
+            plus: "+"
         },
 
         // Variables: Values
@@ -195,6 +196,8 @@
         
         bindingOptions.currentView.element.innerHTML = _string.empty;
 
+        hideToolTip( bindingOptions );
+
         renderControlToolTip( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions, isForViewSwitch );
@@ -315,7 +318,7 @@
      */
 
     function renderControlTitleBar( bindingOptions ) {
-        if ( bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton ) {
+        if ( bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton || bindingOptions.showImportButton ) {
             var titleBar = createElement( bindingOptions.currentView.element, "div", "title-bar" ),
                 title = createElement( titleBar, "div", "title" );
 
@@ -347,6 +350,14 @@
 
                     renderTitleDropDownClickEvent( bindingOptions, statisticsChart, _elements_View_Statistics, _elements_View_Name_Statistics );
                 }
+            }
+
+            if ( bindingOptions.showImportButton ) {
+                var importData = createElementWithHTML( titleBar, "button", "import", _configuration.importButtonText );
+        
+                importData.onclick = function() {
+                    importFromFilesSelected( bindingOptions );
+                };
             }
 
             if ( bindingOptions.showExportButton ) {
@@ -517,13 +528,8 @@
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             if ( isMonthVisible( bindingOptions.views.map.monthsToShow, monthIndex ) ) {
-                var month = createElement( months, "div", "month" );
-    
-                if ( bindingOptions.views.map.showMonthNames && !bindingOptions.views.map.placeMonthNamesOnTheBottom ) {
-                    createElementWithHTML( month, "div", "month-name", _configuration.monthNames[ monthIndex ] );
-                }
-    
-                var dayColumns = createElement( month, "div", "day-columns" ),
+                var month = createElement( months, "div", "month" ),
+                    dayColumns = createElement( month, "div", "day-columns" ),
                     totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
                     currentDayColumn = createElement( dayColumns, "div", "day-column" ),
                     startFillingDays = false,
@@ -570,8 +576,23 @@
                     actualDay++;
                 }
 
-                if ( bindingOptions.views.map.showMonthNames && bindingOptions.views.map.placeMonthNamesOnTheBottom ) {
-                    createElementWithHTML( month, "div", "month-name-bottom", _configuration.monthNames[ monthIndex ] );
+                if ( bindingOptions.views.map.showMonthNames ) {
+                    var monthName = null,
+                        monthWidth = month.offsetWidth;
+
+                    if ( !bindingOptions.views.map.placeMonthNamesOnTheBottom ) {
+                        monthName = createElementWithHTML( month, "div", "month-name", _configuration.monthNames[ monthIndex ], dayColumns );
+                    } else {
+                        monthName = createElementWithHTML( month, "div", "month-name-bottom", _configuration.monthNames[ monthIndex ] );
+                    }
+
+                    if ( isDefined( monthName ) ) {
+                        if ( bindingOptions.views.map.showMonthDayGaps ) {
+                            monthName.style.width = monthWidth + "px";
+                        } else {
+                            monthName.style.width = ( monthWidth - _elements_Day_Width ) + "px";
+                        }
+                    }
                 }
 
                 if ( monthAdded && isDefined( _elements_Day_Width ) ) {
@@ -749,6 +770,12 @@
             addToolTip( dayLine, bindingOptions, getCustomFormattedDateText( bindingOptions.dayToolTipText, date ) );
         }
 
+        if ( bindingOptions.views.chart.showLineNumbers && dateCount > 0 ) {
+            addClass( dayLine, "day-line-number" );
+
+            dayLine.innerHTML = dateCount.toString();
+        }
+
         var dayLineHeight = dateCount * pixelsPerNumbers;
         dayLine.style.height = dayLineHeight + "px";
 
@@ -858,7 +885,7 @@
                     renderControlStatisticsRangeLine( type, rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers );
 
                     if ( bindingOptions.views.statistics.showColorRangeLabels ) {
-                        createElementWithHTML( statisticsRanges, "div", "range-name", type + "+" );
+                        createElementWithHTML( statisticsRanges, "div", "range-name", type + _string.plus );
                     }
                 }
             }
@@ -965,8 +992,7 @@
 
         if ( _elements_DateCounts[ bindingOptions.currentView.element.id ].types > 1 ) {
             if ( isDefinedString( bindingOptions.descriptionText ) ) {
-                var description = createElement( guide, "div", "description" );
-                guide.parentNode.insertBefore( description, guide );
+                var description = createElement( bindingOptions.currentView.element, "div", "description", guide );
     
                 renderDescription( bindingOptions, description );
             }
@@ -1057,6 +1083,12 @@
             } else {
                 addClass( day, colorRange.cssClassName );
             }   
+        }
+
+        if ( bindingOptions.showNumbersInGuide ) {
+            addClass( day, "day-number" );
+
+            day.innerHTML = colorRange.minimum + _string.plus;
         }
 
         if ( bindingOptions.mapTogglesEnabled ) {
@@ -1256,6 +1288,19 @@
         }
     }
 
+    function importFromFilesSelected( bindingOptions ) {
+        var input = createElementWithNoContainer( "input" );
+        input.type = "file";
+        input.accept = ".json, .txt";
+        input.multiple = "multiple";
+
+        input.onchange = function() {
+            importFromFiles( input.files, bindingOptions );
+        };
+
+        input.click();
+    }
+
     function importFromFiles( files, bindingOptions ) {
         var filesLength = files.length,
             filesCompleted = [],
@@ -1273,7 +1318,7 @@
                     data[ storageDate ] += readingObject[ storageDate ];
                 }
             }
-
+            
             if ( filesCompleted.length === filesLength ) {
                 fireCustomTrigger( bindingOptions.onImport, bindingOptions.currentView.element );
                 renderControlContainer( bindingOptions );
@@ -1286,6 +1331,8 @@
 
             if ( fileExtension === _export_Type_Json ) {
                 importFromJson( file, onLoadEnd );
+            } else if ( fileExtension === _export_Type_Txt ) {
+                importFromTxt( file, onLoadEnd );
             }
         }
     }
@@ -1305,6 +1352,28 @@
 
             if ( jsonObject.parsed && isDefinedObject( jsonObject.result ) ) {
                 readingObject = jsonObject.result;
+            }
+        };
+    }
+
+    function importFromTxt( file, onLoadEnd ) {
+        var reader = new FileReader(),
+            readingObject = {};
+
+        reader.readAsText( file );
+
+        reader.onloadend = function() {
+            onLoadEnd( file.name, readingObject );
+        };
+    
+        reader.onload = function( e ) {
+            var lines = e.target.result.toString().split( _string.newLine ),
+                linesLength = lines.length;
+
+            for ( var lineIndex = 0; lineIndex < linesLength; lineIndex++ ) {
+                var line = lines[ lineIndex ].split( ":" );
+
+                readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
             }
         };
     }
@@ -1512,6 +1581,8 @@
         options.allowFileImports = getDefaultBoolean( options.allowFileImports, true );
         options.yearsToHide = getDefaultArray( options.yearsToHide, [] );
         options.showLessAndMoreLabels = getDefaultBoolean( options.showLessAndMoreLabels, true );
+        options.showNumbersInGuide = getDefaultBoolean( options.showNumbersInGuide, false );
+        options.showImportButton = getDefaultBoolean( options.showImportButton, false );
 
         options = buildAttributeOptionMapView( options );
         options = buildAttributeOptionChartView( options );
@@ -1547,6 +1618,7 @@
         options.views.chart.enabled = getDefaultBoolean( options.views.chart.enabled, true );
         options.views.chart.showChartYLabels = getDefaultBoolean( options.views.chart.showChartYLabels, true );
         options.views.chart.showMonthNames = getDefaultBoolean( options.views.chart.showMonthNames, true );
+        options.views.chart.showLineNumbers = getDefaultBoolean( options.views.chart.showLineNumbers, false );
 
         if ( isInvalidOptionArray( options.views.chart.monthsToShow ) ) {
             options.views.chart.monthsToShow = _default_MonthsToShow;
@@ -1750,7 +1822,21 @@
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function createElement( container, type, className ) {
+    function createElementWithNoContainer( type ) {
+        var result = null,
+            nodeType = type.toLowerCase(),
+            isText = nodeType === "text";
+
+        if ( !_elements_Type.hasOwnProperty( nodeType ) ) {
+            _elements_Type[ nodeType ] = isText ? _parameter_Document.createTextNode( _string.empty ) : _parameter_Document.createElement( nodeType );
+        }
+
+        result = _elements_Type[ nodeType ].cloneNode( false );
+
+        return result;
+    }
+
+    function createElement( container, type, className, beforeNode ) {
         var result = null,
             nodeType = type.toLowerCase(),
             isText = nodeType === "text";
@@ -1765,13 +1851,17 @@
             result.className = className;
         }
 
-        container.appendChild( result );
+        if ( isDefined( beforeNode ) ) {
+            container.insertBefore( result, beforeNode );
+        } else {
+            container.appendChild( result );
+        }
 
         return result;
     }
 
-    function createElementWithHTML( container, type, className, html ) {
-        var element = createElement( container, type, className );
+    function createElementWithHTML( container, type, className, html, beforeNode ) {
+        var element = createElement( container, type, className, beforeNode );
         element.innerHTML = html;
 
         return element;
@@ -2750,6 +2840,7 @@
         _configuration.statisticsText = getDefaultString( _configuration.statisticsText, "Statistics" );
         _configuration.noStatisticsDataMessage = getDefaultString( _configuration.noStatisticsDataMessage, "There are currently no statistics to view." );
         _configuration.unknownTrendText = getDefaultString( _configuration.unknownTrendText, "Unknown" );
+        _configuration.importButtonText = getDefaultString( _configuration.importButtonText, "Import" );
     }
 
     function buildDefaultConfigurationArrays() {
@@ -2827,7 +2918,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.2.0";
+        return "2.3.0";
     };
 
 
