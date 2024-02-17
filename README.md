@@ -27,7 +27,7 @@ Heat.js
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
 - Export all data to CSV, JSON, XML, and TXT.
-- Import data from JSON.
+- Import data from JSON and TXT.
 - 45 language translations available!
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.
