@@ -36,6 +36,9 @@
             notFound: -1
         },
 
+        // Variables: Internal Names
+        _internal_Name_Holiday = "HOLIDAY",
+
         // Variables: Local Storage
         _local_Storage_Start_ID = "HJS_",
 
@@ -639,7 +642,7 @@
             addClass( day, "no-hover" );
         }
 
-        var useColorRange = getColorRange( colorRanges, dateCount );
+        var useColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
 
         if ( isDefined( useColorRange ) && isHeatMapColorVisible( bindingOptions, useColorRange.id ) ) {
             if ( isDefinedString( useColorRange.mapCssClassName ) ) {
@@ -792,7 +795,7 @@
             addClass( dayLine, "no-hover" );
         }
 
-        var useColorRange = getColorRange( colorRanges, dateCount );
+        var useColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
 
         if ( isDefined( useColorRange ) && isHeatMapColorVisible( bindingOptions, useColorRange.id ) ) {
             if ( isDefinedString( useColorRange.chartCssClassName ) ) {
@@ -945,8 +948,8 @@
                         storageDateObject = new Date( storageDateParts[ 2 ], storageDateParts[ 1 ], storageDateParts[ 0 ] ),
                         weekDayNumber = getWeekdayNumber( storageDateObject );
 
-                    if ( isMonthVisible( bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.statistics.daysToShow, weekDayNumber ) ) {
-                        var useColorRange = getColorRange( colorRanges, data[ storageDate ] );
+                    if ( !isHoliday( bindingOptions, storageDateObject ) && isMonthVisible( bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.statistics.daysToShow, weekDayNumber ) ) {
+                        var useColorRange = getColorRange( bindingOptions, colorRanges, data[ storageDate ] );
 
                         if ( !isDefined( useColorRange ) ) {
                             types[ "0" ]++;
@@ -1184,15 +1187,21 @@
      */
 
     function isHeatMapColorVisible( bindingOptions, id ) {
-        var result = false,
-            colorRangesLength = bindingOptions.colorRanges.length;
+        var result = false;
+        
+        if ( id === _internal_Name_Holiday ) {
+            result = true;
 
-        for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-            var colorRange = bindingOptions.colorRanges[ colorRangesIndex ];
+        } else {
+            var colorRangesLength = bindingOptions.colorRanges.length;
 
-            if ( colorRange.id === id && ( !isDefinedBoolean( colorRange.visible ) || colorRange.visible ) ) {
-                result = true;
-                break;
+            for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+                var colorRange = bindingOptions.colorRanges[ colorRangesIndex ];
+    
+                if ( colorRange.id === id && ( !isDefinedBoolean( colorRange.visible ) || colorRange.visible ) ) {
+                    result = true;
+                    break;
+                }
             }
         }
 
@@ -1227,17 +1236,28 @@
         }
     }
 
-    function getColorRange( colorRanges, dateCount ) {
-        var colorRangesLength = colorRanges.length,
-            useColorRange = null;
+    function getColorRange( bindingOptions, colorRanges, dateCount, date ) {
+        var useColorRange = null;
 
-        for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-            var colorRange = colorRanges[ colorRangesIndex ];
+        if ( isDefined( date ) && isHoliday( bindingOptions, date ) ) {
+            useColorRange = {
+                cssClassName: "holiday",
+                id: _internal_Name_Holiday,
+                visible: true
+            };
+        }
 
-            if ( dateCount >= colorRange.minimum ) {
-                useColorRange = colorRange;
-            } else {
-                break;
+        if ( !isDefined( useColorRange ) ) {
+            var colorRangesLength = colorRanges.length;
+
+            for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+                var colorRange = colorRanges[ colorRangesIndex ];
+    
+                if ( dateCount >= colorRange.minimum ) {
+                    useColorRange = colorRange;
+                } else {
+                    break;
+                }
             }
         }
 
@@ -1269,9 +1289,37 @@
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Holidays
+     * Holiday
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
+
+    function isHoliday( bindingOptions, date ) {
+        var holidaysLength = bindingOptions.holidays.length,
+            holidayMatched = false,
+            day = date.getDate(),
+            month = date.getMonth() + 1,
+            year = date.getFullYear();
+
+        for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+            var holiday = bindingOptions.holidays[ holidayIndex ];
+
+            if ( isDefinedString( holiday.date ) && holiday.showInViews ) {
+                var dateParts = holiday.date.split( "/" );
+
+                if ( dateParts.length === 2 ) {
+                    holidayMatched = day === parseInt( dateParts[ 0 ] ) && month === parseInt( dateParts[ 1 ] );
+                } else if ( dateParts.length === 3 ) {
+                    holidayMatched = day === parseInt( dateParts[ 0 ] ) && month === parseInt( dateParts[ 1 ] ) && year === parseInt( dateParts[ 2 ] );
+                }
+
+                if ( holidayMatched ) {
+                    break;
+                }
+            }
+        }
+
+        return holidayMatched;
+    }
 
 
     /*
@@ -1660,7 +1708,6 @@
             for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
                 options.holidays[ holidayIndex ].date = getDefaultString( options.holidays[ holidayIndex ].date, null );
                 options.holidays[ holidayIndex ].name = getDefaultString( options.holidays[ holidayIndex ].name, null );
-                options.holidays[ holidayIndex ].showToolTip = getDefaultBoolean( options.holidays[ holidayIndex ].showToolTip, false );
                 options.holidays[ holidayIndex ].showInViews = getDefaultBoolean( options.holidays[ holidayIndex ].showInViews, true );
             }
 

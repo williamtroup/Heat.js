@@ -326,7 +326,7 @@
       }
     }
     var months = createElement(map, "div", "months");
-    var colorRanges = getSortedMapRanges(bindingOptions);
+    var colorRanges = getSortedColorRanges(bindingOptions);
     var monthIndex = 0;
     for (; monthIndex < 12; monthIndex++) {
       if (isMonthVisible(bindingOptions.views.map.monthsToShow, monthIndex)) {
@@ -419,7 +419,7 @@
     } else {
       addClass(day, "no-hover");
     }
-    var useColorRange = getColorRange(colorRanges, dateCount);
+    var useColorRange = getColorRange(bindingOptions, colorRanges, dateCount, date);
     if (isDefined(useColorRange) && isHeatMapColorVisible(bindingOptions, useColorRange.id)) {
       if (isDefinedString(useColorRange.mapCssClassName)) {
         addClass(day, useColorRange.mapCssClassName);
@@ -437,7 +437,7 @@
     var chart = createElement(bindingOptions.currentView.chartContents, "div", "chart");
     var labels = createElement(chart, "div", "y-labels");
     var dayLines = createElement(chart, "div", "day-lines");
-    var colorRanges = getSortedMapRanges(bindingOptions);
+    var colorRanges = getSortedColorRanges(bindingOptions);
     var largestValueForCurrentYear = getLargestValueForChartYear(bindingOptions);
     var currentYear = bindingOptions.currentView.year;
     var labelsWidth = 0;
@@ -534,7 +534,7 @@
     } else {
       addClass(dayLine, "no-hover");
     }
-    var useColorRange = getColorRange(colorRanges, dateCount);
+    var useColorRange = getColorRange(bindingOptions, colorRanges, dateCount, date);
     if (isDefined(useColorRange) && isHeatMapColorVisible(bindingOptions, useColorRange.id)) {
       if (isDefinedString(useColorRange.chartCssClassName)) {
         addClass(dayLine, useColorRange.chartCssClassName);
@@ -568,7 +568,7 @@
     var statisticsRanges = createElement(bindingOptions.currentView.statisticsContents, "div", "statistics-ranges");
     var labels = createElement(statistics, "div", "y-labels");
     var rangeLines = createElement(statistics, "div", "range-lines");
-    var colorRanges = getSortedMapRanges(bindingOptions);
+    var colorRanges = getSortedColorRanges(bindingOptions);
     var colorRangeValuesForCurrentYear = getLargestValuesForEachRangeType(bindingOptions, colorRanges);
     if (isForViewSwitch) {
       addClass(statistics, "view-switch");
@@ -651,8 +651,8 @@
           var storageDateParts = getStorageDate(storageDate);
           var storageDateObject = new Date(storageDateParts[2], storageDateParts[1], storageDateParts[0]);
           var weekDayNumber = getWeekdayNumber(storageDateObject);
-          if (isMonthVisible(bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.statistics.daysToShow, weekDayNumber)) {
-            var useColorRange = getColorRange(colorRanges, data[storageDate]);
+          if (!isHoliday(bindingOptions, storageDateObject) && isMonthVisible(bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.statistics.daysToShow, weekDayNumber)) {
+            var useColorRange = getColorRange(bindingOptions, colorRanges, data[storageDate]);
             if (!isDefined(useColorRange)) {
               types["0"]++;
             } else {
@@ -709,7 +709,7 @@
         }
       }
       var days = createElement(mapToggles, "div", "days");
-      var colorRanges = getSortedMapRanges(bindingOptions);
+      var colorRanges = getSortedColorRanges(bindingOptions);
       var colorRangesLength = colorRanges.length;
       var colorRangesIndex = 0;
       for (; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
@@ -827,13 +827,17 @@
   }
   function isHeatMapColorVisible(bindingOptions, id) {
     var result = false;
-    var colorRangesLength = bindingOptions.colorRanges.length;
-    var colorRangesIndex = 0;
-    for (; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
-      var colorRange = bindingOptions.colorRanges[colorRangesIndex];
-      if (colorRange.id === id && (!isDefinedBoolean(colorRange.visible) || colorRange.visible)) {
-        result = true;
-        break;
+    if (id === _internal_Name_Holiday) {
+      result = true;
+    } else {
+      var colorRangesLength = bindingOptions.colorRanges.length;
+      var colorRangesIndex = 0;
+      for (; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
+        var colorRange = bindingOptions.colorRanges[colorRangesIndex];
+        if (colorRange.id === id && (!isDefinedBoolean(colorRange.visible) || colorRange.visible)) {
+          result = true;
+          break;
+        }
       }
     }
     return result;
@@ -860,16 +864,21 @@
       }
     }
   }
-  function getColorRange(colorRanges, dateCount) {
-    var colorRangesLength = colorRanges.length;
+  function getColorRange(bindingOptions, colorRanges, dateCount, date) {
     var useColorRange = null;
-    var colorRangesIndex = 0;
-    for (; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
-      var colorRange = colorRanges[colorRangesIndex];
-      if (dateCount >= colorRange.minimum) {
-        useColorRange = colorRange;
-      } else {
-        break;
+    if (isDefined(date) && isHoliday(bindingOptions, date)) {
+      useColorRange = {cssClassName:"holiday", id:_internal_Name_Holiday, visible:true};
+    }
+    if (!isDefined(useColorRange)) {
+      var colorRangesLength = colorRanges.length;
+      var colorRangesIndex = 0;
+      for (; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
+        var colorRange = colorRanges[colorRangesIndex];
+        if (dateCount >= colorRange.minimum) {
+          useColorRange = colorRange;
+        } else {
+          break;
+        }
       }
     }
     return useColorRange;
@@ -887,10 +896,33 @@
     }
     return useColorRange;
   }
-  function getSortedMapRanges(bindingOptions) {
+  function getSortedColorRanges(bindingOptions) {
     return bindingOptions.colorRanges.sort(function(a, b) {
       return a.minimum - b.minimum;
     });
+  }
+  function isHoliday(bindingOptions, date) {
+    var holidaysLength = bindingOptions.holidays.length;
+    var holidayMatched = false;
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    var holidayIndex = 0;
+    for (; holidayIndex < holidaysLength; holidayIndex++) {
+      var holiday = bindingOptions.holidays[holidayIndex];
+      if (isDefinedString(holiday.date) && holiday.showInViews) {
+        var dateParts = holiday.date.split("/");
+        if (dateParts.length === 2) {
+          holidayMatched = day === parseInt(dateParts[0]) && month === parseInt(dateParts[1]);
+        } else if (dateParts.length === 3) {
+          holidayMatched = day === parseInt(dateParts[0]) && month === parseInt(dateParts[1]) && year === parseInt(dateParts[2]);
+        }
+        if (holidayMatched) {
+          break;
+        }
+      }
+    }
+    return holidayMatched;
   }
   function makeAreaDroppable(element, bindingOptions) {
     if (bindingOptions.allowFileImports) {
@@ -1137,12 +1169,46 @@
     options.showLessAndMoreLabels = getDefaultBoolean(options.showLessAndMoreLabels, true);
     options.showNumbersInGuide = getDefaultBoolean(options.showNumbersInGuide, false);
     options.showImportButton = getDefaultBoolean(options.showImportButton, false);
+    options = buildAttributeOptionColorRanges(options);
+    options = buildAttributeOptionHolidays(options);
     options = buildAttributeOptionMapView(options);
     options = buildAttributeOptionChartView(options);
     options = buildAttributeOptionStatisticsView(options);
-    options = buildAttributeOptionMapRanges(options);
     options = buildAttributeOptionStrings(options);
     return buildAttributeOptionCustomTriggers(options);
+  }
+  function buildAttributeOptionColorRanges(options) {
+    if (isDefinedArray(options.colorRanges)) {
+      var colorRangesLength = options.colorRanges.length;
+      var colorRangeIndex = 0;
+      for (; colorRangeIndex < colorRangesLength; colorRangeIndex++) {
+        options.colorRanges[colorRangeIndex].id = getDefaultString(options.colorRanges[colorRangeIndex].id, newGuid());
+        options.colorRanges[colorRangeIndex].minimum = getDefaultNumber(options.colorRanges[colorRangeIndex].minimum, 0);
+        options.colorRanges[colorRangeIndex].cssClassName = getDefaultString(options.colorRanges[colorRangeIndex].cssClassName, null);
+        options.colorRanges[colorRangeIndex].mapCssClassName = getDefaultString(options.colorRanges[colorRangeIndex].mapCssClassName, null);
+        options.colorRanges[colorRangeIndex].chartCssClassName = getDefaultString(options.colorRanges[colorRangeIndex].chartCssClassName, null);
+        options.colorRanges[colorRangeIndex].statisticsCssClassName = getDefaultString(options.colorRanges[colorRangeIndex].statisticsCssClassName, null);
+        options.colorRanges[colorRangeIndex].tooltipText = getDefaultString(options.colorRanges[colorRangeIndex].tooltipText, null);
+        options.colorRanges[colorRangeIndex].visible = getDefaultBoolean(options.colorRanges[colorRangeIndex].visible, true);
+      }
+    } else {
+      options.colorRanges = [{id:newGuid(), minimum:10, cssClassName:"day-color-1", tooltipText:"Day Color 1", visible:true}, {id:newGuid(), minimum:15, cssClassName:"day-color-2", tooltipText:"Day Color 2", visible:true}, {id:newGuid(), minimum:20, cssClassName:"day-color-3", tooltipText:"Day Color 3", visible:true}, {id:newGuid(), minimum:25, cssClassName:"day-color-4", tooltipText:"Day Color 4", visible:true}];
+    }
+    return options;
+  }
+  function buildAttributeOptionHolidays(options) {
+    if (isDefinedArray(options.holidays)) {
+      var holidaysLength = options.holidays.length;
+      var holidayIndex = 0;
+      for (; holidayIndex < holidaysLength; holidayIndex++) {
+        options.holidays[holidayIndex].date = getDefaultString(options.holidays[holidayIndex].date, null);
+        options.holidays[holidayIndex].name = getDefaultString(options.holidays[holidayIndex].name, null);
+        options.holidays[holidayIndex].showInViews = getDefaultBoolean(options.holidays[holidayIndex].showInViews, true);
+      }
+    } else {
+      options.holidays = [];
+    }
+    return options;
   }
   function buildAttributeOptionMapView(options) {
     options.views.map = !isDefinedObject(options.views.map) ? {} : options.views.map;
@@ -1184,18 +1250,6 @@
     }
     if (isInvalidOptionArray(options.views.statistics.daysToShow)) {
       options.views.statistics.daysToShow = _default_DaysToShow;
-    }
-    return options;
-  }
-  function buildAttributeOptionMapRanges(options) {
-    options.colorRanges = getDefaultArray(options.colorRanges, [{minimum:10, cssClassName:"day-color-1", mapCssClassName:"day-color-1", chartCssClassName:"day-color-1", statisticsCssClassName:"day-color-1", tooltipText:"Day Color 1", visible:true}, {minimum:15, cssClassName:"day-color-2", mapCssClassName:"day-color-2", chartCssClassName:"day-color-2", statisticsCssClassName:"day-color-2", tooltipText:"Day Color 2", visible:true}, {minimum:20, cssClassName:"day-color-3", mapCssClassName:"day-color-3", 
-    chartCssClassName:"day-color-3", statisticsCssClassName:"day-color-3", tooltipText:"Day Color 3", visible:true}, {minimum:25, cssClassName:"day-color-4", mapCssClassName:"day-color-4", chartCssClassName:"day-color-4", statisticsCssClassName:"day-color-4", tooltipText:"Day Color 4", visible:true}]);
-    var colorRangesLength = options.colorRanges.length;
-    var colorRangesIndex = 0;
-    for (; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
-      if (!isDefinedString(options.colorRanges[colorRangesIndex].id)) {
-        options.colorRanges[colorRangesIndex].id = newGuid();
-      }
     }
     return options;
   }
@@ -1500,6 +1554,7 @@
   var _configuration = {};
   var _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+"};
   var _value = {notFound:-1};
+  var _internal_Name_Holiday = "HOLIDAY";
   var _local_Storage_Start_ID = "HJS_";
   var _default_MonthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   var _default_DaysToShow = [1, 2, 3, 4, 5, 6, 7];
