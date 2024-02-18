@@ -1592,14 +1592,65 @@
         options.showNumbersInGuide = getDefaultBoolean( options.showNumbersInGuide, false );
         options.showImportButton = getDefaultBoolean( options.showImportButton, false );
 
+        options = buildAttributeOptionColorRanges( options );
         options = buildAttributeOptionHolidays( options );
         options = buildAttributeOptionMapView( options );
         options = buildAttributeOptionChartView( options );
         options = buildAttributeOptionStatisticsView( options );
-        options = buildAttributeOptionColorRanges( options );
         options = buildAttributeOptionStrings( options );
         
         return buildAttributeOptionCustomTriggers( options );
+    }
+
+    function buildAttributeOptionColorRanges( options ) {
+        if ( isDefinedArray( options.colorRanges ) ) {
+            var colorRangesLength = options.colorRanges.length;
+
+            for ( var colorRangeIndex = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
+                options.colorRanges[ colorRangeIndex ].id = getDefaultString( options.colorRanges[ colorRangeIndex ].id, newGuid() );
+                options.colorRanges[ colorRangeIndex ].minimum = getDefaultNumber( options.colorRanges[ colorRangeIndex ].minimum, 0 );
+                options.colorRanges[ colorRangeIndex ].cssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].cssClassName, null );
+                options.colorRanges[ colorRangeIndex ].mapCssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].mapCssClassName, null );
+                options.colorRanges[ colorRangeIndex ].chartCssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].chartCssClassName, null );
+                options.colorRanges[ colorRangeIndex ].statisticsCssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].statisticsCssClassName, null );
+                options.colorRanges[ colorRangeIndex ].tooltipText = getDefaultString( options.colorRanges[ colorRangeIndex ].tooltipText, null );
+                options.colorRanges[ colorRangeIndex ].visible = getDefaultBoolean( options.colorRanges[ colorRangeIndex ].visible, true );
+            }
+
+        } else {
+            options.colorRanges = [
+                {
+                    id: newGuid(),
+                    minimum: 10,
+                    cssClassName: "day-color-1",
+                    tooltipText: "Day Color 1",
+                    visible: true
+                },
+                {
+                    id: newGuid(),
+                    minimum: 15,
+                    cssClassName: "day-color-2",
+                    tooltipText: "Day Color 2",
+                    visible: true
+                },
+                {
+                    id: newGuid(),
+                    minimum: 20,
+                    cssClassName: "day-color-3",
+                    tooltipText: "Day Color 3",
+                    visible: true
+                },
+                {
+                    id: newGuid(),
+                    minimum: 25,
+                    cssClassName: "day-color-4",
+                    tooltipText: "Day Color 4",
+                    visible: true
+                }
+            ];
+        }
+
+        return options;
     }
 
     function buildAttributeOptionHolidays( options ) {
@@ -1670,57 +1721,6 @@
 
         if ( isInvalidOptionArray( options.views.statistics.daysToShow ) ) {
             options.views.statistics.daysToShow = _default_DaysToShow;
-        }
-
-        return options;
-    }
-
-    function buildAttributeOptionColorRanges( options ) {
-        if ( isDefinedArray( options.colorRanges ) ) {
-            var colorRangesLength = options.colorRanges.length;
-
-            for ( var colorRangeIndex = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
-                options.colorRanges[ colorRangeIndex ].id = getDefaultString( options.colorRanges[ colorRangeIndex ].id, newGuid() );
-                options.colorRanges[ colorRangeIndex ].minimum = getDefaultNumber( options.colorRanges[ colorRangeIndex ].minimum, 0 );
-                options.colorRanges[ colorRangeIndex ].cssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].cssClassName, null );
-                options.colorRanges[ colorRangeIndex ].mapCssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].mapCssClassName, null );
-                options.colorRanges[ colorRangeIndex ].chartCssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].chartCssClassName, null );
-                options.colorRanges[ colorRangeIndex ].statisticsCssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].statisticsCssClassName, null );
-                options.colorRanges[ colorRangeIndex ].tooltipText = getDefaultString( options.colorRanges[ colorRangeIndex ].tooltipText, null );
-                options.colorRanges[ colorRangeIndex ].visible = getDefaultBoolean( options.colorRanges[ colorRangeIndex ].visible, true );
-            }
-
-        } else {
-            options.colorRanges = [
-                {
-                    id: newGuid(),
-                    minimum: 10,
-                    cssClassName: "day-color-1",
-                    tooltipText: "Day Color 1",
-                    visible: true
-                },
-                {
-                    id: newGuid(),
-                    minimum: 15,
-                    cssClassName: "day-color-2",
-                    tooltipText: "Day Color 2",
-                    visible: true
-                },
-                {
-                    id: newGuid(),
-                    minimum: 20,
-                    cssClassName: "day-color-3",
-                    tooltipText: "Day Color 3",
-                    visible: true
-                },
-                {
-                    id: newGuid(),
-                    minimum: 25,
-                    cssClassName: "day-color-4",
-                    tooltipText: "Day Color 4",
-                    visible: true
-                }
-            ];
         }
 
         return options;
