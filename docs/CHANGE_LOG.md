@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 2.4.0:
-- 
+
+#### **Documentation:**
+- Moved "COLOR_RANGE.md" into "docs/binding" and fixed the documentation (was very outdated and would not have worked).
 
 <br>
 

@@ -1,6 +1,6 @@
-# Heat.js - Color Range:
+# Heat.js - Binding Options - Color Ranges:
 
-Below is the format that is expected for a color range object when calling "setConfiguration()".
+Below is a list of all the options supported for the property "colorRanges" used in the "data-heat-options" binding attribute for DOM elements.
 <br>
 <br>
 
@@ -22,26 +22,8 @@ Below is the format that is expected for a color range object when calling "setC
 ## Example:
 
 ```markdown
-<script> 
-  $heat.setConfiguration( {
-      colorRanges: [
-        {
-            minimum: 10,
-            cssClassName: "day-color-1"
-        },
-        {
-            minimum: 15,
-            cssClassName: "day-color-2"
-        },
-        {
-            minimum: 20,
-            cssClassName: "day-color-3"
-        },
-        {
-            minimum: 25,
-            cssClassName: "day-color-4"
-        }
-      ]
-  } );
-</script>
+<div data-heat-options="{ 'colorRanges': [ { 'minimum': 10, 'cssClassName': 'day-color-1' }, { 'minimum': 15, 'cssClassName': 'day-color-2' }, { 'minimum': 20, 'cssClassName': 'day-color-3' }, { 'minimum': 25, 'cssClassName': 'day-color-4' } ] }">
+    Your HTML.
+</div>
 ```
+
