@@ -37,6 +37,9 @@
   --heat-js-day-opacity-active: 0.5;
   --heat-js-day-size: 1.1rem;
   --heat-js-day-chart-width: 10px;
+  --heat-js-holiday-background-color: rgba( 210, 43, 43, 0.75 );
+  --heat-js-holiday-border-color: rgba( 210, 43, 43, 0.5 );
+  --heat-js-holiday-text-color: var(--heat-js-color-black);
   --heat-js-day-color-1-background-color: rgba( 80, 200, 120, 0.25 );
   --heat-js-day-color-1-border-color: rgba( 80, 200, 120, 0.15 );
   --heat-js-day-color-1-text-color: var(--heat-js-color-white);
@@ -864,15 +867,22 @@ div.heat-js div.guide div.map-toggles div.days div.day:not(.no-hover):hover {
 div.heat-js div.day-color-1:not(.no-hover):active,
 div.heat-js div.day-color-2:not(.no-hover):active,
 div.heat-js div.day-color-3:not(.no-hover):active,
-div.heat-js div.day-color-4:not(.no-hover):active {
+div.heat-js div.day-color-4:not(.no-hover):active,
+div.heat-js div.holiday:not(.no-hover):active {
   opacity: var(--heat-js-day-opacity-active) !important;
 }
 div.heat-js div.day-color-1:not(.no-hover):hover,
 div.heat-js div.day-color-2:not(.no-hover):hover,
 div.heat-js div.day-color-3:not(.no-hover):hover,
-div.heat-js div.day-color-4:not(.no-hover):hover {
+div.heat-js div.day-color-4:not(.no-hover):hover,
+div.heat-js div.holiday:not(.no-hover):hover {
   cursor: pointer;
   opacity: var(--heat-js-day-opacity-hover);
+}
+div.heat-js div.holiday {
+  background-color: var(--heat-js-holiday-background-color) !important;
+  border: var(--heat-js-border-size-day) solid var(--heat-js-holiday-border-color) !important;
+  color: var(--heat-js-holiday-text-color);
 }
 div.heat-js div.day-color-1 {
   background-color: var(--heat-js-day-color-1-background-color) !important;

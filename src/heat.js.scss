@@ -55,6 +55,11 @@
     --heat-js-day-size: 1.1rem;
     --heat-js-day-chart-width: 10px;
 
+    // Holidays
+    --heat-js-holiday-background-color: rgba( 210, 43, 43, 0.75 );
+    --heat-js-holiday-border-color: rgba( 210, 43, 43, 0.5 );
+    --heat-js-holiday-text-color: var(--heat-js-color-black);
+
     // Days - Colors
     --heat-js-day-color-1-background-color: rgba( 80, 200, 120, 0.25 );
     --heat-js-day-color-1-border-color: rgba( 80, 200, 120, 0.15 );
@@ -935,7 +940,8 @@ div.heat-js {
     div.day-color-1,
     div.day-color-2,
     div.day-color-3,
-    div.day-color-4 {
+    div.day-color-4,
+    div.holiday {
         &:not(.no-hover):active {
             opacity: var(--heat-js-day-opacity-active) !important;
         }
@@ -944,6 +950,12 @@ div.heat-js {
             cursor: pointer;
             opacity: var(--heat-js-day-opacity-hover);
         }
+    }
+
+    div.holiday {
+        background-color: var(--heat-js-holiday-background-color) !important;
+        border: var(--heat-js-border-size-day) solid var(--heat-js-holiday-border-color) !important;
+        color: var(--heat-js-holiday-text-color);
     }
     
     div.day-color-1 {
