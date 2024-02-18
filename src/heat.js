@@ -524,7 +524,7 @@
         }
 
         var months = createElement( map, "div", "months" ),
-            colorRanges = getSortedMapRanges( bindingOptions );
+            colorRanges = getSortedColorRanges( bindingOptions );
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             if ( isMonthVisible( bindingOptions.views.map.monthsToShow, monthIndex ) ) {
@@ -669,7 +669,7 @@
         var chart = createElement( bindingOptions.currentView.chartContents, "div", "chart" ),
             labels = createElement( chart, "div", "y-labels" ),
             dayLines = createElement( chart, "div", "day-lines" ),
-            colorRanges = getSortedMapRanges( bindingOptions ),
+            colorRanges = getSortedColorRanges( bindingOptions ),
             largestValueForCurrentYear = getLargestValueForChartYear( bindingOptions ),
             currentYear = bindingOptions.currentView.year,
             labelsWidth = 0;
@@ -840,7 +840,7 @@
             statisticsRanges = createElement( bindingOptions.currentView.statisticsContents, "div", "statistics-ranges" ),
             labels = createElement( statistics, "div", "y-labels" ),
             rangeLines = createElement( statistics, "div", "range-lines" ),
-            colorRanges = getSortedMapRanges( bindingOptions ),
+            colorRanges = getSortedColorRanges( bindingOptions ),
             colorRangeValuesForCurrentYear = getLargestValuesForEachRangeType( bindingOptions, colorRanges );
 
         if ( isForViewSwitch ) {
@@ -1028,7 +1028,7 @@
             }
     
             var days = createElement( mapToggles, "div", "days" ),
-                colorRanges = getSortedMapRanges( bindingOptions ),
+                colorRanges = getSortedColorRanges( bindingOptions ),
                 colorRangesLength = colorRanges.length;
     
             for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
@@ -1260,11 +1260,19 @@
         return useColorRange;
     }
 
-    function getSortedMapRanges( bindingOptions ) {
+    function getSortedColorRanges( bindingOptions ) {
         return bindingOptions.colorRanges.sort( function( a, b ) {
             return a.minimum - b.minimum;
         } );
     }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Holidays
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1588,7 +1596,7 @@
         options = buildAttributeOptionMapView( options );
         options = buildAttributeOptionChartView( options );
         options = buildAttributeOptionStatisticsView( options );
-        options = buildAttributeOptionMapRanges( options );
+        options = buildAttributeOptionColorRanges( options );
         options = buildAttributeOptionStrings( options );
         
         return buildAttributeOptionCustomTriggers( options );
@@ -1667,52 +1675,52 @@
         return options;
     }
 
-    function buildAttributeOptionMapRanges( options ) {
-        options.colorRanges = getDefaultArray( options.colorRanges, [
-            {
-                minimum: 10,
-                cssClassName: "day-color-1",
-                mapCssClassName: "day-color-1",
-                chartCssClassName: "day-color-1",
-                statisticsCssClassName: "day-color-1",
-                tooltipText: "Day Color 1",
-                visible: true
-            },
-            {
-                minimum: 15,
-                cssClassName: "day-color-2",
-                mapCssClassName: "day-color-2",
-                chartCssClassName: "day-color-2",
-                statisticsCssClassName: "day-color-2",
-                tooltipText: "Day Color 2",
-                visible: true
-            },
-            {
-                minimum: 20,
-                cssClassName: "day-color-3",
-                mapCssClassName: "day-color-3",
-                chartCssClassName: "day-color-3",
-                statisticsCssClassName: "day-color-3",
-                tooltipText: "Day Color 3",
-                visible: true
-            },
-            {
-                minimum: 25,
-                cssClassName: "day-color-4",
-                mapCssClassName: "day-color-4",
-                chartCssClassName: "day-color-4",
-                statisticsCssClassName: "day-color-4",
-                tooltipText: "Day Color 4",
-                visible: true
-            }
-        ] );
+    function buildAttributeOptionColorRanges( options ) {
+        if ( isDefinedArray( options.colorRanges ) ) {
+            var colorRangesLength = options.colorRanges.length;
 
-        var colorRangesLength = options.colorRanges.length;
-
-        for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-            if ( !isDefinedString( options.colorRanges[ colorRangesIndex ].id ) ) {
-                options.colorRanges[ colorRangesIndex ].id = newGuid();
+            for ( var colorRangeIndex = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
+                options.colorRanges[ colorRangeIndex ].id = getDefaultString( options.colorRanges[ colorRangeIndex ].id, newGuid() );
+                options.colorRanges[ colorRangeIndex ].minimum = getDefaultNumber( options.colorRanges[ colorRangeIndex ].minimum, 0 );
+                options.colorRanges[ colorRangeIndex ].cssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].cssClassName, null );
+                options.colorRanges[ colorRangeIndex ].mapCssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].mapCssClassName, null );
+                options.colorRanges[ colorRangeIndex ].chartCssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].chartCssClassName, null );
+                options.colorRanges[ colorRangeIndex ].statisticsCssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].statisticsCssClassName, null );
+                options.colorRanges[ colorRangeIndex ].tooltipText = getDefaultString( options.colorRanges[ colorRangeIndex ].tooltipText, null );
+                options.colorRanges[ colorRangeIndex ].visible = getDefaultBoolean( options.colorRanges[ colorRangeIndex ].visible, true );
             }
+
+        } else {
+            options.colorRanges = [
+                {
+                    id: newGuid(),
+                    minimum: 10,
+                    cssClassName: "day-color-1",
+                    tooltipText: "Day Color 1",
+                    visible: true
+                },
+                {
+                    id: newGuid(),
+                    minimum: 15,
+                    cssClassName: "day-color-2",
+                    tooltipText: "Day Color 2",
+                    visible: true
+                },
+                {
+                    id: newGuid(),
+                    minimum: 20,
+                    cssClassName: "day-color-3",
+                    tooltipText: "Day Color 3",
+                    visible: true
+                },
+                {
+                    id: newGuid(),
+                    minimum: 25,
+                    cssClassName: "day-color-4",
+                    tooltipText: "Day Color 4",
+                    visible: true
+                }
+            ];
         }
 
         return options;

@@ -2,6 +2,10 @@
 
 ## Version 2.4.0:
 
+#### **General Improvements:**
+- Improved the defaults and reading of the binding option "colorRanges".
+- Internal refactoring to update the naming used for some of the functions/variables.
+
 #### **Documentation:**
 - Moved "COLOR_RANGE.md" into "docs/binding" and fixed the documentation (was very outdated and would not have worked).
 
