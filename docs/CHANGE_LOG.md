@@ -13,6 +13,7 @@
 - Internal refactoring to update the naming used for some of the functions/variables.
 - The public function "updateOptions()" will now only update the display if something in the options has been changed.
 - The public function "setConfiguration()" will now only update the configuration (and refresh the displays) if something in the configuration has been changed.
+- All public functions now only accept the right variable types for data (to prevent issues occurring).
 
 #### **Documentation:**
 - Moved "COLOR_RANGE.md" into "docs/binding" and fixed the documentation (was very outdated and would not have worked).

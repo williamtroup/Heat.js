@@ -1889,6 +1889,10 @@
         return isDefinedObject( object ) && object instanceof Array;
     }
 
+    function isDefinedDate( object ) {
+        return isDefinedObject( object ) && object instanceof Date;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2187,7 +2191,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.addDates = function( elementId, dates, type, triggerRefresh ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && isDefinedArray( dates ) && isDefinedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
             type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
 
@@ -2221,7 +2225,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.addDate = function( elementId, date, type, triggerRefresh ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && isDefinedDate( date ) && isDefinedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
             type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
 
@@ -2266,7 +2270,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.removeDates = function( elementId, dates, type, triggerRefresh ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && isDefinedArray( dates ) && isDefinedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
             triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
 
@@ -2300,7 +2304,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.removeDate = function( elementId, date, type, triggerRefresh ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && isDefinedDate( date ) && isDefinedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
 
             var storageDate = toStorageDate( date );
@@ -2361,7 +2365,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.reset = function( elementId, triggerRefresh ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
             
             var bindingOptions = _elements_DateCounts[ elementId ].options;
@@ -2391,7 +2395,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.export = function( elementId ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             exportAllData( _elements_DateCounts[ elementId ].options );
         }
 
@@ -2418,7 +2422,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.refresh = function( elementId ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
             renderControlContainer( bindingOptions, true );
@@ -2465,7 +2469,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.setYear = function( elementId, year ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && isDefinedNumber( year ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
             if ( bindingOptions.yearsToHide.indexOf( year ) === _value.notFound ) {
@@ -2492,7 +2496,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.setYearToHighest = function( elementId ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
                 data = getCurrentViewData( bindingOptions ),
                 maximumYear = 0;
@@ -2527,7 +2531,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.setYearToLowest = function( elementId ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
                 data = getCurrentViewData( bindingOptions ),
                 minimumYear = 9999;
@@ -2562,7 +2566,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.moveToPreviousYear = function( elementId ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
             bindingOptions.currentView.year--;
@@ -2591,7 +2595,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.moveToNextYear = function( elementId ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
             bindingOptions.currentView.year++;
@@ -2620,7 +2624,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.moveToCurrentYear = function( elementId ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             bindingOptions.currentView.year = new Date().getFullYear();
 
@@ -2645,7 +2649,7 @@
     this.getYear = function( elementId ) {
         var result = null;
 
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
             result = bindingOptions.currentView.year;
@@ -2667,7 +2671,9 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.render = function( element, options ) {
-        renderControl( renderBindingOptions( options, element ) );
+        if ( isDefinedObject( element ) && isDefinedObject( options ) ) {
+            renderControl( renderBindingOptions( options, element ) );
+        }
 
         return this;
     };
@@ -2701,7 +2707,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.switchView = function( elementId, viewName ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && isDefinedString( viewName ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
                 view = null;
 
@@ -2738,7 +2744,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.switchType = function( elementId, type ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) && _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
+        if ( isDefinedString( elementId ) && isDefinedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) && _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
             if ( bindingOptions.currentView.type !== type ) {
@@ -2766,7 +2772,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.updateOptions = function( elementId, newOptions ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) && isDefinedObject( newOptions ) ) {
+        if ( isDefinedString( elementId ) && isDefinedObject( newOptions ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
                 newBindingOptions = buildAttributeOptions( newOptions ),
                 optionChanged = false;
@@ -2836,7 +2842,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.destroy = function( elementId ) {
-        if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
             bindingOptions.currentView.element.innerHTML = _string.empty;
@@ -2873,22 +2879,24 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.setConfiguration = function( newConfiguration, triggerRefresh ) {
-        var configurationHasChanged = false;
+        if ( isDefinedObject( newConfiguration ) ) {
+            var configurationHasChanged = false;
         
-        for ( var propertyName in newConfiguration ) {
-            if ( newConfiguration.hasOwnProperty( propertyName ) && _configuration.hasOwnProperty( propertyName ) && _configuration[ propertyName ] !== newConfiguration[ propertyName ] ) {
-                _configuration[ propertyName ] = newConfiguration[ propertyName ];
-                configurationHasChanged = true;
+            for ( var propertyName in newConfiguration ) {
+                if ( newConfiguration.hasOwnProperty( propertyName ) && _configuration.hasOwnProperty( propertyName ) && _configuration[ propertyName ] !== newConfiguration[ propertyName ] ) {
+                    _configuration[ propertyName ] = newConfiguration[ propertyName ];
+                    configurationHasChanged = true;
+                }
             }
-        }
-
-        if ( configurationHasChanged ) {
-            triggerRefresh = !isDefined( triggerRefresh ) ? true: triggerRefresh;
-
-            buildDefaultConfiguration( _configuration );
-
-            if ( triggerRefresh ) {
-                this.refreshAll();
+    
+            if ( configurationHasChanged ) {
+                triggerRefresh = !isDefined( triggerRefresh ) ? true: triggerRefresh;
+    
+                buildDefaultConfiguration( _configuration );
+    
+                if ( triggerRefresh ) {
+                    this.refreshAll();
+                }
             }
         }
 

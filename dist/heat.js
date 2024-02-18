@@ -1333,6 +1333,9 @@
   function isDefinedArray(object) {
     return isDefinedObject(object) && object instanceof Array;
   }
+  function isDefinedDate(object) {
+    return isDefinedObject(object) && object instanceof Date;
+  }
   function createElementWithNoContainer(type) {
     var result = null;
     var nodeType = type.toLowerCase();
@@ -1573,7 +1576,7 @@
   var _export_Type_Txt = "txt";
   var _attribute_Name_Options = "data-heat-options";
   this.addDates = function(elementId, dates, type, triggerRefresh) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && isDefinedArray(dates) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId)) {
       triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
       type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
       var datesLength = dates.length;
@@ -1588,7 +1591,7 @@
     return this;
   };
   this.addDate = function(elementId, date, type, triggerRefresh) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && isDefinedDate(date) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId)) {
       triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
       type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
       var storageDate = toStorageDate(date);
@@ -1609,7 +1612,7 @@
     return this;
   };
   this.removeDates = function(elementId, dates, type, triggerRefresh) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && isDefinedArray(dates) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId)) {
       type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
       triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
       var datesLength = dates.length;
@@ -1624,7 +1627,7 @@
     return this;
   };
   this.removeDate = function(elementId, date, type, triggerRefresh) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && isDefinedDate(date) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId)) {
       type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
       var storageDate = toStorageDate(date);
       if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
@@ -1651,7 +1654,7 @@
     return this;
   };
   this.reset = function(elementId, triggerRefresh) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
       triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
       var bindingOptions = _elements_DateCounts[elementId].options;
       bindingOptions.currentView.type = _configuration.unknownTrendText;
@@ -1664,13 +1667,13 @@
     return this;
   };
   this["export"] = function(elementId) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
       exportAllData(_elements_DateCounts[elementId].options);
     }
     return this;
   };
   this.refresh = function(elementId) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       renderControlContainer(bindingOptions, true);
       fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
@@ -1689,7 +1692,7 @@
     return this;
   };
   this.setYear = function(elementId, year) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && isDefinedNumber(year) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       if (bindingOptions.yearsToHide.indexOf(year) === _value.notFound) {
         bindingOptions.currentView.year = year;
@@ -1700,7 +1703,7 @@
     return this;
   };
   this.setYearToHighest = function(elementId) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       var data = getCurrentViewData(bindingOptions);
       var maximumYear = 0;
@@ -1719,7 +1722,7 @@
     return this;
   };
   this.setYearToLowest = function(elementId) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       var data = getCurrentViewData(bindingOptions);
       var minimumYear = 9999;
@@ -1738,7 +1741,7 @@
     return this;
   };
   this.moveToPreviousYear = function(elementId) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       bindingOptions.currentView.year--;
       for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
@@ -1750,7 +1753,7 @@
     return this;
   };
   this.moveToNextYear = function(elementId) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       bindingOptions.currentView.year++;
       for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
@@ -1762,7 +1765,7 @@
     return this;
   };
   this.moveToCurrentYear = function(elementId) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       bindingOptions.currentView.year = (new Date()).getFullYear();
       renderControlContainer(bindingOptions);
@@ -1772,14 +1775,16 @@
   };
   this.getYear = function(elementId) {
     var result = null;
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       result = bindingOptions.currentView.year;
     }
     return result;
   };
   this.render = function(element, options) {
-    renderControl(renderBindingOptions(options, element));
+    if (isDefinedObject(element) && isDefinedObject(options)) {
+      renderControl(renderBindingOptions(options, element));
+    }
     return this;
   };
   this.renderAll = function() {
@@ -1787,7 +1792,7 @@
     return this;
   };
   this.switchView = function(elementId, viewName) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && isDefinedString(viewName) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       var view = null;
       if (viewName.toLowerCase() === _elements_View_Name_Map) {
@@ -1806,7 +1811,7 @@
     return this;
   };
   this.switchType = function(elementId, type) {
-    if (_elements_DateCounts.hasOwnProperty(elementId) && _elements_DateCounts[elementId].type.hasOwnProperty(type)) {
+    if (isDefinedString(elementId) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId) && _elements_DateCounts[elementId].type.hasOwnProperty(type)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       if (bindingOptions.currentView.type !== type) {
         bindingOptions.currentView.type = type;
@@ -1817,7 +1822,7 @@
     return this;
   };
   this.updateOptions = function(elementId, newOptions) {
-    if (_elements_DateCounts.hasOwnProperty(elementId) && isDefinedObject(newOptions)) {
+    if (isDefinedString(elementId) && isDefinedObject(newOptions) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       var newBindingOptions = buildAttributeOptions(newOptions);
       var optionChanged = false;
@@ -1850,7 +1855,7 @@
     return this;
   };
   this.destroy = function(elementId) {
-    if (_elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       bindingOptions.currentView.element.innerHTML = _string.empty;
       bindingOptions.currentView.element.className = _string.empty;
@@ -1861,19 +1866,21 @@
     return this;
   };
   this.setConfiguration = function(newConfiguration, triggerRefresh) {
-    var configurationHasChanged = false;
-    var propertyName;
-    for (propertyName in newConfiguration) {
-      if (newConfiguration.hasOwnProperty(propertyName) && _configuration.hasOwnProperty(propertyName) && _configuration[propertyName] !== newConfiguration[propertyName]) {
-        _configuration[propertyName] = newConfiguration[propertyName];
-        configurationHasChanged = true;
+    if (isDefinedObject(newConfiguration)) {
+      var configurationHasChanged = false;
+      var propertyName;
+      for (propertyName in newConfiguration) {
+        if (newConfiguration.hasOwnProperty(propertyName) && _configuration.hasOwnProperty(propertyName) && _configuration[propertyName] !== newConfiguration[propertyName]) {
+          _configuration[propertyName] = newConfiguration[propertyName];
+          configurationHasChanged = true;
+        }
       }
-    }
-    if (configurationHasChanged) {
-      triggerRefresh = !isDefined(triggerRefresh) ? true : triggerRefresh;
-      buildDefaultConfiguration(_configuration);
-      if (triggerRefresh) {
-        this.refreshAll();
+      if (configurationHasChanged) {
+        triggerRefresh = !isDefined(triggerRefresh) ? true : triggerRefresh;
+        buildDefaultConfiguration(_configuration);
+        if (triggerRefresh) {
+          this.refreshAll();
+        }
       }
     }
     return this;
