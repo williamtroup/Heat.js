@@ -2,6 +2,12 @@
 
 ## Version 2.4.0:
 
+#### **New Features:**
+- Added holidays support! When set, the days are shown differently in the UI, and excluded from the statistics!
+
+#### **Binding Options:**
+- Added a new binding option called "holidays", which states the holidays that should be shown in the views (defaults to []).
+
 #### **General Improvements:**
 - Improved the defaults and reading of the binding option "colorRanges".
 - Internal refactoring to update the naming used for some of the functions/variables.
