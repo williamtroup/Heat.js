@@ -1584,13 +1584,32 @@
         options.showNumbersInGuide = getDefaultBoolean( options.showNumbersInGuide, false );
         options.showImportButton = getDefaultBoolean( options.showImportButton, false );
 
+        options = buildAttributeOptionHolidays( options );
         options = buildAttributeOptionMapView( options );
         options = buildAttributeOptionChartView( options );
         options = buildAttributeOptionStatisticsView( options );
         options = buildAttributeOptionMapRanges( options );
         options = buildAttributeOptionStrings( options );
-
+        
         return buildAttributeOptionCustomTriggers( options );
+    }
+
+    function buildAttributeOptionHolidays( options ) {
+        if ( isDefinedArray( options.holidays ) ) {
+            var holidaysLength = options.holidays.length;
+
+            for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+                options.holidays[ holidayIndex ].date = getDefaultString( options.holidays[ holidayIndex ].date, null );
+                options.holidays[ holidayIndex ].name = getDefaultString( options.holidays[ holidayIndex ].name, null );
+                options.holidays[ holidayIndex ].showToolTip = getDefaultBoolean( options.holidays[ holidayIndex ].showToolTip, false );
+                options.holidays[ holidayIndex ].showInViews = getDefaultBoolean( options.holidays[ holidayIndex ].showInViews, true );
+            }
+
+        } else {
+            options.holidays = [];
+        }
+
+        return options;
     }
 
     function buildAttributeOptionMapView( options ) {

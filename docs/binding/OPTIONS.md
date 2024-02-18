@@ -32,6 +32,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | showLessAndMoreLabels | States if the "Less" and "More" labels are shown (defaults to true). |
 | *boolean* | showNumbersInGuide | States if the color range numbers should be shown in the guide (defaults to false). |
 | *boolean* | showImportButton | States if the "Import" button should be shown (defaults to false). |
+| *Object[]* | holidays | States the holidays that should be shown in the views (defaults to [], refer to ["Holidays"](HOLIDAY.md) documentation for properties). |
 
 <br/>
 
