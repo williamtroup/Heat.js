@@ -2768,16 +2768,20 @@
     this.updateOptions = function( elementId, newOptions ) {
         if ( _elements_DateCounts.hasOwnProperty( elementId ) && isDefinedObject( newOptions ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
-                newBindingOptions = buildAttributeOptions( newOptions );
+                newBindingOptions = buildAttributeOptions( newOptions ),
+                optionChanged = false;
 
             for ( var propertyName in newBindingOptions ) {
-                if ( newBindingOptions.hasOwnProperty( propertyName ) && bindingOptions.hasOwnProperty( propertyName ) ) {
+                if ( newBindingOptions.hasOwnProperty( propertyName ) && bindingOptions.hasOwnProperty( propertyName ) && bindingOptions[ propertyName ] !== newBindingOptions[ propertyName ] ) {
                     bindingOptions[ propertyName ] = newBindingOptions[ propertyName ];
+                    optionChanged = true;
                 }
             }
 
-            renderControlContainer( bindingOptions, true );
-            fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
+            if ( optionChanged ) {
+                renderControlContainer( bindingOptions, true );
+                fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
+            }
         }
 
         return this;
@@ -2869,18 +2873,23 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.setConfiguration = function( newConfiguration, triggerRefresh ) {
-        triggerRefresh = !isDefined( triggerRefresh ) ? true: triggerRefresh;
+        var configurationHasChanged = false;
         
         for ( var propertyName in newConfiguration ) {
-            if ( newConfiguration.hasOwnProperty( propertyName ) ) {
+            if ( newConfiguration.hasOwnProperty( propertyName ) && _configuration.hasOwnProperty( propertyName ) && _configuration[ propertyName ] !== newConfiguration[ propertyName ] ) {
                 _configuration[ propertyName ] = newConfiguration[ propertyName ];
+                configurationHasChanged = true;
             }
         }
 
-        buildDefaultConfiguration( _configuration );
+        if ( configurationHasChanged ) {
+            triggerRefresh = !isDefined( triggerRefresh ) ? true: triggerRefresh;
 
-        if ( triggerRefresh ) {
-            this.refreshAll();
+            buildDefaultConfiguration( _configuration );
+
+            if ( triggerRefresh ) {
+                this.refreshAll();
+            }
         }
 
         return this;

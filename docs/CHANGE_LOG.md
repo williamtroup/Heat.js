@@ -11,6 +11,8 @@
 #### **General Improvements:**
 - Improved the defaults and reading of the binding option "colorRanges".
 - Internal refactoring to update the naming used for some of the functions/variables.
+- The public function "updateOptions()" will now only update the display if something in the options has been changed.
+- The public function "setConfiguration()" will now only update the configuration (and refresh the displays) if something in the configuration has been changed.
 
 #### **Documentation:**
 - Moved "COLOR_RANGE.md" into "docs/binding" and fixed the documentation (was very outdated and would not have worked).

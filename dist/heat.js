@@ -1820,14 +1820,18 @@
     if (_elements_DateCounts.hasOwnProperty(elementId) && isDefinedObject(newOptions)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       var newBindingOptions = buildAttributeOptions(newOptions);
+      var optionChanged = false;
       var propertyName;
       for (propertyName in newBindingOptions) {
-        if (newBindingOptions.hasOwnProperty(propertyName) && bindingOptions.hasOwnProperty(propertyName)) {
+        if (newBindingOptions.hasOwnProperty(propertyName) && bindingOptions.hasOwnProperty(propertyName) && bindingOptions[propertyName] !== newBindingOptions[propertyName]) {
           bindingOptions[propertyName] = newBindingOptions[propertyName];
+          optionChanged = true;
         }
       }
-      renderControlContainer(bindingOptions, true);
-      fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
+      if (optionChanged) {
+        renderControlContainer(bindingOptions, true);
+        fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
+      }
     }
     return this;
   };
@@ -1857,16 +1861,20 @@
     return this;
   };
   this.setConfiguration = function(newConfiguration, triggerRefresh) {
-    triggerRefresh = !isDefined(triggerRefresh) ? true : triggerRefresh;
+    var configurationHasChanged = false;
     var propertyName;
     for (propertyName in newConfiguration) {
-      if (newConfiguration.hasOwnProperty(propertyName)) {
+      if (newConfiguration.hasOwnProperty(propertyName) && _configuration.hasOwnProperty(propertyName) && _configuration[propertyName] !== newConfiguration[propertyName]) {
         _configuration[propertyName] = newConfiguration[propertyName];
+        configurationHasChanged = true;
       }
     }
-    buildDefaultConfiguration(_configuration);
-    if (triggerRefresh) {
-      this.refreshAll();
+    if (configurationHasChanged) {
+      triggerRefresh = !isDefined(triggerRefresh) ? true : triggerRefresh;
+      buildDefaultConfiguration(_configuration);
+      if (triggerRefresh) {
+        this.refreshAll();
+      }
     }
     return this;
   };
