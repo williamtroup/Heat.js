@@ -110,6 +110,14 @@ Fires when data for an element is imported.
 <br>
 ***Parameter:*** element: '*Object*' - The element that the data was imported for.
 <br>
+
+### options.onDataFetch( *element* ):
+Fires when an element requests a data pull (will return all the data in an object). When set, all data adding/removing is disabled, including Local Storage support.
+<br>
+***Parameter:*** element: '*Object*' - The element that the data is being fetched for.
+<br>
+***Returns:*** '*Object*' - An object of data.
+<br>
 <br>
 
 

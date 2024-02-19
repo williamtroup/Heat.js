@@ -1,5 +1,35 @@
 # Heat.js - Change Log:
 
+## Version 2.4.0:
+
+#### **New Features:**
+- Added holiday support! When set, the days are shown differently in the UI, and excluded from the statistics!
+- Added data pulling support! This will pull data in using a custom trigger, which in turn disables all manual data adding/removing, and local storage support.
+
+#### **Binding Options:**
+- Added a new binding option called "holidays", which states the holidays that should be shown in the views (defaults to []).
+- Added a new binding option called "dataFetchDelay", which states how long the data fetching should wait (in milliseconds) until its next pull (defaults to 60000).
+- Added a new binding option called "views.statistics.useColorRangeNamesForLabels", which states if the color range names should be shown instead of the minimum for the X labels (defaults to false).
+
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option custom trigger called "onDataFetch", which states an event that should be triggered when data a data pull is requested (it returns the data).
+
+#### **Color Ranges:**
+- Added a new property called "name", which states a unique name that should be used for the Color Range (optional).
+
+#### **General Improvements:**
+- Improved the defaults and reading of the binding option "colorRanges".
+- Internal refactoring to update the naming used for some of the functions/variables.
+- The public function "updateOptions()" will now only update the display if something in the options has been changed.
+- The public function "setConfiguration()" will now only update the configuration (and refresh the displays) if something in the configuration has been changed.
+- All public functions now only accept the right variable types for data (to prevent issues from occurring).
+
+#### **Documentation:**
+- Moved "COLOR_RANGE.md" into "docs/binding" and fixed the documentation (was very outdated and would not have worked).
+
+<br>
+
+
 ## Version 2.3.0:
 
 #### **New Features:**

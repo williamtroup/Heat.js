@@ -1,5 +1,10 @@
-/*! Heat.js v2.3.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.4.0 | (c) Bunoon 2024 | MIT License */
 :root {
+    /* Holidays */
+    --heat-js-holiday-background-color: rgba( 31, 81, 255, 0.75 );
+    --heat-js-holiday-border-color: rgba( 31, 81, 255, 0.5 );
+    --heat-js-holiday-text-color: var(--heat-js-color-white);
+
     /* Days - Colors */
     --heat-js-day-color-1-background-color: rgba( 255, 172, 28, 0.25 );
     --heat-js-day-color-1-border-color: rgba( 255, 172, 28, 0.15 );

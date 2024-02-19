@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Heat.js - Data Pull</title>
+        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="stylesheet" href="../../dist/heat.js.css">
+        <script src="../../dist/heat.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 id="header">Heat.js - Data Pull</h1>
+            <p>This is a basic example of how to use Heat.js to create a basic heatmap that pulls data from an event.</p>
+        </div>
+
+        <div class="contents">
+            <div id="heat-map-1" data-heat-options="{ 'onDayClick': onDayClick, 'onDataFetch': onPullData }"></div>
+        </div>
+    </body>
+
+    <script>
+        document.title += " - v" + $heat.getVersion();
+        document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
+
+        function onDayClick( date ) {
+            console.log( "Day clicked for: " + date.toString() );
+        }
+
+        function onPullData( elementId ) {
+            var result = {},
+                date = new Date( new Date().getFullYear(), 0, 1 );
+
+            for ( var dayNumber = 0; dayNumber < 8000; dayNumber++ ) {
+                var daysToIncrease = Math.floor( Math.random() * 500 ),
+                    newDate = new Date( date );
+
+                newDate.setDate( newDate.getDate() + daysToIncrease );
+                
+                var storageDate = toStorageDate( newDate );
+
+                if ( !result.hasOwnProperty( storageDate ) ) {
+                    result[ storageDate ] = 0;
+                }
+
+                result[ storageDate ]++;
+            }
+
+            return result;
+        }
+
+        function toStorageDate( date ) {
+            return date.getFullYear() + "-" + padNumber( date.getMonth() + 1 ) + "-" + padNumber( date.getDate() );
+        }
+
+        function padNumber( number ) {
+            var numberString = number.toString();
+
+            return numberString.length === 1 ? "0" + numberString : numberString;
+        }
+    </script>
+</html>

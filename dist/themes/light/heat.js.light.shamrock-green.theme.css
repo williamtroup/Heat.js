@@ -1,4 +1,4 @@
-/*! Heat.js v2.3.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.4.0 | (c) Bunoon 2024 | MIT License */
 :root {
     /* Colors */
     --heat-js-color-black: #F5F5F5;
@@ -29,6 +29,11 @@
     --heat-js-title-text-color: var(--heat-js-color-black);
     --heat-js-title-background-color-hover: var(--heat-js-color-gray);
     --heat-js-title-text-color-hover: var(--heat-js-color-white);
+
+    /* Holidays */
+    --heat-js-holiday-background-color: rgba( 210, 43, 43, 0.75 );
+    --heat-js-holiday-border-color: rgba( 210, 43, 43, 0.5 );
+    --heat-js-holiday-text-color: var(--heat-js-color-black);
 
     /* Days */
     --heat-js-day-background-color: var(--heat-js-color-black);

@@ -13,7 +13,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | showTitle | States if the title is shown (defaults to true). |
 | *boolean* | showYearSelector | States if the year selector (and buttons) is shown (defaults to true). |
 | *boolean* | showRefreshButton | States if the "Refresh" button should be shown (defaults to false). |
-| *Object[]* | colorRanges | The colors that should be used for specific ranges (first default is [ { minimum: 10, cssClassName: 'day-color-1' } ]). |
+| *Object[]* | colorRanges | The colors that should be used for specific ranges (first default is [ { minimum: 10, cssClassName: 'day-color-1' } ]. Refer to ["Color Range"](COLOR_RANGE.md) documentation for properties). |
 | *boolean* | showExportButton | States if the "Export" button should be shown (defaults to false). |
 | *boolean* | mapTogglesEnabled | States if the heat map toggles are enabled (defaults to true). |
 | *boolean* | exportOnlyYearBeingViewed | States if only the data for the year being viewed should be exported (defaults to true). |
@@ -32,6 +32,8 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | showLessAndMoreLabels | States if the "Less" and "More" labels are shown (defaults to true). |
 | *boolean* | showNumbersInGuide | States if the color range numbers should be shown in the guide (defaults to false). |
 | *boolean* | showImportButton | States if the "Import" button should be shown (defaults to false). |
+| *Object[]* | holidays | States the holidays that should be shown in the views (defaults to [], refer to ["Holidays"](HOLIDAY.md) documentation for properties). |
+| *number* | dataFetchDelay | States how long the data fetching should wait (in milliseconds) until its next pull (defaults to 60000). |
 
 <br/>
 
@@ -75,6 +77,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | views.statistics | *boolean* | showColorRangeLabels | States if the chart X color range labels should be shown (defaults to true). |
 | views.statistics | *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
 | views.statistics | *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
+| views.statistics | *boolean* | useColorRangeNamesForLabels | States if the color range names should be shown instead of the minimum for the X labels (defaults to false). |
 
 <br/>
 

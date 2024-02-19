@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v2.3.0
+ * Heat.js Library v2.4.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -44,6 +44,11 @@
     --heat-js-title-text-color: var(--heat-js-color-white);
     --heat-js-title-background-color-hover: var(--heat-js-button-background-color-hover);
     --heat-js-title-text-color-hover: var(--heat-js-color-snow-white);
+
+    // Holidays
+    --heat-js-holiday-background-color: rgba( 210, 43, 43, 0.75 );
+    --heat-js-holiday-border-color: rgba( 210, 43, 43, 0.5 );
+    --heat-js-holiday-text-color: var(--heat-js-color-black);
 
     // Days
     --heat-js-day-background-color: #2d333b;
@@ -777,13 +782,15 @@ div.heat-js {
             position: relative;
             justify-content: space-between;
             align-items: baseline;
-            height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) );
+            height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 3px );
 
             div.range-name {
                 flex: 1 100%;
                 margin-top: var(--heat-js-spacing);
                 font-weight: var(--heat-js-text-bold-weight);
                 text-align: center !important;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
     }
@@ -935,7 +942,8 @@ div.heat-js {
     div.day-color-1,
     div.day-color-2,
     div.day-color-3,
-    div.day-color-4 {
+    div.day-color-4,
+    div.holiday {
         &:not(.no-hover):active {
             opacity: var(--heat-js-day-opacity-active) !important;
         }
@@ -944,6 +952,12 @@ div.heat-js {
             cursor: pointer;
             opacity: var(--heat-js-day-opacity-hover);
         }
+    }
+
+    div.holiday {
+        background-color: var(--heat-js-holiday-background-color) !important;
+        border: var(--heat-js-border-size-day) solid var(--heat-js-holiday-border-color) !important;
+        color: var(--heat-js-holiday-text-color);
     }
     
     div.day-color-1 {
