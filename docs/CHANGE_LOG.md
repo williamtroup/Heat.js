@@ -9,9 +9,13 @@
 #### **Binding Options:**
 - Added a new binding option called "holidays", which states the holidays that should be shown in the views (defaults to []).
 - Added a new binding option called "dataFetchDelay", which states how long the data fetching should wait (in milliseconds) until its next pull (defaults to 60000).
+- Added a new binding option called "views.statistics.showColorRangeNames", which states if the color range names should be shown instead of the minimum for the X labels (defaults to false).
 
 #### **Binding Options - Custom Triggers:**
 - Added a new binding option custom trigger called "onDataFetch", which states an event that should be triggered when data a data pull is requested (it returns the data).
+
+#### **Color Ranges:**
+- Added a new property called "name", which states a unique name that should be used for the Color Range (optional).
 
 #### **General Improvements:**
 - Improved the defaults and reading of the binding option "colorRanges".

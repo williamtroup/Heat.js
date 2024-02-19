@@ -891,8 +891,14 @@
                 if ( colorRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
                     renderControlStatisticsRangeLine( type, rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers );
 
+                    var useColorRange = getColorRangeByMinimum( colorRanges, type );
+
                     if ( bindingOptions.views.statistics.showColorRangeLabels ) {
-                        createElementWithHTML( statisticsRanges, "div", "range-name", type + _string.plus );
+                        if ( !bindingOptions.views.statistics.showColorRangeNames || !isDefined( useColorRange ) || !isDefinedString( useColorRange.name ) ) {
+                            createElementWithHTML( statisticsRanges, "div", "range-name", type + _string.plus );
+                        } else {
+                            createElementWithHTML( statisticsRanges, "div", "range-name", useColorRange.name );
+                        }
                     }
                 }
             }
@@ -1718,6 +1724,7 @@
 
             for ( var colorRangeIndex = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
                 options.colorRanges[ colorRangeIndex ].id = getDefaultString( options.colorRanges[ colorRangeIndex ].id, newGuid() );
+                options.colorRanges[ colorRangeIndex ].name = getDefaultString( options.colorRanges[ colorRangeIndex ].name, null );
                 options.colorRanges[ colorRangeIndex ].minimum = getDefaultNumber( options.colorRanges[ colorRangeIndex ].minimum, 0 );
                 options.colorRanges[ colorRangeIndex ].cssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].cssClassName, null );
                 options.colorRanges[ colorRangeIndex ].mapCssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].mapCssClassName, null );
@@ -1731,6 +1738,7 @@
             options.colorRanges = [
                 {
                     id: newGuid(),
+                    name: "Day Color 1",
                     minimum: 10,
                     cssClassName: "day-color-1",
                     tooltipText: "Day Color 1",
@@ -1738,6 +1746,7 @@
                 },
                 {
                     id: newGuid(),
+                    name: "Day Color 2",
                     minimum: 15,
                     cssClassName: "day-color-2",
                     tooltipText: "Day Color 2",
@@ -1745,6 +1754,7 @@
                 },
                 {
                     id: newGuid(),
+                    name: "Day Color 3",
                     minimum: 20,
                     cssClassName: "day-color-3",
                     tooltipText: "Day Color 3",
@@ -1752,6 +1762,7 @@
                 },
                 {
                     id: newGuid(),
+                    name: "Day Color 4",
                     minimum: 25,
                     cssClassName: "day-color-4",
                     tooltipText: "Day Color 4",
@@ -1823,6 +1834,7 @@
         options.views.statistics.enabled = getDefaultBoolean( options.views.statistics.enabled, true );
         options.views.statistics.showChartYLabels = getDefaultBoolean( options.views.statistics.showChartYLabels, true );
         options.views.statistics.showColorRangeLabels = getDefaultBoolean( options.views.statistics.showColorRangeLabels, true );
+        options.views.statistics.showColorRangeNames = getDefaultBoolean( options.views.statistics.showColorRangeNames, false );
 
         if ( isInvalidOptionArray( options.views.statistics.monthsToShow ) ) {
             options.views.statistics.monthsToShow = _default_MonthsToShow;

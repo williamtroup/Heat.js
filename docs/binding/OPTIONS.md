@@ -77,6 +77,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | views.statistics | *boolean* | showColorRangeLabels | States if the chart X color range labels should be shown (defaults to true). |
 | views.statistics | *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
 | views.statistics | *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
+| views.statistics | *boolean* | showColorRangeNames | States if the color range names should be shown instead of the minimum for the X labels (defaults to false). |
 
 <br/>
 
