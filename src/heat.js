@@ -1200,7 +1200,7 @@
                 bindingOptions.currentView.isInFetchModeTimer = setInterval( function() {
                     pullDataFromCustomTrigger( bindingOptions );
                     renderControlContainer( bindingOptions );
-                }, bindingOptions.onDataFetchDelay );
+                }, bindingOptions.dataFetchDelay );
             }
         }
     }
@@ -1696,7 +1696,7 @@
         options.showLessAndMoreLabels = getDefaultBoolean( options.showLessAndMoreLabels, true );
         options.showNumbersInGuide = getDefaultBoolean( options.showNumbersInGuide, false );
         options.showImportButton = getDefaultBoolean( options.showImportButton, false );
-        options.onDataFetchDelay = getDefaultNumber( options.onDataFetchDelay, 60000 );
+        options.dataFetchDelay = getDefaultNumber( options.dataFetchDelay, 60000 );
 
         options = buildAttributeOptionColorRanges( options );
         options = buildAttributeOptionHolidays( options );
