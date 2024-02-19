@@ -139,6 +139,7 @@
         bindingOptions.currentView.year = bindingOptions.year;
         bindingOptions.currentView.type = _configuration.unknownTrendText;
         bindingOptions.currentView.isInFetchMode = isDefinedFunction( bindingOptions.onDataFetch );
+        bindingOptions.currentView.isInFetchModeTimer = null;
 
         if ( bindingOptions.views.chart.enabled ) {
             bindingOptions.currentView.chartContents = null;
@@ -202,6 +203,8 @@
 
         hideToolTip( bindingOptions );
 
+        startDataPullTimer( bindingOptions );
+
         renderControlToolTip( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions, isForViewSwitch );
@@ -242,7 +245,7 @@
 
         _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ] = {};
 
-        if ( storeLocalData ) {
+        if ( storeLocalData && !bindingOptions.currentView.isInFetchMode ) {
             loadDataFromLocalStorage( elementId, bindingOptions );
         }
     }
@@ -1176,6 +1179,53 @@
 
             for ( var keyToRemoveIndex = 0; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++ ) {
                 _parameter_Window.localStorage.removeItem( keysToRemove[ keyToRemoveIndex ] );
+            }
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Data Pulling
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function startDataPullTimer( bindingOptions ) {
+        if ( bindingOptions.currentView.isInFetchMode ) {
+
+            var onFetch = function() {
+                var elementId = bindingOptions.currentView.element.id,
+                    data = fireCustomTrigger( bindingOptions.onDataFetch, elementId );
+    
+                if ( isDefinedObject( data ) ) {
+                    createDateStorageForElement( elementId, bindingOptions, false );
+    
+                    for ( var storageDate in data ) {
+                        if ( data.hasOwnProperty( storageDate ) ) {
+                            if ( !_elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ].hasOwnProperty( storageDate ) ) {
+                                _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ][ storageDate ] = 0;
+                            }
+                    
+                            _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ][ storageDate ] += data[ storageDate ];
+                        }
+                    }
+                }
+            };
+    
+            var onFetchTimer = function() {
+                if ( !isDefined( bindingOptions.currentView.isInFetchModeTimer ) ) {
+                    bindingOptions.currentView.isInFetchModeTimer = setInterval( function() {
+                        onFetch();
+                        renderControlContainer( bindingOptions );
+                    }, bindingOptions.onDataFetchDelay );
+                }
+            };
+    
+            if ( !isDefined( bindingOptions.currentView.isInFetchModeTimer ) ) {
+                onFetch();
+                onFetchTimer();
+            } else {
+                onFetchTimer();
             }
         }
     }

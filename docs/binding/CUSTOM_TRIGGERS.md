@@ -112,11 +112,11 @@ Fires when data for an element is imported.
 <br>
 
 ### options.onDataFetch( *element* ):
-Fires when an element requests a data pull (will return all the data in an array).
+Fires when an element requests a data pull (will return all the data in an object).
 <br>
 ***Parameter:*** element: '*Object*' - The element that the data is being fetched for.
 <br>
-***Returns:*** '*Object[]*' - An array of data.
+***Returns:*** '*Object*' - An object of data.
 <br>
 <br>
 

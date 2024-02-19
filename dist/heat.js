@@ -50,6 +50,8 @@
     bindingOptions.currentView.mapContentsScrollLeft = 0;
     bindingOptions.currentView.year = bindingOptions.year;
     bindingOptions.currentView.type = _configuration.unknownTrendText;
+    bindingOptions.currentView.isInFetchMode = isDefinedFunction(bindingOptions.onDataFetch);
+    bindingOptions.currentView.isInFetchModeTimer = null;
     if (bindingOptions.views.chart.enabled) {
       bindingOptions.currentView.chartContents = null;
       bindingOptions.currentView.chartContentsScrollLeft = 0;
@@ -97,6 +99,7 @@
     }
     bindingOptions.currentView.element.innerHTML = _string.empty;
     hideToolTip(bindingOptions);
+    startDataPullTimer(bindingOptions);
     renderControlToolTip(bindingOptions);
     renderControlTitleBar(bindingOptions);
     renderControlMap(bindingOptions, isForViewSwitch);
@@ -123,7 +126,7 @@
     storeLocalData = isDefined(storeLocalData) ? storeLocalData : true;
     _elements_DateCounts[elementId] = {options:bindingOptions, type:{}, types:1};
     _elements_DateCounts[elementId].type[_configuration.unknownTrendText] = {};
-    if (storeLocalData) {
+    if (storeLocalData && !bindingOptions.currentView.isInFetchMode) {
       loadDataFromLocalStorage(elementId, bindingOptions);
     }
   }
@@ -201,7 +204,7 @@
           renderTitleDropDownClickEvent(bindingOptions, statisticsChart, _elements_View_Statistics, _elements_View_Name_Statistics);
         }
       }
-      if (bindingOptions.showImportButton) {
+      if (bindingOptions.showImportButton && !bindingOptions.currentView.isInFetchMode) {
         var importData = createElementWithHTML(titleBar, "button", "import", _configuration.importButtonText);
         importData.onclick = function() {
           importFromFilesSelected(bindingOptions);
@@ -825,6 +828,40 @@
       }
     }
   }
+  function startDataPullTimer(bindingOptions) {
+    if (bindingOptions.currentView.isInFetchMode) {
+      var onFetch = function() {
+        var elementId = bindingOptions.currentView.element.id;
+        var data = fireCustomTrigger(bindingOptions.onDataFetch, elementId);
+        if (isDefinedObject(data)) {
+          createDateStorageForElement(elementId, bindingOptions, false);
+          var storageDate;
+          for (storageDate in data) {
+            if (data.hasOwnProperty(storageDate)) {
+              if (!_elements_DateCounts[elementId].type[_configuration.unknownTrendText].hasOwnProperty(storageDate)) {
+                _elements_DateCounts[elementId].type[_configuration.unknownTrendText][storageDate] = 0;
+              }
+              _elements_DateCounts[elementId].type[_configuration.unknownTrendText][storageDate] += data[storageDate];
+            }
+          }
+        }
+      };
+      var onFetchTimer = function() {
+        if (!isDefined(bindingOptions.currentView.isInFetchModeTimer)) {
+          bindingOptions.currentView.isInFetchModeTimer = setInterval(function() {
+            onFetch();
+            renderControlContainer(bindingOptions);
+          }, bindingOptions.onDataFetchDelay);
+        }
+      };
+      if (!isDefined(bindingOptions.currentView.isInFetchModeTimer)) {
+        onFetch();
+        onFetchTimer();
+      } else {
+        onFetchTimer();
+      }
+    }
+  }
   function isHeatMapColorVisible(bindingOptions, id) {
     var result = false;
     if (id === _internal_Name_Holiday) {
@@ -925,7 +962,7 @@
     return holidayMatched;
   }
   function makeAreaDroppable(element, bindingOptions) {
-    if (bindingOptions.allowFileImports) {
+    if (bindingOptions.allowFileImports && !bindingOptions.currentView.isInFetchMode) {
       element.ondragover = cancelBubble;
       element.ondragenter = cancelBubble;
       element.ondragleave = cancelBubble;
@@ -1169,6 +1206,7 @@
     options.showLessAndMoreLabels = getDefaultBoolean(options.showLessAndMoreLabels, true);
     options.showNumbersInGuide = getDefaultBoolean(options.showNumbersInGuide, false);
     options.showImportButton = getDefaultBoolean(options.showImportButton, false);
+    options.onDataFetchDelay = getDefaultNumber(options.onDataFetchDelay, 60000);
     options = buildAttributeOptionColorRanges(options);
     options = buildAttributeOptionHolidays(options);
     options = buildAttributeOptionMapView(options);
@@ -1277,6 +1315,7 @@
     options.onColorRangeTypeToggle = getDefaultFunction(options.onColorRangeTypeToggle, null);
     options.onImport = getDefaultFunction(options.onImport, null);
     options.onStatisticClick = getDefaultFunction(options.onStatisticClick, null);
+    options.onDataFetch = getDefaultFunction(options.onDataFetch, null);
     return options;
   }
   function getTotalDaysInMonth(year, month) {
@@ -1577,68 +1616,78 @@
   var _attribute_Name_Options = "data-heat-options";
   this.addDates = function(elementId, dates, type, triggerRefresh) {
     if (isDefinedString(elementId) && isDefinedArray(dates) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
-      type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
-      var datesLength = dates.length;
-      var dateIndex = 0;
-      for (; dateIndex < datesLength; dateIndex++) {
-        this.addDate(elementId, dates[dateIndex], type, false);
-      }
-      if (triggerRefresh) {
-        renderControlContainer(_elements_DateCounts[elementId].options, true);
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      if (!bindingOptions.currentView.isInFetchMode) {
+        triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
+        type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
+        var datesLength = dates.length;
+        var dateIndex = 0;
+        for (; dateIndex < datesLength; dateIndex++) {
+          this.addDate(elementId, dates[dateIndex], type, false);
+        }
+        if (triggerRefresh) {
+          renderControlContainer(bindingOptions, true);
+        }
       }
     }
     return this;
   };
   this.addDate = function(elementId, date, type, triggerRefresh) {
     if (isDefinedString(elementId) && isDefinedDate(date) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
-      type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
-      var storageDate = toStorageDate(date);
-      if (!_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
-        _elements_DateCounts[elementId].type[type] = {};
-        _elements_DateCounts[elementId].types++;
-      }
-      if (!_elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
-        _elements_DateCounts[elementId].type[type][storageDate] = 0;
-      }
-      _elements_DateCounts[elementId].type[type][storageDate]++;
       var bindingOptions = _elements_DateCounts[elementId].options;
-      fireCustomTrigger(bindingOptions.onAdd, bindingOptions.currentView.element);
-      if (triggerRefresh) {
-        renderControlContainer(bindingOptions, true);
+      if (!bindingOptions.currentView.isInFetchMode) {
+        triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
+        type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
+        var storageDate = toStorageDate(date);
+        if (!_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
+          _elements_DateCounts[elementId].type[type] = {};
+          _elements_DateCounts[elementId].types++;
+        }
+        if (!_elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
+          _elements_DateCounts[elementId].type[type][storageDate] = 0;
+        }
+        _elements_DateCounts[elementId].type[type][storageDate]++;
+        fireCustomTrigger(bindingOptions.onAdd, bindingOptions.currentView.element);
+        if (triggerRefresh) {
+          renderControlContainer(bindingOptions, true);
+        }
       }
     }
     return this;
   };
   this.removeDates = function(elementId, dates, type, triggerRefresh) {
     if (isDefinedString(elementId) && isDefinedArray(dates) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
-      triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
-      var datesLength = dates.length;
-      var dateIndex = 0;
-      for (; dateIndex < datesLength; dateIndex++) {
-        this.removeDate(elementId, dates[dateIndex], type, false);
-      }
-      if (triggerRefresh) {
-        renderControlContainer(_elements_DateCounts[elementId].options, true);
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      if (!bindingOptions.currentView.isInFetchMode) {
+        type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
+        triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
+        var datesLength = dates.length;
+        var dateIndex = 0;
+        for (; dateIndex < datesLength; dateIndex++) {
+          this.removeDate(elementId, dates[dateIndex], type, false);
+        }
+        if (triggerRefresh) {
+          renderControlContainer(bindingOptions, true);
+        }
       }
     }
     return this;
   };
   this.removeDate = function(elementId, date, type, triggerRefresh) {
     if (isDefinedString(elementId) && isDefinedDate(date) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
-      var storageDate = toStorageDate(date);
-      if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
-        triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
-        if (_elements_DateCounts[elementId].type[type][storageDate] > 0) {
-          _elements_DateCounts[elementId].type[type][storageDate]--;
-        }
-        var bindingOptions = _elements_DateCounts[elementId].options;
-        fireCustomTrigger(bindingOptions.onRemove, bindingOptions.currentView.element);
-        if (triggerRefresh) {
-          renderControlContainer(bindingOptions, true);
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      if (!bindingOptions.currentView.isInFetchMode) {
+        type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
+        var storageDate = toStorageDate(date);
+        if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
+          triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
+          if (_elements_DateCounts[elementId].type[type][storageDate] > 0) {
+            _elements_DateCounts[elementId].type[type][storageDate]--;
+          }
+          fireCustomTrigger(bindingOptions.onRemove, bindingOptions.currentView.element);
+          if (triggerRefresh) {
+            renderControlContainer(bindingOptions, true);
+          }
         }
       }
     }
@@ -1655,13 +1704,15 @@
   };
   this.reset = function(elementId, triggerRefresh) {
     if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
       var bindingOptions = _elements_DateCounts[elementId].options;
-      bindingOptions.currentView.type = _configuration.unknownTrendText;
-      createDateStorageForElement(elementId, bindingOptions, false);
-      fireCustomTrigger(bindingOptions.onReset, bindingOptions.currentView.element);
-      if (triggerRefresh) {
-        renderControlContainer(bindingOptions, true);
+      if (!bindingOptions.currentView.isInFetchMode) {
+        triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
+        bindingOptions.currentView.type = _configuration.unknownTrendText;
+        createDateStorageForElement(elementId, bindingOptions, false);
+        fireCustomTrigger(bindingOptions.onReset, bindingOptions.currentView.element);
+        if (triggerRefresh) {
+          renderControlContainer(bindingOptions, true);
+        }
       }
     }
     return this;
