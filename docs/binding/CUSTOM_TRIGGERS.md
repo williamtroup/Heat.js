@@ -110,6 +110,14 @@ Fires when data for an element is imported.
 <br>
 ***Parameter:*** element: '*Object*' - The element that the data was imported for.
 <br>
+
+### options.onDataFetch( *element* ):
+Fires when the element refreshes (it will pull an array of data to add, or update).
+<br>
+***Parameter:*** element: '*Object*' - The element that the data is being fetched for.
+<br>
+***Returns:*** '*Object[]*' - An array of data.
+<br>
 <br>
 
 
