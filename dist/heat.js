@@ -857,6 +857,17 @@
       }
     }
   }
+  function cancelAllPullDataTimers() {
+    var elementId;
+    for (elementId in _elements_DateCounts) {
+      if (_elements_DateCounts.hasOwnProperty(elementId)) {
+        var bindingOptions = _elements_DateCounts[elementId].options;
+        if (isDefined(bindingOptions.currentView.isInFetchModeTimer)) {
+          clearInterval(bindingOptions.currentView.isInFetchModeTimer);
+        }
+      }
+    }
+  }
   function isHeatMapColorVisible(bindingOptions, id) {
     var result = false;
     if (id === _internal_Name_Holiday) {
@@ -1952,6 +1963,9 @@
     buildDefaultConfiguration();
     _parameter_Document.addEventListener("DOMContentLoaded", function() {
       render();
+    });
+    _parameter_Window.addEventListener("unload", function() {
+      cancelAllPullDataTimers();
     });
     if (!isDefined(_parameter_Window.$heat)) {
       _parameter_Window.$heat = this;

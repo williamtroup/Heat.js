@@ -1224,6 +1224,18 @@
         }
     }
 
+    function cancelAllPullDataTimers() {
+        for ( var elementId in _elements_DateCounts ) {
+            if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                var bindingOptions = _elements_DateCounts[ elementId ].options;
+
+                if ( isDefined( bindingOptions.currentView.isInFetchModeTimer ) ) {
+                    clearInterval( bindingOptions.currentView.isInFetchModeTimer );
+                }
+            }
+        }
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3091,6 +3103,10 @@
 
         _parameter_Document.addEventListener( "DOMContentLoaded", function() {
             render();
+        } );
+
+        _parameter_Window.addEventListener( "unload", function() {
+            cancelAllPullDataTimers();
         } );
 
         if ( !isDefined( _parameter_Window.$heat ) ) {
