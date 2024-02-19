@@ -32,6 +32,7 @@ Heat.js
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.
 - 12 additional themes available (for dark and light mode).
+- Data pulling (does not support trend types).
 <br />
 <br />
 

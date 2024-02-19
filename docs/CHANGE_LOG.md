@@ -4,6 +4,7 @@
 
 #### **New Features:**
 - Added holidays support! When set, the days are shown differently in the UI, and excluded from the statistics!
+- Added data pulling support! This will pull data in using a custom trigger, which in turn disable all manual data adding/removing, and local storage support.
 
 #### **Binding Options:**
 - Added a new binding option called "holidays", which states the holidays that should be shown in the views (defaults to []).
