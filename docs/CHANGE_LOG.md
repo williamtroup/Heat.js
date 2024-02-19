@@ -3,8 +3,8 @@
 ## Version 2.4.0:
 
 #### **New Features:**
-- Added holidays support! When set, the days are shown differently in the UI, and excluded from the statistics!
-- Added data pulling support! This will pull data in using a custom trigger, which in turn disable all manual data adding/removing, and local storage support.
+- Added holiday support! When set, the days are shown differently in the UI, and excluded from the statistics!
+- Added data pulling support! This will pull data in using a custom trigger, which in turn disables all manual data adding/removing, and local storage support.
 
 #### **Binding Options:**
 - Added a new binding option called "holidays", which states the holidays that should be shown in the views (defaults to []).
@@ -22,7 +22,7 @@
 - Internal refactoring to update the naming used for some of the functions/variables.
 - The public function "updateOptions()" will now only update the display if something in the options has been changed.
 - The public function "setConfiguration()" will now only update the configuration (and refresh the displays) if something in the configuration has been changed.
-- All public functions now only accept the right variable types for data (to prevent issues occurring).
+- All public functions now only accept the right variable types for data (to prevent issues from occurring).
 
 #### **Documentation:**
 - Moved "COLOR_RANGE.md" into "docs/binding" and fixed the documentation (was very outdated and would not have worked).
