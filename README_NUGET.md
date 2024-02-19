@@ -26,6 +26,7 @@
 - Customizable tooltips.
 - 12 additional themes available (for dark and light mode).
 - Data pulling (does not support trend types).
+- Color ranges support different colors per view.
 
 
 ## What browsers are supported?
