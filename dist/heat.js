@@ -846,19 +846,14 @@
           }
         }
       };
-      var onFetchTimer = function() {
-        if (!isDefined(bindingOptions.currentView.isInFetchModeTimer)) {
-          bindingOptions.currentView.isInFetchModeTimer = setInterval(function() {
-            onFetch();
-            renderControlContainer(bindingOptions);
-          }, bindingOptions.onDataFetchDelay);
-        }
-      };
       if (!isDefined(bindingOptions.currentView.isInFetchModeTimer)) {
         onFetch();
-        onFetchTimer();
-      } else {
-        onFetchTimer();
+      }
+      if (!isDefined(bindingOptions.currentView.isInFetchModeTimer)) {
+        bindingOptions.currentView.isInFetchModeTimer = setInterval(function() {
+          onFetch();
+          renderControlContainer(bindingOptions);
+        }, bindingOptions.onDataFetchDelay);
       }
     }
   }
