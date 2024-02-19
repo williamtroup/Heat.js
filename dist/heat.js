@@ -830,30 +830,30 @@
   }
   function startDataPullTimer(bindingOptions) {
     if (bindingOptions.currentView.isInFetchMode) {
-      var onFetch = function() {
-        var elementId = bindingOptions.currentView.element.id;
-        var data = fireCustomTrigger(bindingOptions.onDataFetch, elementId);
-        if (isDefinedObject(data)) {
-          createDateStorageForElement(elementId, bindingOptions, false);
-          var storageDate;
-          for (storageDate in data) {
-            if (data.hasOwnProperty(storageDate)) {
-              if (!_elements_DateCounts[elementId].type[_configuration.unknownTrendText].hasOwnProperty(storageDate)) {
-                _elements_DateCounts[elementId].type[_configuration.unknownTrendText][storageDate] = 0;
-              }
-              _elements_DateCounts[elementId].type[_configuration.unknownTrendText][storageDate] += data[storageDate];
-            }
-          }
-        }
-      };
       if (!isDefined(bindingOptions.currentView.isInFetchModeTimer)) {
-        onFetch();
+        pullDataFromCustomTrigger(bindingOptions);
       }
       if (!isDefined(bindingOptions.currentView.isInFetchModeTimer)) {
         bindingOptions.currentView.isInFetchModeTimer = setInterval(function() {
-          onFetch();
+          pullDataFromCustomTrigger(bindingOptions);
           renderControlContainer(bindingOptions);
         }, bindingOptions.onDataFetchDelay);
+      }
+    }
+  }
+  function pullDataFromCustomTrigger(bindingOptions) {
+    var elementId = bindingOptions.currentView.element.id;
+    var data = fireCustomTrigger(bindingOptions.onDataFetch, elementId);
+    if (isDefinedObject(data)) {
+      createDateStorageForElement(elementId, bindingOptions, false);
+      var storageDate;
+      for (storageDate in data) {
+        if (data.hasOwnProperty(storageDate)) {
+          if (!_elements_DateCounts[elementId].type[_configuration.unknownTrendText].hasOwnProperty(storageDate)) {
+            _elements_DateCounts[elementId].type[_configuration.unknownTrendText][storageDate] = 0;
+          }
+          _elements_DateCounts[elementId].type[_configuration.unknownTrendText][storageDate] += data[storageDate];
+        }
       }
     }
   }
