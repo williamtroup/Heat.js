@@ -607,7 +607,7 @@
           renderControlStatisticsRangeLine(type, rangeLines, colorRangeValuesForCurrentYear.types[type], bindingOptions, colorRanges, pixelsPerNumbers);
           var useColorRange = getColorRangeByMinimum(colorRanges, type);
           if (bindingOptions.views.statistics.showColorRangeLabels) {
-            if (!bindingOptions.views.statistics.showColorRangeNames || !isDefined(useColorRange) || !isDefinedString(useColorRange.name)) {
+            if (!bindingOptions.views.statistics.useColorRangeNamesForLabels || !isDefined(useColorRange) || !isDefinedString(useColorRange.name)) {
               createElementWithHTML(statisticsRanges, "div", "range-name", type + _string.plus);
             } else {
               createElementWithHTML(statisticsRanges, "div", "range-name", useColorRange.name);
@@ -1298,7 +1298,7 @@
     options.views.statistics.enabled = getDefaultBoolean(options.views.statistics.enabled, true);
     options.views.statistics.showChartYLabels = getDefaultBoolean(options.views.statistics.showChartYLabels, true);
     options.views.statistics.showColorRangeLabels = getDefaultBoolean(options.views.statistics.showColorRangeLabels, true);
-    options.views.statistics.showColorRangeNames = getDefaultBoolean(options.views.statistics.showColorRangeNames, false);
+    options.views.statistics.useColorRangeNamesForLabels = getDefaultBoolean(options.views.statistics.useColorRangeNamesForLabels, false);
     if (isInvalidOptionArray(options.views.statistics.monthsToShow)) {
       options.views.statistics.monthsToShow = _default_MonthsToShow;
     }
