@@ -7,6 +7,10 @@
 
 #### **Binding Options:**
 - Added a new binding option called "holidays", which states the holidays that should be shown in the views (defaults to []).
+- Added a new binding option called "onDataFetchDelay", which states how long the data fetching should wait (in milliseconds) until its next pull (defaults to 60000).
+
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option custom trigger called "onDataFetch", which states an event that should be triggered when data a data pull is requested (it returns the data).
 
 #### **General Improvements:**
 - Improved the defaults and reading of the binding option "colorRanges".

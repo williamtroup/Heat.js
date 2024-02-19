@@ -112,7 +112,7 @@ Fires when data for an element is imported.
 <br>
 
 ### options.onDataFetch( *element* ):
-Fires when the element refreshes (it will pull an array of data to add, or update).
+Fires when an element requests a data pull (will return all the data in an array).
 <br>
 ***Parameter:*** element: '*Object*' - The element that the data is being fetched for.
 <br>
