@@ -184,7 +184,7 @@
         isForViewSwitch = isDefined( isForViewSwitch ) ? isForViewSwitch : false;
 
         if ( isForDataRefresh ) {
-            storeDataInLocalStorage( bindingOptions.currentView.element.id, bindingOptions );
+            storeDataInLocalStorage( bindingOptions );
         }
 
         if ( isDefined( bindingOptions.currentView.mapContents ) ) {
@@ -246,7 +246,7 @@
         _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ] = {};
 
         if ( storeLocalData && !bindingOptions.currentView.isInFetchMode ) {
-            loadDataFromLocalStorage( elementId, bindingOptions );
+            loadDataFromLocalStorage( bindingOptions );
         }
     }
 
@@ -1128,9 +1128,10 @@
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function loadDataFromLocalStorage( elementId, bindingOptions ) {
+    function loadDataFromLocalStorage( bindingOptions ) {
         if ( bindingOptions.useLocalStorageForData && _parameter_Window.localStorage ) {
-            var keysLength = _parameter_Window.localStorage.length;
+            var keysLength = _parameter_Window.localStorage.length,
+                elementId = bindingOptions.currentView.element.id;
 
             for ( var keyIndex = 0; keyIndex < keysLength; keyIndex++ ) {
                 var key = _parameter_Window.localStorage.key( keyIndex );
@@ -1154,9 +1155,11 @@
         }
     }
 
-    function storeDataInLocalStorage( elementId, bindingOptions ) {
+    function storeDataInLocalStorage( bindingOptions ) {
         if ( bindingOptions.useLocalStorageForData && _parameter_Window.localStorage ) {
-            clearLocalStorageObjects( elementId, bindingOptions );
+            var elementId = bindingOptions.currentView.element.id;
+
+            clearLocalStorageObjects( bindingOptions );
 
             var jsonData = _parameter_JSON.stringify( _elements_DateCounts[ elementId ].type );
 
@@ -1164,10 +1167,11 @@
         }
     }
 
-    function clearLocalStorageObjects( elementId, bindingOptions ) {
+    function clearLocalStorageObjects( bindingOptions ) {
         if ( bindingOptions.useLocalStorageForData && _parameter_Window.localStorage ) {
             var keysLength = _parameter_Window.localStorage.length,
-                keysToRemove = [];
+                keysToRemove = [],
+                elementId = bindingOptions.currentView.element.id;
 
             for ( var keyIndex = 0; keyIndex < keysLength; keyIndex++ ) {
                 if ( startsWithAnyCase( _parameter_Window.localStorage.key( keyIndex ), _local_Storage_Start_ID + elementId ) ) {
@@ -2250,7 +2254,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.addDates = function( elementId, dates, type, triggerRefresh ) {
-        if ( isDefinedString( elementId ) && isDefinedArray( dates ) && isDefinedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && isDefinedArray( dates ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
@@ -2288,7 +2292,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.addDate = function( elementId, date, type, triggerRefresh ) {
-        if ( isDefinedString( elementId ) && isDefinedDate( date ) && isDefinedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
@@ -2335,7 +2339,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.removeDates = function( elementId, dates, type, triggerRefresh ) {
-        if ( isDefinedString( elementId ) && isDefinedArray( dates ) && isDefinedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && isDefinedArray( dates ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
@@ -2373,7 +2377,7 @@
      * @returns     {Object}                                                The Heat.js class instance.
      */
     this.removeDate = function( elementId, date, type, triggerRefresh ) {
-        if ( isDefinedString( elementId ) && isDefinedDate( date ) && isDefinedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+        if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {

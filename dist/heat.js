@@ -86,7 +86,7 @@
     isForDataRefresh = isDefined(isForDataRefresh) ? isForDataRefresh : false;
     isForViewSwitch = isDefined(isForViewSwitch) ? isForViewSwitch : false;
     if (isForDataRefresh) {
-      storeDataInLocalStorage(bindingOptions.currentView.element.id, bindingOptions);
+      storeDataInLocalStorage(bindingOptions);
     }
     if (isDefined(bindingOptions.currentView.mapContents)) {
       bindingOptions.currentView.mapContentsScrollLeft = bindingOptions.currentView.mapContents.scrollLeft;
@@ -127,7 +127,7 @@
     _elements_DateCounts[elementId] = {options:bindingOptions, type:{}, types:1};
     _elements_DateCounts[elementId].type[_configuration.unknownTrendText] = {};
     if (storeLocalData && !bindingOptions.currentView.isInFetchMode) {
-      loadDataFromLocalStorage(elementId, bindingOptions);
+      loadDataFromLocalStorage(bindingOptions);
     }
   }
   function getCurrentViewData(bindingOptions) {
@@ -781,9 +781,10 @@
       }
     }
   }
-  function loadDataFromLocalStorage(elementId, bindingOptions) {
+  function loadDataFromLocalStorage(bindingOptions) {
     if (bindingOptions.useLocalStorageForData && _parameter_Window.localStorage) {
       var keysLength = _parameter_Window.localStorage.length;
+      var elementId = bindingOptions.currentView.element.id;
       var keyIndex = 0;
       for (; keyIndex < keysLength; keyIndex++) {
         var key = _parameter_Window.localStorage.key(keyIndex);
@@ -804,17 +805,19 @@
       }
     }
   }
-  function storeDataInLocalStorage(elementId, bindingOptions) {
+  function storeDataInLocalStorage(bindingOptions) {
     if (bindingOptions.useLocalStorageForData && _parameter_Window.localStorage) {
-      clearLocalStorageObjects(elementId, bindingOptions);
+      var elementId = bindingOptions.currentView.element.id;
+      clearLocalStorageObjects(bindingOptions);
       var jsonData = _parameter_JSON.stringify(_elements_DateCounts[elementId].type);
       _parameter_Window.localStorage.setItem(_local_Storage_Start_ID + elementId, jsonData);
     }
   }
-  function clearLocalStorageObjects(elementId, bindingOptions) {
+  function clearLocalStorageObjects(bindingOptions) {
     if (bindingOptions.useLocalStorageForData && _parameter_Window.localStorage) {
       var keysLength = _parameter_Window.localStorage.length;
       var keysToRemove = [];
+      var elementId = bindingOptions.currentView.element.id;
       var keyIndex = 0;
       for (; keyIndex < keysLength; keyIndex++) {
         if (startsWithAnyCase(_parameter_Window.localStorage.key(keyIndex), _local_Storage_Start_ID + elementId)) {
@@ -1621,7 +1624,7 @@
   var _export_Type_Txt = "txt";
   var _attribute_Name_Options = "data-heat-options";
   this.addDates = function(elementId, dates, type, triggerRefresh) {
-    if (isDefinedString(elementId) && isDefinedArray(dates) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       if (!bindingOptions.currentView.isInFetchMode) {
         triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
@@ -1639,7 +1642,7 @@
     return this;
   };
   this.addDate = function(elementId, date, type, triggerRefresh) {
-    if (isDefinedString(elementId) && isDefinedDate(date) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       if (!bindingOptions.currentView.isInFetchMode) {
         triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
@@ -1662,7 +1665,7 @@
     return this;
   };
   this.removeDates = function(elementId, dates, type, triggerRefresh) {
-    if (isDefinedString(elementId) && isDefinedArray(dates) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       if (!bindingOptions.currentView.isInFetchMode) {
         type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
@@ -1680,7 +1683,7 @@
     return this;
   };
   this.removeDate = function(elementId, date, type, triggerRefresh) {
-    if (isDefinedString(elementId) && isDefinedDate(date) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId)) {
+    if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       if (!bindingOptions.currentView.isInFetchMode) {
         type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
