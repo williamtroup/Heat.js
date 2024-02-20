@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Chinese (simplified) | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Chinese (simplified) | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "日",
         "ndText": "日",
