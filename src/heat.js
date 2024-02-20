@@ -1909,6 +1909,7 @@
         options.onStatisticClick = getDefaultFunction( options.onStatisticClick, null );
         options.onDataFetch = getDefaultFunction( options.onDataFetch, null );
         options.onClear = getDefaultFunction( options.onClear, null );
+        options.onUpdate = getDefaultFunction( options.onUpdate, null );
 
         return options;
     }
@@ -2363,6 +2364,48 @@
     
                 if ( triggerRefresh ) {
                     renderControlContainer( bindingOptions, true );
+                }
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * updateDate().
+     * 
+     * Updates a date for a specific element ID, and refreshes the UI (if specified).
+     * 
+     * @public
+     * @fires       onUpdate
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
+     * @param       {Date}      date                                        The date to update.
+     * @param       {number}    count                                       The count that should be shown.
+     * @param       {string}    [type]                                      The trend type (defaults to "Unknown").
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.updateDate = function( elementId, date, count, type, triggerRefresh ) {
+        if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+            
+            if ( !bindingOptions.currentView.isInFetchMode && count > 0 ) {
+                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
+
+                var storageDate = toStorageDate( date );
+    
+                if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
+                    triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+    
+                    _elements_DateCounts[ elementId ].type[ type ][ storageDate ] = count;
+    
+                    fireCustomTrigger( bindingOptions.onUpdate, bindingOptions.currentView.element );
+    
+                    if ( triggerRefresh ) {
+                        renderControlContainer( bindingOptions, true );
+                    }
                 }
             }
         }

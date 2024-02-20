@@ -10,9 +10,11 @@
 
 #### **Binding Options - Custom Triggers:**
 - Added a new binding option custom trigger called "onClear", which states an event that should be triggered when a date is cleared for an element.
+- Added a new binding option custom trigger called "onUpdate", which states an event that should be triggered when a date is updated for an element.
 
 #### **Public Functions:**
-- Added a new public function "clearDate()", which will clear a date for a specific element and refreshes the UI.
+- Added a new public function "clearDate()", which will clear a date for a specific element and refresh the UI.
+- Added a new public function "updateDate()", which will update a date for a specific element and refresh the UI.
 
 #### **Documentation:**
 - Minor documentation improvements.

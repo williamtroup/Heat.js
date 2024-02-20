@@ -39,6 +39,24 @@ Adds a date for a specific element ID, and refreshes the UI (if specified). If t
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
 
+### **updateDate( *elementId*, *date*, *count*, *[triggerRefresh]* )**:
+Updates a date for a specific element ID, and refreshes the UI (if specified).
+<br>
+***Fires***:  onUpdate
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the updated date.
+<br>
+***Parameter: date***: '*Date*' - The date to update.
+<br>
+***Parameter: count***: '*number*' - The count that should be shown.
+<br>
+***Parameter: [type]***: '*string*' - The trend type (defaults to "Unknown").
+<br>
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
 ### **removeDates( *elementId*, *dates*, *[triggerRefresh]* )**:
 Removes an array of dates for a specific element ID, and refreshes the UI (if specified). If the dates already exist, their values are decreased by one.
 <br>

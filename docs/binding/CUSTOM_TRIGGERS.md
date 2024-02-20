@@ -124,6 +124,12 @@ Fires when a date for an element is cleared.
 <br>
 ***Parameter:*** element: '*Object*' - The element that the date was cleared for.
 <br>
+
+### options.onUpdate( *element* ):
+Fires when a date for an element is updated.
+<br>
+***Parameter:*** element: '*Object*' - The element that the date was updated for.
+<br>
 <br>
 
 

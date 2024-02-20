@@ -1360,6 +1360,7 @@
     options.onStatisticClick = getDefaultFunction(options.onStatisticClick, null);
     options.onDataFetch = getDefaultFunction(options.onDataFetch, null);
     options.onClear = getDefaultFunction(options.onClear, null);
+    options.onUpdate = getDefaultFunction(options.onUpdate, null);
     return options;
   }
   function getTotalDaysInMonth(year, month) {
@@ -1695,6 +1696,24 @@
         fireCustomTrigger(bindingOptions.onAdd, bindingOptions.currentView.element);
         if (triggerRefresh) {
           renderControlContainer(bindingOptions, true);
+        }
+      }
+    }
+    return this;
+  };
+  this.updateDate = function(elementId, date, count, type, triggerRefresh) {
+    if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      if (!bindingOptions.currentView.isInFetchMode && count > 0) {
+        type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
+        var storageDate = toStorageDate(date);
+        if (_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
+          triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
+          _elements_DateCounts[elementId].type[type][storageDate] = count;
+          fireCustomTrigger(bindingOptions.onUpdate, bindingOptions.currentView.element);
+          if (triggerRefresh) {
+            renderControlContainer(bindingOptions, true);
+          }
         }
       }
     }
