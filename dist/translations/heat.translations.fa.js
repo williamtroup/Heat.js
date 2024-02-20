@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "نقشه",
         "chartText": "چارت سازمانی",
         "noChartDataMessage": "در حال حاضر هیچ داده ای برای مشاهده وجود ندارد.",
+        "noMapDataMessage": "در حال حاضر هیچ داده ای برای مشاهده وجود ندارد.",
         "statisticsText": "آمار",
         "noStatisticsDataMessage": "در حال حاضر هیچ آماری برای مشاهده وجود ندارد.",
         "unknownTrendText": "ناشناخته",

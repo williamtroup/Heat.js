@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Léarscáil",
         "chartText": "Cairt",
         "noChartDataMessage": "Níl aon sonraí le féachaint faoi láthair.",
+        "noMapDataMessage": "Níl aon sonraí le féachaint faoi láthair.",
         "statisticsText": "Staitisticí",
         "noStatisticsDataMessage": "Níl aon staitisticí le léamh faoi láthair.",
         "unknownTrendText": "Anaithnid",

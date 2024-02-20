@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Kartta",
         "chartText": "Kartoittaa",
         "noChartDataMessage": "Tällä hetkellä ei ole tarkasteltavaa dataa.",
+        "noMapDataMessage": "Tällä hetkellä ei ole tarkasteltavaa dataa.",
         "statisticsText": "Tilastot",
         "noStatisticsDataMessage": "Tällä hetkellä ei ole tilastoja nähtäväksi.",
         "unknownTrendText": "Tuntematon",

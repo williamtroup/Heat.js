@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Térkép",
         "chartText": "Diagram",
         "noChartDataMessage": "Jelenleg nincsenek megtekinthető adatok.",
+        "noMapDataMessage": "Jelenleg nincsenek megtekinthető adatok.",
         "statisticsText": "Statisztika",
         "noStatisticsDataMessage": "Jelenleg nincs megtekinthető statisztika.",
         "unknownTrendText": "Ismeretlen",

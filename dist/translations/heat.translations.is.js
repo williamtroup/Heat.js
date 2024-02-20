@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Kort",
         "chartText": "Myndrit",
         "noChartDataMessage": "Það eru engin gögn til að skoða eins og er.",
+        "noMapDataMessage": "Það eru engin gögn til að skoða eins og er.",
         "statisticsText": "Tölfræði",
         "noStatisticsDataMessage": "Það er engin tölfræði til að skoða eins og er.",
         "unknownTrendText": "Óþekktur",

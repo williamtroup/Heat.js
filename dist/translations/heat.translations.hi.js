@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "नक्शा",
         "chartText": "चार्ट",
         "noChartDataMessage": "वर्तमान में देखने के लिए कोई डेटा नहीं है.",
+        "noMapDataMessage": "वर्तमान में देखने के लिए कोई डेटा नहीं है.",
         "statisticsText": "आंकड़े",
         "noStatisticsDataMessage": "वर्तमान में देखने के लिए कोई आँकड़े नहीं हैं।",
         "unknownTrendText": "अज्ञात",

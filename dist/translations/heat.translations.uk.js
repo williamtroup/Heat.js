@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Карта",
         "chartText": "Діаграма",
         "noChartDataMessage": "Зараз немає даних для перегляду.",
+        "noMapDataMessage": "Зараз немає даних для перегляду.",
         "statisticsText": "Статистика",
         "noStatisticsDataMessage": "Наразі немає статистики для перегляду.",
         "unknownTrendText": "Невідомий",

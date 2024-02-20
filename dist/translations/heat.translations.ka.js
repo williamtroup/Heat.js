@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "რუკა",
         "chartText": "დიაგრამა",
         "noChartDataMessage": "ამჟამად სანახავი მონაცემები არ არის.",
+        "noMapDataMessage": "ამჟამად სანახავი მონაცემები არ არის.",
         "statisticsText": "სტატისტიკა",
         "noStatisticsDataMessage": "ამჟამად არ არის სანახავი სტატისტიკა.",
         "unknownTrendText": "უცნობი",

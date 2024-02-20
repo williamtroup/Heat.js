@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Zemljevid",
         "chartText": "grafikon",
         "noChartDataMessage": "Trenutno ni podatkov za ogled.",
+        "noMapDataMessage": "Trenutno ni podatkov za ogled.",
         "statisticsText": "Statistika",
         "noStatisticsDataMessage": "Trenutno ni statistike za ogled.",
         "unknownTrendText": "Neznano",

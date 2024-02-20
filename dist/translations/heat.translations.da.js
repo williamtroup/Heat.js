@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Kort",
         "chartText": "Diagram",
         "noChartDataMessage": "Der er i øjeblikket ingen data at se.",
+        "noMapDataMessage": "Der er i øjeblikket ingen data at se.",
         "statisticsText": "Statistikker",
         "noStatisticsDataMessage": "Der er i øjeblikket ingen statistik at se.",
         "unknownTrendText": "Ukendt",

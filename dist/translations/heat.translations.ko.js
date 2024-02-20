@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "지도",
         "chartText": "차트",
         "noChartDataMessage": "현재 조회할 데이터가 없습니다.",
+        "noMapDataMessage": "현재 조회할 데이터가 없습니다.",
         "statisticsText": "통계",
         "noStatisticsDataMessage": "현재 볼 수 있는 통계가 없습니다.",
         "unknownTrendText": "알려지지 않은",

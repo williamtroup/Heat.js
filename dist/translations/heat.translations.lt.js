@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Žemėlapis",
         "chartText": "Diagrama",
         "noChartDataMessage": "Šiuo metu nėra duomenų, kuriuos būtų galima peržiūrėti.",
+        "noMapDataMessage": "Šiuo metu nėra duomenų, kuriuos būtų galima peržiūrėti.",
         "statisticsText": "Statistika",
         "noStatisticsDataMessage": "Šiuo metu nėra statistikos, kurią būtų galima peržiūrėti.",
         "unknownTrendText": "Nežinoma",

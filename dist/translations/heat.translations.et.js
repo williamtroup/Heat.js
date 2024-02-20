@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Kaart",
         "chartText": "Diagramm",
         "noChartDataMessage": "Praegu pole andmeid, mida vaadata.",
+        "noMapDataMessage": "Praegu pole andmeid, mida vaadata.",
         "statisticsText": "Statistika",
         "noStatisticsDataMessage": "Praegu pole statistikat vaadata.",
         "unknownTrendText": "Tundmatu",

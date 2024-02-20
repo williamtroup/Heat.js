@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Peta",
         "chartText": "Bagan",
         "noChartDataMessage": "Saat ini tidak ada data untuk dilihat.",
+        "noMapDataMessage": "Saat ini tidak ada data untuk dilihat.",
         "statisticsText": "Statistik",
         "noStatisticsDataMessage": "Saat ini tidak ada statistik untuk dilihat.",
         "unknownTrendText": "Tidak dikenal",

@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Քարտեզ",
         "chartText": "Գծապատկեր",
         "noChartDataMessage": "Դիտելու համար տվյալներ չկան:",
+        "noMapDataMessage": "Դիտելու համար տվյալներ չկան:",
         "statisticsText": "Վիճակագրություն",
         "noStatisticsDataMessage": "Ներկայումս դիտելու վիճակագրություն չկա:",
         "unknownTrendText": "Անհայտ",
