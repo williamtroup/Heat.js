@@ -1250,7 +1250,8 @@
     options = buildAttributeOptionChartView(options);
     options = buildAttributeOptionStatisticsView(options);
     options = buildAttributeOptionStrings(options);
-    return buildAttributeOptionCustomTriggers(options);
+    options = buildAttributeOptionCustomTriggers(options);
+    return options;
   }
   function buildAttributeOptionColorRanges(options) {
     if (isDefinedArray(options.colorRanges)) {

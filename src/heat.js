@@ -1742,8 +1742,9 @@
         options = buildAttributeOptionChartView( options );
         options = buildAttributeOptionStatisticsView( options );
         options = buildAttributeOptionStrings( options );
+        options = buildAttributeOptionCustomTriggers( options );
         
-        return buildAttributeOptionCustomTriggers( options );
+        return options;
     }
 
     function buildAttributeOptionColorRanges( options ) {
