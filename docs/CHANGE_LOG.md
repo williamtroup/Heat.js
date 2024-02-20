@@ -8,6 +8,9 @@
 #### **Configuration Options:**
 - Added a new configuration option called "noMapDataMessage", which states the message that should be shown on the map view when there is no data (defaults to "There is currently no data to view.").
 
+#### **Documentation:**
+- Minor documentation improvements.
+
 <br>
 
 
