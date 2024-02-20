@@ -1908,6 +1908,7 @@
         options.onImport = getDefaultFunction( options.onImport, null );
         options.onStatisticClick = getDefaultFunction( options.onStatisticClick, null );
         options.onDataFetch = getDefaultFunction( options.onDataFetch, null );
+        options.onClear = getDefaultFunction( options.onClear, null );
 
         return options;
     }
@@ -2294,7 +2295,7 @@
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
      * @param       {Date[]}    dates                                       The dates to add.
-     * @param       {string}    [type]                                      The trend type (defaults to "None").
+     * @param       {string}    [type]                                      The trend type (defaults to "Unknown").
      * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
@@ -2332,7 +2333,7 @@
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
      * @param       {Date}      date                                        The date to add.
-     * @param       {string}    [type]                                      The trend type (defaults to "None").
+     * @param       {string}    [type]                                      The trend type (defaults to "Unknown").
      * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
@@ -2379,7 +2380,7 @@
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date[]}    dates                                       The dates to removed.
-     * @param       {string}    [type]                                      The trend type (defaults to "None").
+     * @param       {string}    [type]                                      The trend type (defaults to "Unknown").
      * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
@@ -2417,7 +2418,7 @@
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date}      date                                        The date to removed.
-     * @param       {string}    [type]                                      The trend type (defaults to "None").
+     * @param       {string}    [type]                                      The trend type (defaults to "Unknown").
      * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
@@ -2439,6 +2440,47 @@
                     }
     
                     fireCustomTrigger( bindingOptions.onRemove, bindingOptions.currentView.element );
+    
+                    if ( triggerRefresh ) {
+                        renderControlContainer( bindingOptions, true );
+                    }
+                }
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * clearDate().
+     * 
+     * Clears a date for a specific element ID, and refreshes the UI (if specified).
+     * 
+     * @public
+     * @fires       onClear
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
+     * @param       {Date}      date                                        The date to clear.
+     * @param       {string}    [type]                                      The trend type (defaults to "Unknown").
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.clearDate = function( elementId, date, type, triggerRefresh ) {
+        if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+            
+            if ( !bindingOptions.currentView.isInFetchMode ) {
+                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
+
+                var storageDate = toStorageDate( date );
+    
+                if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
+                    triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+    
+                    delete _elements_DateCounts[ elementId ].type[ type ][ storageDate ];
+    
+                    fireCustomTrigger( bindingOptions.onClear, bindingOptions.currentView.element );
     
                     if ( triggerRefresh ) {
                         renderControlContainer( bindingOptions, true );

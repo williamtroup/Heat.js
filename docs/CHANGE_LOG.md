@@ -8,6 +8,12 @@
 #### **Configuration Options:**
 - Added a new configuration option called "noMapDataMessage", which states the message that should be shown on the map view when there is no data (defaults to "There is currently no data to view.").
 
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option custom trigger called "onClear", which states an event that should be triggered when a date is cleared for an element.
+
+#### **Public Functions:**
+- Added a new public function "clearDate()", which will clear a date for a specific element and refreshes the UI.
+
 #### **Documentation:**
 - Minor documentation improvements.
 

@@ -118,6 +118,12 @@ Fires when an element requests a data pull (will return all the data in an objec
 <br>
 ***Returns:*** '*Object*' - An object of data.
 <br>
+
+### options.onClear( *element* ):
+Fires when a date for an element is cleared.
+<br>
+***Parameter:*** element: '*Object*' - The element that the date was cleared for.
+<br>
 <br>
 
 
