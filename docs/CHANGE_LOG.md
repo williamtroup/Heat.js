@@ -16,6 +16,9 @@
 - Added a new public function "clearDate()", which will clear a date for a specific element and refresh the UI.
 - Added a new public function "updateDate()", which will update a date for a specific element and refresh the UI.
 
+#### **UI Changes:**
+- The types/descriptions column in the guide footer now auto fills the remaining space (and the toggle buttons on the right fits to its content size).
+
 #### **Documentation:**
 - Minor documentation improvements.
 

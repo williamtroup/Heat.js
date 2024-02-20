@@ -839,18 +839,23 @@ div.heat-js {
         div.map-types,
         div.map-toggles {
             margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
+            width: 100%;
 
             @media (min-width: $minimum-width) { 
-                flex-basis: 100%;
                 margin-bottom: 0;
             }
         }
 
         div.map-types {
             text-align: center;
+            flex-grow: unset;
+            margin-right: 0;
 
             @media (min-width: $minimum-width) { 
                 text-align: left;
+                width: unset;
+                flex-grow: 1;
+                margin-right: var(--heat-js-spacing);
             }
 
             @include buttons;
@@ -871,6 +876,7 @@ div.heat-js {
             @media (min-width: $minimum-width) { 
                 text-align: right;
                 justify-content: right;
+                width: auto;
             }
 
             div.less-text,
