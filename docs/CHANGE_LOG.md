@@ -1,7 +1,12 @@
 # Heat.js - Change Log:
 
 ## Version 2.5.0:
-- 
+
+#### **Binding Options:**
+- Added a new binding option called "views.map.showNoDataMessageWhenDataIsNotAvailable", which states if the no-data message should be shown instead of empty days when no data is available (defaults to false).
+
+#### **Configuration Options:**
+- Added a new configuration option called "noMapDataMessage", which states the message that should be shown on the map view when there is no data (defaults to "There is currently no data to view.").
 
 <br>
 

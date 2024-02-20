@@ -50,6 +50,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | views.map | *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
 | views.map | *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
 | views.map | *boolean* | showDaysInReverseOrder | States if the days of the week should be in reverse order (defaults to false). |
+| views.map | *boolean* | showNoDataMessageWhenDataIsNotAvailable | States if the no-data message should be shown instead of empty days when no data is available (defaults to false). |
 
 <br/>
 

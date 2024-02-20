@@ -498,6 +498,12 @@ div.heat-js {
     div.map-contents {
         overflow-x: scroll;
         overflow-y: hidden;
+        min-height: 191px;
+        position: relative;
+
+        div.no-data-message {
+            @include centered-label;
+        }
 
         div.map {
             display: inline-flex;

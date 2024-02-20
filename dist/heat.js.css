@@ -329,6 +329,15 @@ div.heat-js div.title-bar button.import {
 div.heat-js div.map-contents {
   overflow-x: scroll;
   overflow-y: hidden;
+  min-height: 191px;
+  position: relative;
+}
+div.heat-js div.map-contents div.no-data-message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: var(--heat-js-text-bold-weight);
 }
 div.heat-js div.map-contents div.map {
   display: inline-flex;

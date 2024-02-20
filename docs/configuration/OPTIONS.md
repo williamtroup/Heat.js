@@ -40,6 +40,7 @@ Below are all the configuration options that can be passed to the "setConfigurat
 | *string* | noStatisticsDataMessage | States the message that should be shown on the chart view when there is no data (defaults to "There is currently no statistics to view."). |
 | *string* | unknownTrendText | The text that should be shown for the "Unknown" trend type button. |
 | *string* | importButtonText | The text that should be shown for the "Import" button. |
+| *string* | noMapDataMessage | States the message that should be shown on the map view when there is no data (defaults to "There is currently no data to view."). |
 
 <br/>
 

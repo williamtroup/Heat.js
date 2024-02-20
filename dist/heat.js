@@ -299,13 +299,6 @@
   }
   function renderControlMap(bindingOptions, isForViewSwitch) {
     bindingOptions.currentView.mapContents = createElement(bindingOptions.currentView.element, "div", "map-contents");
-    makeAreaDroppable(bindingOptions.currentView.mapContents, bindingOptions);
-    var map = createElement(bindingOptions.currentView.mapContents, "div", "map");
-    var currentYear = bindingOptions.currentView.year;
-    var monthAdded = false;
-    if (isForViewSwitch) {
-      addClass(map, "view-switch");
-    }
     if (bindingOptions.views.chart.enabled) {
       renderControlChartContents(bindingOptions);
     }
@@ -313,92 +306,107 @@
       renderControlStatisticsContents(bindingOptions);
     }
     renderControlViewGuide(bindingOptions);
-    if (bindingOptions.views.map.showDayNames) {
-      var days = createElement(map, "div", "days");
-      if (!bindingOptions.views.map.showMonthNames || bindingOptions.views.map.placeMonthNamesOnTheBottom) {
-        days.className = "days-months-bottom";
+    if (bindingOptions.views.map.showNoDataMessageWhenDataIsNotAvailable && !isDataAvailableForYear(bindingOptions)) {
+      var noDataMessage = createElementWithHTML(bindingOptions.currentView.mapContents, "div", "no-data-message", _configuration.noMapDataMessage);
+      if (isForViewSwitch) {
+        addClass(noDataMessage, "view-switch");
       }
-      var dayNameIndex = 0;
-      for (; dayNameIndex < 7; dayNameIndex++) {
-        if (isDayVisible(bindingOptions.views.map.daysToShow, dayNameIndex + 1)) {
-          createElementWithHTML(days, "div", "day-name", _configuration.dayNames[dayNameIndex]);
+    } else {
+      bindingOptions.currentView.mapContents.style.minHeight = "unset";
+      makeAreaDroppable(bindingOptions.currentView.mapContents, bindingOptions);
+      var map = createElement(bindingOptions.currentView.mapContents, "div", "map");
+      var currentYear = bindingOptions.currentView.year;
+      var monthAdded = false;
+      if (isForViewSwitch) {
+        addClass(map, "view-switch");
+      }
+      if (bindingOptions.views.map.showDayNames) {
+        var days = createElement(map, "div", "days");
+        if (!bindingOptions.views.map.showMonthNames || bindingOptions.views.map.placeMonthNamesOnTheBottom) {
+          days.className = "days-months-bottom";
+        }
+        var dayNameIndex = 0;
+        for (; dayNameIndex < 7; dayNameIndex++) {
+          if (isDayVisible(bindingOptions.views.map.daysToShow, dayNameIndex + 1)) {
+            createElementWithHTML(days, "div", "day-name", _configuration.dayNames[dayNameIndex]);
+          }
+        }
+        if (bindingOptions.views.map.showDaysInReverseOrder) {
+          reverseElementsOrder(days);
         }
       }
-      if (bindingOptions.views.map.showDaysInReverseOrder) {
-        reverseElementsOrder(days);
-      }
-    }
-    var months = createElement(map, "div", "months");
-    var colorRanges = getSortedColorRanges(bindingOptions);
-    var monthIndex = 0;
-    for (; monthIndex < 12; monthIndex++) {
-      if (isMonthVisible(bindingOptions.views.map.monthsToShow, monthIndex)) {
-        var month = createElement(months, "div", "month");
-        var dayColumns = createElement(month, "div", "day-columns");
-        var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex);
-        var currentDayColumn = createElement(dayColumns, "div", "day-column");
-        var startFillingDays = false;
-        var firstDayInMonth = new Date(currentYear, monthIndex, 1);
-        var firstDayNumberInMonth = getWeekdayNumber(firstDayInMonth);
-        var actualDay = 1;
-        totalDaysInMonth = totalDaysInMonth + firstDayNumberInMonth;
-        var dayIndex = 0;
-        for (; dayIndex < totalDaysInMonth; dayIndex++) {
-          if (dayIndex >= firstDayNumberInMonth) {
-            startFillingDays = true;
-          } else {
-            if (isDayVisible(bindingOptions.views.map.daysToShow, actualDay)) {
-              createElement(currentDayColumn, "div", "day-disabled");
-            }
-          }
-          if (startFillingDays) {
-            var day = null;
-            if (isDayVisible(bindingOptions.views.map.daysToShow, actualDay)) {
-              day = renderControlMapMonthDay(bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, colorRanges);
-            }
-            if ((dayIndex + 1) % 7 === 0) {
-              if (bindingOptions.views.map.showDaysInReverseOrder) {
-                reverseElementsOrder(currentDayColumn);
-              }
-              currentDayColumn = createElement(dayColumns, "div", "day-column");
-              actualDay = 0;
-              if (!isDefined(_elements_Day_Width) && isDefined(day)) {
-                var marginLeft = getStyleValueByName(day, "margin-left", true);
-                var marginRight = getStyleValueByName(day, "margin-right", true);
-                _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
-              }
-            }
-          }
-          actualDay++;
-        }
-        if (bindingOptions.views.map.showMonthNames) {
-          var monthName = null;
-          var monthWidth = month.offsetWidth;
-          if (!bindingOptions.views.map.placeMonthNamesOnTheBottom) {
-            monthName = createElementWithHTML(month, "div", "month-name", _configuration.monthNames[monthIndex], dayColumns);
-          } else {
-            monthName = createElementWithHTML(month, "div", "month-name-bottom", _configuration.monthNames[monthIndex]);
-          }
-          if (isDefined(monthName)) {
-            if (bindingOptions.views.map.showMonthDayGaps) {
-              monthName.style.width = monthWidth + "px";
+      var months = createElement(map, "div", "months");
+      var colorRanges = getSortedColorRanges(bindingOptions);
+      var monthIndex = 0;
+      for (; monthIndex < 12; monthIndex++) {
+        if (isMonthVisible(bindingOptions.views.map.monthsToShow, monthIndex)) {
+          var month = createElement(months, "div", "month");
+          var dayColumns = createElement(month, "div", "day-columns");
+          var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex);
+          var currentDayColumn = createElement(dayColumns, "div", "day-column");
+          var startFillingDays = false;
+          var firstDayInMonth = new Date(currentYear, monthIndex, 1);
+          var firstDayNumberInMonth = getWeekdayNumber(firstDayInMonth);
+          var actualDay = 1;
+          totalDaysInMonth = totalDaysInMonth + firstDayNumberInMonth;
+          var dayIndex = 0;
+          for (; dayIndex < totalDaysInMonth; dayIndex++) {
+            if (dayIndex >= firstDayNumberInMonth) {
+              startFillingDays = true;
             } else {
-              monthName.style.width = monthWidth - _elements_Day_Width + "px";
+              if (isDayVisible(bindingOptions.views.map.daysToShow, actualDay)) {
+                createElement(currentDayColumn, "div", "day-disabled");
+              }
+            }
+            if (startFillingDays) {
+              var day = null;
+              if (isDayVisible(bindingOptions.views.map.daysToShow, actualDay)) {
+                day = renderControlMapMonthDay(bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, colorRanges);
+              }
+              if ((dayIndex + 1) % 7 === 0) {
+                if (bindingOptions.views.map.showDaysInReverseOrder) {
+                  reverseElementsOrder(currentDayColumn);
+                }
+                currentDayColumn = createElement(dayColumns, "div", "day-column");
+                actualDay = 0;
+                if (!isDefined(_elements_Day_Width) && isDefined(day)) {
+                  var marginLeft = getStyleValueByName(day, "margin-left", true);
+                  var marginRight = getStyleValueByName(day, "margin-right", true);
+                  _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
+                }
+              }
+            }
+            actualDay++;
+          }
+          if (bindingOptions.views.map.showMonthNames) {
+            var monthName = null;
+            var monthWidth = month.offsetWidth;
+            if (!bindingOptions.views.map.placeMonthNamesOnTheBottom) {
+              monthName = createElementWithHTML(month, "div", "month-name", _configuration.monthNames[monthIndex], dayColumns);
+            } else {
+              monthName = createElementWithHTML(month, "div", "month-name-bottom", _configuration.monthNames[monthIndex]);
+            }
+            if (isDefined(monthName)) {
+              if (bindingOptions.views.map.showMonthDayGaps) {
+                monthName.style.width = monthWidth + "px";
+              } else {
+                monthName.style.width = monthWidth - _elements_Day_Width + "px";
+              }
             }
           }
-        }
-        if (monthAdded && isDefined(_elements_Day_Width)) {
-          if (firstDayNumberInMonth > 0 && !bindingOptions.views.map.showMonthDayGaps) {
-            month.style.marginLeft = -_elements_Day_Width + "px";
-          } else if (firstDayNumberInMonth === 0 && bindingOptions.views.map.showMonthDayGaps) {
-            month.style.marginLeft = _elements_Day_Width + "px";
+          if (monthAdded && isDefined(_elements_Day_Width)) {
+            if (firstDayNumberInMonth > 0 && !bindingOptions.views.map.showMonthDayGaps) {
+              month.style.marginLeft = -_elements_Day_Width + "px";
+            } else if (firstDayNumberInMonth === 0 && bindingOptions.views.map.showMonthDayGaps) {
+              month.style.marginLeft = _elements_Day_Width + "px";
+            }
           }
+          monthAdded = true;
         }
-        monthAdded = true;
       }
-    }
-    if (bindingOptions.keepScrollPositions) {
-      bindingOptions.currentView.mapContents.scrollLeft = bindingOptions.currentView.mapContentsScrollLeft;
+      if (bindingOptions.keepScrollPositions) {
+        bindingOptions.currentView.mapContents.scrollLeft = bindingOptions.currentView.mapContentsScrollLeft;
+      }
     }
   }
   function renderControlMapMonthDay(bindingOptions, currentDayColumn, dayNumber, month, year, colorRanges) {
@@ -431,6 +439,21 @@
       }
     }
     return day;
+  }
+  function isDataAvailableForYear(bindingOptions) {
+    var result = false;
+    var data = getCurrentViewData(bindingOptions);
+    var checkDate = bindingOptions.currentView.year.toString();
+    var storageDate;
+    for (storageDate in data) {
+      if (data.hasOwnProperty(storageDate)) {
+        if (getStorageDateYear(storageDate) === checkDate) {
+          result = true;
+          break;
+        }
+      }
+    }
+    return result;
   }
   function renderControlChartContents(bindingOptions) {
     bindingOptions.currentView.chartContents = createElement(bindingOptions.currentView.element, "div", "chart-contents");
@@ -1271,6 +1294,7 @@
     options.views.map.showDayNumbers = getDefaultBoolean(options.views.map.showDayNumbers, false);
     options.views.map.showMonthNames = getDefaultBoolean(options.views.map.showMonthNames, true);
     options.views.map.showDaysInReverseOrder = getDefaultBoolean(options.views.map.showDaysInReverseOrder, false);
+    options.views.map.showNoDataMessageWhenDataIsNotAvailable = getDefaultBoolean(options.views.map.showNoDataMessageWhenDataIsNotAvailable, false);
     if (isInvalidOptionArray(options.views.map.monthsToShow)) {
       options.views.map.monthsToShow = _default_MonthsToShow;
     }
@@ -1592,6 +1616,7 @@
     _configuration.noStatisticsDataMessage = getDefaultString(_configuration.noStatisticsDataMessage, "There are currently no statistics to view.");
     _configuration.unknownTrendText = getDefaultString(_configuration.unknownTrendText, "Unknown");
     _configuration.importButtonText = getDefaultString(_configuration.importButtonText, "Import");
+    _configuration.noMapDataMessage = getDefaultString(_configuration.noMapDataMessage, "There is currently no data to view.");
   }
   function buildDefaultConfigurationArrays() {
     if (isInvalidOptionArray(_configuration.monthNames, 12)) {
