@@ -1257,15 +1257,16 @@
       var colorRangesLength = options.colorRanges.length;
       var colorRangeIndex = 0;
       for (; colorRangeIndex < colorRangesLength; colorRangeIndex++) {
-        options.colorRanges[colorRangeIndex].id = getDefaultString(options.colorRanges[colorRangeIndex].id, newGuid());
-        options.colorRanges[colorRangeIndex].name = getDefaultString(options.colorRanges[colorRangeIndex].name, null);
-        options.colorRanges[colorRangeIndex].minimum = getDefaultNumber(options.colorRanges[colorRangeIndex].minimum, 0);
-        options.colorRanges[colorRangeIndex].cssClassName = getDefaultString(options.colorRanges[colorRangeIndex].cssClassName, null);
-        options.colorRanges[colorRangeIndex].mapCssClassName = getDefaultString(options.colorRanges[colorRangeIndex].mapCssClassName, null);
-        options.colorRanges[colorRangeIndex].chartCssClassName = getDefaultString(options.colorRanges[colorRangeIndex].chartCssClassName, null);
-        options.colorRanges[colorRangeIndex].statisticsCssClassName = getDefaultString(options.colorRanges[colorRangeIndex].statisticsCssClassName, null);
-        options.colorRanges[colorRangeIndex].tooltipText = getDefaultString(options.colorRanges[colorRangeIndex].tooltipText, null);
-        options.colorRanges[colorRangeIndex].visible = getDefaultBoolean(options.colorRanges[colorRangeIndex].visible, true);
+        var colorRange = options.colorRanges[colorRangeIndex];
+        colorRange.id = getDefaultString(colorRange.id, newGuid());
+        colorRange.name = getDefaultString(colorRange.name, null);
+        colorRange.minimum = getDefaultNumber(colorRange.minimum, 0);
+        colorRange.cssClassName = getDefaultString(colorRange.cssClassName, null);
+        colorRange.mapCssClassName = getDefaultString(colorRange.mapCssClassName, null);
+        colorRange.chartCssClassName = getDefaultString(colorRange.chartCssClassName, null);
+        colorRange.statisticsCssClassName = getDefaultString(colorRange.statisticsCssClassName, null);
+        colorRange.tooltipText = getDefaultString(colorRange.tooltipText, null);
+        colorRange.visible = getDefaultBoolean(colorRange.visible, true);
       }
     } else {
       options.colorRanges = [{id:newGuid(), name:"Day Color 1", minimum:10, cssClassName:"day-color-1", tooltipText:"Day Color 1", visible:true}, {id:newGuid(), name:"Day Color 2", minimum:15, cssClassName:"day-color-2", tooltipText:"Day Color 2", visible:true}, {id:newGuid(), name:"Day Color 3", minimum:20, cssClassName:"day-color-3", tooltipText:"Day Color 3", visible:true}, {id:newGuid(), name:"Day Color 4", minimum:25, cssClassName:"day-color-4", tooltipText:"Day Color 4", visible:true}];
@@ -1277,9 +1278,10 @@
       var holidaysLength = options.holidays.length;
       var holidayIndex = 0;
       for (; holidayIndex < holidaysLength; holidayIndex++) {
-        options.holidays[holidayIndex].date = getDefaultString(options.holidays[holidayIndex].date, null);
-        options.holidays[holidayIndex].name = getDefaultString(options.holidays[holidayIndex].name, null);
-        options.holidays[holidayIndex].showInViews = getDefaultBoolean(options.holidays[holidayIndex].showInViews, true);
+        var holiday = options.holidays[holidayIndex];
+        holiday.date = getDefaultString(holiday.date, null);
+        holiday.name = getDefaultString(holiday.name, null);
+        holiday.showInViews = getDefaultBoolean(holiday.showInViews, true);
       }
     } else {
       options.holidays = [];
