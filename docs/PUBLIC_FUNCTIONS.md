@@ -1,4 +1,4 @@
-# Heat.js - Functions:
+# Heat.js - Public Functions:
 
 Below is a list of all the public functions that can be called from the Heat.js instance.
 <br>
