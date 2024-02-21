@@ -17,6 +17,7 @@
 - Added a new public function "updateDate()", which will update a date for a specific element and refresh the UI.
 
 #### **Translations:**
+- Added translation support for Frisian (fy).
 - Added translation support for Sinhalese (si).
 - Added translation support for Tagalog (tl).
 - Added translation support for Tamil (ta).
