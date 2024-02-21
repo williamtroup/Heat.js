@@ -1,0 +1,46 @@
+/*! Heat.js v2.5.0 - Sinhalese | (c) Bunoon 2024 | MIT License */
+$heat.setConfiguration( {
+        "stText": "",
+        "ndText": "",
+        "rdText": "",
+        "thText": "",
+        "backButtonText": "ආපසු",
+        "nextButtonText": "ඊළඟ",
+        "refreshButtonText": "නැවුම් කරන්න",
+        "exportButtonText": "අපනයන",
+        "lessText": "අඩු",
+        "moreText": "තව",
+        "dateText": "දිනය",
+        "countText": "ගණන් කරන්න",
+        "mapText": "සිතියම",
+        "chartText": "සටහන",
+        "noChartDataMessage": "බැලීම සඳහා දැනට දත්ත නොමැත.",
+        "noMapDataMessage": "බැලීම සඳහා දැනට දත්ත නොමැත.",
+        "statisticsText": "සංඛ්යා ලේඛන",
+        "noStatisticsDataMessage": "බැලීමට දැනට සංඛ්‍යාලේඛන නොමැත.",
+        "unknownTrendText": "නොදන්නා",
+        "importButtonText": "ආනයන",
+        "monthNames": [
+                "ජන",
+                "පෙබ",
+                "මාර්තු",
+                "අප්රේල්",
+                "මැයි",
+                "ජූනි",
+                "ජුලි",
+                "අගෝස්තු",
+                "සැප්",
+                "ඔක්",
+                "නොවැම්බර්",
+                "දෙසැ"
+        ],
+        "dayNames": [
+                "සඳු",
+                "අඟහරුවාදා",
+                "බදාදා",
+                "බ්රහස්පතින්දා",
+                "සිකු",
+                "සෙනසුරාදා",
+                "හිරු"
+        ]
+} );

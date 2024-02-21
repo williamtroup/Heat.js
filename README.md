@@ -28,7 +28,7 @@ Heat.js
 - Toggling colors on/off support.
 - Export all data to CSV, JSON, XML, and TXT.
 - Import data from JSON and TXT.
-- 45 language translations available!
+- 50 language translations available!
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.
 - 12 additional themes available (for dark and light mode).
@@ -85,10 +85,15 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `pl` Polish
 - `pt` Portuguese
 - `ro` Romanian
+- `si` Sinhalese
 - `sk` Slovak
 - `sl` Slovenian
 - `es` Spanish
 - `sv` Swedish
+- `tl` Tagalog
+- `ta` Tamil
+- `zh-tw` Taiwanese
+- `te` Telugu
 - `th` Thai
 - `tr` Turkish
 - `uk` Ukrainian

@@ -16,6 +16,13 @@
 - Added a new public function "clearDate()", which will clear a date for a specific element and refresh the UI.
 - Added a new public function "updateDate()", which will update a date for a specific element and refresh the UI.
 
+#### **Translations:**
+- Added translation support for Sinhalese (si).
+- Added translation support for Tagalog (tl).
+- Added translation support for Tamil (ta).
+- Added translation support for Taiwanese (zh-tw).
+- Added translation support for Telugu (te).
+
 #### **UI Changes:**
 - The types/descriptions column in the guide footer now auto fills the remaining space (and the toggle buttons on the right fits to its content size).
 
