@@ -25,7 +25,7 @@
 - Added translation support for Telugu (te).
 
 #### **UI Changes:**
-- The types/descriptions column in the guide footer now auto fills the remaining space (and the toggle buttons on the right fits to its content size).
+- The types/descriptions column in the guide footer now auto-fills the remaining space (and the toggle buttons on the right fit to its content size).
 
 #### **Documentation:**
 - Minor documentation improvements.
