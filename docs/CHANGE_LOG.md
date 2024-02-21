@@ -1,5 +1,38 @@
 # Heat.js - Change Log:
 
+## Version 2.5.0:
+
+#### **Binding Options:**
+- Added a new binding option called "views.map.showNoDataMessageWhenDataIsNotAvailable", which states if the no-data message should be shown instead of empty days when no data is available (defaults to false).
+
+#### **Configuration Options:**
+- Added a new configuration option called "noMapDataMessage", which states the message that should be shown on the map view when there is no data (defaults to "There is currently no data to view.").
+
+#### **Binding Options - Custom Triggers:**
+- Added a new binding option custom trigger called "onClear", which states an event that should be triggered when a date is cleared for an element.
+- Added a new binding option custom trigger called "onUpdate", which states an event that should be triggered when a date is updated for an element.
+
+#### **Public Functions:**
+- Added a new public function "clearDate()", which will clear a date for a specific element and refresh the UI.
+- Added a new public function "updateDate()", which will update a date for a specific element and refresh the UI.
+
+#### **Translations:**
+- Added translation support for Frisian (fy).
+- Added translation support for Sinhalese (si).
+- Added translation support for Tagalog (tl).
+- Added translation support for Tamil (ta).
+- Added translation support for Taiwanese (zh-tw).
+- Added translation support for Telugu (te).
+
+#### **UI Changes:**
+- The types/descriptions column in the guide footer now auto-fills the remaining space (and the toggle buttons on the right fit to its content size).
+
+#### **Documentation:**
+- Minor documentation improvements.
+
+<br>
+
+
 ## Version 2.4.0:
 
 #### **New Features:**

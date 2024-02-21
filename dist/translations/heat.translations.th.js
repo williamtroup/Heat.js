@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Thai | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Thai | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "แผนที่",
         "chartText": "แผนภูมิ",
         "noChartDataMessage": "ขณะนี้ไม่มีข้อมูลให้ดู",
+        "noMapDataMessage": "ขณะนี้ไม่มีข้อมูลให้ดู",
         "statisticsText": "สถิติ",
         "noStatisticsDataMessage": "ขณะนี้ไม่มีสถิติให้ดู",
         "unknownTrendText": "ไม่ทราบ",

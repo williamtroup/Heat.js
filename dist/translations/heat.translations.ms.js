@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Malay | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Malay | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Peta",
         "chartText": "Carta",
         "noChartDataMessage": "Pada masa ini tiada data untuk dilihat.",
+        "noMapDataMessage": "Pada masa ini tiada data untuk dilihat.",
         "statisticsText": "Perangkaan",
         "noStatisticsDataMessage": "Pada masa ini tiada statistik untuk dilihat.",
         "unknownTrendText": "Tidak diketahui",

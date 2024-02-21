@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v2.4.0
+ * @version     v2.5.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -492,16 +492,6 @@
     function renderControlMap( bindingOptions, isForViewSwitch ) {
         bindingOptions.currentView.mapContents = createElement( bindingOptions.currentView.element, "div", "map-contents" );
 
-        makeAreaDroppable( bindingOptions.currentView.mapContents, bindingOptions );
-
-        var map = createElement( bindingOptions.currentView.mapContents, "div", "map" ),
-            currentYear = bindingOptions.currentView.year,
-            monthAdded = false;
-
-        if ( isForViewSwitch ) {
-            addClass( map, "view-switch" );
-        }
-
         if ( bindingOptions.views.chart.enabled ) {
             renderControlChartContents( bindingOptions );
         }
@@ -512,110 +502,131 @@
 
         renderControlViewGuide( bindingOptions );
 
-        if ( bindingOptions.views.map.showDayNames ) {
-            var days = createElement( map, "div", "days" );
+        if ( bindingOptions.views.map.showNoDataMessageWhenDataIsNotAvailable && !isDataAvailableForYear( bindingOptions ) ) {
+            var noDataMessage = createElementWithHTML( bindingOptions.currentView.mapContents, "div", "no-data-message", _configuration.noMapDataMessage );
 
-            if ( !bindingOptions.views.map.showMonthNames || bindingOptions.views.map.placeMonthNamesOnTheBottom ) {
-                days.className = "days-months-bottom";
+            if ( isForViewSwitch ) {
+                addClass( noDataMessage, "view-switch" );
+            }
+
+        } else {
+            bindingOptions.currentView.mapContents.style.minHeight = "unset";
+
+            makeAreaDroppable( bindingOptions.currentView.mapContents, bindingOptions );
+
+            var map = createElement( bindingOptions.currentView.mapContents, "div", "map" ),
+                currentYear = bindingOptions.currentView.year,
+                monthAdded = false;
+    
+            if ( isForViewSwitch ) {
+                addClass( map, "view-switch" );
             }
     
-            for ( var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++ ) {
-                if ( isDayVisible( bindingOptions.views.map.daysToShow, dayNameIndex + 1 ) ) {
-                    createElementWithHTML( days, "div", "day-name", _configuration.dayNames[ dayNameIndex ] );
+            if ( bindingOptions.views.map.showDayNames ) {
+                var days = createElement( map, "div", "days" );
+    
+                if ( !bindingOptions.views.map.showMonthNames || bindingOptions.views.map.placeMonthNamesOnTheBottom ) {
+                    days.className = "days-months-bottom";
                 }
-            }
-
-            if ( bindingOptions.views.map.showDaysInReverseOrder ) {
-                reverseElementsOrder( days );
-            }
-        }
-
-        var months = createElement( map, "div", "months" ),
-            colorRanges = getSortedColorRanges( bindingOptions );
-
-        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
-            if ( isMonthVisible( bindingOptions.views.map.monthsToShow, monthIndex ) ) {
-                var month = createElement( months, "div", "month" ),
-                    dayColumns = createElement( month, "div", "day-columns" ),
-                    totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
-                    currentDayColumn = createElement( dayColumns, "div", "day-column" ),
-                    startFillingDays = false,
-                    firstDayInMonth = new Date( currentYear, monthIndex, 1 ),
-                    firstDayNumberInMonth = getWeekdayNumber( firstDayInMonth ),
-                    actualDay = 1;
-    
-                totalDaysInMonth += firstDayNumberInMonth;
-    
-                for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                    if ( dayIndex >= firstDayNumberInMonth ) {
-                        startFillingDays = true;
-    
-                    } else {
-                        if ( isDayVisible( bindingOptions.views.map.daysToShow, actualDay ) ) {
-                            createElement( currentDayColumn, "div", "day-disabled" );
-                        }
-                    }
-    
-                    if ( startFillingDays ) {
-                        var day = null;
-
-                        if ( isDayVisible( bindingOptions.views.map.daysToShow, actualDay ) ) {
-                            day = renderControlMapMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, colorRanges );
-                        }
         
-                        if ( ( dayIndex + 1 ) % 7 === 0 ) {
-                            if ( bindingOptions.views.map.showDaysInReverseOrder ) {
-                                reverseElementsOrder( currentDayColumn );
-                            }
-
-                            currentDayColumn = createElement( dayColumns, "div", "day-column" );
-                            actualDay = 0;
-
-                            if ( !isDefined( _elements_Day_Width ) && isDefined( day ) ) {
-                                var marginLeft = getStyleValueByName( day, "margin-left", true ),
-                                    marginRight = getStyleValueByName( day, "margin-right", true );
-                                
-                                _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
-                            }
-                        }
+                for ( var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++ ) {
+                    if ( isDayVisible( bindingOptions.views.map.daysToShow, dayNameIndex + 1 ) ) {
+                        createElementWithHTML( days, "div", "day-name", _configuration.dayNames[ dayNameIndex ] );
                     }
-
-                    actualDay++;
                 }
-
-                if ( bindingOptions.views.map.showMonthNames ) {
-                    var monthName = null,
-                        monthWidth = month.offsetWidth;
-
-                    if ( !bindingOptions.views.map.placeMonthNamesOnTheBottom ) {
-                        monthName = createElementWithHTML( month, "div", "month-name", _configuration.monthNames[ monthIndex ], dayColumns );
-                    } else {
-                        monthName = createElementWithHTML( month, "div", "month-name-bottom", _configuration.monthNames[ monthIndex ] );
-                    }
-
-                    if ( isDefined( monthName ) ) {
-                        if ( bindingOptions.views.map.showMonthDayGaps ) {
-                            monthName.style.width = monthWidth + "px";
+    
+                if ( bindingOptions.views.map.showDaysInReverseOrder ) {
+                    reverseElementsOrder( days );
+                }
+            }
+    
+            var months = createElement( map, "div", "months" ),
+                colorRanges = getSortedColorRanges( bindingOptions );
+    
+            for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+                if ( isMonthVisible( bindingOptions.views.map.monthsToShow, monthIndex ) ) {
+                    var month = createElement( months, "div", "month" ),
+                        dayColumns = createElement( month, "div", "day-columns" ),
+                        totalDaysInMonth = getTotalDaysInMonth( currentYear, monthIndex ),
+                        currentDayColumn = createElement( dayColumns, "div", "day-column" ),
+                        startFillingDays = false,
+                        firstDayInMonth = new Date( currentYear, monthIndex, 1 ),
+                        firstDayNumberInMonth = getWeekdayNumber( firstDayInMonth ),
+                        actualDay = 1;
+        
+                    totalDaysInMonth += firstDayNumberInMonth;
+        
+                    for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                        if ( dayIndex >= firstDayNumberInMonth ) {
+                            startFillingDays = true;
+        
                         } else {
-                            monthName.style.width = ( monthWidth - _elements_Day_Width ) + "px";
+                            if ( isDayVisible( bindingOptions.views.map.daysToShow, actualDay ) ) {
+                                createElement( currentDayColumn, "div", "day-disabled" );
+                            }
+                        }
+        
+                        if ( startFillingDays ) {
+                            var day = null;
+    
+                            if ( isDayVisible( bindingOptions.views.map.daysToShow, actualDay ) ) {
+                                day = renderControlMapMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, colorRanges );
+                            }
+            
+                            if ( ( dayIndex + 1 ) % 7 === 0 ) {
+                                if ( bindingOptions.views.map.showDaysInReverseOrder ) {
+                                    reverseElementsOrder( currentDayColumn );
+                                }
+    
+                                currentDayColumn = createElement( dayColumns, "div", "day-column" );
+                                actualDay = 0;
+    
+                                if ( !isDefined( _elements_Day_Width ) && isDefined( day ) ) {
+                                    var marginLeft = getStyleValueByName( day, "margin-left", true ),
+                                        marginRight = getStyleValueByName( day, "margin-right", true );
+                                    
+                                    _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
+                                }
+                            }
+                        }
+    
+                        actualDay++;
+                    }
+    
+                    if ( bindingOptions.views.map.showMonthNames ) {
+                        var monthName = null,
+                            monthWidth = month.offsetWidth;
+    
+                        if ( !bindingOptions.views.map.placeMonthNamesOnTheBottom ) {
+                            monthName = createElementWithHTML( month, "div", "month-name", _configuration.monthNames[ monthIndex ], dayColumns );
+                        } else {
+                            monthName = createElementWithHTML( month, "div", "month-name-bottom", _configuration.monthNames[ monthIndex ] );
+                        }
+    
+                        if ( isDefined( monthName ) ) {
+                            if ( bindingOptions.views.map.showMonthDayGaps ) {
+                                monthName.style.width = monthWidth + "px";
+                            } else {
+                                monthName.style.width = ( monthWidth - _elements_Day_Width ) + "px";
+                            }
                         }
                     }
-                }
-
-                if ( monthAdded && isDefined( _elements_Day_Width ) ) {
-                    if ( firstDayNumberInMonth > 0 && !bindingOptions.views.map.showMonthDayGaps ) {
-                        month.style.marginLeft = -_elements_Day_Width + "px";
-                    } else if ( firstDayNumberInMonth === 0 && bindingOptions.views.map.showMonthDayGaps ) {
-                        month.style.marginLeft = _elements_Day_Width + "px";
+    
+                    if ( monthAdded && isDefined( _elements_Day_Width ) ) {
+                        if ( firstDayNumberInMonth > 0 && !bindingOptions.views.map.showMonthDayGaps ) {
+                            month.style.marginLeft = -_elements_Day_Width + "px";
+                        } else if ( firstDayNumberInMonth === 0 && bindingOptions.views.map.showMonthDayGaps ) {
+                            month.style.marginLeft = _elements_Day_Width + "px";
+                        }
                     }
+    
+                    monthAdded = true;
                 }
-
-                monthAdded = true;
             }
-        }
-        
-        if ( bindingOptions.keepScrollPositions ) {
-            bindingOptions.currentView.mapContents.scrollLeft = bindingOptions.currentView.mapContentsScrollLeft;
+            
+            if ( bindingOptions.keepScrollPositions ) {
+                bindingOptions.currentView.mapContents.scrollLeft = bindingOptions.currentView.mapContentsScrollLeft;
+            }
         }
     }
 
@@ -657,6 +668,23 @@
         }
 
         return day;
+    }
+
+    function isDataAvailableForYear( bindingOptions ) {
+        var result = false,
+            data = getCurrentViewData( bindingOptions ),
+            checkDate = bindingOptions.currentView.year.toString();
+
+        for ( var storageDate in data ) {
+            if ( data.hasOwnProperty( storageDate ) ) {
+                if ( getStorageDateYear( storageDate ) === checkDate ) {
+                    result = true;
+                    break;
+                }
+            }
+        }
+
+        return result;
     }
 
 
@@ -1677,7 +1705,7 @@
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Options
+     * Attribute Options
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
@@ -1714,8 +1742,9 @@
         options = buildAttributeOptionChartView( options );
         options = buildAttributeOptionStatisticsView( options );
         options = buildAttributeOptionStrings( options );
+        options = buildAttributeOptionCustomTriggers( options );
         
-        return buildAttributeOptionCustomTriggers( options );
+        return options;
     }
 
     function buildAttributeOptionColorRanges( options ) {
@@ -1723,15 +1752,17 @@
             var colorRangesLength = options.colorRanges.length;
 
             for ( var colorRangeIndex = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
-                options.colorRanges[ colorRangeIndex ].id = getDefaultString( options.colorRanges[ colorRangeIndex ].id, newGuid() );
-                options.colorRanges[ colorRangeIndex ].name = getDefaultString( options.colorRanges[ colorRangeIndex ].name, null );
-                options.colorRanges[ colorRangeIndex ].minimum = getDefaultNumber( options.colorRanges[ colorRangeIndex ].minimum, 0 );
-                options.colorRanges[ colorRangeIndex ].cssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].cssClassName, null );
-                options.colorRanges[ colorRangeIndex ].mapCssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].mapCssClassName, null );
-                options.colorRanges[ colorRangeIndex ].chartCssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].chartCssClassName, null );
-                options.colorRanges[ colorRangeIndex ].statisticsCssClassName = getDefaultString( options.colorRanges[ colorRangeIndex ].statisticsCssClassName, null );
-                options.colorRanges[ colorRangeIndex ].tooltipText = getDefaultString( options.colorRanges[ colorRangeIndex ].tooltipText, null );
-                options.colorRanges[ colorRangeIndex ].visible = getDefaultBoolean( options.colorRanges[ colorRangeIndex ].visible, true );
+                var colorRange = options.colorRanges[ colorRangeIndex ];
+
+                colorRange.id = getDefaultString( colorRange.id, newGuid() );
+                colorRange.name = getDefaultString( colorRange.name, null );
+                colorRange.minimum = getDefaultNumber( colorRange.minimum, 0 );
+                colorRange.cssClassName = getDefaultString( colorRange.cssClassName, null );
+                colorRange.mapCssClassName = getDefaultString( colorRange.mapCssClassName, null );
+                colorRange.chartCssClassName = getDefaultString( colorRange.chartCssClassName, null );
+                colorRange.statisticsCssClassName = getDefaultString( colorRange.statisticsCssClassName, null );
+                colorRange.tooltipText = getDefaultString( colorRange.tooltipText, null );
+                colorRange.visible = getDefaultBoolean( colorRange.visible, true );
             }
 
         } else {
@@ -1779,9 +1810,11 @@
             var holidaysLength = options.holidays.length;
 
             for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-                options.holidays[ holidayIndex ].date = getDefaultString( options.holidays[ holidayIndex ].date, null );
-                options.holidays[ holidayIndex ].name = getDefaultString( options.holidays[ holidayIndex ].name, null );
-                options.holidays[ holidayIndex ].showInViews = getDefaultBoolean( options.holidays[ holidayIndex ].showInViews, true );
+                var holiday = options.holidays[ holidayIndex ];
+                
+                holiday.date = getDefaultString( holiday.date, null );
+                holiday.name = getDefaultString( holiday.name, null );
+                holiday.showInViews = getDefaultBoolean( holiday.showInViews, true );
             }
 
         } else {
@@ -1799,6 +1832,7 @@
         options.views.map.showDayNumbers = getDefaultBoolean( options.views.map.showDayNumbers, false );
         options.views.map.showMonthNames = getDefaultBoolean( options.views.map.showMonthNames, true );
         options.views.map.showDaysInReverseOrder = getDefaultBoolean( options.views.map.showDaysInReverseOrder, false );
+        options.views.map.showNoDataMessageWhenDataIsNotAvailable = getDefaultBoolean( options.views.map.showNoDataMessageWhenDataIsNotAvailable, false );
 
         if ( isInvalidOptionArray( options.views.map.monthsToShow ) ) {
             options.views.map.monthsToShow = _default_MonthsToShow;
@@ -1874,6 +1908,8 @@
         options.onImport = getDefaultFunction( options.onImport, null );
         options.onStatisticClick = getDefaultFunction( options.onStatisticClick, null );
         options.onDataFetch = getDefaultFunction( options.onDataFetch, null );
+        options.onClear = getDefaultFunction( options.onClear, null );
+        options.onUpdate = getDefaultFunction( options.onUpdate, null );
 
         return options;
     }
@@ -2260,7 +2296,7 @@
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
      * @param       {Date[]}    dates                                       The dates to add.
-     * @param       {string}    [type]                                      The trend type (defaults to "None").
+     * @param       {string}    [type]                                      The trend type (defaults to "Unknown").
      * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
@@ -2298,7 +2334,7 @@
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
      * @param       {Date}      date                                        The date to add.
-     * @param       {string}    [type]                                      The trend type (defaults to "None").
+     * @param       {string}    [type]                                      The trend type (defaults to "Unknown").
      * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
@@ -2336,6 +2372,48 @@
     };
 
     /**
+     * updateDate().
+     * 
+     * Updates a date for a specific element ID, and refreshes the UI (if specified).
+     * 
+     * @public
+     * @fires       onUpdate
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
+     * @param       {Date}      date                                        The date to update.
+     * @param       {number}    count                                       The count that should be shown.
+     * @param       {string}    [type]                                      The trend type (defaults to "Unknown").
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.updateDate = function( elementId, date, count, type, triggerRefresh ) {
+        if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+            
+            if ( !bindingOptions.currentView.isInFetchMode && count > 0 ) {
+                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
+
+                var storageDate = toStorageDate( date );
+    
+                if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
+                    triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+    
+                    _elements_DateCounts[ elementId ].type[ type ][ storageDate ] = count;
+    
+                    fireCustomTrigger( bindingOptions.onUpdate, bindingOptions.currentView.element );
+    
+                    if ( triggerRefresh ) {
+                        renderControlContainer( bindingOptions, true );
+                    }
+                }
+            }
+        }
+
+        return this;
+    };
+
+    /**
      * removeDates().
      * 
      * Removes an array of dates for a specific element ID, and refreshes the UI (if specified). If the dates already exist, their values are decreased by one.
@@ -2345,7 +2423,7 @@
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date[]}    dates                                       The dates to removed.
-     * @param       {string}    [type]                                      The trend type (defaults to "None").
+     * @param       {string}    [type]                                      The trend type (defaults to "Unknown").
      * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
@@ -2383,7 +2461,7 @@
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date}      date                                        The date to removed.
-     * @param       {string}    [type]                                      The trend type (defaults to "None").
+     * @param       {string}    [type]                                      The trend type (defaults to "Unknown").
      * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
@@ -2405,6 +2483,47 @@
                     }
     
                     fireCustomTrigger( bindingOptions.onRemove, bindingOptions.currentView.element );
+    
+                    if ( triggerRefresh ) {
+                        renderControlContainer( bindingOptions, true );
+                    }
+                }
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * clearDate().
+     * 
+     * Clears a date for a specific element ID, and refreshes the UI (if specified).
+     * 
+     * @public
+     * @fires       onClear
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
+     * @param       {Date}      date                                        The date to clear.
+     * @param       {string}    [type]                                      The trend type (defaults to "Unknown").
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    this.clearDate = function( elementId, date, type, triggerRefresh ) {
+        if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            var bindingOptions = _elements_DateCounts[ elementId ].options;
+            
+            if ( !bindingOptions.currentView.isInFetchMode ) {
+                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
+
+                var storageDate = toStorageDate( date );
+    
+                if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
+                    triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+    
+                    delete _elements_DateCounts[ elementId ].type[ type ][ storageDate ];
+    
+                    fireCustomTrigger( bindingOptions.onClear, bindingOptions.currentView.element );
     
                     if ( triggerRefresh ) {
                         renderControlContainer( bindingOptions, true );
@@ -3022,6 +3141,7 @@
         _configuration.noStatisticsDataMessage = getDefaultString( _configuration.noStatisticsDataMessage, "There are currently no statistics to view." );
         _configuration.unknownTrendText = getDefaultString( _configuration.unknownTrendText, "Unknown" );
         _configuration.importButtonText = getDefaultString( _configuration.importButtonText, "Import" );
+        _configuration.noMapDataMessage = getDefaultString( _configuration.noMapDataMessage, "There is currently no data to view." );
     }
 
     function buildDefaultConfigurationArrays() {
@@ -3099,7 +3219,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.4.0";
+        return "2.5.0";
     };
 
 

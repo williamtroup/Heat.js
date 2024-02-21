@@ -23,8 +23,25 @@ Below is a list of all the options supported for the property "colorRanges" used
 ## Example:
 
 ```markdown
-<div data-heat-options="{ 'colorRanges': [ { 'minimum': 10, 'cssClassName': 'day-color-1' }, { 'minimum': 15, 'cssClassName': 'day-color-2' }, { 'minimum': 20, 'cssClassName': 'day-color-3' }, { 'minimum': 25, 'cssClassName': 'day-color-4' } ] }">
+<div id="heat-map-1" data-heat-options="{ 'colorRanges': [ { 'minimum': 10, 'cssClassName': 'day-color-1' }, { 'minimum': 15, 'cssClassName': 'day-color-2' }, { 'minimum': 20, 'cssClassName': 'day-color-3' }, { 'minimum': 25, 'cssClassName': 'day-color-4' } ] }">
     Your HTML.
 </div>
+
+<div id="heat-map-2" data-heat-options="getBindingOptions">
+    Your HTML.
+</div>
+
+<script>
+    function getBindingOptions() {
+        return { 
+            'colorRanges': [ 
+                { 'minimum': 10, 'cssClassName': 'day-color-1' },
+                { 'minimum': 15, 'cssClassName': 'day-color-2' },
+                { 'minimum': 20, 'cssClassName': 'day-color-3' },
+                { 'minimum': 25, 'cssClassName': 'day-color-4' }
+            ]
+        };
+    }
+</script>
 ```
 

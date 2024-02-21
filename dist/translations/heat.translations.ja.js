@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Japanese | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Japanese | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "地図",
         "chartText": "チャート",
         "noChartDataMessage": "現在、表示できるデータはありません。",
+        "noMapDataMessage": "現在、表示できるデータはありません。",
         "statisticsText": "統計",
         "noStatisticsDataMessage": "現在、表示できる統計はありません。",
         "unknownTrendText": "未知",

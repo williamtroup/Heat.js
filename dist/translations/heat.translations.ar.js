@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Arabic | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Arabic | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "خريطة",
         "chartText": "جدول",
         "noChartDataMessage": "لا يوجد حاليا أي بيانات لعرضها.",
+        "noMapDataMessage": "لا يوجد حاليا أي بيانات لعرضها.",
         "statisticsText": "إحصائيات",
         "noStatisticsDataMessage": "لا يوجد حاليا أي إحصائيات لعرضها.",
         "unknownTrendText": "مجهول",

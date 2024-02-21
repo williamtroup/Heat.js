@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Turkish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Turkish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Harita",
         "chartText": "Çizelge",
         "noChartDataMessage": "Şu anda görüntülenecek veri yok.",
+        "noMapDataMessage": "Şu anda görüntülenecek veri yok.",
         "statisticsText": "İstatistik",
         "noStatisticsDataMessage": "Şu anda görüntülenecek istatistik yok.",
         "unknownTrendText": "Bilinmeyen",

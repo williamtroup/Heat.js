@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Finnish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Finnish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Kartta",
         "chartText": "Kartoittaa",
         "noChartDataMessage": "Tällä hetkellä ei ole tarkasteltavaa dataa.",
+        "noMapDataMessage": "Tällä hetkellä ei ole tarkasteltavaa dataa.",
         "statisticsText": "Tilastot",
         "noStatisticsDataMessage": "Tällä hetkellä ei ole tilastoja nähtäväksi.",
         "unknownTrendText": "Tuntematon",

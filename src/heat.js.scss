@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v2.4.0
+ * Heat.js Library v2.5.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -498,6 +498,12 @@ div.heat-js {
     div.map-contents {
         overflow-x: scroll;
         overflow-y: hidden;
+        min-height: 191px;
+        position: relative;
+
+        div.no-data-message {
+            @include centered-label;
+        }
 
         div.map {
             display: inline-flex;
@@ -833,18 +839,23 @@ div.heat-js {
         div.map-types,
         div.map-toggles {
             margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
+            width: 100%;
 
             @media (min-width: $minimum-width) { 
-                flex-basis: 100%;
                 margin-bottom: 0;
             }
         }
 
         div.map-types {
             text-align: center;
+            flex-grow: unset;
+            margin-right: 0;
 
             @media (min-width: $minimum-width) { 
                 text-align: left;
+                width: unset;
+                flex-grow: 1;
+                margin-right: var(--heat-js-spacing);
             }
 
             @include buttons;
@@ -865,6 +876,7 @@ div.heat-js {
             @media (min-width: $minimum-width) { 
                 text-align: right;
                 justify-content: right;
+                width: auto;
             }
 
             div.less-text,

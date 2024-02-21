@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Georgian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Georgian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "რუკა",
         "chartText": "დიაგრამა",
         "noChartDataMessage": "ამჟამად სანახავი მონაცემები არ არის.",
+        "noMapDataMessage": "ამჟამად სანახავი მონაცემები არ არის.",
         "statisticsText": "სტატისტიკა",
         "noStatisticsDataMessage": "ამჟამად არ არის სანახავი სტატისტიკა.",
         "unknownTrendText": "უცნობი",

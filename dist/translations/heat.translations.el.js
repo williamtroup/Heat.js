@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Greek | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Greek | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Χάρτης",
         "chartText": "Διάγραμμα",
         "noChartDataMessage": "Αυτήν τη στιγμή δεν υπάρχουν δεδομένα για προβολή.",
+        "noMapDataMessage": "Αυτήν τη στιγμή δεν υπάρχουν δεδομένα για προβολή.",
         "statisticsText": "Στατιστική",
         "noStatisticsDataMessage": "Αυτήν τη στιγμή δεν υπάρχουν στατιστικά στοιχεία για προβολή.",
         "unknownTrendText": "Αγνωστος",

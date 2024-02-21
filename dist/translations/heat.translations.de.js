@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - German | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - German | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Karte",
         "chartText": "Diagramm",
         "noChartDataMessage": "Derzeit sind keine Daten verfügbar.",
+        "noMapDataMessage": "Derzeit sind keine Daten verfügbar.",
         "statisticsText": "Statistiken",
         "noStatisticsDataMessage": "Derzeit sind keine Statistiken verfügbar.",
         "unknownTrendText": "Unbekannt",

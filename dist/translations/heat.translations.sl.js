@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Slovenian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Slovenian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Zemljevid",
         "chartText": "grafikon",
         "noChartDataMessage": "Trenutno ni podatkov za ogled.",
+        "noMapDataMessage": "Trenutno ni podatkov za ogled.",
         "statisticsText": "Statistika",
         "noStatisticsDataMessage": "Trenutno ni statistike za ogled.",
         "unknownTrendText": "Neznano",

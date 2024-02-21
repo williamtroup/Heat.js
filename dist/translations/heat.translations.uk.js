@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Ukrainian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Ukrainian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Карта",
         "chartText": "Діаграма",
         "noChartDataMessage": "Зараз немає даних для перегляду.",
+        "noMapDataMessage": "Зараз немає даних для перегляду.",
         "statisticsText": "Статистика",
         "noStatisticsDataMessage": "Наразі немає статистики для перегляду.",
         "unknownTrendText": "Невідомий",

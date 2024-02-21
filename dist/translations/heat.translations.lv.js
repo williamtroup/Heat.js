@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Latvian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Latvian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Karte",
         "chartText": "Diagramma",
         "noChartDataMessage": "Pašlaik nav datu, ko skatīt.",
+        "noMapDataMessage": "Pašlaik nav datu, ko skatīt.",
         "statisticsText": "Statistika",
         "noStatisticsDataMessage": "Pašlaik nav apskatāmas statistikas.",
         "unknownTrendText": "Nezināms",

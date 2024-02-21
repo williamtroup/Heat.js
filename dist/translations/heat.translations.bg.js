@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Bulgarian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Bulgarian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Карта",
         "chartText": "Диаграма",
         "noChartDataMessage": "В момента няма данни за преглед.",
+        "noMapDataMessage": "В момента няма данни за преглед.",
         "statisticsText": "Статистика",
         "noStatisticsDataMessage": "В момента няма статистика за преглед.",
         "unknownTrendText": "неизвестен",

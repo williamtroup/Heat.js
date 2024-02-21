@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Armenian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Armenian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "Քարտեզ",
         "chartText": "Գծապատկեր",
         "noChartDataMessage": "Դիտելու համար տվյալներ չկան:",
+        "noMapDataMessage": "Դիտելու համար տվյալներ չկան:",
         "statisticsText": "Վիճակագրություն",
         "noStatisticsDataMessage": "Ներկայումս դիտելու վիճակագրություն չկա:",
         "unknownTrendText": "Անհայտ",

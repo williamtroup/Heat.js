@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v2.4.0
+ * Heat.js Library v2.5.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -329,6 +329,15 @@ div.heat-js div.title-bar button.import {
 div.heat-js div.map-contents {
   overflow-x: scroll;
   overflow-y: hidden;
+  min-height: 191px;
+  position: relative;
+}
+div.heat-js div.map-contents div.no-data-message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: var(--heat-js-text-bold-weight);
 }
 div.heat-js div.map-contents div.map {
   display: inline-flex;
@@ -725,21 +734,26 @@ div.heat-js div.guide {
 div.heat-js div.guide div.map-types,
 div.heat-js div.guide div.map-toggles {
   margin-top: calc(var(--heat-js-spacing) + var(--heat-js-spacing) / 2);
+  width: 100%;
 }
 @media (min-width: 768px) {
   div.heat-js div.guide div.map-types,
   div.heat-js div.guide div.map-toggles {
-    flex-basis: 100%;
     margin-bottom: 0;
   }
 }
 div.heat-js div.guide div.map-types {
   text-align: center;
+  flex-grow: unset;
+  margin-right: 0;
   text-align: center;
 }
 @media (min-width: 768px) {
   div.heat-js div.guide div.map-types {
     text-align: left;
+    width: unset;
+    flex-grow: 1;
+    margin-right: var(--heat-js-spacing);
   }
 }
 div.heat-js div.guide div.map-types button {
@@ -805,6 +819,7 @@ div.heat-js div.guide div.map-toggles {
   div.heat-js div.guide div.map-toggles {
     text-align: right;
     justify-content: right;
+    width: auto;
   }
 }
 div.heat-js div.guide div.map-toggles div.less-text,

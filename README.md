@@ -2,15 +2,15 @@
 Heat.js
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Heat.js%2C%20a%20free%20JavaScript%heat%20map&url=https://github.com/williamtroup/Heat.js&hashtags=javascript,heat,map)
-[![npm](https://img.shields.io/badge/npmjs-v2.4.0-blue)](https://www.npmjs.com/package/jheat.js)
-[![nuget](https://img.shields.io/badge/nuget-v2.4.0-purple)](https://www.nuget.org/packages/jHeat.js/)
+[![npm](https://img.shields.io/badge/npmjs-v2.5.0-blue)](https://www.npmjs.com/package/jheat.js)
+[![nuget](https://img.shields.io/badge/nuget-v2.5.0-purple)](https://www.nuget.org/packages/jHeat.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Heat.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://william-troup.com/)
 </h1>
 
 > <p align="center">🌞 A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.</p>
-> <p align="center">v2.4.0</p>
+> <p align="center">v2.5.0</p>
 <br />
 
 ![Heat.js](docs/images/main.png)
@@ -28,7 +28,7 @@ Heat.js
 - Toggling colors on/off support.
 - Export all data to CSV, JSON, XML, and TXT.
 - Import data from JSON and TXT.
-- 45 language translations available!
+- 51 language translations available!
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.
 - 12 additional themes available (for dark and light mode).
@@ -63,6 +63,7 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `fa` Farsi
 - `fi` Finnish
 - `fr` French
+- `fy` Frisian
 - `gl` Galician
 - `ka` Georgian
 - `de` German
@@ -85,10 +86,15 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `pl` Polish
 - `pt` Portuguese
 - `ro` Romanian
+- `si` Sinhalese
 - `sk` Slovak
 - `sl` Slovenian
 - `es` Spanish
 - `sv` Swedish
+- `tl` Tagalog
+- `ta` Tamil
+- `zh-tw` Taiwanese
+- `te` Telugu
 - `th` Thai
 - `tr` Turkish
 - `uk` Ukrainian

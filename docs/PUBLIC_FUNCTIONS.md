@@ -1,4 +1,4 @@
-# Heat.js - Functions:
+# Heat.js - Public Functions:
 
 Below is a list of all the public functions that can be called from the Heat.js instance.
 <br>
@@ -16,7 +16,7 @@ Adds an array of dates for a specific element ID, and refreshes the UI (if speci
 <br>
 ***Parameter: dates***: '*Date[]*' - The dates to add.
 <br>
-***Parameter: [type]***: '*string*' - The trend type (defaults to "None").
+***Parameter: [type]***: '*string*' - The trend type (defaults to "Unknown").
 <br>
 ***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
 <br>
@@ -32,7 +32,25 @@ Adds a date for a specific element ID, and refreshes the UI (if specified). If t
 <br>
 ***Parameter: date***: '*Date*' - The date to add.
 <br>
-***Parameter: [type]***: '*string*' - The trend type (defaults to "None").
+***Parameter: [type]***: '*string*' - The trend type (defaults to "Unknown").
+<br>
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **updateDate( *elementId*, *date*, *count*, *[triggerRefresh]* )**:
+Updates a date for a specific element ID, and refreshes the UI (if specified).
+<br>
+***Fires***:  onUpdate
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the updated date.
+<br>
+***Parameter: date***: '*Date*' - The date to update.
+<br>
+***Parameter: count***: '*number*' - The count that should be shown.
+<br>
+***Parameter: [type]***: '*string*' - The trend type (defaults to "Unknown").
 <br>
 ***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
 <br>
@@ -48,7 +66,7 @@ Removes an array of dates for a specific element ID, and refreshes the UI (if sp
 <br>
 ***Parameter: dates***: '*Date[]*' - The dates to remove.
 <br>
-***Parameter: [type]***: '*string*' - The trend type (defaults to "None").
+***Parameter: [type]***: '*string*' - The trend type (defaults to "Unknown").
 <br>
 ***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
 <br>
@@ -64,7 +82,23 @@ Removes a date for a specific element ID, and refreshes the UI (if specified). I
 <br>
 ***Parameter: date***: '*Date*' - The date to remove.
 <br>
-***Parameter: [type]***: '*string*' - The trend type (defaults to "None").
+***Parameter: [type]***: '*string*' - The trend type (defaults to "Unknown").
+<br>
+***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
+<br>
+***Returns***: '*Object*' - The Heat.js class instance.
+<br>
+
+### **clearDate( *elementId*, *date*, *[triggerRefresh]* )**:
+Clears a date for a specific element ID, and refreshes the UI (if specified).
+<br>
+***Fires***:  onClear
+<br>
+***Parameter: elementId***: '*string*' - The Heat.js element ID that should show the updated date.
+<br>
+***Parameter: date***: '*Date*' - The date to clear.
+<br>
+***Parameter: [type]***: '*string*' - The trend type (defaults to "Unknown").
 <br>
 ***Parameter: [triggerRefresh]***: '*boolean*' - States if the UI for the element ID should be refreshed (defaults to true).
 <br>

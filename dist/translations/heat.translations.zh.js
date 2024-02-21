@@ -1,4 +1,4 @@
-/*! Heat.js v2.4.0 - Chinese (simplified) | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.5.0 - Chinese (simplified) | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "日",
         "ndText": "日",
@@ -15,6 +15,7 @@ $heat.setConfiguration( {
         "mapText": "地图",
         "chartText": "图表",
         "noChartDataMessage": "目前没有数据可查看。",
+        "noMapDataMessage": "目前没有数据可查看。",
         "statisticsText": "统计数据",
         "noStatisticsDataMessage": "目前没有可查看的统计数据。",
         "unknownTrendText": "未知",
