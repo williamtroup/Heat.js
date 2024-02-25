@@ -3048,14 +3048,7 @@
     this.destroyAll = function() {
         for ( var elementId in _elements_DateCounts ) {
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
-                var bindingOptions = _elements_DateCounts[ elementId ].options;
-
-                bindingOptions.currentView.element.innerHTML = _string.empty;
-                bindingOptions.currentView.element.className = _string.empty;
-
-                _parameter_Document.body.removeChild( bindingOptions.currentView.tooltip );
-
-                fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.currentView.element );
+                destroyElement( _elements_DateCounts[ elementId ].options );
             }
         }
 
@@ -3078,20 +3071,26 @@
      */
     this.destroy = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
-            var bindingOptions = _elements_DateCounts[ elementId ].options;
-
-            bindingOptions.currentView.element.innerHTML = _string.empty;
-            bindingOptions.currentView.element.className = _string.empty;
-
-            _parameter_Document.body.removeChild( bindingOptions.currentView.tooltip );
-
-            fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.currentView.element );
+            destroyElement( _elements_DateCounts[ elementId ].options );
 
             delete _elements_DateCounts[ elementId ];
         }
 
         return this;
     };
+
+    function destroyElement( bindingOptions ) {
+        bindingOptions.currentView.element.innerHTML = _string.empty;
+        bindingOptions.currentView.element.className = _string.empty;
+
+        _parameter_Document.body.removeChild( bindingOptions.currentView.tooltip );
+
+        if ( bindingOptions.currentView.isInFetchMode && isDefined( bindingOptions.currentView.isInFetchModeTimer ) ) {
+            clearInterval( bindingOptions.currentView.isInFetchModeTimer );
+        }
+
+        fireCustomTrigger( bindingOptions.onDestroy, bindingOptions.currentView.element );
+    }
 
 
     /*
