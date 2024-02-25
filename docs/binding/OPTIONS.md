@@ -24,7 +24,6 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | view | States the view that should be shown by default (defaults to "map", also accepts "chart" and "statistics"). |
 | *number* | tooltipDelay | States how long the tooltip should wait (in milliseconds) until it's shown (defaults to 750). |
 | *string* | exportType | States the export file type that should be used (defaults to "csv", also accepts "json", "xml", and "txt"). |
-| *string* | descriptionText | States a description that should be shown below the active view (defaults to null). |
 | *string* | descriptionTextLink | States a link that should be used for the "descriptionText" label (defaults to null). |
 | *boolean* | useLocalStorageForData | States if data added/removed should be remembered in local storage (remembered between browser usages, defaults to false). |
 | *boolean* | allowFileImports | States if file importing via drag & drop is enabled (defaults to true). |
@@ -90,6 +89,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | --- | --- | --- |
 | *string* | titleText | The text that should be shown for the main title (defaults to "Heat.js"). |
 | *string* | dayToolTipText | The tooltip text that should be shown for a day (defaults to "{d}{o} {mmmm} {yyyy}"). Refer to ["Date Formatting"](/docs/DATE_FORMATS.md) documentation for options. |
+| *string* | descriptionText | States a description that should be shown below the active view (defaults to null). |
 
 <br/>
 

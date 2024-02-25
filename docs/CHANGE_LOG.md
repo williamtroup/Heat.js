@@ -6,6 +6,9 @@
 - Added a new binding option called "views.statistics.showRangeNumbers", which states if the range counts should be shown in the lines (defaults to false).
 - BREAKING: Renamed the binding option "mapTogglesEnabled" to "colorRangeTogglesEnabled".
 
+#### **Documentation:**
+- Minor documentation improvements.
+
 <br>
 
 
