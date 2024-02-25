@@ -1087,19 +1087,20 @@
       }
     };
   }
-  function exportAllData(bindingOptions) {
+  function exportAllData(bindingOptions, exportType) {
     var contents = null;
     var contentsMimeType = getExportMimeType(bindingOptions);
-    if (bindingOptions.exportType.toLowerCase() === _export_Type_Csv) {
+    var contentExportType = isDefined(exportType) ? exportType.toLowerCase() : bindingOptions.exportType.toLowerCase();
+    if (contentExportType === _export_Type_Csv) {
       contents = getCsvContent(bindingOptions);
-    } else if (bindingOptions.exportType.toLowerCase() === _export_Type_Json) {
+    } else if (contentExportType === _export_Type_Json) {
       contents = getJsonContent(bindingOptions);
-    } else if (bindingOptions.exportType.toLowerCase() === _export_Type_Xml) {
+    } else if (contentExportType === _export_Type_Xml) {
       contents = getXmlContents(bindingOptions);
-    } else if (bindingOptions.exportType.toLowerCase() === _export_Type_Txt) {
+    } else if (contentExportType === _export_Type_Txt) {
       contents = getTxtContents(bindingOptions);
     }
-    if (contents !== _string.empty) {
+    if (isDefinedString(contents)) {
       var tempLink = createElement(_parameter_Document.body, "a");
       tempLink.style.display = "none";
       tempLink.setAttribute("target", "_blank");
@@ -1804,9 +1805,9 @@
     }
     return this;
   };
-  this["export"] = function(elementId) {
+  this["export"] = function(elementId, exportType) {
     if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      exportAllData(_elements_DateCounts[elementId].options);
+      exportAllData(_elements_DateCounts[elementId].options, exportType);
     }
     return this;
   };

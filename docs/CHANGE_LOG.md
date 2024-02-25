@@ -6,6 +6,9 @@
 - Added a new binding option called "views.statistics.showRangeNumbers", which states if the range counts should be shown in the lines (defaults to false).
 - BREAKING: Renamed the binding option "mapTogglesEnabled" to "colorRangeTogglesEnabled".
 
+#### **Public Functions:**
+- Added a new parameter called "exportType" to the "export()" public function, which states the export type to use (defaults to "csv", also accepts "json", "xml", and "txt").
+
 #### **Documentation:**
 - Minor documentation improvements.
 

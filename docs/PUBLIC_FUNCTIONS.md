@@ -134,6 +134,8 @@ Exports all the data for a specific element ID.
 <br>
 ***Parameter: elementId***: '*string*' - The Heat.js element ID whose data should be exported.
 <br>
+***Parameter: [exportType]***: '*string*' - The export type to use (defaults to "csv", also accepts "json", "xml", and "txt").
+<br>
 ***Returns***: '*Object*' - The Heat.js class instance.
 <br>
 <br>
