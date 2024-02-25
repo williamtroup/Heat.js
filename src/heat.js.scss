@@ -752,6 +752,20 @@ div.heat-js {
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
                 justify-content: space-between;
 
+                div.range-line-number {
+                    font-size: var(--heat-js-spacing-day-font-size);
+                    padding: calc( var(--heat-js-spacing) / 2 );
+                    position: relative;
+                    overflow: hidden;
+
+                    div.count {
+                        position: absolute;
+                        top: calc( var(--heat-js-spacing) / 2 );
+                        left: 50%;
+                        transform: translateX(-50%);
+                    }
+                }
+
                 div.range-line {
                     border-top-left-radius: var(--heat-js-border-radius-day);
                     border-top-right-radius: var(--heat-js-border-radius-day);

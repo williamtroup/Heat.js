@@ -1,7 +1,9 @@
 # Heat.js - Change Log:
 
 ## Version 2.6.0:
-- 
+
+#### **Binding Options:**
+- Added a new binding option called "views.statistics.showRangeNumbers", which states if the range counts should be shown in the lines (defaults to false).
 
 <br>
 

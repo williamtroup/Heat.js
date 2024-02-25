@@ -652,6 +652,10 @@
       rangeLine.style.visibility = "hidden";
     }
     addToolTip(rangeLine, bindingOptions, rangeCount.toString());
+    if (bindingOptions.views.statistics.showRangeNumbers && rangeCount > 0) {
+      addClass(rangeLine, "range-line-number");
+      createElementWithHTML(rangeLine, "div", "count", rangeCount);
+    }
     if (isDefinedFunction(bindingOptions.onStatisticClick)) {
       rangeLine.onclick = function() {
         fireCustomTrigger(bindingOptions.onStatisticClick, useColorRange);
@@ -1326,6 +1330,7 @@
     options.views.statistics.showChartYLabels = getDefaultBoolean(options.views.statistics.showChartYLabels, true);
     options.views.statistics.showColorRangeLabels = getDefaultBoolean(options.views.statistics.showColorRangeLabels, true);
     options.views.statistics.useColorRangeNamesForLabels = getDefaultBoolean(options.views.statistics.useColorRangeNamesForLabels, false);
+    options.views.statistics.showRangeNumbers = getDefaultBoolean(options.views.statistics.showRangeNumbers, false);
     if (isInvalidOptionArray(options.views.statistics.monthsToShow)) {
       options.views.statistics.monthsToShow = _default_MonthsToShow;
     }
