@@ -9,6 +9,9 @@
 #### **Public Functions:**
 - Added a new parameter called "exportType" to the "export()" public function, which states the export type to use (defaults to "csv", also accepts "json", "xml", and "txt").
 
+#### **General Improvements:**
+- Removed replicated code.
+
 #### **Documentation:**
 - Minor documentation improvements.
 

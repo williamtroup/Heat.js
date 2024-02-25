@@ -226,12 +226,7 @@
       if (bindingOptions.showYearSelector) {
         var back = createElementWithHTML(titleBar, "button", "back", _configuration.backButtonText);
         back.onclick = function() {
-          bindingOptions.currentView.year--;
-          for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
-            bindingOptions.currentView.year--;
-          }
-          renderControlContainer(bindingOptions);
-          fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
+          moveToPreviousYear(bindingOptions);
         };
         bindingOptions.currentView.yearText = createElementWithHTML(titleBar, "div", "year-text", bindingOptions.currentView.year);
         if (bindingOptions.showYearSelectionDropDown) {
@@ -261,12 +256,7 @@
         }
         var next = createElementWithHTML(titleBar, "button", "next", _configuration.nextButtonText);
         next.onclick = function() {
-          bindingOptions.currentView.year++;
-          for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
-            bindingOptions.currentView.year++;
-          }
-          renderControlContainer(bindingOptions);
-          fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+          moveToNextYear(bindingOptions);
         };
       }
     }
@@ -1600,6 +1590,22 @@
   function getStorageDateYear(data) {
     return data.split(_string.dash)[0];
   }
+  function moveToPreviousYear(bindingOptions) {
+    bindingOptions.currentView.year--;
+    for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
+      bindingOptions.currentView.year--;
+    }
+    renderControlContainer(bindingOptions);
+    fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
+  }
+  function moveToNextYear(bindingOptions) {
+    bindingOptions.currentView.year++;
+    for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
+      bindingOptions.currentView.year++;
+    }
+    renderControlContainer(bindingOptions);
+    fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+  }
   function buildDefaultConfiguration(newConfiguration) {
     _configuration = !isDefinedObject(newConfiguration) ? {} : newConfiguration;
     _configuration.safeMode = getDefaultBoolean(_configuration.safeMode, true);
@@ -1881,25 +1887,13 @@
   };
   this.moveToPreviousYear = function(elementId) {
     if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      bindingOptions.currentView.year--;
-      for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
-        bindingOptions.currentView.year--;
-      }
-      renderControlContainer(bindingOptions);
-      fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
+      moveToPreviousYear(_elements_DateCounts[elementId].options);
     }
     return this;
   };
   this.moveToNextYear = function(elementId) {
     if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      bindingOptions.currentView.year++;
-      for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
-        bindingOptions.currentView.year++;
-      }
-      renderControlContainer(bindingOptions);
-      fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+      moveToNextYear(_elements_DateCounts[elementId].options);
     }
     return this;
   };
