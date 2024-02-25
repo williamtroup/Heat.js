@@ -15,7 +15,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | showRefreshButton | States if the "Refresh" button should be shown (defaults to false). |
 | *Object[]* | colorRanges | The colors that should be used for specific ranges (first default is [ { minimum: 10, cssClassName: 'day-color-1' } ]. Refer to ["Color Range"](COLOR_RANGE.md) documentation for properties). |
 | *boolean* | showExportButton | States if the "Export" button should be shown (defaults to false). |
-| *boolean* | mapTogglesEnabled | States if the heat map toggles are enabled (defaults to true). |
+| *boolean* | colorRangeTogglesEnabled | States if the color range toggles are enabled (defaults to true). |
 | *boolean* | exportOnlyYearBeingViewed | States if only the data for the year being viewed should be exported (defaults to true). |
 | *number* | year | States the year that should be shown when the heat map is rendered for the first time (defaults to the current year). |
 | *boolean* | keepScrollPositions | States if the scroll positions should be maintained when the map is redrawn (or moving year to year, defaults to false). |

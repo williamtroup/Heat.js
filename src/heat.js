@@ -1064,7 +1064,7 @@
             if ( bindingOptions.showLessAndMoreLabels ) {
                 var lessText = createElementWithHTML( mapToggles, "div", "less-text", _configuration.lessText );
     
-                if ( bindingOptions.mapTogglesEnabled ) {
+                if ( bindingOptions.colorRangeTogglesEnabled ) {
                     lessText.onclick = function() {
                         updateColorRangeToggles( bindingOptions, false );
                     };
@@ -1085,7 +1085,7 @@
             if ( bindingOptions.showLessAndMoreLabels ) {
                 var moreText = createElementWithHTML( mapToggles, "div", "more-text", _configuration.moreText );
     
-                if ( bindingOptions.mapTogglesEnabled ) {
+                if ( bindingOptions.colorRangeTogglesEnabled ) {
                     moreText.onclick = function() {
                         updateColorRangeToggles( bindingOptions, true );
                     };
@@ -1138,7 +1138,7 @@
             day.innerHTML = colorRange.minimum + _string.plus;
         }
 
-        if ( bindingOptions.mapTogglesEnabled ) {
+        if ( bindingOptions.colorRangeTogglesEnabled ) {
             day.onclick = function() {
                 toggleColorRangeVisibleState( bindingOptions, colorRange.id );
             };
@@ -1723,7 +1723,7 @@
         options.showYearSelector = getDefaultBoolean( options.showYearSelector, true );
         options.showRefreshButton = getDefaultBoolean( options.showRefreshButton, false );
         options.showExportButton = getDefaultBoolean( options.showExportButton, false );
-        options.mapTogglesEnabled = getDefaultBoolean( options.mapTogglesEnabled, true );
+        options.colorRangeTogglesEnabled = getDefaultBoolean( options.colorRangeTogglesEnabled, true );
         options.exportOnlyYearBeingViewed = getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
         options.year = getDefaultNumber( options.year, new Date().getFullYear() );
         options.keepScrollPositions = getDefaultBoolean( options.keepScrollPositions, false );
