@@ -1590,21 +1590,27 @@
   function getStorageDateYear(data) {
     return data.split(_string.dash)[0];
   }
-  function moveToPreviousYear(bindingOptions) {
+  function moveToPreviousYear(bindingOptions, callCustomTrigger) {
+    callCustomTrigger = isDefined(callCustomTrigger) ? callCustomTrigger : true;
     bindingOptions.currentView.year--;
     for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
       bindingOptions.currentView.year--;
     }
     renderControlContainer(bindingOptions);
-    fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
+    if (callCustomTrigger) {
+      fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
+    }
   }
-  function moveToNextYear(bindingOptions) {
+  function moveToNextYear(bindingOptions, callCustomTrigger) {
+    callCustomTrigger = isDefined(callCustomTrigger) ? callCustomTrigger : true;
     bindingOptions.currentView.year++;
     for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
       bindingOptions.currentView.year++;
     }
     renderControlContainer(bindingOptions);
-    fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+    if (callCustomTrigger) {
+      fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+    }
   }
   function buildDefaultConfiguration(newConfiguration) {
     _configuration = !isDefinedObject(newConfiguration) ? {} : newConfiguration;
@@ -1839,11 +1845,13 @@
   this.setYear = function(elementId, year) {
     if (isDefinedString(elementId) && isDefinedNumber(year) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
-      if (bindingOptions.yearsToHide.indexOf(year) === _value.notFound) {
-        bindingOptions.currentView.year = year;
+      bindingOptions.currentView.year = year;
+      if (bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound) {
+        moveToNextYear(bindingOptions, false);
+      } else {
         renderControlContainer(bindingOptions);
-        fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
       }
+      fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
     }
     return this;
   };
@@ -1858,9 +1866,13 @@
           maximumYear = _parameter_Math.max(maximumYear, parseInt(getStorageDateYear(storageDate)));
         }
       }
-      if (maximumYear > 0 && bindingOptions.yearsToHide.indexOf(maximumYear) === _value.notFound) {
+      if (maximumYear > 0) {
         bindingOptions.currentView.year = maximumYear;
-        renderControlContainer(bindingOptions);
+        if (bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound) {
+          moveToNextYear(bindingOptions, false);
+        } else {
+          renderControlContainer(bindingOptions);
+        }
         fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
       }
     }
@@ -1877,9 +1889,13 @@
           minimumYear = _parameter_Math.min(minimumYear, parseInt(getStorageDateYear(storageDate)));
         }
       }
-      if (minimumYear < 9999 && bindingOptions.yearsToHide.indexOf(minimumYear) === _value.notFound) {
+      if (minimumYear < 9999) {
         bindingOptions.currentView.year = minimumYear;
-        renderControlContainer(bindingOptions);
+        if (bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound) {
+          moveToPreviousYear(bindingOptions, false);
+        } else {
+          renderControlContainer(bindingOptions);
+        }
         fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
       }
     }
@@ -1901,7 +1917,11 @@
     if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       bindingOptions.currentView.year = (new Date()).getFullYear();
-      renderControlContainer(bindingOptions);
+      if (bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound) {
+        moveToNextYear(bindingOptions, false);
+      } else {
+        renderControlContainer(bindingOptions);
+      }
       fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
     }
     return this;

@@ -2675,13 +2675,15 @@
     this.setYear = function( elementId, year ) {
         if ( isDefinedString( elementId ) && isDefinedNumber( year ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
+            bindingOptions.currentView.year = year;
 
-            if ( bindingOptions.yearsToHide.indexOf( year ) === _value.notFound ) {
-                bindingOptions.currentView.year = year;
-
+            if ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                moveToNextYear( bindingOptions, false );
+            } else {
                 renderControlContainer( bindingOptions );
-                fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
             }
+
+            fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
         }
 
         return this;
@@ -2711,10 +2713,15 @@
                 }
             }
 
-            if ( maximumYear > 0 && bindingOptions.yearsToHide.indexOf( maximumYear ) === _value.notFound ) {
+            if ( maximumYear > 0 ) {
                 bindingOptions.currentView.year = maximumYear;
 
-                renderControlContainer( bindingOptions );
+                if ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                    moveToNextYear( bindingOptions, false );
+                } else {
+                    renderControlContainer( bindingOptions );
+                }
+
                 fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
             }
         }
@@ -2746,10 +2753,15 @@
                 }
             }
 
-            if ( minimumYear < 9999 && bindingOptions.yearsToHide.indexOf( minimumYear ) === _value.notFound ) {
+            if ( minimumYear < 9999 ) {
                 bindingOptions.currentView.year = minimumYear;
 
-                renderControlContainer( bindingOptions );
+                if ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                    moveToPreviousYear( bindingOptions, false );
+                } else {
+                    renderControlContainer( bindingOptions );
+                }
+
                 fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
             }
         }
@@ -2814,7 +2826,12 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             bindingOptions.currentView.year = new Date().getFullYear();
 
-            renderControlContainer( bindingOptions );
+            if ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                moveToNextYear( bindingOptions, false );
+            } else {
+                renderControlContainer( bindingOptions );
+            }
+
             fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
         }
 
@@ -2979,7 +2996,9 @@
         return this;
     };
 
-    function moveToPreviousYear( bindingOptions ) {
+    function moveToPreviousYear( bindingOptions, callCustomTrigger ) {
+        callCustomTrigger = isDefined( callCustomTrigger ) ? callCustomTrigger : true;
+
         bindingOptions.currentView.year--;
 
         while ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
@@ -2987,10 +3006,15 @@
         }
 
         renderControlContainer( bindingOptions );
-        fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
+
+        if ( callCustomTrigger ) {
+            fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
+        }
     }
 
-    function moveToNextYear( bindingOptions ) {
+    function moveToNextYear( bindingOptions, callCustomTrigger ) {
+        callCustomTrigger = isDefined( callCustomTrigger ) ? callCustomTrigger : true;
+
         bindingOptions.currentView.year++;
 
         while ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
@@ -2998,7 +3022,10 @@
         }
 
         renderControlContainer( bindingOptions );
-        fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
+
+        if ( callCustomTrigger ) {
+            fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
+        }
     }
     
 

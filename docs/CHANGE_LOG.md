@@ -15,6 +15,12 @@
 #### **Documentation:**
 - Minor documentation improvements.
 
+#### **Fixes:**
+- Fixed a fault in the public function "moveToCurrentYear()" which caused the binding option "yearsToHide" to be ignored.
+- Fixed a fault in the public function "setYearToHighest()" which caused the binding option "yearsToHide" to be ignored.
+- Fixed a fault in the public function "setYearToLowest()" which caused the binding option "yearsToHide" to be ignored.
+- Fixed a fault in the public function "setYear()" which caused the binding option "yearsToHide" to be ignored.
+
 <br>
 
 
