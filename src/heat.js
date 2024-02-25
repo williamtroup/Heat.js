@@ -20,7 +20,7 @@
 
         // Variables: Configuration
         _configuration = {},
-
+        
         // Variables: Strings
         _string = {
             empty: "",
@@ -28,7 +28,8 @@
             newLine: "\n",
             dash: "-",
             underscore: "_",
-            plus: "+"
+            plus: "+",
+            zero: "0"
         },
 
         // Variables: Values
@@ -704,7 +705,7 @@
             createElementWithHTML( labels, "div", "label-25", ( _parameter_Math.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
             createElementWithHTML( labels, "div", "label-50", _parameter_Math.floor( largestValueForCurrentYear / 2 ).toString() );
             createElementWithHTML( labels, "div", "label-75", _parameter_Math.floor( largestValueForCurrentYear / 4 ).toString() );
-            createElementWithHTML( labels, "div", "label-100", "0" );
+            createElementWithHTML( labels, "div", "label-100", _string.zero );
 
             labels.style.width = topLabel.offsetWidth + "px";
             labelsWidth = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true );
@@ -873,7 +874,7 @@
             createElementWithHTML( labels, "div", "label-25", ( _parameter_Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
             createElementWithHTML( labels, "div", "label-50", _parameter_Math.floor( colorRangeValuesForCurrentYear.largestValue / 2 ).toString() );
             createElementWithHTML( labels, "div", "label-75", _parameter_Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ).toString() );
-            createElementWithHTML( labels, "div", "label-100", "0" );
+            createElementWithHTML( labels, "div", "label-100", _string.zero );
 
             labels.style.width = topLabel.offsetWidth + "px";
             statisticsRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true ) + "px";
@@ -965,7 +966,7 @@
             largestValue = 0,
             data = getCurrentViewData( bindingOptions );
 
-        types[ "0" ] = 0;
+        types[ _string.zero ] = 0;
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
@@ -982,7 +983,7 @@
                         var useColorRange = getColorRange( bindingOptions, colorRanges, data[ storageDate ] );
 
                         if ( !isDefined( useColorRange ) ) {
-                            types[ "0" ]++;
+                            types[ _string.zero ]++;
     
                         } else {
                             if ( !types.hasOwnProperty( useColorRange.minimum.toString() ) ) {
@@ -2247,7 +2248,7 @@
     function padNumber( number ) {
         var numberString = number.toString();
 
-        return numberString.length === 1 ? "0" + numberString : numberString;
+        return numberString.length === 1 ? _string.zero + numberString : numberString;
     }
 
     function startsWithAnyCase( data, start ) {

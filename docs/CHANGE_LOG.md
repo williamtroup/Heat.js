@@ -10,7 +10,7 @@
 - Added a new parameter called "exportType" to the "export()" public function, which states the export type to use (defaults to "csv", also accepts "json", "xml", and "txt").
 
 #### **General Improvements:**
-- Removed replicated code.
+- Removed replicated code and added constants to specific characters used for string building.
 
 #### **Documentation:**
 - Minor documentation improvements.

@@ -465,7 +465,7 @@
       createElementWithHTML(labels, "div", "label-25", (_parameter_Math.floor(largestValueForCurrentYear / 4) * 3).toString());
       createElementWithHTML(labels, "div", "label-50", _parameter_Math.floor(largestValueForCurrentYear / 2).toString());
       createElementWithHTML(labels, "div", "label-75", _parameter_Math.floor(largestValueForCurrentYear / 4).toString());
-      createElementWithHTML(labels, "div", "label-100", "0");
+      createElementWithHTML(labels, "div", "label-100", _string.zero);
       labels.style.width = topLabel.offsetWidth + "px";
       labelsWidth = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true);
     } else {
@@ -594,7 +594,7 @@
       createElementWithHTML(labels, "div", "label-25", (_parameter_Math.floor(colorRangeValuesForCurrentYear.largestValue / 4) * 3).toString());
       createElementWithHTML(labels, "div", "label-50", _parameter_Math.floor(colorRangeValuesForCurrentYear.largestValue / 2).toString());
       createElementWithHTML(labels, "div", "label-75", _parameter_Math.floor(colorRangeValuesForCurrentYear.largestValue / 4).toString());
-      createElementWithHTML(labels, "div", "label-100", "0");
+      createElementWithHTML(labels, "div", "label-100", _string.zero);
       labels.style.width = topLabel.offsetWidth + "px";
       statisticsRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
     } else {
@@ -665,7 +665,7 @@
     var types = {};
     var largestValue = 0;
     var data = getCurrentViewData(bindingOptions);
-    types["0"] = 0;
+    types[_string.zero] = 0;
     var monthIndex = 0;
     for (; monthIndex < 12; monthIndex++) {
       var totalDaysInMonth = getTotalDaysInMonth(bindingOptions.currentView.year, monthIndex);
@@ -679,7 +679,7 @@
           if (!isHoliday(bindingOptions, storageDateObject) && isMonthVisible(bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.statistics.daysToShow, weekDayNumber)) {
             var useColorRange = getColorRange(bindingOptions, colorRanges, data[storageDate]);
             if (!isDefined(useColorRange)) {
-              types["0"]++;
+              types[_string.zero]++;
             } else {
               if (!types.hasOwnProperty(useColorRange.minimum.toString())) {
                 types[useColorRange.minimum.toString()] = 0;
@@ -1576,7 +1576,7 @@
   }
   function padNumber(number) {
     var numberString = number.toString();
-    return numberString.length === 1 ? "0" + numberString : numberString;
+    return numberString.length === 1 ? _string.zero + numberString : numberString;
   }
   function startsWithAnyCase(data, start) {
     return data.substring(0, start.length).toLowerCase() === start.toLowerCase();
@@ -1667,7 +1667,7 @@
   var _parameter_Math = null;
   var _parameter_JSON = null;
   var _configuration = {};
-  var _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+"};
+  var _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+", zero:"0"};
   var _value = {notFound:-1};
   var _internal_Name_Holiday = "HOLIDAY";
   var _local_Storage_Start_ID = "HJS_";
