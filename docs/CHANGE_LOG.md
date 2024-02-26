@@ -22,8 +22,8 @@
 - Fixed a fault in the public function "setYear()" which caused the binding option "yearsToHide" to be ignored.
 - Fixed a fault that allowed the data pull timer to continue running when the public function "destroy()" is called.
 - Fixed a fault that allowed the data pull timer to continue running when the public function "destroyAll()" is called.
-- Fixed a fault that script error that occurred when setting the view to "chart" manually and the view is disabled.
-- Fixed a fault that caused the wrong menu item to be selected for the active view when one of the view is disabled.
+- Fixed a fault that caused a script error to occur when setting the view to "chart" manually and the view is disabled.
+- Fixed a fault that caused the wrong menu item to be selected for the active view when one of the views was disabled.
 
 <br>
 
