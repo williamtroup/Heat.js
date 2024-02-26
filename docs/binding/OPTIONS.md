@@ -15,7 +15,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | showRefreshButton | States if the "Refresh" button should be shown (defaults to false). |
 | *Object[]* | colorRanges | The colors that should be used for specific ranges (first default is [ { minimum: 10, cssClassName: 'day-color-1' } ]. Refer to ["Color Range"](COLOR_RANGE.md) documentation for properties). |
 | *boolean* | showExportButton | States if the "Export" button should be shown (defaults to false). |
-| *boolean* | mapTogglesEnabled | States if the heat map toggles are enabled (defaults to true). |
+| *boolean* | colorRangeTogglesEnabled | States if the color range toggles are enabled (defaults to true). |
 | *boolean* | exportOnlyYearBeingViewed | States if only the data for the year being viewed should be exported (defaults to true). |
 | *number* | year | States the year that should be shown when the heat map is rendered for the first time (defaults to the current year). |
 | *boolean* | keepScrollPositions | States if the scroll positions should be maintained when the map is redrawn (or moving year to year, defaults to false). |
@@ -24,7 +24,6 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | *boolean* | view | States the view that should be shown by default (defaults to "map", also accepts "chart" and "statistics"). |
 | *number* | tooltipDelay | States how long the tooltip should wait (in milliseconds) until it's shown (defaults to 750). |
 | *string* | exportType | States the export file type that should be used (defaults to "csv", also accepts "json", "xml", and "txt"). |
-| *string* | descriptionText | States a description that should be shown below the active view (defaults to null). |
 | *string* | descriptionTextLink | States a link that should be used for the "descriptionText" label (defaults to null). |
 | *boolean* | useLocalStorageForData | States if data added/removed should be remembered in local storage (remembered between browser usages, defaults to false). |
 | *boolean* | allowFileImports | States if file importing via drag & drop is enabled (defaults to true). |
@@ -79,6 +78,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | views.statistics | *number[]* | monthsToShow | States the months that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]). |
 | views.statistics | *number[]* | daysToShow | States the days that should be shown (defaults to [1, 2, 3, 4, 5, 6, 7]). |
 | views.statistics | *boolean* | useColorRangeNamesForLabels | States if the color range names should be shown instead of the minimum for the X labels (defaults to false). |
+| views.statistics | *boolean* | showRangeNumbers | States if the range counts should be shown in the lines (defaults to false). |
 
 <br/>
 
@@ -89,6 +89,7 @@ Below is a list of all the options supported in the "data-heat-options" binding 
 | --- | --- | --- |
 | *string* | titleText | The text that should be shown for the main title (defaults to "Heat.js"). |
 | *string* | dayToolTipText | The tooltip text that should be shown for a day (defaults to "{d}{o} {mmmm} {yyyy}"). Refer to ["Date Formatting"](/docs/DATE_FORMATS.md) documentation for options. |
+| *string* | descriptionText | States a description that should be shown below the active view (defaults to null). |
 
 <br/>
 

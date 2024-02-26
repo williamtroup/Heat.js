@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v2.5.0
+ * Heat.js Library v2.6.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -639,6 +639,18 @@ div.heat-js div.statistics-contents div.statistics div.range-lines {
   flex: 1;
   border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   justify-content: space-between;
+}
+div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line-number {
+  font-size: var(--heat-js-spacing-day-font-size);
+  padding: calc(var(--heat-js-spacing) / 2);
+  position: relative;
+  overflow: hidden;
+}
+div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line-number div.count {
+  position: absolute;
+  top: calc(var(--heat-js-spacing) / 2);
+  left: 50%;
+  transform: translateX(-50%);
 }
 div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line {
   border-top-left-radius: var(--heat-js-border-radius-day);

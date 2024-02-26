@@ -1,4 +1,4 @@
-/*! Heat.js v2.5.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.6.0 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -119,7 +119,8 @@
     } else if (bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics) {
       bindingOptions.currentView.statisticsContents.style.display = "block";
     } else {
-      bindingOptions.currentView.chartContents.style.display = "block";
+      bindingOptions.currentView.view = _elements_View_Map;
+      bindingOptions.currentView.mapContents.style.display = "block";
     }
   }
   function createDateStorageForElement(elementId, bindingOptions, storeLocalData) {
@@ -226,12 +227,7 @@
       if (bindingOptions.showYearSelector) {
         var back = createElementWithHTML(titleBar, "button", "back", _configuration.backButtonText);
         back.onclick = function() {
-          bindingOptions.currentView.year--;
-          for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
-            bindingOptions.currentView.year--;
-          }
-          renderControlContainer(bindingOptions);
-          fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
+          moveToPreviousYear(bindingOptions);
         };
         bindingOptions.currentView.yearText = createElementWithHTML(titleBar, "div", "year-text", bindingOptions.currentView.year);
         if (bindingOptions.showYearSelectionDropDown) {
@@ -261,12 +257,7 @@
         }
         var next = createElementWithHTML(titleBar, "button", "next", _configuration.nextButtonText);
         next.onclick = function() {
-          bindingOptions.currentView.year++;
-          for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
-            bindingOptions.currentView.year++;
-          }
-          renderControlContainer(bindingOptions);
-          fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+          moveToNextYear(bindingOptions);
         };
       }
     }
@@ -475,7 +466,7 @@
       createElementWithHTML(labels, "div", "label-25", (_parameter_Math.floor(largestValueForCurrentYear / 4) * 3).toString());
       createElementWithHTML(labels, "div", "label-50", _parameter_Math.floor(largestValueForCurrentYear / 2).toString());
       createElementWithHTML(labels, "div", "label-75", _parameter_Math.floor(largestValueForCurrentYear / 4).toString());
-      createElementWithHTML(labels, "div", "label-100", "0");
+      createElementWithHTML(labels, "div", "label-100", _string.zero);
       labels.style.width = topLabel.offsetWidth + "px";
       labelsWidth = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true);
     } else {
@@ -604,7 +595,7 @@
       createElementWithHTML(labels, "div", "label-25", (_parameter_Math.floor(colorRangeValuesForCurrentYear.largestValue / 4) * 3).toString());
       createElementWithHTML(labels, "div", "label-50", _parameter_Math.floor(colorRangeValuesForCurrentYear.largestValue / 2).toString());
       createElementWithHTML(labels, "div", "label-75", _parameter_Math.floor(colorRangeValuesForCurrentYear.largestValue / 4).toString());
-      createElementWithHTML(labels, "div", "label-100", "0");
+      createElementWithHTML(labels, "div", "label-100", _string.zero);
       labels.style.width = topLabel.offsetWidth + "px";
       statisticsRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
     } else {
@@ -652,6 +643,10 @@
       rangeLine.style.visibility = "hidden";
     }
     addToolTip(rangeLine, bindingOptions, rangeCount.toString());
+    if (bindingOptions.views.statistics.showRangeNumbers && rangeCount > 0) {
+      addClass(rangeLine, "range-line-number");
+      createElementWithHTML(rangeLine, "div", "count", rangeCount);
+    }
     if (isDefinedFunction(bindingOptions.onStatisticClick)) {
       rangeLine.onclick = function() {
         fireCustomTrigger(bindingOptions.onStatisticClick, useColorRange);
@@ -671,7 +666,7 @@
     var types = {};
     var largestValue = 0;
     var data = getCurrentViewData(bindingOptions);
-    types["0"] = 0;
+    types[_string.zero] = 0;
     var monthIndex = 0;
     for (; monthIndex < 12; monthIndex++) {
       var totalDaysInMonth = getTotalDaysInMonth(bindingOptions.currentView.year, monthIndex);
@@ -685,7 +680,7 @@
           if (!isHoliday(bindingOptions, storageDateObject) && isMonthVisible(bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.statistics.daysToShow, weekDayNumber)) {
             var useColorRange = getColorRange(bindingOptions, colorRanges, data[storageDate]);
             if (!isDefined(useColorRange)) {
-              types["0"]++;
+              types[_string.zero]++;
             } else {
               if (!types.hasOwnProperty(useColorRange.minimum.toString())) {
                 types[useColorRange.minimum.toString()] = 0;
@@ -731,7 +726,7 @@
       var mapToggles = createElement(guide, "div", "map-toggles");
       if (bindingOptions.showLessAndMoreLabels) {
         var lessText = createElementWithHTML(mapToggles, "div", "less-text", _configuration.lessText);
-        if (bindingOptions.mapTogglesEnabled) {
+        if (bindingOptions.colorRangeTogglesEnabled) {
           lessText.onclick = function() {
             updateColorRangeToggles(bindingOptions, false);
           };
@@ -748,7 +743,7 @@
       }
       if (bindingOptions.showLessAndMoreLabels) {
         var moreText = createElementWithHTML(mapToggles, "div", "more-text", _configuration.moreText);
-        if (bindingOptions.mapTogglesEnabled) {
+        if (bindingOptions.colorRangeTogglesEnabled) {
           moreText.onclick = function() {
             updateColorRangeToggles(bindingOptions, true);
           };
@@ -790,7 +785,7 @@
       addClass(day, "day-number");
       day.innerHTML = colorRange.minimum + _string.plus;
     }
-    if (bindingOptions.mapTogglesEnabled) {
+    if (bindingOptions.colorRangeTogglesEnabled) {
       day.onclick = function() {
         toggleColorRangeVisibleState(bindingOptions, colorRange.id);
       };
@@ -1083,19 +1078,20 @@
       }
     };
   }
-  function exportAllData(bindingOptions) {
+  function exportAllData(bindingOptions, exportType) {
     var contents = null;
     var contentsMimeType = getExportMimeType(bindingOptions);
-    if (bindingOptions.exportType.toLowerCase() === _export_Type_Csv) {
+    var contentExportType = isDefined(exportType) ? exportType.toLowerCase() : bindingOptions.exportType.toLowerCase();
+    if (contentExportType === _export_Type_Csv) {
       contents = getCsvContent(bindingOptions);
-    } else if (bindingOptions.exportType.toLowerCase() === _export_Type_Json) {
+    } else if (contentExportType === _export_Type_Json) {
       contents = getJsonContent(bindingOptions);
-    } else if (bindingOptions.exportType.toLowerCase() === _export_Type_Xml) {
+    } else if (contentExportType === _export_Type_Xml) {
       contents = getXmlContents(bindingOptions);
-    } else if (bindingOptions.exportType.toLowerCase() === _export_Type_Txt) {
+    } else if (contentExportType === _export_Type_Txt) {
       contents = getTxtContents(bindingOptions);
     }
-    if (contents !== _string.empty) {
+    if (isDefinedString(contents)) {
       var tempLink = createElement(_parameter_Document.body, "a");
       tempLink.style.display = "none";
       tempLink.setAttribute("target", "_blank");
@@ -1226,7 +1222,7 @@
     options.showYearSelector = getDefaultBoolean(options.showYearSelector, true);
     options.showRefreshButton = getDefaultBoolean(options.showRefreshButton, false);
     options.showExportButton = getDefaultBoolean(options.showExportButton, false);
-    options.mapTogglesEnabled = getDefaultBoolean(options.mapTogglesEnabled, true);
+    options.colorRangeTogglesEnabled = getDefaultBoolean(options.colorRangeTogglesEnabled, true);
     options.exportOnlyYearBeingViewed = getDefaultBoolean(options.exportOnlyYearBeingViewed, true);
     options.year = getDefaultNumber(options.year, (new Date()).getFullYear());
     options.keepScrollPositions = getDefaultBoolean(options.keepScrollPositions, false);
@@ -1326,6 +1322,7 @@
     options.views.statistics.showChartYLabels = getDefaultBoolean(options.views.statistics.showChartYLabels, true);
     options.views.statistics.showColorRangeLabels = getDefaultBoolean(options.views.statistics.showColorRangeLabels, true);
     options.views.statistics.useColorRangeNamesForLabels = getDefaultBoolean(options.views.statistics.useColorRangeNamesForLabels, false);
+    options.views.statistics.showRangeNumbers = getDefaultBoolean(options.views.statistics.showRangeNumbers, false);
     if (isInvalidOptionArray(options.views.statistics.monthsToShow)) {
       options.views.statistics.monthsToShow = _default_MonthsToShow;
     }
@@ -1580,7 +1577,7 @@
   }
   function padNumber(number) {
     var numberString = number.toString();
-    return numberString.length === 1 ? "0" + numberString : numberString;
+    return numberString.length === 1 ? _string.zero + numberString : numberString;
   }
   function startsWithAnyCase(data, start) {
     return data.substring(0, start.length).toLowerCase() === start.toLowerCase();
@@ -1593,6 +1590,37 @@
   }
   function getStorageDateYear(data) {
     return data.split(_string.dash)[0];
+  }
+  function moveToPreviousYear(bindingOptions, callCustomTrigger) {
+    callCustomTrigger = isDefined(callCustomTrigger) ? callCustomTrigger : true;
+    bindingOptions.currentView.year--;
+    for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
+      bindingOptions.currentView.year--;
+    }
+    renderControlContainer(bindingOptions);
+    if (callCustomTrigger) {
+      fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
+    }
+  }
+  function moveToNextYear(bindingOptions, callCustomTrigger) {
+    callCustomTrigger = isDefined(callCustomTrigger) ? callCustomTrigger : true;
+    bindingOptions.currentView.year++;
+    for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
+      bindingOptions.currentView.year++;
+    }
+    renderControlContainer(bindingOptions);
+    if (callCustomTrigger) {
+      fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+    }
+  }
+  function destroyElement(bindingOptions) {
+    bindingOptions.currentView.element.innerHTML = _string.empty;
+    bindingOptions.currentView.element.className = _string.empty;
+    _parameter_Document.body.removeChild(bindingOptions.currentView.tooltip);
+    if (bindingOptions.currentView.isInFetchMode && isDefined(bindingOptions.currentView.isInFetchModeTimer)) {
+      clearInterval(bindingOptions.currentView.isInFetchModeTimer);
+    }
+    fireCustomTrigger(bindingOptions.onDestroy, bindingOptions.currentView.element);
   }
   function buildDefaultConfiguration(newConfiguration) {
     _configuration = !isDefinedObject(newConfiguration) ? {} : newConfiguration;
@@ -1640,7 +1668,7 @@
   var _parameter_Math = null;
   var _parameter_JSON = null;
   var _configuration = {};
-  var _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+"};
+  var _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+", zero:"0"};
   var _value = {notFound:-1};
   var _internal_Name_Holiday = "HOLIDAY";
   var _local_Storage_Start_ID = "HJS_";
@@ -1799,9 +1827,9 @@
     }
     return this;
   };
-  this["export"] = function(elementId) {
+  this["export"] = function(elementId, exportType) {
     if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      exportAllData(_elements_DateCounts[elementId].options);
+      exportAllData(_elements_DateCounts[elementId].options, exportType);
     }
     return this;
   };
@@ -1827,11 +1855,13 @@
   this.setYear = function(elementId, year) {
     if (isDefinedString(elementId) && isDefinedNumber(year) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
-      if (bindingOptions.yearsToHide.indexOf(year) === _value.notFound) {
-        bindingOptions.currentView.year = year;
+      bindingOptions.currentView.year = year;
+      if (bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound) {
+        moveToNextYear(bindingOptions, false);
+      } else {
         renderControlContainer(bindingOptions);
-        fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
       }
+      fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
     }
     return this;
   };
@@ -1846,9 +1876,13 @@
           maximumYear = _parameter_Math.max(maximumYear, parseInt(getStorageDateYear(storageDate)));
         }
       }
-      if (maximumYear > 0 && bindingOptions.yearsToHide.indexOf(maximumYear) === _value.notFound) {
+      if (maximumYear > 0) {
         bindingOptions.currentView.year = maximumYear;
-        renderControlContainer(bindingOptions);
+        if (bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound) {
+          moveToNextYear(bindingOptions, false);
+        } else {
+          renderControlContainer(bindingOptions);
+        }
         fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
       }
     }
@@ -1865,9 +1899,13 @@
           minimumYear = _parameter_Math.min(minimumYear, parseInt(getStorageDateYear(storageDate)));
         }
       }
-      if (minimumYear < 9999 && bindingOptions.yearsToHide.indexOf(minimumYear) === _value.notFound) {
+      if (minimumYear < 9999) {
         bindingOptions.currentView.year = minimumYear;
-        renderControlContainer(bindingOptions);
+        if (bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound) {
+          moveToPreviousYear(bindingOptions, false);
+        } else {
+          renderControlContainer(bindingOptions);
+        }
         fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
       }
     }
@@ -1875,25 +1913,13 @@
   };
   this.moveToPreviousYear = function(elementId) {
     if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      bindingOptions.currentView.year--;
-      for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
-        bindingOptions.currentView.year--;
-      }
-      renderControlContainer(bindingOptions);
-      fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
+      moveToPreviousYear(_elements_DateCounts[elementId].options);
     }
     return this;
   };
   this.moveToNextYear = function(elementId) {
     if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      bindingOptions.currentView.year++;
-      for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
-        bindingOptions.currentView.year++;
-      }
-      renderControlContainer(bindingOptions);
-      fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+      moveToNextYear(_elements_DateCounts[elementId].options);
     }
     return this;
   };
@@ -1901,7 +1927,11 @@
     if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       bindingOptions.currentView.year = (new Date()).getFullYear();
-      renderControlContainer(bindingOptions);
+      if (bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound) {
+        moveToNextYear(bindingOptions, false);
+      } else {
+        renderControlContainer(bindingOptions);
+      }
       fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
     }
     return this;
@@ -1977,11 +2007,7 @@
     var elementId;
     for (elementId in _elements_DateCounts) {
       if (_elements_DateCounts.hasOwnProperty(elementId)) {
-        var bindingOptions = _elements_DateCounts[elementId].options;
-        bindingOptions.currentView.element.innerHTML = _string.empty;
-        bindingOptions.currentView.element.className = _string.empty;
-        _parameter_Document.body.removeChild(bindingOptions.currentView.tooltip);
-        fireCustomTrigger(bindingOptions.onDestroy, bindingOptions.currentView.element);
+        destroyElement(_elements_DateCounts[elementId].options);
       }
     }
     _elements_DateCounts = {};
@@ -1989,11 +2015,7 @@
   };
   this.destroy = function(elementId) {
     if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      bindingOptions.currentView.element.innerHTML = _string.empty;
-      bindingOptions.currentView.element.className = _string.empty;
-      _parameter_Document.body.removeChild(bindingOptions.currentView.tooltip);
-      fireCustomTrigger(bindingOptions.onDestroy, bindingOptions.currentView.element);
+      destroyElement(_elements_DateCounts[elementId].options);
       delete _elements_DateCounts[elementId];
     }
     return this;
@@ -2029,7 +2051,7 @@
     return result;
   };
   this.getVersion = function() {
-    return "2.5.0";
+    return "2.6.0";
   };
   (function(documentObject, windowObject, mathObject, jsonObject) {
     _parameter_Document = documentObject;

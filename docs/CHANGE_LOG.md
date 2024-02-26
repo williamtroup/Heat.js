@@ -1,5 +1,33 @@
 # Heat.js - Change Log:
 
+## Version 2.6.0:
+
+#### **Binding Options:**
+- Added a new binding option called "views.statistics.showRangeNumbers", which states if the range counts should be shown in the lines (defaults to false).
+- BREAKING: Renamed the binding option "mapTogglesEnabled" to "colorRangeTogglesEnabled".
+
+#### **Public Functions:**
+- Added a new parameter called "exportType" to the "export()" public function, which states the export type to use (defaults to "csv", also accepts "json", "xml", and "txt").
+
+#### **General Improvements:**
+- Removed replicated code and added constants to specific characters used for string building.
+
+#### **Documentation:**
+- Minor documentation improvements.
+
+#### **Fixes:**
+- Fixed a fault in the public function "moveToCurrentYear()" which caused the binding option "yearsToHide" to be ignored.
+- Fixed a fault in the public function "setYearToHighest()" which caused the binding option "yearsToHide" to be ignored.
+- Fixed a fault in the public function "setYearToLowest()" which caused the binding option "yearsToHide" to be ignored.
+- Fixed a fault in the public function "setYear()" which caused the binding option "yearsToHide" to be ignored.
+- Fixed a fault that allowed the data pull timer to continue running when the public function "destroy()" is called.
+- Fixed a fault that allowed the data pull timer to continue running when the public function "destroyAll()" is called.
+- Fixed a fault that caused a script error to occur when setting the view to "chart" manually and the view is disabled.
+- Fixed a fault that caused the wrong menu item to be selected for the active view when one of the views was disabled.
+
+<br>
+
+
 ## Version 2.5.0:
 
 #### **Binding Options:**
