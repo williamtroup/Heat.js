@@ -231,7 +231,8 @@
         } else if ( bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics ) {
             bindingOptions.currentView.statisticsContents.style.display = "block";
         } else {
-            bindingOptions.currentView.chartContents.style.display = "block";
+            bindingOptions.currentView.view = _elements_View_Map;
+            bindingOptions.currentView.mapContents.style.display = "block";
         }
     }
 
