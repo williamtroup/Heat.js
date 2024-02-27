@@ -29,6 +29,11 @@
 - Color ranges support different colors per view.
 
 
+## Where can I find the documentation?
+
+All the documentation can be found [here](https://www.william-troup.com/heat-js/documentation/index.html).
+
+
 ## What browsers are supported?
 
 All modern browsers (such as Google Chrome, FireFox, and Opera) are fully supported.
