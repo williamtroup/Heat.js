@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v2.6.1
+ * @version     v2.7.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -3246,7 +3246,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.6.1";
+        return "2.7.0";
     };
 
 

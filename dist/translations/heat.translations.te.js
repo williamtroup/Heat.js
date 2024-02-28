@@ -1,4 +1,4 @@
-/*! Heat.js v2.6.1 - Telugu | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.0 - Telugu | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
