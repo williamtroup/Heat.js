@@ -1555,7 +1555,7 @@
         }
       } catch (e2) {
         if (!_configuration.safeMode) {
-          console.error("Errors in object: " + e1.message + ", " + e2.message);
+          console.error(_configuration.objectErrorText.replace("{{error_1}}", e1.message).replace("{{error_2}}", e2.message));
           parsed = false;
         }
         result = null;
@@ -1650,6 +1650,7 @@
     _configuration.unknownTrendText = getDefaultString(_configuration.unknownTrendText, "Unknown");
     _configuration.importButtonText = getDefaultString(_configuration.importButtonText, "Import");
     _configuration.noMapDataMessage = getDefaultString(_configuration.noMapDataMessage, "There is currently no data to view.");
+    _configuration.objectErrorText = getDefaultString(_configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
   }
   function buildDefaultConfigurationArrays() {
     if (isInvalidOptionArray(_configuration.monthNames, 12)) {
