@@ -226,7 +226,7 @@
           var currentYear = thisYear - bindingOptions.extraSelectionYears;
           for (; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++) {
             if (isYearVisible(bindingOptions, currentYear)) {
-              var year = renderControlTitleBarYear(bindingOptions, years, currentYear);
+              var year = renderControlTitleBarYear(bindingOptions, years, currentYear, thisYear);
               if (!isDefined(activeYear)) {
                 activeYear = year;
               }
@@ -258,7 +258,7 @@
       };
     }
   }
-  function renderControlTitleBarYear(bindingOptions, years, currentYear) {
+  function renderControlTitleBarYear(bindingOptions, years, currentYear, actualYear) {
     var result = null;
     var year = createElementWithHTML(years, "div", "year", currentYear);
     if (bindingOptions.currentView.year !== currentYear) {
@@ -267,6 +267,9 @@
         renderControlContainer(bindingOptions);
         fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
       };
+      if (currentYear === actualYear) {
+        addClass(year, "year-current");
+      }
     } else {
       addClass(year, "year-active");
       result = year;

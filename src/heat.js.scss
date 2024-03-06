@@ -472,6 +472,11 @@ div.heat-js {
                         font-weight: var(--heat-js-text-bold-weight-active);
                         cursor: default !important;
                     }
+
+                    div.year-current {
+                        font-style: italic;
+                        font-weight: var(--heat-js-text-bold-weight-active);
+                    }
                 }
             }
         }

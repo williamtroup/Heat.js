@@ -309,6 +309,10 @@ div.heat-js div.title-bar div.year-text div.years-list div.years div.year-active
   font-weight: var(--heat-js-text-bold-weight-active);
   cursor: default !important;
 }
+div.heat-js div.title-bar div.year-text div.years-list div.years div.year-current {
+  font-style: italic;
+  font-weight: var(--heat-js-text-bold-weight-active);
+}
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.refresh,
 div.heat-js div.title-bar button.import {
