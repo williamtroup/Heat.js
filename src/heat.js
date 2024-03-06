@@ -604,11 +604,7 @@
 
         dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
 
-        if ( isDefinedFunction( bindingOptions.onDayToolTipRender ) ) {
-            addToolTip( day, bindingOptions, fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount ) );
-        } else {
-            addToolTip( day, bindingOptions, getCustomFormattedDateText( bindingOptions.dayToolTipText, date ) );
-        }
+        renderDayToolTip( bindingOptions, day, date, dateCount );
 
         if ( bindingOptions.views.map.showDayNumbers && dateCount > 0 ) {
             day.innerHTML = dateCount.toString();
@@ -765,11 +761,7 @@
 
         dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
 
-        if ( isDefinedFunction( bindingOptions.onDayToolTipRender ) ) {
-            addToolTip( dayLine, bindingOptions, fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount ) );
-        } else {
-            addToolTip( dayLine, bindingOptions, getCustomFormattedDateText( bindingOptions.dayToolTipText, date ) );
-        }
+        renderDayToolTip( bindingOptions, dayLine, date, dateCount );
 
         if ( bindingOptions.views.chart.showLineNumbers && dateCount > 0 ) {
             addClass( dayLine, "day-line-number" );
@@ -958,7 +950,7 @@
                         storageDateObject = new Date( storageDateParts[ 2 ], storageDateParts[ 1 ], storageDateParts[ 0 ] ),
                         weekDayNumber = getWeekdayNumber( storageDateObject );
 
-                    if ( !isHoliday( bindingOptions, storageDateObject ) && isMonthVisible( bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.statistics.daysToShow, weekDayNumber ) ) {
+                    if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.statistics.daysToShow, weekDayNumber ) ) {
                         var useColorRange = getColorRange( bindingOptions, colorRanges, data[ storageDate ] );
 
                         if ( !isDefined( useColorRange ) ) {
@@ -1124,6 +1116,32 @@
             } else {
                 createElementWithHTML( container, "span", "label", bindingOptions.descriptionText );
             }
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Shared
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderDayToolTip( bindingOptions, day, date, dateCount ) {
+        if ( isDefinedFunction( bindingOptions.onDayToolTipRender ) ) {
+            addToolTip( day, bindingOptions, fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount ) );
+        } else {
+
+            var tooltip = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
+
+            if ( bindingOptions.showHolidaysInDayToolTips ) {
+                var holiday = isHoliday( bindingOptions, date );
+
+                if ( holiday.matched && isDefinedString( holiday.name ) ) {
+                    tooltip += ": " + holiday.name;
+                }
+            }
+
+            addToolTip( day, bindingOptions, tooltip );
         }
     }
 
@@ -1369,7 +1387,7 @@
     function getColorRange( bindingOptions, colorRanges, dateCount, date ) {
         var useColorRange = null;
 
-        if ( isDefined( date ) && isHoliday( bindingOptions, date ) ) {
+        if ( isDefined( date ) && isHoliday( bindingOptions, date ).matched ) {
             useColorRange = {
                 cssClassName: "holiday",
                 id: _internal_Name_Holiday,
@@ -1426,6 +1444,7 @@
     function isHoliday( bindingOptions, date ) {
         var holidaysLength = bindingOptions.holidays.length,
             holidayMatched = false,
+            holidayName = null,
             day = date.getDate(),
             month = date.getMonth() + 1,
             year = date.getFullYear();
@@ -1443,12 +1462,16 @@
                 }
 
                 if ( holidayMatched ) {
+                    holidayName = holiday.name;
                     break;
                 }
             }
         }
 
-        return holidayMatched;
+        return {
+            matched: holidayMatched,
+            name: holidayName
+        };
     }
 
 
@@ -1772,6 +1795,7 @@
         options.showImportButton = getDefaultBoolean( options.showImportButton, false );
         options.dataFetchDelay = getDefaultNumber( options.dataFetchDelay, 60000 );
         options.showOnlyDataForYearsAvailable = getDefaultBoolean( options.showOnlyDataForYearsAvailable, false );
+        options.showHolidaysInDayToolTips = getDefaultBoolean( options.showHolidaysInDayToolTips, false );
 
         options = buildAttributeOptionColorRanges( options );
         options = buildAttributeOptionHolidays( options );

@@ -394,11 +394,7 @@
     var date = new Date(year, month, actualDay);
     var dateCount = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type][toStorageDate(date)];
     dateCount = isDefinedNumber(dateCount) ? dateCount : 0;
-    if (isDefinedFunction(bindingOptions.onDayToolTipRender)) {
-      addToolTip(day, bindingOptions, fireCustomTrigger(bindingOptions.onDayToolTipRender, date, dateCount));
-    } else {
-      addToolTip(day, bindingOptions, getCustomFormattedDateText(bindingOptions.dayToolTipText, date));
-    }
+    renderDayToolTip(bindingOptions, day, date, dateCount);
     if (bindingOptions.views.map.showDayNumbers && dateCount > 0) {
       day.innerHTML = dateCount.toString();
     }
@@ -518,11 +514,7 @@
     var dayLine = createElement(dayLines, "div", "day-line");
     var dateCount = getCurrentViewData(bindingOptions)[toStorageDate(date)];
     dateCount = isDefinedNumber(dateCount) ? dateCount : 0;
-    if (isDefinedFunction(bindingOptions.onDayToolTipRender)) {
-      addToolTip(dayLine, bindingOptions, fireCustomTrigger(bindingOptions.onDayToolTipRender, date, dateCount));
-    } else {
-      addToolTip(dayLine, bindingOptions, getCustomFormattedDateText(bindingOptions.dayToolTipText, date));
-    }
+    renderDayToolTip(bindingOptions, dayLine, date, dateCount);
     if (bindingOptions.views.chart.showLineNumbers && dateCount > 0) {
       addClass(dayLine, "day-line-number");
       dayLine.innerHTML = dateCount.toString();
@@ -665,7 +657,7 @@
           var storageDateParts = getStorageDate(storageDate);
           var storageDateObject = new Date(storageDateParts[2], storageDateParts[1], storageDateParts[0]);
           var weekDayNumber = getWeekdayNumber(storageDateObject);
-          if (!isHoliday(bindingOptions, storageDateObject) && isMonthVisible(bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.statistics.daysToShow, weekDayNumber)) {
+          if (!isHoliday(bindingOptions, storageDateObject).matched && isMonthVisible(bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.statistics.daysToShow, weekDayNumber)) {
             var useColorRange = getColorRange(bindingOptions, colorRanges, data[storageDate]);
             if (!isDefined(useColorRange)) {
               types[_string.zero]++;
@@ -790,6 +782,20 @@
       } else {
         createElementWithHTML(container, "span", "label", bindingOptions.descriptionText);
       }
+    }
+  }
+  function renderDayToolTip(bindingOptions, day, date, dateCount) {
+    if (isDefinedFunction(bindingOptions.onDayToolTipRender)) {
+      addToolTip(day, bindingOptions, fireCustomTrigger(bindingOptions.onDayToolTipRender, date, dateCount));
+    } else {
+      var tooltip = getCustomFormattedDateText(bindingOptions.dayToolTipText, date);
+      if (bindingOptions.showHolidaysInDayToolTips) {
+        var holiday = isHoliday(bindingOptions, date);
+        if (holiday.matched && isDefinedString(holiday.name)) {
+          tooltip = tooltip + (": " + holiday.name);
+        }
+      }
+      addToolTip(day, bindingOptions, tooltip);
     }
   }
   function createDateStorageForElement(elementId, bindingOptions, storeLocalData) {
@@ -962,7 +968,7 @@
   }
   function getColorRange(bindingOptions, colorRanges, dateCount, date) {
     var useColorRange = null;
-    if (isDefined(date) && isHoliday(bindingOptions, date)) {
+    if (isDefined(date) && isHoliday(bindingOptions, date).matched) {
       useColorRange = {cssClassName:"holiday", id:_internal_Name_Holiday, visible:true};
     }
     if (!isDefined(useColorRange)) {
@@ -1000,6 +1006,7 @@
   function isHoliday(bindingOptions, date) {
     var holidaysLength = bindingOptions.holidays.length;
     var holidayMatched = false;
+    var holidayName = null;
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
@@ -1014,11 +1021,12 @@
           holidayMatched = day === parseInt(dateParts[0]) && month === parseInt(dateParts[1]) && year === parseInt(dateParts[2]);
         }
         if (holidayMatched) {
+          holidayName = holiday.name;
           break;
         }
       }
     }
-    return holidayMatched;
+    return {matched:holidayMatched, name:holidayName};
   }
   function makeAreaDroppable(element, bindingOptions) {
     if (bindingOptions.allowFileImports && !bindingOptions.currentView.isInFetchMode) {
@@ -1268,6 +1276,7 @@
     options.showImportButton = getDefaultBoolean(options.showImportButton, false);
     options.dataFetchDelay = getDefaultNumber(options.dataFetchDelay, 60000);
     options.showOnlyDataForYearsAvailable = getDefaultBoolean(options.showOnlyDataForYearsAvailable, false);
+    options.showHolidaysInDayToolTips = getDefaultBoolean(options.showHolidaysInDayToolTips, false);
     options = buildAttributeOptionColorRanges(options);
     options = buildAttributeOptionHolidays(options);
     options = buildAttributeOptionMapView(options);
