@@ -1,4 +1,4 @@
-/*! Heat.js v2.6.1 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.0 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -52,6 +52,7 @@
     bindingOptions.currentView.type = _configuration.unknownTrendText;
     bindingOptions.currentView.isInFetchMode = isDefinedFunction(bindingOptions.onDataFetch);
     bindingOptions.currentView.isInFetchModeTimer = null;
+    bindingOptions.currentView.yearsAvailable = [];
     if (bindingOptions.views.chart.enabled) {
       bindingOptions.currentView.chartContents = null;
       bindingOptions.currentView.chartContentsScrollLeft = 0;
@@ -98,6 +99,7 @@
       bindingOptions.currentView.statisticsContentsScrollLeft = bindingOptions.currentView.statisticsContents.scrollLeft;
     }
     bindingOptions.currentView.element.innerHTML = _string.empty;
+    bindingOptions.currentView.yearsAvailable = getYearsAvailableInData(bindingOptions);
     hideToolTip(bindingOptions);
     startDataPullTimer(bindingOptions);
     renderControlToolTip(bindingOptions);
@@ -122,23 +124,6 @@
       bindingOptions.currentView.view = _elements_View_Map;
       bindingOptions.currentView.mapContents.style.display = "block";
     }
-  }
-  function createDateStorageForElement(elementId, bindingOptions, storeLocalData) {
-    storeLocalData = isDefined(storeLocalData) ? storeLocalData : true;
-    _elements_DateCounts[elementId] = {options:bindingOptions, type:{}, types:1};
-    _elements_DateCounts[elementId].type[_configuration.unknownTrendText] = {};
-    if (storeLocalData && !bindingOptions.currentView.isInFetchMode) {
-      loadDataFromLocalStorage(bindingOptions);
-    }
-  }
-  function getCurrentViewData(bindingOptions) {
-    return _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
-  }
-  function isMonthVisible(monthsToShow, month) {
-    return monthsToShow.indexOf(month + 1) > _value.notFound;
-  }
-  function isDayVisible(daysToShow, day) {
-    return daysToShow.indexOf(day) > _value.notFound;
   }
   function renderControlToolTip(bindingOptions) {
     if (!isDefined(bindingOptions.currentView.tooltip)) {
@@ -240,8 +225,8 @@
           yearList.style.visibility = "hidden";
           var currentYear = thisYear - bindingOptions.extraSelectionYears;
           for (; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++) {
-            if (bindingOptions.yearsToHide.indexOf(currentYear) === _value.notFound) {
-              var year = renderControlTitleBarYear(bindingOptions, years, currentYear);
+            if (isYearVisible(bindingOptions, currentYear)) {
+              var year = renderControlTitleBarYear(bindingOptions, years, currentYear, thisYear);
               if (!isDefined(activeYear)) {
                 activeYear = year;
               }
@@ -273,7 +258,7 @@
       };
     }
   }
-  function renderControlTitleBarYear(bindingOptions, years, currentYear) {
+  function renderControlTitleBarYear(bindingOptions, years, currentYear, actualYear) {
     var result = null;
     var year = createElementWithHTML(years, "div", "year", currentYear);
     if (bindingOptions.currentView.year !== currentYear) {
@@ -282,6 +267,9 @@
         renderControlContainer(bindingOptions);
         fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
       };
+      if (currentYear === actualYear) {
+        addClass(year, "year-current");
+      }
     } else {
       addClass(year, "year-active");
       result = year;
@@ -406,11 +394,7 @@
     var date = new Date(year, month, actualDay);
     var dateCount = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type][toStorageDate(date)];
     dateCount = isDefinedNumber(dateCount) ? dateCount : 0;
-    if (isDefinedFunction(bindingOptions.onDayToolTipRender)) {
-      addToolTip(day, bindingOptions, fireCustomTrigger(bindingOptions.onDayToolTipRender, date, dateCount));
-    } else {
-      addToolTip(day, bindingOptions, getCustomFormattedDateText(bindingOptions.dayToolTipText, date));
-    }
+    renderDayToolTip(bindingOptions, day, date, dateCount);
     if (bindingOptions.views.map.showDayNumbers && dateCount > 0) {
       day.innerHTML = dateCount.toString();
     }
@@ -530,11 +514,7 @@
     var dayLine = createElement(dayLines, "div", "day-line");
     var dateCount = getCurrentViewData(bindingOptions)[toStorageDate(date)];
     dateCount = isDefinedNumber(dateCount) ? dateCount : 0;
-    if (isDefinedFunction(bindingOptions.onDayToolTipRender)) {
-      addToolTip(dayLine, bindingOptions, fireCustomTrigger(bindingOptions.onDayToolTipRender, date, dateCount));
-    } else {
-      addToolTip(dayLine, bindingOptions, getCustomFormattedDateText(bindingOptions.dayToolTipText, date));
-    }
+    renderDayToolTip(bindingOptions, dayLine, date, dateCount);
     if (bindingOptions.views.chart.showLineNumbers && dateCount > 0) {
       addClass(dayLine, "day-line-number");
       dayLine.innerHTML = dateCount.toString();
@@ -677,7 +657,7 @@
           var storageDateParts = getStorageDate(storageDate);
           var storageDateObject = new Date(storageDateParts[2], storageDateParts[1], storageDateParts[0]);
           var weekDayNumber = getWeekdayNumber(storageDateObject);
-          if (!isHoliday(bindingOptions, storageDateObject) && isMonthVisible(bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.statistics.daysToShow, weekDayNumber)) {
+          if (!isHoliday(bindingOptions, storageDateObject).matched && isMonthVisible(bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.statistics.daysToShow, weekDayNumber)) {
             var useColorRange = getColorRange(bindingOptions, colorRanges, data[storageDate]);
             if (!isDefined(useColorRange)) {
               types[_string.zero]++;
@@ -803,6 +783,59 @@
         createElementWithHTML(container, "span", "label", bindingOptions.descriptionText);
       }
     }
+  }
+  function renderDayToolTip(bindingOptions, day, date, dateCount) {
+    if (isDefinedFunction(bindingOptions.onDayToolTipRender)) {
+      addToolTip(day, bindingOptions, fireCustomTrigger(bindingOptions.onDayToolTipRender, date, dateCount));
+    } else {
+      var tooltip = getCustomFormattedDateText(bindingOptions.dayToolTipText, date);
+      if (bindingOptions.showHolidaysInDayToolTips) {
+        var holiday = isHoliday(bindingOptions, date);
+        if (holiday.matched && isDefinedString(holiday.name)) {
+          tooltip = tooltip + (": " + holiday.name);
+        }
+      }
+      addToolTip(day, bindingOptions, tooltip);
+    }
+  }
+  function createDateStorageForElement(elementId, bindingOptions, storeLocalData) {
+    storeLocalData = isDefined(storeLocalData) ? storeLocalData : true;
+    _elements_DateCounts[elementId] = {options:bindingOptions, type:{}, types:1};
+    _elements_DateCounts[elementId].type[_configuration.unknownTrendText] = {};
+    if (storeLocalData && !bindingOptions.currentView.isInFetchMode) {
+      loadDataFromLocalStorage(bindingOptions);
+    }
+  }
+  function getCurrentViewData(bindingOptions) {
+    return _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type];
+  }
+  function isMonthVisible(monthsToShow, month) {
+    return monthsToShow.indexOf(month + 1) > _value.notFound;
+  }
+  function isDayVisible(daysToShow, day) {
+    return daysToShow.indexOf(day) > _value.notFound;
+  }
+  function getYearsAvailableInData(bindingOptions) {
+    var years = [];
+    if (bindingOptions.showOnlyDataForYearsAvailable) {
+      var data = getCurrentViewData(bindingOptions);
+      var storageDate;
+      for (storageDate in data) {
+        if (data.hasOwnProperty(storageDate)) {
+          var year = parseInt(getStorageDateYear(storageDate));
+          if (years.indexOf(year) === _value.notFound) {
+            years.push(year);
+          }
+        }
+      }
+    }
+    years = years.sort(function(a, b) {
+      return a - b;
+    });
+    return years;
+  }
+  function isYearVisible(bindingOptions, year) {
+    return bindingOptions.yearsToHide.indexOf(year) === _value.notFound && (bindingOptions.currentView.yearsAvailable.length === 0 || bindingOptions.currentView.yearsAvailable.indexOf(year) > _value.notFound);
   }
   function loadDataFromLocalStorage(bindingOptions) {
     if (bindingOptions.useLocalStorageForData && _parameter_Window.localStorage) {
@@ -935,7 +968,7 @@
   }
   function getColorRange(bindingOptions, colorRanges, dateCount, date) {
     var useColorRange = null;
-    if (isDefined(date) && isHoliday(bindingOptions, date)) {
+    if (isDefined(date) && isHoliday(bindingOptions, date).matched) {
       useColorRange = {cssClassName:"holiday", id:_internal_Name_Holiday, visible:true};
     }
     if (!isDefined(useColorRange)) {
@@ -973,6 +1006,7 @@
   function isHoliday(bindingOptions, date) {
     var holidaysLength = bindingOptions.holidays.length;
     var holidayMatched = false;
+    var holidayName = null;
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
@@ -987,11 +1021,12 @@
           holidayMatched = day === parseInt(dateParts[0]) && month === parseInt(dateParts[1]) && year === parseInt(dateParts[2]);
         }
         if (holidayMatched) {
+          holidayName = holiday.name;
           break;
         }
       }
     }
-    return holidayMatched;
+    return {matched:holidayMatched, name:holidayName};
   }
   function makeAreaDroppable(element, bindingOptions) {
     if (bindingOptions.allowFileImports && !bindingOptions.currentView.isInFetchMode) {
@@ -1240,6 +1275,8 @@
     options.showNumbersInGuide = getDefaultBoolean(options.showNumbersInGuide, false);
     options.showImportButton = getDefaultBoolean(options.showImportButton, false);
     options.dataFetchDelay = getDefaultNumber(options.dataFetchDelay, 60000);
+    options.showOnlyDataForYearsAvailable = getDefaultBoolean(options.showOnlyDataForYearsAvailable, false);
+    options.showHolidaysInDayToolTips = getDefaultBoolean(options.showHolidaysInDayToolTips, false);
     options = buildAttributeOptionColorRanges(options);
     options = buildAttributeOptionHolidays(options);
     options = buildAttributeOptionMapView(options);
@@ -1555,7 +1592,7 @@
         }
       } catch (e2) {
         if (!_configuration.safeMode) {
-          console.error("Errors in object: " + e1.message + ", " + e2.message);
+          console.error(_configuration.objectErrorText.replace("{{error_1}}", e1.message).replace("{{error_2}}", e2.message));
           parsed = false;
         }
         result = null;
@@ -1593,24 +1630,42 @@
   }
   function moveToPreviousYear(bindingOptions, callCustomTrigger) {
     callCustomTrigger = isDefined(callCustomTrigger) ? callCustomTrigger : true;
-    bindingOptions.currentView.year--;
-    for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
-      bindingOptions.currentView.year--;
+    var render = true;
+    var year = bindingOptions.currentView.year;
+    year--;
+    for (; !isYearVisible(bindingOptions, year);) {
+      if (bindingOptions.currentView.yearsAvailable.length > 0 && year <= bindingOptions.currentView.yearsAvailable[0]) {
+        render = false;
+        break;
+      }
+      year--;
     }
-    renderControlContainer(bindingOptions);
-    if (callCustomTrigger) {
-      fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
+    if (render) {
+      bindingOptions.currentView.year = year;
+      renderControlContainer(bindingOptions);
+      if (callCustomTrigger) {
+        fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
+      }
     }
   }
   function moveToNextYear(bindingOptions, callCustomTrigger) {
     callCustomTrigger = isDefined(callCustomTrigger) ? callCustomTrigger : true;
-    bindingOptions.currentView.year++;
-    for (; bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound;) {
-      bindingOptions.currentView.year++;
+    var render = true;
+    var year = bindingOptions.currentView.year;
+    year++;
+    for (; !isYearVisible(bindingOptions, year);) {
+      if (bindingOptions.currentView.yearsAvailable.length > 0 && year >= bindingOptions.currentView.yearsAvailable[bindingOptions.currentView.yearsAvailable.length - 1]) {
+        render = false;
+        break;
+      }
+      year++;
     }
-    renderControlContainer(bindingOptions);
-    if (callCustomTrigger) {
-      fireCustomTrigger(bindingOptions.onNextYear, bindingOptions.currentView.year);
+    if (render) {
+      bindingOptions.currentView.year = year;
+      renderControlContainer(bindingOptions);
+      if (callCustomTrigger) {
+        fireCustomTrigger(bindingOptions.onBackYear, bindingOptions.currentView.year);
+      }
     }
   }
   function destroyElement(bindingOptions) {
@@ -1650,6 +1705,7 @@
     _configuration.unknownTrendText = getDefaultString(_configuration.unknownTrendText, "Unknown");
     _configuration.importButtonText = getDefaultString(_configuration.importButtonText, "Import");
     _configuration.noMapDataMessage = getDefaultString(_configuration.noMapDataMessage, "There is currently no data to view.");
+    _configuration.objectErrorText = getDefaultString(_configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
   }
   function buildDefaultConfigurationArrays() {
     if (isInvalidOptionArray(_configuration.monthNames, 12)) {
@@ -1856,7 +1912,7 @@
     if (isDefinedString(elementId) && isDefinedNumber(year) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       bindingOptions.currentView.year = year;
-      if (bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound) {
+      if (!isYearVisible(bindingOptions, bindingOptions.currentView.year)) {
         moveToNextYear(bindingOptions, false);
       } else {
         renderControlContainer(bindingOptions);
@@ -1878,7 +1934,7 @@
       }
       if (maximumYear > 0) {
         bindingOptions.currentView.year = maximumYear;
-        if (bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound) {
+        if (!isYearVisible(bindingOptions, bindingOptions.currentView.year)) {
           moveToNextYear(bindingOptions, false);
         } else {
           renderControlContainer(bindingOptions);
@@ -1901,7 +1957,7 @@
       }
       if (minimumYear < 9999) {
         bindingOptions.currentView.year = minimumYear;
-        if (bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound) {
+        if (!isYearVisible(bindingOptions, bindingOptions.currentView.year)) {
           moveToPreviousYear(bindingOptions, false);
         } else {
           renderControlContainer(bindingOptions);
@@ -1927,7 +1983,7 @@
     if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       bindingOptions.currentView.year = (new Date()).getFullYear();
-      if (bindingOptions.yearsToHide.indexOf(bindingOptions.currentView.year) > _value.notFound) {
+      if (!isYearVisible(bindingOptions, bindingOptions.currentView.year)) {
         moveToNextYear(bindingOptions, false);
       } else {
         renderControlContainer(bindingOptions);
@@ -2051,7 +2107,7 @@
     return result;
   };
   this.getVersion = function() {
-    return "2.6.1";
+    return "2.7.0";
   };
   (function(documentObject, windowObject, mathObject, jsonObject) {
     _parameter_Document = documentObject;

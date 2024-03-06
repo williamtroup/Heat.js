@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v2.6.1
+ * Heat.js Library v2.7.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -277,7 +277,8 @@ div.heat-js div.title-bar div.year-text div.years-list div.years {
   background-color: var(--heat-js-years-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-years-border-color);
   color: var(--heat-js-years-text-color);
-  height: 183px;
+  max-height: 183px;
+  height: 100%;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
 }
@@ -307,6 +308,10 @@ div.heat-js div.title-bar div.year-text div.years-list div.years div.year-active
   color: var(--heat-js-years-text-color-hover);
   font-weight: var(--heat-js-text-bold-weight-active);
   cursor: default !important;
+}
+div.heat-js div.title-bar div.year-text div.years-list div.years div.year-current {
+  font-style: italic;
+  font-weight: var(--heat-js-text-bold-weight-active);
 }
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.refresh,

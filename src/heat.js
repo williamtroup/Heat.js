@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v2.6.1
+ * @version     v2.7.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -141,6 +141,7 @@
         bindingOptions.currentView.type = _configuration.unknownTrendText;
         bindingOptions.currentView.isInFetchMode = isDefinedFunction( bindingOptions.onDataFetch );
         bindingOptions.currentView.isInFetchModeTimer = null;
+        bindingOptions.currentView.yearsAvailable = [];
 
         if ( bindingOptions.views.chart.enabled ) {
             bindingOptions.currentView.chartContents = null;
@@ -201,7 +202,8 @@
         }
         
         bindingOptions.currentView.element.innerHTML = _string.empty;
-
+        bindingOptions.currentView.yearsAvailable = getYearsAvailableInData( bindingOptions );
+        
         hideToolTip( bindingOptions );
 
         startDataPullTimer( bindingOptions );
@@ -234,34 +236,6 @@
             bindingOptions.currentView.view = _elements_View_Map;
             bindingOptions.currentView.mapContents.style.display = "block";
         }
-    }
-
-    function createDateStorageForElement( elementId, bindingOptions, storeLocalData ) {
-        storeLocalData = isDefined( storeLocalData ) ? storeLocalData : true;
-
-        _elements_DateCounts[ elementId ] = {
-            options: bindingOptions,
-            type: {},
-            types: 1
-        };
-
-        _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ] = {};
-
-        if ( storeLocalData && !bindingOptions.currentView.isInFetchMode ) {
-            loadDataFromLocalStorage( bindingOptions );
-        }
-    }
-
-    function getCurrentViewData( bindingOptions ) {
-        return _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ];
-    }
-
-    function isMonthVisible( monthsToShow, month ) {
-        return monthsToShow.indexOf( month + 1 ) > _value.notFound;
-    }
-
-    function isDayVisible( daysToShow, day ) {
-        return daysToShow.indexOf( day ) > _value.notFound;
     }
 
 
@@ -407,8 +381,8 @@
                     yearList.style.visibility = "hidden";
 
                     for ( var currentYear = thisYear - bindingOptions.extraSelectionYears; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++ ) {
-                        if ( bindingOptions.yearsToHide.indexOf( currentYear ) === _value.notFound ) {
-                            var year = renderControlTitleBarYear( bindingOptions, years, currentYear );
+                        if ( isYearVisible( bindingOptions, currentYear ) ) {
+                            var year = renderControlTitleBarYear( bindingOptions, years, currentYear, thisYear );
 
                             if ( !isDefined( activeYear ) ) {
                                 activeYear = year;
@@ -450,7 +424,7 @@
         }
     }
 
-    function renderControlTitleBarYear( bindingOptions, years, currentYear ) {
+    function renderControlTitleBarYear( bindingOptions, years, currentYear, actualYear ) {
         var result = null,
             year = createElementWithHTML( years, "div", "year", currentYear );
 
@@ -461,6 +435,10 @@
                 renderControlContainer( bindingOptions );
                 fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
             };
+
+            if ( currentYear === actualYear ) {
+                addClass( year, "year-current" );
+            }
 
         } else {
             addClass( year, "year-active" );
@@ -626,11 +604,7 @@
 
         dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
 
-        if ( isDefinedFunction( bindingOptions.onDayToolTipRender ) ) {
-            addToolTip( day, bindingOptions, fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount ) );
-        } else {
-            addToolTip( day, bindingOptions, getCustomFormattedDateText( bindingOptions.dayToolTipText, date ) );
-        }
+        renderDayToolTip( bindingOptions, day, date, dateCount );
 
         if ( bindingOptions.views.map.showDayNumbers && dateCount > 0 ) {
             day.innerHTML = dateCount.toString();
@@ -787,11 +761,7 @@
 
         dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
 
-        if ( isDefinedFunction( bindingOptions.onDayToolTipRender ) ) {
-            addToolTip( dayLine, bindingOptions, fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount ) );
-        } else {
-            addToolTip( dayLine, bindingOptions, getCustomFormattedDateText( bindingOptions.dayToolTipText, date ) );
-        }
+        renderDayToolTip( bindingOptions, dayLine, date, dateCount );
 
         if ( bindingOptions.views.chart.showLineNumbers && dateCount > 0 ) {
             addClass( dayLine, "day-line-number" );
@@ -980,7 +950,7 @@
                         storageDateObject = new Date( storageDateParts[ 2 ], storageDateParts[ 1 ], storageDateParts[ 0 ] ),
                         weekDayNumber = getWeekdayNumber( storageDateObject );
 
-                    if ( !isHoliday( bindingOptions, storageDateObject ) && isMonthVisible( bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.statistics.daysToShow, weekDayNumber ) ) {
+                    if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.statistics.daysToShow, weekDayNumber ) ) {
                         var useColorRange = getColorRange( bindingOptions, colorRanges, data[ storageDate ] );
 
                         if ( !isDefined( useColorRange ) ) {
@@ -1147,6 +1117,95 @@
                 createElementWithHTML( container, "span", "label", bindingOptions.descriptionText );
             }
         }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Shared
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderDayToolTip( bindingOptions, day, date, dateCount ) {
+        if ( isDefinedFunction( bindingOptions.onDayToolTipRender ) ) {
+            addToolTip( day, bindingOptions, fireCustomTrigger( bindingOptions.onDayToolTipRender, date, dateCount ) );
+        } else {
+
+            var tooltip = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
+
+            if ( bindingOptions.showHolidaysInDayToolTips ) {
+                var holiday = isHoliday( bindingOptions, date );
+
+                if ( holiday.matched && isDefinedString( holiday.name ) ) {
+                    tooltip += ": " + holiday.name;
+                }
+            }
+
+            addToolTip( day, bindingOptions, tooltip );
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Data
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function createDateStorageForElement( elementId, bindingOptions, storeLocalData ) {
+        storeLocalData = isDefined( storeLocalData ) ? storeLocalData : true;
+
+        _elements_DateCounts[ elementId ] = {
+            options: bindingOptions,
+            type: {},
+            types: 1
+        };
+
+        _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ] = {};
+
+        if ( storeLocalData && !bindingOptions.currentView.isInFetchMode ) {
+            loadDataFromLocalStorage( bindingOptions );
+        }
+    }
+
+    function getCurrentViewData( bindingOptions ) {
+        return _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ];
+    }
+
+    function isMonthVisible( monthsToShow, month ) {
+        return monthsToShow.indexOf( month + 1 ) > _value.notFound;
+    }
+
+    function isDayVisible( daysToShow, day ) {
+        return daysToShow.indexOf( day ) > _value.notFound;
+    }
+
+    function getYearsAvailableInData( bindingOptions ) {
+        var years = [];
+
+        if ( bindingOptions.showOnlyDataForYearsAvailable ) {
+            var data = getCurrentViewData( bindingOptions );
+
+            for ( var storageDate in data ) {
+                if ( data.hasOwnProperty( storageDate ) ) {
+                    var year = parseInt( getStorageDateYear( storageDate ) );
+                    
+                    if ( years.indexOf( year ) === _value.notFound ) {
+                        years.push( year );
+                    }
+                }
+            }
+        }
+
+        years = years.sort( function( a, b ) {
+            return a - b;
+        } );
+
+        return years;
+    }
+
+    function isYearVisible( bindingOptions, year ) {
+        return bindingOptions.yearsToHide.indexOf( year ) === _value.notFound && ( bindingOptions.currentView.yearsAvailable.length === 0 || bindingOptions.currentView.yearsAvailable.indexOf( year ) > _value.notFound );
     }
 
 
@@ -1328,7 +1387,7 @@
     function getColorRange( bindingOptions, colorRanges, dateCount, date ) {
         var useColorRange = null;
 
-        if ( isDefined( date ) && isHoliday( bindingOptions, date ) ) {
+        if ( isDefined( date ) && isHoliday( bindingOptions, date ).matched ) {
             useColorRange = {
                 cssClassName: "holiday",
                 id: _internal_Name_Holiday,
@@ -1385,6 +1444,7 @@
     function isHoliday( bindingOptions, date ) {
         var holidaysLength = bindingOptions.holidays.length,
             holidayMatched = false,
+            holidayName = null,
             day = date.getDate(),
             month = date.getMonth() + 1,
             year = date.getFullYear();
@@ -1402,12 +1462,16 @@
                 }
 
                 if ( holidayMatched ) {
+                    holidayName = holiday.name;
                     break;
                 }
             }
         }
 
-        return holidayMatched;
+        return {
+            matched: holidayMatched,
+            name: holidayName
+        };
     }
 
 
@@ -1730,6 +1794,8 @@
         options.showNumbersInGuide = getDefaultBoolean( options.showNumbersInGuide, false );
         options.showImportButton = getDefaultBoolean( options.showImportButton, false );
         options.dataFetchDelay = getDefaultNumber( options.dataFetchDelay, 60000 );
+        options.showOnlyDataForYearsAvailable = getDefaultBoolean( options.showOnlyDataForYearsAvailable, false );
+        options.showHolidaysInDayToolTips = getDefaultBoolean( options.showHolidaysInDayToolTips, false );
 
         options = buildAttributeOptionColorRanges( options );
         options = buildAttributeOptionHolidays( options );
@@ -2210,7 +2276,7 @@
                 
             } catch ( e2 ) {
                 if ( !_configuration.safeMode ) {
-                    console.error( "Errors in object: " + e1.message + ", " + e2.message );
+                    console.error( _configuration.objectErrorText.replace( "{{error_1}}",  e1.message ).replace( "{{error_2}}",  e2.message ) );
                     parsed = false;
                 }
                 
@@ -2679,7 +2745,7 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             bindingOptions.currentView.year = year;
 
-            if ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+            if ( !isYearVisible( bindingOptions, bindingOptions.currentView.year ) ) {
                 moveToNextYear( bindingOptions, false );
             } else {
                 renderControlContainer( bindingOptions );
@@ -2718,7 +2784,7 @@
             if ( maximumYear > 0 ) {
                 bindingOptions.currentView.year = maximumYear;
 
-                if ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                if ( !isYearVisible( bindingOptions, bindingOptions.currentView.year ) ) {
                     moveToNextYear( bindingOptions, false );
                 } else {
                     renderControlContainer( bindingOptions );
@@ -2758,7 +2824,7 @@
             if ( minimumYear < 9999 ) {
                 bindingOptions.currentView.year = minimumYear;
 
-                if ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                if ( !isYearVisible( bindingOptions, bindingOptions.currentView.year ) ) {
                     moveToPreviousYear( bindingOptions, false );
                 } else {
                     renderControlContainer( bindingOptions );
@@ -2828,7 +2894,7 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             bindingOptions.currentView.year = new Date().getFullYear();
 
-            if ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+            if ( !isYearVisible( bindingOptions, bindingOptions.currentView.year ) ) {
                 moveToNextYear( bindingOptions, false );
             } else {
                 renderControlContainer( bindingOptions );
@@ -3001,32 +3067,56 @@
     function moveToPreviousYear( bindingOptions, callCustomTrigger ) {
         callCustomTrigger = isDefined( callCustomTrigger ) ? callCustomTrigger : true;
 
-        bindingOptions.currentView.year--;
+        var render = true,
+            year = bindingOptions.currentView.year;
+            
+        year--;
 
-        while ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
-            bindingOptions.currentView.year--;
+        while ( !isYearVisible( bindingOptions, year ) ) {
+            if ( bindingOptions.currentView.yearsAvailable.length > 0 && year <= bindingOptions.currentView.yearsAvailable[ 0 ] ) {
+                render = false;
+                break;
+            }
+
+            year--;
         }
 
-        renderControlContainer( bindingOptions );
+        if ( render ) {
+            bindingOptions.currentView.year = year;
 
-        if ( callCustomTrigger ) {
-            fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
+            renderControlContainer( bindingOptions );
+
+            if ( callCustomTrigger ) {
+                fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
+            }
         }
     }
 
     function moveToNextYear( bindingOptions, callCustomTrigger ) {
         callCustomTrigger = isDefined( callCustomTrigger ) ? callCustomTrigger : true;
 
-        bindingOptions.currentView.year++;
+        var render = true,
+            year = bindingOptions.currentView.year;
 
-        while ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
-            bindingOptions.currentView.year++;
+        year++;
+
+        while ( !isYearVisible( bindingOptions, year ) ) {
+            if ( bindingOptions.currentView.yearsAvailable.length > 0 && year >= bindingOptions.currentView.yearsAvailable[ bindingOptions.currentView.yearsAvailable.length - 1 ] ) {
+                render = false;
+                break;
+            }
+
+            year++;
         }
 
-        renderControlContainer( bindingOptions );
+        if ( render ) {
+            bindingOptions.currentView.year = year;
 
-        if ( callCustomTrigger ) {
-            fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
+            renderControlContainer( bindingOptions );
+
+            if ( callCustomTrigger ) {
+                fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
+            }
         }
     }
     
@@ -3169,6 +3259,7 @@
         _configuration.unknownTrendText = getDefaultString( _configuration.unknownTrendText, "Unknown" );
         _configuration.importButtonText = getDefaultString( _configuration.importButtonText, "Import" );
         _configuration.noMapDataMessage = getDefaultString( _configuration.noMapDataMessage, "There is currently no data to view." );
+        _configuration.objectErrorText = getDefaultString( _configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}" );
     }
 
     function buildDefaultConfigurationArrays() {
@@ -3246,7 +3337,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.6.1";
+        return "2.7.0";
     };
 
 

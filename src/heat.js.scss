@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v2.6.1
+ * Heat.js Library v2.7.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -436,7 +436,8 @@ div.heat-js {
                     background-color: var(--heat-js-years-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-years-border-color);
                     color: var(--heat-js-years-text-color);
-                    height: 183px;
+                    max-height: 183px;
+                    height: 100%;
                     overflow-y: scroll;
                     scroll-snap-type: y mandatory;
 
@@ -470,6 +471,11 @@ div.heat-js {
                         color: var(--heat-js-years-text-color-hover);
                         font-weight: var(--heat-js-text-bold-weight-active);
                         cursor: default !important;
+                    }
+
+                    div.year-current {
+                        font-style: italic;
+                        font-weight: var(--heat-js-text-bold-weight-active);
                     }
                 }
             }

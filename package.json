@@ -1,36 +1,36 @@
 {
-    "name": "jheat.js",
-    "title": "Heat.js",
-    "description": "A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.",
-    "version": "2.6.1",
-    "main": "dist/heat.js",
-    "homepage": "https://www.william-troup.com/heat-js/",
-    "author": {
-      "name": "Bunoon"
-    },
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/williamtroup/Heat.js"
-    },
-    "keywords": [
-      "javascript",
-      "css",
-      "heat.js",
-      "html",
-      "date",
-      "heatmap",
-      "generator",
-      "chart",
-      "map",
-      "heat",
-      "activity",
-      "trends",
-      "statistics",
-      "bar",
-      "themes"
-    ],
-    "bugs": {
-      "url": "https://github.com/williamtroup/Heat.js/issues"
-    },
-    "license": "MIT"
-  }
+  "name": "jheat.js",
+  "title": "Heat.js",
+  "description": "A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.",
+  "version": "2.7.0",
+  "main": "dist/heat.js",
+  "homepage": "https://www.william-troup.com/heat-js/",
+  "author": {
+    "name": "Bunoon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/williamtroup/Heat.js"
+  },
+  "keywords": [
+    "javascript",
+    "css",
+    "heat.js",
+    "html",
+    "date",
+    "heatmap",
+    "generator",
+    "chart",
+    "map",
+    "heat",
+    "activity",
+    "trends",
+    "statistics",
+    "bar",
+    "themes"
+  ],
+  "bugs": {
+    "url": "https://github.com/williamtroup/Heat.js/issues"
+  },
+  "license": "MIT"
+}
