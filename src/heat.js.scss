@@ -436,7 +436,8 @@ div.heat-js {
                     background-color: var(--heat-js-years-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-years-border-color);
                     color: var(--heat-js-years-text-color);
-                    height: 183px;
+                    max-height: 183px;
+                    height: 100%;
                     overflow-y: scroll;
                     scroll-snap-type: y mandatory;
 

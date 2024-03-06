@@ -141,6 +141,7 @@
         bindingOptions.currentView.type = _configuration.unknownTrendText;
         bindingOptions.currentView.isInFetchMode = isDefinedFunction( bindingOptions.onDataFetch );
         bindingOptions.currentView.isInFetchModeTimer = null;
+        bindingOptions.currentView.yearsAvailable = [];
 
         if ( bindingOptions.views.chart.enabled ) {
             bindingOptions.currentView.chartContents = null;
@@ -201,7 +202,8 @@
         }
         
         bindingOptions.currentView.element.innerHTML = _string.empty;
-
+        bindingOptions.currentView.yearsAvailable = getYearsAvailableInData( bindingOptions );
+        
         hideToolTip( bindingOptions );
 
         startDataPullTimer( bindingOptions );
@@ -234,34 +236,6 @@
             bindingOptions.currentView.view = _elements_View_Map;
             bindingOptions.currentView.mapContents.style.display = "block";
         }
-    }
-
-    function createDateStorageForElement( elementId, bindingOptions, storeLocalData ) {
-        storeLocalData = isDefined( storeLocalData ) ? storeLocalData : true;
-
-        _elements_DateCounts[ elementId ] = {
-            options: bindingOptions,
-            type: {},
-            types: 1
-        };
-
-        _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ] = {};
-
-        if ( storeLocalData && !bindingOptions.currentView.isInFetchMode ) {
-            loadDataFromLocalStorage( bindingOptions );
-        }
-    }
-
-    function getCurrentViewData( bindingOptions ) {
-        return _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ];
-    }
-
-    function isMonthVisible( monthsToShow, month ) {
-        return monthsToShow.indexOf( month + 1 ) > _value.notFound;
-    }
-
-    function isDayVisible( daysToShow, day ) {
-        return daysToShow.indexOf( day ) > _value.notFound;
     }
 
 
@@ -407,7 +381,7 @@
                     yearList.style.visibility = "hidden";
 
                     for ( var currentYear = thisYear - bindingOptions.extraSelectionYears; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++ ) {
-                        if ( bindingOptions.yearsToHide.indexOf( currentYear ) === _value.notFound ) {
+                        if ( isYearVisible( bindingOptions, currentYear ) ) {
                             var year = renderControlTitleBarYear( bindingOptions, years, currentYear );
 
                             if ( !isDefined( activeYear ) ) {
@@ -1152,6 +1126,69 @@
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Data
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function createDateStorageForElement( elementId, bindingOptions, storeLocalData ) {
+        storeLocalData = isDefined( storeLocalData ) ? storeLocalData : true;
+
+        _elements_DateCounts[ elementId ] = {
+            options: bindingOptions,
+            type: {},
+            types: 1
+        };
+
+        _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ] = {};
+
+        if ( storeLocalData && !bindingOptions.currentView.isInFetchMode ) {
+            loadDataFromLocalStorage( bindingOptions );
+        }
+    }
+
+    function getCurrentViewData( bindingOptions ) {
+        return _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ];
+    }
+
+    function isMonthVisible( monthsToShow, month ) {
+        return monthsToShow.indexOf( month + 1 ) > _value.notFound;
+    }
+
+    function isDayVisible( daysToShow, day ) {
+        return daysToShow.indexOf( day ) > _value.notFound;
+    }
+
+    function getYearsAvailableInData( bindingOptions ) {
+        var years = [];
+
+        if ( bindingOptions.showOnlyDataForYearsAvailable ) {
+            var data = getCurrentViewData( bindingOptions );
+
+            for ( var storageDate in data ) {
+                if ( data.hasOwnProperty( storageDate ) ) {
+                    var year = parseInt( getStorageDateYear( storageDate ) );
+                    
+                    if ( years.indexOf( year ) === _value.notFound ) {
+                        years.push( year );
+                    }
+                }
+            }
+        }
+
+        years = years.sort( function( a, b ) {
+            return a - b;
+        } );
+
+        return years;
+    }
+
+    function isYearVisible( bindingOptions, year ) {
+        return bindingOptions.yearsToHide.indexOf( year ) === _value.notFound && ( bindingOptions.currentView.yearsAvailable.length === 0 || bindingOptions.currentView.yearsAvailable.indexOf( year ) > _value.notFound );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Local Storage
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -1730,6 +1767,7 @@
         options.showNumbersInGuide = getDefaultBoolean( options.showNumbersInGuide, false );
         options.showImportButton = getDefaultBoolean( options.showImportButton, false );
         options.dataFetchDelay = getDefaultNumber( options.dataFetchDelay, 60000 );
+        options.showOnlyDataForYearsAvailable = getDefaultBoolean( options.showOnlyDataForYearsAvailable, false );
 
         options = buildAttributeOptionColorRanges( options );
         options = buildAttributeOptionHolidays( options );
@@ -2679,7 +2717,7 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             bindingOptions.currentView.year = year;
 
-            if ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+            if ( !isYearVisible( bindingOptions, bindingOptions.currentView.year ) ) {
                 moveToNextYear( bindingOptions, false );
             } else {
                 renderControlContainer( bindingOptions );
@@ -2718,7 +2756,7 @@
             if ( maximumYear > 0 ) {
                 bindingOptions.currentView.year = maximumYear;
 
-                if ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                if ( !isYearVisible( bindingOptions, bindingOptions.currentView.year ) ) {
                     moveToNextYear( bindingOptions, false );
                 } else {
                     renderControlContainer( bindingOptions );
@@ -2758,7 +2796,7 @@
             if ( minimumYear < 9999 ) {
                 bindingOptions.currentView.year = minimumYear;
 
-                if ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+                if ( !isYearVisible( bindingOptions, bindingOptions.currentView.year ) ) {
                     moveToPreviousYear( bindingOptions, false );
                 } else {
                     renderControlContainer( bindingOptions );
@@ -2828,7 +2866,7 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             bindingOptions.currentView.year = new Date().getFullYear();
 
-            if ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
+            if ( !isYearVisible( bindingOptions, bindingOptions.currentView.year ) ) {
                 moveToNextYear( bindingOptions, false );
             } else {
                 renderControlContainer( bindingOptions );
@@ -3001,32 +3039,56 @@
     function moveToPreviousYear( bindingOptions, callCustomTrigger ) {
         callCustomTrigger = isDefined( callCustomTrigger ) ? callCustomTrigger : true;
 
-        bindingOptions.currentView.year--;
+        var render = true,
+            year = bindingOptions.currentView.year;
+            
+        year--;
 
-        while ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
-            bindingOptions.currentView.year--;
+        while ( !isYearVisible( bindingOptions, year ) ) {
+            if ( bindingOptions.currentView.yearsAvailable.length > 0 && year <= bindingOptions.currentView.yearsAvailable[ 0 ] ) {
+                render = false;
+                break;
+            }
+
+            year--;
         }
 
-        renderControlContainer( bindingOptions );
+        if ( render ) {
+            bindingOptions.currentView.year = year;
 
-        if ( callCustomTrigger ) {
-            fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
+            renderControlContainer( bindingOptions );
+
+            if ( callCustomTrigger ) {
+                fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
+            }
         }
     }
 
     function moveToNextYear( bindingOptions, callCustomTrigger ) {
         callCustomTrigger = isDefined( callCustomTrigger ) ? callCustomTrigger : true;
 
-        bindingOptions.currentView.year++;
+        var render = true,
+            year = bindingOptions.currentView.year;
 
-        while ( bindingOptions.yearsToHide.indexOf( bindingOptions.currentView.year ) > _value.notFound ) {
-            bindingOptions.currentView.year++;
+        year++;
+
+        while ( !isYearVisible( bindingOptions, year ) ) {
+            if ( bindingOptions.currentView.yearsAvailable.length > 0 && year >= bindingOptions.currentView.yearsAvailable[ bindingOptions.currentView.yearsAvailable.length - 1 ] ) {
+                render = false;
+                break;
+            }
+
+            year++;
         }
 
-        renderControlContainer( bindingOptions );
+        if ( render ) {
+            bindingOptions.currentView.year = year;
 
-        if ( callCustomTrigger ) {
-            fireCustomTrigger( bindingOptions.onNextYear, bindingOptions.currentView.year );
+            renderControlContainer( bindingOptions );
+
+            if ( callCustomTrigger ) {
+                fireCustomTrigger( bindingOptions.onBackYear, bindingOptions.currentView.year );
+            }
         }
     }
     
