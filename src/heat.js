@@ -173,7 +173,12 @@
             bindingOptions.currentView.element.id = newGuid();
         }
 
-        bindingOptions.currentView.element.className = "heat-js";
+        if ( bindingOptions.currentView.element.className.trim() === _string.empty ) {
+            bindingOptions.currentView.element.className = "heat-js";
+        } else {
+            addClass( bindingOptions.currentView.element, "heat-js" );
+        }
+
         bindingOptions.currentView.element.removeAttribute( _attribute_Name_Options );
 
         createDateStorageForElement( bindingOptions.currentView.element.id, bindingOptions );
@@ -2139,6 +2144,12 @@
 
     function addClass( element, className ) {
         element.className += _string.space + className;
+        element.className = element.className.trim();
+    }
+
+    function removeClass( element, className ) {
+        element.className = element.className.replace( className, _string.empty );
+        element.className = element.className.trim();
     }
 
     function cancelBubble( e ) {
@@ -3173,7 +3184,8 @@
 
     function destroyElement( bindingOptions ) {
         bindingOptions.currentView.element.innerHTML = _string.empty;
-        bindingOptions.currentView.element.className = _string.empty;
+
+        removeClass( bindingOptions.currentView.element, "heat-js" );
 
         _parameter_Document.body.removeChild( bindingOptions.currentView.tooltip );
 
