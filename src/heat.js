@@ -187,8 +187,8 @@
     }
 
     function renderControlContainer( bindingOptions, isForDataRefresh, isForViewSwitch ) {
-        isForDataRefresh = isDefined( isForDataRefresh ) ? isForDataRefresh : false;
-        isForViewSwitch = isDefined( isForViewSwitch ) ? isForViewSwitch : false;
+        isForDataRefresh = getDefaultBoolean( isForDataRefresh, false );
+        isForViewSwitch = getDefaultBoolean( isForViewSwitch, false );
 
         if ( isForDataRefresh ) {
             storeDataInLocalStorage( bindingOptions );
@@ -607,7 +607,7 @@
             date = new Date( year, month, actualDay ),
             dateCount = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
 
-        dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
+        dateCount = getDefaultNumber( dateCount, 0 );
 
         renderDayToolTip( bindingOptions, day, date, dateCount );
 
@@ -764,7 +764,7 @@
             dayLine = createElement( dayLines, "div", "day-line" ),
             dateCount = getCurrentViewData( bindingOptions )[ toStorageDate( date ) ];
 
-        dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
+        dateCount = getDefaultNumber( dateCount, 0 );
 
         renderDayToolTip( bindingOptions, dayLine, date, dateCount );
 
@@ -1158,7 +1158,7 @@
      */
 
     function createDateStorageForElement( elementId, bindingOptions, storeLocalData ) {
-        storeLocalData = isDefined( storeLocalData ) ? storeLocalData : true;
+        storeLocalData = getDefaultBoolean( storeLocalData, true );
 
         _elements_DateCounts[ elementId ] = {
             options: bindingOptions,
@@ -1602,7 +1602,7 @@
     function exportAllData( bindingOptions, exportType ) {
         var contents = null,
             contentsMimeType = getExportMimeType( bindingOptions ),
-            contentExportType = isDefined( exportType ) ? exportType.toLowerCase() : bindingOptions.exportType.toLowerCase();
+            contentExportType = getDefaultString( exportType, bindingOptions.exportType ).toLowerCase();
 
         if ( contentExportType === _export_Type_Csv ) {
             contents = getCsvContent( bindingOptions );
@@ -2126,7 +2126,7 @@
     function getStyleValueByName( element, stylePropertyName, toNumber ) {
         var value = null;
 
-        toNumber = isDefined( toNumber ) ? toNumber : false;
+        toNumber = getDefaultBoolean( toNumber, false );
 
         if ( _parameter_Window.getComputedStyle ) {
             value = _parameter_Document.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
@@ -2379,8 +2379,8 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
-                triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
-                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
+                type = getDefaultString( type, _configuration.unknownTrendText );
+                triggerRefresh = getDefaultBoolean( triggerRefresh, true );
     
                 var datesLength = dates.length;
     
@@ -2417,8 +2417,8 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
-                triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
-                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
+                type = getDefaultString( type, _configuration.unknownTrendText );
+                triggerRefresh = getDefaultBoolean( triggerRefresh, true );
     
                 var storageDate = toStorageDate( date );
     
@@ -2465,12 +2465,12 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode && count > 0 ) {
-                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
+                type = getDefaultString( type, _configuration.unknownTrendText );
 
                 var storageDate = toStorageDate( date );
     
                 if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
-                    triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+                    triggerRefresh = getDefaultBoolean( triggerRefresh, true );
     
                     _elements_DateCounts[ elementId ].type[ type ][ storageDate ] = count;
     
@@ -2506,8 +2506,8 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
-                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
-                triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+                type = getDefaultString( type, _configuration.unknownTrendText );
+                triggerRefresh = getDefaultBoolean( triggerRefresh, true );
     
                 var datesLength = dates.length;
     
@@ -2544,12 +2544,12 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
-                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
+                type = getDefaultString( type, _configuration.unknownTrendText );
 
                 var storageDate = toStorageDate( date );
     
                 if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
-                    triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+                    triggerRefresh = getDefaultBoolean( triggerRefresh, true );
     
                     if ( _elements_DateCounts[ elementId ].type[ type ][ storageDate ] > 0 ) {
                         _elements_DateCounts[ elementId ].type[ type ][ storageDate ]--;
@@ -2587,12 +2587,12 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
-                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
+                type = getDefaultString( type, _configuration.unknownTrendText );
 
                 var storageDate = toStorageDate( date );
     
                 if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
-                    triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+                    triggerRefresh = getDefaultBoolean( triggerRefresh, true );
     
                     delete _elements_DateCounts[ elementId ].type[ type ][ storageDate ];
     
@@ -2648,7 +2648,7 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
-                triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+                triggerRefresh = getDefaultBoolean( triggerRefresh, true );
             
                 bindingOptions.currentView.type = _configuration.unknownTrendText;
     
@@ -3076,7 +3076,7 @@
     };
 
     function moveToPreviousYear( bindingOptions, callCustomTrigger ) {
-        callCustomTrigger = isDefined( callCustomTrigger ) ? callCustomTrigger : true;
+        callCustomTrigger = getDefaultBoolean( callCustomTrigger, true );
 
         var render = true,
             year = bindingOptions.currentView.year;
@@ -3104,7 +3104,7 @@
     }
 
     function moveToNextYear( bindingOptions, callCustomTrigger ) {
-        callCustomTrigger = isDefined( callCustomTrigger ) ? callCustomTrigger : true;
+        callCustomTrigger = getDefaultBoolean( callCustomTrigger, true );
 
         var render = true,
             year = bindingOptions.currentView.year;
@@ -3228,7 +3228,7 @@
             }
     
             if ( configurationHasChanged ) {
-                triggerRefresh = !isDefined( triggerRefresh ) ? true: triggerRefresh;
+                triggerRefresh = getDefaultBoolean( triggerRefresh, true );
     
                 buildDefaultConfiguration( _configuration );
     
