@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Níl aon staitisticí le léamh faoi láthair.",
         "unknownTrendText": "Anaithnid",
         "importButtonText": "Iompórtáil",
+        "objectErrorText": "Earráidí san oibiacht: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "Ean",
                 "Feabh",

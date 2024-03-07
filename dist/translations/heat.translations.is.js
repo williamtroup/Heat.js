@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Það er engin tölfræði til að skoða eins og er.",
         "unknownTrendText": "Óþekktur",
         "importButtonText": "Flytja inn",
+        "objectErrorText": "Villur í hlut: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "Jan",
                 "feb",

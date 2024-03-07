@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "ამჟამად არ არის სანახავი სტატისტიკა.",
         "unknownTrendText": "უცნობი",
         "importButtonText": "იმპორტი",
+        "objectErrorText": "შეცდომები ობიექტში: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "იან",
                 "თებ",

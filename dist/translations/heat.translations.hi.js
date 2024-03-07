@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "वर्तमान में देखने के लिए कोई आँकड़े नहीं हैं।",
         "unknownTrendText": "अज्ञात",
         "importButtonText": "आयात",
+        "objectErrorText": "वस्तु में त्रुटियाँ: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "जनवरी",
                 "फ़रवरी",

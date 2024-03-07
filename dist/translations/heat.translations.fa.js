@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "در حال حاضر هیچ آماری برای مشاهده وجود ندارد.",
         "unknownTrendText": "ناشناخته",
         "importButtonText": "وارد كردن",
+        "objectErrorText": "خطا در شی: {{error_1}}، {{error_2}}",
         "monthNames": [
                 "ژان",
                 "فوریه",

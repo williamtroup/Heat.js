@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Praegu pole statistikat vaadata.",
         "unknownTrendText": "Tundmatu",
         "importButtonText": "Import",
+        "objectErrorText": "Vead objektil: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "jaan",
                 "veebr",

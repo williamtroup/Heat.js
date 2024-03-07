@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Jelenleg nincs megtekinthető statisztika.",
         "unknownTrendText": "Ismeretlen",
         "importButtonText": "Importálás",
+        "objectErrorText": "Hibák az objektumban: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "jan",
                 "Február",

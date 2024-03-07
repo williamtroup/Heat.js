@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "لا يوجد حاليا أي إحصائيات لعرضها.",
         "unknownTrendText": "مجهول",
         "importButtonText": "يستورد",
+        "objectErrorText": "أخطاء في الكائن: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "يناير",
                 "فبراير",

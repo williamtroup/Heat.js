@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Tällä hetkellä ei ole tilastoja nähtäväksi.",
         "unknownTrendText": "Tuntematon",
         "importButtonText": "Tuonti",
+        "objectErrorText": "Virheet objektissa: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "tammikuu",
                 "helmikuuta",

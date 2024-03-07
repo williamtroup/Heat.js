@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "බැලීමට දැනට සංඛ්‍යාලේඛන නොමැත.",
         "unknownTrendText": "නොදන්නා",
         "importButtonText": "ආනයන",
+        "objectErrorText": "වස්තුවේ දෝෂ: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "ජන",
                 "පෙබ",

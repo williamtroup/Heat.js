@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "כרגע אין נתונים סטטיסטיים לצפייה.",
         "unknownTrendText": "לא ידוע",
         "importButtonText": "יְבוּא",
+        "objectErrorText": "שגיאות באובייקט: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "ינואר",
                 "פברואר",

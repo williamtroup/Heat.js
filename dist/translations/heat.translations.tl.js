@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Kasalukuyang walang mga istatistika na titingnan.",
         "unknownTrendText": "Hindi alam",
         "importButtonText": "Angkat",
+        "objectErrorText": "Mga error sa object: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "Jan",
                 "Feb",
