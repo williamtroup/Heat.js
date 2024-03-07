@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Malay | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Malay | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Pada masa ini tiada statistik untuk dilihat.",
         "unknownTrendText": "Tidak diketahui",
         "importButtonText": "Import",
+        "objectErrorText": "Ralat dalam objek: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "Jan",
                 "Feb",

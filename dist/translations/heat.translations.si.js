@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Sinhalese | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Sinhalese | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "බැලීමට දැනට සංඛ්‍යාලේඛන නොමැත.",
         "unknownTrendText": "නොදන්නා",
         "importButtonText": "ආනයන",
+        "objectErrorText": "වස්තුවේ දෝෂ: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "ජන",
                 "පෙබ",

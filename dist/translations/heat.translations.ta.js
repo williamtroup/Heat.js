@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Tamil | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Tamil | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "பார்ப்பதற்கு தற்போது புள்ளிவிவரங்கள் எதுவும் இல்லை.",
         "unknownTrendText": "தெரியவில்லை",
         "importButtonText": "இறக்குமதி",
+        "objectErrorText": "பொருளில் பிழைகள்: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "ஜன",
                 "பிப்",

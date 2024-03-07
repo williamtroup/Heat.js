@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Chinese (simplified) | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Chinese (simplified) | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "日",
         "ndText": "日",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "目前没有可查看的统计数据。",
         "unknownTrendText": "未知",
         "importButtonText": "进口",
+        "objectErrorText": "对象中的错误： {{error_1}}, {{error_2}}",
         "monthNames": [
                 "一月",
                 "二月",

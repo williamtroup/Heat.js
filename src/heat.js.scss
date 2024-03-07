@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v2.7.0
+ * Heat.js Library v2.7.1
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -119,12 +119,16 @@
         outline: none;
         transition: var(--heat-js-transition);
 
-        &:not(.active):active {
+        &:disabled {
+            color: var(--heat-js-button-border-color);
+        }
+
+        &:not(.active):not(:disabled):active {
             background: var(--heat-js-button-background-color-active) !important;
             color: var(--heat-js-button-text-color-active) !important;
         }
 
-        &:not(.active):hover {
+        &:not(.active):not(:disabled):hover {
             cursor: pointer;
             background: var(--heat-js-button-background-color-hover);
             color: var(--heat-js-button-text-color-hover);

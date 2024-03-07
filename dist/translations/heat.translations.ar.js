@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Arabic | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Arabic | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "لا يوجد حاليا أي إحصائيات لعرضها.",
         "unknownTrendText": "مجهول",
         "importButtonText": "يستورد",
+        "objectErrorText": "أخطاء في الكائن: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "يناير",
                 "فبراير",

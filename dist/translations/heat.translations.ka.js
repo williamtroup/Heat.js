@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Georgian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Georgian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "ამჟამად არ არის სანახავი სტატისტიკა.",
         "unknownTrendText": "უცნობი",
         "importButtonText": "იმპორტი",
+        "objectErrorText": "შეცდომები ობიექტში: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "იან",
                 "თებ",

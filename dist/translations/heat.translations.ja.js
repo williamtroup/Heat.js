@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Japanese | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Japanese | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "現在、表示できる統計はありません。",
         "unknownTrendText": "未知",
         "importButtonText": "輸入",
+        "objectErrorText": "オブジェクト内のエラー: {{error_1}}、 {{error_2}}",
         "monthNames": [
                 "1月",
                 "2月",

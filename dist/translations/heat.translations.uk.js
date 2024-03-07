@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Ukrainian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Ukrainian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Наразі немає статистики для перегляду.",
         "unknownTrendText": "Невідомий",
         "importButtonText": "Імпорт",
+        "objectErrorText": "Помилки в об'єкті: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "січня",
                 "лютий",

@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Greek | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Greek | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Αυτήν τη στιγμή δεν υπάρχουν στατιστικά στοιχεία για προβολή.",
         "unknownTrendText": "Αγνωστος",
         "importButtonText": "Εισαγωγή",
+        "objectErrorText": "Σφάλματα στο αντικείμενο: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "Ιαν",
                 "Φεβ",

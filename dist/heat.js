@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 | (c) Bunoon 2024 | MIT License */
 (function() {
   function render() {
     var tagTypes = _configuration.domElementTypes;
@@ -77,15 +77,19 @@
     if (!isDefinedString(bindingOptions.currentView.element.id)) {
       bindingOptions.currentView.element.id = newGuid();
     }
-    bindingOptions.currentView.element.className = "heat-js";
+    if (bindingOptions.currentView.element.className.trim() === _string.empty) {
+      bindingOptions.currentView.element.className = "heat-js";
+    } else {
+      addClass(bindingOptions.currentView.element, "heat-js");
+    }
     bindingOptions.currentView.element.removeAttribute(_attribute_Name_Options);
     createDateStorageForElement(bindingOptions.currentView.element.id, bindingOptions);
     renderControlContainer(bindingOptions);
     fireCustomTrigger(bindingOptions.onRenderComplete, bindingOptions.currentView.element);
   }
   function renderControlContainer(bindingOptions, isForDataRefresh, isForViewSwitch) {
-    isForDataRefresh = isDefined(isForDataRefresh) ? isForDataRefresh : false;
-    isForViewSwitch = isDefined(isForViewSwitch) ? isForViewSwitch : false;
+    isForDataRefresh = getDefaultBoolean(isForDataRefresh, false);
+    isForViewSwitch = getDefaultBoolean(isForViewSwitch, false);
     if (isForDataRefresh) {
       storeDataInLocalStorage(bindingOptions);
     }
@@ -214,6 +218,9 @@
         back.onclick = function() {
           moveToPreviousYear(bindingOptions);
         };
+        if (isFirstVisibleYear(bindingOptions, bindingOptions.currentView.year)) {
+          back.disabled = true;
+        }
         bindingOptions.currentView.yearText = createElementWithHTML(titleBar, "div", "year-text", bindingOptions.currentView.year);
         if (bindingOptions.showYearSelectionDropDown) {
           createElement(bindingOptions.currentView.yearText, "div", "down-arrow");
@@ -244,6 +251,9 @@
         next.onclick = function() {
           moveToNextYear(bindingOptions);
         };
+        if (isLastVisibleYear(bindingOptions, bindingOptions.currentView.year)) {
+          next.disabled = true;
+        }
       }
     }
   }
@@ -393,7 +403,7 @@
     var day = createElement(currentDayColumn, "div", "day");
     var date = new Date(year, month, actualDay);
     var dateCount = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type][toStorageDate(date)];
-    dateCount = isDefinedNumber(dateCount) ? dateCount : 0;
+    dateCount = getDefaultNumber(dateCount, 0);
     renderDayToolTip(bindingOptions, day, date, dateCount);
     if (bindingOptions.views.map.showDayNumbers && dateCount > 0) {
       day.innerHTML = dateCount.toString();
@@ -513,7 +523,7 @@
     var date = new Date(year, month, day);
     var dayLine = createElement(dayLines, "div", "day-line");
     var dateCount = getCurrentViewData(bindingOptions)[toStorageDate(date)];
-    dateCount = isDefinedNumber(dateCount) ? dateCount : 0;
+    dateCount = getDefaultNumber(dateCount, 0);
     renderDayToolTip(bindingOptions, dayLine, date, dateCount);
     if (bindingOptions.views.chart.showLineNumbers && dateCount > 0) {
       addClass(dayLine, "day-line-number");
@@ -799,7 +809,7 @@
     }
   }
   function createDateStorageForElement(elementId, bindingOptions, storeLocalData) {
-    storeLocalData = isDefined(storeLocalData) ? storeLocalData : true;
+    storeLocalData = getDefaultBoolean(storeLocalData, true);
     _elements_DateCounts[elementId] = {options:bindingOptions, type:{}, types:1};
     _elements_DateCounts[elementId].type[_configuration.unknownTrendText] = {};
     if (storeLocalData && !bindingOptions.currentView.isInFetchMode) {
@@ -836,6 +846,12 @@
   }
   function isYearVisible(bindingOptions, year) {
     return bindingOptions.yearsToHide.indexOf(year) === _value.notFound && (bindingOptions.currentView.yearsAvailable.length === 0 || bindingOptions.currentView.yearsAvailable.indexOf(year) > _value.notFound);
+  }
+  function isFirstVisibleYear(bindingOptions, year) {
+    return bindingOptions.currentView.yearsAvailable.length > 0 && year <= bindingOptions.currentView.yearsAvailable[0];
+  }
+  function isLastVisibleYear(bindingOptions, year) {
+    return bindingOptions.currentView.yearsAvailable.length > 0 && year >= bindingOptions.currentView.yearsAvailable[bindingOptions.currentView.yearsAvailable.length - 1];
   }
   function loadDataFromLocalStorage(bindingOptions) {
     if (bindingOptions.useLocalStorageForData && _parameter_Window.localStorage) {
@@ -1116,7 +1132,7 @@
   function exportAllData(bindingOptions, exportType) {
     var contents = null;
     var contentsMimeType = getExportMimeType(bindingOptions);
-    var contentExportType = isDefined(exportType) ? exportType.toLowerCase() : bindingOptions.exportType.toLowerCase();
+    var contentExportType = getDefaultString(exportType, bindingOptions.exportType).toLowerCase();
     if (contentExportType === _export_Type_Csv) {
       contents = getCsvContent(bindingOptions);
     } else if (contentExportType === _export_Type_Json) {
@@ -1489,7 +1505,7 @@
   }
   function getStyleValueByName(element, stylePropertyName, toNumber) {
     var value = null;
-    toNumber = isDefined(toNumber) ? toNumber : false;
+    toNumber = getDefaultBoolean(toNumber, false);
     if (_parameter_Window.getComputedStyle) {
       value = _parameter_Document.defaultView.getComputedStyle(element, null).getPropertyValue(stylePropertyName);
     } else if (element.currentStyle) {
@@ -1502,6 +1518,11 @@
   }
   function addClass(element, className) {
     element.className += _string.space + className;
+    element.className = element.className.trim();
+  }
+  function removeClass(element, className) {
+    element.className = element.className.replace(className, _string.empty);
+    element.className = element.className.trim();
   }
   function cancelBubble(e) {
     e.preventDefault();
@@ -1629,12 +1650,12 @@
     return data.split(_string.dash)[0];
   }
   function moveToPreviousYear(bindingOptions, callCustomTrigger) {
-    callCustomTrigger = isDefined(callCustomTrigger) ? callCustomTrigger : true;
+    callCustomTrigger = getDefaultBoolean(callCustomTrigger, true);
     var render = true;
     var year = bindingOptions.currentView.year;
     year--;
     for (; !isYearVisible(bindingOptions, year);) {
-      if (bindingOptions.currentView.yearsAvailable.length > 0 && year <= bindingOptions.currentView.yearsAvailable[0]) {
+      if (isFirstVisibleYear(bindingOptions, year)) {
         render = false;
         break;
       }
@@ -1649,12 +1670,12 @@
     }
   }
   function moveToNextYear(bindingOptions, callCustomTrigger) {
-    callCustomTrigger = isDefined(callCustomTrigger) ? callCustomTrigger : true;
+    callCustomTrigger = getDefaultBoolean(callCustomTrigger, true);
     var render = true;
     var year = bindingOptions.currentView.year;
     year++;
     for (; !isYearVisible(bindingOptions, year);) {
-      if (bindingOptions.currentView.yearsAvailable.length > 0 && year >= bindingOptions.currentView.yearsAvailable[bindingOptions.currentView.yearsAvailable.length - 1]) {
+      if (isLastVisibleYear(bindingOptions, year)) {
         render = false;
         break;
       }
@@ -1670,7 +1691,7 @@
   }
   function destroyElement(bindingOptions) {
     bindingOptions.currentView.element.innerHTML = _string.empty;
-    bindingOptions.currentView.element.className = _string.empty;
+    removeClass(bindingOptions.currentView.element, "heat-js");
     _parameter_Document.body.removeChild(bindingOptions.currentView.tooltip);
     if (bindingOptions.currentView.isInFetchMode && isDefined(bindingOptions.currentView.isInFetchModeTimer)) {
       clearInterval(bindingOptions.currentView.isInFetchModeTimer);
@@ -1748,8 +1769,8 @@
     if (isDefinedString(elementId) && isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       if (!bindingOptions.currentView.isInFetchMode) {
-        triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
-        type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
+        type = getDefaultString(type, _configuration.unknownTrendText);
+        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
         var datesLength = dates.length;
         var dateIndex = 0;
         for (; dateIndex < datesLength; dateIndex++) {
@@ -1766,8 +1787,8 @@
     if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       if (!bindingOptions.currentView.isInFetchMode) {
-        triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
-        type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
+        type = getDefaultString(type, _configuration.unknownTrendText);
+        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
         var storageDate = toStorageDate(date);
         if (!_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
           _elements_DateCounts[elementId].type[type] = {};
@@ -1789,10 +1810,10 @@
     if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       if (!bindingOptions.currentView.isInFetchMode && count > 0) {
-        type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
+        type = getDefaultString(type, _configuration.unknownTrendText);
         var storageDate = toStorageDate(date);
         if (_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
-          triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
+          triggerRefresh = getDefaultBoolean(triggerRefresh, true);
           _elements_DateCounts[elementId].type[type][storageDate] = count;
           fireCustomTrigger(bindingOptions.onUpdate, bindingOptions.currentView.element);
           if (triggerRefresh) {
@@ -1807,8 +1828,8 @@
     if (isDefinedString(elementId) && isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       if (!bindingOptions.currentView.isInFetchMode) {
-        type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
-        triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
+        type = getDefaultString(type, _configuration.unknownTrendText);
+        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
         var datesLength = dates.length;
         var dateIndex = 0;
         for (; dateIndex < datesLength; dateIndex++) {
@@ -1825,10 +1846,10 @@
     if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       if (!bindingOptions.currentView.isInFetchMode) {
-        type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
+        type = getDefaultString(type, _configuration.unknownTrendText);
         var storageDate = toStorageDate(date);
         if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
-          triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
+          triggerRefresh = getDefaultBoolean(triggerRefresh, true);
           if (_elements_DateCounts[elementId].type[type][storageDate] > 0) {
             _elements_DateCounts[elementId].type[type][storageDate]--;
           }
@@ -1845,10 +1866,10 @@
     if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       if (!bindingOptions.currentView.isInFetchMode) {
-        type = !isDefinedString(type) ? _configuration.unknownTrendText : type;
+        type = getDefaultString(type, _configuration.unknownTrendText);
         var storageDate = toStorageDate(date);
         if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
-          triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
+          triggerRefresh = getDefaultBoolean(triggerRefresh, true);
           delete _elements_DateCounts[elementId].type[type][storageDate];
           fireCustomTrigger(bindingOptions.onClear, bindingOptions.currentView.element);
           if (triggerRefresh) {
@@ -1872,7 +1893,7 @@
     if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
       var bindingOptions = _elements_DateCounts[elementId].options;
       if (!bindingOptions.currentView.isInFetchMode) {
-        triggerRefresh = !isDefinedBoolean(triggerRefresh) ? true : triggerRefresh;
+        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
         bindingOptions.currentView.type = _configuration.unknownTrendText;
         createDateStorageForElement(elementId, bindingOptions, false);
         fireCustomTrigger(bindingOptions.onReset, bindingOptions.currentView.element);
@@ -2087,7 +2108,7 @@
         }
       }
       if (configurationHasChanged) {
-        triggerRefresh = !isDefined(triggerRefresh) ? true : triggerRefresh;
+        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
         buildDefaultConfiguration(_configuration);
         if (triggerRefresh) {
           this.refreshAll();
@@ -2107,7 +2128,7 @@
     return result;
   };
   this.getVersion = function() {
-    return "2.7.0";
+    return "2.7.1";
   };
   (function(documentObject, windowObject, mathObject, jsonObject) {
     _parameter_Document = documentObject;

@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Farsi | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Farsi | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "در حال حاضر هیچ آماری برای مشاهده وجود ندارد.",
         "unknownTrendText": "ناشناخته",
         "importButtonText": "وارد كردن",
+        "objectErrorText": "خطا در شی: {{error_1}}، {{error_2}}",
         "monthNames": [
                 "ژان",
                 "فوریه",

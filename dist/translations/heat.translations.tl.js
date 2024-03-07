@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Tagalog | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Tagalog | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Kasalukuyang walang mga istatistika na titingnan.",
         "unknownTrendText": "Hindi alam",
         "importButtonText": "Angkat",
+        "objectErrorText": "Mga error sa object: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "Jan",
                 "Feb",

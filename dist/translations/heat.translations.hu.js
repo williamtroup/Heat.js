@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Hungarian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Hungarian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Jelenleg nincs megtekinthető statisztika.",
         "unknownTrendText": "Ismeretlen",
         "importButtonText": "Importálás",
+        "objectErrorText": "Hibák az objektumban: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "jan",
                 "Február",

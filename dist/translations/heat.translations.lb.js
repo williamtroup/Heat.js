@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Luxembourgish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Luxembourgish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Et gi momentan keng Statistiken ze gesinn.",
         "unknownTrendText": "Onbekannt",
         "importButtonText": "Import",
+        "objectErrorText": "Feeler am Objet: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "Jan",
                 "Feb",

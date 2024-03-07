@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v2.7.0
+ * Heat.js Library v2.7.1
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -208,11 +208,14 @@ div.heat-js div.title-bar button {
   outline: none;
   transition: var(--heat-js-transition);
 }
-div.heat-js div.title-bar button:not(.active):active {
+div.heat-js div.title-bar button:disabled {
+  color: var(--heat-js-button-border-color);
+}
+div.heat-js div.title-bar button:not(.active):not(:disabled):active {
   background: var(--heat-js-button-background-color-active) !important;
   color: var(--heat-js-button-text-color-active) !important;
 }
-div.heat-js div.title-bar button:not(.active):hover {
+div.heat-js div.title-bar button:not(.active):not(:disabled):hover {
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
   color: var(--heat-js-button-text-color-hover);
@@ -785,11 +788,14 @@ div.heat-js div.guide div.map-types button {
   outline: none;
   transition: var(--heat-js-transition);
 }
-div.heat-js div.guide div.map-types button:not(.active):active {
+div.heat-js div.guide div.map-types button:disabled {
+  color: var(--heat-js-button-border-color);
+}
+div.heat-js div.guide div.map-types button:not(.active):not(:disabled):active {
   background: var(--heat-js-button-background-color-active) !important;
   color: var(--heat-js-button-text-color-active) !important;
 }
-div.heat-js div.guide div.map-types button:not(.active):hover {
+div.heat-js div.guide div.map-types button:not(.active):not(:disabled):hover {
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
   color: var(--heat-js-button-text-color-hover);

@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Estonian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Estonian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Praegu pole statistikat vaadata.",
         "unknownTrendText": "Tundmatu",
         "importButtonText": "Import",
+        "objectErrorText": "Vead objektil: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "jaan",
                 "veebr",

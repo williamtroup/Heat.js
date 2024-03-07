@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v2.7.0
+ * @version     v2.7.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -173,7 +173,12 @@
             bindingOptions.currentView.element.id = newGuid();
         }
 
-        bindingOptions.currentView.element.className = "heat-js";
+        if ( bindingOptions.currentView.element.className.trim() === _string.empty ) {
+            bindingOptions.currentView.element.className = "heat-js";
+        } else {
+            addClass( bindingOptions.currentView.element, "heat-js" );
+        }
+
         bindingOptions.currentView.element.removeAttribute( _attribute_Name_Options );
 
         createDateStorageForElement( bindingOptions.currentView.element.id, bindingOptions );
@@ -182,8 +187,8 @@
     }
 
     function renderControlContainer( bindingOptions, isForDataRefresh, isForViewSwitch ) {
-        isForDataRefresh = isDefined( isForDataRefresh ) ? isForDataRefresh : false;
-        isForViewSwitch = isDefined( isForViewSwitch ) ? isForViewSwitch : false;
+        isForDataRefresh = getDefaultBoolean( isForDataRefresh, false );
+        isForViewSwitch = getDefaultBoolean( isForViewSwitch, false );
 
         if ( isForDataRefresh ) {
             storeDataInLocalStorage( bindingOptions );
@@ -367,6 +372,10 @@
                     moveToPreviousYear( bindingOptions );
                 };
 
+                if ( isFirstVisibleYear( bindingOptions, bindingOptions.currentView.year ) ) {
+                    back.disabled = true;
+                }
+
                 bindingOptions.currentView.yearText = createElementWithHTML( titleBar, "div", "year-text", bindingOptions.currentView.year );
 
                 if ( bindingOptions.showYearSelectionDropDown ) {
@@ -406,6 +415,10 @@
                 next.onclick = function() {
                     moveToNextYear( bindingOptions );
                 };
+
+                if ( isLastVisibleYear( bindingOptions, bindingOptions.currentView.year ) ) {
+                    next.disabled = true;
+                }
             }
         }
     }
@@ -602,7 +615,7 @@
             date = new Date( year, month, actualDay ),
             dateCount = _elements_DateCounts[ bindingOptions.currentView.element.id ].type[ bindingOptions.currentView.type ][ toStorageDate( date ) ];
 
-        dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
+        dateCount = getDefaultNumber( dateCount, 0 );
 
         renderDayToolTip( bindingOptions, day, date, dateCount );
 
@@ -759,7 +772,7 @@
             dayLine = createElement( dayLines, "div", "day-line" ),
             dateCount = getCurrentViewData( bindingOptions )[ toStorageDate( date ) ];
 
-        dateCount = isDefinedNumber( dateCount ) ? dateCount : 0;
+        dateCount = getDefaultNumber( dateCount, 0 );
 
         renderDayToolTip( bindingOptions, dayLine, date, dateCount );
 
@@ -1153,7 +1166,7 @@
      */
 
     function createDateStorageForElement( elementId, bindingOptions, storeLocalData ) {
-        storeLocalData = isDefined( storeLocalData ) ? storeLocalData : true;
+        storeLocalData = getDefaultBoolean( storeLocalData, true );
 
         _elements_DateCounts[ elementId ] = {
             options: bindingOptions,
@@ -1206,6 +1219,14 @@
 
     function isYearVisible( bindingOptions, year ) {
         return bindingOptions.yearsToHide.indexOf( year ) === _value.notFound && ( bindingOptions.currentView.yearsAvailable.length === 0 || bindingOptions.currentView.yearsAvailable.indexOf( year ) > _value.notFound );
+    }
+
+    function isFirstVisibleYear( bindingOptions, year ) {
+        return bindingOptions.currentView.yearsAvailable.length > 0 && year <= bindingOptions.currentView.yearsAvailable[ 0 ];
+    }
+
+    function isLastVisibleYear( bindingOptions, year ) {
+        return bindingOptions.currentView.yearsAvailable.length > 0 && year >= bindingOptions.currentView.yearsAvailable[ bindingOptions.currentView.yearsAvailable.length - 1 ];
     }
 
 
@@ -1597,7 +1618,7 @@
     function exportAllData( bindingOptions, exportType ) {
         var contents = null,
             contentsMimeType = getExportMimeType( bindingOptions ),
-            contentExportType = isDefined( exportType ) ? exportType.toLowerCase() : bindingOptions.exportType.toLowerCase();
+            contentExportType = getDefaultString( exportType, bindingOptions.exportType ).toLowerCase();
 
         if ( contentExportType === _export_Type_Csv ) {
             contents = getCsvContent( bindingOptions );
@@ -2121,7 +2142,7 @@
     function getStyleValueByName( element, stylePropertyName, toNumber ) {
         var value = null;
 
-        toNumber = isDefined( toNumber ) ? toNumber : false;
+        toNumber = getDefaultBoolean( toNumber, false );
 
         if ( _parameter_Window.getComputedStyle ) {
             value = _parameter_Document.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
@@ -2139,6 +2160,12 @@
 
     function addClass( element, className ) {
         element.className += _string.space + className;
+        element.className = element.className.trim();
+    }
+
+    function removeClass( element, className ) {
+        element.className = element.className.replace( className, _string.empty );
+        element.className = element.className.trim();
     }
 
     function cancelBubble( e ) {
@@ -2368,8 +2395,8 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
-                triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
-                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
+                type = getDefaultString( type, _configuration.unknownTrendText );
+                triggerRefresh = getDefaultBoolean( triggerRefresh, true );
     
                 var datesLength = dates.length;
     
@@ -2406,8 +2433,8 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
-                triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
-                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
+                type = getDefaultString( type, _configuration.unknownTrendText );
+                triggerRefresh = getDefaultBoolean( triggerRefresh, true );
     
                 var storageDate = toStorageDate( date );
     
@@ -2454,12 +2481,12 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode && count > 0 ) {
-                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
+                type = getDefaultString( type, _configuration.unknownTrendText );
 
                 var storageDate = toStorageDate( date );
     
                 if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
-                    triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+                    triggerRefresh = getDefaultBoolean( triggerRefresh, true );
     
                     _elements_DateCounts[ elementId ].type[ type ][ storageDate ] = count;
     
@@ -2495,8 +2522,8 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
-                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
-                triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+                type = getDefaultString( type, _configuration.unknownTrendText );
+                triggerRefresh = getDefaultBoolean( triggerRefresh, true );
     
                 var datesLength = dates.length;
     
@@ -2533,12 +2560,12 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
-                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
+                type = getDefaultString( type, _configuration.unknownTrendText );
 
                 var storageDate = toStorageDate( date );
     
                 if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
-                    triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+                    triggerRefresh = getDefaultBoolean( triggerRefresh, true );
     
                     if ( _elements_DateCounts[ elementId ].type[ type ][ storageDate ] > 0 ) {
                         _elements_DateCounts[ elementId ].type[ type ][ storageDate ]--;
@@ -2576,12 +2603,12 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
-                type = !isDefinedString( type ) ? _configuration.unknownTrendText : type;
+                type = getDefaultString( type, _configuration.unknownTrendText );
 
                 var storageDate = toStorageDate( date );
     
                 if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
-                    triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+                    triggerRefresh = getDefaultBoolean( triggerRefresh, true );
     
                     delete _elements_DateCounts[ elementId ].type[ type ][ storageDate ];
     
@@ -2637,7 +2664,7 @@
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
             if ( !bindingOptions.currentView.isInFetchMode ) {
-                triggerRefresh = !isDefinedBoolean( triggerRefresh ) ? true : triggerRefresh;
+                triggerRefresh = getDefaultBoolean( triggerRefresh, true );
             
                 bindingOptions.currentView.type = _configuration.unknownTrendText;
     
@@ -3065,7 +3092,7 @@
     };
 
     function moveToPreviousYear( bindingOptions, callCustomTrigger ) {
-        callCustomTrigger = isDefined( callCustomTrigger ) ? callCustomTrigger : true;
+        callCustomTrigger = getDefaultBoolean( callCustomTrigger, true );
 
         var render = true,
             year = bindingOptions.currentView.year;
@@ -3073,7 +3100,7 @@
         year--;
 
         while ( !isYearVisible( bindingOptions, year ) ) {
-            if ( bindingOptions.currentView.yearsAvailable.length > 0 && year <= bindingOptions.currentView.yearsAvailable[ 0 ] ) {
+            if ( isFirstVisibleYear( bindingOptions, year ) ) {
                 render = false;
                 break;
             }
@@ -3093,7 +3120,7 @@
     }
 
     function moveToNextYear( bindingOptions, callCustomTrigger ) {
-        callCustomTrigger = isDefined( callCustomTrigger ) ? callCustomTrigger : true;
+        callCustomTrigger = getDefaultBoolean( callCustomTrigger, true );
 
         var render = true,
             year = bindingOptions.currentView.year;
@@ -3101,7 +3128,7 @@
         year++;
 
         while ( !isYearVisible( bindingOptions, year ) ) {
-            if ( bindingOptions.currentView.yearsAvailable.length > 0 && year >= bindingOptions.currentView.yearsAvailable[ bindingOptions.currentView.yearsAvailable.length - 1 ] ) {
+            if ( isLastVisibleYear( bindingOptions, year ) ) {
                 render = false;
                 break;
             }
@@ -3173,7 +3200,8 @@
 
     function destroyElement( bindingOptions ) {
         bindingOptions.currentView.element.innerHTML = _string.empty;
-        bindingOptions.currentView.element.className = _string.empty;
+
+        removeClass( bindingOptions.currentView.element, "heat-js" );
 
         _parameter_Document.body.removeChild( bindingOptions.currentView.tooltip );
 
@@ -3216,7 +3244,7 @@
             }
     
             if ( configurationHasChanged ) {
-                triggerRefresh = !isDefined( triggerRefresh ) ? true: triggerRefresh;
+                triggerRefresh = getDefaultBoolean( triggerRefresh, true );
     
                 buildDefaultConfiguration( _configuration );
     
@@ -3337,7 +3365,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.7.0";
+        return "2.7.1";
     };
 
 

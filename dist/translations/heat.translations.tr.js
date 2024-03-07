@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Turkish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Turkish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Şu anda görüntülenecek istatistik yok.",
         "unknownTrendText": "Bilinmeyen",
         "importButtonText": "İçe aktarmak",
+        "objectErrorText": "Nesnedeki hatalar: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "Ocak",
                 "Şubat",

@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Telugu | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Telugu | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "వీక్షించడానికి ప్రస్తుతం గణాంకాలు లేవు.",
         "unknownTrendText": "తెలియదు",
         "importButtonText": "దిగుమతి",
+        "objectErrorText": "వస్తువులో లోపాలు: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "జనవరి",
                 "ఫిబ్రవరి",

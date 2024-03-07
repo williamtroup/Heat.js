@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Slovenian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Slovenian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Trenutno ni statistike za ogled.",
         "unknownTrendText": "Neznano",
         "importButtonText": "Uvozi",
+        "objectErrorText": "Napake v objektu: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "Jan",
                 "feb",

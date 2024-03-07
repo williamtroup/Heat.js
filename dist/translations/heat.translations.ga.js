@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Irish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Irish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Níl aon staitisticí le léamh faoi láthair.",
         "unknownTrendText": "Anaithnid",
         "importButtonText": "Iompórtáil",
+        "objectErrorText": "Earráidí san oibiacht: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "Ean",
                 "Feabh",

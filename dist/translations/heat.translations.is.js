@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.0 - Icelandic | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.1 - Icelandic | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -20,6 +20,7 @@ $heat.setConfiguration( {
         "noStatisticsDataMessage": "Það er engin tölfræði til að skoða eins og er.",
         "unknownTrendText": "Óþekktur",
         "importButtonText": "Flytja inn",
+        "objectErrorText": "Villur í hlut: {{error_1}}, {{error_2}}",
         "monthNames": [
                 "Jan",
                 "feb",
