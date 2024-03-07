@@ -218,6 +218,9 @@
         back.onclick = function() {
           moveToPreviousYear(bindingOptions);
         };
+        if (isFirstVisibleYear(bindingOptions, bindingOptions.currentView.year)) {
+          back.disabled = true;
+        }
         bindingOptions.currentView.yearText = createElementWithHTML(titleBar, "div", "year-text", bindingOptions.currentView.year);
         if (bindingOptions.showYearSelectionDropDown) {
           createElement(bindingOptions.currentView.yearText, "div", "down-arrow");
@@ -248,6 +251,9 @@
         next.onclick = function() {
           moveToNextYear(bindingOptions);
         };
+        if (isLastVisibleYear(bindingOptions, bindingOptions.currentView.year)) {
+          next.disabled = true;
+        }
       }
     }
   }
@@ -840,6 +846,12 @@
   }
   function isYearVisible(bindingOptions, year) {
     return bindingOptions.yearsToHide.indexOf(year) === _value.notFound && (bindingOptions.currentView.yearsAvailable.length === 0 || bindingOptions.currentView.yearsAvailable.indexOf(year) > _value.notFound);
+  }
+  function isFirstVisibleYear(bindingOptions, year) {
+    return bindingOptions.currentView.yearsAvailable.length > 0 && year <= bindingOptions.currentView.yearsAvailable[0];
+  }
+  function isLastVisibleYear(bindingOptions, year) {
+    return bindingOptions.currentView.yearsAvailable.length > 0 && year >= bindingOptions.currentView.yearsAvailable[bindingOptions.currentView.yearsAvailable.length - 1];
   }
   function loadDataFromLocalStorage(bindingOptions) {
     if (bindingOptions.useLocalStorageForData && _parameter_Window.localStorage) {
@@ -1643,7 +1655,7 @@
     var year = bindingOptions.currentView.year;
     year--;
     for (; !isYearVisible(bindingOptions, year);) {
-      if (bindingOptions.currentView.yearsAvailable.length > 0 && year <= bindingOptions.currentView.yearsAvailable[0]) {
+      if (isFirstVisibleYear(bindingOptions, year)) {
         render = false;
         break;
       }
@@ -1663,7 +1675,7 @@
     var year = bindingOptions.currentView.year;
     year++;
     for (; !isYearVisible(bindingOptions, year);) {
-      if (bindingOptions.currentView.yearsAvailable.length > 0 && year >= bindingOptions.currentView.yearsAvailable[bindingOptions.currentView.yearsAvailable.length - 1]) {
+      if (isLastVisibleYear(bindingOptions, year)) {
         render = false;
         break;
       }
