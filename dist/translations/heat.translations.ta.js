@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "தெரியவில்லை",
         "importButtonText": "இறக்குமதி",
         "objectErrorText": "பொருளில் பிழைகள்: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "பண்பு'{{attribute_name}}' என்பது சரியான பொருள் அல்ல.",
+        "attributeNotSetErrorText": "பண்பு'{{attribute_name}}' சரியாக அமைக்கப்படவில்லை.",
         "monthNames": [
                 "ஜன",
                 "பிப்",

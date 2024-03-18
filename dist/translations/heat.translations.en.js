@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Unknown",
         "importButtonText": "Import",
         "objectErrorText": "Errors in object: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "The attribute '{{attribute_name}}' is not a valid object.",
+        "attributeNotSetErrorText": "The attribute '{{attribute_name}}' has not been set correctly.",
         "monthNames": [
                 "Jan",
                 "Feb",

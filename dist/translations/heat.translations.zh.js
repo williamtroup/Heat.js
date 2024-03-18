@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "未知",
         "importButtonText": "进口",
         "objectErrorText": "对象中的错误： {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "属性 '{{attribute_name}}' 不是一个有效的对象。",
+        "attributeNotSetErrorText": "属性 '{{attribute_name}}' 尚未正确设置。",
         "monthNames": [
                 "一月",
                 "二月",

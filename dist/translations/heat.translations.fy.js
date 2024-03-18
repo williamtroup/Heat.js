@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Ûnbekend",
         "importButtonText": "Ymport",
         "objectErrorText": "Flaters yn objekt: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "It attribút '{{attribute_name}}' is gjin jildich objekt.",
+        "attributeNotSetErrorText": "It attribút '{{attribute_name}}' is net goed ynsteld.",
         "monthNames": [
                 "Jan",
                 "feb",

@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "නොදන්නා",
         "importButtonText": "ආනයන",
         "objectErrorText": "වස්තුවේ දෝෂ: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "ගුණාංගය'{{attribute_name}}' වලංගු වස්තුවක් නොවේ.",
+        "attributeNotSetErrorText": "ගුණාංගය'{{attribute_name}}' නිවැරදිව සකසා නැත.",
         "monthNames": [
                 "ජන",
                 "පෙබ",

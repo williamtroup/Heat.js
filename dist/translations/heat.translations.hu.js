@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Ismeretlen",
         "importButtonText": "Importálás",
         "objectErrorText": "Hibák az objektumban: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "attribútum{{attribute_name}}' nem érvényes objektum.",
+        "attributeNotSetErrorText": "attribútum{{attribute_name}}' nincs megfelelően beállítva.",
         "monthNames": [
                 "jan",
                 "Február",

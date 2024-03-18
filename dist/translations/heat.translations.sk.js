@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Neznámy",
         "importButtonText": "Importovať",
         "objectErrorText": "Chyby v objekte: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "atribút '{{attribute_name}}' nie je platný objekt.",
+        "attributeNotSetErrorText": "atribút '{{attribute_name}}“ nie je správne nastavené.",
         "monthNames": [
                 "Jan",
                 "feb",

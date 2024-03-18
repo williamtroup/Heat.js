@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "अज्ञात",
         "importButtonText": "आयात",
         "objectErrorText": "वस्तु में त्रुटियाँ: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "विशेषता '{{attribute_name}}' एक वैध वस्तु नहीं है.",
+        "attributeNotSetErrorText": "विशेषता '{{attribute_name}}'सही ढंग से सेट नहीं किया गया है.",
         "monthNames": [
                 "जनवरी",
                 "फ़रवरी",

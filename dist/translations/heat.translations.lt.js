@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Nežinoma",
         "importButtonText": "Importuoti",
         "objectErrorText": "Klaidos objekte: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "atributas '{{attribute_name}}“ nėra tinkamas objektas.",
+        "attributeNotSetErrorText": "atributas '{{attribute_name}}“ nebuvo nustatytas teisingai.",
         "monthNames": [
                 "sausio mėn",
                 "vasario mėn",

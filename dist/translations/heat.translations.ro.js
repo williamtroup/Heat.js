@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Necunoscut",
         "importButtonText": "Import",
         "objectErrorText": "Erori la obiect: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "Atributul '{{attribute_name}}' nu este un obiect valid.",
+        "attributeNotSetErrorText": "Atributul '{{attribute_name}}' nu a fost setat corect.",
         "monthNames": [
                 "ian",
                 "feb",

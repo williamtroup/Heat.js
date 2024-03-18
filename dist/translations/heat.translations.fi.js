@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Tuntematon",
         "importButtonText": "Tuonti",
         "objectErrorText": "Virheet objektissa: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "attribuutti '{{attribute_name}}' ei ole kelvollinen objekti.",
+        "attributeNotSetErrorText": "attribuutti '{{attribute_name}}' ei ole asetettu oikein.",
         "monthNames": [
                 "tammikuu",
                 "helmikuuta",

@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Onbekend",
         "importButtonText": "Importeren",
         "objectErrorText": "Fouten in object: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "Het attribuut '{{attribute_name}}' is geen geldig object.",
+        "attributeNotSetErrorText": "Het attribuut '{{attribute_name}}' is niet correct ingesteld.",
         "monthNames": [
                 "jan",
                 "februari",

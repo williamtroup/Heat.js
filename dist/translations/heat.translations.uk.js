@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Невідомий",
         "importButtonText": "Імпорт",
         "objectErrorText": "Помилки в об'єкті: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "Атрибут '{{attribute_name}}' не є дійсним об'єктом.",
+        "attributeNotSetErrorText": "Атрибут '{{attribute_name}}' не встановлено правильно.",
         "monthNames": [
                 "січня",
                 "лютий",
