@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v2.7.1
+ * @version     v2.7.2
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -111,14 +111,14 @@
 
                 } else {
                     if ( !_configuration.safeMode ) {
-                        console.error( "The attribute '" + _attribute_Name_Options + "' is not a valid object." );
+                        console.error( _configuration.attributeNotValidErrorText.replace( "{{attribute_name}}", _attribute_Name_Options ) );
                         result = false;
                     }
                 }
 
             } else {
                 if ( !_configuration.safeMode ) {
-                    console.error( "The attribute '" + _attribute_Name_Options + "' has not been set correctly." );
+                    console.error( _configuration.attributeNotSetErrorText.replace( "{{attribute_name}}", _attribute_Name_Options ) );
                     result = false;
                 }
             }
@@ -3288,6 +3288,8 @@
         _configuration.importButtonText = getDefaultString( _configuration.importButtonText, "Import" );
         _configuration.noMapDataMessage = getDefaultString( _configuration.noMapDataMessage, "There is currently no data to view." );
         _configuration.objectErrorText = getDefaultString( _configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}" );
+        _configuration.attributeNotValidErrorText = getDefaultString( _configuration.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object." );
+        _configuration.attributeNotSetErrorText = getDefaultString( _configuration.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly." );
     }
 
     function buildDefaultConfigurationArrays() {
@@ -3365,7 +3367,7 @@
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.7.1";
+        return "2.7.2";
     };
 
 
@@ -3387,7 +3389,7 @@
             render();
         } );
 
-        _parameter_Window.addEventListener( "unload", function() {
+        _parameter_Window.addEventListener( "pagehide", function() {
             cancelAllPullDataTimers();
         } );
 

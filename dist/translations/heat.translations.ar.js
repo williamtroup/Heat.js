@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Arabic | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Arabic | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "مجهول",
         "importButtonText": "يستورد",
         "objectErrorText": "أخطاء في الكائن: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "السمة '{{attribute_name}}' ليس كائنًا صالحًا.",
+        "attributeNotSetErrorText": "السمة '{{attribute_name}}\"لم يتم ضبطه بشكل صحيح.",
         "monthNames": [
                 "يناير",
                 "فبراير",

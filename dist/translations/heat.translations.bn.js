@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Bengali | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Bengali | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "অজানা",
         "importButtonText": "আমদানি",
         "objectErrorText": "বস্তুর ত্রুটি: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "বৈশিষ্ট্য '{{attribute_name}}' একটি বৈধ বস্তু নয়।",
+        "attributeNotSetErrorText": "বৈশিষ্ট্য '{{attribute_name}}' সঠিকভাবে সেট করা হয়নি।",
         "monthNames": [
                 "জান",
                 "ফেব্রুয়ারী",

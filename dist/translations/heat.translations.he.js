@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Hebrew | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Hebrew | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "לא ידוע",
         "importButtonText": "יְבוּא",
         "objectErrorText": "שגיאות באובייקט: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "התכונה'{{attribute_name}}' אינו אובייקט חוקי.",
+        "attributeNotSetErrorText": "התכונה'{{attribute_name}}' לא הוגדר כהלכה.",
         "monthNames": [
                 "ינואר",
                 "פברואר",

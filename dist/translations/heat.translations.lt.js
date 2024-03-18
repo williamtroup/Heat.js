@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Lithuanian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Lithuanian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Nežinoma",
         "importButtonText": "Importuoti",
         "objectErrorText": "Klaidos objekte: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "atributas '{{attribute_name}}“ nėra tinkamas objektas.",
+        "attributeNotSetErrorText": "atributas '{{attribute_name}}“ nebuvo nustatytas teisingai.",
         "monthNames": [
                 "sausio mėn",
                 "vasario mėn",

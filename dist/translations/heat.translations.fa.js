@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Farsi | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Farsi | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "ناشناخته",
         "importButtonText": "وارد كردن",
         "objectErrorText": "خطا در شی: {{error_1}}، {{error_2}}",
+        "attributeNotValidErrorText": "ویژگی '{{attribute_name}}' یک شی معتبر نیست.",
+        "attributeNotSetErrorText": "ویژگی '{{attribute_name}}' به درستی تنظیم نشده است.",
         "monthNames": [
                 "ژان",
                 "فوریه",

@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Italian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Italian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Sconosciuto",
         "importButtonText": "Importare",
         "objectErrorText": "Errori nell'oggetto: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "L'attributo '{{attribute_name}}' non è un oggetto valido.",
+        "attributeNotSetErrorText": "L'attributo '{{attribute_name}}' non è stato impostato correttamente.",
         "monthNames": [
                 "Gen",
                 "Febbraio",

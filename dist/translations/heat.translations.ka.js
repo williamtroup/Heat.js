@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Georgian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Georgian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "უცნობი",
         "importButtonText": "იმპორტი",
         "objectErrorText": "შეცდომები ობიექტში: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "ატრიბუტი '{{attribute_name}}' არ არის სწორი ობიექტი.",
+        "attributeNotSetErrorText": "ატრიბუტი '{{attribute_name}}' არ არის სწორად დაყენებული.",
         "monthNames": [
                 "იან",
                 "თებ",

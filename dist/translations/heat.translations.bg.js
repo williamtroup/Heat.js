@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Bulgarian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Bulgarian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "неизвестен",
         "importButtonText": "Импортиране",
         "objectErrorText": "Грешки в обекта: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "Атрибутът \"{{attribute_name}}' не е валиден обект.",
+        "attributeNotSetErrorText": "Атрибутът \"{{attribute_name}}' не е зададен правилно.",
         "monthNames": [
                 "януари",
                 "февр",

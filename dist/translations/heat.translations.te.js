@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Telugu | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Telugu | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "తెలియదు",
         "importButtonText": "దిగుమతి",
         "objectErrorText": "వస్తువులో లోపాలు: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "లక్షణం'{{attribute_name}}' చెల్లుబాటు అయ్యే వస్తువు కాదు.",
+        "attributeNotSetErrorText": "లక్షణం'{{attribute_name}}' సరిగ్గా సెట్ చేయబడలేదు.",
         "monthNames": [
                 "జనవరి",
                 "ఫిబ్రవరి",

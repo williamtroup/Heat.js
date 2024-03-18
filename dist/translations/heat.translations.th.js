@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Thai | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Thai | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "ไม่ทราบ",
         "importButtonText": "นำเข้า",
         "objectErrorText": "ข้อผิดพลาดในวัตถุ: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "คุณลักษณะ '{{attribute_name}}' ไม่ใช่วัตถุที่ถูกต้อง",
+        "attributeNotSetErrorText": "คุณลักษณะ '{{attribute_name}}' ไม่ได้ตั้งค่าอย่างถูกต้อง",
         "monthNames": [
                 "ม.ค",
                 "ก.พ",

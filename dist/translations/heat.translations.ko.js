@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Korean | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Korean | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "알려지지 않은",
         "importButtonText": "수입",
         "objectErrorText": "개체 오류: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "속성 '{{attribute_name}}'은(는) 유효한 개체가 아닙니다.",
+        "attributeNotSetErrorText": "속성 '{{attribute_name}}'가 올바르게 설정되지 않았습니다.",
         "monthNames": [
                 "1월",
                 "2월",

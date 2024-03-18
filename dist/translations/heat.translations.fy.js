@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Frisian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Frisian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Ûnbekend",
         "importButtonText": "Ymport",
         "objectErrorText": "Flaters yn objekt: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "It attribút '{{attribute_name}}' is gjin jildich objekt.",
+        "attributeNotSetErrorText": "It attribút '{{attribute_name}}' is net goed ynsteld.",
         "monthNames": [
                 "Jan",
                 "feb",

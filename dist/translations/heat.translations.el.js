@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Greek | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Greek | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Αγνωστος",
         "importButtonText": "Εισαγωγή",
         "objectErrorText": "Σφάλματα στο αντικείμενο: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "Η ιδιότητα '{{attribute_name}}' δεν είναι έγκυρο αντικείμενο.",
+        "attributeNotSetErrorText": "Η ιδιότητα '{{attribute_name}}' δεν έχει ρυθμιστεί σωστά.",
         "monthNames": [
                 "Ιαν",
                 "Φεβ",

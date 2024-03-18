@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Turkish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Turkish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Bilinmeyen",
         "importButtonText": "İçe aktarmak",
         "objectErrorText": "Nesnedeki hatalar: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "Özellik '{{attribute_name}}' geçerli bir nesne değil.",
+        "attributeNotSetErrorText": "Özellik '{{attribute_name}}' doğru şekilde ayarlanmadı.",
         "monthNames": [
                 "Ocak",
                 "Şubat",

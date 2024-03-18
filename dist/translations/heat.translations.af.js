@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Afrikaans | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Afrikaans | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Onbekend",
         "importButtonText": "Invoer",
         "objectErrorText": "Foute in voorwerp: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "Die kenmerk '{{attribute_name}}' is nie 'n geldige voorwerp nie.",
+        "attributeNotSetErrorText": "Die kenmerk '{{attribute_name}}' is nie korrek ingestel nie.",
         "monthNames": [
                 "Jan",
                 "Feb",

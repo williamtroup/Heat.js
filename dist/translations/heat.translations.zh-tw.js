@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Taiwanese | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Taiwanese | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "未知",
         "importButtonText": "進口",
         "objectErrorText": "物件中的錯誤： {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "屬性 '{{attribute_name}}' 不是一個有效的物件。",
+        "attributeNotSetErrorText": "屬性 '{{attribute_name}}' 尚未正確設定。",
         "monthNames": [
                 "揚",
                 "二月",

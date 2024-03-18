@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Finnish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Finnish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Tuntematon",
         "importButtonText": "Tuonti",
         "objectErrorText": "Virheet objektissa: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "attribuutti '{{attribute_name}}' ei ole kelvollinen objekti.",
+        "attributeNotSetErrorText": "attribuutti '{{attribute_name}}' ei ole asetettu oikein.",
         "monthNames": [
                 "tammikuu",
                 "helmikuuta",

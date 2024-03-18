@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Tagalog | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Tagalog | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Hindi alam",
         "importButtonText": "Angkat",
         "objectErrorText": "Mga error sa object: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "Ang katangian '{{attribute_name}}' ay hindi isang wastong bagay.",
+        "attributeNotSetErrorText": "Ang katangian '{{attribute_name}}' ay hindi naitakda nang tama.",
         "monthNames": [
                 "Jan",
                 "Feb",

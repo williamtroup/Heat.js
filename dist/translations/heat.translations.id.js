@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Indonesian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Indonesian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Tidak dikenal",
         "importButtonText": "Impor",
         "objectErrorText": "Kesalahan pada objek: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "Atribut '{{attribute_name}}' bukan objek yang valid.",
+        "attributeNotSetErrorText": "Atribut '{{attribute_name}}' belum diatur dengan benar.",
         "monthNames": [
                 "Januari",
                 "Februari",

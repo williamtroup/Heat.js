@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Sinhalese | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Sinhalese | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "නොදන්නා",
         "importButtonText": "ආනයන",
         "objectErrorText": "වස්තුවේ දෝෂ: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "ගුණාංගය'{{attribute_name}}' වලංගු වස්තුවක් නොවේ.",
+        "attributeNotSetErrorText": "ගුණාංගය'{{attribute_name}}' නිවැරදිව සකසා නැත.",
         "monthNames": [
                 "ජන",
                 "පෙබ",

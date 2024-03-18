@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Hungarian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Hungarian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Ismeretlen",
         "importButtonText": "Importálás",
         "objectErrorText": "Hibák az objektumban: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "attribútum{{attribute_name}}' nem érvényes objektum.",
+        "attributeNotSetErrorText": "attribútum{{attribute_name}}' nincs megfelelően beállítva.",
         "monthNames": [
                 "jan",
                 "Február",

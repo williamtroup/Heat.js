@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Icelandic | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Icelandic | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Óþekktur",
         "importButtonText": "Flytja inn",
         "objectErrorText": "Villur í hlut: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "Eigindin '{{attribute_name}}' er ekki gildur hlutur.",
+        "attributeNotSetErrorText": "Eigindin '{{attribute_name}}' hefur ekki verið stillt rétt.",
         "monthNames": [
                 "Jan",
                 "feb",

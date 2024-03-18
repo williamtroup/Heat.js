@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Slovenian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Slovenian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Neznano",
         "importButtonText": "Uvozi",
         "objectErrorText": "Napake v objektu: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "Atribut '{{attribute_name}}' ni veljaven predmet.",
+        "attributeNotSetErrorText": "Atribut '{{attribute_name}}' ni pravilno nastavljen.",
         "monthNames": [
                 "Jan",
                 "feb",

@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Irish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Irish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Anaithnid",
         "importButtonText": "Iompórtáil",
         "objectErrorText": "Earráidí san oibiacht: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "an tréith '{{attribute_name}}Ní réad bailí é '.",
+        "attributeNotSetErrorText": "an tréith '{{attribute_name}}' nach bhfuil socraithe i gceart.",
         "monthNames": [
                 "Ean",
                 "Feabh",

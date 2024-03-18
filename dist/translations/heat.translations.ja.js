@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Japanese | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Japanese | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "未知",
         "importButtonText": "輸入",
         "objectErrorText": "オブジェクト内のエラー: {{error_1}}、 {{error_2}}",
+        "attributeNotValidErrorText": "属性「{{attribute_name}}' は有効なオブジェクトではありません。",
+        "attributeNotSetErrorText": "属性「{{attribute_name}}'が正しく設定されていません。",
         "monthNames": [
                 "1月",
                 "2月",

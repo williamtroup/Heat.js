@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Estonian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Estonian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Tundmatu",
         "importButtonText": "Import",
         "objectErrorText": "Vead objektil: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "atribuut '{{attribute_name}}' ei ole kehtiv objekt.",
+        "attributeNotSetErrorText": "atribuut '{{attribute_name}}' pole õigesti seadistatud.",
         "monthNames": [
                 "jaan",
                 "veebr",

@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Luxembourgish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Luxembourgish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Onbekannt",
         "importButtonText": "Import",
         "objectErrorText": "Feeler am Objet: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "Den Attribut'{{attribute_name}}' ass kee gültege Objet.",
+        "attributeNotSetErrorText": "Den Attribut'{{attribute_name}}' ass net richteg agestallt ginn.",
         "monthNames": [
                 "Jan",
                 "Feb",

@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Latvian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Latvian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Nezināms",
         "importButtonText": "Importēt",
         "objectErrorText": "Kļūdas objektā: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "atribūts '{{attribute_name}}' nav derīgs objekts.",
+        "attributeNotSetErrorText": "atribūts '{{attribute_name}}' nav pareizi iestatīts.",
         "monthNames": [
                 "janvāris",
                 "febr",

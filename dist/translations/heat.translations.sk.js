@@ -1,4 +1,4 @@
-/*! Heat.js v2.7.1 - Slovak | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v2.7.2 - Slovak | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -21,6 +21,8 @@ $heat.setConfiguration( {
         "unknownTrendText": "Neznámy",
         "importButtonText": "Importovať",
         "objectErrorText": "Chyby v objekte: {{error_1}}, {{error_2}}",
+        "attributeNotValidErrorText": "atribút '{{attribute_name}}' nie je platný objekt.",
+        "attributeNotSetErrorText": "atribút '{{attribute_name}}“ nie je správne nastavené.",
         "monthNames": [
                 "Jan",
                 "feb",
