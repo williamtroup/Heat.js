@@ -3389,7 +3389,7 @@
             render();
         } );
 
-        _parameter_Window.addEventListener( "unload", function() {
+        _parameter_Window.addEventListener( "pagehide", function() {
             cancelAllPullDataTimers();
         } );
 

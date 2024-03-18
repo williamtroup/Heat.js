@@ -2141,7 +2141,7 @@
     _parameter_Document.addEventListener("DOMContentLoaded", function() {
       render();
     });
-    _parameter_Window.addEventListener("unload", function() {
+    _parameter_Window.addEventListener("pagehide", function() {
       cancelAllPullDataTimers();
     });
     if (!isDefined(_parameter_Window.$heat)) {
