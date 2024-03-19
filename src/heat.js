@@ -417,6 +417,8 @@
                     addClass( bindingOptions.currentView.yearText, "no-click" );
                 }
 
+                createElement( titleBar, "div", "configure" );
+
                 var next = createElementWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
 
                 next.onclick = function() {

@@ -234,9 +234,45 @@ div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.import {
   margin-right: calc(var(--heat-js-spacing) / 2) !important;
 }
+div.heat-js div.title-bar div.configure {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  position: relative;
+  margin-right: var(--heat-js-spacing);
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.title-bar div.configure:hover::before, div.heat-js div.title-bar div.configure:hover::after {
+  border-color: var(--heat-js-title-opener-text-color-hover);
+  cursor: pointer;
+}
+div.heat-js div.title-bar div.configure::before {
+  content: "";
+  position: absolute;
+  height: 8px;
+  width: 8px;
+  border-color: var(--heat-js-color-white);
+  border-width: 2px;
+  border-style: solid;
+  transform: rotate(-45deg);
+  top: 0;
+  left: 0;
+}
+div.heat-js div.title-bar div.configure::after {
+  content: "";
+  position: absolute;
+  height: 8px;
+  width: 8px;
+  border-color: var(--heat-js-color-white);
+  border-width: 2px;
+  border-style: solid;
+  transform: rotate(90deg);
+  top: 0;
+  left: 0;
+}
 div.heat-js div.title-bar div.year-text {
   margin-left: var(--heat-js-spacing);
-  margin-right: var(--heat-js-spacing);
+  margin-right: calc(var(--heat-js-spacing) / 2);
   display: inline-block;
   font-weight: var(--heat-js-title-bold-weight);
   position: relative;
