@@ -1,15 +1,12 @@
 /*! Heat.js v2.8.0 | (c) Bunoon 2024 | MIT License */
 (function() {
+  var _parameter_Document = null, _parameter_Window = null, _parameter_Math = null, _parameter_JSON = null, _public = {}, _configuration = {}, _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+", zero:"0"}, _value = {notFound:-1}, _internal_Name_Holiday = "HOLIDAY", _local_Storage_Start_ID = "HJS_", _default_MonthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], _default_DaysToShow = [1, 2, 3, 4, 5, 6, 7], _elements_Type = {}, _elements_Day_Width = null, _elements_DateCounts = 
+  {}, _elements_View_Name_Map = "map", _elements_View_Name_Chart = "chart", _elements_View_Name_Statistics = "statistics", _elements_View_Map = 1, _elements_View_Chart = 2, _elements_View_Statistics = 3, _export_Type_Csv = "csv", _export_Type_Json = "json", _export_Type_Xml = "xml", _export_Type_Txt = "txt", _attribute_Name_Options = "data-heat-options";
   function render() {
-    var tagTypes = _configuration.domElementTypes;
-    var tagTypesLength = tagTypes.length;
-    var tagTypeIndex = 0;
-    for (; tagTypeIndex < tagTypesLength; tagTypeIndex++) {
-      var domElements = _parameter_Document.getElementsByTagName(tagTypes[tagTypeIndex]);
-      var elements = [].slice.call(domElements);
-      var elementsLength = elements.length;
-      var elementIndex = 0;
-      for (; elementIndex < elementsLength; elementIndex++) {
+    var tagTypes = _configuration.domElementTypes, tagTypesLength = tagTypes.length;
+    for (var tagTypeIndex = 0; tagTypeIndex < tagTypesLength; tagTypeIndex++) {
+      var domElements = _parameter_Document.getElementsByTagName(tagTypes[tagTypeIndex]), elements = [].slice.call(domElements), elementsLength = elements.length;
+      for (var elementIndex = 0; elementIndex < elementsLength; elementIndex++) {
         if (!renderElement(elements[elementIndex])) {
           break;
         }
@@ -40,8 +37,7 @@
     return result;
   }
   function renderBindingOptions(data, element) {
-    var bindingOptions = buildAttributeOptions(data);
-    var view = !isDefinedString(bindingOptions.view) ? _string.empty : bindingOptions.view.toLowerCase();
+    var bindingOptions = buildAttributeOptions(data), view = !isDefinedString(bindingOptions.view) ? _string.empty : bindingOptions.view.toLowerCase();
     bindingOptions.currentView = {};
     bindingOptions.currentView.element = element;
     bindingOptions.currentView.tooltip = null;
@@ -170,8 +166,7 @@
   }
   function renderControlTitleBar(bindingOptions) {
     if (bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton || bindingOptions.showImportButton) {
-      var titleBar = createElement(bindingOptions.currentView.element, "div", "title-bar");
-      var title = createElement(titleBar, "div", "title");
+      var titleBar = createElement(bindingOptions.currentView.element, "div", "title-bar"), title = createElement(titleBar, "div", "title");
       if (bindingOptions.views.chart.enabled || bindingOptions.views.statistics.enabled) {
         createElement(title, "div", "down-arrow");
       } else {
@@ -181,9 +176,7 @@
         title.innerHTML += bindingOptions.titleText;
       }
       if (bindingOptions.views.chart.enabled || bindingOptions.views.statistics.enabled) {
-        var titlesList = createElement(title, "div", "titles-list");
-        var titles = createElement(titlesList, "div", "titles");
-        var optionMap = createElementWithHTML(titles, "div", "title", _configuration.mapText);
+        var titlesList = createElement(title, "div", "titles-list"), titles = createElement(titlesList, "div", "titles"), optionMap = createElementWithHTML(titles, "div", "title", _configuration.mapText);
         renderTitleDropDownClickEvent(bindingOptions, optionMap, _elements_View_Map, _elements_View_Name_Map);
         if (bindingOptions.views.chart.enabled) {
           var optionChart = createElementWithHTML(titles, "div", "title", _configuration.chartText);
@@ -224,14 +217,10 @@
         bindingOptions.currentView.yearText = createElementWithHTML(titleBar, "div", "year-text", bindingOptions.currentView.year);
         if (bindingOptions.showYearSelectionDropDown) {
           createElement(bindingOptions.currentView.yearText, "div", "down-arrow");
-          var yearList = createElement(bindingOptions.currentView.yearText, "div", "years-list");
-          var years = createElement(yearList, "div", "years");
-          var thisYear = (new Date()).getFullYear();
-          var activeYear = null;
+          var yearList = createElement(bindingOptions.currentView.yearText, "div", "years-list"), years = createElement(yearList, "div", "years"), thisYear = (new Date()).getFullYear(), activeYear = null;
           yearList.style.display = "block";
           yearList.style.visibility = "hidden";
-          var currentYear = thisYear - bindingOptions.extraSelectionYears;
-          for (; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++) {
+          for (var currentYear = thisYear - bindingOptions.extraSelectionYears; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++) {
             if (isYearVisible(bindingOptions, currentYear)) {
               var year = renderControlTitleBarYear(bindingOptions, years, currentYear, thisYear);
               if (!isDefined(activeYear)) {
@@ -269,8 +258,7 @@
     }
   }
   function renderControlTitleBarYear(bindingOptions, years, currentYear, actualYear) {
-    var result = null;
-    var year = createElementWithHTML(years, "div", "year", currentYear);
+    var result = null, year = createElementWithHTML(years, "div", "year", currentYear);
     if (bindingOptions.currentView.year !== currentYear) {
       year.onclick = function() {
         bindingOptions.currentView.year = currentYear;
@@ -303,9 +291,7 @@
     } else {
       bindingOptions.currentView.mapContents.style.minHeight = "unset";
       makeAreaDroppable(bindingOptions.currentView.mapContents, bindingOptions);
-      var map = createElement(bindingOptions.currentView.mapContents, "div", "map");
-      var currentYear = bindingOptions.currentView.year;
-      var monthAdded = false;
+      var map = createElement(bindingOptions.currentView.mapContents, "div", "map"), currentYear = bindingOptions.currentView.year, monthAdded = false;
       if (isForViewSwitch) {
         addClass(map, "view-switch");
       }
@@ -314,8 +300,7 @@
         if (!bindingOptions.views.map.showMonthNames || bindingOptions.views.map.placeMonthNamesOnTheBottom) {
           days.className = "days-months-bottom";
         }
-        var dayNameIndex = 0;
-        for (; dayNameIndex < 7; dayNameIndex++) {
+        for (var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++) {
           if (isDayVisible(bindingOptions.views.map.daysToShow, dayNameIndex + 1)) {
             createElementWithHTML(days, "div", "day-name", _configuration.dayNames[dayNameIndex]);
           }
@@ -324,22 +309,12 @@
           reverseElementsOrder(days);
         }
       }
-      var months = createElement(map, "div", "months");
-      var colorRanges = getSortedColorRanges(bindingOptions);
-      var monthIndex = 0;
-      for (; monthIndex < 12; monthIndex++) {
+      var months = createElement(map, "div", "months"), colorRanges = getSortedColorRanges(bindingOptions);
+      for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
         if (isMonthVisible(bindingOptions.views.map.monthsToShow, monthIndex)) {
-          var month = createElement(months, "div", "month");
-          var dayColumns = createElement(month, "div", "day-columns");
-          var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex);
-          var currentDayColumn = createElement(dayColumns, "div", "day-column");
-          var startFillingDays = false;
-          var firstDayInMonth = new Date(currentYear, monthIndex, 1);
-          var firstDayNumberInMonth = getWeekdayNumber(firstDayInMonth);
-          var actualDay = 1;
-          totalDaysInMonth = totalDaysInMonth + firstDayNumberInMonth;
-          var dayIndex = 0;
-          for (; dayIndex < totalDaysInMonth; dayIndex++) {
+          var month = createElement(months, "div", "month"), dayColumns = createElement(month, "div", "day-columns"), totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex), currentDayColumn = createElement(dayColumns, "div", "day-column"), startFillingDays = false, firstDayInMonth = new Date(currentYear, monthIndex, 1), firstDayNumberInMonth = getWeekdayNumber(firstDayInMonth), actualDay = 1;
+          totalDaysInMonth += firstDayNumberInMonth;
+          for (var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++) {
             if (dayIndex >= firstDayNumberInMonth) {
               startFillingDays = true;
             } else {
@@ -359,8 +334,7 @@
                 currentDayColumn = createElement(dayColumns, "div", "day-column");
                 actualDay = 0;
                 if (!isDefined(_elements_Day_Width) && isDefined(day)) {
-                  var marginLeft = getStyleValueByName(day, "margin-left", true);
-                  var marginRight = getStyleValueByName(day, "margin-right", true);
+                  var marginLeft = getStyleValueByName(day, "margin-left", true), marginRight = getStyleValueByName(day, "margin-right", true);
                   _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
                 }
               }
@@ -368,8 +342,7 @@
             actualDay++;
           }
           if (bindingOptions.views.map.showMonthNames) {
-            var monthName = null;
-            var monthWidth = month.offsetWidth;
+            var monthName = null, monthWidth = month.offsetWidth;
             if (!bindingOptions.views.map.placeMonthNamesOnTheBottom) {
               monthName = createElementWithHTML(month, "div", "month-name", _configuration.monthNames[monthIndex], dayColumns);
             } else {
@@ -399,10 +372,7 @@
     }
   }
   function renderControlMapMonthDay(bindingOptions, currentDayColumn, dayNumber, month, year, colorRanges) {
-    var actualDay = dayNumber + 1;
-    var day = createElement(currentDayColumn, "div", "day");
-    var date = new Date(year, month, actualDay);
-    var dateCount = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type][toStorageDate(date)];
+    var actualDay = dayNumber + 1, day = createElement(currentDayColumn, "div", "day"), date = new Date(year, month, actualDay), dateCount = _elements_DateCounts[bindingOptions.currentView.element.id].type[bindingOptions.currentView.type][toStorageDate(date)];
     dateCount = getDefaultNumber(dateCount, 0);
     renderDayToolTip(bindingOptions, day, date, dateCount);
     if (bindingOptions.views.map.showDayNumbers && dateCount > 0) {
@@ -426,11 +396,8 @@
     return day;
   }
   function isDataAvailableForYear(bindingOptions) {
-    var result = false;
-    var data = getCurrentViewData(bindingOptions);
-    var checkDate = bindingOptions.currentView.year.toString();
-    var storageDate;
-    for (storageDate in data) {
+    var result = false, data = getCurrentViewData(bindingOptions), checkDate = bindingOptions.currentView.year.toString();
+    for (var storageDate in data) {
       if (data.hasOwnProperty(storageDate)) {
         if (getStorageDateYear(storageDate) === checkDate) {
           result = true;
@@ -445,13 +412,7 @@
     makeAreaDroppable(bindingOptions.currentView.chartContents, bindingOptions);
   }
   function renderControlChart(bindingOptions, isForViewSwitch) {
-    var chart = createElement(bindingOptions.currentView.chartContents, "div", "chart");
-    var labels = createElement(chart, "div", "y-labels");
-    var dayLines = createElement(chart, "div", "day-lines");
-    var colorRanges = getSortedColorRanges(bindingOptions);
-    var largestValueForCurrentYear = getLargestValueForChartYear(bindingOptions);
-    var currentYear = bindingOptions.currentView.year;
-    var labelsWidth = 0;
+    var chart = createElement(bindingOptions.currentView.chartContents, "div", "chart"), labels = createElement(chart, "div", "y-labels"), dayLines = createElement(chart, "div", "day-lines"), colorRanges = getSortedColorRanges(bindingOptions), largestValueForCurrentYear = getLargestValueForChartYear(bindingOptions), currentYear = bindingOptions.currentView.year, labelsWidth = 0;
     if (isForViewSwitch) {
       addClass(chart, "view-switch");
     }
@@ -475,17 +436,12 @@
         addClass(noDataMessage, "view-switch");
       }
     } else {
-      var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear;
-      var totalMonths = 0;
-      var totalDays = 0;
-      var monthIndex1 = 0;
-      for (; monthIndex1 < 12; monthIndex1++) {
+      var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / largestValueForCurrentYear, totalMonths = 0, totalDays = 0;
+      for (var monthIndex1 = 0; monthIndex1 < 12; monthIndex1++) {
         if (isMonthVisible(bindingOptions.views.chart.monthsToShow, monthIndex1)) {
-          var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex1);
-          var actualDay = 1;
+          var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex1), actualDay = 1;
           totalMonths++;
-          var dayIndex = 0;
-          for (; dayIndex < totalDaysInMonth; dayIndex++) {
+          for (var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++) {
             if (isDayVisible(bindingOptions.views.chart.daysToShow, actualDay)) {
               renderControlChartDay(dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, colorRanges, pixelsPerNumbers);
             }
@@ -498,11 +454,8 @@
         }
       }
       if (bindingOptions.views.chart.showMonthNames) {
-        var chartMonths = createElement(bindingOptions.currentView.chartContents, "div", "chart-months");
-        var linesWidth = dayLines.offsetWidth / totalMonths;
-        var monthTimesValue = 0;
-        var monthIndex2 = 0;
-        for (; monthIndex2 < 12; monthIndex2++) {
+        var chartMonths = createElement(bindingOptions.currentView.chartContents, "div", "chart-months"), linesWidth = dayLines.offsetWidth / totalMonths, monthTimesValue = 0;
+        for (var monthIndex2 = 0; monthIndex2 < 12; monthIndex2++) {
           if (isMonthVisible(bindingOptions.views.chart.monthsToShow, monthIndex2)) {
             var monthName = createElementWithHTML(chartMonths, "div", "month-name", _configuration.monthNames[monthIndex2]);
             monthName.style.left = labelsWidth + linesWidth * monthTimesValue + "px";
@@ -520,9 +473,7 @@
     }
   }
   function renderControlChartDay(dayLines, bindingOptions, day, month, year, colorRanges, pixelsPerNumbers) {
-    var date = new Date(year, month, day);
-    var dayLine = createElement(dayLines, "div", "day-line");
-    var dateCount = getCurrentViewData(bindingOptions)[toStorageDate(date)];
+    var date = new Date(year, month, day), dayLine = createElement(dayLines, "div", "day-line"), dateCount = getCurrentViewData(bindingOptions)[toStorageDate(date)];
     dateCount = getDefaultNumber(dateCount, 0);
     renderDayToolTip(bindingOptions, dayLine, date, dateCount);
     if (bindingOptions.views.chart.showLineNumbers && dateCount > 0) {
@@ -551,13 +502,10 @@
     }
   }
   function getLargestValueForChartYear(bindingOptions) {
-    var result = 0;
-    var data = getCurrentViewData(bindingOptions);
-    var monthIndex = 0;
-    for (; monthIndex < 12; monthIndex++) {
+    var result = 0, data = getCurrentViewData(bindingOptions);
+    for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
       var totalDaysInMonth = getTotalDaysInMonth(bindingOptions.currentView.year, monthIndex);
-      var dayIndex = 0;
-      for (; dayIndex < totalDaysInMonth; dayIndex++) {
+      for (var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++) {
         var storageDate = toStorageDate(new Date(bindingOptions.currentView.year, monthIndex, dayIndex + 1));
         if (data.hasOwnProperty(storageDate)) {
           result = _parameter_Math.max(result, parseInt(data[storageDate]));
@@ -571,12 +519,7 @@
     makeAreaDroppable(bindingOptions.currentView.statisticsContents, bindingOptions);
   }
   function renderControlStatistics(bindingOptions, isForViewSwitch) {
-    var statistics = createElement(bindingOptions.currentView.statisticsContents, "div", "statistics");
-    var statisticsRanges = createElement(bindingOptions.currentView.statisticsContents, "div", "statistics-ranges");
-    var labels = createElement(statistics, "div", "y-labels");
-    var rangeLines = createElement(statistics, "div", "range-lines");
-    var colorRanges = getSortedColorRanges(bindingOptions);
-    var colorRangeValuesForCurrentYear = getLargestValuesForEachRangeType(bindingOptions, colorRanges);
+    var statistics = createElement(bindingOptions.currentView.statisticsContents, "div", "statistics"), statisticsRanges = createElement(bindingOptions.currentView.statisticsContents, "div", "statistics-ranges"), labels = createElement(statistics, "div", "y-labels"), rangeLines = createElement(statistics, "div", "range-lines"), colorRanges = getSortedColorRanges(bindingOptions), colorRangeValuesForCurrentYear = getLargestValuesForEachRangeType(bindingOptions, colorRanges);
     if (isForViewSwitch) {
       addClass(statistics, "view-switch");
     }
@@ -605,8 +548,7 @@
       if (!bindingOptions.views.statistics.showColorRangeLabels) {
         statisticsRanges.parentNode.removeChild(statisticsRanges);
       }
-      var type;
-      for (type in colorRangeValuesForCurrentYear.types) {
+      for (var type in colorRangeValuesForCurrentYear.types) {
         if (colorRangeValuesForCurrentYear.types.hasOwnProperty(type)) {
           renderControlStatisticsRangeLine(type, rangeLines, colorRangeValuesForCurrentYear.types[type], bindingOptions, colorRanges, pixelsPerNumbers);
           var useColorRange = getColorRangeByMinimum(colorRanges, type);
@@ -625,9 +567,7 @@
     }
   }
   function renderControlStatisticsRangeLine(colorRangeMinimum, dayLines, rangeCount, bindingOptions, colorRanges, pixelsPerNumbers) {
-    var rangeLine = createElement(dayLines, "div", "range-line");
-    var useColorRange = getColorRangeByMinimum(colorRanges, colorRangeMinimum);
-    var rangeLineHeight = rangeCount * pixelsPerNumbers;
+    var rangeLine = createElement(dayLines, "div", "range-line"), useColorRange = getColorRangeByMinimum(colorRanges, colorRangeMinimum), rangeLineHeight = rangeCount * pixelsPerNumbers;
     rangeLine.style.height = rangeLineHeight + "px";
     if (rangeLineHeight <= 0) {
       rangeLine.style.visibility = "hidden";
@@ -653,20 +593,14 @@
     }
   }
   function getLargestValuesForEachRangeType(bindingOptions, colorRanges) {
-    var types = {};
-    var largestValue = 0;
-    var data = getCurrentViewData(bindingOptions);
+    var types = {}, largestValue = 0, data = getCurrentViewData(bindingOptions);
     types[_string.zero] = 0;
-    var monthIndex = 0;
-    for (; monthIndex < 12; monthIndex++) {
+    for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
       var totalDaysInMonth = getTotalDaysInMonth(bindingOptions.currentView.year, monthIndex);
-      var dayIndex = 0;
-      for (; dayIndex < totalDaysInMonth; dayIndex++) {
+      for (var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++) {
         var storageDate = toStorageDate(new Date(bindingOptions.currentView.year, monthIndex, dayIndex + 1));
         if (data.hasOwnProperty(storageDate)) {
-          var storageDateParts = getStorageDate(storageDate);
-          var storageDateObject = new Date(storageDateParts[2], storageDateParts[1], storageDateParts[0]);
-          var weekDayNumber = getWeekdayNumber(storageDateObject);
+          var storageDateParts = getStorageDate(storageDate), storageDateObject = new Date(storageDateParts[2], storageDateParts[1], storageDateParts[0]), weekDayNumber = getWeekdayNumber(storageDateObject);
           if (!isHoliday(bindingOptions, storageDateObject).matched && isMonthVisible(bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.statistics.daysToShow, weekDayNumber)) {
             var useColorRange = getColorRange(bindingOptions, colorRanges, data[storageDate]);
             if (!isDefined(useColorRange)) {
@@ -685,11 +619,8 @@
     return {types:types, largestValue:largestValue};
   }
   function renderControlViewGuide(bindingOptions) {
-    var guide = createElement(bindingOptions.currentView.element, "div", "guide");
-    var mapTypes = createElement(guide, "div", "map-types");
-    var noneTypeCount = 0;
-    var storageDate;
-    for (storageDate in _elements_DateCounts[bindingOptions.currentView.element.id].type[_configuration.unknownTrendText]) {
+    var guide = createElement(bindingOptions.currentView.element, "div", "guide"), mapTypes = createElement(guide, "div", "map-types"), noneTypeCount = 0;
+    for (var storageDate in _elements_DateCounts[bindingOptions.currentView.element.id].type[_configuration.unknownTrendText]) {
       if (_elements_DateCounts[bindingOptions.currentView.element.id].type[_configuration.unknownTrendText].hasOwnProperty(storageDate)) {
         noneTypeCount++;
         break;
@@ -700,8 +631,7 @@
         var description = createElement(bindingOptions.currentView.element, "div", "description", guide);
         renderDescription(bindingOptions, description);
       }
-      var type;
-      for (type in _elements_DateCounts[bindingOptions.currentView.element.id].type) {
+      for (var type in _elements_DateCounts[bindingOptions.currentView.element.id].type) {
         if (type !== _configuration.unknownTrendText || noneTypeCount > 0) {
           if (noneTypeCount === 0 && bindingOptions.currentView.type === _configuration.unknownTrendText) {
             bindingOptions.currentView.type = type;
@@ -724,11 +654,8 @@
           addClass(lessText, "no-click");
         }
       }
-      var days = createElement(mapToggles, "div", "days");
-      var colorRanges = getSortedColorRanges(bindingOptions);
-      var colorRangesLength = colorRanges.length;
-      var colorRangesIndex = 0;
-      for (; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
+      var days = createElement(mapToggles, "div", "days"), colorRanges = getSortedColorRanges(bindingOptions), colorRangesLength = colorRanges.length;
+      for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
         renderControlViewGuideDay(bindingOptions, days, colorRanges[colorRangesIndex]);
       }
       if (bindingOptions.showLessAndMoreLabels) {
@@ -802,7 +729,7 @@
       if (bindingOptions.showHolidaysInDayToolTips) {
         var holiday = isHoliday(bindingOptions, date);
         if (holiday.matched && isDefinedString(holiday.name)) {
-          tooltip = tooltip + (": " + holiday.name);
+          tooltip += ": " + holiday.name;
         }
       }
       addToolTip(day, bindingOptions, tooltip);
@@ -829,8 +756,7 @@
     var years = [];
     if (bindingOptions.showOnlyDataForYearsAvailable) {
       var data = getCurrentViewData(bindingOptions);
-      var storageDate;
-      for (storageDate in data) {
+      for (var storageDate in data) {
         if (data.hasOwnProperty(storageDate)) {
           var year = parseInt(getStorageDateYear(storageDate));
           if (years.indexOf(year) === _value.notFound) {
@@ -855,19 +781,15 @@
   }
   function loadDataFromLocalStorage(bindingOptions) {
     if (bindingOptions.useLocalStorageForData && _parameter_Window.localStorage) {
-      var keysLength = _parameter_Window.localStorage.length;
-      var elementId = bindingOptions.currentView.element.id;
-      var keyIndex = 0;
-      for (; keyIndex < keysLength; keyIndex++) {
+      var keysLength = _parameter_Window.localStorage.length, elementId = bindingOptions.currentView.element.id;
+      for (var keyIndex = 0; keyIndex < keysLength; keyIndex++) {
         var key = _parameter_Window.localStorage.key(keyIndex);
         if (startsWithAnyCase(key, _local_Storage_Start_ID)) {
-          var typesJson = _parameter_Window.localStorage.getItem(key);
-          var typesObject = getObjectFromString(typesJson);
+          var typesJson = _parameter_Window.localStorage.getItem(key), typesObject = getObjectFromString(typesJson);
           if (typesObject.parsed) {
             _elements_DateCounts[elementId].type = typesObject.result;
             _elements_DateCounts[elementId].types = 0;
-            var type;
-            for (type in _elements_DateCounts[elementId].type) {
+            for (var type in _elements_DateCounts[elementId].type) {
               if (_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
                 _elements_DateCounts[elementId].types++;
               }
@@ -887,18 +809,14 @@
   }
   function clearLocalStorageObjects(bindingOptions) {
     if (bindingOptions.useLocalStorageForData && _parameter_Window.localStorage) {
-      var keysLength = _parameter_Window.localStorage.length;
-      var keysToRemove = [];
-      var elementId = bindingOptions.currentView.element.id;
-      var keyIndex = 0;
-      for (; keyIndex < keysLength; keyIndex++) {
+      var keysLength = _parameter_Window.localStorage.length, keysToRemove = [], elementId = bindingOptions.currentView.element.id;
+      for (var keyIndex = 0; keyIndex < keysLength; keyIndex++) {
         if (startsWithAnyCase(_parameter_Window.localStorage.key(keyIndex), _local_Storage_Start_ID + elementId)) {
           keysToRemove.push(_parameter_Window.localStorage.key(keyIndex));
         }
       }
       var keysToRemoveLength = keysToRemove.length;
-      var keyToRemoveIndex = 0;
-      for (; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++) {
+      for (var keyToRemoveIndex = 0; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++) {
         _parameter_Window.localStorage.removeItem(keysToRemove[keyToRemoveIndex]);
       }
     }
@@ -917,12 +835,10 @@
     }
   }
   function pullDataFromCustomTrigger(bindingOptions) {
-    var elementId = bindingOptions.currentView.element.id;
-    var data = fireCustomTrigger(bindingOptions.onDataFetch, elementId);
+    var elementId = bindingOptions.currentView.element.id, data = fireCustomTrigger(bindingOptions.onDataFetch, elementId);
     if (isDefinedObject(data)) {
       createDateStorageForElement(elementId, bindingOptions, false);
-      var storageDate;
-      for (storageDate in data) {
+      for (var storageDate in data) {
         if (data.hasOwnProperty(storageDate)) {
           if (!_elements_DateCounts[elementId].type[_configuration.unknownTrendText].hasOwnProperty(storageDate)) {
             _elements_DateCounts[elementId].type[_configuration.unknownTrendText][storageDate] = 0;
@@ -933,8 +849,7 @@
     }
   }
   function cancelAllPullDataTimers() {
-    var elementId;
-    for (elementId in _elements_DateCounts) {
+    for (var elementId in _elements_DateCounts) {
       if (_elements_DateCounts.hasOwnProperty(elementId)) {
         var bindingOptions = _elements_DateCounts[elementId].options;
         if (isDefined(bindingOptions.currentView.isInFetchModeTimer)) {
@@ -949,8 +864,7 @@
       result = true;
     } else {
       var colorRangesLength = bindingOptions.colorRanges.length;
-      var colorRangesIndex = 0;
-      for (; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
+      for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
         var colorRange = bindingOptions.colorRanges[colorRangesIndex];
         if (colorRange.id === id && (!isDefinedBoolean(colorRange.visible) || colorRange.visible)) {
           result = true;
@@ -962,8 +876,7 @@
   }
   function updateColorRangeToggles(bindingOptions, flag) {
     var colorRangesLength = bindingOptions.colorRanges.length;
-    var colorRangesIndex = 0;
-    for (; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
+    for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
       bindingOptions.colorRanges[colorRangesIndex].visible = flag;
       fireCustomTrigger(bindingOptions.onColorRangeTypeToggle, bindingOptions.colorRanges[colorRangesIndex].id, flag);
     }
@@ -971,8 +884,7 @@
   }
   function toggleColorRangeVisibleState(bindingOptions, id) {
     var colorRangesLength = bindingOptions.colorRanges.length;
-    var colorRangesIndex = 0;
-    for (; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
+    for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
       var colorRange = bindingOptions.colorRanges[colorRangesIndex];
       if (colorRange.id === id) {
         colorRange.visible = !(isDefinedBoolean(colorRange.visible) && colorRange.visible);
@@ -989,8 +901,7 @@
     }
     if (!isDefined(useColorRange)) {
       var colorRangesLength = colorRanges.length;
-      var colorRangesIndex = 0;
-      for (; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
+      for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
         var colorRange = colorRanges[colorRangesIndex];
         if (dateCount >= colorRange.minimum) {
           useColorRange = colorRange;
@@ -1002,10 +913,8 @@
     return useColorRange;
   }
   function getColorRangeByMinimum(colorRanges, minimum) {
-    var colorRangesLength = colorRanges.length;
-    var useColorRange = null;
-    var colorRangesIndex = 0;
-    for (; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
+    var colorRangesLength = colorRanges.length, useColorRange = null;
+    for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
       var colorRange = colorRanges[colorRangesIndex];
       if (minimum.toString() === colorRange.minimum.toString()) {
         useColorRange = colorRange;
@@ -1020,14 +929,8 @@
     });
   }
   function isHoliday(bindingOptions, date) {
-    var holidaysLength = bindingOptions.holidays.length;
-    var holidayMatched = false;
-    var holidayName = null;
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-    var holidayIndex = 0;
-    for (; holidayIndex < holidaysLength; holidayIndex++) {
+    var holidaysLength = bindingOptions.holidays.length, holidayMatched = false, holidayName = null, day = date.getDate(), month = date.getMonth() + 1, year = date.getFullYear();
+    for (var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++) {
       var holiday = bindingOptions.holidays[holidayIndex];
       if (isDefinedString(holiday.date) && holiday.showInViews) {
         var dateParts = holiday.date.split("/");
@@ -1068,13 +971,10 @@
     input.click();
   }
   function importFromFiles(files, bindingOptions) {
-    var filesLength = files.length;
-    var filesCompleted = [];
-    var data = getCurrentViewData(bindingOptions);
+    var filesLength = files.length, filesCompleted = [], data = getCurrentViewData(bindingOptions);
     var onLoadEnd = function(filename, readingObject) {
       filesCompleted.push(filename);
-      var storageDate;
-      for (storageDate in readingObject) {
+      for (var storageDate in readingObject) {
         if (readingObject.hasOwnProperty(storageDate)) {
           if (!data.hasOwnProperty(storageDate)) {
             data[storageDate] = 0;
@@ -1087,10 +987,8 @@
         renderControlContainer(bindingOptions);
       }
     };
-    var fileIndex = 0;
-    for (; fileIndex < filesLength; fileIndex++) {
-      var file = files[fileIndex];
-      var fileExtension = file.name.split(".").pop().toLowerCase();
+    for (var fileIndex = 0; fileIndex < filesLength; fileIndex++) {
+      var file = files[fileIndex], fileExtension = file.name.split(".").pop().toLowerCase();
       if (fileExtension === _export_Type_Json) {
         importFromJson(file, onLoadEnd);
       } else if (fileExtension === _export_Type_Txt) {
@@ -1099,8 +997,7 @@
     }
   }
   function importFromJson(file, onLoadEnd) {
-    var reader = new FileReader();
-    var readingObject = null;
+    var reader = new FileReader(), readingObject = null;
     reader.readAsText(file);
     reader.onloadend = function() {
       onLoadEnd(file.name, readingObject);
@@ -1113,26 +1010,21 @@
     };
   }
   function importFromTxt(file, onLoadEnd) {
-    var reader = new FileReader();
-    var readingObject = {};
+    var reader = new FileReader(), readingObject = {};
     reader.readAsText(file);
     reader.onloadend = function() {
       onLoadEnd(file.name, readingObject);
     };
     reader.onload = function(e) {
-      var lines = e.target.result.toString().split(_string.newLine);
-      var linesLength = lines.length;
-      var lineIndex = 0;
-      for (; lineIndex < linesLength; lineIndex++) {
+      var lines = e.target.result.toString().split(_string.newLine), linesLength = lines.length;
+      for (var lineIndex = 0; lineIndex < linesLength; lineIndex++) {
         var line = lines[lineIndex].split(":");
         readingObject[line[0].trim()] = parseInt(line[1].trim());
       }
     };
   }
   function exportAllData(bindingOptions, exportType) {
-    var contents = null;
-    var contentsMimeType = getExportMimeType(bindingOptions);
-    var contentExportType = getDefaultString(exportType, bindingOptions.exportType).toLowerCase();
+    var contents = null, contentsMimeType = getExportMimeType(bindingOptions), contentExportType = getDefaultString(exportType, bindingOptions.exportType).toLowerCase();
     if (contentExportType === _export_Type_Csv) {
       contents = getCsvContent(bindingOptions);
     } else if (contentExportType === _export_Type_Json) {
@@ -1154,10 +1046,8 @@
     }
   }
   function getCsvContent(bindingOptions) {
-    var data = getExportData(bindingOptions);
-    var csvContents = [];
-    var storageDate;
-    for (storageDate in data) {
+    var data = getExportData(bindingOptions), csvContents = [];
+    for (var storageDate in data) {
       if (data.hasOwnProperty(storageDate)) {
         csvContents.push(getCsvValueLine([getCsvValue(storageDate), getCsvValue(data[storageDate])]));
       }
@@ -1171,12 +1061,10 @@
     return _parameter_JSON.stringify(getExportData(bindingOptions));
   }
   function getXmlContents(bindingOptions) {
-    var data = getExportData(bindingOptions);
-    var contents = [];
+    var data = getExportData(bindingOptions), contents = [];
     contents.push('<?xml version="1.0" ?>');
     contents.push("<Dates>");
-    var storageDate;
-    for (storageDate in data) {
+    for (var storageDate in data) {
       if (data.hasOwnProperty(storageDate)) {
         contents.push("<Date>");
         contents.push("<FullDate>" + storageDate + "</FullDate>");
@@ -1188,10 +1076,8 @@
     return contents.join(_string.newLine);
   }
   function getTxtContents(bindingOptions) {
-    var data = getExportData(bindingOptions);
-    var contents = [];
-    var storageDate;
-    for (storageDate in data) {
+    var data = getExportData(bindingOptions), contents = [];
+    for (var storageDate in data) {
       if (data.hasOwnProperty(storageDate)) {
         contents.push(storageDate + ": " + data[storageDate].toString());
       }
@@ -1199,14 +1085,11 @@
     return contents.join(_string.newLine);
   }
   function getExportData(bindingOptions) {
-    var contents = {};
-    var data = getCurrentViewData(bindingOptions);
+    var contents = {}, data = getCurrentViewData(bindingOptions);
     if (bindingOptions.exportOnlyYearBeingViewed) {
-      var monthIndex = 0;
-      for (; monthIndex < 12; monthIndex++) {
+      for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
         var totalDaysInMonth = getTotalDaysInMonth(bindingOptions.currentView.year, monthIndex);
-        var dayIndex = 0;
-        for (; dayIndex < totalDaysInMonth; dayIndex++) {
+        for (var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++) {
           var storageDate2 = toStorageDate(new Date(bindingOptions.currentView.year, monthIndex, dayIndex + 1));
           if (data.hasOwnProperty(storageDate2)) {
             contents[storageDate2] = data[storageDate2];
@@ -1215,16 +1098,14 @@
       }
     } else {
       var storageDates = [];
-      var storageDate1;
-      for (storageDate1 in data) {
+      for (var storageDate1 in data) {
         if (data.hasOwnProperty(storageDate1)) {
           storageDates.push(storageDate1);
         }
       }
       storageDates.sort();
       var storageDatesLength = storageDates.length;
-      var storageDateIndex = 0;
-      for (; storageDateIndex < storageDatesLength; storageDateIndex++) {
+      for (var storageDateIndex = 0; storageDateIndex < storageDatesLength; storageDateIndex++) {
         var storageDate3 = storageDates[storageDateIndex];
         if (data.hasOwnProperty(storageDate3)) {
           contents[storageDate3] = data[storageDate3];
@@ -1247,10 +1128,7 @@
     return result;
   }
   function getExportFilename(bindingOptions) {
-    var date = new Date();
-    var datePart = padNumber(date.getDate()) + _string.dash + padNumber(date.getMonth() + 1) + _string.dash + date.getFullYear();
-    var timePart = padNumber(date.getHours()) + _string.dash + padNumber(date.getMinutes());
-    var filenameStart = _string.empty;
+    var date = new Date(), datePart = padNumber(date.getDate()) + _string.dash + padNumber(date.getMonth() + 1) + _string.dash + date.getFullYear(), timePart = padNumber(date.getHours()) + _string.dash + padNumber(date.getMinutes()), filenameStart = _string.empty;
     if (bindingOptions.currentView.type !== _configuration.unknownTrendText) {
       filenameStart = bindingOptions.currentView.type.toLowerCase().replace(_string.space, _string.underscore) + _string.underscore;
     }
@@ -1305,8 +1183,7 @@
   function buildAttributeOptionColorRanges(options) {
     if (isDefinedArray(options.colorRanges)) {
       var colorRangesLength = options.colorRanges.length;
-      var colorRangeIndex = 0;
-      for (; colorRangeIndex < colorRangesLength; colorRangeIndex++) {
+      for (var colorRangeIndex = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++) {
         var colorRange = options.colorRanges[colorRangeIndex];
         colorRange.id = getDefaultString(colorRange.id, newGuid());
         colorRange.name = getDefaultString(colorRange.name, null);
@@ -1326,8 +1203,7 @@
   function buildAttributeOptionHolidays(options) {
     if (isDefinedArray(options.holidays)) {
       var holidaysLength = options.holidays.length;
-      var holidayIndex = 0;
-      for (; holidayIndex < holidaysLength; holidayIndex++) {
+      for (var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++) {
         var holiday = options.holidays[holidayIndex];
         holiday.date = getDefaultString(holiday.date, null);
         holiday.name = getDefaultString(holiday.name, null);
@@ -1431,8 +1307,7 @@
     return result;
   }
   function getCustomFormattedDateText(dateFormat, date) {
-    var result = dateFormat;
-    var weekDayNumber = getWeekdayNumber(date);
+    var result = dateFormat, weekDayNumber = getWeekdayNumber(date);
     result = result.replace("{dddd}", _configuration.dayNames[weekDayNumber]);
     result = result.replace("{dd}", padNumber(date.getDate()));
     result = result.replace("{d}", date.getDate());
@@ -1471,9 +1346,7 @@
     return isDefinedObject(object) && object instanceof Date;
   }
   function createElementWithNoContainer(type) {
-    var result = null;
-    var nodeType = type.toLowerCase();
-    var isText = nodeType === "text";
+    var result = null, nodeType = type.toLowerCase(), isText = nodeType === "text";
     if (!_elements_Type.hasOwnProperty(nodeType)) {
       _elements_Type[nodeType] = isText ? _parameter_Document.createTextNode(_string.empty) : _parameter_Document.createElement(nodeType);
     }
@@ -1481,9 +1354,7 @@
     return result;
   }
   function createElement(container, type, className, beforeNode) {
-    var result = null;
-    var nodeType = type.toLowerCase();
-    var isText = nodeType === "text";
+    var result = null, nodeType = type.toLowerCase(), isText = nodeType === "text";
     if (!_elements_Type.hasOwnProperty(nodeType)) {
       _elements_Type[nodeType] = isText ? _parameter_Document.createTextNode(_string.empty) : _parameter_Document.createElement(nodeType);
     }
@@ -1529,23 +1400,19 @@
     e.cancelBubble = true;
   }
   function getScrollPosition() {
-    var doc = _parameter_Document.documentElement;
-    var left = (_parameter_Window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
-    var top = (_parameter_Window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+    var doc = _parameter_Document.documentElement, left = (_parameter_Window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0), top = (_parameter_Window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
     return {left:left, top:top};
   }
   function showElementAtMousePosition(e, element) {
-    var left = e.pageX;
-    var top = e.pageY;
-    var scrollPosition = getScrollPosition();
+    var left = e.pageX, top = e.pageY, scrollPosition = getScrollPosition();
     element.style.display = "block";
     if (left + element.offsetWidth > _parameter_Window.innerWidth) {
-      left = left - element.offsetWidth;
+      left -= element.offsetWidth;
     } else {
       left++;
     }
     if (top + element.offsetHeight > _parameter_Window.innerHeight) {
-      top = top - element.offsetHeight;
+      top -= element.offsetHeight;
     } else {
       top++;
     }
@@ -1559,8 +1426,7 @@
     element.style.top = top + "px";
   }
   function reverseElementsOrder(parent) {
-    var children = parent.children;
-    var childrenLength = children.length - 1;
+    var children = parent.children, childrenLength = children.length - 1;
     for (; childrenLength--;) {
       parent.appendChild(children[childrenLength]);
     }
@@ -1599,8 +1465,7 @@
     return value;
   }
   function getObjectFromString(objectString) {
-    var parsed = true;
-    var result = null;
+    var parsed = true, result = null;
     try {
       if (isDefinedString(objectString)) {
         result = _parameter_JSON.parse(objectString);
@@ -1623,8 +1488,7 @@
   }
   function newGuid() {
     var result = [];
-    var charIndex = 0;
-    for (; charIndex < 32; charIndex++) {
+    for (var charIndex = 0; charIndex < 32; charIndex++) {
       if (charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20) {
         result.push(_string.dash);
       }
@@ -1649,12 +1513,312 @@
   function getStorageDateYear(data) {
     return data.split(_string.dash)[0];
   }
+  _public.addDates = function(elementId, dates, type, triggerRefresh) {
+    if (isDefinedString(elementId) && isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      if (!bindingOptions.currentView.isInFetchMode) {
+        type = getDefaultString(type, _configuration.unknownTrendText);
+        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+        var datesLength = dates.length;
+        for (var dateIndex = 0; dateIndex < datesLength; dateIndex++) {
+          _public.addDate(elementId, dates[dateIndex], type, false);
+        }
+        if (triggerRefresh) {
+          renderControlContainer(bindingOptions, true);
+        }
+      }
+    }
+    return _public;
+  };
+  _public.addDate = function(elementId, date, type, triggerRefresh) {
+    if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      if (!bindingOptions.currentView.isInFetchMode) {
+        type = getDefaultString(type, _configuration.unknownTrendText);
+        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+        var storageDate = toStorageDate(date);
+        if (!_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
+          _elements_DateCounts[elementId].type[type] = {};
+          _elements_DateCounts[elementId].types++;
+        }
+        if (!_elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
+          _elements_DateCounts[elementId].type[type][storageDate] = 0;
+        }
+        _elements_DateCounts[elementId].type[type][storageDate]++;
+        fireCustomTrigger(bindingOptions.onAdd, bindingOptions.currentView.element);
+        if (triggerRefresh) {
+          renderControlContainer(bindingOptions, true);
+        }
+      }
+    }
+    return _public;
+  };
+  _public.updateDate = function(elementId, date, count, type, triggerRefresh) {
+    if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      if (!bindingOptions.currentView.isInFetchMode && count > 0) {
+        type = getDefaultString(type, _configuration.unknownTrendText);
+        var storageDate = toStorageDate(date);
+        if (_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
+          triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+          _elements_DateCounts[elementId].type[type][storageDate] = count;
+          fireCustomTrigger(bindingOptions.onUpdate, bindingOptions.currentView.element);
+          if (triggerRefresh) {
+            renderControlContainer(bindingOptions, true);
+          }
+        }
+      }
+    }
+    return _public;
+  };
+  _public.removeDates = function(elementId, dates, type, triggerRefresh) {
+    if (isDefinedString(elementId) && isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      if (!bindingOptions.currentView.isInFetchMode) {
+        type = getDefaultString(type, _configuration.unknownTrendText);
+        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+        var datesLength = dates.length;
+        for (var dateIndex = 0; dateIndex < datesLength; dateIndex++) {
+          _public.removeDate(elementId, dates[dateIndex], type, false);
+        }
+        if (triggerRefresh) {
+          renderControlContainer(bindingOptions, true);
+        }
+      }
+    }
+    return _public;
+  };
+  _public.removeDate = function(elementId, date, type, triggerRefresh) {
+    if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      if (!bindingOptions.currentView.isInFetchMode) {
+        type = getDefaultString(type, _configuration.unknownTrendText);
+        var storageDate = toStorageDate(date);
+        if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
+          triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+          if (_elements_DateCounts[elementId].type[type][storageDate] > 0) {
+            _elements_DateCounts[elementId].type[type][storageDate]--;
+          }
+          fireCustomTrigger(bindingOptions.onRemove, bindingOptions.currentView.element);
+          if (triggerRefresh) {
+            renderControlContainer(bindingOptions, true);
+          }
+        }
+      }
+    }
+    return _public;
+  };
+  _public.clearDate = function(elementId, date, type, triggerRefresh) {
+    if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      if (!bindingOptions.currentView.isInFetchMode) {
+        type = getDefaultString(type, _configuration.unknownTrendText);
+        var storageDate = toStorageDate(date);
+        if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
+          triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+          delete _elements_DateCounts[elementId].type[type][storageDate];
+          fireCustomTrigger(bindingOptions.onClear, bindingOptions.currentView.element);
+          if (triggerRefresh) {
+            renderControlContainer(bindingOptions, true);
+          }
+        }
+      }
+    }
+    return _public;
+  };
+  _public.resetAll = function(triggerRefresh) {
+    for (var elementId in _elements_DateCounts) {
+      if (_elements_DateCounts.hasOwnProperty(elementId)) {
+        _public.reset(elementId, triggerRefresh);
+      }
+    }
+    return _public;
+  };
+  _public.reset = function(elementId, triggerRefresh) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      if (!bindingOptions.currentView.isInFetchMode) {
+        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+        bindingOptions.currentView.type = _configuration.unknownTrendText;
+        createDateStorageForElement(elementId, bindingOptions, false);
+        fireCustomTrigger(bindingOptions.onReset, bindingOptions.currentView.element);
+        if (triggerRefresh) {
+          renderControlContainer(bindingOptions, true);
+        }
+      }
+    }
+    return _public;
+  };
+  _public.export = function(elementId, exportType) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      exportAllData(_elements_DateCounts[elementId].options, exportType);
+    }
+    return _public;
+  };
+  _public.refresh = function(elementId) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      renderControlContainer(bindingOptions, true);
+      fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
+    }
+    return _public;
+  };
+  _public.refreshAll = function() {
+    for (var elementId in _elements_DateCounts) {
+      if (_elements_DateCounts.hasOwnProperty(elementId)) {
+        var bindingOptions = _elements_DateCounts[elementId].options;
+        renderControlContainer(bindingOptions, true);
+        fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
+      }
+    }
+    return _public;
+  };
+  _public.setYear = function(elementId, year) {
+    if (isDefinedString(elementId) && isDefinedNumber(year) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      bindingOptions.currentView.year = year;
+      if (!isYearVisible(bindingOptions, bindingOptions.currentView.year)) {
+        moveToNextYear(bindingOptions, false);
+      } else {
+        renderControlContainer(bindingOptions);
+      }
+      fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
+    }
+    return _public;
+  };
+  _public.setYearToHighest = function(elementId) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options, data = getCurrentViewData(bindingOptions), maximumYear = 0;
+      for (var storageDate in data) {
+        if (data.hasOwnProperty(storageDate)) {
+          maximumYear = _parameter_Math.max(maximumYear, parseInt(getStorageDateYear(storageDate)));
+        }
+      }
+      if (maximumYear > 0) {
+        bindingOptions.currentView.year = maximumYear;
+        if (!isYearVisible(bindingOptions, bindingOptions.currentView.year)) {
+          moveToNextYear(bindingOptions, false);
+        } else {
+          renderControlContainer(bindingOptions);
+        }
+        fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
+      }
+    }
+    return _public;
+  };
+  _public.setYearToLowest = function(elementId) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options, data = getCurrentViewData(bindingOptions), minimumYear = 9999;
+      for (var storageDate in data) {
+        if (data.hasOwnProperty(storageDate)) {
+          minimumYear = _parameter_Math.min(minimumYear, parseInt(getStorageDateYear(storageDate)));
+        }
+      }
+      if (minimumYear < 9999) {
+        bindingOptions.currentView.year = minimumYear;
+        if (!isYearVisible(bindingOptions, bindingOptions.currentView.year)) {
+          moveToPreviousYear(bindingOptions, false);
+        } else {
+          renderControlContainer(bindingOptions);
+        }
+        fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
+      }
+    }
+    return _public;
+  };
+  _public.moveToPreviousYear = function(elementId) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      moveToPreviousYear(_elements_DateCounts[elementId].options);
+    }
+    return _public;
+  };
+  _public.moveToNextYear = function(elementId) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      moveToNextYear(_elements_DateCounts[elementId].options);
+    }
+    return _public;
+  };
+  _public.moveToCurrentYear = function(elementId) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      bindingOptions.currentView.year = (new Date()).getFullYear();
+      if (!isYearVisible(bindingOptions, bindingOptions.currentView.year)) {
+        moveToNextYear(bindingOptions, false);
+      } else {
+        renderControlContainer(bindingOptions);
+      }
+      fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
+    }
+    return _public;
+  };
+  _public.getYear = function(elementId) {
+    var result = null;
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      result = bindingOptions.currentView.year;
+    }
+    return result;
+  };
+  _public.render = function(element, options) {
+    if (isDefinedObject(element) && isDefinedObject(options)) {
+      renderControl(renderBindingOptions(options, element));
+    }
+    return _public;
+  };
+  _public.renderAll = function() {
+    render();
+    return _public;
+  };
+  _public.switchView = function(elementId, viewName) {
+    if (isDefinedString(elementId) && isDefinedString(viewName) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options, view = null;
+      if (viewName.toLowerCase() === _elements_View_Name_Map) {
+        view = _elements_View_Map;
+      } else if (viewName.toLowerCase() === _elements_View_Name_Chart) {
+        view = _elements_View_Chart;
+      } else if (viewName.toLowerCase() === _elements_View_Name_Statistics) {
+        view = _elements_View_Statistics;
+      }
+      if (isDefinedNumber(view)) {
+        bindingOptions.currentView.view = view;
+        fireCustomTrigger(bindingOptions.onViewSwitch, viewName);
+        renderControlContainer(bindingOptions, false, true);
+      }
+    }
+    return _public;
+  };
+  _public.switchType = function(elementId, type) {
+    if (isDefinedString(elementId) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId) && _elements_DateCounts[elementId].type.hasOwnProperty(type)) {
+      var bindingOptions = _elements_DateCounts[elementId].options;
+      if (bindingOptions.currentView.type !== type) {
+        bindingOptions.currentView.type = type;
+        fireCustomTrigger(bindingOptions.onTypeSwitch, type);
+        renderControlContainer(bindingOptions);
+      }
+    }
+    return _public;
+  };
+  _public.updateOptions = function(elementId, newOptions) {
+    if (isDefinedString(elementId) && isDefinedObject(newOptions) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      var bindingOptions = _elements_DateCounts[elementId].options, newBindingOptions = buildAttributeOptions(newOptions), optionChanged = false;
+      for (var propertyName in newBindingOptions) {
+        if (newBindingOptions.hasOwnProperty(propertyName) && bindingOptions.hasOwnProperty(propertyName) && bindingOptions[propertyName] !== newBindingOptions[propertyName]) {
+          bindingOptions[propertyName] = newBindingOptions[propertyName];
+          optionChanged = true;
+        }
+      }
+      if (optionChanged) {
+        renderControlContainer(bindingOptions, true);
+        fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
+      }
+    }
+    return _public;
+  };
   function moveToPreviousYear(bindingOptions, callCustomTrigger) {
     callCustomTrigger = getDefaultBoolean(callCustomTrigger, true);
-    var render = true;
-    var year = bindingOptions.currentView.year;
+    var render = true, year = bindingOptions.currentView.year;
     year--;
-    for (; !isYearVisible(bindingOptions, year);) {
+    while (!isYearVisible(bindingOptions, year)) {
       if (isFirstVisibleYear(bindingOptions, year)) {
         render = false;
         break;
@@ -1671,10 +1835,9 @@
   }
   function moveToNextYear(bindingOptions, callCustomTrigger) {
     callCustomTrigger = getDefaultBoolean(callCustomTrigger, true);
-    var render = true;
-    var year = bindingOptions.currentView.year;
+    var render = true, year = bindingOptions.currentView.year;
     year++;
-    for (; !isYearVisible(bindingOptions, year);) {
+    while (!isYearVisible(bindingOptions, year)) {
       if (isLastVisibleYear(bindingOptions, year)) {
         render = false;
         break;
@@ -1689,6 +1852,22 @@
       }
     }
   }
+  _public.destroyAll = function() {
+    for (var elementId in _elements_DateCounts) {
+      if (_elements_DateCounts.hasOwnProperty(elementId)) {
+        destroyElement(_elements_DateCounts[elementId].options);
+      }
+    }
+    _elements_DateCounts = {};
+    return _public;
+  };
+  _public.destroy = function(elementId) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+      destroyElement(_elements_DateCounts[elementId].options);
+      delete _elements_DateCounts[elementId];
+    }
+    return _public;
+  };
   function destroyElement(bindingOptions) {
     bindingOptions.currentView.element.innerHTML = _string.empty;
     removeClass(bindingOptions.currentView.element, "heat-js");
@@ -1698,6 +1877,25 @@
     }
     fireCustomTrigger(bindingOptions.onDestroy, bindingOptions.currentView.element);
   }
+  _public.setConfiguration = function(newConfiguration, triggerRefresh) {
+    if (isDefinedObject(newConfiguration)) {
+      var configurationHasChanged = false;
+      for (var propertyName in newConfiguration) {
+        if (newConfiguration.hasOwnProperty(propertyName) && _configuration.hasOwnProperty(propertyName) && _configuration[propertyName] !== newConfiguration[propertyName]) {
+          _configuration[propertyName] = newConfiguration[propertyName];
+          configurationHasChanged = true;
+        }
+      }
+      if (configurationHasChanged) {
+        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+        buildDefaultConfiguration(_configuration);
+        if (triggerRefresh) {
+          _public.refreshAll();
+        }
+      }
+    }
+    return _public;
+  };
   function buildDefaultConfiguration(newConfiguration) {
     _configuration = !isDefinedObject(newConfiguration) ? {} : newConfiguration;
     _configuration.safeMode = getDefaultBoolean(_configuration.safeMode, true);
@@ -1742,394 +1940,16 @@
     minimumLength = isDefinedNumber(minimumLength) ? minimumLength : 1;
     return !isDefinedArray(array) || array.length < minimumLength;
   }
-  var _parameter_Document = null;
-  var _parameter_Window = null;
-  var _parameter_Math = null;
-  var _parameter_JSON = null;
-  var _configuration = {};
-  var _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+", zero:"0"};
-  var _value = {notFound:-1};
-  var _internal_Name_Holiday = "HOLIDAY";
-  var _local_Storage_Start_ID = "HJS_";
-  var _default_MonthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  var _default_DaysToShow = [1, 2, 3, 4, 5, 6, 7];
-  var _elements_Type = {};
-  var _elements_Day_Width = null;
-  var _elements_DateCounts = {};
-  var _elements_View_Name_Map = "map";
-  var _elements_View_Name_Chart = "chart";
-  var _elements_View_Name_Statistics = "statistics";
-  var _elements_View_Map = 1;
-  var _elements_View_Chart = 2;
-  var _elements_View_Statistics = 3;
-  var _export_Type_Csv = "csv";
-  var _export_Type_Json = "json";
-  var _export_Type_Xml = "xml";
-  var _export_Type_Txt = "txt";
-  var _attribute_Name_Options = "data-heat-options";
-  this.addDates = function(elementId, dates, type, triggerRefresh) {
-    if (isDefinedString(elementId) && isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      if (!bindingOptions.currentView.isInFetchMode) {
-        type = getDefaultString(type, _configuration.unknownTrendText);
-        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
-        var datesLength = dates.length;
-        var dateIndex = 0;
-        for (; dateIndex < datesLength; dateIndex++) {
-          this.addDate(elementId, dates[dateIndex], type, false);
-        }
-        if (triggerRefresh) {
-          renderControlContainer(bindingOptions, true);
-        }
-      }
-    }
-    return this;
-  };
-  this.addDate = function(elementId, date, type, triggerRefresh) {
-    if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      if (!bindingOptions.currentView.isInFetchMode) {
-        type = getDefaultString(type, _configuration.unknownTrendText);
-        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
-        var storageDate = toStorageDate(date);
-        if (!_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
-          _elements_DateCounts[elementId].type[type] = {};
-          _elements_DateCounts[elementId].types++;
-        }
-        if (!_elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
-          _elements_DateCounts[elementId].type[type][storageDate] = 0;
-        }
-        _elements_DateCounts[elementId].type[type][storageDate]++;
-        fireCustomTrigger(bindingOptions.onAdd, bindingOptions.currentView.element);
-        if (triggerRefresh) {
-          renderControlContainer(bindingOptions, true);
-        }
-      }
-    }
-    return this;
-  };
-  this.updateDate = function(elementId, date, count, type, triggerRefresh) {
-    if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      if (!bindingOptions.currentView.isInFetchMode && count > 0) {
-        type = getDefaultString(type, _configuration.unknownTrendText);
-        var storageDate = toStorageDate(date);
-        if (_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
-          triggerRefresh = getDefaultBoolean(triggerRefresh, true);
-          _elements_DateCounts[elementId].type[type][storageDate] = count;
-          fireCustomTrigger(bindingOptions.onUpdate, bindingOptions.currentView.element);
-          if (triggerRefresh) {
-            renderControlContainer(bindingOptions, true);
-          }
-        }
-      }
-    }
-    return this;
-  };
-  this.removeDates = function(elementId, dates, type, triggerRefresh) {
-    if (isDefinedString(elementId) && isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      if (!bindingOptions.currentView.isInFetchMode) {
-        type = getDefaultString(type, _configuration.unknownTrendText);
-        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
-        var datesLength = dates.length;
-        var dateIndex = 0;
-        for (; dateIndex < datesLength; dateIndex++) {
-          this.removeDate(elementId, dates[dateIndex], type, false);
-        }
-        if (triggerRefresh) {
-          renderControlContainer(bindingOptions, true);
-        }
-      }
-    }
-    return this;
-  };
-  this.removeDate = function(elementId, date, type, triggerRefresh) {
-    if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      if (!bindingOptions.currentView.isInFetchMode) {
-        type = getDefaultString(type, _configuration.unknownTrendText);
-        var storageDate = toStorageDate(date);
-        if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
-          triggerRefresh = getDefaultBoolean(triggerRefresh, true);
-          if (_elements_DateCounts[elementId].type[type][storageDate] > 0) {
-            _elements_DateCounts[elementId].type[type][storageDate]--;
-          }
-          fireCustomTrigger(bindingOptions.onRemove, bindingOptions.currentView.element);
-          if (triggerRefresh) {
-            renderControlContainer(bindingOptions, true);
-          }
-        }
-      }
-    }
-    return this;
-  };
-  this.clearDate = function(elementId, date, type, triggerRefresh) {
-    if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      if (!bindingOptions.currentView.isInFetchMode) {
-        type = getDefaultString(type, _configuration.unknownTrendText);
-        var storageDate = toStorageDate(date);
-        if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
-          triggerRefresh = getDefaultBoolean(triggerRefresh, true);
-          delete _elements_DateCounts[elementId].type[type][storageDate];
-          fireCustomTrigger(bindingOptions.onClear, bindingOptions.currentView.element);
-          if (triggerRefresh) {
-            renderControlContainer(bindingOptions, true);
-          }
-        }
-      }
-    }
-    return this;
-  };
-  this.resetAll = function(triggerRefresh) {
-    var elementId;
-    for (elementId in _elements_DateCounts) {
-      if (_elements_DateCounts.hasOwnProperty(elementId)) {
-        this.reset(elementId, triggerRefresh);
-      }
-    }
-    return this;
-  };
-  this.reset = function(elementId, triggerRefresh) {
-    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      if (!bindingOptions.currentView.isInFetchMode) {
-        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
-        bindingOptions.currentView.type = _configuration.unknownTrendText;
-        createDateStorageForElement(elementId, bindingOptions, false);
-        fireCustomTrigger(bindingOptions.onReset, bindingOptions.currentView.element);
-        if (triggerRefresh) {
-          renderControlContainer(bindingOptions, true);
-        }
-      }
-    }
-    return this;
-  };
-  this["export"] = function(elementId, exportType) {
-    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      exportAllData(_elements_DateCounts[elementId].options, exportType);
-    }
-    return this;
-  };
-  this.refresh = function(elementId) {
-    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      renderControlContainer(bindingOptions, true);
-      fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
-    }
-    return this;
-  };
-  this.refreshAll = function() {
-    var elementId;
-    for (elementId in _elements_DateCounts) {
-      if (_elements_DateCounts.hasOwnProperty(elementId)) {
-        var bindingOptions = _elements_DateCounts[elementId].options;
-        renderControlContainer(bindingOptions, true);
-        fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
-      }
-    }
-    return this;
-  };
-  this.setYear = function(elementId, year) {
-    if (isDefinedString(elementId) && isDefinedNumber(year) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      bindingOptions.currentView.year = year;
-      if (!isYearVisible(bindingOptions, bindingOptions.currentView.year)) {
-        moveToNextYear(bindingOptions, false);
-      } else {
-        renderControlContainer(bindingOptions);
-      }
-      fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
-    }
-    return this;
-  };
-  this.setYearToHighest = function(elementId) {
-    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      var data = getCurrentViewData(bindingOptions);
-      var maximumYear = 0;
-      var storageDate;
-      for (storageDate in data) {
-        if (data.hasOwnProperty(storageDate)) {
-          maximumYear = _parameter_Math.max(maximumYear, parseInt(getStorageDateYear(storageDate)));
-        }
-      }
-      if (maximumYear > 0) {
-        bindingOptions.currentView.year = maximumYear;
-        if (!isYearVisible(bindingOptions, bindingOptions.currentView.year)) {
-          moveToNextYear(bindingOptions, false);
-        } else {
-          renderControlContainer(bindingOptions);
-        }
-        fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
-      }
-    }
-    return this;
-  };
-  this.setYearToLowest = function(elementId) {
-    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      var data = getCurrentViewData(bindingOptions);
-      var minimumYear = 9999;
-      var storageDate;
-      for (storageDate in data) {
-        if (data.hasOwnProperty(storageDate)) {
-          minimumYear = _parameter_Math.min(minimumYear, parseInt(getStorageDateYear(storageDate)));
-        }
-      }
-      if (minimumYear < 9999) {
-        bindingOptions.currentView.year = minimumYear;
-        if (!isYearVisible(bindingOptions, bindingOptions.currentView.year)) {
-          moveToPreviousYear(bindingOptions, false);
-        } else {
-          renderControlContainer(bindingOptions);
-        }
-        fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
-      }
-    }
-    return this;
-  };
-  this.moveToPreviousYear = function(elementId) {
-    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      moveToPreviousYear(_elements_DateCounts[elementId].options);
-    }
-    return this;
-  };
-  this.moveToNextYear = function(elementId) {
-    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      moveToNextYear(_elements_DateCounts[elementId].options);
-    }
-    return this;
-  };
-  this.moveToCurrentYear = function(elementId) {
-    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      bindingOptions.currentView.year = (new Date()).getFullYear();
-      if (!isYearVisible(bindingOptions, bindingOptions.currentView.year)) {
-        moveToNextYear(bindingOptions, false);
-      } else {
-        renderControlContainer(bindingOptions);
-      }
-      fireCustomTrigger(bindingOptions.onSetYear, bindingOptions.currentView.year);
-    }
-    return this;
-  };
-  this.getYear = function(elementId) {
-    var result = null;
-    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      result = bindingOptions.currentView.year;
-    }
-    return result;
-  };
-  this.render = function(element, options) {
-    if (isDefinedObject(element) && isDefinedObject(options)) {
-      renderControl(renderBindingOptions(options, element));
-    }
-    return this;
-  };
-  this.renderAll = function() {
-    render();
-    return this;
-  };
-  this.switchView = function(elementId, viewName) {
-    if (isDefinedString(elementId) && isDefinedString(viewName) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      var view = null;
-      if (viewName.toLowerCase() === _elements_View_Name_Map) {
-        view = _elements_View_Map;
-      } else if (viewName.toLowerCase() === _elements_View_Name_Chart) {
-        view = _elements_View_Chart;
-      } else if (viewName.toLowerCase() === _elements_View_Name_Statistics) {
-        view = _elements_View_Statistics;
-      }
-      if (isDefinedNumber(view)) {
-        bindingOptions.currentView.view = view;
-        fireCustomTrigger(bindingOptions.onViewSwitch, viewName);
-        renderControlContainer(bindingOptions, false, true);
-      }
-    }
-    return this;
-  };
-  this.switchType = function(elementId, type) {
-    if (isDefinedString(elementId) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId) && _elements_DateCounts[elementId].type.hasOwnProperty(type)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      if (bindingOptions.currentView.type !== type) {
-        bindingOptions.currentView.type = type;
-        fireCustomTrigger(bindingOptions.onTypeSwitch, type);
-        renderControlContainer(bindingOptions);
-      }
-    }
-    return this;
-  };
-  this.updateOptions = function(elementId, newOptions) {
-    if (isDefinedString(elementId) && isDefinedObject(newOptions) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      var bindingOptions = _elements_DateCounts[elementId].options;
-      var newBindingOptions = buildAttributeOptions(newOptions);
-      var optionChanged = false;
-      var propertyName;
-      for (propertyName in newBindingOptions) {
-        if (newBindingOptions.hasOwnProperty(propertyName) && bindingOptions.hasOwnProperty(propertyName) && bindingOptions[propertyName] !== newBindingOptions[propertyName]) {
-          bindingOptions[propertyName] = newBindingOptions[propertyName];
-          optionChanged = true;
-        }
-      }
-      if (optionChanged) {
-        renderControlContainer(bindingOptions, true);
-        fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
-      }
-    }
-    return this;
-  };
-  this.destroyAll = function() {
-    var elementId;
-    for (elementId in _elements_DateCounts) {
-      if (_elements_DateCounts.hasOwnProperty(elementId)) {
-        destroyElement(_elements_DateCounts[elementId].options);
-      }
-    }
-    _elements_DateCounts = {};
-    return this;
-  };
-  this.destroy = function(elementId) {
-    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
-      destroyElement(_elements_DateCounts[elementId].options);
-      delete _elements_DateCounts[elementId];
-    }
-    return this;
-  };
-  this.setConfiguration = function(newConfiguration, triggerRefresh) {
-    if (isDefinedObject(newConfiguration)) {
-      var configurationHasChanged = false;
-      var propertyName;
-      for (propertyName in newConfiguration) {
-        if (newConfiguration.hasOwnProperty(propertyName) && _configuration.hasOwnProperty(propertyName) && _configuration[propertyName] !== newConfiguration[propertyName]) {
-          _configuration[propertyName] = newConfiguration[propertyName];
-          configurationHasChanged = true;
-        }
-      }
-      if (configurationHasChanged) {
-        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
-        buildDefaultConfiguration(_configuration);
-        if (triggerRefresh) {
-          this.refreshAll();
-        }
-      }
-    }
-    return this;
-  };
-  this.getIds = function() {
+  _public.getIds = function() {
     var result = [];
-    var elementId;
-    for (elementId in _elements_DateCounts) {
+    for (var elementId in _elements_DateCounts) {
       if (_elements_DateCounts.hasOwnProperty(elementId)) {
         result.push(elementId);
       }
     }
     return result;
   };
-  this.getVersion = function() {
+  _public.getVersion = function() {
     return "2.8.0";
   };
   (function(documentObject, windowObject, mathObject, jsonObject) {
@@ -2145,7 +1965,7 @@
       cancelAllPullDataTimers();
     });
     if (!isDefined(_parameter_Window.$heat)) {
-      _parameter_Window.$heat = this;
+      _parameter_Window.$heat = _public;
     }
   })(document, window, Math, JSON);
 })();

@@ -12,11 +12,16 @@
 
 
 ( function() {
+    "use strict";
+
     var // Variables: Constructor Parameters
         _parameter_Document = null,
         _parameter_Window = null,
         _parameter_Math = null,
         _parameter_JSON = null,
+
+        // Variables: Public Scope
+        _public = {},
 
         // Variables: Configuration
         _configuration = {},
@@ -2390,7 +2395,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.addDates = function( elementId, dates, type, triggerRefresh ) {
+    _public.addDates = function( elementId, dates, type, triggerRefresh ) {
         if ( isDefinedString( elementId ) && isDefinedArray( dates ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
@@ -2401,7 +2406,7 @@
                 var datesLength = dates.length;
     
                 for ( var dateIndex = 0; dateIndex < datesLength; dateIndex++ ) {
-                    this.addDate( elementId, dates[ dateIndex ], type, false );
+                    _public.addDate( elementId, dates[ dateIndex ], type, false );
                 }
     
                 if ( triggerRefresh ) {
@@ -2410,7 +2415,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2428,7 +2433,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.addDate = function( elementId, date, type, triggerRefresh ) {
+    _public.addDate = function( elementId, date, type, triggerRefresh ) {
         if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
@@ -2457,7 +2462,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2476,7 +2481,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.updateDate = function( elementId, date, count, type, triggerRefresh ) {
+    _public.updateDate = function( elementId, date, count, type, triggerRefresh ) {
         if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
@@ -2499,7 +2504,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2517,7 +2522,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.removeDates = function( elementId, dates, type, triggerRefresh ) {
+    _public.removeDates = function( elementId, dates, type, triggerRefresh ) {
         if ( isDefinedString( elementId ) && isDefinedArray( dates ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
@@ -2528,7 +2533,7 @@
                 var datesLength = dates.length;
     
                 for ( var dateIndex = 0; dateIndex < datesLength; dateIndex++ ) {
-                    this.removeDate( elementId, dates[ dateIndex ], type, false );
+                    _public.removeDate( elementId, dates[ dateIndex ], type, false );
                 }
     
                 if ( triggerRefresh ) {
@@ -2537,7 +2542,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2555,7 +2560,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.removeDate = function( elementId, date, type, triggerRefresh ) {
+    _public.removeDate = function( elementId, date, type, triggerRefresh ) {
         if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
@@ -2580,7 +2585,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2598,7 +2603,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.clearDate = function( elementId, date, type, triggerRefresh ) {
+    _public.clearDate = function( elementId, date, type, triggerRefresh ) {
         if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
@@ -2621,7 +2626,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2636,14 +2641,14 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.resetAll = function( triggerRefresh ) {
+    _public.resetAll = function( triggerRefresh ) {
         for ( var elementId in _elements_DateCounts ) {
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
-                this.reset( elementId, triggerRefresh );
+                _public.reset( elementId, triggerRefresh );
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2659,7 +2664,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.reset = function( elementId, triggerRefresh ) {
+    _public.reset = function( elementId, triggerRefresh ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
@@ -2677,7 +2682,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2693,12 +2698,12 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.export = function( elementId, exportType ) {
+    _public.export = function( elementId, exportType ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             exportAllData( _elements_DateCounts[ elementId ].options, exportType );
         }
 
-        return this;
+        return _public;
     };
 
 
@@ -2720,7 +2725,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.refresh = function( elementId ) {
+    _public.refresh = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
@@ -2728,7 +2733,7 @@
             fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2741,7 +2746,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.refreshAll = function() {
+    _public.refreshAll = function() {
         for ( var elementId in _elements_DateCounts ) {
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 var bindingOptions = _elements_DateCounts[ elementId ].options;
@@ -2751,7 +2756,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2767,7 +2772,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.setYear = function( elementId, year ) {
+    _public.setYear = function( elementId, year ) {
         if ( isDefinedString( elementId ) && isDefinedNumber( year ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             bindingOptions.currentView.year = year;
@@ -2781,7 +2786,7 @@
             fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2796,7 +2801,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.setYearToHighest = function( elementId ) {
+    _public.setYearToHighest = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
                 data = getCurrentViewData( bindingOptions ),
@@ -2821,7 +2826,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2836,7 +2841,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.setYearToLowest = function( elementId ) {
+    _public.setYearToLowest = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
                 data = getCurrentViewData( bindingOptions ),
@@ -2861,7 +2866,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2876,12 +2881,12 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.moveToPreviousYear = function( elementId ) {
+    _public.moveToPreviousYear = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             moveToPreviousYear( _elements_DateCounts[ elementId ].options );
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2896,12 +2901,12 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.moveToNextYear = function( elementId ) {
+    _public.moveToNextYear = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             moveToNextYear( _elements_DateCounts[ elementId ].options );
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2916,7 +2921,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.moveToCurrentYear = function( elementId ) {
+    _public.moveToCurrentYear = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             bindingOptions.currentView.year = new Date().getFullYear();
@@ -2930,7 +2935,7 @@
             fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2944,7 +2949,7 @@
      * 
      * @returns     {Object}                                                The year being displayed (or null).
      */
-    this.getYear = function( elementId ) {
+    _public.getYear = function( elementId ) {
         var result = null;
 
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
@@ -2968,12 +2973,12 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.render = function( element, options ) {
+    _public.render = function( element, options ) {
         if ( isDefinedObject( element ) && isDefinedObject( options ) ) {
             renderControl( renderBindingOptions( options, element ) );
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2985,10 +2990,10 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.renderAll = function() {
+    _public.renderAll = function() {
         render();
 
-        return this;
+        return _public;
     };
 
     /**
@@ -3004,7 +3009,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.switchView = function( elementId, viewName ) {
+    _public.switchView = function( elementId, viewName ) {
         if ( isDefinedString( elementId ) && isDefinedString( viewName ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
                 view = null;
@@ -3025,7 +3030,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -3041,7 +3046,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.switchType = function( elementId, type ) {
+    _public.switchType = function( elementId, type ) {
         if ( isDefinedString( elementId ) && isDefinedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) && _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
@@ -3053,7 +3058,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -3069,7 +3074,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.updateOptions = function( elementId, newOptions ) {
+    _public.updateOptions = function( elementId, newOptions ) {
         if ( isDefinedString( elementId ) && isDefinedObject( newOptions ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
                 newBindingOptions = buildAttributeOptions( newOptions ),
@@ -3088,7 +3093,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     function moveToPreviousYear( bindingOptions, callCustomTrigger ) {
@@ -3164,7 +3169,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.destroyAll = function() {
+    _public.destroyAll = function() {
         for ( var elementId in _elements_DateCounts ) {
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 destroyElement( _elements_DateCounts[ elementId ].options );
@@ -3173,7 +3178,7 @@
 
         _elements_DateCounts = {};
 
-        return this;
+        return _public;
     };
 
     /**
@@ -3188,14 +3193,14 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.destroy = function( elementId ) {
+    _public.destroy = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             destroyElement( _elements_DateCounts[ elementId ].options );
 
             delete _elements_DateCounts[ elementId ];
         }
 
-        return this;
+        return _public;
     };
 
     function destroyElement( bindingOptions ) {
@@ -3232,7 +3237,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.setConfiguration = function( newConfiguration, triggerRefresh ) {
+    _public.setConfiguration = function( newConfiguration, triggerRefresh ) {
         if ( isDefinedObject( newConfiguration ) ) {
             var configurationHasChanged = false;
         
@@ -3249,12 +3254,12 @@
                 buildDefaultConfiguration( _configuration );
     
                 if ( triggerRefresh ) {
-                    this.refreshAll();
+                    _public.refreshAll();
                 }
             }
         }
 
-        return this;
+        return _public;
     };
 
     function buildDefaultConfiguration( newConfiguration ) {
@@ -3345,7 +3350,7 @@
      * 
      * @returns     {string[]}                                              The element IDs that have been rendered.
      */
-    this.getIds = function() {
+    _public.getIds = function() {
         var result = [];
         
         for ( var elementId in _elements_DateCounts ) {
@@ -3366,7 +3371,7 @@
      * 
      * @returns     {string}                                                The version number.
      */
-    this.getVersion = function() {
+    _public.getVersion = function() {
         return "2.8.0";
     };
 
@@ -3394,7 +3399,7 @@
         } );
 
         if ( !isDefined( _parameter_Window.$heat ) ) {
-            _parameter_Window.$heat = this;
+            _parameter_Window.$heat = _public;
         }
 
     } ) ( document, window, Math, JSON );
