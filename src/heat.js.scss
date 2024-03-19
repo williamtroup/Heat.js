@@ -422,6 +422,7 @@ div.heat-js {
                 transform: rotate(-45deg);
                 top: 0;
                 left: 0;
+                transition: var(--heat-js-transition);
             }
 
             &::after {
@@ -435,6 +436,7 @@ div.heat-js {
                 transform: rotate(90deg);
                 top: 0;
                 left: 0;
+                transition: var(--heat-js-transition);
             }
         }
 

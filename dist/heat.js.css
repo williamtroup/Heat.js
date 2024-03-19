@@ -257,6 +257,7 @@ div.heat-js div.title-bar div.configure::before {
   transform: rotate(-45deg);
   top: 0;
   left: 0;
+  transition: var(--heat-js-transition);
 }
 div.heat-js div.title-bar div.configure::after {
   content: "";
@@ -269,6 +270,7 @@ div.heat-js div.title-bar div.configure::after {
   transform: rotate(90deg);
   top: 0;
   left: 0;
+  transition: var(--heat-js-transition);
 }
 div.heat-js div.title-bar div.year-text {
   margin-left: var(--heat-js-spacing);
