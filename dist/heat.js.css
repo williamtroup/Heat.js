@@ -236,8 +236,8 @@ div.heat-js div.title-bar button.import {
 }
 div.heat-js div.title-bar div.configure {
   display: inline-block;
-  width: 8px;
-  height: 8px;
+  width: 8.5px;
+  height: 8.5px;
   position: relative;
   margin-right: var(--heat-js-spacing);
   transition: var(--heat-js-transition);
@@ -249,8 +249,8 @@ div.heat-js div.title-bar div.configure:hover::before, div.heat-js div.title-bar
 div.heat-js div.title-bar div.configure::before {
   content: "";
   position: absolute;
-  height: 8px;
-  width: 8px;
+  height: 8.5px;
+  width: 8.5px;
   border-color: var(--heat-js-color-white);
   border-width: 2px;
   border-style: solid;
@@ -262,8 +262,8 @@ div.heat-js div.title-bar div.configure::before {
 div.heat-js div.title-bar div.configure::after {
   content: "";
   position: absolute;
-  height: 8px;
-  width: 8px;
+  height: 8.5px;
+  width: 8.5px;
   border-color: var(--heat-js-color-white);
   border-width: 2px;
   border-style: solid;
