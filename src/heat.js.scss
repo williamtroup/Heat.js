@@ -538,7 +538,7 @@ div.heat-js {
                     text-align: left !important;
                     height: var(--heat-js-day-size);
                     margin-bottom: var(--heat-js-day-spacing);
-                    display: inline-flex;
+                    display: flex;
                     justify-content: center;
                     flex-direction: column;
                 }

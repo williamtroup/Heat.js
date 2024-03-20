@@ -373,7 +373,7 @@ div.heat-js div.map-contents div.map div.days-months-bottom div.day-name {
   text-align: left !important;
   height: var(--heat-js-day-size);
   margin-bottom: var(--heat-js-day-spacing);
-  display: inline-flex;
+  display: flex;
   justify-content: center;
   flex-direction: column;
 }
