@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v2.7.2
+ * @version     v2.8.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -12,11 +12,16 @@
 
 
 ( function() {
+    "use strict";
+
     var // Variables: Constructor Parameters
         _parameter_Document = null,
         _parameter_Window = null,
         _parameter_Math = null,
         _parameter_JSON = null,
+
+        // Variables: Public Scope
+        _public = {},
 
         // Variables: Configuration
         _configuration = {},
@@ -29,7 +34,9 @@
             dash: "-",
             underscore: "_",
             plus: "+",
-            zero: "0"
+            zero: "0",
+            colon: ":",
+            comma: ","
         },
 
         // Variables: Values
@@ -502,7 +509,8 @@
             }
     
             if ( bindingOptions.views.map.showDayNames ) {
-                var days = createElement( map, "div", "days" );
+                var days = createElement( map, "div", "days" ),
+                    showMinimalDays = bindingOptions.views.map.showMinimalDayNames && bindingOptions.views.map.daysToShow.length === 7;
     
                 if ( !bindingOptions.views.map.showMonthNames || bindingOptions.views.map.placeMonthNamesOnTheBottom ) {
                     days.className = "days-months-bottom";
@@ -510,7 +518,9 @@
         
                 for ( var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++ ) {
                     if ( isDayVisible( bindingOptions.views.map.daysToShow, dayNameIndex + 1 ) ) {
-                        createElementWithHTML( days, "div", "day-name", _configuration.dayNames[ dayNameIndex ] );
+                        var dayText = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.dayNames[ dayNameIndex ] : _string.space;
+
+                        createElementWithHTML( days, "div", "day-name", dayText );
                     }
                 }
     
@@ -598,9 +608,17 @@
                             month.style.marginLeft = _elements_Day_Width + "px";
                         }
                     }
+
+                    if ( bindingOptions.views.map.showMonthsInReverseOrder ) {
+                        reverseElementsOrder( dayColumns );
+                    }
     
                     monthAdded = true;
                 }
+            }
+
+            if ( bindingOptions.views.map.showMonthsInReverseOrder ) {
+                reverseElementsOrder( months );
             }
             
             if ( bindingOptions.keepScrollPositions ) {
@@ -740,17 +758,31 @@
                 }
             }
 
+            if ( bindingOptions.views.chart.showInReverseOrder ) {
+                reverseElementsOrder( dayLines );
+            }
+
             if ( bindingOptions.views.chart.showMonthNames ) {
                 var chartMonths = createElement( bindingOptions.currentView.chartContents, "div", "chart-months" ),
                     linesWidth = dayLines.offsetWidth / totalMonths,
                     monthTimesValue = 0;
 
-                for ( var monthIndex2 = 0; monthIndex2 < 12; monthIndex2++ ) {
-                    if ( isMonthVisible( bindingOptions.views.chart.monthsToShow, monthIndex2 ) ) {
-                        var monthName = createElementWithHTML( chartMonths, "div", "month-name", _configuration.monthNames[ monthIndex2 ] );
+                var addMonthName = function( addMonthNameIndex ) {
+                    if ( isMonthVisible( bindingOptions.views.chart.monthsToShow, addMonthNameIndex ) ) {
+                        var monthName = createElementWithHTML( chartMonths, "div", "month-name", _configuration.monthNames[ addMonthNameIndex ] );
                         monthName.style.left = labelsWidth + ( linesWidth * monthTimesValue ) + "px";
 
                         monthTimesValue++;
+                    }
+                };
+
+                if ( bindingOptions.views.chart.showInReverseOrder ) {
+                    for ( var monthIndex2 = 12; monthIndex2--; ) {
+                        addMonthName( monthIndex2 );
+                    }
+                } else {
+                    for ( var monthIndex3 = 0; monthIndex3 < 12; monthIndex3++ ) {
+                        addMonthName( monthIndex3 );
                     }
                 }
 
@@ -900,6 +932,11 @@
                         }
                     }
                 }
+            }
+
+            if ( bindingOptions.views.statistics.showInReverseOrder ) {
+                reverseElementsOrder( rangeLines );
+                reverseElementsOrder( statisticsRanges );
             }
     
             if ( bindingOptions.keepScrollPositions ) {
@@ -1150,7 +1187,7 @@
                 var holiday = isHoliday( bindingOptions, date );
 
                 if ( holiday.matched && isDefinedString( holiday.name ) ) {
-                    tooltip += ": " + holiday.name;
+                    tooltip += _string.colon + _string.space + holiday.name;
                 }
             }
 
@@ -1521,7 +1558,7 @@
     function importFromFilesSelected( bindingOptions ) {
         var input = createElementWithNoContainer( "input" );
         input.type = "file";
-        input.accept = ".json, .txt";
+        input.accept = ".json, .txt, .csv";
         input.multiple = "multiple";
 
         input.onchange = function() {
@@ -1563,6 +1600,8 @@
                 importFromJson( file, onLoadEnd );
             } else if ( fileExtension === _export_Type_Txt ) {
                 importFromTxt( file, onLoadEnd );
+            } else if ( fileExtension === _export_Type_Csv ) {
+                importFromCsv( file, onLoadEnd );
             }
         }
     }
@@ -1601,7 +1640,33 @@
                 linesLength = lines.length;
 
             for ( var lineIndex = 0; lineIndex < linesLength; lineIndex++ ) {
-                var line = lines[ lineIndex ].split( ":" );
+                var line = lines[ lineIndex ].split( _string.colon );
+
+                readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
+            }
+        };
+    }
+
+    function importFromCsv( file, onLoadEnd ) {
+        var reader = new FileReader(),
+            readingObject = {};
+
+        reader.readAsText( file );
+
+        reader.onloadend = function() {
+            onLoadEnd( file.name, readingObject );
+        };
+    
+        reader.onload = function( e ) {
+            var data = e.target.result.toString().replace( new RegExp( "\"", "g" ), _string.empty ),
+                lines = data.split( _string.newLine );
+            
+            lines.shift();
+
+            var linesLength = lines.length;
+
+            for ( var lineIndex = 0; lineIndex < linesLength; lineIndex++ ) {
+                var line = lines[ lineIndex ].split( _string.comma );
 
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
             }
@@ -1692,7 +1757,7 @@
 
         for ( var storageDate in data ) {
             if ( data.hasOwnProperty( storageDate ) ) {
-                contents.push( storageDate + ": " + data[ storageDate ].toString() );
+                contents.push( storageDate + _string.colon + _string.space + data[ storageDate ].toString() );
             }
         }
 
@@ -1915,6 +1980,8 @@
         options.views.map.showMonthNames = getDefaultBoolean( options.views.map.showMonthNames, true );
         options.views.map.showDaysInReverseOrder = getDefaultBoolean( options.views.map.showDaysInReverseOrder, false );
         options.views.map.showNoDataMessageWhenDataIsNotAvailable = getDefaultBoolean( options.views.map.showNoDataMessageWhenDataIsNotAvailable, false );
+        options.views.map.showMinimalDayNames = getDefaultBoolean( options.views.map.showMinimalDayNames, false );
+        options.views.map.showMonthsInReverseOrder = getDefaultBoolean( options.views.map.showMonthsInReverseOrder, false );
 
         if ( isInvalidOptionArray( options.views.map.monthsToShow ) ) {
             options.views.map.monthsToShow = _default_MonthsToShow;
@@ -1933,6 +2000,7 @@
         options.views.chart.showChartYLabels = getDefaultBoolean( options.views.chart.showChartYLabels, true );
         options.views.chart.showMonthNames = getDefaultBoolean( options.views.chart.showMonthNames, true );
         options.views.chart.showLineNumbers = getDefaultBoolean( options.views.chart.showLineNumbers, false );
+        options.views.chart.showInReverseOrder = getDefaultBoolean( options.views.chart.showInReverseOrder, false );
 
         if ( isInvalidOptionArray( options.views.chart.monthsToShow ) ) {
             options.views.chart.monthsToShow = _default_MonthsToShow;
@@ -1952,6 +2020,7 @@
         options.views.statistics.showColorRangeLabels = getDefaultBoolean( options.views.statistics.showColorRangeLabels, true );
         options.views.statistics.useColorRangeNamesForLabels = getDefaultBoolean( options.views.statistics.useColorRangeNamesForLabels, false );
         options.views.statistics.showRangeNumbers = getDefaultBoolean( options.views.statistics.showRangeNumbers, false );
+        options.views.statistics.showInReverseOrder = getDefaultBoolean( options.views.statistics.showInReverseOrder, false );
 
         if ( isInvalidOptionArray( options.views.statistics.monthsToShow ) ) {
             options.views.statistics.monthsToShow = _default_MonthsToShow;
@@ -2390,7 +2459,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.addDates = function( elementId, dates, type, triggerRefresh ) {
+    _public.addDates = function( elementId, dates, type, triggerRefresh ) {
         if ( isDefinedString( elementId ) && isDefinedArray( dates ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
@@ -2401,7 +2470,7 @@
                 var datesLength = dates.length;
     
                 for ( var dateIndex = 0; dateIndex < datesLength; dateIndex++ ) {
-                    this.addDate( elementId, dates[ dateIndex ], type, false );
+                    _public.addDate( elementId, dates[ dateIndex ], type, false );
                 }
     
                 if ( triggerRefresh ) {
@@ -2410,7 +2479,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2428,7 +2497,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.addDate = function( elementId, date, type, triggerRefresh ) {
+    _public.addDate = function( elementId, date, type, triggerRefresh ) {
         if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
@@ -2457,7 +2526,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2476,7 +2545,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.updateDate = function( elementId, date, count, type, triggerRefresh ) {
+    _public.updateDate = function( elementId, date, count, type, triggerRefresh ) {
         if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
@@ -2499,7 +2568,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2517,7 +2586,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.removeDates = function( elementId, dates, type, triggerRefresh ) {
+    _public.removeDates = function( elementId, dates, type, triggerRefresh ) {
         if ( isDefinedString( elementId ) && isDefinedArray( dates ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
@@ -2528,7 +2597,7 @@
                 var datesLength = dates.length;
     
                 for ( var dateIndex = 0; dateIndex < datesLength; dateIndex++ ) {
-                    this.removeDate( elementId, dates[ dateIndex ], type, false );
+                    _public.removeDate( elementId, dates[ dateIndex ], type, false );
                 }
     
                 if ( triggerRefresh ) {
@@ -2537,7 +2606,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2555,7 +2624,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.removeDate = function( elementId, date, type, triggerRefresh ) {
+    _public.removeDate = function( elementId, date, type, triggerRefresh ) {
         if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
@@ -2580,7 +2649,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2598,7 +2667,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.clearDate = function( elementId, date, type, triggerRefresh ) {
+    _public.clearDate = function( elementId, date, type, triggerRefresh ) {
         if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
@@ -2621,7 +2690,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2636,14 +2705,14 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.resetAll = function( triggerRefresh ) {
+    _public.resetAll = function( triggerRefresh ) {
         for ( var elementId in _elements_DateCounts ) {
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
-                this.reset( elementId, triggerRefresh );
+                _public.reset( elementId, triggerRefresh );
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2659,7 +2728,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.reset = function( elementId, triggerRefresh ) {
+    _public.reset = function( elementId, triggerRefresh ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             
@@ -2677,7 +2746,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2693,12 +2762,12 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.export = function( elementId, exportType ) {
+    _public.export = function( elementId, exportType ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             exportAllData( _elements_DateCounts[ elementId ].options, exportType );
         }
 
-        return this;
+        return _public;
     };
 
 
@@ -2720,7 +2789,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.refresh = function( elementId ) {
+    _public.refresh = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
@@ -2728,7 +2797,7 @@
             fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2741,7 +2810,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.refreshAll = function() {
+    _public.refreshAll = function() {
         for ( var elementId in _elements_DateCounts ) {
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 var bindingOptions = _elements_DateCounts[ elementId ].options;
@@ -2751,7 +2820,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2767,7 +2836,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.setYear = function( elementId, year ) {
+    _public.setYear = function( elementId, year ) {
         if ( isDefinedString( elementId ) && isDefinedNumber( year ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             bindingOptions.currentView.year = year;
@@ -2781,7 +2850,7 @@
             fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2796,7 +2865,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.setYearToHighest = function( elementId ) {
+    _public.setYearToHighest = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
                 data = getCurrentViewData( bindingOptions ),
@@ -2821,7 +2890,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2836,7 +2905,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.setYearToLowest = function( elementId ) {
+    _public.setYearToLowest = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
                 data = getCurrentViewData( bindingOptions ),
@@ -2861,7 +2930,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2876,12 +2945,12 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.moveToPreviousYear = function( elementId ) {
+    _public.moveToPreviousYear = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             moveToPreviousYear( _elements_DateCounts[ elementId ].options );
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2896,12 +2965,12 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.moveToNextYear = function( elementId ) {
+    _public.moveToNextYear = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             moveToNextYear( _elements_DateCounts[ elementId ].options );
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2916,7 +2985,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.moveToCurrentYear = function( elementId ) {
+    _public.moveToCurrentYear = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
             bindingOptions.currentView.year = new Date().getFullYear();
@@ -2930,7 +2999,7 @@
             fireCustomTrigger( bindingOptions.onSetYear, bindingOptions.currentView.year );
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2944,7 +3013,7 @@
      * 
      * @returns     {Object}                                                The year being displayed (or null).
      */
-    this.getYear = function( elementId ) {
+    _public.getYear = function( elementId ) {
         var result = null;
 
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
@@ -2968,12 +3037,12 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.render = function( element, options ) {
+    _public.render = function( element, options ) {
         if ( isDefinedObject( element ) && isDefinedObject( options ) ) {
             renderControl( renderBindingOptions( options, element ) );
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -2985,10 +3054,10 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.renderAll = function() {
+    _public.renderAll = function() {
         render();
 
-        return this;
+        return _public;
     };
 
     /**
@@ -3004,7 +3073,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.switchView = function( elementId, viewName ) {
+    _public.switchView = function( elementId, viewName ) {
         if ( isDefinedString( elementId ) && isDefinedString( viewName ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
                 view = null;
@@ -3025,7 +3094,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -3041,7 +3110,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.switchType = function( elementId, type ) {
+    _public.switchType = function( elementId, type ) {
         if ( isDefinedString( elementId ) && isDefinedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) && _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options;
 
@@ -3053,7 +3122,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     /**
@@ -3069,7 +3138,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.updateOptions = function( elementId, newOptions ) {
+    _public.updateOptions = function( elementId, newOptions ) {
         if ( isDefinedString( elementId ) && isDefinedObject( newOptions ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             var bindingOptions = _elements_DateCounts[ elementId ].options,
                 newBindingOptions = buildAttributeOptions( newOptions ),
@@ -3088,7 +3157,7 @@
             }
         }
 
-        return this;
+        return _public;
     };
 
     function moveToPreviousYear( bindingOptions, callCustomTrigger ) {
@@ -3164,7 +3233,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.destroyAll = function() {
+    _public.destroyAll = function() {
         for ( var elementId in _elements_DateCounts ) {
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 destroyElement( _elements_DateCounts[ elementId ].options );
@@ -3173,7 +3242,7 @@
 
         _elements_DateCounts = {};
 
-        return this;
+        return _public;
     };
 
     /**
@@ -3188,14 +3257,14 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.destroy = function( elementId ) {
+    _public.destroy = function( elementId ) {
         if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
             destroyElement( _elements_DateCounts[ elementId ].options );
 
             delete _elements_DateCounts[ elementId ];
         }
 
-        return this;
+        return _public;
     };
 
     function destroyElement( bindingOptions ) {
@@ -3232,7 +3301,7 @@
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    this.setConfiguration = function( newConfiguration, triggerRefresh ) {
+    _public.setConfiguration = function( newConfiguration, triggerRefresh ) {
         if ( isDefinedObject( newConfiguration ) ) {
             var configurationHasChanged = false;
         
@@ -3249,12 +3318,12 @@
                 buildDefaultConfiguration( _configuration );
     
                 if ( triggerRefresh ) {
-                    this.refreshAll();
+                    _public.refreshAll();
                 }
             }
         }
 
-        return this;
+        return _public;
     };
 
     function buildDefaultConfiguration( newConfiguration ) {
@@ -3345,7 +3414,7 @@
      * 
      * @returns     {string[]}                                              The element IDs that have been rendered.
      */
-    this.getIds = function() {
+    _public.getIds = function() {
         var result = [];
         
         for ( var elementId in _elements_DateCounts ) {
@@ -3366,8 +3435,8 @@
      * 
      * @returns     {string}                                                The version number.
      */
-    this.getVersion = function() {
-        return "2.7.2";
+    _public.getVersion = function() {
+        return "2.8.0";
     };
 
 
@@ -3394,7 +3463,7 @@
         } );
 
         if ( !isDefined( _parameter_Window.$heat ) ) {
-            _parameter_Window.$heat = this;
+            _parameter_Window.$heat = _public;
         }
 
     } ) ( document, window, Math, JSON );
