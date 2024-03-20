@@ -580,6 +580,10 @@
           }
         }
       }
+      if (bindingOptions.views.statistics.showInReverseOrder) {
+        reverseElementsOrder(rangeLines);
+        reverseElementsOrder(statisticsRanges);
+      }
       if (bindingOptions.keepScrollPositions) {
         bindingOptions.currentView.statisticsContents.scrollLeft = bindingOptions.currentView.statisticsContentsScrollLeft;
       }
@@ -1274,6 +1278,7 @@
     options.views.statistics.showColorRangeLabels = getDefaultBoolean(options.views.statistics.showColorRangeLabels, true);
     options.views.statistics.useColorRangeNamesForLabels = getDefaultBoolean(options.views.statistics.useColorRangeNamesForLabels, false);
     options.views.statistics.showRangeNumbers = getDefaultBoolean(options.views.statistics.showRangeNumbers, false);
+    options.views.statistics.showInReverseOrder = getDefaultBoolean(options.views.statistics.showInReverseOrder, false);
     if (isInvalidOptionArray(options.views.statistics.monthsToShow)) {
       options.views.statistics.monthsToShow = _default_MonthsToShow;
     }
