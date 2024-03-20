@@ -35,7 +35,8 @@
             underscore: "_",
             plus: "+",
             zero: "0",
-            colon: ":"
+            colon: ":",
+            comma: ","
         },
 
         // Variables: Values
@@ -1557,7 +1558,7 @@
     function importFromFilesSelected( bindingOptions ) {
         var input = createElementWithNoContainer( "input" );
         input.type = "file";
-        input.accept = ".json, .txt";
+        input.accept = ".json, .txt, .csv";
         input.multiple = "multiple";
 
         input.onchange = function() {
@@ -1599,6 +1600,8 @@
                 importFromJson( file, onLoadEnd );
             } else if ( fileExtension === _export_Type_Txt ) {
                 importFromTxt( file, onLoadEnd );
+            } else if ( fileExtension === _export_Type_Csv ) {
+                importFromCsv( file, onLoadEnd );
             }
         }
     }
@@ -1638,6 +1641,32 @@
 
             for ( var lineIndex = 0; lineIndex < linesLength; lineIndex++ ) {
                 var line = lines[ lineIndex ].split( _string.colon );
+
+                readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
+            }
+        };
+    }
+
+    function importFromCsv( file, onLoadEnd ) {
+        var reader = new FileReader(),
+            readingObject = {};
+
+        reader.readAsText( file );
+
+        reader.onloadend = function() {
+            onLoadEnd( file.name, readingObject );
+        };
+    
+        reader.onload = function( e ) {
+            var data = e.target.result.toString().replace( new RegExp( "\"", "g" ), _string.empty ),
+                lines = data.split( _string.newLine );
+            
+            lines.shift();
+
+            var linesLength = lines.length;
+
+            for ( var lineIndex = 0; lineIndex < linesLength; lineIndex++ ) {
+                var line = lines[ lineIndex ].split( _string.comma );
 
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
             }

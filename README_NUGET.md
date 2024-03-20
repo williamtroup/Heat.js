@@ -20,7 +20,7 @@
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
 - Export all data to CSV, JSON, XML, and TXT.
-- Import data from JSON and TXT.
+- Import data from JSON, TXT, and CSV.
 - 51 language translations available!
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.

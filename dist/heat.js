@@ -1,7 +1,7 @@
 /*! Heat.js v2.8.0 | (c) Bunoon 2024 | MIT License */
 (function() {
-  var _parameter_Document = null, _parameter_Window = null, _parameter_Math = null, _parameter_JSON = null, _public = {}, _configuration = {}, _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+", zero:"0", colon:":"}, _value = {notFound:-1}, _internal_Name_Holiday = "HOLIDAY", _local_Storage_Start_ID = "HJS_", _default_MonthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], _default_DaysToShow = [1, 2, 3, 4, 5, 6, 7], _elements_Type = {}, _elements_Day_Width = null, _elements_DateCounts = 
-  {}, _elements_View_Name_Map = "map", _elements_View_Name_Chart = "chart", _elements_View_Name_Statistics = "statistics", _elements_View_Map = 1, _elements_View_Chart = 2, _elements_View_Statistics = 3, _export_Type_Csv = "csv", _export_Type_Json = "json", _export_Type_Xml = "xml", _export_Type_Txt = "txt", _attribute_Name_Options = "data-heat-options";
+  var _parameter_Document = null, _parameter_Window = null, _parameter_Math = null, _parameter_JSON = null, _public = {}, _configuration = {}, _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+", zero:"0", colon:":", comma:","}, _value = {notFound:-1}, _internal_Name_Holiday = "HOLIDAY", _local_Storage_Start_ID = "HJS_", _default_MonthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], _default_DaysToShow = [1, 2, 3, 4, 5, 6, 7], _elements_Type = {}, _elements_Day_Width = 
+  null, _elements_DateCounts = {}, _elements_View_Name_Map = "map", _elements_View_Name_Chart = "chart", _elements_View_Name_Statistics = "statistics", _elements_View_Map = 1, _elements_View_Chart = 2, _elements_View_Statistics = 3, _export_Type_Csv = "csv", _export_Type_Json = "json", _export_Type_Xml = "xml", _export_Type_Txt = "txt", _attribute_Name_Options = "data-heat-options";
   function render() {
     var tagTypes = _configuration.domElementTypes, tagTypesLength = tagTypes.length;
     for (var tagTypeIndex = 0; tagTypeIndex < tagTypesLength; tagTypeIndex++) {
@@ -986,7 +986,7 @@
   function importFromFilesSelected(bindingOptions) {
     var input = createElementWithNoContainer("input");
     input.type = "file";
-    input.accept = ".json, .txt";
+    input.accept = ".json, .txt, .csv";
     input.multiple = "multiple";
     input.onchange = function() {
       importFromFiles(input.files, bindingOptions);
@@ -1016,6 +1016,8 @@
         importFromJson(file, onLoadEnd);
       } else if (fileExtension === _export_Type_Txt) {
         importFromTxt(file, onLoadEnd);
+      } else if (fileExtension === _export_Type_Csv) {
+        importFromCsv(file, onLoadEnd);
       }
     }
   }
@@ -1042,6 +1044,22 @@
       var lines = e.target.result.toString().split(_string.newLine), linesLength = lines.length;
       for (var lineIndex = 0; lineIndex < linesLength; lineIndex++) {
         var line = lines[lineIndex].split(_string.colon);
+        readingObject[line[0].trim()] = parseInt(line[1].trim());
+      }
+    };
+  }
+  function importFromCsv(file, onLoadEnd) {
+    var reader = new FileReader(), readingObject = {};
+    reader.readAsText(file);
+    reader.onloadend = function() {
+      onLoadEnd(file.name, readingObject);
+    };
+    reader.onload = function(e) {
+      var data = e.target.result.toString().replace(new RegExp('"', "g"), _string.empty), lines = data.split(_string.newLine);
+      lines.shift();
+      var linesLength = lines.length;
+      for (var lineIndex = 0; lineIndex < linesLength; lineIndex++) {
+        var line = lines[lineIndex].split(_string.comma);
         readingObject[line[0].trim()] = parseInt(line[1].trim());
       }
     };
