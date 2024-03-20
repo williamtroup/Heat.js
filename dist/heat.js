@@ -460,13 +460,25 @@
           }
         }
       }
+      if (bindingOptions.views.chart.showInReverseOrder) {
+        reverseElementsOrder(dayLines);
+      }
       if (bindingOptions.views.chart.showMonthNames) {
         var chartMonths = createElement(bindingOptions.currentView.chartContents, "div", "chart-months"), linesWidth = dayLines.offsetWidth / totalMonths, monthTimesValue = 0;
-        for (var monthIndex2 = 0; monthIndex2 < 12; monthIndex2++) {
-          if (isMonthVisible(bindingOptions.views.chart.monthsToShow, monthIndex2)) {
-            var monthName = createElementWithHTML(chartMonths, "div", "month-name", _configuration.monthNames[monthIndex2]);
+        var addMonthName = function(addMonthNameIndex) {
+          if (isMonthVisible(bindingOptions.views.chart.monthsToShow, addMonthNameIndex)) {
+            var monthName = createElementWithHTML(chartMonths, "div", "month-name", _configuration.monthNames[addMonthNameIndex]);
             monthName.style.left = labelsWidth + linesWidth * monthTimesValue + "px";
             monthTimesValue++;
+          }
+        };
+        if (bindingOptions.views.chart.showInReverseOrder) {
+          for (var monthIndex2 = 12; monthIndex2--;) {
+            addMonthName(monthIndex2);
+          }
+        } else {
+          for (var monthIndex3 = 0; monthIndex3 < 12; monthIndex3++) {
+            addMonthName(monthIndex3);
           }
         }
         chartMonths.style.width = dayLines.offsetWidth + "px";
@@ -1246,6 +1258,7 @@
     options.views.chart.showChartYLabels = getDefaultBoolean(options.views.chart.showChartYLabels, true);
     options.views.chart.showMonthNames = getDefaultBoolean(options.views.chart.showMonthNames, true);
     options.views.chart.showLineNumbers = getDefaultBoolean(options.views.chart.showLineNumbers, false);
+    options.views.chart.showInReverseOrder = getDefaultBoolean(options.views.chart.showInReverseOrder, false);
     if (isInvalidOptionArray(options.views.chart.monthsToShow)) {
       options.views.chart.monthsToShow = _default_MonthsToShow;
     }
