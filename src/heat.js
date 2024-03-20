@@ -34,7 +34,8 @@
             dash: "-",
             underscore: "_",
             plus: "+",
-            zero: "0"
+            zero: "0",
+            colon: ":"
         },
 
         // Variables: Values
@@ -1185,7 +1186,7 @@
                 var holiday = isHoliday( bindingOptions, date );
 
                 if ( holiday.matched && isDefinedString( holiday.name ) ) {
-                    tooltip += ": " + holiday.name;
+                    tooltip += _string.colon + _string.space + holiday.name;
                 }
             }
 
@@ -1636,7 +1637,7 @@
                 linesLength = lines.length;
 
             for ( var lineIndex = 0; lineIndex < linesLength; lineIndex++ ) {
-                var line = lines[ lineIndex ].split( ":" );
+                var line = lines[ lineIndex ].split( _string.colon );
 
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
             }
@@ -1727,7 +1728,7 @@
 
         for ( var storageDate in data ) {
             if ( data.hasOwnProperty( storageDate ) ) {
-                contents.push( storageDate + ": " + data[ storageDate ].toString() );
+                contents.push( storageDate + _string.colon + _string.space + data[ storageDate ].toString() );
             }
         }
 

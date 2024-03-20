@@ -1,6 +1,6 @@
 /*! Heat.js v2.8.0 | (c) Bunoon 2024 | MIT License */
 (function() {
-  var _parameter_Document = null, _parameter_Window = null, _parameter_Math = null, _parameter_JSON = null, _public = {}, _configuration = {}, _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+", zero:"0"}, _value = {notFound:-1}, _internal_Name_Holiday = "HOLIDAY", _local_Storage_Start_ID = "HJS_", _default_MonthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], _default_DaysToShow = [1, 2, 3, 4, 5, 6, 7], _elements_Type = {}, _elements_Day_Width = null, _elements_DateCounts = 
+  var _parameter_Document = null, _parameter_Window = null, _parameter_Math = null, _parameter_JSON = null, _public = {}, _configuration = {}, _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+", zero:"0", colon:":"}, _value = {notFound:-1}, _internal_Name_Holiday = "HOLIDAY", _local_Storage_Start_ID = "HJS_", _default_MonthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], _default_DaysToShow = [1, 2, 3, 4, 5, 6, 7], _elements_Type = {}, _elements_Day_Width = null, _elements_DateCounts = 
   {}, _elements_View_Name_Map = "map", _elements_View_Name_Chart = "chart", _elements_View_Name_Statistics = "statistics", _elements_View_Map = 1, _elements_View_Chart = 2, _elements_View_Statistics = 3, _export_Type_Csv = "csv", _export_Type_Json = "json", _export_Type_Xml = "xml", _export_Type_Txt = "txt", _attribute_Name_Options = "data-heat-options";
   function render() {
     var tagTypes = _configuration.domElementTypes, tagTypesLength = tagTypes.length;
@@ -752,7 +752,7 @@
       if (bindingOptions.showHolidaysInDayToolTips) {
         var holiday = isHoliday(bindingOptions, date);
         if (holiday.matched && isDefinedString(holiday.name)) {
-          tooltip += ": " + holiday.name;
+          tooltip += _string.colon + _string.space + holiday.name;
         }
       }
       addToolTip(day, bindingOptions, tooltip);
@@ -1041,7 +1041,7 @@
     reader.onload = function(e) {
       var lines = e.target.result.toString().split(_string.newLine), linesLength = lines.length;
       for (var lineIndex = 0; lineIndex < linesLength; lineIndex++) {
-        var line = lines[lineIndex].split(":");
+        var line = lines[lineIndex].split(_string.colon);
         readingObject[line[0].trim()] = parseInt(line[1].trim());
       }
     };
@@ -1102,7 +1102,7 @@
     var data = getExportData(bindingOptions), contents = [];
     for (var storageDate in data) {
       if (data.hasOwnProperty(storageDate)) {
-        contents.push(storageDate + ": " + data[storageDate].toString());
+        contents.push(storageDate + _string.colon + _string.space + data[storageDate].toString());
       }
     }
     return contents.join(_string.newLine);
