@@ -364,8 +364,14 @@
               month.style.marginLeft = _elements_Day_Width + "px";
             }
           }
+          if (bindingOptions.views.map.showMonthsInReverseOrder) {
+            reverseElementsOrder(dayColumns);
+          }
           monthAdded = true;
         }
+      }
+      if (bindingOptions.views.map.showMonthsInReverseOrder) {
+        reverseElementsOrder(months);
       }
       if (bindingOptions.keepScrollPositions) {
         bindingOptions.currentView.mapContents.scrollLeft = bindingOptions.currentView.mapContentsScrollLeft;
@@ -1225,6 +1231,7 @@
     options.views.map.showDaysInReverseOrder = getDefaultBoolean(options.views.map.showDaysInReverseOrder, false);
     options.views.map.showNoDataMessageWhenDataIsNotAvailable = getDefaultBoolean(options.views.map.showNoDataMessageWhenDataIsNotAvailable, false);
     options.views.map.showMinimalDayNames = getDefaultBoolean(options.views.map.showMinimalDayNames, false);
+    options.views.map.showMonthsInReverseOrder = getDefaultBoolean(options.views.map.showMonthsInReverseOrder, false);
     if (isInvalidOptionArray(options.views.map.monthsToShow)) {
       options.views.map.monthsToShow = _default_MonthsToShow;
     }
