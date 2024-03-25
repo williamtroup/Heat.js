@@ -25,6 +25,11 @@
     --heat-js-container-background-color: #22272e;
     --heat-js-container-border-color: #454c56;
 
+    // Dialog
+    --heat-js-dialog-background-color: var(--heat-js-container-background-color);
+    --heat-js-dialog-border-color: var(--heat-js-container-border-color);
+    --heat-js-dialog-text-color: var(--heat-js-color-white);
+
     // ToolTip
     --heat-js-tooltip-background-color: var(--heat-js-container-background-color);
     --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
@@ -199,17 +204,17 @@
 
     div.label-25 {
         top: 25%;
-        transform: translateY(-25%);
+        transform: translateY( -25% );
     }
 
     div.label-50 {
         top: 50%;
-        transform: translateY(-50%);
+        transform: translateY( -50% );
     }
 
     div.label-75 {
         top: 75%;
-        transform: translateY(-75%);
+        transform: translateY( -75% );
     }
 
     div.label-100 {
@@ -221,7 +226,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate( -50%, -50% );
     font-weight: var(--heat-js-text-bold-weight);
 }
 
@@ -281,17 +286,6 @@ div.heat-js {
     max-width: 700px;
     margin: 0 !important;
 
-    div.disabled {
-        display: none;
-        z-index: 1000;
-        position: absolute;
-        background-color: rgba( 0, 0, 0, 0.3 );
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-    }
-
     div.view-switch {
         animation: fade-in-animation var(--heat-js-animation-length);
     }
@@ -306,6 +300,39 @@ div.heat-js {
         &::before,
         &::after {
             @include box-sizing;
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Configuration
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.disabled {
+        display: none;
+        z-index: 1000;
+        position: absolute;
+        background-color: rgba( 0, 0, 0, 0.3 );
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+
+        div.dialog {
+            display: none;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate( -50%, -50% );
+            width: 300px;
+            height: 200px;
+            background-color: var(--heat-js-dialog-background-color);
+            border: var(--heat-js-border-size) solid var(--heat-js-dialog-border-color);
+            color: var(--heat-js-dialog-text-color);
         }
     }
 }
@@ -457,7 +484,7 @@ div.heat-js {
             $year-margin: 5px;
 
             margin-left: var(--heat-js-spacing);
-            margin-right: calc( var(--heat-js-spacing) / 2 );
+            margin-right: var(--heat-js-spacing);
             display: inline-block;
             font-weight: var(--heat-js-title-bold-weight);
             position: relative;
@@ -487,7 +514,7 @@ div.heat-js {
                 position: absolute;
                 width: 80px;
                 left: 50%;
-                transform: translateX(-50%);
+                transform: translateX( -50% );
                 margin-top: $year-margin;
                 z-index: 1000;
 
@@ -828,7 +855,7 @@ div.heat-js {
                         position: absolute;
                         top: calc( var(--heat-js-spacing) / 2 );
                         left: 50%;
-                        transform: translateX(-50%);
+                        transform: translateX( -50% );
                     }
                 }
 

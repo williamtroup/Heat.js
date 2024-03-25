@@ -221,7 +221,11 @@
 
         startDataPullTimer( bindingOptions );
 
-        renderDisabledBackground( bindingOptions );
+        if ( bindingOptions.showConfigurationButton ) {
+            renderDisabledBackground( bindingOptions );
+            renderConfigurationDialog( bindingOptions );
+        }
+
         renderControlToolTip( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions, isForViewSwitch );
@@ -273,6 +277,16 @@
         if ( isDefined( bindingOptions.currentView.disabledBackground ) && bindingOptions.currentView.disabledBackground.style.display !== "none" ) {
             bindingOptions.currentView.disabledBackground.style.display = "none";
         }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Configuration Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderConfigurationDialog( bindingOptions ) {
     }
 
 
@@ -442,7 +456,9 @@
                     addClass( bindingOptions.currentView.yearText, "no-click" );
                 }
 
-                createElement( titleBar, "div", "configure" );
+                if ( bindingOptions.showConfigurationButton ) {
+                    createElement( titleBar, "div", "configure" );
+                }
 
                 var next = createElementWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
 
@@ -1909,6 +1925,7 @@
         options.dataFetchDelay = getDefaultNumber( options.dataFetchDelay, 60000 );
         options.showOnlyDataForYearsAvailable = getDefaultBoolean( options.showOnlyDataForYearsAvailable, false );
         options.showHolidaysInDayToolTips = getDefaultBoolean( options.showHolidaysInDayToolTips, false );
+        options.showConfigurationButton = getDefaultBoolean( options.showConfigurationButton, true );
 
         options = buildAttributeOptionColorRanges( options );
         options = buildAttributeOptionHolidays( options );
