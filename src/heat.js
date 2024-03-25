@@ -295,8 +295,8 @@
         var titleBar = createElement( bindingOptions.currentView.configurationDialog, "div", "dialog-title-bar" ),
             contents = createElement( bindingOptions.currentView.configurationDialog, "div", "dialog-contents" ),
             closeButton = createElement( titleBar, "div", "dialog-close" ),
-            daysContainer = createElement( contents, "div", "side-container" ),
-            monthsContainer = createElement( contents, "div", "side-container" );
+            daysContainer = createElement( contents, "div", "side-container panel" ),
+            monthsContainer = createElement( contents, "div", "side-container panel" );
 
         createElementWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText );
         createElementWithHTML( daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + _string.colon );
@@ -313,11 +313,11 @@
             bindingOptions.currentView.dayCheckBoxes[ dayIndex ] = buildCheckBox( daysContainer, _configuration.dayNames[ dayIndex ] ).input;
         }
 
-        for ( var monthIndex1 = 0; monthIndex1 < 6; monthIndex1++ ) {
+        for ( var monthIndex1 = 0; monthIndex1 < 7; monthIndex1++ ) {
             bindingOptions.currentView.monthCheckBoxes[ monthIndex1 ] = buildCheckBox( months1Container, _configuration.monthNames[ monthIndex1 ] ).input;
         }
 
-        for ( var monthIndex2 = 6; monthIndex2 < 12; monthIndex2++ ) {
+        for ( var monthIndex2 = 7; monthIndex2 < 12; monthIndex2++ ) {
             bindingOptions.currentView.monthCheckBoxes[ monthIndex2 ] = buildCheckBox( months2Container, _configuration.monthNames[ monthIndex2 ] ).input;
         }
 

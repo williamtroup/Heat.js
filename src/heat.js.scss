@@ -94,6 +94,10 @@
     --heat-js-checkbox-border-color-checked: --heat-js-checkbox-background-color-checked;
     --heat-js-checkbox-border-color: var(--heat-js-color-white);
 
+    // Panels
+    --heat-js-panel-background-color: var(--heat-js-day-background-color);
+    --heat-js-panel-border-color: var(--heat-js-container-border-color);
+
     // Borders
     --heat-js-border-control-radius: 0.25rem;
     --heat-js-border-radius: 0.5rem;
@@ -407,10 +411,23 @@ div.heat-js {
     div.disabled {
         div.configuration {
             div.dialog-contents {
+                div.panel {
+                    background-color: var(--heat-js-panel-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-panel-border-color);
+                    border-radius: var(--heat-js-border-radius);
+                    padding: var(--heat-js-spacing);
+                }
+
                 div.side-container {
                     vertical-align: top;
                     display: inline-block;
-                    width: 50%;
+                    width: calc( 50% - var(--heat-js-spacing) );
+                    margin-right: var(--heat-js-spacing);
+
+                    &:last-child {
+                        margin-right: 0;
+                        width: calc( 50% );
+                    }
 
                     div.side-container-title-text {
                         margin-bottom: var(--heat-js-spacing);

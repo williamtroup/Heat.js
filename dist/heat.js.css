@@ -66,6 +66,8 @@
   --heat-js-checkbox-background-color: var(--heat-js-color-black);
   --heat-js-checkbox-border-color-checked: --heat-js-checkbox-background-color-checked;
   --heat-js-checkbox-border-color: var(--heat-js-color-white);
+  --heat-js-panel-background-color: var(--heat-js-day-background-color);
+  --heat-js-panel-border-color: var(--heat-js-container-border-color);
   --heat-js-border-control-radius: 0.25rem;
   --heat-js-border-radius: 0.5rem;
   --heat-js-border-radius-day: 0.35rem;
@@ -198,9 +200,20 @@ div.heat-js div.disabled div.dialog div.dialog-contents {
     Heat.js - Configuration Dialog
     -------------------------------------------------------------------------
 */
+div.heat-js div.disabled div.configuration div.dialog-contents div.panel {
+  background-color: var(--heat-js-panel-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-panel-border-color);
+  border-radius: var(--heat-js-border-radius);
+  padding: var(--heat-js-spacing);
+}
 div.heat-js div.disabled div.configuration div.dialog-contents div.side-container {
   vertical-align: top;
   display: inline-block;
+  width: calc(50% - var(--heat-js-spacing));
+  margin-right: var(--heat-js-spacing);
+}
+div.heat-js div.disabled div.configuration div.dialog-contents div.side-container:last-child {
+  margin-right: 0;
   width: 50%;
 }
 div.heat-js div.disabled div.configuration div.dialog-contents div.side-container div.side-container-title-text {
