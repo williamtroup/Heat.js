@@ -62,6 +62,10 @@
   --heat-js-button-text-color-hover: var(--heat-js-color-snow-white);
   --heat-js-button-background-color-active: #616b79;
   --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
+  --heat-js-checkbox-background-color-checked: rgba( 80, 200, 120, 1 );
+  --heat-js-checkbox-background-color: var(--heat-js-color-black);
+  --heat-js-checkbox-border-color-checked: --heat-js-checkbox-background-color-checked;
+  --heat-js-checkbox-border-color: rgba( 80, 200, 120, 0.55 );
   --heat-js-border-radius: 0.5rem;
   --heat-js-border-radius-day: 0.35rem;
   --heat-js-border-size: 0.5px;
@@ -1006,6 +1010,64 @@ div.heat-js div.guide div.map-toggles div.days div.day:last-child {
 div.heat-js div.guide div.map-toggles div.days div.day:not(.no-hover):hover {
   cursor: pointer;
   background: var(--heat-js-day-background-color-hover);
+}
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - CheckBox
+    -------------------------------------------------------------------------
+*/
+div.heat-js label.checkbox {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  display: inline-block;
+  position: relative;
+  padding-left: 25px;
+  padding-top: 1px;
+  color: var(--heat-js-color-white);
+}
+div.heat-js label.checkbox input {
+  display: none !important;
+}
+div.heat-js label.checkbox input:checked ~ span.check-mark {
+  background-color: var(--heat-js-checkbox-background-color-checked);
+  border: var(--heat-js-border-size) solid var(--heat-js-checkbox-border-color-checked);
+}
+div.heat-js label.checkbox input:checked ~ span.check-mark::before {
+  display: block;
+}
+div.heat-js label.checkbox input:disabled ~ span.check-mark, div.heat-js label.checkbox input:disabled ~ span.text {
+  opacity: 0.5;
+}
+div.heat-js label.checkbox input:disabled ~ span.check-mark {
+  border: var(--heat-js-border-size) solid var(--heat-js-color-black) !important;
+}
+div.heat-js label.checkbox span.check-mark {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: var(--heat-js-checkbox-background-color);
+  border-radius: var(--heat-js-border-radius);
+  border: var(--heat-js-border-size) solid var(--heat-js-checkbox-border-color);
+  transition: var(--heat-js-transition);
+}
+div.heat-js label.checkbox span.check-mark::before {
+  content: "";
+  transform: rotate(45deg);
+  position: absolute;
+  display: none;
+  left: 4.5px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border: solid var(--heat-js-color-black);
+  border-width: 0 2px 2px 0;
 }
 
 /*
