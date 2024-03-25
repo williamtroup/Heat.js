@@ -300,6 +300,14 @@
             hideConfigurationDialog( bindingOptions );
         };
 
+        buildCheckBox( contents, _configuration.dayNames[ 0 ], isDayVisible( bindingOptions.views.map.daysToShow, 1 ) );
+        buildCheckBox( contents, _configuration.dayNames[ 1 ], isDayVisible( bindingOptions.views.map.daysToShow, 2 ) );
+        buildCheckBox( contents, _configuration.dayNames[ 2 ], isDayVisible( bindingOptions.views.map.daysToShow, 3 ) );
+        buildCheckBox( contents, _configuration.dayNames[ 3 ], isDayVisible( bindingOptions.views.map.daysToShow, 4 ) );
+        buildCheckBox( contents, _configuration.dayNames[ 4 ], isDayVisible( bindingOptions.views.map.daysToShow, 5 ) );
+        buildCheckBox( contents, _configuration.dayNames[ 5 ], isDayVisible( bindingOptions.views.map.daysToShow, 6 ) );
+        buildCheckBox( contents, _configuration.dayNames[ 6 ], isDayVisible( bindingOptions.views.map.daysToShow, 7 ) );
+
         addToolTip( closeButton, bindingOptions, _configuration.closeToolTipText );
     }
 
@@ -2375,6 +2383,27 @@
         for ( ; childrenLength--; ) {
             parent.appendChild( children[ childrenLength ] );
         }
+    }
+
+    function buildCheckBox( container, labelText, checked, onClick ) {
+        var lineContainer = createElement( container, "div" ),
+            label = createElement( lineContainer, "label", "checkbox" ),
+            input = createElement( label, "input" );
+
+        input.type = "checkbox";
+
+        if ( isDefined( onClick ) ) {
+            input.onclick = onClick;
+        }
+
+        if ( isDefined( checked ) ) {
+            input.checked = checked;
+        }
+
+        createElement( label, "span", "check-mark" );
+        createElementWithHTML( label, "span", "text", labelText );
+
+        return [ input, label ];
     }
 
 

@@ -65,7 +65,8 @@
   --heat-js-checkbox-background-color-checked: rgba( 80, 200, 120, 1 );
   --heat-js-checkbox-background-color: var(--heat-js-color-black);
   --heat-js-checkbox-border-color-checked: --heat-js-checkbox-background-color-checked;
-  --heat-js-checkbox-border-color: rgba( 80, 200, 120, 0.55 );
+  --heat-js-checkbox-border-color: var(--heat-js-color-white);
+  --heat-js-border-control-radius: 0.25rem;
   --heat-js-border-radius: 0.5rem;
   --heat-js-border-radius-day: 0.35rem;
   --heat-js-border-size: 0.5px;
@@ -1032,8 +1033,9 @@ div.heat-js label.checkbox {
   cursor: default;
   display: inline-block;
   position: relative;
-  padding-left: 25px;
+  padding-left: 20px;
   padding-top: 1px;
+  padding-bottom: 2px;
   color: var(--heat-js-color-white);
 }
 div.heat-js label.checkbox input {
@@ -1059,7 +1061,7 @@ div.heat-js label.checkbox span.check-mark {
   height: 15px;
   width: 15px;
   background-color: var(--heat-js-checkbox-background-color);
-  border-radius: var(--heat-js-border-radius);
+  border-radius: var(--heat-js-border-control-radius);
   border: var(--heat-js-border-size) solid var(--heat-js-checkbox-border-color);
   transition: var(--heat-js-transition);
 }
