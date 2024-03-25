@@ -164,17 +164,17 @@ div.heat-js div.disabled div.dialog div.dialog-title-bar span.dialog-title-bar-t
 }
 div.heat-js div.disabled div.dialog div.dialog-title-bar div.dialog-close {
   float: right;
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   position: relative;
   cursor: pointer;
 }
 div.heat-js div.disabled div.dialog div.dialog-title-bar div.dialog-close::before, div.heat-js div.disabled div.dialog div.dialog-title-bar div.dialog-close::after {
   content: "";
   position: absolute;
-  height: 15px;
+  height: 16px;
   width: 3px;
-  left: 6px;
+  left: 6.5px;
   top: 0;
   background-color: var(--heat-js-color-white);
   border-radius: var(--heat-js-border-radius);
