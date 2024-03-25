@@ -296,11 +296,14 @@
             contents = createElement( bindingOptions.currentView.configurationDialog, "div", "dialog-contents" ),
             closeButton = createElement( titleBar, "div", "dialog-close" ),
             daysContainer = createElement( contents, "div", "side-container" ),
-            monthsContainer = createElement( contents, "div", "side-container" ),
-            months1Container = createElement( monthsContainer, "div", "side-container" ),
-            months2Container = createElement( monthsContainer, "div", "side-container" );
+            monthsContainer = createElement( contents, "div", "side-container" );
 
         createElementWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText );
+        createElementWithHTML( daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + _string.colon );
+        createElementWithHTML( monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + _string.colon );
+
+        var months1Container = createElement( monthsContainer, "div", "side-container" ),
+            months2Container = createElement( monthsContainer, "div", "side-container" );
 
         closeButton.onclick = function() {
             hideConfigurationDialog( bindingOptions );
