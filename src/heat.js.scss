@@ -412,7 +412,7 @@ div.heat-js {
                 border-color: var(--heat-js-color-white);
                 border-width: 2px;
                 border-style: solid;
-                transform: rotate(-45deg);
+                transform: rotate( -45deg );
                 top: 0;
                 left: 0;
                 transition: var(--heat-js-transition);
@@ -426,7 +426,7 @@ div.heat-js {
                 border-color: var(--heat-js-color-white);
                 border-width: 2px;
                 border-style: solid;
-                transform: rotate(90deg);
+                transform: rotate( 90deg );
                 top: 0;
                 left: 0;
                 transition: var(--heat-js-transition);
