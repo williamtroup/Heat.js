@@ -321,6 +321,7 @@ div.heat-js {
         left: 0;
         height: 100%;
         width: 100%;
+        animation: fade-in-animation var(--heat-js-animation-length);
 
         div.dialog {
             display: none;
@@ -334,6 +335,7 @@ div.heat-js {
             border: var(--heat-js-border-size) solid var(--heat-js-dialog-border-color);
             color: var(--heat-js-dialog-text-color);
             border-radius: var(--heat-js-border-radius);
+            animation: fade-in-animation var(--heat-js-animation-length);
 
             div.title-bar {
                 position: relative;

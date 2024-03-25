@@ -134,6 +134,7 @@ div.heat-js div.disabled {
   left: 0;
   height: 100%;
   width: 100%;
+  animation: fade-in-animation var(--heat-js-animation-length);
 }
 div.heat-js div.disabled div.dialog {
   display: none;
@@ -147,6 +148,7 @@ div.heat-js div.disabled div.dialog {
   border: var(--heat-js-border-size) solid var(--heat-js-dialog-border-color);
   color: var(--heat-js-dialog-text-color);
   border-radius: var(--heat-js-border-radius);
+  animation: fade-in-animation var(--heat-js-animation-length);
 }
 div.heat-js div.disabled div.dialog div.title-bar {
   position: relative;
