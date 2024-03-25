@@ -142,6 +142,8 @@
         bindingOptions.currentView.element = element;
         bindingOptions.currentView.disabledBackground = null;
         bindingOptions.currentView.configurationDialog = null;
+        bindingOptions.currentView.dayCheckBoxes = {};
+        bindingOptions.currentView.monthCheckBoxes = {};
         bindingOptions.currentView.tooltip = null;
         bindingOptions.currentView.tooltipTimer = null;
         bindingOptions.currentView.mapContents = null;
@@ -300,13 +302,9 @@
             hideConfigurationDialog( bindingOptions );
         };
 
-        buildCheckBox( contents, _configuration.dayNames[ 0 ], isDayVisible( bindingOptions.views.map.daysToShow, 1 ) );
-        buildCheckBox( contents, _configuration.dayNames[ 1 ], isDayVisible( bindingOptions.views.map.daysToShow, 2 ) );
-        buildCheckBox( contents, _configuration.dayNames[ 2 ], isDayVisible( bindingOptions.views.map.daysToShow, 3 ) );
-        buildCheckBox( contents, _configuration.dayNames[ 3 ], isDayVisible( bindingOptions.views.map.daysToShow, 4 ) );
-        buildCheckBox( contents, _configuration.dayNames[ 4 ], isDayVisible( bindingOptions.views.map.daysToShow, 5 ) );
-        buildCheckBox( contents, _configuration.dayNames[ 5 ], isDayVisible( bindingOptions.views.map.daysToShow, 6 ) );
-        buildCheckBox( contents, _configuration.dayNames[ 6 ], isDayVisible( bindingOptions.views.map.daysToShow, 7 ) );
+        for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
+            bindingOptions.currentView.dayCheckBoxes[ dayIndex ] = buildCheckBox( contents, _configuration.dayNames[ dayIndex ] ).input;
+        }
 
         addToolTip( closeButton, bindingOptions, _configuration.closeToolTipText );
     }
@@ -316,6 +314,22 @@
 
         if ( isDefined( bindingOptions.currentView.configurationDialog ) && bindingOptions.currentView.configurationDialog.style.display !== "block" ) {
             bindingOptions.currentView.configurationDialog.style.display = "block";
+        }
+
+        var daysToShow = [];
+
+        if ( bindingOptions.currentView.view === _elements_View_Map ) {
+            daysToShow = bindingOptions.views.map.daysToShow;
+        } else if ( bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart ) {
+            daysToShow = bindingOptions.views.chart.daysToShow;
+        } else if ( bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics ) {
+            daysToShow = bindingOptions.views.statistics.daysToShow;
+        } else {
+            daysToShow = bindingOptions.views.map.daysToShow;
+        }
+
+        for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
+            bindingOptions.currentView.dayCheckBoxes[ dayIndex ].checked = isDayVisible( daysToShow, dayIndex + 1 );
         }
 
         hideToolTip( bindingOptions );
@@ -328,7 +342,34 @@
             bindingOptions.currentView.configurationDialog.style.display = "none";
         }
 
-        hideToolTip( bindingOptions );
+        var daysChecked = [],
+            render = false;
+
+        for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
+            if ( bindingOptions.currentView.dayCheckBoxes[ dayIndex ].checked ) {
+                daysChecked.push( dayIndex + 1 );
+            }
+        }
+
+        if ( daysChecked.length >= 1 ) {
+            if ( bindingOptions.currentView.view === _elements_View_Map ) {
+                bindingOptions.views.map.daysToShow = daysChecked;
+            } else if ( bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart ) {
+                bindingOptions.views.chart.daysToShow = daysChecked;
+            } else if ( bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics ) {
+                bindingOptions.views.statistics.daysToShow = daysChecked;
+            } else {
+                bindingOptions.views.map.daysToShow = daysChecked;
+            }
+
+            render = true;
+        }
+
+        if ( render ) {
+            renderControlContainer( bindingOptions );
+        } else {
+            hideToolTip( bindingOptions );
+        }
     }
 
 
