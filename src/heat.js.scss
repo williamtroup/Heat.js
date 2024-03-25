@@ -408,13 +408,17 @@ div.heat-js {
         div.configuration {
             div.dialog-contents {
                 div.side-container {
+                    vertical-align: top;
+                    display: inline-block;
+                    width: 50%;
+
                     div.side-container-title-text {
                         margin-bottom: var(--heat-js-spacing);
                     }
 
-                    vertical-align: top;
-                    display: inline-block;
-                    width: 50%;
+                    label.checkbox {
+                        margin-left: var(--heat-js-spacing);
+                    }
                 }
             }
         }
