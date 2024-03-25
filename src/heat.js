@@ -382,18 +382,28 @@
             }
         }
 
-        if ( daysChecked.length >= 1 || monthsChecked.length >= 1 ) {
+        if ( daysChecked.length >= 1 ) {
             if ( bindingOptions.currentView.view === _elements_View_Map ) {
                 bindingOptions.views.map.daysToShow = daysChecked;
-                bindingOptions.views.map.monthsToShow = monthsChecked;
             } else if ( bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart ) {
                 bindingOptions.views.chart.daysToShow = daysChecked;
-                bindingOptions.views.chart.monthsToShow = monthsChecked;
             } else if ( bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics ) {
                 bindingOptions.views.statistics.daysToShow = daysChecked;
-                bindingOptions.views.statistics.monthsToShow = monthsChecked;
             } else {
                 bindingOptions.views.map.daysToShow = daysChecked;
+            }
+
+            render = true;
+        }
+
+        if ( monthsChecked.length >= 1 ) {
+            if ( bindingOptions.currentView.view === _elements_View_Map ) {
+                bindingOptions.views.map.monthsToShow = monthsChecked;
+            } else if ( bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart ) {
+                bindingOptions.views.chart.monthsToShow = monthsChecked;
+            } else if ( bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics ) {
+                bindingOptions.views.statistics.monthsToShow = monthsChecked;
+            } else {
                 bindingOptions.views.map.monthsToShow = monthsChecked;
             }
 
