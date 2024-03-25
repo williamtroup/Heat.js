@@ -167,7 +167,7 @@ div.heat-js div.disabled div.dialog div.title-bar div.close {
   cursor: pointer;
 }
 div.heat-js div.disabled div.dialog div.title-bar div.close::before, div.heat-js div.disabled div.dialog div.title-bar div.close::after {
-  content: " ";
+  content: "";
   position: absolute;
   height: 15px;
   width: 3px;

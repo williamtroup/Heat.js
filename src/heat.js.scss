@@ -360,7 +360,7 @@ div.heat-js {
 
                     &::before,
                     &::after {
-                        content: ' ';
+                        content: "";
                         position: absolute;
                         height: $close-button-size;
                         width: $close-button-width;
