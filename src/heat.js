@@ -141,6 +141,7 @@
         bindingOptions.currentView = {};
         bindingOptions.currentView.element = element;
         bindingOptions.currentView.disabledBackground = null;
+        bindingOptions.currentView.configurationDialog = null;
         bindingOptions.currentView.tooltip = null;
         bindingOptions.currentView.tooltipTimer = null;
         bindingOptions.currentView.mapContents = null;
@@ -287,6 +288,7 @@
      */
 
     function renderConfigurationDialog( bindingOptions ) {
+        bindingOptions.currentView.configurationDialog = createElement( bindingOptions.currentView.disabledBackground, "div", "dialog configuration" );
     }
 
 
