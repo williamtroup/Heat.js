@@ -343,16 +343,20 @@ div.heat-js {
             border-radius: var(--heat-js-border-radius);
             animation: fade-in-animation var(--heat-js-animation-length);
 
-            div.title-bar {
+            div.dialog-title-bar {
                 position: relative;
                 padding: var(--heat-js-spacing);
-                text-align: right;
+                text-align: left;
 
-                div.close {
+                span.dialog-title-bar-text {
+                    font-weight: var(--heat-js-title-bold-weight);
+                }
+
+                div.dialog-close {
                     $close-button-size: 15px;
                     $close-button-width: 3px;
 
-                    display: inline-block;
+                    float: right;
                     width: $close-button-size;
                     height: $close-button-size;
                     position: relative;
@@ -384,6 +388,10 @@ div.heat-js {
                         background-color: var(--heat-js-color-gray);
                     }
                 }
+            }
+
+            div.dialog-contents {
+                padding: var(--heat-js-spacing);
             }
         }
     }

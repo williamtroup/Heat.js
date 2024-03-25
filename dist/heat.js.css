@@ -154,19 +154,22 @@ div.heat-js div.disabled div.dialog {
   border-radius: var(--heat-js-border-radius);
   animation: fade-in-animation var(--heat-js-animation-length);
 }
-div.heat-js div.disabled div.dialog div.title-bar {
+div.heat-js div.disabled div.dialog div.dialog-title-bar {
   position: relative;
   padding: var(--heat-js-spacing);
-  text-align: right;
+  text-align: left;
 }
-div.heat-js div.disabled div.dialog div.title-bar div.close {
-  display: inline-block;
+div.heat-js div.disabled div.dialog div.dialog-title-bar span.dialog-title-bar-text {
+  font-weight: var(--heat-js-title-bold-weight);
+}
+div.heat-js div.disabled div.dialog div.dialog-title-bar div.dialog-close {
+  float: right;
   width: 15px;
   height: 15px;
   position: relative;
   cursor: pointer;
 }
-div.heat-js div.disabled div.dialog div.title-bar div.close::before, div.heat-js div.disabled div.dialog div.title-bar div.close::after {
+div.heat-js div.disabled div.dialog div.dialog-title-bar div.dialog-close::before, div.heat-js div.disabled div.dialog div.dialog-title-bar div.dialog-close::after {
   content: "";
   position: absolute;
   height: 15px;
@@ -177,14 +180,17 @@ div.heat-js div.disabled div.dialog div.title-bar div.close::before, div.heat-js
   border-radius: var(--heat-js-border-radius);
   transition: var(--heat-js-transition);
 }
-div.heat-js div.disabled div.dialog div.title-bar div.close::before {
+div.heat-js div.disabled div.dialog div.dialog-title-bar div.dialog-close::before {
   transform: rotate(45deg);
 }
-div.heat-js div.disabled div.dialog div.title-bar div.close::after {
+div.heat-js div.disabled div.dialog div.dialog-title-bar div.dialog-close::after {
   transform: rotate(-45deg);
 }
-div.heat-js div.disabled div.dialog div.title-bar div.close:hover::before, div.heat-js div.disabled div.dialog div.title-bar div.close:hover::after {
+div.heat-js div.disabled div.dialog div.dialog-title-bar div.dialog-close:hover::before, div.heat-js div.disabled div.dialog div.dialog-title-bar div.dialog-close:hover::after {
   background-color: var(--heat-js-color-gray);
+}
+div.heat-js div.disabled div.dialog div.dialog-contents {
+  padding: var(--heat-js-spacing);
 }
 
 /*

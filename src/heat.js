@@ -290,8 +290,11 @@
     function renderConfigurationDialog( bindingOptions ) {
         bindingOptions.currentView.configurationDialog = createElement( bindingOptions.currentView.disabledBackground, "div", "dialog configuration" );
 
-        var titleBar = createElement( bindingOptions.currentView.configurationDialog, "div", "title-bar" ),
-            closeButton = createElement( titleBar, "div", "close" );
+        var titleBar = createElement( bindingOptions.currentView.configurationDialog, "div", "dialog-title-bar" ),
+            contents = createElement( bindingOptions.currentView.configurationDialog, "div", "dialog-contents" ),
+            closeButton = createElement( titleBar, "div", "dialog-close" );
+
+        createElementWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText );
 
         closeButton.onclick = function() {
             hideConfigurationDialog( bindingOptions );
@@ -3442,6 +3445,7 @@
         _configuration.attributeNotSetErrorText = getDefaultString( _configuration.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly." );
         _configuration.closeToolTipText = getDefaultString( _configuration.closeToolTipText, "Close" );
         _configuration.configurationToolTipText = getDefaultString( _configuration.configurationToolTipText, "Configuration" );
+        _configuration.configurationTitleText = getDefaultString( _configuration.configurationTitleText, "Configuration" );
     }
 
     function buildDefaultConfigurationArrays() {
