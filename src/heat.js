@@ -2402,8 +2402,11 @@
 
         createElement( label, "span", "check-mark" );
         createElementWithHTML( label, "span", "text", labelText );
-
-        return [ input, label ];
+        
+        return {
+            input: input,
+            label: label
+        };
     }
 
 

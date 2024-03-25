@@ -148,7 +148,6 @@ div.heat-js div.disabled div.dialog {
   top: 50%;
   transform: translate(-50%, -50%);
   width: 300px;
-  height: 200px;
   background-color: var(--heat-js-dialog-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-dialog-border-color);
   color: var(--heat-js-dialog-text-color);
