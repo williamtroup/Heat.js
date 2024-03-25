@@ -198,6 +198,12 @@ div.heat-js div.disabled div.dialog div.dialog-contents {
     Heat.js - Configuration Dialog
     -------------------------------------------------------------------------
 */
+div.heat-js div.disabled div.configuration div.dialog-contents div.side-container {
+  vertical-align: top;
+  display: inline-block;
+  width: 50%;
+}
+
 /*
     -------------------------------------------------------------------------
     Heat.js - Title Bar

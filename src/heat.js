@@ -294,7 +294,11 @@
 
         var titleBar = createElement( bindingOptions.currentView.configurationDialog, "div", "dialog-title-bar" ),
             contents = createElement( bindingOptions.currentView.configurationDialog, "div", "dialog-contents" ),
-            closeButton = createElement( titleBar, "div", "dialog-close" );
+            closeButton = createElement( titleBar, "div", "dialog-close" ),
+            daysContainer = createElement( contents, "div", "side-container" ),
+            monthsContainer = createElement( contents, "div", "side-container" ),
+            months1Container = createElement( monthsContainer, "div", "side-container" ),
+            months2Container = createElement( monthsContainer, "div", "side-container" );
 
         createElementWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText );
 
@@ -303,7 +307,15 @@
         };
 
         for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
-            bindingOptions.currentView.dayCheckBoxes[ dayIndex ] = buildCheckBox( contents, _configuration.dayNames[ dayIndex ] ).input;
+            bindingOptions.currentView.dayCheckBoxes[ dayIndex ] = buildCheckBox( daysContainer, _configuration.dayNames[ dayIndex ] ).input;
+        }
+
+        for ( var monthIndex1 = 0; monthIndex1 < 6; monthIndex1++ ) {
+            bindingOptions.currentView.monthCheckBoxes[ monthIndex1 ] = buildCheckBox( months1Container, _configuration.monthNames[ monthIndex1 ] ).input;
+        }
+
+        for ( var monthIndex2 = 6; monthIndex2 < 12; monthIndex2++ ) {
+            bindingOptions.currentView.monthCheckBoxes[ monthIndex2 ] = buildCheckBox( months2Container, _configuration.monthNames[ monthIndex2 ] ).input;
         }
 
         addToolTip( closeButton, bindingOptions, _configuration.closeToolTipText );
@@ -316,20 +328,29 @@
             bindingOptions.currentView.configurationDialog.style.display = "block";
         }
 
-        var daysToShow = [];
+        var daysToShow = [],
+            monthsToShow = [];
 
         if ( bindingOptions.currentView.view === _elements_View_Map ) {
             daysToShow = bindingOptions.views.map.daysToShow;
+            monthsToShow = bindingOptions.views.map.monthsToShow;
         } else if ( bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart ) {
             daysToShow = bindingOptions.views.chart.daysToShow;
+            monthsToShow = bindingOptions.views.chart.monthsToShow;
         } else if ( bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics ) {
             daysToShow = bindingOptions.views.statistics.daysToShow;
+            monthsToShow = bindingOptions.views.statistics.monthsToShow;
         } else {
             daysToShow = bindingOptions.views.map.daysToShow;
+            monthsToShow = bindingOptions.views.map.monthsToShow;
         }
 
         for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
             bindingOptions.currentView.dayCheckBoxes[ dayIndex ].checked = isDayVisible( daysToShow, dayIndex + 1 );
+        }
+
+        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+            bindingOptions.currentView.monthCheckBoxes[ monthIndex ].checked = isMonthVisible( monthsToShow, monthIndex );
         }
 
         hideToolTip( bindingOptions );
@@ -343,6 +364,7 @@
         }
 
         var daysChecked = [],
+            monthsChecked = [],
             render = false;
 
         for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
@@ -351,15 +373,25 @@
             }
         }
 
-        if ( daysChecked.length >= 1 ) {
+        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+            if ( bindingOptions.currentView.monthCheckBoxes[ monthIndex ].checked ) {
+                monthsChecked.push( monthIndex + 1 );
+            }
+        }
+
+        if ( daysChecked.length >= 1 || monthsChecked.length >= 1 ) {
             if ( bindingOptions.currentView.view === _elements_View_Map ) {
                 bindingOptions.views.map.daysToShow = daysChecked;
+                bindingOptions.views.map.monthsToShow = monthsChecked;
             } else if ( bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart ) {
                 bindingOptions.views.chart.daysToShow = daysChecked;
+                bindingOptions.views.chart.monthsToShow = monthsChecked;
             } else if ( bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics ) {
                 bindingOptions.views.statistics.daysToShow = daysChecked;
+                bindingOptions.views.statistics.monthsToShow = monthsChecked;
             } else {
                 bindingOptions.views.map.daysToShow = daysChecked;
+                bindingOptions.views.map.monthsToShow = monthsChecked;
             }
 
             render = true;
@@ -3519,6 +3551,8 @@
         _configuration.closeToolTipText = getDefaultString( _configuration.closeToolTipText, "Close" );
         _configuration.configurationToolTipText = getDefaultString( _configuration.configurationToolTipText, "Configuration" );
         _configuration.configurationTitleText = getDefaultString( _configuration.configurationTitleText, "Configuration" );
+        _configuration.visibleMonthsText = getDefaultString( _configuration.visibleMonthsText, "Visible Months" );
+        _configuration.visibleDaysText = getDefaultString( _configuration.visibleDaysText, "Visible Days" );
     }
 
     function buildDefaultConfigurationArrays() {

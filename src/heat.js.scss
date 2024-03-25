@@ -405,9 +405,13 @@ div.heat-js {
 
 div.heat-js {
     div.disabled {
-        div.dialog {
-            div.configuration {
-
+        div.configuration {
+            div.dialog-contents {
+                div.side-container {
+                    vertical-align: top;
+                    display: inline-block;
+                    width: 50%;
+                }
             }
         }
     }
