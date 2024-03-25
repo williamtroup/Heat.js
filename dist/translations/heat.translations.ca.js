@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Errors a l'objecte: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "L'atribut '{{attribute_name}}' no és un objecte vàlid.",
         "attributeNotSetErrorText": "L'atribut '{{attribute_name}}' no s'ha configurat correctament.",
+        "closeToolTipText": "Tanca",
+        "configurationToolTipText": "Configuració",
+        "configurationTitleText": "Configuració",
+        "visibleMonthsText": "Mesos visibles",
+        "visibleDaysText": "Dies visibles",
         "monthNames": [
                 "Jan",
                 "Febrer",

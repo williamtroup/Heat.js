@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Սխալներ օբյեկտում. {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "հատկանիշը'{{attribute_name}}' վավեր օբյեկտ չէ:",
         "attributeNotSetErrorText": "հատկանիշը'{{attribute_name}}' ճիշտ չի սահմանվել:",
+        "closeToolTipText": "փակել",
+        "configurationToolTipText": "Կոնֆիգուրացիա",
+        "configurationTitleText": "Կոնֆիգուրացիա",
+        "visibleMonthsText": "Տեսանելի ամիսներ",
+        "visibleDaysText": "Տեսանելի օրեր",
         "monthNames": [
                 "հուն",
                 "փետր",

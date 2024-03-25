@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "వస్తువులో లోపాలు: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "లక్షణం'{{attribute_name}}' చెల్లుబాటు అయ్యే వస్తువు కాదు.",
         "attributeNotSetErrorText": "లక్షణం'{{attribute_name}}' సరిగ్గా సెట్ చేయబడలేదు.",
+        "closeToolTipText": "దగ్గరగా",
+        "configurationToolTipText": "ఆకృతీకరణ",
+        "configurationTitleText": "ఆకృతీకరణ",
+        "visibleMonthsText": "కనిపించే నెలలు",
+        "visibleDaysText": "కనిపించే రోజులు",
         "monthNames": [
                 "జనవరి",
                 "ఫిబ్రవరి",

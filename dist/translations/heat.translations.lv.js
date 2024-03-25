@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Kļūdas objektā: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "atribūts '{{attribute_name}}' nav derīgs objekts.",
         "attributeNotSetErrorText": "atribūts '{{attribute_name}}' nav pareizi iestatīts.",
+        "closeToolTipText": "Aizvērt",
+        "configurationToolTipText": "Konfigurācija",
+        "configurationTitleText": "Konfigurācija",
+        "visibleMonthsText": "Redzamie mēneši",
+        "visibleDaysText": "Redzamās dienas",
         "monthNames": [
                 "janvāris",
                 "febr",

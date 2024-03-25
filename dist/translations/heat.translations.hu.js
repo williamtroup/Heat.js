@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Hibák az objektumban: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "attribútum{{attribute_name}}' nem érvényes objektum.",
         "attributeNotSetErrorText": "attribútum{{attribute_name}}' nincs megfelelően beállítva.",
+        "closeToolTipText": "Bezárás",
+        "configurationToolTipText": "Konfiguráció",
+        "configurationTitleText": "Konfiguráció",
+        "visibleMonthsText": "Látható hónapok",
+        "visibleDaysText": "Látható napok",
         "monthNames": [
                 "jan",
                 "Február",

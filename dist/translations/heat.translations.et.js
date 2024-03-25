@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Vead objektil: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "atribuut '{{attribute_name}}' ei ole kehtiv objekt.",
         "attributeNotSetErrorText": "atribuut '{{attribute_name}}' pole õigesti seadistatud.",
+        "closeToolTipText": "Sulge",
+        "configurationToolTipText": "Seadistamine",
+        "configurationTitleText": "Seadistamine",
+        "visibleMonthsText": "Nähtavad kuud",
+        "visibleDaysText": "Nähtavad päevad",
         "monthNames": [
                 "jaan",
                 "veebr",

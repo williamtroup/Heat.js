@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Помилки в об'єкті: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Атрибут '{{attribute_name}}' не є дійсним об'єктом.",
         "attributeNotSetErrorText": "Атрибут '{{attribute_name}}' не встановлено правильно.",
+        "closeToolTipText": "Закрити",
+        "configurationToolTipText": "Конфігурація",
+        "configurationTitleText": "Конфігурація",
+        "visibleMonthsText": "Видимі місяці",
+        "visibleDaysText": "Видимі дні",
         "monthNames": [
                 "січня",
                 "лютий",

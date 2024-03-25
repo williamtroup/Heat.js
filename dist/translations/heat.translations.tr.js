@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Nesnedeki hatalar: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Özellik '{{attribute_name}}' geçerli bir nesne değil.",
         "attributeNotSetErrorText": "Özellik '{{attribute_name}}' doğru şekilde ayarlanmadı.",
+        "closeToolTipText": "Kapalı",
+        "configurationToolTipText": "Yapılandırma",
+        "configurationTitleText": "Yapılandırma",
+        "visibleMonthsText": "Görünür Aylar",
+        "visibleDaysText": "Görünür Günler",
         "monthNames": [
                 "Ocak",
                 "Şubat",

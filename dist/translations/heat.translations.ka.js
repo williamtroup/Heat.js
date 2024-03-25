@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "შეცდომები ობიექტში: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "ატრიბუტი '{{attribute_name}}' არ არის სწორი ობიექტი.",
         "attributeNotSetErrorText": "ატრიბუტი '{{attribute_name}}' არ არის სწორად დაყენებული.",
+        "closeToolTipText": "დახურვა",
+        "configurationToolTipText": "კონფიგურაცია",
+        "configurationTitleText": "კონფიგურაცია",
+        "visibleMonthsText": "ხილული თვეები",
+        "visibleDaysText": "ხილული დღეები",
         "monthNames": [
                 "იან",
                 "თებ",

@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Mga error sa object: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Ang katangian '{{attribute_name}}' ay hindi isang wastong bagay.",
         "attributeNotSetErrorText": "Ang katangian '{{attribute_name}}' ay hindi naitakda nang tama.",
+        "closeToolTipText": "Isara",
+        "configurationToolTipText": "Configuration",
+        "configurationTitleText": "Configuration",
+        "visibleMonthsText": "Mga Nakikitang Buwan",
+        "visibleDaysText": "Mga Nakikitang Araw",
         "monthNames": [
                 "Jan",
                 "Feb",

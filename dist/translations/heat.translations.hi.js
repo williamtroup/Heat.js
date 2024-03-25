@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "वस्तु में त्रुटियाँ: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "विशेषता '{{attribute_name}}' एक वैध वस्तु नहीं है.",
         "attributeNotSetErrorText": "विशेषता '{{attribute_name}}'सही ढंग से सेट नहीं किया गया है.",
+        "closeToolTipText": "बंद करना",
+        "configurationToolTipText": "विन्यास",
+        "configurationTitleText": "विन्यास",
+        "visibleMonthsText": "दृश्यमान महीने",
+        "visibleDaysText": "दर्शनीय दिन",
         "monthNames": [
                 "जनवरी",
                 "फ़रवरी",

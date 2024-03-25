@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "වස්තුවේ දෝෂ: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "ගුණාංගය'{{attribute_name}}' වලංගු වස්තුවක් නොවේ.",
         "attributeNotSetErrorText": "ගුණාංගය'{{attribute_name}}' නිවැරදිව සකසා නැත.",
+        "closeToolTipText": "වසන්න",
+        "configurationToolTipText": "මානකරනය",
+        "configurationTitleText": "මානකරනය",
+        "visibleMonthsText": "පෙනෙන මාස",
+        "visibleDaysText": "පෙනෙන දින",
         "monthNames": [
                 "ජන",
                 "පෙබ",

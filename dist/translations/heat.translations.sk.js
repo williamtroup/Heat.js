@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Chyby v objekte: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "atribút '{{attribute_name}}' nie je platný objekt.",
         "attributeNotSetErrorText": "atribút '{{attribute_name}}“ nie je správne nastavené.",
+        "closeToolTipText": "Zavrieť",
+        "configurationToolTipText": "Konfigurácia",
+        "configurationTitleText": "Konfigurácia",
+        "visibleMonthsText": "Viditeľné mesiace",
+        "visibleDaysText": "Viditeľné dni",
         "monthNames": [
                 "Jan",
                 "feb",

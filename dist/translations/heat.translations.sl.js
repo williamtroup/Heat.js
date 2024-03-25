@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Napake v objektu: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Atribut '{{attribute_name}}' ni veljaven predmet.",
         "attributeNotSetErrorText": "Atribut '{{attribute_name}}' ni pravilno nastavljen.",
+        "closeToolTipText": "Zapri",
+        "configurationToolTipText": "Konfiguracija",
+        "configurationTitleText": "Konfiguracija",
+        "visibleMonthsText": "Vidni meseci",
+        "visibleDaysText": "Vidni dnevi",
         "monthNames": [
                 "Jan",
                 "feb",

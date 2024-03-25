@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Памылкі ў аб'екце: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Атрыбут '{{attribute_name}}' не з'яўляецца дапушчальным аб'ектам.",
         "attributeNotSetErrorText": "Атрыбут '{{attribute_name}}' не быў усталяваны правільна.",
+        "closeToolTipText": "Блізка",
+        "configurationToolTipText": "Канфігурацыя",
+        "configurationTitleText": "Канфігурацыя",
+        "visibleMonthsText": "Бачныя месяцы",
+        "visibleDaysText": "Бачныя дні",
         "monthNames": [
                 "Ян",
                 "люты",

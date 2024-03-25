@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Fouten in object: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Het attribuut '{{attribute_name}}' is geen geldig object.",
         "attributeNotSetErrorText": "Het attribuut '{{attribute_name}}' is niet correct ingesteld.",
+        "closeToolTipText": "Dichtbij",
+        "configurationToolTipText": "Configuratie",
+        "configurationTitleText": "Configuratie",
+        "visibleMonthsText": "Zichtbare maanden",
+        "visibleDaysText": "Zichtbare dagen",
         "monthNames": [
                 "jan",
                 "februari",

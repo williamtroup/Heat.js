@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Kesalahan pada objek: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Atribut '{{attribute_name}}' bukan objek yang valid.",
         "attributeNotSetErrorText": "Atribut '{{attribute_name}}' belum diatur dengan benar.",
+        "closeToolTipText": "Menutup",
+        "configurationToolTipText": "Konfigurasi",
+        "configurationTitleText": "Konfigurasi",
+        "visibleMonthsText": "Bulan Terlihat",
+        "visibleDaysText": "Hari Terlihat",
         "monthNames": [
                 "Januari",
                 "Februari",

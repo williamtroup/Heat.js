@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Eraroj en objekto: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "La atributo '{{attribute_name}}' ne estas valida objekto.",
         "attributeNotSetErrorText": "La atributo '{{attribute_name}}' ne estis agordita ĝuste.",
+        "closeToolTipText": "Fermu",
+        "configurationToolTipText": "Agordo",
+        "configurationTitleText": "Agordo",
+        "visibleMonthsText": "Videblaj Monatoj",
+        "visibleDaysText": "Videblaj Tagoj",
         "monthNames": [
                 "Jan",
                 "Feb",

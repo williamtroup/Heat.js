@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "对象中的错误： {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "属性 '{{attribute_name}}' 不是一个有效的对象。",
         "attributeNotSetErrorText": "属性 '{{attribute_name}}' 尚未正确设置。",
+        "closeToolTipText": "关闭",
+        "configurationToolTipText": "配置",
+        "configurationTitleText": "配置",
+        "visibleMonthsText": "可见月份",
+        "visibleDaysText": "可见天数",
         "monthNames": [
                 "一月",
                 "二月",

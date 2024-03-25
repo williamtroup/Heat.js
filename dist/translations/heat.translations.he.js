@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "שגיאות באובייקט: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "התכונה'{{attribute_name}}' אינו אובייקט חוקי.",
         "attributeNotSetErrorText": "התכונה'{{attribute_name}}' לא הוגדר כהלכה.",
+        "closeToolTipText": "סגור",
+        "configurationToolTipText": "תְצוּרָה",
+        "configurationTitleText": "תְצוּרָה",
+        "visibleMonthsText": "חודשים גלויים",
+        "visibleDaysText": "ימים גלויים",
         "monthNames": [
                 "ינואר",
                 "פברואר",

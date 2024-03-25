@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "বস্তুর ত্রুটি: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "বৈশিষ্ট্য '{{attribute_name}}' একটি বৈধ বস্তু নয়।",
         "attributeNotSetErrorText": "বৈশিষ্ট্য '{{attribute_name}}' সঠিকভাবে সেট করা হয়নি।",
+        "closeToolTipText": "বন্ধ",
+        "configurationToolTipText": "কনফিগারেশন",
+        "configurationTitleText": "কনফিগারেশন",
+        "visibleMonthsText": "দৃশ্যমান মাস",
+        "visibleDaysText": "দৃশ্যমান দিন",
         "monthNames": [
                 "জান",
                 "ফেব্রুয়ারী",

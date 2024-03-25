@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Błędy w obiekcie: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Atrybut '{{attribute_name}}' nie jest prawidłowym obiektem.",
         "attributeNotSetErrorText": "Atrybut '{{attribute_name}}' nie został ustawiony prawidłowo.",
+        "closeToolTipText": "Zamknąć",
+        "configurationToolTipText": "Konfiguracja",
+        "configurationTitleText": "Konfiguracja",
+        "visibleMonthsText": "Widoczne miesiące",
+        "visibleDaysText": "Widoczne dni",
         "monthNames": [
                 "Sty",
                 "Lut",

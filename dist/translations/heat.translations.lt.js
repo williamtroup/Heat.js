@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Klaidos objekte: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "atributas '{{attribute_name}}“ nėra tinkamas objektas.",
         "attributeNotSetErrorText": "atributas '{{attribute_name}}“ nebuvo nustatytas teisingai.",
+        "closeToolTipText": "Uždaryti",
+        "configurationToolTipText": "Konfigūracija",
+        "configurationTitleText": "Konfigūracija",
+        "visibleMonthsText": "Matomi mėnesiai",
+        "visibleDaysText": "Matomos dienos",
         "monthNames": [
                 "sausio mėn",
                 "vasario mėn",

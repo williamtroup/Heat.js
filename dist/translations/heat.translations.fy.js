@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Flaters yn objekt: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "It attribút '{{attribute_name}}' is gjin jildich objekt.",
         "attributeNotSetErrorText": "It attribút '{{attribute_name}}' is net goed ynsteld.",
+        "closeToolTipText": "Slute",
+        "configurationToolTipText": "Konfiguraasje",
+        "configurationTitleText": "Konfiguraasje",
+        "visibleMonthsText": "Visible Moannen",
+        "visibleDaysText": "Visible Days",
         "monthNames": [
                 "Jan",
                 "feb",

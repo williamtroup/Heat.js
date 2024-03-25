@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "خطا در شی: {{error_1}}، {{error_2}}",
         "attributeNotValidErrorText": "ویژگی '{{attribute_name}}' یک شی معتبر نیست.",
         "attributeNotSetErrorText": "ویژگی '{{attribute_name}}' به درستی تنظیم نشده است.",
+        "closeToolTipText": "بستن",
+        "configurationToolTipText": "پیکربندی",
+        "configurationTitleText": "پیکربندی",
+        "visibleMonthsText": "ماه های قابل مشاهده",
+        "visibleDaysText": "روزهای قابل مشاهده",
         "monthNames": [
                 "ژان",
                 "فوریه",

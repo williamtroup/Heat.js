@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Virheet objektissa: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "attribuutti '{{attribute_name}}' ei ole kelvollinen objekti.",
         "attributeNotSetErrorText": "attribuutti '{{attribute_name}}' ei ole asetettu oikein.",
+        "closeToolTipText": "kiinni",
+        "configurationToolTipText": "Kokoonpano",
+        "configurationTitleText": "Kokoonpano",
+        "visibleMonthsText": "Näkyvät kuukaudet",
+        "visibleDaysText": "Näkyviä päiviä",
         "monthNames": [
                 "tammikuu",
                 "helmikuuta",

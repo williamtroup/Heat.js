@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "개체 오류: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "속성 '{{attribute_name}}'은(는) 유효한 개체가 아닙니다.",
         "attributeNotSetErrorText": "속성 '{{attribute_name}}'가 올바르게 설정되지 않았습니다.",
+        "closeToolTipText": "닫다",
+        "configurationToolTipText": "구성",
+        "configurationTitleText": "구성",
+        "visibleMonthsText": "보이는 달",
+        "visibleDaysText": "보이는 날",
         "monthNames": [
                 "1월",
                 "2월",

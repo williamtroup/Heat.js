@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Fejl i objektet: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Attributten '{{attribute_name}}' er ikke et gyldigt objekt.",
         "attributeNotSetErrorText": "Attributten '{{attribute_name}}' er ikke indstillet korrekt.",
+        "closeToolTipText": "Tæt",
+        "configurationToolTipText": "Konfiguration",
+        "configurationTitleText": "Konfiguration",
+        "visibleMonthsText": "Synlige måneder",
+        "visibleDaysText": "Synlige dage",
         "monthNames": [
                 "Jan",
                 "feb",

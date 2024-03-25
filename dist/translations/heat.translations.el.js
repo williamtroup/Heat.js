@@ -23,6 +23,11 @@ $heat.setConfiguration( {
         "objectErrorText": "Σφάλματα στο αντικείμενο: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Η ιδιότητα '{{attribute_name}}' δεν είναι έγκυρο αντικείμενο.",
         "attributeNotSetErrorText": "Η ιδιότητα '{{attribute_name}}' δεν έχει ρυθμιστεί σωστά.",
+        "closeToolTipText": "Κλείσε",
+        "configurationToolTipText": "Διαμόρφωση",
+        "configurationTitleText": "Διαμόρφωση",
+        "visibleMonthsText": "Ορατοί Μήνες",
+        "visibleDaysText": "Ορατές μέρες",
         "monthNames": [
                 "Ιαν",
                 "Φεβ",
