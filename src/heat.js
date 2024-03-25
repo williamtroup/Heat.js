@@ -296,6 +296,8 @@
         closeButton.onclick = function() {
             hideConfigurationDialog( bindingOptions );
         };
+
+        addToolTip( closeButton, bindingOptions, _configuration.closeToolTipText );
     }
 
     function showConfigurationDialog( bindingOptions ) {
@@ -304,6 +306,8 @@
         if ( isDefined( bindingOptions.currentView.configurationDialog ) && bindingOptions.currentView.configurationDialog.style.display !== "block" ) {
             bindingOptions.currentView.configurationDialog.style.display = "block";
         }
+
+        hideToolTip( bindingOptions );
     }
 
     function hideConfigurationDialog( bindingOptions ) {
@@ -312,6 +316,8 @@
         if ( isDefined( bindingOptions.currentView.configurationDialog ) && bindingOptions.currentView.configurationDialog.style.display !== "none" ) {
             bindingOptions.currentView.configurationDialog.style.display = "none";
         }
+
+        hideToolTip( bindingOptions );
     }
 
 
@@ -483,6 +489,8 @@
 
                 if ( bindingOptions.showConfigurationButton ) {
                     var configureButton = createElement( titleBar, "div", "configure" );
+
+                    addToolTip( configureButton, bindingOptions, _configuration.configurationToolTipText );
 
                     configureButton.onclick = function() {
                         showConfigurationDialog( bindingOptions );
@@ -3432,6 +3440,8 @@
         _configuration.objectErrorText = getDefaultString( _configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}" );
         _configuration.attributeNotValidErrorText = getDefaultString( _configuration.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object." );
         _configuration.attributeNotSetErrorText = getDefaultString( _configuration.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly." );
+        _configuration.closeToolTipText = getDefaultString( _configuration.closeToolTipText, "Close" );
+        _configuration.configurationToolTipText = getDefaultString( _configuration.configurationToolTipText, "Configuration" );
     }
 
     function buildDefaultConfigurationArrays() {
