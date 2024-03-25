@@ -236,6 +236,7 @@
     }
     if (render) {
       renderControlContainer(bindingOptions);
+      fireCustomTrigger(bindingOptions.onOptionsUpdate, bindingOptions.currentView.element, bindingOptions);
     } else {
       hideToolTip(bindingOptions);
     }
@@ -1455,6 +1456,7 @@
     options.onDataFetch = getDefaultFunction(options.onDataFetch, null);
     options.onClear = getDefaultFunction(options.onClear, null);
     options.onUpdate = getDefaultFunction(options.onUpdate, null);
+    options.onOptionsUpdate = getDefaultFunction(options.onOptionsUpdate, null);
     return options;
   }
   function getTotalDaysInMonth(year, month) {
@@ -1991,6 +1993,7 @@
       if (optionChanged) {
         renderControlContainer(bindingOptions, true);
         fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
+        fireCustomTrigger(bindingOptions.onOptionsUpdate, bindingOptions.currentView.element, bindingOptions);
       }
     }
     return _public;

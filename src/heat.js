@@ -412,6 +412,8 @@
 
         if ( render ) {
             renderControlContainer( bindingOptions );
+            fireCustomTrigger( bindingOptions.onOptionsUpdate, bindingOptions.currentView.element, bindingOptions );
+            
         } else {
             hideToolTip( bindingOptions );
         }
@@ -2240,6 +2242,7 @@
         options.onDataFetch = getDefaultFunction( options.onDataFetch, null );
         options.onClear = getDefaultFunction( options.onClear, null );
         options.onUpdate = getDefaultFunction( options.onUpdate, null );
+        options.onOptionsUpdate = getDefaultFunction( options.onOptionsUpdate, null );
 
         return options;
     }
@@ -3334,6 +3337,7 @@
      * 
      * @public
      * @fires       onRefresh
+     * @fires       onOptionsUpdate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID.
      * @param       {Object}    newOptions                                  The new options to want to apply to the element.
@@ -3356,6 +3360,7 @@
             if ( optionChanged ) {
                 renderControlContainer( bindingOptions, true );
                 fireCustomTrigger( bindingOptions.onRefresh, bindingOptions.currentView.element );
+                fireCustomTrigger( bindingOptions.onOptionsUpdate, bindingOptions.currentView.element, bindingOptions );
             }
         }
 
