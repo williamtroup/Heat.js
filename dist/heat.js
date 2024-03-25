@@ -40,6 +40,10 @@
     var bindingOptions = buildAttributeOptions(data), view = !isDefinedString(bindingOptions.view) ? _string.empty : bindingOptions.view.toLowerCase();
     bindingOptions.currentView = {};
     bindingOptions.currentView.element = element;
+    bindingOptions.currentView.disabledBackground = null;
+    bindingOptions.currentView.configurationDialog = null;
+    bindingOptions.currentView.dayCheckBoxes = {};
+    bindingOptions.currentView.monthCheckBoxes = {};
     bindingOptions.currentView.tooltip = null;
     bindingOptions.currentView.tooltipTimer = null;
     bindingOptions.currentView.mapContents = null;
@@ -102,6 +106,10 @@
     bindingOptions.currentView.yearsAvailable = getYearsAvailableInData(bindingOptions);
     hideToolTip(bindingOptions);
     startDataPullTimer(bindingOptions);
+    if (bindingOptions.showConfigurationButton) {
+      renderDisabledBackground(bindingOptions);
+      renderConfigurationDialog(bindingOptions);
+    }
     renderControlToolTip(bindingOptions);
     renderControlTitleBar(bindingOptions);
     renderControlMap(bindingOptions, isForViewSwitch);
@@ -123,6 +131,113 @@
     } else {
       bindingOptions.currentView.view = _elements_View_Map;
       bindingOptions.currentView.mapContents.style.display = "block";
+    }
+  }
+  function renderDisabledBackground(bindingOptions) {
+    bindingOptions.currentView.disabledBackground = createElement(bindingOptions.currentView.element, "div", "disabled");
+  }
+  function showDisabledBackground(bindingOptions) {
+    if (isDefined(bindingOptions.currentView.disabledBackground) && bindingOptions.currentView.disabledBackground.style.display !== "block") {
+      bindingOptions.currentView.disabledBackground.style.display = "block";
+    }
+  }
+  function hideDisabledBackground(bindingOptions) {
+    if (isDefined(bindingOptions.currentView.disabledBackground) && bindingOptions.currentView.disabledBackground.style.display !== "none") {
+      bindingOptions.currentView.disabledBackground.style.display = "none";
+    }
+  }
+  function renderConfigurationDialog(bindingOptions) {
+    bindingOptions.currentView.configurationDialog = createElement(bindingOptions.currentView.disabledBackground, "div", "dialog configuration");
+    var titleBar = createElement(bindingOptions.currentView.configurationDialog, "div", "dialog-title-bar"), contents = createElement(bindingOptions.currentView.configurationDialog, "div", "dialog-contents"), closeButton = createElement(titleBar, "div", "dialog-close"), daysContainer = createElement(contents, "div", "side-container panel"), monthsContainer = createElement(contents, "div", "side-container panel");
+    createElementWithHTML(titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText);
+    createElementWithHTML(daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + _string.colon);
+    createElementWithHTML(monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + _string.colon);
+    var months1Container = createElement(monthsContainer, "div", "side-container"), months2Container = createElement(monthsContainer, "div", "side-container");
+    closeButton.onclick = function() {
+      hideConfigurationDialog(bindingOptions);
+    };
+    for (var dayIndex = 0; dayIndex < 7; dayIndex++) {
+      bindingOptions.currentView.dayCheckBoxes[dayIndex] = buildCheckBox(daysContainer, _configuration.dayNames[dayIndex]).input;
+    }
+    for (var monthIndex1 = 0; monthIndex1 < 7; monthIndex1++) {
+      bindingOptions.currentView.monthCheckBoxes[monthIndex1] = buildCheckBox(months1Container, _configuration.monthNames[monthIndex1]).input;
+    }
+    for (var monthIndex2 = 7; monthIndex2 < 12; monthIndex2++) {
+      bindingOptions.currentView.monthCheckBoxes[monthIndex2] = buildCheckBox(months2Container, _configuration.monthNames[monthIndex2]).input;
+    }
+    addToolTip(closeButton, bindingOptions, _configuration.closeToolTipText);
+  }
+  function showConfigurationDialog(bindingOptions) {
+    showDisabledBackground(bindingOptions);
+    if (isDefined(bindingOptions.currentView.configurationDialog) && bindingOptions.currentView.configurationDialog.style.display !== "block") {
+      bindingOptions.currentView.configurationDialog.style.display = "block";
+    }
+    var daysToShow = [], monthsToShow = [];
+    if (bindingOptions.currentView.view === _elements_View_Map) {
+      daysToShow = bindingOptions.views.map.daysToShow;
+      monthsToShow = bindingOptions.views.map.monthsToShow;
+    } else if (bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart) {
+      daysToShow = bindingOptions.views.chart.daysToShow;
+      monthsToShow = bindingOptions.views.chart.monthsToShow;
+    } else if (bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics) {
+      daysToShow = bindingOptions.views.statistics.daysToShow;
+      monthsToShow = bindingOptions.views.statistics.monthsToShow;
+    } else {
+      daysToShow = bindingOptions.views.map.daysToShow;
+      monthsToShow = bindingOptions.views.map.monthsToShow;
+    }
+    for (var dayIndex = 0; dayIndex < 7; dayIndex++) {
+      bindingOptions.currentView.dayCheckBoxes[dayIndex].checked = isDayVisible(daysToShow, dayIndex + 1);
+    }
+    for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
+      bindingOptions.currentView.monthCheckBoxes[monthIndex].checked = isMonthVisible(monthsToShow, monthIndex);
+    }
+    hideToolTip(bindingOptions);
+  }
+  function hideConfigurationDialog(bindingOptions) {
+    hideDisabledBackground(bindingOptions);
+    if (isDefined(bindingOptions.currentView.configurationDialog) && bindingOptions.currentView.configurationDialog.style.display !== "none") {
+      bindingOptions.currentView.configurationDialog.style.display = "none";
+    }
+    var daysChecked = [], monthsChecked = [], render = false;
+    for (var dayIndex = 0; dayIndex < 7; dayIndex++) {
+      if (bindingOptions.currentView.dayCheckBoxes[dayIndex].checked) {
+        daysChecked.push(dayIndex + 1);
+      }
+    }
+    for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
+      if (bindingOptions.currentView.monthCheckBoxes[monthIndex].checked) {
+        monthsChecked.push(monthIndex + 1);
+      }
+    }
+    if (daysChecked.length >= 1) {
+      if (bindingOptions.currentView.view === _elements_View_Map) {
+        bindingOptions.views.map.daysToShow = daysChecked;
+      } else if (bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart) {
+        bindingOptions.views.chart.daysToShow = daysChecked;
+      } else if (bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics) {
+        bindingOptions.views.statistics.daysToShow = daysChecked;
+      } else {
+        bindingOptions.views.map.daysToShow = daysChecked;
+      }
+      render = true;
+    }
+    if (monthsChecked.length >= 1) {
+      if (bindingOptions.currentView.view === _elements_View_Map) {
+        bindingOptions.views.map.monthsToShow = monthsChecked;
+      } else if (bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart) {
+        bindingOptions.views.chart.monthsToShow = monthsChecked;
+      } else if (bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics) {
+        bindingOptions.views.statistics.monthsToShow = monthsChecked;
+      } else {
+        bindingOptions.views.map.monthsToShow = monthsChecked;
+      }
+      render = true;
+    }
+    if (render) {
+      renderControlContainer(bindingOptions);
+    } else {
+      hideToolTip(bindingOptions);
     }
   }
   function renderControlToolTip(bindingOptions) {
@@ -235,6 +350,13 @@
           yearList.style.visibility = "visible";
         } else {
           addClass(bindingOptions.currentView.yearText, "no-click");
+        }
+        if (bindingOptions.showConfigurationButton) {
+          var configureButton = createElement(titleBar, "div", "configure");
+          addToolTip(configureButton, bindingOptions, _configuration.configurationToolTipText);
+          configureButton.onclick = function() {
+            showConfigurationDialog(bindingOptions);
+          };
         }
         var next = createElementWithHTML(titleBar, "button", "next", _configuration.nextButtonText);
         next.onclick = function() {
@@ -1212,6 +1334,7 @@
     options.dataFetchDelay = getDefaultNumber(options.dataFetchDelay, 60000);
     options.showOnlyDataForYearsAvailable = getDefaultBoolean(options.showOnlyDataForYearsAvailable, false);
     options.showHolidaysInDayToolTips = getDefaultBoolean(options.showHolidaysInDayToolTips, false);
+    options.showConfigurationButton = getDefaultBoolean(options.showConfigurationButton, true);
     options = buildAttributeOptionColorRanges(options);
     options = buildAttributeOptionHolidays(options);
     options = buildAttributeOptionMapView(options);
@@ -1475,6 +1598,19 @@
     for (; childrenLength--;) {
       parent.appendChild(children[childrenLength]);
     }
+  }
+  function buildCheckBox(container, labelText, checked, onClick) {
+    var lineContainer = createElement(container, "div"), label = createElement(lineContainer, "label", "checkbox"), input = createElement(label, "input");
+    input.type = "checkbox";
+    if (isDefined(onClick)) {
+      input.onclick = onClick;
+    }
+    if (isDefined(checked)) {
+      input.checked = checked;
+    }
+    createElement(label, "span", "check-mark");
+    createElementWithHTML(label, "span", "text", labelText);
+    return {input:input, label:label};
   }
   function fireCustomTrigger(triggerFunction) {
     var result = null;
@@ -1972,6 +2108,11 @@
     _configuration.objectErrorText = getDefaultString(_configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
     _configuration.attributeNotValidErrorText = getDefaultString(_configuration.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object.");
     _configuration.attributeNotSetErrorText = getDefaultString(_configuration.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly.");
+    _configuration.closeToolTipText = getDefaultString(_configuration.closeToolTipText, "Close");
+    _configuration.configurationToolTipText = getDefaultString(_configuration.configurationToolTipText, "Configuration");
+    _configuration.configurationTitleText = getDefaultString(_configuration.configurationTitleText, "Configuration");
+    _configuration.visibleMonthsText = getDefaultString(_configuration.visibleMonthsText, "Visible Months");
+    _configuration.visibleDaysText = getDefaultString(_configuration.visibleDaysText, "Visible Days");
   }
   function buildDefaultConfigurationArrays() {
     if (isInvalidOptionArray(_configuration.monthNames, 12)) {
