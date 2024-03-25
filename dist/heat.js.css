@@ -102,6 +102,16 @@ div.heat-js {
   max-width: 700px;
   margin: 0 !important;
 }
+div.heat-js div.disabled {
+  display: none;
+  z-index: 1000;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
 div.heat-js div.view-switch {
   animation: fade-in-animation var(--heat-js-animation-length);
 }

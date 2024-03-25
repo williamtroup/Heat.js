@@ -140,6 +140,7 @@
 
         bindingOptions.currentView = {};
         bindingOptions.currentView.element = element;
+        bindingOptions.currentView.disabledBackground = null;
         bindingOptions.currentView.tooltip = null;
         bindingOptions.currentView.tooltipTimer = null;
         bindingOptions.currentView.mapContents = null;
@@ -220,6 +221,7 @@
 
         startDataPullTimer( bindingOptions );
 
+        renderDisabledBackground( bindingOptions );
         renderControlToolTip( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions, isForViewSwitch );
@@ -247,6 +249,29 @@
         } else {
             bindingOptions.currentView.view = _elements_View_Map;
             bindingOptions.currentView.mapContents.style.display = "block";
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Disabled Background
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderDisabledBackground( bindingOptions ) {
+        bindingOptions.currentView.disabledBackground = createElement( bindingOptions.currentView.element, "div", "disabled" );
+    }
+
+    function showDisabledBackground( bindingOptions ) {
+        if ( isDefined( bindingOptions.currentView.disabledBackground ) && bindingOptions.currentView.disabledBackground.style.display !== "block" ) {
+            bindingOptions.currentView.disabledBackground.style.display = "block";
+        }
+    }
+
+    function hideDisabledBackground( bindingOptions ) {
+        if ( isDefined( bindingOptions.currentView.disabledBackground ) && bindingOptions.currentView.disabledBackground.style.display !== "none" ) {
+            bindingOptions.currentView.disabledBackground.style.display = "none";
         }
     }
 
