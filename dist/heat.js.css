@@ -344,6 +344,12 @@ div.heat-js div.title-bar div.configure {
   position: relative;
   margin-right: var(--heat-js-spacing);
   transition: var(--heat-js-transition);
+  display: none;
+}
+@media (min-width: 768px) {
+  div.heat-js div.title-bar div.configure {
+    display: inline-block;
+  }
 }
 div.heat-js div.title-bar div.configure:hover::before, div.heat-js div.title-bar div.configure:hover::after {
   border-color: var(--heat-js-title-opener-text-color-hover);

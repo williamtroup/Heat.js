@@ -392,7 +392,12 @@ div.heat-js {
             position: relative;
             margin-right: var(--heat-js-spacing);
             transition: var(--heat-js-transition);
-
+            display: none;
+    
+            @media (min-width: $minimum-width) { 
+                display: inline-block;
+            }
+            
             &:hover::before,
             &:hover::after {
                 border-color: var(--heat-js-title-opener-text-color-hover);
