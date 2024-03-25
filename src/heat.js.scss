@@ -333,6 +333,50 @@ div.heat-js {
             background-color: var(--heat-js-dialog-background-color);
             border: var(--heat-js-border-size) solid var(--heat-js-dialog-border-color);
             color: var(--heat-js-dialog-text-color);
+            border-radius: var(--heat-js-border-radius);
+
+            div.title-bar {
+                position: relative;
+                padding: var(--heat-js-spacing);
+                text-align: right;
+
+                div.close {
+                    $close-button-size: 15px;
+                    $close-button-width: 3px;
+
+                    display: inline-block;
+                    width: $close-button-size;
+                    height: $close-button-size;
+                    position: relative;
+                    cursor: pointer;
+
+                    &::before,
+                    &::after {
+                        content: ' ';
+                        position: absolute;
+                        height: $close-button-size;
+                        width: $close-button-width;
+                        left: calc( ( $close-button-size / 2 ) - ( $close-button-width / 2 ) );
+                        top: 0;
+                        background-color: var(--heat-js-color-white);
+                        border-radius: var(--heat-js-border-radius);
+                        transition: var(--heat-js-transition);
+                    }
+
+                    &::before {
+                        transform: rotate( 45deg );
+                    }
+
+                    &::after {
+                        transform: rotate( -45deg );
+                    }
+
+                    &:hover::before,
+                    &:hover::after {
+                        background-color: var(--heat-js-color-gray);
+                    }
+                }
+            }
         }
     }
 }

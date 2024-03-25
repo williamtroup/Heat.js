@@ -289,6 +289,29 @@
 
     function renderConfigurationDialog( bindingOptions ) {
         bindingOptions.currentView.configurationDialog = createElement( bindingOptions.currentView.disabledBackground, "div", "dialog configuration" );
+
+        var titleBar = createElement( bindingOptions.currentView.configurationDialog, "div", "title-bar" ),
+            closeButton = createElement( titleBar, "div", "close" );
+
+        closeButton.onclick = function() {
+            hideConfigurationDialog( bindingOptions );
+        };
+    }
+
+    function showConfigurationDialog( bindingOptions ) {
+        showDisabledBackground( bindingOptions );
+
+        if ( isDefined( bindingOptions.currentView.configurationDialog ) && bindingOptions.currentView.configurationDialog.style.display !== "block" ) {
+            bindingOptions.currentView.configurationDialog.style.display = "block";
+        }
+    }
+
+    function hideConfigurationDialog( bindingOptions ) {
+        hideDisabledBackground( bindingOptions );
+
+        if ( isDefined( bindingOptions.currentView.configurationDialog ) && bindingOptions.currentView.configurationDialog.style.display !== "none" ) {
+            bindingOptions.currentView.configurationDialog.style.display = "none";
+        }
     }
 
 
@@ -459,7 +482,11 @@
                 }
 
                 if ( bindingOptions.showConfigurationButton ) {
-                    createElement( titleBar, "div", "configure" );
+                    var configureButton = createElement( titleBar, "div", "configure" );
+
+                    configureButton.onclick = function() {
+                        showConfigurationDialog( bindingOptions );
+                    };
                 }
 
                 var next = createElementWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
