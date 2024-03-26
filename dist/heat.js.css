@@ -1097,9 +1097,9 @@ div.heat-js label.checkbox span.check-mark::before {
   left: 4.5px;
   top: 1px;
   width: 6px;
-  height: 10px;
+  height: 11px;
   border: solid var(--heat-js-color-black);
-  border-width: 0 2px 2px 0;
+  border-width: 0 3px 3px 0;
 }
 
 /*
