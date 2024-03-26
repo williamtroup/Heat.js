@@ -670,6 +670,34 @@ div.heat-js {
     }
 }
 
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Days
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.days-contents {
+        display: flex;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        text-wrap: nowrap;
+        white-space: nowrap;
+        position: relative;
+
+        div.no-data-message {
+            @include centered-label;
+        }
+
+        div.days {
+            display: inline-flex;
+            flex-direction: row;
+        }
+    }
+}
+
+
 /*
     -------------------------------------------------------------------------
     Heat.js - Chart

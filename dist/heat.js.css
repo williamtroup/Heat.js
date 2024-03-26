@@ -592,6 +592,31 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
 
 /*
     -------------------------------------------------------------------------
+    Heat.js - Days
+    -------------------------------------------------------------------------
+*/
+div.heat-js div.days-contents {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  text-wrap: nowrap;
+  white-space: nowrap;
+  position: relative;
+}
+div.heat-js div.days-contents div.no-data-message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: var(--heat-js-text-bold-weight);
+}
+div.heat-js div.days-contents div.days {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+/*
+    -------------------------------------------------------------------------
     Heat.js - Chart
     -------------------------------------------------------------------------
 */

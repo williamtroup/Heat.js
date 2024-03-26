@@ -160,6 +160,11 @@
             bindingOptions.currentView.chartContents = null;
             bindingOptions.currentView.chartContentsScrollLeft = 0;
         }
+
+        if ( bindingOptions.views.days.enabled ) {
+            bindingOptions.currentView.daysContents = null;
+            bindingOptions.currentView.daysContentsScrollLeft = 0;
+        }
         
         if ( bindingOptions.views.statistics.enabled ) {
             bindingOptions.currentView.statisticsContents = null;
@@ -217,6 +222,10 @@
             bindingOptions.currentView.chartContentsScrollLeft = bindingOptions.currentView.chartContents.scrollLeft;
         }
 
+        if ( bindingOptions.views.days.enabled && isDefined( bindingOptions.currentView.daysContents ) ) {
+            bindingOptions.currentView.daysContentsScrollLeft = bindingOptions.currentView.daysContents.scrollLeft;
+        }
+
         if ( bindingOptions.views.statistics.enabled && isDefined( bindingOptions.currentView.statisticsContents ) ) {
             bindingOptions.currentView.statisticsContentsScrollLeft = bindingOptions.currentView.statisticsContents.scrollLeft;
         }
@@ -243,6 +252,12 @@
             bindingOptions.currentView.chartContents.style.display = "none";
         }
 
+        if ( bindingOptions.views.days.enabled ) {
+            renderControlDays( bindingOptions, isForViewSwitch );
+
+            bindingOptions.currentView.daysContents.style.display = "none";
+        }
+
         if ( bindingOptions.views.statistics.enabled ) {
             renderControlStatistics( bindingOptions, isForViewSwitch );
 
@@ -255,6 +270,8 @@
             bindingOptions.currentView.mapContents.style.display = "block";
         } else if ( bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart ) {
             bindingOptions.currentView.chartContents.style.display = "block";
+        } else if ( bindingOptions.views.days.enabled && bindingOptions.currentView.view === _elements_View_Days ) {
+            bindingOptions.currentView.daysContents.style.display = "block";
         } else if ( bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics ) {
             bindingOptions.currentView.statisticsContents.style.display = "block";
         } else {
@@ -693,6 +710,10 @@
         if ( bindingOptions.views.chart.enabled ) {
             renderControlChartContents( bindingOptions );
         }
+
+        if ( bindingOptions.views.days.enabled ) {
+            renderControlDaysContents( bindingOptions );
+        }
         
         if ( bindingOptions.views.statistics.enabled ) {
             renderControlStatisticsContents( bindingOptions );
@@ -1070,6 +1091,29 @@
         }
 
         return result;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Days
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderControlDaysContents( bindingOptions ) {
+        bindingOptions.currentView.daysContents = createElement( bindingOptions.currentView.element, "div", "days-contents" );
+
+        makeAreaDroppable( bindingOptions.currentView.daysContents, bindingOptions );
+    }
+
+    function renderControlDays( bindingOptions, isForViewSwitch ) {
+        var days = createElement( bindingOptions.currentView.daysContents, "div", "days" );
+
+        bindingOptions.currentView.daysContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
+
+        if ( isForViewSwitch ) {
+            addClass( days, "view-switch" );
+        }
     }
 
 
