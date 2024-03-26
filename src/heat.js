@@ -64,12 +64,14 @@
         // Variables: View (names)
         _elements_View_Name_Map = "map",
         _elements_View_Name_Chart = "chart",
+        _elements_View_Name_Days = "days",
         _elements_View_Name_Statistics = "statistics",
 
         // Variables: View
         _elements_View_Map = 1,
         _elements_View_Chart = 2,
-        _elements_View_Statistics = 3,
+        _elements_View_Days = 3,
+        _elements_View_Statistics = 4,
 
         // Variables: Export Types
         _export_Type_Csv = "csv",
@@ -168,6 +170,8 @@
             bindingOptions.currentView.view = _elements_View_Map;
         } else if ( view === _elements_View_Name_Chart ) {
             bindingOptions.currentView.view = _elements_View_Chart;
+        } else if ( view === _elements_View_Name_Days ) {
+            bindingOptions.currentView.view = _elements_View_Days;
         } else if ( view === _elements_View_Name_Statistics ) {
             bindingOptions.currentView.view = _elements_View_Statistics;
         } else {
@@ -506,28 +510,7 @@
             }
 
             if ( bindingOptions.views.chart.enabled || bindingOptions.views.statistics.enabled ) {
-                var titlesMenuContainer = createElement( title, "div", "titles-menu-container" ),
-                    titlesMenu = createElement( titlesMenuContainer, "div", "titles-menu" );
-                
-                createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.dataText + _string.colon );
-
-                var optionMap = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.mapText );
-                    
-                renderTitleDropDownClickEvent( bindingOptions, optionMap, _elements_View_Map, _elements_View_Name_Map );
-
-                if ( bindingOptions.views.chart.enabled ) {
-                    var optionChart = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.chartText );
-
-                    renderTitleDropDownClickEvent( bindingOptions, optionChart, _elements_View_Chart, _elements_View_Name_Chart );
-                }
-
-                if ( bindingOptions.views.statistics.enabled ) {
-                    createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.statisticsText + _string.colon );
-
-                    var statisticsChart = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.colorRangesText );
-
-                    renderTitleDropDownClickEvent( bindingOptions, statisticsChart, _elements_View_Statistics, _elements_View_Name_Statistics );
-                }
+                renderTitleDropDownMenu( bindingOptions, title );
             }
 
             if ( bindingOptions.showImportButton && !bindingOptions.currentView.isInFetchMode ) {
@@ -569,33 +552,7 @@
                 bindingOptions.currentView.yearText = createElementWithHTML( titleBar, "div", "year-text", bindingOptions.currentView.year );
 
                 if ( bindingOptions.showYearSelectionDropDown ) {
-                    createElement( bindingOptions.currentView.yearText, "div", "down-arrow" );
-
-                    var yearsMenuContainer = createElement( bindingOptions.currentView.yearText, "div", "years-menu-container" ),
-                        yearsMenu = createElement( yearsMenuContainer, "div", "years-menu" ),
-                        thisYear = new Date().getFullYear(),
-                        activeYearMenuItem = null;
-
-                    yearsMenuContainer.style.display = "block";
-                    yearsMenuContainer.style.visibility = "hidden";
-
-                    for ( var currentYear = thisYear - bindingOptions.extraSelectionYears; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++ ) {
-                        if ( isYearVisible( bindingOptions, currentYear ) ) {
-                            var yearMenuItem = renderControlTitleBarYear( bindingOptions, yearsMenu, currentYear, thisYear );
-
-                            if ( !isDefined( activeYearMenuItem ) ) {
-                                activeYearMenuItem = yearMenuItem;
-                            }
-                        }
-                    }
-
-                    if ( isDefined( activeYearMenuItem ) ) {
-                        yearsMenu.scrollTop = activeYearMenuItem.offsetTop - ( yearsMenu.offsetHeight / 2 );
-                    }
-
-                    yearsMenuContainer.style.display = "none";
-                    yearsMenuContainer.style.visibility = "visible";
-
+                    renderYearDropDownMenu( bindingOptions );
                 } else {
                     addClass( bindingOptions.currentView.yearText, "no-click" );
                 }
@@ -623,7 +580,40 @@
         }
     }
 
-    function renderTitleDropDownClickEvent( bindingOptions, option, view, viewName ) {
+    function renderTitleDropDownMenu( bindingOptions, title ) {
+        var titlesMenuContainer = createElement( title, "div", "titles-menu-container" ),
+            titlesMenu = createElement( titlesMenuContainer, "div", "titles-menu" );
+        
+        createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.dataText + _string.colon );
+
+        var menuItemMap = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.mapText );
+            
+        renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, _elements_View_Map, _elements_View_Name_Map );
+
+        if ( bindingOptions.views.chart.enabled ) {
+            var menuItemChart = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.chartText );
+
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, _elements_View_Chart, _elements_View_Name_Chart );
+        }
+
+        if ( bindingOptions.views.days.enabled ) {
+            createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.yearText + _string.colon );
+
+            var menuItemDays = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.daysText );
+
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemDays, _elements_View_Days, _elements_View_Name_Days );
+        }
+
+        if ( bindingOptions.views.statistics.enabled ) {
+            createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.statisticsText + _string.colon );
+
+            var menuItemStatistics = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.colorRangesText );
+
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemStatistics, _elements_View_Statistics, _elements_View_Name_Statistics );
+        }
+    }
+
+    function renderTitleDropDownMenuItemClickEvent( bindingOptions, option, view, viewName ) {
         if ( bindingOptions.currentView.view === view ) {
             addClass( option, "title-menu-item-active" );
             
@@ -637,7 +627,36 @@
         }
     }
 
-    function renderControlTitleBarYear( bindingOptions, years, currentYear, actualYear ) {
+    function renderYearDropDownMenu( bindingOptions ) {
+        createElement( bindingOptions.currentView.yearText, "div", "down-arrow" );
+
+        var yearsMenuContainer = createElement( bindingOptions.currentView.yearText, "div", "years-menu-container" ),
+            yearsMenu = createElement( yearsMenuContainer, "div", "years-menu" ),
+            thisYear = new Date().getFullYear(),
+            activeYearMenuItem = null;
+
+        yearsMenuContainer.style.display = "block";
+        yearsMenuContainer.style.visibility = "hidden";
+
+        for ( var currentYear = thisYear - bindingOptions.extraSelectionYears; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++ ) {
+            if ( isYearVisible( bindingOptions, currentYear ) ) {
+                var yearMenuItem = renderYearDropDownMenuItem( bindingOptions, yearsMenu, currentYear, thisYear );
+
+                if ( !isDefined( activeYearMenuItem ) ) {
+                    activeYearMenuItem = yearMenuItem;
+                }
+            }
+        }
+
+        if ( isDefined( activeYearMenuItem ) ) {
+            yearsMenu.scrollTop = activeYearMenuItem.offsetTop - ( yearsMenu.offsetHeight / 2 );
+        }
+
+        yearsMenuContainer.style.display = "none";
+        yearsMenuContainer.style.visibility = "visible";
+    }
+
+    function renderYearDropDownMenuItem( bindingOptions, years, currentYear, actualYear ) {
         var result = null,
             year = createElementWithHTML( years, "div", "year-menu-item", currentYear );
 
@@ -2081,6 +2100,7 @@
         options = buildAttributeOptionHolidays( options );
         options = buildAttributeOptionMapView( options );
         options = buildAttributeOptionChartView( options );
+        options = buildAttributeOptionDaysView( options );
         options = buildAttributeOptionStatisticsView( options );
         options = buildAttributeOptionStrings( options );
         options = buildAttributeOptionCustomTriggers( options );
@@ -2202,6 +2222,21 @@
 
         if ( isInvalidOptionArray( options.views.chart.daysToShow ) ) {
             options.views.chart.daysToShow = _default_DaysToShow;
+        }
+
+        return options;
+    }
+
+    function buildAttributeOptionDaysView( options ) {
+        options.views.days = !isDefinedObject( options.views.days ) ? {} : options.views.days;
+        options.views.days.enabled = getDefaultBoolean( options.views.days.enabled, true );
+
+        if ( isInvalidOptionArray( options.views.days.monthsToShow ) ) {
+            options.views.days.monthsToShow = _default_MonthsToShow;
+        }
+
+        if ( isInvalidOptionArray( options.views.days.daysToShow ) ) {
+            options.views.days.daysToShow = _default_DaysToShow;
         }
 
         return options;
@@ -3301,6 +3336,8 @@
                 view = _elements_View_Map;
             } else if ( viewName.toLowerCase() === _elements_View_Name_Chart ) {
                 view = _elements_View_Chart;
+            } else if ( viewName.toLowerCase() === _elements_View_Name_Days ) {
+                view = _elements_View_Days;
             } else if ( viewName.toLowerCase() === _elements_View_Name_Statistics ) {
                 view = _elements_View_Statistics;
             }
@@ -3589,6 +3626,8 @@
 
         _configuration.dataText = getDefaultString( _configuration.dataText, "Data" );
         _configuration.colorRangesText = getDefaultString( _configuration.colorRangesText, "Color Ranges" );
+        _configuration.yearText = getDefaultString( _configuration.yearText, "Year" );
+        _configuration.daysText = getDefaultString( _configuration.daysText, "Days" );
     }
 
     function buildDefaultConfigurationArrays() {
