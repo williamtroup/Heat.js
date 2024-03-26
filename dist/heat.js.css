@@ -145,7 +145,8 @@ div.heat-js div.disabled div.dialog {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 450px;
+  max-width: 450px;
+  width: calc(100% - var(--heat-js-spacing) * 2);
   background-color: var(--heat-js-dialog-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-dialog-border-color);
   color: var(--heat-js-dialog-text-color);
@@ -189,6 +190,8 @@ div.heat-js div.disabled div.dialog div.dialog-title-bar div.dialog-close:hover:
 }
 div.heat-js div.disabled div.dialog div.dialog-contents {
   padding: var(--heat-js-spacing);
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 /*
@@ -344,12 +347,6 @@ div.heat-js div.title-bar div.configure {
   position: relative;
   margin-right: var(--heat-js-spacing);
   transition: var(--heat-js-transition);
-  display: none;
-}
-@media (min-width: 768px) {
-  div.heat-js div.title-bar div.configure {
-    display: inline-block;
-  }
 }
 div.heat-js div.title-bar div.configure:hover::before, div.heat-js div.title-bar div.configure:hover::after {
   border-color: var(--heat-js-title-opener-text-color-hover);
