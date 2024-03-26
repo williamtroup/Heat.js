@@ -245,7 +245,7 @@
     if (!isDefined(bindingOptions.currentView.tooltip)) {
       bindingOptions.currentView.tooltip = createElement(_parameter_Document.body, "div", "heat-js-tooltip");
       bindingOptions.currentView.tooltip.style.display = "none";
-      _parameter_Document.body.addEventListener("mousemove", function() {
+      _parameter_Window.addEventListener("mousemove", function() {
         hideToolTip(bindingOptions);
       });
       _parameter_Document.addEventListener("scroll", function() {
@@ -275,7 +275,7 @@
         clearTimeout(bindingOptions.currentView.tooltipTimer);
         bindingOptions.currentView.tooltipTimer = null;
       }
-      if (bindingOptions.currentView.tooltip.style.display === "block") {
+      if (bindingOptions.currentView.tooltip.style.display !== "none") {
         bindingOptions.currentView.tooltip.style.display = "none";
       }
     }
