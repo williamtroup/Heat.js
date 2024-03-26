@@ -245,13 +245,18 @@
     if (!isDefined(bindingOptions.currentView.tooltip)) {
       bindingOptions.currentView.tooltip = createElement(_parameter_Document.body, "div", "heat-js-tooltip");
       bindingOptions.currentView.tooltip.style.display = "none";
-      _parameter_Window.addEventListener("mousemove", function() {
-        hideToolTip(bindingOptions);
-      });
-      _parameter_Document.addEventListener("scroll", function() {
-        hideToolTip(bindingOptions);
-      });
+      assignToolTipEvents(bindingOptions);
     }
+  }
+  function assignToolTipEvents(bindingOptions, add) {
+    add = getDefaultBoolean(add, true);
+    var addEventListener_Window = add ? _parameter_Window.addEventListener : _parameter_Window.removeEventListener, addEventListener_Document = add ? _parameter_Document.addEventListener : _parameter_Document.removeEventListener;
+    addEventListener_Window("mousemove", function() {
+      hideToolTip(bindingOptions);
+    });
+    addEventListener_Document("scroll", function() {
+      hideToolTip(bindingOptions);
+    });
   }
   function addToolTip(element, bindingOptions, text) {
     if (element !== null) {
@@ -2055,6 +2060,7 @@
   function destroyElement(bindingOptions) {
     bindingOptions.currentView.element.innerHTML = _string.empty;
     removeClass(bindingOptions.currentView.element, "heat-js");
+    assignToolTipEvents(bindingOptions, false);
     _parameter_Document.body.removeChild(bindingOptions.currentView.tooltip);
     if (bindingOptions.currentView.isInFetchMode && isDefined(bindingOptions.currentView.isInFetchModeTimer)) {
       clearInterval(bindingOptions.currentView.isInFetchModeTimer);
