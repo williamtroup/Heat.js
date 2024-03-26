@@ -506,20 +506,25 @@
             }
 
             if ( bindingOptions.views.chart.enabled || bindingOptions.views.statistics.enabled ) {
-                var titlesList = createElement( title, "div", "titles-list" ),
-                    titles = createElement( titlesList, "div", "titles" ),
-                    optionMap = createElementWithHTML( titles, "div", "title", _configuration.mapText );
+                var titlesMenuContainer = createElement( title, "div", "titles-menu-container" ),
+                    titlesMenu = createElement( titlesMenuContainer, "div", "titles-menu" );
+                
+                createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.dataText + _string.colon );
+
+                var optionMap = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.mapText );
                     
                 renderTitleDropDownClickEvent( bindingOptions, optionMap, _elements_View_Map, _elements_View_Name_Map );
 
                 if ( bindingOptions.views.chart.enabled ) {
-                    var optionChart = createElementWithHTML( titles, "div", "title", _configuration.chartText );
+                    var optionChart = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.chartText );
 
                     renderTitleDropDownClickEvent( bindingOptions, optionChart, _elements_View_Chart, _elements_View_Name_Chart );
                 }
 
                 if ( bindingOptions.views.statistics.enabled ) {
-                    var statisticsChart = createElementWithHTML( titles, "div", "title", _configuration.statisticsText );
+                    createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.statisticsText + _string.colon );
+
+                    var statisticsChart = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.colorRangesText );
 
                     renderTitleDropDownClickEvent( bindingOptions, statisticsChart, _elements_View_Statistics, _elements_View_Name_Statistics );
                 }
@@ -566,30 +571,30 @@
                 if ( bindingOptions.showYearSelectionDropDown ) {
                     createElement( bindingOptions.currentView.yearText, "div", "down-arrow" );
 
-                    var yearList = createElement( bindingOptions.currentView.yearText, "div", "years-list" ),
-                        years = createElement( yearList, "div", "years" ),
+                    var yearsMenuContainer = createElement( bindingOptions.currentView.yearText, "div", "years-menu-container" ),
+                        yearsMenu = createElement( yearsMenuContainer, "div", "years-menu" ),
                         thisYear = new Date().getFullYear(),
-                        activeYear = null;
+                        activeYearMenuItem = null;
 
-                    yearList.style.display = "block";
-                    yearList.style.visibility = "hidden";
+                    yearsMenuContainer.style.display = "block";
+                    yearsMenuContainer.style.visibility = "hidden";
 
                     for ( var currentYear = thisYear - bindingOptions.extraSelectionYears; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++ ) {
                         if ( isYearVisible( bindingOptions, currentYear ) ) {
-                            var year = renderControlTitleBarYear( bindingOptions, years, currentYear, thisYear );
+                            var yearMenuItem = renderControlTitleBarYear( bindingOptions, yearsMenu, currentYear, thisYear );
 
-                            if ( !isDefined( activeYear ) ) {
-                                activeYear = year;
+                            if ( !isDefined( activeYearMenuItem ) ) {
+                                activeYearMenuItem = yearMenuItem;
                             }
                         }
                     }
 
-                    if ( isDefined( activeYear ) ) {
-                        years.scrollTop = activeYear.offsetTop - ( years.offsetHeight / 2 );
+                    if ( isDefined( activeYearMenuItem ) ) {
+                        yearsMenu.scrollTop = activeYearMenuItem.offsetTop - ( yearsMenu.offsetHeight / 2 );
                     }
 
-                    yearList.style.display = "none";
-                    yearList.style.visibility = "visible";
+                    yearsMenuContainer.style.display = "none";
+                    yearsMenuContainer.style.visibility = "visible";
 
                 } else {
                     addClass( bindingOptions.currentView.yearText, "no-click" );
@@ -620,7 +625,7 @@
 
     function renderTitleDropDownClickEvent( bindingOptions, option, view, viewName ) {
         if ( bindingOptions.currentView.view === view ) {
-            addClass( option, "title-active" );
+            addClass( option, "title-menu-item-active" );
             
         } else {
             option.onclick = function() {
@@ -634,7 +639,7 @@
 
     function renderControlTitleBarYear( bindingOptions, years, currentYear, actualYear ) {
         var result = null,
-            year = createElementWithHTML( years, "div", "year", currentYear );
+            year = createElementWithHTML( years, "div", "year-menu-item", currentYear );
 
         if ( bindingOptions.currentView.year !== currentYear ) {
             year.onclick = function() {
@@ -645,11 +650,11 @@
             };
 
             if ( currentYear === actualYear ) {
-                addClass( year, "year-current" );
+                addClass( year, "year-menu-item-current" );
             }
 
         } else {
-            addClass( year, "year-active" );
+            addClass( year, "year-menu-item-active" );
             result = year;
         }
 
@@ -3581,6 +3586,9 @@
         _configuration.configurationTitleText = getDefaultString( _configuration.configurationTitleText, "Configuration" );
         _configuration.visibleMonthsText = getDefaultString( _configuration.visibleMonthsText, "Visible Months" );
         _configuration.visibleDaysText = getDefaultString( _configuration.visibleDaysText, "Visible Days" );
+
+        _configuration.dataText = getDefaultString( _configuration.dataText, "Data" );
+        _configuration.colorRangesText = getDefaultString( _configuration.colorRangesText, "Color Ranges" );
     }
 
     function buildDefaultConfigurationArrays() {

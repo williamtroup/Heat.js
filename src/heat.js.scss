@@ -318,54 +318,61 @@ div.heat-js {
                 border-top-color:  var(--heat-js-title-opener-text-color-hover);
             }
 
-            &:hover div.titles-list {
+            &:hover div.titles-menu-container {
                 display: block;
             }
 
             @include down-arrow;
 
-            div.titles-list {
+            div.titles-menu-container {
                 animation: fade-in-animation var(--heat-js-animation-length);
                 padding-top: $title-margin;
                 display: none;
                 position: absolute;
-                width: 100px;
+                min-width: 100px;
                 margin-top: $title-margin;
                 z-index: 1000;
 
-                div.titles {
+                div.titles-menu {
                     border-radius: var(--heat-js-border-radius);
                     background-color: var(--heat-js-title-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-title-border-color);
                     color: var(--heat-js-title-text-color);
                     overflow-y: scroll;
 
-                    div.title {
+                    div.title-menu-header {
+                        font-weight: var(--heat-js-title-bold-weight);
+                        padding: var(--heat-js-spacing);
+                        padding-right: calc( var(--heat-js-spacing) * 3 );
+                        text-align: left;
+                        width: 100%;
+                        font-size: var(--heat-js-spacing-font-size) !important;
+                        cursor: default;
+                    }
+
+                    div.title-menu-item {
                         color: var(--heat-js-color-white);
                         font-weight: var(--heat-js-text-bold-weight);
-                        border-bottom: var(--heat-js-border-size) dashed var(--heat-js-container-border-color);
                         padding: var(--heat-js-spacing);
+                        padding-right: calc( var(--heat-js-spacing) * 3 );
+                        padding-left: calc( var(--heat-js-spacing) * 2 );
                         text-align: left;
                         width: 100%;
                         transition: var(--heat-js-transition);
                         font-size: var(--heat-js-spacing-font-size) !important;
     
-                        &:not(.title-active):active {
+                        &:not(.title-menu-item-active):active {
                             opacity: 0.5 !important;
                         }
     
-                        &:not(.title-active):hover {
+                        &:not(.title-menu-item-active):hover {
                             cursor: pointer;
                             background-color: var(--heat-js-title-background-color-hover);
                             color: var(--heat-js-title-text-color-hover);
                         }
-    
-                        &:last-child {
-                            border-bottom: none;
-                        }
                     }
 
-                    div.title-active {
+                    div.title-menu-item-active {
                         background-color: var(--heat-js-title-background-color-hover);
                         color: var(--heat-js-title-text-color-hover);
                         font-weight: var(--heat-js-text-bold-weight-active);
@@ -452,13 +459,13 @@ div.heat-js {
                 border-top-color:  var(--heat-js-title-opener-text-color-hover);
             }
 
-            &:hover div.years-list {
+            &:hover div.years-menu-container {
                 display: block !important;
             }
 
             @include down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );
 
-            div.years-list {
+            div.years-menu-container {
                 animation: fade-in-animation var(--heat-js-animation-length);
                 padding-top: $year-margin;
                 display: none;
@@ -469,7 +476,7 @@ div.heat-js {
                 margin-top: $year-margin;
                 z-index: 1000;
 
-                div.years {
+                div.years-menu {
                     border-radius: var(--heat-js-border-radius);
                     background-color: var(--heat-js-years-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-years-border-color);
@@ -479,7 +486,7 @@ div.heat-js {
                     overflow-y: scroll;
                     scroll-snap-type: y mandatory;
 
-                    div.year {
+                    div.year-menu-item {
                         color: var(--heat-js-color-white);
                         font-weight: var(--heat-js-text-bold-weight);
                         border-bottom: var(--heat-js-border-size) dashed var(--heat-js-container-border-color);
@@ -489,11 +496,11 @@ div.heat-js {
                         transition: var(--heat-js-transition);
                         scroll-snap-align: start;
     
-                        &:not(.year-active):active {
+                        &:not(.year-menu-item-active):active {
                             opacity: 0.5 !important;
                         }
     
-                        &:not(.year-active):hover {
+                        &:not(.year-menu-item-active):hover {
                             cursor: pointer;
                             background-color: var(--heat-js-years-background-color-hover);
                             color: var(--heat-js-years-text-color-hover);
@@ -504,14 +511,14 @@ div.heat-js {
                         }
                     }
 
-                    div.year-active {
+                    div.year-menu-item-active {
                         background-color: var(--heat-js-years-background-color-hover);
                         color: var(--heat-js-years-text-color-hover);
                         font-weight: var(--heat-js-text-bold-weight-active);
                         cursor: default !important;
                     }
 
-                    div.year-current {
+                    div.year-menu-item-current {
                         font-style: italic;
                         font-weight: var(--heat-js-text-bold-weight-active);
                     }
