@@ -592,137 +592,6 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Days
-    -------------------------------------------------------------------------
-*/
-div.heat-js div.days-contents {
-  display: flex;
-  overflow: hidden;
-  text-wrap: nowrap;
-  white-space: nowrap;
-  position: relative;
-}
-div.heat-js div.days-contents div.no-days-message {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-weight: var(--heat-js-text-bold-weight);
-}
-div.heat-js div.days-contents div.days {
-  display: flex;
-  flex-direction: row;
-}
-div.heat-js div.days-contents div.days div.y-labels {
-  background-color: var(--heat-js-container-background-color);
-  padding-right: calc(var(--heat-js-spacing) * 3);
-  padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
-  position: sticky;
-  left: 0;
-  display: none;
-  border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-  z-index: 50;
-}
-@media (min-width: 768px) {
-  div.heat-js div.days-contents div.days div.y-labels {
-    display: block;
-  }
-}
-div.heat-js div.days-contents div.days div.y-labels div.label-0,
-div.heat-js div.days-contents div.days div.y-labels div.label-25,
-div.heat-js div.days-contents div.days div.y-labels div.label-50,
-div.heat-js div.days-contents div.days div.y-labels div.label-75,
-div.heat-js div.days-contents div.days div.y-labels div.label-100 {
-  font-weight: var(--heat-js-text-bold-weight);
-  text-align: left !important;
-  height: var(--heat-js-day-size);
-  display: inline-flex;
-  justify-content: center;
-  flex-direction: column;
-  position: absolute;
-  left: 0;
-  padding-right: var(--heat-js-spacing);
-}
-div.heat-js div.days-contents div.days div.y-labels div.label-0 {
-  top: 0;
-}
-div.heat-js div.days-contents div.days div.y-labels div.label-25 {
-  top: 25%;
-  transform: translateY(-25%);
-}
-div.heat-js div.days-contents div.days div.y-labels div.label-50 {
-  top: 50%;
-  transform: translateY(-50%);
-}
-div.heat-js div.days-contents div.days div.y-labels div.label-75 {
-  top: 75%;
-  transform: translateY(-75%);
-}
-div.heat-js div.days-contents div.days div.y-labels div.label-100 {
-  bottom: 0;
-}
-div.heat-js div.days-contents div.days div.day-lines {
-  display: flex;
-  align-items: baseline;
-  flex: 1;
-  border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-  justify-content: space-between;
-}
-div.heat-js div.days-contents div.days div.day-lines div.day-line-number {
-  font-size: var(--heat-js-spacing-day-font-size);
-  padding: calc(var(--heat-js-spacing) / 2);
-  position: relative;
-  overflow: hidden;
-}
-div.heat-js div.days-contents div.days div.day-lines div.day-line-number div.count {
-  position: absolute;
-  top: calc(var(--heat-js-spacing) / 2);
-  left: 50%;
-  transform: translateX(-50%);
-}
-div.heat-js div.days-contents div.days div.day-lines div.day-line {
-  border-top-left-radius: var(--heat-js-border-radius-day);
-  border-top-right-radius: var(--heat-js-border-radius-day);
-  background-color: var(--heat-js-day-background-color);
-  border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
-  border-bottom: none !important;
-  vertical-align: bottom;
-  flex: 1 100%;
-  margin-right: var(--heat-js-spacing);
-  display: inline-block;
-  transition: var(--heat-js-transition);
-}
-@media (min-width: 768px) {
-  div.heat-js div.days-contents div.days div.day-lines div.day-line:first-child {
-    margin-left: calc(var(--heat-js-spacing) / 2);
-  }
-}
-div.heat-js div.days-contents div.days div.day-lines div.day-line:last-child {
-  margin-right: 0;
-}
-div.heat-js div.days-contents div.days div.day-lines div.day-line:not(.no-hover):hover {
-  cursor: pointer;
-  background: var(--heat-js-day-background-color-hover);
-}
-div.heat-js div.days-contents div.day-ranges {
-  display: flex;
-  flex: 1;
-  position: relative;
-  justify-content: space-between;
-  align-items: baseline;
-  height: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 3px);
-}
-div.heat-js div.days-contents div.day-ranges div.day-name {
-  flex: 1 100%;
-  margin-top: var(--heat-js-spacing);
-  font-weight: var(--heat-js-text-bold-weight);
-  text-align: center !important;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/*
-    -------------------------------------------------------------------------
     Heat.js - Chart
     -------------------------------------------------------------------------
 */
@@ -850,6 +719,133 @@ div.heat-js div.chart-contents div.chart-months div.month-name-space {
   top: 0;
   position: sticky;
   background-color: var(--heat-js-container-background-color);
+}
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Days
+    -------------------------------------------------------------------------
+*/
+div.heat-js div.days-contents {
+  display: flex;
+  overflow: hidden;
+  text-wrap: nowrap;
+  white-space: nowrap;
+  position: relative;
+}
+div.heat-js div.days-contents div.no-days-message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: var(--heat-js-text-bold-weight);
+}
+div.heat-js div.days-contents div.days {
+  display: flex;
+  flex-direction: row;
+}
+div.heat-js div.days-contents div.days div.y-labels {
+  background-color: var(--heat-js-container-background-color);
+  padding-right: calc(var(--heat-js-spacing) * 3);
+  padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
+  position: sticky;
+  left: 0;
+  display: none;
+  border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+  z-index: 50;
+}
+@media (min-width: 768px) {
+  div.heat-js div.days-contents div.days div.y-labels {
+    display: block;
+  }
+}
+div.heat-js div.days-contents div.days div.y-labels div.label-0,
+div.heat-js div.days-contents div.days div.y-labels div.label-25,
+div.heat-js div.days-contents div.days div.y-labels div.label-50,
+div.heat-js div.days-contents div.days div.y-labels div.label-75,
+div.heat-js div.days-contents div.days div.y-labels div.label-100 {
+  font-weight: var(--heat-js-text-bold-weight);
+  text-align: left !important;
+  height: var(--heat-js-day-size);
+  display: inline-flex;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  padding-right: var(--heat-js-spacing);
+}
+div.heat-js div.days-contents div.days div.y-labels div.label-0 {
+  top: 0;
+}
+div.heat-js div.days-contents div.days div.y-labels div.label-25 {
+  top: 25%;
+  transform: translateY(-25%);
+}
+div.heat-js div.days-contents div.days div.y-labels div.label-50 {
+  top: 50%;
+  transform: translateY(-50%);
+}
+div.heat-js div.days-contents div.days div.y-labels div.label-75 {
+  top: 75%;
+  transform: translateY(-75%);
+}
+div.heat-js div.days-contents div.days div.y-labels div.label-100 {
+  bottom: 0;
+}
+div.heat-js div.days-contents div.days div.day-lines {
+  display: flex;
+  align-items: baseline;
+  flex: 1;
+  border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+  justify-content: space-between;
+}
+div.heat-js div.days-contents div.days div.day-lines div.day-line-number {
+  font-size: var(--heat-js-spacing-day-font-size);
+  padding: calc(var(--heat-js-spacing) / 2);
+  position: relative;
+  overflow: hidden;
+}
+div.heat-js div.days-contents div.days div.day-lines div.day-line-number div.count {
+  position: absolute;
+  top: calc(var(--heat-js-spacing) / 2);
+  left: 50%;
+  transform: translateX(-50%);
+}
+div.heat-js div.days-contents div.days div.day-lines div.day-line {
+  border-top-left-radius: var(--heat-js-border-radius-day);
+  border-top-right-radius: var(--heat-js-border-radius-day);
+  background-color: var(--heat-js-day-color-4-border-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+  border-bottom: none !important;
+  vertical-align: bottom;
+  flex: 1 100%;
+  margin-right: var(--heat-js-spacing);
+  display: inline-block;
+  transition: var(--heat-js-transition);
+}
+@media (min-width: 768px) {
+  div.heat-js div.days-contents div.days div.day-lines div.day-line:first-child {
+    margin-left: calc(var(--heat-js-spacing) / 2);
+  }
+}
+div.heat-js div.days-contents div.days div.day-lines div.day-line:last-child {
+  margin-right: 0;
+}
+div.heat-js div.days-contents div.day-names {
+  display: flex;
+  flex: 1;
+  position: relative;
+  justify-content: space-between;
+  align-items: baseline;
+  height: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 3px);
+}
+div.heat-js div.days-contents div.day-names div.day-name {
+  flex: 1 100%;
+  margin-top: var(--heat-js-spacing);
+  font-weight: var(--heat-js-text-bold-weight);
+  text-align: center !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /*

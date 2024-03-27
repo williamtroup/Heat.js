@@ -1107,10 +1107,10 @@
     }
 
     function renderControlDays( bindingOptions, isForViewSwitch ) {
-        var days = createElement( bindingOptions.currentView.daysContents, "div", "day" ),
-            dayRanges = createElement( bindingOptions.currentView.daysContents, "div", "day-ranges" ),
+        var days = createElement( bindingOptions.currentView.daysContents, "div", "days" ),
+            dayNames = createElement( bindingOptions.currentView.daysContents, "div", "day-names" ),
             labels = createElement( days, "div", "y-labels" ),
-            rangeLines = createElement( days, "div", "range-lines" ),
+            dayLines = createElement( days, "div", "day-lines" ),
             dayValuesForCurrentYear = getLargestValuesForEachDay( bindingOptions );
 
         if ( isForViewSwitch ) {
@@ -1125,7 +1125,7 @@
             createElementWithHTML( labels, "div", "label-100", _string.zero );
 
             labels.style.width = topLabel.offsetWidth + "px";
-            dayRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true ) + "px";
+            dayNames.style.paddingLeft = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true ) + "px";
 
         } else {
             labels.parentNode.removeChild( labels );
@@ -1135,7 +1135,7 @@
         if ( dayValuesForCurrentYear.largestValue === 0 ) {
             bindingOptions.currentView.daysContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
             days.parentNode.removeChild( days );
-            dayRanges.parentNode.removeChild( dayRanges );
+            dayNames.parentNode.removeChild( dayNames );
 
             var noDataMessage = createElementWithHTML( bindingOptions.currentView.daysContents, "div", "no-days-message", _configuration.noDaysDataMessage );
 
@@ -1144,9 +1144,45 @@
             }
 
         } else {
+            var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / dayValuesForCurrentYear.largestValue;
+
+            for ( var day in dayValuesForCurrentYear.days ) {
+                if ( dayValuesForCurrentYear.days.hasOwnProperty( day ) ) {
+                    renderControlDaysDayLine( dayLines, dayValuesForCurrentYear.days[ day ], bindingOptions, pixelsPerNumbers );
+
+                    if ( bindingOptions.views.days.showDayNames ) {
+                        createElementWithHTML( dayNames, "div", "day-name", _configuration.dayNames[ day - 1 ] );
+                    }
+                }
+            }
+
+            if ( bindingOptions.views.days.showInReverseOrder ) {
+                reverseElementsOrder( dayLines );
+                reverseElementsOrder( dayNames );
+            }
+
             if ( bindingOptions.keepScrollPositions ) {
                 bindingOptions.currentView.daysContents.scrollLeft = bindingOptions.currentView.daysContentsScrollLeft;
             }
+        }
+    }
+
+    function renderControlDaysDayLine( dayLines, dayCount, bindingOptions, pixelsPerNumbers ) {
+        var dayLine = createElement( dayLines, "div", "day-line" ),
+            dayLineHeight = dayCount * pixelsPerNumbers;
+
+        dayLine.style.height = dayLineHeight + "px";
+
+        if ( dayLineHeight <= 0 ) {
+            dayLine.style.visibility = "hidden";
+        }
+        
+        addToolTip( dayLine, bindingOptions, dayCount.toString() );
+
+        if ( bindingOptions.views.days.showDayNumbers && dayCount > 0 ) {
+            addClass( dayLine, "day-line-number" );
+
+            createElementWithHTML( dayLine, "div", "count", dayCount );
         }
     }
 
@@ -1173,7 +1209,7 @@
                 if ( data.hasOwnProperty( storageDate ) ) {
                     var storageDateParts = getStorageDate( storageDate ),
                         storageDateObject = new Date( storageDateParts[ 2 ], storageDateParts[ 1 ], storageDateParts[ 0 ] ),
-                        weekDayNumber = getWeekdayNumber( storageDateObject );
+                        weekDayNumber = getWeekdayNumber( storageDateObject ) + 1;
 
                     if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views.days.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.days.daysToShow, weekDayNumber ) ) {
                         days[ weekDayNumber ] += data[ storageDate ];
@@ -1328,7 +1364,7 @@
                 if ( data.hasOwnProperty( storageDate ) ) {
                     var storageDateParts = getStorageDate( storageDate ),
                         storageDateObject = new Date( storageDateParts[ 2 ], storageDateParts[ 1 ], storageDateParts[ 0 ] ),
-                        weekDayNumber = getWeekdayNumber( storageDateObject );
+                        weekDayNumber = getWeekdayNumber( storageDateObject ) + 1;
 
                     if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.statistics.daysToShow, weekDayNumber ) ) {
                         var useColorRange = getColorRange( bindingOptions, colorRanges, data[ storageDate ] );
@@ -2350,6 +2386,8 @@
         options.views.days.enabled = getDefaultBoolean( options.views.days.enabled, true );
         options.views.days.showChartYLabels = getDefaultBoolean( options.views.days.showChartYLabels, true );
         options.views.days.showDayNames = getDefaultBoolean( options.views.days.showDayNames, true );
+        options.views.days.showInReverseOrder = getDefaultBoolean( options.views.days.showInReverseOrder, false );
+        options.views.days.showDayNumbers = getDefaultBoolean( options.views.days.showDayNumbers, false );
 
         if ( isInvalidOptionArray( options.views.days.monthsToShow ) ) {
             options.views.days.monthsToShow = _default_MonthsToShow;
