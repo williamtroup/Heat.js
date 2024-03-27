@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Configurare",
         "visibleMonthsText": "Luni vizibile",
         "visibleDaysText": "Zile vizibile",
+        "dataText": "Date",
+        "colorRangesText": "Game de culori",
+        "yearText": "An",
+        "daysText": "Zile",
+        "noDaysDataMessage": "Momentan nu există zile pentru vizualizare.",
         "monthNames": [
                 "ian",
                 "feb",

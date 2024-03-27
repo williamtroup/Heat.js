@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Configuration",
         "visibleMonthsText": "Mga Nakikitang Buwan",
         "visibleDaysText": "Mga Nakikitang Araw",
+        "dataText": "Data",
+        "colorRangesText": "Mga Saklaw ng Kulay",
+        "yearText": "taon",
+        "daysText": "Mga araw",
+        "noDaysDataMessage": "Kasalukuyang walang mga araw upang tingnan.",
         "monthNames": [
                 "Jan",
                 "Feb",

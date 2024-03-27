@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "კონფიგურაცია",
         "visibleMonthsText": "ხილული თვეები",
         "visibleDaysText": "ხილული დღეები",
+        "dataText": "მონაცემები",
+        "colorRangesText": "ფერის დიაპაზონი",
+        "yearText": "წელიწადი",
+        "daysText": "დღეები",
+        "noDaysDataMessage": "ამჟამად არ არის სანახავი დღეები.",
         "monthNames": [
                 "იან",
                 "თებ",

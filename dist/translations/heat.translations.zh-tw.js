@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "配置",
         "visibleMonthsText": "可見月份",
         "visibleDaysText": "可見天數",
+        "dataText": "數據",
+        "colorRangesText": "色彩範圍",
+        "yearText": "年",
+        "daysText": "天",
+        "noDaysDataMessage": "目前沒有可查看的日期。",
         "monthNames": [
                 "揚",
                 "二月",

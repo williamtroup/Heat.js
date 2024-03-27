@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Konfiguracija",
         "visibleMonthsText": "Vidni meseci",
         "visibleDaysText": "Vidni dnevi",
+        "dataText": "podatki",
+        "colorRangesText": "Barvni razponi",
+        "yearText": "leto",
+        "daysText": "Dnevi",
+        "noDaysDataMessage": "Trenutno ni dni za ogled.",
         "monthNames": [
                 "Jan",
                 "feb",

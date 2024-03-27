@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Yapılandırma",
         "visibleMonthsText": "Görünür Aylar",
         "visibleDaysText": "Görünür Günler",
+        "dataText": "Veri",
+        "colorRangesText": "Renk Aralıkları",
+        "yearText": "Yıl",
+        "daysText": "Günler",
+        "noDaysDataMessage": "Şu anda görüntülenecek gün yok.",
         "monthNames": [
                 "Ocak",
                 "Şubat",

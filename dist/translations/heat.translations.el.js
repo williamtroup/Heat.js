@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Διαμόρφωση",
         "visibleMonthsText": "Ορατοί Μήνες",
         "visibleDaysText": "Ορατές μέρες",
+        "dataText": "Δεδομένα",
+        "colorRangesText": "Σειρές χρωμάτων",
+        "yearText": "Ετος",
+        "daysText": "Ημέρες",
+        "noDaysDataMessage": "Προς το παρόν δεν υπάρχουν μέρες για προβολή.",
         "monthNames": [
                 "Ιαν",
                 "Φεβ",

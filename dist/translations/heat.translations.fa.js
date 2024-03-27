@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "پیکربندی",
         "visibleMonthsText": "ماه های قابل مشاهده",
         "visibleDaysText": "روزهای قابل مشاهده",
+        "dataText": "داده ها",
+        "colorRangesText": "محدوده رنگ",
+        "yearText": "سال",
+        "daysText": "روزها",
+        "noDaysDataMessage": "در حال حاضر هیچ روزی برای مشاهده وجود ندارد.",
         "monthNames": [
                 "ژان",
                 "فوریه",

@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Канфігурацыя",
         "visibleMonthsText": "Бачныя месяцы",
         "visibleDaysText": "Бачныя дні",
+        "dataText": "даныя",
+        "colorRangesText": "Каляровыя дыяпазоны",
+        "yearText": "год",
+        "daysText": "дзён",
+        "noDaysDataMessage": "Зараз няма дзён для прагляду.",
         "monthNames": [
                 "Ян",
                 "люты",

@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Konfigūracija",
         "visibleMonthsText": "Matomi mėnesiai",
         "visibleDaysText": "Matomos dienos",
+        "dataText": "Duomenys",
+        "colorRangesText": "Spalvų diapazonai",
+        "yearText": "Metai",
+        "daysText": "Dienos",
+        "noDaysDataMessage": "Šiuo metu nėra dienų, kurias būtų galima peržiūrėti.",
         "monthNames": [
                 "sausio mėn",
                 "vasario mėn",

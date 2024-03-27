@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Konfiguráció",
         "visibleMonthsText": "Látható hónapok",
         "visibleDaysText": "Látható napok",
+        "dataText": "Adat",
+        "colorRangesText": "Színtartományok",
+        "yearText": "Év",
+        "daysText": "Napok",
+        "noDaysDataMessage": "Jelenleg nincs megtekintési nap.",
         "monthNames": [
                 "jan",
                 "Február",

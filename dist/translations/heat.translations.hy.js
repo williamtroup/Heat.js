@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Կոնֆիգուրացիա",
         "visibleMonthsText": "Տեսանելի ամիսներ",
         "visibleDaysText": "Տեսանելի օրեր",
+        "dataText": "Տվյալներ",
+        "colorRangesText": "Գույնի միջակայքեր",
+        "yearText": "Տարի",
+        "daysText": "Օրեր",
+        "noDaysDataMessage": "Ներկայումս դիտելու օրեր չկան:",
         "monthNames": [
                 "հուն",
                 "փետր",

@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "கட்டமைப்பு",
         "visibleMonthsText": "காணக்கூடிய மாதங்கள்",
         "visibleDaysText": "காணக்கூடிய நாட்கள்",
+        "dataText": "தகவல்கள்",
+        "colorRangesText": "வண்ண வரம்புகள்",
+        "yearText": "ஆண்டு",
+        "daysText": "நாட்களில்",
+        "noDaysDataMessage": "தற்போது பார்க்க நாட்கள் இல்லை.",
         "monthNames": [
                 "ஜன",
                 "பிப்",

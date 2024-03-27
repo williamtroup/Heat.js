@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Cumraíocht",
         "visibleMonthsText": "Míonna Infheicthe",
         "visibleDaysText": "Laethanta Infheicthe",
+        "dataText": "Sonraí",
+        "colorRangesText": "Raonta Dath",
+        "yearText": "Bliain",
+        "daysText": "Laethanta",
+        "noDaysDataMessage": "Níl aon laethanta le féachaint faoi láthair.",
         "monthNames": [
                 "Ean",
                 "Feabh",

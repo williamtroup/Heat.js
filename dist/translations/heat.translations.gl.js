@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Configuración",
         "visibleMonthsText": "Meses visibles",
         "visibleDaysText": "Días visibles",
+        "dataText": "Datos",
+        "colorRangesText": "Gamas de cores",
+        "yearText": "Ano",
+        "daysText": "Días",
+        "noDaysDataMessage": "Actualmente non hai días para ver.",
         "monthNames": [
                 "Xaneiro",
                 "febreiro",

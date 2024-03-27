@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "構成",
         "visibleMonthsText": "表示可能な月",
         "visibleDaysText": "見える日",
+        "dataText": "データ",
+        "colorRangesText": "色の範囲",
+        "yearText": "年",
+        "daysText": "日々",
+        "noDaysDataMessage": "現在閲覧できる日はありません。",
         "monthNames": [
                 "1月",
                 "2月",

@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Aufbau",
         "visibleMonthsText": "Sichtbare Monate",
         "visibleDaysText": "Sichtbare Tage",
+        "dataText": "Daten",
+        "colorRangesText": "Farbbereiche",
+        "yearText": "Jahr",
+        "daysText": "Tage",
+        "noDaysDataMessage": "Derzeit sind keine Tage zur Ansicht vorhanden.",
         "monthNames": [
                 "Jan",
                 "Feb",

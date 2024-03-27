@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Kokoonpano",
         "visibleMonthsText": "Näkyvät kuukaudet",
         "visibleDaysText": "Näkyviä päiviä",
+        "dataText": "Data",
+        "colorRangesText": "Värialueet",
+        "yearText": "vuosi",
+        "daysText": "päivää",
+        "noDaysDataMessage": "Tällä hetkellä ei ole päiviä katsottavaksi.",
         "monthNames": [
                 "tammikuu",
                 "helmikuuta",

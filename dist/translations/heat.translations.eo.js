@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Agordo",
         "visibleMonthsText": "Videblaj Monatoj",
         "visibleDaysText": "Videblaj Tagoj",
+        "dataText": "Datumoj",
+        "colorRangesText": "Koloraj Gamoj",
+        "yearText": "Jaro",
+        "daysText": "Tagoj",
+        "noDaysDataMessage": "Nuntempe ne estas tagoj por vidi.",
         "monthNames": [
                 "Jan",
                 "Feb",

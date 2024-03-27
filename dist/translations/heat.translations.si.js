@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "මානකරනය",
         "visibleMonthsText": "පෙනෙන මාස",
         "visibleDaysText": "පෙනෙන දින",
+        "dataText": "දත්ත",
+        "colorRangesText": "වර්ණ පරාසයන්",
+        "yearText": "අවුරුදු",
+        "daysText": "දින",
+        "noDaysDataMessage": "දැනට නැරඹීමට දින නොමැත.",
         "monthNames": [
                 "ජන",
                 "පෙබ",

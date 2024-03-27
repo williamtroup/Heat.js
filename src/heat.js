@@ -3781,7 +3781,6 @@
         _configuration.configurationTitleText = getDefaultString( _configuration.configurationTitleText, "Configuration" );
         _configuration.visibleMonthsText = getDefaultString( _configuration.visibleMonthsText, "Visible Months" );
         _configuration.visibleDaysText = getDefaultString( _configuration.visibleDaysText, "Visible Days" );
-
         _configuration.dataText = getDefaultString( _configuration.dataText, "Data" );
         _configuration.colorRangesText = getDefaultString( _configuration.colorRangesText, "Color Ranges" );
         _configuration.yearText = getDefaultString( _configuration.yearText, "Year" );

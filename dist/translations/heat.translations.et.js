@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Seadistamine",
         "visibleMonthsText": "Nähtavad kuud",
         "visibleDaysText": "Nähtavad päevad",
+        "dataText": "Andmed",
+        "colorRangesText": "Värvivahemikud",
+        "yearText": "aasta",
+        "daysText": "Päevad",
+        "noDaysDataMessage": "Praegu pole vaatamiseks päevi.",
         "monthNames": [
                 "jaan",
                 "veebr",

@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Konfigurácia",
         "visibleMonthsText": "Viditeľné mesiace",
         "visibleDaysText": "Viditeľné dni",
+        "dataText": "Údaje",
+        "colorRangesText": "Farebné rozsahy",
+        "yearText": "rok",
+        "daysText": "Dni",
+        "noDaysDataMessage": "Momentálne nie sú k dispozícii žiadne dni na zobrazenie.",
         "monthNames": [
                 "Jan",
                 "feb",

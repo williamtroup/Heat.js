@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Configuratie",
         "visibleMonthsText": "Zichtbare maanden",
         "visibleDaysText": "Zichtbare dagen",
+        "dataText": "Gegevens",
+        "colorRangesText": "Kleurbereiken",
+        "yearText": "Jaar",
+        "daysText": "Dagen",
+        "noDaysDataMessage": "Er zijn momenteel geen kijkdagen.",
         "monthNames": [
                 "jan",
                 "februari",

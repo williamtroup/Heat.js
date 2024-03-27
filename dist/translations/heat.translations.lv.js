@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Konfigurācija",
         "visibleMonthsText": "Redzamie mēneši",
         "visibleDaysText": "Redzamās dienas",
+        "dataText": "Dati",
+        "colorRangesText": "Krāsu diapazoni",
+        "yearText": "gads",
+        "daysText": "Dienas",
+        "noDaysDataMessage": "Pašlaik nav dienu, ko skatīt.",
         "monthNames": [
                 "janvāris",
                 "febr",

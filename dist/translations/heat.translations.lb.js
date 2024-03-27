@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "Configuratioun",
         "visibleMonthsText": "Siichtbar Méint",
         "visibleDaysText": "Siichtbar Deeg",
+        "dataText": "Daten",
+        "colorRangesText": "Faarf Ranges",
+        "yearText": "Joer",
+        "daysText": "Deeg",
+        "noDaysDataMessage": "Et gi momentan keng Deeg fir ze kucken.",
         "monthNames": [
                 "Jan",
                 "Feb",

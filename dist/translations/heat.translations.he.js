@@ -28,6 +28,11 @@ $heat.setConfiguration( {
         "configurationTitleText": "תְצוּרָה",
         "visibleMonthsText": "חודשים גלויים",
         "visibleDaysText": "ימים גלויים",
+        "dataText": "נתונים",
+        "colorRangesText": "טווחי צבעים",
+        "yearText": "שָׁנָה",
+        "daysText": "ימים",
+        "noDaysDataMessage": "כרגע אין ימים לצפייה.",
         "monthNames": [
                 "ינואר",
                 "פברואר",
