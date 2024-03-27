@@ -846,6 +846,15 @@ div.heat-js div.days-contents div.day-names div.day-name {
   text-align: center !important;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-right: var(--heat-js-spacing);
+}
+@media (min-width: 768px) {
+  div.heat-js div.days-contents div.day-names div.day-name:first-child {
+    margin-left: calc(var(--heat-js-spacing) / 2);
+  }
+}
+div.heat-js div.days-contents div.day-names div.day-name:last-child {
+  margin-right: 0;
 }
 
 /*
@@ -977,6 +986,15 @@ div.heat-js div.statistics-contents div.statistics-ranges div.range-name {
   text-align: center !important;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-right: var(--heat-js-spacing);
+}
+@media (min-width: 768px) {
+  div.heat-js div.statistics-contents div.statistics-ranges div.range-name:first-child {
+    margin-left: calc(var(--heat-js-spacing) / 2);
+  }
+}
+div.heat-js div.statistics-contents div.statistics-ranges div.range-name:last-child {
+  margin-right: 0;
 }
 
 /*

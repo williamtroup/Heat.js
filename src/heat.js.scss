@@ -858,6 +858,17 @@ div.heat-js {
                 text-align: center !important;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                margin-right: var(--heat-js-spacing);
+
+                @media (min-width: $minimum-width) { 
+                    &:first-child {
+                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                    }
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
             }
         }
     }
@@ -956,6 +967,17 @@ div.heat-js {
                 text-align: center !important;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                margin-right: var(--heat-js-spacing);
+
+                @media (min-width: $minimum-width) { 
+                    &:first-child {
+                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                    }
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
             }
         }
     }
