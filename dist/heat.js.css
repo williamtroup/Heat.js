@@ -44,9 +44,6 @@
   --heat-js-day-opacity-active: 0.5;
   --heat-js-day-size: 1.1rem;
   --heat-js-day-chart-width: 10px;
-  --heat-js-view-days-background-color: rgba( 80, 200, 120, 1 );
-  --heat-js-view-days-border-color: rgba( 80, 200, 120, 0.75 );
-  --heat-js-view-days-text-color: var(--heat-js-color-black);
   --heat-js-day-color-1-background-color: rgba( 80, 200, 120, 0.25 );
   --heat-js-day-color-1-border-color: rgba( 80, 200, 120, 0.15 );
   --heat-js-day-color-1-text-color: var(--heat-js-color-white);
@@ -59,6 +56,9 @@
   --heat-js-day-color-4-background-color: rgba( 80, 200, 120, 1 );
   --heat-js-day-color-4-border-color: rgba( 80, 200, 120, 0.75 );
   --heat-js-day-color-4-text-color: var(--heat-js-color-black);
+  --heat-js-view-days-background-color: var(--heat-js-day-color-4-background-color);
+  --heat-js-view-days-border-color: var(--heat-js-day-color-4-border-color);
+  --heat-js-view-days-text-color: var(--heat-js-day-color-4-text-color);
   --heat-js-button-background-color: var(--heat-js-day-background-color);
   --heat-js-button-border-color: var(--heat-js-container-border-color);
   --heat-js-button-text-color: var(--heat-js-color-white);
@@ -279,6 +279,7 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu {
   overflow-y: scroll;
 }
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-header {
+  color: var(--heat-js-color-white);
   font-weight: var(--heat-js-title-bold-weight);
   padding: var(--heat-js-spacing);
   padding-right: calc(var(--heat-js-spacing) * 3);
