@@ -836,6 +836,10 @@ div.heat-js div.days-contents div.days div.day-lines div.day-line {
 div.heat-js div.days-contents div.days div.day-lines div.day-line:last-child {
   margin-right: 0;
 }
+div.heat-js div.days-contents div.days div.day-lines div.day-line:not(.no-hover):hover {
+  cursor: pointer;
+  opacity: var(--heat-js-day-opacity-hover);
+}
 div.heat-js div.days-contents div.day-names {
   display: flex;
   flex: 1;

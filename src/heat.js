@@ -1155,7 +1155,7 @@
 
             for ( var day in dayValuesForCurrentYear.days ) {
                 if ( dayValuesForCurrentYear.days.hasOwnProperty( day ) ) {
-                    renderControlDaysDayLine( dayLines, dayValuesForCurrentYear.days[ day ], bindingOptions, pixelsPerNumbers );
+                    renderControlDaysDayLine( dayLines, day, dayValuesForCurrentYear.days[ day ], bindingOptions, pixelsPerNumbers );
 
                     if ( bindingOptions.views.days.showDayNames ) {
                         createElementWithHTML( dayNames, "div", "day-name", _configuration.dayNames[ day - 1 ] );
@@ -1174,7 +1174,7 @@
         }
     }
 
-    function renderControlDaysDayLine( dayLines, dayCount, bindingOptions, pixelsPerNumbers ) {
+    function renderControlDaysDayLine( dayLines, dayNumber, dayCount, bindingOptions, pixelsPerNumbers ) {
         var dayLine = createElement( dayLines, "div", "day-line" ),
             dayLineHeight = dayCount * pixelsPerNumbers;
 
@@ -1185,6 +1185,15 @@
         }
         
         addToolTip( dayLine, bindingOptions, dayCount.toString() );
+
+        if ( isDefinedFunction( bindingOptions.onWeekDayClick ) ) {
+            dayLine.onclick = function() {
+                fireCustomTrigger( bindingOptions.onWeekDayClick, dayNumber, dayCount );
+            };
+
+        } else {
+            addClass( dayLine, "no-hover" );
+        }
 
         if ( bindingOptions.views.days.showDayNumbers && dayCount > 0 ) {
             addClass( dayLine, "day-line-number" );
@@ -2457,6 +2466,7 @@
         options.onClear = getDefaultFunction( options.onClear, null );
         options.onUpdate = getDefaultFunction( options.onUpdate, null );
         options.onOptionsUpdate = getDefaultFunction( options.onOptionsUpdate, null );
+        options.onWeekDayClick = getDefaultFunction( options.onWeekDayClick, null );
 
         return options;
     }
