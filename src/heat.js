@@ -516,7 +516,7 @@
             var titleBar = createElement( bindingOptions.currentView.element, "div", "title-bar" ),
                 title = createElement( titleBar, "div", "title" );
 
-            if ( bindingOptions.views.chart.enabled || bindingOptions.views.statistics.enabled ) {
+            if ( bindingOptions.views.chart.enabled || bindingOptions.views.days.enabled || bindingOptions.views.statistics.enabled ) {
                 createElement( title, "div", "down-arrow" );
             } else {
                 addClass( title, "no-click" );
@@ -526,7 +526,7 @@
                 title.innerHTML += bindingOptions.titleText;
             }
 
-            if ( bindingOptions.views.chart.enabled || bindingOptions.views.statistics.enabled ) {
+            if ( bindingOptions.views.chart.enabled || bindingOptions.views.days.enabled || bindingOptions.views.statistics.enabled ) {
                 renderTitleDropDownMenu( bindingOptions, title );
             }
 
