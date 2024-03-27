@@ -1107,13 +1107,87 @@
     }
 
     function renderControlDays( bindingOptions, isForViewSwitch ) {
-        var days = createElement( bindingOptions.currentView.daysContents, "div", "days" );
-
-        bindingOptions.currentView.daysContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
+        var days = createElement( bindingOptions.currentView.daysContents, "div", "day" ),
+            dayRanges = createElement( bindingOptions.currentView.daysContents, "div", "day-ranges" ),
+            labels = createElement( days, "div", "y-labels" ),
+            rangeLines = createElement( days, "div", "range-lines" ),
+            dayValuesForCurrentYear = getLargestValuesForEachDay( bindingOptions );
 
         if ( isForViewSwitch ) {
             addClass( days, "view-switch" );
         }
+
+        if ( dayValuesForCurrentYear.largestValue > 0 && bindingOptions.views.days.showChartYLabels ) {
+            var topLabel = createElementWithHTML( labels, "div", "label-0", dayValuesForCurrentYear.largestValue.toString() );
+            createElementWithHTML( labels, "div", "label-25", ( _parameter_Math.floor( dayValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
+            createElementWithHTML( labels, "div", "label-50", _parameter_Math.floor( dayValuesForCurrentYear.largestValue / 2 ).toString() );
+            createElementWithHTML( labels, "div", "label-75", _parameter_Math.floor( dayValuesForCurrentYear.largestValue / 4 ).toString() );
+            createElementWithHTML( labels, "div", "label-100", _string.zero );
+
+            labels.style.width = topLabel.offsetWidth + "px";
+            dayRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true ) + "px";
+
+        } else {
+            labels.parentNode.removeChild( labels );
+            labels = null;
+        }
+
+        if ( dayValuesForCurrentYear.largestValue === 0 ) {
+            bindingOptions.currentView.daysContents.style.minHeight = bindingOptions.currentView.mapContents.offsetHeight + "px";
+            days.parentNode.removeChild( days );
+            dayRanges.parentNode.removeChild( dayRanges );
+
+            var noDataMessage = createElementWithHTML( bindingOptions.currentView.daysContents, "div", "no-days-message", _configuration.noDaysDataMessage );
+
+            if ( isForViewSwitch ) {
+                addClass( noDataMessage, "view-switch" );
+            }
+
+        } else {
+            if ( bindingOptions.keepScrollPositions ) {
+                bindingOptions.currentView.daysContents.scrollLeft = bindingOptions.currentView.daysContentsScrollLeft;
+            }
+        }
+    }
+
+    function getLargestValuesForEachDay( bindingOptions ) {
+        var largestValue = 0,
+            data = getCurrentViewData( bindingOptions );
+
+        var days = {
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+            6: 0,
+            7: 0,
+        };
+
+        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+            var totalDaysInMonth = getTotalDaysInMonth( bindingOptions.currentView.year, monthIndex );
+    
+            for ( var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                var storageDate = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
+
+                if ( data.hasOwnProperty( storageDate ) ) {
+                    var storageDateParts = getStorageDate( storageDate ),
+                        storageDateObject = new Date( storageDateParts[ 2 ], storageDateParts[ 1 ], storageDateParts[ 0 ] ),
+                        weekDayNumber = getWeekdayNumber( storageDateObject );
+
+                    if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views.days.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.days.daysToShow, weekDayNumber ) ) {
+                        days[ weekDayNumber ] += data[ storageDate ];
+
+                        largestValue = _parameter_Math.max( largestValue, days[ weekDayNumber ] );
+                    }
+                }
+            }
+        }
+
+        return {
+            days: days,
+            largestValue: largestValue
+        };
     }
 
 
@@ -2274,6 +2348,8 @@
     function buildAttributeOptionDaysView( options ) {
         options.views.days = !isDefinedObject( options.views.days ) ? {} : options.views.days;
         options.views.days.enabled = getDefaultBoolean( options.views.days.enabled, true );
+        options.views.days.showChartYLabels = getDefaultBoolean( options.views.days.showChartYLabels, true );
+        options.views.days.showDayNames = getDefaultBoolean( options.views.days.showDayNames, true );
 
         if ( isInvalidOptionArray( options.views.days.monthsToShow ) ) {
             options.views.days.monthsToShow = _default_MonthsToShow;
@@ -3672,6 +3748,7 @@
         _configuration.colorRangesText = getDefaultString( _configuration.colorRangesText, "Color Ranges" );
         _configuration.yearText = getDefaultString( _configuration.yearText, "Year" );
         _configuration.daysText = getDefaultString( _configuration.daysText, "Days" );
+        _configuration.noDaysDataMessage = getDefaultString( _configuration.noDaysDataMessage, "There are currently no days to view." );
     }
 
     function buildDefaultConfigurationArrays() {
