@@ -1154,7 +1154,7 @@
             var pixelsPerNumbers = bindingOptions.currentView.mapContents.offsetHeight / dayValuesForCurrentYear.largestValue;
 
             for ( var day in dayValuesForCurrentYear.days ) {
-                if ( dayValuesForCurrentYear.days.hasOwnProperty( day ) ) {
+                if ( dayValuesForCurrentYear.days.hasOwnProperty( day ) && isDayVisible( bindingOptions.views.days.daysToShow, parseInt( day ) ) ) {
                     renderControlDaysDayLine( dayLines, day, dayValuesForCurrentYear.days[ day ], bindingOptions, pixelsPerNumbers );
 
                     if ( bindingOptions.views.days.showDayNames ) {
