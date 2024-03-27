@@ -194,6 +194,9 @@
     } else if (bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart) {
       daysToShow = bindingOptions.views.chart.daysToShow;
       monthsToShow = bindingOptions.views.chart.monthsToShow;
+    } else if (bindingOptions.views.days.enabled && bindingOptions.currentView.view === _elements_View_Days) {
+      daysToShow = bindingOptions.views.days.daysToShow;
+      monthsToShow = bindingOptions.views.days.monthsToShow;
     } else if (bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics) {
       daysToShow = bindingOptions.views.statistics.daysToShow;
       monthsToShow = bindingOptions.views.statistics.monthsToShow;
@@ -230,6 +233,8 @@
         bindingOptions.views.map.daysToShow = daysChecked;
       } else if (bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart) {
         bindingOptions.views.chart.daysToShow = daysChecked;
+      } else if (bindingOptions.views.days.enabled && bindingOptions.currentView.view === _elements_View_Days) {
+        bindingOptions.views.days.daysToShow = daysChecked;
       } else if (bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics) {
         bindingOptions.views.statistics.daysToShow = daysChecked;
       } else {
@@ -242,6 +247,8 @@
         bindingOptions.views.map.monthsToShow = monthsChecked;
       } else if (bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart) {
         bindingOptions.views.chart.monthsToShow = monthsChecked;
+      } else if (bindingOptions.views.days.enabled && bindingOptions.currentView.view === _elements_View_Days) {
+        bindingOptions.views.days.monthsToShow = monthsChecked;
       } else if (bindingOptions.views.statistics.enabled && bindingOptions.currentView.view === _elements_View_Statistics) {
         bindingOptions.views.statistics.monthsToShow = monthsChecked;
       } else {
