@@ -504,7 +504,7 @@ div.heat-js div.title-bar button.import {
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Map
+    Heat.js - View - Map
     -------------------------------------------------------------------------
 */
 div.heat-js div.map-contents {
@@ -614,7 +614,7 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Chart
+    Heat.js - View - Chart
     -------------------------------------------------------------------------
 */
 div.heat-js div.chart-contents {
@@ -745,7 +745,7 @@ div.heat-js div.chart-contents div.chart-months div.month-name-space {
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Days
+    Heat.js - View - Days
     -------------------------------------------------------------------------
 */
 div.heat-js div.days-contents {
@@ -886,7 +886,7 @@ div.heat-js div.days-contents div.day-names div.day-name:last-child {
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Statistics
+    Heat.js - View - Statistics
     -------------------------------------------------------------------------
 */
 div.heat-js div.statistics-contents {
