@@ -293,11 +293,23 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu di
   font-weight: var(--heat-js-text-bold-weight);
   padding: var(--heat-js-spacing);
   padding-right: calc(var(--heat-js-spacing) * 3);
-  padding-left: calc(var(--heat-js-spacing) * 2);
+  padding-left: calc(var(--heat-js-spacing) * 3);
   text-align: left;
   width: 100%;
   transition: var(--heat-js-transition);
   font-size: var(--heat-js-spacing-font-size) !important;
+  position: relative;
+}
+div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item::before {
+  content: "";
+  position: absolute;
+  left: var(--heat-js-spacing);
+  top: 50%;
+  transform: translate(0, -50%);
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  background-color: var(--heat-js-color-white);
 }
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item:not(.title-menu-item-active):active {
   opacity: 0.5 !important;
@@ -307,11 +319,17 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu di
   background-color: var(--heat-js-title-background-color-hover);
   color: var(--heat-js-title-text-color-hover);
 }
+div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item:not(.title-menu-item-active):hover::before {
+  background-color: var(--heat-js-title-text-color-hover);
+}
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item-active {
   background-color: var(--heat-js-title-background-color-hover);
   color: var(--heat-js-title-text-color-hover);
   font-weight: var(--heat-js-text-bold-weight-active);
   cursor: default !important;
+}
+div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item-active::before {
+  background-color: var(--heat-js-title-text-color-hover);
 }
 div.heat-js div.title-bar button {
   background-color: var(--heat-js-button-background-color);
