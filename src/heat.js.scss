@@ -305,6 +305,83 @@ div.heat-js {
         text-align: right;
         margin-bottom: calc( var(--heat-js-spacing) + var(--heat-js-spacing) / 2 );
 
+        @include buttons;
+
+        button.back {
+            margin-left: calc( var(--heat-js-spacing) * 2 ) !important;
+        }
+
+        button.export,
+        button.import {
+            margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
+        }
+
+        div.configure {
+            $button-size: 8.5px;
+
+            display: inline-block;
+            width: $button-size;
+            height: $button-size;
+            position: relative;
+            margin-right: var(--heat-js-spacing);
+            transition: var(--heat-js-transition);
+            
+            &:hover::before,
+            &:hover::after {
+                border-color: var(--heat-js-title-opener-text-color-hover);
+                cursor: pointer;
+            }
+
+            &::before {
+                content: "";
+                position: absolute;
+                height: $button-size;
+                width: $button-size;
+                border-color: var(--heat-js-color-white);
+                border-width: 2px;
+                border-style: solid;
+                transform: rotate( -45deg );
+                top: 0;
+                left: 0;
+                transition: var(--heat-js-transition);
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                height: $button-size;
+                width: $button-size;
+                border-color: var(--heat-js-color-white);
+                border-width: 2px;
+                border-style: solid;
+                transform: rotate( 90deg );
+                top: 0;
+                left: 0;
+                transition: var(--heat-js-transition);
+            }
+        }
+
+        button.export,
+        button.refresh,
+        button.import {
+            display: none;
+    
+            @media (min-width: $minimum-width) { 
+                display: inline-block;
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Title Bar - Title Drop-Down
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.title-bar {
         div.title {
             $title-margin: 3px;
 
@@ -408,63 +485,18 @@ div.heat-js {
                 }
             }
         }
+    }
+}
 
-        @include buttons;
 
-        button.back {
-            margin-left: calc( var(--heat-js-spacing) * 2 ) !important;
-        }
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Title Bar - Year Drop-Down
+    -------------------------------------------------------------------------
+*/
 
-        button.export,
-        button.import {
-            margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
-        }
-
-        div.configure {
-            $button-size: 8.5px;
-
-            display: inline-block;
-            width: $button-size;
-            height: $button-size;
-            position: relative;
-            margin-right: var(--heat-js-spacing);
-            transition: var(--heat-js-transition);
-            
-            &:hover::before,
-            &:hover::after {
-                border-color: var(--heat-js-title-opener-text-color-hover);
-                cursor: pointer;
-            }
-
-            &::before {
-                content: "";
-                position: absolute;
-                height: $button-size;
-                width: $button-size;
-                border-color: var(--heat-js-color-white);
-                border-width: 2px;
-                border-style: solid;
-                transform: rotate( -45deg );
-                top: 0;
-                left: 0;
-                transition: var(--heat-js-transition);
-            }
-
-            &::after {
-                content: "";
-                position: absolute;
-                height: $button-size;
-                width: $button-size;
-                border-color: var(--heat-js-color-white);
-                border-width: 2px;
-                border-style: solid;
-                transform: rotate( 90deg );
-                top: 0;
-                left: 0;
-                transition: var(--heat-js-transition);
-            }
-        }
-
+div.heat-js {
+    div.title-bar {
         div.year-text {
             $year-margin: 5px;
 
@@ -550,16 +582,6 @@ div.heat-js {
                         font-weight: var(--heat-js-text-bold-weight-active);
                     }
                 }
-            }
-        }
-
-        button.export,
-        button.refresh,
-        button.import {
-            display: none;
-    
-            @media (min-width: $minimum-width) { 
-                display: inline-block;
             }
         }
     }

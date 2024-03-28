@@ -235,6 +235,100 @@ div.heat-js div.title-bar {
   text-align: right;
   margin-bottom: calc(var(--heat-js-spacing) + var(--heat-js-spacing) / 2);
 }
+div.heat-js div.title-bar button {
+  background-color: var(--heat-js-button-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
+  color: var(--heat-js-button-text-color);
+  border-radius: var(--heat-js-border-radius);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 9px;
+  padding-right: 9px;
+  outline: none;
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.title-bar button:disabled {
+  color: var(--heat-js-button-border-color);
+}
+div.heat-js div.title-bar button:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-background-color-active) !important;
+  color: var(--heat-js-button-text-color-active) !important;
+}
+div.heat-js div.title-bar button:not(.active):not(:disabled):hover {
+  cursor: pointer;
+  background: var(--heat-js-button-background-color-hover);
+  color: var(--heat-js-button-text-color-hover);
+}
+div.heat-js div.title-bar button.active {
+  cursor: default;
+  background: var(--heat-js-button-background-color-hover);
+  color: var(--heat-js-button-text-color-hover);
+  transition: var(--heat-js-transition);
+  font-weight: var(--heat-js-text-bold-weight-active);
+}
+div.heat-js div.title-bar button.back {
+  margin-left: calc(var(--heat-js-spacing) * 2) !important;
+}
+div.heat-js div.title-bar button.export,
+div.heat-js div.title-bar button.import {
+  margin-right: calc(var(--heat-js-spacing) / 2) !important;
+}
+div.heat-js div.title-bar div.configure {
+  display: inline-block;
+  width: 8.5px;
+  height: 8.5px;
+  position: relative;
+  margin-right: var(--heat-js-spacing);
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.title-bar div.configure:hover::before, div.heat-js div.title-bar div.configure:hover::after {
+  border-color: var(--heat-js-title-opener-text-color-hover);
+  cursor: pointer;
+}
+div.heat-js div.title-bar div.configure::before {
+  content: "";
+  position: absolute;
+  height: 8.5px;
+  width: 8.5px;
+  border-color: var(--heat-js-color-white);
+  border-width: 2px;
+  border-style: solid;
+  transform: rotate(-45deg);
+  top: 0;
+  left: 0;
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.title-bar div.configure::after {
+  content: "";
+  position: absolute;
+  height: 8.5px;
+  width: 8.5px;
+  border-color: var(--heat-js-color-white);
+  border-width: 2px;
+  border-style: solid;
+  transform: rotate(90deg);
+  top: 0;
+  left: 0;
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.title-bar button.export,
+div.heat-js div.title-bar button.refresh,
+div.heat-js div.title-bar button.import {
+  display: none;
+}
+@media (min-width: 768px) {
+  div.heat-js div.title-bar button.export,
+  div.heat-js div.title-bar button.refresh,
+  div.heat-js div.title-bar button.import {
+    display: inline-block;
+  }
+}
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Title Bar - Title Drop-Down
+    -------------------------------------------------------------------------
+*/
 div.heat-js div.title-bar div.title {
   float: left;
   font-weight: var(--heat-js-title-bold-weight);
@@ -331,82 +425,12 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu di
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item-active::before {
   background-color: var(--heat-js-title-text-color-hover);
 }
-div.heat-js div.title-bar button {
-  background-color: var(--heat-js-button-background-color);
-  border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
-  color: var(--heat-js-button-text-color);
-  border-radius: var(--heat-js-border-radius);
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 9px;
-  padding-right: 9px;
-  outline: none;
-  transition: var(--heat-js-transition);
-}
-div.heat-js div.title-bar button:disabled {
-  color: var(--heat-js-button-border-color);
-}
-div.heat-js div.title-bar button:not(.active):not(:disabled):active {
-  background: var(--heat-js-button-background-color-active) !important;
-  color: var(--heat-js-button-text-color-active) !important;
-}
-div.heat-js div.title-bar button:not(.active):not(:disabled):hover {
-  cursor: pointer;
-  background: var(--heat-js-button-background-color-hover);
-  color: var(--heat-js-button-text-color-hover);
-}
-div.heat-js div.title-bar button.active {
-  cursor: default;
-  background: var(--heat-js-button-background-color-hover);
-  color: var(--heat-js-button-text-color-hover);
-  transition: var(--heat-js-transition);
-  font-weight: var(--heat-js-text-bold-weight-active);
-}
-div.heat-js div.title-bar button.back {
-  margin-left: calc(var(--heat-js-spacing) * 2) !important;
-}
-div.heat-js div.title-bar button.export,
-div.heat-js div.title-bar button.import {
-  margin-right: calc(var(--heat-js-spacing) / 2) !important;
-}
-div.heat-js div.title-bar div.configure {
-  display: inline-block;
-  width: 8.5px;
-  height: 8.5px;
-  position: relative;
-  margin-right: var(--heat-js-spacing);
-  transition: var(--heat-js-transition);
-}
-div.heat-js div.title-bar div.configure:hover::before, div.heat-js div.title-bar div.configure:hover::after {
-  border-color: var(--heat-js-title-opener-text-color-hover);
-  cursor: pointer;
-}
-div.heat-js div.title-bar div.configure::before {
-  content: "";
-  position: absolute;
-  height: 8.5px;
-  width: 8.5px;
-  border-color: var(--heat-js-color-white);
-  border-width: 2px;
-  border-style: solid;
-  transform: rotate(-45deg);
-  top: 0;
-  left: 0;
-  transition: var(--heat-js-transition);
-}
-div.heat-js div.title-bar div.configure::after {
-  content: "";
-  position: absolute;
-  height: 8.5px;
-  width: 8.5px;
-  border-color: var(--heat-js-color-white);
-  border-width: 2px;
-  border-style: solid;
-  transform: rotate(90deg);
-  top: 0;
-  left: 0;
-  transition: var(--heat-js-transition);
-}
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Title Bar - Year Drop-Down
+    -------------------------------------------------------------------------
+*/
 div.heat-js div.title-bar div.year-text {
   margin-left: var(--heat-js-spacing);
   margin-right: var(--heat-js-spacing);
@@ -488,18 +512,6 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu div.year-menu-item-current {
   font-style: italic;
   font-weight: var(--heat-js-text-bold-weight-active);
-}
-div.heat-js div.title-bar button.export,
-div.heat-js div.title-bar button.refresh,
-div.heat-js div.title-bar button.import {
-  display: none;
-}
-@media (min-width: 768px) {
-  div.heat-js div.title-bar button.export,
-  div.heat-js div.title-bar button.refresh,
-  div.heat-js div.title-bar button.import {
-    display: inline-block;
-  }
 }
 
 /*
