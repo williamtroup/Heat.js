@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Hungarian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Hungarian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Hibák az objektumban: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "attribútum{{attribute_name}}' nem érvényes objektum.",
         "attributeNotSetErrorText": "attribútum{{attribute_name}}' nincs megfelelően beállítva.",
+        "closeToolTipText": "Bezárás",
+        "configurationToolTipText": "Konfiguráció",
+        "configurationTitleText": "Konfiguráció",
+        "visibleMonthsText": "Látható hónapok",
+        "visibleDaysText": "Látható napok",
+        "dataText": "Adat",
+        "colorRangesText": "Színtartományok",
+        "yearText": "Év",
+        "daysText": "Napok",
+        "noDaysDataMessage": "Jelenleg nincs megtekintési nap.",
         "monthNames": [
                 "jan",
                 "Február",

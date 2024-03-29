@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Telugu | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Telugu | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "వస్తువులో లోపాలు: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "లక్షణం'{{attribute_name}}' చెల్లుబాటు అయ్యే వస్తువు కాదు.",
         "attributeNotSetErrorText": "లక్షణం'{{attribute_name}}' సరిగ్గా సెట్ చేయబడలేదు.",
+        "closeToolTipText": "దగ్గరగా",
+        "configurationToolTipText": "ఆకృతీకరణ",
+        "configurationTitleText": "ఆకృతీకరణ",
+        "visibleMonthsText": "కనిపించే నెలలు",
+        "visibleDaysText": "కనిపించే రోజులు",
+        "dataText": "సమాచారం",
+        "colorRangesText": "రంగు పరిధులు",
+        "yearText": "సంవత్సరం",
+        "daysText": "రోజులు",
+        "noDaysDataMessage": "ప్రస్తుతం వీక్షించడానికి రోజులు లేవు.",
         "monthNames": [
                 "జనవరి",
                 "ఫిబ్రవరి",

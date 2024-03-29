@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Slovak | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Slovak | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Chyby v objekte: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "atribút '{{attribute_name}}' nie je platný objekt.",
         "attributeNotSetErrorText": "atribút '{{attribute_name}}“ nie je správne nastavené.",
+        "closeToolTipText": "Zavrieť",
+        "configurationToolTipText": "Konfigurácia",
+        "configurationTitleText": "Konfigurácia",
+        "visibleMonthsText": "Viditeľné mesiace",
+        "visibleDaysText": "Viditeľné dni",
+        "dataText": "Údaje",
+        "colorRangesText": "Farebné rozsahy",
+        "yearText": "rok",
+        "daysText": "Dni",
+        "noDaysDataMessage": "Momentálne nie sú k dispozícii žiadne dni na zobrazenie.",
         "monthNames": [
                 "Jan",
                 "feb",

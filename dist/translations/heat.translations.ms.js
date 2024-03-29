@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Malay | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Malay | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Ralat dalam objek: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Atribut '{{attribute_name}}' bukan objek yang sah.",
         "attributeNotSetErrorText": "Atribut '{{attribute_name}}' belum ditetapkan dengan betul.",
+        "closeToolTipText": "tutup",
+        "configurationToolTipText": "Konfigurasi",
+        "configurationTitleText": "Konfigurasi",
+        "visibleMonthsText": "Bulan Terlihat",
+        "visibleDaysText": "Hari Kelihatan",
+        "dataText": "Data",
+        "colorRangesText": "Julat Warna",
+        "yearText": "tahun",
+        "daysText": "hari-hari",
+        "noDaysDataMessage": "Pada masa ini tiada hari untuk dilihat.",
         "monthNames": [
                 "Jan",
                 "Feb",

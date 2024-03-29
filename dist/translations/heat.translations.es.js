@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Spanish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Spanish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Errores en el objeto: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "El atributo '{{attribute_name}}' no es un objeto válido.",
         "attributeNotSetErrorText": "El atributo '{{attribute_name}}' no se ha configurado correctamente.",
+        "closeToolTipText": "Cerca",
+        "configurationToolTipText": "Configuración",
+        "configurationTitleText": "Configuración",
+        "visibleMonthsText": "Meses visibles",
+        "visibleDaysText": "Días visibles",
+        "dataText": "Datos",
+        "colorRangesText": "Gamas de colores",
+        "yearText": "Año",
+        "daysText": "Días",
+        "noDaysDataMessage": "Actualmente no hay días para ver.",
         "monthNames": [
                 "Ene",
                 "Feb",

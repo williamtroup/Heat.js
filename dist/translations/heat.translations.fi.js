@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Finnish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Finnish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Virheet objektissa: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "attribuutti '{{attribute_name}}' ei ole kelvollinen objekti.",
         "attributeNotSetErrorText": "attribuutti '{{attribute_name}}' ei ole asetettu oikein.",
+        "closeToolTipText": "kiinni",
+        "configurationToolTipText": "Kokoonpano",
+        "configurationTitleText": "Kokoonpano",
+        "visibleMonthsText": "Näkyvät kuukaudet",
+        "visibleDaysText": "Näkyviä päiviä",
+        "dataText": "Data",
+        "colorRangesText": "Värialueet",
+        "yearText": "vuosi",
+        "daysText": "päivää",
+        "noDaysDataMessage": "Tällä hetkellä ei ole päiviä katsottavaksi.",
         "monthNames": [
                 "tammikuu",
                 "helmikuuta",

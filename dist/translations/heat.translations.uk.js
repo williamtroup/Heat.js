@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Ukrainian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Ukrainian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Помилки в об'єкті: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Атрибут '{{attribute_name}}' не є дійсним об'єктом.",
         "attributeNotSetErrorText": "Атрибут '{{attribute_name}}' не встановлено правильно.",
+        "closeToolTipText": "Закрити",
+        "configurationToolTipText": "Конфігурація",
+        "configurationTitleText": "Конфігурація",
+        "visibleMonthsText": "Видимі місяці",
+        "visibleDaysText": "Видимі дні",
+        "dataText": "Дані",
+        "colorRangesText": "Колірні діапазони",
+        "yearText": "рік",
+        "daysText": "днів",
+        "noDaysDataMessage": "Наразі немає днів для перегляду.",
         "monthNames": [
                 "січня",
                 "лютий",

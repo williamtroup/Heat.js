@@ -17,13 +17,13 @@
         </div>
 
         <div class="contents">
-            <div class="mt-5" id="heat-map-1" data-heat-options="{ 'holidays': [ { 'date': '25/12', 'name': 'Christmas Day', 'showInViews': true } ], 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'views': { 'map': { 'showMonthDayGaps': true } }, 'descriptionText': 'A basic example of how to use Heat.js.', 'descriptionTextLink': 'https://william-troup.com/heat-js/examples/basic.html' }"></div>
+            <div class="mt-5" id="heat-map-1" data-heat-options="{ 'holidays': [ { 'date': '25/12', 'name': 'Christmas Day', 'showInViews': true } ], 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick, 'views': { 'map': { 'showMonthDayGaps': true } }, 'descriptionText': 'A basic example of how to use Heat.js.', 'descriptionTextLink': 'https://william-troup.com/heat-js/examples/basic.html' }"></div>
             <br>
             <br>
-            <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'views': { 'map': { 'showMonthDayGaps': false, 'placeMonthNamesOnTheBottom': true } }, 'showRefreshButton': true, 'showExportButton': true, 'showImportButton': true, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
+            <div id="heat-map-2" data-heat-options="{ 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick, 'views': { 'map': { 'showMonthDayGaps': false, 'placeMonthNamesOnTheBottom': true } }, 'showRefreshButton': true, 'showExportButton': true, 'showImportButton': true, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
             <br>
             <br>
-            <div id="heat-map-3" data-heat-options="{ 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'views': { 'map': { 'showMonthDayGaps': true } }, 'view': 'chart', 'yearsToHide': [ 2026 ] }"></div>
+            <div id="heat-map-3" data-heat-options="{ 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick, 'views': { 'map': { 'showMonthDayGaps': true } }, 'view': 'chart', 'yearsToHide': [ 2026 ] }"></div>
             <br>
             <br>
             <div id="heat-map-4"></div>
@@ -114,6 +114,11 @@
             <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-2', 'chart' );">Switch View - Chart (2)</button>
             <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-3', 'chart' );">Switch View - Chart (3)</button>
             <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-4', 'chart' );">Switch View - Chart (4)</button>
+            <br />
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-1', 'days' );">Switch View - Days (1)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-2', 'days' );">Switch View - Days (2)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-3', 'days' );">Switch View - Days (3)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-4', 'days' );">Switch View - Days (4)</button>
             <br />
             <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-1', 'statistics' );">Switch View - Statistics (1)</button>
             <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-2', 'statistics' );">Switch View - Statistics (2)</button>
@@ -222,6 +227,10 @@
 
         function onStatisticClick( colorRange ) {
             console.log( "Statistic clicked for: " + JSON.stringify( colorRange ) );
+        }
+
+        function onWeekDayClick( day, count ) {
+            console.log( "Week day clicked for: " + day + ", Count: " + count );
         }
 
         function onDayToolTipRenderEvent( date, count ) {

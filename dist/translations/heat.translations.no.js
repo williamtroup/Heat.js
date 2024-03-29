@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Norwegian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Norwegian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Feil i objektet: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Attributten '{{attribute_name}}' er ikke et gyldig objekt.",
         "attributeNotSetErrorText": "Attributten '{{attribute_name}}' er ikke satt riktig.",
+        "closeToolTipText": "Lukk",
+        "configurationToolTipText": "Konfigurasjon",
+        "configurationTitleText": "Konfigurasjon",
+        "visibleMonthsText": "Synlige måneder",
+        "visibleDaysText": "Synlige dager",
+        "dataText": "Data",
+        "colorRangesText": "Fargeområder",
+        "yearText": "År",
+        "daysText": "Dager",
+        "noDaysDataMessage": "Det er for øyeblikket ingen dager å se.",
         "monthNames": [
                 "Jan",
                 "feb",

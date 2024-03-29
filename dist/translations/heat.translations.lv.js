@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Latvian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Latvian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Kļūdas objektā: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "atribūts '{{attribute_name}}' nav derīgs objekts.",
         "attributeNotSetErrorText": "atribūts '{{attribute_name}}' nav pareizi iestatīts.",
+        "closeToolTipText": "Aizvērt",
+        "configurationToolTipText": "Konfigurācija",
+        "configurationTitleText": "Konfigurācija",
+        "visibleMonthsText": "Redzamie mēneši",
+        "visibleDaysText": "Redzamās dienas",
+        "dataText": "Dati",
+        "colorRangesText": "Krāsu diapazoni",
+        "yearText": "gads",
+        "daysText": "Dienas",
+        "noDaysDataMessage": "Pašlaik nav dienu, ko skatīt.",
         "monthNames": [
                 "janvāris",
                 "febr",

@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Taiwanese | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Taiwanese | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "物件中的錯誤： {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "屬性 '{{attribute_name}}' 不是一個有效的物件。",
         "attributeNotSetErrorText": "屬性 '{{attribute_name}}' 尚未正確設定。",
+        "closeToolTipText": "關閉",
+        "configurationToolTipText": "配置",
+        "configurationTitleText": "配置",
+        "visibleMonthsText": "可見月份",
+        "visibleDaysText": "可見天數",
+        "dataText": "數據",
+        "colorRangesText": "色彩範圍",
+        "yearText": "年",
+        "daysText": "天",
+        "noDaysDataMessage": "目前沒有可查看的日期。",
         "monthNames": [
                 "揚",
                 "二月",

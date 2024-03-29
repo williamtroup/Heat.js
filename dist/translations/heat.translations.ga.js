@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Irish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Irish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Earráidí san oibiacht: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "an tréith '{{attribute_name}}Ní réad bailí é '.",
         "attributeNotSetErrorText": "an tréith '{{attribute_name}}' nach bhfuil socraithe i gceart.",
+        "closeToolTipText": "Dún",
+        "configurationToolTipText": "Cumraíocht",
+        "configurationTitleText": "Cumraíocht",
+        "visibleMonthsText": "Míonna Infheicthe",
+        "visibleDaysText": "Laethanta Infheicthe",
+        "dataText": "Sonraí",
+        "colorRangesText": "Raonta Dath",
+        "yearText": "Bliain",
+        "daysText": "Laethanta",
+        "noDaysDataMessage": "Níl aon laethanta le féachaint faoi láthair.",
         "monthNames": [
                 "Ean",
                 "Feabh",

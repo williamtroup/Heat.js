@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Thai | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Thai | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "ข้อผิดพลาดในวัตถุ: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "คุณลักษณะ '{{attribute_name}}' ไม่ใช่วัตถุที่ถูกต้อง",
         "attributeNotSetErrorText": "คุณลักษณะ '{{attribute_name}}' ไม่ได้ตั้งค่าอย่างถูกต้อง",
+        "closeToolTipText": "ปิด",
+        "configurationToolTipText": "การกำหนดค่า",
+        "configurationTitleText": "การกำหนดค่า",
+        "visibleMonthsText": "เดือนที่มองเห็นได้",
+        "visibleDaysText": "วันที่มองเห็นได้",
+        "dataText": "ข้อมูล",
+        "colorRangesText": "ช่วงสี",
+        "yearText": "ปี",
+        "daysText": "วัน",
+        "noDaysDataMessage": "ขณะนี้ไม่มีวันที่จะดู",
         "monthNames": [
                 "ม.ค",
                 "ก.พ",

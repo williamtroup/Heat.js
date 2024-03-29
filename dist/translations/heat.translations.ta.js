@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Tamil | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Tamil | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "பொருளில் பிழைகள்: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "பண்பு'{{attribute_name}}' என்பது சரியான பொருள் அல்ல.",
         "attributeNotSetErrorText": "பண்பு'{{attribute_name}}' சரியாக அமைக்கப்படவில்லை.",
+        "closeToolTipText": "நெருக்கமான",
+        "configurationToolTipText": "கட்டமைப்பு",
+        "configurationTitleText": "கட்டமைப்பு",
+        "visibleMonthsText": "காணக்கூடிய மாதங்கள்",
+        "visibleDaysText": "காணக்கூடிய நாட்கள்",
+        "dataText": "தகவல்கள்",
+        "colorRangesText": "வண்ண வரம்புகள்",
+        "yearText": "ஆண்டு",
+        "daysText": "நாட்களில்",
+        "noDaysDataMessage": "தற்போது பார்க்க நாட்கள் இல்லை.",
         "monthNames": [
                 "ஜன",
                 "பிப்",

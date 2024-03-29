@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Swedish | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Swedish | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Fel i objekt: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Attributet '{{attribute_name}}' är inte ett giltigt objekt.",
         "attributeNotSetErrorText": "Attributet '{{attribute_name}}' har inte ställts in korrekt.",
+        "closeToolTipText": "Stänga",
+        "configurationToolTipText": "Konfiguration",
+        "configurationTitleText": "Konfiguration",
+        "visibleMonthsText": "Synliga månader",
+        "visibleDaysText": "Synliga dagar",
+        "dataText": "Data",
+        "colorRangesText": "Färgomfång",
+        "yearText": "År",
+        "daysText": "dagar",
+        "noDaysDataMessage": "Det finns för närvarande inga dagar att se.",
         "monthNames": [
                 "Jan",
                 "feb",

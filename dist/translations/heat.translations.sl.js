@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Slovenian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Slovenian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Napake v objektu: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Atribut '{{attribute_name}}' ni veljaven predmet.",
         "attributeNotSetErrorText": "Atribut '{{attribute_name}}' ni pravilno nastavljen.",
+        "closeToolTipText": "Zapri",
+        "configurationToolTipText": "Konfiguracija",
+        "configurationTitleText": "Konfiguracija",
+        "visibleMonthsText": "Vidni meseci",
+        "visibleDaysText": "Vidni dnevi",
+        "dataText": "podatki",
+        "colorRangesText": "Barvni razponi",
+        "yearText": "leto",
+        "daysText": "Dnevi",
+        "noDaysDataMessage": "Trenutno ni dni za ogled.",
         "monthNames": [
                 "Jan",
                 "feb",

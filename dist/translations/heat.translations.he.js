@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Hebrew | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Hebrew | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "שגיאות באובייקט: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "התכונה'{{attribute_name}}' אינו אובייקט חוקי.",
         "attributeNotSetErrorText": "התכונה'{{attribute_name}}' לא הוגדר כהלכה.",
+        "closeToolTipText": "סגור",
+        "configurationToolTipText": "תְצוּרָה",
+        "configurationTitleText": "תְצוּרָה",
+        "visibleMonthsText": "חודשים גלויים",
+        "visibleDaysText": "ימים גלויים",
+        "dataText": "נתונים",
+        "colorRangesText": "טווחי צבעים",
+        "yearText": "שָׁנָה",
+        "daysText": "ימים",
+        "noDaysDataMessage": "כרגע אין ימים לצפייה.",
         "monthNames": [
                 "ינואר",
                 "פברואר",

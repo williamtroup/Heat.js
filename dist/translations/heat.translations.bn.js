@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Bengali | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Bengali | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "বস্তুর ত্রুটি: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "বৈশিষ্ট্য '{{attribute_name}}' একটি বৈধ বস্তু নয়।",
         "attributeNotSetErrorText": "বৈশিষ্ট্য '{{attribute_name}}' সঠিকভাবে সেট করা হয়নি।",
+        "closeToolTipText": "বন্ধ",
+        "configurationToolTipText": "কনফিগারেশন",
+        "configurationTitleText": "কনফিগারেশন",
+        "visibleMonthsText": "দৃশ্যমান মাস",
+        "visibleDaysText": "দৃশ্যমান দিন",
+        "dataText": "ডেটা",
+        "colorRangesText": "কালার রেঞ্জ",
+        "yearText": "বছর",
+        "daysText": "দিন",
+        "noDaysDataMessage": "দেখার জন্য বর্তমানে কোন দিন নেই.",
         "monthNames": [
                 "জান",
                 "ফেব্রুয়ারী",

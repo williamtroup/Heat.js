@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Catalan | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Catalan | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Errors a l'objecte: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "L'atribut '{{attribute_name}}' no és un objecte vàlid.",
         "attributeNotSetErrorText": "L'atribut '{{attribute_name}}' no s'ha configurat correctament.",
+        "closeToolTipText": "Tanca",
+        "configurationToolTipText": "Configuració",
+        "configurationTitleText": "Configuració",
+        "visibleMonthsText": "Mesos visibles",
+        "visibleDaysText": "Dies visibles",
+        "dataText": "Dades",
+        "colorRangesText": "Gammes de colors",
+        "yearText": "Curs",
+        "daysText": "Dies",
+        "noDaysDataMessage": "Actualment no hi ha dies per veure.",
         "monthNames": [
                 "Jan",
                 "Febrer",

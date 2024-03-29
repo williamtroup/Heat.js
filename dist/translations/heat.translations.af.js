@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Afrikaans | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Afrikaans | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Foute in voorwerp: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Die kenmerk '{{attribute_name}}' is nie 'n geldige voorwerp nie.",
         "attributeNotSetErrorText": "Die kenmerk '{{attribute_name}}' is nie korrek ingestel nie.",
+        "closeToolTipText": "Naby",
+        "configurationToolTipText": "Konfigurasie",
+        "configurationTitleText": "Konfigurasie",
+        "visibleMonthsText": "Sigbare maande",
+        "visibleDaysText": "Sigbare dae",
+        "dataText": "Data",
+        "colorRangesText": "Kleurreekse",
+        "yearText": "Jaar",
+        "daysText": "Dae",
+        "noDaysDataMessage": "Daar is tans geen dae om te bekyk nie.",
         "monthNames": [
                 "Jan",
                 "Feb",

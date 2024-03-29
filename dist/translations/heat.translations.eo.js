@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Esperanto | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Esperanto | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Eraroj en objekto: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "La atributo '{{attribute_name}}' ne estas valida objekto.",
         "attributeNotSetErrorText": "La atributo '{{attribute_name}}' ne estis agordita ĝuste.",
+        "closeToolTipText": "Fermu",
+        "configurationToolTipText": "Agordo",
+        "configurationTitleText": "Agordo",
+        "visibleMonthsText": "Videblaj Monatoj",
+        "visibleDaysText": "Videblaj Tagoj",
+        "dataText": "Datumoj",
+        "colorRangesText": "Koloraj Gamoj",
+        "yearText": "Jaro",
+        "daysText": "Tagoj",
+        "noDaysDataMessage": "Nuntempe ne estas tagoj por vidi.",
         "monthNames": [
                 "Jan",
                 "Feb",

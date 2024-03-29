@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Estonian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Estonian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Vead objektil: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "atribuut '{{attribute_name}}' ei ole kehtiv objekt.",
         "attributeNotSetErrorText": "atribuut '{{attribute_name}}' pole õigesti seadistatud.",
+        "closeToolTipText": "Sulge",
+        "configurationToolTipText": "Seadistamine",
+        "configurationTitleText": "Seadistamine",
+        "visibleMonthsText": "Nähtavad kuud",
+        "visibleDaysText": "Nähtavad päevad",
+        "dataText": "Andmed",
+        "colorRangesText": "Värvivahemikud",
+        "yearText": "aasta",
+        "daysText": "Päevad",
+        "noDaysDataMessage": "Praegu pole vaatamiseks päevi.",
         "monthNames": [
                 "jaan",
                 "veebr",

@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v2.8.0
+ * Heat.js Library v3.0.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -13,6 +13,7 @@
     --heat-js-default-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --heat-js-text-bold-weight: 400;
     --heat-js-title-bold-weight: 900;
+    --heat-js-sub-title-bold-weight: 700;
     --heat-js-text-bold-weight-active: 900;
 
     // Colors
@@ -24,6 +25,11 @@
     // Containers
     --heat-js-container-background-color: #22272e;
     --heat-js-container-border-color: #454c56;
+
+    // Dialog
+    --heat-js-dialog-background-color: var(--heat-js-container-background-color);
+    --heat-js-dialog-border-color: var(--heat-js-container-border-color);
+    --heat-js-dialog-text-color: var(--heat-js-color-white);
 
     // ToolTip
     --heat-js-tooltip-background-color: var(--heat-js-container-background-color);
@@ -74,6 +80,11 @@
     --heat-js-day-color-4-border-color: rgba( 80, 200, 120, 0.75 );
     --heat-js-day-color-4-text-color: var(--heat-js-color-black);
 
+    // Views - Colors
+    --heat-js-view-days-background-color: var(--heat-js-day-color-4-background-color);
+    --heat-js-view-days-border-color: var(--heat-js-day-color-4-border-color);
+    --heat-js-view-days-text-color: var(--heat-js-day-color-4-text-color);
+
     // Button
     --heat-js-button-background-color: var(--heat-js-day-background-color);
     --heat-js-button-border-color: var(--heat-js-container-border-color);
@@ -83,7 +94,18 @@
     --heat-js-button-background-color-active: #616b79;
     --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
 
+    // CheckBox
+    --heat-js-checkbox-background-color-checked: rgba( 80, 200, 120, 1 );
+    --heat-js-checkbox-background-color: var(--heat-js-color-black);
+    --heat-js-checkbox-border-color-checked: --heat-js-checkbox-background-color-checked;
+    --heat-js-checkbox-border-color: var(--heat-js-color-white);
+
+    // Panels
+    --heat-js-panel-background-color: var(--heat-js-day-background-color);
+    --heat-js-panel-border-color: var(--heat-js-container-border-color);
+
     // Borders
+    --heat-js-border-control-radius: 0.25rem;
     --heat-js-border-radius: 0.5rem;
     --heat-js-border-radius-day: 0.35rem;
     --heat-js-border-size: 0.5px;
@@ -97,165 +119,6 @@
     // Transitions
     --heat-js-transition: all .3s;
     --heat-js-animation-length: 0.5s;
-}
-
-
-/*
-    -------------------------------------------------------------------------
-    Heat.js - Mixins
-    -------------------------------------------------------------------------
-*/
-
-@mixin buttons {
-    button {
-        background-color: var(--heat-js-button-background-color);
-        border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
-        color: var(--heat-js-button-text-color);
-        border-radius: var(--heat-js-border-radius);
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 9px;
-        padding-right: 9px;
-        outline: none;
-        transition: var(--heat-js-transition);
-
-        &:disabled {
-            color: var(--heat-js-button-border-color);
-        }
-
-        &:not(.active):not(:disabled):active {
-            background: var(--heat-js-button-background-color-active) !important;
-            color: var(--heat-js-button-text-color-active) !important;
-        }
-
-        &:not(.active):not(:disabled):hover {
-            cursor: pointer;
-            background: var(--heat-js-button-background-color-hover);
-            color: var(--heat-js-button-text-color-hover);
-        }
-    }
-
-    button.active {
-        cursor: default;
-        background: var(--heat-js-button-background-color-hover);
-        color: var(--heat-js-button-text-color-hover);
-        transition: var(--heat-js-transition);
-        font-weight: var(--heat-js-text-bold-weight-active);
-    }
-}
-
-@mixin down-arrow($left-right-border-size: 8px, $border-top-size: 14px, $left: true, $margin-size: var(--heat-js-spacing)) {
-    div.down-arrow {
-        display: inline-block;
-        width: 0;
-        height: 0;
-        border-left: $left-right-border-size solid transparent;
-        border-right: $left-right-border-size solid transparent;
-        border-top: $border-top-size solid var(--heat-js-color-white);
-        transition: var(--heat-js-transition);
-
-        @if ($left) {
-            margin-right: $margin-size;
-        }
-        @else {
-            margin-left: $margin-size;
-        }
-    }
-}
-
-@mixin labels {
-    background-color: var(--heat-js-container-background-color);
-    padding-right: calc( var(--heat-js-spacing) * 3 );
-    padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
-    position: sticky;
-    left: 0;
-    display: none;
-    border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-    z-index: 50;
-
-    @media (min-width: $minimum-width) { 
-        display: block;
-    }
-
-    div.label-0,
-    div.label-25,
-    div.label-50,
-    div.label-75,
-    div.label-100 {
-        font-weight: var(--heat-js-text-bold-weight);
-        text-align: left !important;
-        height: var(--heat-js-day-size);
-        display: inline-flex;
-        justify-content: center;
-        flex-direction: column;
-        position: absolute;
-        left: 0;
-        padding-right: var(--heat-js-spacing);
-    }
-
-    div.label-0 {
-        top: 0;
-    }
-
-    div.label-25 {
-        top: 25%;
-        transform: translateY(-25%);
-    }
-
-    div.label-50 {
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    div.label-75 {
-        top: 75%;
-        transform: translateY(-75%);
-    }
-
-    div.label-100 {
-        bottom: 0;
-    }
-}
-
-@mixin centered-label {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: var(--heat-js-text-bold-weight);
-}
-
-@mixin description {
-    text-align: center;
-
-    @media (min-width: $minimum-width) { 
-        text-align: left;
-    }
-
-    span.label,
-    a.label,
-    a.label:visited {
-        color: var(--heat-js-color-white);
-        font-weight: var(--heat-js-text-bold-weight);
-        text-decoration: none;
-    }
-
-    a.label {
-        transition: var(--heat-js-transition);
-
-        &:active {
-            color: var(--heat-js-color-gray);
-        }
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-}
-
-@mixin box-sizing {
-    box-sizing: border-box;
-    line-height: normal;
 }
 
 
@@ -302,6 +165,137 @@ div.heat-js {
 
 /*
     -------------------------------------------------------------------------
+    Heat.js - Disabled Background
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.disabled {
+        display: none;
+        z-index: 1000;
+        position: absolute;
+        background-color: rgba( 0, 0, 0, 0.3 );
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        animation: fade-in-animation var(--heat-js-animation-length);
+
+        div.dialog {
+            display: none;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate( -50%, -50% );
+            max-width: 450px;
+            width: calc( 100% - ( var(--heat-js-spacing) * 2 ) );
+            background-color: var(--heat-js-dialog-background-color);
+            border: var(--heat-js-border-size) solid var(--heat-js-dialog-border-color);
+            color: var(--heat-js-dialog-text-color);
+            border-radius: var(--heat-js-border-radius);
+            animation: fade-in-animation var(--heat-js-animation-length);
+
+            div.dialog-title-bar {
+                position: relative;
+                padding: var(--heat-js-spacing);
+                text-align: left;
+
+                span.dialog-title-bar-text {
+                    font-weight: var(--heat-js-title-bold-weight);
+                }
+
+                div.dialog-close {
+                    $close-button-size: 16px;
+                    $close-button-width: 3px;
+
+                    float: right;
+                    width: $close-button-size;
+                    height: $close-button-size;
+                    position: relative;
+                    cursor: pointer;
+
+                    &::before,
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        height: $close-button-size;
+                        width: $close-button-width;
+                        left: calc( ( $close-button-size / 2 ) - ( $close-button-width / 2 ) );
+                        top: 0;
+                        background-color: var(--heat-js-color-white);
+                        border-radius: var(--heat-js-border-radius);
+                        transition: var(--heat-js-transition);
+                    }
+
+                    &::before {
+                        transform: rotate( 45deg );
+                    }
+
+                    &::after {
+                        transform: rotate( -45deg );
+                    }
+
+                    &:hover::before,
+                    &:hover::after {
+                        background-color: var(--heat-js-color-gray);
+                    }
+                }
+            }
+
+            div.dialog-contents {
+                padding: var(--heat-js-spacing);
+                overflow-x: scroll;
+                overflow-y: hidden;
+            }
+        }
+    }
+}
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Configuration Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.disabled {
+        div.configuration {
+            div.dialog-contents {
+                div.panel {
+                    background-color: var(--heat-js-panel-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-panel-border-color);
+                    border-radius: var(--heat-js-border-radius);
+                    padding: var(--heat-js-spacing);
+                }
+
+                div.side-container {
+                    vertical-align: top;
+                    display: inline-block;
+                    width: calc( 50% - var(--heat-js-spacing) );
+                    margin-right: var(--heat-js-spacing);
+
+                    &:last-child {
+                        margin-right: 0;
+                        width: calc( 50% );
+                    }
+
+                    div.side-container-title-text {
+                        margin-bottom: var(--heat-js-spacing);
+                        font-weight: var(--heat-js-sub-title-bold-weight);
+                    }
+
+                    label.checkbox {
+                        margin-left: var(--heat-js-spacing);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
     Heat.js - Title Bar
     -------------------------------------------------------------------------
 */
@@ -311,6 +305,83 @@ div.heat-js {
         text-align: right;
         margin-bottom: calc( var(--heat-js-spacing) + var(--heat-js-spacing) / 2 );
 
+        @include buttons;
+
+        button.back {
+            margin-left: calc( var(--heat-js-spacing) * 2 ) !important;
+        }
+
+        button.export,
+        button.import {
+            margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
+        }
+
+        div.configure {
+            $button-size: 8.5px;
+
+            display: inline-block;
+            width: $button-size;
+            height: $button-size;
+            position: relative;
+            margin-right: var(--heat-js-spacing);
+            transition: var(--heat-js-transition);
+            
+            &:hover::before,
+            &:hover::after {
+                border-color: var(--heat-js-title-opener-text-color-hover);
+                cursor: pointer;
+            }
+
+            &::before {
+                content: "";
+                position: absolute;
+                height: $button-size;
+                width: $button-size;
+                border-color: var(--heat-js-color-white);
+                border-width: 2px;
+                border-style: solid;
+                transform: rotate( -45deg );
+                top: 0;
+                left: 0;
+                transition: var(--heat-js-transition);
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                height: $button-size;
+                width: $button-size;
+                border-color: var(--heat-js-color-white);
+                border-width: 2px;
+                border-style: solid;
+                transform: rotate( 90deg );
+                top: 0;
+                left: 0;
+                transition: var(--heat-js-transition);
+            }
+        }
+
+        button.export,
+        button.refresh,
+        button.import {
+            display: none;
+    
+            @media (min-width: $minimum-width) { 
+                display: inline-block;
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Title Bar - Title Drop-Down
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.title-bar {
         div.title {
             $title-margin: 3px;
 
@@ -329,74 +400,103 @@ div.heat-js {
                 border-top-color:  var(--heat-js-title-opener-text-color-hover);
             }
 
-            &:hover div.titles-list {
+            &:hover div.titles-menu-container {
                 display: block;
             }
 
             @include down-arrow;
 
-            div.titles-list {
+            div.titles-menu-container {
                 animation: fade-in-animation var(--heat-js-animation-length);
                 padding-top: $title-margin;
                 display: none;
                 position: absolute;
-                width: 100px;
+                min-width: 100px;
                 margin-top: $title-margin;
                 z-index: 1000;
 
-                div.titles {
+                div.titles-menu {
                     border-radius: var(--heat-js-border-radius);
                     background-color: var(--heat-js-title-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-title-border-color);
                     color: var(--heat-js-title-text-color);
                     overflow-y: scroll;
 
-                    div.title {
+                    div.title-menu-header {
+                        color: var(--heat-js-color-white);
+                        font-weight: var(--heat-js-title-bold-weight);
+                        padding: var(--heat-js-spacing);
+                        padding-right: calc( var(--heat-js-spacing) * 3 );
+                        text-align: left;
+                        width: 100%;
+                        font-size: var(--heat-js-spacing-font-size) !important;
+                        cursor: default;
+                    }
+
+                    div.title-menu-item {
                         color: var(--heat-js-color-white);
                         font-weight: var(--heat-js-text-bold-weight);
-                        border-bottom: var(--heat-js-border-size) dashed var(--heat-js-container-border-color);
                         padding: var(--heat-js-spacing);
+                        padding-right: calc( var(--heat-js-spacing) * 3 );
+                        padding-left: calc( var(--heat-js-spacing) * 3 );
                         text-align: left;
                         width: 100%;
                         transition: var(--heat-js-transition);
                         font-size: var(--heat-js-spacing-font-size) !important;
+                        position: relative;
+
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            left: var(--heat-js-spacing);
+                            top: 50%;
+                            transform: translate( 0, -50% );
+                            border-radius: 50%;
+                            width: 8px;
+                            height: 8px;
+                            background-color: var(--heat-js-color-white);
+                        }
     
-                        &:not(.title-active):active {
+                        &:not(.title-menu-item-active):active {
                             opacity: 0.5 !important;
                         }
     
-                        &:not(.title-active):hover {
+                        &:not(.title-menu-item-active):hover {
                             cursor: pointer;
                             background-color: var(--heat-js-title-background-color-hover);
                             color: var(--heat-js-title-text-color-hover);
-                        }
-    
-                        &:last-child {
-                            border-bottom: none;
+
+                            &::before {
+                                background-color: var(--heat-js-title-text-color-hover);
+                            }
                         }
                     }
 
-                    div.title-active {
+                    div.title-menu-item-active {
                         background-color: var(--heat-js-title-background-color-hover);
                         color: var(--heat-js-title-text-color-hover);
                         font-weight: var(--heat-js-text-bold-weight-active);
                         cursor: default !important;
+
+                        &::before {
+                            background-color: var(--heat-js-title-text-color-hover);
+                        }
                     }
                 }
             }
         }
+    }
+}
 
-        @include buttons;
 
-        button.back {
-            margin-left: calc( var(--heat-js-spacing) * 2 ) !important;
-        }
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Title Bar - Year Drop-Down
+    -------------------------------------------------------------------------
+*/
 
-        button.export,
-        button.import {
-            margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
-        }
-
+div.heat-js {
+    div.title-bar {
         div.year-text {
             $year-margin: 5px;
 
@@ -418,24 +518,24 @@ div.heat-js {
                 border-top-color:  var(--heat-js-title-opener-text-color-hover);
             }
 
-            &:hover div.years-list {
+            &:hover div.years-menu-container {
                 display: block !important;
             }
 
             @include down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );
 
-            div.years-list {
+            div.years-menu-container {
                 animation: fade-in-animation var(--heat-js-animation-length);
                 padding-top: $year-margin;
                 display: none;
                 position: absolute;
                 width: 80px;
                 left: 50%;
-                transform: translateX(-50%);
+                transform: translateX( -50% );
                 margin-top: $year-margin;
                 z-index: 1000;
 
-                div.years {
+                div.years-menu {
                     border-radius: var(--heat-js-border-radius);
                     background-color: var(--heat-js-years-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-years-border-color);
@@ -445,7 +545,7 @@ div.heat-js {
                     overflow-y: scroll;
                     scroll-snap-type: y mandatory;
 
-                    div.year {
+                    div.year-menu-item {
                         color: var(--heat-js-color-white);
                         font-weight: var(--heat-js-text-bold-weight);
                         border-bottom: var(--heat-js-border-size) dashed var(--heat-js-container-border-color);
@@ -455,11 +555,11 @@ div.heat-js {
                         transition: var(--heat-js-transition);
                         scroll-snap-align: start;
     
-                        &:not(.year-active):active {
+                        &:not(.year-menu-item-active):active {
                             opacity: 0.5 !important;
                         }
     
-                        &:not(.year-active):hover {
+                        &:not(.year-menu-item-active):hover {
                             cursor: pointer;
                             background-color: var(--heat-js-years-background-color-hover);
                             color: var(--heat-js-years-text-color-hover);
@@ -470,28 +570,18 @@ div.heat-js {
                         }
                     }
 
-                    div.year-active {
+                    div.year-menu-item-active {
                         background-color: var(--heat-js-years-background-color-hover);
                         color: var(--heat-js-years-text-color-hover);
                         font-weight: var(--heat-js-text-bold-weight-active);
                         cursor: default !important;
                     }
 
-                    div.year-current {
+                    div.year-menu-item-current {
                         font-style: italic;
                         font-weight: var(--heat-js-text-bold-weight-active);
                     }
                 }
-            }
-        }
-
-        button.export,
-        button.refresh,
-        button.import {
-            display: none;
-    
-            @media (min-width: $minimum-width) { 
-                display: inline-block;
             }
         }
     }
@@ -500,7 +590,7 @@ div.heat-js {
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Map
+    Heat.js - View - Map
     -------------------------------------------------------------------------
 */
 
@@ -629,9 +719,10 @@ div.heat-js {
     }
 }
 
+
 /*
     -------------------------------------------------------------------------
-    Heat.js - Chart
+    Heat.js - View - Chart
     -------------------------------------------------------------------------
 */
 
@@ -731,7 +822,117 @@ div.heat-js {
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Statistics
+    Heat.js - View - Days
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.days-contents {
+        display: flex;
+        overflow: hidden;
+        text-wrap: nowrap;
+        white-space: nowrap;
+        position: relative;
+
+        div.no-days-message {
+            @include centered-label;
+        }
+
+        div.days {
+            display: flex;
+            flex-direction: row;
+
+            div.y-labels {
+                @include labels;
+            }
+
+            div.day-lines {
+                display: flex;
+                align-items: baseline;
+                flex: 1;
+                border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+                justify-content: space-between;
+
+                div.day-line-number {
+                    font-size: var(--heat-js-spacing-day-font-size);
+                    padding: calc( var(--heat-js-spacing) / 2 );
+                    position: relative;
+                    overflow: hidden;
+
+                    div.count {
+                        position: absolute;
+                        top: calc( var(--heat-js-spacing) / 2 );
+                        left: 50%;
+                        transform: translateX( -50% );
+                        color: var(--heat-js-view-days-text-color);
+                    }
+                }
+
+                div.day-line {
+                    border-top-left-radius: var(--heat-js-border-radius-day);
+                    border-top-right-radius: var(--heat-js-border-radius-day);
+                    background-color: var(--heat-js-view-days-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
+                    border-bottom: none !important;
+                    vertical-align: bottom;
+                    flex: 1 100%;
+                    margin-right: var(--heat-js-spacing);
+                    display: inline-block;
+                    transition: var(--heat-js-transition);
+
+                    @media (min-width: $minimum-width) { 
+                        &:first-child {
+                            margin-left: calc( var(--heat-js-spacing) / 2 );
+                        }
+                    }
+    
+                    &:last-child {
+                        margin-right: 0;
+                    }
+
+                    &:not(.no-hover):hover {
+                        cursor: pointer;
+                        opacity: var(--heat-js-day-opacity-hover);
+                    }
+                }
+            }
+        }
+
+        div.day-names {
+            display: flex;
+            flex: 1;
+            position: relative;
+            justify-content: space-between;
+            align-items: baseline;
+            height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 3px );
+
+            div.day-name {
+                flex: 1 100%;
+                margin-top: var(--heat-js-spacing);
+                font-weight: var(--heat-js-text-bold-weight);
+                text-align: center !important;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-right: var(--heat-js-spacing);
+
+                @media (min-width: $minimum-width) { 
+                    &:first-child {
+                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                    }
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - View - Statistics
     -------------------------------------------------------------------------
 */
 
@@ -772,7 +973,7 @@ div.heat-js {
                         position: absolute;
                         top: calc( var(--heat-js-spacing) / 2 );
                         left: 50%;
-                        transform: translateX(-50%);
+                        transform: translateX( -50% );
                     }
                 }
 
@@ -821,10 +1022,22 @@ div.heat-js {
                 text-align: center !important;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                margin-right: var(--heat-js-spacing);
+
+                @media (min-width: $minimum-width) { 
+                    &:first-child {
+                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                    }
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
             }
         }
     }
 }
+
 
 /*
     -------------------------------------------------------------------------
@@ -962,6 +1175,72 @@ div.heat-js {
                         background: var(--heat-js-day-background-color-hover);
                     }
                 }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - CheckBox
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    label.checkbox {
+        @include no-selection-allowed;
+        display: inline-block;
+        position: relative;
+        padding-left: 20px;
+        padding-top: 1px;
+        padding-bottom: 2px;
+        color: var(--heat-js-color-white);
+
+        input {
+            display: none !important;
+
+            &:checked ~ span.check-mark {
+                background-color: var(--heat-js-checkbox-background-color-checked);
+                border: var(--heat-js-border-size) solid var(--heat-js-checkbox-border-color-checked);
+            }
+
+            &:checked ~ span.check-mark::before {
+                display: block;
+            }
+
+            &:disabled ~ span.check-mark,
+            &:disabled ~ span.text {
+                opacity: 0.5;
+            }
+            
+            &:disabled ~ span.check-mark {
+                border: var(--heat-js-border-size) solid var(--heat-js-color-black) !important;
+            }
+        }
+
+        span.check-mark {
+            position: absolute;
+            top: 1px;
+            left: 0;
+            height: 15px;
+            width: 15px;
+            background-color: var(--heat-js-checkbox-background-color);
+            border-radius: var(--heat-js-border-control-radius);
+            border: var(--heat-js-border-size) solid var(--heat-js-checkbox-border-color);
+            transition: var(--heat-js-transition);
+
+            &::before {
+                content: "";
+                transform: rotate( 45deg );
+                position: absolute;
+                display: none;
+                left: 4.5px;
+                top: 1px;
+                width: 6px;
+                height: 11px;
+                border: solid var(--heat-js-color-black);
+                border-width: 0 3px 3px 0;
             }
         }
     }

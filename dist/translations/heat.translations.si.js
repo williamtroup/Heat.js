@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Sinhalese | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Sinhalese | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "වස්තුවේ දෝෂ: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "ගුණාංගය'{{attribute_name}}' වලංගු වස්තුවක් නොවේ.",
         "attributeNotSetErrorText": "ගුණාංගය'{{attribute_name}}' නිවැරදිව සකසා නැත.",
+        "closeToolTipText": "වසන්න",
+        "configurationToolTipText": "මානකරනය",
+        "configurationTitleText": "මානකරනය",
+        "visibleMonthsText": "පෙනෙන මාස",
+        "visibleDaysText": "පෙනෙන දින",
+        "dataText": "දත්ත",
+        "colorRangesText": "වර්ණ පරාසයන්",
+        "yearText": "අවුරුදු",
+        "daysText": "දින",
+        "noDaysDataMessage": "දැනට නැරඹීමට දින නොමැත.",
         "monthNames": [
                 "ජන",
                 "පෙබ",

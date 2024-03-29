@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Japanese | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Japanese | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "オブジェクト内のエラー: {{error_1}}、 {{error_2}}",
         "attributeNotValidErrorText": "属性「{{attribute_name}}' は有効なオブジェクトではありません。",
         "attributeNotSetErrorText": "属性「{{attribute_name}}'が正しく設定されていません。",
+        "closeToolTipText": "近い",
+        "configurationToolTipText": "構成",
+        "configurationTitleText": "構成",
+        "visibleMonthsText": "表示可能な月",
+        "visibleDaysText": "見える日",
+        "dataText": "データ",
+        "colorRangesText": "色の範囲",
+        "yearText": "年",
+        "daysText": "日々",
+        "noDaysDataMessage": "現在閲覧できる日はありません。",
         "monthNames": [
                 "1月",
                 "2月",

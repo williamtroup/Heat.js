@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Tagalog | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Tagalog | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Mga error sa object: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Ang katangian '{{attribute_name}}' ay hindi isang wastong bagay.",
         "attributeNotSetErrorText": "Ang katangian '{{attribute_name}}' ay hindi naitakda nang tama.",
+        "closeToolTipText": "Isara",
+        "configurationToolTipText": "Configuration",
+        "configurationTitleText": "Configuration",
+        "visibleMonthsText": "Mga Nakikitang Buwan",
+        "visibleDaysText": "Mga Nakikitang Araw",
+        "dataText": "Data",
+        "colorRangesText": "Mga Saklaw ng Kulay",
+        "yearText": "taon",
+        "daysText": "Mga araw",
+        "noDaysDataMessage": "Kasalukuyang walang mga araw upang tingnan.",
         "monthNames": [
                 "Jan",
                 "Feb",

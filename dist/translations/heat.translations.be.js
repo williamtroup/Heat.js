@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Belarusian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Belarusian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Памылкі ў аб'екце: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Атрыбут '{{attribute_name}}' не з'яўляецца дапушчальным аб'ектам.",
         "attributeNotSetErrorText": "Атрыбут '{{attribute_name}}' не быў усталяваны правільна.",
+        "closeToolTipText": "Блізка",
+        "configurationToolTipText": "Канфігурацыя",
+        "configurationTitleText": "Канфігурацыя",
+        "visibleMonthsText": "Бачныя месяцы",
+        "visibleDaysText": "Бачныя дні",
+        "dataText": "даныя",
+        "colorRangesText": "Каляровыя дыяпазоны",
+        "yearText": "год",
+        "daysText": "дзён",
+        "noDaysDataMessage": "Зараз няма дзён для прагляду.",
         "monthNames": [
                 "Ян",
                 "люты",

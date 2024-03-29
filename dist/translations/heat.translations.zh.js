@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Chinese (simplified) | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Chinese (simplified) | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "日",
         "ndText": "日",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "对象中的错误： {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "属性 '{{attribute_name}}' 不是一个有效的对象。",
         "attributeNotSetErrorText": "属性 '{{attribute_name}}' 尚未正确设置。",
+        "closeToolTipText": "关闭",
+        "configurationToolTipText": "配置",
+        "configurationTitleText": "配置",
+        "visibleMonthsText": "可见月份",
+        "visibleDaysText": "可见天数",
+        "dataText": "数据",
+        "colorRangesText": "颜色范围",
+        "yearText": "年",
+        "daysText": "天",
+        "noDaysDataMessage": "目前没有可查看的日期。",
         "monthNames": [
                 "一月",
                 "二月",

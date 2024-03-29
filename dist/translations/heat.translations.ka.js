@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Georgian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Georgian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "შეცდომები ობიექტში: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "ატრიბუტი '{{attribute_name}}' არ არის სწორი ობიექტი.",
         "attributeNotSetErrorText": "ატრიბუტი '{{attribute_name}}' არ არის სწორად დაყენებული.",
+        "closeToolTipText": "დახურვა",
+        "configurationToolTipText": "კონფიგურაცია",
+        "configurationTitleText": "კონფიგურაცია",
+        "visibleMonthsText": "ხილული თვეები",
+        "visibleDaysText": "ხილული დღეები",
+        "dataText": "მონაცემები",
+        "colorRangesText": "ფერის დიაპაზონი",
+        "yearText": "წელიწადი",
+        "daysText": "დღეები",
+        "noDaysDataMessage": "ამჟამად არ არის სანახავი დღეები.",
         "monthNames": [
                 "იან",
                 "თებ",

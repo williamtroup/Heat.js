@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Hindi | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Hindi | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "वस्तु में त्रुटियाँ: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "विशेषता '{{attribute_name}}' एक वैध वस्तु नहीं है.",
         "attributeNotSetErrorText": "विशेषता '{{attribute_name}}'सही ढंग से सेट नहीं किया गया है.",
+        "closeToolTipText": "बंद करना",
+        "configurationToolTipText": "विन्यास",
+        "configurationTitleText": "विन्यास",
+        "visibleMonthsText": "दृश्यमान महीने",
+        "visibleDaysText": "दर्शनीय दिन",
+        "dataText": "डेटा",
+        "colorRangesText": "रंग श्रेणियाँ",
+        "yearText": "वर्ष",
+        "daysText": "दिन",
+        "noDaysDataMessage": "देखने के लिए फिलहाल कोई दिन नहीं है।",
         "monthNames": [
                 "जनवरी",
                 "फ़रवरी",

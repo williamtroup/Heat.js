@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Dutch | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Dutch | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Fouten in object: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Het attribuut '{{attribute_name}}' is geen geldig object.",
         "attributeNotSetErrorText": "Het attribuut '{{attribute_name}}' is niet correct ingesteld.",
+        "closeToolTipText": "Dichtbij",
+        "configurationToolTipText": "Configuratie",
+        "configurationTitleText": "Configuratie",
+        "visibleMonthsText": "Zichtbare maanden",
+        "visibleDaysText": "Zichtbare dagen",
+        "dataText": "Gegevens",
+        "colorRangesText": "Kleurbereiken",
+        "yearText": "Jaar",
+        "daysText": "Dagen",
+        "noDaysDataMessage": "Er zijn momenteel geen kijkdagen.",
         "monthNames": [
                 "jan",
                 "februari",

@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Greek | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Greek | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Σφάλματα στο αντικείμενο: {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "Η ιδιότητα '{{attribute_name}}' δεν είναι έγκυρο αντικείμενο.",
         "attributeNotSetErrorText": "Η ιδιότητα '{{attribute_name}}' δεν έχει ρυθμιστεί σωστά.",
+        "closeToolTipText": "Κλείσε",
+        "configurationToolTipText": "Διαμόρφωση",
+        "configurationTitleText": "Διαμόρφωση",
+        "visibleMonthsText": "Ορατοί Μήνες",
+        "visibleDaysText": "Ορατές μέρες",
+        "dataText": "Δεδομένα",
+        "colorRangesText": "Σειρές χρωμάτων",
+        "yearText": "Ετος",
+        "daysText": "Ημέρες",
+        "noDaysDataMessage": "Προς το παρόν δεν υπάρχουν μέρες για προβολή.",
         "monthNames": [
                 "Ιαν",
                 "Φεβ",

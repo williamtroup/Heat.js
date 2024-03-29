@@ -1,4 +1,4 @@
-/*! Heat.js v2.8.0 - Armenian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.0.0 - Armenian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
@@ -23,6 +23,16 @@ $heat.setConfiguration( {
         "objectErrorText": "Սխալներ օբյեկտում. {{error_1}}, {{error_2}}",
         "attributeNotValidErrorText": "հատկանիշը'{{attribute_name}}' վավեր օբյեկտ չէ:",
         "attributeNotSetErrorText": "հատկանիշը'{{attribute_name}}' ճիշտ չի սահմանվել:",
+        "closeToolTipText": "փակել",
+        "configurationToolTipText": "Կոնֆիգուրացիա",
+        "configurationTitleText": "Կոնֆիգուրացիա",
+        "visibleMonthsText": "Տեսանելի ամիսներ",
+        "visibleDaysText": "Տեսանելի օրեր",
+        "dataText": "Տվյալներ",
+        "colorRangesText": "Գույնի միջակայքեր",
+        "yearText": "Տարի",
+        "daysText": "Օրեր",
+        "noDaysDataMessage": "Ներկայումս դիտելու օրեր չկան:",
         "monthNames": [
                 "հուն",
                 "փետր",
