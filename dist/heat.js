@@ -540,7 +540,7 @@
       if (bindingOptions.views.map.showMonthsInReverseOrder) {
         reverseElementsOrder(months);
       }
-      if (bindingOptions.keepScrollPositions) {
+      if (bindingOptions.views.map.keepScrollPositions) {
         bindingOptions.currentView.mapContents.scrollLeft = bindingOptions.currentView.mapContentsScrollLeft;
       }
     }
@@ -653,7 +653,7 @@
         monthNameSpace.style.height = chartMonths.offsetHeight + "px";
         monthNameSpace.style.width = labelsWidth + "px";
       }
-      if (bindingOptions.keepScrollPositions) {
+      if (bindingOptions.views.chart.keepScrollPositions) {
         bindingOptions.currentView.chartContents.scrollLeft = bindingOptions.currentView.chartContentsScrollLeft;
       }
     }
@@ -743,7 +743,7 @@
         reverseElementsOrder(dayLines);
         reverseElementsOrder(dayNames);
       }
-      if (bindingOptions.keepScrollPositions) {
+      if (bindingOptions.views.days.keepScrollPositions) {
         bindingOptions.currentView.daysContents.scrollLeft = bindingOptions.currentView.daysContentsScrollLeft;
       }
     }
@@ -836,7 +836,7 @@
         reverseElementsOrder(rangeLines);
         reverseElementsOrder(statisticsRanges);
       }
-      if (bindingOptions.keepScrollPositions) {
+      if (bindingOptions.views.statistics.keepScrollPositions) {
         bindingOptions.currentView.statisticsContents.scrollLeft = bindingOptions.currentView.statisticsContentsScrollLeft;
       }
     }
@@ -1447,7 +1447,6 @@
     options.colorRangeTogglesEnabled = getDefaultBoolean(options.colorRangeTogglesEnabled, true);
     options.exportOnlyYearBeingViewed = getDefaultBoolean(options.exportOnlyYearBeingViewed, true);
     options.year = getDefaultNumber(options.year, (new Date()).getFullYear());
-    options.keepScrollPositions = getDefaultBoolean(options.keepScrollPositions, false);
     options.extraSelectionYears = getDefaultNumber(options.extraSelectionYears, 50);
     options.showYearSelectionDropDown = getDefaultBoolean(options.showYearSelectionDropDown, true);
     options.view = getDefaultString(options.view, _elements_View_Name_Map);
@@ -1520,6 +1519,7 @@
     options.views.map.showNoDataMessageWhenDataIsNotAvailable = getDefaultBoolean(options.views.map.showNoDataMessageWhenDataIsNotAvailable, false);
     options.views.map.showMinimalDayNames = getDefaultBoolean(options.views.map.showMinimalDayNames, false);
     options.views.map.showMonthsInReverseOrder = getDefaultBoolean(options.views.map.showMonthsInReverseOrder, false);
+    options.views.map.keepScrollPositions = getDefaultBoolean(options.views.map.keepScrollPositions, false);
     if (isInvalidOptionArray(options.views.map.monthsToShow)) {
       options.views.map.monthsToShow = _default_MonthsToShow;
     }
@@ -1535,6 +1535,7 @@
     options.views.chart.showMonthNames = getDefaultBoolean(options.views.chart.showMonthNames, true);
     options.views.chart.showLineNumbers = getDefaultBoolean(options.views.chart.showLineNumbers, false);
     options.views.chart.showInReverseOrder = getDefaultBoolean(options.views.chart.showInReverseOrder, false);
+    options.views.chart.keepScrollPositions = getDefaultBoolean(options.views.chart.keepScrollPositions, false);
     if (isInvalidOptionArray(options.views.chart.monthsToShow)) {
       options.views.chart.monthsToShow = _default_MonthsToShow;
     }
@@ -1550,6 +1551,7 @@
     options.views.days.showDayNames = getDefaultBoolean(options.views.days.showDayNames, true);
     options.views.days.showInReverseOrder = getDefaultBoolean(options.views.days.showInReverseOrder, false);
     options.views.days.showDayNumbers = getDefaultBoolean(options.views.days.showDayNumbers, false);
+    options.views.days.keepScrollPositions = getDefaultBoolean(options.views.days.keepScrollPositions, false);
     if (isInvalidOptionArray(options.views.days.monthsToShow)) {
       options.views.days.monthsToShow = _default_MonthsToShow;
     }
@@ -1566,6 +1568,7 @@
     options.views.statistics.useColorRangeNamesForLabels = getDefaultBoolean(options.views.statistics.useColorRangeNamesForLabels, false);
     options.views.statistics.showRangeNumbers = getDefaultBoolean(options.views.statistics.showRangeNumbers, false);
     options.views.statistics.showInReverseOrder = getDefaultBoolean(options.views.statistics.showInReverseOrder, false);
+    options.views.statistics.keepScrollPositions = getDefaultBoolean(options.views.statistics.keepScrollPositions, false);
     if (isInvalidOptionArray(options.views.statistics.monthsToShow)) {
       options.views.statistics.monthsToShow = _default_MonthsToShow;
     }
