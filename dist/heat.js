@@ -919,11 +919,11 @@
     } else {
       renderDescription(bindingOptions, mapTypes);
     }
-    if (bindingOptions.showGuide) {
+    if (bindingOptions.guide.enabled) {
       var mapToggles = createElement(guide, "div", "map-toggles");
-      if (bindingOptions.showLessAndMoreLabels) {
+      if (bindingOptions.guide.showLessAndMoreLabels) {
         var lessText = createElementWithHTML(mapToggles, "div", "less-text", _configuration.lessText);
-        if (bindingOptions.colorRangeTogglesEnabled) {
+        if (bindingOptions.guide.colorRangeTogglesEnabled) {
           lessText.onclick = function() {
             updateColorRangeToggles(bindingOptions, false);
           };
@@ -935,9 +935,9 @@
       for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
         renderControlViewGuideDay(bindingOptions, days, colorRanges[colorRangesIndex]);
       }
-      if (bindingOptions.showLessAndMoreLabels) {
+      if (bindingOptions.guide.showLessAndMoreLabels) {
         var moreText = createElementWithHTML(mapToggles, "div", "more-text", _configuration.moreText);
-        if (bindingOptions.colorRangeTogglesEnabled) {
+        if (bindingOptions.guide.colorRangeTogglesEnabled) {
           moreText.onclick = function() {
             updateColorRangeToggles(bindingOptions, true);
           };
@@ -975,11 +975,11 @@
         addClass(day, colorRange.cssClassName);
       }
     }
-    if (bindingOptions.showNumbersInGuide) {
+    if (bindingOptions.guide.showNumbersInGuide) {
       addClass(day, "day-number");
       day.innerHTML = colorRange.minimum + _string.plus;
     }
-    if (bindingOptions.colorRangeTogglesEnabled) {
+    if (bindingOptions.guide.colorRangeTogglesEnabled) {
       day.onclick = function() {
         toggleColorRangeVisibleState(bindingOptions, colorRange.id);
       };
@@ -1441,8 +1441,6 @@
   function buildAttributeOptions(newOptions) {
     var options = !isDefinedObject(newOptions) ? {} : newOptions;
     options.views = !isDefinedObject(options.views) ? {} : options.views;
-    options.showGuide = getDefaultBoolean(options.showGuide, true);
-    options.colorRangeTogglesEnabled = getDefaultBoolean(options.colorRangeTogglesEnabled, true);
     options.exportOnlyYearBeingViewed = getDefaultBoolean(options.exportOnlyYearBeingViewed, true);
     options.year = getDefaultNumber(options.year, (new Date()).getFullYear());
     options.view = getDefaultString(options.view, _elements_View_Name_Map);
@@ -1453,12 +1451,11 @@
     options.useLocalStorageForData = getDefaultBoolean(options.useLocalStorageForData, false);
     options.allowFileImports = getDefaultBoolean(options.allowFileImports, true);
     options.yearsToHide = getDefaultArray(options.yearsToHide, []);
-    options.showLessAndMoreLabels = getDefaultBoolean(options.showLessAndMoreLabels, true);
-    options.showNumbersInGuide = getDefaultBoolean(options.showNumbersInGuide, false);
     options.dataFetchDelay = getDefaultNumber(options.dataFetchDelay, 60000);
     options.showOnlyDataForYearsAvailable = getDefaultBoolean(options.showOnlyDataForYearsAvailable, false);
     options.showHolidaysInDayToolTips = getDefaultBoolean(options.showHolidaysInDayToolTips, false);
     options = buildAttributeOptionTitle(options);
+    options = buildAttributeOptionGuide(options);
     options = buildAttributeOptionColorRanges(options);
     options = buildAttributeOptionHolidays(options);
     options = buildAttributeOptionMapView(options);
@@ -1479,6 +1476,14 @@
     options.title.showYearSelectionDropDown = getDefaultBoolean(options.title.showYearSelectionDropDown, true);
     options.title.showImportButton = getDefaultBoolean(options.title.showImportButton, false);
     options.title.showConfigurationButton = getDefaultBoolean(options.title.showConfigurationButton, true);
+    return options;
+  }
+  function buildAttributeOptionGuide(options) {
+    options.guide = !isDefinedObject(options.guide) ? {} : options.guide;
+    options.guide.enabled = getDefaultBoolean(options.guide.enabled, true);
+    options.guide.colorRangeTogglesEnabled = getDefaultBoolean(options.guide.colorRangeTogglesEnabled, true);
+    options.guide.showLessAndMoreLabels = getDefaultBoolean(options.guide.showLessAndMoreLabels, true);
+    options.guide.showNumbersInGuide = getDefaultBoolean(options.guide.showNumbersInGuide, false);
     return options;
   }
   function buildAttributeOptionColorRanges(options) {
