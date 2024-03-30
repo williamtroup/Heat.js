@@ -115,7 +115,7 @@
     bindingOptions.currentView.yearsAvailable = getYearsAvailableInData(bindingOptions);
     hideToolTip(bindingOptions);
     startDataPullTimer(bindingOptions);
-    if (bindingOptions.showConfigurationButton) {
+    if (bindingOptions.title.showConfigurationButton) {
       renderDisabledBackground(bindingOptions);
       renderConfigurationDialog(bindingOptions);
     }
@@ -308,39 +308,39 @@
     }
   }
   function renderControlTitleBar(bindingOptions) {
-    if (bindingOptions.showTitle || bindingOptions.showYearSelector || bindingOptions.showRefreshButton || bindingOptions.showExportButton || bindingOptions.showImportButton) {
+    if (bindingOptions.title.showText || bindingOptions.title.showYearSelector || bindingOptions.title.showRefreshButton || bindingOptions.title.showExportButton || bindingOptions.title.showImportButton) {
       var titleBar = createElement(bindingOptions.currentView.element, "div", "title-bar"), title = createElement(titleBar, "div", "title");
       if (bindingOptions.views.chart.enabled || bindingOptions.views.days.enabled || bindingOptions.views.statistics.enabled) {
         createElement(title, "div", "down-arrow");
       } else {
         addClass(title, "no-click");
       }
-      if (bindingOptions.showTitle) {
+      if (bindingOptions.title.showText) {
         title.innerHTML += bindingOptions.titleText;
       }
       if (bindingOptions.views.chart.enabled || bindingOptions.views.days.enabled || bindingOptions.views.statistics.enabled) {
         renderTitleDropDownMenu(bindingOptions, title);
       }
-      if (bindingOptions.showImportButton && !bindingOptions.currentView.isInFetchMode) {
+      if (bindingOptions.title.showImportButton && !bindingOptions.currentView.isInFetchMode) {
         var importData = createElementWithHTML(titleBar, "button", "import", _configuration.importButtonText);
         importData.onclick = function() {
           importFromFilesSelected(bindingOptions);
         };
       }
-      if (bindingOptions.showExportButton) {
+      if (bindingOptions.title.showExportButton) {
         var exportData = createElementWithHTML(titleBar, "button", "export", _configuration.exportButtonText);
         exportData.onclick = function() {
           exportAllData(bindingOptions);
         };
       }
-      if (bindingOptions.showRefreshButton) {
+      if (bindingOptions.title.showRefreshButton) {
         var refresh = createElementWithHTML(titleBar, "button", "refresh", _configuration.refreshButtonText);
         refresh.onclick = function() {
           renderControlContainer(bindingOptions);
           fireCustomTrigger(bindingOptions.onRefresh, bindingOptions.currentView.element);
         };
       }
-      if (bindingOptions.showYearSelector) {
+      if (bindingOptions.title.showYearSelector) {
         var back = createElementWithHTML(titleBar, "button", "back", _configuration.backButtonText);
         back.onclick = function() {
           moveToPreviousYear(bindingOptions);
@@ -349,12 +349,12 @@
           back.disabled = true;
         }
         bindingOptions.currentView.yearText = createElementWithHTML(titleBar, "div", "year-text", bindingOptions.currentView.year);
-        if (bindingOptions.showYearSelectionDropDown) {
+        if (bindingOptions.title.showYearSelectionDropDown) {
           renderYearDropDownMenu(bindingOptions);
         } else {
           addClass(bindingOptions.currentView.yearText, "no-click");
         }
-        if (bindingOptions.showConfigurationButton) {
+        if (bindingOptions.title.showConfigurationButton) {
           var configureButton = createElement(titleBar, "div", "configure");
           addToolTip(configureButton, bindingOptions, _configuration.configurationToolTipText);
           configureButton.onclick = function() {
@@ -407,7 +407,7 @@
     var yearsMenuContainer = createElement(bindingOptions.currentView.yearText, "div", "years-menu-container"), yearsMenu = createElement(yearsMenuContainer, "div", "years-menu"), thisYear = (new Date()).getFullYear(), activeYearMenuItem = null;
     yearsMenuContainer.style.display = "block";
     yearsMenuContainer.style.visibility = "hidden";
-    for (var currentYear = thisYear - bindingOptions.extraSelectionYears; currentYear < thisYear + bindingOptions.extraSelectionYears; currentYear++) {
+    for (var currentYear = thisYear - bindingOptions.title.extraSelectionYears; currentYear < thisYear + bindingOptions.title.extraSelectionYears; currentYear++) {
       if (isYearVisible(bindingOptions, currentYear)) {
         var yearMenuItem = renderYearDropDownMenuItem(bindingOptions, yearsMenu, currentYear, thisYear);
         if (!isDefined(activeYearMenuItem)) {
@@ -1442,15 +1442,9 @@
     var options = !isDefinedObject(newOptions) ? {} : newOptions;
     options.views = !isDefinedObject(options.views) ? {} : options.views;
     options.showGuide = getDefaultBoolean(options.showGuide, true);
-    options.showTitle = getDefaultBoolean(options.showTitle, true);
-    options.showYearSelector = getDefaultBoolean(options.showYearSelector, true);
-    options.showRefreshButton = getDefaultBoolean(options.showRefreshButton, false);
-    options.showExportButton = getDefaultBoolean(options.showExportButton, false);
     options.colorRangeTogglesEnabled = getDefaultBoolean(options.colorRangeTogglesEnabled, true);
     options.exportOnlyYearBeingViewed = getDefaultBoolean(options.exportOnlyYearBeingViewed, true);
     options.year = getDefaultNumber(options.year, (new Date()).getFullYear());
-    options.extraSelectionYears = getDefaultNumber(options.extraSelectionYears, 50);
-    options.showYearSelectionDropDown = getDefaultBoolean(options.showYearSelectionDropDown, true);
     options.view = getDefaultString(options.view, _elements_View_Name_Map);
     options.tooltipDelay = getDefaultNumber(options.tooltipDelay, 750);
     options.exportType = getDefaultString(options.exportType, _export_Type_Csv);
@@ -1461,11 +1455,10 @@
     options.yearsToHide = getDefaultArray(options.yearsToHide, []);
     options.showLessAndMoreLabels = getDefaultBoolean(options.showLessAndMoreLabels, true);
     options.showNumbersInGuide = getDefaultBoolean(options.showNumbersInGuide, false);
-    options.showImportButton = getDefaultBoolean(options.showImportButton, false);
     options.dataFetchDelay = getDefaultNumber(options.dataFetchDelay, 60000);
     options.showOnlyDataForYearsAvailable = getDefaultBoolean(options.showOnlyDataForYearsAvailable, false);
     options.showHolidaysInDayToolTips = getDefaultBoolean(options.showHolidaysInDayToolTips, false);
-    options.showConfigurationButton = getDefaultBoolean(options.showConfigurationButton, true);
+    options = buildAttributeOptionTitle(options);
     options = buildAttributeOptionColorRanges(options);
     options = buildAttributeOptionHolidays(options);
     options = buildAttributeOptionMapView(options);
@@ -1474,6 +1467,18 @@
     options = buildAttributeOptionStatisticsView(options);
     options = buildAttributeOptionStrings(options);
     options = buildAttributeOptionCustomTriggers(options);
+    return options;
+  }
+  function buildAttributeOptionTitle(options) {
+    options.title = !isDefinedObject(options.title) ? {} : options.title;
+    options.title.showText = getDefaultBoolean(options.title.showText, true);
+    options.title.showYearSelector = getDefaultBoolean(options.title.showYearSelector, true);
+    options.title.showRefreshButton = getDefaultBoolean(options.title.showRefreshButton, false);
+    options.title.showExportButton = getDefaultBoolean(options.title.showExportButton, false);
+    options.title.extraSelectionYears = getDefaultNumber(options.title.extraSelectionYears, 50);
+    options.title.showYearSelectionDropDown = getDefaultBoolean(options.title.showYearSelectionDropDown, true);
+    options.title.showImportButton = getDefaultBoolean(options.title.showImportButton, false);
+    options.title.showConfigurationButton = getDefaultBoolean(options.title.showConfigurationButton, true);
     return options;
   }
   function buildAttributeOptionColorRanges(options) {
