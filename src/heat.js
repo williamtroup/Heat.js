@@ -1092,7 +1092,9 @@
                 var storageDate = toStorageDate( new Date( bindingOptions.currentView.year, monthIndex, dayIndex + 1 ) );
 
                 if ( data.hasOwnProperty( storageDate ) ) {
-                    result = _parameter_Math.max( result, parseInt( data[ storageDate ] ) );
+                    if ( isMonthVisible( bindingOptions.views.chart.monthsToShow, monthIndex ) && isDayVisible( bindingOptions.views.chart.daysToShow, dayIndex + 1 ) ) {
+                        result = _parameter_Math.max( result, parseInt( data[ storageDate ] ) );
+                    }
                 }
             }
         }
