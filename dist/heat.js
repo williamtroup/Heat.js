@@ -1439,8 +1439,8 @@
     return csvValues.join(",");
   }
   function buildAttributeOptions(newOptions) {
-    var options = !isDefinedObject(newOptions) ? {} : newOptions;
-    options.views = !isDefinedObject(options.views) ? {} : options.views;
+    var options = getDefaultObject(newOptions, {});
+    options.views = getDefaultObject(options.views, {});
     options.exportOnlyYearBeingViewed = getDefaultBoolean(options.exportOnlyYearBeingViewed, true);
     options.year = getDefaultNumber(options.year, (new Date()).getFullYear());
     options.view = getDefaultString(options.view, _elements_View_Name_Map);
@@ -1467,7 +1467,7 @@
     return options;
   }
   function buildAttributeOptionTitle(options) {
-    options.title = !isDefinedObject(options.title) ? {} : options.title;
+    options.title = getDefaultObject(options.title, {});
     options.title.showText = getDefaultBoolean(options.title.showText, true);
     options.title.showYearSelector = getDefaultBoolean(options.title.showYearSelector, true);
     options.title.showRefreshButton = getDefaultBoolean(options.title.showRefreshButton, false);
@@ -1479,7 +1479,7 @@
     return options;
   }
   function buildAttributeOptionGuide(options) {
-    options.guide = !isDefinedObject(options.guide) ? {} : options.guide;
+    options.guide = getDefaultObject(options.guide, {});
     options.guide.enabled = getDefaultBoolean(options.guide.enabled, true);
     options.guide.colorRangeTogglesEnabled = getDefaultBoolean(options.guide.colorRangeTogglesEnabled, true);
     options.guide.showLessAndMoreLabels = getDefaultBoolean(options.guide.showLessAndMoreLabels, true);
@@ -1521,7 +1521,7 @@
     return options;
   }
   function buildAttributeOptionMapView(options) {
-    options.views.map = !isDefinedObject(options.views.map) ? {} : options.views.map;
+    options.views.map = getDefaultObject(options.views.map, {});
     options.views.map.showMonthDayGaps = getDefaultBoolean(options.views.map.showMonthDayGaps, true);
     options.views.map.showDayNames = getDefaultBoolean(options.views.map.showDayNames, true);
     options.views.map.placeMonthNamesOnTheBottom = getDefaultBoolean(options.views.map.placeMonthNamesOnTheBottom, false);
@@ -1541,7 +1541,7 @@
     return options;
   }
   function buildAttributeOptionChartView(options) {
-    options.views.chart = !isDefinedObject(options.views.chart) ? {} : options.views.chart;
+    options.views.chart = getDefaultObject(options.views.chart, {});
     options.views.chart.enabled = getDefaultBoolean(options.views.chart.enabled, true);
     options.views.chart.showChartYLabels = getDefaultBoolean(options.views.chart.showChartYLabels, true);
     options.views.chart.showMonthNames = getDefaultBoolean(options.views.chart.showMonthNames, true);
@@ -1557,7 +1557,7 @@
     return options;
   }
   function buildAttributeOptionDaysView(options) {
-    options.views.days = !isDefinedObject(options.views.days) ? {} : options.views.days;
+    options.views.days = getDefaultObject(options.views.days, {});
     options.views.days.enabled = getDefaultBoolean(options.views.days.enabled, true);
     options.views.days.showChartYLabels = getDefaultBoolean(options.views.days.showChartYLabels, true);
     options.views.days.showDayNames = getDefaultBoolean(options.views.days.showDayNames, true);
@@ -1573,7 +1573,7 @@
     return options;
   }
   function buildAttributeOptionStatisticsView(options) {
-    options.views.statistics = !isDefinedObject(options.views.statistics) ? {} : options.views.statistics;
+    options.views.statistics = getDefaultObject(options.views.statistics, {});
     options.views.statistics.enabled = getDefaultBoolean(options.views.statistics.enabled, true);
     options.views.statistics.showChartYLabels = getDefaultBoolean(options.views.statistics.showChartYLabels, true);
     options.views.statistics.showColorRangeLabels = getDefaultBoolean(options.views.statistics.showColorRangeLabels, true);
@@ -1788,14 +1788,17 @@
   function getDefaultBoolean(value, defaultValue) {
     return isDefinedBoolean(value) ? value : defaultValue;
   }
+  function getDefaultNumber(value, defaultValue) {
+    return isDefinedNumber(value) ? value : defaultValue;
+  }
   function getDefaultFunction(value, defaultValue) {
     return isDefinedFunction(value) ? value : defaultValue;
   }
   function getDefaultArray(value, defaultValue) {
     return isDefinedArray(value) ? value : defaultValue;
   }
-  function getDefaultNumber(value, defaultValue) {
-    return isDefinedNumber(value) ? value : defaultValue;
+  function getDefaultObject(value, defaultValue) {
+    return isDefinedObject(value) ? value : defaultValue;
   }
   function getDefaultStringOrArray(value, defaultValue) {
     if (isDefinedString(value)) {
