@@ -1,7 +1,7 @@
 /*! Heat.js v3.1.0 | (c) Bunoon 2024 | MIT License */
 (function() {
   var _parameter_Document = null, _parameter_Window = null, _parameter_Math = null, _parameter_JSON = null, _public = {}, _configuration = {}, _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+", zero:"0", colon:":", comma:","}, _value = {notFound:-1}, _internal_Name_Holiday = "HOLIDAY", _local_Storage_Start_ID = "HJS_", _default_MonthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], _default_DaysToShow = [1, 2, 3, 4, 5, 6, 7], _elements_Type = {}, _elements_Day_Width = 
-  null, _elements_DateCounts = {}, _elements_View_Name_Map = "map", _elements_View_Name_Chart = "chart", _elements_View_Name_Days = "days", _elements_View_Name_Statistics = "statistics", _elements_View_Map = 1, _elements_View_Chart = 2, _elements_View_Days = 3, _elements_View_Statistics = 4, _export_Type_Csv = "csv", _export_Type_Json = "json", _export_Type_Xml = "xml", _export_Type_Txt = "txt", _attribute_Name_Options = "data-heat-options";
+  null, _elements_DateCounts = {}, _elements_View_Name_Map = "map", _elements_View_Name_Chart = "chart", _elements_View_Name_Days = "days", _elements_View_Name_Statistics = "statistics", _elements_View_Map = 1, _elements_View_Chart = 2, _elements_View_Days = 3, _elements_View_Statistics = 4, _export_Type_Csv = "csv", _export_Type_Json = "json", _export_Type_Xml = "xml", _export_Type_Txt = "txt", _attribute_Name_Options = "data-heat-js";
   function render() {
     var tagTypes = _configuration.domElementTypes, tagTypesLength = tagTypes.length;
     for (var tagTypeIndex = 0; tagTypeIndex < tagTypesLength; tagTypeIndex++) {
@@ -560,7 +560,7 @@
       addClass(day, "no-hover");
     }
     var useColorRange = getColorRange(bindingOptions, colorRanges, dateCount, date);
-    if (isDefined(useColorRange) && isHeatMapColorVisible(bindingOptions, useColorRange.id)) {
+    if (isDefined(useColorRange) && isColorRangeVisible(bindingOptions, useColorRange.id)) {
       if (isDefinedString(useColorRange.mapCssClassName)) {
         addClass(day, useColorRange.mapCssClassName);
       } else {
@@ -679,7 +679,7 @@
       addClass(dayLine, "no-hover");
     }
     var useColorRange = getColorRange(bindingOptions, colorRanges, dateCount, date);
-    if (isDefined(useColorRange) && isHeatMapColorVisible(bindingOptions, useColorRange.id)) {
+    if (isDefined(useColorRange) && isColorRangeVisible(bindingOptions, useColorRange.id)) {
       if (isDefinedString(useColorRange.chartCssClassName)) {
         addClass(dayLine, useColorRange.chartCssClassName);
       } else {
@@ -859,7 +859,7 @@
     } else {
       addClass(rangeLine, "no-hover");
     }
-    if (isDefined(useColorRange) && isHeatMapColorVisible(bindingOptions, useColorRange.id)) {
+    if (isDefined(useColorRange) && isColorRangeVisible(bindingOptions, useColorRange.id)) {
       if (isDefinedString(useColorRange.statisticsCssClassName)) {
         addClass(rangeLine, useColorRange.statisticsCssClassName);
       } else {
@@ -962,7 +962,7 @@
     var day = createElement(days, "div");
     day.className = "day";
     addToolTip(day, bindingOptions, colorRange.tooltipText);
-    if (isHeatMapColorVisible(bindingOptions, colorRange.id)) {
+    if (isColorRangeVisible(bindingOptions, colorRange.id)) {
       if (bindingOptions.currentView.view === _elements_View_Map && isDefinedString(colorRange.mapCssClassName)) {
         addClass(day, colorRange.mapCssClassName);
       } else if (bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart && isDefinedString(colorRange.chartCssClassName)) {
@@ -1133,7 +1133,7 @@
       }
     }
   }
-  function isHeatMapColorVisible(bindingOptions, id) {
+  function isColorRangeVisible(bindingOptions, id) {
     var result = false;
     if (id === _internal_Name_Holiday) {
       result = true;
@@ -1141,7 +1141,7 @@
       var colorRangesLength = bindingOptions.colorRanges.length;
       for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
         var colorRange = bindingOptions.colorRanges[colorRangesIndex];
-        if (colorRange.id === id && (!isDefinedBoolean(colorRange.visible) || colorRange.visible)) {
+        if (colorRange.id === id && getDefaultBoolean(colorRange.visible, true)) {
           result = true;
           break;
         }
@@ -1162,7 +1162,7 @@
     for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
       var colorRange = bindingOptions.colorRanges[colorRangesIndex];
       if (colorRange.id === id) {
-        colorRange.visible = !(isDefinedBoolean(colorRange.visible) && colorRange.visible);
+        colorRange.visible = !getDefaultBoolean(colorRange.visible, true);
         fireCustomTrigger(bindingOptions.onColorRangeTypeToggle, colorRange.id, colorRange.visible);
         renderControlContainer(bindingOptions);
         break;

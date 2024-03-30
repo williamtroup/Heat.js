@@ -133,14 +133,14 @@ Make sure you include the "DOCTYPE html" tag at the top of your HTML, as follows
 ### 3. DOM Element Binding:
 
 ```markdown
-<div id="heat-map" data-heat-options="{ 'views': { 'map': { 'showDayNames': true } } }">
+<div id="heat-map" data-heat-js="{ 'views': { 'map': { 'showDayNames': true } } }">
     Your HTML.
 </div>
 ```
 
-To see a list of all the available binding options you can use for "data-heat-options", click [here](https://william-troup.com/heat-js/documentation/binding-options.html).
+To see a list of all the available binding options you can use for "data-heat-js", click [here](https://william-troup.com/heat-js/documentation/binding-options.html).
 
-To see a list of all the available custom triggers you can use for "data-heat-options", click [here](https://william-troup.com/heat-js/documentation/binding-options-custom-triggers.html).
+To see a list of all the available custom triggers you can use for "data-heat-js", click [here](https://william-troup.com/heat-js/documentation/binding-options-custom-triggers.html).
 
 
 ### 4. Adding Dates:

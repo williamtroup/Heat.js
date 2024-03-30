@@ -80,7 +80,7 @@
         _export_Type_Txt = "txt",
 
         // Variables: Attribute Names
-        _attribute_Name_Options = "data-heat-options";
+        _attribute_Name_Options = "data-heat-js";
 
     
     /*
@@ -892,7 +892,7 @@
 
         var useColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
 
-        if ( isDefined( useColorRange ) && isHeatMapColorVisible( bindingOptions, useColorRange.id ) ) {
+        if ( isDefined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id ) ) {
             if ( isDefinedString( useColorRange.mapCssClassName ) ) {
                 addClass( day, useColorRange.mapCssClassName );
             } else {
@@ -1072,7 +1072,7 @@
 
         var useColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
 
-        if ( isDefined( useColorRange ) && isHeatMapColorVisible( bindingOptions, useColorRange.id ) ) {
+        if ( isDefined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id ) ) {
             if ( isDefinedString( useColorRange.chartCssClassName ) ) {
                 addClass( dayLine, useColorRange.chartCssClassName );
             } else {
@@ -1355,7 +1355,7 @@
             addClass( rangeLine, "no-hover" );
         }
 
-        if ( isDefined( useColorRange ) && isHeatMapColorVisible( bindingOptions, useColorRange.id ) ) {
+        if ( isDefined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id ) ) {
             if ( isDefinedString( useColorRange.statisticsCssClassName ) ) {
                 addClass( rangeLine, useColorRange.statisticsCssClassName );
             } else {
@@ -1510,7 +1510,7 @@
 
         addToolTip( day, bindingOptions, colorRange.tooltipText );
 
-        if ( isHeatMapColorVisible( bindingOptions, colorRange.id ) ) {
+        if ( isColorRangeVisible( bindingOptions, colorRange.id ) ) {
             if ( bindingOptions.currentView.view === _elements_View_Map && isDefinedString( colorRange.mapCssClassName ) ) {
                 addClass( day, colorRange.mapCssClassName );
             } else if ( bindingOptions.views.chart.enabled && bindingOptions.currentView.view === _elements_View_Chart && isDefinedString( colorRange.chartCssClassName ) ) {
@@ -1774,7 +1774,7 @@
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function isHeatMapColorVisible( bindingOptions, id ) {
+    function isColorRangeVisible( bindingOptions, id ) {
         var result = false;
         
         if ( id === _internal_Name_Holiday ) {
@@ -1786,7 +1786,7 @@
             for ( var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
                 var colorRange = bindingOptions.colorRanges[ colorRangesIndex ];
     
-                if ( colorRange.id === id && ( !isDefinedBoolean( colorRange.visible ) || colorRange.visible ) ) {
+                if ( colorRange.id === id && getDefaultBoolean( colorRange.visible, true ) ) {
                     result = true;
                     break;
                 }
@@ -1815,7 +1815,7 @@
             var colorRange = bindingOptions.colorRanges[ colorRangesIndex ];
 
             if ( colorRange.id === id ) {
-                colorRange.visible = !( isDefinedBoolean( colorRange.visible ) && colorRange.visible );
+                colorRange.visible = !getDefaultBoolean( colorRange.visible, true );
 
                 fireCustomTrigger( bindingOptions.onColorRangeTypeToggle, colorRange.id, colorRange.visible );
                 renderControlContainer( bindingOptions );
