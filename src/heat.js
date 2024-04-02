@@ -1430,7 +1430,7 @@
         }
 
         if ( _elements_DateCounts[ bindingOptions.currentView.element.id ].types > 1 ) {
-            if ( isDefinedString( bindingOptions.descriptionText ) ) {
+            if ( isDefinedString( bindingOptions.description.text ) ) {
                 var description = createElement( bindingOptions.currentView.element, "div", "description", guide );
     
                 renderDescription( bindingOptions, description );
@@ -1541,14 +1541,14 @@
     }
 
     function renderDescription( bindingOptions, container ) {
-        if ( isDefinedString( bindingOptions.descriptionText ) ) {
-            if ( isDefinedString( bindingOptions.descriptionTextLink ) ) {
-                var link = createElementWithHTML( container, "a", "label", bindingOptions.descriptionText );
-                link.href = bindingOptions.descriptionTextLink;
+        if ( isDefinedString( bindingOptions.description.text ) ) {
+            if ( isDefinedString( bindingOptions.description.url ) ) {
+                var link = createElementWithHTML( container, "a", "label", bindingOptions.description.text );
+                link.href = bindingOptions.description.url;
                 link.target = "_blank";
 
             } else {
-                createElementWithHTML( container, "span", "label", bindingOptions.descriptionText );
+                createElementWithHTML( container, "span", "label", bindingOptions.description.text );
             }
         }
     }
@@ -2246,8 +2246,6 @@
         options.view = getDefaultString( options.view, _elements_View_Name_Map );
         options.tooltipDelay = getDefaultNumber( options.tooltipDelay, 750 );
         options.exportType = getDefaultString( options.exportType, _export_Type_Csv );
-        options.descriptionText = getDefaultString( options.descriptionText, null );
-        options.descriptionTextLink = getDefaultString( options.descriptionTextLink, null );
         options.useLocalStorageForData = getDefaultBoolean( options.useLocalStorageForData, false );
         options.allowFileImports = getDefaultBoolean( options.allowFileImports, true );
         options.yearsToHide = getDefaultArray( options.yearsToHide, [] );
@@ -2259,6 +2257,7 @@
         options = buildAttributeOptionHolidays( options );
         options = buildAttributeOptionStrings( options );
         options = buildAttributeOptionTitle( options );
+        options = buildAttributeOptionDescription( options );
         options = buildAttributeOptionGuide( options );
         options = buildAttributeOptionMapView( options );
         options = buildAttributeOptionChartView( options );
@@ -2363,6 +2362,14 @@
         options.title.showYearSelectionDropDown = getDefaultBoolean( options.title.showYearSelectionDropDown, true );
         options.title.showImportButton = getDefaultBoolean( options.title.showImportButton, false );
         options.title.showConfigurationButton = getDefaultBoolean( options.title.showConfigurationButton, true );
+
+        return options;
+    }
+
+    function buildAttributeOptionDescription( options ) {
+        options.description = getDefaultObject( options.description, {} );
+        options.description.text = getDefaultString( options.description.text, null );
+        options.description.url = getDefaultString( options.description.url, null );
 
         return options;
     }
