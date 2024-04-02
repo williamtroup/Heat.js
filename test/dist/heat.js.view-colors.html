@@ -17,7 +17,7 @@
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-options="bindingOptions"></div>
+            <div id="heat-map-1" data-heat-js="bindingOptions"></div>
         </div>
     </body>
 
@@ -64,7 +64,9 @@
                     visible: true
                 } ],
                 onDayClick: onDayClick,
-                descriptionText: "A basic example of how to use Heat.js."
+                description: {
+                    text: "A basic example of how to use Heat.js."
+                }
             };
         }
 
