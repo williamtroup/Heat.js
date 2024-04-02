@@ -495,7 +495,7 @@
             bindingOptions.currentView.tooltip.style.display = "block";
 
             showElementAtMousePosition( e, bindingOptions.currentView.tooltip );
-        }, bindingOptions.tooltipDelay );
+        }, bindingOptions.tooltip.delay );
     }
 
     function hideToolTip( bindingOptions ) {
@@ -530,7 +530,7 @@
             }
 
             if ( bindingOptions.title.showText ) {
-                title.innerHTML += bindingOptions.titleText;
+                title.innerHTML += bindingOptions.title.text;
             }
 
             if ( bindingOptions.views.chart.enabled || bindingOptions.views.days.enabled || bindingOptions.views.statistics.enabled ) {
@@ -1565,7 +1565,7 @@
             addToolTip( day, bindingOptions, fireCustomTrigger( bindingOptions.events.onDayToolTipRender, date, dateCount ) );
         } else {
 
-            var tooltip = getCustomFormattedDateText( bindingOptions.dayToolTipText, date );
+            var tooltip = getCustomFormattedDateText( bindingOptions.tooltip.dayText, date );
 
             if ( bindingOptions.showHolidaysInDayToolTips ) {
                 var holiday = isHoliday( bindingOptions, date );
@@ -2244,7 +2244,6 @@
         options.exportOnlyYearBeingViewed = getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
         options.year = getDefaultNumber( options.year, new Date().getFullYear() );
         options.view = getDefaultString( options.view, _elements_View_Name_Map );
-        options.tooltipDelay = getDefaultNumber( options.tooltipDelay, 750 );
         options.exportType = getDefaultString( options.exportType, _export_Type_Csv );
         options.useLocalStorageForData = getDefaultBoolean( options.useLocalStorageForData, false );
         options.allowFileImports = getDefaultBoolean( options.allowFileImports, true );
@@ -2255,10 +2254,10 @@
         
         options = buildAttributeOptionColorRanges( options );
         options = buildAttributeOptionHolidays( options );
-        options = buildAttributeOptionStrings( options );
         options = buildAttributeOptionTitle( options );
         options = buildAttributeOptionDescription( options );
         options = buildAttributeOptionGuide( options );
+        options = buildAttributeOptionToolTip( options );
         options = buildAttributeOptionMapView( options );
         options = buildAttributeOptionChartView( options );
         options = buildAttributeOptionDaysView( options );
@@ -2345,15 +2344,9 @@
         return options;
     }
 
-    function buildAttributeOptionStrings( options ) {
-        options.titleText = getDefaultString( options.titleText, "Heat.js" );
-        options.dayToolTipText = getDefaultString( options.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
-
-        return options;
-    }
-
     function buildAttributeOptionTitle( options ) {
         options.title = getDefaultObject( options.title, {} );
+        options.title.text = getDefaultString( options.title.text, "Heat.js" );
         options.title.showText = getDefaultBoolean( options.title.showText, true );
         options.title.showYearSelector = getDefaultBoolean( options.title.showYearSelector, true );
         options.title.showRefreshButton = getDefaultBoolean( options.title.showRefreshButton, false );
@@ -2380,6 +2373,14 @@
         options.guide.colorRangeTogglesEnabled = getDefaultBoolean( options.guide.colorRangeTogglesEnabled, true );
         options.guide.showLessAndMoreLabels = getDefaultBoolean( options.guide.showLessAndMoreLabels, true );
         options.guide.showNumbersInGuide = getDefaultBoolean( options.guide.showNumbersInGuide, false );
+
+        return options;
+    }
+
+    function buildAttributeOptionToolTip( options ) {
+        options.tooltip = getDefaultObject( options.tooltip, {} );
+        options.tooltip.delay = getDefaultNumber( options.tooltip.delay, 750 );
+        options.tooltip.dayText = getDefaultString( options.tooltip.dayText, "{d}{o} {mmmm} {yyyy}" );
 
         return options;
     }
