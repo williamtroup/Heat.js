@@ -1548,7 +1548,7 @@
             if ( isDefinedString( bindingOptions.description.url ) ) {
                 var link = createElementWithHTML( container, "a", "label", bindingOptions.description.text );
                 link.href = bindingOptions.description.url;
-                link.target = "_blank";
+                link.target = bindingOptions.description.urlTarget;                
 
             } else {
                 createElementWithHTML( container, "span", "label", bindingOptions.description.text );
@@ -2367,6 +2367,7 @@
         options.description = getDefaultObject( options.description, {} );
         options.description.text = getDefaultString( options.description.text, null );
         options.description.url = getDefaultString( options.description.url, null );
+        options.description.urlTarget = getDefaultString( options.description.urlTarget, "_blank" );
 
         return options;
     }
