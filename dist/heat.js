@@ -1,4 +1,4 @@
-/*! Heat.js v3.1.0 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.1.1 | (c) Bunoon 2024 | MIT License */
 (function() {
   var _parameter_Document = null, _parameter_Window = null, _parameter_Math = null, _parameter_JSON = null, _public = {}, _configuration = {}, _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+", zero:"0", colon:":", comma:","}, _value = {notFound:-1}, _internal_Name_Holiday = "HOLIDAY", _local_Storage_Start_ID = "HJS_", _default_MonthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], _default_DaysToShow = [1, 2, 3, 4, 5, 6, 7], _elements_Type = {}, _elements_Day_Width = 
   null, _elements_DateCounts = {}, _elements_View_Name_Map = "map", _elements_View_Name_Chart = "chart", _elements_View_Name_Days = "days", _elements_View_Name_Statistics = "statistics", _elements_View_Map = 1, _elements_View_Chart = 2, _elements_View_Days = 3, _elements_View_Statistics = 4, _export_Type_Csv = "csv", _export_Type_Json = "json", _export_Type_Xml = "xml", _export_Type_Txt = "txt", _attribute_Name_Options = "data-heat-js";
@@ -311,7 +311,9 @@
     if (bindingOptions.title.showText || bindingOptions.title.showYearSelector || bindingOptions.title.showRefreshButton || bindingOptions.title.showExportButton || bindingOptions.title.showImportButton) {
       var titleBar = createElement(bindingOptions.currentView.element, "div", "title-bar"), title = createElement(titleBar, "div", "title");
       if (bindingOptions.views.chart.enabled || bindingOptions.views.days.enabled || bindingOptions.views.statistics.enabled) {
-        createElement(title, "div", "down-arrow");
+        if (bindingOptions.title.showTitleDropDownButton) {
+          createElement(title, "div", "down-arrow");
+        }
       } else {
         addClass(title, "no-click");
       }
@@ -992,7 +994,7 @@
       if (isDefinedString(bindingOptions.description.url)) {
         var link = createElementWithHTML(container, "a", "label", bindingOptions.description.text);
         link.href = bindingOptions.description.url;
-        link.target = "_blank";
+        link.target = bindingOptions.description.urlTarget;
       } else {
         createElementWithHTML(container, "span", "label", bindingOptions.description.text);
       }
@@ -1509,12 +1511,14 @@
     options.title.showYearSelectionDropDown = getDefaultBoolean(options.title.showYearSelectionDropDown, true);
     options.title.showImportButton = getDefaultBoolean(options.title.showImportButton, false);
     options.title.showConfigurationButton = getDefaultBoolean(options.title.showConfigurationButton, true);
+    options.title.showTitleDropDownButton = getDefaultBoolean(options.title.showTitleDropDownButton, true);
     return options;
   }
   function buildAttributeOptionDescription(options) {
     options.description = getDefaultObject(options.description, {});
     options.description.text = getDefaultString(options.description.text, null);
     options.description.url = getDefaultString(options.description.url, null);
+    options.description.urlTarget = getDefaultString(options.description.urlTarget, "_blank");
     return options;
   }
   function buildAttributeOptionGuide(options) {
@@ -2318,7 +2322,7 @@
     return result;
   };
   _public.getVersion = function() {
-    return "3.1.0";
+    return "3.1.1";
   };
   (function(documentObject, windowObject, mathObject, jsonObject) {
     _parameter_Document = documentObject;

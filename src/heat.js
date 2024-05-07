@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        observe.js
- * @version     v3.1.0
+ * @version     v3.1.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -524,7 +524,10 @@
                 title = createElement( titleBar, "div", "title" );
 
             if ( bindingOptions.views.chart.enabled || bindingOptions.views.days.enabled || bindingOptions.views.statistics.enabled ) {
-                createElement( title, "div", "down-arrow" );
+                if ( bindingOptions.title.showTitleDropDownButton ) {
+                    createElement( title, "div", "down-arrow" );
+                }
+                
             } else {
                 addClass( title, "no-click" );
             }
@@ -1545,7 +1548,7 @@
             if ( isDefinedString( bindingOptions.description.url ) ) {
                 var link = createElementWithHTML( container, "a", "label", bindingOptions.description.text );
                 link.href = bindingOptions.description.url;
-                link.target = "_blank";
+                link.target = bindingOptions.description.urlTarget;                
 
             } else {
                 createElementWithHTML( container, "span", "label", bindingOptions.description.text );
@@ -2355,7 +2358,8 @@
         options.title.showYearSelectionDropDown = getDefaultBoolean( options.title.showYearSelectionDropDown, true );
         options.title.showImportButton = getDefaultBoolean( options.title.showImportButton, false );
         options.title.showConfigurationButton = getDefaultBoolean( options.title.showConfigurationButton, true );
-
+        options.title.showTitleDropDownButton = getDefaultBoolean( options.title.showTitleDropDownButton, true );
+        
         return options;
     }
 
@@ -2363,6 +2367,7 @@
         options.description = getDefaultObject( options.description, {} );
         options.description.text = getDefaultString( options.description.text, null );
         options.description.url = getDefaultString( options.description.url, null );
+        options.description.urlTarget = getDefaultString( options.description.urlTarget, "_blank" );
 
         return options;
     }
@@ -3912,7 +3917,7 @@
      * @returns     {string}                                                The version number.
      */
     _public.getVersion = function() {
-        return "3.1.0";
+        return "3.1.1";
     };
 
 

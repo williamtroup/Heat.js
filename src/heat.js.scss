@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v3.1.0
+ * Heat.js Library v3.1.1
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -273,6 +273,7 @@ div.heat-js {
                     display: inline-block;
                     width: calc( 50% - var(--heat-js-spacing) );
                     margin-right: var(--heat-js-spacing);
+                    text-align: left !important;
 
                     &:last-child {
                         margin-right: 0;
