@@ -311,7 +311,9 @@
     if (bindingOptions.title.showText || bindingOptions.title.showYearSelector || bindingOptions.title.showRefreshButton || bindingOptions.title.showExportButton || bindingOptions.title.showImportButton) {
       var titleBar = createElement(bindingOptions.currentView.element, "div", "title-bar"), title = createElement(titleBar, "div", "title");
       if (bindingOptions.views.chart.enabled || bindingOptions.views.days.enabled || bindingOptions.views.statistics.enabled) {
-        createElement(title, "div", "down-arrow");
+        if (bindingOptions.title.showTitleDropDownButton) {
+          createElement(title, "div", "down-arrow");
+        }
       } else {
         addClass(title, "no-click");
       }
@@ -1509,6 +1511,7 @@
     options.title.showYearSelectionDropDown = getDefaultBoolean(options.title.showYearSelectionDropDown, true);
     options.title.showImportButton = getDefaultBoolean(options.title.showImportButton, false);
     options.title.showConfigurationButton = getDefaultBoolean(options.title.showConfigurationButton, true);
+    options.title.showTitleDropDownButton = getDefaultBoolean(options.title.showTitleDropDownButton, true);
     return options;
   }
   function buildAttributeOptionDescription(options) {
