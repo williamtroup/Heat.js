@@ -273,6 +273,7 @@ div.heat-js {
                     display: inline-block;
                     width: calc( 50% - var(--heat-js-spacing) );
                     margin-right: var(--heat-js-spacing);
+                    text-align: left !important;
 
                     &:last-child {
                         margin-right: 0;
