@@ -1,4 +1,4 @@
-/*! Heat.js v3.1.1 - Hebrew | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.1.2 - Hebrew | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
