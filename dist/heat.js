@@ -1793,6 +1793,9 @@
     }
     return result;
   }
+  function getDefaultAnyString(value, defaultValue) {
+    return typeof value === "string" ? value : defaultValue;
+  }
   function getDefaultString(value, defaultValue) {
     return isDefinedString(value) ? value : defaultValue;
   }
@@ -2266,39 +2269,39 @@
     buildDefaultConfigurationArrays();
   }
   function buildDefaultConfigurationStrings() {
-    _configuration.stText = getDefaultString(_configuration.stText, "st");
-    _configuration.ndText = getDefaultString(_configuration.ndText, "nd");
-    _configuration.rdText = getDefaultString(_configuration.rdText, "rd");
-    _configuration.thText = getDefaultString(_configuration.thText, "th");
-    _configuration.backButtonText = getDefaultString(_configuration.backButtonText, "Back");
-    _configuration.nextButtonText = getDefaultString(_configuration.nextButtonText, "Next");
-    _configuration.refreshButtonText = getDefaultString(_configuration.refreshButtonText, "Refresh");
-    _configuration.exportButtonText = getDefaultString(_configuration.exportButtonText, "Export");
-    _configuration.lessText = getDefaultString(_configuration.lessText, "Less");
-    _configuration.moreText = getDefaultString(_configuration.moreText, "More");
-    _configuration.dateText = getDefaultString(_configuration.dateText, "Date");
-    _configuration.countText = getDefaultString(_configuration.countText, "Count");
-    _configuration.mapText = getDefaultString(_configuration.mapText, "Map");
-    _configuration.chartText = getDefaultString(_configuration.chartText, "Chart");
-    _configuration.noChartDataMessage = getDefaultString(_configuration.noChartDataMessage, "There is currently no data to view.");
-    _configuration.statisticsText = getDefaultString(_configuration.statisticsText, "Statistics");
-    _configuration.noStatisticsDataMessage = getDefaultString(_configuration.noStatisticsDataMessage, "There are currently no statistics to view.");
-    _configuration.unknownTrendText = getDefaultString(_configuration.unknownTrendText, "Unknown");
-    _configuration.importButtonText = getDefaultString(_configuration.importButtonText, "Import");
-    _configuration.noMapDataMessage = getDefaultString(_configuration.noMapDataMessage, "There is currently no data to view.");
-    _configuration.objectErrorText = getDefaultString(_configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
-    _configuration.attributeNotValidErrorText = getDefaultString(_configuration.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object.");
-    _configuration.attributeNotSetErrorText = getDefaultString(_configuration.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly.");
-    _configuration.closeToolTipText = getDefaultString(_configuration.closeToolTipText, "Close");
-    _configuration.configurationToolTipText = getDefaultString(_configuration.configurationToolTipText, "Configuration");
-    _configuration.configurationTitleText = getDefaultString(_configuration.configurationTitleText, "Configuration");
-    _configuration.visibleMonthsText = getDefaultString(_configuration.visibleMonthsText, "Visible Months");
-    _configuration.visibleDaysText = getDefaultString(_configuration.visibleDaysText, "Visible Days");
-    _configuration.dataText = getDefaultString(_configuration.dataText, "Data");
-    _configuration.colorRangesText = getDefaultString(_configuration.colorRangesText, "Color Ranges");
-    _configuration.yearText = getDefaultString(_configuration.yearText, "Year");
-    _configuration.daysText = getDefaultString(_configuration.daysText, "Days");
-    _configuration.noDaysDataMessage = getDefaultString(_configuration.noDaysDataMessage, "There are currently no days to view.");
+    _configuration.stText = getDefaultAnyString(_configuration.stText, "st");
+    _configuration.ndText = getDefaultAnyString(_configuration.ndText, "nd");
+    _configuration.rdText = getDefaultAnyString(_configuration.rdText, "rd");
+    _configuration.thText = getDefaultAnyString(_configuration.thText, "th");
+    _configuration.backButtonText = getDefaultAnyString(_configuration.backButtonText, "Back");
+    _configuration.nextButtonText = getDefaultAnyString(_configuration.nextButtonText, "Next");
+    _configuration.refreshButtonText = getDefaultAnyString(_configuration.refreshButtonText, "Refresh");
+    _configuration.exportButtonText = getDefaultAnyString(_configuration.exportButtonText, "Export");
+    _configuration.lessText = getDefaultAnyString(_configuration.lessText, "Less");
+    _configuration.moreText = getDefaultAnyString(_configuration.moreText, "More");
+    _configuration.dateText = getDefaultAnyString(_configuration.dateText, "Date");
+    _configuration.countText = getDefaultAnyString(_configuration.countText, "Count");
+    _configuration.mapText = getDefaultAnyString(_configuration.mapText, "Map");
+    _configuration.chartText = getDefaultAnyString(_configuration.chartText, "Chart");
+    _configuration.noChartDataMessage = getDefaultAnyString(_configuration.noChartDataMessage, "There is currently no data to view.");
+    _configuration.statisticsText = getDefaultAnyString(_configuration.statisticsText, "Statistics");
+    _configuration.noStatisticsDataMessage = getDefaultAnyString(_configuration.noStatisticsDataMessage, "There are currently no statistics to view.");
+    _configuration.unknownTrendText = getDefaultAnyString(_configuration.unknownTrendText, "Unknown");
+    _configuration.importButtonText = getDefaultAnyString(_configuration.importButtonText, "Import");
+    _configuration.noMapDataMessage = getDefaultAnyString(_configuration.noMapDataMessage, "There is currently no data to view.");
+    _configuration.objectErrorText = getDefaultAnyString(_configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
+    _configuration.attributeNotValidErrorText = getDefaultAnyString(_configuration.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object.");
+    _configuration.attributeNotSetErrorText = getDefaultAnyString(_configuration.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly.");
+    _configuration.closeToolTipText = getDefaultAnyString(_configuration.closeToolTipText, "Close");
+    _configuration.configurationToolTipText = getDefaultAnyString(_configuration.configurationToolTipText, "Configuration");
+    _configuration.configurationTitleText = getDefaultAnyString(_configuration.configurationTitleText, "Configuration");
+    _configuration.visibleMonthsText = getDefaultAnyString(_configuration.visibleMonthsText, "Visible Months");
+    _configuration.visibleDaysText = getDefaultAnyString(_configuration.visibleDaysText, "Visible Days");
+    _configuration.dataText = getDefaultAnyString(_configuration.dataText, "Data");
+    _configuration.colorRangesText = getDefaultAnyString(_configuration.colorRangesText, "Color Ranges");
+    _configuration.yearText = getDefaultAnyString(_configuration.yearText, "Year");
+    _configuration.daysText = getDefaultAnyString(_configuration.daysText, "Days");
+    _configuration.noDaysDataMessage = getDefaultAnyString(_configuration.noDaysDataMessage, "There are currently no days to view.");
   }
   function buildDefaultConfigurationArrays() {
     if (isInvalidOptionArray(_configuration.monthNames, 12)) {
