@@ -2558,45 +2558,6 @@
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Validation
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function isDefined( value ) {
-        return value !== null && value !== undefined && value !== _string.empty;
-    }
-
-    function isDefinedObject( object ) {
-        return isDefined( object ) && typeof object === "object";
-    }
-
-    function isDefinedBoolean( object ) {
-        return isDefined( object ) && typeof object === "boolean";
-    }
-
-    function isDefinedString( object ) {
-        return isDefined( object ) && typeof object === "string";
-    }
-
-    function isDefinedFunction( object ) {
-        return isDefined( object ) && typeof object === "function";
-    }
-
-    function isDefinedNumber( object ) {
-        return isDefined( object ) && typeof object === "number";
-    }
-
-    function isDefinedArray( object ) {
-        return isDefinedObject( object ) && object instanceof Array;
-    }
-
-    function isDefinedDate( object ) {
-        return isDefinedObject( object ) && object instanceof Date;
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Element Handling
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -2770,6 +2731,45 @@
         }
 
         return result;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Validation
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function isDefined( value ) {
+        return value !== null && value !== undefined && value !== _string.empty;
+    }
+
+    function isDefinedObject( object ) {
+        return isDefined( object ) && typeof object === "object";
+    }
+
+    function isDefinedBoolean( object ) {
+        return isDefined( object ) && typeof object === "boolean";
+    }
+
+    function isDefinedString( object ) {
+        return isDefined( object ) && typeof object === "string";
+    }
+
+    function isDefinedFunction( object ) {
+        return isDefined( object ) && typeof object === "function";
+    }
+
+    function isDefinedNumber( object ) {
+        return isDefined( object ) && typeof object === "number";
+    }
+
+    function isDefinedArray( object ) {
+        return isDefinedObject( object ) && object instanceof Array;
+    }
+
+    function isDefinedDate( object ) {
+        return isDefinedObject( object ) && object instanceof Date;
     }
 
 
@@ -3218,6 +3218,35 @@
 
         return _public;
     };
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Public Functions:  Export/Import
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    /**
+     * import().
+     * 
+     * Imports data from an array of file objects.
+     * 
+     * @public
+     * @fires       onImport
+     * 
+     * @param       {string}      elementId                                 The Heat.js element ID that should be updated.
+     * @param       {Object[]}    files                                     The file objects that the data should be imported from.
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    _public.import = function( elementId, files ) {
+        if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) && isDefinedArray( files ) ) {
+            importFromFiles( files, _elements_DateCounts[ elementId ].options );
+        }
+
+        return _public;
+    };
+
 
     /**
      * export().
