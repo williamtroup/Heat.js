@@ -1,4 +1,4 @@
-/*! Heat.js v3.1.2 | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v3.2.0 | (c) Bunoon 2024 | MIT License */
 (function() {
   var _parameter_Document = null, _parameter_Window = null, _parameter_Math = null, _parameter_JSON = null, _public = {}, _configuration = {}, _string = {empty:"", space:" ", newLine:"\n", dash:"-", underscore:"_", plus:"+", zero:"0", colon:":", comma:","}, _value = {notFound:-1}, _internal_Name_Holiday = "HOLIDAY", _local_Storage_Start_ID = "HJS_", _default_MonthsToShow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], _default_DaysToShow = [1, 2, 3, 4, 5, 6, 7], _elements_Type = {}, _elements_Day_Width = 
   null, _elements_DateCounts = {}, _elements_View_Name_Map = "map", _elements_View_Name_Chart = "chart", _elements_View_Name_Days = "days", _elements_View_Name_Statistics = "statistics", _elements_View_Map = 1, _elements_View_Chart = 2, _elements_View_Days = 3, _elements_View_Statistics = 4, _export_Type_Csv = "csv", _export_Type_Json = "json", _export_Type_Xml = "xml", _export_Type_Txt = "txt", _attribute_Name_Options = "data-heat-js";
@@ -375,7 +375,9 @@
   }
   function renderTitleDropDownMenu(bindingOptions, title) {
     var titlesMenuContainer = createElement(title, "div", "titles-menu-container"), titlesMenu = createElement(titlesMenuContainer, "div", "titles-menu");
-    createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.dataText + _string.colon);
+    if (bindingOptions.title.showTitleDropDownHeaders) {
+      createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.dataText + _string.colon);
+    }
     var menuItemMap = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.mapText);
     renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemMap, _elements_View_Map, _elements_View_Name_Map);
     if (bindingOptions.views.chart.enabled) {
@@ -383,12 +385,16 @@
       renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemChart, _elements_View_Chart, _elements_View_Name_Chart);
     }
     if (bindingOptions.views.days.enabled) {
-      createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.yearText + _string.colon);
+      if (bindingOptions.title.showTitleDropDownHeaders) {
+        createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.yearText + _string.colon);
+      }
       var menuItemDays = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.daysText);
       renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemDays, _elements_View_Days, _elements_View_Name_Days);
     }
     if (bindingOptions.views.statistics.enabled) {
-      createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.statisticsText + _string.colon);
+      if (bindingOptions.title.showTitleDropDownHeaders) {
+        createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.statisticsText + _string.colon);
+      }
       var menuItemStatistics = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.colorRangesText);
       renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemStatistics, _elements_View_Statistics, _elements_View_Name_Statistics);
     }
@@ -1512,6 +1518,7 @@
     options.title.showImportButton = getDefaultBoolean(options.title.showImportButton, false);
     options.title.showConfigurationButton = getDefaultBoolean(options.title.showConfigurationButton, true);
     options.title.showTitleDropDownButton = getDefaultBoolean(options.title.showTitleDropDownButton, true);
+    options.title.showTitleDropDownHeaders = getDefaultBoolean(options.title.showTitleDropDownHeaders, true);
     return options;
   }
   function buildAttributeOptionDescription(options) {
@@ -1663,30 +1670,6 @@
     result = result.replace("{y}", parseInt(date.getFullYear().toString().substring(2)).toString());
     return result;
   }
-  function isDefined(value) {
-    return value !== null && value !== undefined && value !== _string.empty;
-  }
-  function isDefinedObject(object) {
-    return isDefined(object) && typeof object === "object";
-  }
-  function isDefinedBoolean(object) {
-    return isDefined(object) && typeof object === "boolean";
-  }
-  function isDefinedString(object) {
-    return isDefined(object) && typeof object === "string";
-  }
-  function isDefinedFunction(object) {
-    return isDefined(object) && typeof object === "function";
-  }
-  function isDefinedNumber(object) {
-    return isDefined(object) && typeof object === "number";
-  }
-  function isDefinedArray(object) {
-    return isDefinedObject(object) && object instanceof Array;
-  }
-  function isDefinedDate(object) {
-    return isDefinedObject(object) && object instanceof Date;
-  }
   function createElementWithNoContainer(type) {
     var result = null, nodeType = type.toLowerCase(), isText = nodeType === "text";
     if (!_elements_Type.hasOwnProperty(nodeType)) {
@@ -1792,6 +1775,30 @@
       result = triggerFunction.apply(null, [].slice.call(arguments, 1));
     }
     return result;
+  }
+  function isDefined(value) {
+    return value !== null && value !== undefined && value !== _string.empty;
+  }
+  function isDefinedObject(object) {
+    return isDefined(object) && typeof object === "object";
+  }
+  function isDefinedBoolean(object) {
+    return isDefined(object) && typeof object === "boolean";
+  }
+  function isDefinedString(object) {
+    return isDefined(object) && typeof object === "string";
+  }
+  function isDefinedFunction(object) {
+    return isDefined(object) && typeof object === "function";
+  }
+  function isDefinedNumber(object) {
+    return isDefined(object) && typeof object === "number";
+  }
+  function isDefinedArray(object) {
+    return isDefinedObject(object) && object instanceof Array;
+  }
+  function isDefinedDate(object) {
+    return isDefinedObject(object) && object instanceof Date;
   }
   function getDefaultAnyString(value, defaultValue) {
     return typeof value === "string" ? value : defaultValue;
@@ -2007,6 +2014,12 @@
           renderControlContainer(bindingOptions, true);
         }
       }
+    }
+    return _public;
+  };
+  _public.import = function(elementId, files) {
+    if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId) && isDefinedArray(files)) {
+      importFromFiles(files, _elements_DateCounts[elementId].options);
     }
     return _public;
   };
@@ -2325,7 +2338,7 @@
     return result;
   };
   _public.getVersion = function() {
-    return "3.1.2";
+    return "3.2.0";
   };
   (function(documentObject, windowObject, mathObject, jsonObject) {
     _parameter_Document = documentObject;
