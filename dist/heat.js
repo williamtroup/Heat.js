@@ -375,7 +375,9 @@
   }
   function renderTitleDropDownMenu(bindingOptions, title) {
     var titlesMenuContainer = createElement(title, "div", "titles-menu-container"), titlesMenu = createElement(titlesMenuContainer, "div", "titles-menu");
-    createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.dataText + _string.colon);
+    if (bindingOptions.title.showTitleDropDownHeaders) {
+      createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.dataText + _string.colon);
+    }
     var menuItemMap = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.mapText);
     renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemMap, _elements_View_Map, _elements_View_Name_Map);
     if (bindingOptions.views.chart.enabled) {
@@ -383,12 +385,16 @@
       renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemChart, _elements_View_Chart, _elements_View_Name_Chart);
     }
     if (bindingOptions.views.days.enabled) {
-      createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.yearText + _string.colon);
+      if (bindingOptions.title.showTitleDropDownHeaders) {
+        createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.yearText + _string.colon);
+      }
       var menuItemDays = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.daysText);
       renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemDays, _elements_View_Days, _elements_View_Name_Days);
     }
     if (bindingOptions.views.statistics.enabled) {
-      createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.statisticsText + _string.colon);
+      if (bindingOptions.title.showTitleDropDownHeaders) {
+        createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.statisticsText + _string.colon);
+      }
       var menuItemStatistics = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.colorRangesText);
       renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemStatistics, _elements_View_Statistics, _elements_View_Name_Statistics);
     }
@@ -1512,6 +1518,7 @@
     options.title.showImportButton = getDefaultBoolean(options.title.showImportButton, false);
     options.title.showConfigurationButton = getDefaultBoolean(options.title.showConfigurationButton, true);
     options.title.showTitleDropDownButton = getDefaultBoolean(options.title.showTitleDropDownButton, true);
+    options.title.showTitleDropDownHeaders = getDefaultBoolean(options.title.showTitleDropDownHeaders, true);
     return options;
   }
   function buildAttributeOptionDescription(options) {

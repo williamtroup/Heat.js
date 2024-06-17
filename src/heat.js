@@ -611,7 +611,9 @@
         var titlesMenuContainer = createElement( title, "div", "titles-menu-container" ),
             titlesMenu = createElement( titlesMenuContainer, "div", "titles-menu" );
         
-        createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.dataText + _string.colon );
+        if ( bindingOptions.title.showTitleDropDownHeaders ) {
+            createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.dataText + _string.colon );
+        }
 
         var menuItemMap = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.mapText );
             
@@ -624,7 +626,9 @@
         }
 
         if ( bindingOptions.views.days.enabled ) {
-            createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.yearText + _string.colon );
+            if ( bindingOptions.title.showTitleDropDownHeaders ) {
+                createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.yearText + _string.colon );
+            }
 
             var menuItemDays = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.daysText );
 
@@ -632,7 +636,9 @@
         }
 
         if ( bindingOptions.views.statistics.enabled ) {
-            createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.statisticsText + _string.colon );
+            if ( bindingOptions.title.showTitleDropDownHeaders ) {
+                createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.statisticsText + _string.colon );
+            }
 
             var menuItemStatistics = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.colorRangesText );
 
@@ -2359,7 +2365,8 @@
         options.title.showImportButton = getDefaultBoolean( options.title.showImportButton, false );
         options.title.showConfigurationButton = getDefaultBoolean( options.title.showConfigurationButton, true );
         options.title.showTitleDropDownButton = getDefaultBoolean( options.title.showTitleDropDownButton, true );
-        
+        options.title.showTitleDropDownHeaders = getDefaultBoolean( options.title.showTitleDropDownHeaders, true );
+
         return options;
     }
 
