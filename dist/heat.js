@@ -261,11 +261,11 @@ var enums_1 = require("./enums");
      */
     function isHoliday(bindingOptions, date) {
         var holidaysLength = bindingOptions.holidays.length;
-        var holidayMatched = false;
-        var holidayName = null;
         var day = date.getDate();
         var month = date.getMonth() + 1;
         var year = date.getFullYear();
+        var holidayMatched = false;
+        var holidayName = null;
         for (var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++) {
             var holiday = bindingOptions.holidays[holidayIndex];
             if (isDefinedString(holiday.date) && holiday.showInViews) {
@@ -1036,9 +1036,9 @@ var enums_1 = require("./enums");
             }
         }
         else {
-            value = getDefaultArray(value, defaultValue);
+            result = getDefaultArray(value, defaultValue);
         }
-        return value;
+        return result;
     }
     function getObjectFromString(objectString) {
         var parsed = true, result = null;

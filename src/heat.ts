@@ -105,15 +105,15 @@ import { type PublicApi } from "./api";
 
     function loadDataFromLocalStorage( bindingOptions: BindingOptions ) : void {
         if ( bindingOptions.useLocalStorageForData && windowObject.localStorage ) {
-            let keysLength: number = windowObject.localStorage.length;
-            let elementId: string = bindingOptions._currentView.element.id;
+            const keysLength: number = windowObject.localStorage.length;
+            const elementId: string = bindingOptions._currentView.element.id;
 
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
-                let key : string = windowObject.localStorage.key( keyIndex );
+                const key : string = windowObject.localStorage.key( keyIndex );
 
                 if ( startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
-                    let typesJson: string = windowObject.localStorage.getItem( key );
-                    let typesObject: any = getObjectFromString( typesJson );
+                    const typesJson: string = windowObject.localStorage.getItem( key );
+                    const typesObject: any = getObjectFromString( typesJson );
 
                     if ( typesObject.parsed ) {
                         _elements_DateCounts[ elementId ].type = typesObject.result;
@@ -132,11 +132,11 @@ import { type PublicApi } from "./api";
 
     function storeDataInLocalStorage( bindingOptions: BindingOptions ) : void {
         if ( bindingOptions.useLocalStorageForData && windowObject.localStorage ) {
-            let elementId: string = bindingOptions._currentView.element.id;
+            const elementId: string = bindingOptions._currentView.element.id;
 
             clearLocalStorageObjects( bindingOptions );
 
-            let jsonData: string = jsonObject.stringify( _elements_DateCounts[ elementId ].type );
+            const jsonData: string = jsonObject.stringify( _elements_DateCounts[ elementId ].type );
 
             windowObject.localStorage.setItem( _local_Storage_Start_ID + elementId, jsonData );
         }
@@ -144,9 +144,9 @@ import { type PublicApi } from "./api";
 
     function clearLocalStorageObjects( bindingOptions: BindingOptions ) : void {
         if ( bindingOptions.useLocalStorageForData && windowObject.localStorage ) {
-            let keysLength: number = windowObject.localStorage.length;
-            let keysToRemove: string[] = [];
-            let elementId: string = bindingOptions._currentView.element.id;
+            const keysLength: number = windowObject.localStorage.length;
+            const keysToRemove: string[] = [];
+            const elementId: string = bindingOptions._currentView.element.id;
 
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
                 if ( startsWithAnyCase( windowObject.localStorage.key( keyIndex ), _local_Storage_Start_ID + elementId ) ) {
@@ -154,7 +154,7 @@ import { type PublicApi } from "./api";
                 }
             }
 
-            let keysToRemoveLength: number = keysToRemove.length;
+            const keysToRemoveLength: number = keysToRemove.length;
 
             for ( let keyToRemoveIndex: number = 0; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++ ) {
                 windowObject.localStorage.removeItem( keysToRemove[ keyToRemoveIndex ] );
@@ -185,8 +185,8 @@ import { type PublicApi } from "./api";
     }
 
     function pullDataFromCustomTrigger( bindingOptions: BindingOptions ) : void {
-        let elementId: string = bindingOptions._currentView.element.id;
-        let data: any = fireCustomTrigger( bindingOptions.events.onDataFetch, elementId );
+        const elementId: string = bindingOptions._currentView.element.id;
+        const data: any = fireCustomTrigger( bindingOptions.events.onDataFetch, elementId );
 
         if ( isDefinedObject( data ) ) {
             createDateStorageForElement( elementId, bindingOptions, false );
@@ -206,7 +206,7 @@ import { type PublicApi } from "./api";
     function cancelAllPullDataTimers() : void {
         for ( let elementId in _elements_DateCounts ) {
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
-                let bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
 
                 if ( isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
                     clearInterval( bindingOptions._currentView.isInFetchModeTimer );
@@ -229,10 +229,10 @@ import { type PublicApi } from "./api";
             result = true;
 
         } else {
-            let colorRangesLength : number = bindingOptions.colorRanges.length;
+            const colorRangesLength : number = bindingOptions.colorRanges.length;
 
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-                let colorRange: ColorRange = bindingOptions.colorRanges[ colorRangesIndex ];
+                const colorRange: ColorRange = bindingOptions.colorRanges[ colorRangesIndex ];
     
                 if ( colorRange.id === id && getDefaultBoolean( colorRange.visible, true ) ) {
                     result = true;
@@ -245,7 +245,7 @@ import { type PublicApi } from "./api";
     }
 
     function updateColorRangeToggles( bindingOptions: BindingOptions, flag: boolean ) : void {
-        let colorRangesLength: number = bindingOptions.colorRanges.length;
+        const colorRangesLength: number = bindingOptions.colorRanges.length;
 
         for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
             bindingOptions.colorRanges[ colorRangesIndex ].visible = flag;
@@ -257,10 +257,10 @@ import { type PublicApi } from "./api";
     }
 
     function toggleColorRangeVisibleState( bindingOptions: BindingOptions, id: string ) : void {
-        let colorRangesLength: number = bindingOptions.colorRanges.length;
+        const colorRangesLength: number = bindingOptions.colorRanges.length;
 
         for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-            let colorRange: ColorRange = bindingOptions.colorRanges[ colorRangesIndex ];
+            const colorRange: ColorRange = bindingOptions.colorRanges[ colorRangesIndex ];
 
             if ( colorRange.id === id ) {
                 colorRange.visible = !getDefaultBoolean( colorRange.visible, true );
@@ -276,7 +276,7 @@ import { type PublicApi } from "./api";
         let useColorRange: ColorRange = null;
 
         if ( isDefined( date ) && isHoliday( bindingOptions, date ).matched ) {
-            let newUseColorRange: ColorRange = {
+            const newUseColorRange: ColorRange = {
                 cssClassName: "holiday",
                 id: _internal_Name_Holiday,
                 visible: true,
@@ -292,10 +292,10 @@ import { type PublicApi } from "./api";
         }
 
         if ( !isDefined( useColorRange ) ) {
-            let colorRangesLength: number = colorRanges.length;
+            const colorRangesLength: number = colorRanges.length;
 
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-                let colorRange: ColorRange = colorRanges[ colorRangesIndex ];
+                const colorRange: ColorRange = colorRanges[ colorRangesIndex ];
     
                 if ( dateCount >= colorRange.minimum ) {
                     useColorRange = colorRange;
@@ -309,11 +309,11 @@ import { type PublicApi } from "./api";
     }
 
     function getColorRangeByMinimum( colorRanges: ColorRange[], minimum: number ) : ColorRange {
-        let colorRangesLength: number = colorRanges.length;
+        const colorRangesLength: number = colorRanges.length;
         let useColorRange: ColorRange = null;
 
         for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-            let colorRange: ColorRange = colorRanges[ colorRangesIndex ];
+            const colorRange: ColorRange = colorRanges[ colorRangesIndex ];
 
             if ( minimum.toString() === colorRange.minimum.toString() ) {
                 useColorRange = colorRange;
@@ -338,18 +338,18 @@ import { type PublicApi } from "./api";
      */
 
     function isHoliday( bindingOptions: BindingOptions, date: Date ) : any {
-        let holidaysLength: number = bindingOptions.holidays.length;
+        const holidaysLength: number = bindingOptions.holidays.length;
+        const day: number = date.getDate();
+        const month: number = date.getMonth() + 1;
+        const year: number = date.getFullYear();
         let holidayMatched: boolean = false;
         let holidayName: string = null;
-        let day: number = date.getDate();
-        let month: number = date.getMonth() + 1;
-        let year: number = date.getFullYear();
-
+        
         for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
             let holiday: Holiday = bindingOptions.holidays[ holidayIndex ];
 
             if ( isDefinedString( holiday.date ) && holiday.showInViews ) {
-                let dateParts: string[] = holiday.date.split( "/" );
+                const dateParts: string[] = holiday.date.split( "/" );
 
                 if ( dateParts.length === 2 ) {
                     holidayMatched = day === parseInt( dateParts[ 0 ] ) && month === parseInt( dateParts[ 1 ] );
@@ -394,7 +394,7 @@ import { type PublicApi } from "./api";
     }
 
     function importFromFilesSelected( bindingOptions: BindingOptions ) : void {
-        let input: any = createElementWithNoContainer( "input" );
+        const input: any = createElementWithNoContainer( "input" );
         input.type = "file";
         input.accept = ".json, .txt, .csv";
         input.multiple = "multiple";
@@ -407,11 +407,11 @@ import { type PublicApi } from "./api";
     }
 
     function importFromFiles( files: FileList, bindingOptions: BindingOptions ) : void {
-        let filesLength: number = files.length;
-        let filesCompleted: string[] = [];
-        let data: any = getCurrentViewData( bindingOptions );
+        const filesLength: number = files.length;
+        const filesCompleted: string[] = [];
+        const data: any = getCurrentViewData( bindingOptions );
 
-        let onLoadEnd = function( filename: string, readingObject: object ) {
+        const onLoadEnd = function( filename: string, readingObject: object ) {
             filesCompleted.push( filename );
 
             for ( let storageDate in readingObject ) {
@@ -431,8 +431,8 @@ import { type PublicApi } from "./api";
         };
 
         for ( let fileIndex: number = 0; fileIndex < filesLength; fileIndex++ ) {
-            let file: File = files[ fileIndex ];
-            let fileExtension: string = file.name.split( "." ).pop().toLowerCase();
+            const file: File = files[ fileIndex ];
+            const fileExtension: string = file.name.split( "." ).pop().toLowerCase();
 
             if ( fileExtension === EXPORT_TYPE.json ) {
                 importFromJson( file, onLoadEnd );
@@ -445,7 +445,7 @@ import { type PublicApi } from "./api";
     }
 
     function importFromJson( file: File, onLoadEnd: Function ) : void {
-        let reader: FileReader = new FileReader();
+        const reader: FileReader = new FileReader();
         let readingObject: object = null;
 
         reader.readAsText( file );
@@ -455,7 +455,7 @@ import { type PublicApi } from "./api";
         };
     
         reader.onload = function( e ) {
-            let jsonObject: any = getObjectFromString( e.target.result );
+            const jsonObject: any = getObjectFromString( e.target.result );
 
             if ( jsonObject.parsed && isDefinedObject( jsonObject.result ) ) {
                 readingObject = jsonObject.result;
@@ -464,8 +464,8 @@ import { type PublicApi } from "./api";
     }
 
     function importFromTxt( file: File, onLoadEnd: Function ) : void {
-        let reader: FileReader = new FileReader();
-        let readingObject: object = null;
+        const reader: FileReader = new FileReader();
+        const readingObject: object = null;
 
         reader.readAsText( file );
 
@@ -474,11 +474,11 @@ import { type PublicApi } from "./api";
         };
     
         reader.onload = function( e ) {
-            let lines: string[] = e.target.result.toString().split( STRING.newLine );
-            let linesLength: number = lines.length;
+            const lines: string[] = e.target.result.toString().split( STRING.newLine );
+            const linesLength: number = lines.length;
 
             for ( let lineIndex: number = 0; lineIndex < linesLength; lineIndex++ ) {
-                let line: string[] = lines[ lineIndex ].split( STRING.colon );
+                const line: string[] = lines[ lineIndex ].split( STRING.colon );
 
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
             }
@@ -486,8 +486,8 @@ import { type PublicApi } from "./api";
     }
 
     function importFromCsv( file: File, onLoadEnd: Function ) : void {
-        let reader: FileReader = new FileReader();
-        let readingObject: object = null;
+        const reader: FileReader = new FileReader();
+        const readingObject: object = null;
 
         reader.readAsText( file );
 
@@ -496,12 +496,12 @@ import { type PublicApi } from "./api";
         };
     
         reader.onload = function( e ) {
-            let data: string = e.target.result.toString().replace( new RegExp( "\"", "g" ), STRING.empty );
-            let lines: string[] = data.split( STRING.newLine );
+            const data: string = e.target.result.toString().replace( new RegExp( "\"", "g" ), STRING.empty );
+            const lines: string[] = data.split( STRING.newLine );
             
             lines.shift();
 
-            let linesLength: number = lines.length;
+            const linesLength: number = lines.length;
 
             for ( let lineIndex: number = 0; lineIndex < linesLength; lineIndex++ ) {
                 let line: string[] = lines[ lineIndex ].split( STRING.comma );
@@ -520,8 +520,8 @@ import { type PublicApi } from "./api";
 
     function exportAllData( bindingOptions: BindingOptions, exportType: string ) : void {
         let contents: string = null;
-        let contentsMimeType: string = getExportMimeType( bindingOptions );
-        let contentExportType: string = getDefaultString( exportType, bindingOptions.exportType ).toLowerCase();
+        const contentsMimeType: string = getExportMimeType( bindingOptions );
+        const contentExportType: string = getDefaultString( exportType, bindingOptions.exportType ).toLowerCase();
 
         if ( contentExportType === EXPORT_TYPE.csv ) {
             contents = getCsvContent( bindingOptions );
@@ -534,7 +534,7 @@ import { type PublicApi } from "./api";
         }
 
         if ( isDefinedString( contents ) ) {
-            let tempLink: HTMLElement = createElement( documentObject.body, "a" );
+            const tempLink: HTMLElement = createElement( documentObject.body, "a" );
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
             tempLink.setAttribute( "href", "data:" + contentsMimeType + ";charset=utf-8," + encodeURIComponent( contents ) );
@@ -548,8 +548,8 @@ import { type PublicApi } from "./api";
     }
 
     function getCsvContent( bindingOptions: BindingOptions ) : string {
-        let data: object = getExportData( bindingOptions );
-        let csvContents: string[] = [];
+        const data: object = getExportData( bindingOptions );
+        const csvContents: string[] = [];
 
         for ( let storageDate in data ) {
             if ( data.hasOwnProperty( storageDate ) ) {
@@ -569,8 +569,8 @@ import { type PublicApi } from "./api";
     }
 
     function getXmlContents( bindingOptions: BindingOptions ) : string {
-        let data: object = getExportData( bindingOptions );
-        let contents: string[] = [];
+        const data: object = getExportData( bindingOptions );
+        const contents: string[] = [];
 
         contents.push( "<?xml version=\"1.0\" ?>" );
         contents.push( "<Dates>" );
@@ -590,8 +590,8 @@ import { type PublicApi } from "./api";
     }
 
     function getTxtContents( bindingOptions: BindingOptions ): string {
-        let data: object = getExportData( bindingOptions );
-        let contents: string[] = [];
+        const data: object = getExportData( bindingOptions );
+        const contents: string[] = [];
 
         for ( let storageDate in data ) {
             if ( data.hasOwnProperty( storageDate ) ) {
@@ -603,15 +603,15 @@ import { type PublicApi } from "./api";
     }
 
     function getExportData( bindingOptions: BindingOptions ): object {
-        let contents: object = {};
-        let data = getCurrentViewData( bindingOptions );
+        const contents: object = {};
+        const data = getCurrentViewData( bindingOptions );
 
         if ( bindingOptions.exportOnlyYearBeingViewed ) {
             for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-                let totalDaysInMonth: number = getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
+                const totalDaysInMonth: number = getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
         
                 for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                    let storageDate2: string = toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
+                    const storageDate2: string = toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
 
                     if ( data.hasOwnProperty( storageDate2 ) ) {
                         contents[ storageDate2 ] = data[ storageDate2 ];
@@ -620,7 +620,7 @@ import { type PublicApi } from "./api";
             }
 
         } else {
-            let storageDates: string[] = [];
+            const storageDates: string[] = [];
 
             for ( let storageDate1 in data ) {
                 if ( data.hasOwnProperty( storageDate1 ) ) {
@@ -630,10 +630,10 @@ import { type PublicApi } from "./api";
     
             storageDates.sort();
 
-            let storageDatesLength: number = storageDates.length;
+            const storageDatesLength: number = storageDates.length;
 
             for ( let storageDateIndex: number = 0; storageDateIndex < storageDatesLength; storageDateIndex++ ) {
-                let storageDate3: string = storageDates[ storageDateIndex ];
+                const storageDate3: string = storageDates[ storageDateIndex ];
     
                 if ( data.hasOwnProperty( storageDate3 ) ) {
                     contents[ storageDate3 ] = data[ storageDate3 ];
@@ -661,9 +661,9 @@ import { type PublicApi } from "./api";
     }
 
     function getExportFilename( bindingOptions: BindingOptions ) : string {
-        let date: Date = new Date();
-        let datePart: string = padNumber( date.getDate() ) + STRING.dash + padNumber( date.getMonth() + 1 ) + STRING.dash + date.getFullYear();
-        let timePart: string = padNumber( date.getHours() ) + STRING.dash + padNumber( date.getMinutes() );
+        const date: Date = new Date();
+        const datePart: string = padNumber( date.getDate() ) + STRING.dash + padNumber( date.getMonth() + 1 ) + STRING.dash + date.getFullYear();
+        const timePart: string = padNumber( date.getHours() ) + STRING.dash + padNumber( date.getMinutes() );
         let filenameStart: string = STRING.empty;
 
         if ( bindingOptions._currentView.type !== _configuration.unknownTrendText ) {
@@ -723,10 +723,10 @@ import { type PublicApi } from "./api";
 
     function buildAttributeOptionColorRanges( options: BindingOptions ) : BindingOptions {
         if ( isDefinedArray( options.colorRanges ) ) {
-            let colorRangesLength: number = options.colorRanges.length;
+            const colorRangesLength: number = options.colorRanges.length;
 
             for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
-                let colorRange: ColorRange = options.colorRanges[ colorRangeIndex ];
+                const colorRange: ColorRange = options.colorRanges[ colorRangeIndex ];
 
                 colorRange.id = getDefaultString( colorRange.id, newGuid() );
                 colorRange.name = getDefaultString( colorRange.name, null );
@@ -793,10 +793,10 @@ import { type PublicApi } from "./api";
 
     function buildAttributeOptionHolidays( options: BindingOptions ) : BindingOptions {
         if ( isDefinedArray( options.holidays ) ) {
-            let holidaysLength: number = options.holidays.length;
+            const holidaysLength: number = options.holidays.length;
 
             for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-                let holiday: Holiday = options.holidays[ holidayIndex ];
+                const holiday: Holiday = options.holidays[ holidayIndex ];
                 
                 holiday.date = getDefaultString( holiday.date, null );
                 holiday.name = getDefaultString( holiday.name, null );
@@ -999,7 +999,7 @@ import { type PublicApi } from "./api";
 
     function getCustomFormattedDateText( dateFormat: string, date: Date ) : string {
         let result: string = dateFormat;
-        let weekDayNumber: number = getWeekdayNumber( date );
+        const weekDayNumber: number = getWeekdayNumber( date );
 
         result = result.replace( "{dddd}", _configuration.dayNames[ weekDayNumber ] );
         result = result.replace( "{dd}", padNumber( date.getDate() ) );
@@ -1028,8 +1028,8 @@ import { type PublicApi } from "./api";
 
     function createElementWithNoContainer( type: string ) : HTMLElement {
         let result: HTMLElement = null;
-        let nodeType: string = type.toLowerCase();
-        let isText: boolean = nodeType === "text";
+        const nodeType: string = type.toLowerCase();
+        const isText: boolean = nodeType === "text";
 
         if ( !_elements_Type.hasOwnProperty( nodeType ) ) {
             _elements_Type[ nodeType ] = isText ? documentObject.createTextNode( STRING.empty ) : documentObject.createElement( nodeType );
@@ -1042,8 +1042,8 @@ import { type PublicApi } from "./api";
 
     function createElement( container: HTMLElement, type: string, className: string = STRING.empty, beforeNode: HTMLElement | null = null ) : HTMLElement {
         let result: HTMLElement = null;
-        let nodeType: string = type.toLowerCase();
-        let isText: boolean = nodeType === "text";
+        const nodeType: string = type.toLowerCase();
+        const isText: boolean = nodeType === "text";
 
         if ( !_elements_Type.hasOwnProperty( nodeType ) ) {
             _elements_Type[ nodeType ] = isText ? documentObject.createTextNode( STRING.empty ) : documentObject.createElement( nodeType );
@@ -1065,7 +1065,7 @@ import { type PublicApi } from "./api";
     }
 
     function createElementWithHTML( container: HTMLElement, type: string, className: string, html: string, beforeNode: HTMLElement = null ) : HTMLElement {
-        let element: HTMLElement = createElement( container, type, className, beforeNode );
+        const element: HTMLElement = createElement( container, type, className, beforeNode );
         element.innerHTML = html;
 
         return element;
@@ -1103,9 +1103,9 @@ import { type PublicApi } from "./api";
     }
 
     function getScrollPosition() : object {
-        let doc: HTMLElement = documentObject.documentElement;
-        let left: number = ( windowObject.pageXOffset || doc.scrollLeft )  - ( doc.clientLeft || 0 );
-        let top: number = ( windowObject.pageYOffset || doc.scrollTop ) - ( doc.clientTop || 0 );
+        const doc: HTMLElement = documentObject.documentElement;
+        const left: number = ( windowObject.pageXOffset || doc.scrollLeft )  - ( doc.clientLeft || 0 );
+        const top: number = ( windowObject.pageYOffset || doc.scrollTop ) - ( doc.clientTop || 0 );
 
         return {
             left: left,
@@ -1116,7 +1116,7 @@ import { type PublicApi } from "./api";
     function showElementAtMousePosition( e: any, element: HTMLElement ) {
         let left: number = e.pageX;
         let top: number = e.pageY;
-        let scrollPosition: any = getScrollPosition();
+        const scrollPosition: any = getScrollPosition();
 
         element.style.display = "block";
 
@@ -1145,7 +1145,7 @@ import { type PublicApi } from "./api";
     }
 
     function reverseElementsOrder( parent: HTMLElement ) {
-        let children: HTMLCollection = parent.children;
+        const children: HTMLCollection = parent.children;
         let childrenLength: number = children.length - 1;
 
         for ( ; childrenLength--; ) {
@@ -1154,9 +1154,9 @@ import { type PublicApi } from "./api";
     }
 
     function buildCheckBox( container: HTMLElement, labelText: string, checked: boolean | null, onClick: Function | null ) : object {
-        let lineContainer: HTMLElement = createElement( container, "div" );
-        let label: HTMLElement = createElement( lineContainer, "label", "checkbox" );
-        let input: any = createElement( label, "input" );
+        const lineContainer: HTMLElement = createElement( container, "div" );
+        const label: HTMLElement = createElement( lineContainer, "label", "checkbox" );
+        const input: any = createElement( label, "input" );
 
         input.type = "checkbox";
 
@@ -1273,10 +1273,10 @@ import { type PublicApi } from "./api";
     }
 
     function getDefaultStringOrArray( value: any, defaultValue: any[] ) : any[] {
-        let result: object = defaultValue;
+        let result: any[] = defaultValue;
 
         if ( isDefinedString( value ) ) {
-            let values: string[] = value.toString().split( STRING.space );
+            const values: string[] = value.toString().split( STRING.space );
 
             if ( values.length === 0 ) {
                 value = defaultValue;
@@ -1285,10 +1285,10 @@ import { type PublicApi } from "./api";
             }
 
         } else {
-            value = getDefaultArray( value, defaultValue );
+            result = getDefaultArray( value, defaultValue );
         }
 
-        return value;
+        return result;
     }
 
     function getObjectFromString( objectString: any ) : any {
@@ -1333,14 +1333,14 @@ import { type PublicApi } from "./api";
      */
 
     function newGuid() : string {
-        let result: string[] = [];
+        const result: string[] = [];
 
         for ( let charIndex: number = 0; charIndex < 32; charIndex++ ) {
             if ( charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20 ) {
                 result.push( STRING.dash );
             }
 
-            let character: string = mathObject.floor( mathObject.random() * 16 ).toString( 16 );
+            const character: string = mathObject.floor( mathObject.random() * 16 ).toString( 16 );
             result.push( character );
         }
 
@@ -1348,7 +1348,7 @@ import { type PublicApi } from "./api";
     }
 
     function padNumber( number: number ) : string {
-        let numberString: string = number.toString();
+        const numberString: string = number.toString();
 
         return numberString.length === 1 ? STRING.zero + numberString : numberString;
     }
