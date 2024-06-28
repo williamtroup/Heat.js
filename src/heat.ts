@@ -8,12 +8,13 @@ import { type PublicApi } from "./api";
     let _configuration: Configuration = {} as Configuration;
 
     // Variables: Elements
+    let _elements_Type: object = {};
     let _elements_Day_Width: number = null;
 
     // Variables: Date Counts
     let _elements_DateCounts: object = {};
 
-        // Variables: Internal Names
+    // Variables: Internal Names
     const _internal_Name_Holiday: string = "HOLIDAY";
 
     // Variables: Local Storage
@@ -26,6 +27,23 @@ import { type PublicApi } from "./api";
     // Variables: Attribute Names
     const _attribute_Name_Options: string = "data-heat-js";
 
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Triggering Custom Events
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function fireCustomTrigger( triggerFunction: Function ) {
+        let result: any = null;
+
+        if ( isDefinedFunction( triggerFunction ) ) {
+            result = triggerFunction.apply( null, [].slice.call( arguments, 1 ) );
+        }
+
+        return result;
+    }
 
 
     /*
@@ -152,6 +170,57 @@ import { type PublicApi } from "./api";
             parsed: parsed,
             result: result
         };
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * String Handling
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function newGuid() {
+        let result: string[] = [];
+
+        for ( let charIndex: number = 0; charIndex < 32; charIndex++ ) {
+            if ( charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20 ) {
+                result.push( STRING.dash );
+            }
+
+            let character: string = mathObject.floor( mathObject.random() * 16 ).toString( 16 );
+            result.push( character );
+        }
+
+        return result.join( STRING.empty );
+    }
+
+    function padNumber( number: number ) {
+        let numberString: string = number.toString();
+
+        return numberString.length === 1 ? STRING.zero + numberString : numberString;
+    }
+
+    function startsWithAnyCase( data: string, start: string ) {
+        return data.substring( 0, start.length ).toLowerCase() === start.toLowerCase();
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Storage Dates
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function toStorageDate( date: Date ) {
+        return date.getFullYear() + STRING.dash + padNumber( date.getMonth() + 1 ) + STRING.dash + padNumber( date.getDate() );
+    }
+
+    function getStorageDate( data: string ) {
+        return data.split( STRING.dash );
+    }
+
+    function getStorageDateYear( data: string ) {
+        return data.split( STRING.dash )[ 0 ];
     }
 
 
