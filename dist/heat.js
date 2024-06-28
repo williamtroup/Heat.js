@@ -83,7 +83,7 @@ var enums_1 = require("./enums");
     function renderBindingOptions(data, element) {
         var bindingOptions = buildAttributeOptions(data);
         var view = !isDefinedString(bindingOptions.view) ? enums_1.STRING.empty : bindingOptions.view.toLowerCase();
-        var currentView;
+        var currentView = {};
         currentView.element = element;
         currentView.disabledBackground = null;
         currentView.configurationDialog = null;

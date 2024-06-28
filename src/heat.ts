@@ -5,14 +5,14 @@ import { type PublicApi } from "./api";
 ( ( documentObject, windowObject, mathObject, jsonObject ) => {
 
     // Variables: Configuration
-    let _configuration: Configuration = {} as Configuration;
+    const _configuration: Configuration = {} as Configuration;
 
     // Variables: Elements
-    let _elements_Type: object = {};
+    const _elements_Type: object = {};
     let _elements_Day_Width: number = null;
 
     // Variables: Date Counts
-    let _elements_DateCounts: object = {};
+    const _elements_DateCounts: object = {};
 
     // Variables: Internal Names
     const _internal_Name_Holiday: string = "HOLIDAY";
@@ -108,7 +108,7 @@ import { type PublicApi } from "./api";
         const bindingOptions: BindingOptions = buildAttributeOptions( data );
         const view: string = !isDefinedString( bindingOptions.view ) ? STRING.empty : bindingOptions.view.toLowerCase();
 
-        let currentView: BindingOptionsCurrentView;
+        let currentView: BindingOptionsCurrentView = {} as BindingOptionsCurrentView;
         currentView.element = element;
         currentView.disabledBackground = null;
         currentView.configurationDialog = null;
