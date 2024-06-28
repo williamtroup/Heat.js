@@ -124,6 +124,49 @@ var enums_1 = require("./enums");
     }
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Data Pulling
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function startDataPullTimer(bindingOptions) {
+        if (bindingOptions._currentView.isInFetchMode) {
+            if (!isDefined(bindingOptions._currentView.isInFetchModeTimer)) {
+                pullDataFromCustomTrigger(bindingOptions);
+            }
+            if (!isDefined(bindingOptions._currentView.isInFetchModeTimer)) {
+                bindingOptions._currentView.isInFetchModeTimer = setInterval(function () {
+                    pullDataFromCustomTrigger(bindingOptions);
+                    // renderControlContainer( bindingOptions );  TODO:  FIX
+                }, bindingOptions.dataFetchDelay);
+            }
+        }
+    }
+    function pullDataFromCustomTrigger(bindingOptions) {
+        var elementId = bindingOptions._currentView.element.id;
+        var data = fireCustomTrigger(bindingOptions.events.onDataFetch, elementId);
+        if (isDefinedObject(data)) {
+            createDateStorageForElement(elementId, bindingOptions, false);
+            for (var storageDate in data) {
+                if (data.hasOwnProperty(storageDate)) {
+                    if (!_elements_DateCounts[elementId].type[_configuration.unknownTrendText].hasOwnProperty(storageDate)) {
+                        _elements_DateCounts[elementId].type[_configuration.unknownTrendText][storageDate] = 0;
+                    }
+                    _elements_DateCounts[elementId].type[_configuration.unknownTrendText][storageDate] += data[storageDate];
+                }
+            }
+        }
+    }
+    function cancelAllPullDataTimers() {
+        for (var elementId in _elements_DateCounts) {
+            if (_elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                if (isDefined(bindingOptions._currentView.isInFetchModeTimer)) {
+                    clearInterval(bindingOptions._currentView.isInFetchModeTimer);
+                }
+            }
+        }
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Export
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */

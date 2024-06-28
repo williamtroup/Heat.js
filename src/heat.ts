@@ -165,11 +165,64 @@ import { type PublicApi } from "./api";
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Data Pulling
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function startDataPullTimer( bindingOptions: BindingOptions ) : void {
+        if ( bindingOptions._currentView.isInFetchMode ) {
+            if ( !isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
+                pullDataFromCustomTrigger( bindingOptions );
+            }
+
+            if ( !isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
+                bindingOptions._currentView.isInFetchModeTimer = setInterval( function() {
+                    pullDataFromCustomTrigger( bindingOptions );
+                    // renderControlContainer( bindingOptions );  TODO:  FIX
+                }, bindingOptions.dataFetchDelay );
+            }
+        }
+    }
+
+    function pullDataFromCustomTrigger( bindingOptions: BindingOptions ) : void {
+        let elementId: string = bindingOptions._currentView.element.id;
+        let data: any = fireCustomTrigger( bindingOptions.events.onDataFetch, elementId );
+
+        if ( isDefinedObject( data ) ) {
+            createDateStorageForElement( elementId, bindingOptions, false );
+
+            for ( let storageDate in data ) {
+                if ( data.hasOwnProperty( storageDate ) ) {
+                    if ( !_elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ].hasOwnProperty( storageDate ) ) {
+                        _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ][ storageDate ] = 0;
+                    }
+            
+                    _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ][ storageDate ] += data[ storageDate ];
+                }
+            }
+        }
+    }
+
+    function cancelAllPullDataTimers() : void {
+        for ( let elementId in _elements_DateCounts ) {
+            if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                let bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+
+                if ( isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
+                    clearInterval( bindingOptions._currentView.isInFetchModeTimer );
+                }
+            }
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Export
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function exportAllData( bindingOptions: BindingOptions, exportType ) {
+    function exportAllData( bindingOptions: BindingOptions, exportType ) : void {
         let contents: string = null;
         let contentsMimeType: string = getExportMimeType( bindingOptions );
         let contentExportType: string = getDefaultString( exportType, bindingOptions.exportType ).toLowerCase();

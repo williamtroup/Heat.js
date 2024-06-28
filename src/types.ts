@@ -44,6 +44,7 @@ export type BindingOptions = {
         year: number,
         type: string,
         isInFetchMode: boolean,
+        isInFetchModeTimer: number,
         yearsAvailable: number[]
     },
     exportOnlyYearBeingViewed: boolean;
