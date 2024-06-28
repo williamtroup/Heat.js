@@ -20,6 +20,251 @@ var enums_1 = require("./enums");
     var _attribute_Name_Options = "data-heat-js";
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Data
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function createDateStorageForElement(elementId, bindingOptions, storeLocalData) {
+        if (storeLocalData === void 0) { storeLocalData = true; }
+        _elements_DateCounts[elementId] = {
+            options: bindingOptions,
+            type: {},
+            types: 1
+        };
+        _elements_DateCounts[elementId].type[_configuration.unknownTrendText] = {};
+        if (storeLocalData && !bindingOptions._currentView.isInFetchMode) {
+            loadDataFromLocalStorage(bindingOptions);
+        }
+    }
+    function getCurrentViewData(bindingOptions) {
+        return _elements_DateCounts[bindingOptions._currentView.element.id].type[bindingOptions._currentView.type];
+    }
+    function isMonthVisible(monthsToShow, month) {
+        return monthsToShow.indexOf(month + 1) > enums_1.VALUE.notFound;
+    }
+    function isDayVisible(daysToShow, day) {
+        return daysToShow.indexOf(day) > enums_1.VALUE.notFound;
+    }
+    function getYearsAvailableInData(bindingOptions) {
+        var years = [];
+        if (bindingOptions.showOnlyDataForYearsAvailable) {
+            var data = getCurrentViewData(bindingOptions);
+            for (var storageDate in data) {
+                if (data.hasOwnProperty(storageDate)) {
+                    var year = parseInt(getStorageDateYear(storageDate));
+                    if (years.indexOf(year) === enums_1.VALUE.notFound) {
+                        years.push(year);
+                    }
+                }
+            }
+        }
+        years = years.sort(function (a, b) {
+            return a - b;
+        });
+        return years;
+    }
+    function isYearVisible(bindingOptions, year) {
+        return bindingOptions.yearsToHide.indexOf(year) === enums_1.VALUE.notFound && (bindingOptions._currentView.yearsAvailable.length === 0 || bindingOptions._currentView.yearsAvailable.indexOf(year) > enums_1.VALUE.notFound);
+    }
+    function isFirstVisibleYear(bindingOptions, year) {
+        return bindingOptions._currentView.yearsAvailable.length > 0 && year <= bindingOptions._currentView.yearsAvailable[0];
+    }
+    function isLastVisibleYear(bindingOptions, year) {
+        return bindingOptions._currentView.yearsAvailable.length > 0 && year >= bindingOptions._currentView.yearsAvailable[bindingOptions._currentView.yearsAvailable.length - 1];
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Local Storage
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function loadDataFromLocalStorage(bindingOptions) {
+        if (bindingOptions.useLocalStorageForData && windowObject.localStorage) {
+            var keysLength = windowObject.localStorage.length;
+            var elementId = bindingOptions._currentView.element.id;
+            for (var keyIndex = 0; keyIndex < keysLength; keyIndex++) {
+                var key = windowObject.localStorage.key(keyIndex);
+                if (startsWithAnyCase(key, _local_Storage_Start_ID)) {
+                    var typesJson = windowObject.localStorage.getItem(key);
+                    var typesObject = getObjectFromString(typesJson);
+                    if (typesObject.parsed) {
+                        _elements_DateCounts[elementId].type = typesObject.result;
+                        _elements_DateCounts[elementId].types = 0;
+                        for (var type in _elements_DateCounts[elementId].type) {
+                            if (_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
+                                _elements_DateCounts[elementId].types++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    function storeDataInLocalStorage(bindingOptions) {
+        if (bindingOptions.useLocalStorageForData && windowObject.localStorage) {
+            var elementId = bindingOptions._currentView.element.id;
+            clearLocalStorageObjects(bindingOptions);
+            var jsonData = jsonObject.stringify(_elements_DateCounts[elementId].type);
+            windowObject.localStorage.setItem(_local_Storage_Start_ID + elementId, jsonData);
+        }
+    }
+    function clearLocalStorageObjects(bindingOptions) {
+        if (bindingOptions.useLocalStorageForData && windowObject.localStorage) {
+            var keysLength = windowObject.localStorage.length;
+            var keysToRemove = [];
+            var elementId = bindingOptions._currentView.element.id;
+            for (var keyIndex = 0; keyIndex < keysLength; keyIndex++) {
+                if (startsWithAnyCase(windowObject.localStorage.key(keyIndex), _local_Storage_Start_ID + elementId)) {
+                    keysToRemove.push(windowObject.localStorage.key(keyIndex));
+                }
+            }
+            var keysToRemoveLength = keysToRemove.length;
+            for (var keyToRemoveIndex = 0; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++) {
+                windowObject.localStorage.removeItem(keysToRemove[keyToRemoveIndex]);
+            }
+        }
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Export
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function exportAllData(bindingOptions, exportType) {
+        var contents = null;
+        var contentsMimeType = getExportMimeType(bindingOptions);
+        var contentExportType = getDefaultString(exportType, bindingOptions.exportType).toLowerCase();
+        if (contentExportType === enums_1.EXPORT_TYPE.csv) {
+            contents = getCsvContent(bindingOptions);
+        }
+        else if (contentExportType === enums_1.EXPORT_TYPE.json) {
+            contents = getJsonContent(bindingOptions);
+        }
+        else if (contentExportType === enums_1.EXPORT_TYPE.xml) {
+            contents = getXmlContents(bindingOptions);
+        }
+        else if (contentExportType === enums_1.EXPORT_TYPE.txt) {
+            contents = getTxtContents(bindingOptions);
+        }
+        if (isDefinedString(contents)) {
+            var tempLink = createElement(documentObject.body, "a");
+            tempLink.style.display = "none";
+            tempLink.setAttribute("target", "_blank");
+            tempLink.setAttribute("href", "data:" + contentsMimeType + ";charset=utf-8," + encodeURIComponent(contents));
+            tempLink.setAttribute("download", getExportFilename(bindingOptions));
+            tempLink.click();
+            documentObject.body.removeChild(tempLink);
+            fireCustomTrigger(bindingOptions.events.onExport, bindingOptions._currentView.element);
+        }
+    }
+    function getCsvContent(bindingOptions) {
+        var data = getExportData(bindingOptions);
+        var csvContents = [];
+        for (var storageDate in data) {
+            if (data.hasOwnProperty(storageDate)) {
+                csvContents.push(getCsvValueLine([getCsvValue(storageDate), getCsvValue(data[storageDate])]));
+            }
+        }
+        if (csvContents.length > 0) {
+            csvContents.unshift(getCsvValueLine([getCsvValue(_configuration.dateText), getCsvValue(_configuration.countText)]));
+        }
+        return csvContents.join(enums_1.STRING.newLine);
+    }
+    function getJsonContent(bindingOptions) {
+        return jsonObject.stringify(getExportData(bindingOptions));
+    }
+    function getXmlContents(bindingOptions) {
+        var data = getExportData(bindingOptions);
+        var contents = [];
+        contents.push("<?xml version=\"1.0\" ?>");
+        contents.push("<Dates>");
+        for (var storageDate in data) {
+            if (data.hasOwnProperty(storageDate)) {
+                contents.push("<Date>");
+                contents.push("<FullDate>" + storageDate + "</FullDate>");
+                contents.push("<Count>" + data[storageDate] + "</Count>");
+                contents.push("</Date>");
+            }
+        }
+        contents.push("</Dates>");
+        return contents.join(enums_1.STRING.newLine);
+    }
+    function getTxtContents(bindingOptions) {
+        var data = getExportData(bindingOptions);
+        var contents = [];
+        for (var storageDate in data) {
+            if (data.hasOwnProperty(storageDate)) {
+                contents.push(storageDate + enums_1.STRING.colon + enums_1.STRING.space + data[storageDate].toString());
+            }
+        }
+        return contents.join(enums_1.STRING.newLine);
+    }
+    function getExportData(bindingOptions) {
+        var contents = {};
+        var data = getCurrentViewData(bindingOptions);
+        if (bindingOptions.exportOnlyYearBeingViewed) {
+            for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
+                var totalDaysInMonth = getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
+                for (var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++) {
+                    var storageDate2 = toStorageDate(new Date(bindingOptions._currentView.year, monthIndex, dayIndex + 1));
+                    if (data.hasOwnProperty(storageDate2)) {
+                        contents[storageDate2] = data[storageDate2];
+                    }
+                }
+            }
+        }
+        else {
+            var storageDates = [];
+            for (var storageDate1 in data) {
+                if (data.hasOwnProperty(storageDate1)) {
+                    storageDates.push(storageDate1);
+                }
+            }
+            storageDates.sort();
+            var storageDatesLength = storageDates.length;
+            for (var storageDateIndex = 0; storageDateIndex < storageDatesLength; storageDateIndex++) {
+                var storageDate3 = storageDates[storageDateIndex];
+                if (data.hasOwnProperty(storageDate3)) {
+                    contents[storageDate3] = data[storageDate3];
+                }
+            }
+        }
+        return contents;
+    }
+    function getExportMimeType(bindingOptions) {
+        var result = null;
+        if (bindingOptions.exportType.toLowerCase() === enums_1.EXPORT_TYPE.csv) {
+            result = "text/csv";
+        }
+        else if (bindingOptions.exportType.toLowerCase() === enums_1.EXPORT_TYPE.json) {
+            result = "application/json";
+        }
+        else if (bindingOptions.exportType.toLowerCase() === enums_1.EXPORT_TYPE.xml) {
+            result = "application/xml";
+        }
+        else if (bindingOptions.exportType.toLowerCase() === enums_1.EXPORT_TYPE.txt) {
+            result = "text/plain";
+        }
+        return result;
+    }
+    function getExportFilename(bindingOptions) {
+        var date = new Date();
+        var datePart = padNumber(date.getDate()) + enums_1.STRING.dash + padNumber(date.getMonth() + 1) + enums_1.STRING.dash + date.getFullYear();
+        var timePart = padNumber(date.getHours()) + enums_1.STRING.dash + padNumber(date.getMinutes());
+        var filenameStart = enums_1.STRING.empty;
+        if (bindingOptions._currentView.type !== _configuration.unknownTrendText) {
+            filenameStart = bindingOptions._currentView.type.toLowerCase().replace(enums_1.STRING.space, enums_1.STRING.underscore) + enums_1.STRING.underscore;
+        }
+        return filenameStart + datePart + enums_1.STRING.underscore + timePart + "." + bindingOptions.exportType.toLowerCase();
+    }
+    function getCsvValue(text) {
+        var result = text.toString().replace(/(\r\n|\n|\r)/gm, enums_1.STRING.empty).replace(/(\s\s)/gm, enums_1.STRING.space);
+        result = result.replace(/"/g, '""');
+        result = '"' + result + '"';
+        return result;
+    }
+    function getCsvValueLine(csvValues) {
+        return csvValues.join(",");
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Attribute Options
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -436,9 +681,13 @@ var enums_1 = require("./enums");
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
     function fireCustomTrigger(triggerFunction) {
+        var args = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
         var result = null;
         if (isDefinedFunction(triggerFunction)) {
-            result = triggerFunction.apply(null, [].slice.call(arguments, 1));
+            result = triggerFunction.apply(null, [].slice.call(args, 1));
         }
         return result;
     }

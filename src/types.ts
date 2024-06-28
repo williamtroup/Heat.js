@@ -39,6 +39,13 @@ export type Configuration = {
 };
 
 export type BindingOptions = {
+    _currentView: {
+        element: HTMLElement,
+        year: number,
+        type: string,
+        isInFetchMode: boolean,
+        yearsAvailable: number[]
+    },
     exportOnlyYearBeingViewed: boolean;
     year: number;
     view: string;

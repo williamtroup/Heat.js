@@ -28,6 +28,315 @@ import { type PublicApi } from "./api";
     const _attribute_Name_Options: string = "data-heat-js";
 
 
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Data
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function createDateStorageForElement( elementId: string, bindingOptions: BindingOptions, storeLocalData: boolean = true ) {
+        _elements_DateCounts[ elementId ] = {
+            options: bindingOptions,
+            type: {},
+            types: 1
+        };
+
+        _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ] = {};
+
+        if ( storeLocalData && !bindingOptions._currentView.isInFetchMode ) {
+            loadDataFromLocalStorage( bindingOptions );
+        }
+    }
+
+    function getCurrentViewData( bindingOptions: BindingOptions ) : any {
+        return _elements_DateCounts[ bindingOptions._currentView.element.id ].type[ bindingOptions._currentView.type ];
+    }
+
+    function isMonthVisible( monthsToShow: number[], month: number ) : boolean {
+        return monthsToShow.indexOf( month + 1 ) > VALUE.notFound;
+    }
+
+    function isDayVisible( daysToShow: number[], day: number ) : boolean {
+        return daysToShow.indexOf( day ) > VALUE.notFound;
+    }
+
+    function getYearsAvailableInData( bindingOptions: BindingOptions ) : number[] {
+        let years: number[] = [];
+
+        if ( bindingOptions.showOnlyDataForYearsAvailable ) {
+            let data: any = getCurrentViewData( bindingOptions );
+
+            for ( var storageDate in data ) {
+                if ( data.hasOwnProperty( storageDate ) ) {
+                    let year: number = parseInt( getStorageDateYear( storageDate ) );
+                    
+                    if ( years.indexOf( year ) === VALUE.notFound ) {
+                        years.push( year );
+                    }
+                }
+            }
+        }
+
+        years = years.sort( function( a, b ) {
+            return a - b;
+        } );
+
+        return years;
+    }
+
+    function isYearVisible( bindingOptions: BindingOptions, year: number ) : boolean {
+        return bindingOptions.yearsToHide.indexOf( year ) === VALUE.notFound && ( bindingOptions._currentView.yearsAvailable.length === 0 || bindingOptions._currentView.yearsAvailable.indexOf( year ) > VALUE.notFound );
+    }
+
+    function isFirstVisibleYear( bindingOptions: BindingOptions, year: number ) : boolean {
+        return bindingOptions._currentView.yearsAvailable.length > 0 && year <= bindingOptions._currentView.yearsAvailable[ 0 ];
+    }
+
+    function isLastVisibleYear( bindingOptions: BindingOptions, year: number ) : boolean {
+        return bindingOptions._currentView.yearsAvailable.length > 0 && year >= bindingOptions._currentView.yearsAvailable[ bindingOptions._currentView.yearsAvailable.length - 1 ];
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Local Storage
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function loadDataFromLocalStorage( bindingOptions: BindingOptions ) : void {
+        if ( bindingOptions.useLocalStorageForData && windowObject.localStorage ) {
+            let keysLength: number = windowObject.localStorage.length;
+            let elementId: string = bindingOptions._currentView.element.id;
+
+            for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
+                let key : string = windowObject.localStorage.key( keyIndex );
+
+                if ( startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
+                    let typesJson: string = windowObject.localStorage.getItem( key );
+                    let typesObject: any = getObjectFromString( typesJson );
+
+                    if ( typesObject.parsed ) {
+                        _elements_DateCounts[ elementId ].type = typesObject.result;
+                        _elements_DateCounts[ elementId ].types = 0;
+
+                        for ( let type in _elements_DateCounts[ elementId ].type ) {
+                            if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
+                                _elements_DateCounts[ elementId ].types++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function storeDataInLocalStorage( bindingOptions: BindingOptions ) : void {
+        if ( bindingOptions.useLocalStorageForData && windowObject.localStorage ) {
+            let elementId: string = bindingOptions._currentView.element.id;
+
+            clearLocalStorageObjects( bindingOptions );
+
+            let jsonData: string = jsonObject.stringify( _elements_DateCounts[ elementId ].type );
+
+            windowObject.localStorage.setItem( _local_Storage_Start_ID + elementId, jsonData );
+        }
+    }
+
+    function clearLocalStorageObjects( bindingOptions: BindingOptions ) : void {
+        if ( bindingOptions.useLocalStorageForData && windowObject.localStorage ) {
+            let keysLength: number = windowObject.localStorage.length;
+            let keysToRemove: string[] = [];
+            let elementId: string = bindingOptions._currentView.element.id;
+
+            for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
+                if ( startsWithAnyCase( windowObject.localStorage.key( keyIndex ), _local_Storage_Start_ID + elementId ) ) {
+                    keysToRemove.push( windowObject.localStorage.key( keyIndex ) );
+                }
+            }
+
+            let keysToRemoveLength: number = keysToRemove.length;
+
+            for ( let keyToRemoveIndex: number = 0; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++ ) {
+                windowObject.localStorage.removeItem( keysToRemove[ keyToRemoveIndex ] );
+            }
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Export
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function exportAllData( bindingOptions: BindingOptions, exportType ) {
+        let contents: string = null;
+        let contentsMimeType: string = getExportMimeType( bindingOptions );
+        let contentExportType: string = getDefaultString( exportType, bindingOptions.exportType ).toLowerCase();
+
+        if ( contentExportType === EXPORT_TYPE.csv ) {
+            contents = getCsvContent( bindingOptions );
+        } else if ( contentExportType === EXPORT_TYPE.json ) {
+            contents = getJsonContent( bindingOptions );
+        } else if ( contentExportType === EXPORT_TYPE.xml ) {
+            contents = getXmlContents( bindingOptions );
+        } else if ( contentExportType === EXPORT_TYPE.txt ) {
+            contents = getTxtContents( bindingOptions );
+        }
+
+        if ( isDefinedString( contents ) ) {
+            let tempLink: HTMLElement = createElement( documentObject.body, "a" );
+            tempLink.style.display = "none";
+            tempLink.setAttribute( "target", "_blank" );
+            tempLink.setAttribute( "href", "data:" + contentsMimeType + ";charset=utf-8," + encodeURIComponent( contents ) );
+            tempLink.setAttribute( "download", getExportFilename( bindingOptions ) );
+            tempLink.click();
+            
+            documentObject.body.removeChild( tempLink );
+
+            fireCustomTrigger( bindingOptions.events.onExport, bindingOptions._currentView.element );
+        }
+    }
+
+    function getCsvContent( bindingOptions: BindingOptions ) : string {
+        let data: object = getExportData( bindingOptions );
+        let csvContents: string[] = [];
+
+        for ( let storageDate in data ) {
+            if ( data.hasOwnProperty( storageDate ) ) {
+                csvContents.push( getCsvValueLine( [ getCsvValue( storageDate ), getCsvValue( data[ storageDate ] ) ] ) );
+            }
+        }
+
+        if ( csvContents.length > 0 ) {
+            csvContents.unshift( getCsvValueLine( [ getCsvValue( _configuration.dateText ), getCsvValue( _configuration.countText ) ] ) );
+        }
+        
+        return csvContents.join( STRING.newLine );
+    }
+
+    function getJsonContent( bindingOptions: BindingOptions ): string {
+        return jsonObject.stringify( getExportData( bindingOptions ) );
+    }
+
+    function getXmlContents( bindingOptions: BindingOptions ) : string {
+        let data: object = getExportData( bindingOptions );
+        let contents: string[] = [];
+
+        contents.push( "<?xml version=\"1.0\" ?>" );
+        contents.push( "<Dates>" );
+
+        for ( var storageDate in data ) {
+            if ( data.hasOwnProperty( storageDate ) ) {
+                contents.push( "<Date>" );
+                contents.push( "<FullDate>" + storageDate + "</FullDate>" );
+                contents.push( "<Count>" + data[ storageDate ] + "</Count>" );
+                contents.push( "</Date>" );
+            }
+        }
+
+        contents.push( "</Dates>" );
+
+        return contents.join( STRING.newLine );
+    }
+
+    function getTxtContents( bindingOptions: BindingOptions ): string {
+        let data: object = getExportData( bindingOptions );
+        let contents: string[] = [];
+
+        for ( var storageDate in data ) {
+            if ( data.hasOwnProperty( storageDate ) ) {
+                contents.push( storageDate + STRING.colon + STRING.space + data[ storageDate ].toString() );
+            }
+        }
+
+        return contents.join( STRING.newLine );
+    }
+
+    function getExportData( bindingOptions: BindingOptions ): object {
+        let contents: object = {};
+        let data = getCurrentViewData( bindingOptions );
+
+        if ( bindingOptions.exportOnlyYearBeingViewed ) {
+            for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
+                let totalDaysInMonth: number = getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
+        
+                for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                    let storageDate2: string = toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
+
+                    if ( data.hasOwnProperty( storageDate2 ) ) {
+                        contents[ storageDate2 ] = data[ storageDate2 ];
+                    }
+                }
+            }
+
+        } else {
+            let storageDates: string[] = [];
+
+            for ( let storageDate1 in data ) {
+                if ( data.hasOwnProperty( storageDate1 ) ) {
+                    storageDates.push( storageDate1 );
+                }
+            }
+    
+            storageDates.sort();
+
+            let storageDatesLength: number = storageDates.length;
+
+            for ( let storageDateIndex: number = 0; storageDateIndex < storageDatesLength; storageDateIndex++ ) {
+                let storageDate3: string = storageDates[ storageDateIndex ];
+    
+                if ( data.hasOwnProperty( storageDate3 ) ) {
+                    contents[ storageDate3 ] = data[ storageDate3 ];
+                }
+            }
+        }
+
+        return contents;
+    }
+
+    function getExportMimeType( bindingOptions: BindingOptions ) : string {
+        let result: string = null;
+
+        if ( bindingOptions.exportType.toLowerCase() === EXPORT_TYPE.csv ) {
+            result = "text/csv";
+        } else if ( bindingOptions.exportType.toLowerCase() === EXPORT_TYPE.json ) {
+            result = "application/json";
+        } else if ( bindingOptions.exportType.toLowerCase() === EXPORT_TYPE.xml ) {
+            result = "application/xml";
+        } else if ( bindingOptions.exportType.toLowerCase() === EXPORT_TYPE.txt ) {
+            result = "text/plain";
+        }
+
+        return result;
+    }
+
+    function getExportFilename( bindingOptions: BindingOptions ) : string {
+        let date: Date = new Date();
+        let datePart: string = padNumber( date.getDate() ) + STRING.dash + padNumber( date.getMonth() + 1 ) + STRING.dash + date.getFullYear();
+        let timePart: string = padNumber( date.getHours() ) + STRING.dash + padNumber( date.getMinutes() );
+        let filenameStart: string = STRING.empty;
+
+        if ( bindingOptions._currentView.type !== _configuration.unknownTrendText ) {
+            filenameStart = bindingOptions._currentView.type.toLowerCase().replace( STRING.space, STRING.underscore ) + STRING.underscore;
+        }
+
+        return filenameStart + datePart + STRING.underscore + timePart + "." + bindingOptions.exportType.toLowerCase();
+    }
+
+    function getCsvValue( text: string ) : string {
+        var result: string = text.toString().replace( /(\r\n|\n|\r)/gm, STRING.empty ).replace( /(\s\s)/gm, STRING.space );
+        result = result.replace( /"/g, '""' );
+        result = '"' + result + '"';
+
+        return result;
+    }
+
+    function getCsvValueLine( csvValues: string[] ): string {
+        return csvValues.join( "," );
+    }
+
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -527,11 +836,11 @@ import { type PublicApi } from "./api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function fireCustomTrigger( triggerFunction: Function ) : any {
+    function fireCustomTrigger( triggerFunction: Function, ...args : any[] ) : any {
         let result: any = null;
 
         if ( isDefinedFunction( triggerFunction ) ) {
-            result = triggerFunction.apply( null, [].slice.call( arguments, 1 ) );
+            result = triggerFunction.apply( null, [].slice.call( args, 1 ) );
         }
 
         return result;
@@ -634,9 +943,9 @@ import { type PublicApi } from "./api";
         return value;
     }
 
-    function getObjectFromString( objectString: any ) : object {
+    function getObjectFromString( objectString: any ) : any {
         let parsed: boolean = true,
-            result: object = null;
+            result: any = null;
 
         try {
             if ( isDefinedString( objectString ) ) {
