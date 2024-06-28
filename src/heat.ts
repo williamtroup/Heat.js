@@ -28,6 +28,214 @@ import { type PublicApi } from "./api";
     const _attribute_Name_Options: string = "data-heat-js";
 
 
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Date/Time
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getTotalDaysInMonth( year: number, month: number ) {
+        return new Date( year, month + 1, 0 ).getDate();
+    }
+
+    function getWeekdayNumber( date: Date ) {
+        return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
+    }
+
+    function getDayOrdinal( value: number ) {
+        let result: string = _configuration.thText;
+
+        if ( value === 31 || value === 21 || value === 1 ) {
+            result = _configuration.stText;
+        } else if ( value === 22 || value === 2 ) {
+            result = _configuration.ndText;
+        } else if ( value === 23 || value === 3 ) {
+            result = _configuration.rdText;
+        }
+
+        return result;
+    }
+
+    function getCustomFormattedDateText( dateFormat: string, date: Date ) {
+        let result: string = dateFormat;
+        let weekDayNumber: number = getWeekdayNumber( date );
+
+        result = result.replace( "{dddd}", _configuration.dayNames[ weekDayNumber ] );
+        result = result.replace( "{dd}", padNumber( date.getDate() ) );
+        result = result.replace( "{d}", date.getDate().toString() );
+
+        result = result.replace( "{o}", getDayOrdinal( date.getDate() ) );
+
+        result = result.replace( "{mmmm}", _configuration.monthNames[ date.getMonth() ] );
+        result = result.replace( "{mm}", padNumber( date.getMonth() + 1 ) );
+        result = result.replace( "{m}", ( date.getMonth() + 1 ).toString() );
+
+        result = result.replace( "{yyyy}", date.getFullYear().toString() );
+        result = result.replace( "{yyy}", date.getFullYear().toString().substring( 1 ) );
+        result = result.replace( "{yy}", date.getFullYear().toString().substring( 2 ) );
+        result = result.replace( "{y}", parseInt( date.getFullYear().toString().substring( 2 ) ).toString() );
+
+        return result;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Element Handling
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function createElementWithNoContainer( type: string ) {
+        let result: HTMLElement = null;
+        let nodeType: string = type.toLowerCase();
+        let isText: boolean = nodeType === "text";
+
+        if ( !_elements_Type.hasOwnProperty( nodeType ) ) {
+            _elements_Type[ nodeType ] = isText ? documentObject.createTextNode( STRING.empty ) : documentObject.createElement( nodeType );
+        }
+
+        result = _elements_Type[ nodeType ].cloneNode( false );
+
+        return result;
+    }
+
+    function createElement( container: HTMLElement, type: string, className: string = STRING.empty, beforeNode: HTMLElement | null = null ) {
+        let result: HTMLElement = null;
+        let nodeType: string = type.toLowerCase();
+        let isText: boolean = nodeType === "text";
+
+        if ( !_elements_Type.hasOwnProperty( nodeType ) ) {
+            _elements_Type[ nodeType ] = isText ? documentObject.createTextNode( STRING.empty ) : documentObject.createElement( nodeType );
+        }
+
+        result = _elements_Type[ nodeType ].cloneNode( false );
+
+        if ( isDefined( className ) ) {
+            result.className = className;
+        }
+
+        if ( isDefined( beforeNode ) ) {
+            container.insertBefore( result, beforeNode );
+        } else {
+            container.appendChild( result );
+        }
+
+        return result;
+    }
+
+    function createElementWithHTML( container: HTMLElement, type: string, className: string, html: string, beforeNode: HTMLElement = null ) {
+        let element: HTMLElement = createElement( container, type, className, beforeNode );
+        element.innerHTML = html;
+
+        return element;
+    }
+
+    function getStyleValueByName( element: any, stylePropertyName: string, toNumber: boolean = false ) {
+        let value: any = null;
+        
+        if ( documentObject.defaultView.getComputedStyle ) {
+            value = documentObject.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
+        } else if ( element.currentStyle ) {
+            value = element.currentStyle[ stylePropertyName ];
+        }   
+        
+        if ( toNumber ) {
+            value = parseFloat( value );
+        }
+
+        return value;
+    }
+
+    function addClass( element: HTMLElement, className: string ) {
+        element.className += STRING.space + className;
+        element.className = element.className.trim();
+    }
+
+    function removeClass( element: HTMLElement, className: string ) {
+        element.className = element.className.replace( className, STRING.empty );
+        element.className = element.className.trim();
+    }
+
+    function cancelBubble( e: any ) {
+        e.preventDefault();
+        e.cancelBubble = true;
+    }
+
+    function getScrollPosition() {
+        let doc: HTMLElement = documentObject.documentElement;
+        let left: number = ( windowObject.pageXOffset || doc.scrollLeft )  - ( doc.clientLeft || 0 );
+        let top: number = ( windowObject.pageYOffset || doc.scrollTop ) - ( doc.clientTop || 0 );
+
+        return {
+            left: left,
+            top: top
+        };
+    }
+
+    function showElementAtMousePosition( e: any, element: HTMLElement ) {
+        let left: number = e.pageX;
+        let top: number = e.pageY;
+        let scrollPosition: any = getScrollPosition();
+
+        element.style.display = "block";
+
+        if ( left + element.offsetWidth > windowObject.innerWidth ) {
+            left -= element.offsetWidth;
+        } else {
+            left++;
+        }
+
+        if ( top + element.offsetHeight > windowObject.innerHeight ) {
+            top -= element.offsetHeight;
+        } else {
+            top++;
+        }
+
+        if ( left < scrollPosition.left ) {
+            left = e.pageX + 1;
+        }
+
+        if ( top < scrollPosition.top ) {
+            top = e.pageY + 1;
+        }
+        
+        element.style.left = left + "px";
+        element.style.top = top + "px";
+    }
+
+    function reverseElementsOrder( parent: HTMLElement ) {
+        let children: HTMLCollection = parent.children;
+        let childrenLength: number = children.length - 1;
+
+        for ( ; childrenLength--; ) {
+            parent.appendChild( children[ childrenLength ] );
+        }
+    }
+
+    function buildCheckBox( container: HTMLElement, labelText: string, checked: boolean | null, onClick: Function | null ) {
+        let lineContainer: HTMLElement = createElement( container, "div" );
+        let label: HTMLElement = createElement( lineContainer, "label", "checkbox" );
+        let input: any = createElement( label, "input" );
+
+        input.type = "checkbox";
+
+        if ( isDefined( onClick ) ) {
+            input.onclick = onClick;
+        }
+
+        if ( isDefined( checked ) ) {
+            input.checked = checked;
+        }
+
+        createElement( label, "span", "check-mark" );
+        createElementWithHTML( label, "span", "text", labelText );
+        
+        return {
+            input: input,
+            label: label
+        };
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
