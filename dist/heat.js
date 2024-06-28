@@ -135,7 +135,7 @@ var enums_1 = require("./enums");
             if (!isDefined(bindingOptions._currentView.isInFetchModeTimer)) {
                 bindingOptions._currentView.isInFetchModeTimer = setInterval(function () {
                     pullDataFromCustomTrigger(bindingOptions);
-                    // renderControlContainer( bindingOptions );  TODO:  FIX
+                    // renderControlContainer( bindingOptions ); TODO: Enable
                 }, bindingOptions.dataFetchDelay);
             }
         }
@@ -164,6 +164,128 @@ var enums_1 = require("./enums");
                 }
             }
         }
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Color Ranges
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function isColorRangeVisible(bindingOptions, id) {
+        var result = false;
+        if (id === _internal_Name_Holiday) {
+            result = true;
+        }
+        else {
+            var colorRangesLength = bindingOptions.colorRanges.length;
+            for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
+                var colorRange = bindingOptions.colorRanges[colorRangesIndex];
+                if (colorRange.id === id && getDefaultBoolean(colorRange.visible, true)) {
+                    result = true;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+    function updateColorRangeToggles(bindingOptions, flag) {
+        var colorRangesLength = bindingOptions.colorRanges.length;
+        for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
+            bindingOptions.colorRanges[colorRangesIndex].visible = flag;
+            fireCustomTrigger(bindingOptions.events.onColorRangeTypeToggle, bindingOptions.colorRanges[colorRangesIndex].id, flag);
+        }
+        //renderControlContainer( bindingOptions ); TODO: Enable
+    }
+    function toggleColorRangeVisibleState(bindingOptions, id) {
+        var colorRangesLength = bindingOptions.colorRanges.length;
+        for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
+            var colorRange = bindingOptions.colorRanges[colorRangesIndex];
+            if (colorRange.id === id) {
+                colorRange.visible = !getDefaultBoolean(colorRange.visible, true);
+                fireCustomTrigger(bindingOptions.events.onColorRangeTypeToggle, colorRange.id, colorRange.visible);
+                //renderControlContainer( bindingOptions ); TODO: Enable
+                break;
+            }
+        }
+    }
+    function getColorRange(bindingOptions, colorRanges, dateCount, date) {
+        var useColorRange = null;
+        if (isDefined(date) && isHoliday(bindingOptions, date).matched) {
+            var newUseColorRange = {
+                cssClassName: "holiday",
+                id: _internal_Name_Holiday,
+                visible: true,
+                name: enums_1.STRING.empty,
+                minimum: 0,
+                mapCssClassName: enums_1.STRING.empty,
+                chartCssClassName: enums_1.STRING.empty,
+                statisticsCssClassName: enums_1.STRING.empty,
+                tooltipText: enums_1.STRING.empty
+            };
+            useColorRange = newUseColorRange;
+        }
+        if (!isDefined(useColorRange)) {
+            var colorRangesLength = colorRanges.length;
+            for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
+                var colorRange = colorRanges[colorRangesIndex];
+                if (dateCount >= colorRange.minimum) {
+                    useColorRange = colorRange;
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        return useColorRange;
+    }
+    function getColorRangeByMinimum(colorRanges, minimum) {
+        var colorRangesLength = colorRanges.length;
+        var useColorRange = null;
+        for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
+            var colorRange = colorRanges[colorRangesIndex];
+            if (minimum.toString() === colorRange.minimum.toString()) {
+                useColorRange = colorRange;
+                break;
+            }
+        }
+        return useColorRange;
+    }
+    function getSortedColorRanges(bindingOptions) {
+        return bindingOptions.colorRanges.sort(function (a, b) {
+            return a.minimum - b.minimum;
+        });
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Holiday
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function isHoliday(bindingOptions, date) {
+        var holidaysLength = bindingOptions.holidays.length;
+        var holidayMatched = false;
+        var holidayName = null;
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        for (var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++) {
+            var holiday = bindingOptions.holidays[holidayIndex];
+            if (isDefinedString(holiday.date) && holiday.showInViews) {
+                var dateParts = holiday.date.split("/");
+                if (dateParts.length === 2) {
+                    holidayMatched = day === parseInt(dateParts[0]) && month === parseInt(dateParts[1]);
+                }
+                else if (dateParts.length === 3) {
+                    holidayMatched = day === parseInt(dateParts[0]) && month === parseInt(dateParts[1]) && year === parseInt(dateParts[2]);
+                }
+                if (holidayMatched) {
+                    holidayName = holiday.name;
+                    break;
+                }
+            }
+        }
+        return {
+            matched: holidayMatched,
+            name: holidayName
+        };
     }
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

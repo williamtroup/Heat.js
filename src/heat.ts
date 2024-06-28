@@ -178,7 +178,7 @@ import { type PublicApi } from "./api";
             if ( !isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
                 bindingOptions._currentView.isInFetchModeTimer = setInterval( function() {
                     pullDataFromCustomTrigger( bindingOptions );
-                    // renderControlContainer( bindingOptions );  TODO:  FIX
+                    // renderControlContainer( bindingOptions ); TODO: Enable
                 }, bindingOptions.dataFetchDelay );
             }
         }
@@ -213,6 +213,161 @@ import { type PublicApi } from "./api";
                 }
             }
         }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Color Ranges
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function isColorRangeVisible( bindingOptions: BindingOptions, id: string ) : boolean {
+        let result: boolean = false;
+        
+        if ( id === _internal_Name_Holiday ) {
+            result = true;
+
+        } else {
+            let colorRangesLength : number = bindingOptions.colorRanges.length;
+
+            for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+                let colorRange: ColorRange = bindingOptions.colorRanges[ colorRangesIndex ];
+    
+                if ( colorRange.id === id && getDefaultBoolean( colorRange.visible, true ) ) {
+                    result = true;
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    function updateColorRangeToggles( bindingOptions: BindingOptions, flag: boolean ) : void {
+        let colorRangesLength: number = bindingOptions.colorRanges.length;
+
+        for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+            bindingOptions.colorRanges[ colorRangesIndex ].visible = flag;
+
+            fireCustomTrigger( bindingOptions.events.onColorRangeTypeToggle, bindingOptions.colorRanges[ colorRangesIndex ].id, flag );
+        }
+
+        //renderControlContainer( bindingOptions ); TODO: Enable
+    }
+
+    function toggleColorRangeVisibleState( bindingOptions: BindingOptions, id: string ) : void {
+        let colorRangesLength: number = bindingOptions.colorRanges.length;
+
+        for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+            let colorRange: ColorRange = bindingOptions.colorRanges[ colorRangesIndex ];
+
+            if ( colorRange.id === id ) {
+                colorRange.visible = !getDefaultBoolean( colorRange.visible, true );
+
+                fireCustomTrigger( bindingOptions.events.onColorRangeTypeToggle, colorRange.id, colorRange.visible );
+                //renderControlContainer( bindingOptions ); TODO: Enable
+                break;
+            }
+        }
+    }
+
+    function getColorRange( bindingOptions: BindingOptions, colorRanges: ColorRange[], dateCount: number, date: Date ) : ColorRange {
+        let useColorRange: ColorRange = null;
+
+        if ( isDefined( date ) && isHoliday( bindingOptions, date ).matched ) {
+            let newUseColorRange: ColorRange = {
+                cssClassName: "holiday",
+                id: _internal_Name_Holiday,
+                visible: true,
+                name: STRING.empty,
+                minimum: 0,
+                mapCssClassName: STRING.empty,
+                chartCssClassName: STRING.empty,
+                statisticsCssClassName: STRING.empty,
+                tooltipText: STRING.empty
+            };
+
+            useColorRange = newUseColorRange;
+        }
+
+        if ( !isDefined( useColorRange ) ) {
+            let colorRangesLength: number = colorRanges.length;
+
+            for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+                let colorRange: ColorRange = colorRanges[ colorRangesIndex ];
+    
+                if ( dateCount >= colorRange.minimum ) {
+                    useColorRange = colorRange;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        return useColorRange;
+    }
+
+    function getColorRangeByMinimum( colorRanges: ColorRange[], minimum: number ) : ColorRange {
+        let colorRangesLength: number = colorRanges.length;
+        let useColorRange: ColorRange = null;
+
+        for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+            let colorRange: ColorRange = colorRanges[ colorRangesIndex ];
+
+            if ( minimum.toString() === colorRange.minimum.toString() ) {
+                useColorRange = colorRange;
+                break;
+            }
+        }
+
+        return useColorRange;
+    }
+
+    function getSortedColorRanges( bindingOptions: BindingOptions ) {
+        return bindingOptions.colorRanges.sort( function( a, b ) {
+            return a.minimum - b.minimum;
+        } );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Holiday
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function isHoliday( bindingOptions: BindingOptions, date: Date ) : any {
+        let holidaysLength: number = bindingOptions.holidays.length;
+        let holidayMatched: boolean = false;
+        let holidayName: string = null;
+        let day: number = date.getDate();
+        let month: number = date.getMonth() + 1;
+        let year: number = date.getFullYear();
+
+        for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+            let holiday: Holiday = bindingOptions.holidays[ holidayIndex ];
+
+            if ( isDefinedString( holiday.date ) && holiday.showInViews ) {
+                let dateParts: string[] = holiday.date.split( "/" );
+
+                if ( dateParts.length === 2 ) {
+                    holidayMatched = day === parseInt( dateParts[ 0 ] ) && month === parseInt( dateParts[ 1 ] );
+                } else if ( dateParts.length === 3 ) {
+                    holidayMatched = day === parseInt( dateParts[ 0 ] ) && month === parseInt( dateParts[ 1 ] ) && year === parseInt( dateParts[ 2 ] );
+                }
+
+                if ( holidayMatched ) {
+                    holidayName = holiday.name;
+                    break;
+                }
+            }
+        }
+
+        return {
+            matched: holidayMatched,
+            name: holidayName
+        };
     }
 
 
