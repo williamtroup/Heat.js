@@ -51,16 +51,16 @@ export type BindingOptions = {
     showHolidaysInDayToolTips: boolean;
     colorRanges: ColorRange[];
     holidays: Holiday[];
+    title: title,
+    description: description,
+    guide: guide,
+    tooltip: tooltip,
+    events: events,
     views: {
-        title: title,
-        description: description,
-        guide: guide,
-        tooltip: tooltip,
         map: map,
         chart: chart,
         days: days,
-        statistics: statistics,
-        events: events
+        statistics: statistics
     };
 };
 
@@ -71,6 +71,7 @@ export type title = {
     showRefreshButton: boolean;
     showExportButton: boolean;
     extraSelectionYears: number;
+    showYearSelectionDropDown: boolean;
     showImportButton: boolean;
     showConfigurationButton: boolean;
     showTitleDropDownButton: boolean;

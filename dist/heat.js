@@ -20,6 +20,250 @@ var enums_1 = require("./enums");
     var _attribute_Name_Options = "data-heat-js";
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Attribute Options
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function buildAttributeOptions(newOptions) {
+        var options = getDefaultObject(newOptions, {});
+        options.views = getDefaultObject(options.views, {});
+        options.exportOnlyYearBeingViewed = getDefaultBoolean(options.exportOnlyYearBeingViewed, true);
+        options.year = getDefaultNumber(options.year, new Date().getFullYear());
+        options.view = getDefaultString(options.view, enums_1.VIEW_NAME.map);
+        options.exportType = getDefaultString(options.exportType, enums_1.EXPORT_TYPE.csv);
+        options.useLocalStorageForData = getDefaultBoolean(options.useLocalStorageForData, false);
+        options.allowFileImports = getDefaultBoolean(options.allowFileImports, true);
+        options.yearsToHide = getDefaultArray(options.yearsToHide, []);
+        options.dataFetchDelay = getDefaultNumber(options.dataFetchDelay, 60000);
+        options.showOnlyDataForYearsAvailable = getDefaultBoolean(options.showOnlyDataForYearsAvailable, false);
+        options.showHolidaysInDayToolTips = getDefaultBoolean(options.showHolidaysInDayToolTips, false);
+        options = buildAttributeOptionColorRanges(options);
+        options = buildAttributeOptionHolidays(options);
+        options = buildAttributeOptionTitle(options);
+        options = buildAttributeOptionDescription(options);
+        options = buildAttributeOptionGuide(options);
+        options = buildAttributeOptionToolTip(options);
+        options = buildAttributeOptionMapView(options);
+        options = buildAttributeOptionChartView(options);
+        options = buildAttributeOptionDaysView(options);
+        options = buildAttributeOptionStatisticsView(options);
+        options = buildAttributeOptionCustomTriggers(options);
+        return options;
+    }
+    function buildAttributeOptionColorRanges(options) {
+        if (isDefinedArray(options.colorRanges)) {
+            var colorRangesLength = options.colorRanges.length;
+            for (var colorRangeIndex = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++) {
+                var colorRange = options.colorRanges[colorRangeIndex];
+                colorRange.id = getDefaultString(colorRange.id, newGuid());
+                colorRange.name = getDefaultString(colorRange.name, null);
+                colorRange.minimum = getDefaultNumber(colorRange.minimum, 0);
+                colorRange.cssClassName = getDefaultString(colorRange.cssClassName, null);
+                colorRange.mapCssClassName = getDefaultString(colorRange.mapCssClassName, null);
+                colorRange.chartCssClassName = getDefaultString(colorRange.chartCssClassName, null);
+                colorRange.statisticsCssClassName = getDefaultString(colorRange.statisticsCssClassName, null);
+                colorRange.tooltipText = getDefaultString(colorRange.tooltipText, null);
+                colorRange.visible = getDefaultBoolean(colorRange.visible, true);
+            }
+        }
+        else {
+            options.colorRanges = [
+                {
+                    id: newGuid(),
+                    name: "Day Color 1",
+                    minimum: 10,
+                    cssClassName: "day-color-1",
+                    tooltipText: "Day Color 1",
+                    visible: true,
+                    mapCssClassName: enums_1.STRING.empty,
+                    chartCssClassName: enums_1.STRING.empty,
+                    statisticsCssClassName: enums_1.STRING.empty
+                },
+                {
+                    id: newGuid(),
+                    name: "Day Color 2",
+                    minimum: 15,
+                    cssClassName: "day-color-2",
+                    tooltipText: "Day Color 2",
+                    visible: true,
+                    mapCssClassName: enums_1.STRING.empty,
+                    chartCssClassName: enums_1.STRING.empty,
+                    statisticsCssClassName: enums_1.STRING.empty
+                },
+                {
+                    id: newGuid(),
+                    name: "Day Color 3",
+                    minimum: 20,
+                    cssClassName: "day-color-3",
+                    tooltipText: "Day Color 3",
+                    visible: true,
+                    mapCssClassName: enums_1.STRING.empty,
+                    chartCssClassName: enums_1.STRING.empty,
+                    statisticsCssClassName: enums_1.STRING.empty
+                },
+                {
+                    id: newGuid(),
+                    name: "Day Color 4",
+                    minimum: 25,
+                    cssClassName: "day-color-4",
+                    tooltipText: "Day Color 4",
+                    visible: true,
+                    mapCssClassName: enums_1.STRING.empty,
+                    chartCssClassName: enums_1.STRING.empty,
+                    statisticsCssClassName: enums_1.STRING.empty
+                }
+            ];
+        }
+        return options;
+    }
+    function buildAttributeOptionHolidays(options) {
+        if (isDefinedArray(options.holidays)) {
+            var holidaysLength = options.holidays.length;
+            for (var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++) {
+                var holiday = options.holidays[holidayIndex];
+                holiday.date = getDefaultString(holiday.date, null);
+                holiday.name = getDefaultString(holiday.name, null);
+                holiday.showInViews = getDefaultBoolean(holiday.showInViews, true);
+            }
+        }
+        else {
+            options.holidays = [];
+        }
+        return options;
+    }
+    function buildAttributeOptionTitle(options) {
+        options.title = getDefaultObject(options.title, {});
+        options.title.text = getDefaultString(options.title.text, "Heat.js");
+        options.title.showText = getDefaultBoolean(options.title.showText, true);
+        options.title.showYearSelector = getDefaultBoolean(options.title.showYearSelector, true);
+        options.title.showRefreshButton = getDefaultBoolean(options.title.showRefreshButton, false);
+        options.title.showExportButton = getDefaultBoolean(options.title.showExportButton, false);
+        options.title.extraSelectionYears = getDefaultNumber(options.title.extraSelectionYears, 50);
+        options.title.showYearSelectionDropDown = getDefaultBoolean(options.title.showYearSelectionDropDown, true);
+        options.title.showImportButton = getDefaultBoolean(options.title.showImportButton, false);
+        options.title.showConfigurationButton = getDefaultBoolean(options.title.showConfigurationButton, true);
+        options.title.showTitleDropDownButton = getDefaultBoolean(options.title.showTitleDropDownButton, true);
+        options.title.showTitleDropDownHeaders = getDefaultBoolean(options.title.showTitleDropDownHeaders, true);
+        return options;
+    }
+    function buildAttributeOptionDescription(options) {
+        options.description = getDefaultObject(options.description, {});
+        options.description.text = getDefaultString(options.description.text, null);
+        options.description.url = getDefaultString(options.description.url, null);
+        options.description.urlTarget = getDefaultString(options.description.urlTarget, "_blank");
+        return options;
+    }
+    function buildAttributeOptionGuide(options) {
+        options.guide = getDefaultObject(options.guide, {});
+        options.guide.enabled = getDefaultBoolean(options.guide.enabled, true);
+        options.guide.colorRangeTogglesEnabled = getDefaultBoolean(options.guide.colorRangeTogglesEnabled, true);
+        options.guide.showLessAndMoreLabels = getDefaultBoolean(options.guide.showLessAndMoreLabels, true);
+        options.guide.showNumbersInGuide = getDefaultBoolean(options.guide.showNumbersInGuide, false);
+        return options;
+    }
+    function buildAttributeOptionToolTip(options) {
+        options.tooltip = getDefaultObject(options.tooltip, {});
+        options.tooltip.delay = getDefaultNumber(options.tooltip.delay, 750);
+        options.tooltip.dayText = getDefaultString(options.tooltip.dayText, "{d}{o} {mmmm} {yyyy}");
+        return options;
+    }
+    function buildAttributeOptionMapView(options) {
+        options.views.map = getDefaultObject(options.views.map, {});
+        options.views.map.showMonthDayGaps = getDefaultBoolean(options.views.map.showMonthDayGaps, true);
+        options.views.map.showDayNames = getDefaultBoolean(options.views.map.showDayNames, true);
+        options.views.map.placeMonthNamesOnTheBottom = getDefaultBoolean(options.views.map.placeMonthNamesOnTheBottom, false);
+        options.views.map.showDayNumbers = getDefaultBoolean(options.views.map.showDayNumbers, false);
+        options.views.map.showMonthNames = getDefaultBoolean(options.views.map.showMonthNames, true);
+        options.views.map.showDaysInReverseOrder = getDefaultBoolean(options.views.map.showDaysInReverseOrder, false);
+        options.views.map.showNoDataMessageWhenDataIsNotAvailable = getDefaultBoolean(options.views.map.showNoDataMessageWhenDataIsNotAvailable, false);
+        options.views.map.showMinimalDayNames = getDefaultBoolean(options.views.map.showMinimalDayNames, false);
+        options.views.map.showMonthsInReverseOrder = getDefaultBoolean(options.views.map.showMonthsInReverseOrder, false);
+        options.views.map.keepScrollPositions = getDefaultBoolean(options.views.map.keepScrollPositions, false);
+        if (isInvalidOptionArray(options.views.map.monthsToShow)) {
+            options.views.map.monthsToShow = _default_MonthsToShow;
+        }
+        if (isInvalidOptionArray(options.views.map.daysToShow)) {
+            options.views.map.daysToShow = _default_DaysToShow;
+        }
+        return options;
+    }
+    function buildAttributeOptionChartView(options) {
+        options.views.chart = getDefaultObject(options.views.chart, {});
+        options.views.chart.enabled = getDefaultBoolean(options.views.chart.enabled, true);
+        options.views.chart.showChartYLabels = getDefaultBoolean(options.views.chart.showChartYLabels, true);
+        options.views.chart.showMonthNames = getDefaultBoolean(options.views.chart.showMonthNames, true);
+        options.views.chart.showLineNumbers = getDefaultBoolean(options.views.chart.showLineNumbers, false);
+        options.views.chart.showInReverseOrder = getDefaultBoolean(options.views.chart.showInReverseOrder, false);
+        options.views.chart.keepScrollPositions = getDefaultBoolean(options.views.chart.keepScrollPositions, false);
+        if (isInvalidOptionArray(options.views.chart.monthsToShow)) {
+            options.views.chart.monthsToShow = _default_MonthsToShow;
+        }
+        if (isInvalidOptionArray(options.views.chart.daysToShow)) {
+            options.views.chart.daysToShow = _default_DaysToShow;
+        }
+        return options;
+    }
+    function buildAttributeOptionDaysView(options) {
+        options.views.days = getDefaultObject(options.views.days, {});
+        options.views.days.enabled = getDefaultBoolean(options.views.days.enabled, true);
+        options.views.days.showChartYLabels = getDefaultBoolean(options.views.days.showChartYLabels, true);
+        options.views.days.showDayNames = getDefaultBoolean(options.views.days.showDayNames, true);
+        options.views.days.showInReverseOrder = getDefaultBoolean(options.views.days.showInReverseOrder, false);
+        options.views.days.showDayNumbers = getDefaultBoolean(options.views.days.showDayNumbers, false);
+        options.views.days.keepScrollPositions = getDefaultBoolean(options.views.days.keepScrollPositions, false);
+        if (isInvalidOptionArray(options.views.days.monthsToShow)) {
+            options.views.days.monthsToShow = _default_MonthsToShow;
+        }
+        if (isInvalidOptionArray(options.views.days.daysToShow)) {
+            options.views.days.daysToShow = _default_DaysToShow;
+        }
+        return options;
+    }
+    function buildAttributeOptionStatisticsView(options) {
+        options.views.statistics = getDefaultObject(options.views.statistics, {});
+        options.views.statistics.enabled = getDefaultBoolean(options.views.statistics.enabled, true);
+        options.views.statistics.showChartYLabels = getDefaultBoolean(options.views.statistics.showChartYLabels, true);
+        options.views.statistics.showColorRangeLabels = getDefaultBoolean(options.views.statistics.showColorRangeLabels, true);
+        options.views.statistics.useColorRangeNamesForLabels = getDefaultBoolean(options.views.statistics.useColorRangeNamesForLabels, false);
+        options.views.statistics.showRangeNumbers = getDefaultBoolean(options.views.statistics.showRangeNumbers, false);
+        options.views.statistics.showInReverseOrder = getDefaultBoolean(options.views.statistics.showInReverseOrder, false);
+        options.views.statistics.keepScrollPositions = getDefaultBoolean(options.views.statistics.keepScrollPositions, false);
+        if (isInvalidOptionArray(options.views.statistics.monthsToShow)) {
+            options.views.statistics.monthsToShow = _default_MonthsToShow;
+        }
+        if (isInvalidOptionArray(options.views.statistics.daysToShow)) {
+            options.views.statistics.daysToShow = _default_DaysToShow;
+        }
+        return options;
+    }
+    function buildAttributeOptionCustomTriggers(options) {
+        options.events = getDefaultObject(options.events, {});
+        options.events.onDayClick = getDefaultFunction(options.events.onDayClick, null);
+        options.events.onBackYear = getDefaultFunction(options.events.onBackYear, null);
+        options.events.onNextYear = getDefaultFunction(options.events.onNextYear, null);
+        options.events.onRefresh = getDefaultFunction(options.events.onRefresh, null);
+        options.events.onBeforeRender = getDefaultFunction(options.events.onBeforeRender, null);
+        options.events.onRenderComplete = getDefaultFunction(options.events.onRenderComplete, null);
+        options.events.onDestroy = getDefaultFunction(options.events.onDestroy, null);
+        options.events.onExport = getDefaultFunction(options.events.onExport, null);
+        options.events.onSetYear = getDefaultFunction(options.events.onSetYear, null);
+        options.events.onTypeSwitch = getDefaultFunction(options.events.onTypeSwitch, null);
+        options.events.onDayToolTipRender = getDefaultFunction(options.events.onDayToolTipRender, null);
+        options.events.onAdd = getDefaultFunction(options.events.onAdd, null);
+        options.events.onRemove = getDefaultFunction(options.events.onRemove, null);
+        options.events.onReset = getDefaultFunction(options.events.onReset, null);
+        options.events.onViewSwitch = getDefaultFunction(options.events.onViewSwitch, null);
+        options.events.onColorRangeTypeToggle = getDefaultFunction(options.events.onColorRangeTypeToggle, null);
+        options.events.onImport = getDefaultFunction(options.events.onImport, null);
+        options.events.onStatisticClick = getDefaultFunction(options.events.onStatisticClick, null);
+        options.events.onDataFetch = getDefaultFunction(options.events.onDataFetch, null);
+        options.events.onClear = getDefaultFunction(options.events.onClear, null);
+        options.events.onUpdate = getDefaultFunction(options.events.onUpdate, null);
+        options.events.onOptionsUpdate = getDefaultFunction(options.events.onOptionsUpdate, null);
+        options.events.onWeekDayClick = getDefaultFunction(options.events.onWeekDayClick, null);
+        return options;
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Date/Time
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -226,6 +470,10 @@ var enums_1 = require("./enums");
     }
     function isDefinedDate(object) {
         return isDefinedObject(object) && object instanceof Date;
+    }
+    function isInvalidOptionArray(array, minimumLength) {
+        if (minimumLength === void 0) { minimumLength = 1; }
+        return !isDefinedArray(array) || array.length < minimumLength;
     }
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
