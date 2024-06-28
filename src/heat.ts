@@ -33,7 +33,7 @@ import { type PublicApi } from "./api";
     let _elements_Day_Width: number = null;
 
     // Variables: Date Counts
-    const _elements_DateCounts: object = {};
+    let _elements_DateCounts: object = {};
 
     // Variables: Internal Names
     const _internal_Name_Holiday: string = "HOLIDAY";
@@ -652,7 +652,7 @@ import { type PublicApi } from "./api";
         yearsMenuContainer.style.visibility = "visible";
     }
 
-    function renderYearDropDownMenuItem( bindingOptions: BindingOptions, years: HTMLElement, currentYear: number, actualYear: number ): HTMLElement {
+    function renderYearDropDownMenuItem( bindingOptions: BindingOptions, years: HTMLElement, currentYear: number, actualYear: number ) : HTMLElement {
         let result: HTMLElement = null;
         const year: HTMLElement = createElementWithHTML( years, "div", "year-menu-item", currentYear.toString() );
 
@@ -1054,7 +1054,7 @@ import { type PublicApi } from "./api";
         }
     }
 
-    function getLargestValueForChartYear( bindingOptions: BindingOptions ): number {
+    function getLargestValueForChartYear( bindingOptions: BindingOptions ) : number {
         let result: number = 0;
         const data: any = getCurrentViewData( bindingOptions );
 
@@ -1178,7 +1178,7 @@ import { type PublicApi } from "./api";
         }
     }
 
-    function getLargestValuesForEachDay( bindingOptions: BindingOptions ): any {
+    function getLargestValuesForEachDay( bindingOptions: BindingOptions ) : any {
         let largestValue: number = 0;
         const data: any = getCurrentViewData( bindingOptions );
 
@@ -2091,7 +2091,7 @@ import { type PublicApi } from "./api";
         return csvContents.join( STRING.newLine );
     }
 
-    function getJsonContent( bindingOptions: BindingOptions ): string {
+    function getJsonContent( bindingOptions: BindingOptions ) : string {
         return jsonObject.stringify( getExportData( bindingOptions ) );
     }
 
@@ -2116,7 +2116,7 @@ import { type PublicApi } from "./api";
         return contents.join( STRING.newLine );
     }
 
-    function getTxtContents( bindingOptions: BindingOptions ): string {
+    function getTxtContents( bindingOptions: BindingOptions ) : string {
         const data: object = getExportData( bindingOptions );
         const contents: string[] = [];
 
@@ -2129,7 +2129,7 @@ import { type PublicApi } from "./api";
         return contents.join( STRING.newLine );
     }
 
-    function getExportData( bindingOptions: BindingOptions ): object {
+    function getExportData( bindingOptions: BindingOptions ) : object {
         const contents: object = {};
         const data = getCurrentViewData( bindingOptions );
 
@@ -2208,7 +2208,7 @@ import { type PublicApi } from "./api";
         return result;
     }
 
-    function getCsvValueLine( csvValues: string[] ): string {
+    function getCsvValueLine( csvValues: string[] ) : string {
         return csvValues.join( "," );
     }
 
@@ -2466,7 +2466,7 @@ import { type PublicApi } from "./api";
         return options;
     }
 
-    function buildAttributeOptionCustomTriggers( options : BindingOptions ): BindingOptions {
+    function buildAttributeOptionCustomTriggers( options : BindingOptions ) : BindingOptions {
         options.events = getDefaultObject( options.events, {} as Events );
         options.events.onDayClick = getDefaultFunction( options.events.onDayClick, null );
         options.events.onBackYear = getDefaultFunction( options.events.onBackYear, null );
@@ -3081,36 +3081,193 @@ import { type PublicApi } from "./api";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        addDates: function ( elementId: string, dates: Date[], type: string, triggerRefresh: boolean ): object {
-            throw new Error("Function not implemented.");
+        addDates: function ( elementId: string, dates: Date[], type: string, triggerRefresh: boolean ) : PublicApi {
+            if ( isDefinedString( elementId ) && isDefinedArray( dates ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+                
+                if ( !bindingOptions._currentView.isInFetchMode ) {
+                    type = getDefaultString( type, _configuration.unknownTrendText );
+                    triggerRefresh = getDefaultBoolean( triggerRefresh, true );
+        
+                    const datesLength: number = dates.length;
+        
+                    for ( let dateIndex: number = 0; dateIndex < datesLength; dateIndex++ ) {
+                        _public.addDate( elementId, dates[ dateIndex ], type, false );
+                    }
+        
+                    if ( triggerRefresh ) {
+                        renderControlContainer( bindingOptions, true );
+                    }
+                }
+            }
+    
+            return _public;
         },
 
-        addDate: function ( elementId: string, date: Date, type: string, triggerRefresh: boolean ): object {
-            throw new Error("Function not implemented.");
+        addDate: function ( elementId: string, date: Date, type: string, triggerRefresh: boolean ) : PublicApi {
+            if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+                
+                if ( !bindingOptions._currentView.isInFetchMode ) {
+                    type = getDefaultString( type, _configuration.unknownTrendText );
+                    triggerRefresh = getDefaultBoolean( triggerRefresh, true );
+        
+                    const storageDate: string = toStorageDate( date );
+        
+                    if ( !_elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
+                        _elements_DateCounts[ elementId ].type[ type ] = {};
+                        _elements_DateCounts[ elementId ].types++;
+                    }
+        
+                    if ( !_elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
+                        _elements_DateCounts[ elementId ].type[ type ][ storageDate ] = 0;
+                    }
+            
+                    _elements_DateCounts[ elementId ].type[ type ][ storageDate ]++;
+        
+                    fireCustomTrigger( bindingOptions.events.onAdd, bindingOptions._currentView.element );
+        
+                    if ( triggerRefresh ) {
+                        renderControlContainer( bindingOptions, true );
+                    }
+                }
+            }
+    
+            return _public;
         },
 
-        updateDate: function ( elementId: string, date: Date, count: number, type: string, triggerRefresh: boolean ): object {
-            throw new Error("Function not implemented.");
+        updateDate: function ( elementId: string, date: Date, count: number, type: string, triggerRefresh: boolean ) : PublicApi {
+            if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+                
+                if ( !bindingOptions._currentView.isInFetchMode && count > 0 ) {
+                    type = getDefaultString( type, _configuration.unknownTrendText );
+    
+                    const storageDate: string = toStorageDate( date );
+        
+                    if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
+                        triggerRefresh = getDefaultBoolean( triggerRefresh, true );
+        
+                        _elements_DateCounts[ elementId ].type[ type ][ storageDate ] = count;
+        
+                        fireCustomTrigger( bindingOptions.events.onUpdate, bindingOptions._currentView.element );
+        
+                        if ( triggerRefresh ) {
+                            renderControlContainer( bindingOptions, true );
+                        }
+                    }
+                }
+            }
+    
+            return _public;
         },
 
-        removeDates: function ( elementId: string, dates: Date[], type: string, triggerRefresh: boolean ): object {
-            throw new Error("Function not implemented.");
+        removeDates: function ( elementId: string, dates: Date[], type: string, triggerRefresh: boolean ) : PublicApi {
+            if ( isDefinedString( elementId ) && isDefinedArray( dates ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+                
+                if ( !bindingOptions._currentView.isInFetchMode ) {
+                    type = getDefaultString( type, _configuration.unknownTrendText );
+                    triggerRefresh = getDefaultBoolean( triggerRefresh, true );
+        
+                    const datesLength: number = dates.length;
+        
+                    for ( let dateIndex: number = 0; dateIndex < datesLength; dateIndex++ ) {
+                        _public.removeDate( elementId, dates[ dateIndex ], type, false );
+                    }
+        
+                    if ( triggerRefresh ) {
+                        renderControlContainer( bindingOptions, true );
+                    }
+                }
+            }
+    
+            return _public;
         },
 
-        removeDate: function ( elementId: string, date: Date, type: string, triggerRefresh: boolean ): object {
-            throw new Error("Function not implemented.");
+        removeDate: function ( elementId: string, date: Date, type: string, triggerRefresh: boolean ) : PublicApi {
+            if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+                
+                if ( !bindingOptions._currentView.isInFetchMode ) {
+                    type = getDefaultString( type, _configuration.unknownTrendText );
+    
+                    const storageDate: string = toStorageDate( date );
+        
+                    if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
+                        triggerRefresh = getDefaultBoolean( triggerRefresh, true );
+        
+                        if ( _elements_DateCounts[ elementId ].type[ type ][ storageDate ] > 0 ) {
+                            _elements_DateCounts[ elementId ].type[ type ][ storageDate ]--;
+                        }
+        
+                        fireCustomTrigger( bindingOptions.events.onRemove, bindingOptions._currentView.element );
+        
+                        if ( triggerRefresh ) {
+                            renderControlContainer( bindingOptions, true );
+                        }
+                    }
+                }
+            }
+    
+            return _public;
         },
 
-        clearDate: function ( elementId: string, date: Date, type: string, triggerRefresh: boolean ): object {
-            throw new Error("Function not implemented.");
+        clearDate: function ( elementId: string, date: Date, type: string, triggerRefresh: boolean ) : PublicApi {
+            if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+                
+                if ( !bindingOptions._currentView.isInFetchMode ) {
+                    type = getDefaultString( type, _configuration.unknownTrendText );
+    
+                    const storageDate: string = toStorageDate( date );
+        
+                    if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
+                        triggerRefresh = getDefaultBoolean( triggerRefresh, true );
+        
+                        delete _elements_DateCounts[ elementId ].type[ type ][ storageDate ];
+        
+                        fireCustomTrigger( bindingOptions.events.onClear, bindingOptions._currentView.element );
+        
+                        if ( triggerRefresh ) {
+                            renderControlContainer( bindingOptions, true );
+                        }
+                    }
+                }
+            }
+    
+            return _public;
         },
 
-        resetAll: function ( triggerRefresh: boolean ): object {
-            throw new Error("Function not implemented.");
+        resetAll: function ( triggerRefresh: boolean ) : PublicApi {
+            for ( let elementId in _elements_DateCounts ) {
+                if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                    _public.reset( elementId, triggerRefresh );
+                }
+            }
+    
+            return _public;
         },
 
-        reset: function ( elementId: string, triggerRefresh: boolean ): object {
-            throw new Error("Function not implemented.");
+        reset: function ( elementId: string, triggerRefresh: boolean ) : PublicApi {
+            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+                
+                if ( !bindingOptions._currentView.isInFetchMode ) {
+                    triggerRefresh = getDefaultBoolean( triggerRefresh, true );
+                
+                    bindingOptions._currentView.type = _configuration.unknownTrendText;
+        
+                    createDateStorageForElement( elementId, bindingOptions, false );
+                    fireCustomTrigger( bindingOptions.events.onReset, bindingOptions._currentView.element );
+        
+                    if ( triggerRefresh ) {
+                        renderControlContainer( bindingOptions, true );
+                    }
+                }
+            }
+    
+            return _public;
         },
 
 
@@ -3120,12 +3277,20 @@ import { type PublicApi } from "./api";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        import: function ( elementId: string, files: File[] ): object {
-            throw new Error("Function not implemented.");
+        import: function ( elementId: string, files: FileList ) : PublicApi {
+            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) && isDefinedArray( files ) ) {
+                importFromFiles( files, _elements_DateCounts[ elementId ].options );
+            }
+    
+            return _public;
         },
 
-        export: function ( elementId: string, exportType: string ): object {
-            throw new Error("Function not implemented.");
+        export: function ( elementId: string, exportType: string ) : PublicApi {
+            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                exportAllData( _elements_DateCounts[ elementId ].options, exportType );
+            }
+    
+            return _public;
         },
 
 
@@ -3135,60 +3300,224 @@ import { type PublicApi } from "./api";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        refresh: function ( elementId: string ): object {
-            throw new Error("Function not implemented.");
+        refresh: function ( elementId: string ) : PublicApi {
+            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+    
+                renderControlContainer( bindingOptions, true );
+                fireCustomTrigger( bindingOptions.events.onRefresh, bindingOptions._currentView.element );
+            }
+    
+            return _public;
         },
 
-        refreshAll: function (): object {
-            throw new Error("Function not implemented.");
+        refreshAll: function () : PublicApi {
+            for ( let elementId in _elements_DateCounts ) {
+                if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                    const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+    
+                    renderControlContainer( bindingOptions, true );
+                    fireCustomTrigger( bindingOptions.events.onRefresh, bindingOptions._currentView.element );
+                }
+            }
+    
+            return _public;
         },
 
-        setYear: function ( elementId: string, year: number ): object {
-            throw new Error("Function not implemented.");
+        setYear: function ( elementId: string, year: number ) : PublicApi {
+            if ( isDefinedString( elementId ) && isDefinedNumber( year ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+                bindingOptions._currentView.year = year;
+    
+                if ( !isYearVisible( bindingOptions, bindingOptions._currentView.year ) ) {
+                    moveToNextYear( bindingOptions, false );
+                } else {
+                    renderControlContainer( bindingOptions );
+                }
+    
+                fireCustomTrigger( bindingOptions.events.onSetYear, bindingOptions._currentView.year );
+            }
+    
+            return _public;
         },
 
-        setYearToHighest: function ( elementId: string ): object {
-            throw new Error("Function not implemented.");
+        setYearToHighest: function ( elementId: string ) : PublicApi {
+            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+                const data: any = getCurrentViewData( bindingOptions );
+                let maximumYear: number = 0;
+    
+                for ( let storageDate in data ) {
+                    if ( data.hasOwnProperty( storageDate ) ) {
+                        maximumYear = mathObject.max( maximumYear, parseInt( getStorageDateYear( storageDate ) ) );
+                    }
+                }
+    
+                if ( maximumYear > 0 ) {
+                    bindingOptions._currentView.year = maximumYear;
+    
+                    if ( !isYearVisible( bindingOptions, bindingOptions._currentView.year ) ) {
+                        moveToNextYear( bindingOptions, false );
+                    } else {
+                        renderControlContainer( bindingOptions );
+                    }
+    
+                    fireCustomTrigger( bindingOptions.events.onSetYear, bindingOptions._currentView.year );
+                }
+            }
+    
+            return _public;
         },
 
-        setYearToLowest: function ( elementId: string ): object {
-            throw new Error("Function not implemented.");
+        setYearToLowest: function ( elementId: string ) : PublicApi {
+            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+                const data: any = getCurrentViewData( bindingOptions );
+                let minimumYear: number = 9999;
+    
+                for ( let storageDate in data ) {
+                    if ( data.hasOwnProperty( storageDate ) ) {
+                        minimumYear = mathObject.min( minimumYear, parseInt( getStorageDateYear( storageDate ) ) );
+                    }
+                }
+    
+                if ( minimumYear < 9999 ) {
+                    bindingOptions._currentView.year = minimumYear;
+    
+                    if ( !isYearVisible( bindingOptions, bindingOptions._currentView.year ) ) {
+                        moveToPreviousYear( bindingOptions, false );
+                    } else {
+                        renderControlContainer( bindingOptions );
+                    }
+    
+                    fireCustomTrigger( bindingOptions.events.onSetYear, bindingOptions._currentView.year );
+                }
+            }
+    
+            return _public;
         },
 
-        moveToPreviousYear: function ( elementId: string ): object {
-            throw new Error("Function not implemented.");
+        moveToPreviousYear: function ( elementId: string ) : PublicApi {
+            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                moveToPreviousYear( _elements_DateCounts[ elementId ].options );
+            }
+    
+            return _public;
         },
 
-        moveToNextYear: function ( elementId: string ): object {
-            throw new Error("Function not implemented.");
+        moveToNextYear: function ( elementId: string ) : PublicApi {
+            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                moveToNextYear( _elements_DateCounts[ elementId ].options );
+            }
+    
+            return _public;
         },
 
-        moveToCurrentYear: function ( elementId: string ): object {
-            throw new Error("Function not implemented.");
+        moveToCurrentYear: function ( elementId: string ) : PublicApi {
+            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+                bindingOptions._currentView.year = new Date().getFullYear();
+    
+                if ( !isYearVisible( bindingOptions, bindingOptions._currentView.year ) ) {
+                    moveToNextYear( bindingOptions, false );
+                } else {
+                    renderControlContainer( bindingOptions );
+                }
+    
+                fireCustomTrigger( bindingOptions.events.onSetYear, bindingOptions._currentView.year );
+            }
+    
+            return _public;
         },
 
-        getYear: function ( elementId: string ): number {
-            throw new Error("Function not implemented.");
+        getYear: function ( elementId: string ) : number {
+            let result: number = null;
+
+            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+    
+                result = bindingOptions._currentView.year;
+            }
+    
+            return result;
         },
 
-        render: function ( element: HTMLElement, options: BindingOptions ): object {
-            throw new Error("Function not implemented.");
+        render: function ( element: HTMLElement, options: BindingOptions ) : PublicApi {
+            if ( isDefinedObject( element ) && isDefinedObject( options ) ) {
+                renderControl( renderBindingOptions( options, element ) );
+            }
+    
+            return _public;
         },
 
-        renderAll: function (): object {
-            throw new Error("Function not implemented.");
+        renderAll: function () : PublicApi {
+            render();
+
+            return _public;
         },
 
-        switchView: function ( elementId: string, viewName: string ): object {
-            throw new Error("Function not implemented.");
+        switchView: function ( elementId: string, viewName: string ) : PublicApi {
+            if ( isDefinedString( elementId ) && isDefinedString( viewName ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+                let view: number = null;
+    
+                if ( viewName.toLowerCase() === VIEW_NAME.map ) {
+                    view = VIEW.map;
+                } else if ( viewName.toLowerCase() === VIEW_NAME.chart ) {
+                    view = VIEW.chart;
+                } else if ( viewName.toLowerCase() === VIEW_NAME.days ) {
+                    view = VIEW.days;
+                } else if ( viewName.toLowerCase() === VIEW_NAME.statistics ) {
+                    view = VIEW.statistics;
+                }
+    
+                if ( isDefinedNumber( view ) ) {
+                    bindingOptions._currentView.view = view;
+    
+                    fireCustomTrigger( bindingOptions.events.onViewSwitch, viewName );
+                    renderControlContainer( bindingOptions, false, true );
+                }
+            }
+    
+            return _public;
         },
 
-        switchType: function ( elementId: string, type: string ): object {
-            throw new Error("Function not implemented.");
+        switchType: function ( elementId: string, type: string ) : PublicApi {
+            if ( isDefinedString( elementId ) && isDefinedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) && _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+    
+                if ( bindingOptions._currentView.type !== type ) {
+                    bindingOptions._currentView.type = type;
+                
+                    fireCustomTrigger( bindingOptions.events.onTypeSwitch, type );
+                    renderControlContainer( bindingOptions );
+                }
+            }
+    
+            return _public;
         },
 
-        updateOptions: function ( elementId: string, newOptions: BindingOptions ): object {
-            throw new Error("Function not implemented.");
+        updateOptions: function ( elementId: string, newOptions: BindingOptions ) : PublicApi {
+            if ( isDefinedString( elementId ) && isDefinedObject( newOptions ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
+                const newBindingOptions: BindingOptions = buildAttributeOptions( newOptions );
+                let optionChanged: boolean = false;
+    
+                for ( let propertyName in newBindingOptions ) {
+                    if ( newBindingOptions.hasOwnProperty( propertyName ) && bindingOptions.hasOwnProperty( propertyName ) && bindingOptions[ propertyName ] !== newBindingOptions[ propertyName ] ) {
+                        bindingOptions[ propertyName ] = newBindingOptions[ propertyName ];
+                        optionChanged = true;
+                    }
+                }
+    
+                if ( optionChanged ) {
+                    renderControlContainer( bindingOptions, true );
+                    fireCustomTrigger( bindingOptions.events.onRefresh, bindingOptions._currentView.element );
+                    fireCustomTrigger( bindingOptions.events.onOptionsUpdate, bindingOptions._currentView.element, bindingOptions );
+                }
+            }
+    
+            return _public;
         },
 
 
@@ -3198,12 +3527,26 @@ import { type PublicApi } from "./api";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        destroyAll: function (): object {
-            throw new Error("Function not implemented.");
+        destroyAll: function () : PublicApi {
+            for ( let elementId in _elements_DateCounts ) {
+                if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                    destroyElement( _elements_DateCounts[ elementId ].options );
+                }
+            }
+    
+            _elements_DateCounts = {};
+    
+            return _public;
         },
 
-        destroy: function ( elementId: string ): object {
-            throw new Error("Function not implemented.");
+        destroy: function ( elementId: string ) : PublicApi {
+            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                destroyElement( _elements_DateCounts[ elementId ].options );
+    
+                delete _elements_DateCounts[ elementId ];
+            }
+    
+            return _public;
         },
 
 
@@ -3213,8 +3556,29 @@ import { type PublicApi } from "./api";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        setConfiguration: function ( newConfiguration: Configuration, triggerRefresh: boolean ): object {
-            throw new Error("Function not implemented.");
+        setConfiguration: function ( newConfiguration: Configuration, triggerRefresh: boolean ) : PublicApi {
+            if ( isDefinedObject( newConfiguration ) ) {
+                let configurationHasChanged: boolean = false;
+            
+                for ( let propertyName in newConfiguration ) {
+                    if ( newConfiguration.hasOwnProperty( propertyName ) && _configuration.hasOwnProperty( propertyName ) && _configuration[ propertyName ] !== newConfiguration[ propertyName ] ) {
+                        _configuration[ propertyName ] = newConfiguration[ propertyName ];
+                        configurationHasChanged = true;
+                    }
+                }
+        
+                if ( configurationHasChanged ) {
+                    triggerRefresh = getDefaultBoolean( triggerRefresh, true );
+        
+                    buildDefaultConfiguration( _configuration );
+        
+                    if ( triggerRefresh ) {
+                        _public.refreshAll();
+                    }
+                }
+            }
+    
+            return _public;
         },
 
 
@@ -3224,12 +3588,20 @@ import { type PublicApi } from "./api";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        getIds: function (): string[] {
-            throw new Error("Function not implemented.");
+        getIds: function () : string[] {
+            const result: string[] = [];
+        
+            for ( let elementId in _elements_DateCounts ) {
+                if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                    result.push( elementId );
+                }
+            }
+    
+            return result;
         },
 
-        getVersion: function (): string {
-            throw new Error("Function not implemented.");
+        getVersion: function () : string {
+            return "4.0.0";
         }
     };
 

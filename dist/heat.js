@@ -2477,28 +2477,140 @@ var enums_1 = require("./enums");
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
         addDates: function (elementId, dates, type, triggerRefresh) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                if (!bindingOptions._currentView.isInFetchMode) {
+                    type = getDefaultString(type, _configuration.unknownTrendText);
+                    triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+                    var datesLength = dates.length;
+                    for (var dateIndex = 0; dateIndex < datesLength; dateIndex++) {
+                        _public.addDate(elementId, dates[dateIndex], type, false);
+                    }
+                    if (triggerRefresh) {
+                        renderControlContainer(bindingOptions, true);
+                    }
+                }
+            }
+            return _public;
         },
         addDate: function (elementId, date, type, triggerRefresh) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                if (!bindingOptions._currentView.isInFetchMode) {
+                    type = getDefaultString(type, _configuration.unknownTrendText);
+                    triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+                    var storageDate = toStorageDate(date);
+                    if (!_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
+                        _elements_DateCounts[elementId].type[type] = {};
+                        _elements_DateCounts[elementId].types++;
+                    }
+                    if (!_elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
+                        _elements_DateCounts[elementId].type[type][storageDate] = 0;
+                    }
+                    _elements_DateCounts[elementId].type[type][storageDate]++;
+                    fireCustomTrigger(bindingOptions.events.onAdd, bindingOptions._currentView.element);
+                    if (triggerRefresh) {
+                        renderControlContainer(bindingOptions, true);
+                    }
+                }
+            }
+            return _public;
         },
         updateDate: function (elementId, date, count, type, triggerRefresh) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                if (!bindingOptions._currentView.isInFetchMode && count > 0) {
+                    type = getDefaultString(type, _configuration.unknownTrendText);
+                    var storageDate = toStorageDate(date);
+                    if (_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
+                        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+                        _elements_DateCounts[elementId].type[type][storageDate] = count;
+                        fireCustomTrigger(bindingOptions.events.onUpdate, bindingOptions._currentView.element);
+                        if (triggerRefresh) {
+                            renderControlContainer(bindingOptions, true);
+                        }
+                    }
+                }
+            }
+            return _public;
         },
         removeDates: function (elementId, dates, type, triggerRefresh) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                if (!bindingOptions._currentView.isInFetchMode) {
+                    type = getDefaultString(type, _configuration.unknownTrendText);
+                    triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+                    var datesLength = dates.length;
+                    for (var dateIndex = 0; dateIndex < datesLength; dateIndex++) {
+                        _public.removeDate(elementId, dates[dateIndex], type, false);
+                    }
+                    if (triggerRefresh) {
+                        renderControlContainer(bindingOptions, true);
+                    }
+                }
+            }
+            return _public;
         },
         removeDate: function (elementId, date, type, triggerRefresh) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                if (!bindingOptions._currentView.isInFetchMode) {
+                    type = getDefaultString(type, _configuration.unknownTrendText);
+                    var storageDate = toStorageDate(date);
+                    if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
+                        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+                        if (_elements_DateCounts[elementId].type[type][storageDate] > 0) {
+                            _elements_DateCounts[elementId].type[type][storageDate]--;
+                        }
+                        fireCustomTrigger(bindingOptions.events.onRemove, bindingOptions._currentView.element);
+                        if (triggerRefresh) {
+                            renderControlContainer(bindingOptions, true);
+                        }
+                    }
+                }
+            }
+            return _public;
         },
         clearDate: function (elementId, date, type, triggerRefresh) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                if (!bindingOptions._currentView.isInFetchMode) {
+                    type = getDefaultString(type, _configuration.unknownTrendText);
+                    var storageDate = toStorageDate(date);
+                    if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
+                        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+                        delete _elements_DateCounts[elementId].type[type][storageDate];
+                        fireCustomTrigger(bindingOptions.events.onClear, bindingOptions._currentView.element);
+                        if (triggerRefresh) {
+                            renderControlContainer(bindingOptions, true);
+                        }
+                    }
+                }
+            }
+            return _public;
         },
         resetAll: function (triggerRefresh) {
-            throw new Error("Function not implemented.");
+            for (var elementId in _elements_DateCounts) {
+                if (_elements_DateCounts.hasOwnProperty(elementId)) {
+                    _public.reset(elementId, triggerRefresh);
+                }
+            }
+            return _public;
         },
         reset: function (elementId, triggerRefresh) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                if (!bindingOptions._currentView.isInFetchMode) {
+                    triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+                    bindingOptions._currentView.type = _configuration.unknownTrendText;
+                    createDateStorageForElement(elementId, bindingOptions, false);
+                    fireCustomTrigger(bindingOptions.events.onReset, bindingOptions._currentView.element);
+                    if (triggerRefresh) {
+                        renderControlContainer(bindingOptions, true);
+                    }
+                }
+            }
+            return _public;
         },
         /*
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2506,10 +2618,16 @@ var enums_1 = require("./enums");
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
         import: function (elementId, files) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId) && isDefinedArray(files)) {
+                importFromFiles(files, _elements_DateCounts[elementId].options);
+            }
+            return _public;
         },
         export: function (elementId, exportType) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                exportAllData(_elements_DateCounts[elementId].options, exportType);
+            }
+            return _public;
         },
         /*
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2517,46 +2635,180 @@ var enums_1 = require("./enums");
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
         refresh: function (elementId) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                renderControlContainer(bindingOptions, true);
+                fireCustomTrigger(bindingOptions.events.onRefresh, bindingOptions._currentView.element);
+            }
+            return _public;
         },
         refreshAll: function () {
-            throw new Error("Function not implemented.");
+            for (var elementId in _elements_DateCounts) {
+                if (_elements_DateCounts.hasOwnProperty(elementId)) {
+                    var bindingOptions = _elements_DateCounts[elementId].options;
+                    renderControlContainer(bindingOptions, true);
+                    fireCustomTrigger(bindingOptions.events.onRefresh, bindingOptions._currentView.element);
+                }
+            }
+            return _public;
         },
         setYear: function (elementId, year) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && isDefinedNumber(year) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                bindingOptions._currentView.year = year;
+                if (!isYearVisible(bindingOptions, bindingOptions._currentView.year)) {
+                    moveToNextYear(bindingOptions, false);
+                }
+                else {
+                    renderControlContainer(bindingOptions);
+                }
+                fireCustomTrigger(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
+            }
+            return _public;
         },
         setYearToHighest: function (elementId) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                var data = getCurrentViewData(bindingOptions);
+                var maximumYear = 0;
+                for (var storageDate in data) {
+                    if (data.hasOwnProperty(storageDate)) {
+                        maximumYear = mathObject.max(maximumYear, parseInt(getStorageDateYear(storageDate)));
+                    }
+                }
+                if (maximumYear > 0) {
+                    bindingOptions._currentView.year = maximumYear;
+                    if (!isYearVisible(bindingOptions, bindingOptions._currentView.year)) {
+                        moveToNextYear(bindingOptions, false);
+                    }
+                    else {
+                        renderControlContainer(bindingOptions);
+                    }
+                    fireCustomTrigger(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
+                }
+            }
+            return _public;
         },
         setYearToLowest: function (elementId) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                var data = getCurrentViewData(bindingOptions);
+                var minimumYear = 9999;
+                for (var storageDate in data) {
+                    if (data.hasOwnProperty(storageDate)) {
+                        minimumYear = mathObject.min(minimumYear, parseInt(getStorageDateYear(storageDate)));
+                    }
+                }
+                if (minimumYear < 9999) {
+                    bindingOptions._currentView.year = minimumYear;
+                    if (!isYearVisible(bindingOptions, bindingOptions._currentView.year)) {
+                        moveToPreviousYear(bindingOptions, false);
+                    }
+                    else {
+                        renderControlContainer(bindingOptions);
+                    }
+                    fireCustomTrigger(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
+                }
+            }
+            return _public;
         },
         moveToPreviousYear: function (elementId) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                moveToPreviousYear(_elements_DateCounts[elementId].options);
+            }
+            return _public;
         },
         moveToNextYear: function (elementId) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                moveToNextYear(_elements_DateCounts[elementId].options);
+            }
+            return _public;
         },
         moveToCurrentYear: function (elementId) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                bindingOptions._currentView.year = new Date().getFullYear();
+                if (!isYearVisible(bindingOptions, bindingOptions._currentView.year)) {
+                    moveToNextYear(bindingOptions, false);
+                }
+                else {
+                    renderControlContainer(bindingOptions);
+                }
+                fireCustomTrigger(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
+            }
+            return _public;
         },
         getYear: function (elementId) {
-            throw new Error("Function not implemented.");
+            var result = null;
+            if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                result = bindingOptions._currentView.year;
+            }
+            return result;
         },
         render: function (element, options) {
-            throw new Error("Function not implemented.");
+            if (isDefinedObject(element) && isDefinedObject(options)) {
+                renderControl(renderBindingOptions(options, element));
+            }
+            return _public;
         },
         renderAll: function () {
-            throw new Error("Function not implemented.");
+            render();
+            return _public;
         },
         switchView: function (elementId, viewName) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && isDefinedString(viewName) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                var view = null;
+                if (viewName.toLowerCase() === enums_1.VIEW_NAME.map) {
+                    view = enums_1.VIEW.map;
+                }
+                else if (viewName.toLowerCase() === enums_1.VIEW_NAME.chart) {
+                    view = enums_1.VIEW.chart;
+                }
+                else if (viewName.toLowerCase() === enums_1.VIEW_NAME.days) {
+                    view = enums_1.VIEW.days;
+                }
+                else if (viewName.toLowerCase() === enums_1.VIEW_NAME.statistics) {
+                    view = enums_1.VIEW.statistics;
+                }
+                if (isDefinedNumber(view)) {
+                    bindingOptions._currentView.view = view;
+                    fireCustomTrigger(bindingOptions.events.onViewSwitch, viewName);
+                    renderControlContainer(bindingOptions, false, true);
+                }
+            }
+            return _public;
         },
         switchType: function (elementId, type) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && isDefinedString(type) && _elements_DateCounts.hasOwnProperty(elementId) && _elements_DateCounts[elementId].type.hasOwnProperty(type)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                if (bindingOptions._currentView.type !== type) {
+                    bindingOptions._currentView.type = type;
+                    fireCustomTrigger(bindingOptions.events.onTypeSwitch, type);
+                    renderControlContainer(bindingOptions);
+                }
+            }
+            return _public;
         },
         updateOptions: function (elementId, newOptions) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && isDefinedObject(newOptions) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                var bindingOptions = _elements_DateCounts[elementId].options;
+                var newBindingOptions = buildAttributeOptions(newOptions);
+                var optionChanged = false;
+                for (var propertyName in newBindingOptions) {
+                    if (newBindingOptions.hasOwnProperty(propertyName) && bindingOptions.hasOwnProperty(propertyName) && bindingOptions[propertyName] !== newBindingOptions[propertyName]) {
+                        bindingOptions[propertyName] = newBindingOptions[propertyName];
+                        optionChanged = true;
+                    }
+                }
+                if (optionChanged) {
+                    renderControlContainer(bindingOptions, true);
+                    fireCustomTrigger(bindingOptions.events.onRefresh, bindingOptions._currentView.element);
+                    fireCustomTrigger(bindingOptions.events.onOptionsUpdate, bindingOptions._currentView.element, bindingOptions);
+                }
+            }
+            return _public;
         },
         /*
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2564,10 +2816,20 @@ var enums_1 = require("./enums");
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
         destroyAll: function () {
-            throw new Error("Function not implemented.");
+            for (var elementId in _elements_DateCounts) {
+                if (_elements_DateCounts.hasOwnProperty(elementId)) {
+                    destroyElement(_elements_DateCounts[elementId].options);
+                }
+            }
+            _elements_DateCounts = {};
+            return _public;
         },
         destroy: function (elementId) {
-            throw new Error("Function not implemented.");
+            if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
+                destroyElement(_elements_DateCounts[elementId].options);
+                delete _elements_DateCounts[elementId];
+            }
+            return _public;
         },
         /*
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2575,7 +2837,23 @@ var enums_1 = require("./enums");
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
         setConfiguration: function (newConfiguration, triggerRefresh) {
-            throw new Error("Function not implemented.");
+            if (isDefinedObject(newConfiguration)) {
+                var configurationHasChanged = false;
+                for (var propertyName in newConfiguration) {
+                    if (newConfiguration.hasOwnProperty(propertyName) && _configuration.hasOwnProperty(propertyName) && _configuration[propertyName] !== newConfiguration[propertyName]) {
+                        _configuration[propertyName] = newConfiguration[propertyName];
+                        configurationHasChanged = true;
+                    }
+                }
+                if (configurationHasChanged) {
+                    triggerRefresh = getDefaultBoolean(triggerRefresh, true);
+                    buildDefaultConfiguration(_configuration);
+                    if (triggerRefresh) {
+                        _public.refreshAll();
+                    }
+                }
+            }
+            return _public;
         },
         /*
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2583,10 +2861,16 @@ var enums_1 = require("./enums");
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
         getIds: function () {
-            throw new Error("Function not implemented.");
+            var result = [];
+            for (var elementId in _elements_DateCounts) {
+                if (_elements_DateCounts.hasOwnProperty(elementId)) {
+                    result.push(elementId);
+                }
+            }
+            return result;
         },
         getVersion: function () {
-            throw new Error("Function not implemented.");
+            return "4.0.0";
         }
     };
     /*
