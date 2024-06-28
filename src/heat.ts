@@ -1,0 +1,1 @@
+import { type Configuration } from "./types";
