@@ -373,11 +373,152 @@ import { type PublicApi } from "./api";
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Import
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function makeAreaDroppable( element: HTMLElement, bindingOptions: BindingOptions ) : void {
+        if ( bindingOptions.allowFileImports && !bindingOptions._currentView.isInFetchMode ) {
+            element.ondragover = cancelBubble;
+            element.ondragenter = cancelBubble;
+            element.ondragleave = cancelBubble;
+    
+            element.ondrop = function( e ) {
+                cancelBubble( e );
+    
+                if ( isDefined( windowObject.FileReader ) && e.dataTransfer.files.length > 0 ) {
+                    importFromFiles( e.dataTransfer.files, bindingOptions );
+                }
+            };
+        }
+    }
+
+    function importFromFilesSelected( bindingOptions: BindingOptions ) : void {
+        let input: any = createElementWithNoContainer( "input" );
+        input.type = "file";
+        input.accept = ".json, .txt, .csv";
+        input.multiple = "multiple";
+
+        input.onchange = function() {
+            importFromFiles( input.files, bindingOptions );
+        };
+
+        input.click();
+    }
+
+    function importFromFiles( files: FileList, bindingOptions: BindingOptions ) : void {
+        let filesLength: number = files.length;
+        let filesCompleted: string[] = [];
+        let data: any = getCurrentViewData( bindingOptions );
+
+        let onLoadEnd = function( filename: string, readingObject: object ) {
+            filesCompleted.push( filename );
+
+            for ( let storageDate in readingObject ) {
+                if ( readingObject.hasOwnProperty( storageDate ) ) {
+                    if ( !data.hasOwnProperty( storageDate ) ) {
+                        data[ storageDate ] = 0;
+                    }
+
+                    data[ storageDate ] += readingObject[ storageDate ];
+                }
+            }
+            
+            if ( filesCompleted.length === filesLength ) {
+                fireCustomTrigger( bindingOptions.events.onImport, bindingOptions._currentView.element );
+                //renderControlContainer( bindingOptions ); TODO: Enable
+            }
+        };
+
+        for ( let fileIndex: number = 0; fileIndex < filesLength; fileIndex++ ) {
+            let file: File = files[ fileIndex ];
+            let fileExtension: string = file.name.split( "." ).pop().toLowerCase();
+
+            if ( fileExtension === EXPORT_TYPE.json ) {
+                importFromJson( file, onLoadEnd );
+            } else if ( fileExtension === EXPORT_TYPE.txt ) {
+                importFromTxt( file, onLoadEnd );
+            } else if ( fileExtension === EXPORT_TYPE.csv ) {
+                importFromCsv( file, onLoadEnd );
+            }
+        }
+    }
+
+    function importFromJson( file: File, onLoadEnd: Function ) : void {
+        let reader: FileReader = new FileReader();
+        let readingObject: object = null;
+
+        reader.readAsText( file );
+
+        reader.onloadend = function() {
+            onLoadEnd( file.name, readingObject );
+        };
+    
+        reader.onload = function( e ) {
+            let jsonObject: any = getObjectFromString( e.target.result );
+
+            if ( jsonObject.parsed && isDefinedObject( jsonObject.result ) ) {
+                readingObject = jsonObject.result;
+            }
+        };
+    }
+
+    function importFromTxt( file: File, onLoadEnd: Function ) : void {
+        let reader: FileReader = new FileReader();
+        let readingObject: object = null;
+
+        reader.readAsText( file );
+
+        reader.onloadend = function() {
+            onLoadEnd( file.name, readingObject );
+        };
+    
+        reader.onload = function( e ) {
+            let lines: string[] = e.target.result.toString().split( STRING.newLine );
+            let linesLength: number = lines.length;
+
+            for ( let lineIndex: number = 0; lineIndex < linesLength; lineIndex++ ) {
+                let line: string[] = lines[ lineIndex ].split( STRING.colon );
+
+                readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
+            }
+        };
+    }
+
+    function importFromCsv( file: File, onLoadEnd: Function ) : void {
+        let reader: FileReader = new FileReader();
+        let readingObject: object = null;
+
+        reader.readAsText( file );
+
+        reader.onloadend = function() {
+            onLoadEnd( file.name, readingObject );
+        };
+    
+        reader.onload = function( e ) {
+            let data: string = e.target.result.toString().replace( new RegExp( "\"", "g" ), STRING.empty );
+            let lines: string[] = data.split( STRING.newLine );
+            
+            lines.shift();
+
+            let linesLength: number = lines.length;
+
+            for ( let lineIndex: number = 0; lineIndex < linesLength; lineIndex++ ) {
+                let line: string[] = lines[ lineIndex ].split( STRING.comma );
+
+                readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
+            }
+        };
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Export
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function exportAllData( bindingOptions: BindingOptions, exportType ) : void {
+    function exportAllData( bindingOptions: BindingOptions, exportType: string ) : void {
         let contents: string = null;
         let contentsMimeType: string = getExportMimeType( bindingOptions );
         let contentExportType: string = getDefaultString( exportType, bindingOptions.exportType ).toLowerCase();
@@ -434,7 +575,7 @@ import { type PublicApi } from "./api";
         contents.push( "<?xml version=\"1.0\" ?>" );
         contents.push( "<Dates>" );
 
-        for ( var storageDate in data ) {
+        for ( let storageDate in data ) {
             if ( data.hasOwnProperty( storageDate ) ) {
                 contents.push( "<Date>" );
                 contents.push( "<FullDate>" + storageDate + "</FullDate>" );
@@ -452,7 +593,7 @@ import { type PublicApi } from "./api";
         let data: object = getExportData( bindingOptions );
         let contents: string[] = [];
 
-        for ( var storageDate in data ) {
+        for ( let storageDate in data ) {
             if ( data.hasOwnProperty( storageDate ) ) {
                 contents.push( storageDate + STRING.colon + STRING.space + data[ storageDate ].toString() );
             }
@@ -533,7 +674,7 @@ import { type PublicApi } from "./api";
     }
 
     function getCsvValue( text: string ) : string {
-        var result: string = text.toString().replace( /(\r\n|\n|\r)/gm, STRING.empty ).replace( /(\s\s)/gm, STRING.space );
+        let result: string = text.toString().replace( /(\r\n|\n|\r)/gm, STRING.empty ).replace( /(\s\s)/gm, STRING.space );
         result = result.replace( /"/g, '""' );
         result = '"' + result + '"';
 

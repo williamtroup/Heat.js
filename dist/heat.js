@@ -289,6 +289,115 @@ var enums_1 = require("./enums");
     }
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Import
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function makeAreaDroppable(element, bindingOptions) {
+        if (bindingOptions.allowFileImports && !bindingOptions._currentView.isInFetchMode) {
+            element.ondragover = cancelBubble;
+            element.ondragenter = cancelBubble;
+            element.ondragleave = cancelBubble;
+            element.ondrop = function (e) {
+                cancelBubble(e);
+                if (isDefined(windowObject.FileReader) && e.dataTransfer.files.length > 0) {
+                    importFromFiles(e.dataTransfer.files, bindingOptions);
+                }
+            };
+        }
+    }
+    function importFromFilesSelected(bindingOptions) {
+        var input = createElementWithNoContainer("input");
+        input.type = "file";
+        input.accept = ".json, .txt, .csv";
+        input.multiple = "multiple";
+        input.onchange = function () {
+            importFromFiles(input.files, bindingOptions);
+        };
+        input.click();
+    }
+    function importFromFiles(files, bindingOptions) {
+        var filesLength = files.length;
+        var filesCompleted = [];
+        var data = getCurrentViewData(bindingOptions);
+        var onLoadEnd = function (filename, readingObject) {
+            filesCompleted.push(filename);
+            for (var storageDate in readingObject) {
+                if (readingObject.hasOwnProperty(storageDate)) {
+                    if (!data.hasOwnProperty(storageDate)) {
+                        data[storageDate] = 0;
+                    }
+                    data[storageDate] += readingObject[storageDate];
+                }
+            }
+            if (filesCompleted.length === filesLength) {
+                fireCustomTrigger(bindingOptions.events.onImport, bindingOptions._currentView.element);
+                //renderControlContainer( bindingOptions ); TODO: Enable
+            }
+        };
+        for (var fileIndex = 0; fileIndex < filesLength; fileIndex++) {
+            var file = files[fileIndex];
+            var fileExtension = file.name.split(".").pop().toLowerCase();
+            if (fileExtension === enums_1.EXPORT_TYPE.json) {
+                importFromJson(file, onLoadEnd);
+            }
+            else if (fileExtension === enums_1.EXPORT_TYPE.txt) {
+                importFromTxt(file, onLoadEnd);
+            }
+            else if (fileExtension === enums_1.EXPORT_TYPE.csv) {
+                importFromCsv(file, onLoadEnd);
+            }
+        }
+    }
+    function importFromJson(file, onLoadEnd) {
+        var reader = new FileReader();
+        var readingObject = null;
+        reader.readAsText(file);
+        reader.onloadend = function () {
+            onLoadEnd(file.name, readingObject);
+        };
+        reader.onload = function (e) {
+            var jsonObject = getObjectFromString(e.target.result);
+            if (jsonObject.parsed && isDefinedObject(jsonObject.result)) {
+                readingObject = jsonObject.result;
+            }
+        };
+    }
+    function importFromTxt(file, onLoadEnd) {
+        var reader = new FileReader();
+        var readingObject = null;
+        reader.readAsText(file);
+        reader.onloadend = function () {
+            onLoadEnd(file.name, readingObject);
+        };
+        reader.onload = function (e) {
+            var lines = e.target.result.toString().split(enums_1.STRING.newLine);
+            var linesLength = lines.length;
+            for (var lineIndex = 0; lineIndex < linesLength; lineIndex++) {
+                var line = lines[lineIndex].split(enums_1.STRING.colon);
+                readingObject[line[0].trim()] = parseInt(line[1].trim());
+            }
+        };
+    }
+    function importFromCsv(file, onLoadEnd) {
+        var reader = new FileReader();
+        var readingObject = null;
+        reader.readAsText(file);
+        reader.onloadend = function () {
+            onLoadEnd(file.name, readingObject);
+        };
+        reader.onload = function (e) {
+            var data = e.target.result.toString().replace(new RegExp("\"", "g"), enums_1.STRING.empty);
+            var lines = data.split(enums_1.STRING.newLine);
+            lines.shift();
+            var linesLength = lines.length;
+            for (var lineIndex = 0; lineIndex < linesLength; lineIndex++) {
+                var line = lines[lineIndex].split(enums_1.STRING.comma);
+                readingObject[line[0].trim()] = parseInt(line[1].trim());
+            }
+        };
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Export
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
