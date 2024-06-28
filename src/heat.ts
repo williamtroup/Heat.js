@@ -34,15 +34,15 @@ import { type PublicApi } from "./api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function getTotalDaysInMonth( year: number, month: number ) {
+    function getTotalDaysInMonth( year: number, month: number ) : number {
         return new Date( year, month + 1, 0 ).getDate();
     }
 
-    function getWeekdayNumber( date: Date ) {
+    function getWeekdayNumber( date: Date ) : number {
         return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
     }
 
-    function getDayOrdinal( value: number ) {
+    function getDayOrdinal( value: number ) : string {
         let result: string = _configuration.thText;
 
         if ( value === 31 || value === 21 || value === 1 ) {
@@ -56,7 +56,7 @@ import { type PublicApi } from "./api";
         return result;
     }
 
-    function getCustomFormattedDateText( dateFormat: string, date: Date ) {
+    function getCustomFormattedDateText( dateFormat: string, date: Date ) : string {
         let result: string = dateFormat;
         let weekDayNumber: number = getWeekdayNumber( date );
 
@@ -85,7 +85,7 @@ import { type PublicApi } from "./api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function createElementWithNoContainer( type: string ) {
+    function createElementWithNoContainer( type: string ) : HTMLElement {
         let result: HTMLElement = null;
         let nodeType: string = type.toLowerCase();
         let isText: boolean = nodeType === "text";
@@ -99,7 +99,7 @@ import { type PublicApi } from "./api";
         return result;
     }
 
-    function createElement( container: HTMLElement, type: string, className: string = STRING.empty, beforeNode: HTMLElement | null = null ) {
+    function createElement( container: HTMLElement, type: string, className: string = STRING.empty, beforeNode: HTMLElement | null = null ) : HTMLElement {
         let result: HTMLElement = null;
         let nodeType: string = type.toLowerCase();
         let isText: boolean = nodeType === "text";
@@ -123,14 +123,14 @@ import { type PublicApi } from "./api";
         return result;
     }
 
-    function createElementWithHTML( container: HTMLElement, type: string, className: string, html: string, beforeNode: HTMLElement = null ) {
+    function createElementWithHTML( container: HTMLElement, type: string, className: string, html: string, beforeNode: HTMLElement = null ) : HTMLElement {
         let element: HTMLElement = createElement( container, type, className, beforeNode );
         element.innerHTML = html;
 
         return element;
     }
 
-    function getStyleValueByName( element: any, stylePropertyName: string, toNumber: boolean = false ) {
+    function getStyleValueByName( element: any, stylePropertyName: string, toNumber: boolean = false ) : any {
         let value: any = null;
         
         if ( documentObject.defaultView.getComputedStyle ) {
@@ -161,7 +161,7 @@ import { type PublicApi } from "./api";
         e.cancelBubble = true;
     }
 
-    function getScrollPosition() {
+    function getScrollPosition() : object {
         let doc: HTMLElement = documentObject.documentElement;
         let left: number = ( windowObject.pageXOffset || doc.scrollLeft )  - ( doc.clientLeft || 0 );
         let top: number = ( windowObject.pageYOffset || doc.scrollTop ) - ( doc.clientTop || 0 );
@@ -212,7 +212,7 @@ import { type PublicApi } from "./api";
         }
     }
 
-    function buildCheckBox( container: HTMLElement, labelText: string, checked: boolean | null, onClick: Function | null ) {
+    function buildCheckBox( container: HTMLElement, labelText: string, checked: boolean | null, onClick: Function | null ) : object {
         let lineContainer: HTMLElement = createElement( container, "div" );
         let label: HTMLElement = createElement( lineContainer, "label", "checkbox" );
         let input: any = createElement( label, "input" );
@@ -243,7 +243,7 @@ import { type PublicApi } from "./api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function fireCustomTrigger( triggerFunction: Function ) {
+    function fireCustomTrigger( triggerFunction: Function ) : any {
         let result: any = null;
 
         if ( isDefinedFunction( triggerFunction ) ) {
@@ -260,35 +260,35 @@ import { type PublicApi } from "./api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function isDefined( value: any ) {
+    function isDefined( value: any ) : boolean  {
         return value !== null && value !== undefined && value.toString() !== STRING.empty;
     }
 
-    function isDefinedObject( object: any ) {
+    function isDefinedObject( object: any ) : boolean {
         return isDefined( object ) && typeof object === "object";
     }
 
-    function isDefinedBoolean( object: any ) {
+    function isDefinedBoolean( object: any ) : boolean  {
         return isDefined( object ) && typeof object === "boolean";
     }
 
-    function isDefinedString( object: any ) {
+    function isDefinedString( object: any ) : boolean  {
         return isDefined( object ) && typeof object === "string";
     }
 
-    function isDefinedFunction( object: any ) {
+    function isDefinedFunction( object: any ) : boolean  {
         return isDefined( object ) && typeof object === "function";
     }
 
-    function isDefinedNumber( object: any ) {
+    function isDefinedNumber( object: any ) : boolean  {
         return isDefined( object ) && typeof object === "number";
     }
 
-    function isDefinedArray( object: any ) {
+    function isDefinedArray( object: any ) : boolean  {
         return isDefinedObject( object ) && object instanceof Array;
     }
 
-    function isDefinedDate( object: any ) {
+    function isDefinedDate( object: any ) : boolean  {
         return isDefinedObject( object ) && object instanceof Date;
     }
 
@@ -299,35 +299,35 @@ import { type PublicApi } from "./api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function getDefaultAnyString( value: any, defaultValue: string ) {
+    function getDefaultAnyString( value: any, defaultValue: string ) : string  {
         return typeof value === "string" ? value : defaultValue;
     }
 
-    function getDefaultString( value: any, defaultValue: string ) {
+    function getDefaultString( value: any, defaultValue: string ) : string {
         return isDefinedString( value ) ? value : defaultValue;
     }
 
-    function getDefaultBoolean( value: any, defaultValue: boolean ) {
+    function getDefaultBoolean( value: any, defaultValue: boolean ) : boolean {
         return isDefinedBoolean( value ) ? value : defaultValue;
     }
 
-    function getDefaultNumber( value: any, defaultValue: number ) {
+    function getDefaultNumber( value: any, defaultValue: number ) : number {
         return isDefinedNumber( value ) ? value : defaultValue;
     }
 
-    function getDefaultFunction( value: any, defaultValue: object ) {
+    function getDefaultFunction( value: any, defaultValue: object ) : Function {
         return isDefinedFunction( value ) ? value : defaultValue;
     }
 
-    function getDefaultArray( value: any, defaultValue: object ) {
+    function getDefaultArray( value: any, defaultValue: any[] ) : any[] {
         return isDefinedArray( value ) ? value : defaultValue;
     }
 
-    function getDefaultObject( value: any, defaultValue: object ) {
+    function getDefaultObject( value: any, defaultValue: object ) : object {
         return isDefinedObject( value ) ? value : defaultValue;
     }
 
-    function getDefaultStringOrArray( value: any, defaultValue: object ) {
+    function getDefaultStringOrArray( value: any, defaultValue: any[] ) : any[] {
         let result: object = defaultValue;
 
         if ( isDefinedString( value ) ) {
@@ -346,7 +346,7 @@ import { type PublicApi } from "./api";
         return value;
     }
 
-    function getObjectFromString( objectString: any ) {
+    function getObjectFromString( objectString: any ) : object {
         let parsed: boolean = true,
             result: object = null;
 
@@ -387,7 +387,7 @@ import { type PublicApi } from "./api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function newGuid() {
+    function newGuid() : string {
         let result: string[] = [];
 
         for ( let charIndex: number = 0; charIndex < 32; charIndex++ ) {
@@ -402,13 +402,13 @@ import { type PublicApi } from "./api";
         return result.join( STRING.empty );
     }
 
-    function padNumber( number: number ) {
+    function padNumber( number: number ) : string {
         let numberString: string = number.toString();
 
         return numberString.length === 1 ? STRING.zero + numberString : numberString;
     }
 
-    function startsWithAnyCase( data: string, start: string ) {
+    function startsWithAnyCase( data: string, start: string ) : boolean {
         return data.substring( 0, start.length ).toLowerCase() === start.toLowerCase();
     }
 
@@ -419,15 +419,15 @@ import { type PublicApi } from "./api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function toStorageDate( date: Date ) {
+    function toStorageDate( date: Date ) : string {
         return date.getFullYear() + STRING.dash + padNumber( date.getMonth() + 1 ) + STRING.dash + padNumber( date.getDate() );
     }
 
-    function getStorageDate( data: string ) {
+    function getStorageDate( data: string ) : string[] {
         return data.split( STRING.dash );
     }
 
-    function getStorageDateYear( data: string ) {
+    function getStorageDateYear( data: string ) : string {
         return data.split( STRING.dash )[ 0 ];
     }
 
