@@ -52,16 +52,16 @@ export type BindingOptions = {
     showHolidaysInDayToolTips: boolean;
     colorRanges: ColorRange[];
     holidays: Holiday[];
-    title: title,
-    description: description,
-    guide: guide,
-    tooltip: tooltip,
-    events: events,
+    title: Title,
+    description: Description,
+    guide: Guide,
+    tooltip: Tooltip,
+    events: Events,
     views: {
-        map: map,
-        chart: chart,
-        days: days,
-        statistics: statistics
+        map: Map,
+        chart: Chart,
+        days: Days,
+        statistics: Statistics
     };
 };
 
@@ -90,7 +90,7 @@ export type BindingOptionsCurrentView = {
     disabledBackground: HTMLElement
 };
 
-export type title = {
+export type Title = {
     text: string;
     showText: boolean;
     showYearSelector: boolean;
@@ -104,25 +104,25 @@ export type title = {
     showTitleDropDownHeaders: boolean;
 };
 
-export type description = {
+export type Description = {
     text: string;
     url: string;
     urlTarget: string;
 };
 
-export type guide = {
+export type Guide = {
     enabled: boolean;
     colorRangeTogglesEnabled: boolean;
     showLessAndMoreLabels: boolean;
     showNumbersInGuide: boolean;
 };
 
-export type tooltip = {
+export type Tooltip = {
     delay: number;
     dayText: string;
 };
 
-export type map = {
+export type Map = {
     showMonthDayGaps: boolean;
     showDayNames: boolean;
     placeMonthNamesOnTheBottom: boolean;
@@ -137,7 +137,7 @@ export type map = {
     daysToShow: number[];
 };
 
-export type chart = {
+export type Chart = {
     enabled: boolean;
     showChartYLabels: boolean;
     showMonthNames: boolean;
@@ -148,7 +148,7 @@ export type chart = {
     daysToShow: number[];
 };
 
-export type days = {
+export type Days = {
     enabled: boolean;
     showChartYLabels: boolean;
     showDayNames: boolean;
@@ -159,7 +159,7 @@ export type days = {
     daysToShow: number[];
 };
 
-export type statistics = {
+export type Statistics = {
     enabled: boolean;
     showChartYLabels: boolean;
     showColorRangeLabels: boolean;
@@ -171,7 +171,7 @@ export type statistics = {
     daysToShow: number[];
 };
 
-export type events = {
+export type Events = {
     onDayClick: Function | null;
     onBackYear: Function | null;
     onNextYear: Function | null;

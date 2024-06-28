@@ -426,7 +426,7 @@ var enums_1 = require("./enums");
             if (bindingOptions.title.showYearSelector) {
                 var back = createElementWithHTML(titleBar, "button", "back", _configuration.backButtonText);
                 back.onclick = function () {
-                    //moveToPreviousYear( bindingOptions ); TODO: Enable
+                    moveToPreviousYear(bindingOptions);
                 };
                 if (isFirstVisibleYear(bindingOptions, bindingOptions._currentView.year)) {
                     back.disabled = true;
@@ -447,7 +447,7 @@ var enums_1 = require("./enums");
                 }
                 var next = createElementWithHTML(titleBar, "button", "next", _configuration.nextButtonText);
                 next.onclick = function () {
-                    //moveToNextYear( bindingOptions );; TODO: Enable
+                    moveToNextYear(bindingOptions);
                 };
                 if (isLastVisibleYear(bindingOptions, bindingOptions._currentView.year)) {
                     next.disabled = true;
@@ -2330,10 +2330,281 @@ var enums_1 = require("./enums");
     }
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Public API Functions:  Helpers:  Manage Instances
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function moveToPreviousYear(bindingOptions, callCustomTrigger) {
+        if (callCustomTrigger === void 0) { callCustomTrigger = true; }
+        var render = true;
+        var year = bindingOptions._currentView.year;
+        year--;
+        while (!isYearVisible(bindingOptions, year)) {
+            if (isFirstVisibleYear(bindingOptions, year)) {
+                render = false;
+                break;
+            }
+            year--;
+        }
+        if (render) {
+            bindingOptions._currentView.year = year;
+            renderControlContainer(bindingOptions);
+            if (callCustomTrigger) {
+                fireCustomTrigger(bindingOptions.events.onBackYear, bindingOptions._currentView.year);
+            }
+        }
+    }
+    function moveToNextYear(bindingOptions, callCustomTrigger) {
+        if (callCustomTrigger === void 0) { callCustomTrigger = true; }
+        var render = true;
+        var year = bindingOptions._currentView.year;
+        year++;
+        while (!isYearVisible(bindingOptions, year)) {
+            if (isLastVisibleYear(bindingOptions, year)) {
+                render = false;
+                break;
+            }
+            year++;
+        }
+        if (render) {
+            bindingOptions._currentView.year = year;
+            renderControlContainer(bindingOptions);
+            if (callCustomTrigger) {
+                fireCustomTrigger(bindingOptions.events.onBackYear, bindingOptions._currentView.year);
+            }
+        }
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Public API Functions:  Helpers:  Destroy
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function destroyElement(bindingOptions) {
+        bindingOptions._currentView.element.innerHTML = enums_1.STRING.empty;
+        removeClass(bindingOptions._currentView.element, "heat-js");
+        assignToolTipEvents(bindingOptions, false);
+        documentObject.body.removeChild(bindingOptions._currentView.tooltip);
+        if (bindingOptions._currentView.isInFetchMode && isDefined(bindingOptions._currentView.isInFetchModeTimer)) {
+            clearInterval(bindingOptions._currentView.isInFetchModeTimer);
+        }
+        fireCustomTrigger(bindingOptions.events.onDestroy, bindingOptions._currentView.element);
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Public API Functions:  Helpers:  Configuration
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function buildDefaultConfiguration(newConfiguration) {
+        if (newConfiguration === void 0) { newConfiguration = null; }
+        _configuration = !isDefinedObject(newConfiguration) ? {} : newConfiguration;
+        _configuration.safeMode = getDefaultBoolean(_configuration.safeMode, true);
+        _configuration.domElementTypes = getDefaultStringOrArray(_configuration.domElementTypes, ["*"]);
+        buildDefaultConfigurationStrings();
+        buildDefaultConfigurationArrays();
+    }
+    function buildDefaultConfigurationStrings() {
+        _configuration.stText = getDefaultAnyString(_configuration.stText, "st");
+        _configuration.ndText = getDefaultAnyString(_configuration.ndText, "nd");
+        _configuration.rdText = getDefaultAnyString(_configuration.rdText, "rd");
+        _configuration.thText = getDefaultAnyString(_configuration.thText, "th");
+        _configuration.backButtonText = getDefaultAnyString(_configuration.backButtonText, "Back");
+        _configuration.nextButtonText = getDefaultAnyString(_configuration.nextButtonText, "Next");
+        _configuration.refreshButtonText = getDefaultAnyString(_configuration.refreshButtonText, "Refresh");
+        _configuration.exportButtonText = getDefaultAnyString(_configuration.exportButtonText, "Export");
+        _configuration.lessText = getDefaultAnyString(_configuration.lessText, "Less");
+        _configuration.moreText = getDefaultAnyString(_configuration.moreText, "More");
+        _configuration.dateText = getDefaultAnyString(_configuration.dateText, "Date");
+        _configuration.countText = getDefaultAnyString(_configuration.countText, "Count");
+        _configuration.mapText = getDefaultAnyString(_configuration.mapText, "Map");
+        _configuration.chartText = getDefaultAnyString(_configuration.chartText, "Chart");
+        _configuration.noChartDataMessage = getDefaultAnyString(_configuration.noChartDataMessage, "There is currently no data to view.");
+        _configuration.statisticsText = getDefaultAnyString(_configuration.statisticsText, "Statistics");
+        _configuration.noStatisticsDataMessage = getDefaultAnyString(_configuration.noStatisticsDataMessage, "There are currently no statistics to view.");
+        _configuration.unknownTrendText = getDefaultAnyString(_configuration.unknownTrendText, "Unknown");
+        _configuration.importButtonText = getDefaultAnyString(_configuration.importButtonText, "Import");
+        _configuration.noMapDataMessage = getDefaultAnyString(_configuration.noMapDataMessage, "There is currently no data to view.");
+        _configuration.objectErrorText = getDefaultAnyString(_configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
+        _configuration.attributeNotValidErrorText = getDefaultAnyString(_configuration.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object.");
+        _configuration.attributeNotSetErrorText = getDefaultAnyString(_configuration.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly.");
+        _configuration.closeToolTipText = getDefaultAnyString(_configuration.closeToolTipText, "Close");
+        _configuration.configurationToolTipText = getDefaultAnyString(_configuration.configurationToolTipText, "Configuration");
+        _configuration.configurationTitleText = getDefaultAnyString(_configuration.configurationTitleText, "Configuration");
+        _configuration.visibleMonthsText = getDefaultAnyString(_configuration.visibleMonthsText, "Visible Months");
+        _configuration.visibleDaysText = getDefaultAnyString(_configuration.visibleDaysText, "Visible Days");
+        _configuration.dataText = getDefaultAnyString(_configuration.dataText, "Data");
+        _configuration.colorRangesText = getDefaultAnyString(_configuration.colorRangesText, "Color Ranges");
+        _configuration.yearText = getDefaultAnyString(_configuration.yearText, "Year");
+        _configuration.daysText = getDefaultAnyString(_configuration.daysText, "Days");
+        _configuration.noDaysDataMessage = getDefaultAnyString(_configuration.noDaysDataMessage, "There are currently no days to view.");
+    }
+    function buildDefaultConfigurationArrays() {
+        if (isInvalidOptionArray(_configuration.monthNames, 12)) {
+            _configuration.monthNames = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ];
+        }
+        if (isInvalidOptionArray(_configuration.dayNames, 7)) {
+            _configuration.dayNames = [
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat",
+                "Sun"
+            ];
+        }
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Public API Functions:
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    var _public = {
+        /*
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         * Public Functions:  Manage Dates
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         */
+        addDates: function (elementId, dates, type, triggerRefresh) {
+            throw new Error("Function not implemented.");
+        },
+        addDate: function (elementId, date, type, triggerRefresh) {
+            throw new Error("Function not implemented.");
+        },
+        updateDate: function (elementId, date, count, type, triggerRefresh) {
+            throw new Error("Function not implemented.");
+        },
+        removeDates: function (elementId, dates, type, triggerRefresh) {
+            throw new Error("Function not implemented.");
+        },
+        removeDate: function (elementId, date, type, triggerRefresh) {
+            throw new Error("Function not implemented.");
+        },
+        clearDate: function (elementId, date, type, triggerRefresh) {
+            throw new Error("Function not implemented.");
+        },
+        resetAll: function (triggerRefresh) {
+            throw new Error("Function not implemented.");
+        },
+        reset: function (elementId, triggerRefresh) {
+            throw new Error("Function not implemented.");
+        },
+        /*
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         * Public Functions:  Export/Import
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         */
+        import: function (elementId, files) {
+            throw new Error("Function not implemented.");
+        },
+        export: function (elementId, exportType) {
+            throw new Error("Function not implemented.");
+        },
+        /*
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         * Public Functions:  Manage Instances
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         */
+        refresh: function (elementId) {
+            throw new Error("Function not implemented.");
+        },
+        refreshAll: function () {
+            throw new Error("Function not implemented.");
+        },
+        setYear: function (elementId, year) {
+            throw new Error("Function not implemented.");
+        },
+        setYearToHighest: function (elementId) {
+            throw new Error("Function not implemented.");
+        },
+        setYearToLowest: function (elementId) {
+            throw new Error("Function not implemented.");
+        },
+        moveToPreviousYear: function (elementId) {
+            throw new Error("Function not implemented.");
+        },
+        moveToNextYear: function (elementId) {
+            throw new Error("Function not implemented.");
+        },
+        moveToCurrentYear: function (elementId) {
+            throw new Error("Function not implemented.");
+        },
+        getYear: function (elementId) {
+            throw new Error("Function not implemented.");
+        },
+        render: function (element, options) {
+            throw new Error("Function not implemented.");
+        },
+        renderAll: function () {
+            throw new Error("Function not implemented.");
+        },
+        switchView: function (elementId, viewName) {
+            throw new Error("Function not implemented.");
+        },
+        switchType: function (elementId, type) {
+            throw new Error("Function not implemented.");
+        },
+        updateOptions: function (elementId, newOptions) {
+            throw new Error("Function not implemented.");
+        },
+        /*
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         * Public Functions:  Destroying
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         */
+        destroyAll: function () {
+            throw new Error("Function not implemented.");
+        },
+        destroy: function (elementId) {
+            throw new Error("Function not implemented.");
+        },
+        /*
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         * Public Functions:  Configuration
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         */
+        setConfiguration: function (newConfiguration, triggerRefresh) {
+            throw new Error("Function not implemented.");
+        },
+        /*
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         * Public Functions:  Additional Data
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         */
+        getIds: function () {
+            throw new Error("Function not implemented.");
+        },
+        getVersion: function () {
+            throw new Error("Function not implemented.");
+        }
+    };
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Initialize Heat.js
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
     (function () {
+        buildDefaultConfiguration();
+        documentObject.addEventListener("DOMContentLoaded", function () {
+            render();
+        });
+        windowObject.addEventListener("pagehide", function () {
+            cancelAllPullDataTimers();
+        });
+        if (!isDefined(windowObject.$heat)) {
+            windowObject.$heat = _public;
+        }
     })();
 })(document, window, Math, JSON);
 //# sourceMappingURL=heat.js.map

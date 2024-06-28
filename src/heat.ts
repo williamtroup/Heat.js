@@ -1,11 +1,32 @@
-import { type Configuration, type Holiday, type ColorRange, type BindingOptions, type BindingOptionsCurrentView } from "./types";
-import { STRING, VALUE, VIEW, VIEW_NAME, EXPORT_TYPE } from "./enums";
+import {
+    type Configuration,
+    type Holiday,
+    type ColorRange,
+    type BindingOptions,
+    type BindingOptionsCurrentView,
+    type Title,
+    type Description,
+    type Guide,
+    type Tooltip,
+    type Map, 
+    type Chart,
+    type Days,
+    type Statistics,
+    type Events } from "./types";
+
+import {
+    STRING,
+    VALUE,
+    VIEW,
+    VIEW_NAME,
+    EXPORT_TYPE } from "./enums";
+
 import { type PublicApi } from "./api";
 
 ( ( documentObject, windowObject, mathObject, jsonObject ) => {
 
     // Variables: Configuration
-    const _configuration: Configuration = {} as Configuration;
+    let _configuration: Configuration = {} as Configuration;
 
     // Variables: Elements
     const _elements_Type: object = {};
@@ -511,7 +532,7 @@ import { type PublicApi } from "./api";
                 const back: any = createElementWithHTML( titleBar, "button", "back", _configuration.backButtonText );
         
                 back.onclick = function() {
-                    //moveToPreviousYear( bindingOptions ); TODO: Enable
+                    moveToPreviousYear( bindingOptions );
                 };
 
                 if ( isFirstVisibleYear( bindingOptions, bindingOptions._currentView.year ) ) {
@@ -539,7 +560,7 @@ import { type PublicApi } from "./api";
                 const next: any = createElementWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
 
                 next.onclick = function() {
-                    //moveToNextYear( bindingOptions );; TODO: Enable
+                    moveToNextYear( bindingOptions );
                 };
 
                 if ( isLastVisibleYear( bindingOptions, bindingOptions._currentView.year ) ) {
@@ -2199,7 +2220,7 @@ import { type PublicApi } from "./api";
      */
 
     function buildAttributeOptions( newOptions: any ) : BindingOptions {
-        let options: BindingOptions = getDefaultObject( newOptions, {} );
+        let options: BindingOptions = getDefaultObject( newOptions, {} as BindingOptions );
         options.views = getDefaultObject( options.views, {} );
         options.exportOnlyYearBeingViewed = getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
         options.year = getDefaultNumber( options.year, new Date().getFullYear() );
@@ -2317,7 +2338,7 @@ import { type PublicApi } from "./api";
     }
 
     function buildAttributeOptionTitle( options: BindingOptions ) : BindingOptions {
-        options.title = getDefaultObject( options.title, {} );
+        options.title = getDefaultObject( options.title, {} as Title );
         options.title.text = getDefaultString( options.title.text, "Heat.js" );
         options.title.showText = getDefaultBoolean( options.title.showText, true );
         options.title.showYearSelector = getDefaultBoolean( options.title.showYearSelector, true );
@@ -2333,8 +2354,8 @@ import { type PublicApi } from "./api";
         return options;
     }
 
-    function buildAttributeOptionDescription( options ) {
-        options.description = getDefaultObject( options.description, {} );
+    function buildAttributeOptionDescription( options: BindingOptions ) {
+        options.description = getDefaultObject( options.description, {} as Description );
         options.description.text = getDefaultString( options.description.text, null );
         options.description.url = getDefaultString( options.description.url, null );
         options.description.urlTarget = getDefaultString( options.description.urlTarget, "_blank" );
@@ -2343,7 +2364,7 @@ import { type PublicApi } from "./api";
     }
 
     function buildAttributeOptionGuide( options: BindingOptions ) : BindingOptions {
-        options.guide = getDefaultObject( options.guide, {} );
+        options.guide = getDefaultObject( options.guide, {} as Guide );
         options.guide.enabled = getDefaultBoolean( options.guide.enabled, true );
         options.guide.colorRangeTogglesEnabled = getDefaultBoolean( options.guide.colorRangeTogglesEnabled, true );
         options.guide.showLessAndMoreLabels = getDefaultBoolean( options.guide.showLessAndMoreLabels, true );
@@ -2353,7 +2374,7 @@ import { type PublicApi } from "./api";
     }
 
     function buildAttributeOptionToolTip( options: BindingOptions ) : BindingOptions {
-        options.tooltip = getDefaultObject( options.tooltip, {} );
+        options.tooltip = getDefaultObject( options.tooltip, {} as Tooltip );
         options.tooltip.delay = getDefaultNumber( options.tooltip.delay, 750 );
         options.tooltip.dayText = getDefaultString( options.tooltip.dayText, "{d}{o} {mmmm} {yyyy}" );
 
@@ -2361,7 +2382,7 @@ import { type PublicApi } from "./api";
     }
 
     function buildAttributeOptionMapView( options: BindingOptions ) : BindingOptions {
-        options.views.map = getDefaultObject( options.views.map, {} );
+        options.views.map = getDefaultObject( options.views.map, {} as Map );
         options.views.map.showMonthDayGaps = getDefaultBoolean( options.views.map.showMonthDayGaps, true );
         options.views.map.showDayNames = getDefaultBoolean( options.views.map.showDayNames, true );
         options.views.map.placeMonthNamesOnTheBottom = getDefaultBoolean( options.views.map.placeMonthNamesOnTheBottom, false );
@@ -2385,7 +2406,7 @@ import { type PublicApi } from "./api";
     }
 
     function buildAttributeOptionChartView( options: BindingOptions ) : BindingOptions {
-        options.views.chart = getDefaultObject( options.views.chart, {} );
+        options.views.chart = getDefaultObject( options.views.chart, {} as Chart );
         options.views.chart.enabled = getDefaultBoolean( options.views.chart.enabled, true );
         options.views.chart.showChartYLabels = getDefaultBoolean( options.views.chart.showChartYLabels, true );
         options.views.chart.showMonthNames = getDefaultBoolean( options.views.chart.showMonthNames, true );
@@ -2405,7 +2426,7 @@ import { type PublicApi } from "./api";
     }
 
     function buildAttributeOptionDaysView( options: BindingOptions ) : BindingOptions {
-        options.views.days = getDefaultObject( options.views.days, {} );
+        options.views.days = getDefaultObject( options.views.days, {} as Days );
         options.views.days.enabled = getDefaultBoolean( options.views.days.enabled, true );
         options.views.days.showChartYLabels = getDefaultBoolean( options.views.days.showChartYLabels, true );
         options.views.days.showDayNames = getDefaultBoolean( options.views.days.showDayNames, true );
@@ -2425,7 +2446,7 @@ import { type PublicApi } from "./api";
     }
 
     function buildAttributeOptionStatisticsView( options: BindingOptions ) : BindingOptions {
-        options.views.statistics = getDefaultObject( options.views.statistics, {} );
+        options.views.statistics = getDefaultObject( options.views.statistics, {} as Statistics );
         options.views.statistics.enabled = getDefaultBoolean( options.views.statistics.enabled, true );
         options.views.statistics.showChartYLabels = getDefaultBoolean( options.views.statistics.showChartYLabels, true );
         options.views.statistics.showColorRangeLabels = getDefaultBoolean( options.views.statistics.showColorRangeLabels, true );
@@ -2446,7 +2467,7 @@ import { type PublicApi } from "./api";
     }
 
     function buildAttributeOptionCustomTriggers( options : BindingOptions ): BindingOptions {
-        options.events = getDefaultObject( options.events, {} );
+        options.events = getDefaultObject( options.events, {} as Events );
         options.events.onDayClick = getDefaultFunction( options.events.onDayClick, null );
         options.events.onBackYear = getDefaultFunction( options.events.onBackYear, null );
         options.events.onNextYear = getDefaultFunction( options.events.onNextYear, null );
@@ -2883,6 +2904,336 @@ import { type PublicApi } from "./api";
     }
 
 
+	/*
+	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	 * Public API Functions:  Helpers:  Manage Instances
+	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	 */
+
+    function moveToPreviousYear( bindingOptions: BindingOptions, callCustomTrigger: boolean = true ) : void {
+        let render: boolean = true;
+        let year: number = bindingOptions._currentView.year;
+            
+        year--;
+
+        while ( !isYearVisible( bindingOptions, year ) ) {
+            if ( isFirstVisibleYear( bindingOptions, year ) ) {
+                render = false;
+                break;
+            }
+
+            year--;
+        }
+
+        if ( render ) {
+            bindingOptions._currentView.year = year;
+
+            renderControlContainer( bindingOptions );
+
+            if ( callCustomTrigger ) {
+                fireCustomTrigger( bindingOptions.events.onBackYear, bindingOptions._currentView.year );
+            }
+        }
+    }
+
+    function moveToNextYear( bindingOptions: BindingOptions, callCustomTrigger: boolean = true ) : void {
+        let render: boolean = true;
+        let year: number = bindingOptions._currentView.year;
+
+        year++;
+
+        while ( !isYearVisible( bindingOptions, year ) ) {
+            if ( isLastVisibleYear( bindingOptions, year ) ) {
+                render = false;
+                break;
+            }
+
+            year++;
+        }
+
+        if ( render ) {
+            bindingOptions._currentView.year = year;
+
+            renderControlContainer( bindingOptions );
+
+            if ( callCustomTrigger ) {
+                fireCustomTrigger( bindingOptions.events.onBackYear, bindingOptions._currentView.year );
+            }
+        }
+    }
+
+
+	/*
+	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	 * Public API Functions:  Helpers:  Destroy
+	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	 */
+
+    function destroyElement( bindingOptions: BindingOptions ) : void {
+        bindingOptions._currentView.element.innerHTML = STRING.empty;
+
+        removeClass( bindingOptions._currentView.element, "heat-js" );
+        assignToolTipEvents( bindingOptions, false );
+
+        documentObject.body.removeChild( bindingOptions._currentView.tooltip );
+
+        if ( bindingOptions._currentView.isInFetchMode && isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
+            clearInterval( bindingOptions._currentView.isInFetchModeTimer );
+        }
+
+        fireCustomTrigger( bindingOptions.events.onDestroy, bindingOptions._currentView.element );
+    }
+
+	/*
+	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	 * Public API Functions:  Helpers:  Configuration
+	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	 */
+
+    function buildDefaultConfiguration( newConfiguration: Configuration = null ) : void {
+        _configuration = !isDefinedObject( newConfiguration ) ? {} as Configuration : newConfiguration;
+        _configuration.safeMode = getDefaultBoolean( _configuration.safeMode, true );
+        _configuration.domElementTypes = getDefaultStringOrArray( _configuration.domElementTypes, [ "*" ] );
+
+        buildDefaultConfigurationStrings();
+        buildDefaultConfigurationArrays();
+    }
+
+    function buildDefaultConfigurationStrings() : void {
+        _configuration.stText = getDefaultAnyString( _configuration.stText, "st" );
+        _configuration.ndText = getDefaultAnyString( _configuration.ndText, "nd" );
+        _configuration.rdText = getDefaultAnyString( _configuration.rdText, "rd" );
+        _configuration.thText = getDefaultAnyString( _configuration.thText, "th" );
+        _configuration.backButtonText = getDefaultAnyString( _configuration.backButtonText, "Back" );
+        _configuration.nextButtonText = getDefaultAnyString( _configuration.nextButtonText, "Next" );
+        _configuration.refreshButtonText = getDefaultAnyString( _configuration.refreshButtonText, "Refresh" );
+        _configuration.exportButtonText = getDefaultAnyString( _configuration.exportButtonText, "Export" );
+        _configuration.lessText = getDefaultAnyString( _configuration.lessText, "Less" );
+        _configuration.moreText = getDefaultAnyString( _configuration.moreText, "More" );
+        _configuration.dateText = getDefaultAnyString( _configuration.dateText, "Date" );
+        _configuration.countText = getDefaultAnyString( _configuration.countText, "Count" );
+        _configuration.mapText = getDefaultAnyString( _configuration.mapText, "Map" );
+        _configuration.chartText = getDefaultAnyString( _configuration.chartText, "Chart" );
+        _configuration.noChartDataMessage = getDefaultAnyString( _configuration.noChartDataMessage, "There is currently no data to view." );
+        _configuration.statisticsText = getDefaultAnyString( _configuration.statisticsText, "Statistics" );
+        _configuration.noStatisticsDataMessage = getDefaultAnyString( _configuration.noStatisticsDataMessage, "There are currently no statistics to view." );
+        _configuration.unknownTrendText = getDefaultAnyString( _configuration.unknownTrendText, "Unknown" );
+        _configuration.importButtonText = getDefaultAnyString( _configuration.importButtonText, "Import" );
+        _configuration.noMapDataMessage = getDefaultAnyString( _configuration.noMapDataMessage, "There is currently no data to view." );
+        _configuration.objectErrorText = getDefaultAnyString( _configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}" );
+        _configuration.attributeNotValidErrorText = getDefaultAnyString( _configuration.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object." );
+        _configuration.attributeNotSetErrorText = getDefaultAnyString( _configuration.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly." );
+        _configuration.closeToolTipText = getDefaultAnyString( _configuration.closeToolTipText, "Close" );
+        _configuration.configurationToolTipText = getDefaultAnyString( _configuration.configurationToolTipText, "Configuration" );
+        _configuration.configurationTitleText = getDefaultAnyString( _configuration.configurationTitleText, "Configuration" );
+        _configuration.visibleMonthsText = getDefaultAnyString( _configuration.visibleMonthsText, "Visible Months" );
+        _configuration.visibleDaysText = getDefaultAnyString( _configuration.visibleDaysText, "Visible Days" );
+        _configuration.dataText = getDefaultAnyString( _configuration.dataText, "Data" );
+        _configuration.colorRangesText = getDefaultAnyString( _configuration.colorRangesText, "Color Ranges" );
+        _configuration.yearText = getDefaultAnyString( _configuration.yearText, "Year" );
+        _configuration.daysText = getDefaultAnyString( _configuration.daysText, "Days" );
+        _configuration.noDaysDataMessage = getDefaultAnyString( _configuration.noDaysDataMessage, "There are currently no days to view." );
+    }
+
+    function buildDefaultConfigurationArrays() : void {
+        if ( isInvalidOptionArray( _configuration.monthNames, 12 ) ) {
+            _configuration.monthNames = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ];
+        }
+
+        if ( isInvalidOptionArray( _configuration.dayNames, 7 ) ) {
+            _configuration.dayNames = [
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat",
+                "Sun"
+            ];
+        }
+    }
+
+
+	/*
+	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	 * Public API Functions:
+	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	 */
+
+    const _public: PublicApi = {
+
+        /*
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         * Public Functions:  Manage Dates
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         */
+
+        addDates: function ( elementId: string, dates: Date[], type: string, triggerRefresh: boolean ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        addDate: function ( elementId: string, date: Date, type: string, triggerRefresh: boolean ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        updateDate: function ( elementId: string, date: Date, count: number, type: string, triggerRefresh: boolean ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        removeDates: function ( elementId: string, dates: Date[], type: string, triggerRefresh: boolean ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        removeDate: function ( elementId: string, date: Date, type: string, triggerRefresh: boolean ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        clearDate: function ( elementId: string, date: Date, type: string, triggerRefresh: boolean ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        resetAll: function ( triggerRefresh: boolean ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        reset: function ( elementId: string, triggerRefresh: boolean ): object {
+            throw new Error("Function not implemented.");
+        },
+
+
+        /*
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         * Public Functions:  Export/Import
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         */
+
+        import: function ( elementId: string, files: File[] ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        export: function ( elementId: string, exportType: string ): object {
+            throw new Error("Function not implemented.");
+        },
+
+
+        /*
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         * Public Functions:  Manage Instances
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         */
+
+        refresh: function ( elementId: string ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        refreshAll: function (): object {
+            throw new Error("Function not implemented.");
+        },
+
+        setYear: function ( elementId: string, year: number ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        setYearToHighest: function ( elementId: string ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        setYearToLowest: function ( elementId: string ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        moveToPreviousYear: function ( elementId: string ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        moveToNextYear: function ( elementId: string ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        moveToCurrentYear: function ( elementId: string ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        getYear: function ( elementId: string ): number {
+            throw new Error("Function not implemented.");
+        },
+
+        render: function ( element: HTMLElement, options: BindingOptions ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        renderAll: function (): object {
+            throw new Error("Function not implemented.");
+        },
+
+        switchView: function ( elementId: string, viewName: string ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        switchType: function ( elementId: string, type: string ): object {
+            throw new Error("Function not implemented.");
+        },
+
+        updateOptions: function ( elementId: string, newOptions: BindingOptions ): object {
+            throw new Error("Function not implemented.");
+        },
+
+
+        /*
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         * Public Functions:  Destroying
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         */
+
+        destroyAll: function (): object {
+            throw new Error("Function not implemented.");
+        },
+
+        destroy: function ( elementId: string ): object {
+            throw new Error("Function not implemented.");
+        },
+
+
+        /*
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         * Public Functions:  Configuration
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         */
+
+        setConfiguration: function ( newConfiguration: Configuration, triggerRefresh: boolean ): object {
+            throw new Error("Function not implemented.");
+        },
+
+
+        /*
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         * Public Functions:  Additional Data
+         * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         */
+
+        getIds: function (): string[] {
+            throw new Error("Function not implemented.");
+        },
+
+        getVersion: function (): string {
+            throw new Error("Function not implemented.");
+        }
+    };
+
+
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Initialize Heat.js
@@ -2890,8 +3241,19 @@ import { type PublicApi } from "./api";
      */
 
     ( () => {
+        buildDefaultConfiguration();
 
+        documentObject.addEventListener( "DOMContentLoaded", function() {
+            render();
+        } );
 
+        windowObject.addEventListener( "pagehide", function() {
+            cancelAllPullDataTimers();
+        } );
+
+        if ( !isDefined( windowObject.$heat ) ) {
+            windowObject.$heat = _public;
+        }
     } )();
 
 } )( document, window, Math, JSON );
