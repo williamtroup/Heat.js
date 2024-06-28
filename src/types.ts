@@ -62,7 +62,7 @@ export type BindingOptions = {
         chart: Chart,
         days: Days,
         statistics: Statistics
-    };
+    }
 };
 
 export type BindingOptionsCurrentView = {

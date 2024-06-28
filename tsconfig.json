@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
       "target": "ES5",
-      "module": "CommonJS",
+      "module": "ES6",
       "sourceMap": true,
-      "outDir": "./dist"
+      "outDir": "./dist",
+      "isolatedModules": true
     },
     "include": [
       "src/*.ts"

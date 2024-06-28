@@ -14,13 +14,6 @@ import {
     type Statistics,
     type Events } from "./types";
 
-import {
-    STRING,
-    VALUE,
-    VIEW,
-    VIEW_NAME,
-    EXPORT_TYPE } from "./enums";
-
 import { type PublicApi } from "./api";
 
 ( ( documentObject, windowObject, mathObject, jsonObject ) => {
@@ -31,6 +24,48 @@ import { type PublicApi } from "./api";
     // Variables: Elements
     const _elements_Type: object = {};
     let _elements_Day_Width: number = null;
+
+    // Enum: Strings
+    enum STRING {
+        empty = "",
+        space = " ",
+        newLine = "\n",
+        dash = "-",
+        underscore = "_",
+        plus = "+",
+        zero = "0",
+        colon = ":",
+        comma = ","
+    };
+    
+    // Enum: Values
+    enum VALUE {
+        notFound = -1
+    };
+    
+    // Enum: View
+    enum VIEW {
+        map = 1,
+        chart = 2,
+        days = 3,
+        statistics = 4
+    };
+    
+    // Enum: View (names)
+    enum VIEW_NAME {
+        map = "map",
+        chart = "chart",
+        days = "days",
+        statistics = "statistics"
+    };
+    
+    // Enum: Export Types
+    enum EXPORT_TYPE {
+        csv = "csv",
+        json = "json",
+        xml = "xml",
+        txt = "txt"
+    };
 
     // Variables: Date Counts
     let _elements_DateCounts: object = {};

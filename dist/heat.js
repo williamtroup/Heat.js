@@ -1,12 +1,56 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var enums_1 = require("./enums");
 (function (documentObject, windowObject, mathObject, jsonObject) {
     // Variables: Configuration
     var _configuration = {};
     // Variables: Elements
     var _elements_Type = {};
     var _elements_Day_Width = null;
+    // Enum: Strings
+    var STRING;
+    (function (STRING) {
+        STRING["empty"] = "";
+        STRING["space"] = " ";
+        STRING["newLine"] = "\n";
+        STRING["dash"] = "-";
+        STRING["underscore"] = "_";
+        STRING["plus"] = "+";
+        STRING["zero"] = "0";
+        STRING["colon"] = ":";
+        STRING["comma"] = ",";
+    })(STRING || (STRING = {}));
+    ;
+    // Enum: Values
+    var VALUE;
+    (function (VALUE) {
+        VALUE[VALUE["notFound"] = -1] = "notFound";
+    })(VALUE || (VALUE = {}));
+    ;
+    // Enum: View
+    var VIEW;
+    (function (VIEW) {
+        VIEW[VIEW["map"] = 1] = "map";
+        VIEW[VIEW["chart"] = 2] = "chart";
+        VIEW[VIEW["days"] = 3] = "days";
+        VIEW[VIEW["statistics"] = 4] = "statistics";
+    })(VIEW || (VIEW = {}));
+    ;
+    // Enum: View (names)
+    var VIEW_NAME;
+    (function (VIEW_NAME) {
+        VIEW_NAME["map"] = "map";
+        VIEW_NAME["chart"] = "chart";
+        VIEW_NAME["days"] = "days";
+        VIEW_NAME["statistics"] = "statistics";
+    })(VIEW_NAME || (VIEW_NAME = {}));
+    ;
+    // Enum: Export Types
+    var EXPORT_TYPE;
+    (function (EXPORT_TYPE) {
+        EXPORT_TYPE["csv"] = "csv";
+        EXPORT_TYPE["json"] = "json";
+        EXPORT_TYPE["xml"] = "xml";
+        EXPORT_TYPE["txt"] = "txt";
+    })(EXPORT_TYPE || (EXPORT_TYPE = {}));
+    ;
     // Variables: Date Counts
     var _elements_DateCounts = {};
     // Variables: Internal Names
@@ -82,7 +126,7 @@ var enums_1 = require("./enums");
     }
     function renderBindingOptions(data, element) {
         var bindingOptions = buildAttributeOptions(data);
-        var view = !isDefinedString(bindingOptions.view) ? enums_1.STRING.empty : bindingOptions.view.toLowerCase();
+        var view = !isDefinedString(bindingOptions.view) ? STRING.empty : bindingOptions.view.toLowerCase();
         var currentView = {};
         currentView.element = element;
         currentView.disabledBackground = null;
@@ -110,20 +154,20 @@ var enums_1 = require("./enums");
             currentView.statisticsContents = null;
             currentView.statisticsContentsScrollLeft = 0;
         }
-        if (view === enums_1.VIEW_NAME.map) {
-            currentView.view = enums_1.VIEW.map;
+        if (view === VIEW_NAME.map) {
+            currentView.view = VIEW.map;
         }
-        else if (view === enums_1.VIEW_NAME.chart) {
-            currentView.view = enums_1.VIEW.chart;
+        else if (view === VIEW_NAME.chart) {
+            currentView.view = VIEW.chart;
         }
-        else if (view === enums_1.VIEW_NAME.days) {
-            currentView.view = enums_1.VIEW.days;
+        else if (view === VIEW_NAME.days) {
+            currentView.view = VIEW.days;
         }
-        else if (view === enums_1.VIEW_NAME.statistics) {
-            currentView.view = enums_1.VIEW.statistics;
+        else if (view === VIEW_NAME.statistics) {
+            currentView.view = VIEW.statistics;
         }
         else {
-            currentView.view = enums_1.VIEW.map;
+            currentView.view = VIEW.map;
         }
         bindingOptions._currentView = currentView;
         return bindingOptions;
@@ -133,7 +177,7 @@ var enums_1 = require("./enums");
         if (!isDefinedString(bindingOptions._currentView.element.id)) {
             bindingOptions._currentView.element.id = newGuid();
         }
-        if (bindingOptions._currentView.element.className.trim() === enums_1.STRING.empty) {
+        if (bindingOptions._currentView.element.className.trim() === STRING.empty) {
             bindingOptions._currentView.element.className = "heat-js";
         }
         else {
@@ -162,7 +206,7 @@ var enums_1 = require("./enums");
         if (bindingOptions.views.statistics.enabled && isDefined(bindingOptions._currentView.statisticsContents)) {
             bindingOptions._currentView.statisticsContentsScrollLeft = bindingOptions._currentView.statisticsContents.scrollLeft;
         }
-        bindingOptions._currentView.element.innerHTML = enums_1.STRING.empty;
+        bindingOptions._currentView.element.innerHTML = STRING.empty;
         bindingOptions._currentView.yearsAvailable = getYearsAvailableInData(bindingOptions);
         hideToolTip(bindingOptions);
         startDataPullTimer(bindingOptions);
@@ -186,20 +230,20 @@ var enums_1 = require("./enums");
             bindingOptions._currentView.statisticsContents.style.display = "none";
         }
         bindingOptions._currentView.mapContents.style.display = "none";
-        if (bindingOptions._currentView.view === enums_1.VIEW.map) {
+        if (bindingOptions._currentView.view === VIEW.map) {
             bindingOptions._currentView.mapContents.style.display = "block";
         }
-        else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === enums_1.VIEW.chart) {
+        else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart) {
             bindingOptions._currentView.chartContents.style.display = "block";
         }
-        else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === enums_1.VIEW.days) {
+        else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW.days) {
             bindingOptions._currentView.daysContents.style.display = "block";
         }
-        else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === enums_1.VIEW.statistics) {
+        else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics) {
             bindingOptions._currentView.statisticsContents.style.display = "block";
         }
         else {
-            bindingOptions._currentView.view = enums_1.VIEW.map;
+            bindingOptions._currentView.view = VIEW.map;
             bindingOptions._currentView.mapContents.style.display = "block";
         }
     }
@@ -216,8 +260,8 @@ var enums_1 = require("./enums");
         var daysContainer = createElement(contents, "div", "side-container panel");
         var monthsContainer = createElement(contents, "div", "side-container panel");
         createElementWithHTML(titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText);
-        createElementWithHTML(daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + enums_1.STRING.colon);
-        createElementWithHTML(monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + enums_1.STRING.colon);
+        createElementWithHTML(daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + STRING.colon);
+        createElementWithHTML(monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + STRING.colon);
         var months1Container = createElement(monthsContainer, "div", "side-container");
         var months2Container = createElement(monthsContainer, "div", "side-container");
         closeButton.onclick = function () {
@@ -241,19 +285,19 @@ var enums_1 = require("./enums");
         }
         var daysToShow = [];
         var monthsToShow = [];
-        if (bindingOptions._currentView.view === enums_1.VIEW.map) {
+        if (bindingOptions._currentView.view === VIEW.map) {
             daysToShow = bindingOptions.views.map.daysToShow;
             monthsToShow = bindingOptions.views.map.monthsToShow;
         }
-        else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === enums_1.VIEW.chart) {
+        else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart) {
             daysToShow = bindingOptions.views.chart.daysToShow;
             monthsToShow = bindingOptions.views.chart.monthsToShow;
         }
-        else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === enums_1.VIEW.days) {
+        else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW.days) {
             daysToShow = bindingOptions.views.days.daysToShow;
             monthsToShow = bindingOptions.views.days.monthsToShow;
         }
-        else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === enums_1.VIEW.statistics) {
+        else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics) {
             daysToShow = bindingOptions.views.statistics.daysToShow;
             monthsToShow = bindingOptions.views.statistics.monthsToShow;
         }
@@ -288,16 +332,16 @@ var enums_1 = require("./enums");
             }
         }
         if (daysChecked.length >= 1) {
-            if (bindingOptions._currentView.view === enums_1.VIEW.map) {
+            if (bindingOptions._currentView.view === VIEW.map) {
                 bindingOptions.views.map.daysToShow = daysChecked;
             }
-            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === enums_1.VIEW.chart) {
+            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart) {
                 bindingOptions.views.chart.daysToShow = daysChecked;
             }
-            else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === enums_1.VIEW.days) {
+            else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW.days) {
                 bindingOptions.views.days.daysToShow = daysChecked;
             }
-            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === enums_1.VIEW.statistics) {
+            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics) {
                 bindingOptions.views.statistics.daysToShow = daysChecked;
             }
             else {
@@ -306,16 +350,16 @@ var enums_1 = require("./enums");
             render = true;
         }
         if (monthsChecked.length >= 1) {
-            if (bindingOptions._currentView.view === enums_1.VIEW.map) {
+            if (bindingOptions._currentView.view === VIEW.map) {
                 bindingOptions.views.map.monthsToShow = monthsChecked;
             }
-            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === enums_1.VIEW.chart) {
+            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart) {
                 bindingOptions.views.chart.monthsToShow = monthsChecked;
             }
-            else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === enums_1.VIEW.days) {
+            else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW.days) {
                 bindingOptions.views.days.monthsToShow = monthsChecked;
             }
-            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === enums_1.VIEW.statistics) {
+            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics) {
                 bindingOptions.views.statistics.monthsToShow = monthsChecked;
             }
             else {
@@ -459,27 +503,27 @@ var enums_1 = require("./enums");
         var titlesMenuContainer = createElement(title, "div", "titles-menu-container");
         var titlesMenu = createElement(titlesMenuContainer, "div", "titles-menu");
         if (bindingOptions.title.showTitleDropDownHeaders) {
-            createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.dataText + enums_1.STRING.colon);
+            createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.dataText + STRING.colon);
         }
         var menuItemMap = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.mapText);
-        renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemMap, enums_1.VIEW.map, enums_1.VIEW_NAME.map);
+        renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemMap, VIEW.map, VIEW_NAME.map);
         if (bindingOptions.views.chart.enabled) {
             var menuItemChart = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.chartText);
-            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemChart, enums_1.VIEW.chart, enums_1.VIEW_NAME.chart);
+            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemChart, VIEW.chart, VIEW_NAME.chart);
         }
         if (bindingOptions.views.days.enabled) {
             if (bindingOptions.title.showTitleDropDownHeaders) {
-                createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.yearText + enums_1.STRING.colon);
+                createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.yearText + STRING.colon);
             }
             var menuItemDays = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.daysText);
-            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemDays, enums_1.VIEW.days, enums_1.VIEW_NAME.days);
+            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemDays, VIEW.days, VIEW_NAME.days);
         }
         if (bindingOptions.views.statistics.enabled) {
             if (bindingOptions.title.showTitleDropDownHeaders) {
-                createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.statisticsText + enums_1.STRING.colon);
+                createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.statisticsText + STRING.colon);
             }
             var menuItemStatistics = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.colorRangesText);
-            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemStatistics, enums_1.VIEW.statistics, enums_1.VIEW_NAME.statistics);
+            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemStatistics, VIEW.statistics, VIEW_NAME.statistics);
         }
     }
     function renderTitleDropDownMenuItemClickEvent(bindingOptions, option, view, viewName) {
@@ -575,7 +619,7 @@ var enums_1 = require("./enums");
                 }
                 for (var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++) {
                     if (isDayVisible(bindingOptions.views.map.daysToShow, dayNameIndex + 1)) {
-                        var dayText = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.dayNames[dayNameIndex] : enums_1.STRING.space;
+                        var dayText = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.dayNames[dayNameIndex] : STRING.space;
                         createElementWithHTML(days, "div", "day-name", dayText);
                     }
                 }
@@ -733,7 +777,7 @@ var enums_1 = require("./enums");
             createElementWithHTML(labels, "div", "label-25", (mathObject.floor(largestValueForCurrentYear / 4) * 3).toString());
             createElementWithHTML(labels, "div", "label-50", mathObject.floor(largestValueForCurrentYear / 2).toString());
             createElementWithHTML(labels, "div", "label-75", mathObject.floor(largestValueForCurrentYear / 4).toString());
-            createElementWithHTML(labels, "div", "label-100", enums_1.STRING.zero);
+            createElementWithHTML(labels, "div", "label-100", STRING.zero);
             labels.style.width = topLabel.offsetWidth + "px";
             labelsWidth = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true);
         }
@@ -876,7 +920,7 @@ var enums_1 = require("./enums");
             createElementWithHTML(labels, "div", "label-25", (mathObject.floor(dayValuesForCurrentYear.largestValue / 4) * 3).toString());
             createElementWithHTML(labels, "div", "label-50", mathObject.floor(dayValuesForCurrentYear.largestValue / 2).toString());
             createElementWithHTML(labels, "div", "label-75", mathObject.floor(dayValuesForCurrentYear.largestValue / 4).toString());
-            createElementWithHTML(labels, "div", "label-100", enums_1.STRING.zero);
+            createElementWithHTML(labels, "div", "label-100", STRING.zero);
             labels.style.width = topLabel.offsetWidth + "px";
             dayNames.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
         }
@@ -989,7 +1033,7 @@ var enums_1 = require("./enums");
             createElementWithHTML(labels, "div", "label-25", (mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 4) * 3).toString());
             createElementWithHTML(labels, "div", "label-50", mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 2).toString());
             createElementWithHTML(labels, "div", "label-75", mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 4).toString());
-            createElementWithHTML(labels, "div", "label-100", enums_1.STRING.zero);
+            createElementWithHTML(labels, "div", "label-100", STRING.zero);
             labels.style.width = topLabel.offsetWidth + "px";
             statisticsRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
         }
@@ -1017,7 +1061,7 @@ var enums_1 = require("./enums");
                     var useColorRange = getColorRangeByMinimum(colorRanges, parseInt(type));
                     if (bindingOptions.views.statistics.showColorRangeLabels) {
                         if (!bindingOptions.views.statistics.useColorRangeNamesForLabels || !isDefined(useColorRange) || !isDefinedString(useColorRange.name)) {
-                            createElementWithHTML(statisticsRanges, "div", "range-name", type + enums_1.STRING.plus);
+                            createElementWithHTML(statisticsRanges, "div", "range-name", type + STRING.plus);
                         }
                         else {
                             createElementWithHTML(statisticsRanges, "div", "range-name", useColorRange.name);
@@ -1068,7 +1112,7 @@ var enums_1 = require("./enums");
         var types = {};
         var data = getCurrentViewData(bindingOptions);
         var largestValue = 0;
-        types[enums_1.STRING.zero] = 0;
+        types[STRING.zero] = 0;
         for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
             var totalDaysInMonth = getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
             for (var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++) {
@@ -1080,7 +1124,7 @@ var enums_1 = require("./enums");
                     if (!isHoliday(bindingOptions, storageDateObject).matched && isMonthVisible(bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.statistics.daysToShow, weekDayNumber)) {
                         var useColorRange = getColorRange(bindingOptions, colorRanges, data[storageDate]);
                         if (!isDefined(useColorRange)) {
-                            types[enums_1.STRING.zero]++;
+                            types[STRING.zero]++;
                         }
                         else {
                             if (!types.hasOwnProperty(useColorRange.minimum.toString())) {
@@ -1180,13 +1224,13 @@ var enums_1 = require("./enums");
         day.className = "day";
         addToolTip(day, bindingOptions, colorRange.tooltipText);
         if (isColorRangeVisible(bindingOptions, colorRange.id)) {
-            if (bindingOptions._currentView.view === enums_1.VIEW.map && isDefinedString(colorRange.mapCssClassName)) {
+            if (bindingOptions._currentView.view === VIEW.map && isDefinedString(colorRange.mapCssClassName)) {
                 addClass(day, colorRange.mapCssClassName);
             }
-            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === enums_1.VIEW.chart && isDefinedString(colorRange.chartCssClassName)) {
+            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart && isDefinedString(colorRange.chartCssClassName)) {
                 addClass(day, colorRange.chartCssClassName);
             }
-            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === enums_1.VIEW.statistics && isDefinedString(colorRange.statisticsCssClassName)) {
+            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics && isDefinedString(colorRange.statisticsCssClassName)) {
                 addClass(day, colorRange.statisticsCssClassName);
             }
             else {
@@ -1195,7 +1239,7 @@ var enums_1 = require("./enums");
         }
         if (bindingOptions.guide.showNumbersInGuide) {
             addClass(day, "day-number");
-            day.innerHTML = colorRange.minimum + enums_1.STRING.plus;
+            day.innerHTML = colorRange.minimum + STRING.plus;
         }
         if (bindingOptions.guide.colorRangeTogglesEnabled) {
             day.onclick = function () {
@@ -1232,7 +1276,7 @@ var enums_1 = require("./enums");
             if (bindingOptions.showHolidaysInDayToolTips) {
                 var holiday = isHoliday(bindingOptions, date);
                 if (holiday.matched && isDefinedString(holiday.name)) {
-                    tooltip += enums_1.STRING.colon + enums_1.STRING.space + holiday.name;
+                    tooltip += STRING.colon + STRING.space + holiday.name;
                 }
             }
             addToolTip(day, bindingOptions, tooltip);
@@ -1259,10 +1303,10 @@ var enums_1 = require("./enums");
         return _elements_DateCounts[bindingOptions._currentView.element.id].type[bindingOptions._currentView.type];
     }
     function isMonthVisible(monthsToShow, month) {
-        return monthsToShow.indexOf(month + 1) > enums_1.VALUE.notFound;
+        return monthsToShow.indexOf(month + 1) > VALUE.notFound;
     }
     function isDayVisible(daysToShow, day) {
-        return daysToShow.indexOf(day) > enums_1.VALUE.notFound;
+        return daysToShow.indexOf(day) > VALUE.notFound;
     }
     function getYearsAvailableInData(bindingOptions) {
         var years = [];
@@ -1271,7 +1315,7 @@ var enums_1 = require("./enums");
             for (var storageDate in data) {
                 if (data.hasOwnProperty(storageDate)) {
                     var year = parseInt(getStorageDateYear(storageDate));
-                    if (years.indexOf(year) === enums_1.VALUE.notFound) {
+                    if (years.indexOf(year) === VALUE.notFound) {
                         years.push(year);
                     }
                 }
@@ -1283,7 +1327,7 @@ var enums_1 = require("./enums");
         return years;
     }
     function isYearVisible(bindingOptions, year) {
-        return bindingOptions.yearsToHide.indexOf(year) === enums_1.VALUE.notFound && (bindingOptions._currentView.yearsAvailable.length === 0 || bindingOptions._currentView.yearsAvailable.indexOf(year) > enums_1.VALUE.notFound);
+        return bindingOptions.yearsToHide.indexOf(year) === VALUE.notFound && (bindingOptions._currentView.yearsAvailable.length === 0 || bindingOptions._currentView.yearsAvailable.indexOf(year) > VALUE.notFound);
     }
     function isFirstVisibleYear(bindingOptions, year) {
         return bindingOptions._currentView.yearsAvailable.length > 0 && year <= bindingOptions._currentView.yearsAvailable[0];
@@ -1435,12 +1479,12 @@ var enums_1 = require("./enums");
                 cssClassName: "holiday",
                 id: _internal_Name_Holiday,
                 visible: true,
-                name: enums_1.STRING.empty,
+                name: STRING.empty,
                 minimum: 0,
-                mapCssClassName: enums_1.STRING.empty,
-                chartCssClassName: enums_1.STRING.empty,
-                statisticsCssClassName: enums_1.STRING.empty,
-                tooltipText: enums_1.STRING.empty
+                mapCssClassName: STRING.empty,
+                chartCssClassName: STRING.empty,
+                statisticsCssClassName: STRING.empty,
+                tooltipText: STRING.empty
             };
             useColorRange = newUseColorRange;
         }
@@ -1558,13 +1602,13 @@ var enums_1 = require("./enums");
         for (var fileIndex = 0; fileIndex < filesLength; fileIndex++) {
             var file = files[fileIndex];
             var fileExtension = file.name.split(".").pop().toLowerCase();
-            if (fileExtension === enums_1.EXPORT_TYPE.json) {
+            if (fileExtension === EXPORT_TYPE.json) {
                 importFromJson(file, onLoadEnd);
             }
-            else if (fileExtension === enums_1.EXPORT_TYPE.txt) {
+            else if (fileExtension === EXPORT_TYPE.txt) {
                 importFromTxt(file, onLoadEnd);
             }
-            else if (fileExtension === enums_1.EXPORT_TYPE.csv) {
+            else if (fileExtension === EXPORT_TYPE.csv) {
                 importFromCsv(file, onLoadEnd);
             }
         }
@@ -1591,10 +1635,10 @@ var enums_1 = require("./enums");
             onLoadEnd(file.name, readingObject);
         };
         reader.onload = function (e) {
-            var lines = e.target.result.toString().split(enums_1.STRING.newLine);
+            var lines = e.target.result.toString().split(STRING.newLine);
             var linesLength = lines.length;
             for (var lineIndex = 0; lineIndex < linesLength; lineIndex++) {
-                var line = lines[lineIndex].split(enums_1.STRING.colon);
+                var line = lines[lineIndex].split(STRING.colon);
                 readingObject[line[0].trim()] = parseInt(line[1].trim());
             }
         };
@@ -1607,12 +1651,12 @@ var enums_1 = require("./enums");
             onLoadEnd(file.name, readingObject);
         };
         reader.onload = function (e) {
-            var data = e.target.result.toString().replace(new RegExp("\"", "g"), enums_1.STRING.empty);
-            var lines = data.split(enums_1.STRING.newLine);
+            var data = e.target.result.toString().replace(new RegExp("\"", "g"), STRING.empty);
+            var lines = data.split(STRING.newLine);
             lines.shift();
             var linesLength = lines.length;
             for (var lineIndex = 0; lineIndex < linesLength; lineIndex++) {
-                var line = lines[lineIndex].split(enums_1.STRING.comma);
+                var line = lines[lineIndex].split(STRING.comma);
                 readingObject[line[0].trim()] = parseInt(line[1].trim());
             }
         };
@@ -1627,16 +1671,16 @@ var enums_1 = require("./enums");
         var contents = null;
         var contentsMimeType = getExportMimeType(bindingOptions);
         var contentExportType = getDefaultString(exportType, bindingOptions.exportType).toLowerCase();
-        if (contentExportType === enums_1.EXPORT_TYPE.csv) {
+        if (contentExportType === EXPORT_TYPE.csv) {
             contents = getCsvContent(bindingOptions);
         }
-        else if (contentExportType === enums_1.EXPORT_TYPE.json) {
+        else if (contentExportType === EXPORT_TYPE.json) {
             contents = getJsonContent(bindingOptions);
         }
-        else if (contentExportType === enums_1.EXPORT_TYPE.xml) {
+        else if (contentExportType === EXPORT_TYPE.xml) {
             contents = getXmlContents(bindingOptions);
         }
-        else if (contentExportType === enums_1.EXPORT_TYPE.txt) {
+        else if (contentExportType === EXPORT_TYPE.txt) {
             contents = getTxtContents(bindingOptions);
         }
         if (isDefinedString(contents)) {
@@ -1661,7 +1705,7 @@ var enums_1 = require("./enums");
         if (csvContents.length > 0) {
             csvContents.unshift(getCsvValueLine([getCsvValue(_configuration.dateText), getCsvValue(_configuration.countText)]));
         }
-        return csvContents.join(enums_1.STRING.newLine);
+        return csvContents.join(STRING.newLine);
     }
     function getJsonContent(bindingOptions) {
         return jsonObject.stringify(getExportData(bindingOptions));
@@ -1680,17 +1724,17 @@ var enums_1 = require("./enums");
             }
         }
         contents.push("</Dates>");
-        return contents.join(enums_1.STRING.newLine);
+        return contents.join(STRING.newLine);
     }
     function getTxtContents(bindingOptions) {
         var data = getExportData(bindingOptions);
         var contents = [];
         for (var storageDate in data) {
             if (data.hasOwnProperty(storageDate)) {
-                contents.push(storageDate + enums_1.STRING.colon + enums_1.STRING.space + data[storageDate].toString());
+                contents.push(storageDate + STRING.colon + STRING.space + data[storageDate].toString());
             }
         }
-        return contents.join(enums_1.STRING.newLine);
+        return contents.join(STRING.newLine);
     }
     function getExportData(bindingOptions) {
         var contents = {};
@@ -1726,32 +1770,32 @@ var enums_1 = require("./enums");
     }
     function getExportMimeType(bindingOptions) {
         var result = null;
-        if (bindingOptions.exportType.toLowerCase() === enums_1.EXPORT_TYPE.csv) {
+        if (bindingOptions.exportType.toLowerCase() === EXPORT_TYPE.csv) {
             result = "text/csv";
         }
-        else if (bindingOptions.exportType.toLowerCase() === enums_1.EXPORT_TYPE.json) {
+        else if (bindingOptions.exportType.toLowerCase() === EXPORT_TYPE.json) {
             result = "application/json";
         }
-        else if (bindingOptions.exportType.toLowerCase() === enums_1.EXPORT_TYPE.xml) {
+        else if (bindingOptions.exportType.toLowerCase() === EXPORT_TYPE.xml) {
             result = "application/xml";
         }
-        else if (bindingOptions.exportType.toLowerCase() === enums_1.EXPORT_TYPE.txt) {
+        else if (bindingOptions.exportType.toLowerCase() === EXPORT_TYPE.txt) {
             result = "text/plain";
         }
         return result;
     }
     function getExportFilename(bindingOptions) {
         var date = new Date();
-        var datePart = padNumber(date.getDate()) + enums_1.STRING.dash + padNumber(date.getMonth() + 1) + enums_1.STRING.dash + date.getFullYear();
-        var timePart = padNumber(date.getHours()) + enums_1.STRING.dash + padNumber(date.getMinutes());
-        var filenameStart = enums_1.STRING.empty;
+        var datePart = padNumber(date.getDate()) + STRING.dash + padNumber(date.getMonth() + 1) + STRING.dash + date.getFullYear();
+        var timePart = padNumber(date.getHours()) + STRING.dash + padNumber(date.getMinutes());
+        var filenameStart = STRING.empty;
         if (bindingOptions._currentView.type !== _configuration.unknownTrendText) {
-            filenameStart = bindingOptions._currentView.type.toLowerCase().replace(enums_1.STRING.space, enums_1.STRING.underscore) + enums_1.STRING.underscore;
+            filenameStart = bindingOptions._currentView.type.toLowerCase().replace(STRING.space, STRING.underscore) + STRING.underscore;
         }
-        return filenameStart + datePart + enums_1.STRING.underscore + timePart + "." + bindingOptions.exportType.toLowerCase();
+        return filenameStart + datePart + STRING.underscore + timePart + "." + bindingOptions.exportType.toLowerCase();
     }
     function getCsvValue(text) {
-        var result = text.toString().replace(/(\r\n|\n|\r)/gm, enums_1.STRING.empty).replace(/(\s\s)/gm, enums_1.STRING.space);
+        var result = text.toString().replace(/(\r\n|\n|\r)/gm, STRING.empty).replace(/(\s\s)/gm, STRING.space);
         result = result.replace(/"/g, '""');
         result = '"' + result + '"';
         return result;
@@ -1769,8 +1813,8 @@ var enums_1 = require("./enums");
         options.views = getDefaultObject(options.views, {});
         options.exportOnlyYearBeingViewed = getDefaultBoolean(options.exportOnlyYearBeingViewed, true);
         options.year = getDefaultNumber(options.year, new Date().getFullYear());
-        options.view = getDefaultString(options.view, enums_1.VIEW_NAME.map);
-        options.exportType = getDefaultString(options.exportType, enums_1.EXPORT_TYPE.csv);
+        options.view = getDefaultString(options.view, VIEW_NAME.map);
+        options.exportType = getDefaultString(options.exportType, EXPORT_TYPE.csv);
         options.useLocalStorageForData = getDefaultBoolean(options.useLocalStorageForData, false);
         options.allowFileImports = getDefaultBoolean(options.allowFileImports, true);
         options.yearsToHide = getDefaultArray(options.yearsToHide, []);
@@ -1815,9 +1859,9 @@ var enums_1 = require("./enums");
                     cssClassName: "day-color-1",
                     tooltipText: "Day Color 1",
                     visible: true,
-                    mapCssClassName: enums_1.STRING.empty,
-                    chartCssClassName: enums_1.STRING.empty,
-                    statisticsCssClassName: enums_1.STRING.empty
+                    mapCssClassName: STRING.empty,
+                    chartCssClassName: STRING.empty,
+                    statisticsCssClassName: STRING.empty
                 },
                 {
                     id: newGuid(),
@@ -1826,9 +1870,9 @@ var enums_1 = require("./enums");
                     cssClassName: "day-color-2",
                     tooltipText: "Day Color 2",
                     visible: true,
-                    mapCssClassName: enums_1.STRING.empty,
-                    chartCssClassName: enums_1.STRING.empty,
-                    statisticsCssClassName: enums_1.STRING.empty
+                    mapCssClassName: STRING.empty,
+                    chartCssClassName: STRING.empty,
+                    statisticsCssClassName: STRING.empty
                 },
                 {
                     id: newGuid(),
@@ -1837,9 +1881,9 @@ var enums_1 = require("./enums");
                     cssClassName: "day-color-3",
                     tooltipText: "Day Color 3",
                     visible: true,
-                    mapCssClassName: enums_1.STRING.empty,
-                    chartCssClassName: enums_1.STRING.empty,
-                    statisticsCssClassName: enums_1.STRING.empty
+                    mapCssClassName: STRING.empty,
+                    chartCssClassName: STRING.empty,
+                    statisticsCssClassName: STRING.empty
                 },
                 {
                     id: newGuid(),
@@ -1848,9 +1892,9 @@ var enums_1 = require("./enums");
                     cssClassName: "day-color-4",
                     tooltipText: "Day Color 4",
                     visible: true,
-                    mapCssClassName: enums_1.STRING.empty,
-                    chartCssClassName: enums_1.STRING.empty,
-                    statisticsCssClassName: enums_1.STRING.empty
+                    mapCssClassName: STRING.empty,
+                    chartCssClassName: STRING.empty,
+                    statisticsCssClassName: STRING.empty
                 }
             ];
         }
@@ -2053,19 +2097,19 @@ var enums_1 = require("./enums");
         var nodeType = type.toLowerCase();
         var isText = nodeType === "text";
         if (!_elements_Type.hasOwnProperty(nodeType)) {
-            _elements_Type[nodeType] = isText ? documentObject.createTextNode(enums_1.STRING.empty) : documentObject.createElement(nodeType);
+            _elements_Type[nodeType] = isText ? documentObject.createTextNode(STRING.empty) : documentObject.createElement(nodeType);
         }
         result = _elements_Type[nodeType].cloneNode(false);
         return result;
     }
     function createElement(container, type, className, beforeNode) {
-        if (className === void 0) { className = enums_1.STRING.empty; }
+        if (className === void 0) { className = STRING.empty; }
         if (beforeNode === void 0) { beforeNode = null; }
         var result = null;
         var nodeType = type.toLowerCase();
         var isText = nodeType === "text";
         if (!_elements_Type.hasOwnProperty(nodeType)) {
-            _elements_Type[nodeType] = isText ? documentObject.createTextNode(enums_1.STRING.empty) : documentObject.createElement(nodeType);
+            _elements_Type[nodeType] = isText ? documentObject.createTextNode(STRING.empty) : documentObject.createElement(nodeType);
         }
         result = _elements_Type[nodeType].cloneNode(false);
         if (isDefined(className)) {
@@ -2100,11 +2144,11 @@ var enums_1 = require("./enums");
         return value;
     }
     function addClass(element, className) {
-        element.className += enums_1.STRING.space + className;
+        element.className += STRING.space + className;
         element.className = element.className.trim();
     }
     function removeClass(element, className) {
-        element.className = element.className.replace(className, enums_1.STRING.empty);
+        element.className = element.className.replace(className, STRING.empty);
         element.className = element.className.trim();
     }
     function cancelBubble(e) {
@@ -2195,7 +2239,7 @@ var enums_1 = require("./enums");
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
     function isDefined(value) {
-        return value !== null && value !== undefined && value.toString() !== enums_1.STRING.empty;
+        return value !== null && value !== undefined && value.toString() !== STRING.empty;
     }
     function isDefinedObject(object) {
         return isDefined(object) && typeof object === "object";
@@ -2251,7 +2295,7 @@ var enums_1 = require("./enums");
     function getDefaultStringOrArray(value, defaultValue) {
         var result = defaultValue;
         if (isDefinedString(value)) {
-            var values = value.toString().split(enums_1.STRING.space);
+            var values = value.toString().split(STRING.space);
             if (values.length === 0) {
                 value = defaultValue;
             }
@@ -2300,16 +2344,16 @@ var enums_1 = require("./enums");
         var result = [];
         for (var charIndex = 0; charIndex < 32; charIndex++) {
             if (charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20) {
-                result.push(enums_1.STRING.dash);
+                result.push(STRING.dash);
             }
             var character = mathObject.floor(mathObject.random() * 16).toString(16);
             result.push(character);
         }
-        return result.join(enums_1.STRING.empty);
+        return result.join(STRING.empty);
     }
     function padNumber(number) {
         var numberString = number.toString();
-        return numberString.length === 1 ? enums_1.STRING.zero + numberString : numberString;
+        return numberString.length === 1 ? STRING.zero + numberString : numberString;
     }
     function startsWithAnyCase(data, start) {
         return data.substring(0, start.length).toLowerCase() === start.toLowerCase();
@@ -2320,13 +2364,13 @@ var enums_1 = require("./enums");
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
     function toStorageDate(date) {
-        return date.getFullYear() + enums_1.STRING.dash + padNumber(date.getMonth() + 1) + enums_1.STRING.dash + padNumber(date.getDate());
+        return date.getFullYear() + STRING.dash + padNumber(date.getMonth() + 1) + STRING.dash + padNumber(date.getDate());
     }
     function getStorageDate(data) {
-        return data.split(enums_1.STRING.dash);
+        return data.split(STRING.dash);
     }
     function getStorageDateYear(data) {
-        return data.split(enums_1.STRING.dash)[0];
+        return data.split(STRING.dash)[0];
     }
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2379,7 +2423,7 @@ var enums_1 = require("./enums");
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
     function destroyElement(bindingOptions) {
-        bindingOptions._currentView.element.innerHTML = enums_1.STRING.empty;
+        bindingOptions._currentView.element.innerHTML = STRING.empty;
         removeClass(bindingOptions._currentView.element, "heat-js");
         assignToolTipEvents(bindingOptions, false);
         documentObject.body.removeChild(bindingOptions._currentView.tooltip);
@@ -2761,17 +2805,17 @@ var enums_1 = require("./enums");
             if (isDefinedString(elementId) && isDefinedString(viewName) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 var view = null;
-                if (viewName.toLowerCase() === enums_1.VIEW_NAME.map) {
-                    view = enums_1.VIEW.map;
+                if (viewName.toLowerCase() === VIEW_NAME.map) {
+                    view = VIEW.map;
                 }
-                else if (viewName.toLowerCase() === enums_1.VIEW_NAME.chart) {
-                    view = enums_1.VIEW.chart;
+                else if (viewName.toLowerCase() === VIEW_NAME.chart) {
+                    view = VIEW.chart;
                 }
-                else if (viewName.toLowerCase() === enums_1.VIEW_NAME.days) {
-                    view = enums_1.VIEW.days;
+                else if (viewName.toLowerCase() === VIEW_NAME.days) {
+                    view = VIEW.days;
                 }
-                else if (viewName.toLowerCase() === enums_1.VIEW_NAME.statistics) {
-                    view = enums_1.VIEW.statistics;
+                else if (viewName.toLowerCase() === VIEW_NAME.statistics) {
+                    view = VIEW.statistics;
                 }
                 if (isDefinedNumber(view)) {
                     bindingOptions._currentView.view = view;
