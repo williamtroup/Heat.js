@@ -33,4 +33,4 @@ export enum EXPORT_TYPE {
     json = "json",
     xml = "xml",
     txt = "txt"
-}
+};
