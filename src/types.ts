@@ -52,112 +52,122 @@ export type BindingOptions = {
     colorRanges: ColorRange[];
     holidays: Holiday[];
     views: {
-        title: {
-            text: string;
-            showText: boolean;
-            showYearSelector: boolean;
-            showRefreshButton: boolean;
-            showExportButton: boolean;
-            extraSelectionYears: number;
-            showImportButton: boolean;
-            showConfigurationButton: boolean;
-            showTitleDropDownButton: boolean;
-            showTitleDropDownHeaders: boolean;
-        },
-
-        description: {
-            text: string;
-            url: string;
-            urlTarget: string;
-        },
-
-        guide: {
-            enabled: boolean;
-            colorRangeTogglesEnabled: boolean;
-            showLessAndMoreLabels: boolean;
-            showNumbersInGuide: boolean;
-        },
-
-        tooltip: {
-            delay: number;
-            dayText: string;
-        },
-
-        map: {
-            showMonthDayGaps: boolean;
-            showDayNames: boolean;
-            placeMonthNamesOnTheBottom: boolean;
-            showDayNumbers: boolean;
-            showMonthNames: boolean;
-            showDaysInReverseOrder: boolean;
-            showNoDataMessageWhenDataIsNotAvailable: boolean;
-            showMinimalDayNames: boolean;
-            showMonthsInReverseOrder: boolean;
-            keepScrollPositions: boolean;
-            monthsToShow: number[];
-            daysToShow: number[];
-        },
-
-        chart: {
-            enabled: boolean;
-            showChartYLabels: boolean;
-            showMonthNames: boolean;
-            showLineNumbers: boolean;
-            showInReverseOrder: boolean;
-            keepScrollPositions: boolean;
-            monthsToShow: number[];
-            daysToShow: number[];
-        },
-
-        days: {
-            enabled: boolean;
-            showChartYLabels: boolean;
-            showDayNames: boolean;
-            showInReverseOrder: boolean;
-            showDayNumbers: boolean;
-            keepScrollPositions: boolean;
-            monthsToShow: number[];
-            daysToShow: number[];
-        },
-
-        statistics: {
-            enabled: boolean;
-            showChartYLabels: boolean;
-            showColorRangeLabels: boolean;
-            useColorRangeNamesForLabels: boolean;
-            showRangeNumbers: boolean;
-            showInReverseOrder: boolean;
-            keepScrollPositions: boolean;
-            monthsToShow: number[];
-            daysToShow: number[];
-        },
-
-        events: {
-            onDayClick: Function | null;
-            onBackYear: Function | null;
-            onNextYear: Function | null;
-            onRefresh: Function | null;
-            onBeforeRender: Function | null;
-            onRenderComplete: Function | null;
-            onDestroy: Function | null;
-            onExport: Function | null;
-            onSetYear: Function | null;
-            onTypeSwitch: Function | null;
-            onDayToolTipRender: Function | null;
-            onAdd: Function | null;
-            onRemove: Function | null;
-            onReset: Function | null;
-            onViewSwitch: Function | null;
-            onColorRangeTypeToggle: Function | null;
-            onImport: Function | null;
-            onStatisticClick: Function | null;
-            onDataFetch: Function | null;
-            onClear: Function | null;
-            onUpdate: Function | null;
-            onOptionsUpdate: Function | null;
-            onWeekDayClick: Function | null;
-        }
+        title: title,
+        description: description,
+        guide: guide,
+        tooltip: tooltip,
+        map: map,
+        chart: chart,
+        days: days,
+        statistics: statistics,
+        events: events
     };
+};
+
+export type title = {
+    text: string;
+    showText: boolean;
+    showYearSelector: boolean;
+    showRefreshButton: boolean;
+    showExportButton: boolean;
+    extraSelectionYears: number;
+    showImportButton: boolean;
+    showConfigurationButton: boolean;
+    showTitleDropDownButton: boolean;
+    showTitleDropDownHeaders: boolean;
+};
+
+export type description = {
+    text: string;
+    url: string;
+    urlTarget: string;
+};
+
+export type guide = {
+    enabled: boolean;
+    colorRangeTogglesEnabled: boolean;
+    showLessAndMoreLabels: boolean;
+    showNumbersInGuide: boolean;
+};
+
+export type tooltip = {
+    delay: number;
+    dayText: string;
+};
+
+export type map = {
+    showMonthDayGaps: boolean;
+    showDayNames: boolean;
+    placeMonthNamesOnTheBottom: boolean;
+    showDayNumbers: boolean;
+    showMonthNames: boolean;
+    showDaysInReverseOrder: boolean;
+    showNoDataMessageWhenDataIsNotAvailable: boolean;
+    showMinimalDayNames: boolean;
+    showMonthsInReverseOrder: boolean;
+    keepScrollPositions: boolean;
+    monthsToShow: number[];
+    daysToShow: number[];
+};
+
+export type chart = {
+    enabled: boolean;
+    showChartYLabels: boolean;
+    showMonthNames: boolean;
+    showLineNumbers: boolean;
+    showInReverseOrder: boolean;
+    keepScrollPositions: boolean;
+    monthsToShow: number[];
+    daysToShow: number[];
+};
+
+export type days = {
+    enabled: boolean;
+    showChartYLabels: boolean;
+    showDayNames: boolean;
+    showInReverseOrder: boolean;
+    showDayNumbers: boolean;
+    keepScrollPositions: boolean;
+    monthsToShow: number[];
+    daysToShow: number[];
+};
+
+export type statistics = {
+    enabled: boolean;
+    showChartYLabels: boolean;
+    showColorRangeLabels: boolean;
+    useColorRangeNamesForLabels: boolean;
+    showRangeNumbers: boolean;
+    showInReverseOrder: boolean;
+    keepScrollPositions: boolean;
+    monthsToShow: number[];
+    daysToShow: number[];
+};
+
+export type events = {
+    onDayClick: Function | null;
+    onBackYear: Function | null;
+    onNextYear: Function | null;
+    onRefresh: Function | null;
+    onBeforeRender: Function | null;
+    onRenderComplete: Function | null;
+    onDestroy: Function | null;
+    onExport: Function | null;
+    onSetYear: Function | null;
+    onTypeSwitch: Function | null;
+    onDayToolTipRender: Function | null;
+    onAdd: Function | null;
+    onRemove: Function | null;
+    onReset: Function | null;
+    onViewSwitch: Function | null;
+    onColorRangeTypeToggle: Function | null;
+    onImport: Function | null;
+    onStatisticClick: Function | null;
+    onDataFetch: Function | null;
+    onClear: Function | null;
+    onUpdate: Function | null;
+    onOptionsUpdate: Function | null;
+    onWeekDayClick: Function | null;
 };
 
 export type ColorRange = {
