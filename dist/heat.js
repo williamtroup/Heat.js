@@ -20,6 +20,1226 @@ var enums_1 = require("./enums");
     var _attribute_Name_Options = "data-heat-js";
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Disabled Background
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function renderDisabledBackground(bindingOptions) {
+        bindingOptions._currentView.disabledBackground = createElement(bindingOptions._currentView.element, "div", "disabled");
+    }
+    function showDisabledBackground(bindingOptions) {
+        if (isDefined(bindingOptions._currentView.disabledBackground) && bindingOptions._currentView.disabledBackground.style.display !== "block") {
+            bindingOptions._currentView.disabledBackground.style.display = "block";
+        }
+    }
+    function hideDisabledBackground(bindingOptions) {
+        if (isDefined(bindingOptions._currentView.disabledBackground) && bindingOptions._currentView.disabledBackground.style.display !== "none") {
+            bindingOptions._currentView.disabledBackground.style.display = "none";
+        }
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function render() {
+        var tagTypes = _configuration.domElementTypes;
+        var tagTypesLength = tagTypes.length;
+        for (var tagTypeIndex = 0; tagTypeIndex < tagTypesLength; tagTypeIndex++) {
+            var domElements = documentObject.getElementsByTagName(tagTypes[tagTypeIndex]);
+            var elements = [].slice.call(domElements);
+            var elementsLength = elements.length;
+            for (var elementIndex = 0; elementIndex < elementsLength; elementIndex++) {
+                if (!renderElement(elements[elementIndex])) {
+                    break;
+                }
+            }
+        }
+    }
+    function renderElement(element) {
+        var result = true;
+        if (isDefined(element) && element.hasAttribute(_attribute_Name_Options)) {
+            var bindingOptionsData = element.getAttribute(_attribute_Name_Options);
+            if (isDefinedString(bindingOptionsData)) {
+                var bindingOptions = getObjectFromString(bindingOptionsData);
+                if (bindingOptions.parsed && isDefinedObject(bindingOptions.result)) {
+                    renderControl(renderBindingOptions(bindingOptions.result, element));
+                }
+                else {
+                    if (!_configuration.safeMode) {
+                        console.error(_configuration.attributeNotValidErrorText.replace("{{attribute_name}}", _attribute_Name_Options));
+                        result = false;
+                    }
+                }
+            }
+            else {
+                if (!_configuration.safeMode) {
+                    console.error(_configuration.attributeNotSetErrorText.replace("{{attribute_name}}", _attribute_Name_Options));
+                    result = false;
+                }
+            }
+        }
+        return result;
+    }
+    function renderBindingOptions(data, element) {
+        var bindingOptions = buildAttributeOptions(data);
+        var view = !isDefinedString(bindingOptions.view) ? enums_1.STRING.empty : bindingOptions.view.toLowerCase();
+        var currentView;
+        currentView.element = element;
+        currentView.disabledBackground = null;
+        currentView.configurationDialog = null;
+        currentView.dayCheckBoxes = [];
+        currentView.monthCheckBoxes = [];
+        currentView.tooltip = null;
+        currentView.tooltipTimer = null;
+        currentView.mapContents = null;
+        currentView.mapContentsScrollLeft = 0;
+        currentView.year = bindingOptions.year;
+        currentView.type = _configuration.unknownTrendText;
+        currentView.isInFetchMode = isDefinedFunction(bindingOptions.events.onDataFetch);
+        currentView.isInFetchModeTimer = null;
+        currentView.yearsAvailable = [];
+        if (bindingOptions.views.chart.enabled) {
+            currentView.chartContents = null;
+            currentView.chartContentsScrollLeft = 0;
+        }
+        if (bindingOptions.views.days.enabled) {
+            currentView.daysContents = null;
+            currentView.daysContentsScrollLeft = 0;
+        }
+        if (bindingOptions.views.statistics.enabled) {
+            currentView.statisticsContents = null;
+            currentView.statisticsContentsScrollLeft = 0;
+        }
+        if (view === enums_1.VIEW_NAME.map) {
+            currentView.view = enums_1.VIEW.map;
+        }
+        else if (view === enums_1.VIEW_NAME.chart) {
+            currentView.view = enums_1.VIEW.chart;
+        }
+        else if (view === enums_1.VIEW_NAME.days) {
+            currentView.view = enums_1.VIEW.days;
+        }
+        else if (view === enums_1.VIEW_NAME.statistics) {
+            currentView.view = enums_1.VIEW.statistics;
+        }
+        else {
+            currentView.view = enums_1.VIEW.map;
+        }
+        bindingOptions._currentView = currentView;
+        return bindingOptions;
+    }
+    function renderControl(bindingOptions) {
+        fireCustomTrigger(bindingOptions.events.onBeforeRender, bindingOptions._currentView.element);
+        if (!isDefinedString(bindingOptions._currentView.element.id)) {
+            bindingOptions._currentView.element.id = newGuid();
+        }
+        if (bindingOptions._currentView.element.className.trim() === enums_1.STRING.empty) {
+            bindingOptions._currentView.element.className = "heat-js";
+        }
+        else {
+            addClass(bindingOptions._currentView.element, "heat-js");
+        }
+        bindingOptions._currentView.element.removeAttribute(_attribute_Name_Options);
+        createDateStorageForElement(bindingOptions._currentView.element.id, bindingOptions);
+        renderControlContainer(bindingOptions);
+        fireCustomTrigger(bindingOptions.events.onRenderComplete, bindingOptions._currentView.element);
+    }
+    function renderControlContainer(bindingOptions, isForDataRefresh, isForViewSwitch) {
+        if (isForDataRefresh === void 0) { isForDataRefresh = false; }
+        if (isForViewSwitch === void 0) { isForViewSwitch = false; }
+        if (isForDataRefresh) {
+            storeDataInLocalStorage(bindingOptions);
+        }
+        if (isDefined(bindingOptions._currentView.mapContents)) {
+            bindingOptions._currentView.mapContentsScrollLeft = bindingOptions._currentView.mapContents.scrollLeft;
+        }
+        if (bindingOptions.views.chart.enabled && isDefined(bindingOptions._currentView.chartContents)) {
+            bindingOptions._currentView.chartContentsScrollLeft = bindingOptions._currentView.chartContents.scrollLeft;
+        }
+        if (bindingOptions.views.days.enabled && isDefined(bindingOptions._currentView.daysContents)) {
+            bindingOptions._currentView.daysContentsScrollLeft = bindingOptions._currentView.daysContents.scrollLeft;
+        }
+        if (bindingOptions.views.statistics.enabled && isDefined(bindingOptions._currentView.statisticsContents)) {
+            bindingOptions._currentView.statisticsContentsScrollLeft = bindingOptions._currentView.statisticsContents.scrollLeft;
+        }
+        bindingOptions._currentView.element.innerHTML = enums_1.STRING.empty;
+        bindingOptions._currentView.yearsAvailable = getYearsAvailableInData(bindingOptions);
+        hideToolTip(bindingOptions);
+        startDataPullTimer(bindingOptions);
+        if (bindingOptions.title.showConfigurationButton) {
+            renderDisabledBackground(bindingOptions);
+            renderConfigurationDialog(bindingOptions);
+        }
+        renderControlToolTip(bindingOptions);
+        renderControlTitleBar(bindingOptions);
+        renderControlMap(bindingOptions, isForViewSwitch);
+        if (bindingOptions.views.chart.enabled) {
+            renderControlChart(bindingOptions, isForViewSwitch);
+            bindingOptions._currentView.chartContents.style.display = "none";
+        }
+        if (bindingOptions.views.days.enabled) {
+            renderControlDays(bindingOptions, isForViewSwitch);
+            bindingOptions._currentView.daysContents.style.display = "none";
+        }
+        if (bindingOptions.views.statistics.enabled) {
+            renderControlStatistics(bindingOptions, isForViewSwitch);
+            bindingOptions._currentView.statisticsContents.style.display = "none";
+        }
+        bindingOptions._currentView.mapContents.style.display = "none";
+        if (bindingOptions._currentView.view === enums_1.VIEW.map) {
+            bindingOptions._currentView.mapContents.style.display = "block";
+        }
+        else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === enums_1.VIEW.chart) {
+            bindingOptions._currentView.chartContents.style.display = "block";
+        }
+        else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === enums_1.VIEW.days) {
+            bindingOptions._currentView.daysContents.style.display = "block";
+        }
+        else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === enums_1.VIEW.statistics) {
+            bindingOptions._currentView.statisticsContents.style.display = "block";
+        }
+        else {
+            bindingOptions._currentView.view = enums_1.VIEW.map;
+            bindingOptions._currentView.mapContents.style.display = "block";
+        }
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Configuration Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function renderConfigurationDialog(bindingOptions) {
+        bindingOptions._currentView.configurationDialog = createElement(bindingOptions._currentView.disabledBackground, "div", "dialog configuration");
+        var titleBar = createElement(bindingOptions._currentView.configurationDialog, "div", "dialog-title-bar");
+        var contents = createElement(bindingOptions._currentView.configurationDialog, "div", "dialog-contents");
+        var closeButton = createElement(titleBar, "div", "dialog-close");
+        var daysContainer = createElement(contents, "div", "side-container panel");
+        var monthsContainer = createElement(contents, "div", "side-container panel");
+        createElementWithHTML(titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText);
+        createElementWithHTML(daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + enums_1.STRING.colon);
+        createElementWithHTML(monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + enums_1.STRING.colon);
+        var months1Container = createElement(monthsContainer, "div", "side-container");
+        var months2Container = createElement(monthsContainer, "div", "side-container");
+        closeButton.onclick = function () {
+            hideConfigurationDialog(bindingOptions);
+        };
+        for (var dayIndex = 0; dayIndex < 7; dayIndex++) {
+            bindingOptions._currentView.dayCheckBoxes[dayIndex] = buildCheckBox(daysContainer, _configuration.dayNames[dayIndex]).input;
+        }
+        for (var monthIndex1 = 0; monthIndex1 < 7; monthIndex1++) {
+            bindingOptions._currentView.monthCheckBoxes[monthIndex1] = buildCheckBox(months1Container, _configuration.monthNames[monthIndex1]).input;
+        }
+        for (var monthIndex2 = 7; monthIndex2 < 12; monthIndex2++) {
+            bindingOptions._currentView.monthCheckBoxes[monthIndex2] = buildCheckBox(months2Container, _configuration.monthNames[monthIndex2]).input;
+        }
+        addToolTip(closeButton, bindingOptions, _configuration.closeToolTipText);
+    }
+    function showConfigurationDialog(bindingOptions) {
+        showDisabledBackground(bindingOptions);
+        if (isDefined(bindingOptions._currentView.configurationDialog) && bindingOptions._currentView.configurationDialog.style.display !== "block") {
+            bindingOptions._currentView.configurationDialog.style.display = "block";
+        }
+        var daysToShow = [];
+        var monthsToShow = [];
+        if (bindingOptions._currentView.view === enums_1.VIEW.map) {
+            daysToShow = bindingOptions.views.map.daysToShow;
+            monthsToShow = bindingOptions.views.map.monthsToShow;
+        }
+        else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === enums_1.VIEW.chart) {
+            daysToShow = bindingOptions.views.chart.daysToShow;
+            monthsToShow = bindingOptions.views.chart.monthsToShow;
+        }
+        else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === enums_1.VIEW.days) {
+            daysToShow = bindingOptions.views.days.daysToShow;
+            monthsToShow = bindingOptions.views.days.monthsToShow;
+        }
+        else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === enums_1.VIEW.statistics) {
+            daysToShow = bindingOptions.views.statistics.daysToShow;
+            monthsToShow = bindingOptions.views.statistics.monthsToShow;
+        }
+        else {
+            daysToShow = bindingOptions.views.map.daysToShow;
+            monthsToShow = bindingOptions.views.map.monthsToShow;
+        }
+        for (var dayIndex = 0; dayIndex < 7; dayIndex++) {
+            bindingOptions._currentView.dayCheckBoxes[dayIndex].checked = isDayVisible(daysToShow, dayIndex + 1);
+        }
+        for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
+            bindingOptions._currentView.monthCheckBoxes[monthIndex].checked = isMonthVisible(monthsToShow, monthIndex);
+        }
+        hideToolTip(bindingOptions);
+    }
+    function hideConfigurationDialog(bindingOptions) {
+        hideDisabledBackground(bindingOptions);
+        if (isDefined(bindingOptions._currentView.configurationDialog) && bindingOptions._currentView.configurationDialog.style.display !== "none") {
+            bindingOptions._currentView.configurationDialog.style.display = "none";
+        }
+        var daysChecked = [];
+        var monthsChecked = [];
+        var render = false;
+        for (var dayIndex = 0; dayIndex < 7; dayIndex++) {
+            if (bindingOptions._currentView.dayCheckBoxes[dayIndex].checked) {
+                daysChecked.push(dayIndex + 1);
+            }
+        }
+        for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
+            if (bindingOptions._currentView.monthCheckBoxes[monthIndex].checked) {
+                monthsChecked.push(monthIndex + 1);
+            }
+        }
+        if (daysChecked.length >= 1) {
+            if (bindingOptions._currentView.view === enums_1.VIEW.map) {
+                bindingOptions.views.map.daysToShow = daysChecked;
+            }
+            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === enums_1.VIEW.chart) {
+                bindingOptions.views.chart.daysToShow = daysChecked;
+            }
+            else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === enums_1.VIEW.days) {
+                bindingOptions.views.days.daysToShow = daysChecked;
+            }
+            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === enums_1.VIEW.statistics) {
+                bindingOptions.views.statistics.daysToShow = daysChecked;
+            }
+            else {
+                bindingOptions.views.map.daysToShow = daysChecked;
+            }
+            render = true;
+        }
+        if (monthsChecked.length >= 1) {
+            if (bindingOptions._currentView.view === enums_1.VIEW.map) {
+                bindingOptions.views.map.monthsToShow = monthsChecked;
+            }
+            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === enums_1.VIEW.chart) {
+                bindingOptions.views.chart.monthsToShow = monthsChecked;
+            }
+            else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === enums_1.VIEW.days) {
+                bindingOptions.views.days.monthsToShow = monthsChecked;
+            }
+            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === enums_1.VIEW.statistics) {
+                bindingOptions.views.statistics.monthsToShow = monthsChecked;
+            }
+            else {
+                bindingOptions.views.map.monthsToShow = monthsChecked;
+            }
+            render = true;
+        }
+        if (render) {
+            renderControlContainer(bindingOptions);
+            fireCustomTrigger(bindingOptions.events.onOptionsUpdate, bindingOptions._currentView.element, bindingOptions);
+        }
+        else {
+            hideToolTip(bindingOptions);
+        }
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  ToolTip
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function renderControlToolTip(bindingOptions) {
+        if (!isDefined(bindingOptions._currentView.tooltip)) {
+            bindingOptions._currentView.tooltip = createElement(documentObject.body, "div", "heat-js-tooltip");
+            bindingOptions._currentView.tooltip.style.display = "none";
+            assignToolTipEvents(bindingOptions);
+        }
+    }
+    function assignToolTipEvents(bindingOptions, add) {
+        if (add === void 0) { add = true; }
+        var addEventListener_Window = add ? windowObject.addEventListener : windowObject.removeEventListener;
+        var addEventListener_Document = add ? documentObject.addEventListener : documentObject.removeEventListener;
+        addEventListener_Window("mousemove", function () {
+            hideToolTip(bindingOptions);
+        });
+        addEventListener_Document("scroll", function () {
+            hideToolTip(bindingOptions);
+        });
+    }
+    function addToolTip(element, bindingOptions, text) {
+        if (element !== null) {
+            element.onmousemove = function (e) {
+                showToolTip(e, bindingOptions, text);
+            };
+        }
+    }
+    function showToolTip(e, bindingOptions, text) {
+        cancelBubble(e);
+        hideToolTip(bindingOptions);
+        bindingOptions._currentView.tooltipTimer = setTimeout(function () {
+            bindingOptions._currentView.tooltip.innerHTML = text;
+            bindingOptions._currentView.tooltip.style.display = "block";
+            showElementAtMousePosition(e, bindingOptions._currentView.tooltip);
+        }, bindingOptions.tooltip.delay);
+    }
+    function hideToolTip(bindingOptions) {
+        if (isDefined(bindingOptions._currentView.tooltip)) {
+            if (isDefined(bindingOptions._currentView.tooltipTimer)) {
+                clearTimeout(bindingOptions._currentView.tooltipTimer);
+                bindingOptions._currentView.tooltipTimer = null;
+            }
+            if (bindingOptions._currentView.tooltip.style.display !== "none") {
+                bindingOptions._currentView.tooltip.style.display = "none";
+            }
+        }
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Title Bar
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function renderControlTitleBar(bindingOptions) {
+        if (bindingOptions.title.showText || bindingOptions.title.showYearSelector || bindingOptions.title.showRefreshButton || bindingOptions.title.showExportButton || bindingOptions.title.showImportButton) {
+            var titleBar = createElement(bindingOptions._currentView.element, "div", "title-bar");
+            var title = createElement(titleBar, "div", "title");
+            if (bindingOptions.views.chart.enabled || bindingOptions.views.days.enabled || bindingOptions.views.statistics.enabled) {
+                if (bindingOptions.title.showTitleDropDownButton) {
+                    createElement(title, "div", "down-arrow");
+                }
+            }
+            else {
+                addClass(title, "no-click");
+            }
+            if (bindingOptions.title.showText) {
+                title.innerHTML += bindingOptions.title.text;
+            }
+            if (bindingOptions.views.chart.enabled || bindingOptions.views.days.enabled || bindingOptions.views.statistics.enabled) {
+                renderTitleDropDownMenu(bindingOptions, title);
+            }
+            if (bindingOptions.title.showImportButton && !bindingOptions._currentView.isInFetchMode) {
+                var importData = createElementWithHTML(titleBar, "button", "import", _configuration.importButtonText);
+                importData.onclick = function () {
+                    importFromFilesSelected(bindingOptions);
+                };
+            }
+            if (bindingOptions.title.showExportButton) {
+                var exportData = createElementWithHTML(titleBar, "button", "export", _configuration.exportButtonText);
+                exportData.onclick = function () {
+                    exportAllData(bindingOptions);
+                };
+            }
+            if (bindingOptions.title.showRefreshButton) {
+                var refresh = createElementWithHTML(titleBar, "button", "refresh", _configuration.refreshButtonText);
+                refresh.onclick = function () {
+                    renderControlContainer(bindingOptions);
+                    fireCustomTrigger(bindingOptions.events.onRefresh, bindingOptions._currentView.element);
+                };
+            }
+            if (bindingOptions.title.showYearSelector) {
+                var back = createElementWithHTML(titleBar, "button", "back", _configuration.backButtonText);
+                back.onclick = function () {
+                    //moveToPreviousYear( bindingOptions ); TODO: Enable
+                };
+                if (isFirstVisibleYear(bindingOptions, bindingOptions._currentView.year)) {
+                    back.disabled = true;
+                }
+                bindingOptions._currentView.yearText = createElementWithHTML(titleBar, "div", "year-text", bindingOptions._currentView.year.toString());
+                if (bindingOptions.title.showYearSelectionDropDown) {
+                    renderYearDropDownMenu(bindingOptions);
+                }
+                else {
+                    addClass(bindingOptions._currentView.yearText, "no-click");
+                }
+                if (bindingOptions.title.showConfigurationButton) {
+                    var configureButton = createElement(titleBar, "div", "configure");
+                    addToolTip(configureButton, bindingOptions, _configuration.configurationToolTipText);
+                    configureButton.onclick = function () {
+                        showConfigurationDialog(bindingOptions);
+                    };
+                }
+                var next = createElementWithHTML(titleBar, "button", "next", _configuration.nextButtonText);
+                next.onclick = function () {
+                    //moveToNextYear( bindingOptions );; TODO: Enable
+                };
+                if (isLastVisibleYear(bindingOptions, bindingOptions._currentView.year)) {
+                    next.disabled = true;
+                }
+            }
+        }
+    }
+    function renderTitleDropDownMenu(bindingOptions, title) {
+        var titlesMenuContainer = createElement(title, "div", "titles-menu-container");
+        var titlesMenu = createElement(titlesMenuContainer, "div", "titles-menu");
+        if (bindingOptions.title.showTitleDropDownHeaders) {
+            createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.dataText + enums_1.STRING.colon);
+        }
+        var menuItemMap = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.mapText);
+        renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemMap, enums_1.VIEW.map, enums_1.VIEW_NAME.map);
+        if (bindingOptions.views.chart.enabled) {
+            var menuItemChart = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.chartText);
+            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemChart, enums_1.VIEW.chart, enums_1.VIEW_NAME.chart);
+        }
+        if (bindingOptions.views.days.enabled) {
+            if (bindingOptions.title.showTitleDropDownHeaders) {
+                createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.yearText + enums_1.STRING.colon);
+            }
+            var menuItemDays = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.daysText);
+            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemDays, enums_1.VIEW.days, enums_1.VIEW_NAME.days);
+        }
+        if (bindingOptions.views.statistics.enabled) {
+            if (bindingOptions.title.showTitleDropDownHeaders) {
+                createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.statisticsText + enums_1.STRING.colon);
+            }
+            var menuItemStatistics = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.colorRangesText);
+            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemStatistics, enums_1.VIEW.statistics, enums_1.VIEW_NAME.statistics);
+        }
+    }
+    function renderTitleDropDownMenuItemClickEvent(bindingOptions, option, view, viewName) {
+        if (bindingOptions._currentView.view === view) {
+            addClass(option, "title-menu-item-active");
+        }
+        else {
+            option.onclick = function () {
+                bindingOptions._currentView.view = view;
+                fireCustomTrigger(bindingOptions.events.onViewSwitch, viewName);
+                renderControlContainer(bindingOptions, false, true);
+            };
+        }
+    }
+    function renderYearDropDownMenu(bindingOptions) {
+        createElement(bindingOptions._currentView.yearText, "div", "down-arrow");
+        var yearsMenuContainer = createElement(bindingOptions._currentView.yearText, "div", "years-menu-container");
+        var yearsMenu = createElement(yearsMenuContainer, "div", "years-menu");
+        var thisYear = new Date().getFullYear();
+        var activeYearMenuItem = null;
+        yearsMenuContainer.style.display = "block";
+        yearsMenuContainer.style.visibility = "hidden";
+        for (var currentYear = thisYear - bindingOptions.title.extraSelectionYears; currentYear < thisYear + bindingOptions.title.extraSelectionYears; currentYear++) {
+            if (isYearVisible(bindingOptions, currentYear)) {
+                var yearMenuItem = renderYearDropDownMenuItem(bindingOptions, yearsMenu, currentYear, thisYear);
+                if (!isDefined(activeYearMenuItem)) {
+                    activeYearMenuItem = yearMenuItem;
+                }
+            }
+        }
+        if (isDefined(activeYearMenuItem)) {
+            yearsMenu.scrollTop = activeYearMenuItem.offsetTop - (yearsMenu.offsetHeight / 2);
+        }
+        yearsMenuContainer.style.display = "none";
+        yearsMenuContainer.style.visibility = "visible";
+    }
+    function renderYearDropDownMenuItem(bindingOptions, years, currentYear, actualYear) {
+        var result = null;
+        var year = createElementWithHTML(years, "div", "year-menu-item", currentYear.toString());
+        if (bindingOptions._currentView.year !== currentYear) {
+            year.onclick = function () {
+                bindingOptions._currentView.year = currentYear;
+                renderControlContainer(bindingOptions);
+                fireCustomTrigger(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
+            };
+            if (currentYear === actualYear) {
+                addClass(year, "year-menu-item-current");
+            }
+        }
+        else {
+            addClass(year, "year-menu-item-active");
+            result = year;
+        }
+        return result;
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  View:  Map
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function renderControlMap(bindingOptions, isForViewSwitch) {
+        bindingOptions._currentView.mapContents = createElement(bindingOptions._currentView.element, "div", "map-contents");
+        if (bindingOptions.views.chart.enabled) {
+            renderControlChartContents(bindingOptions);
+        }
+        if (bindingOptions.views.days.enabled) {
+            renderControlDaysContents(bindingOptions);
+        }
+        if (bindingOptions.views.statistics.enabled) {
+            renderControlStatisticsContents(bindingOptions);
+        }
+        renderControlViewGuide(bindingOptions);
+        if (bindingOptions.views.map.showNoDataMessageWhenDataIsNotAvailable && !isDataAvailableForYear(bindingOptions)) {
+            var noDataMessage = createElementWithHTML(bindingOptions._currentView.mapContents, "div", "no-data-message", _configuration.noMapDataMessage);
+            if (isForViewSwitch) {
+                addClass(noDataMessage, "view-switch");
+            }
+        }
+        else {
+            bindingOptions._currentView.mapContents.style.minHeight = "unset";
+            makeAreaDroppable(bindingOptions._currentView.mapContents, bindingOptions);
+            var map = createElement(bindingOptions._currentView.mapContents, "div", "map");
+            var currentYear = bindingOptions._currentView.year;
+            var monthAdded = false;
+            if (isForViewSwitch) {
+                addClass(map, "view-switch");
+            }
+            if (bindingOptions.views.map.showDayNames) {
+                var days = createElement(map, "div", "days");
+                var showMinimalDays = bindingOptions.views.map.showMinimalDayNames && bindingOptions.views.map.daysToShow.length === 7;
+                if (!bindingOptions.views.map.showMonthNames || bindingOptions.views.map.placeMonthNamesOnTheBottom) {
+                    days.className = "days-months-bottom";
+                }
+                for (var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++) {
+                    if (isDayVisible(bindingOptions.views.map.daysToShow, dayNameIndex + 1)) {
+                        var dayText = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.dayNames[dayNameIndex] : enums_1.STRING.space;
+                        createElementWithHTML(days, "div", "day-name", dayText);
+                    }
+                }
+                if (bindingOptions.views.map.showDaysInReverseOrder) {
+                    reverseElementsOrder(days);
+                }
+            }
+            var months = createElement(map, "div", "months");
+            var colorRanges = getSortedColorRanges(bindingOptions);
+            for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
+                if (isMonthVisible(bindingOptions.views.map.monthsToShow, monthIndex)) {
+                    var month = createElement(months, "div", "month");
+                    var dayColumns = createElement(month, "div", "day-columns");
+                    var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex);
+                    var currentDayColumn = createElement(dayColumns, "div", "day-column");
+                    var startFillingDays = false;
+                    var firstDayInMonth = new Date(currentYear, monthIndex, 1);
+                    var firstDayNumberInMonth = getWeekdayNumber(firstDayInMonth);
+                    var actualDay = 1;
+                    totalDaysInMonth += firstDayNumberInMonth;
+                    for (var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++) {
+                        if (dayIndex >= firstDayNumberInMonth) {
+                            startFillingDays = true;
+                        }
+                        else {
+                            if (isDayVisible(bindingOptions.views.map.daysToShow, actualDay)) {
+                                createElement(currentDayColumn, "div", "day-disabled");
+                            }
+                        }
+                        if (startFillingDays) {
+                            var day = null;
+                            if (isDayVisible(bindingOptions.views.map.daysToShow, actualDay)) {
+                                day = renderControlMapMonthDay(bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, colorRanges);
+                            }
+                            if ((dayIndex + 1) % 7 === 0) {
+                                if (bindingOptions.views.map.showDaysInReverseOrder) {
+                                    reverseElementsOrder(currentDayColumn);
+                                }
+                                currentDayColumn = createElement(dayColumns, "div", "day-column");
+                                actualDay = 0;
+                                if (!isDefined(_elements_Day_Width) && isDefined(day)) {
+                                    var marginLeft = getStyleValueByName(day, "margin-left", true);
+                                    var marginRight = getStyleValueByName(day, "margin-right", true);
+                                    _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
+                                }
+                            }
+                        }
+                        actualDay++;
+                    }
+                    if (bindingOptions.views.map.showMonthNames) {
+                        var monthName = null;
+                        var monthWidth = month.offsetWidth;
+                        if (!bindingOptions.views.map.placeMonthNamesOnTheBottom) {
+                            monthName = createElementWithHTML(month, "div", "month-name", _configuration.monthNames[monthIndex], dayColumns);
+                        }
+                        else {
+                            monthName = createElementWithHTML(month, "div", "month-name-bottom", _configuration.monthNames[monthIndex]);
+                        }
+                        if (isDefined(monthName)) {
+                            if (bindingOptions.views.map.showMonthDayGaps) {
+                                monthName.style.width = monthWidth + "px";
+                            }
+                            else {
+                                monthName.style.width = (monthWidth - _elements_Day_Width) + "px";
+                            }
+                        }
+                    }
+                    if (monthAdded && isDefined(_elements_Day_Width)) {
+                        if (firstDayNumberInMonth > 0 && !bindingOptions.views.map.showMonthDayGaps) {
+                            month.style.marginLeft = -_elements_Day_Width + "px";
+                        }
+                        else if (firstDayNumberInMonth === 0 && bindingOptions.views.map.showMonthDayGaps) {
+                            month.style.marginLeft = _elements_Day_Width + "px";
+                        }
+                    }
+                    if (bindingOptions.views.map.showMonthsInReverseOrder) {
+                        reverseElementsOrder(dayColumns);
+                    }
+                    monthAdded = true;
+                }
+            }
+            if (bindingOptions.views.map.showMonthsInReverseOrder) {
+                reverseElementsOrder(months);
+            }
+            if (bindingOptions.views.map.keepScrollPositions) {
+                bindingOptions._currentView.mapContents.scrollLeft = bindingOptions._currentView.mapContentsScrollLeft;
+            }
+        }
+    }
+    function renderControlMapMonthDay(bindingOptions, currentDayColumn, dayNumber, month, year, colorRanges) {
+        var actualDay = dayNumber + 1;
+        var day = createElement(currentDayColumn, "div", "day");
+        var date = new Date(year, month, actualDay);
+        var dateCount = _elements_DateCounts[bindingOptions._currentView.element.id].type[bindingOptions._currentView.type][toStorageDate(date)];
+        dateCount = getDefaultNumber(dateCount, 0);
+        renderDayToolTip(bindingOptions, day, date, dateCount);
+        if (bindingOptions.views.map.showDayNumbers && dateCount > 0) {
+            day.innerHTML = dateCount.toString();
+        }
+        if (isDefinedFunction(bindingOptions.events.onDayClick)) {
+            day.onclick = function () {
+                fireCustomTrigger(bindingOptions.events.onDayClick, date, dateCount);
+            };
+        }
+        else {
+            addClass(day, "no-hover");
+        }
+        var useColorRange = getColorRange(bindingOptions, colorRanges, dateCount, date);
+        if (isDefined(useColorRange) && isColorRangeVisible(bindingOptions, useColorRange.id)) {
+            if (isDefinedString(useColorRange.mapCssClassName)) {
+                addClass(day, useColorRange.mapCssClassName);
+            }
+            else {
+                addClass(day, useColorRange.cssClassName);
+            }
+        }
+        return day;
+    }
+    function isDataAvailableForYear(bindingOptions) {
+        var result = false;
+        var data = getCurrentViewData(bindingOptions);
+        var checkDate = bindingOptions._currentView.year.toString();
+        for (var storageDate in data) {
+            if (data.hasOwnProperty(storageDate)) {
+                if (getStorageDateYear(storageDate) === checkDate) {
+                    result = true;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  View:  Chart
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function renderControlChartContents(bindingOptions) {
+        bindingOptions._currentView.chartContents = createElement(bindingOptions._currentView.element, "div", "chart-contents");
+        makeAreaDroppable(bindingOptions._currentView.chartContents, bindingOptions);
+    }
+    function renderControlChart(bindingOptions, isForViewSwitch) {
+        var chart = createElement(bindingOptions._currentView.chartContents, "div", "chart");
+        var labels = createElement(chart, "div", "y-labels");
+        var dayLines = createElement(chart, "div", "day-lines");
+        var colorRanges = getSortedColorRanges(bindingOptions);
+        var largestValueForCurrentYear = getLargestValueForChartYear(bindingOptions);
+        var currentYear = bindingOptions._currentView.year;
+        var labelsWidth = 0;
+        if (isForViewSwitch) {
+            addClass(chart, "view-switch");
+        }
+        if (largestValueForCurrentYear > 0 && bindingOptions.views.chart.showChartYLabels) {
+            var topLabel = createElementWithHTML(labels, "div", "label-0", largestValueForCurrentYear.toString());
+            createElementWithHTML(labels, "div", "label-25", (mathObject.floor(largestValueForCurrentYear / 4) * 3).toString());
+            createElementWithHTML(labels, "div", "label-50", mathObject.floor(largestValueForCurrentYear / 2).toString());
+            createElementWithHTML(labels, "div", "label-75", mathObject.floor(largestValueForCurrentYear / 4).toString());
+            createElementWithHTML(labels, "div", "label-100", enums_1.STRING.zero);
+            labels.style.width = topLabel.offsetWidth + "px";
+            labelsWidth = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true);
+        }
+        else {
+            labels.parentNode.removeChild(labels);
+            labels = null;
+        }
+        if (largestValueForCurrentYear === 0) {
+            bindingOptions._currentView.chartContents.style.minHeight = bindingOptions._currentView.mapContents.offsetHeight + "px";
+            chart.parentNode.removeChild(chart);
+            var noDataMessage = createElementWithHTML(bindingOptions._currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage);
+            if (isForViewSwitch) {
+                addClass(noDataMessage, "view-switch");
+            }
+        }
+        else {
+            var pixelsPerNumbers = bindingOptions._currentView.mapContents.offsetHeight / largestValueForCurrentYear;
+            var totalMonths = 0;
+            var totalDays = 0;
+            for (var monthIndex1 = 0; monthIndex1 < 12; monthIndex1++) {
+                if (isMonthVisible(bindingOptions.views.chart.monthsToShow, monthIndex1)) {
+                    var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex1);
+                    var actualDay = 1;
+                    totalMonths++;
+                    for (var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++) {
+                        if (isDayVisible(bindingOptions.views.chart.daysToShow, actualDay)) {
+                            renderControlChartDay(dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, colorRanges, pixelsPerNumbers);
+                        }
+                        if ((dayIndex + 1) % 7 === 0) {
+                            actualDay = 0;
+                        }
+                        actualDay++;
+                        totalDays++;
+                    }
+                }
+            }
+            if (bindingOptions.views.chart.showInReverseOrder) {
+                reverseElementsOrder(dayLines);
+            }
+            if (bindingOptions.views.chart.showMonthNames) {
+                var chartMonths_1 = createElement(bindingOptions._currentView.chartContents, "div", "chart-months");
+                var linesWidth_1 = dayLines.offsetWidth / totalMonths;
+                var monthTimesValue_1 = 0;
+                var addMonthName = function (addMonthNameIndex) {
+                    if (isMonthVisible(bindingOptions.views.chart.monthsToShow, addMonthNameIndex)) {
+                        var monthName = createElementWithHTML(chartMonths_1, "div", "month-name", _configuration.monthNames[addMonthNameIndex]);
+                        monthName.style.left = labelsWidth + (linesWidth_1 * monthTimesValue_1) + "px";
+                        monthTimesValue_1++;
+                    }
+                };
+                if (bindingOptions.views.chart.showInReverseOrder) {
+                    for (var monthIndex2 = 12; monthIndex2--;) {
+                        addMonthName(monthIndex2);
+                    }
+                }
+                else {
+                    for (var monthIndex3 = 0; monthIndex3 < 12; monthIndex3++) {
+                        addMonthName(monthIndex3);
+                    }
+                }
+                chartMonths_1.style.width = dayLines.offsetWidth + "px";
+                var monthNameSpace = createElement(chartMonths_1, "div", "month-name-space");
+                monthNameSpace.style.height = chartMonths_1.offsetHeight + "px";
+                monthNameSpace.style.width = labelsWidth + "px";
+            }
+            if (bindingOptions.views.chart.keepScrollPositions) {
+                bindingOptions._currentView.chartContents.scrollLeft = bindingOptions._currentView.chartContentsScrollLeft;
+            }
+        }
+    }
+    function renderControlChartDay(dayLines, bindingOptions, day, month, year, colorRanges, pixelsPerNumbers) {
+        var date = new Date(year, month, day);
+        var dayLine = createElement(dayLines, "div", "day-line");
+        var dateCount = getCurrentViewData(bindingOptions)[toStorageDate(date)];
+        dateCount = getDefaultNumber(dateCount, 0);
+        renderDayToolTip(bindingOptions, dayLine, date, dateCount);
+        if (bindingOptions.views.chart.showLineNumbers && dateCount > 0) {
+            addClass(dayLine, "day-line-number");
+            dayLine.innerHTML = dateCount.toString();
+        }
+        var dayLineHeight = dateCount * pixelsPerNumbers;
+        dayLine.style.height = dayLineHeight + "px";
+        if (dayLineHeight <= 0) {
+            dayLine.style.visibility = "hidden";
+        }
+        if (isDefinedFunction(bindingOptions.events.onDayClick)) {
+            dayLine.onclick = function () {
+                fireCustomTrigger(bindingOptions.events.onDayClick, date, dateCount);
+            };
+        }
+        else {
+            addClass(dayLine, "no-hover");
+        }
+        var useColorRange = getColorRange(bindingOptions, colorRanges, dateCount, date);
+        if (isDefined(useColorRange) && isColorRangeVisible(bindingOptions, useColorRange.id)) {
+            if (isDefinedString(useColorRange.chartCssClassName)) {
+                addClass(dayLine, useColorRange.chartCssClassName);
+            }
+            else {
+                addClass(dayLine, useColorRange.cssClassName);
+            }
+        }
+    }
+    function getLargestValueForChartYear(bindingOptions) {
+        var result = 0;
+        var data = getCurrentViewData(bindingOptions);
+        for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
+            var totalDaysInMonth = getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
+            for (var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++) {
+                var storageDate = toStorageDate(new Date(bindingOptions._currentView.year, monthIndex, dayIndex + 1));
+                if (data.hasOwnProperty(storageDate)) {
+                    if (isMonthVisible(bindingOptions.views.chart.monthsToShow, monthIndex) && isDayVisible(bindingOptions.views.chart.daysToShow, dayIndex + 1)) {
+                        result = mathObject.max(result, parseInt(data[storageDate]));
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  View:  Days
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function renderControlDaysContents(bindingOptions) {
+        bindingOptions._currentView.daysContents = createElement(bindingOptions._currentView.element, "div", "days-contents");
+        makeAreaDroppable(bindingOptions._currentView.daysContents, bindingOptions);
+    }
+    function renderControlDays(bindingOptions, isForViewSwitch) {
+        var days = createElement(bindingOptions._currentView.daysContents, "div", "days");
+        var dayNames = createElement(bindingOptions._currentView.daysContents, "div", "day-names");
+        var labels = createElement(days, "div", "y-labels");
+        var dayLines = createElement(days, "div", "day-lines");
+        var dayValuesForCurrentYear = getLargestValuesForEachDay(bindingOptions);
+        if (isForViewSwitch) {
+            addClass(days, "view-switch");
+        }
+        if (dayValuesForCurrentYear.largestValue > 0 && bindingOptions.views.days.showChartYLabels) {
+            var topLabel = createElementWithHTML(labels, "div", "label-0", dayValuesForCurrentYear.largestValue.toString());
+            createElementWithHTML(labels, "div", "label-25", (mathObject.floor(dayValuesForCurrentYear.largestValue / 4) * 3).toString());
+            createElementWithHTML(labels, "div", "label-50", mathObject.floor(dayValuesForCurrentYear.largestValue / 2).toString());
+            createElementWithHTML(labels, "div", "label-75", mathObject.floor(dayValuesForCurrentYear.largestValue / 4).toString());
+            createElementWithHTML(labels, "div", "label-100", enums_1.STRING.zero);
+            labels.style.width = topLabel.offsetWidth + "px";
+            dayNames.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
+        }
+        else {
+            labels.parentNode.removeChild(labels);
+            labels = null;
+        }
+        if (dayValuesForCurrentYear.largestValue === 0) {
+            bindingOptions._currentView.daysContents.style.minHeight = bindingOptions._currentView.mapContents.offsetHeight + "px";
+            days.parentNode.removeChild(days);
+            dayNames.parentNode.removeChild(dayNames);
+            var noDataMessage = createElementWithHTML(bindingOptions._currentView.daysContents, "div", "no-days-message", _configuration.noDaysDataMessage);
+            if (isForViewSwitch) {
+                addClass(noDataMessage, "view-switch");
+            }
+        }
+        else {
+            var pixelsPerNumbers = bindingOptions._currentView.mapContents.offsetHeight / dayValuesForCurrentYear.largestValue;
+            for (var day in dayValuesForCurrentYear.days) {
+                if (dayValuesForCurrentYear.days.hasOwnProperty(day) && isDayVisible(bindingOptions.views.days.daysToShow, parseInt(day))) {
+                    renderControlDaysDayLine(dayLines, parseInt(day), dayValuesForCurrentYear.days[day], bindingOptions, pixelsPerNumbers);
+                    if (bindingOptions.views.days.showDayNames) {
+                        createElementWithHTML(dayNames, "div", "day-name", _configuration.dayNames[parseInt(day) - 1]);
+                    }
+                }
+            }
+            if (bindingOptions.views.days.showInReverseOrder) {
+                reverseElementsOrder(dayLines);
+                reverseElementsOrder(dayNames);
+            }
+            if (bindingOptions.views.days.keepScrollPositions) {
+                bindingOptions._currentView.daysContents.scrollLeft = bindingOptions._currentView.daysContentsScrollLeft;
+            }
+        }
+    }
+    function renderControlDaysDayLine(dayLines, dayNumber, dayCount, bindingOptions, pixelsPerNumbers) {
+        var dayLine = createElement(dayLines, "div", "day-line");
+        var dayLineHeight = dayCount * pixelsPerNumbers;
+        dayLine.style.height = dayLineHeight + "px";
+        if (dayLineHeight <= 0) {
+            dayLine.style.visibility = "hidden";
+        }
+        addToolTip(dayLine, bindingOptions, dayCount.toString());
+        if (isDefinedFunction(bindingOptions.events.onWeekDayClick)) {
+            dayLine.onclick = function () {
+                fireCustomTrigger(bindingOptions.events.onWeekDayClick, dayNumber, dayCount);
+            };
+        }
+        else {
+            addClass(dayLine, "no-hover");
+        }
+        if (bindingOptions.views.days.showDayNumbers && dayCount > 0) {
+            addClass(dayLine, "day-line-number");
+            createElementWithHTML(dayLine, "div", "count", dayCount.toString());
+        }
+    }
+    function getLargestValuesForEachDay(bindingOptions) {
+        var largestValue = 0;
+        var data = getCurrentViewData(bindingOptions);
+        var days = {
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+            6: 0,
+            7: 0,
+        };
+        for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
+            var totalDaysInMonth = getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
+            for (var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++) {
+                var storageDate = toStorageDate(new Date(bindingOptions._currentView.year, monthIndex, dayIndex + 1));
+                if (data.hasOwnProperty(storageDate)) {
+                    var storageDateParts = getStorageDate(storageDate);
+                    var storageDateObject = new Date(parseInt(storageDateParts[2]), parseInt(storageDateParts[1]), parseInt(storageDateParts[0]));
+                    var weekDayNumber = getWeekdayNumber(storageDateObject) + 1;
+                    if (!isHoliday(bindingOptions, storageDateObject).matched && isMonthVisible(bindingOptions.views.days.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.days.daysToShow, weekDayNumber)) {
+                        days[weekDayNumber] += data[storageDate];
+                        largestValue = mathObject.max(largestValue, days[weekDayNumber]);
+                    }
+                }
+            }
+        }
+        return {
+            days: days,
+            largestValue: largestValue
+        };
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  View:  Statistics
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function renderControlStatisticsContents(bindingOptions) {
+        bindingOptions._currentView.statisticsContents = createElement(bindingOptions._currentView.element, "div", "statistics-contents");
+        makeAreaDroppable(bindingOptions._currentView.statisticsContents, bindingOptions);
+    }
+    function renderControlStatistics(bindingOptions, isForViewSwitch) {
+        var statistics = createElement(bindingOptions._currentView.statisticsContents, "div", "statistics");
+        var statisticsRanges = createElement(bindingOptions._currentView.statisticsContents, "div", "statistics-ranges");
+        var labels = createElement(statistics, "div", "y-labels");
+        var rangeLines = createElement(statistics, "div", "range-lines");
+        var colorRanges = getSortedColorRanges(bindingOptions);
+        var colorRangeValuesForCurrentYear = getLargestValuesForEachRangeType(bindingOptions, colorRanges);
+        if (isForViewSwitch) {
+            addClass(statistics, "view-switch");
+        }
+        if (colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views.statistics.showChartYLabels) {
+            var topLabel = createElementWithHTML(labels, "div", "label-0", colorRangeValuesForCurrentYear.largestValue.toString());
+            createElementWithHTML(labels, "div", "label-25", (mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 4) * 3).toString());
+            createElementWithHTML(labels, "div", "label-50", mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 2).toString());
+            createElementWithHTML(labels, "div", "label-75", mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 4).toString());
+            createElementWithHTML(labels, "div", "label-100", enums_1.STRING.zero);
+            labels.style.width = topLabel.offsetWidth + "px";
+            statisticsRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
+        }
+        else {
+            labels.parentNode.removeChild(labels);
+            labels = null;
+        }
+        if (colorRangeValuesForCurrentYear.largestValue === 0) {
+            bindingOptions._currentView.statisticsContents.style.minHeight = bindingOptions._currentView.mapContents.offsetHeight + "px";
+            statistics.parentNode.removeChild(statistics);
+            statisticsRanges.parentNode.removeChild(statisticsRanges);
+            var noDataMessage = createElementWithHTML(bindingOptions._currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage);
+            if (isForViewSwitch) {
+                addClass(noDataMessage, "view-switch");
+            }
+        }
+        else {
+            var pixelsPerNumbers = bindingOptions._currentView.mapContents.offsetHeight / colorRangeValuesForCurrentYear.largestValue;
+            if (!bindingOptions.views.statistics.showColorRangeLabels) {
+                statisticsRanges.parentNode.removeChild(statisticsRanges);
+            }
+            for (var type in colorRangeValuesForCurrentYear.types) {
+                if (colorRangeValuesForCurrentYear.types.hasOwnProperty(type)) {
+                    renderControlStatisticsRangeLine(parseInt(type), rangeLines, colorRangeValuesForCurrentYear.types[type], bindingOptions, colorRanges, pixelsPerNumbers);
+                    var useColorRange = getColorRangeByMinimum(colorRanges, parseInt(type));
+                    if (bindingOptions.views.statistics.showColorRangeLabels) {
+                        if (!bindingOptions.views.statistics.useColorRangeNamesForLabels || !isDefined(useColorRange) || !isDefinedString(useColorRange.name)) {
+                            createElementWithHTML(statisticsRanges, "div", "range-name", type + enums_1.STRING.plus);
+                        }
+                        else {
+                            createElementWithHTML(statisticsRanges, "div", "range-name", useColorRange.name);
+                        }
+                    }
+                }
+            }
+            if (bindingOptions.views.statistics.showInReverseOrder) {
+                reverseElementsOrder(rangeLines);
+                reverseElementsOrder(statisticsRanges);
+            }
+            if (bindingOptions.views.statistics.keepScrollPositions) {
+                bindingOptions._currentView.statisticsContents.scrollLeft = bindingOptions._currentView.statisticsContentsScrollLeft;
+            }
+        }
+    }
+    function renderControlStatisticsRangeLine(colorRangeMinimum, dayLines, rangeCount, bindingOptions, colorRanges, pixelsPerNumbers) {
+        var rangeLine = createElement(dayLines, "div", "range-line");
+        var useColorRange = getColorRangeByMinimum(colorRanges, colorRangeMinimum);
+        var rangeLineHeight = rangeCount * pixelsPerNumbers;
+        rangeLine.style.height = rangeLineHeight + "px";
+        if (rangeLineHeight <= 0) {
+            rangeLine.style.visibility = "hidden";
+        }
+        addToolTip(rangeLine, bindingOptions, rangeCount.toString());
+        if (bindingOptions.views.statistics.showRangeNumbers && rangeCount > 0) {
+            addClass(rangeLine, "range-line-number");
+            createElementWithHTML(rangeLine, "div", "count", rangeCount.toString());
+        }
+        if (isDefinedFunction(bindingOptions.events.onStatisticClick)) {
+            rangeLine.onclick = function () {
+                fireCustomTrigger(bindingOptions.events.onStatisticClick, useColorRange);
+            };
+        }
+        else {
+            addClass(rangeLine, "no-hover");
+        }
+        if (isDefined(useColorRange) && isColorRangeVisible(bindingOptions, useColorRange.id)) {
+            if (isDefinedString(useColorRange.statisticsCssClassName)) {
+                addClass(rangeLine, useColorRange.statisticsCssClassName);
+            }
+            else {
+                addClass(rangeLine, useColorRange.cssClassName);
+            }
+        }
+    }
+    function getLargestValuesForEachRangeType(bindingOptions, colorRanges) {
+        var types = {};
+        var data = getCurrentViewData(bindingOptions);
+        var largestValue = 0;
+        types[enums_1.STRING.zero] = 0;
+        for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
+            var totalDaysInMonth = getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
+            for (var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++) {
+                var storageDate = toStorageDate(new Date(bindingOptions._currentView.year, monthIndex, dayIndex + 1));
+                if (data.hasOwnProperty(storageDate)) {
+                    var storageDateParts = getStorageDate(storageDate);
+                    var storageDateObject = new Date(parseInt(storageDateParts[2]), parseInt(storageDateParts[1]), parseInt(storageDateParts[0]));
+                    var weekDayNumber = getWeekdayNumber(storageDateObject) + 1;
+                    if (!isHoliday(bindingOptions, storageDateObject).matched && isMonthVisible(bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.statistics.daysToShow, weekDayNumber)) {
+                        var useColorRange = getColorRange(bindingOptions, colorRanges, data[storageDate]);
+                        if (!isDefined(useColorRange)) {
+                            types[enums_1.STRING.zero]++;
+                        }
+                        else {
+                            if (!types.hasOwnProperty(useColorRange.minimum.toString())) {
+                                types[useColorRange.minimum.toString()] = 0;
+                            }
+                            types[useColorRange.minimum]++;
+                            largestValue = mathObject.max(largestValue, types[useColorRange.minimum]);
+                        }
+                    }
+                }
+            }
+        }
+        return {
+            types: types,
+            largestValue: largestValue
+        };
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Guide
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function renderControlViewGuide(bindingOptions) {
+        var guide = createElement(bindingOptions._currentView.element, "div", "guide");
+        var mapTypes = createElement(guide, "div", "map-types");
+        var noneTypeCount = 0;
+        for (var storageDate in _elements_DateCounts[bindingOptions._currentView.element.id].type[_configuration.unknownTrendText]) {
+            if (_elements_DateCounts[bindingOptions._currentView.element.id].type[_configuration.unknownTrendText].hasOwnProperty(storageDate)) {
+                noneTypeCount++;
+                break;
+            }
+        }
+        if (_elements_DateCounts[bindingOptions._currentView.element.id].types > 1) {
+            if (isDefinedString(bindingOptions.description.text)) {
+                var description = createElement(bindingOptions._currentView.element, "div", "description", guide);
+                renderDescription(bindingOptions, description);
+            }
+            for (var type in _elements_DateCounts[bindingOptions._currentView.element.id].type) {
+                if (type !== _configuration.unknownTrendText || noneTypeCount > 0) {
+                    if (noneTypeCount === 0 && bindingOptions._currentView.type === _configuration.unknownTrendText) {
+                        bindingOptions._currentView.type = type;
+                    }
+                    renderControlViewGuideTypeButton(bindingOptions, mapTypes, type);
+                }
+            }
+        }
+        else {
+            renderDescription(bindingOptions, mapTypes);
+        }
+        if (bindingOptions.guide.enabled) {
+            var mapToggles = createElement(guide, "div", "map-toggles");
+            if (bindingOptions.guide.showLessAndMoreLabels) {
+                var lessText = createElementWithHTML(mapToggles, "div", "less-text", _configuration.lessText);
+                if (bindingOptions.guide.colorRangeTogglesEnabled) {
+                    lessText.onclick = function () {
+                        updateColorRangeToggles(bindingOptions, false);
+                    };
+                }
+                else {
+                    addClass(lessText, "no-click");
+                }
+            }
+            var days = createElement(mapToggles, "div", "days");
+            var colorRanges = getSortedColorRanges(bindingOptions);
+            var colorRangesLength = colorRanges.length;
+            for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
+                renderControlViewGuideDay(bindingOptions, days, colorRanges[colorRangesIndex]);
+            }
+            if (bindingOptions.guide.showLessAndMoreLabels) {
+                var moreText = createElementWithHTML(mapToggles, "div", "more-text", _configuration.moreText);
+                if (bindingOptions.guide.colorRangeTogglesEnabled) {
+                    moreText.onclick = function () {
+                        updateColorRangeToggles(bindingOptions, true);
+                    };
+                }
+                else {
+                    addClass(moreText, "no-click");
+                }
+            }
+        }
+    }
+    function renderControlViewGuideTypeButton(bindingOptions, mapTypes, type) {
+        var typeButton = createElementWithHTML(mapTypes, "button", "type", type);
+        if (bindingOptions._currentView.type === type) {
+            addClass(typeButton, "active");
+        }
+        typeButton.onclick = function () {
+            if (bindingOptions._currentView.type !== type) {
+                bindingOptions._currentView.type = type;
+                fireCustomTrigger(bindingOptions.events.onTypeSwitch, type);
+                renderControlContainer(bindingOptions);
+            }
+        };
+    }
+    function renderControlViewGuideDay(bindingOptions, days, colorRange) {
+        var day = createElement(days, "div");
+        day.className = "day";
+        addToolTip(day, bindingOptions, colorRange.tooltipText);
+        if (isColorRangeVisible(bindingOptions, colorRange.id)) {
+            if (bindingOptions._currentView.view === enums_1.VIEW.map && isDefinedString(colorRange.mapCssClassName)) {
+                addClass(day, colorRange.mapCssClassName);
+            }
+            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === enums_1.VIEW.chart && isDefinedString(colorRange.chartCssClassName)) {
+                addClass(day, colorRange.chartCssClassName);
+            }
+            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === enums_1.VIEW.statistics && isDefinedString(colorRange.statisticsCssClassName)) {
+                addClass(day, colorRange.statisticsCssClassName);
+            }
+            else {
+                addClass(day, colorRange.cssClassName);
+            }
+        }
+        if (bindingOptions.guide.showNumbersInGuide) {
+            addClass(day, "day-number");
+            day.innerHTML = colorRange.minimum + enums_1.STRING.plus;
+        }
+        if (bindingOptions.guide.colorRangeTogglesEnabled) {
+            day.onclick = function () {
+                toggleColorRangeVisibleState(bindingOptions, colorRange.id);
+            };
+        }
+        else {
+            addClass(day, "no-hover");
+        }
+    }
+    function renderDescription(bindingOptions, container) {
+        if (isDefinedString(bindingOptions.description.text)) {
+            if (isDefinedString(bindingOptions.description.url)) {
+                var link = createElementWithHTML(container, "a", "label", bindingOptions.description.text);
+                link.href = bindingOptions.description.url;
+                link.target = bindingOptions.description.urlTarget;
+            }
+            else {
+                createElementWithHTML(container, "span", "label", bindingOptions.description.text);
+            }
+        }
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Shared
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    function renderDayToolTip(bindingOptions, day, date, dateCount) {
+        if (isDefinedFunction(bindingOptions.events.onDayToolTipRender)) {
+            addToolTip(day, bindingOptions, fireCustomTrigger(bindingOptions.events.onDayToolTipRender, date, dateCount));
+        }
+        else {
+            var tooltip = getCustomFormattedDateText(bindingOptions.tooltip.dayText, date);
+            if (bindingOptions.showHolidaysInDayToolTips) {
+                var holiday = isHoliday(bindingOptions, date);
+                if (holiday.matched && isDefinedString(holiday.name)) {
+                    tooltip += enums_1.STRING.colon + enums_1.STRING.space + holiday.name;
+                }
+            }
+            addToolTip(day, bindingOptions, tooltip);
+        }
+    }
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Data
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -135,7 +1355,7 @@ var enums_1 = require("./enums");
             if (!isDefined(bindingOptions._currentView.isInFetchModeTimer)) {
                 bindingOptions._currentView.isInFetchModeTimer = setInterval(function () {
                     pullDataFromCustomTrigger(bindingOptions);
-                    // renderControlContainer( bindingOptions ); TODO: Enable
+                    renderControlContainer(bindingOptions);
                 }, bindingOptions.dataFetchDelay);
             }
         }
@@ -193,7 +1413,7 @@ var enums_1 = require("./enums");
             bindingOptions.colorRanges[colorRangesIndex].visible = flag;
             fireCustomTrigger(bindingOptions.events.onColorRangeTypeToggle, bindingOptions.colorRanges[colorRangesIndex].id, flag);
         }
-        //renderControlContainer( bindingOptions ); TODO: Enable
+        renderControlContainer(bindingOptions);
     }
     function toggleColorRangeVisibleState(bindingOptions, id) {
         var colorRangesLength = bindingOptions.colorRanges.length;
@@ -202,12 +1422,13 @@ var enums_1 = require("./enums");
             if (colorRange.id === id) {
                 colorRange.visible = !getDefaultBoolean(colorRange.visible, true);
                 fireCustomTrigger(bindingOptions.events.onColorRangeTypeToggle, colorRange.id, colorRange.visible);
-                //renderControlContainer( bindingOptions ); TODO: Enable
+                renderControlContainer(bindingOptions);
                 break;
             }
         }
     }
     function getColorRange(bindingOptions, colorRanges, dateCount, date) {
+        if (date === void 0) { date = null; }
         var useColorRange = null;
         if (isDefined(date) && isHoliday(bindingOptions, date).matched) {
             var newUseColorRange = {
@@ -331,7 +1552,7 @@ var enums_1 = require("./enums");
             }
             if (filesCompleted.length === filesLength) {
                 fireCustomTrigger(bindingOptions.events.onImport, bindingOptions._currentView.element);
-                //renderControlContainer( bindingOptions ); TODO: Enable
+                renderControlContainer(bindingOptions);
             }
         };
         for (var fileIndex = 0; fileIndex < filesLength; fileIndex++) {
@@ -402,6 +1623,7 @@ var enums_1 = require("./enums");
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
     function exportAllData(bindingOptions, exportType) {
+        if (exportType === void 0) { exportType = null; }
         var contents = null;
         var contentsMimeType = getExportMimeType(bindingOptions);
         var contentExportType = getDefaultString(exportType, bindingOptions.exportType).toLowerCase();
@@ -932,6 +2154,8 @@ var enums_1 = require("./enums");
         }
     }
     function buildCheckBox(container, labelText, checked, onClick) {
+        if (checked === void 0) { checked = null; }
+        if (onClick === void 0) { onClick = null; }
         var lineContainer = createElement(container, "div");
         var label = createElement(lineContainer, "label", "checkbox");
         var input = createElement(label, "input");

@@ -39,14 +39,7 @@ export type Configuration = {
 };
 
 export type BindingOptions = {
-    _currentView: {
-        element: HTMLElement,
-        year: number,
-        type: string,
-        isInFetchMode: boolean,
-        isInFetchModeTimer: number,
-        yearsAvailable: number[]
-    },
+    _currentView: BindingOptionsCurrentView,
     exportOnlyYearBeingViewed: boolean;
     year: number;
     view: string;
@@ -70,6 +63,31 @@ export type BindingOptions = {
         days: days,
         statistics: statistics
     };
+};
+
+export type BindingOptionsCurrentView = {
+    element: HTMLElement,
+    year: number,
+    type: string,
+    isInFetchMode: boolean,
+    isInFetchModeTimer: number,
+    yearsAvailable: number[],
+    view: number,
+    mapContents: HTMLElement,
+    mapContentsScrollLeft: number;
+    chartContents: HTMLElement,
+    chartContentsScrollLeft: number,
+    statisticsContents: HTMLElement,
+    statisticsContentsScrollLeft: number,
+    daysContents: HTMLElement,
+    daysContentsScrollLeft: number,
+    yearText: HTMLElement,
+    tooltip: HTMLElement,
+    tooltipTimer: number,
+    dayCheckBoxes: any[],
+    monthCheckBoxes: any[],
+    configurationDialog: HTMLElement,
+    disabledBackground: HTMLElement
 };
 
 export type title = {
