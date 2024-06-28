@@ -2,7 +2,7 @@ import { type Configuration, type Holiday, type ColorRange, type BindingOptions 
 import { STRING, VALUE, VIEW, VIEW_NAME, EXPORT_TYPE } from "./enums";
 import { type PublicApi } from "./api";
 
-(( documentObject, windowObject, mathObject, jsonObject ) => {
+( ( documentObject, windowObject, mathObject, jsonObject ) => {
 
 
 
@@ -12,8 +12,8 @@ import { type PublicApi } from "./api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    (() => {
+    ( () => {
 
-    })();
+    } )();
 
-})( document, window, Math, JSON );
+} )( document, window, Math, JSON );
