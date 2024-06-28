@@ -36,7 +36,7 @@ import { type PublicApi } from "./api";
      */
 
     function buildAttributeOptions( newOptions: any ) : BindingOptions {
-        var options: BindingOptions = getDefaultObject( newOptions, {} );
+        let options: BindingOptions = getDefaultObject( newOptions, {} );
         options.views = getDefaultObject( options.views, {} );
         options.exportOnlyYearBeingViewed = getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
         options.year = getDefaultNumber( options.year, new Date().getFullYear() );
@@ -139,7 +139,7 @@ import { type PublicApi } from "./api";
             let holidaysLength: number = options.holidays.length;
 
             for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-                var holiday: Holiday = options.holidays[ holidayIndex ];
+                let holiday: Holiday = options.holidays[ holidayIndex ];
                 
                 holiday.date = getDefaultString( holiday.date, null );
                 holiday.name = getDefaultString( holiday.name, null );
@@ -619,7 +619,7 @@ import { type PublicApi } from "./api";
         let result: object = defaultValue;
 
         if ( isDefinedString( value ) ) {
-            var values: string[] = value.toString().split( STRING.space );
+            let values: string[] = value.toString().split( STRING.space );
 
             if ( values.length === 0 ) {
                 value = defaultValue;
