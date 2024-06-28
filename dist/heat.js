@@ -2477,11 +2477,11 @@ var enums_1 = require("./enums");
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
         addDates: function (elementId, dates, type, triggerRefresh) {
+            if (triggerRefresh === void 0) { triggerRefresh = true; }
             if (isDefinedString(elementId) && isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 if (!bindingOptions._currentView.isInFetchMode) {
                     type = getDefaultString(type, _configuration.unknownTrendText);
-                    triggerRefresh = getDefaultBoolean(triggerRefresh, true);
                     var datesLength = dates.length;
                     for (var dateIndex = 0; dateIndex < datesLength; dateIndex++) {
                         _public.addDate(elementId, dates[dateIndex], type, false);
@@ -2494,11 +2494,11 @@ var enums_1 = require("./enums");
             return _public;
         },
         addDate: function (elementId, date, type, triggerRefresh) {
+            if (triggerRefresh === void 0) { triggerRefresh = true; }
             if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 if (!bindingOptions._currentView.isInFetchMode) {
                     type = getDefaultString(type, _configuration.unknownTrendText);
-                    triggerRefresh = getDefaultBoolean(triggerRefresh, true);
                     var storageDate = toStorageDate(date);
                     if (!_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
                         _elements_DateCounts[elementId].type[type] = {};
@@ -2517,13 +2517,13 @@ var enums_1 = require("./enums");
             return _public;
         },
         updateDate: function (elementId, date, count, type, triggerRefresh) {
+            if (triggerRefresh === void 0) { triggerRefresh = true; }
             if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 if (!bindingOptions._currentView.isInFetchMode && count > 0) {
                     type = getDefaultString(type, _configuration.unknownTrendText);
                     var storageDate = toStorageDate(date);
                     if (_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
-                        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
                         _elements_DateCounts[elementId].type[type][storageDate] = count;
                         fireCustomTrigger(bindingOptions.events.onUpdate, bindingOptions._currentView.element);
                         if (triggerRefresh) {
@@ -2535,11 +2535,11 @@ var enums_1 = require("./enums");
             return _public;
         },
         removeDates: function (elementId, dates, type, triggerRefresh) {
+            if (triggerRefresh === void 0) { triggerRefresh = true; }
             if (isDefinedString(elementId) && isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 if (!bindingOptions._currentView.isInFetchMode) {
                     type = getDefaultString(type, _configuration.unknownTrendText);
-                    triggerRefresh = getDefaultBoolean(triggerRefresh, true);
                     var datesLength = dates.length;
                     for (var dateIndex = 0; dateIndex < datesLength; dateIndex++) {
                         _public.removeDate(elementId, dates[dateIndex], type, false);
@@ -2552,13 +2552,13 @@ var enums_1 = require("./enums");
             return _public;
         },
         removeDate: function (elementId, date, type, triggerRefresh) {
+            if (triggerRefresh === void 0) { triggerRefresh = true; }
             if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 if (!bindingOptions._currentView.isInFetchMode) {
                     type = getDefaultString(type, _configuration.unknownTrendText);
                     var storageDate = toStorageDate(date);
                     if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
-                        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
                         if (_elements_DateCounts[elementId].type[type][storageDate] > 0) {
                             _elements_DateCounts[elementId].type[type][storageDate]--;
                         }
@@ -2572,13 +2572,13 @@ var enums_1 = require("./enums");
             return _public;
         },
         clearDate: function (elementId, date, type, triggerRefresh) {
+            if (triggerRefresh === void 0) { triggerRefresh = true; }
             if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 if (!bindingOptions._currentView.isInFetchMode) {
                     type = getDefaultString(type, _configuration.unknownTrendText);
                     var storageDate = toStorageDate(date);
                     if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
-                        triggerRefresh = getDefaultBoolean(triggerRefresh, true);
                         delete _elements_DateCounts[elementId].type[type][storageDate];
                         fireCustomTrigger(bindingOptions.events.onClear, bindingOptions._currentView.element);
                         if (triggerRefresh) {
@@ -2590,6 +2590,7 @@ var enums_1 = require("./enums");
             return _public;
         },
         resetAll: function (triggerRefresh) {
+            if (triggerRefresh === void 0) { triggerRefresh = true; }
             for (var elementId in _elements_DateCounts) {
                 if (_elements_DateCounts.hasOwnProperty(elementId)) {
                     _public.reset(elementId, triggerRefresh);
@@ -2598,10 +2599,10 @@ var enums_1 = require("./enums");
             return _public;
         },
         reset: function (elementId, triggerRefresh) {
+            if (triggerRefresh === void 0) { triggerRefresh = true; }
             if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 if (!bindingOptions._currentView.isInFetchMode) {
-                    triggerRefresh = getDefaultBoolean(triggerRefresh, true);
                     bindingOptions._currentView.type = _configuration.unknownTrendText;
                     createDateStorageForElement(elementId, bindingOptions, false);
                     fireCustomTrigger(bindingOptions.events.onReset, bindingOptions._currentView.element);
@@ -2837,6 +2838,7 @@ var enums_1 = require("./enums");
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
         setConfiguration: function (newConfiguration, triggerRefresh) {
+            if (triggerRefresh === void 0) { triggerRefresh = true; }
             if (isDefinedObject(newConfiguration)) {
                 var configurationHasChanged = false;
                 for (var propertyName in newConfiguration) {
@@ -2846,7 +2848,6 @@ var enums_1 = require("./enums");
                     }
                 }
                 if (configurationHasChanged) {
-                    triggerRefresh = getDefaultBoolean(triggerRefresh, true);
                     buildDefaultConfiguration(_configuration);
                     if (triggerRefresh) {
                         _public.refreshAll();
