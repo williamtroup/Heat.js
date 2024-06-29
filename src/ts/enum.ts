@@ -27,7 +27,7 @@ export const enum VALUE {
     notFound = -1
 }
 
-export const enum VIEW {
+export const enum VIEW_ID {
     map = 1,
     chart = 2,
     days = 3,

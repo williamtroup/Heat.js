@@ -31,7 +31,7 @@ import {
     EXPORT_TYPE,
     STRING,
     VALUE,
-    VIEW,
+    VIEW_ID,
     VIEW_NAME } from "./ts/enum";
 
 import { type PublicApi } from "./ts/api";
@@ -174,15 +174,15 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( view === VIEW_NAME.map ) {
-            currentView.view = VIEW.map;
+            currentView.view = VIEW_ID.map;
         } else if ( view === VIEW_NAME.chart ) {
-            currentView.view = VIEW.chart;
+            currentView.view = VIEW_ID.chart;
         } else if ( view === VIEW_NAME.days ) {
-            currentView.view = VIEW.days;
+            currentView.view = VIEW_ID.days;
         } else if ( view === VIEW_NAME.statistics ) {
-            currentView.view = VIEW.statistics;
+            currentView.view = VIEW_ID.statistics;
         } else {
-            currentView.view = VIEW.map;
+            currentView.view = VIEW_ID.map;
         }
 
         bindingOptions._currentView = currentView;
@@ -267,16 +267,16 @@ import { type PublicApi } from "./ts/api";
 
         bindingOptions._currentView.mapContents.style.display = "none";
 
-        if ( bindingOptions._currentView.view === VIEW.map ) {
+        if ( bindingOptions._currentView.view === VIEW_ID.map ) {
             bindingOptions._currentView.mapContents.style.display = "block";
-        } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart ) {
+        } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW_ID.chart ) {
             bindingOptions._currentView.chartContents.style.display = "block";
-        } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW.days ) {
+        } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW_ID.days ) {
             bindingOptions._currentView.daysContents.style.display = "block";
-        } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics ) {
+        } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW_ID.statistics ) {
             bindingOptions._currentView.statisticsContents.style.display = "block";
         } else {
-            bindingOptions._currentView.view = VIEW.map;
+            bindingOptions._currentView.view = VIEW_ID.map;
             bindingOptions._currentView.mapContents.style.display = "block";
         }
     }
@@ -333,16 +333,16 @@ import { type PublicApi } from "./ts/api";
         let daysToShow: number[] = [];
         let monthsToShow: number[] = [];
 
-        if ( bindingOptions._currentView.view === VIEW.map ) {
+        if ( bindingOptions._currentView.view === VIEW_ID.map ) {
             daysToShow = bindingOptions.views.map.daysToShow;
             monthsToShow = bindingOptions.views.map.monthsToShow;
-        } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart ) {
+        } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW_ID.chart ) {
             daysToShow = bindingOptions.views.chart.daysToShow;
             monthsToShow = bindingOptions.views.chart.monthsToShow;
-        } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW.days ) {
+        } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW_ID.days ) {
             daysToShow = bindingOptions.views.days.daysToShow;
             monthsToShow = bindingOptions.views.days.monthsToShow;
-        } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics ) {
+        } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW_ID.statistics ) {
             daysToShow = bindingOptions.views.statistics.daysToShow;
             monthsToShow = bindingOptions.views.statistics.monthsToShow;
         } else {
@@ -385,13 +385,13 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( daysChecked.length >= 1 ) {
-            if ( bindingOptions._currentView.view === VIEW.map ) {
+            if ( bindingOptions._currentView.view === VIEW_ID.map ) {
                 bindingOptions.views.map.daysToShow = daysChecked;
-            } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart ) {
+            } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW_ID.chart ) {
                 bindingOptions.views.chart.daysToShow = daysChecked;
-            } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW.days ) {
+            } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW_ID.days ) {
                 bindingOptions.views.days.daysToShow = daysChecked;
-            } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics ) {
+            } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW_ID.statistics ) {
                 bindingOptions.views.statistics.daysToShow = daysChecked;
             } else {
                 bindingOptions.views.map.daysToShow = daysChecked;
@@ -401,13 +401,13 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( monthsChecked.length >= 1 ) {
-            if ( bindingOptions._currentView.view === VIEW.map ) {
+            if ( bindingOptions._currentView.view === VIEW_ID.map ) {
                 bindingOptions.views.map.monthsToShow = monthsChecked;
-            } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart ) {
+            } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW_ID.chart ) {
                 bindingOptions.views.chart.monthsToShow = monthsChecked;
-            } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW.days ) {
+            } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW_ID.days ) {
                 bindingOptions.views.days.monthsToShow = monthsChecked;
-            } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics ) {
+            } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW_ID.statistics ) {
                 bindingOptions.views.statistics.monthsToShow = monthsChecked;
             } else {
                 bindingOptions.views.map.monthsToShow = monthsChecked;
@@ -593,12 +593,12 @@ import { type PublicApi } from "./ts/api";
 
         const menuItemMap: HTMLElement = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.mapText );
             
-        renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, VIEW.map, VIEW_NAME.map );
+        renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, VIEW_ID.map, VIEW_NAME.map );
 
         if ( bindingOptions.views.chart.enabled ) {
             const menuItemChart = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.chartText );
 
-            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, VIEW.chart, VIEW_NAME.chart );
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, VIEW_ID.chart, VIEW_NAME.chart );
         }
 
         if ( bindingOptions.views.days.enabled ) {
@@ -608,7 +608,7 @@ import { type PublicApi } from "./ts/api";
 
             const menuItemDays: HTMLElement = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.daysText );
 
-            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemDays, VIEW.days, VIEW_NAME.days );
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemDays, VIEW_ID.days, VIEW_NAME.days );
         }
 
         if ( bindingOptions.views.statistics.enabled ) {
@@ -618,7 +618,7 @@ import { type PublicApi } from "./ts/api";
 
             const menuItemStatistics: HTMLElement = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.colorRangesText );
 
-            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemStatistics, VIEW.statistics, VIEW_NAME.statistics );
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemStatistics, VIEW_ID.statistics, VIEW_NAME.statistics );
         }
     }
 
@@ -1501,11 +1501,11 @@ import { type PublicApi } from "./ts/api";
         addToolTip( day, bindingOptions, colorRange.tooltipText );
 
         if ( isColorRangeVisible( bindingOptions, colorRange.id ) ) {
-            if ( bindingOptions._currentView.view === VIEW.map && isDefinedString( colorRange.mapCssClassName ) ) {
+            if ( bindingOptions._currentView.view === VIEW_ID.map && isDefinedString( colorRange.mapCssClassName ) ) {
                 addClass( day, colorRange.mapCssClassName );
-            } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart && isDefinedString( colorRange.chartCssClassName ) ) {
+            } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW_ID.chart && isDefinedString( colorRange.chartCssClassName ) ) {
                 addClass( day, colorRange.chartCssClassName );
-            } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics && isDefinedString( colorRange.statisticsCssClassName ) ) {
+            } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW_ID.statistics && isDefinedString( colorRange.statisticsCssClassName ) ) {
                 addClass( day, colorRange.statisticsCssClassName );
             } else {
                 addClass( day, colorRange.cssClassName );
@@ -3464,13 +3464,13 @@ import { type PublicApi } from "./ts/api";
                 let view: number = null;
     
                 if ( viewName.toLowerCase() === VIEW_NAME.map ) {
-                    view = VIEW.map;
+                    view = VIEW_ID.map;
                 } else if ( viewName.toLowerCase() === VIEW_NAME.chart ) {
-                    view = VIEW.chart;
+                    view = VIEW_ID.chart;
                 } else if ( viewName.toLowerCase() === VIEW_NAME.days ) {
-                    view = VIEW.days;
+                    view = VIEW_ID.days;
                 } else if ( viewName.toLowerCase() === VIEW_NAME.statistics ) {
-                    view = VIEW.statistics;
+                    view = VIEW_ID.statistics;
                 }
     
                 if ( isDefinedNumber( view ) ) {
