@@ -65,41 +65,41 @@ export type BindingOptions = {
     showHolidaysInDayToolTips: boolean;
     colorRanges: ColorRange[];
     holidays: Holiday[];
-    title: Title,
-    description: Description,
-    guide: Guide,
-    tooltip: Tooltip,
-    events: Events,
+    title: Title;
+    description: Description;
+    guide: Guide;
+    tooltip: Tooltip;
+    events: Events;
     views: {
-        map: Map,
-        chart: Chart,
-        days: Days,
-        statistics: Statistics
+        map: Map;
+        chart: Chart;
+        days: Days;
+        statistics: Statistics;
     }
 };
 
 export type BindingOptionsCurrentView = {
-    element: HTMLElement,
-    year: number,
-    type: string,
-    isInFetchMode: boolean,
-    isInFetchModeTimer: number,
-    yearsAvailable: number[],
-    view: number,
-    mapContents: HTMLElement,
+    element: HTMLElement;
+    year: number;
+    type: string;
+    isInFetchMode: boolean;
+    isInFetchModeTimer: number;
+    yearsAvailable: number[];
+    view: number;
+    mapContents: HTMLElement;
     mapContentsScrollLeft: number;
-    chartContents: HTMLElement,
-    chartContentsScrollLeft: number,
-    statisticsContents: HTMLElement,
-    statisticsContentsScrollLeft: number,
-    daysContents: HTMLElement,
-    daysContentsScrollLeft: number,
-    yearText: HTMLElement,
-    tooltip: HTMLElement,
-    tooltipTimer: number,
-    dayCheckBoxes: any[],
-    monthCheckBoxes: any[],
-    configurationDialog: HTMLElement,
+    chartContents: HTMLElement;
+    chartContentsScrollLeft: number;
+    statisticsContents: HTMLElement;
+    statisticsContentsScrollLeft: number;
+    daysContents: HTMLElement;
+    daysContentsScrollLeft: number;
+    yearText: HTMLElement;
+    tooltip: HTMLElement;
+    tooltipTimer: number;
+    dayCheckBoxes: any[];
+    monthCheckBoxes: any[];
+    configurationDialog: HTMLElement;
     disabledBackground: HTMLElement
 };
 
