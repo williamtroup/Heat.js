@@ -467,4 +467,4 @@ declare global {
 	interface Window {
 		$heat: PublicApi;
 	}
-};
+}

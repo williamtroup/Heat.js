@@ -9,12 +9,12 @@ export const enum _string {
     zero = "0",
     colon = ":",
     comma = ","
-};
+}
 
 // Enum: Values
 export const enum _value {
     notFound = -1
-};
+}
 
 // Enum: View
 export const enum _view {
@@ -22,7 +22,7 @@ export const enum _view {
     chart = 2,
     days = 3,
     statistics = 4
-};
+}
 
 // Enum: View (names)
 export const enum _viewName {
@@ -30,7 +30,7 @@ export const enum _viewName {
     chart = "chart",
     days = "days",
     statistics = "statistics"
-};
+}
 
 // Enum: Export Types
 export const enum _exportType {
@@ -38,4 +38,4 @@ export const enum _exportType {
     json = "json",
     xml = "xml",
     txt = "txt"
-};
+}
