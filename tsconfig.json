@@ -6,7 +6,9 @@
     "outDir": "./dist",
     "checkJs": true,
     "removeComments": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*.ts"
