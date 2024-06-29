@@ -1,5 +1,5 @@
 // Enum: Strings
-export const enum _string {
+export const enum STRING {
     empty = "",
     space = " ",
     newLine = "\n",
@@ -12,12 +12,12 @@ export const enum _string {
 }
 
 // Enum: Values
-export const enum _value {
+export const enum VALUE {
     notFound = -1
 }
 
 // Enum: View
-export const enum _view {
+export const enum VIEW {
     map = 1,
     chart = 2,
     days = 3,
@@ -25,7 +25,7 @@ export const enum _view {
 }
 
 // Enum: View (names)
-export const enum _viewName {
+export const enum VIEW_NAME {
     map = "map",
     chart = "chart",
     days = "days",
@@ -33,7 +33,7 @@ export const enum _viewName {
 }
 
 // Enum: Export Types
-export const enum _exportType {
+export const enum EXPORT_TYPE {
     csv = "csv",
     json = "json",
     xml = "xml",
