@@ -1,3 +1,4 @@
+// src/ts/constant.ts
 "use strict";
 function _instanceof(left, right) {
     if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) {
@@ -10,6 +11,7 @@ function _type_of(obj) {
     "@swc/helpers - typeof";
     return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj;
 }
+var HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
 // src/heat.ts
 (function(documentObject, windowObject, mathObject, jsonObject) {
     var renderDisabledBackground = function renderDisabledBackground(bindingOptions) {
@@ -41,21 +43,21 @@ function _type_of(obj) {
     };
     var renderElement = function renderElement(element) {
         var result2 = true;
-        if (isDefined(element) && element.hasAttribute(_attribute_Name_Options)) {
-            var bindingOptionsData = element.getAttribute(_attribute_Name_Options);
+        if (isDefined(element) && element.hasAttribute(HEAT_JS_ATTRIBUTE_NAME)) {
+            var bindingOptionsData = element.getAttribute(HEAT_JS_ATTRIBUTE_NAME);
             if (isDefinedString(bindingOptionsData)) {
                 var bindingOptions = getObjectFromString(bindingOptionsData);
                 if (bindingOptions.parsed && isDefinedObject(bindingOptions.result)) {
                     renderControl(renderBindingOptions(bindingOptions.result, element));
                 } else {
                     if (!_configuration.safeMode) {
-                        console.error(_configuration.attributeNotValidErrorText.replace("{{attribute_name}}", _attribute_Name_Options));
+                        console.error(_configuration.attributeNotValidErrorText.replace("{{attribute_name}}", HEAT_JS_ATTRIBUTE_NAME));
                         result2 = false;
                     }
                 }
             } else {
                 if (!_configuration.safeMode) {
-                    console.error(_configuration.attributeNotSetErrorText.replace("{{attribute_name}}", _attribute_Name_Options));
+                    console.error(_configuration.attributeNotSetErrorText.replace("{{attribute_name}}", HEAT_JS_ATTRIBUTE_NAME));
                     result2 = false;
                 }
             }
@@ -116,7 +118,7 @@ function _type_of(obj) {
         } else {
             addClass(bindingOptions._currentView.element, "heat-js");
         }
-        bindingOptions._currentView.element.removeAttribute(_attribute_Name_Options);
+        bindingOptions._currentView.element.removeAttribute(HEAT_JS_ATTRIBUTE_NAME);
         createDateStorageForElement(bindingOptions._currentView.element.id, bindingOptions);
         renderControlContainer(bindingOptions);
         fireCustomTriggerEvent(bindingOptions.events.onRenderComplete, bindingOptions._currentView.element);
@@ -2265,7 +2267,6 @@ function _type_of(obj) {
         6,
         7
     ];
-    var _attribute_Name_Options = "data-heat-js";
     var _public = {
         /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

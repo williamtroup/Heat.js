@@ -26,10 +26,18 @@ var __commonJS = function(cb, mod) {
 var init_enum = __esm({
     "src/ts/enum.ts": function() {}
 });
+// src/ts/constant.ts
+var HEAT_JS_ATTRIBUTE_NAME;
+var init_constant = __esm({
+    "src/ts/constant.ts": function() {
+        HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
+    }
+});
 // src/heat.ts
 var require_heat = __commonJS({
     "src/heat.ts": function(exports, module) {
         init_enum();
+        init_constant();
         (function(documentObject, windowObject, mathObject, jsonObject) {
             var renderDisabledBackground = function renderDisabledBackground(bindingOptions) {
                 bindingOptions._currentView.disabledBackground = createElement(bindingOptions._currentView.element, "div", "disabled");
@@ -60,21 +68,21 @@ var require_heat = __commonJS({
             };
             var renderElement = function renderElement(element) {
                 var result2 = true;
-                if (isDefined(element) && element.hasAttribute(_attribute_Name_Options)) {
-                    var bindingOptionsData = element.getAttribute(_attribute_Name_Options);
+                if (isDefined(element) && element.hasAttribute(HEAT_JS_ATTRIBUTE_NAME)) {
+                    var bindingOptionsData = element.getAttribute(HEAT_JS_ATTRIBUTE_NAME);
                     if (isDefinedString(bindingOptionsData)) {
                         var bindingOptions = getObjectFromString(bindingOptionsData);
                         if (bindingOptions.parsed && isDefinedObject(bindingOptions.result)) {
                             renderControl(renderBindingOptions(bindingOptions.result, element));
                         } else {
                             if (!_configuration.safeMode) {
-                                console.error(_configuration.attributeNotValidErrorText.replace("{{attribute_name}}", _attribute_Name_Options));
+                                console.error(_configuration.attributeNotValidErrorText.replace("{{attribute_name}}", HEAT_JS_ATTRIBUTE_NAME));
                                 result2 = false;
                             }
                         }
                     } else {
                         if (!_configuration.safeMode) {
-                            console.error(_configuration.attributeNotSetErrorText.replace("{{attribute_name}}", _attribute_Name_Options));
+                            console.error(_configuration.attributeNotSetErrorText.replace("{{attribute_name}}", HEAT_JS_ATTRIBUTE_NAME));
                             result2 = false;
                         }
                     }
@@ -135,7 +143,7 @@ var require_heat = __commonJS({
                 } else {
                     addClass(bindingOptions._currentView.element, "heat-js");
                 }
-                bindingOptions._currentView.element.removeAttribute(_attribute_Name_Options);
+                bindingOptions._currentView.element.removeAttribute(HEAT_JS_ATTRIBUTE_NAME);
                 createDateStorageForElement(bindingOptions._currentView.element.id, bindingOptions);
                 renderControlContainer(bindingOptions);
                 fireCustomTriggerEvent(bindingOptions.events.onRenderComplete, bindingOptions._currentView.element);
@@ -2284,7 +2292,6 @@ var require_heat = __commonJS({
                 6,
                 7
             ];
-            var _attribute_Name_Options = "data-heat-js";
             var _public = {
                 /*
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -27,18 +27,12 @@ import {
     type Statistics,
     type Events } from "./ts/type";
 
-import {
-    EXPORT_TYPE,
-    STRING,
-    VALUE,
-    VIEW_ID,
-    VIEW_NAME } from "./ts/enum";
-
+import { EXPORT_TYPE, STRING, VALUE, VIEW_ID, VIEW_NAME } from "./ts/enum";
+import { HEAT_JS_ATTRIBUTE_NAME } from "./ts/constant"
 import { type PublicApi } from "./ts/api";
 
 
 ( ( documentObject, windowObject, mathObject, jsonObject ) => {
-
     // Variables: Configuration
     let _configuration: Configuration = {} as Configuration;
 
@@ -58,9 +52,6 @@ import { type PublicApi } from "./ts/api";
     // Variables: Defaults
     const _default_MonthsToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
     const _default_DaysToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7 ];
-
-    // Variables: Attribute Names
-    const _attribute_Name_Options: string = "data-heat-js";
 
 
     /*
@@ -112,8 +103,8 @@ import { type PublicApi } from "./ts/api";
     function renderElement( element: HTMLElement ) : boolean {
         let result: boolean = true;
 
-        if ( isDefined( element ) && element.hasAttribute( _attribute_Name_Options ) ) {
-            const bindingOptionsData: string = element.getAttribute( _attribute_Name_Options );
+        if ( isDefined( element ) && element.hasAttribute( HEAT_JS_ATTRIBUTE_NAME ) ) {
+            const bindingOptionsData: string = element.getAttribute( HEAT_JS_ATTRIBUTE_NAME );
 
             if ( isDefinedString( bindingOptionsData ) ) {
                 const bindingOptions: any = getObjectFromString( bindingOptionsData );
@@ -123,14 +114,14 @@ import { type PublicApi } from "./ts/api";
 
                 } else {
                     if ( !_configuration.safeMode ) {
-                        console.error( _configuration.attributeNotValidErrorText.replace( "{{attribute_name}}", _attribute_Name_Options ) );
+                        console.error( _configuration.attributeNotValidErrorText.replace( "{{attribute_name}}", HEAT_JS_ATTRIBUTE_NAME ) );
                         result = false;
                     }
                 }
 
             } else {
                 if ( !_configuration.safeMode ) {
-                    console.error( _configuration.attributeNotSetErrorText.replace( "{{attribute_name}}", _attribute_Name_Options ) );
+                    console.error( _configuration.attributeNotSetErrorText.replace( "{{attribute_name}}", HEAT_JS_ATTRIBUTE_NAME ) );
                     result = false;
                 }
             }
@@ -204,7 +195,7 @@ import { type PublicApi } from "./ts/api";
             addClass( bindingOptions._currentView.element, "heat-js" );
         }
 
-        bindingOptions._currentView.element.removeAttribute( _attribute_Name_Options );
+        bindingOptions._currentView.element.removeAttribute( HEAT_JS_ATTRIBUTE_NAME );
 
         createDateStorageForElement( bindingOptions._currentView.element.id, bindingOptions );
         renderControlContainer( bindingOptions );
