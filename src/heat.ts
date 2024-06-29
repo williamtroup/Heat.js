@@ -26,7 +26,7 @@ import { type PublicApi } from "./ts/api";
     let _elements_Day_Width: number = null;
 
     // Enum: Strings
-    const enum STRING {
+    const enum _string {
         empty = "",
         space = " ",
         newLine = "\n",
@@ -39,12 +39,12 @@ import { type PublicApi } from "./ts/api";
     };
     
     // Enum: Values
-    const enum VALUE {
+    const enum _value {
         notFound = -1
     };
     
     // Enum: View
-    const enum VIEW {
+    const enum _view {
         map = 1,
         chart = 2,
         days = 3,
@@ -52,7 +52,7 @@ import { type PublicApi } from "./ts/api";
     };
     
     // Enum: View (names)
-    const enum VIEW_NAME {
+    const enum _viewName {
         map = "map",
         chart = "chart",
         days = "days",
@@ -60,7 +60,7 @@ import { type PublicApi } from "./ts/api";
     };
     
     // Enum: Export Types
-    const enum EXPORT_TYPE {
+    const enum _exportType {
         csv = "csv",
         json = "json",
         xml = "xml",
@@ -162,7 +162,7 @@ import { type PublicApi } from "./ts/api";
 
     function renderBindingOptions( data: any, element: HTMLElement ) : BindingOptions {
         const bindingOptions: BindingOptions = buildAttributeOptions( data );
-        const view: string = !isDefinedString( bindingOptions.view ) ? STRING.empty : bindingOptions.view.toLowerCase();
+        const view: string = !isDefinedString( bindingOptions.view ) ? _string.empty : bindingOptions.view.toLowerCase();
 
         let currentView: BindingOptionsCurrentView = {} as BindingOptionsCurrentView;
         currentView.element = element;
@@ -195,16 +195,16 @@ import { type PublicApi } from "./ts/api";
             currentView.statisticsContentsScrollLeft = 0;
         }
 
-        if ( view === VIEW_NAME.map ) {
-            currentView.view = VIEW.map;
-        } else if ( view === VIEW_NAME.chart ) {
-            currentView.view = VIEW.chart;
-        } else if ( view === VIEW_NAME.days ) {
-            currentView.view = VIEW.days;
-        } else if ( view === VIEW_NAME.statistics ) {
-            currentView.view = VIEW.statistics;
+        if ( view === _viewName.map ) {
+            currentView.view = _view.map;
+        } else if ( view === _viewName.chart ) {
+            currentView.view = _view.chart;
+        } else if ( view === _viewName.days ) {
+            currentView.view = _view.days;
+        } else if ( view === _viewName.statistics ) {
+            currentView.view = _view.statistics;
         } else {
-            currentView.view = VIEW.map;
+            currentView.view = _view.map;
         }
 
         bindingOptions._currentView = currentView;
@@ -219,7 +219,7 @@ import { type PublicApi } from "./ts/api";
             bindingOptions._currentView.element.id = newGuid();
         }
 
-        if ( bindingOptions._currentView.element.className.trim() === STRING.empty ) {
+        if ( bindingOptions._currentView.element.className.trim() === _string.empty ) {
             bindingOptions._currentView.element.className = "heat-js";
         } else {
             addClass( bindingOptions._currentView.element, "heat-js" );
@@ -253,7 +253,7 @@ import { type PublicApi } from "./ts/api";
             bindingOptions._currentView.statisticsContentsScrollLeft = bindingOptions._currentView.statisticsContents.scrollLeft;
         }
         
-        bindingOptions._currentView.element.innerHTML = STRING.empty;
+        bindingOptions._currentView.element.innerHTML = _string.empty;
         bindingOptions._currentView.yearsAvailable = getYearsAvailableInData( bindingOptions );
         
         hideToolTip( bindingOptions );
@@ -289,16 +289,16 @@ import { type PublicApi } from "./ts/api";
 
         bindingOptions._currentView.mapContents.style.display = "none";
 
-        if ( bindingOptions._currentView.view === VIEW.map ) {
+        if ( bindingOptions._currentView.view === _view.map ) {
             bindingOptions._currentView.mapContents.style.display = "block";
-        } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart ) {
+        } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === _view.chart ) {
             bindingOptions._currentView.chartContents.style.display = "block";
-        } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW.days ) {
+        } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === _view.days ) {
             bindingOptions._currentView.daysContents.style.display = "block";
-        } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics ) {
+        } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === _view.statistics ) {
             bindingOptions._currentView.statisticsContents.style.display = "block";
         } else {
-            bindingOptions._currentView.view = VIEW.map;
+            bindingOptions._currentView.view = _view.map;
             bindingOptions._currentView.mapContents.style.display = "block";
         }
     }
@@ -320,8 +320,8 @@ import { type PublicApi } from "./ts/api";
         const monthsContainer: HTMLElement = createElement( contents, "div", "side-container panel" );
 
         createElementWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText );
-        createElementWithHTML( daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + STRING.colon );
-        createElementWithHTML( monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + STRING.colon );
+        createElementWithHTML( daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + _string.colon );
+        createElementWithHTML( monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + _string.colon );
 
         const months1Container: HTMLElement = createElement( monthsContainer, "div", "side-container" );
         const months2Container: HTMLElement = createElement( monthsContainer, "div", "side-container" );
@@ -355,16 +355,16 @@ import { type PublicApi } from "./ts/api";
         let daysToShow: number[] = [];
         let monthsToShow: number[] = [];
 
-        if ( bindingOptions._currentView.view === VIEW.map ) {
+        if ( bindingOptions._currentView.view === _view.map ) {
             daysToShow = bindingOptions.views.map.daysToShow;
             monthsToShow = bindingOptions.views.map.monthsToShow;
-        } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart ) {
+        } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === _view.chart ) {
             daysToShow = bindingOptions.views.chart.daysToShow;
             monthsToShow = bindingOptions.views.chart.monthsToShow;
-        } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW.days ) {
+        } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === _view.days ) {
             daysToShow = bindingOptions.views.days.daysToShow;
             monthsToShow = bindingOptions.views.days.monthsToShow;
-        } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics ) {
+        } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === _view.statistics ) {
             daysToShow = bindingOptions.views.statistics.daysToShow;
             monthsToShow = bindingOptions.views.statistics.monthsToShow;
         } else {
@@ -407,13 +407,13 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( daysChecked.length >= 1 ) {
-            if ( bindingOptions._currentView.view === VIEW.map ) {
+            if ( bindingOptions._currentView.view === _view.map ) {
                 bindingOptions.views.map.daysToShow = daysChecked;
-            } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart ) {
+            } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === _view.chart ) {
                 bindingOptions.views.chart.daysToShow = daysChecked;
-            } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW.days ) {
+            } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === _view.days ) {
                 bindingOptions.views.days.daysToShow = daysChecked;
-            } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics ) {
+            } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === _view.statistics ) {
                 bindingOptions.views.statistics.daysToShow = daysChecked;
             } else {
                 bindingOptions.views.map.daysToShow = daysChecked;
@@ -423,13 +423,13 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( monthsChecked.length >= 1 ) {
-            if ( bindingOptions._currentView.view === VIEW.map ) {
+            if ( bindingOptions._currentView.view === _view.map ) {
                 bindingOptions.views.map.monthsToShow = monthsChecked;
-            } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart ) {
+            } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === _view.chart ) {
                 bindingOptions.views.chart.monthsToShow = monthsChecked;
-            } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === VIEW.days ) {
+            } else if ( bindingOptions.views.days.enabled && bindingOptions._currentView.view === _view.days ) {
                 bindingOptions.views.days.monthsToShow = monthsChecked;
-            } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics ) {
+            } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === _view.statistics ) {
                 bindingOptions.views.statistics.monthsToShow = monthsChecked;
             } else {
                 bindingOptions.views.map.monthsToShow = monthsChecked;
@@ -610,37 +610,37 @@ import { type PublicApi } from "./ts/api";
         const titlesMenu: HTMLElement = createElement( titlesMenuContainer, "div", "titles-menu" );
         
         if ( bindingOptions.title.showTitleDropDownHeaders ) {
-            createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.dataText + STRING.colon );
+            createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.dataText + _string.colon );
         }
 
         const menuItemMap: HTMLElement = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.mapText );
             
-        renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, VIEW.map, VIEW_NAME.map );
+        renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, _view.map, _viewName.map );
 
         if ( bindingOptions.views.chart.enabled ) {
             const menuItemChart = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.chartText );
 
-            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, VIEW.chart, VIEW_NAME.chart );
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, _view.chart, _viewName.chart );
         }
 
         if ( bindingOptions.views.days.enabled ) {
             if ( bindingOptions.title.showTitleDropDownHeaders ) {
-                createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.yearText + STRING.colon );
+                createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.yearText + _string.colon );
             }
 
             const menuItemDays: HTMLElement = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.daysText );
 
-            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemDays, VIEW.days, VIEW_NAME.days );
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemDays, _view.days, _viewName.days );
         }
 
         if ( bindingOptions.views.statistics.enabled ) {
             if ( bindingOptions.title.showTitleDropDownHeaders ) {
-                createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.statisticsText + STRING.colon );
+                createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.statisticsText + _string.colon );
             }
 
             const menuItemStatistics: HTMLElement = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.colorRangesText );
 
-            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemStatistics, VIEW.statistics, VIEW_NAME.statistics );
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemStatistics, _view.statistics, _viewName.statistics );
         }
     }
 
@@ -765,7 +765,7 @@ import { type PublicApi } from "./ts/api";
         
                 for ( let dayNameIndex: number = 0; dayNameIndex < 7; dayNameIndex++ ) {
                     if ( isDayVisible( bindingOptions.views.map.daysToShow, dayNameIndex + 1 ) ) {
-                        const dayText: string = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.dayNames[ dayNameIndex ] : STRING.space;
+                        const dayText: string = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.dayNames[ dayNameIndex ] : _string.space;
 
                         createElementWithHTML( days, "div", "day-name", dayText );
                     }
@@ -959,7 +959,7 @@ import { type PublicApi } from "./ts/api";
             createElementWithHTML( labels, "div", "label-25", ( mathObject.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
             createElementWithHTML( labels, "div", "label-50", mathObject.floor( largestValueForCurrentYear / 2 ).toString() );
             createElementWithHTML( labels, "div", "label-75", mathObject.floor( largestValueForCurrentYear / 4 ).toString() );
-            createElementWithHTML( labels, "div", "label-100", STRING.zero );
+            createElementWithHTML( labels, "div", "label-100", _string.zero );
 
             labels.style.width = topLabel.offsetWidth + "px";
             labelsWidth = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true );
@@ -1140,7 +1140,7 @@ import { type PublicApi } from "./ts/api";
             createElementWithHTML( labels, "div", "label-25", ( mathObject.floor( dayValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
             createElementWithHTML( labels, "div", "label-50", mathObject.floor( dayValuesForCurrentYear.largestValue / 2 ).toString() );
             createElementWithHTML( labels, "div", "label-75", mathObject.floor( dayValuesForCurrentYear.largestValue / 4 ).toString() );
-            createElementWithHTML( labels, "div", "label-100", STRING.zero );
+            createElementWithHTML( labels, "div", "label-100", _string.zero );
 
             labels.style.width = topLabel.offsetWidth + "px";
             dayNames.style.paddingLeft = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true ) + "px";
@@ -1284,7 +1284,7 @@ import { type PublicApi } from "./ts/api";
             createElementWithHTML( labels, "div", "label-25", ( mathObject.floor( colorRangeValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
             createElementWithHTML( labels, "div", "label-50", mathObject.floor( colorRangeValuesForCurrentYear.largestValue / 2 ).toString() );
             createElementWithHTML( labels, "div", "label-75", mathObject.floor( colorRangeValuesForCurrentYear.largestValue / 4 ).toString() );
-            createElementWithHTML( labels, "div", "label-100", STRING.zero );
+            createElementWithHTML( labels, "div", "label-100", _string.zero );
 
             labels.style.width = topLabel.offsetWidth + "px";
             statisticsRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true ) + "px";
@@ -1320,7 +1320,7 @@ import { type PublicApi } from "./ts/api";
 
                     if ( bindingOptions.views.statistics.showColorRangeLabels ) {
                         if ( !bindingOptions.views.statistics.useColorRangeNamesForLabels || !isDefined( useColorRange ) || !isDefinedString( useColorRange.name ) ) {
-                            createElementWithHTML( statisticsRanges, "div", "range-name", type + STRING.plus );
+                            createElementWithHTML( statisticsRanges, "div", "range-name", type + _string.plus );
                         } else {
                             createElementWithHTML( statisticsRanges, "div", "range-name", useColorRange.name );
                         }
@@ -1381,7 +1381,7 @@ import { type PublicApi } from "./ts/api";
         const data: any = getCurrentViewData( bindingOptions );
         let largestValue: number = 0;
 
-        types[ STRING.zero ] = 0;
+        types[ _string.zero ] = 0;
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
             const totalDaysInMonth: number = getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
@@ -1398,7 +1398,7 @@ import { type PublicApi } from "./ts/api";
                         const useColorRange: ColorRange = getColorRange( bindingOptions, colorRanges, data[ storageDate ] );
 
                         if ( !isDefined( useColorRange ) ) {
-                            types[ STRING.zero ]++;
+                            types[ _string.zero ]++;
     
                         } else {
                             if ( !types.hasOwnProperty( useColorRange.minimum.toString() ) ) {
@@ -1523,11 +1523,11 @@ import { type PublicApi } from "./ts/api";
         addToolTip( day, bindingOptions, colorRange.tooltipText );
 
         if ( isColorRangeVisible( bindingOptions, colorRange.id ) ) {
-            if ( bindingOptions._currentView.view === VIEW.map && isDefinedString( colorRange.mapCssClassName ) ) {
+            if ( bindingOptions._currentView.view === _view.map && isDefinedString( colorRange.mapCssClassName ) ) {
                 addClass( day, colorRange.mapCssClassName );
-            } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW.chart && isDefinedString( colorRange.chartCssClassName ) ) {
+            } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === _view.chart && isDefinedString( colorRange.chartCssClassName ) ) {
                 addClass( day, colorRange.chartCssClassName );
-            } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW.statistics && isDefinedString( colorRange.statisticsCssClassName ) ) {
+            } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === _view.statistics && isDefinedString( colorRange.statisticsCssClassName ) ) {
                 addClass( day, colorRange.statisticsCssClassName );
             } else {
                 addClass( day, colorRange.cssClassName );
@@ -1537,7 +1537,7 @@ import { type PublicApi } from "./ts/api";
         if ( bindingOptions.guide.showNumbersInGuide ) {
             addClass( day, "day-number" );
 
-            day.innerHTML = colorRange.minimum + STRING.plus;
+            day.innerHTML = colorRange.minimum + _string.plus;
         }
 
         if ( bindingOptions.guide.colorRangeTogglesEnabled ) {
@@ -1581,7 +1581,7 @@ import { type PublicApi } from "./ts/api";
                 let holiday: any = isHoliday( bindingOptions, date );
 
                 if ( holiday.matched && isDefinedString( holiday.name ) ) {
-                    tooltip += STRING.colon + STRING.space + holiday.name;
+                    tooltip += _string.colon + _string.space + holiday.name;
                 }
             }
 
@@ -1615,11 +1615,11 @@ import { type PublicApi } from "./ts/api";
     }
 
     function isMonthVisible( monthsToShow: number[], month: number ) : boolean {
-        return monthsToShow.indexOf( month + 1 ) > VALUE.notFound;
+        return monthsToShow.indexOf( month + 1 ) > _value.notFound;
     }
 
     function isDayVisible( daysToShow: number[], day: number ) : boolean {
-        return daysToShow.indexOf( day ) > VALUE.notFound;
+        return daysToShow.indexOf( day ) > _value.notFound;
     }
 
     function getYearsAvailableInData( bindingOptions: BindingOptions ) : number[] {
@@ -1632,7 +1632,7 @@ import { type PublicApi } from "./ts/api";
                 if ( data.hasOwnProperty( storageDate ) ) {
                     let year: number = parseInt( getStorageDateYear( storageDate ) );
                     
-                    if ( years.indexOf( year ) === VALUE.notFound ) {
+                    if ( years.indexOf( year ) === _value.notFound ) {
                         years.push( year );
                     }
                 }
@@ -1647,7 +1647,7 @@ import { type PublicApi } from "./ts/api";
     }
 
     function isYearVisible( bindingOptions: BindingOptions, year: number ) : boolean {
-        return bindingOptions.yearsToHide.indexOf( year ) === VALUE.notFound && ( bindingOptions._currentView.yearsAvailable.length === 0 || bindingOptions._currentView.yearsAvailable.indexOf( year ) > VALUE.notFound );
+        return bindingOptions.yearsToHide.indexOf( year ) === _value.notFound && ( bindingOptions._currentView.yearsAvailable.length === 0 || bindingOptions._currentView.yearsAvailable.indexOf( year ) > _value.notFound );
     }
 
     function isFirstVisibleYear( bindingOptions: BindingOptions, year: number ) : boolean {
@@ -1842,12 +1842,12 @@ import { type PublicApi } from "./ts/api";
                 cssClassName: "holiday",
                 id: _internal_Name_Holiday,
                 visible: true,
-                name: STRING.empty,
+                name: _string.empty,
                 minimum: 0,
-                mapCssClassName: STRING.empty,
-                chartCssClassName: STRING.empty,
-                statisticsCssClassName: STRING.empty,
-                tooltipText: STRING.empty
+                mapCssClassName: _string.empty,
+                chartCssClassName: _string.empty,
+                statisticsCssClassName: _string.empty,
+                tooltipText: _string.empty
             };
 
             useColorRange = newUseColorRange;
@@ -1996,11 +1996,11 @@ import { type PublicApi } from "./ts/api";
             const file: File = files[ fileIndex ];
             const fileExtension: string = file.name.split( "." ).pop().toLowerCase();
 
-            if ( fileExtension === EXPORT_TYPE.json ) {
+            if ( fileExtension === _exportType.json ) {
                 importFromJson( file, onLoadEnd );
-            } else if ( fileExtension === EXPORT_TYPE.txt ) {
+            } else if ( fileExtension === _exportType.txt ) {
                 importFromTxt( file, onLoadEnd );
-            } else if ( fileExtension === EXPORT_TYPE.csv ) {
+            } else if ( fileExtension === _exportType.csv ) {
                 importFromCsv( file, onLoadEnd );
             }
         }
@@ -2036,11 +2036,11 @@ import { type PublicApi } from "./ts/api";
         };
     
         reader.onload = function( e ) {
-            const lines: string[] = e.target.result.toString().split( STRING.newLine );
+            const lines: string[] = e.target.result.toString().split( _string.newLine );
             const linesLength: number = lines.length;
 
             for ( let lineIndex: number = 0; lineIndex < linesLength; lineIndex++ ) {
-                const line: string[] = lines[ lineIndex ].split( STRING.colon );
+                const line: string[] = lines[ lineIndex ].split( _string.colon );
 
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
             }
@@ -2058,15 +2058,15 @@ import { type PublicApi } from "./ts/api";
         };
     
         reader.onload = function( e ) {
-            const data: string = e.target.result.toString().replace( new RegExp( "\"", "g" ), STRING.empty );
-            const lines: string[] = data.split( STRING.newLine );
+            const data: string = e.target.result.toString().replace( new RegExp( "\"", "g" ), _string.empty );
+            const lines: string[] = data.split( _string.newLine );
             
             lines.shift();
 
             const linesLength: number = lines.length;
 
             for ( let lineIndex: number = 0; lineIndex < linesLength; lineIndex++ ) {
-                let line: string[] = lines[ lineIndex ].split( STRING.comma );
+                let line: string[] = lines[ lineIndex ].split( _string.comma );
 
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
             }
@@ -2085,13 +2085,13 @@ import { type PublicApi } from "./ts/api";
         const contentsMimeType: string = getExportMimeType( bindingOptions );
         const contentExportType: string = getDefaultString( exportType, bindingOptions.exportType ).toLowerCase();
 
-        if ( contentExportType === EXPORT_TYPE.csv ) {
+        if ( contentExportType === _exportType.csv ) {
             contents = getCsvContent( bindingOptions );
-        } else if ( contentExportType === EXPORT_TYPE.json ) {
+        } else if ( contentExportType === _exportType.json ) {
             contents = getJsonContent( bindingOptions );
-        } else if ( contentExportType === EXPORT_TYPE.xml ) {
+        } else if ( contentExportType === _exportType.xml ) {
             contents = getXmlContents( bindingOptions );
-        } else if ( contentExportType === EXPORT_TYPE.txt ) {
+        } else if ( contentExportType === _exportType.txt ) {
             contents = getTxtContents( bindingOptions );
         }
 
@@ -2123,7 +2123,7 @@ import { type PublicApi } from "./ts/api";
             csvContents.unshift( getCsvValueLine( [ getCsvValue( _configuration.dateText ), getCsvValue( _configuration.countText ) ] ) );
         }
         
-        return csvContents.join( STRING.newLine );
+        return csvContents.join( _string.newLine );
     }
 
     function getJsonContent( bindingOptions: BindingOptions ) : string {
@@ -2148,7 +2148,7 @@ import { type PublicApi } from "./ts/api";
 
         contents.push( "</Dates>" );
 
-        return contents.join( STRING.newLine );
+        return contents.join( _string.newLine );
     }
 
     function getTxtContents( bindingOptions: BindingOptions ) : string {
@@ -2157,11 +2157,11 @@ import { type PublicApi } from "./ts/api";
 
         for ( let storageDate in data ) {
             if ( data.hasOwnProperty( storageDate ) ) {
-                contents.push( storageDate + STRING.colon + STRING.space + data[ storageDate ].toString() );
+                contents.push( storageDate + _string.colon + _string.space + data[ storageDate ].toString() );
             }
         }
 
-        return contents.join( STRING.newLine );
+        return contents.join( _string.newLine );
     }
 
     function getExportData( bindingOptions: BindingOptions ) : object {
@@ -2209,13 +2209,13 @@ import { type PublicApi } from "./ts/api";
     function getExportMimeType( bindingOptions: BindingOptions ) : string {
         let result: string = null;
 
-        if ( bindingOptions.exportType.toLowerCase() === EXPORT_TYPE.csv ) {
+        if ( bindingOptions.exportType.toLowerCase() === _exportType.csv ) {
             result = "text/csv";
-        } else if ( bindingOptions.exportType.toLowerCase() === EXPORT_TYPE.json ) {
+        } else if ( bindingOptions.exportType.toLowerCase() === _exportType.json ) {
             result = "application/json";
-        } else if ( bindingOptions.exportType.toLowerCase() === EXPORT_TYPE.xml ) {
+        } else if ( bindingOptions.exportType.toLowerCase() === _exportType.xml ) {
             result = "application/xml";
-        } else if ( bindingOptions.exportType.toLowerCase() === EXPORT_TYPE.txt ) {
+        } else if ( bindingOptions.exportType.toLowerCase() === _exportType.txt ) {
             result = "text/plain";
         }
 
@@ -2224,19 +2224,19 @@ import { type PublicApi } from "./ts/api";
 
     function getExportFilename( bindingOptions: BindingOptions ) : string {
         const date: Date = new Date();
-        const datePart: string = padNumber( date.getDate() ) + STRING.dash + padNumber( date.getMonth() + 1 ) + STRING.dash + date.getFullYear();
-        const timePart: string = padNumber( date.getHours() ) + STRING.dash + padNumber( date.getMinutes() );
-        let filenameStart: string = STRING.empty;
+        const datePart: string = padNumber( date.getDate() ) + _string.dash + padNumber( date.getMonth() + 1 ) + _string.dash + date.getFullYear();
+        const timePart: string = padNumber( date.getHours() ) + _string.dash + padNumber( date.getMinutes() );
+        let filenameStart: string = _string.empty;
 
         if ( bindingOptions._currentView.type !== _configuration.unknownTrendText ) {
-            filenameStart = bindingOptions._currentView.type.toLowerCase().replace( STRING.space, STRING.underscore ) + STRING.underscore;
+            filenameStart = bindingOptions._currentView.type.toLowerCase().replace( _string.space, _string.underscore ) + _string.underscore;
         }
 
-        return filenameStart + datePart + STRING.underscore + timePart + "." + bindingOptions.exportType.toLowerCase();
+        return filenameStart + datePart + _string.underscore + timePart + "." + bindingOptions.exportType.toLowerCase();
     }
 
     function getCsvValue( text: string ) : string {
-        let result: string = text.toString().replace( /(\r\n|\n|\r)/gm, STRING.empty ).replace( /(\s\s)/gm, STRING.space );
+        let result: string = text.toString().replace( /(\r\n|\n|\r)/gm, _string.empty ).replace( /(\s\s)/gm, _string.space );
         result = result.replace( /"/g, '""' );
         result = '"' + result + '"';
 
@@ -2259,8 +2259,8 @@ import { type PublicApi } from "./ts/api";
         options.views = getDefaultObject( options.views, {} );
         options.exportOnlyYearBeingViewed = getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
         options.year = getDefaultNumber( options.year, new Date().getFullYear() );
-        options.view = getDefaultString( options.view, VIEW_NAME.map );
-        options.exportType = getDefaultString( options.exportType, EXPORT_TYPE.csv );
+        options.view = getDefaultString( options.view, _viewName.map );
+        options.exportType = getDefaultString( options.exportType, _exportType.csv );
         options.useLocalStorageForData = getDefaultBoolean( options.useLocalStorageForData, false );
         options.allowFileImports = getDefaultBoolean( options.allowFileImports, true );
         options.yearsToHide = getDefaultArray( options.yearsToHide, [] );
@@ -2310,9 +2310,9 @@ import { type PublicApi } from "./ts/api";
                     cssClassName: "day-color-1",
                     tooltipText: "Day Color 1",
                     visible: true,
-                    mapCssClassName: STRING.empty,
-                    chartCssClassName: STRING.empty,
-                    statisticsCssClassName: STRING.empty
+                    mapCssClassName: _string.empty,
+                    chartCssClassName: _string.empty,
+                    statisticsCssClassName: _string.empty
                 },
                 {
                     id: newGuid(),
@@ -2321,9 +2321,9 @@ import { type PublicApi } from "./ts/api";
                     cssClassName: "day-color-2",
                     tooltipText: "Day Color 2",
                     visible: true,
-                    mapCssClassName: STRING.empty,
-                    chartCssClassName: STRING.empty,
-                    statisticsCssClassName: STRING.empty
+                    mapCssClassName: _string.empty,
+                    chartCssClassName: _string.empty,
+                    statisticsCssClassName: _string.empty
                 },
                 {
                     id: newGuid(),
@@ -2332,9 +2332,9 @@ import { type PublicApi } from "./ts/api";
                     cssClassName: "day-color-3",
                     tooltipText: "Day Color 3",
                     visible: true,
-                    mapCssClassName: STRING.empty,
-                    chartCssClassName: STRING.empty,
-                    statisticsCssClassName: STRING.empty
+                    mapCssClassName: _string.empty,
+                    chartCssClassName: _string.empty,
+                    statisticsCssClassName: _string.empty
                 },
                 {
                     id: newGuid(),
@@ -2343,9 +2343,9 @@ import { type PublicApi } from "./ts/api";
                     cssClassName: "day-color-4",
                     tooltipText: "Day Color 4",
                     visible: true,
-                    mapCssClassName: STRING.empty,
-                    chartCssClassName: STRING.empty,
-                    statisticsCssClassName: STRING.empty
+                    mapCssClassName: _string.empty,
+                    chartCssClassName: _string.empty,
+                    statisticsCssClassName: _string.empty
                 }
             ];
         }
@@ -2594,7 +2594,7 @@ import { type PublicApi } from "./ts/api";
         const isText: boolean = nodeType === "text";
 
         if ( !_elements_Type.hasOwnProperty( nodeType ) ) {
-            _elements_Type[ nodeType ] = isText ? documentObject.createTextNode( STRING.empty ) : documentObject.createElement( nodeType );
+            _elements_Type[ nodeType ] = isText ? documentObject.createTextNode( _string.empty ) : documentObject.createElement( nodeType );
         }
 
         result = _elements_Type[ nodeType ].cloneNode( false );
@@ -2602,13 +2602,13 @@ import { type PublicApi } from "./ts/api";
         return result;
     }
 
-    function createElement( container: HTMLElement, type: string, className: string = STRING.empty, beforeNode: HTMLElement | null = null ) : HTMLElement {
+    function createElement( container: HTMLElement, type: string, className: string = _string.empty, beforeNode: HTMLElement | null = null ) : HTMLElement {
         let result: HTMLElement = null;
         const nodeType: string = type.toLowerCase();
         const isText: boolean = nodeType === "text";
 
         if ( !_elements_Type.hasOwnProperty( nodeType ) ) {
-            _elements_Type[ nodeType ] = isText ? documentObject.createTextNode( STRING.empty ) : documentObject.createElement( nodeType );
+            _elements_Type[ nodeType ] = isText ? documentObject.createTextNode( _string.empty ) : documentObject.createElement( nodeType );
         }
 
         result = _elements_Type[ nodeType ].cloneNode( false );
@@ -2650,12 +2650,12 @@ import { type PublicApi } from "./ts/api";
     }
 
     function addClass( element: HTMLElement, className: string ) {
-        element.className += STRING.space + className;
+        element.className += _string.space + className;
         element.className = element.className.trim();
     }
 
     function removeClass( element: HTMLElement, className: string ) {
-        element.className = element.className.replace( className, STRING.empty );
+        element.className = element.className.replace( className, _string.empty );
         element.className = element.className.trim();
     }
 
@@ -2764,7 +2764,7 @@ import { type PublicApi } from "./ts/api";
      */
 
     function isDefined( value: any ) : boolean  {
-        return value !== null && value !== undefined && value.toString() !== STRING.empty;
+        return value !== null && value !== undefined && value.toString() !== _string.empty;
     }
 
     function isDefinedObject( object: any ) : boolean {
@@ -2838,7 +2838,7 @@ import { type PublicApi } from "./ts/api";
         let result: any[] = defaultValue;
 
         if ( isDefinedString( value ) ) {
-            const values: string[] = value.toString().split( STRING.space );
+            const values: string[] = value.toString().split( _string.space );
 
             if ( values.length === 0 ) {
                 value = defaultValue;
@@ -2899,20 +2899,20 @@ import { type PublicApi } from "./ts/api";
 
         for ( let charIndex: number = 0; charIndex < 32; charIndex++ ) {
             if ( charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20 ) {
-                result.push( STRING.dash );
+                result.push( _string.dash );
             }
 
             const character: string = mathObject.floor( mathObject.random() * 16 ).toString( 16 );
             result.push( character );
         }
 
-        return result.join( STRING.empty );
+        return result.join( _string.empty );
     }
 
     function padNumber( number: number ) : string {
         const numberString: string = number.toString();
 
-        return numberString.length === 1 ? STRING.zero + numberString : numberString;
+        return numberString.length === 1 ? _string.zero + numberString : numberString;
     }
 
     function startsWithAnyCase( data: string, start: string ) : boolean {
@@ -2927,15 +2927,15 @@ import { type PublicApi } from "./ts/api";
      */
 
     function toStorageDate( date: Date ) : string {
-        return date.getFullYear() + STRING.dash + padNumber( date.getMonth() + 1 ) + STRING.dash + padNumber( date.getDate() );
+        return date.getFullYear() + _string.dash + padNumber( date.getMonth() + 1 ) + _string.dash + padNumber( date.getDate() );
     }
 
     function getStorageDate( data: string ) : string[] {
-        return data.split( STRING.dash );
+        return data.split( _string.dash );
     }
 
     function getStorageDateYear( data: string ) : string {
-        return data.split( STRING.dash )[ 0 ];
+        return data.split( _string.dash )[ 0 ];
     }
 
 
@@ -3005,7 +3005,7 @@ import { type PublicApi } from "./ts/api";
 	 */
 
     function destroyElement( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView.element.innerHTML = STRING.empty;
+        bindingOptions._currentView.element.innerHTML = _string.empty;
 
         removeClass( bindingOptions._currentView.element, "heat-js" );
         assignToolTipEvents( bindingOptions, false );
@@ -3485,14 +3485,14 @@ import { type PublicApi } from "./ts/api";
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 let view: number = null;
     
-                if ( viewName.toLowerCase() === VIEW_NAME.map ) {
-                    view = VIEW.map;
-                } else if ( viewName.toLowerCase() === VIEW_NAME.chart ) {
-                    view = VIEW.chart;
-                } else if ( viewName.toLowerCase() === VIEW_NAME.days ) {
-                    view = VIEW.days;
-                } else if ( viewName.toLowerCase() === VIEW_NAME.statistics ) {
-                    view = VIEW.statistics;
+                if ( viewName.toLowerCase() === _viewName.map ) {
+                    view = _view.map;
+                } else if ( viewName.toLowerCase() === _viewName.chart ) {
+                    view = _view.chart;
+                } else if ( viewName.toLowerCase() === _viewName.days ) {
+                    view = _view.days;
+                } else if ( viewName.toLowerCase() === _viewName.statistics ) {
+                    view = _view.statistics;
                 }
     
                 if ( isDefinedNumber( view ) ) {
