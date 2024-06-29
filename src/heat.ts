@@ -14,9 +14,14 @@ import {
     type Statistics,
     type Events } from "./ts/type";
 
-import { type PublicApi } from "./ts/api";
+import {
+    EXPORT_TYPE,
+    STRING,
+    VALUE,
+    VIEW,
+    VIEW_NAME } from "./ts/enum";
 
-import { EXPORT_TYPE, STRING, VALUE, VIEW, VIEW_NAME } from "./ts/enum";
+import { type PublicApi } from "./ts/api";
 
 ( ( documentObject, windowObject, mathObject, jsonObject ) => {
 
