@@ -12,9 +12,9 @@ import {
     type Chart,
     type Days,
     type Statistics,
-    type Events } from "./types";
+    type Events } from "./ts/types";
 
-import { type PublicApi } from "./api";
+import { type PublicApi } from "./ts/api";
 
 ( ( documentObject, windowObject, mathObject, jsonObject ) => {
 

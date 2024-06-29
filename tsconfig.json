@@ -8,7 +8,7 @@
     },
     "include": [
       "src/*.ts"
-    ],
+, "src/ts/api.ts", "src/ts/types.ts"    ],
     "exclude": [
       "node_modules"
     ]
