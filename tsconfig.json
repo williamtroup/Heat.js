@@ -7,8 +7,9 @@
       "isolatedModules": true
     },
     "include": [
-      "src/*.ts"
-, "src/ts/api.ts", "src/ts/types.ts"    ],
+      "src/*.ts",
+      "src/ts/*.ts"
+    ],
     "exclude": [
       "node_modules"
     ]
