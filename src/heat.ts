@@ -36,6 +36,7 @@ import {
 
 import { type PublicApi } from "./ts/api";
 
+
 ( ( documentObject, windowObject, mathObject, jsonObject ) => {
 
     // Variables: Configuration
