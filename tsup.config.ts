@@ -1,6 +1,6 @@
 import { defineConfig } from "tsup";
 
-export default defineConfig([
+export default defineConfig( [
   {
     entry: [
       "src/heat.ts"
@@ -17,4 +17,4 @@ export default defineConfig([
     minify: false,
     clean: false
   }
-]);
+] );
