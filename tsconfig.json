@@ -5,7 +5,8 @@
     "sourceMap": true,
     "outDir": "./dist",
     "checkJs": true,
-    "removeComments": true
+    "removeComments": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
     "src/*.ts",
