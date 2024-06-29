@@ -3,20 +3,20 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Heat.js - No Clicks</title>
-        <link rel="stylesheet" href="../css/styles.css">
-        <link rel="stylesheet" href="../../dist/heat.js.css">
-        <script src="../../dist/heat.js"></script>
+        <title>Heat.js - Only Map</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="../dist/heat.js.css">
+        <script src="../dist/heat.js"></script>
     </head>
 
     <body>
         <div class="header">
-            <h1 id="header">Heat.js - No Clicks</h1>
-            <p>This is a basic example of how to use Heat.js to create a basic heatmap with no click events.</p>
+            <h1 id="header">Heat.js - Only Map</h1>
+            <p>This is a basic example of how to use Heat.js to create a basic heatmap (without any other views enabled).</p>
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-js="{ 'guide': { 'colorRangeTogglesEnabled': false } }"></div>
+            <div id="heat-map-1" data-heat-js="{ 'events': { 'onDayClick': onDayClick }, 'description': { 'text': 'A basic example of how to use Heat.js.' }, 'views': { 'chart': { 'enabled': false }, 'statistics': { 'enabled': false }, 'days': { 'enabled': false } } }"></div>
         </div>
     </body>
 

@@ -3,21 +3,20 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Heat.js - Theme</title>
-        <link rel="stylesheet" href="../css/styles.css">
-        <link rel="stylesheet" href="../../dist/heat.js.css">
-        <link rel="stylesheet" href="../../dist/themes/light/heat.js.light.red.theme.css">
-        <script src="../../dist/heat.js"></script>
+        <title>Heat.js - Basic</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="../dist/heat.js.css">
+        <script src="../dist/heat.js"></script>
     </head>
 
     <body>
         <div class="header">
-            <h1 id="header">Heat.js - Theme</h1>
-            <p>This is a basic example of how to use Heat.js to create a basic heatmap using an override theme CSS file.</p>
+            <h1 id="header">Heat.js - Basic</h1>
+            <p>This is a basic example of how to use Heat.js to create a basic heatmap.</p>
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-js="{ 'holidays': [ { 'date': '25/12', 'name': 'Christmas Day', 'showInViews': true } ], 'events': { 'onDayClick': onDayClick }, 'description': { 'text': 'A basic example of how to use Heat.js.' }, 'views': { 'map': { 'showDayNumbers': true } } }"></div>
+            <div id="heat-map-1" data-heat-js="{ 'events': { 'onDayClick': onDayClick }, 'description': { 'text': 'A basic example of how to use Heat.js.' } }"></div>
         </div>
     </body>
 

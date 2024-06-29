@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Heat.js - Only Years Available</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="../dist/heat.js.css">
+        <script src="../dist/heat.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 id="header">Heat.js - Only Years Available</h1>
+            <p>This is a basic example of how to use Heat.js to create a basic heatmap showing only the years available in the data.</p>
+        </div>
+
+        <div class="contents">
+            <div id="heat-map-1" data-heat-js="{ 'showOnlyDataForYearsAvailable': true, 'yearsToHide': [ 2026 ], 'description': { 'text': 'A basic example of how to use Heat.js.' } }"></div>
+        </div>
+    </body>
+
+    <script>
+        document.title += " - v" + $heat.getVersion();
+        document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
+
+        document.addEventListener( "DOMContentLoaded", function() {
+            var date = new Date( new Date().getFullYear(), 0, 1 );
+
+            for ( var dayNumber = 0; dayNumber < 20000; dayNumber++ ) {
+                var daysToIncrease = Math.floor( Math.random() * 1800 ),
+                    newDate = new Date( date );
+
+                newDate.setDate( newDate.getDate() + daysToIncrease );
+
+                $heat.addDate( "heat-map-1", newDate, null, false );
+            }
+
+            $heat.refreshAll();
+        } );
+    </script>
+</html>

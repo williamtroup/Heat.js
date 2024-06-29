@@ -3,20 +3,20 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Heat.js - Only Years Available</title>
-        <link rel="stylesheet" href="../css/styles.css">
-        <link rel="stylesheet" href="../../dist/heat.js.css">
-        <script src="../../dist/heat.js"></script>
+        <title>Heat.js - No Clicks</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="../dist/heat.js.css">
+        <script src="../dist/heat.js"></script>
     </head>
 
     <body>
         <div class="header">
-            <h1 id="header">Heat.js - Only Years Available</h1>
-            <p>This is a basic example of how to use Heat.js to create a basic heatmap showing only the years available in the data.</p>
+            <h1 id="header">Heat.js - No Clicks</h1>
+            <p>This is a basic example of how to use Heat.js to create a basic heatmap with no click events.</p>
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-js="{ 'showOnlyDataForYearsAvailable': true, 'yearsToHide': [ 2026 ], 'description': { 'text': 'A basic example of how to use Heat.js.' } }"></div>
+            <div id="heat-map-1" data-heat-js="{ 'guide': { 'colorRangeTogglesEnabled': false } }"></div>
         </div>
     </body>
 
@@ -24,11 +24,15 @@
         document.title += " - v" + $heat.getVersion();
         document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
 
+        function onDayClick( date ) {
+            console.log( "Day clicked for: " + date.toString() );
+        }
+
         document.addEventListener( "DOMContentLoaded", function() {
             var date = new Date( new Date().getFullYear(), 0, 1 );
 
-            for ( var dayNumber = 0; dayNumber < 20000; dayNumber++ ) {
-                var daysToIncrease = Math.floor( Math.random() * 1800 ),
+            for ( var dayNumber = 0; dayNumber < 8000; dayNumber++ ) {
+                var daysToIncrease = Math.floor( Math.random() * 500 ),
                     newDate = new Date( date );
 
                 newDate.setDate( newDate.getDate() + daysToIncrease );

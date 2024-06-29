@@ -3,21 +3,20 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Heat.js - Translations</title>
-        <link rel="stylesheet" href="../css/styles.css">
-        <link rel="stylesheet" href="../../dist/heat.js.css">
-        <script src="../../dist/heat.js"></script>
-        <script src="../../dist/translations/heat.translations.de.js"></script>
+        <title>Heat.js - Numbers</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="../dist/heat.js.css">
+        <script src="../dist/heat.js"></script>
     </head>
 
     <body>
         <div class="header">
-            <h1 id="header">Heat.js - Translations</h1>
-            <p>This is a basic example of how to use Heat.js to create a basic heatmap using translations.</p>
+            <h1 id="header">Heat.js - Numbers</h1>
+            <p>This is a basic example of how to use Heat.js to create a basic heatmap with numbers displayed.</p>
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-js="{ 'events': { 'onDayClick': onDayClick } }"></div>
+            <div id="heat-map-1" data-heat-js="{ 'events': { 'onDayClick': onDayClick }, 'views': { 'map': { 'showDayNumbers': true }, 'chart': { 'showLineNumbers': true }, 'statistics': { 'showRangeNumbers': true }, 'days': { 'showDayNumbers': true } }, 'description': { 'text': 'A basic example of how to use Heat.js.' }, 'guide': { 'showNumbersInGuide': true } }"></div>
         </div>
     </body>
 
