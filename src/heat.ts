@@ -26,7 +26,7 @@ import { type PublicApi } from "./ts/api";
     let _elements_Day_Width: number = null;
 
     // Enum: Strings
-    enum STRING {
+    const enum STRING {
         empty = "",
         space = " ",
         newLine = "\n",
@@ -39,12 +39,12 @@ import { type PublicApi } from "./ts/api";
     };
     
     // Enum: Values
-    enum VALUE {
+    const enum VALUE {
         notFound = -1
     };
     
     // Enum: View
-    enum VIEW {
+    const enum VIEW {
         map = 1,
         chart = 2,
         days = 3,
@@ -52,7 +52,7 @@ import { type PublicApi } from "./ts/api";
     };
     
     // Enum: View (names)
-    enum VIEW_NAME {
+    const enum VIEW_NAME {
         map = "map",
         chart = "chart",
         days = "days",
@@ -60,7 +60,7 @@ import { type PublicApi } from "./ts/api";
     };
     
     // Enum: Export Types
-    enum EXPORT_TYPE {
+    const enum EXPORT_TYPE {
         csv = "csv",
         json = "json",
         xml = "xml",
