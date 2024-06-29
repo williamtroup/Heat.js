@@ -2581,7 +2581,7 @@ import { type PublicApi } from "./ts/api";
         return result;
     }
 
-    function createElement( container: HTMLElement, type: string, className: string = STRING.empty, beforeNode: HTMLElement | null = null ) : HTMLElement {
+    function createElement( container: HTMLElement, type: string, className: string = STRING.empty, beforeNode: HTMLElement = null ) : HTMLElement {
         let result: HTMLElement = null;
         const nodeType: string = type.toLowerCase();
         const isText: boolean = nodeType === "text";
@@ -2694,7 +2694,7 @@ import { type PublicApi } from "./ts/api";
         }
     }
 
-    function buildCheckBox( container: HTMLElement, labelText: string, checked: boolean | null = null, onClick: Function | null = null ) : any {
+    function buildCheckBox( container: HTMLElement, labelText: string, checked: boolean = null, onClick: Function = null ) : any {
         const lineContainer: HTMLElement = createElement( container, "div" );
         const label: HTMLElement = createElement( lineContainer, "label", "checkbox" );
         const input: any = createElement( label, "input" );
