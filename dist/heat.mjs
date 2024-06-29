@@ -2297,12 +2297,11 @@ var require_heat = __commonJS({
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          * Public Functions:  Manage Dates
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-         */ addDates: function addDates(elementId, dates, type) {
-                    var triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
+         */ addDates: function addDates(elementId, dates) {
+                    var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : _configuration.unknownTrendText, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
                     if (isDefinedString(elementId) && isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
                         var bindingOptions = _elements_DateCounts[elementId].options;
                         if (!bindingOptions._currentView.isInFetchMode) {
-                            type = getDefaultString(type, _configuration.unknownTrendText);
                             var datesLength = dates.length;
                             for(var dateIndex = 0; dateIndex < datesLength; dateIndex++){
                                 _public.addDate(elementId, dates[dateIndex], type, false);
@@ -2314,12 +2313,11 @@ var require_heat = __commonJS({
                     }
                     return _public;
                 },
-                addDate: function addDate(elementId, date, type) {
-                    var triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
+                addDate: function addDate(elementId, date) {
+                    var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : _configuration.unknownTrendText, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
                     if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
                         var bindingOptions = _elements_DateCounts[elementId].options;
                         if (!bindingOptions._currentView.isInFetchMode) {
-                            type = getDefaultString(type, _configuration.unknownTrendText);
                             var storageDate = toStorageDate(date);
                             if (!_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
                                 _elements_DateCounts[elementId].type[type] = {};
@@ -2337,12 +2335,11 @@ var require_heat = __commonJS({
                     }
                     return _public;
                 },
-                updateDate: function updateDate(elementId, date, count, type) {
-                    var triggerRefresh = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : true;
+                updateDate: function updateDate(elementId, date, count) {
+                    var type = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : _configuration.unknownTrendText, triggerRefresh = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : true;
                     if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
                         var bindingOptions = _elements_DateCounts[elementId].options;
                         if (!bindingOptions._currentView.isInFetchMode && count > 0) {
-                            type = getDefaultString(type, _configuration.unknownTrendText);
                             var storageDate = toStorageDate(date);
                             if (_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
                                 _elements_DateCounts[elementId].type[type][storageDate] = count;
@@ -2355,12 +2352,11 @@ var require_heat = __commonJS({
                     }
                     return _public;
                 },
-                removeDates: function removeDates(elementId, dates, type) {
-                    var triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
+                removeDates: function removeDates(elementId, dates) {
+                    var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : _configuration.unknownTrendText, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
                     if (isDefinedString(elementId) && isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
                         var bindingOptions = _elements_DateCounts[elementId].options;
                         if (!bindingOptions._currentView.isInFetchMode) {
-                            type = getDefaultString(type, _configuration.unknownTrendText);
                             var datesLength = dates.length;
                             for(var dateIndex = 0; dateIndex < datesLength; dateIndex++){
                                 _public.removeDate(elementId, dates[dateIndex], type, false);
@@ -2372,12 +2368,11 @@ var require_heat = __commonJS({
                     }
                     return _public;
                 },
-                removeDate: function removeDate(elementId, date, type) {
-                    var triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
+                removeDate: function removeDate(elementId, date) {
+                    var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : _configuration.unknownTrendText, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
                     if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
                         var bindingOptions = _elements_DateCounts[elementId].options;
                         if (!bindingOptions._currentView.isInFetchMode) {
-                            type = getDefaultString(type, _configuration.unknownTrendText);
                             var storageDate = toStorageDate(date);
                             if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
                                 if (_elements_DateCounts[elementId].type[type][storageDate] > 0) {
@@ -2392,12 +2387,11 @@ var require_heat = __commonJS({
                     }
                     return _public;
                 },
-                clearDate: function clearDate(elementId, date, type) {
-                    var triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
+                clearDate: function clearDate(elementId, date) {
+                    var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : _configuration.unknownTrendText, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
                     if (isDefinedString(elementId) && isDefinedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
                         var bindingOptions = _elements_DateCounts[elementId].options;
                         if (!bindingOptions._currentView.isInFetchMode) {
-                            type = getDefaultString(type, _configuration.unknownTrendText);
                             var storageDate = toStorageDate(date);
                             if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
                                 delete _elements_DateCounts[elementId].type[type][storageDate];
@@ -2444,7 +2438,8 @@ var require_heat = __commonJS({
                     }
                     return _public;
                 },
-                export: function _export(elementId, exportType) {
+                export: function _export(elementId) {
+                    var exportType = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : null;
                     if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
                         exportAllData(_elements_DateCounts[elementId].options, exportType);
                     }

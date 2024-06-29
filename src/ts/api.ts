@@ -38,7 +38,7 @@ export type PublicApi = {
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    addDates: ( elementId: string, dates: Date[], type: string | null, triggerRefresh: boolean | null ) => PublicApi;
+    addDates: ( elementId: string, dates: Date[], type?: string, triggerRefresh?: boolean ) => PublicApi;
 
     /**
      * addDate().
@@ -55,7 +55,7 @@ export type PublicApi = {
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    addDate: ( elementId: string, date: Date, type: string | null, triggerRefresh: boolean | null ) => PublicApi;
+    addDate: ( elementId: string, date: Date, type?: string, triggerRefresh?: boolean ) => PublicApi;
 
     /**
      * updateDate().
@@ -73,7 +73,7 @@ export type PublicApi = {
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    updateDate: ( elementId: string, date: Date, count: number, type: string | null, triggerRefresh: boolean | null ) => PublicApi;
+    updateDate: ( elementId: string, date: Date, count: number, type?: string, triggerRefresh?: boolean ) => PublicApi;
 
     /**
      * removeDates().
@@ -90,7 +90,7 @@ export type PublicApi = {
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    removeDates: ( elementId: string, dates: Date[], type: string | null, triggerRefresh: boolean | null ) => PublicApi;
+    removeDates: ( elementId: string, dates: Date[], type?: string, triggerRefresh?: boolean ) => PublicApi;
 
     /**
      * removeDate().
@@ -107,7 +107,7 @@ export type PublicApi = {
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    removeDate: ( elementId: string, date: Date, type: string | null, triggerRefresh: boolean | null ) => PublicApi;
+    removeDate: ( elementId: string, date: Date, type?: string, triggerRefresh?: boolean ) => PublicApi;
 
     /**
      * clearDate().
@@ -124,7 +124,7 @@ export type PublicApi = {
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    clearDate: ( elementId: string, date: Date, type: string | null, triggerRefresh: boolean | null ) => PublicApi;
+    clearDate: ( elementId: string, date: Date, type?: string, triggerRefresh?: boolean ) => PublicApi;
 
     /**
      * resetAll().
@@ -138,7 +138,7 @@ export type PublicApi = {
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    resetAll: ( triggerRefresh: boolean | null ) => PublicApi;
+    resetAll: ( triggerRefresh?: boolean ) => PublicApi;
 
     /**
      * reset().
@@ -153,7 +153,7 @@ export type PublicApi = {
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    reset: ( elementId: string, triggerRefresh: boolean | null ) => PublicApi;
+    reset: ( elementId: string, triggerRefresh?: boolean ) => PublicApi;
 
 
     /*
@@ -190,7 +190,7 @@ export type PublicApi = {
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    export: ( elementId: string, exportType: string ) => PublicApi;
+    export: ( elementId: string, exportType?: string ) => PublicApi;
 
 
     /*
@@ -447,7 +447,7 @@ export type PublicApi = {
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    setConfiguration: ( newConfiguration: Configuration, triggerRefresh: boolean | null ) => PublicApi;
+    setConfiguration: ( newConfiguration: Configuration, triggerRefresh?: boolean ) => PublicApi;
 
 
     /*
