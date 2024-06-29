@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "module": "ES6",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "checkJs": true,
-    "removeComments": true,
-    "forceConsistentCasingInFileNames": true,
+    "target": "es2016",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "declaration": true,
+    "outDir": "./build",                                  
+    "esModuleInterop": true,                         
+    "forceConsistentCasingInFileNames": true,          
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "removeComments": true,
+    "sourceMap": true                              
   },
   "include": [
     "src/**/*.ts"

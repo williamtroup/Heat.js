@@ -2,3 +2,5 @@
 /.vscode
 .DS_Store
 *.nupkg
+/build
+/node_modules

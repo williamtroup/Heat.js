@@ -12,6 +12,9 @@
     "type": "git",
     "url": "https://github.com/williamtroup/Heat.js"
   },
+  "scripts": {
+    "build": "tsup && sass src/heat.js.scss dist/heat.js.css"
+  },
   "keywords": [
     "typescript",
     "javascript",
@@ -36,6 +39,7 @@
   "license": "MIT",
   "devDependencies": {
     "sass": "^1.77.6",
+    "tsup": "^8.1.0",
     "typescript": "^5.5.2"
   }
 }
