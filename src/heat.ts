@@ -16,6 +16,8 @@ import {
 
 import { type PublicApi } from "./ts/api";
 
+import { _exportType, _string, _value, _view, _viewName } from "./ts/enums";
+
 ( ( documentObject, windowObject, mathObject, jsonObject ) => {
 
     // Variables: Configuration
@@ -24,48 +26,6 @@ import { type PublicApi } from "./ts/api";
     // Variables: Elements
     const _elements_Type: object = {};
     let _elements_Day_Width: number = null;
-
-    // Enum: Strings
-    const enum _string {
-        empty = "",
-        space = " ",
-        newLine = "\n",
-        dash = "-",
-        underscore = "_",
-        plus = "+",
-        zero = "0",
-        colon = ":",
-        comma = ","
-    };
-    
-    // Enum: Values
-    const enum _value {
-        notFound = -1
-    };
-    
-    // Enum: View
-    const enum _view {
-        map = 1,
-        chart = 2,
-        days = 3,
-        statistics = 4
-    };
-    
-    // Enum: View (names)
-    const enum _viewName {
-        map = "map",
-        chart = "chart",
-        days = "days",
-        statistics = "statistics"
-    };
-    
-    // Enum: Export Types
-    const enum _exportType {
-        csv = "csv",
-        json = "json",
-        xml = "xml",
-        txt = "txt"
-    };
 
     // Variables: Date Counts
     let _elements_DateCounts: object = {};

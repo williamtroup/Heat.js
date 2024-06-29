@@ -4,7 +4,7 @@
       "module": "ES6",
       "sourceMap": true,
       "outDir": "./dist",
-      "isolatedModules": true
+      "checkJs": true
     },
     "include": [
       "src/*.ts",

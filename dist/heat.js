@@ -4,53 +4,6 @@
     // Variables: Elements
     var _elements_Type = {};
     var _elements_Day_Width = null;
-    // Enum: Strings
-    var _string;
-    (function (_string) {
-        _string["empty"] = "";
-        _string["space"] = " ";
-        _string["newLine"] = "\n";
-        _string["dash"] = "-";
-        _string["underscore"] = "_";
-        _string["plus"] = "+";
-        _string["zero"] = "0";
-        _string["colon"] = ":";
-        _string["comma"] = ",";
-    })(_string || (_string = {}));
-    ;
-    // Enum: Values
-    var _value;
-    (function (_value) {
-        _value[_value["notFound"] = -1] = "notFound";
-    })(_value || (_value = {}));
-    ;
-    // Enum: View
-    var _view;
-    (function (_view) {
-        _view[_view["map"] = 1] = "map";
-        _view[_view["chart"] = 2] = "chart";
-        _view[_view["days"] = 3] = "days";
-        _view[_view["statistics"] = 4] = "statistics";
-    })(_view || (_view = {}));
-    ;
-    // Enum: View (names)
-    var _viewName;
-    (function (_viewName) {
-        _viewName["map"] = "map";
-        _viewName["chart"] = "chart";
-        _viewName["days"] = "days";
-        _viewName["statistics"] = "statistics";
-    })(_viewName || (_viewName = {}));
-    ;
-    // Enum: Export Types
-    var _exportType;
-    (function (_exportType) {
-        _exportType["csv"] = "csv";
-        _exportType["json"] = "json";
-        _exportType["xml"] = "xml";
-        _exportType["txt"] = "txt";
-    })(_exportType || (_exportType = {}));
-    ;
     // Variables: Date Counts
     var _elements_DateCounts = {};
     // Variables: Internal Names
@@ -126,7 +79,7 @@
     }
     function renderBindingOptions(data, element) {
         var bindingOptions = buildAttributeOptions(data);
-        var view = !isDefinedString(bindingOptions.view) ? _string.empty : bindingOptions.view.toLowerCase();
+        var view = !isDefinedString(bindingOptions.view) ? "" /* _string.empty */ : bindingOptions.view.toLowerCase();
         var currentView = {};
         currentView.element = element;
         currentView.disabledBackground = null;
@@ -154,20 +107,20 @@
             currentView.statisticsContents = null;
             currentView.statisticsContentsScrollLeft = 0;
         }
-        if (view === _viewName.map) {
-            currentView.view = _view.map;
+        if (view === "map" /* _viewName.map */) {
+            currentView.view = 1 /* _view.map */;
         }
-        else if (view === _viewName.chart) {
-            currentView.view = _view.chart;
+        else if (view === "chart" /* _viewName.chart */) {
+            currentView.view = 2 /* _view.chart */;
         }
-        else if (view === _viewName.days) {
-            currentView.view = _view.days;
+        else if (view === "days" /* _viewName.days */) {
+            currentView.view = 3 /* _view.days */;
         }
-        else if (view === _viewName.statistics) {
-            currentView.view = _view.statistics;
+        else if (view === "statistics" /* _viewName.statistics */) {
+            currentView.view = 4 /* _view.statistics */;
         }
         else {
-            currentView.view = _view.map;
+            currentView.view = 1 /* _view.map */;
         }
         bindingOptions._currentView = currentView;
         return bindingOptions;
@@ -177,7 +130,7 @@
         if (!isDefinedString(bindingOptions._currentView.element.id)) {
             bindingOptions._currentView.element.id = newGuid();
         }
-        if (bindingOptions._currentView.element.className.trim() === _string.empty) {
+        if (bindingOptions._currentView.element.className.trim() === "" /* _string.empty */) {
             bindingOptions._currentView.element.className = "heat-js";
         }
         else {
@@ -206,7 +159,7 @@
         if (bindingOptions.views.statistics.enabled && isDefined(bindingOptions._currentView.statisticsContents)) {
             bindingOptions._currentView.statisticsContentsScrollLeft = bindingOptions._currentView.statisticsContents.scrollLeft;
         }
-        bindingOptions._currentView.element.innerHTML = _string.empty;
+        bindingOptions._currentView.element.innerHTML = "" /* _string.empty */;
         bindingOptions._currentView.yearsAvailable = getYearsAvailableInData(bindingOptions);
         hideToolTip(bindingOptions);
         startDataPullTimer(bindingOptions);
@@ -230,20 +183,20 @@
             bindingOptions._currentView.statisticsContents.style.display = "none";
         }
         bindingOptions._currentView.mapContents.style.display = "none";
-        if (bindingOptions._currentView.view === _view.map) {
+        if (bindingOptions._currentView.view === 1 /* _view.map */) {
             bindingOptions._currentView.mapContents.style.display = "block";
         }
-        else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === _view.chart) {
+        else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2 /* _view.chart */) {
             bindingOptions._currentView.chartContents.style.display = "block";
         }
-        else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === _view.days) {
+        else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === 3 /* _view.days */) {
             bindingOptions._currentView.daysContents.style.display = "block";
         }
-        else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === _view.statistics) {
+        else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4 /* _view.statistics */) {
             bindingOptions._currentView.statisticsContents.style.display = "block";
         }
         else {
-            bindingOptions._currentView.view = _view.map;
+            bindingOptions._currentView.view = 1 /* _view.map */;
             bindingOptions._currentView.mapContents.style.display = "block";
         }
     }
@@ -260,8 +213,8 @@
         var daysContainer = createElement(contents, "div", "side-container panel");
         var monthsContainer = createElement(contents, "div", "side-container panel");
         createElementWithHTML(titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText);
-        createElementWithHTML(daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + _string.colon);
-        createElementWithHTML(monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + _string.colon);
+        createElementWithHTML(daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + ":" /* _string.colon */);
+        createElementWithHTML(monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + ":" /* _string.colon */);
         var months1Container = createElement(monthsContainer, "div", "side-container");
         var months2Container = createElement(monthsContainer, "div", "side-container");
         closeButton.onclick = function () {
@@ -285,19 +238,19 @@
         }
         var daysToShow = [];
         var monthsToShow = [];
-        if (bindingOptions._currentView.view === _view.map) {
+        if (bindingOptions._currentView.view === 1 /* _view.map */) {
             daysToShow = bindingOptions.views.map.daysToShow;
             monthsToShow = bindingOptions.views.map.monthsToShow;
         }
-        else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === _view.chart) {
+        else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2 /* _view.chart */) {
             daysToShow = bindingOptions.views.chart.daysToShow;
             monthsToShow = bindingOptions.views.chart.monthsToShow;
         }
-        else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === _view.days) {
+        else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === 3 /* _view.days */) {
             daysToShow = bindingOptions.views.days.daysToShow;
             monthsToShow = bindingOptions.views.days.monthsToShow;
         }
-        else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === _view.statistics) {
+        else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4 /* _view.statistics */) {
             daysToShow = bindingOptions.views.statistics.daysToShow;
             monthsToShow = bindingOptions.views.statistics.monthsToShow;
         }
@@ -332,16 +285,16 @@
             }
         }
         if (daysChecked.length >= 1) {
-            if (bindingOptions._currentView.view === _view.map) {
+            if (bindingOptions._currentView.view === 1 /* _view.map */) {
                 bindingOptions.views.map.daysToShow = daysChecked;
             }
-            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === _view.chart) {
+            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2 /* _view.chart */) {
                 bindingOptions.views.chart.daysToShow = daysChecked;
             }
-            else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === _view.days) {
+            else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === 3 /* _view.days */) {
                 bindingOptions.views.days.daysToShow = daysChecked;
             }
-            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === _view.statistics) {
+            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4 /* _view.statistics */) {
                 bindingOptions.views.statistics.daysToShow = daysChecked;
             }
             else {
@@ -350,16 +303,16 @@
             render = true;
         }
         if (monthsChecked.length >= 1) {
-            if (bindingOptions._currentView.view === _view.map) {
+            if (bindingOptions._currentView.view === 1 /* _view.map */) {
                 bindingOptions.views.map.monthsToShow = monthsChecked;
             }
-            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === _view.chart) {
+            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2 /* _view.chart */) {
                 bindingOptions.views.chart.monthsToShow = monthsChecked;
             }
-            else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === _view.days) {
+            else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === 3 /* _view.days */) {
                 bindingOptions.views.days.monthsToShow = monthsChecked;
             }
-            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === _view.statistics) {
+            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4 /* _view.statistics */) {
                 bindingOptions.views.statistics.monthsToShow = monthsChecked;
             }
             else {
@@ -503,27 +456,27 @@
         var titlesMenuContainer = createElement(title, "div", "titles-menu-container");
         var titlesMenu = createElement(titlesMenuContainer, "div", "titles-menu");
         if (bindingOptions.title.showTitleDropDownHeaders) {
-            createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.dataText + _string.colon);
+            createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.dataText + ":" /* _string.colon */);
         }
         var menuItemMap = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.mapText);
-        renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemMap, _view.map, _viewName.map);
+        renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemMap, 1 /* _view.map */, "map" /* _viewName.map */);
         if (bindingOptions.views.chart.enabled) {
             var menuItemChart = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.chartText);
-            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemChart, _view.chart, _viewName.chart);
+            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemChart, 2 /* _view.chart */, "chart" /* _viewName.chart */);
         }
         if (bindingOptions.views.days.enabled) {
             if (bindingOptions.title.showTitleDropDownHeaders) {
-                createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.yearText + _string.colon);
+                createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.yearText + ":" /* _string.colon */);
             }
             var menuItemDays = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.daysText);
-            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemDays, _view.days, _viewName.days);
+            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemDays, 3 /* _view.days */, "days" /* _viewName.days */);
         }
         if (bindingOptions.views.statistics.enabled) {
             if (bindingOptions.title.showTitleDropDownHeaders) {
-                createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.statisticsText + _string.colon);
+                createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.statisticsText + ":" /* _string.colon */);
             }
             var menuItemStatistics = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.colorRangesText);
-            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemStatistics, _view.statistics, _viewName.statistics);
+            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemStatistics, 4 /* _view.statistics */, "statistics" /* _viewName.statistics */);
         }
     }
     function renderTitleDropDownMenuItemClickEvent(bindingOptions, option, view, viewName) {
@@ -619,7 +572,7 @@
                 }
                 for (var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++) {
                     if (isDayVisible(bindingOptions.views.map.daysToShow, dayNameIndex + 1)) {
-                        var dayText = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.dayNames[dayNameIndex] : _string.space;
+                        var dayText = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.dayNames[dayNameIndex] : " " /* _string.space */;
                         createElementWithHTML(days, "div", "day-name", dayText);
                     }
                 }
@@ -777,7 +730,7 @@
             createElementWithHTML(labels, "div", "label-25", (mathObject.floor(largestValueForCurrentYear / 4) * 3).toString());
             createElementWithHTML(labels, "div", "label-50", mathObject.floor(largestValueForCurrentYear / 2).toString());
             createElementWithHTML(labels, "div", "label-75", mathObject.floor(largestValueForCurrentYear / 4).toString());
-            createElementWithHTML(labels, "div", "label-100", _string.zero);
+            createElementWithHTML(labels, "div", "label-100", "0" /* _string.zero */);
             labels.style.width = topLabel.offsetWidth + "px";
             labelsWidth = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true);
         }
@@ -920,7 +873,7 @@
             createElementWithHTML(labels, "div", "label-25", (mathObject.floor(dayValuesForCurrentYear.largestValue / 4) * 3).toString());
             createElementWithHTML(labels, "div", "label-50", mathObject.floor(dayValuesForCurrentYear.largestValue / 2).toString());
             createElementWithHTML(labels, "div", "label-75", mathObject.floor(dayValuesForCurrentYear.largestValue / 4).toString());
-            createElementWithHTML(labels, "div", "label-100", _string.zero);
+            createElementWithHTML(labels, "div", "label-100", "0" /* _string.zero */);
             labels.style.width = topLabel.offsetWidth + "px";
             dayNames.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
         }
@@ -1033,7 +986,7 @@
             createElementWithHTML(labels, "div", "label-25", (mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 4) * 3).toString());
             createElementWithHTML(labels, "div", "label-50", mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 2).toString());
             createElementWithHTML(labels, "div", "label-75", mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 4).toString());
-            createElementWithHTML(labels, "div", "label-100", _string.zero);
+            createElementWithHTML(labels, "div", "label-100", "0" /* _string.zero */);
             labels.style.width = topLabel.offsetWidth + "px";
             statisticsRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
         }
@@ -1061,7 +1014,7 @@
                     var useColorRange = getColorRangeByMinimum(colorRanges, parseInt(type));
                     if (bindingOptions.views.statistics.showColorRangeLabels) {
                         if (!bindingOptions.views.statistics.useColorRangeNamesForLabels || !isDefined(useColorRange) || !isDefinedString(useColorRange.name)) {
-                            createElementWithHTML(statisticsRanges, "div", "range-name", type + _string.plus);
+                            createElementWithHTML(statisticsRanges, "div", "range-name", type + "+" /* _string.plus */);
                         }
                         else {
                             createElementWithHTML(statisticsRanges, "div", "range-name", useColorRange.name);
@@ -1112,7 +1065,7 @@
         var types = {};
         var data = getCurrentViewData(bindingOptions);
         var largestValue = 0;
-        types[_string.zero] = 0;
+        types["0" /* _string.zero */] = 0;
         for (var monthIndex = 0; monthIndex < 12; monthIndex++) {
             var totalDaysInMonth = getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
             for (var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++) {
@@ -1124,7 +1077,7 @@
                     if (!isHoliday(bindingOptions, storageDateObject).matched && isMonthVisible(bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.statistics.daysToShow, weekDayNumber)) {
                         var useColorRange = getColorRange(bindingOptions, colorRanges, data[storageDate]);
                         if (!isDefined(useColorRange)) {
-                            types[_string.zero]++;
+                            types["0" /* _string.zero */]++;
                         }
                         else {
                             if (!types.hasOwnProperty(useColorRange.minimum.toString())) {
@@ -1224,13 +1177,13 @@
         day.className = "day";
         addToolTip(day, bindingOptions, colorRange.tooltipText);
         if (isColorRangeVisible(bindingOptions, colorRange.id)) {
-            if (bindingOptions._currentView.view === _view.map && isDefinedString(colorRange.mapCssClassName)) {
+            if (bindingOptions._currentView.view === 1 /* _view.map */ && isDefinedString(colorRange.mapCssClassName)) {
                 addClass(day, colorRange.mapCssClassName);
             }
-            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === _view.chart && isDefinedString(colorRange.chartCssClassName)) {
+            else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2 /* _view.chart */ && isDefinedString(colorRange.chartCssClassName)) {
                 addClass(day, colorRange.chartCssClassName);
             }
-            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === _view.statistics && isDefinedString(colorRange.statisticsCssClassName)) {
+            else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4 /* _view.statistics */ && isDefinedString(colorRange.statisticsCssClassName)) {
                 addClass(day, colorRange.statisticsCssClassName);
             }
             else {
@@ -1239,7 +1192,7 @@
         }
         if (bindingOptions.guide.showNumbersInGuide) {
             addClass(day, "day-number");
-            day.innerHTML = colorRange.minimum + _string.plus;
+            day.innerHTML = colorRange.minimum + "+" /* _string.plus */;
         }
         if (bindingOptions.guide.colorRangeTogglesEnabled) {
             day.onclick = function () {
@@ -1276,7 +1229,7 @@
             if (bindingOptions.showHolidaysInDayToolTips) {
                 var holiday = isHoliday(bindingOptions, date);
                 if (holiday.matched && isDefinedString(holiday.name)) {
-                    tooltip += _string.colon + _string.space + holiday.name;
+                    tooltip += ":" /* _string.colon */ + " " /* _string.space */ + holiday.name;
                 }
             }
             addToolTip(day, bindingOptions, tooltip);
@@ -1303,10 +1256,10 @@
         return _elements_DateCounts[bindingOptions._currentView.element.id].type[bindingOptions._currentView.type];
     }
     function isMonthVisible(monthsToShow, month) {
-        return monthsToShow.indexOf(month + 1) > _value.notFound;
+        return monthsToShow.indexOf(month + 1) > -1 /* _value.notFound */;
     }
     function isDayVisible(daysToShow, day) {
-        return daysToShow.indexOf(day) > _value.notFound;
+        return daysToShow.indexOf(day) > -1 /* _value.notFound */;
     }
     function getYearsAvailableInData(bindingOptions) {
         var years = [];
@@ -1315,7 +1268,7 @@
             for (var storageDate in data) {
                 if (data.hasOwnProperty(storageDate)) {
                     var year = parseInt(getStorageDateYear(storageDate));
-                    if (years.indexOf(year) === _value.notFound) {
+                    if (years.indexOf(year) === -1 /* _value.notFound */) {
                         years.push(year);
                     }
                 }
@@ -1327,7 +1280,7 @@
         return years;
     }
     function isYearVisible(bindingOptions, year) {
-        return bindingOptions.yearsToHide.indexOf(year) === _value.notFound && (bindingOptions._currentView.yearsAvailable.length === 0 || bindingOptions._currentView.yearsAvailable.indexOf(year) > _value.notFound);
+        return bindingOptions.yearsToHide.indexOf(year) === -1 /* _value.notFound */ && (bindingOptions._currentView.yearsAvailable.length === 0 || bindingOptions._currentView.yearsAvailable.indexOf(year) > -1 /* _value.notFound */);
     }
     function isFirstVisibleYear(bindingOptions, year) {
         return bindingOptions._currentView.yearsAvailable.length > 0 && year <= bindingOptions._currentView.yearsAvailable[0];
@@ -1479,12 +1432,12 @@
                 cssClassName: "holiday",
                 id: _internal_Name_Holiday,
                 visible: true,
-                name: _string.empty,
+                name: "" /* _string.empty */,
                 minimum: 0,
-                mapCssClassName: _string.empty,
-                chartCssClassName: _string.empty,
-                statisticsCssClassName: _string.empty,
-                tooltipText: _string.empty
+                mapCssClassName: "" /* _string.empty */,
+                chartCssClassName: "" /* _string.empty */,
+                statisticsCssClassName: "" /* _string.empty */,
+                tooltipText: "" /* _string.empty */
             };
             useColorRange = newUseColorRange;
         }
@@ -1602,13 +1555,13 @@
         for (var fileIndex = 0; fileIndex < filesLength; fileIndex++) {
             var file = files[fileIndex];
             var fileExtension = file.name.split(".").pop().toLowerCase();
-            if (fileExtension === _exportType.json) {
+            if (fileExtension === "json" /* _exportType.json */) {
                 importFromJson(file, onLoadEnd);
             }
-            else if (fileExtension === _exportType.txt) {
+            else if (fileExtension === "txt" /* _exportType.txt */) {
                 importFromTxt(file, onLoadEnd);
             }
-            else if (fileExtension === _exportType.csv) {
+            else if (fileExtension === "csv" /* _exportType.csv */) {
                 importFromCsv(file, onLoadEnd);
             }
         }
@@ -1635,10 +1588,10 @@
             onLoadEnd(file.name, readingObject);
         };
         reader.onload = function (e) {
-            var lines = e.target.result.toString().split(_string.newLine);
+            var lines = e.target.result.toString().split("\n" /* _string.newLine */);
             var linesLength = lines.length;
             for (var lineIndex = 0; lineIndex < linesLength; lineIndex++) {
-                var line = lines[lineIndex].split(_string.colon);
+                var line = lines[lineIndex].split(":" /* _string.colon */);
                 readingObject[line[0].trim()] = parseInt(line[1].trim());
             }
         };
@@ -1651,12 +1604,12 @@
             onLoadEnd(file.name, readingObject);
         };
         reader.onload = function (e) {
-            var data = e.target.result.toString().replace(new RegExp("\"", "g"), _string.empty);
-            var lines = data.split(_string.newLine);
+            var data = e.target.result.toString().replace(new RegExp("\"", "g"), "" /* _string.empty */);
+            var lines = data.split("\n" /* _string.newLine */);
             lines.shift();
             var linesLength = lines.length;
             for (var lineIndex = 0; lineIndex < linesLength; lineIndex++) {
-                var line = lines[lineIndex].split(_string.comma);
+                var line = lines[lineIndex].split("," /* _string.comma */);
                 readingObject[line[0].trim()] = parseInt(line[1].trim());
             }
         };
@@ -1671,16 +1624,16 @@
         var contents = null;
         var contentsMimeType = getExportMimeType(bindingOptions);
         var contentExportType = getDefaultString(exportType, bindingOptions.exportType).toLowerCase();
-        if (contentExportType === _exportType.csv) {
+        if (contentExportType === "csv" /* _exportType.csv */) {
             contents = getCsvContent(bindingOptions);
         }
-        else if (contentExportType === _exportType.json) {
+        else if (contentExportType === "json" /* _exportType.json */) {
             contents = getJsonContent(bindingOptions);
         }
-        else if (contentExportType === _exportType.xml) {
+        else if (contentExportType === "xml" /* _exportType.xml */) {
             contents = getXmlContents(bindingOptions);
         }
-        else if (contentExportType === _exportType.txt) {
+        else if (contentExportType === "txt" /* _exportType.txt */) {
             contents = getTxtContents(bindingOptions);
         }
         if (isDefinedString(contents)) {
@@ -1705,7 +1658,7 @@
         if (csvContents.length > 0) {
             csvContents.unshift(getCsvValueLine([getCsvValue(_configuration.dateText), getCsvValue(_configuration.countText)]));
         }
-        return csvContents.join(_string.newLine);
+        return csvContents.join("\n" /* _string.newLine */);
     }
     function getJsonContent(bindingOptions) {
         return jsonObject.stringify(getExportData(bindingOptions));
@@ -1724,17 +1677,17 @@
             }
         }
         contents.push("</Dates>");
-        return contents.join(_string.newLine);
+        return contents.join("\n" /* _string.newLine */);
     }
     function getTxtContents(bindingOptions) {
         var data = getExportData(bindingOptions);
         var contents = [];
         for (var storageDate in data) {
             if (data.hasOwnProperty(storageDate)) {
-                contents.push(storageDate + _string.colon + _string.space + data[storageDate].toString());
+                contents.push(storageDate + ":" /* _string.colon */ + " " /* _string.space */ + data[storageDate].toString());
             }
         }
-        return contents.join(_string.newLine);
+        return contents.join("\n" /* _string.newLine */);
     }
     function getExportData(bindingOptions) {
         var contents = {};
@@ -1770,32 +1723,32 @@
     }
     function getExportMimeType(bindingOptions) {
         var result = null;
-        if (bindingOptions.exportType.toLowerCase() === _exportType.csv) {
+        if (bindingOptions.exportType.toLowerCase() === "csv" /* _exportType.csv */) {
             result = "text/csv";
         }
-        else if (bindingOptions.exportType.toLowerCase() === _exportType.json) {
+        else if (bindingOptions.exportType.toLowerCase() === "json" /* _exportType.json */) {
             result = "application/json";
         }
-        else if (bindingOptions.exportType.toLowerCase() === _exportType.xml) {
+        else if (bindingOptions.exportType.toLowerCase() === "xml" /* _exportType.xml */) {
             result = "application/xml";
         }
-        else if (bindingOptions.exportType.toLowerCase() === _exportType.txt) {
+        else if (bindingOptions.exportType.toLowerCase() === "txt" /* _exportType.txt */) {
             result = "text/plain";
         }
         return result;
     }
     function getExportFilename(bindingOptions) {
         var date = new Date();
-        var datePart = padNumber(date.getDate()) + _string.dash + padNumber(date.getMonth() + 1) + _string.dash + date.getFullYear();
-        var timePart = padNumber(date.getHours()) + _string.dash + padNumber(date.getMinutes());
-        var filenameStart = _string.empty;
+        var datePart = padNumber(date.getDate()) + "-" /* _string.dash */ + padNumber(date.getMonth() + 1) + "-" /* _string.dash */ + date.getFullYear();
+        var timePart = padNumber(date.getHours()) + "-" /* _string.dash */ + padNumber(date.getMinutes());
+        var filenameStart = "" /* _string.empty */;
         if (bindingOptions._currentView.type !== _configuration.unknownTrendText) {
-            filenameStart = bindingOptions._currentView.type.toLowerCase().replace(_string.space, _string.underscore) + _string.underscore;
+            filenameStart = bindingOptions._currentView.type.toLowerCase().replace(" " /* _string.space */, "_" /* _string.underscore */) + "_" /* _string.underscore */;
         }
-        return filenameStart + datePart + _string.underscore + timePart + "." + bindingOptions.exportType.toLowerCase();
+        return filenameStart + datePart + "_" /* _string.underscore */ + timePart + "." + bindingOptions.exportType.toLowerCase();
     }
     function getCsvValue(text) {
-        var result = text.toString().replace(/(\r\n|\n|\r)/gm, _string.empty).replace(/(\s\s)/gm, _string.space);
+        var result = text.toString().replace(/(\r\n|\n|\r)/gm, "" /* _string.empty */).replace(/(\s\s)/gm, " " /* _string.space */);
         result = result.replace(/"/g, '""');
         result = '"' + result + '"';
         return result;
@@ -1813,8 +1766,8 @@
         options.views = getDefaultObject(options.views, {});
         options.exportOnlyYearBeingViewed = getDefaultBoolean(options.exportOnlyYearBeingViewed, true);
         options.year = getDefaultNumber(options.year, new Date().getFullYear());
-        options.view = getDefaultString(options.view, _viewName.map);
-        options.exportType = getDefaultString(options.exportType, _exportType.csv);
+        options.view = getDefaultString(options.view, "map" /* _viewName.map */);
+        options.exportType = getDefaultString(options.exportType, "csv" /* _exportType.csv */);
         options.useLocalStorageForData = getDefaultBoolean(options.useLocalStorageForData, false);
         options.allowFileImports = getDefaultBoolean(options.allowFileImports, true);
         options.yearsToHide = getDefaultArray(options.yearsToHide, []);
@@ -1859,9 +1812,9 @@
                     cssClassName: "day-color-1",
                     tooltipText: "Day Color 1",
                     visible: true,
-                    mapCssClassName: _string.empty,
-                    chartCssClassName: _string.empty,
-                    statisticsCssClassName: _string.empty
+                    mapCssClassName: "" /* _string.empty */,
+                    chartCssClassName: "" /* _string.empty */,
+                    statisticsCssClassName: "" /* _string.empty */
                 },
                 {
                     id: newGuid(),
@@ -1870,9 +1823,9 @@
                     cssClassName: "day-color-2",
                     tooltipText: "Day Color 2",
                     visible: true,
-                    mapCssClassName: _string.empty,
-                    chartCssClassName: _string.empty,
-                    statisticsCssClassName: _string.empty
+                    mapCssClassName: "" /* _string.empty */,
+                    chartCssClassName: "" /* _string.empty */,
+                    statisticsCssClassName: "" /* _string.empty */
                 },
                 {
                     id: newGuid(),
@@ -1881,9 +1834,9 @@
                     cssClassName: "day-color-3",
                     tooltipText: "Day Color 3",
                     visible: true,
-                    mapCssClassName: _string.empty,
-                    chartCssClassName: _string.empty,
-                    statisticsCssClassName: _string.empty
+                    mapCssClassName: "" /* _string.empty */,
+                    chartCssClassName: "" /* _string.empty */,
+                    statisticsCssClassName: "" /* _string.empty */
                 },
                 {
                     id: newGuid(),
@@ -1892,9 +1845,9 @@
                     cssClassName: "day-color-4",
                     tooltipText: "Day Color 4",
                     visible: true,
-                    mapCssClassName: _string.empty,
-                    chartCssClassName: _string.empty,
-                    statisticsCssClassName: _string.empty
+                    mapCssClassName: "" /* _string.empty */,
+                    chartCssClassName: "" /* _string.empty */,
+                    statisticsCssClassName: "" /* _string.empty */
                 }
             ];
         }
@@ -2097,19 +2050,19 @@
         var nodeType = type.toLowerCase();
         var isText = nodeType === "text";
         if (!_elements_Type.hasOwnProperty(nodeType)) {
-            _elements_Type[nodeType] = isText ? documentObject.createTextNode(_string.empty) : documentObject.createElement(nodeType);
+            _elements_Type[nodeType] = isText ? documentObject.createTextNode("" /* _string.empty */) : documentObject.createElement(nodeType);
         }
         result = _elements_Type[nodeType].cloneNode(false);
         return result;
     }
     function createElement(container, type, className, beforeNode) {
-        if (className === void 0) { className = _string.empty; }
+        if (className === void 0) { className = "" /* _string.empty */; }
         if (beforeNode === void 0) { beforeNode = null; }
         var result = null;
         var nodeType = type.toLowerCase();
         var isText = nodeType === "text";
         if (!_elements_Type.hasOwnProperty(nodeType)) {
-            _elements_Type[nodeType] = isText ? documentObject.createTextNode(_string.empty) : documentObject.createElement(nodeType);
+            _elements_Type[nodeType] = isText ? documentObject.createTextNode("" /* _string.empty */) : documentObject.createElement(nodeType);
         }
         result = _elements_Type[nodeType].cloneNode(false);
         if (isDefined(className)) {
@@ -2144,11 +2097,11 @@
         return value;
     }
     function addClass(element, className) {
-        element.className += _string.space + className;
+        element.className += " " /* _string.space */ + className;
         element.className = element.className.trim();
     }
     function removeClass(element, className) {
-        element.className = element.className.replace(className, _string.empty);
+        element.className = element.className.replace(className, "" /* _string.empty */);
         element.className = element.className.trim();
     }
     function cancelBubble(e) {
@@ -2239,7 +2192,7 @@
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
     function isDefined(value) {
-        return value !== null && value !== undefined && value.toString() !== _string.empty;
+        return value !== null && value !== undefined && value.toString() !== "" /* _string.empty */;
     }
     function isDefinedObject(object) {
         return isDefined(object) && typeof object === "object";
@@ -2295,7 +2248,7 @@
     function getDefaultStringOrArray(value, defaultValue) {
         var result = defaultValue;
         if (isDefinedString(value)) {
-            var values = value.toString().split(_string.space);
+            var values = value.toString().split(" " /* _string.space */);
             if (values.length === 0) {
                 value = defaultValue;
             }
@@ -2344,16 +2297,16 @@
         var result = [];
         for (var charIndex = 0; charIndex < 32; charIndex++) {
             if (charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20) {
-                result.push(_string.dash);
+                result.push("-" /* _string.dash */);
             }
             var character = mathObject.floor(mathObject.random() * 16).toString(16);
             result.push(character);
         }
-        return result.join(_string.empty);
+        return result.join("" /* _string.empty */);
     }
     function padNumber(number) {
         var numberString = number.toString();
-        return numberString.length === 1 ? _string.zero + numberString : numberString;
+        return numberString.length === 1 ? "0" /* _string.zero */ + numberString : numberString;
     }
     function startsWithAnyCase(data, start) {
         return data.substring(0, start.length).toLowerCase() === start.toLowerCase();
@@ -2364,13 +2317,13 @@
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
     function toStorageDate(date) {
-        return date.getFullYear() + _string.dash + padNumber(date.getMonth() + 1) + _string.dash + padNumber(date.getDate());
+        return date.getFullYear() + "-" /* _string.dash */ + padNumber(date.getMonth() + 1) + "-" /* _string.dash */ + padNumber(date.getDate());
     }
     function getStorageDate(data) {
-        return data.split(_string.dash);
+        return data.split("-" /* _string.dash */);
     }
     function getStorageDateYear(data) {
-        return data.split(_string.dash)[0];
+        return data.split("-" /* _string.dash */)[0];
     }
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2423,7 +2376,7 @@
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
     function destroyElement(bindingOptions) {
-        bindingOptions._currentView.element.innerHTML = _string.empty;
+        bindingOptions._currentView.element.innerHTML = "" /* _string.empty */;
         removeClass(bindingOptions._currentView.element, "heat-js");
         assignToolTipEvents(bindingOptions, false);
         documentObject.body.removeChild(bindingOptions._currentView.tooltip);
@@ -2805,17 +2758,17 @@
             if (isDefinedString(elementId) && isDefinedString(viewName) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 var view = null;
-                if (viewName.toLowerCase() === _viewName.map) {
-                    view = _view.map;
+                if (viewName.toLowerCase() === "map" /* _viewName.map */) {
+                    view = 1 /* _view.map */;
                 }
-                else if (viewName.toLowerCase() === _viewName.chart) {
-                    view = _view.chart;
+                else if (viewName.toLowerCase() === "chart" /* _viewName.chart */) {
+                    view = 2 /* _view.chart */;
                 }
-                else if (viewName.toLowerCase() === _viewName.days) {
-                    view = _view.days;
+                else if (viewName.toLowerCase() === "days" /* _viewName.days */) {
+                    view = 3 /* _view.days */;
                 }
-                else if (viewName.toLowerCase() === _viewName.statistics) {
-                    view = _view.statistics;
+                else if (viewName.toLowerCase() === "statistics" /* _viewName.statistics */) {
+                    view = 4 /* _view.statistics */;
                 }
                 if (isDefinedNumber(view)) {
                     bindingOptions._currentView.view = view;
