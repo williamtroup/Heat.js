@@ -1,0 +1,15 @@
+Install typescript:
+-------------------
+> npm install -g typescript
+
+Install tsup:
+-------------
+> npm i tsup -D
+
+Install ES5 compiling:
+----------------------
+> npm install @swc/core -D
+
+To build Heat.js:
+-----------------
+> npm run build
