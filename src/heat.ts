@@ -29,6 +29,8 @@ import {
 
 import { EXPORT_TYPE, STRING, VALUE, VIEW_ID, VIEW_NAME } from "./ts/enum";
 import { HEAT_JS_ATTRIBUTE_NAME } from "./ts/constant"
+import { Validation } from "./ts/validation"
+import { Data } from "./ts/data"
 import { type PublicApi } from "./ts/api";
 
 
@@ -65,13 +67,13 @@ import { type PublicApi } from "./ts/api";
     }
 
     function showDisabledBackground( bindingOptions: BindingOptions ) : void {
-        if ( isDefined( bindingOptions._currentView.disabledBackground ) && bindingOptions._currentView.disabledBackground.style.display !== "block" ) {
+        if ( Validation.isDefined( bindingOptions._currentView.disabledBackground ) && bindingOptions._currentView.disabledBackground.style.display !== "block" ) {
             bindingOptions._currentView.disabledBackground.style.display = "block";
         }
     }
 
     function hideDisabledBackground( bindingOptions: BindingOptions ) : void {
-        if ( isDefined( bindingOptions._currentView.disabledBackground ) && bindingOptions._currentView.disabledBackground.style.display !== "none" ) {
+        if ( Validation.isDefined( bindingOptions._currentView.disabledBackground ) && bindingOptions._currentView.disabledBackground.style.display !== "none" ) {
             bindingOptions._currentView.disabledBackground.style.display = "none";
         }
     }
@@ -103,13 +105,13 @@ import { type PublicApi } from "./ts/api";
     function renderElement( element: HTMLElement ) : boolean {
         let result: boolean = true;
 
-        if ( isDefined( element ) && element.hasAttribute( HEAT_JS_ATTRIBUTE_NAME ) ) {
+        if ( Validation.isDefined( element ) && element.hasAttribute( HEAT_JS_ATTRIBUTE_NAME ) ) {
             const bindingOptionsData: string = element.getAttribute( HEAT_JS_ATTRIBUTE_NAME );
 
-            if ( isDefinedString( bindingOptionsData ) ) {
+            if ( Validation.isDefinedString( bindingOptionsData ) ) {
                 const bindingOptions: any = getObjectFromString( bindingOptionsData );
 
-                if ( bindingOptions.parsed && isDefinedObject( bindingOptions.result ) ) {
+                if ( bindingOptions.parsed && Validation.isDefinedObject( bindingOptions.result ) ) {
                     renderControl( renderBindingOptions( bindingOptions.result, element ) );
 
                 } else {
@@ -132,7 +134,7 @@ import { type PublicApi } from "./ts/api";
 
     function renderBindingOptions( data: any, element: HTMLElement ) : BindingOptions {
         const bindingOptions: BindingOptions = buildAttributeOptions( data );
-        const view: string = !isDefinedString( bindingOptions.view ) ? STRING.empty : bindingOptions.view.toLowerCase();
+        const view: string = !Validation.isDefinedString( bindingOptions.view ) ? STRING.empty : bindingOptions.view.toLowerCase();
 
         let currentView: BindingOptionsCurrentView = {} as BindingOptionsCurrentView;
         currentView.element = element;
@@ -146,7 +148,7 @@ import { type PublicApi } from "./ts/api";
         currentView.mapContentsScrollLeft = 0;
         currentView.year = bindingOptions.year;
         currentView.type = _configuration.unknownTrendText;
-        currentView.isInFetchMode = isDefinedFunction( bindingOptions.events.onDataFetch );
+        currentView.isInFetchMode = Validation.isDefinedFunction( bindingOptions.events.onDataFetch );
         currentView.isInFetchModeTimer = null;
         currentView.yearsAvailable = [];
 
@@ -185,7 +187,7 @@ import { type PublicApi } from "./ts/api";
     function renderControl( bindingOptions: BindingOptions ) : void {
         fireCustomTriggerEvent( bindingOptions.events.onBeforeRender, bindingOptions._currentView.element );
 
-        if ( !isDefinedString( bindingOptions._currentView.element.id ) ) {
+        if ( !Validation.isDefinedString( bindingOptions._currentView.element.id ) ) {
             bindingOptions._currentView.element.id = newGuid();
         }
 
@@ -207,19 +209,19 @@ import { type PublicApi } from "./ts/api";
             storeDataInLocalStorage( bindingOptions );
         }
 
-        if ( isDefined( bindingOptions._currentView.mapContents ) ) {
+        if ( Validation.isDefined( bindingOptions._currentView.mapContents ) ) {
             bindingOptions._currentView.mapContentsScrollLeft = bindingOptions._currentView.mapContents.scrollLeft;
         }
 
-        if ( bindingOptions.views.chart.enabled && isDefined( bindingOptions._currentView.chartContents ) ) {
+        if ( bindingOptions.views.chart.enabled && Validation.isDefined( bindingOptions._currentView.chartContents ) ) {
             bindingOptions._currentView.chartContentsScrollLeft = bindingOptions._currentView.chartContents.scrollLeft;
         }
 
-        if ( bindingOptions.views.days.enabled && isDefined( bindingOptions._currentView.daysContents ) ) {
+        if ( bindingOptions.views.days.enabled && Validation.isDefined( bindingOptions._currentView.daysContents ) ) {
             bindingOptions._currentView.daysContentsScrollLeft = bindingOptions._currentView.daysContents.scrollLeft;
         }
 
-        if ( bindingOptions.views.statistics.enabled && isDefined( bindingOptions._currentView.statisticsContents ) ) {
+        if ( bindingOptions.views.statistics.enabled && Validation.isDefined( bindingOptions._currentView.statisticsContents ) ) {
             bindingOptions._currentView.statisticsContentsScrollLeft = bindingOptions._currentView.statisticsContents.scrollLeft;
         }
         
@@ -318,7 +320,7 @@ import { type PublicApi } from "./ts/api";
     function showConfigurationDialog( bindingOptions: BindingOptions ) : void {
         showDisabledBackground( bindingOptions );
 
-        if ( isDefined( bindingOptions._currentView.configurationDialog ) && bindingOptions._currentView.configurationDialog.style.display !== "block" ) {
+        if ( Validation.isDefined( bindingOptions._currentView.configurationDialog ) && bindingOptions._currentView.configurationDialog.style.display !== "block" ) {
             bindingOptions._currentView.configurationDialog.style.display = "block";
         }
 
@@ -356,7 +358,7 @@ import { type PublicApi } from "./ts/api";
     function hideConfigurationDialog( bindingOptions: BindingOptions ) : void {
         hideDisabledBackground( bindingOptions );
 
-        if ( isDefined( bindingOptions._currentView.configurationDialog ) && bindingOptions._currentView.configurationDialog.style.display !== "none" ) {
+        if ( Validation.isDefined( bindingOptions._currentView.configurationDialog ) && bindingOptions._currentView.configurationDialog.style.display !== "none" ) {
             bindingOptions._currentView.configurationDialog.style.display = "none";
         }
 
@@ -425,7 +427,7 @@ import { type PublicApi } from "./ts/api";
      */
 
     function renderControlToolTip( bindingOptions: BindingOptions ) : void {
-        if ( !isDefined( bindingOptions._currentView.tooltip ) ) {
+        if ( !Validation.isDefined( bindingOptions._currentView.tooltip ) ) {
             bindingOptions._currentView.tooltip = createElement( documentObject.body, "div", "heat-js-tooltip" );
             bindingOptions._currentView.tooltip.style.display = "none";
     
@@ -467,8 +469,8 @@ import { type PublicApi } from "./ts/api";
     }
 
     function hideToolTip( bindingOptions: BindingOptions ) : void {
-        if ( isDefined( bindingOptions._currentView.tooltip ) ) {
-            if ( isDefined( bindingOptions._currentView.tooltipTimer ) ) {
+        if ( Validation.isDefined( bindingOptions._currentView.tooltip ) ) {
+            if ( Validation.isDefined( bindingOptions._currentView.tooltipTimer ) ) {
                 clearTimeout( bindingOptions._currentView.tooltipTimer );
                 bindingOptions._currentView.tooltipTimer = null;
             }
@@ -643,13 +645,13 @@ import { type PublicApi } from "./ts/api";
             if ( isYearVisible( bindingOptions, currentYear ) ) {
                 let yearMenuItem: HTMLElement = renderYearDropDownMenuItem( bindingOptions, yearsMenu, currentYear, thisYear );
 
-                if ( !isDefined( activeYearMenuItem ) ) {
+                if ( !Validation.isDefined( activeYearMenuItem ) ) {
                     activeYearMenuItem = yearMenuItem;
                 }
             }
         }
 
-        if ( isDefined( activeYearMenuItem ) ) {
+        if ( Validation.isDefined( activeYearMenuItem ) ) {
             yearsMenu.scrollTop = activeYearMenuItem.offsetTop - ( yearsMenu.offsetHeight / 2 );
         }
 
@@ -787,7 +789,7 @@ import { type PublicApi } from "./ts/api";
                                 currentDayColumn = createElement( dayColumns, "div", "day-column" );
                                 actualDay = 0;
     
-                                if ( !isDefined( _elements_Day_Width ) && isDefined( day ) ) {
+                                if ( !Validation.isDefined( _elements_Day_Width ) && Validation.isDefined( day ) ) {
                                     let marginLeft: number = getStyleValueByName( day, "margin-left", true );
                                     let marginRight: number = getStyleValueByName( day, "margin-right", true );
                                     
@@ -809,7 +811,7 @@ import { type PublicApi } from "./ts/api";
                             monthName = createElementWithHTML( month, "div", "month-name-bottom", _configuration.monthNames[ monthIndex ] );
                         }
     
-                        if ( isDefined( monthName ) ) {
+                        if ( Validation.isDefined( monthName ) ) {
                             if ( bindingOptions.views.map.showMonthDayGaps ) {
                                 monthName.style.width = monthWidth + "px";
                             } else {
@@ -818,7 +820,7 @@ import { type PublicApi } from "./ts/api";
                         }
                     }
     
-                    if ( monthAdded && isDefined( _elements_Day_Width ) ) {
+                    if ( monthAdded && Validation.isDefined( _elements_Day_Width ) ) {
                         if ( firstDayNumberInMonth > 0 && !bindingOptions.views.map.showMonthDayGaps ) {
                             month.style.marginLeft = -_elements_Day_Width + "px";
                         } else if ( firstDayNumberInMonth === 0 && bindingOptions.views.map.showMonthDayGaps ) {
@@ -850,7 +852,7 @@ import { type PublicApi } from "./ts/api";
         const date: Date = new Date( year, month, actualDay );
         let dateCount: number = _elements_DateCounts[ bindingOptions._currentView.element.id ].type[ bindingOptions._currentView.type ][ toStorageDate( date ) ];
 
-        dateCount = getDefaultNumber( dateCount, 0 );
+        dateCount = Data.getDefaultNumber( dateCount, 0 );
 
         renderDayToolTip( bindingOptions, day, date, dateCount );
 
@@ -858,7 +860,7 @@ import { type PublicApi } from "./ts/api";
             day.innerHTML = dateCount.toString();
         }
 
-        if ( isDefinedFunction( bindingOptions.events.onDayClick ) ) {
+        if ( Validation.isDefinedFunction( bindingOptions.events.onDayClick ) ) {
             day.onclick = function () {
                 fireCustomTriggerEvent( bindingOptions.events.onDayClick, date, dateCount );
             };
@@ -869,8 +871,8 @@ import { type PublicApi } from "./ts/api";
 
         const useColorRange: ColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
 
-        if ( isDefined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id ) ) {
-            if ( isDefinedString( useColorRange.mapCssClassName ) ) {
+        if ( Validation.isDefined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id ) ) {
+            if ( Validation.isDefinedString( useColorRange.mapCssClassName ) ) {
                 addClass( day, useColorRange.mapCssClassName );
             } else {
                 addClass( day, useColorRange.cssClassName );
@@ -1022,7 +1024,7 @@ import { type PublicApi } from "./ts/api";
         const dayLine: HTMLElement = createElement( dayLines, "div", "day-line" );
         let dateCount: number = getCurrentViewData( bindingOptions )[ toStorageDate( date ) ];
 
-        dateCount = getDefaultNumber( dateCount, 0 );
+        dateCount = Data.getDefaultNumber( dateCount, 0 );
 
         renderDayToolTip( bindingOptions, dayLine, date, dateCount );
 
@@ -1039,7 +1041,7 @@ import { type PublicApi } from "./ts/api";
             dayLine.style.visibility = "hidden";
         }
 
-        if ( isDefinedFunction( bindingOptions.events.onDayClick ) ) {
+        if ( Validation.isDefinedFunction( bindingOptions.events.onDayClick ) ) {
             dayLine.onclick = function () {
                 fireCustomTriggerEvent( bindingOptions.events.onDayClick, date, dateCount );
             };
@@ -1050,8 +1052,8 @@ import { type PublicApi } from "./ts/api";
 
         const useColorRange: ColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
 
-        if ( isDefined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id ) ) {
-            if ( isDefinedString( useColorRange.chartCssClassName ) ) {
+        if ( Validation.isDefined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id ) ) {
+            if ( Validation.isDefinedString( useColorRange.chartCssClassName ) ) {
                 addClass( dayLine, useColorRange.chartCssClassName );
             } else {
                 addClass( dayLine, useColorRange.cssClassName );
@@ -1167,7 +1169,7 @@ import { type PublicApi } from "./ts/api";
         
         addToolTip( dayLine, bindingOptions, dayCount.toString() );
 
-        if ( isDefinedFunction( bindingOptions.events.onWeekDayClick ) ) {
+        if ( Validation.isDefinedFunction( bindingOptions.events.onWeekDayClick ) ) {
             dayLine.onclick = function () {
                 fireCustomTriggerEvent( bindingOptions.events.onWeekDayClick, dayNumber, dayCount );
             };
@@ -1289,7 +1291,7 @@ import { type PublicApi } from "./ts/api";
                     const useColorRange: ColorRange = getColorRangeByMinimum( colorRanges, parseInt( type ) );
 
                     if ( bindingOptions.views.statistics.showColorRangeLabels ) {
-                        if ( !bindingOptions.views.statistics.useColorRangeNamesForLabels || !isDefined( useColorRange ) || !isDefinedString( useColorRange.name ) ) {
+                        if ( !bindingOptions.views.statistics.useColorRangeNamesForLabels || !Validation.isDefined( useColorRange ) || !Validation.isDefinedString( useColorRange.name ) ) {
                             createElementWithHTML( statisticsRanges, "div", "range-name", type + STRING.plus );
                         } else {
                             createElementWithHTML( statisticsRanges, "div", "range-name", useColorRange.name );
@@ -1328,7 +1330,7 @@ import { type PublicApi } from "./ts/api";
             createElementWithHTML( rangeLine, "div", "count", rangeCount.toString() );
         }
 
-        if ( isDefinedFunction( bindingOptions.events.onStatisticClick ) ) {
+        if ( Validation.isDefinedFunction( bindingOptions.events.onStatisticClick ) ) {
             rangeLine.onclick = function () {
                 fireCustomTriggerEvent( bindingOptions.events.onStatisticClick, useColorRange );
             };
@@ -1337,8 +1339,8 @@ import { type PublicApi } from "./ts/api";
             addClass( rangeLine, "no-hover" );
         }
 
-        if ( isDefined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id ) ) {
-            if ( isDefinedString( useColorRange.statisticsCssClassName ) ) {
+        if ( Validation.isDefined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id ) ) {
+            if ( Validation.isDefinedString( useColorRange.statisticsCssClassName ) ) {
                 addClass( rangeLine, useColorRange.statisticsCssClassName );
             } else {
                 addClass( rangeLine, useColorRange.cssClassName );
@@ -1367,7 +1369,7 @@ import { type PublicApi } from "./ts/api";
                     if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.statistics.daysToShow, weekDayNumber ) ) {
                         const useColorRange: ColorRange = getColorRange( bindingOptions, colorRanges, data[ storageDate ] );
 
-                        if ( !isDefined( useColorRange ) ) {
+                        if ( !Validation.isDefined( useColorRange ) ) {
                             types[ STRING.zero ]++;
     
                         } else {
@@ -1410,7 +1412,7 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( _elements_DateCounts[ bindingOptions._currentView.element.id ].types > 1 ) {
-            if ( isDefinedString( bindingOptions.description.text ) ) {
+            if ( Validation.isDefinedString( bindingOptions.description.text ) ) {
                 const description: HTMLElement = createElement( bindingOptions._currentView.element, "div", "description", guide );
     
                 renderDescription( bindingOptions, description );
@@ -1493,11 +1495,11 @@ import { type PublicApi } from "./ts/api";
         addToolTip( day, bindingOptions, colorRange.tooltipText );
 
         if ( isColorRangeVisible( bindingOptions, colorRange.id ) ) {
-            if ( bindingOptions._currentView.view === VIEW_ID.map && isDefinedString( colorRange.mapCssClassName ) ) {
+            if ( bindingOptions._currentView.view === VIEW_ID.map && Validation.isDefinedString( colorRange.mapCssClassName ) ) {
                 addClass( day, colorRange.mapCssClassName );
-            } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW_ID.chart && isDefinedString( colorRange.chartCssClassName ) ) {
+            } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW_ID.chart && Validation.isDefinedString( colorRange.chartCssClassName ) ) {
                 addClass( day, colorRange.chartCssClassName );
-            } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW_ID.statistics && isDefinedString( colorRange.statisticsCssClassName ) ) {
+            } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW_ID.statistics && Validation.isDefinedString( colorRange.statisticsCssClassName ) ) {
                 addClass( day, colorRange.statisticsCssClassName );
             } else {
                 addClass( day, colorRange.cssClassName );
@@ -1521,8 +1523,8 @@ import { type PublicApi } from "./ts/api";
     }
 
     function renderDescription( bindingOptions: BindingOptions, container: HTMLElement ) : void {
-        if ( isDefinedString( bindingOptions.description.text ) ) {
-            if ( isDefinedString( bindingOptions.description.url ) ) {
+        if ( Validation.isDefinedString( bindingOptions.description.text ) ) {
+            if ( Validation.isDefinedString( bindingOptions.description.url ) ) {
                 const link: any = createElementWithHTML( container, "a", "label", bindingOptions.description.text );
                 link.href = bindingOptions.description.url;
                 link.target = bindingOptions.description.urlTarget;                
@@ -1541,7 +1543,7 @@ import { type PublicApi } from "./ts/api";
      */
 
     function renderDayToolTip( bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number ) : void {
-        if ( isDefinedFunction( bindingOptions.events.onDayToolTipRender ) ) {
+        if ( Validation.isDefinedFunction( bindingOptions.events.onDayToolTipRender ) ) {
             addToolTip( day, bindingOptions, fireCustomTriggerEvent( bindingOptions.events.onDayToolTipRender, date, dateCount ) );
         } else {
 
@@ -1550,7 +1552,7 @@ import { type PublicApi } from "./ts/api";
             if ( bindingOptions.showHolidaysInDayToolTips ) {
                 let holiday: any = isHoliday( bindingOptions, date );
 
-                if ( holiday.matched && isDefinedString( holiday.name ) ) {
+                if ( holiday.matched && Validation.isDefinedString( holiday.name ) ) {
                     tooltip += STRING.colon + STRING.space + holiday.name;
                 }
             }
@@ -1703,11 +1705,11 @@ import { type PublicApi } from "./ts/api";
 
     function startDataPullTimer( bindingOptions: BindingOptions ) : void {
         if ( bindingOptions._currentView.isInFetchMode ) {
-            if ( !isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
+            if ( !Validation.isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
                 pullDataFromCustomTrigger( bindingOptions );
             }
 
-            if ( !isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
+            if ( !Validation.isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
                 bindingOptions._currentView.isInFetchModeTimer = setInterval( function() {
                     pullDataFromCustomTrigger( bindingOptions );
                     renderControlContainer( bindingOptions );
@@ -1720,7 +1722,7 @@ import { type PublicApi } from "./ts/api";
         const elementId: string = bindingOptions._currentView.element.id;
         const data: any = fireCustomTriggerEvent( bindingOptions.events.onDataFetch, elementId );
 
-        if ( isDefinedObject( data ) ) {
+        if ( Validation.isDefinedObject( data ) ) {
             createDateStorageForElement( elementId, bindingOptions, false );
 
             for ( let storageDate in data ) {
@@ -1740,7 +1742,7 @@ import { type PublicApi } from "./ts/api";
             if ( _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
 
-                if ( isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
+                if ( Validation.isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
                     clearInterval( bindingOptions._currentView.isInFetchModeTimer );
                 }
             }
@@ -1766,7 +1768,7 @@ import { type PublicApi } from "./ts/api";
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
                 const colorRange: ColorRange = bindingOptions.colorRanges[ colorRangesIndex ];
     
-                if ( colorRange.id === id && getDefaultBoolean( colorRange.visible, true ) ) {
+                if ( colorRange.id === id && Data.getDefaultBoolean( colorRange.visible, true ) ) {
                     result = true;
                     break;
                 }
@@ -1795,7 +1797,7 @@ import { type PublicApi } from "./ts/api";
             const colorRange: ColorRange = bindingOptions.colorRanges[ colorRangesIndex ];
 
             if ( colorRange.id === id ) {
-                colorRange.visible = !getDefaultBoolean( colorRange.visible, true );
+                colorRange.visible = !Data.getDefaultBoolean( colorRange.visible, true );
 
                 fireCustomTriggerEvent( bindingOptions.events.onColorRangeTypeToggle, colorRange.id, colorRange.visible );
                 renderControlContainer( bindingOptions );
@@ -1807,7 +1809,7 @@ import { type PublicApi } from "./ts/api";
     function getColorRange( bindingOptions: BindingOptions, colorRanges: ColorRange[], dateCount: number, date: Date = null ) : ColorRange {
         let useColorRange: ColorRange = null;
 
-        if ( isDefined( date ) && isHoliday( bindingOptions, date ).matched ) {
+        if ( Validation.isDefined( date ) && isHoliday( bindingOptions, date ).matched ) {
             const newUseColorRange: ColorRange = {
                 cssClassName: "holiday",
                 id: _internal_Name_Holiday,
@@ -1823,7 +1825,7 @@ import { type PublicApi } from "./ts/api";
             useColorRange = newUseColorRange;
         }
 
-        if ( !isDefined( useColorRange ) ) {
+        if ( !Validation.isDefined( useColorRange ) ) {
             const colorRangesLength: number = colorRanges.length;
 
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
@@ -1880,7 +1882,7 @@ import { type PublicApi } from "./ts/api";
         for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
             let holiday: Holiday = bindingOptions.holidays[ holidayIndex ];
 
-            if ( isDefinedString( holiday.date ) && holiday.showInViews ) {
+            if ( Validation.isDefinedString( holiday.date ) && holiday.showInViews ) {
                 const dateParts: string[] = holiday.date.split( "/" );
 
                 if ( dateParts.length === 2 ) {
@@ -1918,7 +1920,7 @@ import { type PublicApi } from "./ts/api";
             element.ondrop = function ( e ) {
                 cancelBubble( e );
     
-                if ( isDefined( windowObject.FileReader ) && e.dataTransfer.files.length > 0 ) {
+                if ( Validation.isDefined( windowObject.FileReader ) && e.dataTransfer.files.length > 0 ) {
                     importFromFiles( e.dataTransfer.files, bindingOptions );
                 }
             };
@@ -1989,7 +1991,7 @@ import { type PublicApi } from "./ts/api";
         reader.onload = function ( e ) {
             const jsonObject: any = getObjectFromString( e.target.result );
 
-            if ( jsonObject.parsed && isDefinedObject( jsonObject.result ) ) {
+            if ( jsonObject.parsed && Validation.isDefinedObject( jsonObject.result ) ) {
                 readingObject = jsonObject.result;
             }
         };
@@ -2053,7 +2055,7 @@ import { type PublicApi } from "./ts/api";
     function exportAllData( bindingOptions: BindingOptions, exportType: string = null ) : void {
         let contents: string = null;
         const contentsMimeType: string = getExportMimeType( bindingOptions );
-        const contentExportType: string = getDefaultString( exportType, bindingOptions.exportType ).toLowerCase();
+        const contentExportType: string = Data.getDefaultString( exportType, bindingOptions.exportType ).toLowerCase();
 
         if ( contentExportType === EXPORT_TYPE.csv ) {
             contents = getCsvContent( bindingOptions );
@@ -2065,7 +2067,7 @@ import { type PublicApi } from "./ts/api";
             contents = getTxtContents( bindingOptions );
         }
 
-        if ( isDefinedString( contents ) ) {
+        if ( Validation.isDefinedString( contents ) ) {
             const tempLink: HTMLElement = createElement( documentObject.body, "a" );
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
@@ -2225,18 +2227,18 @@ import { type PublicApi } from "./ts/api";
      */
 
     function buildAttributeOptions( newOptions: any ) : BindingOptions {
-        let options: BindingOptions = getDefaultObject( newOptions, {} as BindingOptions );
-        options.views = getDefaultObject( options.views, {} );
-        options.exportOnlyYearBeingViewed = getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
-        options.year = getDefaultNumber( options.year, new Date().getFullYear() );
-        options.view = getDefaultString( options.view, VIEW_NAME.map );
-        options.exportType = getDefaultString( options.exportType, EXPORT_TYPE.csv );
-        options.useLocalStorageForData = getDefaultBoolean( options.useLocalStorageForData, false );
-        options.allowFileImports = getDefaultBoolean( options.allowFileImports, true );
-        options.yearsToHide = getDefaultArray( options.yearsToHide, [] );
-        options.dataFetchDelay = getDefaultNumber( options.dataFetchDelay, 60000 );
-        options.showOnlyDataForYearsAvailable = getDefaultBoolean( options.showOnlyDataForYearsAvailable, false );
-        options.showHolidaysInDayToolTips = getDefaultBoolean( options.showHolidaysInDayToolTips, false );
+        let options: BindingOptions = Data.getDefaultObject( newOptions, {} as BindingOptions );
+        options.views = Data.getDefaultObject( options.views, {} );
+        options.exportOnlyYearBeingViewed = Data.getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
+        options.year = Data.getDefaultNumber( options.year, new Date().getFullYear() );
+        options.view = Data.getDefaultString( options.view, VIEW_NAME.map );
+        options.exportType = Data.getDefaultString( options.exportType, EXPORT_TYPE.csv );
+        options.useLocalStorageForData = Data.getDefaultBoolean( options.useLocalStorageForData, false );
+        options.allowFileImports = Data.getDefaultBoolean( options.allowFileImports, true );
+        options.yearsToHide = Data.getDefaultArray( options.yearsToHide, [] );
+        options.dataFetchDelay = Data.getDefaultNumber( options.dataFetchDelay, 60000 );
+        options.showOnlyDataForYearsAvailable = Data.getDefaultBoolean( options.showOnlyDataForYearsAvailable, false );
+        options.showHolidaysInDayToolTips = Data.getDefaultBoolean( options.showHolidaysInDayToolTips, false );
         
         options = buildAttributeOptionColorRanges( options );
         options = buildAttributeOptionHolidays( options );
@@ -2254,21 +2256,21 @@ import { type PublicApi } from "./ts/api";
     }
 
     function buildAttributeOptionColorRanges( options: BindingOptions ) : BindingOptions {
-        if ( isDefinedArray( options.colorRanges ) ) {
+        if ( Validation.isDefinedArray( options.colorRanges ) ) {
             const colorRangesLength: number = options.colorRanges.length;
 
             for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
                 const colorRange: ColorRange = options.colorRanges[ colorRangeIndex ];
 
-                colorRange.id = getDefaultString( colorRange.id, newGuid() );
-                colorRange.name = getDefaultString( colorRange.name, null );
-                colorRange.minimum = getDefaultNumber( colorRange.minimum, 0 );
-                colorRange.cssClassName = getDefaultString( colorRange.cssClassName, null );
-                colorRange.mapCssClassName = getDefaultString( colorRange.mapCssClassName, null );
-                colorRange.chartCssClassName = getDefaultString( colorRange.chartCssClassName, null );
-                colorRange.statisticsCssClassName = getDefaultString( colorRange.statisticsCssClassName, null );
-                colorRange.tooltipText = getDefaultString( colorRange.tooltipText, null );
-                colorRange.visible = getDefaultBoolean( colorRange.visible, true );
+                colorRange.id = Data.getDefaultString( colorRange.id, newGuid() );
+                colorRange.name = Data.getDefaultString( colorRange.name, null );
+                colorRange.minimum = Data.getDefaultNumber( colorRange.minimum, 0 );
+                colorRange.cssClassName = Data.getDefaultString( colorRange.cssClassName, null );
+                colorRange.mapCssClassName = Data.getDefaultString( colorRange.mapCssClassName, null );
+                colorRange.chartCssClassName = Data.getDefaultString( colorRange.chartCssClassName, null );
+                colorRange.statisticsCssClassName = Data.getDefaultString( colorRange.statisticsCssClassName, null );
+                colorRange.tooltipText = Data.getDefaultString( colorRange.tooltipText, null );
+                colorRange.visible = Data.getDefaultBoolean( colorRange.visible, true );
             }
 
         } else {
@@ -2324,15 +2326,15 @@ import { type PublicApi } from "./ts/api";
     }
 
     function buildAttributeOptionHolidays( options: BindingOptions ) : BindingOptions {
-        if ( isDefinedArray( options.holidays ) ) {
+        if ( Validation.isDefinedArray( options.holidays ) ) {
             const holidaysLength: number = options.holidays.length;
 
             for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
                 const holiday: Holiday = options.holidays[ holidayIndex ];
                 
-                holiday.date = getDefaultString( holiday.date, null );
-                holiday.name = getDefaultString( holiday.name, null );
-                holiday.showInViews = getDefaultBoolean( holiday.showInViews, true );
+                holiday.date = Data.getDefaultString( holiday.date, null );
+                holiday.name = Data.getDefaultString( holiday.name, null );
+                holiday.showInViews = Data.getDefaultBoolean( holiday.showInViews, true );
             }
 
         } else {
@@ -2343,67 +2345,67 @@ import { type PublicApi } from "./ts/api";
     }
 
     function buildAttributeOptionTitle( options: BindingOptions ) : BindingOptions {
-        options.title = getDefaultObject( options.title, {} as Title );
-        options.title.text = getDefaultString( options.title.text, "Heat.js" );
-        options.title.showText = getDefaultBoolean( options.title.showText, true );
-        options.title.showYearSelector = getDefaultBoolean( options.title.showYearSelector, true );
-        options.title.showRefreshButton = getDefaultBoolean( options.title.showRefreshButton, false );
-        options.title.showExportButton = getDefaultBoolean( options.title.showExportButton, false );
-        options.title.extraSelectionYears = getDefaultNumber( options.title.extraSelectionYears, 50 );
-        options.title.showYearSelectionDropDown = getDefaultBoolean( options.title.showYearSelectionDropDown, true );
-        options.title.showImportButton = getDefaultBoolean( options.title.showImportButton, false );
-        options.title.showConfigurationButton = getDefaultBoolean( options.title.showConfigurationButton, true );
-        options.title.showTitleDropDownButton = getDefaultBoolean( options.title.showTitleDropDownButton, true );
-        options.title.showTitleDropDownHeaders = getDefaultBoolean( options.title.showTitleDropDownHeaders, true );
+        options.title = Data.getDefaultObject( options.title, {} as Title );
+        options.title.text = Data.getDefaultString( options.title.text, "Heat.js" );
+        options.title.showText = Data.getDefaultBoolean( options.title.showText, true );
+        options.title.showYearSelector = Data.getDefaultBoolean( options.title.showYearSelector, true );
+        options.title.showRefreshButton = Data.getDefaultBoolean( options.title.showRefreshButton, false );
+        options.title.showExportButton = Data.getDefaultBoolean( options.title.showExportButton, false );
+        options.title.extraSelectionYears = Data.getDefaultNumber( options.title.extraSelectionYears, 50 );
+        options.title.showYearSelectionDropDown = Data.getDefaultBoolean( options.title.showYearSelectionDropDown, true );
+        options.title.showImportButton = Data.getDefaultBoolean( options.title.showImportButton, false );
+        options.title.showConfigurationButton = Data.getDefaultBoolean( options.title.showConfigurationButton, true );
+        options.title.showTitleDropDownButton = Data.getDefaultBoolean( options.title.showTitleDropDownButton, true );
+        options.title.showTitleDropDownHeaders = Data.getDefaultBoolean( options.title.showTitleDropDownHeaders, true );
 
         return options;
     }
 
     function buildAttributeOptionDescription( options: BindingOptions ) {
-        options.description = getDefaultObject( options.description, {} as Description );
-        options.description.text = getDefaultString( options.description.text, null );
-        options.description.url = getDefaultString( options.description.url, null );
-        options.description.urlTarget = getDefaultString( options.description.urlTarget, "_blank" );
+        options.description = Data.getDefaultObject( options.description, {} as Description );
+        options.description.text = Data.getDefaultString( options.description.text, null );
+        options.description.url = Data.getDefaultString( options.description.url, null );
+        options.description.urlTarget = Data.getDefaultString( options.description.urlTarget, "_blank" );
 
         return options;
     }
 
     function buildAttributeOptionGuide( options: BindingOptions ) : BindingOptions {
-        options.guide = getDefaultObject( options.guide, {} as Guide );
-        options.guide.enabled = getDefaultBoolean( options.guide.enabled, true );
-        options.guide.colorRangeTogglesEnabled = getDefaultBoolean( options.guide.colorRangeTogglesEnabled, true );
-        options.guide.showLessAndMoreLabels = getDefaultBoolean( options.guide.showLessAndMoreLabels, true );
-        options.guide.showNumbersInGuide = getDefaultBoolean( options.guide.showNumbersInGuide, false );
+        options.guide = Data.getDefaultObject( options.guide, {} as Guide );
+        options.guide.enabled = Data.getDefaultBoolean( options.guide.enabled, true );
+        options.guide.colorRangeTogglesEnabled = Data.getDefaultBoolean( options.guide.colorRangeTogglesEnabled, true );
+        options.guide.showLessAndMoreLabels = Data.getDefaultBoolean( options.guide.showLessAndMoreLabels, true );
+        options.guide.showNumbersInGuide = Data.getDefaultBoolean( options.guide.showNumbersInGuide, false );
 
         return options;
     }
 
     function buildAttributeOptionToolTip( options: BindingOptions ) : BindingOptions {
-        options.tooltip = getDefaultObject( options.tooltip, {} as Tooltip );
-        options.tooltip.delay = getDefaultNumber( options.tooltip.delay, 750 );
-        options.tooltip.dayText = getDefaultString( options.tooltip.dayText, "{d}{o} {mmmm} {yyyy}" );
+        options.tooltip = Data.getDefaultObject( options.tooltip, {} as Tooltip );
+        options.tooltip.delay = Data.getDefaultNumber( options.tooltip.delay, 750 );
+        options.tooltip.dayText = Data.getDefaultString( options.tooltip.dayText, "{d}{o} {mmmm} {yyyy}" );
 
         return options;
     }
 
     function buildAttributeOptionMapView( options: BindingOptions ) : BindingOptions {
-        options.views.map = getDefaultObject( options.views.map, {} as Map );
-        options.views.map.showMonthDayGaps = getDefaultBoolean( options.views.map.showMonthDayGaps, true );
-        options.views.map.showDayNames = getDefaultBoolean( options.views.map.showDayNames, true );
-        options.views.map.placeMonthNamesOnTheBottom = getDefaultBoolean( options.views.map.placeMonthNamesOnTheBottom, false );
-        options.views.map.showDayNumbers = getDefaultBoolean( options.views.map.showDayNumbers, false );
-        options.views.map.showMonthNames = getDefaultBoolean( options.views.map.showMonthNames, true );
-        options.views.map.showDaysInReverseOrder = getDefaultBoolean( options.views.map.showDaysInReverseOrder, false );
-        options.views.map.showNoDataMessageWhenDataIsNotAvailable = getDefaultBoolean( options.views.map.showNoDataMessageWhenDataIsNotAvailable, false );
-        options.views.map.showMinimalDayNames = getDefaultBoolean( options.views.map.showMinimalDayNames, false );
-        options.views.map.showMonthsInReverseOrder = getDefaultBoolean( options.views.map.showMonthsInReverseOrder, false );
-        options.views.map.keepScrollPositions = getDefaultBoolean( options.views.map.keepScrollPositions, false );
+        options.views.map = Data.getDefaultObject( options.views.map, {} as Map );
+        options.views.map.showMonthDayGaps = Data.getDefaultBoolean( options.views.map.showMonthDayGaps, true );
+        options.views.map.showDayNames = Data.getDefaultBoolean( options.views.map.showDayNames, true );
+        options.views.map.placeMonthNamesOnTheBottom = Data.getDefaultBoolean( options.views.map.placeMonthNamesOnTheBottom, false );
+        options.views.map.showDayNumbers = Data.getDefaultBoolean( options.views.map.showDayNumbers, false );
+        options.views.map.showMonthNames = Data.getDefaultBoolean( options.views.map.showMonthNames, true );
+        options.views.map.showDaysInReverseOrder = Data.getDefaultBoolean( options.views.map.showDaysInReverseOrder, false );
+        options.views.map.showNoDataMessageWhenDataIsNotAvailable = Data.getDefaultBoolean( options.views.map.showNoDataMessageWhenDataIsNotAvailable, false );
+        options.views.map.showMinimalDayNames = Data.getDefaultBoolean( options.views.map.showMinimalDayNames, false );
+        options.views.map.showMonthsInReverseOrder = Data.getDefaultBoolean( options.views.map.showMonthsInReverseOrder, false );
+        options.views.map.keepScrollPositions = Data.getDefaultBoolean( options.views.map.keepScrollPositions, false );
 
-        if ( isInvalidOptionArray( options.views.map.monthsToShow ) ) {
+        if ( Validation.isInvalidOptionArray( options.views.map.monthsToShow ) ) {
             options.views.map.monthsToShow = _default_MonthsToShow;
         }
 
-        if ( isInvalidOptionArray( options.views.map.daysToShow ) ) {
+        if ( Validation.isInvalidOptionArray( options.views.map.daysToShow ) ) {
             options.views.map.daysToShow = _default_DaysToShow;
         }
 
@@ -2411,19 +2413,19 @@ import { type PublicApi } from "./ts/api";
     }
 
     function buildAttributeOptionChartView( options: BindingOptions ) : BindingOptions {
-        options.views.chart = getDefaultObject( options.views.chart, {} as Chart );
-        options.views.chart.enabled = getDefaultBoolean( options.views.chart.enabled, true );
-        options.views.chart.showChartYLabels = getDefaultBoolean( options.views.chart.showChartYLabels, true );
-        options.views.chart.showMonthNames = getDefaultBoolean( options.views.chart.showMonthNames, true );
-        options.views.chart.showLineNumbers = getDefaultBoolean( options.views.chart.showLineNumbers, false );
-        options.views.chart.showInReverseOrder = getDefaultBoolean( options.views.chart.showInReverseOrder, false );
-        options.views.chart.keepScrollPositions = getDefaultBoolean( options.views.chart.keepScrollPositions, false );
+        options.views.chart = Data.getDefaultObject( options.views.chart, {} as Chart );
+        options.views.chart.enabled = Data.getDefaultBoolean( options.views.chart.enabled, true );
+        options.views.chart.showChartYLabels = Data.getDefaultBoolean( options.views.chart.showChartYLabels, true );
+        options.views.chart.showMonthNames = Data.getDefaultBoolean( options.views.chart.showMonthNames, true );
+        options.views.chart.showLineNumbers = Data.getDefaultBoolean( options.views.chart.showLineNumbers, false );
+        options.views.chart.showInReverseOrder = Data.getDefaultBoolean( options.views.chart.showInReverseOrder, false );
+        options.views.chart.keepScrollPositions = Data.getDefaultBoolean( options.views.chart.keepScrollPositions, false );
 
-        if ( isInvalidOptionArray( options.views.chart.monthsToShow ) ) {
+        if ( Validation.isInvalidOptionArray( options.views.chart.monthsToShow ) ) {
             options.views.chart.monthsToShow = _default_MonthsToShow;
         }
 
-        if ( isInvalidOptionArray( options.views.chart.daysToShow ) ) {
+        if ( Validation.isInvalidOptionArray( options.views.chart.daysToShow ) ) {
             options.views.chart.daysToShow = _default_DaysToShow;
         }
 
@@ -2431,19 +2433,19 @@ import { type PublicApi } from "./ts/api";
     }
 
     function buildAttributeOptionDaysView( options: BindingOptions ) : BindingOptions {
-        options.views.days = getDefaultObject( options.views.days, {} as Days );
-        options.views.days.enabled = getDefaultBoolean( options.views.days.enabled, true );
-        options.views.days.showChartYLabels = getDefaultBoolean( options.views.days.showChartYLabels, true );
-        options.views.days.showDayNames = getDefaultBoolean( options.views.days.showDayNames, true );
-        options.views.days.showInReverseOrder = getDefaultBoolean( options.views.days.showInReverseOrder, false );
-        options.views.days.showDayNumbers = getDefaultBoolean( options.views.days.showDayNumbers, false );
-        options.views.days.keepScrollPositions = getDefaultBoolean( options.views.days.keepScrollPositions, false );
+        options.views.days = Data.getDefaultObject( options.views.days, {} as Days );
+        options.views.days.enabled = Data.getDefaultBoolean( options.views.days.enabled, true );
+        options.views.days.showChartYLabels = Data.getDefaultBoolean( options.views.days.showChartYLabels, true );
+        options.views.days.showDayNames = Data.getDefaultBoolean( options.views.days.showDayNames, true );
+        options.views.days.showInReverseOrder = Data.getDefaultBoolean( options.views.days.showInReverseOrder, false );
+        options.views.days.showDayNumbers = Data.getDefaultBoolean( options.views.days.showDayNumbers, false );
+        options.views.days.keepScrollPositions = Data.getDefaultBoolean( options.views.days.keepScrollPositions, false );
 
-        if ( isInvalidOptionArray( options.views.days.monthsToShow ) ) {
+        if ( Validation.isInvalidOptionArray( options.views.days.monthsToShow ) ) {
             options.views.days.monthsToShow = _default_MonthsToShow;
         }
 
-        if ( isInvalidOptionArray( options.views.days.daysToShow ) ) {
+        if ( Validation.isInvalidOptionArray( options.views.days.daysToShow ) ) {
             options.views.days.daysToShow = _default_DaysToShow;
         }
 
@@ -2451,20 +2453,20 @@ import { type PublicApi } from "./ts/api";
     }
 
     function buildAttributeOptionStatisticsView( options: BindingOptions ) : BindingOptions {
-        options.views.statistics = getDefaultObject( options.views.statistics, {} as Statistics );
-        options.views.statistics.enabled = getDefaultBoolean( options.views.statistics.enabled, true );
-        options.views.statistics.showChartYLabels = getDefaultBoolean( options.views.statistics.showChartYLabels, true );
-        options.views.statistics.showColorRangeLabels = getDefaultBoolean( options.views.statistics.showColorRangeLabels, true );
-        options.views.statistics.useColorRangeNamesForLabels = getDefaultBoolean( options.views.statistics.useColorRangeNamesForLabels, false );
-        options.views.statistics.showRangeNumbers = getDefaultBoolean( options.views.statistics.showRangeNumbers, false );
-        options.views.statistics.showInReverseOrder = getDefaultBoolean( options.views.statistics.showInReverseOrder, false );
-        options.views.statistics.keepScrollPositions = getDefaultBoolean( options.views.statistics.keepScrollPositions, false );
+        options.views.statistics = Data.getDefaultObject( options.views.statistics, {} as Statistics );
+        options.views.statistics.enabled = Data.getDefaultBoolean( options.views.statistics.enabled, true );
+        options.views.statistics.showChartYLabels = Data.getDefaultBoolean( options.views.statistics.showChartYLabels, true );
+        options.views.statistics.showColorRangeLabels = Data.getDefaultBoolean( options.views.statistics.showColorRangeLabels, true );
+        options.views.statistics.useColorRangeNamesForLabels = Data.getDefaultBoolean( options.views.statistics.useColorRangeNamesForLabels, false );
+        options.views.statistics.showRangeNumbers = Data.getDefaultBoolean( options.views.statistics.showRangeNumbers, false );
+        options.views.statistics.showInReverseOrder = Data.getDefaultBoolean( options.views.statistics.showInReverseOrder, false );
+        options.views.statistics.keepScrollPositions = Data.getDefaultBoolean( options.views.statistics.keepScrollPositions, false );
 
-        if ( isInvalidOptionArray( options.views.statistics.monthsToShow ) ) {
+        if ( Validation.isInvalidOptionArray( options.views.statistics.monthsToShow ) ) {
             options.views.statistics.monthsToShow = _default_MonthsToShow;
         }
 
-        if ( isInvalidOptionArray( options.views.statistics.daysToShow ) ) {
+        if ( Validation.isInvalidOptionArray( options.views.statistics.daysToShow ) ) {
             options.views.statistics.daysToShow = _default_DaysToShow;
         }
 
@@ -2472,30 +2474,30 @@ import { type PublicApi } from "./ts/api";
     }
 
     function buildAttributeOptionCustomTriggers( options : BindingOptions ) : BindingOptions {
-        options.events = getDefaultObject( options.events, {} as Events );
-        options.events.onDayClick = getDefaultFunction( options.events.onDayClick, null );
-        options.events.onBackYear = getDefaultFunction( options.events.onBackYear, null );
-        options.events.onNextYear = getDefaultFunction( options.events.onNextYear, null );
-        options.events.onRefresh = getDefaultFunction( options.events.onRefresh, null );
-        options.events.onBeforeRender = getDefaultFunction( options.events.onBeforeRender, null );
-        options.events.onRenderComplete = getDefaultFunction( options.events.onRenderComplete, null );
-        options.events.onDestroy = getDefaultFunction( options.events.onDestroy, null );
-        options.events.onExport = getDefaultFunction( options.events.onExport, null );
-        options.events.onSetYear = getDefaultFunction( options.events.onSetYear, null );
-        options.events.onTypeSwitch = getDefaultFunction( options.events.onTypeSwitch, null );
-        options.events.onDayToolTipRender = getDefaultFunction( options.events.onDayToolTipRender, null );
-        options.events.onAdd = getDefaultFunction( options.events.onAdd, null );
-        options.events.onRemove = getDefaultFunction( options.events.onRemove, null );
-        options.events.onReset = getDefaultFunction( options.events.onReset, null );
-        options.events.onViewSwitch = getDefaultFunction( options.events.onViewSwitch, null );
-        options.events.onColorRangeTypeToggle = getDefaultFunction( options.events.onColorRangeTypeToggle, null );
-        options.events.onImport = getDefaultFunction( options.events.onImport, null );
-        options.events.onStatisticClick = getDefaultFunction( options.events.onStatisticClick, null );
-        options.events.onDataFetch = getDefaultFunction( options.events.onDataFetch, null );
-        options.events.onClear = getDefaultFunction( options.events.onClear, null );
-        options.events.onUpdate = getDefaultFunction( options.events.onUpdate, null );
-        options.events.onOptionsUpdate = getDefaultFunction( options.events.onOptionsUpdate, null );
-        options.events.onWeekDayClick = getDefaultFunction( options.events.onWeekDayClick, null );
+        options.events = Data.getDefaultObject( options.events, {} as Events );
+        options.events.onDayClick = Data.getDefaultFunction( options.events.onDayClick, null );
+        options.events.onBackYear = Data.getDefaultFunction( options.events.onBackYear, null );
+        options.events.onNextYear = Data.getDefaultFunction( options.events.onNextYear, null );
+        options.events.onRefresh = Data.getDefaultFunction( options.events.onRefresh, null );
+        options.events.onBeforeRender = Data.getDefaultFunction( options.events.onBeforeRender, null );
+        options.events.onRenderComplete = Data.getDefaultFunction( options.events.onRenderComplete, null );
+        options.events.onDestroy = Data.getDefaultFunction( options.events.onDestroy, null );
+        options.events.onExport = Data.getDefaultFunction( options.events.onExport, null );
+        options.events.onSetYear = Data.getDefaultFunction( options.events.onSetYear, null );
+        options.events.onTypeSwitch = Data.getDefaultFunction( options.events.onTypeSwitch, null );
+        options.events.onDayToolTipRender = Data.getDefaultFunction( options.events.onDayToolTipRender, null );
+        options.events.onAdd = Data.getDefaultFunction( options.events.onAdd, null );
+        options.events.onRemove = Data.getDefaultFunction( options.events.onRemove, null );
+        options.events.onReset = Data.getDefaultFunction( options.events.onReset, null );
+        options.events.onViewSwitch = Data.getDefaultFunction( options.events.onViewSwitch, null );
+        options.events.onColorRangeTypeToggle = Data.getDefaultFunction( options.events.onColorRangeTypeToggle, null );
+        options.events.onImport = Data.getDefaultFunction( options.events.onImport, null );
+        options.events.onStatisticClick = Data.getDefaultFunction( options.events.onStatisticClick, null );
+        options.events.onDataFetch = Data.getDefaultFunction( options.events.onDataFetch, null );
+        options.events.onClear = Data.getDefaultFunction( options.events.onClear, null );
+        options.events.onUpdate = Data.getDefaultFunction( options.events.onUpdate, null );
+        options.events.onOptionsUpdate = Data.getDefaultFunction( options.events.onOptionsUpdate, null );
+        options.events.onWeekDayClick = Data.getDefaultFunction( options.events.onWeekDayClick, null );
 
         return options;
     }
@@ -2583,11 +2585,11 @@ import { type PublicApi } from "./ts/api";
 
         result = _elements_Type[ nodeType ].cloneNode( false );
 
-        if ( isDefined( className ) ) {
+        if ( Validation.isDefined( className ) ) {
             result.className = className;
         }
 
-        if ( isDefined( beforeNode ) ) {
+        if ( Validation.isDefined( beforeNode ) ) {
             container.insertBefore( result, beforeNode );
         } else {
             container.appendChild( result );
@@ -2692,11 +2694,11 @@ import { type PublicApi } from "./ts/api";
 
         input.type = "checkbox";
 
-        if ( isDefined( onClick ) ) {
+        if ( Validation.isDefined( onClick ) ) {
             input.onclick = onClick;
         }
 
-        if ( isDefined( checked ) ) {
+        if ( Validation.isDefined( checked ) ) {
             input.checked = checked;
         }
 
@@ -2719,7 +2721,7 @@ import { type PublicApi } from "./ts/api";
     function fireCustomTriggerEvent( triggerFunction: Function, ...args : any[] ) : any {
         let result: any = null;
 
-        if ( isDefinedFunction( triggerFunction ) ) {
+        if ( Validation.isDefinedFunction( triggerFunction ) ) {
             result = triggerFunction.apply( null, [].slice.call( args, 0 ) );
         }
 
@@ -2729,106 +2731,16 @@ import { type PublicApi } from "./ts/api";
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Validation
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function isDefined( value: any ) : boolean  {
-        return value !== null && value !== undefined && value.toString() !== STRING.empty;
-    }
-
-    function isDefinedObject( object: any ) : boolean {
-        return isDefined( object ) && typeof object === "object";
-    }
-
-    function isDefinedBoolean( object: any ) : boolean  {
-        return isDefined( object ) && typeof object === "boolean";
-    }
-
-    function isDefinedString( object: any ) : boolean  {
-        return isDefined( object ) && typeof object === "string";
-    }
-
-    function isDefinedFunction( object: any ) : boolean  {
-        return isDefined( object ) && typeof object === "function";
-    }
-
-    function isDefinedNumber( object: any ) : boolean  {
-        return isDefined( object ) && typeof object === "number";
-    }
-
-    function isDefinedArray( object: any ) : boolean  {
-        return isDefinedObject( object ) && object instanceof Array;
-    }
-
-    function isDefinedDate( object: any ) : boolean  {
-        return isDefinedObject( object ) && object instanceof Date;
-    }
-
-    function isInvalidOptionArray( array: any, minimumLength: number = 1 ) : boolean {
-        return !isDefinedArray( array ) || array.length < minimumLength;
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Default Parameter/Option Handling
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
-
-    function getDefaultAnyString( value: any, defaultValue: string ) : string  {
-        return typeof value === "string" ? value : defaultValue;
-    }
-
-    function getDefaultString( value: any, defaultValue: string ) : string {
-        return isDefinedString( value ) ? value : defaultValue;
-    }
-
-    function getDefaultBoolean( value: any, defaultValue: boolean ) : boolean {
-        return isDefinedBoolean( value ) ? value : defaultValue;
-    }
-
-    function getDefaultNumber( value: any, defaultValue: number ) : number {
-        return isDefinedNumber( value ) ? value : defaultValue;
-    }
-
-    function getDefaultFunction( value: any, defaultValue: object ) : any {
-        return isDefinedFunction( value ) ? value : defaultValue;
-    }
-
-    function getDefaultArray( value: any, defaultValue: any[] ) : any[] {
-        return isDefinedArray( value ) ? value : defaultValue;
-    }
-
-    function getDefaultObject( value: any, defaultValue: object ) : any {
-        return isDefinedObject( value ) ? value : defaultValue;
-    }
-
-    function getDefaultStringOrArray( value: any, defaultValue: any[] ) : any[] {
-        let result: any[] = defaultValue;
-
-        if ( isDefinedString( value ) ) {
-            const values: string[] = value.toString().split( STRING.space );
-
-            if ( values.length === 0 ) {
-                value = defaultValue;
-            } else {
-                result = values;
-            }
-
-        } else {
-            result = getDefaultArray( value, defaultValue );
-        }
-
-        return result;
-    }
 
     function getObjectFromString( objectString: any ) : any {
         let parsed: boolean = true,
             result: any = null;
 
         try {
-            if ( isDefinedString( objectString ) ) {
+            if ( Validation.isDefinedString( objectString ) ) {
                 result = jsonObject.parse( objectString );
             }
 
@@ -2837,7 +2749,7 @@ import { type PublicApi } from "./ts/api";
             try {
                 let evalResult: Function = result = eval( "(" + objectString + ")" );
 
-                if ( isDefinedFunction( result ) ) {
+                if ( Validation.isDefinedFunction( result ) ) {
                     result = evalResult();
                 }
                 
@@ -2982,7 +2894,7 @@ import { type PublicApi } from "./ts/api";
 
         documentObject.body.removeChild( bindingOptions._currentView.tooltip );
 
-        if ( bindingOptions._currentView.isInFetchMode && isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
+        if ( bindingOptions._currentView.isInFetchMode && Validation.isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
             clearInterval( bindingOptions._currentView.isInFetchModeTimer );
         }
 
@@ -2996,52 +2908,52 @@ import { type PublicApi } from "./ts/api";
 	 */
 
     function buildDefaultConfiguration( newConfiguration: Configuration = null ) : void {
-        _configuration = !isDefinedObject( newConfiguration ) ? {} as Configuration : newConfiguration;
-        _configuration.safeMode = getDefaultBoolean( _configuration.safeMode, true );
-        _configuration.domElementTypes = getDefaultStringOrArray( _configuration.domElementTypes, [ "*" ] );
+        _configuration = !Validation.isDefinedObject( newConfiguration ) ? {} as Configuration : newConfiguration;
+        _configuration.safeMode = Data.getDefaultBoolean( _configuration.safeMode, true );
+        _configuration.domElementTypes = Data.getDefaultStringOrArray( _configuration.domElementTypes, [ "*" ] );
 
         buildDefaultConfigurationStrings();
         buildDefaultConfigurationArrays();
     }
 
     function buildDefaultConfigurationStrings() : void {
-        _configuration.stText = getDefaultAnyString( _configuration.stText, "st" );
-        _configuration.ndText = getDefaultAnyString( _configuration.ndText, "nd" );
-        _configuration.rdText = getDefaultAnyString( _configuration.rdText, "rd" );
-        _configuration.thText = getDefaultAnyString( _configuration.thText, "th" );
-        _configuration.backButtonText = getDefaultAnyString( _configuration.backButtonText, "Back" );
-        _configuration.nextButtonText = getDefaultAnyString( _configuration.nextButtonText, "Next" );
-        _configuration.refreshButtonText = getDefaultAnyString( _configuration.refreshButtonText, "Refresh" );
-        _configuration.exportButtonText = getDefaultAnyString( _configuration.exportButtonText, "Export" );
-        _configuration.lessText = getDefaultAnyString( _configuration.lessText, "Less" );
-        _configuration.moreText = getDefaultAnyString( _configuration.moreText, "More" );
-        _configuration.dateText = getDefaultAnyString( _configuration.dateText, "Date" );
-        _configuration.countText = getDefaultAnyString( _configuration.countText, "Count" );
-        _configuration.mapText = getDefaultAnyString( _configuration.mapText, "Map" );
-        _configuration.chartText = getDefaultAnyString( _configuration.chartText, "Chart" );
-        _configuration.noChartDataMessage = getDefaultAnyString( _configuration.noChartDataMessage, "There is currently no data to view." );
-        _configuration.statisticsText = getDefaultAnyString( _configuration.statisticsText, "Statistics" );
-        _configuration.noStatisticsDataMessage = getDefaultAnyString( _configuration.noStatisticsDataMessage, "There are currently no statistics to view." );
-        _configuration.unknownTrendText = getDefaultAnyString( _configuration.unknownTrendText, "Unknown" );
-        _configuration.importButtonText = getDefaultAnyString( _configuration.importButtonText, "Import" );
-        _configuration.noMapDataMessage = getDefaultAnyString( _configuration.noMapDataMessage, "There is currently no data to view." );
-        _configuration.objectErrorText = getDefaultAnyString( _configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}" );
-        _configuration.attributeNotValidErrorText = getDefaultAnyString( _configuration.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object." );
-        _configuration.attributeNotSetErrorText = getDefaultAnyString( _configuration.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly." );
-        _configuration.closeToolTipText = getDefaultAnyString( _configuration.closeToolTipText, "Close" );
-        _configuration.configurationToolTipText = getDefaultAnyString( _configuration.configurationToolTipText, "Configuration" );
-        _configuration.configurationTitleText = getDefaultAnyString( _configuration.configurationTitleText, "Configuration" );
-        _configuration.visibleMonthsText = getDefaultAnyString( _configuration.visibleMonthsText, "Visible Months" );
-        _configuration.visibleDaysText = getDefaultAnyString( _configuration.visibleDaysText, "Visible Days" );
-        _configuration.dataText = getDefaultAnyString( _configuration.dataText, "Data" );
-        _configuration.colorRangesText = getDefaultAnyString( _configuration.colorRangesText, "Color Ranges" );
-        _configuration.yearText = getDefaultAnyString( _configuration.yearText, "Year" );
-        _configuration.daysText = getDefaultAnyString( _configuration.daysText, "Days" );
-        _configuration.noDaysDataMessage = getDefaultAnyString( _configuration.noDaysDataMessage, "There are currently no days to view." );
+        _configuration.stText = Data.getDefaultAnyString( _configuration.stText, "st" );
+        _configuration.ndText = Data.getDefaultAnyString( _configuration.ndText, "nd" );
+        _configuration.rdText = Data.getDefaultAnyString( _configuration.rdText, "rd" );
+        _configuration.thText = Data.getDefaultAnyString( _configuration.thText, "th" );
+        _configuration.backButtonText = Data.getDefaultAnyString( _configuration.backButtonText, "Back" );
+        _configuration.nextButtonText = Data.getDefaultAnyString( _configuration.nextButtonText, "Next" );
+        _configuration.refreshButtonText = Data.getDefaultAnyString( _configuration.refreshButtonText, "Refresh" );
+        _configuration.exportButtonText = Data.getDefaultAnyString( _configuration.exportButtonText, "Export" );
+        _configuration.lessText = Data.getDefaultAnyString( _configuration.lessText, "Less" );
+        _configuration.moreText = Data.getDefaultAnyString( _configuration.moreText, "More" );
+        _configuration.dateText = Data.getDefaultAnyString( _configuration.dateText, "Date" );
+        _configuration.countText = Data.getDefaultAnyString( _configuration.countText, "Count" );
+        _configuration.mapText = Data.getDefaultAnyString( _configuration.mapText, "Map" );
+        _configuration.chartText = Data.getDefaultAnyString( _configuration.chartText, "Chart" );
+        _configuration.noChartDataMessage = Data.getDefaultAnyString( _configuration.noChartDataMessage, "There is currently no data to view." );
+        _configuration.statisticsText = Data.getDefaultAnyString( _configuration.statisticsText, "Statistics" );
+        _configuration.noStatisticsDataMessage = Data.getDefaultAnyString( _configuration.noStatisticsDataMessage, "There are currently no statistics to view." );
+        _configuration.unknownTrendText = Data.getDefaultAnyString( _configuration.unknownTrendText, "Unknown" );
+        _configuration.importButtonText = Data.getDefaultAnyString( _configuration.importButtonText, "Import" );
+        _configuration.noMapDataMessage = Data.getDefaultAnyString( _configuration.noMapDataMessage, "There is currently no data to view." );
+        _configuration.objectErrorText = Data.getDefaultAnyString( _configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}" );
+        _configuration.attributeNotValidErrorText = Data.getDefaultAnyString( _configuration.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object." );
+        _configuration.attributeNotSetErrorText = Data.getDefaultAnyString( _configuration.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly." );
+        _configuration.closeToolTipText = Data.getDefaultAnyString( _configuration.closeToolTipText, "Close" );
+        _configuration.configurationToolTipText = Data.getDefaultAnyString( _configuration.configurationToolTipText, "Configuration" );
+        _configuration.configurationTitleText = Data.getDefaultAnyString( _configuration.configurationTitleText, "Configuration" );
+        _configuration.visibleMonthsText = Data.getDefaultAnyString( _configuration.visibleMonthsText, "Visible Months" );
+        _configuration.visibleDaysText = Data.getDefaultAnyString( _configuration.visibleDaysText, "Visible Days" );
+        _configuration.dataText = Data.getDefaultAnyString( _configuration.dataText, "Data" );
+        _configuration.colorRangesText = Data.getDefaultAnyString( _configuration.colorRangesText, "Color Ranges" );
+        _configuration.yearText = Data.getDefaultAnyString( _configuration.yearText, "Year" );
+        _configuration.daysText = Data.getDefaultAnyString( _configuration.daysText, "Days" );
+        _configuration.noDaysDataMessage = Data.getDefaultAnyString( _configuration.noDaysDataMessage, "There are currently no days to view." );
     }
 
     function buildDefaultConfigurationArrays() : void {
-        if ( isInvalidOptionArray( _configuration.monthNames, 12 ) ) {
+        if ( Validation.isInvalidOptionArray( _configuration.monthNames, 12 ) ) {
             _configuration.monthNames = [
                 "Jan",
                 "Feb",
@@ -3058,7 +2970,7 @@ import { type PublicApi } from "./ts/api";
             ];
         }
 
-        if ( isInvalidOptionArray( _configuration.dayNames, 7 ) ) {
+        if ( Validation.isInvalidOptionArray( _configuration.dayNames, 7 ) ) {
             _configuration.dayNames = [
                 "Mon",
                 "Tue",
@@ -3087,7 +2999,7 @@ import { type PublicApi } from "./ts/api";
          */
 
         addDates: function ( elementId: string, dates: Date[], type: string = _configuration.unknownTrendText, triggerRefresh: boolean = true ) : PublicApi {
-            if ( isDefinedString( elementId ) && isDefinedArray( dates ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && Validation.isDefinedArray( dates ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
@@ -3107,7 +3019,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         addDate: function ( elementId: string, date: Date, type: string = _configuration.unknownTrendText, triggerRefresh: boolean = true ) : PublicApi {
-            if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && Validation.isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
@@ -3136,7 +3048,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         updateDate: function ( elementId: string, date: Date, count: number, type: string = _configuration.unknownTrendText, triggerRefresh: boolean = true ) : PublicApi {
-            if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && Validation.isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode && count > 0 ) {
@@ -3158,7 +3070,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         removeDates: function ( elementId: string, dates: Date[], type: string = _configuration.unknownTrendText, triggerRefresh: boolean = true ) : PublicApi {
-            if ( isDefinedString( elementId ) && isDefinedArray( dates ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && Validation.isDefinedArray( dates ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
@@ -3178,7 +3090,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         removeDate: function ( elementId: string, date: Date, type: string = _configuration.unknownTrendText, triggerRefresh: boolean = true ) : PublicApi {
-            if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && Validation.isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
@@ -3202,7 +3114,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         clearDate: function ( elementId: string, date: Date, type: string = _configuration.unknownTrendText, triggerRefresh: boolean = true ) : PublicApi {
-            if ( isDefinedString( elementId ) && isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && Validation.isDefinedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
@@ -3234,7 +3146,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         reset: function ( elementId: string, triggerRefresh: boolean = true ) : PublicApi {
-            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
@@ -3260,7 +3172,7 @@ import { type PublicApi } from "./ts/api";
          */
 
         import: function ( elementId: string, files: FileList ) : PublicApi {
-            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) && isDefinedArray( files ) ) {
+            if ( Validation.isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) && Validation.isDefinedArray( files ) ) {
                 importFromFiles( files, _elements_DateCounts[ elementId ].options );
             }
     
@@ -3268,7 +3180,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         export: function ( elementId: string, exportType: string = null ) : PublicApi {
-            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 exportAllData( _elements_DateCounts[ elementId ].options, exportType );
             }
     
@@ -3283,7 +3195,7 @@ import { type PublicApi } from "./ts/api";
          */
 
         refresh: function ( elementId: string ) : PublicApi {
-            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
     
                 renderControlContainer( bindingOptions, true );
@@ -3307,7 +3219,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         setYear: function ( elementId: string, year: number ) : PublicApi {
-            if ( isDefinedString( elementId ) && isDefinedNumber( year ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && Validation.isDefinedNumber( year ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 bindingOptions._currentView.year = year;
     
@@ -3324,7 +3236,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         setYearToHighest: function ( elementId: string ) : PublicApi {
-            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 const data: any = getCurrentViewData( bindingOptions );
                 let maximumYear: number = 0;
@@ -3352,7 +3264,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         setYearToLowest: function ( elementId: string ) : PublicApi {
-            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 const data: any = getCurrentViewData( bindingOptions );
                 let minimumYear: number = 9999;
@@ -3380,7 +3292,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         moveToPreviousYear: function ( elementId: string ) : PublicApi {
-            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 moveToPreviousYear( _elements_DateCounts[ elementId ].options );
             }
     
@@ -3388,7 +3300,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         moveToNextYear: function ( elementId: string ) : PublicApi {
-            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 moveToNextYear( _elements_DateCounts[ elementId ].options );
             }
     
@@ -3396,7 +3308,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         moveToCurrentYear: function ( elementId: string ) : PublicApi {
-            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 bindingOptions._currentView.year = new Date().getFullYear();
     
@@ -3415,7 +3327,7 @@ import { type PublicApi } from "./ts/api";
         getYear: function ( elementId: string ) : number {
             let result: number = null;
 
-            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
     
                 result = bindingOptions._currentView.year;
@@ -3425,7 +3337,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         render: function ( element: HTMLElement, options: BindingOptions ) : PublicApi {
-            if ( isDefinedObject( element ) && isDefinedObject( options ) ) {
+            if ( Validation.isDefinedObject( element ) && Validation.isDefinedObject( options ) ) {
                 renderControl( renderBindingOptions( options, element ) );
             }
     
@@ -3439,7 +3351,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         switchView: function ( elementId: string, viewName: string ) : PublicApi {
-            if ( isDefinedString( elementId ) && isDefinedString( viewName ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && Validation.isDefinedString( viewName ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 let view: number = null;
     
@@ -3453,7 +3365,7 @@ import { type PublicApi } from "./ts/api";
                     view = VIEW_ID.statistics;
                 }
     
-                if ( isDefinedNumber( view ) ) {
+                if ( Validation.isDefinedNumber( view ) ) {
                     bindingOptions._currentView.view = view;
     
                     fireCustomTriggerEvent( bindingOptions.events.onViewSwitch, viewName );
@@ -3465,7 +3377,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         switchType: function ( elementId: string, type: string ) : PublicApi {
-            if ( isDefinedString( elementId ) && isDefinedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) && _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
+            if ( Validation.isDefinedString( elementId ) && Validation.isDefinedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) && _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
     
                 if ( bindingOptions._currentView.type !== type ) {
@@ -3480,7 +3392,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         updateOptions: function ( elementId: string, newOptions: BindingOptions ) : PublicApi {
-            if ( isDefinedString( elementId ) && isDefinedObject( newOptions ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && Validation.isDefinedObject( newOptions ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 const newBindingOptions: BindingOptions = buildAttributeOptions( newOptions );
                 let optionChanged: boolean = false;
@@ -3522,7 +3434,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         destroy: function ( elementId: string ) : PublicApi {
-            if ( isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+            if ( Validation.isDefinedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 destroyElement( _elements_DateCounts[ elementId ].options );
     
                 delete _elements_DateCounts[ elementId ];
@@ -3539,7 +3451,7 @@ import { type PublicApi } from "./ts/api";
          */
 
         setConfiguration: function ( newConfiguration: Configuration, triggerRefresh: boolean = true ) : PublicApi {
-            if ( isDefinedObject( newConfiguration ) ) {
+            if ( Validation.isDefinedObject( newConfiguration ) ) {
                 let configurationHasChanged: boolean = false;
             
                 for ( let propertyName in newConfiguration ) {
@@ -3603,7 +3515,7 @@ import { type PublicApi } from "./ts/api";
             cancelAllPullDataTimers();
         } );
 
-        if ( !isDefined( windowObject.$heat ) ) {
+        if ( !Validation.isDefined( windowObject.$heat ) ) {
             windowObject.$heat = _public;
         }
     } )();
