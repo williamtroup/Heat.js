@@ -1,4 +1,4 @@
-import { type Configuration, type BindingOptions } from "./types";
+import { type Configuration, type BindingOptions } from "./type";
 
 export type PublicApi = {
     /*
