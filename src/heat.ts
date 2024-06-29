@@ -296,7 +296,7 @@ import { type PublicApi } from "./ts/api";
         const months1Container: HTMLElement = createElement( monthsContainer, "div", "side-container" );
         const months2Container: HTMLElement = createElement( monthsContainer, "div", "side-container" );
 
-        closeButton.onclick = function() {
+        closeButton.onclick = function () {
             hideConfigurationDialog( bindingOptions );
         };
 
@@ -448,7 +448,7 @@ import { type PublicApi } from "./ts/api";
 
     function addToolTip( element: HTMLElement, bindingOptions: BindingOptions, text: string ) : void {
         if ( element !== null ) {
-            element.onmousemove = function( e ) {
+            element.onmousemove = function ( e ) {
                 showToolTip( e, bindingOptions, text );
             };
         }
@@ -511,7 +511,7 @@ import { type PublicApi } from "./ts/api";
             if ( bindingOptions.title.showImportButton && !bindingOptions._currentView.isInFetchMode ) {
                 const importData: HTMLElement = createElementWithHTML( titleBar, "button", "import", _configuration.importButtonText );
         
-                importData.onclick = function() {
+                importData.onclick = function () {
                     importFromFilesSelected( bindingOptions );
                 };
             }
@@ -519,7 +519,7 @@ import { type PublicApi } from "./ts/api";
             if ( bindingOptions.title.showExportButton ) {
                 const exportData: HTMLElement = createElementWithHTML( titleBar, "button", "export", _configuration.exportButtonText );
         
-                exportData.onclick = function() {
+                exportData.onclick = function () {
                     exportAllData( bindingOptions );
                 };
             }
@@ -527,7 +527,7 @@ import { type PublicApi } from "./ts/api";
             if ( bindingOptions.title.showRefreshButton ) {
                 const refresh: HTMLElement = createElementWithHTML( titleBar, "button", "refresh", _configuration.refreshButtonText );
         
-                refresh.onclick = function() {
+                refresh.onclick = function () {
                     renderControlContainer( bindingOptions );
                     fireCustomTriggerEvent( bindingOptions.events.onRefresh, bindingOptions._currentView.element );
                 };
@@ -536,7 +536,7 @@ import { type PublicApi } from "./ts/api";
             if ( bindingOptions.title.showYearSelector ) {
                 const back: any = createElementWithHTML( titleBar, "button", "back", _configuration.backButtonText );
         
-                back.onclick = function() {
+                back.onclick = function () {
                     moveToPreviousYear( bindingOptions );
                 };
 
@@ -557,14 +557,14 @@ import { type PublicApi } from "./ts/api";
 
                     addToolTip( configureButton, bindingOptions, _configuration.configurationToolTipText );
 
-                    configureButton.onclick = function() {
+                    configureButton.onclick = function () {
                         showConfigurationDialog( bindingOptions );
                     };
                 }
 
                 const next: any = createElementWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
 
-                next.onclick = function() {
+                next.onclick = function () {
                     moveToNextYear( bindingOptions );
                 };
 
@@ -619,7 +619,7 @@ import { type PublicApi } from "./ts/api";
             addClass( option, "title-menu-item-active" );
             
         } else {
-            option.onclick = function() {
+            option.onclick = function () {
                 bindingOptions._currentView.view = view;
 
                 fireCustomTriggerEvent( bindingOptions.events.onViewSwitch, viewName );
@@ -662,7 +662,7 @@ import { type PublicApi } from "./ts/api";
         const year: HTMLElement = createElementWithHTML( years, "div", "year-menu-item", currentYear.toString() );
 
         if ( bindingOptions._currentView.year !== currentYear ) {
-            year.onclick = function() {
+            year.onclick = function () {
                 bindingOptions._currentView.year = currentYear;
     
                 renderControlContainer( bindingOptions );
@@ -859,7 +859,7 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( isDefinedFunction( bindingOptions.events.onDayClick ) ) {
-            day.onclick = function() {
+            day.onclick = function () {
                 fireCustomTriggerEvent( bindingOptions.events.onDayClick, date, dateCount );
             };
 
@@ -985,7 +985,7 @@ import { type PublicApi } from "./ts/api";
                 const linesWidth: number = dayLines.offsetWidth / totalMonths;
                 let monthTimesValue: number = 0;
 
-                const addMonthName: Function = function( addMonthNameIndex: number ) {
+                const addMonthName: Function = function ( addMonthNameIndex: number ) {
                     if ( isMonthVisible( bindingOptions.views.chart.monthsToShow, addMonthNameIndex ) ) {
                         let monthName: HTMLElement = createElementWithHTML( chartMonths, "div", "month-name", _configuration.monthNames[ addMonthNameIndex ] );
                         monthName.style.left = labelsWidth + ( linesWidth * monthTimesValue ) + "px";
@@ -1040,7 +1040,7 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( isDefinedFunction( bindingOptions.events.onDayClick ) ) {
-            dayLine.onclick = function() {
+            dayLine.onclick = function () {
                 fireCustomTriggerEvent( bindingOptions.events.onDayClick, date, dateCount );
             };
 
@@ -1168,7 +1168,7 @@ import { type PublicApi } from "./ts/api";
         addToolTip( dayLine, bindingOptions, dayCount.toString() );
 
         if ( isDefinedFunction( bindingOptions.events.onWeekDayClick ) ) {
-            dayLine.onclick = function() {
+            dayLine.onclick = function () {
                 fireCustomTriggerEvent( bindingOptions.events.onWeekDayClick, dayNumber, dayCount );
             };
 
@@ -1329,7 +1329,7 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( isDefinedFunction( bindingOptions.events.onStatisticClick ) ) {
-            rangeLine.onclick = function() {
+            rangeLine.onclick = function () {
                 fireCustomTriggerEvent( bindingOptions.events.onStatisticClick, useColorRange );
             };
 
@@ -1437,7 +1437,7 @@ import { type PublicApi } from "./ts/api";
                 let lessText: HTMLElement = createElementWithHTML( mapToggles, "div", "less-text", _configuration.lessText );
     
                 if ( bindingOptions.guide.colorRangeTogglesEnabled ) {
-                    lessText.onclick = function() {
+                    lessText.onclick = function () {
                         updateColorRangeToggles( bindingOptions, false );
                     };
         
@@ -1458,7 +1458,7 @@ import { type PublicApi } from "./ts/api";
                 const moreText: HTMLElement = createElementWithHTML( mapToggles, "div", "more-text", _configuration.moreText );
     
                 if ( bindingOptions.guide.colorRangeTogglesEnabled ) {
-                    moreText.onclick = function() {
+                    moreText.onclick = function () {
                         updateColorRangeToggles( bindingOptions, true );
                     };
         
@@ -1476,7 +1476,7 @@ import { type PublicApi } from "./ts/api";
             addClass( typeButton, "active" );
         }
 
-        typeButton.onclick = function() {
+        typeButton.onclick = function () {
             if ( bindingOptions._currentView.type !== type ) {
                 bindingOptions._currentView.type = type;
 
@@ -1511,7 +1511,7 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( bindingOptions.guide.colorRangeTogglesEnabled ) {
-            day.onclick = function() {
+            day.onclick = function () {
                 toggleColorRangeVisibleState( bindingOptions, colorRange.id );
             };
 
@@ -1915,7 +1915,7 @@ import { type PublicApi } from "./ts/api";
             element.ondragenter = cancelBubble;
             element.ondragleave = cancelBubble;
     
-            element.ondrop = function( e ) {
+            element.ondrop = function ( e ) {
                 cancelBubble( e );
     
                 if ( isDefined( windowObject.FileReader ) && e.dataTransfer.files.length > 0 ) {
@@ -1931,7 +1931,7 @@ import { type PublicApi } from "./ts/api";
         input.accept = ".json, .txt, .csv";
         input.multiple = "multiple";
 
-        input.onchange = function() {
+        input.onchange = function () {
             importFromFiles( input.files, bindingOptions );
         };
 
@@ -1943,7 +1943,7 @@ import { type PublicApi } from "./ts/api";
         const filesCompleted: string[] = [];
         const data: any = getCurrentViewData( bindingOptions );
 
-        const onLoadEnd = function( filename: string, readingObject: object ) {
+        const onLoadEnd = function ( filename: string, readingObject: object ) {
             filesCompleted.push( filename );
 
             for ( let storageDate in readingObject ) {
@@ -1982,11 +1982,11 @@ import { type PublicApi } from "./ts/api";
 
         reader.readAsText( file );
 
-        reader.onloadend = function() {
+        reader.onloadend = function () {
             onLoadEnd( file.name, readingObject );
         };
     
-        reader.onload = function( e ) {
+        reader.onload = function ( e ) {
             const jsonObject: any = getObjectFromString( e.target.result );
 
             if ( jsonObject.parsed && isDefinedObject( jsonObject.result ) ) {
@@ -2001,11 +2001,11 @@ import { type PublicApi } from "./ts/api";
 
         reader.readAsText( file );
 
-        reader.onloadend = function() {
+        reader.onloadend = function () {
             onLoadEnd( file.name, readingObject );
         };
     
-        reader.onload = function( e ) {
+        reader.onload = function ( e ) {
             const lines: string[] = e.target.result.toString().split( STRING.newLine );
             const linesLength: number = lines.length;
 
@@ -2023,11 +2023,11 @@ import { type PublicApi } from "./ts/api";
 
         reader.readAsText( file );
 
-        reader.onloadend = function() {
+        reader.onloadend = function () {
             onLoadEnd( file.name, readingObject );
         };
     
-        reader.onload = function( e ) {
+        reader.onload = function ( e ) {
             const data: string = e.target.result.toString().replace( new RegExp( "\"", "g" ), STRING.empty );
             const lines: string[] = data.split( STRING.newLine );
             
@@ -3595,11 +3595,11 @@ import { type PublicApi } from "./ts/api";
     ( () => {
         buildDefaultConfiguration();
 
-        documentObject.addEventListener( "DOMContentLoaded", function() {
+        documentObject.addEventListener( "DOMContentLoaded", function () {
             render();
         } );
 
-        windowObject.addEventListener( "pagehide", function() {
+        windowObject.addEventListener( "pagehide", function () {
             cancelAllPullDataTimers();
         } );
 
