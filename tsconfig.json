@@ -1,17 +1,17 @@
 {
-    "compilerOptions": {
-      "target": "ES5",
-      "module": "ES6",
-      "sourceMap": true,
-      "outDir": "./dist",
-      "checkJs": true,
-      "removeComments": true
-    },
-    "include": [
-      "src/*.ts",
-      "src/ts/*.ts"
-    ],
-    "exclude": [
-      "node_modules"
-    ]
-  }
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "ES6",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "checkJs": true,
+    "removeComments": true
+  },
+  "include": [
+    "src/*.ts",
+    "src/ts/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
