@@ -2065,7 +2065,7 @@
         }
         var result = null;
         if (isDefinedFunction(triggerFunction)) {
-            result = triggerFunction.apply(null, [].slice.call(args, 1));
+            result = triggerFunction.apply(null, [].slice.call(args, 0));
         }
         return result;
     }
