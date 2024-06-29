@@ -32,5 +32,8 @@
   "bugs": {
     "url": "https://github.com/williamtroup/Heat.js/issues"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "5.4.5"
+  }
 }

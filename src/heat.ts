@@ -113,7 +113,7 @@ import { type PublicApi } from "./ts/api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function render() {
+    function render() : void {
         const tagTypes: string[] = _configuration.domElementTypes;
         const tagTypesLength: number = tagTypes.length;
 
