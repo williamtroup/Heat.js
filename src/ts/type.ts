@@ -185,29 +185,29 @@ export type Statistics = {
 };
 
 export type Events = {
-    onDayClick: Function | null;
-    onBackYear: Function | null;
-    onNextYear: Function | null;
-    onRefresh: Function | null;
-    onBeforeRender: Function | null;
-    onRenderComplete: Function | null;
-    onDestroy: Function | null;
-    onExport: Function | null;
-    onSetYear: Function | null;
-    onTypeSwitch: Function | null;
-    onDayToolTipRender: Function | null;
-    onAdd: Function | null;
-    onRemove: Function | null;
-    onReset: Function | null;
-    onViewSwitch: Function | null;
-    onColorRangeTypeToggle: Function | null;
-    onImport: Function | null;
-    onStatisticClick: Function | null;
-    onDataFetch: Function | null;
-    onClear: Function | null;
-    onUpdate: Function | null;
-    onOptionsUpdate: Function | null;
-    onWeekDayClick: Function | null;
+    onDayClick: ( date: Date, count: number ) => void;
+    onBackYear: ( year: number ) => void;
+    onNextYear: ( year: number ) => void;
+    onRefresh: ( element: HTMLElement ) => void;
+    onBeforeRender: ( element: HTMLElement ) => void;
+    onRenderComplete: ( element: HTMLElement ) => void;
+    onDestroy: ( element: HTMLElement ) => void;
+    onExport: ( element: HTMLElement ) => void;
+    onSetYear: ( year: number ) => void;
+    onTypeSwitch: ( type: string ) => void;
+    onDayToolTipRender: ( date: Date, count: number ) => void;
+    onAdd: ( element: HTMLElement ) => void;
+    onRemove: ( element: HTMLElement ) => void;
+    onReset: ( element: HTMLElement ) => void;
+    onViewSwitch: ( view: string ) => void;
+    onColorRangeTypeToggle: ( id: string, visible: boolean ) => void;
+    onImport: ( element: HTMLElement ) => void;
+    onStatisticClick: ( colorRange: ColorRange ) => void;
+    onDataFetch: ( element: HTMLElement ) => any;
+    onClear: ( element: HTMLElement ) => void;
+    onUpdate: ( element: HTMLElement ) => void;
+    onOptionsUpdate: ( element: HTMLElement , options: BindingOptions ) => void;
+    onWeekDayClick: ( dayNumber: number, count: number ) => void;
 };
 
 export type ColorRange = {

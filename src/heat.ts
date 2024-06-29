@@ -192,7 +192,7 @@ import { type PublicApi } from "./ts/api";
     }
 
     function renderControl( bindingOptions: BindingOptions ) : void {
-        fireCustomTrigger( bindingOptions.events.onBeforeRender, bindingOptions._currentView.element );
+        fireCustomTriggerEvent( bindingOptions.events.onBeforeRender, bindingOptions._currentView.element );
 
         if ( !isDefinedString( bindingOptions._currentView.element.id ) ) {
             bindingOptions._currentView.element.id = newGuid();
@@ -208,7 +208,7 @@ import { type PublicApi } from "./ts/api";
 
         createDateStorageForElement( bindingOptions._currentView.element.id, bindingOptions );
         renderControlContainer( bindingOptions );
-        fireCustomTrigger( bindingOptions.events.onRenderComplete, bindingOptions._currentView.element );
+        fireCustomTriggerEvent( bindingOptions.events.onRenderComplete, bindingOptions._currentView.element );
     }
 
     function renderControlContainer( bindingOptions: BindingOptions, isForDataRefresh: boolean = false, isForViewSwitch: boolean = false ) : void {
@@ -419,7 +419,7 @@ import { type PublicApi } from "./ts/api";
 
         if ( render ) {
             renderControlContainer( bindingOptions );
-            fireCustomTrigger( bindingOptions.events.onOptionsUpdate, bindingOptions._currentView.element, bindingOptions );
+            fireCustomTriggerEvent( bindingOptions.events.onOptionsUpdate, bindingOptions._currentView.element, bindingOptions );
             
         } else {
             hideToolTip( bindingOptions );
@@ -538,7 +538,7 @@ import { type PublicApi } from "./ts/api";
         
                 refresh.onclick = function() {
                     renderControlContainer( bindingOptions );
-                    fireCustomTrigger( bindingOptions.events.onRefresh, bindingOptions._currentView.element );
+                    fireCustomTriggerEvent( bindingOptions.events.onRefresh, bindingOptions._currentView.element );
                 };
             }
     
@@ -631,7 +631,7 @@ import { type PublicApi } from "./ts/api";
             option.onclick = function() {
                 bindingOptions._currentView.view = view;
 
-                fireCustomTrigger( bindingOptions.events.onViewSwitch, viewName );
+                fireCustomTriggerEvent( bindingOptions.events.onViewSwitch, viewName );
                 renderControlContainer( bindingOptions, false, true );
             };
         }
@@ -675,7 +675,7 @@ import { type PublicApi } from "./ts/api";
                 bindingOptions._currentView.year = currentYear;
     
                 renderControlContainer( bindingOptions );
-                fireCustomTrigger( bindingOptions.events.onSetYear, bindingOptions._currentView.year );
+                fireCustomTriggerEvent( bindingOptions.events.onSetYear, bindingOptions._currentView.year );
             };
 
             if ( currentYear === actualYear ) {
@@ -869,7 +869,7 @@ import { type PublicApi } from "./ts/api";
 
         if ( isDefinedFunction( bindingOptions.events.onDayClick ) ) {
             day.onclick = function() {
-                fireCustomTrigger( bindingOptions.events.onDayClick, date, dateCount );
+                fireCustomTriggerEvent( bindingOptions.events.onDayClick, date, dateCount );
             };
 
         } else {
@@ -1050,7 +1050,7 @@ import { type PublicApi } from "./ts/api";
 
         if ( isDefinedFunction( bindingOptions.events.onDayClick ) ) {
             dayLine.onclick = function() {
-                fireCustomTrigger( bindingOptions.events.onDayClick, date, dateCount );
+                fireCustomTriggerEvent( bindingOptions.events.onDayClick, date, dateCount );
             };
 
         } else {
@@ -1178,7 +1178,7 @@ import { type PublicApi } from "./ts/api";
 
         if ( isDefinedFunction( bindingOptions.events.onWeekDayClick ) ) {
             dayLine.onclick = function() {
-                fireCustomTrigger( bindingOptions.events.onWeekDayClick, dayNumber, dayCount );
+                fireCustomTriggerEvent( bindingOptions.events.onWeekDayClick, dayNumber, dayCount );
             };
 
         } else {
@@ -1339,7 +1339,7 @@ import { type PublicApi } from "./ts/api";
 
         if ( isDefinedFunction( bindingOptions.events.onStatisticClick ) ) {
             rangeLine.onclick = function() {
-                fireCustomTrigger( bindingOptions.events.onStatisticClick, useColorRange );
+                fireCustomTriggerEvent( bindingOptions.events.onStatisticClick, useColorRange );
             };
 
         } else {
@@ -1489,7 +1489,7 @@ import { type PublicApi } from "./ts/api";
             if ( bindingOptions._currentView.type !== type ) {
                 bindingOptions._currentView.type = type;
 
-                fireCustomTrigger( bindingOptions.events.onTypeSwitch, type );
+                fireCustomTriggerEvent( bindingOptions.events.onTypeSwitch, type );
                 renderControlContainer( bindingOptions );
             }
         };
@@ -1551,7 +1551,7 @@ import { type PublicApi } from "./ts/api";
 
     function renderDayToolTip( bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number ) : void {
         if ( isDefinedFunction( bindingOptions.events.onDayToolTipRender ) ) {
-            addToolTip( day, bindingOptions, fireCustomTrigger( bindingOptions.events.onDayToolTipRender, date, dateCount ) );
+            addToolTip( day, bindingOptions, fireCustomTriggerEvent( bindingOptions.events.onDayToolTipRender, date, dateCount ) );
         } else {
 
             let tooltip: string = getCustomFormattedDateText( bindingOptions.tooltip.dayText, date );
@@ -1727,7 +1727,7 @@ import { type PublicApi } from "./ts/api";
 
     function pullDataFromCustomTrigger( bindingOptions: BindingOptions ) : void {
         const elementId: string = bindingOptions._currentView.element.id;
-        const data: any = fireCustomTrigger( bindingOptions.events.onDataFetch, elementId );
+        const data: any = fireCustomTriggerEvent( bindingOptions.events.onDataFetch, elementId );
 
         if ( isDefinedObject( data ) ) {
             createDateStorageForElement( elementId, bindingOptions, false );
@@ -1791,7 +1791,7 @@ import { type PublicApi } from "./ts/api";
         for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
             bindingOptions.colorRanges[ colorRangesIndex ].visible = flag;
 
-            fireCustomTrigger( bindingOptions.events.onColorRangeTypeToggle, bindingOptions.colorRanges[ colorRangesIndex ].id, flag );
+            fireCustomTriggerEvent( bindingOptions.events.onColorRangeTypeToggle, bindingOptions.colorRanges[ colorRangesIndex ].id, flag );
         }
 
         renderControlContainer( bindingOptions );
@@ -1806,7 +1806,7 @@ import { type PublicApi } from "./ts/api";
             if ( colorRange.id === id ) {
                 colorRange.visible = !getDefaultBoolean( colorRange.visible, true );
 
-                fireCustomTrigger( bindingOptions.events.onColorRangeTypeToggle, colorRange.id, colorRange.visible );
+                fireCustomTriggerEvent( bindingOptions.events.onColorRangeTypeToggle, colorRange.id, colorRange.visible );
                 renderControlContainer( bindingOptions );
                 break;
             }
@@ -1966,7 +1966,7 @@ import { type PublicApi } from "./ts/api";
             }
             
             if ( filesCompleted.length === filesLength ) {
-                fireCustomTrigger( bindingOptions.events.onImport, bindingOptions._currentView.element );
+                fireCustomTriggerEvent( bindingOptions.events.onImport, bindingOptions._currentView.element );
                 renderControlContainer( bindingOptions );
             }
         };
@@ -2084,7 +2084,7 @@ import { type PublicApi } from "./ts/api";
             
             documentObject.body.removeChild( tempLink );
 
-            fireCustomTrigger( bindingOptions.events.onExport, bindingOptions._currentView.element );
+            fireCustomTriggerEvent( bindingOptions.events.onExport, bindingOptions._currentView.element );
         }
     }
 
@@ -2725,7 +2725,7 @@ import { type PublicApi } from "./ts/api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function fireCustomTrigger( triggerFunction: Function, ...args : any[] ) : any {
+    function fireCustomTriggerEvent( triggerFunction: Function, ...args : any[] ) : any {
         let result: any = null;
 
         if ( isDefinedFunction( triggerFunction ) ) {
@@ -2801,7 +2801,7 @@ import { type PublicApi } from "./ts/api";
         return isDefinedNumber( value ) ? value : defaultValue;
     }
 
-    function getDefaultFunction( value: any, defaultValue: object ) : Function {
+    function getDefaultFunction( value: any, defaultValue: object ) : any {
         return isDefinedFunction( value ) ? value : defaultValue;
     }
 
@@ -2945,7 +2945,7 @@ import { type PublicApi } from "./ts/api";
             renderControlContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
-                fireCustomTrigger( bindingOptions.events.onBackYear, bindingOptions._currentView.year );
+                fireCustomTriggerEvent( bindingOptions.events.onBackYear, bindingOptions._currentView.year );
             }
         }
     }
@@ -2971,7 +2971,7 @@ import { type PublicApi } from "./ts/api";
             renderControlContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
-                fireCustomTrigger( bindingOptions.events.onBackYear, bindingOptions._currentView.year );
+                fireCustomTriggerEvent( bindingOptions.events.onBackYear, bindingOptions._currentView.year );
             }
         }
     }
@@ -2995,7 +2995,7 @@ import { type PublicApi } from "./ts/api";
             clearInterval( bindingOptions._currentView.isInFetchModeTimer );
         }
 
-        fireCustomTrigger( bindingOptions.events.onDestroy, bindingOptions._currentView.element );
+        fireCustomTriggerEvent( bindingOptions.events.onDestroy, bindingOptions._currentView.element );
     }
 
 	/*
@@ -3137,7 +3137,7 @@ import { type PublicApi } from "./ts/api";
             
                     _elements_DateCounts[ elementId ].type[ type ][ storageDate ]++;
         
-                    fireCustomTrigger( bindingOptions.events.onAdd, bindingOptions._currentView.element );
+                    fireCustomTriggerEvent( bindingOptions.events.onAdd, bindingOptions._currentView.element );
         
                     if ( triggerRefresh ) {
                         renderControlContainer( bindingOptions, true );
@@ -3160,7 +3160,7 @@ import { type PublicApi } from "./ts/api";
                     if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {        
                         _elements_DateCounts[ elementId ].type[ type ][ storageDate ] = count;
         
-                        fireCustomTrigger( bindingOptions.events.onUpdate, bindingOptions._currentView.element );
+                        fireCustomTriggerEvent( bindingOptions.events.onUpdate, bindingOptions._currentView.element );
         
                         if ( triggerRefresh ) {
                             renderControlContainer( bindingOptions, true );
@@ -3208,7 +3208,7 @@ import { type PublicApi } from "./ts/api";
                             _elements_DateCounts[ elementId ].type[ type ][ storageDate ]--;
                         }
         
-                        fireCustomTrigger( bindingOptions.events.onRemove, bindingOptions._currentView.element );
+                        fireCustomTriggerEvent( bindingOptions.events.onRemove, bindingOptions._currentView.element );
         
                         if ( triggerRefresh ) {
                             renderControlContainer( bindingOptions, true );
@@ -3232,7 +3232,7 @@ import { type PublicApi } from "./ts/api";
                     if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
                         delete _elements_DateCounts[ elementId ].type[ type ][ storageDate ];
         
-                        fireCustomTrigger( bindingOptions.events.onClear, bindingOptions._currentView.element );
+                        fireCustomTriggerEvent( bindingOptions.events.onClear, bindingOptions._currentView.element );
         
                         if ( triggerRefresh ) {
                             renderControlContainer( bindingOptions, true );
@@ -3262,7 +3262,7 @@ import { type PublicApi } from "./ts/api";
                     bindingOptions._currentView.type = _configuration.unknownTrendText;
         
                     createDateStorageForElement( elementId, bindingOptions, false );
-                    fireCustomTrigger( bindingOptions.events.onReset, bindingOptions._currentView.element );
+                    fireCustomTriggerEvent( bindingOptions.events.onReset, bindingOptions._currentView.element );
         
                     if ( triggerRefresh ) {
                         renderControlContainer( bindingOptions, true );
@@ -3308,7 +3308,7 @@ import { type PublicApi } from "./ts/api";
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
     
                 renderControlContainer( bindingOptions, true );
-                fireCustomTrigger( bindingOptions.events.onRefresh, bindingOptions._currentView.element );
+                fireCustomTriggerEvent( bindingOptions.events.onRefresh, bindingOptions._currentView.element );
             }
     
             return _public;
@@ -3320,7 +3320,7 @@ import { type PublicApi } from "./ts/api";
                     const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
     
                     renderControlContainer( bindingOptions, true );
-                    fireCustomTrigger( bindingOptions.events.onRefresh, bindingOptions._currentView.element );
+                    fireCustomTriggerEvent( bindingOptions.events.onRefresh, bindingOptions._currentView.element );
                 }
             }
     
@@ -3338,7 +3338,7 @@ import { type PublicApi } from "./ts/api";
                     renderControlContainer( bindingOptions );
                 }
     
-                fireCustomTrigger( bindingOptions.events.onSetYear, bindingOptions._currentView.year );
+                fireCustomTriggerEvent( bindingOptions.events.onSetYear, bindingOptions._currentView.year );
             }
     
             return _public;
@@ -3365,7 +3365,7 @@ import { type PublicApi } from "./ts/api";
                         renderControlContainer( bindingOptions );
                     }
     
-                    fireCustomTrigger( bindingOptions.events.onSetYear, bindingOptions._currentView.year );
+                    fireCustomTriggerEvent( bindingOptions.events.onSetYear, bindingOptions._currentView.year );
                 }
             }
     
@@ -3393,7 +3393,7 @@ import { type PublicApi } from "./ts/api";
                         renderControlContainer( bindingOptions );
                     }
     
-                    fireCustomTrigger( bindingOptions.events.onSetYear, bindingOptions._currentView.year );
+                    fireCustomTriggerEvent( bindingOptions.events.onSetYear, bindingOptions._currentView.year );
                 }
             }
     
@@ -3427,7 +3427,7 @@ import { type PublicApi } from "./ts/api";
                     renderControlContainer( bindingOptions );
                 }
     
-                fireCustomTrigger( bindingOptions.events.onSetYear, bindingOptions._currentView.year );
+                fireCustomTriggerEvent( bindingOptions.events.onSetYear, bindingOptions._currentView.year );
             }
     
             return _public;
@@ -3477,7 +3477,7 @@ import { type PublicApi } from "./ts/api";
                 if ( isDefinedNumber( view ) ) {
                     bindingOptions._currentView.view = view;
     
-                    fireCustomTrigger( bindingOptions.events.onViewSwitch, viewName );
+                    fireCustomTriggerEvent( bindingOptions.events.onViewSwitch, viewName );
                     renderControlContainer( bindingOptions, false, true );
                 }
             }
@@ -3492,7 +3492,7 @@ import { type PublicApi } from "./ts/api";
                 if ( bindingOptions._currentView.type !== type ) {
                     bindingOptions._currentView.type = type;
                 
-                    fireCustomTrigger( bindingOptions.events.onTypeSwitch, type );
+                    fireCustomTriggerEvent( bindingOptions.events.onTypeSwitch, type );
                     renderControlContainer( bindingOptions );
                 }
             }
@@ -3515,8 +3515,8 @@ import { type PublicApi } from "./ts/api";
     
                 if ( optionChanged ) {
                     renderControlContainer( bindingOptions, true );
-                    fireCustomTrigger( bindingOptions.events.onRefresh, bindingOptions._currentView.element );
-                    fireCustomTrigger( bindingOptions.events.onOptionsUpdate, bindingOptions._currentView.element, bindingOptions );
+                    fireCustomTriggerEvent( bindingOptions.events.onRefresh, bindingOptions._currentView.element );
+                    fireCustomTriggerEvent( bindingOptions.events.onOptionsUpdate, bindingOptions._currentView.element, bindingOptions );
                 }
             }
     

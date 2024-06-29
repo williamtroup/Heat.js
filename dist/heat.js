@@ -109,7 +109,7 @@
         return bindingOptions;
     }
     function renderControl(bindingOptions) {
-        fireCustomTrigger(bindingOptions.events.onBeforeRender, bindingOptions._currentView.element);
+        fireCustomTriggerEvent(bindingOptions.events.onBeforeRender, bindingOptions._currentView.element);
         if (!isDefinedString(bindingOptions._currentView.element.id)) {
             bindingOptions._currentView.element.id = newGuid();
         }
@@ -122,7 +122,7 @@
         bindingOptions._currentView.element.removeAttribute(_attribute_Name_Options);
         createDateStorageForElement(bindingOptions._currentView.element.id, bindingOptions);
         renderControlContainer(bindingOptions);
-        fireCustomTrigger(bindingOptions.events.onRenderComplete, bindingOptions._currentView.element);
+        fireCustomTriggerEvent(bindingOptions.events.onRenderComplete, bindingOptions._currentView.element);
     }
     function renderControlContainer(bindingOptions, isForDataRefresh, isForViewSwitch) {
         if (isForDataRefresh === void 0) { isForDataRefresh = false; }
@@ -300,7 +300,7 @@
         }
         if (render) {
             renderControlContainer(bindingOptions);
-            fireCustomTrigger(bindingOptions.events.onOptionsUpdate, bindingOptions._currentView.element, bindingOptions);
+            fireCustomTriggerEvent(bindingOptions.events.onOptionsUpdate, bindingOptions._currentView.element, bindingOptions);
         }
         else {
             hideToolTip(bindingOptions);
@@ -385,7 +385,7 @@
                 var refresh = createElementWithHTML(titleBar, "button", "refresh", _configuration.refreshButtonText);
                 refresh.onclick = function () {
                     renderControlContainer(bindingOptions);
-                    fireCustomTrigger(bindingOptions.events.onRefresh, bindingOptions._currentView.element);
+                    fireCustomTriggerEvent(bindingOptions.events.onRefresh, bindingOptions._currentView.element);
                 };
             }
             if (bindingOptions.title.showYearSelector) {
@@ -454,7 +454,7 @@
         else {
             option.onclick = function () {
                 bindingOptions._currentView.view = view;
-                fireCustomTrigger(bindingOptions.events.onViewSwitch, viewName);
+                fireCustomTriggerEvent(bindingOptions.events.onViewSwitch, viewName);
                 renderControlContainer(bindingOptions, false, true);
             };
         }
@@ -488,7 +488,7 @@
             year.onclick = function () {
                 bindingOptions._currentView.year = currentYear;
                 renderControlContainer(bindingOptions);
-                fireCustomTrigger(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
+                fireCustomTriggerEvent(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
             };
             if (currentYear === actualYear) {
                 addClass(year, "year-menu-item-current");
@@ -637,7 +637,7 @@
         }
         if (isDefinedFunction(bindingOptions.events.onDayClick)) {
             day.onclick = function () {
-                fireCustomTrigger(bindingOptions.events.onDayClick, date, dateCount);
+                fireCustomTriggerEvent(bindingOptions.events.onDayClick, date, dateCount);
             };
         }
         else {
@@ -776,7 +776,7 @@
         }
         if (isDefinedFunction(bindingOptions.events.onDayClick)) {
             dayLine.onclick = function () {
-                fireCustomTrigger(bindingOptions.events.onDayClick, date, dateCount);
+                fireCustomTriggerEvent(bindingOptions.events.onDayClick, date, dateCount);
             };
         }
         else {
@@ -872,7 +872,7 @@
         addToolTip(dayLine, bindingOptions, dayCount.toString());
         if (isDefinedFunction(bindingOptions.events.onWeekDayClick)) {
             dayLine.onclick = function () {
-                fireCustomTrigger(bindingOptions.events.onWeekDayClick, dayNumber, dayCount);
+                fireCustomTriggerEvent(bindingOptions.events.onWeekDayClick, dayNumber, dayCount);
             };
         }
         else {
@@ -994,7 +994,7 @@
         }
         if (isDefinedFunction(bindingOptions.events.onStatisticClick)) {
             rangeLine.onclick = function () {
-                fireCustomTrigger(bindingOptions.events.onStatisticClick, useColorRange);
+                fireCustomTriggerEvent(bindingOptions.events.onStatisticClick, useColorRange);
             };
         }
         else {
@@ -1110,7 +1110,7 @@
         typeButton.onclick = function () {
             if (bindingOptions._currentView.type !== type) {
                 bindingOptions._currentView.type = type;
-                fireCustomTrigger(bindingOptions.events.onTypeSwitch, type);
+                fireCustomTriggerEvent(bindingOptions.events.onTypeSwitch, type);
                 renderControlContainer(bindingOptions);
             }
         };
@@ -1160,7 +1160,7 @@
     }
     function renderDayToolTip(bindingOptions, day, date, dateCount) {
         if (isDefinedFunction(bindingOptions.events.onDayToolTipRender)) {
-            addToolTip(day, bindingOptions, fireCustomTrigger(bindingOptions.events.onDayToolTipRender, date, dateCount));
+            addToolTip(day, bindingOptions, fireCustomTriggerEvent(bindingOptions.events.onDayToolTipRender, date, dateCount));
         }
         else {
             var tooltip = getCustomFormattedDateText(bindingOptions.tooltip.dayText, date);
@@ -1282,7 +1282,7 @@
     }
     function pullDataFromCustomTrigger(bindingOptions) {
         var elementId = bindingOptions._currentView.element.id;
-        var data = fireCustomTrigger(bindingOptions.events.onDataFetch, elementId);
+        var data = fireCustomTriggerEvent(bindingOptions.events.onDataFetch, elementId);
         if (isDefinedObject(data)) {
             createDateStorageForElement(elementId, bindingOptions, false);
             for (var storageDate in data) {
@@ -1326,7 +1326,7 @@
         var colorRangesLength = bindingOptions.colorRanges.length;
         for (var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++) {
             bindingOptions.colorRanges[colorRangesIndex].visible = flag;
-            fireCustomTrigger(bindingOptions.events.onColorRangeTypeToggle, bindingOptions.colorRanges[colorRangesIndex].id, flag);
+            fireCustomTriggerEvent(bindingOptions.events.onColorRangeTypeToggle, bindingOptions.colorRanges[colorRangesIndex].id, flag);
         }
         renderControlContainer(bindingOptions);
     }
@@ -1336,7 +1336,7 @@
             var colorRange = bindingOptions.colorRanges[colorRangesIndex];
             if (colorRange.id === id) {
                 colorRange.visible = !getDefaultBoolean(colorRange.visible, true);
-                fireCustomTrigger(bindingOptions.events.onColorRangeTypeToggle, colorRange.id, colorRange.visible);
+                fireCustomTriggerEvent(bindingOptions.events.onColorRangeTypeToggle, colorRange.id, colorRange.visible);
                 renderControlContainer(bindingOptions);
                 break;
             }
@@ -1456,7 +1456,7 @@
                 }
             }
             if (filesCompleted.length === filesLength) {
-                fireCustomTrigger(bindingOptions.events.onImport, bindingOptions._currentView.element);
+                fireCustomTriggerEvent(bindingOptions.events.onImport, bindingOptions._currentView.element);
                 renderControlContainer(bindingOptions);
             }
         };
@@ -1547,7 +1547,7 @@
             tempLink.setAttribute("download", getExportFilename(bindingOptions));
             tempLink.click();
             documentObject.body.removeChild(tempLink);
-            fireCustomTrigger(bindingOptions.events.onExport, bindingOptions._currentView.element);
+            fireCustomTriggerEvent(bindingOptions.events.onExport, bindingOptions._currentView.element);
         }
     }
     function getCsvContent(bindingOptions) {
@@ -2058,7 +2058,7 @@
             label: label
         };
     }
-    function fireCustomTrigger(triggerFunction) {
+    function fireCustomTriggerEvent(triggerFunction) {
         var args = [];
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
@@ -2204,7 +2204,7 @@
             bindingOptions._currentView.year = year;
             renderControlContainer(bindingOptions);
             if (callCustomTrigger) {
-                fireCustomTrigger(bindingOptions.events.onBackYear, bindingOptions._currentView.year);
+                fireCustomTriggerEvent(bindingOptions.events.onBackYear, bindingOptions._currentView.year);
             }
         }
     }
@@ -2224,7 +2224,7 @@
             bindingOptions._currentView.year = year;
             renderControlContainer(bindingOptions);
             if (callCustomTrigger) {
-                fireCustomTrigger(bindingOptions.events.onBackYear, bindingOptions._currentView.year);
+                fireCustomTriggerEvent(bindingOptions.events.onBackYear, bindingOptions._currentView.year);
             }
         }
     }
@@ -2236,7 +2236,7 @@
         if (bindingOptions._currentView.isInFetchMode && isDefined(bindingOptions._currentView.isInFetchModeTimer)) {
             clearInterval(bindingOptions._currentView.isInFetchModeTimer);
         }
-        fireCustomTrigger(bindingOptions.events.onDestroy, bindingOptions._currentView.element);
+        fireCustomTriggerEvent(bindingOptions.events.onDestroy, bindingOptions._currentView.element);
     }
     function buildDefaultConfiguration(newConfiguration) {
         if (newConfiguration === void 0) { newConfiguration = null; }
@@ -2343,7 +2343,7 @@
                         _elements_DateCounts[elementId].type[type][storageDate] = 0;
                     }
                     _elements_DateCounts[elementId].type[type][storageDate]++;
-                    fireCustomTrigger(bindingOptions.events.onAdd, bindingOptions._currentView.element);
+                    fireCustomTriggerEvent(bindingOptions.events.onAdd, bindingOptions._currentView.element);
                     if (triggerRefresh) {
                         renderControlContainer(bindingOptions, true);
                     }
@@ -2360,7 +2360,7 @@
                     var storageDate = toStorageDate(date);
                     if (_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
                         _elements_DateCounts[elementId].type[type][storageDate] = count;
-                        fireCustomTrigger(bindingOptions.events.onUpdate, bindingOptions._currentView.element);
+                        fireCustomTriggerEvent(bindingOptions.events.onUpdate, bindingOptions._currentView.element);
                         if (triggerRefresh) {
                             renderControlContainer(bindingOptions, true);
                         }
@@ -2397,7 +2397,7 @@
                         if (_elements_DateCounts[elementId].type[type][storageDate] > 0) {
                             _elements_DateCounts[elementId].type[type][storageDate]--;
                         }
-                        fireCustomTrigger(bindingOptions.events.onRemove, bindingOptions._currentView.element);
+                        fireCustomTriggerEvent(bindingOptions.events.onRemove, bindingOptions._currentView.element);
                         if (triggerRefresh) {
                             renderControlContainer(bindingOptions, true);
                         }
@@ -2415,7 +2415,7 @@
                     var storageDate = toStorageDate(date);
                     if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
                         delete _elements_DateCounts[elementId].type[type][storageDate];
-                        fireCustomTrigger(bindingOptions.events.onClear, bindingOptions._currentView.element);
+                        fireCustomTriggerEvent(bindingOptions.events.onClear, bindingOptions._currentView.element);
                         if (triggerRefresh) {
                             renderControlContainer(bindingOptions, true);
                         }
@@ -2440,7 +2440,7 @@
                 if (!bindingOptions._currentView.isInFetchMode) {
                     bindingOptions._currentView.type = _configuration.unknownTrendText;
                     createDateStorageForElement(elementId, bindingOptions, false);
-                    fireCustomTrigger(bindingOptions.events.onReset, bindingOptions._currentView.element);
+                    fireCustomTriggerEvent(bindingOptions.events.onReset, bindingOptions._currentView.element);
                     if (triggerRefresh) {
                         renderControlContainer(bindingOptions, true);
                     }
@@ -2464,7 +2464,7 @@
             if (isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 renderControlContainer(bindingOptions, true);
-                fireCustomTrigger(bindingOptions.events.onRefresh, bindingOptions._currentView.element);
+                fireCustomTriggerEvent(bindingOptions.events.onRefresh, bindingOptions._currentView.element);
             }
             return _public;
         },
@@ -2473,7 +2473,7 @@
                 if (_elements_DateCounts.hasOwnProperty(elementId)) {
                     var bindingOptions = _elements_DateCounts[elementId].options;
                     renderControlContainer(bindingOptions, true);
-                    fireCustomTrigger(bindingOptions.events.onRefresh, bindingOptions._currentView.element);
+                    fireCustomTriggerEvent(bindingOptions.events.onRefresh, bindingOptions._currentView.element);
                 }
             }
             return _public;
@@ -2488,7 +2488,7 @@
                 else {
                     renderControlContainer(bindingOptions);
                 }
-                fireCustomTrigger(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
+                fireCustomTriggerEvent(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
             }
             return _public;
         },
@@ -2510,7 +2510,7 @@
                     else {
                         renderControlContainer(bindingOptions);
                     }
-                    fireCustomTrigger(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
+                    fireCustomTriggerEvent(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
                 }
             }
             return _public;
@@ -2533,7 +2533,7 @@
                     else {
                         renderControlContainer(bindingOptions);
                     }
-                    fireCustomTrigger(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
+                    fireCustomTriggerEvent(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
                 }
             }
             return _public;
@@ -2560,7 +2560,7 @@
                 else {
                     renderControlContainer(bindingOptions);
                 }
-                fireCustomTrigger(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
+                fireCustomTriggerEvent(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
             }
             return _public;
         },
@@ -2600,7 +2600,7 @@
                 }
                 if (isDefinedNumber(view)) {
                     bindingOptions._currentView.view = view;
-                    fireCustomTrigger(bindingOptions.events.onViewSwitch, viewName);
+                    fireCustomTriggerEvent(bindingOptions.events.onViewSwitch, viewName);
                     renderControlContainer(bindingOptions, false, true);
                 }
             }
@@ -2611,7 +2611,7 @@
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 if (bindingOptions._currentView.type !== type) {
                     bindingOptions._currentView.type = type;
-                    fireCustomTrigger(bindingOptions.events.onTypeSwitch, type);
+                    fireCustomTriggerEvent(bindingOptions.events.onTypeSwitch, type);
                     renderControlContainer(bindingOptions);
                 }
             }
@@ -2630,8 +2630,8 @@
                 }
                 if (optionChanged) {
                     renderControlContainer(bindingOptions, true);
-                    fireCustomTrigger(bindingOptions.events.onRefresh, bindingOptions._currentView.element);
-                    fireCustomTrigger(bindingOptions.events.onOptionsUpdate, bindingOptions._currentView.element, bindingOptions);
+                    fireCustomTriggerEvent(bindingOptions.events.onRefresh, bindingOptions._currentView.element);
+                    fireCustomTriggerEvent(bindingOptions.events.onOptionsUpdate, bindingOptions._currentView.element, bindingOptions);
                 }
             }
             return _public;
