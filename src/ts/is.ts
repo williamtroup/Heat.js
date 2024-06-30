@@ -1,9 +1,9 @@
-import { STRING } from "./enum";
+import { Char } from "./enum";
 
 
 export namespace Is {
     export function defined( value: any ) : boolean  {
-        return value !== null && value !== undefined && value.toString() !== STRING.empty;
+        return value !== null && value !== undefined && value.toString() !== Char.empty;
     }
 
     export function definedObject( object: any ) : boolean {

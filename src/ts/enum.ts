@@ -1,4 +1,4 @@
-export const enum STRING {
+export const enum Char {
     empty = "",
     space = " ",
     newLine = "\n",
@@ -10,25 +10,25 @@ export const enum STRING {
     comma = ","
 }
 
-export const enum VALUE {
+export const enum Value {
     notFound = -1
 }
 
-export const enum VIEW_ID {
+export const enum ViewId {
     map = 1,
     chart = 2,
     days = 3,
     statistics = 4
 }
 
-export const enum VIEW_NAME {
+export const enum ViewName {
     map = "map",
     chart = "chart",
     days = "days",
     statistics = "statistics"
 }
 
-export const enum EXPORT_TYPE {
+export const enum ExportType {
     csv = "csv",
     json = "json",
     xml = "xml",

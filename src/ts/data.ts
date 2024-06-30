@@ -1,4 +1,4 @@
-import { STRING } from "./enum";
+import { Char } from "./enum";
 import { Is } from "./is";
 
 
@@ -9,20 +9,20 @@ export namespace Data {
     
             for ( let charIndex: number = 0; charIndex < 32; charIndex++ ) {
                 if ( charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20 ) {
-                    result.push( STRING.dash );
+                    result.push( Char.dash );
                 }
     
                 const character: string = Math.floor( Math.random() * 16 ).toString( 16 );
                 result.push( character );
             }
     
-            return result.join( STRING.empty );
+            return result.join( Char.empty );
         }
     
         export function padNumber( number: number ) : string {
             const numberString: string = number.toString();
     
-            return numberString.length === 1 ? STRING.zero + numberString : numberString;
+            return numberString.length === 1 ? Char.zero + numberString : numberString;
         }
     
         export function startsWithAnyCase( data: string, start: string ) : boolean {
@@ -62,7 +62,7 @@ export namespace Data {
         let result: any[] = defaultValue;
 
         if ( Is.definedString( value ) ) {
-            const values: string[] = value.toString().split( STRING.space );
+            const values: string[] = value.toString().split( Char.space );
 
             if ( values.length === 0 ) {
                 value = defaultValue;

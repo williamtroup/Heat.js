@@ -1,4 +1,4 @@
-import { STRING } from "./enum";
+import { Char } from "./enum";
 import { Is } from "./is";
 
 
@@ -7,16 +7,16 @@ export namespace DomElement {
         const nodeType: string = type.toLowerCase();
         const isText: boolean = nodeType === "text";
 
-        let result: any = isText ? document.createTextNode( STRING.empty ) : document.createElement( nodeType );
+        let result: any = isText ? document.createTextNode( Char.empty ) : document.createElement( nodeType );
 
         return result;
     }
 
-    export function create( container: HTMLElement, type: string, className: string = STRING.empty, beforeNode: HTMLElement = null ) : HTMLElement {
+    export function create( container: HTMLElement, type: string, className: string = Char.empty, beforeNode: HTMLElement = null ) : HTMLElement {
         const nodeType: string = type.toLowerCase();
         const isText: boolean = nodeType === "text";
 
-        let result: any = isText ? document.createTextNode( STRING.empty ) : document.createElement( nodeType );
+        let result: any = isText ? document.createTextNode( Char.empty ) : document.createElement( nodeType );
 
         if ( Is.defined( className ) ) {
             result.className = className;
@@ -55,12 +55,12 @@ export namespace DomElement {
     }
 
     export function addClass( element: HTMLElement, className: string ) {
-        element.className += STRING.space + className;
+        element.className += Char.space + className;
         element.className = element.className.trim();
     }
 
     export function removeClass( element: HTMLElement, className: string ) {
-        element.className = element.className.replace( className, STRING.empty );
+        element.className = element.className.replace( className, Char.empty );
         element.className = element.className.trim();
     }
 
