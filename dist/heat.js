@@ -1,4 +1,3 @@
-// src/ts/constant.ts
 "use strict";
 function _instanceof(left, right) {
     if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) {
@@ -12,11 +11,10 @@ function _type_of(obj) {
     return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj;
 }
 var HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
-// src/ts/validate.ts
 var Validate;
 (function(Validate2) {
     var isDefined = function isDefined(value) {
-        return value !== null && value !== void 0 && value.toString() !== "" /* empty */ ;
+        return value !== null && value !== void 0 && value.toString() !== "";
     };
     var isDefinedObject = function isDefinedObject(object) {
         return isDefined(object) && (typeof object === "undefined" ? "undefined" : _type_of(object)) === "object";
@@ -53,7 +51,6 @@ var Validate;
     Validate2.isDefinedDate = isDefinedDate;
     Validate2.isInvalidOptionArray = isInvalidOptionArray;
 })(Validate || (Validate = {}));
-// src/ts/data.ts
 var Data;
 (function(Data2) {
     var getDefaultAnyString = function getDefaultAnyString(value, defaultValue) {
@@ -80,7 +77,7 @@ var Data;
     var getDefaultStringOrArray = function getDefaultStringOrArray(value, defaultValue) {
         var result2 = defaultValue;
         if (Validate.isDefinedString(value)) {
-            var values = value.toString().split(" " /* space */ );
+            var values = value.toString().split(" ");
             if (values.length === 0) {
                 value = defaultValue;
             } else {
@@ -97,16 +94,16 @@ var Data;
             var result2 = [];
             for(var charIndex = 0; charIndex < 32; charIndex++){
                 if (charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20) {
-                    result2.push("-" /* dash */ );
+                    result2.push("-");
                 }
                 var character = Math.floor(Math.random() * 16).toString(16);
                 result2.push(character);
             }
-            return result2.join("" /* empty */ );
+            return result2.join("");
         };
         var padNumber = function padNumber(number) {
             var numberString = number.toString();
-            return numberString.length === 1 ? "0" /* zero */  + numberString : numberString;
+            return numberString.length === 1 ? "0" + numberString : numberString;
         };
         var startsWithAnyCase = function startsWithAnyCase(data, start) {
             return data.substring(0, start.length).toLowerCase() === start.toLowerCase();
@@ -124,20 +121,19 @@ var Data;
     Data2.getDefaultObject = getDefaultObject;
     Data2.getDefaultStringOrArray = getDefaultStringOrArray;
 })(Data || (Data = {}));
-// src/ts/dom.ts
 var DomElement;
 (function(DomElement2) {
     var createWithNoContainer = function createWithNoContainer(type) {
         var nodeType = type.toLowerCase();
         var isText = nodeType === "text";
-        var result2 = isText ? document.createTextNode("" /* empty */ ) : document.createElement(nodeType);
+        var result2 = isText ? document.createTextNode("") : document.createElement(nodeType);
         return result2;
     };
     var create = function create(container, type) {
-        var className = arguments.length > 2 && arguments[2] !== void 0 /* empty */  ? arguments[2] : "", beforeNode = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null;
+        var className = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : "", beforeNode = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null;
         var nodeType = type.toLowerCase();
         var isText = nodeType === "text";
-        var result2 = isText ? document.createTextNode("" /* empty */ ) : document.createElement(nodeType);
+        var result2 = isText ? document.createTextNode("") : document.createElement(nodeType);
         if (Validate.isDefined(className)) {
             result2.className = className;
         }
@@ -168,11 +164,11 @@ var DomElement;
         return value;
     };
     var addClass = function addClass(element, className) {
-        element.className += " " /* space */  + className;
+        element.className += " " + className;
         element.className = element.className.trim();
     };
     var removeClass = function removeClass(element, className) {
-        element.className = element.className.replace(className, "" /* empty */ );
+        element.className = element.className.replace(className, "");
         element.className = element.className.trim();
     };
     var cancelBubble = function cancelBubble(e) {
@@ -250,7 +246,6 @@ var DomElement;
     DomElement2.reverseChildrenOrder = reverseChildrenOrder;
     DomElement2.createCheckBox = createCheckBox;
 })(DomElement || (DomElement = {}));
-// src/ts/datetime.ts
 var DateTime;
 (function(DateTime2) {
     var getTotalDaysInMonth = function getTotalDaysInMonth(year, month) {
@@ -291,7 +286,6 @@ var DateTime;
     DateTime2.getDayOrdinal = getDayOrdinal;
     DateTime2.getCustomFormattedDateText = getCustomFormattedDateText;
 })(DateTime || (DateTime = {}));
-// src/heat.ts
 (function() {
     var renderDisabledBackground = function renderDisabledBackground(bindingOptions) {
         bindingOptions._currentView.disabledBackground = DomElement.create(bindingOptions._currentView.element, "div", "disabled");
@@ -345,7 +339,7 @@ var DateTime;
     };
     var renderBindingOptions = function renderBindingOptions(data, element) {
         var bindingOptions = buildAttributeOptions(data);
-        var view = !Validate.isDefinedString(bindingOptions.view) ? "" /* empty */  : bindingOptions.view.toLowerCase();
+        var view = !Validate.isDefinedString(bindingOptions.view) ? "" : bindingOptions.view.toLowerCase();
         var currentView = {};
         currentView.element = element;
         currentView.disabledBackground = null;
@@ -373,16 +367,16 @@ var DateTime;
             currentView.statisticsContents = null;
             currentView.statisticsContentsScrollLeft = 0;
         }
-        if (view === "map" /* map */ ) {
-            currentView.view = 1 /* map */ ;
-        } else if (view === "chart" /* chart */ ) {
-            currentView.view = 2 /* chart */ ;
-        } else if (view === "days" /* days */ ) {
-            currentView.view = 3 /* days */ ;
-        } else if (view === "statistics" /* statistics */ ) {
-            currentView.view = 4 /* statistics */ ;
+        if (view === "map") {
+            currentView.view = 1;
+        } else if (view === "chart") {
+            currentView.view = 2;
+        } else if (view === "days") {
+            currentView.view = 3;
+        } else if (view === "statistics") {
+            currentView.view = 4;
         } else {
-            currentView.view = 1 /* map */ ;
+            currentView.view = 1;
         }
         bindingOptions._currentView = currentView;
         return bindingOptions;
@@ -392,7 +386,7 @@ var DateTime;
         if (!Validate.isDefinedString(bindingOptions._currentView.element.id)) {
             bindingOptions._currentView.element.id = Data.String.newGuid();
         }
-        if (bindingOptions._currentView.element.className.trim() === "" /* empty */ ) {
+        if (bindingOptions._currentView.element.className.trim() === "") {
             bindingOptions._currentView.element.className = "heat-js";
         } else {
             DomElement.addClass(bindingOptions._currentView.element, "heat-js");
@@ -419,7 +413,7 @@ var DateTime;
         if (bindingOptions.views.statistics.enabled && Validate.isDefined(bindingOptions._currentView.statisticsContents)) {
             bindingOptions._currentView.statisticsContentsScrollLeft = bindingOptions._currentView.statisticsContents.scrollLeft;
         }
-        bindingOptions._currentView.element.innerHTML = "" /* empty */ ;
+        bindingOptions._currentView.element.innerHTML = "";
         bindingOptions._currentView.yearsAvailable = getYearsAvailableInData(bindingOptions);
         hideToolTip(bindingOptions);
         startDataPullTimer(bindingOptions);
@@ -443,16 +437,16 @@ var DateTime;
             bindingOptions._currentView.statisticsContents.style.display = "none";
         }
         bindingOptions._currentView.mapContents.style.display = "none";
-        if (bindingOptions._currentView.view === 1 /* map */ ) {
+        if (bindingOptions._currentView.view === 1) {
             bindingOptions._currentView.mapContents.style.display = "block";
-        } else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2 /* chart */ ) {
+        } else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2) {
             bindingOptions._currentView.chartContents.style.display = "block";
-        } else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === 3 /* days */ ) {
+        } else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === 3) {
             bindingOptions._currentView.daysContents.style.display = "block";
-        } else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4 /* statistics */ ) {
+        } else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4) {
             bindingOptions._currentView.statisticsContents.style.display = "block";
         } else {
-            bindingOptions._currentView.view = 1 /* map */ ;
+            bindingOptions._currentView.view = 1;
             bindingOptions._currentView.mapContents.style.display = "block";
         }
     };
@@ -464,8 +458,8 @@ var DateTime;
         var daysContainer = DomElement.create(contents, "div", "side-container panel");
         var monthsContainer = DomElement.create(contents, "div", "side-container panel");
         DomElement.createWithHTML(titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText);
-        DomElement.createWithHTML(daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + ":" /* colon */ );
-        DomElement.createWithHTML(monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + ":" /* colon */ );
+        DomElement.createWithHTML(daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + ":");
+        DomElement.createWithHTML(monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + ":");
         var months1Container = DomElement.create(monthsContainer, "div", "side-container");
         var months2Container = DomElement.create(monthsContainer, "div", "side-container");
         closeButton.onclick = function() {
@@ -489,16 +483,16 @@ var DateTime;
         }
         var daysToShow = [];
         var monthsToShow = [];
-        if (bindingOptions._currentView.view === 1 /* map */ ) {
+        if (bindingOptions._currentView.view === 1) {
             daysToShow = bindingOptions.views.map.daysToShow;
             monthsToShow = bindingOptions.views.map.monthsToShow;
-        } else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2 /* chart */ ) {
+        } else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2) {
             daysToShow = bindingOptions.views.chart.daysToShow;
             monthsToShow = bindingOptions.views.chart.monthsToShow;
-        } else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === 3 /* days */ ) {
+        } else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === 3) {
             daysToShow = bindingOptions.views.days.daysToShow;
             monthsToShow = bindingOptions.views.days.monthsToShow;
-        } else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4 /* statistics */ ) {
+        } else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4) {
             daysToShow = bindingOptions.views.statistics.daysToShow;
             monthsToShow = bindingOptions.views.statistics.monthsToShow;
         } else {
@@ -532,13 +526,13 @@ var DateTime;
             }
         }
         if (daysChecked.length >= 1) {
-            if (bindingOptions._currentView.view === 1 /* map */ ) {
+            if (bindingOptions._currentView.view === 1) {
                 bindingOptions.views.map.daysToShow = daysChecked;
-            } else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2 /* chart */ ) {
+            } else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2) {
                 bindingOptions.views.chart.daysToShow = daysChecked;
-            } else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === 3 /* days */ ) {
+            } else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === 3) {
                 bindingOptions.views.days.daysToShow = daysChecked;
-            } else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4 /* statistics */ ) {
+            } else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4) {
                 bindingOptions.views.statistics.daysToShow = daysChecked;
             } else {
                 bindingOptions.views.map.daysToShow = daysChecked;
@@ -546,13 +540,13 @@ var DateTime;
             render2 = true;
         }
         if (monthsChecked.length >= 1) {
-            if (bindingOptions._currentView.view === 1 /* map */ ) {
+            if (bindingOptions._currentView.view === 1) {
                 bindingOptions.views.map.monthsToShow = monthsChecked;
-            } else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2 /* chart */ ) {
+            } else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2) {
                 bindingOptions.views.chart.monthsToShow = monthsChecked;
-            } else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === 3 /* days */ ) {
+            } else if (bindingOptions.views.days.enabled && bindingOptions._currentView.view === 3) {
                 bindingOptions.views.days.monthsToShow = monthsChecked;
-            } else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4 /* statistics */ ) {
+            } else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4) {
                 bindingOptions.views.statistics.monthsToShow = monthsChecked;
             } else {
                 bindingOptions.views.map.monthsToShow = monthsChecked;
@@ -682,27 +676,27 @@ var DateTime;
         var titlesMenuContainer = DomElement.create(title, "div", "titles-menu-container");
         var titlesMenu = DomElement.create(titlesMenuContainer, "div", "titles-menu");
         if (bindingOptions.title.showTitleDropDownHeaders) {
-            DomElement.createWithHTML(titlesMenu, "div", "title-menu-header", _configuration.dataText + ":" /* colon */ );
+            DomElement.createWithHTML(titlesMenu, "div", "title-menu-header", _configuration.dataText + ":");
         }
         var menuItemMap = DomElement.createWithHTML(titlesMenu, "div", "title-menu-item", _configuration.mapText);
-        renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemMap, 1 /* map */ , "map" /* map */ );
+        renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemMap, 1, "map");
         if (bindingOptions.views.chart.enabled) {
             var menuItemChart = DomElement.createWithHTML(titlesMenu, "div", "title-menu-item", _configuration.chartText);
-            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemChart, 2 /* chart */ , "chart" /* chart */ );
+            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemChart, 2, "chart");
         }
         if (bindingOptions.views.days.enabled) {
             if (bindingOptions.title.showTitleDropDownHeaders) {
-                DomElement.createWithHTML(titlesMenu, "div", "title-menu-header", _configuration.yearText + ":" /* colon */ );
+                DomElement.createWithHTML(titlesMenu, "div", "title-menu-header", _configuration.yearText + ":");
             }
             var menuItemDays = DomElement.createWithHTML(titlesMenu, "div", "title-menu-item", _configuration.daysText);
-            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemDays, 3 /* days */ , "days" /* days */ );
+            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemDays, 3, "days");
         }
         if (bindingOptions.views.statistics.enabled) {
             if (bindingOptions.title.showTitleDropDownHeaders) {
-                DomElement.createWithHTML(titlesMenu, "div", "title-menu-header", _configuration.statisticsText + ":" /* colon */ );
+                DomElement.createWithHTML(titlesMenu, "div", "title-menu-header", _configuration.statisticsText + ":");
             }
             var menuItemStatistics = DomElement.createWithHTML(titlesMenu, "div", "title-menu-item", _configuration.colorRangesText);
-            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemStatistics, 4 /* statistics */ , "statistics" /* statistics */ );
+            renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemStatistics, 4, "statistics");
         }
     };
     var renderTitleDropDownMenuItemClickEvent = function renderTitleDropDownMenuItemClickEvent(bindingOptions, option, view, viewName) {
@@ -720,7 +714,7 @@ var DateTime;
         DomElement.create(bindingOptions._currentView.yearText, "div", "down-arrow");
         var yearsMenuContainer = DomElement.create(bindingOptions._currentView.yearText, "div", "years-menu-container");
         var yearsMenu = DomElement.create(yearsMenuContainer, "div", "years-menu");
-        var thisYear = /* @__PURE__ */ new Date().getFullYear();
+        var thisYear = new Date().getFullYear();
         var activeYearMenuItem = null;
         yearsMenuContainer.style.display = "block";
         yearsMenuContainer.style.visibility = "hidden";
@@ -790,7 +784,7 @@ var DateTime;
                 }
                 for(var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++){
                     if (isDayVisible(bindingOptions.views.map.daysToShow, dayNameIndex + 1)) {
-                        var dayText = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.dayNames[dayNameIndex] : " " /* space */ ;
+                        var dayText = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.dayNames[dayNameIndex] : " ";
                         DomElement.createWithHTML(days, "div", "day-name", dayText);
                     }
                 }
@@ -937,7 +931,7 @@ var DateTime;
             DomElement.createWithHTML(labels, "div", "label-25", (Math.floor(largestValueForCurrentYear / 4) * 3).toString());
             DomElement.createWithHTML(labels, "div", "label-50", Math.floor(largestValueForCurrentYear / 2).toString());
             DomElement.createWithHTML(labels, "div", "label-75", Math.floor(largestValueForCurrentYear / 4).toString());
-            DomElement.createWithHTML(labels, "div", "label-100", "0" /* zero */ );
+            DomElement.createWithHTML(labels, "div", "label-100", "0");
             labels.style.width = topLabel.offsetWidth + "px";
             labelsWidth = labels.offsetWidth + DomElement.getStyleValueByName(labels, "margin-right", true);
         } else {
@@ -1070,7 +1064,7 @@ var DateTime;
             DomElement.createWithHTML(labels, "div", "label-25", (Math.floor(dayValuesForCurrentYear.largestValue / 4) * 3).toString());
             DomElement.createWithHTML(labels, "div", "label-50", Math.floor(dayValuesForCurrentYear.largestValue / 2).toString());
             DomElement.createWithHTML(labels, "div", "label-75", Math.floor(dayValuesForCurrentYear.largestValue / 4).toString());
-            DomElement.createWithHTML(labels, "div", "label-100", "0" /* zero */ );
+            DomElement.createWithHTML(labels, "div", "label-100", "0");
             labels.style.width = topLabel.offsetWidth + "px";
             dayNames.style.paddingLeft = labels.offsetWidth + DomElement.getStyleValueByName(labels, "margin-right", true) + "px";
         } else {
@@ -1175,7 +1169,7 @@ var DateTime;
             DomElement.createWithHTML(labels, "div", "label-25", (Math.floor(colorRangeValuesForCurrentYear.largestValue / 4) * 3).toString());
             DomElement.createWithHTML(labels, "div", "label-50", Math.floor(colorRangeValuesForCurrentYear.largestValue / 2).toString());
             DomElement.createWithHTML(labels, "div", "label-75", Math.floor(colorRangeValuesForCurrentYear.largestValue / 4).toString());
-            DomElement.createWithHTML(labels, "div", "label-100", "0" /* zero */ );
+            DomElement.createWithHTML(labels, "div", "label-100", "0");
             labels.style.width = topLabel.offsetWidth + "px";
             statisticsRanges.style.paddingLeft = labels.offsetWidth + DomElement.getStyleValueByName(labels, "margin-right", true) + "px";
         } else {
@@ -1201,7 +1195,7 @@ var DateTime;
                     var useColorRange = getColorRangeByMinimum(colorRanges, parseInt(type));
                     if (bindingOptions.views.statistics.showColorRangeLabels) {
                         if (!bindingOptions.views.statistics.useColorRangeNamesForLabels || !Validate.isDefined(useColorRange) || !Validate.isDefinedString(useColorRange.name)) {
-                            DomElement.createWithHTML(statisticsRanges, "div", "range-name", type + "+" /* plus */ );
+                            DomElement.createWithHTML(statisticsRanges, "div", "range-name", type + "+");
                         } else {
                             DomElement.createWithHTML(statisticsRanges, "div", "range-name", useColorRange.name);
                         }
@@ -1249,7 +1243,7 @@ var DateTime;
         var types = {};
         var data = getCurrentViewData(bindingOptions);
         var largestValue = 0;
-        types["0" /* zero */ ] = 0;
+        types["0"] = 0;
         for(var monthIndex = 0; monthIndex < 12; monthIndex++){
             var totalDaysInMonth = DateTime.getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
             for(var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++){
@@ -1261,7 +1255,7 @@ var DateTime;
                     if (!isHoliday(bindingOptions, storageDateObject).matched && isMonthVisible(bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.statistics.daysToShow, weekDayNumber)) {
                         var useColorRange = getColorRange(bindingOptions, colorRanges, data[storageDate]);
                         if (!Validate.isDefined(useColorRange)) {
-                            types["0" /* zero */ ]++;
+                            types["0"]++;
                         } else {
                             if (!types.hasOwnProperty(useColorRange.minimum.toString())) {
                                 types[useColorRange.minimum.toString()] = 0;
@@ -1352,11 +1346,11 @@ var DateTime;
         day.className = "day";
         addToolTip(day, bindingOptions, colorRange.tooltipText);
         if (isColorRangeVisible(bindingOptions, colorRange.id)) {
-            if (bindingOptions._currentView.view === 1 /* map */  && Validate.isDefinedString(colorRange.mapCssClassName)) {
+            if (bindingOptions._currentView.view === 1 && Validate.isDefinedString(colorRange.mapCssClassName)) {
                 DomElement.addClass(day, colorRange.mapCssClassName);
-            } else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2 /* chart */  && Validate.isDefinedString(colorRange.chartCssClassName)) {
+            } else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2 && Validate.isDefinedString(colorRange.chartCssClassName)) {
                 DomElement.addClass(day, colorRange.chartCssClassName);
-            } else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4 /* statistics */  && Validate.isDefinedString(colorRange.statisticsCssClassName)) {
+            } else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4 && Validate.isDefinedString(colorRange.statisticsCssClassName)) {
                 DomElement.addClass(day, colorRange.statisticsCssClassName);
             } else {
                 DomElement.addClass(day, colorRange.cssClassName);
@@ -1364,7 +1358,7 @@ var DateTime;
         }
         if (bindingOptions.guide.showNumbersInGuide) {
             DomElement.addClass(day, "day-number");
-            day.innerHTML = colorRange.minimum + "+" /* plus */ ;
+            day.innerHTML = colorRange.minimum + "+";
         }
         if (bindingOptions.guide.colorRangeTogglesEnabled) {
             day.onclick = function() {
@@ -1393,7 +1387,7 @@ var DateTime;
             if (bindingOptions.showHolidaysInDayToolTips) {
                 var holiday = isHoliday(bindingOptions, date);
                 if (holiday.matched && Validate.isDefinedString(holiday.name)) {
-                    tooltip += ":" /* colon */  + " " /* space */  + holiday.name;
+                    tooltip += ":" + " " + holiday.name;
                 }
             }
             addToolTip(day, bindingOptions, tooltip);
@@ -1415,10 +1409,10 @@ var DateTime;
         return _elements_DateCounts[bindingOptions._currentView.element.id].type[bindingOptions._currentView.type];
     };
     var isMonthVisible = function isMonthVisible(monthsToShow, month) {
-        return monthsToShow.indexOf(month + 1) > -1 /* notFound */ ;
+        return monthsToShow.indexOf(month + 1) > -1;
     };
     var isDayVisible = function isDayVisible(daysToShow, day) {
-        return daysToShow.indexOf(day) > -1 /* notFound */ ;
+        return daysToShow.indexOf(day) > -1;
     };
     var getYearsAvailableInData = function getYearsAvailableInData(bindingOptions) {
         var years = [];
@@ -1427,7 +1421,7 @@ var DateTime;
             for(var storageDate in data){
                 if (data.hasOwnProperty(storageDate)) {
                     var year = parseInt(getStorageDateYear(storageDate));
-                    if (years.indexOf(year) === -1 /* notFound */ ) {
+                    if (years.indexOf(year) === -1) {
                         years.push(year);
                     }
                 }
@@ -1439,7 +1433,7 @@ var DateTime;
         return years;
     };
     var isYearVisible = function isYearVisible(bindingOptions, year) {
-        return bindingOptions.yearsToHide.indexOf(year) === -1 /* notFound */  && (bindingOptions._currentView.yearsAvailable.length === 0 || bindingOptions._currentView.yearsAvailable.indexOf(year) > -1 /* notFound */ );
+        return bindingOptions.yearsToHide.indexOf(year) === -1 && (bindingOptions._currentView.yearsAvailable.length === 0 || bindingOptions._currentView.yearsAvailable.indexOf(year) > -1);
     };
     var isFirstVisibleYear = function isFirstVisibleYear(bindingOptions, year) {
         return bindingOptions._currentView.yearsAvailable.length > 0 && year <= bindingOptions._currentView.yearsAvailable[0];
@@ -1575,12 +1569,12 @@ var DateTime;
                 cssClassName: "holiday",
                 id: _internal_Name_Holiday,
                 visible: true,
-                name: "" /* empty */ ,
+                name: "",
                 minimum: 0,
-                mapCssClassName: "" /* empty */ ,
-                chartCssClassName: "" /* empty */ ,
-                statisticsCssClassName: "" /* empty */ ,
-                tooltipText: "" /* empty */ 
+                mapCssClassName: "",
+                chartCssClassName: "",
+                statisticsCssClassName: "",
+                tooltipText: ""
             };
             useColorRange = newUseColorRange;
         }
@@ -1686,17 +1680,17 @@ var DateTime;
         for(var fileIndex = 0; fileIndex < filesLength; fileIndex++){
             var file = files[fileIndex];
             var fileExtension = file.name.split(".").pop().toLowerCase();
-            if (fileExtension === "json" /* json */ ) {
+            if (fileExtension === "json") {
                 importFromJson(file, onLoadEnd);
-            } else if (fileExtension === "txt" /* txt */ ) {
+            } else if (fileExtension === "txt") {
                 importFromTxt(file, onLoadEnd);
-            } else if (fileExtension === "csv" /* csv */ ) {
+            } else if (fileExtension === "csv") {
                 importFromCsv(file, onLoadEnd);
             }
         }
     };
     var importFromJson = function importFromJson(file, onLoadEnd) {
-        var reader = new FileReader();
+        var reader = new FileReader;
         var readingObject = null;
         reader.readAsText(file);
         reader.onloadend = function() {
@@ -1710,35 +1704,35 @@ var DateTime;
         };
     };
     var importFromTxt = function importFromTxt(file, onLoadEnd) {
-        var reader = new FileReader();
+        var reader = new FileReader;
         var readingObject = null;
         reader.readAsText(file);
         reader.onloadend = function() {
             onLoadEnd(file.name, readingObject);
         };
         reader.onload = function(e) {
-            var lines = e.target.result.toString().split("\n" /* newLine */ );
+            var lines = e.target.result.toString().split("\n");
             var linesLength = lines.length;
             for(var lineIndex = 0; lineIndex < linesLength; lineIndex++){
-                var line = lines[lineIndex].split(":" /* colon */ );
+                var line = lines[lineIndex].split(":");
                 readingObject[line[0].trim()] = parseInt(line[1].trim());
             }
         };
     };
     var importFromCsv = function importFromCsv(file, onLoadEnd) {
-        var reader = new FileReader();
+        var reader = new FileReader;
         var readingObject = null;
         reader.readAsText(file);
         reader.onloadend = function() {
             onLoadEnd(file.name, readingObject);
         };
         reader.onload = function(e) {
-            var data = e.target.result.toString().replace(new RegExp('"', "g"), "" /* empty */ );
-            var lines = data.split("\n" /* newLine */ );
+            var data = e.target.result.toString().replace(new RegExp('"', "g"), "");
+            var lines = data.split("\n");
             lines.shift();
             var linesLength = lines.length;
             for(var lineIndex = 0; lineIndex < linesLength; lineIndex++){
-                var line = lines[lineIndex].split("," /* comma */ );
+                var line = lines[lineIndex].split(",");
                 readingObject[line[0].trim()] = parseInt(line[1].trim());
             }
         };
@@ -1748,13 +1742,13 @@ var DateTime;
         var contents = null;
         var contentsMimeType = getExportMimeType(bindingOptions);
         var contentExportType = Data.getDefaultString(exportType, bindingOptions.exportType).toLowerCase();
-        if (contentExportType === "csv" /* csv */ ) {
+        if (contentExportType === "csv") {
             contents = getCsvContent(bindingOptions);
-        } else if (contentExportType === "json" /* json */ ) {
+        } else if (contentExportType === "json") {
             contents = getJsonContent(bindingOptions);
-        } else if (contentExportType === "xml" /* xml */ ) {
+        } else if (contentExportType === "xml") {
             contents = getXmlContents(bindingOptions);
-        } else if (contentExportType === "txt" /* txt */ ) {
+        } else if (contentExportType === "txt") {
             contents = getTxtContents(bindingOptions);
         }
         if (Validate.isDefinedString(contents)) {
@@ -1785,7 +1779,7 @@ var DateTime;
                 getCsvValue(_configuration.countText)
             ]));
         }
-        return csvContents.join("\n" /* newLine */ );
+        return csvContents.join("\n");
     };
     var getJsonContent = function getJsonContent(bindingOptions) {
         return JSON.stringify(getExportData(bindingOptions));
@@ -1804,17 +1798,17 @@ var DateTime;
             }
         }
         contents.push("</Dates>");
-        return contents.join("\n" /* newLine */ );
+        return contents.join("\n");
     };
     var getTxtContents = function getTxtContents(bindingOptions) {
         var data = getExportData(bindingOptions);
         var contents = [];
         for(var storageDate in data){
             if (data.hasOwnProperty(storageDate)) {
-                contents.push(storageDate + ":" /* colon */  + " " /* space */  + data[storageDate].toString());
+                contents.push(storageDate + ":" + " " + data[storageDate].toString());
             }
         }
-        return contents.join("\n" /* newLine */ );
+        return contents.join("\n");
     };
     var getExportData = function getExportData(bindingOptions) {
         var contents = {};
@@ -1849,29 +1843,29 @@ var DateTime;
     };
     var getExportMimeType = function getExportMimeType(bindingOptions) {
         var result2 = null;
-        if (bindingOptions.exportType.toLowerCase() === "csv" /* csv */ ) {
+        if (bindingOptions.exportType.toLowerCase() === "csv") {
             result2 = "text/csv";
-        } else if (bindingOptions.exportType.toLowerCase() === "json" /* json */ ) {
+        } else if (bindingOptions.exportType.toLowerCase() === "json") {
             result2 = "application/json";
-        } else if (bindingOptions.exportType.toLowerCase() === "xml" /* xml */ ) {
+        } else if (bindingOptions.exportType.toLowerCase() === "xml") {
             result2 = "application/xml";
-        } else if (bindingOptions.exportType.toLowerCase() === "txt" /* txt */ ) {
+        } else if (bindingOptions.exportType.toLowerCase() === "txt") {
             result2 = "text/plain";
         }
         return result2;
     };
     var getExportFilename = function getExportFilename(bindingOptions) {
-        var date = /* @__PURE__ */ new Date();
-        var datePart = Data.String.padNumber(date.getDate()) + "-" /* dash */  + Data.String.padNumber(date.getMonth() + 1) + "-" /* dash */  + date.getFullYear();
-        var timePart = Data.String.padNumber(date.getHours()) + "-" /* dash */  + Data.String.padNumber(date.getMinutes());
-        var filenameStart = "" /* empty */ ;
+        var date = new Date;
+        var datePart = Data.String.padNumber(date.getDate()) + "-" + Data.String.padNumber(date.getMonth() + 1) + "-" + date.getFullYear();
+        var timePart = Data.String.padNumber(date.getHours()) + "-" + Data.String.padNumber(date.getMinutes());
+        var filenameStart = "";
         if (bindingOptions._currentView.type !== _configuration.unknownTrendText) {
-            filenameStart = bindingOptions._currentView.type.toLowerCase().replace(" " /* space */ , "_" /* underscore */ ) + "_" /* underscore */ ;
+            filenameStart = bindingOptions._currentView.type.toLowerCase().replace(" ", "_") + "_";
         }
-        return filenameStart + datePart + "_" /* underscore */  + timePart + "." + bindingOptions.exportType.toLowerCase();
+        return filenameStart + datePart + "_" + timePart + "." + bindingOptions.exportType.toLowerCase();
     };
     var getCsvValue = function getCsvValue(text) {
-        var result2 = text.toString().replace(/(\r\n|\n|\r)/gm, "" /* empty */ ).replace(/(\s\s)/gm, " " /* space */ );
+        var result2 = text.toString().replace(/(\r\n|\n|\r)/gm, "").replace(/(\s\s)/gm, " ");
         result2 = result2.replace(/"/g, '""');
         result2 = '"' + result2 + '"';
         return result2;
@@ -1883,9 +1877,9 @@ var DateTime;
         var options = Data.getDefaultObject(newOptions, {});
         options.views = Data.getDefaultObject(options.views, {});
         options.exportOnlyYearBeingViewed = Data.getDefaultBoolean(options.exportOnlyYearBeingViewed, true);
-        options.year = Data.getDefaultNumber(options.year, /* @__PURE__ */ new Date().getFullYear());
-        options.view = Data.getDefaultString(options.view, "map" /* map */ );
-        options.exportType = Data.getDefaultString(options.exportType, "csv" /* csv */ );
+        options.year = Data.getDefaultNumber(options.year, new Date().getFullYear());
+        options.view = Data.getDefaultString(options.view, "map");
+        options.exportType = Data.getDefaultString(options.exportType, "csv");
         options.useLocalStorageForData = Data.getDefaultBoolean(options.useLocalStorageForData, false);
         options.allowFileImports = Data.getDefaultBoolean(options.allowFileImports, true);
         options.yearsToHide = Data.getDefaultArray(options.yearsToHide, []);
@@ -1929,9 +1923,9 @@ var DateTime;
                     cssClassName: "day-color-1",
                     tooltipText: "Day Color 1",
                     visible: true,
-                    mapCssClassName: "" /* empty */ ,
-                    chartCssClassName: "" /* empty */ ,
-                    statisticsCssClassName: "" /* empty */ 
+                    mapCssClassName: "",
+                    chartCssClassName: "",
+                    statisticsCssClassName: ""
                 },
                 {
                     id: Data.String.newGuid(),
@@ -1940,9 +1934,9 @@ var DateTime;
                     cssClassName: "day-color-2",
                     tooltipText: "Day Color 2",
                     visible: true,
-                    mapCssClassName: "" /* empty */ ,
-                    chartCssClassName: "" /* empty */ ,
-                    statisticsCssClassName: "" /* empty */ 
+                    mapCssClassName: "",
+                    chartCssClassName: "",
+                    statisticsCssClassName: ""
                 },
                 {
                     id: Data.String.newGuid(),
@@ -1951,9 +1945,9 @@ var DateTime;
                     cssClassName: "day-color-3",
                     tooltipText: "Day Color 3",
                     visible: true,
-                    mapCssClassName: "" /* empty */ ,
-                    chartCssClassName: "" /* empty */ ,
-                    statisticsCssClassName: "" /* empty */ 
+                    mapCssClassName: "",
+                    chartCssClassName: "",
+                    statisticsCssClassName: ""
                 },
                 {
                     id: Data.String.newGuid(),
@@ -1962,9 +1956,9 @@ var DateTime;
                     cssClassName: "day-color-4",
                     tooltipText: "Day Color 4",
                     visible: true,
-                    mapCssClassName: "" /* empty */ ,
-                    chartCssClassName: "" /* empty */ ,
-                    statisticsCssClassName: "" /* empty */ 
+                    mapCssClassName: "",
+                    chartCssClassName: "",
+                    statisticsCssClassName: ""
                 }
             ];
         }
@@ -2152,13 +2146,13 @@ var DateTime;
         };
     };
     var toStorageDate = function toStorageDate(date) {
-        return date.getFullYear() + "-" /* dash */  + Data.String.padNumber(date.getMonth() + 1) + "-" /* dash */  + Data.String.padNumber(date.getDate());
+        return date.getFullYear() + "-" + Data.String.padNumber(date.getMonth() + 1) + "-" + Data.String.padNumber(date.getDate());
     };
     var getStorageDate = function getStorageDate(data) {
-        return data.split("-" /* dash */ );
+        return data.split("-");
     };
     var getStorageDateYear = function getStorageDateYear(data) {
-        return data.split("-" /* dash */ )[0];
+        return data.split("-")[0];
     };
     var moveToPreviousYear = function moveToPreviousYear(bindingOptions) {
         var callCustomTrigger = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : true;
@@ -2201,7 +2195,7 @@ var DateTime;
         }
     };
     var destroyElement = function destroyElement(bindingOptions) {
-        bindingOptions._currentView.element.innerHTML = "" /* empty */ ;
+        bindingOptions._currentView.element.innerHTML = "";
         DomElement.removeClass(bindingOptions._currentView.element, "heat-js");
         assignToolTipEvents(bindingOptions, false);
         document.body.removeChild(bindingOptions._currentView.tooltip);
@@ -2313,11 +2307,7 @@ var DateTime;
         7
     ];
     var _public = {
-        /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Public Functions:  Manage Dates
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */ addDates: function addDates(elementId, dates) {
+        addDates: function addDates(elementId, dates) {
             var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : _configuration.unknownTrendText, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
             if (Validate.isDefinedString(elementId) && Validate.isDefinedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
@@ -2448,11 +2438,7 @@ var DateTime;
             }
             return _public;
         },
-        /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Public Functions:  Export/Import
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */ import: function _import(elementId, files) {
+        import: function _import(elementId, files) {
             if (Validate.isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId) && Validate.isDefinedArray(files)) {
                 importFromFiles(files, _elements_DateCounts[elementId].options);
             }
@@ -2465,11 +2451,7 @@ var DateTime;
             }
             return _public;
         },
-        /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Public Functions:  Manage Instances
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */ refresh: function refresh(elementId) {
+        refresh: function refresh(elementId) {
             if (Validate.isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 renderControlContainer(bindingOptions, true);
@@ -2559,7 +2541,7 @@ var DateTime;
         moveToCurrentYear: function moveToCurrentYear(elementId) {
             if (Validate.isDefinedString(elementId) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
-                bindingOptions._currentView.year = /* @__PURE__ */ new Date().getFullYear();
+                bindingOptions._currentView.year = new Date().getFullYear();
                 if (!isYearVisible(bindingOptions, bindingOptions._currentView.year)) {
                     moveToNextYear(bindingOptions, false);
                 } else {
@@ -2591,14 +2573,14 @@ var DateTime;
             if (Validate.isDefinedString(elementId) && Validate.isDefinedString(viewName) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 var view = null;
-                if (viewName.toLowerCase() === "map" /* map */ ) {
-                    view = 1 /* map */ ;
-                } else if (viewName.toLowerCase() === "chart" /* chart */ ) {
-                    view = 2 /* chart */ ;
-                } else if (viewName.toLowerCase() === "days" /* days */ ) {
-                    view = 3 /* days */ ;
-                } else if (viewName.toLowerCase() === "statistics" /* statistics */ ) {
-                    view = 4 /* statistics */ ;
+                if (viewName.toLowerCase() === "map") {
+                    view = 1;
+                } else if (viewName.toLowerCase() === "chart") {
+                    view = 2;
+                } else if (viewName.toLowerCase() === "days") {
+                    view = 3;
+                } else if (viewName.toLowerCase() === "statistics") {
+                    view = 4;
                 }
                 if (Validate.isDefinedNumber(view)) {
                     bindingOptions._currentView.view = view;
@@ -2638,11 +2620,7 @@ var DateTime;
             }
             return _public;
         },
-        /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Public Functions:  Destroying
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */ destroyAll: function destroyAll() {
+        destroyAll: function destroyAll() {
             for(var elementId in _elements_DateCounts){
                 if (_elements_DateCounts.hasOwnProperty(elementId)) {
                     destroyElement(_elements_DateCounts[elementId].options);
@@ -2658,11 +2636,7 @@ var DateTime;
             }
             return _public;
         },
-        /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Public Functions:  Configuration
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */ setConfiguration: function setConfiguration(newConfiguration) {
+        setConfiguration: function setConfiguration(newConfiguration) {
             var triggerRefresh = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : true;
             if (Validate.isDefinedObject(newConfiguration)) {
                 var configurationHasChanged = false;
@@ -2681,11 +2655,7 @@ var DateTime;
             }
             return _public;
         },
-        /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Public Functions:  Additional Data
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */ getIds: function getIds() {
+        getIds: function getIds() {
             var result2 = [];
             for(var elementId in _elements_DateCounts){
                 if (_elements_DateCounts.hasOwnProperty(elementId)) {
