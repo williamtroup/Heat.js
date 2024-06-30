@@ -35,7 +35,7 @@ import { DomElement } from "./ts/dom"
 import { type PublicApi } from "./ts/api";
 
 
-( ( documentObject, windowObject, mathObject, jsonObject ) => {
+( () => {
     // Variables: Configuration
     let _configuration: Configuration = {} as Configuration;
 
@@ -90,7 +90,7 @@ import { type PublicApi } from "./ts/api";
         const tagTypesLength: number = tagTypes.length;
 
         for ( let tagTypeIndex: number = 0; tagTypeIndex < tagTypesLength; tagTypeIndex++ ) {
-            const domElements: HTMLCollectionOf<Element> = documentObject.getElementsByTagName( tagTypes[ tagTypeIndex ] );
+            const domElements: HTMLCollectionOf<Element> = document.getElementsByTagName( tagTypes[ tagTypeIndex ] );
             const elements: HTMLElement[] = [].slice.call( domElements );
             const elementsLength: number = elements.length;
 
@@ -428,7 +428,7 @@ import { type PublicApi } from "./ts/api";
 
     function renderControlToolTip( bindingOptions: BindingOptions ) : void {
         if ( !Validation.isDefined( bindingOptions._currentView.tooltip ) ) {
-            bindingOptions._currentView.tooltip = DomElement.create( documentObject.body, "div", "heat-js-tooltip" );
+            bindingOptions._currentView.tooltip = DomElement.create( document.body, "div", "heat-js-tooltip" );
             bindingOptions._currentView.tooltip.style.display = "none";
     
             assignToolTipEvents( bindingOptions );
@@ -436,8 +436,8 @@ import { type PublicApi } from "./ts/api";
     }
 
     function assignToolTipEvents( bindingOptions: BindingOptions, add: boolean = true ) : void {
-        let addEventListener_Window: Function = add ? windowObject.addEventListener : windowObject.removeEventListener;
-        let addEventListener_Document: Function = add ? documentObject.addEventListener : documentObject.removeEventListener;
+        let addEventListener_Window: Function = add ? window.addEventListener : window.removeEventListener;
+        let addEventListener_Document: Function = add ? document.addEventListener : document.removeEventListener;
 
         addEventListener_Window( "mousemove", function() {
             hideToolTip( bindingOptions );
@@ -928,9 +928,9 @@ import { type PublicApi } from "./ts/api";
         if ( largestValueForCurrentYear > 0 && bindingOptions.views.chart.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", largestValueForCurrentYear.toString() );
 
-            DomElement.createWithHTML( labels, "div", "label-25", ( mathObject.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-50", mathObject.floor( largestValueForCurrentYear / 2 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-75", mathObject.floor( largestValueForCurrentYear / 4 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-25", ( Math.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-50", Math.floor( largestValueForCurrentYear / 2 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-75", Math.floor( largestValueForCurrentYear / 4 ).toString() );
             DomElement.createWithHTML( labels, "div", "label-100", STRING.zero );
 
             labels.style.width = topLabel.offsetWidth + "px";
@@ -1073,7 +1073,7 @@ import { type PublicApi } from "./ts/api";
 
                 if ( data.hasOwnProperty( storageDate ) ) {
                     if ( isMonthVisible( bindingOptions.views.chart.monthsToShow, monthIndex ) && isDayVisible( bindingOptions.views.chart.daysToShow, dayIndex + 1 ) ) {
-                        result = mathObject.max( result, parseInt( data[ storageDate ] ) );
+                        result = Math.max( result, parseInt( data[ storageDate ] ) );
                     }
                 }
             }
@@ -1109,9 +1109,9 @@ import { type PublicApi } from "./ts/api";
         if ( dayValuesForCurrentYear.largestValue > 0 && bindingOptions.views.days.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", dayValuesForCurrentYear.largestValue.toString() );
 
-            DomElement.createWithHTML( labels, "div", "label-25", ( mathObject.floor( dayValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-50", mathObject.floor( dayValuesForCurrentYear.largestValue / 2 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-75", mathObject.floor( dayValuesForCurrentYear.largestValue / 4 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-25", ( Math.floor( dayValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-50", Math.floor( dayValuesForCurrentYear.largestValue / 2 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-75", Math.floor( dayValuesForCurrentYear.largestValue / 4 ).toString() );
             DomElement.createWithHTML( labels, "div", "label-100", STRING.zero );
 
             labels.style.width = topLabel.offsetWidth + "px";
@@ -1213,7 +1213,7 @@ import { type PublicApi } from "./ts/api";
                     if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views.days.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.days.daysToShow, weekDayNumber ) ) {
                         days[ weekDayNumber ] += data[ storageDate ];
 
-                        largestValue = mathObject.max( largestValue, days[ weekDayNumber ] );
+                        largestValue = Math.max( largestValue, days[ weekDayNumber ] );
                     }
                 }
             }
@@ -1253,9 +1253,9 @@ import { type PublicApi } from "./ts/api";
         if ( colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views.statistics.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", colorRangeValuesForCurrentYear.largestValue.toString() );
 
-            DomElement.createWithHTML( labels, "div", "label-25", ( mathObject.floor( colorRangeValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-50", mathObject.floor( colorRangeValuesForCurrentYear.largestValue / 2 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-75", mathObject.floor( colorRangeValuesForCurrentYear.largestValue / 4 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-25", ( Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-50", Math.floor( colorRangeValuesForCurrentYear.largestValue / 2 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-75", Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ).toString() );
             DomElement.createWithHTML( labels, "div", "label-100", STRING.zero );
 
             labels.style.width = topLabel.offsetWidth + "px";
@@ -1379,7 +1379,7 @@ import { type PublicApi } from "./ts/api";
     
                             types[ useColorRange.minimum ]++;
                             
-                            largestValue = mathObject.max( largestValue, types[ useColorRange.minimum ] );
+                            largestValue = Math.max( largestValue, types[ useColorRange.minimum ] );
                         }
                     }
                 }
@@ -1638,15 +1638,15 @@ import { type PublicApi } from "./ts/api";
      */
 
     function loadDataFromLocalStorage( bindingOptions: BindingOptions ) : void {
-        if ( bindingOptions.useLocalStorageForData && windowObject.localStorage ) {
-            const keysLength: number = windowObject.localStorage.length;
+        if ( bindingOptions.useLocalStorageForData && window.localStorage ) {
+            const keysLength: number = window.localStorage.length;
             const elementId: string = bindingOptions._currentView.element.id;
 
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
-                const key : string = windowObject.localStorage.key( keyIndex );
+                const key : string = window.localStorage.key( keyIndex );
 
                 if ( startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
-                    const typesJson: string = windowObject.localStorage.getItem( key );
+                    const typesJson: string = window.localStorage.getItem( key );
                     const typesObject: any = getObjectFromString( typesJson );
 
                     if ( typesObject.parsed ) {
@@ -1665,33 +1665,33 @@ import { type PublicApi } from "./ts/api";
     }
 
     function storeDataInLocalStorage( bindingOptions: BindingOptions ) : void {
-        if ( bindingOptions.useLocalStorageForData && windowObject.localStorage ) {
+        if ( bindingOptions.useLocalStorageForData && window.localStorage ) {
             const elementId: string = bindingOptions._currentView.element.id;
 
             clearLocalStorageObjects( bindingOptions );
 
-            const jsonData: string = jsonObject.stringify( _elements_DateCounts[ elementId ].type );
+            const jsonData: string = JSON.stringify( _elements_DateCounts[ elementId ].type );
 
-            windowObject.localStorage.setItem( _local_Storage_Start_ID + elementId, jsonData );
+            window.localStorage.setItem( _local_Storage_Start_ID + elementId, jsonData );
         }
     }
 
     function clearLocalStorageObjects( bindingOptions: BindingOptions ) : void {
-        if ( bindingOptions.useLocalStorageForData && windowObject.localStorage ) {
-            const keysLength: number = windowObject.localStorage.length;
+        if ( bindingOptions.useLocalStorageForData && window.localStorage ) {
+            const keysLength: number = window.localStorage.length;
             const keysToRemove: string[] = [];
             const elementId: string = bindingOptions._currentView.element.id;
 
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
-                if ( startsWithAnyCase( windowObject.localStorage.key( keyIndex ), _local_Storage_Start_ID + elementId ) ) {
-                    keysToRemove.push( windowObject.localStorage.key( keyIndex ) );
+                if ( startsWithAnyCase( window.localStorage.key( keyIndex ), _local_Storage_Start_ID + elementId ) ) {
+                    keysToRemove.push( window.localStorage.key( keyIndex ) );
                 }
             }
 
             const keysToRemoveLength: number = keysToRemove.length;
 
             for ( let keyToRemoveIndex: number = 0; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++ ) {
-                windowObject.localStorage.removeItem( keysToRemove[ keyToRemoveIndex ] );
+                window.localStorage.removeItem( keysToRemove[ keyToRemoveIndex ] );
             }
         }
     }
@@ -1920,7 +1920,7 @@ import { type PublicApi } from "./ts/api";
             element.ondrop = function ( e ) {
                 DomElement.cancelBubble( e );
     
-                if ( Validation.isDefined( windowObject.FileReader ) && e.dataTransfer.files.length > 0 ) {
+                if ( Validation.isDefined( window.FileReader ) && e.dataTransfer.files.length > 0 ) {
                     importFromFiles( e.dataTransfer.files, bindingOptions );
                 }
             };
@@ -1989,10 +1989,10 @@ import { type PublicApi } from "./ts/api";
         };
     
         reader.onload = function ( e ) {
-            const jsonObject: any = getObjectFromString( e.target.result );
+            const JSON: any = getObjectFromString( e.target.result );
 
-            if ( jsonObject.parsed && Validation.isDefinedObject( jsonObject.result ) ) {
-                readingObject = jsonObject.result;
+            if ( JSON.parsed && Validation.isDefinedObject( JSON.result ) ) {
+                readingObject = JSON.result;
             }
         };
     }
@@ -2068,14 +2068,14 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( Validation.isDefinedString( contents ) ) {
-            const tempLink: HTMLElement = DomElement.create( documentObject.body, "a" );
+            const tempLink: HTMLElement = DomElement.create( document.body, "a" );
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
             tempLink.setAttribute( "href", "data:" + contentsMimeType + ";charset=utf-8," + encodeURIComponent( contents ) );
             tempLink.setAttribute( "download", getExportFilename( bindingOptions ) );
             tempLink.click();
             
-            documentObject.body.removeChild( tempLink );
+            document.body.removeChild( tempLink );
 
             fireCustomTriggerEvent( bindingOptions.events.onExport, bindingOptions._currentView.element );
         }
@@ -2099,7 +2099,7 @@ import { type PublicApi } from "./ts/api";
     }
 
     function getJsonContent( bindingOptions: BindingOptions ) : string {
-        return jsonObject.stringify( getExportData( bindingOptions ) );
+        return JSON.stringify( getExportData( bindingOptions ) );
     }
 
     function getXmlContents( bindingOptions: BindingOptions ) : string {
@@ -2583,7 +2583,7 @@ import { type PublicApi } from "./ts/api";
 
         try {
             if ( Validation.isDefinedString( objectString ) ) {
-                result = jsonObject.parse( objectString );
+                result = JSON.parse( objectString );
             }
 
         } catch ( e1 ) {
@@ -2626,7 +2626,7 @@ import { type PublicApi } from "./ts/api";
                 result.push( STRING.dash );
             }
 
-            const character: string = mathObject.floor( mathObject.random() * 16 ).toString( 16 );
+            const character: string = Math.floor( Math.random() * 16 ).toString( 16 );
             result.push( character );
         }
 
@@ -2734,7 +2734,7 @@ import { type PublicApi } from "./ts/api";
         DomElement.removeClass( bindingOptions._currentView.element, "heat-js" );
         assignToolTipEvents( bindingOptions, false );
 
-        documentObject.body.removeChild( bindingOptions._currentView.tooltip );
+        document.body.removeChild( bindingOptions._currentView.tooltip );
 
         if ( bindingOptions._currentView.isInFetchMode && Validation.isDefined( bindingOptions._currentView.isInFetchModeTimer ) ) {
             clearInterval( bindingOptions._currentView.isInFetchModeTimer );
@@ -3085,7 +3085,7 @@ import { type PublicApi } from "./ts/api";
     
                 for ( let storageDate in data ) {
                     if ( data.hasOwnProperty( storageDate ) ) {
-                        maximumYear = mathObject.max( maximumYear, parseInt( getStorageDateYear( storageDate ) ) );
+                        maximumYear = Math.max( maximumYear, parseInt( getStorageDateYear( storageDate ) ) );
                     }
                 }
     
@@ -3113,7 +3113,7 @@ import { type PublicApi } from "./ts/api";
     
                 for ( let storageDate in data ) {
                     if ( data.hasOwnProperty( storageDate ) ) {
-                        minimumYear = mathObject.min( minimumYear, parseInt( getStorageDateYear( storageDate ) ) );
+                        minimumYear = Math.min( minimumYear, parseInt( getStorageDateYear( storageDate ) ) );
                     }
                 }
     
@@ -3349,17 +3349,17 @@ import { type PublicApi } from "./ts/api";
     ( () => {
         buildDefaultConfiguration();
 
-        documentObject.addEventListener( "DOMContentLoaded", function () {
+        document.addEventListener( "DOMContentLoaded", function () {
             render();
         } );
 
-        windowObject.addEventListener( "pagehide", function () {
+        window.addEventListener( "pagehide", function () {
             cancelAllPullDataTimers();
         } );
 
-        if ( !Validation.isDefined( windowObject.$heat ) ) {
-            windowObject.$heat = _public;
+        if ( !Validation.isDefined( window.$heat ) ) {
+            window.$heat = _public;
         }
     } )();
 
-} )( document, window, Math, JSON );
+} )();
