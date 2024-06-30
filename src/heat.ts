@@ -2743,6 +2743,7 @@ import { type PublicApi } from "./ts/api";
         fireCustomTriggerEvent( bindingOptions.events.onDestroy, bindingOptions._currentView.element );
     }
 
+    
 	/*
 	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	 * Public API Functions:  Helpers:  Configuration
