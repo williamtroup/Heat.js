@@ -1,7 +1,7 @@
 import { STRING } from "./enum";
 
 
-export namespace Validation {
+export namespace Validate {
     export function isDefined( value: any ) : boolean  {
         return value !== null && value !== undefined && value.toString() !== STRING.empty;
     }
