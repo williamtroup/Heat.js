@@ -31,6 +31,7 @@ import { EXPORT_TYPE, STRING, VALUE, VIEW_ID, VIEW_NAME } from "./ts/enum";
 import { HEAT_JS_ATTRIBUTE_NAME } from "./ts/constant"
 import { Validation } from "./ts/validation"
 import { Data } from "./ts/data"
+import { DomElement } from "./ts/dom"
 import { type PublicApi } from "./ts/api";
 
 
@@ -63,7 +64,7 @@ import { type PublicApi } from "./ts/api";
      */
 
     function renderDisabledBackground( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView.disabledBackground = createElement( bindingOptions._currentView.element, "div", "disabled" );
+        bindingOptions._currentView.disabledBackground = DomElement.create( bindingOptions._currentView.element, "div", "disabled" );
     }
 
     function showDisabledBackground( bindingOptions: BindingOptions ) : void {
@@ -194,7 +195,7 @@ import { type PublicApi } from "./ts/api";
         if ( bindingOptions._currentView.element.className.trim() === STRING.empty ) {
             bindingOptions._currentView.element.className = "heat-js";
         } else {
-            addClass( bindingOptions._currentView.element, "heat-js" );
+            DomElement.addClass( bindingOptions._currentView.element, "heat-js" );
         }
 
         bindingOptions._currentView.element.removeAttribute( HEAT_JS_ATTRIBUTE_NAME );
@@ -283,35 +284,35 @@ import { type PublicApi } from "./ts/api";
      */
 
     function renderConfigurationDialog( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView.configurationDialog = createElement( bindingOptions._currentView.disabledBackground, "div", "dialog configuration" );
+        bindingOptions._currentView.configurationDialog = DomElement.create( bindingOptions._currentView.disabledBackground, "div", "dialog configuration" );
 
-        const titleBar: HTMLElement = createElement( bindingOptions._currentView.configurationDialog, "div", "dialog-title-bar" );
-        const contents: HTMLElement = createElement( bindingOptions._currentView.configurationDialog, "div", "dialog-contents" );
-        const closeButton: HTMLElement = createElement( titleBar, "div", "dialog-close" );
-        const daysContainer: HTMLElement = createElement( contents, "div", "side-container panel" );
-        const monthsContainer: HTMLElement = createElement( contents, "div", "side-container panel" );
+        const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView.configurationDialog, "div", "dialog-title-bar" );
+        const contents: HTMLElement = DomElement.create( bindingOptions._currentView.configurationDialog, "div", "dialog-contents" );
+        const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
+        const daysContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
+        const monthsContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
 
-        createElementWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText );
-        createElementWithHTML( daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + STRING.colon );
-        createElementWithHTML( monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + STRING.colon );
+        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText );
+        DomElement.createWithHTML( daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + STRING.colon );
+        DomElement.createWithHTML( monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + STRING.colon );
 
-        const months1Container: HTMLElement = createElement( monthsContainer, "div", "side-container" );
-        const months2Container: HTMLElement = createElement( monthsContainer, "div", "side-container" );
+        const months1Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
+        const months2Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
 
         closeButton.onclick = function () {
             hideConfigurationDialog( bindingOptions );
         };
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
-            bindingOptions._currentView.dayCheckBoxes[ dayIndex ] = buildCheckBox( daysContainer, _configuration.dayNames[ dayIndex ] ).input;
+            bindingOptions._currentView.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.dayNames[ dayIndex ] ).input;
         }
 
         for ( let monthIndex1: number = 0; monthIndex1 < 7; monthIndex1++ ) {
-            bindingOptions._currentView.monthCheckBoxes[ monthIndex1 ] = buildCheckBox( months1Container, _configuration.monthNames[ monthIndex1 ] ).input;
+            bindingOptions._currentView.monthCheckBoxes[ monthIndex1 ] = DomElement.createCheckBox( months1Container, _configuration.monthNames[ monthIndex1 ] ).input;
         }
 
         for ( let monthIndex2: number = 7; monthIndex2 < 12; monthIndex2++ ) {
-            bindingOptions._currentView.monthCheckBoxes[ monthIndex2 ] = buildCheckBox( months2Container, _configuration.monthNames[ monthIndex2 ] ).input;
+            bindingOptions._currentView.monthCheckBoxes[ monthIndex2 ] = DomElement.createCheckBox( months2Container, _configuration.monthNames[ monthIndex2 ] ).input;
         }
 
         addToolTip( closeButton, bindingOptions, _configuration.closeToolTipText );
@@ -428,7 +429,7 @@ import { type PublicApi } from "./ts/api";
 
     function renderControlToolTip( bindingOptions: BindingOptions ) : void {
         if ( !Validation.isDefined( bindingOptions._currentView.tooltip ) ) {
-            bindingOptions._currentView.tooltip = createElement( documentObject.body, "div", "heat-js-tooltip" );
+            bindingOptions._currentView.tooltip = DomElement.create( documentObject.body, "div", "heat-js-tooltip" );
             bindingOptions._currentView.tooltip.style.display = "none";
     
             assignToolTipEvents( bindingOptions );
@@ -457,14 +458,14 @@ import { type PublicApi } from "./ts/api";
     }
 
     function showToolTip( e: any, bindingOptions: BindingOptions, text: string ) : void {
-        cancelBubble( e );
+        DomElement.cancelBubble( e );
         hideToolTip( bindingOptions );
 
         bindingOptions._currentView.tooltipTimer = setTimeout( function() {
             bindingOptions._currentView.tooltip.innerHTML = text;
             bindingOptions._currentView.tooltip.style.display = "block";
 
-            showElementAtMousePosition( e, bindingOptions._currentView.tooltip );
+            DomElement.showElementAtMousePosition( e, bindingOptions._currentView.tooltip );
         }, bindingOptions.tooltip.delay );
     }
 
@@ -490,16 +491,16 @@ import { type PublicApi } from "./ts/api";
 
     function renderControlTitleBar( bindingOptions: BindingOptions ) : void {
         if ( bindingOptions.title.showText || bindingOptions.title.showYearSelector || bindingOptions.title.showRefreshButton || bindingOptions.title.showExportButton || bindingOptions.title.showImportButton ) {
-            const titleBar: HTMLElement = createElement( bindingOptions._currentView.element, "div", "title-bar" );
-            const title: HTMLElement = createElement( titleBar, "div", "title" );
+            const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView.element, "div", "title-bar" );
+            const title: HTMLElement = DomElement.create( titleBar, "div", "title" );
 
             if ( bindingOptions.views.chart.enabled || bindingOptions.views.days.enabled || bindingOptions.views.statistics.enabled ) {
                 if ( bindingOptions.title.showTitleDropDownButton ) {
-                    createElement( title, "div", "down-arrow" );
+                    DomElement.create( title, "div", "down-arrow" );
                 }
                 
             } else {
-                addClass( title, "no-click" );
+                DomElement.addClass( title, "no-click" );
             }
 
             if ( bindingOptions.title.showText ) {
@@ -511,7 +512,7 @@ import { type PublicApi } from "./ts/api";
             }
 
             if ( bindingOptions.title.showImportButton && !bindingOptions._currentView.isInFetchMode ) {
-                const importData: HTMLElement = createElementWithHTML( titleBar, "button", "import", _configuration.importButtonText );
+                const importData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "import", _configuration.importButtonText );
         
                 importData.onclick = function () {
                     importFromFilesSelected( bindingOptions );
@@ -519,7 +520,7 @@ import { type PublicApi } from "./ts/api";
             }
 
             if ( bindingOptions.title.showExportButton ) {
-                const exportData: HTMLElement = createElementWithHTML( titleBar, "button", "export", _configuration.exportButtonText );
+                const exportData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "export", _configuration.exportButtonText );
         
                 exportData.onclick = function () {
                     exportAllData( bindingOptions );
@@ -527,7 +528,7 @@ import { type PublicApi } from "./ts/api";
             }
 
             if ( bindingOptions.title.showRefreshButton ) {
-                const refresh: HTMLElement = createElementWithHTML( titleBar, "button", "refresh", _configuration.refreshButtonText );
+                const refresh: HTMLElement = DomElement.createWithHTML( titleBar, "button", "refresh", _configuration.refreshButtonText );
         
                 refresh.onclick = function () {
                     renderControlContainer( bindingOptions );
@@ -536,7 +537,7 @@ import { type PublicApi } from "./ts/api";
             }
     
             if ( bindingOptions.title.showYearSelector ) {
-                const back: any = createElementWithHTML( titleBar, "button", "back", _configuration.backButtonText );
+                const back: any = DomElement.createWithHTML( titleBar, "button", "back", _configuration.backButtonText );
         
                 back.onclick = function () {
                     moveToPreviousYear( bindingOptions );
@@ -546,16 +547,16 @@ import { type PublicApi } from "./ts/api";
                     back.disabled = true;
                 }
 
-                bindingOptions._currentView.yearText = createElementWithHTML( titleBar, "div", "year-text", bindingOptions._currentView.year.toString() );
+                bindingOptions._currentView.yearText = DomElement.createWithHTML( titleBar, "div", "year-text", bindingOptions._currentView.year.toString() );
 
                 if ( bindingOptions.title.showYearSelectionDropDown ) {
                     renderYearDropDownMenu( bindingOptions );
                 } else {
-                    addClass( bindingOptions._currentView.yearText, "no-click" );
+                    DomElement.addClass( bindingOptions._currentView.yearText, "no-click" );
                 }
 
                 if ( bindingOptions.title.showConfigurationButton ) {
-                    let configureButton: HTMLElement = createElement( titleBar, "div", "configure" );
+                    let configureButton: HTMLElement = DomElement.create( titleBar, "div", "configure" );
 
                     addToolTip( configureButton, bindingOptions, _configuration.configurationToolTipText );
 
@@ -564,7 +565,7 @@ import { type PublicApi } from "./ts/api";
                     };
                 }
 
-                const next: any = createElementWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
+                const next: any = DomElement.createWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
 
                 next.onclick = function () {
                     moveToNextYear( bindingOptions );
@@ -578,39 +579,39 @@ import { type PublicApi } from "./ts/api";
     }
 
     function renderTitleDropDownMenu( bindingOptions: BindingOptions, title: HTMLElement ) : void {
-        const titlesMenuContainer: HTMLElement = createElement( title, "div", "titles-menu-container" );
-        const titlesMenu: HTMLElement = createElement( titlesMenuContainer, "div", "titles-menu" );
+        const titlesMenuContainer: HTMLElement = DomElement.create( title, "div", "titles-menu-container" );
+        const titlesMenu: HTMLElement = DomElement.create( titlesMenuContainer, "div", "titles-menu" );
         
         if ( bindingOptions.title.showTitleDropDownHeaders ) {
-            createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.dataText + STRING.colon );
+            DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.dataText + STRING.colon );
         }
 
-        const menuItemMap: HTMLElement = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.mapText );
+        const menuItemMap: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.mapText );
             
         renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, VIEW_ID.map, VIEW_NAME.map );
 
         if ( bindingOptions.views.chart.enabled ) {
-            const menuItemChart = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.chartText );
+            const menuItemChart = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.chartText );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, VIEW_ID.chart, VIEW_NAME.chart );
         }
 
         if ( bindingOptions.views.days.enabled ) {
             if ( bindingOptions.title.showTitleDropDownHeaders ) {
-                createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.yearText + STRING.colon );
+                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.yearText + STRING.colon );
             }
 
-            const menuItemDays: HTMLElement = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.daysText );
+            const menuItemDays: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.daysText );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemDays, VIEW_ID.days, VIEW_NAME.days );
         }
 
         if ( bindingOptions.views.statistics.enabled ) {
             if ( bindingOptions.title.showTitleDropDownHeaders ) {
-                createElementWithHTML( titlesMenu, "div", "title-menu-header", _configuration.statisticsText + STRING.colon );
+                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.statisticsText + STRING.colon );
             }
 
-            const menuItemStatistics: HTMLElement = createElementWithHTML( titlesMenu, "div", "title-menu-item", _configuration.colorRangesText );
+            const menuItemStatistics: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.colorRangesText );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemStatistics, VIEW_ID.statistics, VIEW_NAME.statistics );
         }
@@ -618,7 +619,7 @@ import { type PublicApi } from "./ts/api";
 
     function renderTitleDropDownMenuItemClickEvent( bindingOptions: BindingOptions, option: HTMLElement, view: number, viewName: string ) : void {
         if ( bindingOptions._currentView.view === view ) {
-            addClass( option, "title-menu-item-active" );
+            DomElement.addClass( option, "title-menu-item-active" );
             
         } else {
             option.onclick = function () {
@@ -631,10 +632,10 @@ import { type PublicApi } from "./ts/api";
     }
 
     function renderYearDropDownMenu( bindingOptions: BindingOptions ) : void {
-        createElement( bindingOptions._currentView.yearText, "div", "down-arrow" );
+        DomElement.create( bindingOptions._currentView.yearText, "div", "down-arrow" );
 
-        const yearsMenuContainer: HTMLElement = createElement( bindingOptions._currentView.yearText, "div", "years-menu-container" );
-        const yearsMenu: HTMLElement = createElement( yearsMenuContainer, "div", "years-menu" );
+        const yearsMenuContainer: HTMLElement = DomElement.create( bindingOptions._currentView.yearText, "div", "years-menu-container" );
+        const yearsMenu: HTMLElement = DomElement.create( yearsMenuContainer, "div", "years-menu" );
         const thisYear: number = new Date().getFullYear();
         let activeYearMenuItem: HTMLElement = null;
 
@@ -661,7 +662,7 @@ import { type PublicApi } from "./ts/api";
 
     function renderYearDropDownMenuItem( bindingOptions: BindingOptions, years: HTMLElement, currentYear: number, actualYear: number ) : HTMLElement {
         let result: HTMLElement = null;
-        const year: HTMLElement = createElementWithHTML( years, "div", "year-menu-item", currentYear.toString() );
+        const year: HTMLElement = DomElement.createWithHTML( years, "div", "year-menu-item", currentYear.toString() );
 
         if ( bindingOptions._currentView.year !== currentYear ) {
             year.onclick = function () {
@@ -672,11 +673,11 @@ import { type PublicApi } from "./ts/api";
             };
 
             if ( currentYear === actualYear ) {
-                addClass( year, "year-menu-item-current" );
+                DomElement.addClass( year, "year-menu-item-current" );
             }
 
         } else {
-            addClass( year, "year-menu-item-active" );
+            DomElement.addClass( year, "year-menu-item-active" );
             result = year;
         }
 
@@ -691,7 +692,7 @@ import { type PublicApi } from "./ts/api";
      */
 
     function renderControlMap( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
-        bindingOptions._currentView.mapContents = createElement( bindingOptions._currentView.element, "div", "map-contents" );
+        bindingOptions._currentView.mapContents = DomElement.create( bindingOptions._currentView.element, "div", "map-contents" );
 
         if ( bindingOptions.views.chart.enabled ) {
             renderControlChartContents( bindingOptions );
@@ -708,10 +709,10 @@ import { type PublicApi } from "./ts/api";
         renderControlViewGuide( bindingOptions );
 
         if ( bindingOptions.views.map.showNoDataMessageWhenDataIsNotAvailable && !isDataAvailableForYear( bindingOptions ) ) {
-            const noDataMessage: HTMLElement = createElementWithHTML( bindingOptions._currentView.mapContents, "div", "no-data-message", _configuration.noMapDataMessage );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.mapContents, "div", "no-data-message", _configuration.noMapDataMessage );
 
             if ( isForViewSwitch ) {
-                addClass( noDataMessage, "view-switch" );
+                DomElement.addClass( noDataMessage, "view-switch" );
             }
 
         } else {
@@ -719,16 +720,16 @@ import { type PublicApi } from "./ts/api";
 
             makeAreaDroppable( bindingOptions._currentView.mapContents, bindingOptions );
 
-            const map: HTMLElement = createElement( bindingOptions._currentView.mapContents, "div", "map" );
+            const map: HTMLElement = DomElement.create( bindingOptions._currentView.mapContents, "div", "map" );
             const currentYear: number = bindingOptions._currentView.year;
             let monthAdded: boolean = false;
     
             if ( isForViewSwitch ) {
-                addClass( map, "view-switch" );
+                DomElement.addClass( map, "view-switch" );
             }
     
             if ( bindingOptions.views.map.showDayNames ) {
-                const days: HTMLElement = createElement( map, "div", "days" );
+                const days: HTMLElement = DomElement.create( map, "div", "days" );
                 const showMinimalDays: boolean = bindingOptions.views.map.showMinimalDayNames && bindingOptions.views.map.daysToShow.length === 7;
     
                 if ( !bindingOptions.views.map.showMonthNames || bindingOptions.views.map.placeMonthNamesOnTheBottom ) {
@@ -739,24 +740,24 @@ import { type PublicApi } from "./ts/api";
                     if ( isDayVisible( bindingOptions.views.map.daysToShow, dayNameIndex + 1 ) ) {
                         const dayText: string = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.dayNames[ dayNameIndex ] : STRING.space;
 
-                        createElementWithHTML( days, "div", "day-name", dayText );
+                        DomElement.createWithHTML( days, "div", "day-name", dayText );
                     }
                 }
     
                 if ( bindingOptions.views.map.showDaysInReverseOrder ) {
-                    reverseElementsOrder( days );
+                    DomElement.reverseChildrenOrder( days );
                 }
             }
     
-            const months: HTMLElement = createElement( map, "div", "months" );
+            const months: HTMLElement = DomElement.create( map, "div", "months" );
             const colorRanges: ColorRange[] = getSortedColorRanges( bindingOptions );
     
             for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
                 if ( isMonthVisible( bindingOptions.views.map.monthsToShow, monthIndex ) ) {
-                    const month: HTMLElement = createElement( months, "div", "month" );
-                    const dayColumns: HTMLElement = createElement( month, "div", "day-columns" );
+                    const month: HTMLElement = DomElement.create( months, "div", "month" );
+                    const dayColumns: HTMLElement = DomElement.create( month, "div", "day-columns" );
                     let totalDaysInMonth: number = getTotalDaysInMonth( currentYear, monthIndex );
-                    let currentDayColumn: HTMLElement = createElement( dayColumns, "div", "day-column" );
+                    let currentDayColumn: HTMLElement = DomElement.create( dayColumns, "div", "day-column" );
                     let startFillingDays: boolean = false;
                     const firstDayInMonth: Date = new Date( currentYear, monthIndex, 1 );
                     const firstDayNumberInMonth: number = getWeekdayNumber( firstDayInMonth );
@@ -770,7 +771,7 @@ import { type PublicApi } from "./ts/api";
         
                         } else {
                             if ( isDayVisible( bindingOptions.views.map.daysToShow, actualDay ) ) {
-                                createElement( currentDayColumn, "div", "day-disabled" );
+                                DomElement.create( currentDayColumn, "div", "day-disabled" );
                             }
                         }
         
@@ -783,15 +784,15 @@ import { type PublicApi } from "./ts/api";
             
                             if ( ( dayIndex + 1 ) % 7 === 0 ) {
                                 if ( bindingOptions.views.map.showDaysInReverseOrder ) {
-                                    reverseElementsOrder( currentDayColumn );
+                                    DomElement.reverseChildrenOrder( currentDayColumn );
                                 }
     
-                                currentDayColumn = createElement( dayColumns, "div", "day-column" );
+                                currentDayColumn = DomElement.create( dayColumns, "div", "day-column" );
                                 actualDay = 0;
     
                                 if ( !Validation.isDefined( _elements_Day_Width ) && Validation.isDefined( day ) ) {
-                                    let marginLeft: number = getStyleValueByName( day, "margin-left", true );
-                                    let marginRight: number = getStyleValueByName( day, "margin-right", true );
+                                    let marginLeft: number = DomElement.getStyleValueByName( day, "margin-left", true );
+                                    let marginRight: number = DomElement.getStyleValueByName( day, "margin-right", true );
                                     
                                     _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
                                 }
@@ -806,9 +807,9 @@ import { type PublicApi } from "./ts/api";
                         const monthWidth: number = month.offsetWidth;
     
                         if ( !bindingOptions.views.map.placeMonthNamesOnTheBottom ) {
-                            monthName = createElementWithHTML( month, "div", "month-name", _configuration.monthNames[ monthIndex ], dayColumns );
+                            monthName = DomElement.createWithHTML( month, "div", "month-name", _configuration.monthNames[ monthIndex ], dayColumns );
                         } else {
-                            monthName = createElementWithHTML( month, "div", "month-name-bottom", _configuration.monthNames[ monthIndex ] );
+                            monthName = DomElement.createWithHTML( month, "div", "month-name-bottom", _configuration.monthNames[ monthIndex ] );
                         }
     
                         if ( Validation.isDefined( monthName ) ) {
@@ -829,7 +830,7 @@ import { type PublicApi } from "./ts/api";
                     }
 
                     if ( bindingOptions.views.map.showMonthsInReverseOrder ) {
-                        reverseElementsOrder( dayColumns );
+                        DomElement.reverseChildrenOrder( dayColumns );
                     }
     
                     monthAdded = true;
@@ -837,7 +838,7 @@ import { type PublicApi } from "./ts/api";
             }
 
             if ( bindingOptions.views.map.showMonthsInReverseOrder ) {
-                reverseElementsOrder( months );
+                DomElement.reverseChildrenOrder( months );
             }
             
             if ( bindingOptions.views.map.keepScrollPositions ) {
@@ -848,7 +849,7 @@ import { type PublicApi } from "./ts/api";
 
     function renderControlMapMonthDay( bindingOptions: BindingOptions, currentDayColumn: HTMLElement, dayNumber: number, month: number, year: number, colorRanges: ColorRange[] ) : HTMLElement {
         const actualDay: number = dayNumber + 1;
-        const day: HTMLElement = createElement( currentDayColumn, "div", "day" );
+        const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day" );
         const date: Date = new Date( year, month, actualDay );
         let dateCount: number = _elements_DateCounts[ bindingOptions._currentView.element.id ].type[ bindingOptions._currentView.type ][ toStorageDate( date ) ];
 
@@ -866,16 +867,16 @@ import { type PublicApi } from "./ts/api";
             };
 
         } else {
-            addClass( day, "no-hover" );
+            DomElement.addClass( day, "no-hover" );
         }
 
         const useColorRange: ColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
 
         if ( Validation.isDefined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id ) ) {
             if ( Validation.isDefinedString( useColorRange.mapCssClassName ) ) {
-                addClass( day, useColorRange.mapCssClassName );
+                DomElement.addClass( day, useColorRange.mapCssClassName );
             } else {
-                addClass( day, useColorRange.cssClassName );
+                DomElement.addClass( day, useColorRange.cssClassName );
             }
         }
 
@@ -907,34 +908,34 @@ import { type PublicApi } from "./ts/api";
      */
 
     function renderControlChartContents( bindingOptions: BindingOptions ) {
-        bindingOptions._currentView.chartContents = createElement( bindingOptions._currentView.element, "div", "chart-contents" );
+        bindingOptions._currentView.chartContents = DomElement.create( bindingOptions._currentView.element, "div", "chart-contents" );
 
         makeAreaDroppable( bindingOptions._currentView.chartContents, bindingOptions );
     }
 
     function renderControlChart( bindingOptions: BindingOptions, isForViewSwitch: boolean) : void {
-        const chart: HTMLElement = createElement( bindingOptions._currentView.chartContents, "div", "chart" );
-        let labels: HTMLElement = createElement( chart, "div", "y-labels" );
-        const dayLines: HTMLElement = createElement( chart, "div", "day-lines" );
+        const chart: HTMLElement = DomElement.create( bindingOptions._currentView.chartContents, "div", "chart" );
+        let labels: HTMLElement = DomElement.create( chart, "div", "y-labels" );
+        const dayLines: HTMLElement = DomElement.create( chart, "div", "day-lines" );
         const colorRanges: ColorRange[] = getSortedColorRanges( bindingOptions );
         const largestValueForCurrentYear: number = getLargestValueForChartYear( bindingOptions );
         const currentYear: number = bindingOptions._currentView.year;
         let labelsWidth: number = 0;
 
         if ( isForViewSwitch ) {
-            addClass( chart, "view-switch" );
+            DomElement.addClass( chart, "view-switch" );
         }
 
         if ( largestValueForCurrentYear > 0 && bindingOptions.views.chart.showChartYLabels ) {
-            const topLabel: HTMLElement = createElementWithHTML( labels, "div", "label-0", largestValueForCurrentYear.toString() );
+            const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", largestValueForCurrentYear.toString() );
 
-            createElementWithHTML( labels, "div", "label-25", ( mathObject.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
-            createElementWithHTML( labels, "div", "label-50", mathObject.floor( largestValueForCurrentYear / 2 ).toString() );
-            createElementWithHTML( labels, "div", "label-75", mathObject.floor( largestValueForCurrentYear / 4 ).toString() );
-            createElementWithHTML( labels, "div", "label-100", STRING.zero );
+            DomElement.createWithHTML( labels, "div", "label-25", ( mathObject.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-50", mathObject.floor( largestValueForCurrentYear / 2 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-75", mathObject.floor( largestValueForCurrentYear / 4 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-100", STRING.zero );
 
             labels.style.width = topLabel.offsetWidth + "px";
-            labelsWidth = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true );
+            labelsWidth = labels.offsetWidth + DomElement.getStyleValueByName( labels, "margin-right", true );
 
         } else {
             labels.parentNode.removeChild( labels );
@@ -945,10 +946,10 @@ import { type PublicApi } from "./ts/api";
             bindingOptions._currentView.chartContents.style.minHeight = bindingOptions._currentView.mapContents.offsetHeight + "px";
             chart.parentNode.removeChild( chart );
 
-            const noDataMessage: HTMLElement = createElementWithHTML( bindingOptions._currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage );
 
             if ( isForViewSwitch ) {
-                addClass( noDataMessage, "view-switch" );
+                DomElement.addClass( noDataMessage, "view-switch" );
             }
 
         } else {
@@ -979,17 +980,17 @@ import { type PublicApi } from "./ts/api";
             }
 
             if ( bindingOptions.views.chart.showInReverseOrder ) {
-                reverseElementsOrder( dayLines );
+                DomElement.reverseChildrenOrder( dayLines );
             }
 
             if ( bindingOptions.views.chart.showMonthNames ) {
-                const chartMonths: HTMLElement = createElement( bindingOptions._currentView.chartContents, "div", "chart-months" );
+                const chartMonths: HTMLElement = DomElement.create( bindingOptions._currentView.chartContents, "div", "chart-months" );
                 const linesWidth: number = dayLines.offsetWidth / totalMonths;
                 let monthTimesValue: number = 0;
 
                 const addMonthName: Function = function ( addMonthNameIndex: number ) {
                     if ( isMonthVisible( bindingOptions.views.chart.monthsToShow, addMonthNameIndex ) ) {
-                        let monthName: HTMLElement = createElementWithHTML( chartMonths, "div", "month-name", _configuration.monthNames[ addMonthNameIndex ] );
+                        let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", _configuration.monthNames[ addMonthNameIndex ] );
                         monthName.style.left = labelsWidth + ( linesWidth * monthTimesValue ) + "px";
 
                         monthTimesValue++;
@@ -1008,7 +1009,7 @@ import { type PublicApi } from "./ts/api";
 
                 chartMonths.style.width = dayLines.offsetWidth + "px";
 
-                const monthNameSpace: HTMLElement = createElement( chartMonths, "div", "month-name-space" );
+                const monthNameSpace: HTMLElement = DomElement.create( chartMonths, "div", "month-name-space" );
                 monthNameSpace.style.height = chartMonths.offsetHeight + "px";
                 monthNameSpace.style.width = labelsWidth + "px";
             }
@@ -1021,7 +1022,7 @@ import { type PublicApi } from "./ts/api";
 
     function renderControlChartDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: ColorRange[], pixelsPerNumbers: number ) : void {
         const date: Date = new Date( year, month, day );
-        const dayLine: HTMLElement = createElement( dayLines, "div", "day-line" );
+        const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         let dateCount: number = getCurrentViewData( bindingOptions )[ toStorageDate( date ) ];
 
         dateCount = Data.getDefaultNumber( dateCount, 0 );
@@ -1029,7 +1030,7 @@ import { type PublicApi } from "./ts/api";
         renderDayToolTip( bindingOptions, dayLine, date, dateCount );
 
         if ( bindingOptions.views.chart.showLineNumbers && dateCount > 0 ) {
-            addClass( dayLine, "day-line-number" );
+            DomElement.addClass( dayLine, "day-line-number" );
 
             dayLine.innerHTML = dateCount.toString();
         }
@@ -1047,16 +1048,16 @@ import { type PublicApi } from "./ts/api";
             };
 
         } else {
-            addClass( dayLine, "no-hover" );
+            DomElement.addClass( dayLine, "no-hover" );
         }
 
         const useColorRange: ColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
 
         if ( Validation.isDefined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id ) ) {
             if ( Validation.isDefinedString( useColorRange.chartCssClassName ) ) {
-                addClass( dayLine, useColorRange.chartCssClassName );
+                DomElement.addClass( dayLine, useColorRange.chartCssClassName );
             } else {
-                addClass( dayLine, useColorRange.cssClassName );
+                DomElement.addClass( dayLine, useColorRange.cssClassName );
             }
         }
     }
@@ -1090,32 +1091,32 @@ import { type PublicApi } from "./ts/api";
      */
 
     function renderControlDaysContents( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView.daysContents = createElement( bindingOptions._currentView.element, "div", "days-contents" );
+        bindingOptions._currentView.daysContents = DomElement.create( bindingOptions._currentView.element, "div", "days-contents" );
 
         makeAreaDroppable( bindingOptions._currentView.daysContents, bindingOptions );
     }
 
     function renderControlDays( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
-        const days: HTMLElement = createElement( bindingOptions._currentView.daysContents, "div", "days" );
-        const dayNames: HTMLElement = createElement( bindingOptions._currentView.daysContents, "div", "day-names" );
-        let labels: HTMLElement = createElement( days, "div", "y-labels" );
-        const dayLines: HTMLElement = createElement( days, "div", "day-lines" );
+        const days: HTMLElement = DomElement.create( bindingOptions._currentView.daysContents, "div", "days" );
+        const dayNames: HTMLElement = DomElement.create( bindingOptions._currentView.daysContents, "div", "day-names" );
+        let labels: HTMLElement = DomElement.create( days, "div", "y-labels" );
+        const dayLines: HTMLElement = DomElement.create( days, "div", "day-lines" );
         const dayValuesForCurrentYear: any = getLargestValuesForEachDay( bindingOptions );
 
         if ( isForViewSwitch ) {
-            addClass( days, "view-switch" );
+            DomElement.addClass( days, "view-switch" );
         }
 
         if ( dayValuesForCurrentYear.largestValue > 0 && bindingOptions.views.days.showChartYLabels ) {
-            const topLabel: HTMLElement = createElementWithHTML( labels, "div", "label-0", dayValuesForCurrentYear.largestValue.toString() );
+            const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", dayValuesForCurrentYear.largestValue.toString() );
 
-            createElementWithHTML( labels, "div", "label-25", ( mathObject.floor( dayValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
-            createElementWithHTML( labels, "div", "label-50", mathObject.floor( dayValuesForCurrentYear.largestValue / 2 ).toString() );
-            createElementWithHTML( labels, "div", "label-75", mathObject.floor( dayValuesForCurrentYear.largestValue / 4 ).toString() );
-            createElementWithHTML( labels, "div", "label-100", STRING.zero );
+            DomElement.createWithHTML( labels, "div", "label-25", ( mathObject.floor( dayValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-50", mathObject.floor( dayValuesForCurrentYear.largestValue / 2 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-75", mathObject.floor( dayValuesForCurrentYear.largestValue / 4 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-100", STRING.zero );
 
             labels.style.width = topLabel.offsetWidth + "px";
-            dayNames.style.paddingLeft = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true ) + "px";
+            dayNames.style.paddingLeft = labels.offsetWidth + DomElement.getStyleValueByName( labels, "margin-right", true ) + "px";
 
         } else {
             labels.parentNode.removeChild( labels );
@@ -1127,10 +1128,10 @@ import { type PublicApi } from "./ts/api";
             days.parentNode.removeChild( days );
             dayNames.parentNode.removeChild( dayNames );
 
-            const noDataMessage: HTMLElement = createElementWithHTML( bindingOptions._currentView.daysContents, "div", "no-days-message", _configuration.noDaysDataMessage );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.daysContents, "div", "no-days-message", _configuration.noDaysDataMessage );
 
             if ( isForViewSwitch ) {
-                addClass( noDataMessage, "view-switch" );
+                DomElement.addClass( noDataMessage, "view-switch" );
             }
 
         } else {
@@ -1141,14 +1142,14 @@ import { type PublicApi } from "./ts/api";
                     renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.days[ day ], bindingOptions, pixelsPerNumbers );
 
                     if ( bindingOptions.views.days.showDayNames ) {
-                        createElementWithHTML( dayNames, "div", "day-name", _configuration.dayNames[ parseInt( day ) - 1 ] );
+                        DomElement.createWithHTML( dayNames, "div", "day-name", _configuration.dayNames[ parseInt( day ) - 1 ] );
                     }
                 }
             }
 
             if ( bindingOptions.views.days.showInReverseOrder ) {
-                reverseElementsOrder( dayLines );
-                reverseElementsOrder( dayNames );
+                DomElement.reverseChildrenOrder( dayLines );
+                DomElement.reverseChildrenOrder( dayNames );
             }
 
             if ( bindingOptions.views.days.keepScrollPositions ) {
@@ -1158,7 +1159,7 @@ import { type PublicApi } from "./ts/api";
     }
 
     function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number ) : void {
-        const dayLine: HTMLElement = createElement( dayLines, "div", "day-line" );
+        const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
 
         dayLine.style.height = dayLineHeight + "px";
@@ -1175,13 +1176,13 @@ import { type PublicApi } from "./ts/api";
             };
 
         } else {
-            addClass( dayLine, "no-hover" );
+            DomElement.addClass( dayLine, "no-hover" );
         }
 
         if ( bindingOptions.views.days.showDayNumbers && dayCount > 0 ) {
-            addClass( dayLine, "day-line-number" );
+            DomElement.addClass( dayLine, "day-line-number" );
 
-            createElementWithHTML( dayLine, "div", "count", dayCount.toString() );
+            DomElement.createWithHTML( dayLine, "div", "count", dayCount.toString() );
         }
     }
 
@@ -1233,33 +1234,33 @@ import { type PublicApi } from "./ts/api";
      */
 
     function renderControlStatisticsContents( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView.statisticsContents = createElement( bindingOptions._currentView.element, "div", "statistics-contents" );
+        bindingOptions._currentView.statisticsContents = DomElement.create( bindingOptions._currentView.element, "div", "statistics-contents" );
 
         makeAreaDroppable( bindingOptions._currentView.statisticsContents, bindingOptions );
     }
 
     function renderControlStatistics( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
-        const statistics: HTMLElement = createElement( bindingOptions._currentView.statisticsContents, "div", "statistics" );
-        const statisticsRanges: HTMLElement = createElement( bindingOptions._currentView.statisticsContents, "div", "statistics-ranges" );
-        let labels: HTMLElement = createElement( statistics, "div", "y-labels" );
-        const rangeLines: HTMLElement = createElement( statistics, "div", "range-lines" );
+        const statistics: HTMLElement = DomElement.create( bindingOptions._currentView.statisticsContents, "div", "statistics" );
+        const statisticsRanges: HTMLElement = DomElement.create( bindingOptions._currentView.statisticsContents, "div", "statistics-ranges" );
+        let labels: HTMLElement = DomElement.create( statistics, "div", "y-labels" );
+        const rangeLines: HTMLElement = DomElement.create( statistics, "div", "range-lines" );
         const colorRanges: ColorRange[] = getSortedColorRanges( bindingOptions );
         const colorRangeValuesForCurrentYear = getLargestValuesForEachRangeType( bindingOptions, colorRanges );
 
         if ( isForViewSwitch ) {
-            addClass( statistics, "view-switch" );
+            DomElement.addClass( statistics, "view-switch" );
         }
 
         if ( colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views.statistics.showChartYLabels ) {
-            const topLabel: HTMLElement = createElementWithHTML( labels, "div", "label-0", colorRangeValuesForCurrentYear.largestValue.toString() );
+            const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", colorRangeValuesForCurrentYear.largestValue.toString() );
 
-            createElementWithHTML( labels, "div", "label-25", ( mathObject.floor( colorRangeValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
-            createElementWithHTML( labels, "div", "label-50", mathObject.floor( colorRangeValuesForCurrentYear.largestValue / 2 ).toString() );
-            createElementWithHTML( labels, "div", "label-75", mathObject.floor( colorRangeValuesForCurrentYear.largestValue / 4 ).toString() );
-            createElementWithHTML( labels, "div", "label-100", STRING.zero );
+            DomElement.createWithHTML( labels, "div", "label-25", ( mathObject.floor( colorRangeValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-50", mathObject.floor( colorRangeValuesForCurrentYear.largestValue / 2 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-75", mathObject.floor( colorRangeValuesForCurrentYear.largestValue / 4 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-100", STRING.zero );
 
             labels.style.width = topLabel.offsetWidth + "px";
-            statisticsRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName( labels, "margin-right", true ) + "px";
+            statisticsRanges.style.paddingLeft = labels.offsetWidth + DomElement.getStyleValueByName( labels, "margin-right", true ) + "px";
 
         } else {
             labels.parentNode.removeChild( labels );
@@ -1271,10 +1272,10 @@ import { type PublicApi } from "./ts/api";
             statistics.parentNode.removeChild( statistics );
             statisticsRanges.parentNode.removeChild( statisticsRanges );
 
-            const noDataMessage: HTMLElement = createElementWithHTML( bindingOptions._currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage );
 
             if ( isForViewSwitch ) {
-                addClass( noDataMessage, "view-switch" );
+                DomElement.addClass( noDataMessage, "view-switch" );
             }
 
         } else {
@@ -1292,17 +1293,17 @@ import { type PublicApi } from "./ts/api";
 
                     if ( bindingOptions.views.statistics.showColorRangeLabels ) {
                         if ( !bindingOptions.views.statistics.useColorRangeNamesForLabels || !Validation.isDefined( useColorRange ) || !Validation.isDefinedString( useColorRange.name ) ) {
-                            createElementWithHTML( statisticsRanges, "div", "range-name", type + STRING.plus );
+                            DomElement.createWithHTML( statisticsRanges, "div", "range-name", type + STRING.plus );
                         } else {
-                            createElementWithHTML( statisticsRanges, "div", "range-name", useColorRange.name );
+                            DomElement.createWithHTML( statisticsRanges, "div", "range-name", useColorRange.name );
                         }
                     }
                 }
             }
 
             if ( bindingOptions.views.statistics.showInReverseOrder ) {
-                reverseElementsOrder( rangeLines );
-                reverseElementsOrder( statisticsRanges );
+                DomElement.reverseChildrenOrder( rangeLines );
+                DomElement.reverseChildrenOrder( statisticsRanges );
             }
     
             if ( bindingOptions.views.statistics.keepScrollPositions ) {
@@ -1312,7 +1313,7 @@ import { type PublicApi } from "./ts/api";
     }
 
     function renderControlStatisticsRangeLine( colorRangeMinimum: number, dayLines: HTMLElement, rangeCount: number, bindingOptions: BindingOptions, colorRanges: ColorRange[], pixelsPerNumbers: number ) : void {
-        const rangeLine: HTMLElement = createElement( dayLines, "div", "range-line" );
+        const rangeLine: HTMLElement = DomElement.create( dayLines, "div", "range-line" );
         const useColorRange: ColorRange = getColorRangeByMinimum( colorRanges, colorRangeMinimum );
         const rangeLineHeight: number = rangeCount * pixelsPerNumbers;
 
@@ -1325,9 +1326,9 @@ import { type PublicApi } from "./ts/api";
         addToolTip( rangeLine, bindingOptions, rangeCount.toString() );
 
         if ( bindingOptions.views.statistics.showRangeNumbers && rangeCount > 0 ) {
-            addClass( rangeLine, "range-line-number" );
+            DomElement.addClass( rangeLine, "range-line-number" );
 
-            createElementWithHTML( rangeLine, "div", "count", rangeCount.toString() );
+            DomElement.createWithHTML( rangeLine, "div", "count", rangeCount.toString() );
         }
 
         if ( Validation.isDefinedFunction( bindingOptions.events.onStatisticClick ) ) {
@@ -1336,14 +1337,14 @@ import { type PublicApi } from "./ts/api";
             };
 
         } else {
-            addClass( rangeLine, "no-hover" );
+            DomElement.addClass( rangeLine, "no-hover" );
         }
 
         if ( Validation.isDefined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id ) ) {
             if ( Validation.isDefinedString( useColorRange.statisticsCssClassName ) ) {
-                addClass( rangeLine, useColorRange.statisticsCssClassName );
+                DomElement.addClass( rangeLine, useColorRange.statisticsCssClassName );
             } else {
-                addClass( rangeLine, useColorRange.cssClassName );
+                DomElement.addClass( rangeLine, useColorRange.cssClassName );
             }
         }
     }
@@ -1400,8 +1401,8 @@ import { type PublicApi } from "./ts/api";
      */
 
     function renderControlViewGuide( bindingOptions: BindingOptions ) : void {
-        const guide: HTMLElement = createElement( bindingOptions._currentView.element, "div", "guide" )
-        const mapTypes: HTMLElement = createElement( guide, "div", "map-types" );
+        const guide: HTMLElement = DomElement.create( bindingOptions._currentView.element, "div", "guide" )
+        const mapTypes: HTMLElement = DomElement.create( guide, "div", "map-types" );
         let noneTypeCount: number = 0;
 
         for ( let storageDate in _elements_DateCounts[ bindingOptions._currentView.element.id ].type[ _configuration.unknownTrendText ] ) {
@@ -1413,7 +1414,7 @@ import { type PublicApi } from "./ts/api";
 
         if ( _elements_DateCounts[ bindingOptions._currentView.element.id ].types > 1 ) {
             if ( Validation.isDefinedString( bindingOptions.description.text ) ) {
-                const description: HTMLElement = createElement( bindingOptions._currentView.element, "div", "description", guide );
+                const description: HTMLElement = DomElement.create( bindingOptions._currentView.element, "div", "description", guide );
     
                 renderDescription( bindingOptions, description );
             }
@@ -1433,10 +1434,10 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( bindingOptions.guide.enabled ) {
-            const mapToggles: HTMLElement = createElement( guide, "div", "map-toggles" );
+            const mapToggles: HTMLElement = DomElement.create( guide, "div", "map-toggles" );
 
             if ( bindingOptions.guide.showLessAndMoreLabels ) {
-                let lessText: HTMLElement = createElementWithHTML( mapToggles, "div", "less-text", _configuration.lessText );
+                let lessText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "less-text", _configuration.lessText );
     
                 if ( bindingOptions.guide.colorRangeTogglesEnabled ) {
                     lessText.onclick = function () {
@@ -1444,11 +1445,11 @@ import { type PublicApi } from "./ts/api";
                     };
         
                 } else {
-                    addClass( lessText, "no-click" );
+                    DomElement.addClass( lessText, "no-click" );
                 }
             }
     
-            const days: HTMLElement = createElement( mapToggles, "div", "days" );
+            const days: HTMLElement = DomElement.create( mapToggles, "div", "days" );
             const colorRanges: ColorRange[] = getSortedColorRanges( bindingOptions );
             const colorRangesLength: number = colorRanges.length;
     
@@ -1457,7 +1458,7 @@ import { type PublicApi } from "./ts/api";
             }
 
             if ( bindingOptions.guide.showLessAndMoreLabels ) {
-                const moreText: HTMLElement = createElementWithHTML( mapToggles, "div", "more-text", _configuration.moreText );
+                const moreText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "more-text", _configuration.moreText );
     
                 if ( bindingOptions.guide.colorRangeTogglesEnabled ) {
                     moreText.onclick = function () {
@@ -1465,17 +1466,17 @@ import { type PublicApi } from "./ts/api";
                     };
         
                 } else {
-                    addClass( moreText, "no-click" );
+                    DomElement.addClass( moreText, "no-click" );
                 }
             }
         }
     }
 
     function renderControlViewGuideTypeButton( bindingOptions: BindingOptions, mapTypes: HTMLElement, type: string ) : void {
-        const typeButton: HTMLElement = createElementWithHTML( mapTypes, "button", "type", type );
+        const typeButton: HTMLElement = DomElement.createWithHTML( mapTypes, "button", "type", type );
 
         if ( bindingOptions._currentView.type === type ) {
-            addClass( typeButton, "active" );
+            DomElement.addClass( typeButton, "active" );
         }
 
         typeButton.onclick = function () {
@@ -1489,25 +1490,25 @@ import { type PublicApi } from "./ts/api";
     }
 
     function renderControlViewGuideDay( bindingOptions: BindingOptions, days: HTMLElement, colorRange: ColorRange ) : void {
-        const day: HTMLElement = createElement( days, "div" );
+        const day: HTMLElement = DomElement.create( days, "div" );
         day.className = "day";
 
         addToolTip( day, bindingOptions, colorRange.tooltipText );
 
         if ( isColorRangeVisible( bindingOptions, colorRange.id ) ) {
             if ( bindingOptions._currentView.view === VIEW_ID.map && Validation.isDefinedString( colorRange.mapCssClassName ) ) {
-                addClass( day, colorRange.mapCssClassName );
+                DomElement.addClass( day, colorRange.mapCssClassName );
             } else if ( bindingOptions.views.chart.enabled && bindingOptions._currentView.view === VIEW_ID.chart && Validation.isDefinedString( colorRange.chartCssClassName ) ) {
-                addClass( day, colorRange.chartCssClassName );
+                DomElement.addClass( day, colorRange.chartCssClassName );
             } else if ( bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === VIEW_ID.statistics && Validation.isDefinedString( colorRange.statisticsCssClassName ) ) {
-                addClass( day, colorRange.statisticsCssClassName );
+                DomElement.addClass( day, colorRange.statisticsCssClassName );
             } else {
-                addClass( day, colorRange.cssClassName );
+                DomElement.addClass( day, colorRange.cssClassName );
             }   
         }
 
         if ( bindingOptions.guide.showNumbersInGuide ) {
-            addClass( day, "day-number" );
+            DomElement.addClass( day, "day-number" );
 
             day.innerHTML = colorRange.minimum + STRING.plus;
         }
@@ -1518,19 +1519,19 @@ import { type PublicApi } from "./ts/api";
             };
 
         } else {
-            addClass( day, "no-hover" );
+            DomElement.addClass( day, "no-hover" );
         }
     }
 
     function renderDescription( bindingOptions: BindingOptions, container: HTMLElement ) : void {
         if ( Validation.isDefinedString( bindingOptions.description.text ) ) {
             if ( Validation.isDefinedString( bindingOptions.description.url ) ) {
-                const link: any = createElementWithHTML( container, "a", "label", bindingOptions.description.text );
+                const link: any = DomElement.createWithHTML( container, "a", "label", bindingOptions.description.text );
                 link.href = bindingOptions.description.url;
                 link.target = bindingOptions.description.urlTarget;                
 
             } else {
-                createElementWithHTML( container, "span", "label", bindingOptions.description.text );
+                DomElement.createWithHTML( container, "span", "label", bindingOptions.description.text );
             }
         }
     }
@@ -1913,12 +1914,12 @@ import { type PublicApi } from "./ts/api";
 
     function makeAreaDroppable( element: HTMLElement, bindingOptions: BindingOptions ) : void {
         if ( bindingOptions.allowFileImports && !bindingOptions._currentView.isInFetchMode ) {
-            element.ondragover = cancelBubble;
-            element.ondragenter = cancelBubble;
-            element.ondragleave = cancelBubble;
+            element.ondragover = DomElement.cancelBubble;
+            element.ondragenter = DomElement.cancelBubble;
+            element.ondragleave = DomElement.cancelBubble;
     
             element.ondrop = function ( e ) {
-                cancelBubble( e );
+                DomElement.cancelBubble( e );
     
                 if ( Validation.isDefined( windowObject.FileReader ) && e.dataTransfer.files.length > 0 ) {
                     importFromFiles( e.dataTransfer.files, bindingOptions );
@@ -1928,7 +1929,7 @@ import { type PublicApi } from "./ts/api";
     }
 
     function importFromFilesSelected( bindingOptions: BindingOptions ) : void {
-        const input: any = createElementWithNoContainer( "input" );
+        const input: any = DomElement.createWithNoContainer( "input" );
         input.type = "file";
         input.accept = ".json, .txt, .csv";
         input.multiple = "multiple";
@@ -2068,7 +2069,7 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( Validation.isDefinedString( contents ) ) {
-            const tempLink: HTMLElement = createElement( documentObject.body, "a" );
+            const tempLink: HTMLElement = DomElement.create( documentObject.body, "a" );
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
             tempLink.setAttribute( "href", "data:" + contentsMimeType + ";charset=utf-8," + encodeURIComponent( contents ) );
@@ -2556,164 +2557,6 @@ import { type PublicApi } from "./ts/api";
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Element Handling
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function createElementWithNoContainer( type: string ) : HTMLElement {
-        let result: HTMLElement = null;
-        const nodeType: string = type.toLowerCase();
-        const isText: boolean = nodeType === "text";
-
-        if ( !_elements_Type.hasOwnProperty( nodeType ) ) {
-            _elements_Type[ nodeType ] = isText ? documentObject.createTextNode( STRING.empty ) : documentObject.createElement( nodeType );
-        }
-
-        result = _elements_Type[ nodeType ].cloneNode( false );
-
-        return result;
-    }
-
-    function createElement( container: HTMLElement, type: string, className: string = STRING.empty, beforeNode: HTMLElement = null ) : HTMLElement {
-        let result: HTMLElement = null;
-        const nodeType: string = type.toLowerCase();
-        const isText: boolean = nodeType === "text";
-
-        if ( !_elements_Type.hasOwnProperty( nodeType ) ) {
-            _elements_Type[ nodeType ] = isText ? documentObject.createTextNode( STRING.empty ) : documentObject.createElement( nodeType );
-        }
-
-        result = _elements_Type[ nodeType ].cloneNode( false );
-
-        if ( Validation.isDefined( className ) ) {
-            result.className = className;
-        }
-
-        if ( Validation.isDefined( beforeNode ) ) {
-            container.insertBefore( result, beforeNode );
-        } else {
-            container.appendChild( result );
-        }
-
-        return result;
-    }
-
-    function createElementWithHTML( container: HTMLElement, type: string, className: string, html: string, beforeNode: HTMLElement = null ) : HTMLElement {
-        const element: HTMLElement = createElement( container, type, className, beforeNode );
-        element.innerHTML = html;
-
-        return element;
-    }
-
-    function getStyleValueByName( element: any, stylePropertyName: string, toNumber: boolean = false ) : any {
-        let value: any = null;
-        
-        if ( documentObject.defaultView.getComputedStyle ) {
-            value = documentObject.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
-        } else if ( element.currentStyle ) {
-            value = element.currentStyle[ stylePropertyName ];
-        }   
-        
-        if ( toNumber ) {
-            value = parseFloat( value );
-        }
-
-        return value;
-    }
-
-    function addClass( element: HTMLElement, className: string ) {
-        element.className += STRING.space + className;
-        element.className = element.className.trim();
-    }
-
-    function removeClass( element: HTMLElement, className: string ) {
-        element.className = element.className.replace( className, STRING.empty );
-        element.className = element.className.trim();
-    }
-
-    function cancelBubble( e: any ) {
-        e.preventDefault();
-        e.cancelBubble = true;
-    }
-
-    function getScrollPosition() : object {
-        const doc: HTMLElement = documentObject.documentElement;
-        const left: number = ( windowObject.pageXOffset || doc.scrollLeft )  - ( doc.clientLeft || 0 );
-        const top: number = ( windowObject.pageYOffset || doc.scrollTop ) - ( doc.clientTop || 0 );
-
-        return {
-            left: left,
-            top: top
-        };
-    }
-
-    function showElementAtMousePosition( e: any, element: HTMLElement ) {
-        let left: number = e.pageX;
-        let top: number = e.pageY;
-        const scrollPosition: any = getScrollPosition();
-
-        element.style.display = "block";
-
-        if ( left + element.offsetWidth > windowObject.innerWidth ) {
-            left -= element.offsetWidth;
-        } else {
-            left++;
-        }
-
-        if ( top + element.offsetHeight > windowObject.innerHeight ) {
-            top -= element.offsetHeight;
-        } else {
-            top++;
-        }
-
-        if ( left < scrollPosition.left ) {
-            left = e.pageX + 1;
-        }
-
-        if ( top < scrollPosition.top ) {
-            top = e.pageY + 1;
-        }
-        
-        element.style.left = left + "px";
-        element.style.top = top + "px";
-    }
-
-    function reverseElementsOrder( parent: HTMLElement ) {
-        const children: HTMLCollection = parent.children;
-        let childrenLength: number = children.length - 1;
-
-        for ( ; childrenLength--; ) {
-            parent.appendChild( children[ childrenLength ] );
-        }
-    }
-
-    function buildCheckBox( container: HTMLElement, labelText: string, checked: boolean = null, onClick: Function = null ) : any {
-        const lineContainer: HTMLElement = createElement( container, "div" );
-        const label: HTMLElement = createElement( lineContainer, "label", "checkbox" );
-        const input: any = createElement( label, "input" );
-
-        input.type = "checkbox";
-
-        if ( Validation.isDefined( onClick ) ) {
-            input.onclick = onClick;
-        }
-
-        if ( Validation.isDefined( checked ) ) {
-            input.checked = checked;
-        }
-
-        createElement( label, "span", "check-mark" );
-        createElementWithHTML( label, "span", "text", labelText );
-        
-        return {
-            input: input,
-            label: label
-        };
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Triggering Custom Events
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -2889,7 +2732,7 @@ import { type PublicApi } from "./ts/api";
     function destroyElement( bindingOptions: BindingOptions ) : void {
         bindingOptions._currentView.element.innerHTML = STRING.empty;
 
-        removeClass( bindingOptions._currentView.element, "heat-js" );
+        DomElement.removeClass( bindingOptions._currentView.element, "heat-js" );
         assignToolTipEvents( bindingOptions, false );
 
         documentObject.body.removeChild( bindingOptions._currentView.tooltip );

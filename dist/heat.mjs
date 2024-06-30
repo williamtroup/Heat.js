@@ -132,6 +132,138 @@ var init_data = __esm({
         })(Data || (Data = {}));
     }
 });
+// src/ts/dom.ts
+var DomElement;
+var init_dom = __esm({
+    "src/ts/dom.ts": function() {
+        init_enum();
+        init_validation();
+        (function(DomElement2) {
+            var createWithNoContainer = function createWithNoContainer(type) {
+                var nodeType = type.toLowerCase();
+                var isText = nodeType === "text";
+                var result2 = isText ? document.createTextNode("" /* empty */ ) : document.createElement(nodeType);
+                return result2;
+            };
+            var create = function create(container, type) {
+                var className = arguments.length > 2 && arguments[2] !== void 0 /* empty */  ? arguments[2] : "", beforeNode = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null;
+                var nodeType = type.toLowerCase();
+                var isText = nodeType === "text";
+                var result2 = isText ? document.createTextNode("" /* empty */ ) : document.createElement(nodeType);
+                if (Validation.isDefined(className)) {
+                    result2.className = className;
+                }
+                if (Validation.isDefined(beforeNode)) {
+                    container.insertBefore(result2, beforeNode);
+                } else {
+                    container.appendChild(result2);
+                }
+                return result2;
+            };
+            var createWithHTML = function createWithHTML(container, type, className, html) {
+                var beforeNode = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : null;
+                var element = create(container, type, className, beforeNode);
+                element.innerHTML = html;
+                return element;
+            };
+            var getStyleValueByName = function getStyleValueByName(element, stylePropertyName) {
+                var toNumber = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : false;
+                var value = null;
+                if (document.defaultView.getComputedStyle) {
+                    value = document.defaultView.getComputedStyle(element, null).getPropertyValue(stylePropertyName);
+                } else if (element.currentStyle) {
+                    value = element.currentStyle[stylePropertyName];
+                }
+                if (toNumber) {
+                    value = parseFloat(value);
+                }
+                return value;
+            };
+            var addClass = function addClass(element, className) {
+                element.className += " " /* space */  + className;
+                element.className = element.className.trim();
+            };
+            var removeClass = function removeClass(element, className) {
+                element.className = element.className.replace(className, "" /* empty */ );
+                element.className = element.className.trim();
+            };
+            var cancelBubble = function cancelBubble(e) {
+                e.preventDefault();
+                e.cancelBubble = true;
+            };
+            var getScrollPosition = function getScrollPosition() {
+                var doc = document.documentElement;
+                var left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
+                var top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+                return {
+                    left: left,
+                    top: top
+                };
+            };
+            var showElementAtMousePosition = function showElementAtMousePosition(e, element) {
+                var left = e.pageX;
+                var top = e.pageY;
+                var scrollPosition = getScrollPosition();
+                element.style.display = "block";
+                if (left + element.offsetWidth > window.innerWidth) {
+                    left -= element.offsetWidth;
+                } else {
+                    left++;
+                }
+                if (top + element.offsetHeight > window.innerHeight) {
+                    top -= element.offsetHeight;
+                } else {
+                    top++;
+                }
+                if (left < scrollPosition.left) {
+                    left = e.pageX + 1;
+                }
+                if (top < scrollPosition.top) {
+                    top = e.pageY + 1;
+                }
+                element.style.left = left + "px";
+                element.style.top = top + "px";
+            };
+            var reverseChildrenOrder = function reverseChildrenOrder(parent) {
+                var children = parent.children;
+                var childrenLength = children.length - 1;
+                for(; childrenLength--;){
+                    parent.appendChild(children[childrenLength]);
+                }
+            };
+            var createCheckBox = function createCheckBox(container, labelText) {
+                var checked = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null, onClick = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null;
+                var lineContainer = create(container, "div");
+                var label = create(lineContainer, "label", "checkbox");
+                var input = create(label, "input");
+                input.type = "checkbox";
+                if (Validation.isDefined(onClick)) {
+                    input.onclick = onClick;
+                }
+                if (Validation.isDefined(checked)) {
+                    input.checked = checked;
+                }
+                create(label, "span", "check-mark");
+                createWithHTML(label, "span", "text", labelText);
+                return {
+                    input: input,
+                    label: label
+                };
+            };
+            DomElement2.createWithNoContainer = createWithNoContainer;
+            DomElement2.create = create;
+            DomElement2.createWithHTML = createWithHTML;
+            DomElement2.getStyleValueByName = getStyleValueByName;
+            DomElement2.addClass = addClass;
+            DomElement2.removeClass = removeClass;
+            DomElement2.cancelBubble = cancelBubble;
+            DomElement2.getScrollPosition = getScrollPosition;
+            DomElement2.showElementAtMousePosition = showElementAtMousePosition;
+            DomElement2.reverseChildrenOrder = reverseChildrenOrder;
+            DomElement2.createCheckBox = createCheckBox;
+        })(DomElement || (DomElement = {}));
+    }
+});
 // src/heat.ts
 var require_heat = __commonJS({
     "src/heat.ts": function(exports, module) {
@@ -139,9 +271,10 @@ var require_heat = __commonJS({
         init_constant();
         init_validation();
         init_data();
+        init_dom();
         (function(documentObject, windowObject, mathObject, jsonObject) {
             var renderDisabledBackground = function renderDisabledBackground(bindingOptions) {
-                bindingOptions._currentView.disabledBackground = createElement(bindingOptions._currentView.element, "div", "disabled");
+                bindingOptions._currentView.disabledBackground = DomElement.create(bindingOptions._currentView.element, "div", "disabled");
             };
             var showDisabledBackground = function showDisabledBackground(bindingOptions) {
                 if (Validation.isDefined(bindingOptions._currentView.disabledBackground) && bindingOptions._currentView.disabledBackground.style.display !== "block") {
@@ -242,7 +375,7 @@ var require_heat = __commonJS({
                 if (bindingOptions._currentView.element.className.trim() === "" /* empty */ ) {
                     bindingOptions._currentView.element.className = "heat-js";
                 } else {
-                    addClass(bindingOptions._currentView.element, "heat-js");
+                    DomElement.addClass(bindingOptions._currentView.element, "heat-js");
                 }
                 bindingOptions._currentView.element.removeAttribute(HEAT_JS_ATTRIBUTE_NAME);
                 createDateStorageForElement(bindingOptions._currentView.element.id, bindingOptions);
@@ -304,28 +437,28 @@ var require_heat = __commonJS({
                 }
             };
             var renderConfigurationDialog = function renderConfigurationDialog(bindingOptions) {
-                bindingOptions._currentView.configurationDialog = createElement(bindingOptions._currentView.disabledBackground, "div", "dialog configuration");
-                var titleBar = createElement(bindingOptions._currentView.configurationDialog, "div", "dialog-title-bar");
-                var contents = createElement(bindingOptions._currentView.configurationDialog, "div", "dialog-contents");
-                var closeButton = createElement(titleBar, "div", "dialog-close");
-                var daysContainer = createElement(contents, "div", "side-container panel");
-                var monthsContainer = createElement(contents, "div", "side-container panel");
-                createElementWithHTML(titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText);
-                createElementWithHTML(daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + ":" /* colon */ );
-                createElementWithHTML(monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + ":" /* colon */ );
-                var months1Container = createElement(monthsContainer, "div", "side-container");
-                var months2Container = createElement(monthsContainer, "div", "side-container");
+                bindingOptions._currentView.configurationDialog = DomElement.create(bindingOptions._currentView.disabledBackground, "div", "dialog configuration");
+                var titleBar = DomElement.create(bindingOptions._currentView.configurationDialog, "div", "dialog-title-bar");
+                var contents = DomElement.create(bindingOptions._currentView.configurationDialog, "div", "dialog-contents");
+                var closeButton = DomElement.create(titleBar, "div", "dialog-close");
+                var daysContainer = DomElement.create(contents, "div", "side-container panel");
+                var monthsContainer = DomElement.create(contents, "div", "side-container panel");
+                DomElement.createWithHTML(titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText);
+                DomElement.createWithHTML(daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + ":" /* colon */ );
+                DomElement.createWithHTML(monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + ":" /* colon */ );
+                var months1Container = DomElement.create(monthsContainer, "div", "side-container");
+                var months2Container = DomElement.create(monthsContainer, "div", "side-container");
                 closeButton.onclick = function() {
                     hideConfigurationDialog(bindingOptions);
                 };
                 for(var dayIndex = 0; dayIndex < 7; dayIndex++){
-                    bindingOptions._currentView.dayCheckBoxes[dayIndex] = buildCheckBox(daysContainer, _configuration.dayNames[dayIndex]).input;
+                    bindingOptions._currentView.dayCheckBoxes[dayIndex] = DomElement.createCheckBox(daysContainer, _configuration.dayNames[dayIndex]).input;
                 }
                 for(var monthIndex1 = 0; monthIndex1 < 7; monthIndex1++){
-                    bindingOptions._currentView.monthCheckBoxes[monthIndex1] = buildCheckBox(months1Container, _configuration.monthNames[monthIndex1]).input;
+                    bindingOptions._currentView.monthCheckBoxes[monthIndex1] = DomElement.createCheckBox(months1Container, _configuration.monthNames[monthIndex1]).input;
                 }
                 for(var monthIndex2 = 7; monthIndex2 < 12; monthIndex2++){
-                    bindingOptions._currentView.monthCheckBoxes[monthIndex2] = buildCheckBox(months2Container, _configuration.monthNames[monthIndex2]).input;
+                    bindingOptions._currentView.monthCheckBoxes[monthIndex2] = DomElement.createCheckBox(months2Container, _configuration.monthNames[monthIndex2]).input;
                 }
                 addToolTip(closeButton, bindingOptions, _configuration.closeToolTipText);
             };
@@ -415,7 +548,7 @@ var require_heat = __commonJS({
             };
             var renderControlToolTip = function renderControlToolTip(bindingOptions) {
                 if (!Validation.isDefined(bindingOptions._currentView.tooltip)) {
-                    bindingOptions._currentView.tooltip = createElement(documentObject.body, "div", "heat-js-tooltip");
+                    bindingOptions._currentView.tooltip = DomElement.create(documentObject.body, "div", "heat-js-tooltip");
                     bindingOptions._currentView.tooltip.style.display = "none";
                     assignToolTipEvents(bindingOptions);
                 }
@@ -439,12 +572,12 @@ var require_heat = __commonJS({
                 }
             };
             var showToolTip = function showToolTip(e, bindingOptions, text) {
-                cancelBubble(e);
+                DomElement.cancelBubble(e);
                 hideToolTip(bindingOptions);
                 bindingOptions._currentView.tooltipTimer = setTimeout(function() {
                     bindingOptions._currentView.tooltip.innerHTML = text;
                     bindingOptions._currentView.tooltip.style.display = "block";
-                    showElementAtMousePosition(e, bindingOptions._currentView.tooltip);
+                    DomElement.showElementAtMousePosition(e, bindingOptions._currentView.tooltip);
                 }, bindingOptions.tooltip.delay);
             };
             var hideToolTip = function hideToolTip(bindingOptions) {
@@ -460,14 +593,14 @@ var require_heat = __commonJS({
             };
             var renderControlTitleBar = function renderControlTitleBar(bindingOptions) {
                 if (bindingOptions.title.showText || bindingOptions.title.showYearSelector || bindingOptions.title.showRefreshButton || bindingOptions.title.showExportButton || bindingOptions.title.showImportButton) {
-                    var titleBar = createElement(bindingOptions._currentView.element, "div", "title-bar");
-                    var title = createElement(titleBar, "div", "title");
+                    var titleBar = DomElement.create(bindingOptions._currentView.element, "div", "title-bar");
+                    var title = DomElement.create(titleBar, "div", "title");
                     if (bindingOptions.views.chart.enabled || bindingOptions.views.days.enabled || bindingOptions.views.statistics.enabled) {
                         if (bindingOptions.title.showTitleDropDownButton) {
-                            createElement(title, "div", "down-arrow");
+                            DomElement.create(title, "div", "down-arrow");
                         }
                     } else {
-                        addClass(title, "no-click");
+                        DomElement.addClass(title, "no-click");
                     }
                     if (bindingOptions.title.showText) {
                         title.innerHTML += bindingOptions.title.text;
@@ -476,46 +609,46 @@ var require_heat = __commonJS({
                         renderTitleDropDownMenu(bindingOptions, title);
                     }
                     if (bindingOptions.title.showImportButton && !bindingOptions._currentView.isInFetchMode) {
-                        var importData = createElementWithHTML(titleBar, "button", "import", _configuration.importButtonText);
+                        var importData = DomElement.createWithHTML(titleBar, "button", "import", _configuration.importButtonText);
                         importData.onclick = function() {
                             importFromFilesSelected(bindingOptions);
                         };
                     }
                     if (bindingOptions.title.showExportButton) {
-                        var exportData = createElementWithHTML(titleBar, "button", "export", _configuration.exportButtonText);
+                        var exportData = DomElement.createWithHTML(titleBar, "button", "export", _configuration.exportButtonText);
                         exportData.onclick = function() {
                             exportAllData(bindingOptions);
                         };
                     }
                     if (bindingOptions.title.showRefreshButton) {
-                        var refresh = createElementWithHTML(titleBar, "button", "refresh", _configuration.refreshButtonText);
+                        var refresh = DomElement.createWithHTML(titleBar, "button", "refresh", _configuration.refreshButtonText);
                         refresh.onclick = function() {
                             renderControlContainer(bindingOptions);
                             fireCustomTriggerEvent(bindingOptions.events.onRefresh, bindingOptions._currentView.element);
                         };
                     }
                     if (bindingOptions.title.showYearSelector) {
-                        var back = createElementWithHTML(titleBar, "button", "back", _configuration.backButtonText);
+                        var back = DomElement.createWithHTML(titleBar, "button", "back", _configuration.backButtonText);
                         back.onclick = function() {
                             moveToPreviousYear(bindingOptions);
                         };
                         if (isFirstVisibleYear(bindingOptions, bindingOptions._currentView.year)) {
                             back.disabled = true;
                         }
-                        bindingOptions._currentView.yearText = createElementWithHTML(titleBar, "div", "year-text", bindingOptions._currentView.year.toString());
+                        bindingOptions._currentView.yearText = DomElement.createWithHTML(titleBar, "div", "year-text", bindingOptions._currentView.year.toString());
                         if (bindingOptions.title.showYearSelectionDropDown) {
                             renderYearDropDownMenu(bindingOptions);
                         } else {
-                            addClass(bindingOptions._currentView.yearText, "no-click");
+                            DomElement.addClass(bindingOptions._currentView.yearText, "no-click");
                         }
                         if (bindingOptions.title.showConfigurationButton) {
-                            var configureButton = createElement(titleBar, "div", "configure");
+                            var configureButton = DomElement.create(titleBar, "div", "configure");
                             addToolTip(configureButton, bindingOptions, _configuration.configurationToolTipText);
                             configureButton.onclick = function() {
                                 showConfigurationDialog(bindingOptions);
                             };
                         }
-                        var next = createElementWithHTML(titleBar, "button", "next", _configuration.nextButtonText);
+                        var next = DomElement.createWithHTML(titleBar, "button", "next", _configuration.nextButtonText);
                         next.onclick = function() {
                             moveToNextYear(bindingOptions);
                         };
@@ -526,35 +659,35 @@ var require_heat = __commonJS({
                 }
             };
             var renderTitleDropDownMenu = function renderTitleDropDownMenu(bindingOptions, title) {
-                var titlesMenuContainer = createElement(title, "div", "titles-menu-container");
-                var titlesMenu = createElement(titlesMenuContainer, "div", "titles-menu");
+                var titlesMenuContainer = DomElement.create(title, "div", "titles-menu-container");
+                var titlesMenu = DomElement.create(titlesMenuContainer, "div", "titles-menu");
                 if (bindingOptions.title.showTitleDropDownHeaders) {
-                    createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.dataText + ":" /* colon */ );
+                    DomElement.createWithHTML(titlesMenu, "div", "title-menu-header", _configuration.dataText + ":" /* colon */ );
                 }
-                var menuItemMap = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.mapText);
+                var menuItemMap = DomElement.createWithHTML(titlesMenu, "div", "title-menu-item", _configuration.mapText);
                 renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemMap, 1 /* map */ , "map" /* map */ );
                 if (bindingOptions.views.chart.enabled) {
-                    var menuItemChart = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.chartText);
+                    var menuItemChart = DomElement.createWithHTML(titlesMenu, "div", "title-menu-item", _configuration.chartText);
                     renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemChart, 2 /* chart */ , "chart" /* chart */ );
                 }
                 if (bindingOptions.views.days.enabled) {
                     if (bindingOptions.title.showTitleDropDownHeaders) {
-                        createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.yearText + ":" /* colon */ );
+                        DomElement.createWithHTML(titlesMenu, "div", "title-menu-header", _configuration.yearText + ":" /* colon */ );
                     }
-                    var menuItemDays = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.daysText);
+                    var menuItemDays = DomElement.createWithHTML(titlesMenu, "div", "title-menu-item", _configuration.daysText);
                     renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemDays, 3 /* days */ , "days" /* days */ );
                 }
                 if (bindingOptions.views.statistics.enabled) {
                     if (bindingOptions.title.showTitleDropDownHeaders) {
-                        createElementWithHTML(titlesMenu, "div", "title-menu-header", _configuration.statisticsText + ":" /* colon */ );
+                        DomElement.createWithHTML(titlesMenu, "div", "title-menu-header", _configuration.statisticsText + ":" /* colon */ );
                     }
-                    var menuItemStatistics = createElementWithHTML(titlesMenu, "div", "title-menu-item", _configuration.colorRangesText);
+                    var menuItemStatistics = DomElement.createWithHTML(titlesMenu, "div", "title-menu-item", _configuration.colorRangesText);
                     renderTitleDropDownMenuItemClickEvent(bindingOptions, menuItemStatistics, 4 /* statistics */ , "statistics" /* statistics */ );
                 }
             };
             var renderTitleDropDownMenuItemClickEvent = function renderTitleDropDownMenuItemClickEvent(bindingOptions, option, view, viewName) {
                 if (bindingOptions._currentView.view === view) {
-                    addClass(option, "title-menu-item-active");
+                    DomElement.addClass(option, "title-menu-item-active");
                 } else {
                     option.onclick = function() {
                         bindingOptions._currentView.view = view;
@@ -564,9 +697,9 @@ var require_heat = __commonJS({
                 }
             };
             var renderYearDropDownMenu = function renderYearDropDownMenu(bindingOptions) {
-                createElement(bindingOptions._currentView.yearText, "div", "down-arrow");
-                var yearsMenuContainer = createElement(bindingOptions._currentView.yearText, "div", "years-menu-container");
-                var yearsMenu = createElement(yearsMenuContainer, "div", "years-menu");
+                DomElement.create(bindingOptions._currentView.yearText, "div", "down-arrow");
+                var yearsMenuContainer = DomElement.create(bindingOptions._currentView.yearText, "div", "years-menu-container");
+                var yearsMenu = DomElement.create(yearsMenuContainer, "div", "years-menu");
                 var thisYear = /* @__PURE__ */ new Date().getFullYear();
                 var activeYearMenuItem = null;
                 yearsMenuContainer.style.display = "block";
@@ -587,7 +720,7 @@ var require_heat = __commonJS({
             };
             var renderYearDropDownMenuItem = function renderYearDropDownMenuItem(bindingOptions, years, currentYear, actualYear) {
                 var result2 = null;
-                var year = createElementWithHTML(years, "div", "year-menu-item", currentYear.toString());
+                var year = DomElement.createWithHTML(years, "div", "year-menu-item", currentYear.toString());
                 if (bindingOptions._currentView.year !== currentYear) {
                     year.onclick = function() {
                         bindingOptions._currentView.year = currentYear;
@@ -595,16 +728,16 @@ var require_heat = __commonJS({
                         fireCustomTriggerEvent(bindingOptions.events.onSetYear, bindingOptions._currentView.year);
                     };
                     if (currentYear === actualYear) {
-                        addClass(year, "year-menu-item-current");
+                        DomElement.addClass(year, "year-menu-item-current");
                     }
                 } else {
-                    addClass(year, "year-menu-item-active");
+                    DomElement.addClass(year, "year-menu-item-active");
                     result2 = year;
                 }
                 return result2;
             };
             var renderControlMap = function renderControlMap(bindingOptions, isForViewSwitch) {
-                bindingOptions._currentView.mapContents = createElement(bindingOptions._currentView.element, "div", "map-contents");
+                bindingOptions._currentView.mapContents = DomElement.create(bindingOptions._currentView.element, "div", "map-contents");
                 if (bindingOptions.views.chart.enabled) {
                     renderControlChartContents(bindingOptions);
                 }
@@ -616,21 +749,21 @@ var require_heat = __commonJS({
                 }
                 renderControlViewGuide(bindingOptions);
                 if (bindingOptions.views.map.showNoDataMessageWhenDataIsNotAvailable && !isDataAvailableForYear(bindingOptions)) {
-                    var noDataMessage = createElementWithHTML(bindingOptions._currentView.mapContents, "div", "no-data-message", _configuration.noMapDataMessage);
+                    var noDataMessage = DomElement.createWithHTML(bindingOptions._currentView.mapContents, "div", "no-data-message", _configuration.noMapDataMessage);
                     if (isForViewSwitch) {
-                        addClass(noDataMessage, "view-switch");
+                        DomElement.addClass(noDataMessage, "view-switch");
                     }
                 } else {
                     bindingOptions._currentView.mapContents.style.minHeight = "unset";
                     makeAreaDroppable(bindingOptions._currentView.mapContents, bindingOptions);
-                    var map = createElement(bindingOptions._currentView.mapContents, "div", "map");
+                    var map = DomElement.create(bindingOptions._currentView.mapContents, "div", "map");
                     var currentYear = bindingOptions._currentView.year;
                     var monthAdded = false;
                     if (isForViewSwitch) {
-                        addClass(map, "view-switch");
+                        DomElement.addClass(map, "view-switch");
                     }
                     if (bindingOptions.views.map.showDayNames) {
-                        var days = createElement(map, "div", "days");
+                        var days = DomElement.create(map, "div", "days");
                         var showMinimalDays = bindingOptions.views.map.showMinimalDayNames && bindingOptions.views.map.daysToShow.length === 7;
                         if (!bindingOptions.views.map.showMonthNames || bindingOptions.views.map.placeMonthNamesOnTheBottom) {
                             days.className = "days-months-bottom";
@@ -638,21 +771,21 @@ var require_heat = __commonJS({
                         for(var dayNameIndex = 0; dayNameIndex < 7; dayNameIndex++){
                             if (isDayVisible(bindingOptions.views.map.daysToShow, dayNameIndex + 1)) {
                                 var dayText = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.dayNames[dayNameIndex] : " " /* space */ ;
-                                createElementWithHTML(days, "div", "day-name", dayText);
+                                DomElement.createWithHTML(days, "div", "day-name", dayText);
                             }
                         }
                         if (bindingOptions.views.map.showDaysInReverseOrder) {
-                            reverseElementsOrder(days);
+                            DomElement.reverseChildrenOrder(days);
                         }
                     }
-                    var months = createElement(map, "div", "months");
+                    var months = DomElement.create(map, "div", "months");
                     var colorRanges = getSortedColorRanges(bindingOptions);
                     for(var monthIndex = 0; monthIndex < 12; monthIndex++){
                         if (isMonthVisible(bindingOptions.views.map.monthsToShow, monthIndex)) {
-                            var month = createElement(months, "div", "month");
-                            var dayColumns = createElement(month, "div", "day-columns");
+                            var month = DomElement.create(months, "div", "month");
+                            var dayColumns = DomElement.create(month, "div", "day-columns");
                             var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex);
-                            var currentDayColumn = createElement(dayColumns, "div", "day-column");
+                            var currentDayColumn = DomElement.create(dayColumns, "div", "day-column");
                             var startFillingDays = false;
                             var firstDayInMonth = new Date(currentYear, monthIndex, 1);
                             var firstDayNumberInMonth = getWeekdayNumber(firstDayInMonth);
@@ -663,7 +796,7 @@ var require_heat = __commonJS({
                                     startFillingDays = true;
                                 } else {
                                     if (isDayVisible(bindingOptions.views.map.daysToShow, actualDay)) {
-                                        createElement(currentDayColumn, "div", "day-disabled");
+                                        DomElement.create(currentDayColumn, "div", "day-disabled");
                                     }
                                 }
                                 if (startFillingDays) {
@@ -673,13 +806,13 @@ var require_heat = __commonJS({
                                     }
                                     if ((dayIndex + 1) % 7 === 0) {
                                         if (bindingOptions.views.map.showDaysInReverseOrder) {
-                                            reverseElementsOrder(currentDayColumn);
+                                            DomElement.reverseChildrenOrder(currentDayColumn);
                                         }
-                                        currentDayColumn = createElement(dayColumns, "div", "day-column");
+                                        currentDayColumn = DomElement.create(dayColumns, "div", "day-column");
                                         actualDay = 0;
                                         if (!Validation.isDefined(_elements_Day_Width) && Validation.isDefined(day)) {
-                                            var marginLeft = getStyleValueByName(day, "margin-left", true);
-                                            var marginRight = getStyleValueByName(day, "margin-right", true);
+                                            var marginLeft = DomElement.getStyleValueByName(day, "margin-left", true);
+                                            var marginRight = DomElement.getStyleValueByName(day, "margin-right", true);
                                             _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
                                         }
                                     }
@@ -690,9 +823,9 @@ var require_heat = __commonJS({
                                 var monthName = null;
                                 var monthWidth = month.offsetWidth;
                                 if (!bindingOptions.views.map.placeMonthNamesOnTheBottom) {
-                                    monthName = createElementWithHTML(month, "div", "month-name", _configuration.monthNames[monthIndex], dayColumns);
+                                    monthName = DomElement.createWithHTML(month, "div", "month-name", _configuration.monthNames[monthIndex], dayColumns);
                                 } else {
-                                    monthName = createElementWithHTML(month, "div", "month-name-bottom", _configuration.monthNames[monthIndex]);
+                                    monthName = DomElement.createWithHTML(month, "div", "month-name-bottom", _configuration.monthNames[monthIndex]);
                                 }
                                 if (Validation.isDefined(monthName)) {
                                     if (bindingOptions.views.map.showMonthDayGaps) {
@@ -710,13 +843,13 @@ var require_heat = __commonJS({
                                 }
                             }
                             if (bindingOptions.views.map.showMonthsInReverseOrder) {
-                                reverseElementsOrder(dayColumns);
+                                DomElement.reverseChildrenOrder(dayColumns);
                             }
                             monthAdded = true;
                         }
                     }
                     if (bindingOptions.views.map.showMonthsInReverseOrder) {
-                        reverseElementsOrder(months);
+                        DomElement.reverseChildrenOrder(months);
                     }
                     if (bindingOptions.views.map.keepScrollPositions) {
                         bindingOptions._currentView.mapContents.scrollLeft = bindingOptions._currentView.mapContentsScrollLeft;
@@ -725,7 +858,7 @@ var require_heat = __commonJS({
             };
             var renderControlMapMonthDay = function renderControlMapMonthDay(bindingOptions, currentDayColumn, dayNumber, month, year, colorRanges) {
                 var actualDay = dayNumber + 1;
-                var day = createElement(currentDayColumn, "div", "day");
+                var day = DomElement.create(currentDayColumn, "div", "day");
                 var date = new Date(year, month, actualDay);
                 var dateCount = _elements_DateCounts[bindingOptions._currentView.element.id].type[bindingOptions._currentView.type][toStorageDate(date)];
                 dateCount = Data.getDefaultNumber(dateCount, 0);
@@ -738,14 +871,14 @@ var require_heat = __commonJS({
                         fireCustomTriggerEvent(bindingOptions.events.onDayClick, date, dateCount);
                     };
                 } else {
-                    addClass(day, "no-hover");
+                    DomElement.addClass(day, "no-hover");
                 }
                 var useColorRange = getColorRange(bindingOptions, colorRanges, dateCount, date);
                 if (Validation.isDefined(useColorRange) && isColorRangeVisible(bindingOptions, useColorRange.id)) {
                     if (Validation.isDefinedString(useColorRange.mapCssClassName)) {
-                        addClass(day, useColorRange.mapCssClassName);
+                        DomElement.addClass(day, useColorRange.mapCssClassName);
                     } else {
-                        addClass(day, useColorRange.cssClassName);
+                        DomElement.addClass(day, useColorRange.cssClassName);
                     }
                 }
                 return day;
@@ -765,28 +898,28 @@ var require_heat = __commonJS({
                 return result2;
             };
             var renderControlChartContents = function renderControlChartContents(bindingOptions) {
-                bindingOptions._currentView.chartContents = createElement(bindingOptions._currentView.element, "div", "chart-contents");
+                bindingOptions._currentView.chartContents = DomElement.create(bindingOptions._currentView.element, "div", "chart-contents");
                 makeAreaDroppable(bindingOptions._currentView.chartContents, bindingOptions);
             };
             var renderControlChart = function renderControlChart(bindingOptions, isForViewSwitch) {
-                var chart = createElement(bindingOptions._currentView.chartContents, "div", "chart");
-                var labels = createElement(chart, "div", "y-labels");
-                var dayLines = createElement(chart, "div", "day-lines");
+                var chart = DomElement.create(bindingOptions._currentView.chartContents, "div", "chart");
+                var labels = DomElement.create(chart, "div", "y-labels");
+                var dayLines = DomElement.create(chart, "div", "day-lines");
                 var colorRanges = getSortedColorRanges(bindingOptions);
                 var largestValueForCurrentYear = getLargestValueForChartYear(bindingOptions);
                 var currentYear = bindingOptions._currentView.year;
                 var labelsWidth = 0;
                 if (isForViewSwitch) {
-                    addClass(chart, "view-switch");
+                    DomElement.addClass(chart, "view-switch");
                 }
                 if (largestValueForCurrentYear > 0 && bindingOptions.views.chart.showChartYLabels) {
-                    var topLabel = createElementWithHTML(labels, "div", "label-0", largestValueForCurrentYear.toString());
-                    createElementWithHTML(labels, "div", "label-25", (mathObject.floor(largestValueForCurrentYear / 4) * 3).toString());
-                    createElementWithHTML(labels, "div", "label-50", mathObject.floor(largestValueForCurrentYear / 2).toString());
-                    createElementWithHTML(labels, "div", "label-75", mathObject.floor(largestValueForCurrentYear / 4).toString());
-                    createElementWithHTML(labels, "div", "label-100", "0" /* zero */ );
+                    var topLabel = DomElement.createWithHTML(labels, "div", "label-0", largestValueForCurrentYear.toString());
+                    DomElement.createWithHTML(labels, "div", "label-25", (mathObject.floor(largestValueForCurrentYear / 4) * 3).toString());
+                    DomElement.createWithHTML(labels, "div", "label-50", mathObject.floor(largestValueForCurrentYear / 2).toString());
+                    DomElement.createWithHTML(labels, "div", "label-75", mathObject.floor(largestValueForCurrentYear / 4).toString());
+                    DomElement.createWithHTML(labels, "div", "label-100", "0" /* zero */ );
                     labels.style.width = topLabel.offsetWidth + "px";
-                    labelsWidth = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true);
+                    labelsWidth = labels.offsetWidth + DomElement.getStyleValueByName(labels, "margin-right", true);
                 } else {
                     labels.parentNode.removeChild(labels);
                     labels = null;
@@ -794,9 +927,9 @@ var require_heat = __commonJS({
                 if (largestValueForCurrentYear === 0) {
                     bindingOptions._currentView.chartContents.style.minHeight = bindingOptions._currentView.mapContents.offsetHeight + "px";
                     chart.parentNode.removeChild(chart);
-                    var noDataMessage = createElementWithHTML(bindingOptions._currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage);
+                    var noDataMessage = DomElement.createWithHTML(bindingOptions._currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage);
                     if (isForViewSwitch) {
-                        addClass(noDataMessage, "view-switch");
+                        DomElement.addClass(noDataMessage, "view-switch");
                     }
                 } else {
                     var pixelsPerNumbers = bindingOptions._currentView.mapContents.offsetHeight / largestValueForCurrentYear;
@@ -820,15 +953,15 @@ var require_heat = __commonJS({
                         }
                     }
                     if (bindingOptions.views.chart.showInReverseOrder) {
-                        reverseElementsOrder(dayLines);
+                        DomElement.reverseChildrenOrder(dayLines);
                     }
                     if (bindingOptions.views.chart.showMonthNames) {
-                        var chartMonths = createElement(bindingOptions._currentView.chartContents, "div", "chart-months");
+                        var chartMonths = DomElement.create(bindingOptions._currentView.chartContents, "div", "chart-months");
                         var linesWidth = dayLines.offsetWidth / totalMonths;
                         var monthTimesValue = 0;
                         var addMonthName = function addMonthName(addMonthNameIndex) {
                             if (isMonthVisible(bindingOptions.views.chart.monthsToShow, addMonthNameIndex)) {
-                                var monthName = createElementWithHTML(chartMonths, "div", "month-name", _configuration.monthNames[addMonthNameIndex]);
+                                var monthName = DomElement.createWithHTML(chartMonths, "div", "month-name", _configuration.monthNames[addMonthNameIndex]);
                                 monthName.style.left = labelsWidth + linesWidth * monthTimesValue + "px";
                                 monthTimesValue++;
                             }
@@ -843,7 +976,7 @@ var require_heat = __commonJS({
                             }
                         }
                         chartMonths.style.width = dayLines.offsetWidth + "px";
-                        var monthNameSpace = createElement(chartMonths, "div", "month-name-space");
+                        var monthNameSpace = DomElement.create(chartMonths, "div", "month-name-space");
                         monthNameSpace.style.height = chartMonths.offsetHeight + "px";
                         monthNameSpace.style.width = labelsWidth + "px";
                     }
@@ -854,12 +987,12 @@ var require_heat = __commonJS({
             };
             var renderControlChartDay = function renderControlChartDay(dayLines, bindingOptions, day, month, year, colorRanges, pixelsPerNumbers) {
                 var date = new Date(year, month, day);
-                var dayLine = createElement(dayLines, "div", "day-line");
+                var dayLine = DomElement.create(dayLines, "div", "day-line");
                 var dateCount = getCurrentViewData(bindingOptions)[toStorageDate(date)];
                 dateCount = Data.getDefaultNumber(dateCount, 0);
                 renderDayToolTip(bindingOptions, dayLine, date, dateCount);
                 if (bindingOptions.views.chart.showLineNumbers && dateCount > 0) {
-                    addClass(dayLine, "day-line-number");
+                    DomElement.addClass(dayLine, "day-line-number");
                     dayLine.innerHTML = dateCount.toString();
                 }
                 var dayLineHeight = dateCount * pixelsPerNumbers;
@@ -872,14 +1005,14 @@ var require_heat = __commonJS({
                         fireCustomTriggerEvent(bindingOptions.events.onDayClick, date, dateCount);
                     };
                 } else {
-                    addClass(dayLine, "no-hover");
+                    DomElement.addClass(dayLine, "no-hover");
                 }
                 var useColorRange = getColorRange(bindingOptions, colorRanges, dateCount, date);
                 if (Validation.isDefined(useColorRange) && isColorRangeVisible(bindingOptions, useColorRange.id)) {
                     if (Validation.isDefinedString(useColorRange.chartCssClassName)) {
-                        addClass(dayLine, useColorRange.chartCssClassName);
+                        DomElement.addClass(dayLine, useColorRange.chartCssClassName);
                     } else {
-                        addClass(dayLine, useColorRange.cssClassName);
+                        DomElement.addClass(dayLine, useColorRange.cssClassName);
                     }
                 }
             };
@@ -900,26 +1033,26 @@ var require_heat = __commonJS({
                 return result2;
             };
             var renderControlDaysContents = function renderControlDaysContents(bindingOptions) {
-                bindingOptions._currentView.daysContents = createElement(bindingOptions._currentView.element, "div", "days-contents");
+                bindingOptions._currentView.daysContents = DomElement.create(bindingOptions._currentView.element, "div", "days-contents");
                 makeAreaDroppable(bindingOptions._currentView.daysContents, bindingOptions);
             };
             var renderControlDays = function renderControlDays(bindingOptions, isForViewSwitch) {
-                var days = createElement(bindingOptions._currentView.daysContents, "div", "days");
-                var dayNames = createElement(bindingOptions._currentView.daysContents, "div", "day-names");
-                var labels = createElement(days, "div", "y-labels");
-                var dayLines = createElement(days, "div", "day-lines");
+                var days = DomElement.create(bindingOptions._currentView.daysContents, "div", "days");
+                var dayNames = DomElement.create(bindingOptions._currentView.daysContents, "div", "day-names");
+                var labels = DomElement.create(days, "div", "y-labels");
+                var dayLines = DomElement.create(days, "div", "day-lines");
                 var dayValuesForCurrentYear = getLargestValuesForEachDay(bindingOptions);
                 if (isForViewSwitch) {
-                    addClass(days, "view-switch");
+                    DomElement.addClass(days, "view-switch");
                 }
                 if (dayValuesForCurrentYear.largestValue > 0 && bindingOptions.views.days.showChartYLabels) {
-                    var topLabel = createElementWithHTML(labels, "div", "label-0", dayValuesForCurrentYear.largestValue.toString());
-                    createElementWithHTML(labels, "div", "label-25", (mathObject.floor(dayValuesForCurrentYear.largestValue / 4) * 3).toString());
-                    createElementWithHTML(labels, "div", "label-50", mathObject.floor(dayValuesForCurrentYear.largestValue / 2).toString());
-                    createElementWithHTML(labels, "div", "label-75", mathObject.floor(dayValuesForCurrentYear.largestValue / 4).toString());
-                    createElementWithHTML(labels, "div", "label-100", "0" /* zero */ );
+                    var topLabel = DomElement.createWithHTML(labels, "div", "label-0", dayValuesForCurrentYear.largestValue.toString());
+                    DomElement.createWithHTML(labels, "div", "label-25", (mathObject.floor(dayValuesForCurrentYear.largestValue / 4) * 3).toString());
+                    DomElement.createWithHTML(labels, "div", "label-50", mathObject.floor(dayValuesForCurrentYear.largestValue / 2).toString());
+                    DomElement.createWithHTML(labels, "div", "label-75", mathObject.floor(dayValuesForCurrentYear.largestValue / 4).toString());
+                    DomElement.createWithHTML(labels, "div", "label-100", "0" /* zero */ );
                     labels.style.width = topLabel.offsetWidth + "px";
-                    dayNames.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
+                    dayNames.style.paddingLeft = labels.offsetWidth + DomElement.getStyleValueByName(labels, "margin-right", true) + "px";
                 } else {
                     labels.parentNode.removeChild(labels);
                     labels = null;
@@ -928,9 +1061,9 @@ var require_heat = __commonJS({
                     bindingOptions._currentView.daysContents.style.minHeight = bindingOptions._currentView.mapContents.offsetHeight + "px";
                     days.parentNode.removeChild(days);
                     dayNames.parentNode.removeChild(dayNames);
-                    var noDataMessage = createElementWithHTML(bindingOptions._currentView.daysContents, "div", "no-days-message", _configuration.noDaysDataMessage);
+                    var noDataMessage = DomElement.createWithHTML(bindingOptions._currentView.daysContents, "div", "no-days-message", _configuration.noDaysDataMessage);
                     if (isForViewSwitch) {
-                        addClass(noDataMessage, "view-switch");
+                        DomElement.addClass(noDataMessage, "view-switch");
                     }
                 } else {
                     var pixelsPerNumbers = bindingOptions._currentView.mapContents.offsetHeight / dayValuesForCurrentYear.largestValue;
@@ -938,13 +1071,13 @@ var require_heat = __commonJS({
                         if (dayValuesForCurrentYear.days.hasOwnProperty(day) && isDayVisible(bindingOptions.views.days.daysToShow, parseInt(day))) {
                             renderControlDaysDayLine(dayLines, parseInt(day), dayValuesForCurrentYear.days[day], bindingOptions, pixelsPerNumbers);
                             if (bindingOptions.views.days.showDayNames) {
-                                createElementWithHTML(dayNames, "div", "day-name", _configuration.dayNames[parseInt(day) - 1]);
+                                DomElement.createWithHTML(dayNames, "div", "day-name", _configuration.dayNames[parseInt(day) - 1]);
                             }
                         }
                     }
                     if (bindingOptions.views.days.showInReverseOrder) {
-                        reverseElementsOrder(dayLines);
-                        reverseElementsOrder(dayNames);
+                        DomElement.reverseChildrenOrder(dayLines);
+                        DomElement.reverseChildrenOrder(dayNames);
                     }
                     if (bindingOptions.views.days.keepScrollPositions) {
                         bindingOptions._currentView.daysContents.scrollLeft = bindingOptions._currentView.daysContentsScrollLeft;
@@ -952,7 +1085,7 @@ var require_heat = __commonJS({
                 }
             };
             var renderControlDaysDayLine = function renderControlDaysDayLine(dayLines, dayNumber, dayCount, bindingOptions, pixelsPerNumbers) {
-                var dayLine = createElement(dayLines, "div", "day-line");
+                var dayLine = DomElement.create(dayLines, "div", "day-line");
                 var dayLineHeight = dayCount * pixelsPerNumbers;
                 dayLine.style.height = dayLineHeight + "px";
                 if (dayLineHeight <= 0) {
@@ -964,11 +1097,11 @@ var require_heat = __commonJS({
                         fireCustomTriggerEvent(bindingOptions.events.onWeekDayClick, dayNumber, dayCount);
                     };
                 } else {
-                    addClass(dayLine, "no-hover");
+                    DomElement.addClass(dayLine, "no-hover");
                 }
                 if (bindingOptions.views.days.showDayNumbers && dayCount > 0) {
-                    addClass(dayLine, "day-line-number");
-                    createElementWithHTML(dayLine, "div", "count", dayCount.toString());
+                    DomElement.addClass(dayLine, "day-line-number");
+                    DomElement.createWithHTML(dayLine, "div", "count", dayCount.toString());
                 }
             };
             var getLargestValuesForEachDay = function getLargestValuesForEachDay(bindingOptions) {
@@ -1004,27 +1137,27 @@ var require_heat = __commonJS({
                 };
             };
             var renderControlStatisticsContents = function renderControlStatisticsContents(bindingOptions) {
-                bindingOptions._currentView.statisticsContents = createElement(bindingOptions._currentView.element, "div", "statistics-contents");
+                bindingOptions._currentView.statisticsContents = DomElement.create(bindingOptions._currentView.element, "div", "statistics-contents");
                 makeAreaDroppable(bindingOptions._currentView.statisticsContents, bindingOptions);
             };
             var renderControlStatistics = function renderControlStatistics(bindingOptions, isForViewSwitch) {
-                var statistics = createElement(bindingOptions._currentView.statisticsContents, "div", "statistics");
-                var statisticsRanges = createElement(bindingOptions._currentView.statisticsContents, "div", "statistics-ranges");
-                var labels = createElement(statistics, "div", "y-labels");
-                var rangeLines = createElement(statistics, "div", "range-lines");
+                var statistics = DomElement.create(bindingOptions._currentView.statisticsContents, "div", "statistics");
+                var statisticsRanges = DomElement.create(bindingOptions._currentView.statisticsContents, "div", "statistics-ranges");
+                var labels = DomElement.create(statistics, "div", "y-labels");
+                var rangeLines = DomElement.create(statistics, "div", "range-lines");
                 var colorRanges = getSortedColorRanges(bindingOptions);
                 var colorRangeValuesForCurrentYear = getLargestValuesForEachRangeType(bindingOptions, colorRanges);
                 if (isForViewSwitch) {
-                    addClass(statistics, "view-switch");
+                    DomElement.addClass(statistics, "view-switch");
                 }
                 if (colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views.statistics.showChartYLabels) {
-                    var topLabel = createElementWithHTML(labels, "div", "label-0", colorRangeValuesForCurrentYear.largestValue.toString());
-                    createElementWithHTML(labels, "div", "label-25", (mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 4) * 3).toString());
-                    createElementWithHTML(labels, "div", "label-50", mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 2).toString());
-                    createElementWithHTML(labels, "div", "label-75", mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 4).toString());
-                    createElementWithHTML(labels, "div", "label-100", "0" /* zero */ );
+                    var topLabel = DomElement.createWithHTML(labels, "div", "label-0", colorRangeValuesForCurrentYear.largestValue.toString());
+                    DomElement.createWithHTML(labels, "div", "label-25", (mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 4) * 3).toString());
+                    DomElement.createWithHTML(labels, "div", "label-50", mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 2).toString());
+                    DomElement.createWithHTML(labels, "div", "label-75", mathObject.floor(colorRangeValuesForCurrentYear.largestValue / 4).toString());
+                    DomElement.createWithHTML(labels, "div", "label-100", "0" /* zero */ );
                     labels.style.width = topLabel.offsetWidth + "px";
-                    statisticsRanges.style.paddingLeft = labels.offsetWidth + getStyleValueByName(labels, "margin-right", true) + "px";
+                    statisticsRanges.style.paddingLeft = labels.offsetWidth + DomElement.getStyleValueByName(labels, "margin-right", true) + "px";
                 } else {
                     labels.parentNode.removeChild(labels);
                     labels = null;
@@ -1033,9 +1166,9 @@ var require_heat = __commonJS({
                     bindingOptions._currentView.statisticsContents.style.minHeight = bindingOptions._currentView.mapContents.offsetHeight + "px";
                     statistics.parentNode.removeChild(statistics);
                     statisticsRanges.parentNode.removeChild(statisticsRanges);
-                    var noDataMessage = createElementWithHTML(bindingOptions._currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage);
+                    var noDataMessage = DomElement.createWithHTML(bindingOptions._currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage);
                     if (isForViewSwitch) {
-                        addClass(noDataMessage, "view-switch");
+                        DomElement.addClass(noDataMessage, "view-switch");
                     }
                 } else {
                     var pixelsPerNumbers = bindingOptions._currentView.mapContents.offsetHeight / colorRangeValuesForCurrentYear.largestValue;
@@ -1048,16 +1181,16 @@ var require_heat = __commonJS({
                             var useColorRange = getColorRangeByMinimum(colorRanges, parseInt(type));
                             if (bindingOptions.views.statistics.showColorRangeLabels) {
                                 if (!bindingOptions.views.statistics.useColorRangeNamesForLabels || !Validation.isDefined(useColorRange) || !Validation.isDefinedString(useColorRange.name)) {
-                                    createElementWithHTML(statisticsRanges, "div", "range-name", type + "+" /* plus */ );
+                                    DomElement.createWithHTML(statisticsRanges, "div", "range-name", type + "+" /* plus */ );
                                 } else {
-                                    createElementWithHTML(statisticsRanges, "div", "range-name", useColorRange.name);
+                                    DomElement.createWithHTML(statisticsRanges, "div", "range-name", useColorRange.name);
                                 }
                             }
                         }
                     }
                     if (bindingOptions.views.statistics.showInReverseOrder) {
-                        reverseElementsOrder(rangeLines);
-                        reverseElementsOrder(statisticsRanges);
+                        DomElement.reverseChildrenOrder(rangeLines);
+                        DomElement.reverseChildrenOrder(statisticsRanges);
                     }
                     if (bindingOptions.views.statistics.keepScrollPositions) {
                         bindingOptions._currentView.statisticsContents.scrollLeft = bindingOptions._currentView.statisticsContentsScrollLeft;
@@ -1065,7 +1198,7 @@ var require_heat = __commonJS({
                 }
             };
             var renderControlStatisticsRangeLine = function renderControlStatisticsRangeLine(colorRangeMinimum, dayLines, rangeCount, bindingOptions, colorRanges, pixelsPerNumbers) {
-                var rangeLine = createElement(dayLines, "div", "range-line");
+                var rangeLine = DomElement.create(dayLines, "div", "range-line");
                 var useColorRange = getColorRangeByMinimum(colorRanges, colorRangeMinimum);
                 var rangeLineHeight = rangeCount * pixelsPerNumbers;
                 rangeLine.style.height = rangeLineHeight + "px";
@@ -1074,21 +1207,21 @@ var require_heat = __commonJS({
                 }
                 addToolTip(rangeLine, bindingOptions, rangeCount.toString());
                 if (bindingOptions.views.statistics.showRangeNumbers && rangeCount > 0) {
-                    addClass(rangeLine, "range-line-number");
-                    createElementWithHTML(rangeLine, "div", "count", rangeCount.toString());
+                    DomElement.addClass(rangeLine, "range-line-number");
+                    DomElement.createWithHTML(rangeLine, "div", "count", rangeCount.toString());
                 }
                 if (Validation.isDefinedFunction(bindingOptions.events.onStatisticClick)) {
                     rangeLine.onclick = function() {
                         fireCustomTriggerEvent(bindingOptions.events.onStatisticClick, useColorRange);
                     };
                 } else {
-                    addClass(rangeLine, "no-hover");
+                    DomElement.addClass(rangeLine, "no-hover");
                 }
                 if (Validation.isDefined(useColorRange) && isColorRangeVisible(bindingOptions, useColorRange.id)) {
                     if (Validation.isDefinedString(useColorRange.statisticsCssClassName)) {
-                        addClass(rangeLine, useColorRange.statisticsCssClassName);
+                        DomElement.addClass(rangeLine, useColorRange.statisticsCssClassName);
                     } else {
-                        addClass(rangeLine, useColorRange.cssClassName);
+                        DomElement.addClass(rangeLine, useColorRange.cssClassName);
                     }
                 }
             };
@@ -1126,8 +1259,8 @@ var require_heat = __commonJS({
                 };
             };
             var renderControlViewGuide = function renderControlViewGuide(bindingOptions) {
-                var guide = createElement(bindingOptions._currentView.element, "div", "guide");
-                var mapTypes = createElement(guide, "div", "map-types");
+                var guide = DomElement.create(bindingOptions._currentView.element, "div", "guide");
+                var mapTypes = DomElement.create(guide, "div", "map-types");
                 var noneTypeCount = 0;
                 for(var storageDate in _elements_DateCounts[bindingOptions._currentView.element.id].type[_configuration.unknownTrendText]){
                     if (_elements_DateCounts[bindingOptions._currentView.element.id].type[_configuration.unknownTrendText].hasOwnProperty(storageDate)) {
@@ -1137,7 +1270,7 @@ var require_heat = __commonJS({
                 }
                 if (_elements_DateCounts[bindingOptions._currentView.element.id].types > 1) {
                     if (Validation.isDefinedString(bindingOptions.description.text)) {
-                        var description = createElement(bindingOptions._currentView.element, "div", "description", guide);
+                        var description = DomElement.create(bindingOptions._currentView.element, "div", "description", guide);
                         renderDescription(bindingOptions, description);
                     }
                     for(var type in _elements_DateCounts[bindingOptions._currentView.element.id].type){
@@ -1152,39 +1285,39 @@ var require_heat = __commonJS({
                     renderDescription(bindingOptions, mapTypes);
                 }
                 if (bindingOptions.guide.enabled) {
-                    var mapToggles = createElement(guide, "div", "map-toggles");
+                    var mapToggles = DomElement.create(guide, "div", "map-toggles");
                     if (bindingOptions.guide.showLessAndMoreLabels) {
-                        var lessText = createElementWithHTML(mapToggles, "div", "less-text", _configuration.lessText);
+                        var lessText = DomElement.createWithHTML(mapToggles, "div", "less-text", _configuration.lessText);
                         if (bindingOptions.guide.colorRangeTogglesEnabled) {
                             lessText.onclick = function() {
                                 updateColorRangeToggles(bindingOptions, false);
                             };
                         } else {
-                            addClass(lessText, "no-click");
+                            DomElement.addClass(lessText, "no-click");
                         }
                     }
-                    var days = createElement(mapToggles, "div", "days");
+                    var days = DomElement.create(mapToggles, "div", "days");
                     var colorRanges = getSortedColorRanges(bindingOptions);
                     var colorRangesLength = colorRanges.length;
                     for(var colorRangesIndex = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++){
                         renderControlViewGuideDay(bindingOptions, days, colorRanges[colorRangesIndex]);
                     }
                     if (bindingOptions.guide.showLessAndMoreLabels) {
-                        var moreText = createElementWithHTML(mapToggles, "div", "more-text", _configuration.moreText);
+                        var moreText = DomElement.createWithHTML(mapToggles, "div", "more-text", _configuration.moreText);
                         if (bindingOptions.guide.colorRangeTogglesEnabled) {
                             moreText.onclick = function() {
                                 updateColorRangeToggles(bindingOptions, true);
                             };
                         } else {
-                            addClass(moreText, "no-click");
+                            DomElement.addClass(moreText, "no-click");
                         }
                     }
                 }
             };
             var renderControlViewGuideTypeButton = function renderControlViewGuideTypeButton(bindingOptions, mapTypes, type) {
-                var typeButton = createElementWithHTML(mapTypes, "button", "type", type);
+                var typeButton = DomElement.createWithHTML(mapTypes, "button", "type", type);
                 if (bindingOptions._currentView.type === type) {
-                    addClass(typeButton, "active");
+                    DomElement.addClass(typeButton, "active");
                 }
                 typeButton.onclick = function() {
                     if (bindingOptions._currentView.type !== type) {
@@ -1195,22 +1328,22 @@ var require_heat = __commonJS({
                 };
             };
             var renderControlViewGuideDay = function renderControlViewGuideDay(bindingOptions, days, colorRange) {
-                var day = createElement(days, "div");
+                var day = DomElement.create(days, "div");
                 day.className = "day";
                 addToolTip(day, bindingOptions, colorRange.tooltipText);
                 if (isColorRangeVisible(bindingOptions, colorRange.id)) {
                     if (bindingOptions._currentView.view === 1 /* map */  && Validation.isDefinedString(colorRange.mapCssClassName)) {
-                        addClass(day, colorRange.mapCssClassName);
+                        DomElement.addClass(day, colorRange.mapCssClassName);
                     } else if (bindingOptions.views.chart.enabled && bindingOptions._currentView.view === 2 /* chart */  && Validation.isDefinedString(colorRange.chartCssClassName)) {
-                        addClass(day, colorRange.chartCssClassName);
+                        DomElement.addClass(day, colorRange.chartCssClassName);
                     } else if (bindingOptions.views.statistics.enabled && bindingOptions._currentView.view === 4 /* statistics */  && Validation.isDefinedString(colorRange.statisticsCssClassName)) {
-                        addClass(day, colorRange.statisticsCssClassName);
+                        DomElement.addClass(day, colorRange.statisticsCssClassName);
                     } else {
-                        addClass(day, colorRange.cssClassName);
+                        DomElement.addClass(day, colorRange.cssClassName);
                     }
                 }
                 if (bindingOptions.guide.showNumbersInGuide) {
-                    addClass(day, "day-number");
+                    DomElement.addClass(day, "day-number");
                     day.innerHTML = colorRange.minimum + "+" /* plus */ ;
                 }
                 if (bindingOptions.guide.colorRangeTogglesEnabled) {
@@ -1218,17 +1351,17 @@ var require_heat = __commonJS({
                         toggleColorRangeVisibleState(bindingOptions, colorRange.id);
                     };
                 } else {
-                    addClass(day, "no-hover");
+                    DomElement.addClass(day, "no-hover");
                 }
             };
             var renderDescription = function renderDescription(bindingOptions, container) {
                 if (Validation.isDefinedString(bindingOptions.description.text)) {
                     if (Validation.isDefinedString(bindingOptions.description.url)) {
-                        var link = createElementWithHTML(container, "a", "label", bindingOptions.description.text);
+                        var link = DomElement.createWithHTML(container, "a", "label", bindingOptions.description.text);
                         link.href = bindingOptions.description.url;
                         link.target = bindingOptions.description.urlTarget;
                     } else {
-                        createElementWithHTML(container, "span", "label", bindingOptions.description.text);
+                        DomElement.createWithHTML(container, "span", "label", bindingOptions.description.text);
                     }
                 }
             };
@@ -1490,11 +1623,11 @@ var require_heat = __commonJS({
             };
             var makeAreaDroppable = function makeAreaDroppable(element, bindingOptions) {
                 if (bindingOptions.allowFileImports && !bindingOptions._currentView.isInFetchMode) {
-                    element.ondragover = cancelBubble;
-                    element.ondragenter = cancelBubble;
-                    element.ondragleave = cancelBubble;
+                    element.ondragover = DomElement.cancelBubble;
+                    element.ondragenter = DomElement.cancelBubble;
+                    element.ondragleave = DomElement.cancelBubble;
                     element.ondrop = function(e) {
-                        cancelBubble(e);
+                        DomElement.cancelBubble(e);
                         if (Validation.isDefined(windowObject.FileReader) && e.dataTransfer.files.length > 0) {
                             importFromFiles(e.dataTransfer.files, bindingOptions);
                         }
@@ -1502,7 +1635,7 @@ var require_heat = __commonJS({
                 }
             };
             var importFromFilesSelected = function importFromFilesSelected(bindingOptions) {
-                var input = createElementWithNoContainer("input");
+                var input = DomElement.createWithNoContainer("input");
                 input.type = "file";
                 input.accept = ".json, .txt, .csv";
                 input.multiple = "multiple";
@@ -1605,7 +1738,7 @@ var require_heat = __commonJS({
                     contents = getTxtContents(bindingOptions);
                 }
                 if (Validation.isDefinedString(contents)) {
-                    var tempLink = createElement(documentObject.body, "a");
+                    var tempLink = DomElement.create(documentObject.body, "a");
                     tempLink.style.display = "none";
                     tempLink.setAttribute("target", "_blank");
                     tempLink.setAttribute("href", "data:" + contentsMimeType + ";charset=utf-8," + encodeURIComponent(contents));
@@ -1996,125 +2129,6 @@ var require_heat = __commonJS({
                 result2 = result2.replace("{y}", parseInt(date.getFullYear().toString().substring(2)).toString());
                 return result2;
             };
-            var createElementWithNoContainer = function createElementWithNoContainer(type) {
-                var result2 = null;
-                var nodeType = type.toLowerCase();
-                var isText = nodeType === "text";
-                if (!_elements_Type.hasOwnProperty(nodeType)) {
-                    _elements_Type[nodeType] = isText ? documentObject.createTextNode("" /* empty */ ) : documentObject.createElement(nodeType);
-                }
-                result2 = _elements_Type[nodeType].cloneNode(false);
-                return result2;
-            };
-            var createElement = function createElement(container, type) {
-                var className = arguments.length > 2 && arguments[2] !== void 0 /* empty */  ? arguments[2] : "", beforeNode = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null;
-                var result2 = null;
-                var nodeType = type.toLowerCase();
-                var isText = nodeType === "text";
-                if (!_elements_Type.hasOwnProperty(nodeType)) {
-                    _elements_Type[nodeType] = isText ? documentObject.createTextNode("" /* empty */ ) : documentObject.createElement(nodeType);
-                }
-                result2 = _elements_Type[nodeType].cloneNode(false);
-                if (Validation.isDefined(className)) {
-                    result2.className = className;
-                }
-                if (Validation.isDefined(beforeNode)) {
-                    container.insertBefore(result2, beforeNode);
-                } else {
-                    container.appendChild(result2);
-                }
-                return result2;
-            };
-            var createElementWithHTML = function createElementWithHTML(container, type, className, html) {
-                var beforeNode = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : null;
-                var element = createElement(container, type, className, beforeNode);
-                element.innerHTML = html;
-                return element;
-            };
-            var getStyleValueByName = function getStyleValueByName(element, stylePropertyName) {
-                var toNumber = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : false;
-                var value = null;
-                if (documentObject.defaultView.getComputedStyle) {
-                    value = documentObject.defaultView.getComputedStyle(element, null).getPropertyValue(stylePropertyName);
-                } else if (element.currentStyle) {
-                    value = element.currentStyle[stylePropertyName];
-                }
-                if (toNumber) {
-                    value = parseFloat(value);
-                }
-                return value;
-            };
-            var addClass = function addClass(element, className) {
-                element.className += " " /* space */  + className;
-                element.className = element.className.trim();
-            };
-            var removeClass = function removeClass(element, className) {
-                element.className = element.className.replace(className, "" /* empty */ );
-                element.className = element.className.trim();
-            };
-            var cancelBubble = function cancelBubble(e) {
-                e.preventDefault();
-                e.cancelBubble = true;
-            };
-            var getScrollPosition = function getScrollPosition() {
-                var doc = documentObject.documentElement;
-                var left = (windowObject.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
-                var top = (windowObject.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
-                return {
-                    left: left,
-                    top: top
-                };
-            };
-            var showElementAtMousePosition = function showElementAtMousePosition(e, element) {
-                var left = e.pageX;
-                var top = e.pageY;
-                var scrollPosition = getScrollPosition();
-                element.style.display = "block";
-                if (left + element.offsetWidth > windowObject.innerWidth) {
-                    left -= element.offsetWidth;
-                } else {
-                    left++;
-                }
-                if (top + element.offsetHeight > windowObject.innerHeight) {
-                    top -= element.offsetHeight;
-                } else {
-                    top++;
-                }
-                if (left < scrollPosition.left) {
-                    left = e.pageX + 1;
-                }
-                if (top < scrollPosition.top) {
-                    top = e.pageY + 1;
-                }
-                element.style.left = left + "px";
-                element.style.top = top + "px";
-            };
-            var reverseElementsOrder = function reverseElementsOrder(parent) {
-                var children = parent.children;
-                var childrenLength = children.length - 1;
-                for(; childrenLength--;){
-                    parent.appendChild(children[childrenLength]);
-                }
-            };
-            var buildCheckBox = function buildCheckBox(container, labelText) {
-                var checked = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null, onClick = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null;
-                var lineContainer = createElement(container, "div");
-                var label = createElement(lineContainer, "label", "checkbox");
-                var input = createElement(label, "input");
-                input.type = "checkbox";
-                if (Validation.isDefined(onClick)) {
-                    input.onclick = onClick;
-                }
-                if (Validation.isDefined(checked)) {
-                    input.checked = checked;
-                }
-                createElement(label, "span", "check-mark");
-                createElementWithHTML(label, "span", "text", labelText);
-                return {
-                    input: input,
-                    label: label
-                };
-            };
             var fireCustomTriggerEvent = function fireCustomTriggerEvent(triggerFunction) {
                 for(var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++){
                     args[_key - 1] = arguments[_key];
@@ -2219,7 +2233,7 @@ var require_heat = __commonJS({
             };
             var destroyElement = function destroyElement(bindingOptions) {
                 bindingOptions._currentView.element.innerHTML = "" /* empty */ ;
-                removeClass(bindingOptions._currentView.element, "heat-js");
+                DomElement.removeClass(bindingOptions._currentView.element, "heat-js");
                 assignToolTipEvents(bindingOptions, false);
                 documentObject.body.removeChild(bindingOptions._currentView.tooltip);
                 if (bindingOptions._currentView.isInFetchMode && Validation.isDefined(bindingOptions._currentView.isInFetchModeTimer)) {
