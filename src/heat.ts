@@ -3292,5 +3292,4 @@ import { type PublicApi } from "./ts/api";
             window.$heat = _public;
         }
     } )();
-
 } )();
