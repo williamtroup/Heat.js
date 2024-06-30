@@ -2308,10 +2308,11 @@ var DateTime;
     ];
     var _public = {
         addDates: function addDates(elementId, dates) {
-            var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : _configuration.unknownTrendText, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
+            var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
             if (Is.definedString(elementId) && Is.definedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 if (!bindingOptions._currentView.isInFetchMode) {
+                    type = Data.getDefaultString(type, _configuration.unknownTrendText);
                     var datesLength = dates.length;
                     for(var dateIndex = 0; dateIndex < datesLength; dateIndex++){
                         _public.addDate(elementId, dates[dateIndex], type, false);
@@ -2324,10 +2325,11 @@ var DateTime;
             return _public;
         },
         addDate: function addDate(elementId, date) {
-            var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : _configuration.unknownTrendText, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
+            var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
             if (Is.definedString(elementId) && Is.definedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 if (!bindingOptions._currentView.isInFetchMode) {
+                    type = Data.getDefaultString(type, _configuration.unknownTrendText);
                     var storageDate = toStorageDate(date);
                     if (!_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
                         _elements_DateCounts[elementId].type[type] = {};
@@ -2346,12 +2348,13 @@ var DateTime;
             return _public;
         },
         updateDate: function updateDate(elementId, date, count) {
-            var type = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : _configuration.unknownTrendText, triggerRefresh = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : true;
+            var type = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null, triggerRefresh = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : true;
             if (Is.definedString(elementId) && Is.definedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 if (!bindingOptions._currentView.isInFetchMode && count > 0) {
                     var storageDate = toStorageDate(date);
                     if (_elements_DateCounts[elementId].type.hasOwnProperty(type)) {
+                        type = Data.getDefaultString(type, _configuration.unknownTrendText);
                         _elements_DateCounts[elementId].type[type][storageDate] = count;
                         fireCustomTriggerEvent(bindingOptions.events.onUpdate, bindingOptions._currentView.element);
                         if (triggerRefresh) {
@@ -2363,10 +2366,11 @@ var DateTime;
             return _public;
         },
         removeDates: function removeDates(elementId, dates) {
-            var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : _configuration.unknownTrendText, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
+            var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
             if (Is.definedString(elementId) && Is.definedArray(dates) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 if (!bindingOptions._currentView.isInFetchMode) {
+                    type = Data.getDefaultString(type, _configuration.unknownTrendText);
                     var datesLength = dates.length;
                     for(var dateIndex = 0; dateIndex < datesLength; dateIndex++){
                         _public.removeDate(elementId, dates[dateIndex], type, false);
@@ -2379,12 +2383,13 @@ var DateTime;
             return _public;
         },
         removeDate: function removeDate(elementId, date) {
-            var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : _configuration.unknownTrendText, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
+            var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
             if (Is.definedString(elementId) && Is.definedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 if (!bindingOptions._currentView.isInFetchMode) {
                     var storageDate = toStorageDate(date);
                     if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
+                        type = Data.getDefaultString(type, _configuration.unknownTrendText);
                         if (_elements_DateCounts[elementId].type[type][storageDate] > 0) {
                             _elements_DateCounts[elementId].type[type][storageDate]--;
                         }
@@ -2398,12 +2403,13 @@ var DateTime;
             return _public;
         },
         clearDate: function clearDate(elementId, date) {
-            var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : _configuration.unknownTrendText, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
+            var type = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null, triggerRefresh = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true;
             if (Is.definedString(elementId) && Is.definedDate(date) && _elements_DateCounts.hasOwnProperty(elementId)) {
                 var bindingOptions = _elements_DateCounts[elementId].options;
                 if (!bindingOptions._currentView.isInFetchMode) {
                     var storageDate = toStorageDate(date);
                     if (_elements_DateCounts[elementId].type.hasOwnProperty(type) && _elements_DateCounts[elementId].type[type].hasOwnProperty(storageDate)) {
+                        type = Data.getDefaultString(type, _configuration.unknownTrendText);
                         delete _elements_DateCounts[elementId].type[type][storageDate];
                         fireCustomTriggerEvent(bindingOptions.events.onClear, bindingOptions._currentView.element);
                         if (triggerRefresh) {

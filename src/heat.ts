@@ -2759,11 +2759,13 @@ import { type PublicApi } from "./ts/api";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        addDates: function ( elementId: string, dates: Date[], type: string = _configuration.unknownTrendText, triggerRefresh: boolean = true ) : PublicApi {
+        addDates: function ( elementId: string, dates: Date[], type: string = null, triggerRefresh: boolean = true ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedArray( dates ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
+                    type = Data.getDefaultString( type, _configuration.unknownTrendText );
+
                     const datesLength: number = dates.length;
         
                     for ( let dateIndex: number = 0; dateIndex < datesLength; dateIndex++ ) {
@@ -2779,11 +2781,13 @@ import { type PublicApi } from "./ts/api";
             return _public;
         },
 
-        addDate: function ( elementId: string, date: Date, type: string = _configuration.unknownTrendText, triggerRefresh: boolean = true ) : PublicApi {
+        addDate: function ( elementId: string, date: Date, type: string = null, triggerRefresh: boolean = true ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
+                    type = Data.getDefaultString( type, _configuration.unknownTrendText );
+
                     const storageDate: string = toStorageDate( date );
         
                     if ( !_elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
@@ -2808,14 +2812,16 @@ import { type PublicApi } from "./ts/api";
             return _public;
         },
 
-        updateDate: function ( elementId: string, date: Date, count: number, type: string = _configuration.unknownTrendText, triggerRefresh: boolean = true ) : PublicApi {
+        updateDate: function ( elementId: string, date: Date, count: number, type: string = null, triggerRefresh: boolean = true ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode && count > 0 ) {
                     const storageDate: string = toStorageDate( date );
         
-                    if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {        
+                    if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {    
+                        type = Data.getDefaultString( type, _configuration.unknownTrendText );
+
                         _elements_DateCounts[ elementId ].type[ type ][ storageDate ] = count;
         
                         fireCustomTriggerEvent( bindingOptions.events.onUpdate, bindingOptions._currentView.element );
@@ -2830,11 +2836,13 @@ import { type PublicApi } from "./ts/api";
             return _public;
         },
 
-        removeDates: function ( elementId: string, dates: Date[], type: string = _configuration.unknownTrendText, triggerRefresh: boolean = true ) : PublicApi {
+        removeDates: function ( elementId: string, dates: Date[], type: string = null, triggerRefresh: boolean = true ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedArray( dates ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
+                    type = Data.getDefaultString( type, _configuration.unknownTrendText );
+
                     const datesLength: number = dates.length;
         
                     for ( let dateIndex: number = 0; dateIndex < datesLength; dateIndex++ ) {
@@ -2850,7 +2858,7 @@ import { type PublicApi } from "./ts/api";
             return _public;
         },
 
-        removeDate: function ( elementId: string, date: Date, type: string = _configuration.unknownTrendText, triggerRefresh: boolean = true ) : PublicApi {
+        removeDate: function ( elementId: string, date: Date, type: string = null, triggerRefresh: boolean = true ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
@@ -2858,6 +2866,8 @@ import { type PublicApi } from "./ts/api";
                     const storageDate: string = toStorageDate( date );
         
                     if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
+                        type = Data.getDefaultString( type, _configuration.unknownTrendText );
+
                         if ( _elements_DateCounts[ elementId ].type[ type ][ storageDate ] > 0 ) {
                             _elements_DateCounts[ elementId ].type[ type ][ storageDate ]--;
                         }
@@ -2874,7 +2884,7 @@ import { type PublicApi } from "./ts/api";
             return _public;
         },
 
-        clearDate: function ( elementId: string, date: Date, type: string = _configuration.unknownTrendText, triggerRefresh: boolean = true ) : PublicApi {
+        clearDate: function ( elementId: string, date: Date, type: string = null, triggerRefresh: boolean = true ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedDate( date ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
@@ -2882,6 +2892,8 @@ import { type PublicApi } from "./ts/api";
                     const storageDate: string = toStorageDate( date );
         
                     if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
+                        type = Data.getDefaultString( type, _configuration.unknownTrendText );
+
                         delete _elements_DateCounts[ elementId ].type[ type ][ storageDate ];
         
                         fireCustomTriggerEvent( bindingOptions.events.onClear, bindingOptions._currentView.element );
