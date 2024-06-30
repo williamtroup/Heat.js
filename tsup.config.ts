@@ -15,7 +15,6 @@ export default defineConfig( [
     splitting: false,
     sourcemap: true,
     minify: false,
-    clean: false,
-    minifyWhitespace: true
+    clean: false
   }
 ] );
