@@ -1686,7 +1686,7 @@ var DateTime;
     }
     function importFromJson(e, t) {
         const n = new FileReader;
-        let i = null;
+        let i = {};
         n.readAsText(e);
         n.onloadend = function() {
             t(e.name, i);
@@ -1700,7 +1700,7 @@ var DateTime;
     }
     function importFromTxt(e, t) {
         const n = new FileReader;
-        const i = null;
+        const i = {};
         n.readAsText(e);
         n.onloadend = function() {
             t(e.name, i);
@@ -1716,7 +1716,7 @@ var DateTime;
     }
     function importFromCsv(e, t) {
         const n = new FileReader;
-        const i = null;
+        const i = {};
         n.readAsText(e);
         n.onloadend = function() {
             t(e.name, i);
@@ -1725,7 +1725,7 @@ var DateTime;
             const t = e.target.result.toString().replace(new RegExp('"', "g"), "");
             const n = t.split("\n");
             n.shift();
-            const o = n.length;
+            let o = n.length;
             for (let e = 0; e < o; e++) {
                 let t = n[e].split(",");
                 i[t[0].trim()] = parseInt(t[1].trim());

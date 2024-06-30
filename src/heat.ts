@@ -1981,7 +1981,7 @@ import { type PublicApi } from "./ts/api";
 
     function importFromJson( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
-        let readingObject: object = null;
+        let readingObject: object = {};
 
         reader.readAsText( file );
 
@@ -2000,7 +2000,7 @@ import { type PublicApi } from "./ts/api";
 
     function importFromTxt( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
-        const readingObject: object = null;
+        const readingObject: object = {};
 
         reader.readAsText( file );
 
@@ -2022,7 +2022,7 @@ import { type PublicApi } from "./ts/api";
 
     function importFromCsv( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
-        const readingObject: object = null;
+        const readingObject: object = {};
 
         reader.readAsText( file );
 
@@ -2036,7 +2036,7 @@ import { type PublicApi } from "./ts/api";
             
             lines.shift();
 
-            const linesLength: number = lines.length;
+            let linesLength: number = lines.length;
 
             for ( let lineIndex: number = 0; lineIndex < linesLength; lineIndex++ ) {
                 let line: string[] = lines[ lineIndex ].split( Char.comma );
