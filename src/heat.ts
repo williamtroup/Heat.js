@@ -188,7 +188,7 @@ import { type PublicApi } from "./ts/api";
         fireCustomTriggerEvent( bindingOptions.events.onBeforeRender, bindingOptions._currentView.element );
 
         if ( !Validation.isDefinedString( bindingOptions._currentView.element.id ) ) {
-            bindingOptions._currentView.element.id = newGuid();
+            bindingOptions._currentView.element.id = Data.String.newGuid();
         }
 
         if ( bindingOptions._currentView.element.className.trim() === STRING.empty ) {
@@ -1645,7 +1645,7 @@ import { type PublicApi } from "./ts/api";
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
                 const key : string = window.localStorage.key( keyIndex );
 
-                if ( startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
+                if ( Data.String.startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
                     const typesJson: string = window.localStorage.getItem( key );
                     const typesObject: any = getObjectFromString( typesJson );
 
@@ -1683,7 +1683,7 @@ import { type PublicApi } from "./ts/api";
             const elementId: string = bindingOptions._currentView.element.id;
 
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
-                if ( startsWithAnyCase( window.localStorage.key( keyIndex ), _local_Storage_Start_ID + elementId ) ) {
+                if ( Data.String.startsWithAnyCase( window.localStorage.key( keyIndex ), _local_Storage_Start_ID + elementId ) ) {
                     keysToRemove.push( window.localStorage.key( keyIndex ) );
                 }
             }
@@ -2196,8 +2196,8 @@ import { type PublicApi } from "./ts/api";
 
     function getExportFilename( bindingOptions: BindingOptions ) : string {
         const date: Date = new Date();
-        const datePart: string = padNumber( date.getDate() ) + STRING.dash + padNumber( date.getMonth() + 1 ) + STRING.dash + date.getFullYear();
-        const timePart: string = padNumber( date.getHours() ) + STRING.dash + padNumber( date.getMinutes() );
+        const datePart: string = Data.String.padNumber( date.getDate() ) + STRING.dash + Data.String.padNumber( date.getMonth() + 1 ) + STRING.dash + date.getFullYear();
+        const timePart: string = Data.String.padNumber( date.getHours() ) + STRING.dash + Data.String.padNumber( date.getMinutes() );
         let filenameStart: string = STRING.empty;
 
         if ( bindingOptions._currentView.type !== _configuration.unknownTrendText ) {
@@ -2262,7 +2262,7 @@ import { type PublicApi } from "./ts/api";
             for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
                 const colorRange: ColorRange = options.colorRanges[ colorRangeIndex ];
 
-                colorRange.id = Data.getDefaultString( colorRange.id, newGuid() );
+                colorRange.id = Data.getDefaultString( colorRange.id, Data.String.newGuid() );
                 colorRange.name = Data.getDefaultString( colorRange.name, null );
                 colorRange.minimum = Data.getDefaultNumber( colorRange.minimum, 0 );
                 colorRange.cssClassName = Data.getDefaultString( colorRange.cssClassName, null );
@@ -2276,7 +2276,7 @@ import { type PublicApi } from "./ts/api";
         } else {
             options.colorRanges = [
                 {
-                    id: newGuid(),
+                    id: Data.String.newGuid(),
                     name: "Day Color 1",
                     minimum: 10,
                     cssClassName: "day-color-1",
@@ -2287,7 +2287,7 @@ import { type PublicApi } from "./ts/api";
                     statisticsCssClassName: STRING.empty
                 },
                 {
-                    id: newGuid(),
+                    id: Data.String.newGuid(),
                     name: "Day Color 2",
                     minimum: 15,
                     cssClassName: "day-color-2",
@@ -2298,7 +2298,7 @@ import { type PublicApi } from "./ts/api";
                     statisticsCssClassName: STRING.empty
                 },
                 {
-                    id: newGuid(),
+                    id: Data.String.newGuid(),
                     name: "Day Color 3",
                     minimum: 20,
                     cssClassName: "day-color-3",
@@ -2309,7 +2309,7 @@ import { type PublicApi } from "./ts/api";
                     statisticsCssClassName: STRING.empty
                 },
                 {
-                    id: newGuid(),
+                    id: Data.String.newGuid(),
                     name: "Day Color 4",
                     minimum: 25,
                     cssClassName: "day-color-4",
@@ -2536,13 +2536,13 @@ import { type PublicApi } from "./ts/api";
         const weekDayNumber: number = getWeekdayNumber( date );
 
         result = result.replace( "{dddd}", _configuration.dayNames[ weekDayNumber ] );
-        result = result.replace( "{dd}", padNumber( date.getDate() ) );
+        result = result.replace( "{dd}", Data.String.padNumber( date.getDate() ) );
         result = result.replace( "{d}", date.getDate().toString() );
 
         result = result.replace( "{o}", getDayOrdinal( date.getDate() ) );
 
         result = result.replace( "{mmmm}", _configuration.monthNames[ date.getMonth() ] );
-        result = result.replace( "{mm}", padNumber( date.getMonth() + 1 ) );
+        result = result.replace( "{mm}", Data.String.padNumber( date.getMonth() + 1 ) );
         result = result.replace( "{m}", ( date.getMonth() + 1 ).toString() );
 
         result = result.replace( "{yyyy}", date.getFullYear().toString() );
@@ -2614,44 +2614,12 @@ import { type PublicApi } from "./ts/api";
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * String Handling
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function newGuid() : string {
-        const result: string[] = [];
-
-        for ( let charIndex: number = 0; charIndex < 32; charIndex++ ) {
-            if ( charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20 ) {
-                result.push( STRING.dash );
-            }
-
-            const character: string = Math.floor( Math.random() * 16 ).toString( 16 );
-            result.push( character );
-        }
-
-        return result.join( STRING.empty );
-    }
-
-    function padNumber( number: number ) : string {
-        const numberString: string = number.toString();
-
-        return numberString.length === 1 ? STRING.zero + numberString : numberString;
-    }
-
-    function startsWithAnyCase( data: string, start: string ) : boolean {
-        return data.substring( 0, start.length ).toLowerCase() === start.toLowerCase();
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Storage Dates
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
     function toStorageDate( date: Date ) : string {
-        return date.getFullYear() + STRING.dash + padNumber( date.getMonth() + 1 ) + STRING.dash + padNumber( date.getDate() );
+        return date.getFullYear() + STRING.dash + Data.String.padNumber( date.getMonth() + 1 ) + STRING.dash + Data.String.padNumber( date.getDate() );
     }
 
     function getStorageDate( data: string ) : string[] {
@@ -2743,7 +2711,7 @@ import { type PublicApi } from "./ts/api";
         fireCustomTriggerEvent( bindingOptions.events.onDestroy, bindingOptions._currentView.element );
     }
 
-    
+
 	/*
 	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	 * Public API Functions:  Helpers:  Configuration

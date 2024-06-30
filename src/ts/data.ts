@@ -3,6 +3,33 @@ import { Validation } from "./validation";
 
 
 export namespace Data {
+    export namespace String {
+        export function newGuid() : string {
+            const result: string[] = [];
+    
+            for ( let charIndex: number = 0; charIndex < 32; charIndex++ ) {
+                if ( charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20 ) {
+                    result.push( STRING.dash );
+                }
+    
+                const character: string = Math.floor( Math.random() * 16 ).toString( 16 );
+                result.push( character );
+            }
+    
+            return result.join( STRING.empty );
+        }
+    
+        export function padNumber( number: number ) : string {
+            const numberString: string = number.toString();
+    
+            return numberString.length === 1 ? STRING.zero + numberString : numberString;
+        }
+    
+        export function startsWithAnyCase( data: string, start: string ) : boolean {
+            return data.substring( 0, start.length ).toLowerCase() === start.toLowerCase();
+        }
+    }
+
     export function getDefaultAnyString( value: any, defaultValue: string ) : string  {
         return typeof value === "string" ? value : defaultValue;
     }

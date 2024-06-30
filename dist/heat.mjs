@@ -121,6 +121,30 @@ var init_data = __esm({
                 }
                 return result2;
             };
+            var String;
+            (function(String2) {
+                var newGuid = function newGuid() {
+                    var result2 = [];
+                    for(var charIndex = 0; charIndex < 32; charIndex++){
+                        if (charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20) {
+                            result2.push("-" /* dash */ );
+                        }
+                        var character = Math.floor(Math.random() * 16).toString(16);
+                        result2.push(character);
+                    }
+                    return result2.join("" /* empty */ );
+                };
+                var padNumber = function padNumber(number) {
+                    var numberString = number.toString();
+                    return numberString.length === 1 ? "0" /* zero */  + numberString : numberString;
+                };
+                var startsWithAnyCase = function startsWithAnyCase(data, start) {
+                    return data.substring(0, start.length).toLowerCase() === start.toLowerCase();
+                };
+                String2.newGuid = newGuid;
+                String2.padNumber = padNumber;
+                String2.startsWithAnyCase = startsWithAnyCase;
+            })(String = Data2.String || (Data2.String = {}));
             Data2.getDefaultAnyString = getDefaultAnyString;
             Data2.getDefaultString = getDefaultString;
             Data2.getDefaultBoolean = getDefaultBoolean;
@@ -370,7 +394,7 @@ var require_heat = __commonJS({
             var renderControl = function renderControl(bindingOptions) {
                 fireCustomTriggerEvent(bindingOptions.events.onBeforeRender, bindingOptions._currentView.element);
                 if (!Validation.isDefinedString(bindingOptions._currentView.element.id)) {
-                    bindingOptions._currentView.element.id = newGuid();
+                    bindingOptions._currentView.element.id = Data.String.newGuid();
                 }
                 if (bindingOptions._currentView.element.className.trim() === "" /* empty */ ) {
                     bindingOptions._currentView.element.className = "heat-js";
@@ -1433,7 +1457,7 @@ var require_heat = __commonJS({
                     var elementId = bindingOptions._currentView.element.id;
                     for(var keyIndex = 0; keyIndex < keysLength; keyIndex++){
                         var key = window.localStorage.key(keyIndex);
-                        if (startsWithAnyCase(key, _local_Storage_Start_ID)) {
+                        if (Data.String.startsWithAnyCase(key, _local_Storage_Start_ID)) {
                             var typesJson = window.localStorage.getItem(key);
                             var typesObject = getObjectFromString(typesJson);
                             if (typesObject.parsed) {
@@ -1463,7 +1487,7 @@ var require_heat = __commonJS({
                     var keysToRemove = [];
                     var elementId = bindingOptions._currentView.element.id;
                     for(var keyIndex = 0; keyIndex < keysLength; keyIndex++){
-                        if (startsWithAnyCase(window.localStorage.key(keyIndex), _local_Storage_Start_ID + elementId)) {
+                        if (Data.String.startsWithAnyCase(window.localStorage.key(keyIndex), _local_Storage_Start_ID + elementId)) {
                             keysToRemove.push(window.localStorage.key(keyIndex));
                         }
                     }
@@ -1842,8 +1866,8 @@ var require_heat = __commonJS({
             };
             var getExportFilename = function getExportFilename(bindingOptions) {
                 var date = /* @__PURE__ */ new Date();
-                var datePart = padNumber(date.getDate()) + "-" /* dash */  + padNumber(date.getMonth() + 1) + "-" /* dash */  + date.getFullYear();
-                var timePart = padNumber(date.getHours()) + "-" /* dash */  + padNumber(date.getMinutes());
+                var datePart = Data.String.padNumber(date.getDate()) + "-" /* dash */  + Data.String.padNumber(date.getMonth() + 1) + "-" /* dash */  + date.getFullYear();
+                var timePart = Data.String.padNumber(date.getHours()) + "-" /* dash */  + Data.String.padNumber(date.getMinutes());
                 var filenameStart = "" /* empty */ ;
                 if (bindingOptions._currentView.type !== _configuration.unknownTrendText) {
                     filenameStart = bindingOptions._currentView.type.toLowerCase().replace(" " /* space */ , "_" /* underscore */ ) + "_" /* underscore */ ;
@@ -1890,7 +1914,7 @@ var require_heat = __commonJS({
                     var colorRangesLength = options.colorRanges.length;
                     for(var colorRangeIndex = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++){
                         var colorRange = options.colorRanges[colorRangeIndex];
-                        colorRange.id = Data.getDefaultString(colorRange.id, newGuid());
+                        colorRange.id = Data.getDefaultString(colorRange.id, Data.String.newGuid());
                         colorRange.name = Data.getDefaultString(colorRange.name, null);
                         colorRange.minimum = Data.getDefaultNumber(colorRange.minimum, 0);
                         colorRange.cssClassName = Data.getDefaultString(colorRange.cssClassName, null);
@@ -1903,7 +1927,7 @@ var require_heat = __commonJS({
                 } else {
                     options.colorRanges = [
                         {
-                            id: newGuid(),
+                            id: Data.String.newGuid(),
                             name: "Day Color 1",
                             minimum: 10,
                             cssClassName: "day-color-1",
@@ -1914,7 +1938,7 @@ var require_heat = __commonJS({
                             statisticsCssClassName: "" /* empty */ 
                         },
                         {
-                            id: newGuid(),
+                            id: Data.String.newGuid(),
                             name: "Day Color 2",
                             minimum: 15,
                             cssClassName: "day-color-2",
@@ -1925,7 +1949,7 @@ var require_heat = __commonJS({
                             statisticsCssClassName: "" /* empty */ 
                         },
                         {
-                            id: newGuid(),
+                            id: Data.String.newGuid(),
                             name: "Day Color 3",
                             minimum: 20,
                             cssClassName: "day-color-3",
@@ -1936,7 +1960,7 @@ var require_heat = __commonJS({
                             statisticsCssClassName: "" /* empty */ 
                         },
                         {
-                            id: newGuid(),
+                            id: Data.String.newGuid(),
                             name: "Day Color 4",
                             minimum: 25,
                             cssClassName: "day-color-4",
@@ -2117,11 +2141,11 @@ var require_heat = __commonJS({
                 var result2 = dateFormat;
                 var weekDayNumber = getWeekdayNumber(date);
                 result2 = result2.replace("{dddd}", _configuration.dayNames[weekDayNumber]);
-                result2 = result2.replace("{dd}", padNumber(date.getDate()));
+                result2 = result2.replace("{dd}", Data.String.padNumber(date.getDate()));
                 result2 = result2.replace("{d}", date.getDate().toString());
                 result2 = result2.replace("{o}", getDayOrdinal(date.getDate()));
                 result2 = result2.replace("{mmmm}", _configuration.monthNames[date.getMonth()]);
-                result2 = result2.replace("{mm}", padNumber(date.getMonth() + 1));
+                result2 = result2.replace("{mm}", Data.String.padNumber(date.getMonth() + 1));
                 result2 = result2.replace("{m}", (date.getMonth() + 1).toString());
                 result2 = result2.replace("{yyyy}", date.getFullYear().toString());
                 result2 = result2.replace("{yyy}", date.getFullYear().toString().substring(1));
@@ -2164,26 +2188,8 @@ var require_heat = __commonJS({
                     result: result
                 };
             };
-            var newGuid = function newGuid() {
-                var result2 = [];
-                for(var charIndex = 0; charIndex < 32; charIndex++){
-                    if (charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20) {
-                        result2.push("-" /* dash */ );
-                    }
-                    var character = Math.floor(Math.random() * 16).toString(16);
-                    result2.push(character);
-                }
-                return result2.join("" /* empty */ );
-            };
-            var padNumber = function padNumber(number) {
-                var numberString = number.toString();
-                return numberString.length === 1 ? "0" /* zero */  + numberString : numberString;
-            };
-            var startsWithAnyCase = function startsWithAnyCase(data, start) {
-                return data.substring(0, start.length).toLowerCase() === start.toLowerCase();
-            };
             var toStorageDate = function toStorageDate(date) {
-                return date.getFullYear() + "-" /* dash */  + padNumber(date.getMonth() + 1) + "-" /* dash */  + padNumber(date.getDate());
+                return date.getFullYear() + "-" /* dash */  + Data.String.padNumber(date.getMonth() + 1) + "-" /* dash */  + Data.String.padNumber(date.getDate());
             };
             var getStorageDate = function getStorageDate(data) {
                 return data.split("-" /* dash */ );
