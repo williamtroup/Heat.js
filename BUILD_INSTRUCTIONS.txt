@@ -8,8 +8,13 @@ Install tsup:
 > npm i tsup -D
 
 
-Install ES5 compiling (if required):
-----------------------
+Install terser:
+---------------
+> npm install terser -D
+
+
+Install swc/core (if ES5 is required):
+--------------------------------------
 > npm install @swc/core -D
 
 

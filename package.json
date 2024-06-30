@@ -40,6 +40,7 @@
   "devDependencies": {
     "@swc/core": "^1.6.6",
     "sass": "^1.77.6",
+    "terser": "^5.31.1",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2"
   }

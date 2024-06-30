@@ -44,7 +44,7 @@ import { type PublicApi } from "./ts/api";
     let _elements_Day_Width: number = null;
 
     // Variables: Date Counts
-    let _elements_DateCounts: object = {};
+    let _elements_DateCounts: Record<string, { options: BindingOptions; types: number; type: object }> = {};
 
     // Variables: Internal Names
     const _internal_Name_Holiday: string = "HOLIDAY";
