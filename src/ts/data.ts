@@ -1,5 +1,5 @@
 import { STRING } from "./enum";
-import { Validate } from "./validate";
+import { Is } from "./is";
 
 
 export namespace Data {
@@ -35,33 +35,33 @@ export namespace Data {
     }
 
     export function getDefaultString( value: any, defaultValue: string ) : string {
-        return Validate.isDefinedString( value ) ? value : defaultValue;
+        return Is.definedString( value ) ? value : defaultValue;
     }
 
     export function getDefaultBoolean( value: any, defaultValue: boolean ) : boolean {
-        return Validate.isDefinedBoolean( value ) ? value : defaultValue;
+        return Is.definedBoolean( value ) ? value : defaultValue;
     }
 
     export function getDefaultNumber( value: any, defaultValue: number ) : number {
-        return Validate.isDefinedNumber( value ) ? value : defaultValue;
+        return Is.definedNumber( value ) ? value : defaultValue;
     }
 
     export function getDefaultFunction( value: any, defaultValue: object ) : any {
-        return Validate.isDefinedFunction( value ) ? value : defaultValue;
+        return Is.definedFunction( value ) ? value : defaultValue;
     }
 
     export function getDefaultArray( value: any, defaultValue: any[] ) : any[] {
-        return Validate.isDefinedArray( value ) ? value : defaultValue;
+        return Is.definedArray( value ) ? value : defaultValue;
     }
 
     export function getDefaultObject( value: any, defaultValue: object ) : any {
-        return Validate.isDefinedObject( value ) ? value : defaultValue;
+        return Is.definedObject( value ) ? value : defaultValue;
     }
 
     export function getDefaultStringOrArray( value: any, defaultValue: any[] ) : any[] {
         let result: any[] = defaultValue;
 
-        if ( Validate.isDefinedString( value ) ) {
+        if ( Is.definedString( value ) ) {
             const values: string[] = value.toString().split( STRING.space );
 
             if ( values.length === 0 ) {

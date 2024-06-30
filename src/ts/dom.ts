@@ -1,5 +1,5 @@
 import { STRING } from "./enum";
-import { Validate } from "./validate";
+import { Is } from "./is";
 
 
 export namespace DomElement {
@@ -18,11 +18,11 @@ export namespace DomElement {
 
         let result: any = isText ? document.createTextNode( STRING.empty ) : document.createElement( nodeType );
 
-        if ( Validate.isDefined( className ) ) {
+        if ( Is.defined( className ) ) {
             result.className = className;
         }
 
-        if ( Validate.isDefined( beforeNode ) ) {
+        if ( Is.defined( beforeNode ) ) {
             container.insertBefore( result, beforeNode );
         } else {
             container.appendChild( result );
@@ -127,11 +127,11 @@ export namespace DomElement {
 
         input.type = "checkbox";
 
-        if ( Validate.isDefined( onClick ) ) {
+        if ( Is.defined( onClick ) ) {
             input.onclick = onClick;
         }
 
-        if ( Validate.isDefined( checked ) ) {
+        if ( Is.defined( checked ) ) {
             input.checked = checked;
         }
 
