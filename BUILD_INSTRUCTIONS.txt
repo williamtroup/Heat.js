@@ -8,7 +8,7 @@ Install tsup:
 > npm i tsup -D
 
 
-Install ES5 compiling:
+Install ES5 compiling (if required):
 ----------------------
 > npm install @swc/core -D
 
