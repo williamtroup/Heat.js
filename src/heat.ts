@@ -2518,7 +2518,6 @@ import { type PublicApi } from "./ts/api";
             }
 
         } catch ( e1 ) {
-
             try {
                 let evalResult: Function = result = eval( "(" + objectString + ")" );
 
