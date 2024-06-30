@@ -1815,12 +1815,7 @@ import { type PublicApi } from "./ts/api";
                 cssClassName: "holiday",
                 id: _internal_Name_Holiday,
                 visible: true,
-                name: Char.empty,
                 minimum: 0,
-                mapCssClassName: Char.empty,
-                chartCssClassName: Char.empty,
-                statisticsCssClassName: Char.empty,
-                tooltipText: Char.empty
             } as ColorRange;
         }
 
@@ -2280,10 +2275,7 @@ import { type PublicApi } from "./ts/api";
                     minimum: 10,
                     cssClassName: "day-color-1",
                     tooltipText: "Day Color 1",
-                    visible: true,
-                    mapCssClassName: Char.empty,
-                    chartCssClassName: Char.empty,
-                    statisticsCssClassName: Char.empty
+                    visible: true
                 },
                 {
                     id: Data.String.newGuid(),
@@ -2291,10 +2283,7 @@ import { type PublicApi } from "./ts/api";
                     minimum: 15,
                     cssClassName: "day-color-2",
                     tooltipText: "Day Color 2",
-                    visible: true,
-                    mapCssClassName: Char.empty,
-                    chartCssClassName: Char.empty,
-                    statisticsCssClassName: Char.empty
+                    visible: true
                 },
                 {
                     id: Data.String.newGuid(),
@@ -2302,10 +2291,7 @@ import { type PublicApi } from "./ts/api";
                     minimum: 20,
                     cssClassName: "day-color-3",
                     tooltipText: "Day Color 3",
-                    visible: true,
-                    mapCssClassName: Char.empty,
-                    chartCssClassName: Char.empty,
-                    statisticsCssClassName: Char.empty
+                    visible: true
                 },
                 {
                     id: Data.String.newGuid(),
@@ -2313,10 +2299,7 @@ import { type PublicApi } from "./ts/api";
                     minimum: 25,
                     cssClassName: "day-color-4",
                     tooltipText: "Day Color 4",
-                    visible: true,
-                    mapCssClassName: Char.empty,
-                    chartCssClassName: Char.empty,
-                    statisticsCssClassName: Char.empty
+                    visible: true
                 }
             ];
         }
