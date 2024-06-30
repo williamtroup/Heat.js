@@ -2271,7 +2271,6 @@ var DomElement;
         }
     };
     var _configuration = {};
-    var _elements_Type = {};
     var _elements_Day_Width = null;
     var _elements_DateCounts = {};
     var _internal_Name_Holiday = "HOLIDAY";

@@ -40,7 +40,6 @@ import { type PublicApi } from "./ts/api";
     let _configuration: Configuration = {} as Configuration;
 
     // Variables: Elements
-    const _elements_Type: object = {};
     let _elements_Day_Width: number = null;
 
     // Variables: Date Counts
