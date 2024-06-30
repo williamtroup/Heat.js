@@ -14,7 +14,15 @@ export default defineConfig( [
     dts: true,
     splitting: false,
     sourcemap: true,
-    minify: false,
-    clean: false
+    clean: false,
+    minify: 'terser',
+    terserOptions: {
+      compress: false,
+      sourceMap: true,
+      format: {
+        beautify: true,
+        comments: false
+      }
+    }
   }
 ] );
