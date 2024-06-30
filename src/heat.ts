@@ -32,6 +32,7 @@ import { HEAT_JS_ATTRIBUTE_NAME } from "./ts/constant"
 import { Validate } from "./ts/validate"
 import { Data } from "./ts/data"
 import { DomElement } from "./ts/dom"
+import { DateTime } from "./ts/datetime"
 import { type PublicApi } from "./ts/api";
 
 
@@ -755,11 +756,11 @@ import { type PublicApi } from "./ts/api";
                 if ( isMonthVisible( bindingOptions.views.map.monthsToShow, monthIndex ) ) {
                     const month: HTMLElement = DomElement.create( months, "div", "month" );
                     const dayColumns: HTMLElement = DomElement.create( month, "div", "day-columns" );
-                    let totalDaysInMonth: number = getTotalDaysInMonth( currentYear, monthIndex );
+                    let totalDaysInMonth: number = DateTime.getTotalDaysInMonth( currentYear, monthIndex );
                     let currentDayColumn: HTMLElement = DomElement.create( dayColumns, "div", "day-column" );
                     let startFillingDays: boolean = false;
                     const firstDayInMonth: Date = new Date( currentYear, monthIndex, 1 );
-                    const firstDayNumberInMonth: number = getWeekdayNumber( firstDayInMonth );
+                    const firstDayNumberInMonth: number = DateTime.getWeekdayNumber( firstDayInMonth );
                     let actualDay: number = 1;
         
                     totalDaysInMonth += firstDayNumberInMonth;
@@ -958,7 +959,7 @@ import { type PublicApi } from "./ts/api";
 
             for ( let monthIndex1: number = 0; monthIndex1 < 12; monthIndex1++ ) {
                 if ( isMonthVisible( bindingOptions.views.chart.monthsToShow, monthIndex1 ) ) {
-                    const totalDaysInMonth: number = getTotalDaysInMonth( currentYear, monthIndex1 );
+                    const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( currentYear, monthIndex1 );
                     let actualDay: number = 1;
                     
                     totalMonths++;
@@ -1066,7 +1067,7 @@ import { type PublicApi } from "./ts/api";
         const data: any = getCurrentViewData( bindingOptions );
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-            const totalDaysInMonth: number = getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
+            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
     
             for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                 const storageDate: string = toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
@@ -1200,7 +1201,7 @@ import { type PublicApi } from "./ts/api";
         };
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-            const totalDaysInMonth: number = getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
+            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
     
             for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                 const storageDate: string = toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
@@ -1208,7 +1209,7 @@ import { type PublicApi } from "./ts/api";
                 if ( data.hasOwnProperty( storageDate ) ) {
                     const storageDateParts: string[] = getStorageDate( storageDate );
                     const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
-                    const weekDayNumber: number = getWeekdayNumber( storageDateObject ) + 1;
+                    const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
                     if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views.days.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.days.daysToShow, weekDayNumber ) ) {
                         days[ weekDayNumber ] += data[ storageDate ];
@@ -1356,7 +1357,7 @@ import { type PublicApi } from "./ts/api";
         types[ STRING.zero ] = 0;
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-            const totalDaysInMonth: number = getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
+            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
     
             for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                 const storageDate: string = toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
@@ -1364,7 +1365,7 @@ import { type PublicApi } from "./ts/api";
                 if ( data.hasOwnProperty( storageDate ) ) {
                     const storageDateParts: string[] = getStorageDate( storageDate );
                     const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
-                    const weekDayNumber: number = getWeekdayNumber( storageDateObject ) + 1;
+                    const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
                     if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.statistics.daysToShow, weekDayNumber ) ) {
                         const useColorRange: ColorRange = getColorRange( bindingOptions, colorRanges, data[ storageDate ] );
@@ -1547,7 +1548,7 @@ import { type PublicApi } from "./ts/api";
             addToolTip( day, bindingOptions, fireCustomTriggerEvent( bindingOptions.events.onDayToolTipRender, date, dateCount ) );
         } else {
 
-            let tooltip: string = getCustomFormattedDateText( bindingOptions.tooltip.dayText, date );
+            let tooltip: string = DateTime.getCustomFormattedDateText( _configuration, bindingOptions.tooltip.dayText, date );
 
             if ( bindingOptions.showHolidaysInDayToolTips ) {
                 let holiday: any = isHoliday( bindingOptions, date );
@@ -2142,7 +2143,7 @@ import { type PublicApi } from "./ts/api";
 
         if ( bindingOptions.exportOnlyYearBeingViewed ) {
             for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-                const totalDaysInMonth: number = getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
+                const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
         
                 for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                     const storageDate2: string = toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
@@ -2500,57 +2501,6 @@ import { type PublicApi } from "./ts/api";
         options.events.onWeekDayClick = Data.getDefaultFunction( options.events.onWeekDayClick, null );
 
         return options;
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Date/Time
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function getTotalDaysInMonth( year: number, month: number ) : number {
-        return new Date( year, month + 1, 0 ).getDate();
-    }
-
-    function getWeekdayNumber( date: Date ) : number {
-        return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
-    }
-
-    function getDayOrdinal( value: number ) : string {
-        let result: string = _configuration.thText;
-
-        if ( value === 31 || value === 21 || value === 1 ) {
-            result = _configuration.stText;
-        } else if ( value === 22 || value === 2 ) {
-            result = _configuration.ndText;
-        } else if ( value === 23 || value === 3 ) {
-            result = _configuration.rdText;
-        }
-
-        return result;
-    }
-
-    function getCustomFormattedDateText( dateFormat: string, date: Date ) : string {
-        let result: string = dateFormat;
-        const weekDayNumber: number = getWeekdayNumber( date );
-
-        result = result.replace( "{dddd}", _configuration.dayNames[ weekDayNumber ] );
-        result = result.replace( "{dd}", Data.String.padNumber( date.getDate() ) );
-        result = result.replace( "{d}", date.getDate().toString() );
-
-        result = result.replace( "{o}", getDayOrdinal( date.getDate() ) );
-
-        result = result.replace( "{mmmm}", _configuration.monthNames[ date.getMonth() ] );
-        result = result.replace( "{mm}", Data.String.padNumber( date.getMonth() + 1 ) );
-        result = result.replace( "{m}", ( date.getMonth() + 1 ).toString() );
-
-        result = result.replace( "{yyyy}", date.getFullYear().toString() );
-        result = result.replace( "{yyy}", date.getFullYear().toString().substring( 1 ) );
-        result = result.replace( "{yy}", date.getFullYear().toString().substring( 2 ) );
-        result = result.replace( "{y}", parseInt( date.getFullYear().toString().substring( 2 ) ).toString() );
-
-        return result;
     }
 
 

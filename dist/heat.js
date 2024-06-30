@@ -250,6 +250,47 @@ var DomElement;
     DomElement2.reverseChildrenOrder = reverseChildrenOrder;
     DomElement2.createCheckBox = createCheckBox;
 })(DomElement || (DomElement = {}));
+// src/ts/datetime.ts
+var DateTime;
+(function(DateTime2) {
+    var getTotalDaysInMonth = function getTotalDaysInMonth(year, month) {
+        return new Date(year, month + 1, 0).getDate();
+    };
+    var getWeekdayNumber = function getWeekdayNumber(date) {
+        return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
+    };
+    var getDayOrdinal = function getDayOrdinal(configuration, value) {
+        var result2 = configuration.thText;
+        if (value === 31 || value === 21 || value === 1) {
+            result2 = configuration.stText;
+        } else if (value === 22 || value === 2) {
+            result2 = configuration.ndText;
+        } else if (value === 23 || value === 3) {
+            result2 = configuration.rdText;
+        }
+        return result2;
+    };
+    var getCustomFormattedDateText = function getCustomFormattedDateText(configuration, dateFormat, date) {
+        var result2 = dateFormat;
+        var weekDayNumber = getWeekdayNumber(date);
+        result2 = result2.replace("{dddd}", configuration.dayNames[weekDayNumber]);
+        result2 = result2.replace("{dd}", Data.String.padNumber(date.getDate()));
+        result2 = result2.replace("{d}", date.getDate().toString());
+        result2 = result2.replace("{o}", getDayOrdinal(configuration, date.getDate()));
+        result2 = result2.replace("{mmmm}", configuration.monthNames[date.getMonth()]);
+        result2 = result2.replace("{mm}", Data.String.padNumber(date.getMonth() + 1));
+        result2 = result2.replace("{m}", (date.getMonth() + 1).toString());
+        result2 = result2.replace("{yyyy}", date.getFullYear().toString());
+        result2 = result2.replace("{yyy}", date.getFullYear().toString().substring(1));
+        result2 = result2.replace("{yy}", date.getFullYear().toString().substring(2));
+        result2 = result2.replace("{y}", parseInt(date.getFullYear().toString().substring(2)).toString());
+        return result2;
+    };
+    DateTime2.getTotalDaysInMonth = getTotalDaysInMonth;
+    DateTime2.getWeekdayNumber = getWeekdayNumber;
+    DateTime2.getDayOrdinal = getDayOrdinal;
+    DateTime2.getCustomFormattedDateText = getCustomFormattedDateText;
+})(DateTime || (DateTime = {}));
 // src/heat.ts
 (function() {
     var renderDisabledBackground = function renderDisabledBackground(bindingOptions) {
@@ -763,11 +804,11 @@ var DomElement;
                 if (isMonthVisible(bindingOptions.views.map.monthsToShow, monthIndex)) {
                     var month = DomElement.create(months, "div", "month");
                     var dayColumns = DomElement.create(month, "div", "day-columns");
-                    var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex);
+                    var totalDaysInMonth = DateTime.getTotalDaysInMonth(currentYear, monthIndex);
                     var currentDayColumn = DomElement.create(dayColumns, "div", "day-column");
                     var startFillingDays = false;
                     var firstDayInMonth = new Date(currentYear, monthIndex, 1);
-                    var firstDayNumberInMonth = getWeekdayNumber(firstDayInMonth);
+                    var firstDayNumberInMonth = DateTime.getWeekdayNumber(firstDayInMonth);
                     var actualDay = 1;
                     totalDaysInMonth += firstDayNumberInMonth;
                     for(var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++){
@@ -916,7 +957,7 @@ var DomElement;
             var totalDays = 0;
             for(var monthIndex1 = 0; monthIndex1 < 12; monthIndex1++){
                 if (isMonthVisible(bindingOptions.views.chart.monthsToShow, monthIndex1)) {
-                    var totalDaysInMonth = getTotalDaysInMonth(currentYear, monthIndex1);
+                    var totalDaysInMonth = DateTime.getTotalDaysInMonth(currentYear, monthIndex1);
                     var actualDay = 1;
                     totalMonths++;
                     for(var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++){
@@ -999,7 +1040,7 @@ var DomElement;
         var result2 = 0;
         var data = getCurrentViewData(bindingOptions);
         for(var monthIndex = 0; monthIndex < 12; monthIndex++){
-            var totalDaysInMonth = getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
+            var totalDaysInMonth = DateTime.getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
             for(var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++){
                 var storageDate = toStorageDate(new Date(bindingOptions._currentView.year, monthIndex, dayIndex + 1));
                 if (data.hasOwnProperty(storageDate)) {
@@ -1096,13 +1137,13 @@ var DomElement;
             7: 0
         };
         for(var monthIndex = 0; monthIndex < 12; monthIndex++){
-            var totalDaysInMonth = getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
+            var totalDaysInMonth = DateTime.getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
             for(var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++){
                 var storageDate = toStorageDate(new Date(bindingOptions._currentView.year, monthIndex, dayIndex + 1));
                 if (data.hasOwnProperty(storageDate)) {
                     var storageDateParts = getStorageDate(storageDate);
                     var storageDateObject = new Date(parseInt(storageDateParts[2]), parseInt(storageDateParts[1]), parseInt(storageDateParts[0]));
-                    var weekDayNumber = getWeekdayNumber(storageDateObject) + 1;
+                    var weekDayNumber = DateTime.getWeekdayNumber(storageDateObject) + 1;
                     if (!isHoliday(bindingOptions, storageDateObject).matched && isMonthVisible(bindingOptions.views.days.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.days.daysToShow, weekDayNumber)) {
                         days[weekDayNumber] += data[storageDate];
                         largestValue = Math.max(largestValue, days[weekDayNumber]);
@@ -1210,13 +1251,13 @@ var DomElement;
         var largestValue = 0;
         types["0" /* zero */ ] = 0;
         for(var monthIndex = 0; monthIndex < 12; monthIndex++){
-            var totalDaysInMonth = getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
+            var totalDaysInMonth = DateTime.getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
             for(var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++){
                 var storageDate = toStorageDate(new Date(bindingOptions._currentView.year, monthIndex, dayIndex + 1));
                 if (data.hasOwnProperty(storageDate)) {
                     var storageDateParts = getStorageDate(storageDate);
                     var storageDateObject = new Date(parseInt(storageDateParts[2]), parseInt(storageDateParts[1]), parseInt(storageDateParts[0]));
-                    var weekDayNumber = getWeekdayNumber(storageDateObject) + 1;
+                    var weekDayNumber = DateTime.getWeekdayNumber(storageDateObject) + 1;
                     if (!isHoliday(bindingOptions, storageDateObject).matched && isMonthVisible(bindingOptions.views.statistics.monthsToShow, storageDateObject.getMonth()) && isDayVisible(bindingOptions.views.statistics.daysToShow, weekDayNumber)) {
                         var useColorRange = getColorRange(bindingOptions, colorRanges, data[storageDate]);
                         if (!Validate.isDefined(useColorRange)) {
@@ -1348,7 +1389,7 @@ var DomElement;
         if (Validate.isDefinedFunction(bindingOptions.events.onDayToolTipRender)) {
             addToolTip(day, bindingOptions, fireCustomTriggerEvent(bindingOptions.events.onDayToolTipRender, date, dateCount));
         } else {
-            var tooltip = getCustomFormattedDateText(bindingOptions.tooltip.dayText, date);
+            var tooltip = DateTime.getCustomFormattedDateText(_configuration, bindingOptions.tooltip.dayText, date);
             if (bindingOptions.showHolidaysInDayToolTips) {
                 var holiday = isHoliday(bindingOptions, date);
                 if (holiday.matched && Validate.isDefinedString(holiday.name)) {
@@ -1780,7 +1821,7 @@ var DomElement;
         var data = getCurrentViewData(bindingOptions);
         if (bindingOptions.exportOnlyYearBeingViewed) {
             for(var monthIndex = 0; monthIndex < 12; monthIndex++){
-                var totalDaysInMonth = getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
+                var totalDaysInMonth = DateTime.getTotalDaysInMonth(bindingOptions._currentView.year, monthIndex);
                 for(var dayIndex = 0; dayIndex < totalDaysInMonth; dayIndex++){
                     var storageDate2 = toStorageDate(new Date(bindingOptions._currentView.year, monthIndex, dayIndex + 1));
                     if (data.hasOwnProperty(storageDate2)) {
@@ -2074,39 +2115,6 @@ var DomElement;
         options.events.onOptionsUpdate = Data.getDefaultFunction(options.events.onOptionsUpdate, null);
         options.events.onWeekDayClick = Data.getDefaultFunction(options.events.onWeekDayClick, null);
         return options;
-    };
-    var getTotalDaysInMonth = function getTotalDaysInMonth(year, month) {
-        return new Date(year, month + 1, 0).getDate();
-    };
-    var getWeekdayNumber = function getWeekdayNumber(date) {
-        return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
-    };
-    var getDayOrdinal = function getDayOrdinal(value) {
-        var result2 = _configuration.thText;
-        if (value === 31 || value === 21 || value === 1) {
-            result2 = _configuration.stText;
-        } else if (value === 22 || value === 2) {
-            result2 = _configuration.ndText;
-        } else if (value === 23 || value === 3) {
-            result2 = _configuration.rdText;
-        }
-        return result2;
-    };
-    var getCustomFormattedDateText = function getCustomFormattedDateText(dateFormat, date) {
-        var result2 = dateFormat;
-        var weekDayNumber = getWeekdayNumber(date);
-        result2 = result2.replace("{dddd}", _configuration.dayNames[weekDayNumber]);
-        result2 = result2.replace("{dd}", Data.String.padNumber(date.getDate()));
-        result2 = result2.replace("{d}", date.getDate().toString());
-        result2 = result2.replace("{o}", getDayOrdinal(date.getDate()));
-        result2 = result2.replace("{mmmm}", _configuration.monthNames[date.getMonth()]);
-        result2 = result2.replace("{mm}", Data.String.padNumber(date.getMonth() + 1));
-        result2 = result2.replace("{m}", (date.getMonth() + 1).toString());
-        result2 = result2.replace("{yyyy}", date.getFullYear().toString());
-        result2 = result2.replace("{yyy}", date.getFullYear().toString().substring(1));
-        result2 = result2.replace("{yy}", date.getFullYear().toString().substring(2));
-        result2 = result2.replace("{y}", parseInt(date.getFullYear().toString().substring(2)).toString());
-        return result2;
     };
     var fireCustomTriggerEvent = function fireCustomTriggerEvent(triggerFunction) {
         for(var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++){
