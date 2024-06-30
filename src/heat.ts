@@ -1811,7 +1811,7 @@ import { type PublicApi } from "./ts/api";
         let useColorRange: ColorRange = null;
 
         if ( Is.defined( date ) && isHoliday( bindingOptions, date ).matched ) {
-            const newUseColorRange: ColorRange = {
+            useColorRange = {
                 cssClassName: "holiday",
                 id: _internal_Name_Holiday,
                 visible: true,
@@ -1821,9 +1821,7 @@ import { type PublicApi } from "./ts/api";
                 chartCssClassName: Char.empty,
                 statisticsCssClassName: Char.empty,
                 tooltipText: Char.empty
-            };
-
-            useColorRange = newUseColorRange;
+            } as ColorRange;
         }
 
         if ( !Is.defined( useColorRange ) ) {

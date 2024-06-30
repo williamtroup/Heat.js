@@ -1560,7 +1560,7 @@ var DateTime;
     function getColorRange(e, t, n, i = null) {
         let o = null;
         if (Is.defined(i) && isHoliday(e, i).matched) {
-            const e = {
+            o = {
                 cssClassName: "holiday",
                 id: _internal_Name_Holiday,
                 visible: true,
@@ -1571,7 +1571,6 @@ var DateTime;
                 statisticsCssClassName: "",
                 tooltipText: ""
             };
-            o = e;
         }
         if (!Is.defined(o)) {
             const e = t.length;
