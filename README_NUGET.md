@@ -111,6 +111,13 @@ npm install jheat.js
 
 Or, you can download the latest zipped up version [here](https://www.william-troup.com/heat-js/download.html).
 
+Or, you can also use the following CDN links:
+
+```markdown
+https://cdn.jsdelivr.net/gh/williamtroup/Heat.js@main/dist/heat.min.js
+https://cdn.jsdelivr.net/gh/williamtroup/Heat.js@main/dist/heat.js.min.css
+```
+
 
 ## How do I get started?
 
