@@ -1331,7 +1331,7 @@ var require_heat = __commonJS({
                         break;
                     }
                 }
-                if (_elements_DateCounts[e._currentView.element.id].types > 1) {
+                if (_elements_DateCounts[e._currentView.element.id].totalTypes > 1) {
                     if (Is.definedString(e.description.text)) {
                         const n = DomElement.create(e._currentView.element, "div", "description", t);
                         renderDescription(e, n);
@@ -1446,7 +1446,7 @@ var require_heat = __commonJS({
                 _elements_DateCounts[e] = {
                     options: t,
                     typeData: {},
-                    types: 1
+                    totalTypes: 1
                 };
                 _elements_DateCounts[e].typeData[_configuration.unknownTrendText] = {};
                 if (n && !t._currentView.isInFetchMode) {
@@ -1500,10 +1500,10 @@ var require_heat = __commonJS({
                             const i = getObjectFromString(e);
                             if (i.parsed) {
                                 _elements_DateCounts[n].typeData = i.result;
-                                _elements_DateCounts[n].types = 0;
+                                _elements_DateCounts[n].totalTypes = 0;
                                 for (let e in _elements_DateCounts[n].typeData) {
                                     if (_elements_DateCounts[n].typeData.hasOwnProperty(e)) {
-                                        _elements_DateCounts[n].types++;
+                                        _elements_DateCounts[n].totalTypes++;
                                     }
                                 }
                             }
@@ -2291,7 +2291,7 @@ var require_heat = __commonJS({
                             const a = toStorageDate(t);
                             if (!_elements_DateCounts[e].typeData.hasOwnProperty(n)) {
                                 _elements_DateCounts[e].typeData[n] = {};
-                                _elements_DateCounts[e].types++;
+                                _elements_DateCounts[e].totalTypes++;
                             }
                             if (!_elements_DateCounts[e].typeData[n].hasOwnProperty(a)) {
                                 _elements_DateCounts[e].typeData[n][a] = 0;

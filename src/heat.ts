@@ -41,7 +41,7 @@ import { type PublicApi } from "./ts/api";
     type TypeCountsData = Record<string, number>;
     type DateCounts = Record<string, {
         options: BindingOptions;
-        types: number;
+        totalTypes: number;
         typeData: Record<string, TypeCountsData>
     }>;
 
@@ -1420,7 +1420,7 @@ import { type PublicApi } from "./ts/api";
             }
         }
 
-        if ( _elements_DateCounts[ bindingOptions._currentView.element.id ].types > 1 ) {
+        if ( _elements_DateCounts[ bindingOptions._currentView.element.id ].totalTypes > 1 ) {
             if ( Is.definedString( bindingOptions.description.text ) ) {
                 const description: HTMLElement = DomElement.create( bindingOptions._currentView.element, "div", "description", guide );
     
@@ -1581,7 +1581,7 @@ import { type PublicApi } from "./ts/api";
         _elements_DateCounts[ elementId ] = {
             options: bindingOptions,
             typeData: {},
-            types: 1
+            totalTypes: 1
         };
 
         _elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText ] = {} as TypeCountsData;
@@ -1660,11 +1660,11 @@ import { type PublicApi } from "./ts/api";
 
                     if ( typesObject.parsed ) {
                         _elements_DateCounts[ elementId ].typeData = typesObject.result;
-                        _elements_DateCounts[ elementId ].types = 0;
+                        _elements_DateCounts[ elementId ].totalTypes = 0;
 
                         for ( let type in _elements_DateCounts[ elementId ].typeData ) {
                             if ( _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) ) {
-                                _elements_DateCounts[ elementId ].types++;
+                                _elements_DateCounts[ elementId ].totalTypes++;
                             }
                         }
                     }
@@ -2779,7 +2779,7 @@ import { type PublicApi } from "./ts/api";
         
                     if ( !_elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) ) {
                         _elements_DateCounts[ elementId ].typeData[ type ] = {} as TypeCountsData;
-                        _elements_DateCounts[ elementId ].types++;
+                        _elements_DateCounts[ elementId ].totalTypes++;
                     }
         
                     if ( !_elements_DateCounts[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
