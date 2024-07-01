@@ -37,6 +37,14 @@ import { type PublicApi } from "./ts/api";
 
 
 ( () => {
+    // Types
+    type DateCountsData = Record<string, number>;
+    type DateCounts = Record<string, {
+        options: BindingOptions;
+        types: number;
+        typeData: Record<string, DateCountsData>
+    }>;
+
     // Variables: Configuration
     let _configuration: Configuration = {} as Configuration;
 
@@ -44,8 +52,6 @@ import { type PublicApi } from "./ts/api";
     let _elements_Day_Width: number = null;
 
     // Variables: Date Counts
-    type DateCountsData = Record<string, number>;
-    type DateCounts = Record<string, { options: BindingOptions; types: number; typeData: Record<string, DateCountsData> }>;
     let _elements_DateCounts: DateCounts = {};
 
     // Variables: Internal Names
