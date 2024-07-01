@@ -44,7 +44,7 @@ import { type PublicApi } from "./ts/api";
     let _elements_Day_Width: number = null;
 
     // Variables: Date Counts
-    let _elements_DateCounts: Record<string, { options: BindingOptions; types: number; type: Record<string, object> }> = {};
+    let _elements_DateCounts: Record<string, { options: BindingOptions; types: number; typeData: Record<string, Record<string, number>> }> = {};
 
     // Variables: Internal Names
     const _internal_Name_Holiday: string = "HOLIDAY";
@@ -851,7 +851,7 @@ import { type PublicApi } from "./ts/api";
         const actualDay: number = dayNumber + 1;
         const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day" );
         const date: Date = new Date( year, month, actualDay );
-        let dateCount: number = _elements_DateCounts[ bindingOptions._currentView.element.id ].type[ bindingOptions._currentView.type ][ toStorageDate( date ) ];
+        let dateCount: number = _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ bindingOptions._currentView.type ][ toStorageDate( date ) ];
 
         dateCount = Data.getDefaultNumber( dateCount, 0 );
 
@@ -1405,8 +1405,8 @@ import { type PublicApi } from "./ts/api";
         const mapTypes: HTMLElement = DomElement.create( guide, "div", "map-types" );
         let noneTypeCount: number = 0;
 
-        for ( let storageDate in _elements_DateCounts[ bindingOptions._currentView.element.id ].type[ _configuration.unknownTrendText ] ) {
-            if ( _elements_DateCounts[ bindingOptions._currentView.element.id ].type[ _configuration.unknownTrendText ].hasOwnProperty( storageDate ) ) {
+        for ( let storageDate in _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ _configuration.unknownTrendText ] ) {
+            if ( _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ _configuration.unknownTrendText ].hasOwnProperty( storageDate ) ) {
                 noneTypeCount++;
                 break;
             }
@@ -1419,7 +1419,7 @@ import { type PublicApi } from "./ts/api";
                 renderDescription( bindingOptions, description );
             }
 
-            for ( let type in _elements_DateCounts[ bindingOptions._currentView.element.id ].type ) {
+            for ( let type in _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData ) {
                 if ( type !== _configuration.unknownTrendText || noneTypeCount > 0 ) {
                     if ( noneTypeCount === 0 && bindingOptions._currentView.type === _configuration.unknownTrendText ) {
                         bindingOptions._currentView.type = type;
@@ -1572,11 +1572,11 @@ import { type PublicApi } from "./ts/api";
     function createDateStorageForElement( elementId: string, bindingOptions: BindingOptions, storeLocalData: boolean = true ) : void {
         _elements_DateCounts[ elementId ] = {
             options: bindingOptions,
-            type: {},
+            typeData: {},
             types: 1
         };
 
-        _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ] = {};
+        _elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText ] = {} as Record<string, number>;
 
         if ( storeLocalData && !bindingOptions._currentView.isInFetchMode ) {
             loadDataFromLocalStorage( bindingOptions );
@@ -1584,7 +1584,7 @@ import { type PublicApi } from "./ts/api";
     }
 
     function getCurrentViewData( bindingOptions: BindingOptions ) : any {
-        return _elements_DateCounts[ bindingOptions._currentView.element.id ].type[ bindingOptions._currentView.type ];
+        return _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ bindingOptions._currentView.type ];
     }
 
     function isMonthVisible( monthsToShow: number[], month: number ) : boolean {
@@ -1651,11 +1651,11 @@ import { type PublicApi } from "./ts/api";
                     const typesObject: any = getObjectFromString( typesJson );
 
                     if ( typesObject.parsed ) {
-                        _elements_DateCounts[ elementId ].type = typesObject.result;
+                        _elements_DateCounts[ elementId ].typeData = typesObject.result;
                         _elements_DateCounts[ elementId ].types = 0;
 
-                        for ( let type in _elements_DateCounts[ elementId ].type ) {
-                            if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
+                        for ( let type in _elements_DateCounts[ elementId ].typeData ) {
+                            if ( _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) ) {
                                 _elements_DateCounts[ elementId ].types++;
                             }
                         }
@@ -1671,7 +1671,7 @@ import { type PublicApi } from "./ts/api";
 
             clearLocalStorageObjects( bindingOptions );
 
-            const jsonData: string = JSON.stringify( _elements_DateCounts[ elementId ].type );
+            const jsonData: string = JSON.stringify( _elements_DateCounts[ elementId ].typeData );
 
             window.localStorage.setItem( _local_Storage_Start_ID + elementId, jsonData );
         }
@@ -1728,11 +1728,11 @@ import { type PublicApi } from "./ts/api";
 
             for ( let storageDate in data ) {
                 if ( data.hasOwnProperty( storageDate ) ) {
-                    if ( !_elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ].hasOwnProperty( storageDate ) ) {
-                        _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ][ storageDate ] = 0;
+                    if ( !_elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText ].hasOwnProperty( storageDate ) ) {
+                        _elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText ][ storageDate ] = 0;
                     }
             
-                    _elements_DateCounts[ elementId ].type[ _configuration.unknownTrendText ][ storageDate ] += data[ storageDate ];
+                    _elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText ][ storageDate ] += data[ storageDate ];
                 }
             }
         }
@@ -2769,16 +2769,16 @@ import { type PublicApi } from "./ts/api";
 
                     const storageDate: string = toStorageDate( date );
         
-                    if ( !_elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
-                        _elements_DateCounts[ elementId ].type[ type ] = {};
+                    if ( !_elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) ) {
+                        _elements_DateCounts[ elementId ].typeData[ type ] = {};
                         _elements_DateCounts[ elementId ].types++;
                     }
         
-                    if ( !_elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
-                        _elements_DateCounts[ elementId ].type[ type ][ storageDate ] = 0;
+                    if ( !_elements_DateCounts[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
+                        _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ] = 0;
                     }
             
-                    _elements_DateCounts[ elementId ].type[ type ][ storageDate ]++;
+                    _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ]++;
         
                     fireCustomTriggerEvent( bindingOptions.events.onAdd, bindingOptions._currentView.element );
         
@@ -2798,10 +2798,10 @@ import { type PublicApi } from "./ts/api";
                 if ( !bindingOptions._currentView.isInFetchMode && count > 0 ) {
                     const storageDate: string = toStorageDate( date );
         
-                    if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {    
+                    if ( _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) ) {    
                         type = Data.getDefaultString( type, _configuration.unknownTrendText );
 
-                        _elements_DateCounts[ elementId ].type[ type ][ storageDate ] = count;
+                        _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ] = count;
         
                         fireCustomTriggerEvent( bindingOptions.events.onUpdate, bindingOptions._currentView.element );
         
@@ -2844,11 +2844,11 @@ import { type PublicApi } from "./ts/api";
                 if ( !bindingOptions._currentView.isInFetchMode ) {
                     const storageDate: string = toStorageDate( date );
         
-                    if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
+                    if ( _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
                         type = Data.getDefaultString( type, _configuration.unknownTrendText );
 
-                        if ( _elements_DateCounts[ elementId ].type[ type ][ storageDate ] > 0 ) {
-                            _elements_DateCounts[ elementId ].type[ type ][ storageDate ]--;
+                        if ( _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ] > 0 ) {
+                            _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ]--;
                         }
         
                         fireCustomTriggerEvent( bindingOptions.events.onRemove, bindingOptions._currentView.element );
@@ -2870,10 +2870,10 @@ import { type PublicApi } from "./ts/api";
                 if ( !bindingOptions._currentView.isInFetchMode ) {
                     const storageDate: string = toStorageDate( date );
         
-                    if ( _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].type[ type ].hasOwnProperty( storageDate ) ) {
+                    if ( _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
                         type = Data.getDefaultString( type, _configuration.unknownTrendText );
 
-                        delete _elements_DateCounts[ elementId ].type[ type ][ storageDate ];
+                        delete _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ];
         
                         fireCustomTriggerEvent( bindingOptions.events.onClear, bindingOptions._currentView.element );
         
@@ -3129,7 +3129,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         switchType: function ( elementId: string, type: string ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) && _elements_DateCounts[ elementId ].type.hasOwnProperty( type ) ) {
+            if ( Is.definedString( elementId ) && Is.definedString( type ) && _elements_DateCounts.hasOwnProperty( elementId ) && _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
     
                 if ( bindingOptions._currentView.type !== type ) {
