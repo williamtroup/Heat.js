@@ -52,7 +52,7 @@ import { type PublicApi } from "./ts/api";
     let _elements_Day_Width: number = null;
 
     // Variables: Date Counts
-    let _elements_DateCounts: DateCounts = {};
+    let _elements_DateCounts: DateCounts = {} as DateCounts;
 
     // Variables: Internal Names
     const _internal_Name_Holiday: string = "HOLIDAY";
@@ -1358,7 +1358,7 @@ import { type PublicApi } from "./ts/api";
     }
 
     function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: ColorRange[] ) : any {
-        const types: object = {} as Record<string, number>;
+        const types: TypeCountsData = {} as TypeCountsData;
         const data: TypeCountsData = getCurrentViewData( bindingOptions );
         let largestValue: number = 0;
 
@@ -1982,7 +1982,7 @@ import { type PublicApi } from "./ts/api";
 
     function importFromJson( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
-        let readingObject: object = {};
+        let readingObject: TypeCountsData = {} as TypeCountsData;
 
         reader.readAsText( file );
 
@@ -2001,7 +2001,7 @@ import { type PublicApi } from "./ts/api";
 
     function importFromTxt( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
-        const readingObject: object = {};
+        const readingObject: TypeCountsData = {} as TypeCountsData;
 
         reader.readAsText( file );
 
@@ -2023,7 +2023,7 @@ import { type PublicApi } from "./ts/api";
 
     function importFromCsv( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
-        const readingObject: object = {};
+        const readingObject: TypeCountsData = {} as TypeCountsData;
 
         reader.readAsText( file );
 
@@ -2084,12 +2084,12 @@ import { type PublicApi } from "./ts/api";
     }
 
     function getCsvContent( bindingOptions: BindingOptions ) : string {
-        const data: object = getExportData( bindingOptions );
+        const data: TypeCountsData = getExportData( bindingOptions );
         const csvContents: string[] = [];
 
         for ( let storageDate in data ) {
             if ( data.hasOwnProperty( storageDate ) ) {
-                csvContents.push( getCsvValueLine( [ getCsvValue( storageDate ), getCsvValue( data[ storageDate ] ) ] ) );
+                csvContents.push( getCsvValueLine( [ getCsvValue( storageDate ), getCsvValue( data[ storageDate ].toString() ) ] ) );
             }
         }
 
@@ -2105,7 +2105,7 @@ import { type PublicApi } from "./ts/api";
     }
 
     function getXmlContents( bindingOptions: BindingOptions ) : string {
-        const data: object = getExportData( bindingOptions );
+        const data: TypeCountsData = getExportData( bindingOptions );
         const contents: string[] = [];
 
         contents.push( "<?xml version=\"1.0\" ?>" );
@@ -2115,7 +2115,7 @@ import { type PublicApi } from "./ts/api";
             if ( data.hasOwnProperty( storageDate ) ) {
                 contents.push( "<Date>" );
                 contents.push( "<FullDate>" + storageDate + "</FullDate>" );
-                contents.push( "<Count>" + data[ storageDate ] + "</Count>" );
+                contents.push( "<Count>" + data[ storageDate ].toString() + "</Count>" );
                 contents.push( "</Date>" );
             }
         }
@@ -2126,7 +2126,7 @@ import { type PublicApi } from "./ts/api";
     }
 
     function getTxtContents( bindingOptions: BindingOptions ) : string {
-        const data: object = getExportData( bindingOptions );
+        const data: TypeCountsData = getExportData( bindingOptions );
         const contents: string[] = [];
 
         for ( let storageDate in data ) {
@@ -2138,8 +2138,8 @@ import { type PublicApi } from "./ts/api";
         return contents.join( Char.newLine );
     }
 
-    function getExportData( bindingOptions: BindingOptions ) : object {
-        const contents: object = {};
+    function getExportData( bindingOptions: BindingOptions ) : TypeCountsData {
+        const contents: TypeCountsData = {} as TypeCountsData;
         const data: TypeCountsData = getCurrentViewData( bindingOptions );
 
         if ( bindingOptions.exportOnlyYearBeingViewed ) {
@@ -2778,7 +2778,7 @@ import { type PublicApi } from "./ts/api";
                     const storageDate: string = toStorageDate( date );
         
                     if ( !_elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) ) {
-                        _elements_DateCounts[ elementId ].typeData[ type ] = {} as Record<string, number>;
+                        _elements_DateCounts[ elementId ].typeData[ type ] = {} as TypeCountsData;
                         _elements_DateCounts[ elementId ].types++;
                     }
         

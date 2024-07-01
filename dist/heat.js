@@ -1755,7 +1755,7 @@ var DateTime;
         const n = [];
         for (let e in t) {
             if (t.hasOwnProperty(e)) {
-                n.push(getCsvValueLine([ getCsvValue(e), getCsvValue(t[e]) ]));
+                n.push(getCsvValueLine([ getCsvValue(e), getCsvValue(t[e].toString()) ]));
             }
         }
         if (n.length > 0) {
@@ -1775,7 +1775,7 @@ var DateTime;
             if (t.hasOwnProperty(e)) {
                 n.push("<Date>");
                 n.push("<FullDate>" + e + "</FullDate>");
-                n.push("<Count>" + t[e] + "</Count>");
+                n.push("<Count>" + t[e].toString() + "</Count>");
                 n.push("</Date>");
             }
         }
