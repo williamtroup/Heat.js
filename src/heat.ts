@@ -44,7 +44,7 @@ import { type PublicApi } from "./ts/api";
     let _elements_Day_Width: number = null;
 
     // Variables: Date Counts
-    let _elements_DateCounts: Record<string, { options: BindingOptions; types: number; type: object }> = {};
+    let _elements_DateCounts: Record<string, { options: BindingOptions; types: number; type: Record<string, object> }> = {};
 
     // Variables: Internal Names
     const _internal_Name_Holiday: string = "HOLIDAY";
@@ -1569,7 +1569,7 @@ import { type PublicApi } from "./ts/api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function createDateStorageForElement( elementId: string, bindingOptions: BindingOptions, storeLocalData: boolean = true ) {
+    function createDateStorageForElement( elementId: string, bindingOptions: BindingOptions, storeLocalData: boolean = true ) : void {
         _elements_DateCounts[ elementId ] = {
             options: bindingOptions,
             type: {},
