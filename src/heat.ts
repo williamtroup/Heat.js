@@ -1350,7 +1350,7 @@ import { type PublicApi } from "./ts/api";
     }
 
     function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: ColorRange[] ) : any {
-        const types: object = {};
+        const types: object = {} as Record<string, number>;
         const data: Record<string, number> = getCurrentViewData( bindingOptions );
         let largestValue: number = 0;
 
@@ -2770,7 +2770,7 @@ import { type PublicApi } from "./ts/api";
                     const storageDate: string = toStorageDate( date );
         
                     if ( !_elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) ) {
-                        _elements_DateCounts[ elementId ].typeData[ type ] = {};
+                        _elements_DateCounts[ elementId ].typeData[ type ] = {} as Record<string, number>;
                         _elements_DateCounts[ elementId ].types++;
                     }
         
