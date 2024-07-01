@@ -1036,7 +1036,7 @@ var DateTime;
                 const o = toStorageDate(new Date(e._currentView.year, i, a + 1));
                 if (n.hasOwnProperty(o)) {
                     if (isMonthVisible(e.views.chart.monthsToShow, i) && isDayVisible(e.views.chart.daysToShow, a + 1)) {
-                        t = Math.max(t, parseInt(n[o]));
+                        t = Math.max(t, n[o]);
                     }
                 }
             }
