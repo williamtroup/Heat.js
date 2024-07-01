@@ -11,16 +11,13 @@ var __commonJS = (e, t) => function n() {
 };
 
 var init_enum = __esm({
-    "src/ts/enum.ts"() {
-        "use strict";
-    }
+    "src/ts/enum.ts"() {}
 });
 
 var HEAT_JS_ATTRIBUTE_NAME;
 
 var init_constant = __esm({
     "src/ts/constant.ts"() {
-        "use strict";
         HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
     }
 });
@@ -29,7 +26,6 @@ var Is;
 
 var init_is = __esm({
     "src/ts/is.ts"() {
-        "use strict";
         init_enum();
         (e => {
             function t(e) {
@@ -76,7 +72,6 @@ var Data;
 
 var init_data = __esm({
     "src/ts/data.ts"() {
-        "use strict";
         init_enum();
         init_is();
         (e => {
@@ -155,7 +150,6 @@ var DomElement;
 
 var init_dom = __esm({
     "src/ts/dom.ts"() {
-        "use strict";
         init_enum();
         init_is();
         (e => {
@@ -285,7 +279,6 @@ var DateTime;
 
 var init_datetime = __esm({
     "src/ts/datetime.ts"() {
-        "use strict";
         init_data();
         (e => {
             function t(e, t) {
@@ -339,7 +332,7 @@ var require_heat = __commonJS({
         init_datetime();
         (() => {
             let _configuration = {};
-            let _elements_Day_Width = null;
+            let _elements_Day_Width = 0;
             let _elements_DateCounts = {};
             const _internal_Name_Holiday = "HOLIDAY";
             const _local_Storage_Start_ID = "HJS_";
@@ -405,13 +398,13 @@ var require_heat = __commonJS({
                 o.dayCheckBoxes = [];
                 o.monthCheckBoxes = [];
                 o.tooltip = null;
-                o.tooltipTimer = null;
+                o.tooltipTimer = 0;
                 o.mapContents = null;
                 o.mapContentsScrollLeft = 0;
                 o.year = n.year;
                 o.type = _configuration.unknownTrendText;
                 o.isInFetchMode = Is.definedFunction(n.events.onDataFetch);
-                o.isInFetchModeTimer = null;
+                o.isInFetchModeTimer = 0;
                 o.yearsAvailable = [];
                 if (n.views.chart.enabled) {
                     o.chartContents = null;
@@ -880,7 +873,7 @@ var require_heat = __commonJS({
                                         }
                                         u = DomElement.create(s, "div", "day-column");
                                         m = 0;
-                                        if (!Is.defined(_elements_Day_Width) && Is.defined(o)) {
+                                        if (_elements_Day_Width === 0 && Is.defined(o)) {
                                             let e = DomElement.getStyleValueByName(o, "margin-left", true);
                                             let t = DomElement.getStyleValueByName(o, "margin-right", true);
                                             _elements_Day_Width = o.offsetWidth + e + t;
@@ -890,7 +883,7 @@ var require_heat = __commonJS({
                                 m++;
                             }
                             if (e.views.map.showMonthNames) {
-                                let i = null;
+                                let i;
                                 const o = n.offsetWidth;
                                 if (!e.views.map.placeMonthNamesOnTheBottom) {
                                     i = DomElement.createWithHTML(n, "div", "month-name", _configuration.monthNames[t], s);
