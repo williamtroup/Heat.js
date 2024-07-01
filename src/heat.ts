@@ -38,11 +38,11 @@ import { type PublicApi } from "./ts/api";
 
 ( () => {
     // Types
-    type DateCountsData = Record<string, number>;
+    type TypeCountsData = Record<string, number>;
     type DateCounts = Record<string, {
         options: BindingOptions;
         types: number;
-        typeData: Record<string, DateCountsData>
+        typeData: Record<string, TypeCountsData>
     }>;
 
     // Variables: Configuration
@@ -893,7 +893,7 @@ import { type PublicApi } from "./ts/api";
 
     function isDataAvailableForYear( bindingOptions: BindingOptions ) : boolean {
         let result: boolean = false;
-        const data: DateCountsData = getCurrentViewData( bindingOptions );
+        const data: TypeCountsData = getCurrentViewData( bindingOptions );
         const checkDate: string = bindingOptions._currentView.year.toString();
 
         for ( let storageDate in data ) {
@@ -1072,7 +1072,7 @@ import { type PublicApi } from "./ts/api";
 
     function getLargestValueForChartYear( bindingOptions: BindingOptions ) : number {
         let result: number = 0;
-        const data: DateCountsData = getCurrentViewData( bindingOptions );
+        const data: TypeCountsData = getCurrentViewData( bindingOptions );
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
             const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
@@ -1196,7 +1196,7 @@ import { type PublicApi } from "./ts/api";
 
     function getLargestValuesForEachDay( bindingOptions: BindingOptions ) : any {
         let largestValue: number = 0;
-        const data: DateCountsData = getCurrentViewData( bindingOptions );
+        const data: TypeCountsData = getCurrentViewData( bindingOptions );
 
         const days : object = {
             1: 0,
@@ -1359,7 +1359,7 @@ import { type PublicApi } from "./ts/api";
 
     function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: ColorRange[] ) : any {
         const types: object = {} as Record<string, number>;
-        const data: DateCountsData = getCurrentViewData( bindingOptions );
+        const data: TypeCountsData = getCurrentViewData( bindingOptions );
         let largestValue: number = 0;
 
         types[ Char.zero ] = 0;
@@ -1584,14 +1584,14 @@ import { type PublicApi } from "./ts/api";
             types: 1
         };
 
-        _elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText ] = {} as DateCountsData;
+        _elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText ] = {} as TypeCountsData;
 
         if ( storeLocalData && !bindingOptions._currentView.isInFetchMode ) {
             loadDataFromLocalStorage( bindingOptions );
         }
     }
 
-    function getCurrentViewData( bindingOptions: BindingOptions ) : DateCountsData {
+    function getCurrentViewData( bindingOptions: BindingOptions ) : TypeCountsData {
         return _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ bindingOptions._currentView.type ];
     }
 
@@ -1607,7 +1607,7 @@ import { type PublicApi } from "./ts/api";
         let years: number[] = [];
 
         if ( bindingOptions.showOnlyDataForYearsAvailable ) {
-            let data: DateCountsData = getCurrentViewData( bindingOptions );
+            let data: TypeCountsData = getCurrentViewData( bindingOptions );
 
             for ( let storageDate in data ) {
                 if ( data.hasOwnProperty( storageDate ) ) {
@@ -1945,7 +1945,7 @@ import { type PublicApi } from "./ts/api";
     function importFromFiles( files: FileList, bindingOptions: BindingOptions ) : void {
         const filesLength: number = files.length;
         const filesCompleted: string[] = [];
-        const data: DateCountsData = getCurrentViewData( bindingOptions );
+        const data: TypeCountsData = getCurrentViewData( bindingOptions );
 
         const onLoadEnd = function ( filename: string, readingObject: object ) {
             filesCompleted.push( filename );
@@ -2140,7 +2140,7 @@ import { type PublicApi } from "./ts/api";
 
     function getExportData( bindingOptions: BindingOptions ) : object {
         const contents: object = {};
-        const data: DateCountsData = getCurrentViewData( bindingOptions );
+        const data: TypeCountsData = getCurrentViewData( bindingOptions );
 
         if ( bindingOptions.exportOnlyYearBeingViewed ) {
             for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
@@ -2998,7 +2998,7 @@ import { type PublicApi } from "./ts/api";
         setYearToHighest: function ( elementId: string ) : PublicApi {
             if ( Is.definedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
-                const data: DateCountsData = getCurrentViewData( bindingOptions );
+                const data: TypeCountsData = getCurrentViewData( bindingOptions );
                 let maximumYear: number = 0;
     
                 for ( let storageDate in data ) {
@@ -3026,7 +3026,7 @@ import { type PublicApi } from "./ts/api";
         setYearToLowest: function ( elementId: string ) : PublicApi {
             if ( Is.definedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
-                const data: DateCountsData = getCurrentViewData( bindingOptions );
+                const data: TypeCountsData = getCurrentViewData( bindingOptions );
                 let minimumYear: number = 9999;
     
                 for ( let storageDate in data ) {
