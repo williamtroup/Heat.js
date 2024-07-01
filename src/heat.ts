@@ -448,11 +448,11 @@ import { type PublicApi } from "./ts/api";
         let addEventListener_Window: Function = add ? window.addEventListener : window.removeEventListener;
         let addEventListener_Document: Function = add ? document.addEventListener : document.removeEventListener;
 
-        addEventListener_Window( "mousemove", function() {
+        addEventListener_Window( "mousemove", () => {
             hideToolTip( bindingOptions );
         } );
 
-        addEventListener_Document( "scroll", function() {
+        addEventListener_Document( "scroll", () => {
             hideToolTip( bindingOptions );
         } );
     }
@@ -469,7 +469,7 @@ import { type PublicApi } from "./ts/api";
         DomElement.cancelBubble( e );
         hideToolTip( bindingOptions );
 
-        bindingOptions._currentView.tooltipTimer = setTimeout( function() {
+        bindingOptions._currentView.tooltipTimer = setTimeout( () => {
             bindingOptions._currentView.tooltip.innerHTML = text;
             bindingOptions._currentView.tooltip.style.display = "block";
 
@@ -1719,7 +1719,7 @@ import { type PublicApi } from "./ts/api";
             }
 
             if ( !Is.defined( bindingOptions._currentView.isInFetchModeTimer ) ) {
-                bindingOptions._currentView.isInFetchModeTimer = setInterval( function() {
+                bindingOptions._currentView.isInFetchModeTimer = setInterval( () => {
                     pullDataFromCustomTrigger( bindingOptions );
                     renderControlContainer( bindingOptions );
                 }, bindingOptions.dataFetchDelay );

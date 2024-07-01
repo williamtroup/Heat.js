@@ -568,10 +568,10 @@ var DateTime;
     function assignToolTipEvents(e, t = true) {
         let n = t ? window.addEventListener : window.removeEventListener;
         let o = t ? document.addEventListener : document.removeEventListener;
-        n("mousemove", (function() {
+        n("mousemove", (() => {
             hideToolTip(e);
         }));
-        o("scroll", (function() {
+        o("scroll", (() => {
             hideToolTip(e);
         }));
     }
@@ -585,7 +585,7 @@ var DateTime;
     function showToolTip(e, t, n) {
         DomElement.cancelBubble(e);
         hideToolTip(t);
-        t._currentView.tooltipTimer = setTimeout((function() {
+        t._currentView.tooltipTimer = setTimeout((() => {
             t._currentView.tooltip.innerHTML = n;
             t._currentView.tooltip.style.display = "block";
             DomElement.showElementAtMousePosition(e, t._currentView.tooltip);
@@ -1489,7 +1489,7 @@ var DateTime;
                 pullDataFromCustomTrigger(e);
             }
             if (!Is.defined(e._currentView.isInFetchModeTimer)) {
-                e._currentView.isInFetchModeTimer = setInterval((function() {
+                e._currentView.isInFetchModeTimer = setInterval((() => {
                     pullDataFromCustomTrigger(e);
                     renderControlContainer(e);
                 }), e.dataFetchDelay);

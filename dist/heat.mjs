@@ -620,10 +620,10 @@ var require_heat = __commonJS({
             function assignToolTipEvents(e, t = true) {
                 let n = t ? window.addEventListener : window.removeEventListener;
                 let i = t ? document.addEventListener : document.removeEventListener;
-                n("mousemove", (function() {
+                n("mousemove", (() => {
                     hideToolTip(e);
                 }));
-                i("scroll", (function() {
+                i("scroll", (() => {
                     hideToolTip(e);
                 }));
             }
@@ -637,7 +637,7 @@ var require_heat = __commonJS({
             function showToolTip(e, t, n) {
                 DomElement.cancelBubble(e);
                 hideToolTip(t);
-                t._currentView.tooltipTimer = setTimeout((function() {
+                t._currentView.tooltipTimer = setTimeout((() => {
                     t._currentView.tooltip.innerHTML = n;
                     t._currentView.tooltip.style.display = "block";
                     DomElement.showElementAtMousePosition(e, t._currentView.tooltip);
@@ -1541,7 +1541,7 @@ var require_heat = __commonJS({
                         pullDataFromCustomTrigger(e);
                     }
                     if (!Is.defined(e._currentView.isInFetchModeTimer)) {
-                        e._currentView.isInFetchModeTimer = setInterval((function() {
+                        e._currentView.isInFetchModeTimer = setInterval((() => {
                             pullDataFromCustomTrigger(e);
                             renderControlContainer(e);
                         }), e.dataFetchDelay);
