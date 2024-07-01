@@ -11,13 +11,16 @@ var __commonJS = (e, t) => function n() {
 };
 
 var init_enum = __esm({
-    "src/ts/enum.ts"() {}
+    "src/ts/enum.ts"() {
+        "use strict";
+    }
 });
 
 var HEAT_JS_ATTRIBUTE_NAME;
 
 var init_constant = __esm({
     "src/ts/constant.ts"() {
+        "use strict";
         HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
     }
 });
@@ -26,6 +29,7 @@ var Is;
 
 var init_is = __esm({
     "src/ts/is.ts"() {
+        "use strict";
         init_enum();
         (e => {
             function t(e) {
@@ -72,6 +76,7 @@ var Data;
 
 var init_data = __esm({
     "src/ts/data.ts"() {
+        "use strict";
         init_enum();
         init_is();
         (e => {
@@ -150,6 +155,7 @@ var DomElement;
 
 var init_dom = __esm({
     "src/ts/dom.ts"() {
+        "use strict";
         init_enum();
         init_is();
         (e => {
@@ -279,6 +285,7 @@ var DateTime;
 
 var init_datetime = __esm({
     "src/ts/datetime.ts"() {
+        "use strict";
         init_data();
         (e => {
             function t(e, t) {

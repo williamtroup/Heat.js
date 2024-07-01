@@ -9,7 +9,8 @@
     "forceConsistentCasingInFileNames": true,          
     "skipLibCheck": true,
     "removeComments": true,
-    "sourceMap": true                              
+    "sourceMap": true,
+    "strict": false
   },
   "include": [
     "src/**/*.ts"

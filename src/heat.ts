@@ -49,7 +49,7 @@ import { type PublicApi } from "./ts/api";
     let _configuration: Configuration = {} as Configuration;
 
     // Variables: Elements
-    let _elements_Day_Width: number = null;
+    let _elements_Day_Width: number = 0;
 
     // Variables: Date Counts
     let _elements_DateCounts: DateCounts = {} as DateCounts;
@@ -152,13 +152,13 @@ import { type PublicApi } from "./ts/api";
         currentView.dayCheckBoxes = [];
         currentView.monthCheckBoxes = [];
         currentView.tooltip = null;
-        currentView.tooltipTimer = null;
+        currentView.tooltipTimer = 0;
         currentView.mapContents = null;
         currentView.mapContentsScrollLeft = 0;
         currentView.year = bindingOptions.year;
         currentView.type = _configuration.unknownTrendText;
         currentView.isInFetchMode = Is.definedFunction( bindingOptions.events.onDataFetch );
-        currentView.isInFetchModeTimer = null;
+        currentView.isInFetchModeTimer = 0;
         currentView.yearsAvailable = [];
 
         if ( bindingOptions.views.chart.enabled ) {
@@ -798,7 +798,7 @@ import { type PublicApi } from "./ts/api";
                                 currentDayColumn = DomElement.create( dayColumns, "div", "day-column" );
                                 actualDay = 0;
     
-                                if ( !Is.defined( _elements_Day_Width ) && Is.defined( day ) ) {
+                                if ( _elements_Day_Width === 0 && Is.defined( day ) ) {
                                     let marginLeft: number = DomElement.getStyleValueByName( day, "margin-left", true );
                                     let marginRight: number = DomElement.getStyleValueByName( day, "margin-right", true );
                                     
@@ -811,7 +811,7 @@ import { type PublicApi } from "./ts/api";
                     }
     
                     if ( bindingOptions.views.map.showMonthNames ) {
-                        let monthName: HTMLElement = null;
+                        let monthName: HTMLElement;
                         const monthWidth: number = month.offsetWidth;
     
                         if ( !bindingOptions.views.map.placeMonthNamesOnTheBottom ) {

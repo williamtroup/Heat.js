@@ -1,3 +1,5 @@
+"use strict";
+
 var HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
 
 var Is;
