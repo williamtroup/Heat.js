@@ -915,7 +915,7 @@ import { type PublicApi } from "./ts/api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlChartContents( bindingOptions: BindingOptions ) {
+    function renderControlChartContents( bindingOptions: BindingOptions ) : void {
         bindingOptions._currentView.chartContents = DomElement.create( bindingOptions._currentView.element, "div", "chart-contents" );
 
         makeAreaDroppable( bindingOptions._currentView.chartContents, bindingOptions );
@@ -1860,7 +1860,7 @@ import { type PublicApi } from "./ts/api";
         return useColorRange;
     }
 
-    function getSortedColorRanges( bindingOptions: BindingOptions ) {
+    function getSortedColorRanges( bindingOptions: BindingOptions ) : ColorRange[] {
         return bindingOptions.colorRanges.sort( function( a, b ) {
             return a.minimum - b.minimum;
         } );
@@ -2351,7 +2351,7 @@ import { type PublicApi } from "./ts/api";
         return options;
     }
 
-    function buildAttributeOptionDescription( options: BindingOptions ) {
+    function buildAttributeOptionDescription( options: BindingOptions ) : BindingOptions {
         options.description = Data.getDefaultObject( options.description, {} as Description );
         options.description.text = Data.getDefaultString( options.description.text, null );
         options.description.url = Data.getDefaultString( options.description.url, null );
