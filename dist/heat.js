@@ -460,7 +460,7 @@ var DateTime;
         DomElement.createWithHTML(a, "div", "side-container-title-text", _configuration.visibleMonthsText + ":");
         const r = DomElement.create(a, "div", "side-container");
         const s = DomElement.create(a, "div", "side-container");
-        o.onclick = function() {
+        o.onclick = () => {
             hideConfigurationDialog(e);
         };
         for (let t = 0; t < 7; t++) {
@@ -577,7 +577,7 @@ var DateTime;
     }
     function addToolTip(e, t, n) {
         if (e !== null) {
-            e.onmousemove = function(e) {
+            e.onmousemove = e => {
                 showToolTip(e, t, n);
             };
         }
@@ -621,26 +621,26 @@ var DateTime;
             }
             if (e.title.showImportButton && !e._currentView.isInFetchMode) {
                 const n = DomElement.createWithHTML(t, "button", "import", _configuration.importButtonText);
-                n.onclick = function() {
+                n.onclick = () => {
                     importFromFilesSelected(e);
                 };
             }
             if (e.title.showExportButton) {
                 const n = DomElement.createWithHTML(t, "button", "export", _configuration.exportButtonText);
-                n.onclick = function() {
+                n.onclick = () => {
                     exportAllData(e);
                 };
             }
             if (e.title.showRefreshButton) {
                 const n = DomElement.createWithHTML(t, "button", "refresh", _configuration.refreshButtonText);
-                n.onclick = function() {
+                n.onclick = () => {
                     renderControlContainer(e);
                     fireCustomTriggerEvent(e.events.onRefresh, e._currentView.element);
                 };
             }
             if (e.title.showYearSelector) {
                 const n = DomElement.createWithHTML(t, "button", "back", _configuration.backButtonText);
-                n.onclick = function() {
+                n.onclick = () => {
                     moveToPreviousYear(e);
                 };
                 if (isFirstVisibleYear(e, e._currentView.year)) {
@@ -655,12 +655,12 @@ var DateTime;
                 if (e.title.showConfigurationButton) {
                     let n = DomElement.create(t, "div", "configure");
                     addToolTip(n, e, _configuration.configurationToolTipText);
-                    n.onclick = function() {
+                    n.onclick = () => {
                         showConfigurationDialog(e);
                     };
                 }
                 const o = DomElement.createWithHTML(t, "button", "next", _configuration.nextButtonText);
-                o.onclick = function() {
+                o.onclick = () => {
                     moveToNextYear(e);
                 };
                 if (isLastVisibleYear(e, e._currentView.year)) {
@@ -700,7 +700,7 @@ var DateTime;
         if (e._currentView.view === n) {
             DomElement.addClass(t, "title-menu-item-active");
         } else {
-            t.onclick = function() {
+            t.onclick = () => {
                 e._currentView.view = n;
                 fireCustomTriggerEvent(e.events.onViewSwitch, o);
                 renderControlContainer(e, false, true);
@@ -733,7 +733,7 @@ var DateTime;
         let i = null;
         const a = DomElement.createWithHTML(t, "div", "year-menu-item", n.toString());
         if (e._currentView.year !== n) {
-            a.onclick = function() {
+            a.onclick = () => {
                 e._currentView.year = n;
                 renderControlContainer(e);
                 fireCustomTriggerEvent(e.events.onSetYear, e._currentView.year);
@@ -878,7 +878,7 @@ var DateTime;
             s.innerHTML = u.toString();
         }
         if (Is.definedFunction(e.events.onDayClick)) {
-            s.onclick = function() {
+            s.onclick = () => {
                 fireCustomTriggerEvent(e.events.onDayClick, l, u);
             };
         } else {
@@ -970,7 +970,7 @@ var DateTime;
                 const t = DomElement.create(e._currentView.chartContents, "div", "chart-months");
                 const o = i.offsetWidth / n;
                 let a = 0;
-                const r = function(n) {
+                const r = n => {
                     if (isMonthVisible(e.views.chart.monthsToShow, n)) {
                         let e = DomElement.createWithHTML(t, "div", "month-name", _configuration.monthNames[n]);
                         e.style.left = l + o * a + "px";
@@ -1012,7 +1012,7 @@ var DateTime;
             l.style.visibility = "hidden";
         }
         if (Is.definedFunction(t.events.onDayClick)) {
-            l.onclick = function() {
+            l.onclick = () => {
                 fireCustomTriggerEvent(t.events.onDayClick, s, u);
             };
         } else {
@@ -1104,7 +1104,7 @@ var DateTime;
         }
         addToolTip(a, o, n.toString());
         if (Is.definedFunction(o.events.onWeekDayClick)) {
-            a.onclick = function() {
+            a.onclick = () => {
                 fireCustomTriggerEvent(o.events.onWeekDayClick, t, n);
             };
         } else {
@@ -1222,7 +1222,7 @@ var DateTime;
             DomElement.createWithHTML(r, "div", "count", n.toString());
         }
         if (Is.definedFunction(o.events.onStatisticClick)) {
-            r.onclick = function() {
+            r.onclick = () => {
                 fireCustomTriggerEvent(o.events.onStatisticClick, s);
             };
         } else {
@@ -1300,7 +1300,7 @@ var DateTime;
             if (e.guide.showLessAndMoreLabels) {
                 let t = DomElement.createWithHTML(n, "div", "less-text", _configuration.lessText);
                 if (e.guide.colorRangeTogglesEnabled) {
-                    t.onclick = function() {
+                    t.onclick = () => {
                         updateColorRangeToggles(e, false);
                     };
                 } else {
@@ -1316,7 +1316,7 @@ var DateTime;
             if (e.guide.showLessAndMoreLabels) {
                 const t = DomElement.createWithHTML(n, "div", "more-text", _configuration.moreText);
                 if (e.guide.colorRangeTogglesEnabled) {
-                    t.onclick = function() {
+                    t.onclick = () => {
                         updateColorRangeToggles(e, true);
                     };
                 } else {
@@ -1330,7 +1330,7 @@ var DateTime;
         if (e._currentView.type === n) {
             DomElement.addClass(o, "active");
         }
-        o.onclick = function() {
+        o.onclick = () => {
             if (e._currentView.type !== n) {
                 e._currentView.type = n;
                 fireCustomTriggerEvent(e.events.onTypeSwitch, n);
@@ -1358,7 +1358,7 @@ var DateTime;
             o.innerHTML = n.minimum + "+";
         }
         if (e.guide.colorRangeTogglesEnabled) {
-            o.onclick = function() {
+            o.onclick = () => {
                 toggleColorRangeVisibleState(e, n.id);
             };
         } else {
@@ -1629,7 +1629,7 @@ var DateTime;
             e.ondragover = DomElement.cancelBubble;
             e.ondragenter = DomElement.cancelBubble;
             e.ondragleave = DomElement.cancelBubble;
-            e.ondrop = function(e) {
+            e.ondrop = e => {
                 DomElement.cancelBubble(e);
                 if (Is.defined(window.FileReader) && e.dataTransfer.files.length > 0) {
                     importFromFiles(e.dataTransfer.files, t);
@@ -1642,7 +1642,7 @@ var DateTime;
         t.type = "file";
         t.accept = ".json, .txt, .csv";
         t.multiple = "multiple";
-        t.onchange = function() {
+        t.onchange = () => {
             importFromFiles(t.files, e);
         };
         t.click();
@@ -1651,7 +1651,7 @@ var DateTime;
         const n = e.length;
         const o = [];
         const i = getCurrentViewData(t);
-        const a = function(e, a) {
+        const a = (e, a) => {
             o.push(e);
             for (let e in a) {
                 if (a.hasOwnProperty(e)) {
@@ -1682,10 +1682,10 @@ var DateTime;
         const n = new FileReader;
         let o = {};
         n.readAsText(e);
-        n.onloadend = function() {
+        n.onloadend = () => {
             t(e.name, o);
         };
-        n.onload = function(e) {
+        n.onload = e => {
             const t = getObjectFromString(e.target.result);
             if (t.parsed && Is.definedObject(t.result)) {
                 o = t.result;
@@ -1696,10 +1696,10 @@ var DateTime;
         const n = new FileReader;
         const o = {};
         n.readAsText(e);
-        n.onloadend = function() {
+        n.onloadend = () => {
             t(e.name, o);
         };
-        n.onload = function(e) {
+        n.onload = e => {
             const t = e.target.result.toString().split("\n");
             const n = t.length;
             for (let e = 0; e < n; e++) {
@@ -1712,10 +1712,10 @@ var DateTime;
         const n = new FileReader;
         const o = {};
         n.readAsText(e);
-        n.onloadend = function() {
+        n.onloadend = () => {
             t(e.name, o);
         };
-        n.onload = function(e) {
+        n.onload = e => {
             const t = e.target.result.toString().replace(new RegExp('"', "g"), "");
             const n = t.split("\n");
             n.shift();
@@ -2574,10 +2574,10 @@ var DateTime;
     };
     (() => {
         buildDefaultConfiguration();
-        document.addEventListener("DOMContentLoaded", (function() {
+        document.addEventListener("DOMContentLoaded", (() => {
             render();
         }));
-        window.addEventListener("pagehide", (function() {
+        window.addEventListener("pagehide", (() => {
             cancelAllPullDataTimers();
         }));
         if (!Is.defined(window.$heat)) {

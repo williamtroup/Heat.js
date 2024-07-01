@@ -512,7 +512,7 @@ var require_heat = __commonJS({
                 DomElement.createWithHTML(a, "div", "side-container-title-text", _configuration.visibleMonthsText + ":");
                 const r = DomElement.create(a, "div", "side-container");
                 const s = DomElement.create(a, "div", "side-container");
-                i.onclick = function() {
+                i.onclick = () => {
                     hideConfigurationDialog(e);
                 };
                 for (let t = 0; t < 7; t++) {
@@ -629,7 +629,7 @@ var require_heat = __commonJS({
             }
             function addToolTip(e, t, n) {
                 if (e !== null) {
-                    e.onmousemove = function(e) {
+                    e.onmousemove = e => {
                         showToolTip(e, t, n);
                     };
                 }
@@ -673,26 +673,26 @@ var require_heat = __commonJS({
                     }
                     if (e.title.showImportButton && !e._currentView.isInFetchMode) {
                         const n = DomElement.createWithHTML(t, "button", "import", _configuration.importButtonText);
-                        n.onclick = function() {
+                        n.onclick = () => {
                             importFromFilesSelected(e);
                         };
                     }
                     if (e.title.showExportButton) {
                         const n = DomElement.createWithHTML(t, "button", "export", _configuration.exportButtonText);
-                        n.onclick = function() {
+                        n.onclick = () => {
                             exportAllData(e);
                         };
                     }
                     if (e.title.showRefreshButton) {
                         const n = DomElement.createWithHTML(t, "button", "refresh", _configuration.refreshButtonText);
-                        n.onclick = function() {
+                        n.onclick = () => {
                             renderControlContainer(e);
                             fireCustomTriggerEvent(e.events.onRefresh, e._currentView.element);
                         };
                     }
                     if (e.title.showYearSelector) {
                         const n = DomElement.createWithHTML(t, "button", "back", _configuration.backButtonText);
-                        n.onclick = function() {
+                        n.onclick = () => {
                             moveToPreviousYear(e);
                         };
                         if (isFirstVisibleYear(e, e._currentView.year)) {
@@ -707,12 +707,12 @@ var require_heat = __commonJS({
                         if (e.title.showConfigurationButton) {
                             let n = DomElement.create(t, "div", "configure");
                             addToolTip(n, e, _configuration.configurationToolTipText);
-                            n.onclick = function() {
+                            n.onclick = () => {
                                 showConfigurationDialog(e);
                             };
                         }
                         const i = DomElement.createWithHTML(t, "button", "next", _configuration.nextButtonText);
-                        i.onclick = function() {
+                        i.onclick = () => {
                             moveToNextYear(e);
                         };
                         if (isLastVisibleYear(e, e._currentView.year)) {
@@ -752,7 +752,7 @@ var require_heat = __commonJS({
                 if (e._currentView.view === n) {
                     DomElement.addClass(t, "title-menu-item-active");
                 } else {
-                    t.onclick = function() {
+                    t.onclick = () => {
                         e._currentView.view = n;
                         fireCustomTriggerEvent(e.events.onViewSwitch, i);
                         renderControlContainer(e, false, true);
@@ -785,7 +785,7 @@ var require_heat = __commonJS({
                 let o = null;
                 const a = DomElement.createWithHTML(t, "div", "year-menu-item", n.toString());
                 if (e._currentView.year !== n) {
-                    a.onclick = function() {
+                    a.onclick = () => {
                         e._currentView.year = n;
                         renderControlContainer(e);
                         fireCustomTriggerEvent(e.events.onSetYear, e._currentView.year);
@@ -930,7 +930,7 @@ var require_heat = __commonJS({
                     s.innerHTML = u.toString();
                 }
                 if (Is.definedFunction(e.events.onDayClick)) {
-                    s.onclick = function() {
+                    s.onclick = () => {
                         fireCustomTriggerEvent(e.events.onDayClick, l, u);
                     };
                 } else {
@@ -1022,7 +1022,7 @@ var require_heat = __commonJS({
                         const t = DomElement.create(e._currentView.chartContents, "div", "chart-months");
                         const i = o.offsetWidth / n;
                         let a = 0;
-                        const r = function(n) {
+                        const r = n => {
                             if (isMonthVisible(e.views.chart.monthsToShow, n)) {
                                 let e = DomElement.createWithHTML(t, "div", "month-name", _configuration.monthNames[n]);
                                 e.style.left = l + i * a + "px";
@@ -1064,7 +1064,7 @@ var require_heat = __commonJS({
                     l.style.visibility = "hidden";
                 }
                 if (Is.definedFunction(t.events.onDayClick)) {
-                    l.onclick = function() {
+                    l.onclick = () => {
                         fireCustomTriggerEvent(t.events.onDayClick, s, u);
                     };
                 } else {
@@ -1156,7 +1156,7 @@ var require_heat = __commonJS({
                 }
                 addToolTip(a, i, n.toString());
                 if (Is.definedFunction(i.events.onWeekDayClick)) {
-                    a.onclick = function() {
+                    a.onclick = () => {
                         fireCustomTriggerEvent(i.events.onWeekDayClick, t, n);
                     };
                 } else {
@@ -1274,7 +1274,7 @@ var require_heat = __commonJS({
                     DomElement.createWithHTML(r, "div", "count", n.toString());
                 }
                 if (Is.definedFunction(i.events.onStatisticClick)) {
-                    r.onclick = function() {
+                    r.onclick = () => {
                         fireCustomTriggerEvent(i.events.onStatisticClick, s);
                     };
                 } else {
@@ -1352,7 +1352,7 @@ var require_heat = __commonJS({
                     if (e.guide.showLessAndMoreLabels) {
                         let t = DomElement.createWithHTML(n, "div", "less-text", _configuration.lessText);
                         if (e.guide.colorRangeTogglesEnabled) {
-                            t.onclick = function() {
+                            t.onclick = () => {
                                 updateColorRangeToggles(e, false);
                             };
                         } else {
@@ -1368,7 +1368,7 @@ var require_heat = __commonJS({
                     if (e.guide.showLessAndMoreLabels) {
                         const t = DomElement.createWithHTML(n, "div", "more-text", _configuration.moreText);
                         if (e.guide.colorRangeTogglesEnabled) {
-                            t.onclick = function() {
+                            t.onclick = () => {
                                 updateColorRangeToggles(e, true);
                             };
                         } else {
@@ -1382,7 +1382,7 @@ var require_heat = __commonJS({
                 if (e._currentView.type === n) {
                     DomElement.addClass(i, "active");
                 }
-                i.onclick = function() {
+                i.onclick = () => {
                     if (e._currentView.type !== n) {
                         e._currentView.type = n;
                         fireCustomTriggerEvent(e.events.onTypeSwitch, n);
@@ -1410,7 +1410,7 @@ var require_heat = __commonJS({
                     i.innerHTML = n.minimum + "+";
                 }
                 if (e.guide.colorRangeTogglesEnabled) {
-                    i.onclick = function() {
+                    i.onclick = () => {
                         toggleColorRangeVisibleState(e, n.id);
                     };
                 } else {
@@ -1681,7 +1681,7 @@ var require_heat = __commonJS({
                     e.ondragover = DomElement.cancelBubble;
                     e.ondragenter = DomElement.cancelBubble;
                     e.ondragleave = DomElement.cancelBubble;
-                    e.ondrop = function(e) {
+                    e.ondrop = e => {
                         DomElement.cancelBubble(e);
                         if (Is.defined(window.FileReader) && e.dataTransfer.files.length > 0) {
                             importFromFiles(e.dataTransfer.files, t);
@@ -1694,7 +1694,7 @@ var require_heat = __commonJS({
                 t.type = "file";
                 t.accept = ".json, .txt, .csv";
                 t.multiple = "multiple";
-                t.onchange = function() {
+                t.onchange = () => {
                     importFromFiles(t.files, e);
                 };
                 t.click();
@@ -1703,7 +1703,7 @@ var require_heat = __commonJS({
                 const n = e.length;
                 const i = [];
                 const o = getCurrentViewData(t);
-                const a = function(e, a) {
+                const a = (e, a) => {
                     i.push(e);
                     for (let e in a) {
                         if (a.hasOwnProperty(e)) {
@@ -1734,10 +1734,10 @@ var require_heat = __commonJS({
                 const n = new FileReader;
                 let i = {};
                 n.readAsText(e);
-                n.onloadend = function() {
+                n.onloadend = () => {
                     t(e.name, i);
                 };
-                n.onload = function(e) {
+                n.onload = e => {
                     const t = getObjectFromString(e.target.result);
                     if (t.parsed && Is.definedObject(t.result)) {
                         i = t.result;
@@ -1748,10 +1748,10 @@ var require_heat = __commonJS({
                 const n = new FileReader;
                 const i = {};
                 n.readAsText(e);
-                n.onloadend = function() {
+                n.onloadend = () => {
                     t(e.name, i);
                 };
-                n.onload = function(e) {
+                n.onload = e => {
                     const t = e.target.result.toString().split("\n");
                     const n = t.length;
                     for (let e = 0; e < n; e++) {
@@ -1764,10 +1764,10 @@ var require_heat = __commonJS({
                 const n = new FileReader;
                 const i = {};
                 n.readAsText(e);
-                n.onloadend = function() {
+                n.onloadend = () => {
                     t(e.name, i);
                 };
-                n.onload = function(e) {
+                n.onload = e => {
                     const t = e.target.result.toString().replace(new RegExp('"', "g"), "");
                     const n = t.split("\n");
                     n.shift();
@@ -2626,10 +2626,10 @@ var require_heat = __commonJS({
             };
             (() => {
                 buildDefaultConfiguration();
-                document.addEventListener("DOMContentLoaded", (function() {
+                document.addEventListener("DOMContentLoaded", (() => {
                     render();
                 }));
-                window.addEventListener("pagehide", (function() {
+                window.addEventListener("pagehide", (() => {
                     cancelAllPullDataTimers();
                 }));
                 if (!Is.defined(window.$heat)) {

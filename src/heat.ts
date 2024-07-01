@@ -307,7 +307,7 @@ import { type PublicApi } from "./ts/api";
         const months1Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
         const months2Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
 
-        closeButton.onclick = function () {
+        closeButton.onclick = () => {
             hideConfigurationDialog( bindingOptions );
         };
 
@@ -459,7 +459,7 @@ import { type PublicApi } from "./ts/api";
 
     function addToolTip( element: HTMLElement, bindingOptions: BindingOptions, text: string ) : void {
         if ( element !== null ) {
-            element.onmousemove = function ( e ) {
+            element.onmousemove = ( e: any ) => {
                 showToolTip( e, bindingOptions, text );
             };
         }
@@ -522,7 +522,7 @@ import { type PublicApi } from "./ts/api";
             if ( bindingOptions.title.showImportButton && !bindingOptions._currentView.isInFetchMode ) {
                 const importData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "import", _configuration.importButtonText );
         
-                importData.onclick = function () {
+                importData.onclick = () => {
                     importFromFilesSelected( bindingOptions );
                 };
             }
@@ -530,7 +530,7 @@ import { type PublicApi } from "./ts/api";
             if ( bindingOptions.title.showExportButton ) {
                 const exportData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "export", _configuration.exportButtonText );
         
-                exportData.onclick = function () {
+                exportData.onclick = () => {
                     exportAllData( bindingOptions );
                 };
             }
@@ -538,7 +538,7 @@ import { type PublicApi } from "./ts/api";
             if ( bindingOptions.title.showRefreshButton ) {
                 const refresh: HTMLElement = DomElement.createWithHTML( titleBar, "button", "refresh", _configuration.refreshButtonText );
         
-                refresh.onclick = function () {
+                refresh.onclick = () => {
                     renderControlContainer( bindingOptions );
                     fireCustomTriggerEvent( bindingOptions.events.onRefresh, bindingOptions._currentView.element );
                 };
@@ -547,7 +547,7 @@ import { type PublicApi } from "./ts/api";
             if ( bindingOptions.title.showYearSelector ) {
                 const back: any = DomElement.createWithHTML( titleBar, "button", "back", _configuration.backButtonText );
         
-                back.onclick = function () {
+                back.onclick = () => {
                     moveToPreviousYear( bindingOptions );
                 };
 
@@ -568,14 +568,14 @@ import { type PublicApi } from "./ts/api";
 
                     addToolTip( configureButton, bindingOptions, _configuration.configurationToolTipText );
 
-                    configureButton.onclick = function () {
+                    configureButton.onclick = () => {
                         showConfigurationDialog( bindingOptions );
                     };
                 }
 
                 const next: any = DomElement.createWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
 
-                next.onclick = function () {
+                next.onclick = () => {
                     moveToNextYear( bindingOptions );
                 };
 
@@ -630,7 +630,7 @@ import { type PublicApi } from "./ts/api";
             DomElement.addClass( option, "title-menu-item-active" );
             
         } else {
-            option.onclick = function () {
+            option.onclick = () => {
                 bindingOptions._currentView.view = view;
 
                 fireCustomTriggerEvent( bindingOptions.events.onViewSwitch, viewName );
@@ -673,7 +673,7 @@ import { type PublicApi } from "./ts/api";
         const year: HTMLElement = DomElement.createWithHTML( years, "div", "year-menu-item", currentYear.toString() );
 
         if ( bindingOptions._currentView.year !== currentYear ) {
-            year.onclick = function () {
+            year.onclick = () => {
                 bindingOptions._currentView.year = currentYear;
     
                 renderControlContainer( bindingOptions );
@@ -870,7 +870,7 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( Is.definedFunction( bindingOptions.events.onDayClick ) ) {
-            day.onclick = function () {
+            day.onclick = () => {
                 fireCustomTriggerEvent( bindingOptions.events.onDayClick, date, dateCount );
             };
 
@@ -996,7 +996,7 @@ import { type PublicApi } from "./ts/api";
                 const linesWidth: number = dayLines.offsetWidth / totalMonths;
                 let monthTimesValue: number = 0;
 
-                const addMonthName: Function = function ( addMonthNameIndex: number ) {
+                const addMonthName: Function = ( addMonthNameIndex: number ) => {
                     if ( isMonthVisible( bindingOptions.views.chart.monthsToShow, addMonthNameIndex ) ) {
                         let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", _configuration.monthNames[ addMonthNameIndex ] );
                         monthName.style.left = labelsWidth + ( linesWidth * monthTimesValue ) + "px";
@@ -1051,7 +1051,7 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( Is.definedFunction( bindingOptions.events.onDayClick ) ) {
-            dayLine.onclick = function () {
+            dayLine.onclick = () => {
                 fireCustomTriggerEvent( bindingOptions.events.onDayClick, date, dateCount );
             };
 
@@ -1179,7 +1179,7 @@ import { type PublicApi } from "./ts/api";
         addToolTip( dayLine, bindingOptions, dayCount.toString() );
 
         if ( Is.definedFunction( bindingOptions.events.onWeekDayClick ) ) {
-            dayLine.onclick = function () {
+            dayLine.onclick = () => {
                 fireCustomTriggerEvent( bindingOptions.events.onWeekDayClick, dayNumber, dayCount );
             };
 
@@ -1340,7 +1340,7 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( Is.definedFunction( bindingOptions.events.onStatisticClick ) ) {
-            rangeLine.onclick = function () {
+            rangeLine.onclick = () => {
                 fireCustomTriggerEvent( bindingOptions.events.onStatisticClick, useColorRange );
             };
 
@@ -1448,7 +1448,7 @@ import { type PublicApi } from "./ts/api";
                 let lessText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "less-text", _configuration.lessText );
     
                 if ( bindingOptions.guide.colorRangeTogglesEnabled ) {
-                    lessText.onclick = function () {
+                    lessText.onclick = () => {
                         updateColorRangeToggles( bindingOptions, false );
                     };
         
@@ -1469,7 +1469,7 @@ import { type PublicApi } from "./ts/api";
                 const moreText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "more-text", _configuration.moreText );
     
                 if ( bindingOptions.guide.colorRangeTogglesEnabled ) {
-                    moreText.onclick = function () {
+                    moreText.onclick = () => {
                         updateColorRangeToggles( bindingOptions, true );
                     };
         
@@ -1487,7 +1487,7 @@ import { type PublicApi } from "./ts/api";
             DomElement.addClass( typeButton, "active" );
         }
 
-        typeButton.onclick = function () {
+        typeButton.onclick = () => {
             if ( bindingOptions._currentView.type !== type ) {
                 bindingOptions._currentView.type = type;
 
@@ -1522,7 +1522,7 @@ import { type PublicApi } from "./ts/api";
         }
 
         if ( bindingOptions.guide.colorRangeTogglesEnabled ) {
-            day.onclick = function () {
+            day.onclick = () => {
                 toggleColorRangeVisibleState( bindingOptions, colorRange.id );
             };
 
@@ -1919,7 +1919,7 @@ import { type PublicApi } from "./ts/api";
             element.ondragenter = DomElement.cancelBubble;
             element.ondragleave = DomElement.cancelBubble;
     
-            element.ondrop = function ( e ) {
+            element.ondrop = ( e: any ) => {
                 DomElement.cancelBubble( e );
     
                 if ( Is.defined( window.FileReader ) && e.dataTransfer.files.length > 0 ) {
@@ -1935,7 +1935,7 @@ import { type PublicApi } from "./ts/api";
         input.accept = ".json, .txt, .csv";
         input.multiple = "multiple";
 
-        input.onchange = function () {
+        input.onchange = () => {
             importFromFiles( input.files, bindingOptions );
         };
 
@@ -1947,7 +1947,7 @@ import { type PublicApi } from "./ts/api";
         const filesCompleted: string[] = [];
         const data: TypeCountsData = getCurrentViewData( bindingOptions );
 
-        const onLoadEnd = function ( filename: string, readingObject: object ) {
+        const onLoadEnd = ( filename: string, readingObject: object ) => {
             filesCompleted.push( filename );
 
             for ( let storageDate in readingObject ) {
@@ -1986,11 +1986,11 @@ import { type PublicApi } from "./ts/api";
 
         reader.readAsText( file );
 
-        reader.onloadend = function () {
+        reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
         };
     
-        reader.onload = function ( e ) {
+        reader.onload = ( e: any ) => {
             const JSON: any = getObjectFromString( e.target.result );
 
             if ( JSON.parsed && Is.definedObject( JSON.result ) ) {
@@ -2005,11 +2005,11 @@ import { type PublicApi } from "./ts/api";
 
         reader.readAsText( file );
 
-        reader.onloadend = function () {
+        reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
         };
     
-        reader.onload = function ( e ) {
+        reader.onload = ( e: any ) => {
             const lines: string[] = e.target.result.toString().split( Char.newLine );
             const linesLength: number = lines.length;
 
@@ -2027,11 +2027,11 @@ import { type PublicApi } from "./ts/api";
 
         reader.readAsText( file );
 
-        reader.onloadend = function () {
+        reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
         };
     
-        reader.onload = function ( e ) {
+        reader.onload = ( e: any ) => {
             const data: string = e.target.result.toString().replace( new RegExp( "\"", "g" ), Char.empty );
             const lines: string[] = data.split( Char.newLine );
             
@@ -3267,11 +3267,11 @@ import { type PublicApi } from "./ts/api";
     ( () => {
         buildDefaultConfiguration();
 
-        document.addEventListener( "DOMContentLoaded", function () {
+        document.addEventListener( "DOMContentLoaded", () => {
             render();
         } );
 
-        window.addEventListener( "pagehide", function () {
+        window.addEventListener( "pagehide", () => {
             cancelAllPullDataTimers();
         } );
 
