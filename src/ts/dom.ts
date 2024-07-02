@@ -77,7 +77,7 @@ export namespace DomElement {
         element.className = element.className.trim();
     }
 
-    export function cancelBubble( e: any ) {
+    export function cancelBubble( e: Event ) {
         e.preventDefault();
         e.cancelBubble = true;
     }

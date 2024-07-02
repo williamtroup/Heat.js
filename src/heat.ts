@@ -459,13 +459,13 @@ import { type PublicApi } from "./ts/api";
 
     function addToolTip( element: HTMLElement, bindingOptions: BindingOptions, text: string ) : void {
         if ( element !== null ) {
-            element.onmousemove = ( e: any ) => {
+            element.onmousemove = ( e: MouseEvent ) => {
                 showToolTip( e, bindingOptions, text );
             };
         }
     }
 
-    function showToolTip( e: any, bindingOptions: BindingOptions, text: string ) : void {
+    function showToolTip( e: MouseEvent, bindingOptions: BindingOptions, text: string ) : void {
         DomElement.cancelBubble( e );
         hideToolTip( bindingOptions );
 
@@ -1919,7 +1919,7 @@ import { type PublicApi } from "./ts/api";
             element.ondragenter = DomElement.cancelBubble;
             element.ondragleave = DomElement.cancelBubble;
     
-            element.ondrop = ( e: any ) => {
+            element.ondrop = ( e: DragEvent ) => {
                 DomElement.cancelBubble( e );
     
                 if ( Is.defined( window.FileReader ) && e.dataTransfer.files.length > 0 ) {
@@ -1990,7 +1990,7 @@ import { type PublicApi } from "./ts/api";
             onLoadEnd( file.name, readingObject );
         };
     
-        reader.onload = ( e: any ) => {
+        reader.onload = ( e: ProgressEvent<FileReader> ) => {
             const JSON: any = getObjectFromString( e.target.result );
 
             if ( JSON.parsed && Is.definedObject( JSON.result ) ) {
@@ -2009,7 +2009,7 @@ import { type PublicApi } from "./ts/api";
             onLoadEnd( file.name, readingObject );
         };
     
-        reader.onload = ( e: any ) => {
+        reader.onload = ( e: ProgressEvent<FileReader> ) => {
             const lines: string[] = e.target.result.toString().split( Char.newLine );
             const linesLength: number = lines.length;
 
@@ -2031,7 +2031,7 @@ import { type PublicApi } from "./ts/api";
             onLoadEnd( file.name, readingObject );
         };
     
-        reader.onload = ( e: any ) => {
+        reader.onload = ( e: ProgressEvent<FileReader> ) => {
             const data: string = e.target.result.toString().replace( new RegExp( "\"", "g" ), Char.empty );
             const lines: string[] = data.split( Char.newLine );
             
