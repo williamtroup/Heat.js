@@ -7,7 +7,6 @@ export default defineConfig( [
     ],
     platform: "neutral",
     format: [
-      "esm",
       "cjs"
     ],
     outDir: "./dist",
