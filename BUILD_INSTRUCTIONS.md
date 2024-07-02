@@ -39,7 +39,7 @@ npm install @swc/core -D
 To build the TypeScript, run the following command:
 
 ```markdown
-npm run build-ts
+npm run build-typescript
 ```
 
 To build the SASS, run the following command:
@@ -59,17 +59,25 @@ npm run build
 To build the TypeScript, run the following command:
 
 ```markdown
-npm run build-min-ts
+npm run build-minimized-typescript
 ```
 
 To build the SASS, run the following command:
 
 ```markdown
-npm run build-min-sass
+npm run build-minimized-sass
 ```
 
 To build the everything, run the following command:
 
 ```markdown
-npm run build-min
+npm run build-minimized
+```
+
+### 3. ESM Build:
+
+To build the TypeScript, run the following command:
+
+```markdown
+npm run build-typescript-esm
 ```
