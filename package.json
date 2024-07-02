@@ -14,9 +14,11 @@
   },
   "scripts": {
     "build": "tsup --config tsup.build.config.ts && sass src/heat.js.scss dist/heat.js.css",
+    "build-min": "tsup --config tsup.min.config.ts && sass src/heat.js.scss dist/heat.js.css --style=compressed --no-source-map",
     "build-ts": "tsup --config tsup.build.config.ts",
-    "build-min": "tsup --config tsup.min.config.ts",
-    "build-sass": "sass src/heat.js.scss dist/heat.js.css"
+    "build-ts-min": "tsup --config tsup.min.config.ts",
+    "build-sass": "sass src/heat.js.scss dist/heat.js.css",
+    "build-sass-min": "sass src/heat.js.scss dist/heat.js.min.css --style=compressed --no-source-map"
   },
   "keywords": [
     "typescript",
