@@ -10,5 +10,6 @@
  * @copyright   Bunoon 2024
  */
 
-
-export const HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
+export namespace Constants {
+    export const HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
+}

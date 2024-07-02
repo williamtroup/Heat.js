@@ -14,11 +14,13 @@ var init_enum = __esm({
     "src/ts/enum.ts"() {}
 });
 
-var HEAT_JS_ATTRIBUTE_NAME;
+var Constants;
 
 var init_constant = __esm({
     "src/ts/constant.ts"() {
-        HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
+        (e => {
+            e.HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
+        })(Constants || (Constants = {}));
     }
 });
 
@@ -367,21 +369,21 @@ var require_heat = __commonJS({
             }
             function renderElement(e) {
                 let t = true;
-                if (Is.defined(e) && e.hasAttribute(HEAT_JS_ATTRIBUTE_NAME)) {
-                    const n = e.getAttribute(HEAT_JS_ATTRIBUTE_NAME);
+                if (Is.defined(e) && e.hasAttribute(Constants.HEAT_JS_ATTRIBUTE_NAME)) {
+                    const n = e.getAttribute(Constants.HEAT_JS_ATTRIBUTE_NAME);
                     if (Is.definedString(n)) {
                         const i = getObjectFromString(n);
                         if (i.parsed && Is.definedObject(i.result)) {
                             renderControl(renderBindingOptions(i.result, e));
                         } else {
                             if (!_configuration.safeMode) {
-                                console.error(_configuration.attributeNotValidErrorText.replace("{{attribute_name}}", HEAT_JS_ATTRIBUTE_NAME));
+                                console.error(_configuration.attributeNotValidErrorText.replace("{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME));
                                 t = false;
                             }
                         }
                     } else {
                         if (!_configuration.safeMode) {
-                            console.error(_configuration.attributeNotSetErrorText.replace("{{attribute_name}}", HEAT_JS_ATTRIBUTE_NAME));
+                            console.error(_configuration.attributeNotSetErrorText.replace("{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME));
                             t = false;
                         }
                     }
@@ -442,7 +444,7 @@ var require_heat = __commonJS({
                 } else {
                     DomElement.addClass(e._currentView.element, "heat-js");
                 }
-                e._currentView.element.removeAttribute(HEAT_JS_ATTRIBUTE_NAME);
+                e._currentView.element.removeAttribute(Constants.HEAT_JS_ATTRIBUTE_NAME);
                 createDateStorageForElement(e._currentView.element.id, e);
                 renderControlContainer(e);
                 fireCustomTriggerEvent(e.events.onRenderComplete, e._currentView.element);

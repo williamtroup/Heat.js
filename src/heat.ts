@@ -28,7 +28,7 @@ import {
     type Events } from "./ts/type";
 
 import { ExportType, Char, Value, ViewId, ViewName } from "./ts/enum";
-import { HEAT_JS_ATTRIBUTE_NAME } from "./ts/constant"
+import { Constants } from "./ts/constant"
 import { Is } from "./ts/is"
 import { Data } from "./ts/data"
 import { DomElement } from "./ts/dom"
@@ -114,8 +114,8 @@ import { type PublicApi } from "./ts/api";
     function renderElement( element: HTMLElement ) : boolean {
         let result: boolean = true;
 
-        if ( Is.defined( element ) && element.hasAttribute( HEAT_JS_ATTRIBUTE_NAME ) ) {
-            const bindingOptionsData: string = element.getAttribute( HEAT_JS_ATTRIBUTE_NAME );
+        if ( Is.defined( element ) && element.hasAttribute( Constants.HEAT_JS_ATTRIBUTE_NAME ) ) {
+            const bindingOptionsData: string = element.getAttribute( Constants.HEAT_JS_ATTRIBUTE_NAME );
 
             if ( Is.definedString( bindingOptionsData ) ) {
                 const bindingOptions: any = getObjectFromString( bindingOptionsData );
@@ -125,14 +125,14 @@ import { type PublicApi } from "./ts/api";
 
                 } else {
                     if ( !_configuration.safeMode ) {
-                        console.error( _configuration.attributeNotValidErrorText.replace( "{{attribute_name}}", HEAT_JS_ATTRIBUTE_NAME ) );
+                        console.error( _configuration.attributeNotValidErrorText.replace( "{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME ) );
                         result = false;
                     }
                 }
 
             } else {
                 if ( !_configuration.safeMode ) {
-                    console.error( _configuration.attributeNotSetErrorText.replace( "{{attribute_name}}", HEAT_JS_ATTRIBUTE_NAME ) );
+                    console.error( _configuration.attributeNotSetErrorText.replace( "{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME ) );
                     result = false;
                 }
             }
@@ -206,7 +206,7 @@ import { type PublicApi } from "./ts/api";
             DomElement.addClass( bindingOptions._currentView.element, "heat-js" );
         }
 
-        bindingOptions._currentView.element.removeAttribute( HEAT_JS_ATTRIBUTE_NAME );
+        bindingOptions._currentView.element.removeAttribute( Constants.HEAT_JS_ATTRIBUTE_NAME );
 
         createDateStorageForElement( bindingOptions._currentView.element.id, bindingOptions );
         renderControlContainer( bindingOptions );

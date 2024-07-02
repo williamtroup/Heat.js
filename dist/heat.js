@@ -1,4 +1,8 @@
-var HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
+var Constants;
+
+(e => {
+    e.HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
+})(Constants || (Constants = {}));
 
 var Is;
 
@@ -315,21 +319,21 @@ var DateTime;
     }
     function renderElement(e) {
         let t = true;
-        if (Is.defined(e) && e.hasAttribute(HEAT_JS_ATTRIBUTE_NAME)) {
-            const n = e.getAttribute(HEAT_JS_ATTRIBUTE_NAME);
+        if (Is.defined(e) && e.hasAttribute(Constants.HEAT_JS_ATTRIBUTE_NAME)) {
+            const n = e.getAttribute(Constants.HEAT_JS_ATTRIBUTE_NAME);
             if (Is.definedString(n)) {
                 const o = getObjectFromString(n);
                 if (o.parsed && Is.definedObject(o.result)) {
                     renderControl(renderBindingOptions(o.result, e));
                 } else {
                     if (!_configuration.safeMode) {
-                        console.error(_configuration.attributeNotValidErrorText.replace("{{attribute_name}}", HEAT_JS_ATTRIBUTE_NAME));
+                        console.error(_configuration.attributeNotValidErrorText.replace("{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME));
                         t = false;
                     }
                 }
             } else {
                 if (!_configuration.safeMode) {
-                    console.error(_configuration.attributeNotSetErrorText.replace("{{attribute_name}}", HEAT_JS_ATTRIBUTE_NAME));
+                    console.error(_configuration.attributeNotSetErrorText.replace("{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME));
                     t = false;
                 }
             }
@@ -390,7 +394,7 @@ var DateTime;
         } else {
             DomElement.addClass(e._currentView.element, "heat-js");
         }
-        e._currentView.element.removeAttribute(HEAT_JS_ATTRIBUTE_NAME);
+        e._currentView.element.removeAttribute(Constants.HEAT_JS_ATTRIBUTE_NAME);
         createDateStorageForElement(e._currentView.element.id, e);
         renderControlContainer(e);
         fireCustomTriggerEvent(e.events.onRenderComplete, e._currentView.element);
