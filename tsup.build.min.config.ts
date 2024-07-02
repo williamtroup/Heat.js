@@ -5,7 +5,7 @@ export default defineConfig( [
     entry: [
       "src/heat.ts"
     ],
-    outExtension({ format }) {
+    outExtension({ }) {
       return {
         js: `.min.js`,
       };
