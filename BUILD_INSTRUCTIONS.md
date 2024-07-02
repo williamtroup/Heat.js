@@ -34,7 +34,19 @@ npm install @swc/core -D
 
 ## Step 2: Build Project:
 
-To build Heat.js, run the following command:
+To build the TypeScript, run the following command:
+
+```markdown
+npm run build-ts
+```
+
+To build the SASS, run the following command:
+
+```markdown
+npm run build-sass
+```
+
+To build the everything, run the following command:
 
 ```markdown
 npm run build

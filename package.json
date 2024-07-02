@@ -13,7 +13,9 @@
     "url": "https://github.com/williamtroup/Heat.js"
   },
   "scripts": {
-    "build": "tsup && sass src/heat.js.scss dist/heat.js.css"
+    "build": "tsup && sass src/heat.js.scss dist/heat.js.css",
+    "build-ts": "tsup",
+    "build-sass": "sass src/heat.js.scss dist/heat.js.css"
   },
   "keywords": [
     "typescript",
