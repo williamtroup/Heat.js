@@ -1253,7 +1253,7 @@ import { type PublicApi } from "./ts/api";
         let labels: HTMLElement = DomElement.create( statistics, "div", "y-labels" );
         const rangeLines: HTMLElement = DomElement.create( statistics, "div", "range-lines" );
         const colorRanges: ColorRange[] = getSortedColorRanges( bindingOptions );
-        const colorRangeValuesForCurrentYear = getLargestValuesForEachRangeType( bindingOptions, colorRanges );
+        const colorRangeValuesForCurrentYear: any = getLargestValuesForEachRangeType( bindingOptions, colorRanges );
 
         if ( isForViewSwitch ) {
             DomElement.addClass( statistics, "view-switch" );
