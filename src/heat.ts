@@ -1198,7 +1198,7 @@ import { type PublicApi } from "./ts/api";
         let largestValue: number = 0;
         const data: TypeCountsData = getCurrentViewData( bindingOptions );
 
-        const days : object = {
+        const days : Record<number, number> = {
             1: 0,
             2: 0,
             3: 0,
