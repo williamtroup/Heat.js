@@ -34,6 +34,8 @@ npm install @swc/core -D
 
 ## Step 2: Build Project:
 
+### 1. Full Build:
+
 To build the TypeScript, run the following command:
 
 ```markdown
@@ -50,4 +52,24 @@ To build the everything, run the following command:
 
 ```markdown
 npm run build
+```
+
+### 2. Minimized Build:
+
+To build the TypeScript, run the following command:
+
+```markdown
+npm run build-min-ts
+```
+
+To build the SASS, run the following command:
+
+```markdown
+npm run build-min-sass
+```
+
+To build the everything, run the following command:
+
+```markdown
+npm run build-min
 ```
