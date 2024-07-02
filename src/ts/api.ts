@@ -317,7 +317,7 @@ export type PublicApi = {
      * 
      * @param       {string}    elementId                                   The Heat.js element ID.
      * 
-     * @returns     {number}                                                The year being displayed (or null).
+     * @returns     {number}                                                The year being displayed (or -1 if not available).
      */
     getYear: ( elementId: string ) => number;
 

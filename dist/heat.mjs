@@ -2509,7 +2509,7 @@ var require_heat = __commonJS({
                     return _public;
                 },
                 getYear: function(e) {
-                    let t = null;
+                    let t = -1;
                     if (Is.definedString(e) && _elements_DateCounts.hasOwnProperty(e)) {
                         const n = _elements_DateCounts[e].options;
                         t = n._currentView.year;
@@ -2529,7 +2529,7 @@ var require_heat = __commonJS({
                 switchView: function(e, t) {
                     if (Is.definedString(e) && Is.definedString(t) && _elements_DateCounts.hasOwnProperty(e)) {
                         const n = _elements_DateCounts[e].options;
-                        let i = null;
+                        let i;
                         if (t.toLowerCase() === "map") {
                             i = 1;
                         } else if (t.toLowerCase() === "chart") {
@@ -2538,6 +2538,8 @@ var require_heat = __commonJS({
                             i = 3;
                         } else if (t.toLowerCase() === "statistics") {
                             i = 4;
+                        } else {
+                            i = 1;
                         }
                         if (Is.definedNumber(i)) {
                             n._currentView.view = i;

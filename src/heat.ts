@@ -3085,7 +3085,7 @@ import { type PublicApi } from "./ts/api";
         },
 
         getYear: function ( elementId: string ) : number {
-            let result: number = null;
+            let result: number = Value.notFound;
 
             if ( Is.definedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
@@ -3113,7 +3113,7 @@ import { type PublicApi } from "./ts/api";
         switchView: function ( elementId: string, viewName: string ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedString( viewName ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
-                let view: number = null;
+                let view: number;
     
                 if ( viewName.toLowerCase() === ViewName.map ) {
                     view = ViewId.map;
@@ -3123,6 +3123,8 @@ import { type PublicApi } from "./ts/api";
                     view = ViewId.days;
                 } else if ( viewName.toLowerCase() === ViewName.statistics ) {
                     view = ViewId.statistics;
+                } else {
+                    view = ViewId.map;
                 }
     
                 if ( Is.definedNumber( view ) ) {

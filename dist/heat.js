@@ -2457,7 +2457,7 @@ var DateTime;
             return _public;
         },
         getYear: function(e) {
-            let t = null;
+            let t = -1;
             if (Is.definedString(e) && _elements_DateCounts.hasOwnProperty(e)) {
                 const n = _elements_DateCounts[e].options;
                 t = n._currentView.year;
@@ -2477,7 +2477,7 @@ var DateTime;
         switchView: function(e, t) {
             if (Is.definedString(e) && Is.definedString(t) && _elements_DateCounts.hasOwnProperty(e)) {
                 const n = _elements_DateCounts[e].options;
-                let o = null;
+                let o;
                 if (t.toLowerCase() === "map") {
                     o = 1;
                 } else if (t.toLowerCase() === "chart") {
@@ -2486,6 +2486,8 @@ var DateTime;
                     o = 3;
                 } else if (t.toLowerCase() === "statistics") {
                     o = 4;
+                } else {
+                    o = 1;
                 }
                 if (Is.definedNumber(o)) {
                     n._currentView.view = o;
