@@ -24,7 +24,8 @@ export default defineConfig( [
       compress: true,
       sourceMap: false,
       format: {
-        comments: false
+        comments: false,
+        shorthand: true
       }
     }
   }
