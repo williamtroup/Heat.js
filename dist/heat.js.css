@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v3.2.0
+ * Heat.js Library v4.0.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -1381,4 +1381,6 @@ div.heat-js-tooltip {
   100% {
     opacity: 1;
   }
-}/*# sourceMappingURL=heat.js.css.map */
+}
+
+/*# sourceMappingURL=heat.js.css.map */

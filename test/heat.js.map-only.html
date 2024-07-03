@@ -3,27 +3,20 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Heat.js - Local Storage</title>
-        <link rel="stylesheet" href="../css/styles.css">
-        <link rel="stylesheet" href="../../dist/heat.js.css">
-        <script src="../../dist/heat.js"></script>
+        <title>Heat.js - Only Map</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="../dist/heat.js.css">
+        <script src="../dist/heat.js"></script>
     </head>
 
     <body>
         <div class="header">
-            <h1 id="header">Heat.js - Local Storage</h1>
-            <p>This is a basic example of how to use Heat.js to create a basic heatmap that stores all data using local storage.</p>
+            <h1 id="header">Heat.js - Only Map</h1>
+            <p>This is a basic example of how to use Heat.js to create a basic heatmap (without any other views enabled).</p>
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-js="{ 'useLocalStorageForData': true, 'description': { 'text': 'A basic example of how to use Heat.js.' } }"></div>
-        </div>
-
-        <div class="contents">
-            <h2>Manage Dates:</h2>
-            <button onclick="addData();">Add Data</button>
-            <button onclick="$heat.reset( 'heat-map-1', true );">Clear Data</button>
-            <br>
+            <div id="heat-map-1" data-heat-js="{ 'events': { 'onDayClick': onDayClick }, 'description': { 'text': 'A basic example of how to use Heat.js.' }, 'views': { 'chart': { 'enabled': false }, 'statistics': { 'enabled': false }, 'days': { 'enabled': false } } }"></div>
         </div>
     </body>
 
@@ -31,7 +24,11 @@
         document.title += " - v" + $heat.getVersion();
         document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
 
-        function addData() {
+        function onDayClick( date ) {
+            console.log( "Day clicked for: " + date.toString() );
+        }
+
+        document.addEventListener( "DOMContentLoaded", function() {
             var date = new Date( new Date().getFullYear(), 0, 1 );
 
             for ( var dayNumber = 0; dayNumber < 8000; dayNumber++ ) {
@@ -44,6 +41,6 @@
             }
 
             $heat.refreshAll();
-        }
+        } );
     </script>
 </html>

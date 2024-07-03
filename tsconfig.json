@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2016",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "declaration": true,
+    "outDir": "./build",                                  
+    "esModuleInterop": true,                         
+    "forceConsistentCasingInFileNames": true,          
+    "skipLibCheck": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "strict": false
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts"
+  ]
+}

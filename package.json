@@ -2,17 +2,18 @@
   "name": "jheat.js",
   "title": "Heat.js",
   "description": "A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.",
-  "version": "3.2.0",
-  "main": "dist/heat.js",
+  "version": "4.0.0",
   "homepage": "https://www.william-troup.com/heat-js/",
   "author": {
     "name": "Bunoon"
   },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/williamtroup/Heat.js"
   },
   "keywords": [
+    "typescript",
     "javascript",
     "css",
     "heat.js",
@@ -32,5 +33,22 @@
   "bugs": {
     "url": "https://github.com/williamtroup/Heat.js/issues"
   },
-  "license": "MIT"
+  "main": "dist/heat.js",
+  "types": "dist/heat.d.ts",
+  "scripts": {
+    "build": "tsup --config tsup.build.config.ts && tsup --config tsup.build.esm.config.ts && sass src/heat.js.scss dist/heat.js.css",
+    "build-minimized": "tsup --config tsup.build.min.config.ts && sass src/heat.js.scss dist/heat.js.min.css --style=compressed --no-source-map",
+    "build-typescript": "tsup --config tsup.build.config.ts",
+    "build-typescript-esm": "tsup --config tsup.build.esm.config.ts",
+    "build-typescript-minimized": "tsup --config tsup.build.min.config.ts",
+    "build-sass": "sass src/heat.js.scss dist/heat.js.css",
+    "build-sass-minimized": "sass src/heat.js.scss dist/heat.js.min.css --style=compressed --no-source-map"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.6.6",
+    "sass": "^1.77.6",
+    "terser": "^5.31.1",
+    "tsup": "^8.1.0",
+    "typescript": "^5.5.2"
+  }
 }

@@ -3,20 +3,13 @@
  * 
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
- * @file        observe.js
- * @version     v3.2.0
+ * @file        heat.ts
+ * @version     v4.0.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
  */
 
-
-var heat = {
-    js: function() {
-        return window.$heat;
-    }
-};
-
-Object.assign( window, { heat } );
-
-export { heat };
+export namespace Constants {
+    export const HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
+}
