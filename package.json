@@ -3,23 +3,14 @@
   "title": "Heat.js",
   "description": "A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.",
   "version": "4.0.0",
-  "main": "dist/heat.js",
   "homepage": "https://www.william-troup.com/heat-js/",
   "author": {
     "name": "Bunoon"
   },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/williamtroup/Heat.js"
-  },
-  "scripts": {
-    "build": "tsup --config tsup.build.config.ts && tsup --config tsup.build.esm.config.ts && sass src/heat.js.scss dist/heat.js.css",
-    "build-minimized": "tsup --config tsup.build.min.config.ts && sass src/heat.js.scss dist/heat.js.min.css --style=compressed --no-source-map",
-    "build-typescript": "tsup --config tsup.build.config.ts",
-    "build-typescript-esm": "tsup --config tsup.build.esm.config.ts",
-    "build-typescript-minimized": "tsup --config tsup.build.min.config.ts",
-    "build-sass": "sass src/heat.js.scss dist/heat.js.css",
-    "build-sass-minimized": "sass src/heat.js.scss dist/heat.js.min.css --style=compressed --no-source-map"
   },
   "keywords": [
     "typescript",
@@ -42,7 +33,17 @@
   "bugs": {
     "url": "https://github.com/williamtroup/Heat.js/issues"
   },
-  "license": "MIT",
+  "main": "dist/heat.js",
+  "typings": "dist/heat.d.ts",
+  "scripts": {
+    "build": "tsup --config tsup.build.config.ts && tsup --config tsup.build.esm.config.ts && sass src/heat.js.scss dist/heat.js.css",
+    "build-minimized": "tsup --config tsup.build.min.config.ts && sass src/heat.js.scss dist/heat.js.min.css --style=compressed --no-source-map",
+    "build-typescript": "tsup --config tsup.build.config.ts",
+    "build-typescript-esm": "tsup --config tsup.build.esm.config.ts",
+    "build-typescript-minimized": "tsup --config tsup.build.min.config.ts",
+    "build-sass": "sass src/heat.js.scss dist/heat.js.css",
+    "build-sass-minimized": "sass src/heat.js.scss dist/heat.js.min.css --style=compressed --no-source-map"
+  },
   "devDependencies": {
     "@swc/core": "^1.6.6",
     "sass": "^1.77.6",
