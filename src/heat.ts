@@ -476,9 +476,9 @@ import { type PublicApi } from "./ts/api";
 
     function hideToolTip( bindingOptions: BindingOptions ) : void {
         if ( Is.defined( bindingOptions._currentView.tooltip ) ) {
-            if ( Is.defined( bindingOptions._currentView.tooltipTimer ) ) {
+            if ( bindingOptions._currentView.tooltipTimer !== 0 ) {
                 clearTimeout( bindingOptions._currentView.tooltipTimer );
-                bindingOptions._currentView.tooltipTimer = null;
+                bindingOptions._currentView.tooltipTimer = 0;
             }
     
             if ( bindingOptions._currentView.tooltip.style.display !== "none" ) {
@@ -1749,6 +1749,7 @@ import { type PublicApi } from "./ts/api";
 
                 if ( Is.defined( bindingOptions._currentView.isInFetchModeTimer ) ) {
                     clearInterval( bindingOptions._currentView.isInFetchModeTimer );
+                    bindingOptions._currentView.isInFetchModeTimer = 0;
                 }
             }
         }

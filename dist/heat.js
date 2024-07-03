@@ -597,9 +597,9 @@ var DateTime;
     }
     function hideToolTip(e) {
         if (Is.defined(e._currentView.tooltip)) {
-            if (Is.defined(e._currentView.tooltipTimer)) {
+            if (e._currentView.tooltipTimer !== 0) {
                 clearTimeout(e._currentView.tooltipTimer);
-                e._currentView.tooltipTimer = null;
+                e._currentView.tooltipTimer = 0;
             }
             if (e._currentView.tooltip.style.display !== "none") {
                 e._currentView.tooltip.style.display = "none";
@@ -1519,6 +1519,7 @@ var DateTime;
                 const t = _elements_DateCounts[e].options;
                 if (Is.defined(t._currentView.isInFetchModeTimer)) {
                     clearInterval(t._currentView.isInFetchModeTimer);
+                    t._currentView.isInFetchModeTimer = 0;
                 }
             }
         }
