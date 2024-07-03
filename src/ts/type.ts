@@ -16,7 +16,7 @@ export type TypeCountsData = Record<string, number>;
 export type DateCounts = Record<string, {
     options: BindingOptions;
     totalTypes: number;
-    typeData: Record<string, TypeCountsData>
+    typeData: Record<string, TypeCountsData>;
 }>;
 
 export type Configuration = {
@@ -78,12 +78,7 @@ export type BindingOptions = {
     guide?: Guide;
     tooltip?: Tooltip;
     events?: Events;
-    views?: {
-        map?: Map;
-        chart?: Chart;
-        days?: Days;
-        statistics?: Statistics;
-    }
+    views?: Views; 
 };
 
 export type BindingOptionsCurrentView = {
@@ -108,7 +103,14 @@ export type BindingOptionsCurrentView = {
     dayCheckBoxes: any[];
     monthCheckBoxes: any[];
     configurationDialog: HTMLElement;
-    disabledBackground: HTMLElement
+    disabledBackground: HTMLElement;
+};
+
+export type Views = {
+    map?: Map;
+    chart?: Chart;
+    days?: Days;
+    statistics?: Statistics;
 };
 
 export type Title = {
