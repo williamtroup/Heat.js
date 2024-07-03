@@ -25,7 +25,11 @@ import {
     type Chart,
     type Days,
     type Statistics,
-    type Events } from "./ts/type";
+    type Events,
+    type TypeCountsData,
+    type DateCounts, 
+    IsHoliday,
+    JsonObject as AttributeJsonObject} from "./ts/type";
 
 import { ExportType, Char, Value, ViewId, ViewName } from "./ts/enum";
 import { Constants } from "./ts/constant"
@@ -35,16 +39,7 @@ import { DomElement } from "./ts/dom"
 import { DateTime } from "./ts/datetime"
 import { type PublicApi } from "./ts/api";
 
-
 ( () => {
-    // Types
-    type TypeCountsData = Record<string, number>;
-    type DateCounts = Record<string, {
-        options: BindingOptions;
-        totalTypes: number;
-        typeData: Record<string, TypeCountsData>
-    }>;
-
     // Variables: Configuration
     let _configuration: Configuration = {} as Configuration;
 
@@ -118,7 +113,7 @@ import { type PublicApi } from "./ts/api";
             const bindingOptionsData: string = element.getAttribute( Constants.HEAT_JS_ATTRIBUTE_NAME );
 
             if ( Is.definedString( bindingOptionsData ) ) {
-                const bindingOptions: any = getObjectFromString( bindingOptionsData );
+                const bindingOptions: AttributeJsonObject = getObjectFromString( bindingOptionsData );
 
                 if ( bindingOptions.parsed && Is.definedObject( bindingOptions.result ) ) {
                     renderControl( renderBindingOptions( bindingOptions.result, element ) );
@@ -1559,7 +1554,7 @@ import { type PublicApi } from "./ts/api";
             let tooltip: string = DateTime.getCustomFormattedDateText( _configuration, bindingOptions.tooltip.dayText, date );
 
             if ( bindingOptions.showHolidaysInDayToolTips ) {
-                let holiday: any = isHoliday( bindingOptions, date );
+                let holiday: IsHoliday = isHoliday( bindingOptions, date );
 
                 if ( holiday.matched && Is.definedString( holiday.name ) ) {
                     tooltip += Char.colon + Char.space + holiday.name;
@@ -1656,7 +1651,7 @@ import { type PublicApi } from "./ts/api";
 
                 if ( Data.String.startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
                     const typesJson: string = window.localStorage.getItem( key );
-                    const typesObject: any = getObjectFromString( typesJson );
+                    const typesObject: AttributeJsonObject = getObjectFromString( typesJson );
 
                     if ( typesObject.parsed ) {
                         _elements_DateCounts[ elementId ].typeData = typesObject.result;
@@ -1873,13 +1868,16 @@ import { type PublicApi } from "./ts/api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function isHoliday( bindingOptions: BindingOptions, date: Date ) : any {
+    function isHoliday( bindingOptions: BindingOptions, date: Date ) : IsHoliday {
+        const result: IsHoliday = {
+            matched: false,
+            name: null
+        } as IsHoliday;
+
         const holidaysLength: number = bindingOptions.holidays.length;
         const day: number = date.getDate();
         const month: number = date.getMonth() + 1;
         const year: number = date.getFullYear();
-        let holidayMatched: boolean = false;
-        let holidayName: string = null;
         
         for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
             let holiday: Holiday = bindingOptions.holidays[ holidayIndex ];
@@ -1888,22 +1886,19 @@ import { type PublicApi } from "./ts/api";
                 const dateParts: string[] = holiday.date.split( "/" );
 
                 if ( dateParts.length === 2 ) {
-                    holidayMatched = day === parseInt( dateParts[ 0 ] ) && month === parseInt( dateParts[ 1 ] );
+                    result.matched = day === parseInt( dateParts[ 0 ] ) && month === parseInt( dateParts[ 1 ] );
                 } else if ( dateParts.length === 3 ) {
-                    holidayMatched = day === parseInt( dateParts[ 0 ] ) && month === parseInt( dateParts[ 1 ] ) && year === parseInt( dateParts[ 2 ] );
+                    result.matched = day === parseInt( dateParts[ 0 ] ) && month === parseInt( dateParts[ 1 ] ) && year === parseInt( dateParts[ 2 ] );
                 }
 
-                if ( holidayMatched ) {
-                    holidayName = holiday.name;
+                if ( result.matched ) {
+                    result.name = holiday.name;
                     break;
                 }
             }
         }
 
-        return {
-            matched: holidayMatched,
-            name: holidayName
-        };
+        return result;
     }
 
 
@@ -1991,7 +1986,7 @@ import { type PublicApi } from "./ts/api";
         };
     
         reader.onload = ( e: ProgressEvent<FileReader> ) => {
-            const JSON: any = getObjectFromString( e.target.result );
+            const JSON: AttributeJsonObject = getObjectFromString( e.target.result );
 
             if ( JSON.parsed && Is.definedObject( JSON.result ) ) {
                 readingObject = JSON.result;
@@ -2516,37 +2511,36 @@ import { type PublicApi } from "./ts/api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function getObjectFromString( objectString: any ) : any {
-        let parsed: boolean = true,
-            result: any = null;
+    function getObjectFromString( objectString: any ) : AttributeJsonObject {
+        const result: AttributeJsonObject = {
+            parsed: true,
+            result: null
+        } as AttributeJsonObject;
 
         try {
             if ( Is.definedString( objectString ) ) {
-                result = JSON.parse( objectString );
+                result.result = JSON.parse( objectString );
             }
 
         } catch ( e1 ) {
             try {
-                let evalResult: Function = result = eval( "(" + objectString + ")" );
+                let evalResult: Function = eval( "(" + objectString + ")" );
 
-                if ( Is.definedFunction( result ) ) {
-                    result = evalResult();
+                if ( Is.definedFunction( evalResult ) ) {
+                    result.result = evalResult();
                 }
                 
             } catch ( e2 ) {
                 if ( !_configuration.safeMode ) {
                     console.error( _configuration.objectErrorText.replace( "{{error_1}}",  e1.message ).replace( "{{error_2}}",  e2.message ) );
-                    parsed = false;
+                    result.parsed = false;
                 }
                 
-                result = null;
+                result.result = null;
             }
         }
 
-        return {
-            parsed: parsed,
-            result: result
-        };
+        return result;
     }
 
 

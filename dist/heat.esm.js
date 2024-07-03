@@ -1652,31 +1652,30 @@ var require_heat = __commonJS({
                 }));
             }
             function isHoliday(e, t) {
-                const n = e.holidays.length;
-                const i = t.getDate();
-                const o = t.getMonth() + 1;
-                const a = t.getFullYear();
-                let r = false;
-                let s = null;
-                for (let t = 0; t < n; t++) {
-                    let n = e.holidays[t];
-                    if (Is.definedString(n.date) && n.showInViews) {
-                        const e = n.date.split("/");
+                const n = {
+                    matched: false,
+                    name: null
+                };
+                const i = e.holidays.length;
+                const o = t.getDate();
+                const a = t.getMonth() + 1;
+                const r = t.getFullYear();
+                for (let t = 0; t < i; t++) {
+                    let i = e.holidays[t];
+                    if (Is.definedString(i.date) && i.showInViews) {
+                        const e = i.date.split("/");
                         if (e.length === 2) {
-                            r = i === parseInt(e[0]) && o === parseInt(e[1]);
+                            n.matched = o === parseInt(e[0]) && a === parseInt(e[1]);
                         } else if (e.length === 3) {
-                            r = i === parseInt(e[0]) && o === parseInt(e[1]) && a === parseInt(e[2]);
+                            n.matched = o === parseInt(e[0]) && a === parseInt(e[1]) && r === parseInt(e[2]);
                         }
-                        if (r) {
-                            s = n.name;
+                        if (n.matched) {
+                            n.name = i.name;
                             break;
                         }
                     }
                 }
-                return {
-                    matched: r,
-                    name: s
-                };
+                return n;
             }
             function makeAreaDroppable(e, t) {
                 if (t.allowFileImports && !t._currentView.isInFetchMode) {
@@ -2137,29 +2136,29 @@ var require_heat = __commonJS({
                 return n;
             }
             function getObjectFromString(objectString) {
-                let parsed = true, result = null;
+                const result = {
+                    parsed: true,
+                    result: null
+                };
                 try {
                     if (Is.definedString(objectString)) {
-                        result = JSON.parse(objectString);
+                        result.result = JSON.parse(objectString);
                     }
                 } catch (e1) {
                     try {
-                        let evalResult = result = eval("(" + objectString + ")");
-                        if (Is.definedFunction(result)) {
-                            result = evalResult();
+                        let evalResult = eval("(" + objectString + ")");
+                        if (Is.definedFunction(evalResult)) {
+                            result.result = evalResult();
                         }
                     } catch (e) {
                         if (!_configuration.safeMode) {
                             console.error(_configuration.objectErrorText.replace("{{error_1}}", e1.message).replace("{{error_2}}", e.message));
-                            parsed = false;
+                            result.parsed = false;
                         }
-                        result = null;
+                        result.result = null;
                     }
                 }
-                return {
-                    parsed: parsed,
-                    result: result
-                };
+                return result;
             }
             function toStorageDate(e) {
                 return e.getFullYear() + "-" + Data.String.padNumber(e.getMonth() + 1) + "-" + Data.String.padNumber(e.getDate());

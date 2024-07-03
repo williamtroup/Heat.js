@@ -11,6 +11,24 @@
  */
 
 
+export type TypeCountsData = Record<string, number>;
+
+export type DateCounts = Record<string, {
+    options: BindingOptions;
+    totalTypes: number;
+    typeData: Record<string, TypeCountsData>
+}>;
+
+export type IsHoliday = {
+    matched: boolean,
+    name: string
+};
+
+export type JsonObject = {
+    parsed: boolean,
+    result: any
+};
+
 export type Configuration = {
 	safeMode?: boolean;
 	domElementTypes?: string[];
