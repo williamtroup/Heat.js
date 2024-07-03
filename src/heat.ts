@@ -28,8 +28,8 @@ import {
     type Events,
     type TypeCountsData,
     type DateCounts, 
-    IsHoliday,
-    JsonObject as AttributeJsonObject} from "./ts/type";
+    type IsHoliday,
+    type AttributeJsonObject} from "./ts/type";
 
 import { ExportType, Char, Value, ViewId, ViewName } from "./ts/enum";
 import { Constants } from "./ts/constant"
