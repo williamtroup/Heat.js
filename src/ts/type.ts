@@ -24,7 +24,7 @@ export type IsHoliday = {
     name: string;
 };
 
-export type AttributeJsonObject = {
+export type StringToJson = {
     parsed: boolean;
     object: any;
 };

@@ -29,9 +29,9 @@ import {
     type TypeCountsData,
     type DateCounts, 
     type IsHoliday,
-    type AttributeJsonObject,
-    LargestValueForDays,
-    LargestValuesForEachRangeType} from "./ts/type";
+    type StringToJson,
+    type LargestValueForDays,
+    type LargestValuesForEachRangeType} from "./ts/type";
 
 import { ExportType, Char, Value, ViewId, ViewName } from "./ts/enum";
 import { Constants } from "./ts/constant"
@@ -115,7 +115,7 @@ import { type PublicApi } from "./ts/api";
             const bindingOptionsData: string = element.getAttribute( Constants.HEAT_JS_ATTRIBUTE_NAME );
 
             if ( Is.definedString( bindingOptionsData ) ) {
-                const bindingOptions: AttributeJsonObject = getObjectFromString( bindingOptionsData );
+                const bindingOptions: StringToJson = getObjectFromString( bindingOptionsData );
 
                 if ( bindingOptions.parsed && Is.definedObject( bindingOptions.object ) ) {
                     renderControl( renderBindingOptions( bindingOptions.object, element ) );
@@ -1652,7 +1652,7 @@ import { type PublicApi } from "./ts/api";
 
                 if ( Data.String.startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
                     const typesJson: string = window.localStorage.getItem( key );
-                    const typesObject: AttributeJsonObject = getObjectFromString( typesJson );
+                    const typesObject: StringToJson = getObjectFromString( typesJson );
 
                     if ( typesObject.parsed ) {
                         _elements_DateCounts[ elementId ].typeData = typesObject.object;
@@ -1988,7 +1988,7 @@ import { type PublicApi } from "./ts/api";
         };
     
         reader.onload = ( e: ProgressEvent<FileReader> ) => {
-            const JSON: AttributeJsonObject = getObjectFromString( e.target.result );
+            const JSON: StringToJson = getObjectFromString( e.target.result );
 
             if ( JSON.parsed && Is.definedObject( JSON.object ) ) {
                 readingObject = JSON.object;
@@ -2513,11 +2513,11 @@ import { type PublicApi } from "./ts/api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function getObjectFromString( objectString: any ) : AttributeJsonObject {
-        const result: AttributeJsonObject = {
+    function getObjectFromString( objectString: any ) : StringToJson {
+        const result: StringToJson = {
             parsed: true,
             object: null
-        } as AttributeJsonObject;
+        } as StringToJson;
 
         try {
             if ( Is.definedString( objectString ) ) {
