@@ -32,7 +32,12 @@ export type AttributeJsonObject = {
 export type LargestValueForDays = {
     days: Record<number, number>;
     largestValue: number;
-}
+};
+
+export type LargestValuesForEachRangeType = {
+    types: TypeCountsData;
+    largestValue: number;
+};
 
 export type Configuration = {
 	safeMode?: boolean;

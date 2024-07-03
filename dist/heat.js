@@ -1240,37 +1240,36 @@ var DateTime;
         }
     }
     function getLargestValuesForEachRangeType(e, t) {
-        const n = {};
-        const o = getCurrentViewData(e);
-        let i = 0;
-        n["0"] = 0;
-        for (let a = 0; a < 12; a++) {
-            const r = DateTime.getTotalDaysInMonth(e._currentView.year, a);
-            for (let s = 0; s < r; s++) {
-                const r = toStorageDate(new Date(e._currentView.year, a, s + 1));
-                if (o.hasOwnProperty(r)) {
-                    const a = getStorageDate(r);
-                    const s = new Date(parseInt(a[2]), parseInt(a[1]), parseInt(a[0]));
-                    const l = DateTime.getWeekdayNumber(s) + 1;
-                    if (!isHoliday(e, s).matched && isMonthVisible(e.views.statistics.monthsToShow, s.getMonth()) && isDayVisible(e.views.statistics.daysToShow, l)) {
-                        const a = getColorRange(e, t, o[r]);
-                        if (!Is.defined(a)) {
-                            n["0"]++;
+        const n = getCurrentViewData(e);
+        const o = {
+            types: {},
+            largestValue: 0
+        };
+        o.types["0"] = 0;
+        for (let i = 0; i < 12; i++) {
+            const a = DateTime.getTotalDaysInMonth(e._currentView.year, i);
+            for (let r = 0; r < a; r++) {
+                const a = toStorageDate(new Date(e._currentView.year, i, r + 1));
+                if (n.hasOwnProperty(a)) {
+                    const i = getStorageDate(a);
+                    const r = new Date(parseInt(i[2]), parseInt(i[1]), parseInt(i[0]));
+                    const s = DateTime.getWeekdayNumber(r) + 1;
+                    if (!isHoliday(e, r).matched && isMonthVisible(e.views.statistics.monthsToShow, r.getMonth()) && isDayVisible(e.views.statistics.daysToShow, s)) {
+                        const i = getColorRange(e, t, n[a]);
+                        if (!Is.defined(i)) {
+                            o.types["0"]++;
                         } else {
-                            if (!n.hasOwnProperty(a.minimum.toString())) {
-                                n[a.minimum.toString()] = 0;
+                            if (!o.types.hasOwnProperty(i.minimum.toString())) {
+                                o.types[i.minimum.toString()] = 0;
                             }
-                            n[a.minimum]++;
-                            i = Math.max(i, n[a.minimum]);
+                            o.types[i.minimum]++;
+                            o.largestValue = Math.max(o.largestValue, o.types[i.minimum]);
                         }
                     }
                 }
             }
         }
-        return {
-            types: n,
-            largestValue: i
-        };
+        return o;
     }
     function renderControlViewGuide(e) {
         const t = DomElement.create(e._currentView.element, "div", "guide");

@@ -1290,37 +1290,36 @@ var require_heat = __commonJS({
                 }
             }
             function getLargestValuesForEachRangeType(e, t) {
-                const n = {};
-                const i = getCurrentViewData(e);
-                let o = 0;
-                n["0"] = 0;
-                for (let a = 0; a < 12; a++) {
-                    const r = DateTime.getTotalDaysInMonth(e._currentView.year, a);
-                    for (let s = 0; s < r; s++) {
-                        const r = toStorageDate(new Date(e._currentView.year, a, s + 1));
-                        if (i.hasOwnProperty(r)) {
-                            const a = getStorageDate(r);
-                            const s = new Date(parseInt(a[2]), parseInt(a[1]), parseInt(a[0]));
-                            const l = DateTime.getWeekdayNumber(s) + 1;
-                            if (!isHoliday(e, s).matched && isMonthVisible(e.views.statistics.monthsToShow, s.getMonth()) && isDayVisible(e.views.statistics.daysToShow, l)) {
-                                const a = getColorRange(e, t, i[r]);
-                                if (!Is.defined(a)) {
-                                    n["0"]++;
+                const n = getCurrentViewData(e);
+                const i = {
+                    types: {},
+                    largestValue: 0
+                };
+                i.types["0"] = 0;
+                for (let o = 0; o < 12; o++) {
+                    const a = DateTime.getTotalDaysInMonth(e._currentView.year, o);
+                    for (let r = 0; r < a; r++) {
+                        const a = toStorageDate(new Date(e._currentView.year, o, r + 1));
+                        if (n.hasOwnProperty(a)) {
+                            const o = getStorageDate(a);
+                            const r = new Date(parseInt(o[2]), parseInt(o[1]), parseInt(o[0]));
+                            const s = DateTime.getWeekdayNumber(r) + 1;
+                            if (!isHoliday(e, r).matched && isMonthVisible(e.views.statistics.monthsToShow, r.getMonth()) && isDayVisible(e.views.statistics.daysToShow, s)) {
+                                const o = getColorRange(e, t, n[a]);
+                                if (!Is.defined(o)) {
+                                    i.types["0"]++;
                                 } else {
-                                    if (!n.hasOwnProperty(a.minimum.toString())) {
-                                        n[a.minimum.toString()] = 0;
+                                    if (!i.types.hasOwnProperty(o.minimum.toString())) {
+                                        i.types[o.minimum.toString()] = 0;
                                     }
-                                    n[a.minimum]++;
-                                    o = Math.max(o, n[a.minimum]);
+                                    i.types[o.minimum]++;
+                                    i.largestValue = Math.max(i.largestValue, i.types[o.minimum]);
                                 }
                             }
                         }
                     }
                 }
-                return {
-                    types: n,
-                    largestValue: o
-                };
+                return i;
             }
             function renderControlViewGuide(e) {
                 const t = DomElement.create(e._currentView.element, "div", "guide");

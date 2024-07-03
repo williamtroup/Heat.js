@@ -30,7 +30,8 @@ import {
     type DateCounts, 
     type IsHoliday,
     type AttributeJsonObject,
-    LargestValueForDays} from "./ts/type";
+    LargestValueForDays,
+    LargestValuesForEachRangeType} from "./ts/type";
 
 import { ExportType, Char, Value, ViewId, ViewName } from "./ts/enum";
 import { Constants } from "./ts/constant"
@@ -1248,7 +1249,7 @@ import { type PublicApi } from "./ts/api";
         let labels: HTMLElement = DomElement.create( statistics, "div", "y-labels" );
         const rangeLines: HTMLElement = DomElement.create( statistics, "div", "range-lines" );
         const colorRanges: ColorRange[] = getSortedColorRanges( bindingOptions );
-        const colorRangeValuesForCurrentYear: any = getLargestValuesForEachRangeType( bindingOptions, colorRanges );
+        const colorRangeValuesForCurrentYear: LargestValuesForEachRangeType = getLargestValuesForEachRangeType( bindingOptions, colorRanges );
 
         if ( isForViewSwitch ) {
             DomElement.addClass( statistics, "view-switch" );
@@ -1352,12 +1353,15 @@ import { type PublicApi } from "./ts/api";
         }
     }
 
-    function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: ColorRange[] ) : any {
-        const types: TypeCountsData = {} as TypeCountsData;
+    function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: ColorRange[] ) : LargestValuesForEachRangeType {
         const data: TypeCountsData = getCurrentViewData( bindingOptions );
-        let largestValue: number = 0;
 
-        types[ Char.zero ] = 0;
+        const result: LargestValuesForEachRangeType = {
+            types: {} as TypeCountsData,
+            largestValue: 0
+        } as LargestValuesForEachRangeType;
+
+        result.types[ Char.zero ] = 0;
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
             const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
@@ -1374,26 +1378,23 @@ import { type PublicApi } from "./ts/api";
                         const useColorRange: ColorRange = getColorRange( bindingOptions, colorRanges, data[ storageDate ] );
 
                         if ( !Is.defined( useColorRange ) ) {
-                            types[ Char.zero ]++;
+                            result.types[ Char.zero ]++;
     
                         } else {
-                            if ( !types.hasOwnProperty( useColorRange.minimum.toString() ) ) {
-                                types[ useColorRange.minimum.toString() ] = 0;
+                            if ( !result.types.hasOwnProperty( useColorRange.minimum.toString() ) ) {
+                                result.types[ useColorRange.minimum.toString() ] = 0;
                             }
     
-                            types[ useColorRange.minimum ]++;
+                            result.types[ useColorRange.minimum ]++;
                             
-                            largestValue = Math.max( largestValue, types[ useColorRange.minimum ] );
+                            result.largestValue = Math.max( result.largestValue, result.types[ useColorRange.minimum ] );
                         }
                     }
                 }
             }
         }
 
-        return {
-            types: types,
-            largestValue: largestValue
-        };
+        return result;
     }
 
 
