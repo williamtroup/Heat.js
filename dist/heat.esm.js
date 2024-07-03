@@ -1170,36 +1170,35 @@ var require_heat = __commonJS({
                 }
             }
             function getLargestValuesForEachDay(e) {
-                let t = 0;
-                const n = getCurrentViewData(e);
-                const i = {
-                    1: 0,
-                    2: 0,
-                    3: 0,
-                    4: 0,
-                    5: 0,
-                    6: 0,
-                    7: 0
+                const t = {
+                    days: {
+                        1: 0,
+                        2: 0,
+                        3: 0,
+                        4: 0,
+                        5: 0,
+                        6: 0,
+                        7: 0
+                    },
+                    largestValue: 0
                 };
-                for (let o = 0; o < 12; o++) {
-                    const a = DateTime.getTotalDaysInMonth(e._currentView.year, o);
-                    for (let r = 0; r < a; r++) {
-                        const a = toStorageDate(new Date(e._currentView.year, o, r + 1));
-                        if (n.hasOwnProperty(a)) {
-                            const o = getStorageDate(a);
-                            const r = new Date(parseInt(o[2]), parseInt(o[1]), parseInt(o[0]));
-                            const s = DateTime.getWeekdayNumber(r) + 1;
-                            if (!isHoliday(e, r).matched && isMonthVisible(e.views.days.monthsToShow, r.getMonth()) && isDayVisible(e.views.days.daysToShow, s)) {
-                                i[s] += n[a];
-                                t = Math.max(t, i[s]);
+                const n = getCurrentViewData(e);
+                for (let i = 0; i < 12; i++) {
+                    const o = DateTime.getTotalDaysInMonth(e._currentView.year, i);
+                    for (let a = 0; a < o; a++) {
+                        const o = toStorageDate(new Date(e._currentView.year, i, a + 1));
+                        if (n.hasOwnProperty(o)) {
+                            const i = getStorageDate(o);
+                            const a = new Date(parseInt(i[2]), parseInt(i[1]), parseInt(i[0]));
+                            const r = DateTime.getWeekdayNumber(a) + 1;
+                            if (!isHoliday(e, a).matched && isMonthVisible(e.views.days.monthsToShow, a.getMonth()) && isDayVisible(e.views.days.daysToShow, r)) {
+                                t.days[r] += n[o];
+                                t.largestValue = Math.max(t.largestValue, t.days[r]);
                             }
                         }
                     }
                 }
-                return {
-                    days: i,
-                    largestValue: t
-                };
+                return t;
             }
             function renderControlStatisticsContents(e) {
                 e._currentView.statisticsContents = DomElement.create(e._currentView.element, "div", "statistics-contents");

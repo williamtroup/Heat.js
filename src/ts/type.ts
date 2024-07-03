@@ -20,14 +20,19 @@ export type DateCounts = Record<string, {
 }>;
 
 export type IsHoliday = {
-    matched: boolean,
-    name: string
+    matched: boolean;
+    name: string;
 };
 
 export type AttributeJsonObject = {
-    parsed: boolean,
-    object: any
+    parsed: boolean;
+    object: any;
 };
+
+export type LargestValueForDays = {
+    days: Record<number, number>;
+    largestValue: number;
+}
 
 export type Configuration = {
 	safeMode?: boolean;

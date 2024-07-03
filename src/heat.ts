@@ -29,7 +29,8 @@ import {
     type TypeCountsData,
     type DateCounts, 
     type IsHoliday,
-    type AttributeJsonObject} from "./ts/type";
+    type AttributeJsonObject,
+    LargestValueForDays} from "./ts/type";
 
 import { ExportType, Char, Value, ViewId, ViewName } from "./ts/enum";
 import { Constants } from "./ts/constant"
@@ -1104,7 +1105,7 @@ import { type PublicApi } from "./ts/api";
         const dayNames: HTMLElement = DomElement.create( bindingOptions._currentView.daysContents, "div", "day-names" );
         let labels: HTMLElement = DomElement.create( days, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( days, "div", "day-lines" );
-        const dayValuesForCurrentYear: any = getLargestValuesForEachDay( bindingOptions );
+        const dayValuesForCurrentYear: LargestValueForDays = getLargestValuesForEachDay( bindingOptions );
 
         if ( isForViewSwitch ) {
             DomElement.addClass( days, "view-switch" );
@@ -1189,19 +1190,21 @@ import { type PublicApi } from "./ts/api";
         }
     }
 
-    function getLargestValuesForEachDay( bindingOptions: BindingOptions ) : any {
-        let largestValue: number = 0;
-        const data: TypeCountsData = getCurrentViewData( bindingOptions );
+    function getLargestValuesForEachDay( bindingOptions: BindingOptions ) : LargestValueForDays {
+        const result: LargestValueForDays = {
+            days: {
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0,
+                6: 0,
+                7: 0,
+            },
+            largestValue: 0
+        } as LargestValueForDays;
 
-        const days : Record<number, number> = {
-            1: 0,
-            2: 0,
-            3: 0,
-            4: 0,
-            5: 0,
-            6: 0,
-            7: 0,
-        };
+        const data: TypeCountsData = getCurrentViewData( bindingOptions );
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
             const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
@@ -1215,18 +1218,15 @@ import { type PublicApi } from "./ts/api";
                     const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
                     if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views.days.monthsToShow, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views.days.daysToShow, weekDayNumber ) ) {
-                        days[ weekDayNumber ] += data[ storageDate ];
+                        result.days[ weekDayNumber ] += data[ storageDate ];
 
-                        largestValue = Math.max( largestValue, days[ weekDayNumber ] );
+                        result.largestValue = Math.max( result.largestValue, result.days[ weekDayNumber ] );
                     }
                 }
             }
         }
 
-        return {
-            days: days,
-            largestValue: largestValue
-        };
+        return result;
     }
 
 

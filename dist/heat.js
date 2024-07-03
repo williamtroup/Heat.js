@@ -1120,36 +1120,35 @@ var DateTime;
         }
     }
     function getLargestValuesForEachDay(e) {
-        let t = 0;
-        const n = getCurrentViewData(e);
-        const o = {
-            1: 0,
-            2: 0,
-            3: 0,
-            4: 0,
-            5: 0,
-            6: 0,
-            7: 0
+        const t = {
+            days: {
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0,
+                6: 0,
+                7: 0
+            },
+            largestValue: 0
         };
-        for (let i = 0; i < 12; i++) {
-            const a = DateTime.getTotalDaysInMonth(e._currentView.year, i);
-            for (let r = 0; r < a; r++) {
-                const a = toStorageDate(new Date(e._currentView.year, i, r + 1));
-                if (n.hasOwnProperty(a)) {
-                    const i = getStorageDate(a);
-                    const r = new Date(parseInt(i[2]), parseInt(i[1]), parseInt(i[0]));
-                    const s = DateTime.getWeekdayNumber(r) + 1;
-                    if (!isHoliday(e, r).matched && isMonthVisible(e.views.days.monthsToShow, r.getMonth()) && isDayVisible(e.views.days.daysToShow, s)) {
-                        o[s] += n[a];
-                        t = Math.max(t, o[s]);
+        const n = getCurrentViewData(e);
+        for (let o = 0; o < 12; o++) {
+            const i = DateTime.getTotalDaysInMonth(e._currentView.year, o);
+            for (let a = 0; a < i; a++) {
+                const i = toStorageDate(new Date(e._currentView.year, o, a + 1));
+                if (n.hasOwnProperty(i)) {
+                    const o = getStorageDate(i);
+                    const a = new Date(parseInt(o[2]), parseInt(o[1]), parseInt(o[0]));
+                    const r = DateTime.getWeekdayNumber(a) + 1;
+                    if (!isHoliday(e, a).matched && isMonthVisible(e.views.days.monthsToShow, a.getMonth()) && isDayVisible(e.views.days.daysToShow, r)) {
+                        t.days[r] += n[i];
+                        t.largestValue = Math.max(t.largestValue, t.days[r]);
                     }
                 }
             }
         }
-        return {
-            days: o,
-            largestValue: t
-        };
+        return t;
     }
     function renderControlStatisticsContents(e) {
         e._currentView.statisticsContents = DomElement.create(e._currentView.element, "div", "statistics-contents");
