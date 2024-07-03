@@ -27,11 +27,7 @@ import {
     type Statistics,
     type Events,
     type TypeCountsData,
-    type DateCounts, 
-    type IsHoliday,
-    type StringToJson,
-    type LargestValueForDays,
-    type LargestValuesForEachRangeType} from "./ts/type";
+    type DateCounts } from "./ts/type";
 
 import { ExportType, Char, Value, ViewId, ViewName } from "./ts/enum";
 import { Constants } from "./ts/constant"
@@ -40,6 +36,28 @@ import { Data } from "./ts/data"
 import { DomElement } from "./ts/dom"
 import { DateTime } from "./ts/datetime"
 import { type PublicApi } from "./ts/api";
+
+
+type IsHoliday = {
+    matched: boolean;
+    name: string;
+};
+
+type StringToJson = {
+    parsed: boolean;
+    object: any;
+};
+
+type LargestValueForDays = {
+    days: Record<number, number>;
+    largestValue: number;
+};
+
+type LargestValuesForEachRangeType = {
+    types: TypeCountsData;
+    largestValue: number;
+};
+
 
 ( () => {
     // Variables: Configuration

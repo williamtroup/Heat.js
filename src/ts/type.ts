@@ -19,26 +19,6 @@ export type DateCounts = Record<string, {
     typeData: Record<string, TypeCountsData>
 }>;
 
-export type IsHoliday = {
-    matched: boolean;
-    name: string;
-};
-
-export type StringToJson = {
-    parsed: boolean;
-    object: any;
-};
-
-export type LargestValueForDays = {
-    days: Record<number, number>;
-    largestValue: number;
-};
-
-export type LargestValuesForEachRangeType = {
-    types: TypeCountsData;
-    largestValue: number;
-};
-
 export type Configuration = {
 	safeMode?: boolean;
 	domElementTypes?: string[];
