@@ -1725,7 +1725,7 @@ import { type PublicApi } from "./ts/api";
 
     function pullDataFromCustomTrigger( bindingOptions: BindingOptions ) : void {
         const elementId: string = bindingOptions._currentView.element.id;
-        const data: any = fireCustomTriggerEvent( bindingOptions.events.onDataFetch, elementId );
+        const data: TypeCountsData = fireCustomTriggerEvent( bindingOptions.events.onDataFetch, elementId );
 
         if ( Is.definedObject( data ) ) {
             createDateStorageForElement( elementId, bindingOptions, false );
@@ -2495,7 +2495,7 @@ import { type PublicApi } from "./ts/api";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function fireCustomTriggerEvent( triggerFunction: Function, ...args : any[] ) : any {
+    function fireCustomTriggerEvent<Type>( triggerFunction: Function, ...args : any[] ) : Type {
         let result: any = null;
 
         if ( Is.definedFunction( triggerFunction ) ) {
