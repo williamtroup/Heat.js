@@ -15,7 +15,7 @@ export default defineConfig( [
     splitting: false,
     sourcemap: true,
     clean: false,
-    minify: 'terser',
+    minify: "terser",
     terserOptions: {
       compress: false,
       sourceMap: true,

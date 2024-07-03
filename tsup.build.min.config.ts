@@ -8,7 +8,7 @@ export default defineConfig( [
     ],
     outExtension({ }) {
       return {
-        js: `.min.js`,
+        js: ".min.js",
       };
     },
     platform: "neutral",
@@ -20,7 +20,7 @@ export default defineConfig( [
     splitting: false,
     sourcemap: false,
     clean: false,
-    minify: 'terser',
+    minify: "terser",
     terserOptions: {
       compress: true,
       sourceMap: false,
