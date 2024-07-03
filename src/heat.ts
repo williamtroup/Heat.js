@@ -115,8 +115,8 @@ import { type PublicApi } from "./ts/api";
             if ( Is.definedString( bindingOptionsData ) ) {
                 const bindingOptions: AttributeJsonObject = getObjectFromString( bindingOptionsData );
 
-                if ( bindingOptions.parsed && Is.definedObject( bindingOptions.result ) ) {
-                    renderControl( renderBindingOptions( bindingOptions.result, element ) );
+                if ( bindingOptions.parsed && Is.definedObject( bindingOptions.object ) ) {
+                    renderControl( renderBindingOptions( bindingOptions.object, element ) );
 
                 } else {
                     if ( !_configuration.safeMode ) {
@@ -1654,7 +1654,7 @@ import { type PublicApi } from "./ts/api";
                     const typesObject: AttributeJsonObject = getObjectFromString( typesJson );
 
                     if ( typesObject.parsed ) {
-                        _elements_DateCounts[ elementId ].typeData = typesObject.result;
+                        _elements_DateCounts[ elementId ].typeData = typesObject.object;
                         _elements_DateCounts[ elementId ].totalTypes = 0;
 
                         for ( let type in _elements_DateCounts[ elementId ].typeData ) {
@@ -1988,8 +1988,8 @@ import { type PublicApi } from "./ts/api";
         reader.onload = ( e: ProgressEvent<FileReader> ) => {
             const JSON: AttributeJsonObject = getObjectFromString( e.target.result );
 
-            if ( JSON.parsed && Is.definedObject( JSON.result ) ) {
-                readingObject = JSON.result;
+            if ( JSON.parsed && Is.definedObject( JSON.object ) ) {
+                readingObject = JSON.object;
             }
         };
     }
@@ -2514,20 +2514,20 @@ import { type PublicApi } from "./ts/api";
     function getObjectFromString( objectString: any ) : AttributeJsonObject {
         const result: AttributeJsonObject = {
             parsed: true,
-            result: null
+            object: null
         } as AttributeJsonObject;
 
         try {
             if ( Is.definedString( objectString ) ) {
-                result.result = JSON.parse( objectString );
+                result.object = JSON.parse( objectString );
             }
 
         } catch ( e1 ) {
             try {
-                let evalResult: Function = eval( "(" + objectString + ")" );
+                result.object = eval( "(" + objectString + ")" );
 
-                if ( Is.definedFunction( evalResult ) ) {
-                    result.result = evalResult();
+                if ( Is.definedFunction( result.object ) ) {
+                    result.object = result.object();
                 }
                 
             } catch ( e2 ) {
@@ -2536,7 +2536,7 @@ import { type PublicApi } from "./ts/api";
                     result.parsed = false;
                 }
                 
-                result.result = null;
+                result.object = null;
             }
         }
 

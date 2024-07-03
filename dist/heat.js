@@ -323,8 +323,8 @@ var DateTime;
             const n = e.getAttribute(Constants.HEAT_JS_ATTRIBUTE_NAME);
             if (Is.definedString(n)) {
                 const o = getObjectFromString(n);
-                if (o.parsed && Is.definedObject(o.result)) {
-                    renderControl(renderBindingOptions(o.result, e));
+                if (o.parsed && Is.definedObject(o.object)) {
+                    renderControl(renderBindingOptions(o.object, e));
                 } else {
                     if (!_configuration.safeMode) {
                         console.error(_configuration.attributeNotValidErrorText.replace("{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME));
@@ -1451,7 +1451,7 @@ var DateTime;
                     const e = window.localStorage.getItem(t);
                     const o = getObjectFromString(e);
                     if (o.parsed) {
-                        _elements_DateCounts[n].typeData = o.result;
+                        _elements_DateCounts[n].typeData = o.object;
                         _elements_DateCounts[n].totalTypes = 0;
                         for (let e in _elements_DateCounts[n].typeData) {
                             if (_elements_DateCounts[n].typeData.hasOwnProperty(e)) {
@@ -1690,8 +1690,8 @@ var DateTime;
         };
         n.onload = e => {
             const t = getObjectFromString(e.target.result);
-            if (t.parsed && Is.definedObject(t.result)) {
-                o = t.result;
+            if (t.parsed && Is.definedObject(t.object)) {
+                o = t.object;
             }
         };
     }
@@ -2088,24 +2088,24 @@ var DateTime;
     function getObjectFromString(objectString) {
         const result = {
             parsed: true,
-            result: null
+            object: null
         };
         try {
             if (Is.definedString(objectString)) {
-                result.result = JSON.parse(objectString);
+                result.object = JSON.parse(objectString);
             }
         } catch (e1) {
             try {
-                let evalResult = eval("(" + objectString + ")");
-                if (Is.definedFunction(evalResult)) {
-                    result.result = evalResult();
+                result.object = eval("(" + objectString + ")");
+                if (Is.definedFunction(result.object)) {
+                    result.object = result.object();
                 }
             } catch (e) {
                 if (!_configuration.safeMode) {
                     console.error(_configuration.objectErrorText.replace("{{error_1}}", e1.message).replace("{{error_2}}", e.message));
                     result.parsed = false;
                 }
-                result.result = null;
+                result.object = null;
             }
         }
         return result;

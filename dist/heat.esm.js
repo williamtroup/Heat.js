@@ -373,8 +373,8 @@ var require_heat = __commonJS({
                     const n = e.getAttribute(Constants.HEAT_JS_ATTRIBUTE_NAME);
                     if (Is.definedString(n)) {
                         const i = getObjectFromString(n);
-                        if (i.parsed && Is.definedObject(i.result)) {
-                            renderControl(renderBindingOptions(i.result, e));
+                        if (i.parsed && Is.definedObject(i.object)) {
+                            renderControl(renderBindingOptions(i.object, e));
                         } else {
                             if (!_configuration.safeMode) {
                                 console.error(_configuration.attributeNotValidErrorText.replace("{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME));
@@ -1501,7 +1501,7 @@ var require_heat = __commonJS({
                             const e = window.localStorage.getItem(t);
                             const i = getObjectFromString(e);
                             if (i.parsed) {
-                                _elements_DateCounts[n].typeData = i.result;
+                                _elements_DateCounts[n].typeData = i.object;
                                 _elements_DateCounts[n].totalTypes = 0;
                                 for (let e in _elements_DateCounts[n].typeData) {
                                     if (_elements_DateCounts[n].typeData.hasOwnProperty(e)) {
@@ -1740,8 +1740,8 @@ var require_heat = __commonJS({
                 };
                 n.onload = e => {
                     const t = getObjectFromString(e.target.result);
-                    if (t.parsed && Is.definedObject(t.result)) {
-                        i = t.result;
+                    if (t.parsed && Is.definedObject(t.object)) {
+                        i = t.object;
                     }
                 };
             }
@@ -2138,24 +2138,24 @@ var require_heat = __commonJS({
             function getObjectFromString(objectString) {
                 const result = {
                     parsed: true,
-                    result: null
+                    object: null
                 };
                 try {
                     if (Is.definedString(objectString)) {
-                        result.result = JSON.parse(objectString);
+                        result.object = JSON.parse(objectString);
                     }
                 } catch (e1) {
                     try {
-                        let evalResult = eval("(" + objectString + ")");
-                        if (Is.definedFunction(evalResult)) {
-                            result.result = evalResult();
+                        result.object = eval("(" + objectString + ")");
+                        if (Is.definedFunction(result.object)) {
+                            result.object = result.object();
                         }
                     } catch (e) {
                         if (!_configuration.safeMode) {
                             console.error(_configuration.objectErrorText.replace("{{error_1}}", e1.message).replace("{{error_2}}", e.message));
                             result.parsed = false;
                         }
-                        result.result = null;
+                        result.object = null;
                     }
                 }
                 return result;

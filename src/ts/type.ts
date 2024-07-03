@@ -26,7 +26,7 @@ export type IsHoliday = {
 
 export type JsonObject = {
     parsed: boolean,
-    result: any
+    object: any
 };
 
 export type Configuration = {
