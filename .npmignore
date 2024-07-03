@@ -13,3 +13,4 @@ tsconfig.json
 tsup.build.config.ts
 tsup.build.esm.config.ts
 tsup.build.min.config.ts
+BUILD_INSTRUCTIONS.md
