@@ -1944,7 +1944,7 @@ import { type PublicApi } from "./ts/api";
         const filesCompleted: string[] = [];
         const data: TypeCountsData = getCurrentViewData( bindingOptions );
 
-        const onLoadEnd = ( filename: string, readingObject: object ) => {
+        const onLoadEnd: Function = ( filename: string, readingObject: object ) => {
             filesCompleted.push( filename );
 
             for ( let storageDate in readingObject ) {
