@@ -34,7 +34,7 @@
     "url": "https://github.com/williamtroup/Heat.js/issues"
   },
   "main": "dist/heat.js",
-  "typings": "dist/heat.d.ts",
+  "types": "dist/heat.d.ts",
   "scripts": {
     "build": "tsup --config tsup.build.config.ts && tsup --config tsup.build.esm.config.ts && sass src/heat.js.scss dist/heat.js.css",
     "build-minimized": "tsup --config tsup.build.min.config.ts && sass src/heat.js.scss dist/heat.js.min.css --style=compressed --no-source-map",
