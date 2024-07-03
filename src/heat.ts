@@ -1710,7 +1710,7 @@ import { type PublicApi } from "./ts/api";
 
     function startDataPullTimer( bindingOptions: BindingOptions ) : void {
         if ( bindingOptions._currentView.isInFetchMode ) {
-            if ( !Is.defined( bindingOptions._currentView.isInFetchModeTimer ) ) {
+            if ( bindingOptions._currentView.isInFetchModeTimer === 0 ) {
                 pullDataFromCustomTrigger( bindingOptions );
             }
 

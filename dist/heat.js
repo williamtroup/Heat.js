@@ -1487,7 +1487,7 @@ var DateTime;
     }
     function startDataPullTimer(e) {
         if (e._currentView.isInFetchMode) {
-            if (!Is.defined(e._currentView.isInFetchModeTimer)) {
+            if (e._currentView.isInFetchModeTimer === 0) {
                 pullDataFromCustomTrigger(e);
             }
             if (!Is.defined(e._currentView.isInFetchModeTimer)) {
