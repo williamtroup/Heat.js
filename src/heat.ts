@@ -1714,7 +1714,7 @@ import { type PublicApi } from "./ts/api";
                 pullDataFromCustomTrigger( bindingOptions );
             }
 
-            if ( !Is.defined( bindingOptions._currentView.isInFetchModeTimer ) ) {
+            if ( bindingOptions._currentView.isInFetchModeTimer === 0 ) {
                 bindingOptions._currentView.isInFetchModeTimer = setInterval( () => {
                     pullDataFromCustomTrigger( bindingOptions );
                     renderControlContainer( bindingOptions );

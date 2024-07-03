@@ -1490,7 +1490,7 @@ var DateTime;
             if (e._currentView.isInFetchModeTimer === 0) {
                 pullDataFromCustomTrigger(e);
             }
-            if (!Is.defined(e._currentView.isInFetchModeTimer)) {
+            if (e._currentView.isInFetchModeTimer === 0) {
                 e._currentView.isInFetchModeTimer = setInterval((() => {
                     pullDataFromCustomTrigger(e);
                     renderControlContainer(e);
