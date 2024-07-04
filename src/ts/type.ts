@@ -21,7 +21,7 @@ export type DateCounts = Record<string, {
 
 export type Configuration = {
 	safeMode?: boolean;
-	domElementTypes?: string[];
+	domElementTypes?: string[] | string;
     stText?: string;
     ndText?: string;
     rdText?: string;

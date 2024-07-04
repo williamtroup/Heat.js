@@ -110,7 +110,7 @@ type LargestValuesForEachRangeType = {
      */
 
     function render() : void {
-        const tagTypes: string[] = _configuration.domElementTypes!;
+        const tagTypes: string[] = _configuration.domElementTypes as string[];
         const tagTypesLength: number = tagTypes.length;
 
         for ( let tagTypeIndex: number = 0; tagTypeIndex < tagTypesLength; tagTypeIndex++ ) {
