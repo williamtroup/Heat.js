@@ -2167,7 +2167,7 @@ var DateTime;
         fireCustomTriggerEvent(e.events.onDestroy, e._currentView.element);
     }
     function buildDefaultConfiguration(e = null) {
-        _configuration = !Is.definedObject(e) ? {} : e;
+        _configuration = Data.getDefaultObject(e, {});
         _configuration.safeMode = Data.getDefaultBoolean(_configuration.safeMode, true);
         _configuration.domElementTypes = Data.getDefaultStringOrArray(_configuration.domElementTypes, [ "*" ]);
         buildDefaultConfigurationStrings();
@@ -2548,14 +2548,15 @@ var DateTime;
         setConfiguration: function(e, t = true) {
             if (Is.definedObject(e)) {
                 let n = false;
+                const o = _configuration;
                 for (let t in e) {
-                    if (e.hasOwnProperty(t) && _configuration.hasOwnProperty(t) && _configuration[t] !== e[t]) {
-                        _configuration[t] = e[t];
+                    if (e.hasOwnProperty(t) && _configuration.hasOwnProperty(t) && o[t] !== e[t]) {
+                        o[t] = e[t];
                         n = true;
                     }
                 }
                 if (n) {
-                    buildDefaultConfiguration(_configuration);
+                    buildDefaultConfiguration(o);
                     if (t) {
                         _public.refreshAll();
                     }

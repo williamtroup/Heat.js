@@ -2671,7 +2671,7 @@ type LargestValuesForEachRangeType = {
 	 */
 
     function buildDefaultConfiguration( newConfiguration: Configuration = null! ) : void {
-        _configuration = !Is.definedObject( newConfiguration ) ? {} as Configuration : newConfiguration;
+        _configuration = Data.getDefaultObject( newConfiguration, {} as Configuration );
         _configuration.safeMode = Data.getDefaultBoolean( _configuration.safeMode, true );
         _configuration.domElementTypes = Data.getDefaultStringOrArray( _configuration.domElementTypes, [ "*" ] );
 
@@ -3169,8 +3169,8 @@ type LargestValuesForEachRangeType = {
 
         updateOptions: function ( elementId: string, newOptions: BindingOptions ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedObject( newOptions ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
-                const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
-                const newBindingOptions: BindingOptions = buildAttributeOptions( newOptions );
+                const bindingOptions: any = _elements_DateCounts[ elementId ].options;
+                const newBindingOptions: any = buildAttributeOptions( newOptions );
                 let optionChanged: boolean = false;
     
                 for ( let propertyName in newBindingOptions ) {
@@ -3229,16 +3229,17 @@ type LargestValuesForEachRangeType = {
         setConfiguration: function ( newConfiguration: any, triggerRefresh: boolean = true ) : PublicApi {
             if ( Is.definedObject( newConfiguration ) ) {
                 let configurationHasChanged: boolean = false;
+                const newInternalConfiguration: any = _configuration;
             
                 for ( let propertyName in newConfiguration ) {
-                    if ( newConfiguration.hasOwnProperty( propertyName ) && _configuration.hasOwnProperty( propertyName ) && _configuration[ propertyName ] !== newConfiguration[ propertyName ] ) {
-                        _configuration[ propertyName ] = newConfiguration[ propertyName ];
+                    if ( newConfiguration.hasOwnProperty( propertyName ) && _configuration.hasOwnProperty( propertyName ) && newInternalConfiguration[ propertyName ] !== newConfiguration[ propertyName ] ) {
+                        newInternalConfiguration[ propertyName ] = newConfiguration[ propertyName ];
                         configurationHasChanged = true;
                     }
                 }
         
                 if ( configurationHasChanged ) {
-                    buildDefaultConfiguration( _configuration );
+                    buildDefaultConfiguration( newInternalConfiguration );
         
                     if ( triggerRefresh ) {
                         _public.refreshAll();
