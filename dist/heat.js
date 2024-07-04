@@ -1643,7 +1643,7 @@ var DateTime;
         const t = DomElement.createWithNoContainer("input");
         t.type = "file";
         t.accept = ".json, .txt, .csv";
-        t.multiple = "multiple";
+        t.multiple = true;
         t.onchange = () => {
             importFromFiles(t.files, e);
         };

@@ -560,7 +560,7 @@ type LargestValuesForEachRangeType = {
             }
     
             if ( bindingOptions.title.showYearSelector ) {
-                const back: any = DomElement.createWithHTML( titleBar, "button", "back", _configuration.backButtonText );
+                const back: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "back", _configuration.backButtonText ) as HTMLInputElement;
         
                 back.onclick = () => {
                     moveToPreviousYear( bindingOptions );
@@ -588,7 +588,7 @@ type LargestValuesForEachRangeType = {
                     };
                 }
 
-                const next: any = DomElement.createWithHTML( titleBar, "button", "next", _configuration.nextButtonText );
+                const next: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "next", _configuration.nextButtonText ) as HTMLInputElement;
 
                 next.onclick = () => {
                     moveToNextYear( bindingOptions );
@@ -1548,7 +1548,7 @@ type LargestValuesForEachRangeType = {
     function renderDescription( bindingOptions: BindingOptions, container: HTMLElement ) : void {
         if ( Is.definedString( bindingOptions.description.text ) ) {
             if ( Is.definedString( bindingOptions.description.url ) ) {
-                const link: any = DomElement.createWithHTML( container, "a", "label", bindingOptions.description.text );
+                const link: HTMLAnchorElement = DomElement.createWithHTML( container, "a", "label", bindingOptions.description.text ) as HTMLAnchorElement;
                 link.href = bindingOptions.description.url;
                 link.target = bindingOptions.description.urlTarget;                
 
@@ -1945,10 +1945,10 @@ type LargestValuesForEachRangeType = {
     }
 
     function importFromFilesSelected( bindingOptions: BindingOptions ) : void {
-        const input: any = DomElement.createWithNoContainer( "input" );
+        const input: HTMLInputElement = DomElement.createWithNoContainer( "input" ) as HTMLInputElement;
         input.type = "file";
         input.accept = ".json, .txt, .csv";
-        input.multiple = "multiple";
+        input.multiple = true;
 
         input.onchange = () => {
             importFromFiles( input.files, bindingOptions );
