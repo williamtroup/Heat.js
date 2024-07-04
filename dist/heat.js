@@ -342,7 +342,7 @@ var DateTime;
     }
     function renderBindingOptions(e, t) {
         const n = buildAttributeOptions(e);
-        const o = !Is.definedString(n.view) ? "" : n.view.toLowerCase();
+        const o = Data.getDefaultString(n.view, "").toLowerCase();
         let i = {};
         i.element = t;
         i.disabledBackground = null;
@@ -1889,13 +1889,13 @@ var DateTime;
             for (let n = 0; n < t; n++) {
                 const t = e.colorRanges[n];
                 t.id = Data.getDefaultString(t.id, Data.String.newGuid());
-                t.name = Data.getDefaultString(t.name, null);
+                t.name = Data.getDefaultString(t.name, "");
                 t.minimum = Data.getDefaultNumber(t.minimum, 0);
-                t.cssClassName = Data.getDefaultString(t.cssClassName, null);
-                t.mapCssClassName = Data.getDefaultString(t.mapCssClassName, null);
-                t.chartCssClassName = Data.getDefaultString(t.chartCssClassName, null);
-                t.statisticsCssClassName = Data.getDefaultString(t.statisticsCssClassName, null);
-                t.tooltipText = Data.getDefaultString(t.tooltipText, null);
+                t.cssClassName = Data.getDefaultString(t.cssClassName, "");
+                t.mapCssClassName = Data.getDefaultString(t.mapCssClassName, "");
+                t.chartCssClassName = Data.getDefaultString(t.chartCssClassName, "");
+                t.statisticsCssClassName = Data.getDefaultString(t.statisticsCssClassName, "");
+                t.tooltipText = Data.getDefaultString(t.tooltipText, "");
                 t.visible = Data.getDefaultBoolean(t.visible, true);
             }
         } else {
@@ -1936,8 +1936,8 @@ var DateTime;
             const t = e.holidays.length;
             for (let n = 0; n < t; n++) {
                 const t = e.holidays[n];
-                t.date = Data.getDefaultString(t.date, null);
-                t.name = Data.getDefaultString(t.name, null);
+                t.date = Data.getDefaultString(t.date, "");
+                t.name = Data.getDefaultString(t.name, "");
                 t.showInViews = Data.getDefaultBoolean(t.showInViews, true);
             }
         } else {
@@ -1962,8 +1962,8 @@ var DateTime;
     }
     function buildAttributeOptionDescription(e) {
         e.description = Data.getDefaultObject(e.description, {});
-        e.description.text = Data.getDefaultString(e.description.text, null);
-        e.description.url = Data.getDefaultString(e.description.url, null);
+        e.description.text = Data.getDefaultString(e.description.text, "");
+        e.description.url = Data.getDefaultString(e.description.url, "");
         e.description.urlTarget = Data.getDefaultString(e.description.urlTarget, "_blank");
         return e;
     }
