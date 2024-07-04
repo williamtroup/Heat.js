@@ -2542,7 +2542,7 @@ type LargestValuesForEachRangeType = {
                 result.object = JSON.parse( objectString );
             }
 
-        } catch ( e1 ) {
+        } catch ( e1: any ) {
             try {
                 result.object = eval( "(" + objectString + ")" );
 
@@ -2550,7 +2550,7 @@ type LargestValuesForEachRangeType = {
                     result.object = result.object();
                 }
                 
-            } catch ( e2 ) {
+            } catch ( e2: any ) {
                 if ( !_configuration.safeMode ) {
                     console.error( _configuration.objectErrorText.replace( "{{error_1}}",  e1.message ).replace( "{{error_2}}",  e2.message ) );
                     result.parsed = false;
