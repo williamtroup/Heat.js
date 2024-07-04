@@ -3226,7 +3226,7 @@ type LargestValuesForEachRangeType = {
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        setConfiguration: function ( newConfiguration: Configuration, triggerRefresh: boolean = true ) : PublicApi {
+        setConfiguration: function ( newConfiguration: any, triggerRefresh: boolean = true ) : PublicApi {
             if ( Is.definedObject( newConfiguration ) ) {
                 let configurationHasChanged: boolean = false;
             
