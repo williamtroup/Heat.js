@@ -1,4 +1,4 @@
-# Building Heat.js v4.0.0
+# Building Heat.js v4.0.1
 
 Before getting started with Heat.js, please read through the following instructions:
 
