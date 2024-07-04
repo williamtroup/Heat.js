@@ -15,6 +15,6 @@
         <copyright>William Troup</copyright>
     </metadata>
     <files>
-        <file src="**" target="/" exclude=".git\**;.github\**;.vscode\**" />
+        <file src="**" target="/" exclude=".git\**;.github\**;.vscode\**;.github\**;node_modules\**;build\**;*.nuspec**;.npmignore**;.gitignore**;*.sh**;*.json**\**;CODE_OF_CONDUCT.md**;CONTRIBUTING.md**;SECURITY.md**;tsup.build.config.ts**;tsup.build.esm.config.ts**;tsup.build.min.config.ts**;BUILD_INSTRUCTIONS.md**" />
     </files>
 </package>
