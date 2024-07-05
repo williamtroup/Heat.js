@@ -19,6 +19,11 @@ export type DateCounts = Record<string, {
     typeData: Record<string, TypeCountsData>;
 }>;
 
+export type Position = {
+    left: number;
+    top: number;
+};
+
 export type Configuration = {
 	safeMode?: boolean;
 	domElementTypes?: string[] | string;
@@ -100,8 +105,8 @@ export type BindingOptionsCurrentView = {
     yearText: HTMLElement;
     tooltip: HTMLElement;
     tooltipTimer: number;
-    dayCheckBoxes: any[];
-    monthCheckBoxes: any[];
+    dayCheckBoxes: HTMLInputElement[];
+    monthCheckBoxes: HTMLInputElement[];
     configurationDialog: HTMLElement;
     disabledBackground: HTMLElement;
 };

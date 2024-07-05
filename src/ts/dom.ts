@@ -13,6 +13,7 @@
 
 import { Char } from "./enum";
 import { Is } from "./is";
+import { type Position } from "./type";
 
 
 export namespace DomElement {
@@ -82,21 +83,21 @@ export namespace DomElement {
         e.cancelBubble = true;
     }
 
-    export function getScrollPosition() : object {
+    export function getScrollPosition() : Position {
         const documentElement: HTMLElement = document.documentElement;
-        const left: number = documentElement.scrollLeft  - ( documentElement.clientLeft || 0 );
-        const top: number = documentElement.scrollTop - ( documentElement.clientTop || 0 );
 
-        return {
-            left: left,
-            top: top
-        };
+        const result: Position = {
+            left: documentElement.scrollLeft  - ( documentElement.clientLeft || 0 ),
+            top: documentElement.scrollTop - ( documentElement.clientTop || 0 )
+        } as Position;
+
+        return result;
     }
 
     export function showElementAtMousePosition( e: any, element: HTMLElement ) {
         let left: number = e.pageX;
         let top: number = e.pageY;
-        const scrollPosition: any = getScrollPosition();
+        const scrollPosition: Position = getScrollPosition();
 
         element.style.display = "block";
 
@@ -133,27 +134,16 @@ export namespace DomElement {
         }
     }
 
-    export function createCheckBox( container: HTMLElement, labelText: string, checked: boolean = null!, onClick: Function = null! ) : any {
+    export function createCheckBox( container: HTMLElement, labelText: string ) : HTMLInputElement {
         const lineContainer: HTMLElement = create( container, "div" );
         const label: HTMLElement = create( lineContainer, "label", "checkbox" );
-        const input: any = create( label, "input" );
+        const input: HTMLInputElement = create( label, "input" ) as HTMLInputElement;
 
         input.type = "checkbox";
-
-        if ( Is.defined( onClick ) ) {
-            input.onclick = onClick;
-        }
-
-        if ( Is.defined( checked ) ) {
-            input.checked = checked;
-        }
 
         create( label, "span", "check-mark" );
         createWithHTML( label, "span", "text", labelText );
         
-        return {
-            input: input,
-            label: label
-        };
+        return input;
     }
 }
