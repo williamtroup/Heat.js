@@ -180,8 +180,8 @@ var DomElement;
     e.cancelBubble = s;
     function l() {
         const e = document.documentElement;
-        const t = (window.pageXOffset || e.scrollLeft) - (e.clientLeft || 0);
-        const n = (window.pageYOffset || e.scrollTop) - (e.clientTop || 0);
+        const t = e.scrollLeft - (e.clientLeft || 0);
+        const n = e.scrollTop - (e.clientTop || 0);
         return {
             left: t,
             top: n
