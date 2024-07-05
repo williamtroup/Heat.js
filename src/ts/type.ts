@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        heat.ts
- * @version     v4.0.1
+ * @version     v4.0.2
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -21,7 +21,7 @@ export type DateCounts = Record<string, {
 
 export type Configuration = {
 	safeMode?: boolean;
-	domElementTypes?: string[];
+	domElementTypes?: string[] | string;
     stText?: string;
     ndText?: string;
     rdText?: string;

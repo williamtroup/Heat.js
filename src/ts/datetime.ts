@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        heat.ts
- * @version     v4.0.1
+ * @version     v4.0.2
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -25,14 +25,14 @@ export namespace DateTime {
     }
 
     export function getDayOrdinal( configuration: Configuration, value: number ) : string {
-        let result: string = configuration.thText;
+        let result: string = configuration.thText!;
 
         if ( value === 31 || value === 21 || value === 1 ) {
-            result = configuration.stText;
+            result = configuration.stText!;
         } else if ( value === 22 || value === 2 ) {
-            result = configuration.ndText;
+            result = configuration.ndText!;
         } else if ( value === 23 || value === 3 ) {
-            result = configuration.rdText;
+            result = configuration.rdText!;
         }
 
         return result;
@@ -42,13 +42,13 @@ export namespace DateTime {
         let result: string = dateFormat;
         const weekDayNumber: number = getWeekdayNumber( date );
 
-        result = result.replace( "{dddd}", configuration.dayNames[ weekDayNumber ] );
+        result = result.replace( "{dddd}", configuration.dayNames![ weekDayNumber ] );
         result = result.replace( "{dd}", Data.String.padNumber( date.getDate() ) );
         result = result.replace( "{d}", date.getDate().toString() );
 
         result = result.replace( "{o}", getDayOrdinal( configuration, date.getDate() ) );
 
-        result = result.replace( "{mmmm}", configuration.monthNames[ date.getMonth() ] );
+        result = result.replace( "{mmmm}", configuration.monthNames![ date.getMonth() ] );
         result = result.replace( "{mm}", Data.String.padNumber( date.getMonth() + 1 ) );
         result = result.replace( "{m}", ( date.getMonth() + 1 ).toString() );
 

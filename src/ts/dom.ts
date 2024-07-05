@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        heat.ts
- * @version     v4.0.1
+ * @version     v4.0.2
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -25,7 +25,7 @@ export namespace DomElement {
         return result;
     }
 
-    export function create( container: HTMLElement, type: string, className: string = Char.empty, beforeNode: HTMLElement = null ) : HTMLElement {
+    export function create( container: HTMLElement, type: string, className: string = Char.empty, beforeNode: HTMLElement = null! ) : HTMLElement {
         const nodeType: string = type.toLowerCase();
         const isText: boolean = nodeType === "text";
 
@@ -44,7 +44,7 @@ export namespace DomElement {
         return result;
     }
 
-    export function createWithHTML( container: HTMLElement, type: string, className: string, html: string, beforeNode: HTMLElement = null ) : HTMLElement {
+    export function createWithHTML( container: HTMLElement, type: string, className: string, html: string, beforeNode: HTMLElement = null! ) : HTMLElement {
         const element: HTMLElement = create( container, type, className, beforeNode );
         element.innerHTML = html;
 
@@ -54,8 +54,8 @@ export namespace DomElement {
     export function getStyleValueByName( element: any, stylePropertyName: string, toNumber: boolean = false ) : any {
         let value: any = null;
         
-        if ( document.defaultView.getComputedStyle ) {
-            value = document.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
+        if ( document.defaultView!.getComputedStyle! ) {
+            value = document.defaultView!.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
         } else if ( element.currentStyle ) {
             value = element.currentStyle[ stylePropertyName ];
         }   
@@ -83,9 +83,9 @@ export namespace DomElement {
     }
 
     export function getScrollPosition() : object {
-        const doc: HTMLElement = document.documentElement;
-        const left: number = ( window.pageXOffset || doc.scrollLeft )  - ( doc.clientLeft || 0 );
-        const top: number = ( window.pageYOffset || doc.scrollTop ) - ( doc.clientTop || 0 );
+        const documentElement: HTMLElement = document.documentElement;
+        const left: number = documentElement.scrollLeft  - ( documentElement.clientLeft || 0 );
+        const top: number = documentElement.scrollTop - ( documentElement.clientTop || 0 );
 
         return {
             left: left,
@@ -133,7 +133,7 @@ export namespace DomElement {
         }
     }
 
-    export function createCheckBox( container: HTMLElement, labelText: string, checked: boolean = null, onClick: Function = null ) : any {
+    export function createCheckBox( container: HTMLElement, labelText: string, checked: boolean = null!, onClick: Function = null! ) : any {
         const lineContainer: HTMLElement = create( container, "div" );
         const label: HTMLElement = create( lineContainer, "label", "checkbox" );
         const input: any = create( label, "input" );

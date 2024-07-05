@@ -11,13 +11,16 @@ var __commonJS = (e, t) => function n() {
 };
 
 var init_enum = __esm({
-    "src/ts/enum.ts"() {}
+    "src/ts/enum.ts"() {
+        "use strict";
+    }
 });
 
 var Constants;
 
 var init_constant = __esm({
     "src/ts/constant.ts"() {
+        "use strict";
         (e => {
             e.HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
         })(Constants || (Constants = {}));
@@ -28,6 +31,7 @@ var Is;
 
 var init_is = __esm({
     "src/ts/is.ts"() {
+        "use strict";
         init_enum();
         (e => {
             function t(e) {
@@ -74,6 +78,7 @@ var Data;
 
 var init_data = __esm({
     "src/ts/data.ts"() {
+        "use strict";
         init_enum();
         init_is();
         (e => {
@@ -152,6 +157,7 @@ var DomElement;
 
 var init_dom = __esm({
     "src/ts/dom.ts"() {
+        "use strict";
         init_enum();
         init_is();
         (e => {
@@ -213,8 +219,8 @@ var init_dom = __esm({
             e.cancelBubble = s;
             function l() {
                 const e = document.documentElement;
-                const t = (window.pageXOffset || e.scrollLeft) - (e.clientLeft || 0);
-                const n = (window.pageYOffset || e.scrollTop) - (e.clientTop || 0);
+                const t = e.scrollLeft - (e.clientLeft || 0);
+                const n = e.scrollTop - (e.clientTop || 0);
                 return {
                     left: t,
                     top: n
@@ -281,6 +287,7 @@ var DateTime;
 
 var init_datetime = __esm({
     "src/ts/datetime.ts"() {
+        "use strict";
         init_data();
         (e => {
             function t(e, t) {
@@ -392,7 +399,7 @@ var require_heat = __commonJS({
             }
             function renderBindingOptions(e, t) {
                 const n = buildAttributeOptions(e);
-                const i = !Is.definedString(n.view) ? "" : n.view.toLowerCase();
+                const i = Data.getDefaultString(n.view, "").toLowerCase();
                 let o = {};
                 o.element = t;
                 o.disabledBackground = null;
@@ -1693,7 +1700,7 @@ var require_heat = __commonJS({
                 const t = DomElement.createWithNoContainer("input");
                 t.type = "file";
                 t.accept = ".json, .txt, .csv";
-                t.multiple = "multiple";
+                t.multiple = true;
                 t.onchange = () => {
                     importFromFiles(t.files, e);
                 };
@@ -1939,13 +1946,13 @@ var require_heat = __commonJS({
                     for (let n = 0; n < t; n++) {
                         const t = e.colorRanges[n];
                         t.id = Data.getDefaultString(t.id, Data.String.newGuid());
-                        t.name = Data.getDefaultString(t.name, null);
+                        t.name = Data.getDefaultString(t.name, "");
                         t.minimum = Data.getDefaultNumber(t.minimum, 0);
-                        t.cssClassName = Data.getDefaultString(t.cssClassName, null);
-                        t.mapCssClassName = Data.getDefaultString(t.mapCssClassName, null);
-                        t.chartCssClassName = Data.getDefaultString(t.chartCssClassName, null);
-                        t.statisticsCssClassName = Data.getDefaultString(t.statisticsCssClassName, null);
-                        t.tooltipText = Data.getDefaultString(t.tooltipText, null);
+                        t.cssClassName = Data.getDefaultString(t.cssClassName, "");
+                        t.mapCssClassName = Data.getDefaultString(t.mapCssClassName, "");
+                        t.chartCssClassName = Data.getDefaultString(t.chartCssClassName, "");
+                        t.statisticsCssClassName = Data.getDefaultString(t.statisticsCssClassName, "");
+                        t.tooltipText = Data.getDefaultString(t.tooltipText, "");
                         t.visible = Data.getDefaultBoolean(t.visible, true);
                     }
                 } else {
@@ -1986,8 +1993,8 @@ var require_heat = __commonJS({
                     const t = e.holidays.length;
                     for (let n = 0; n < t; n++) {
                         const t = e.holidays[n];
-                        t.date = Data.getDefaultString(t.date, null);
-                        t.name = Data.getDefaultString(t.name, null);
+                        t.date = Data.getDefaultString(t.date, "");
+                        t.name = Data.getDefaultString(t.name, "");
                         t.showInViews = Data.getDefaultBoolean(t.showInViews, true);
                     }
                 } else {
@@ -2012,8 +2019,8 @@ var require_heat = __commonJS({
             }
             function buildAttributeOptionDescription(e) {
                 e.description = Data.getDefaultObject(e.description, {});
-                e.description.text = Data.getDefaultString(e.description.text, null);
-                e.description.url = Data.getDefaultString(e.description.url, null);
+                e.description.text = Data.getDefaultString(e.description.text, "");
+                e.description.url = Data.getDefaultString(e.description.url, "");
                 e.description.urlTarget = Data.getDefaultString(e.description.urlTarget, "_blank");
                 return e;
             }
@@ -2217,7 +2224,7 @@ var require_heat = __commonJS({
                 fireCustomTriggerEvent(e.events.onDestroy, e._currentView.element);
             }
             function buildDefaultConfiguration(e = null) {
-                _configuration = !Is.definedObject(e) ? {} : e;
+                _configuration = Data.getDefaultObject(e, {});
                 _configuration.safeMode = Data.getDefaultBoolean(_configuration.safeMode, true);
                 _configuration.domElementTypes = Data.getDefaultStringOrArray(_configuration.domElementTypes, [ "*" ]);
                 buildDefaultConfigurationStrings();
@@ -2598,14 +2605,15 @@ var require_heat = __commonJS({
                 setConfiguration: function(e, t = true) {
                     if (Is.definedObject(e)) {
                         let n = false;
+                        const i = _configuration;
                         for (let t in e) {
-                            if (e.hasOwnProperty(t) && _configuration.hasOwnProperty(t) && _configuration[t] !== e[t]) {
-                                _configuration[t] = e[t];
+                            if (e.hasOwnProperty(t) && _configuration.hasOwnProperty(t) && i[t] !== e[t]) {
+                                i[t] = e[t];
                                 n = true;
                             }
                         }
                         if (n) {
-                            buildDefaultConfiguration(_configuration);
+                            buildDefaultConfiguration(i);
                             if (t) {
                                 _public.refreshAll();
                             }
@@ -2623,7 +2631,7 @@ var require_heat = __commonJS({
                     return e;
                 },
                 getVersion: function() {
-                    return "4.0.1";
+                    return "4.0.2";
                 }
             };
             (() => {

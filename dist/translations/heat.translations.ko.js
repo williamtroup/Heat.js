@@ -1,4 +1,4 @@
-/*! Heat.js v4.0.1 - Korean | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v4.0.2 - Korean | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "stText": "",
         "ndText": "",
