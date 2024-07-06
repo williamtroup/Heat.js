@@ -3,7 +3,7 @@
  * 
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
- * @file        heat.ts
+ * @file        datetime.ts
  * @version     v4.0.3
  * @author      Bunoon
  * @license     MIT License
