@@ -43,7 +43,7 @@ export namespace Data {
         }
     }
 
-    export function getDefaultAnyString( value: any, defaultValue: string ) : string  {
+    export function getDefaultAnyString( value: any, defaultValue: string ) : string {
         return typeof value === "string" ? value : defaultValue;
     }
 
