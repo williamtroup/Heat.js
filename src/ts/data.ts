@@ -3,8 +3,8 @@
  * 
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
- * @file        heat.ts
- * @version     v4.0.2
+ * @file        data.ts
+ * @version     v4.0.3
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -43,7 +43,7 @@ export namespace Data {
         }
     }
 
-    export function getDefaultAnyString( value: any, defaultValue: string ) : string  {
+    export function getDefaultAnyString( value: any, defaultValue: string ) : string {
         return typeof value === "string" ? value : defaultValue;
     }
 

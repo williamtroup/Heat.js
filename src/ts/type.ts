@@ -3,8 +3,8 @@
  * 
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
- * @file        heat.ts
- * @version     v4.0.2
+ * @file        type.ts
+ * @version     v4.0.3
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -18,6 +18,11 @@ export type DateCounts = Record<string, {
     totalTypes: number;
     typeData: Record<string, TypeCountsData>;
 }>;
+
+export type Position = {
+    left: number;
+    top: number;
+};
 
 export type Configuration = {
 	safeMode?: boolean;
@@ -100,8 +105,8 @@ export type BindingOptionsCurrentView = {
     yearText: HTMLElement;
     tooltip: HTMLElement;
     tooltipTimer: number;
-    dayCheckBoxes: any[];
-    monthCheckBoxes: any[];
+    dayCheckBoxes: HTMLInputElement[];
+    monthCheckBoxes: HTMLInputElement[];
     configurationDialog: HTMLElement;
     disabledBackground: HTMLElement;
 };

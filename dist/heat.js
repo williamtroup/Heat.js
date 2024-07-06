@@ -180,12 +180,11 @@ var DomElement;
     e.cancelBubble = s;
     function l() {
         const e = document.documentElement;
-        const t = e.scrollLeft - (e.clientLeft || 0);
-        const n = e.scrollTop - (e.clientTop || 0);
-        return {
-            left: t,
-            top: n
+        const t = {
+            left: e.scrollLeft - (e.clientLeft || 0),
+            top: e.scrollTop - (e.clientTop || 0)
         };
+        return t;
     }
     e.getScrollPosition = l;
     function u(e, t) {
@@ -221,23 +220,14 @@ var DomElement;
         }
     }
     e.reverseChildrenOrder = c;
-    function d(e, t, i = null, a = null) {
-        const r = n(e, "div");
-        const s = n(r, "label", "checkbox");
-        const l = n(s, "input");
-        l.type = "checkbox";
-        if (Is.defined(a)) {
-            l.onclick = a;
-        }
-        if (Is.defined(i)) {
-            l.checked = i;
-        }
-        n(s, "span", "check-mark");
-        o(s, "span", "text", t);
-        return {
-            input: l,
-            label: s
-        };
+    function d(e, t) {
+        const i = n(e, "div");
+        const a = n(i, "label", "checkbox");
+        const r = n(a, "input");
+        r.type = "checkbox";
+        n(a, "span", "check-mark");
+        o(a, "span", "text", t);
+        return r;
     }
     e.createCheckBox = d;
 })(DomElement || (DomElement = {}));
@@ -470,13 +460,13 @@ var DateTime;
             hideConfigurationDialog(e);
         };
         for (let t = 0; t < 7; t++) {
-            e._currentView.dayCheckBoxes[t] = DomElement.createCheckBox(i, _configuration.dayNames[t]).input;
+            e._currentView.dayCheckBoxes[t] = DomElement.createCheckBox(i, _configuration.dayNames[t]);
         }
         for (let t = 0; t < 7; t++) {
-            e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(r, _configuration.monthNames[t]).input;
+            e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(r, _configuration.monthNames[t]);
         }
         for (let t = 7; t < 12; t++) {
-            e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(s, _configuration.monthNames[t]).input;
+            e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(s, _configuration.monthNames[t]);
         }
         addToolTip(o, e, _configuration.closeToolTipText);
     }
@@ -2576,7 +2566,7 @@ var DateTime;
             return e;
         },
         getVersion: function() {
-            return "4.0.2";
+            return "4.0.3";
         }
     };
     (() => {
