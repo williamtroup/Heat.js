@@ -36,6 +36,7 @@
   "main": "dist/heat.js",
   "types": "dist/heat.d.ts",
   "scripts": {
+    "build-all": "npm run build && npm run build-minimized",
     "build": "tsup --config tsup.build.config.ts && tsup --config tsup.build.esm.config.ts && sass src/heat.js.scss dist/heat.js.css",
     "build-minimized": "tsup --config tsup.build.min.config.ts && sass src/heat.js.scss dist/heat.js.min.css --style=compressed --no-source-map",
     "build-typescript": "tsup --config tsup.build.config.ts",
