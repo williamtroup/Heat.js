@@ -114,8 +114,8 @@ Or, you can download the latest zipped up version [here](https://www.william-tro
 Or, you can also use the following CDN links:
 
 ```markdown
-https://cdn.jsdelivr.net/gh/williamtroup/Heat.js@main/dist/heat.min.js
-https://cdn.jsdelivr.net/gh/williamtroup/Heat.js@main/dist/heat.js.min.css
+https://cdn.jsdelivr.net/gh/williamtroup/Heat.js@4.0.4/dist/heat.min.js
+https://cdn.jsdelivr.net/gh/williamtroup/Heat.js@4.0.4/dist/heat.js.min.css
 ```
 
 
