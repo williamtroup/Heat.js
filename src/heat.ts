@@ -2926,9 +2926,13 @@ type LargestValuesForEachRangeType = {
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        import: function ( elementId: string, files: FileList ) : PublicApi {
-            if ( Is.definedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) && Is.definedArray( files ) ) {
-                importFromFiles( files, _elements_DateCounts[ elementId ].options );
+        import: function ( elementId: string, files: FileList = null! ) : PublicApi {
+            if ( Is.definedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
+                if ( Is.definedArray( files ) ) {
+                    importFromFiles( files, _elements_DateCounts[ elementId ].options );
+                } else {
+                    importFromFilesSelected( _elements_DateCounts[ elementId ].options );
+                }                
             }
     
             return _public;

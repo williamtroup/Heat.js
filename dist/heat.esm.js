@@ -2393,9 +2393,13 @@ var require_heat = __commonJS({
                     }
                     return _public;
                 },
-                import: function(e, t) {
-                    if (Is.definedString(e) && _elements_DateCounts.hasOwnProperty(e) && Is.definedArray(t)) {
-                        importFromFiles(t, _elements_DateCounts[e].options);
+                import: function(e, t = null) {
+                    if (Is.definedString(e) && _elements_DateCounts.hasOwnProperty(e)) {
+                        if (Is.definedArray(t)) {
+                            importFromFiles(t, _elements_DateCounts[e].options);
+                        } else {
+                            importFromFilesSelected(_elements_DateCounts[e].options);
+                        }
                     }
                     return _public;
                 },

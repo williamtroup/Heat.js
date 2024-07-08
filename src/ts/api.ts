@@ -163,17 +163,17 @@ export type PublicApi = {
     /**
      * import().
      * 
-     * Imports data from an array of file objects.
+     * Imports data from an array of file objects (or opens the import dialog if files are not supplied).
      * 
      * @public
      * @fires       onImport
      * 
      * @param       {string}      elementId                                 The Heat.js element ID that should be updated.
-     * @param       {Object[]}    files                                     The file objects that the data should be imported from.
+     * @param       {Object[]}    [files]                                   The file objects that the data should be imported from.
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    import: ( elementId: string, files: FileList ) => PublicApi;
+    import: ( elementId: string, files?: FileList ) => PublicApi;
 
     /**
      * export().
