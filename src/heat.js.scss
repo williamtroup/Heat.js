@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v4.0.3
+ * Heat.js Library v4.0.4
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -10,7 +10,20 @@
 
 :root {
     // Fonts
-    --heat-js-default-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --heat-js-default-font: system-ui,
+                            -apple-system,
+                            "Segoe UI",
+                            Roboto,
+                            "Helvetica Neue",
+                            "Noto Sans",
+                            "Liberation Sans",
+                            Arial,
+                            sans-serif,
+                            "Apple Color Emoji",
+                            "Segoe UI Emoji",
+                            "Segoe UI Symbol",
+                            "Noto Color Emoji";
+                            
     --heat-js-text-bold-weight: 400;
     --heat-js-title-bold-weight: 900;
     --heat-js-sub-title-bold-weight: 700;

@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        data.ts
- * @version     v4.0.3
+ * @version     v4.0.4
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -71,8 +71,8 @@ export namespace Data {
         return Is.definedObject( value ) ? value : defaultValue;
     }
 
-    export function getDefaultStringOrArray( value: any, defaultValue: any[] ) : any[] {
-        let result: any[] = defaultValue;
+    export function getDefaultStringOrArray( value: any, defaultValue: string[] ) : string[] {
+        let result: string[] = defaultValue;
 
         if ( Is.definedString( value ) ) {
             const values: string[] = value.toString().split( Char.space );

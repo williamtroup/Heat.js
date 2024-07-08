@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        datetime.ts
- * @version     v4.0.3
+ * @version     v4.0.4
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -12,6 +12,7 @@
 
 
 import { Data } from "./data";
+import { Char } from "./enum";
 import { Configuration } from "./type";
 
 
@@ -58,5 +59,17 @@ export namespace DateTime {
         result = result.replace( "{y}", parseInt( date.getFullYear().toString().substring( 2 ) ).toString() );
 
         return result;
+    }
+
+    export function toStorageDate( date: Date ) : string {
+        return date.getFullYear() + Char.dash + Data.String.padNumber( date.getMonth() + 1 ) + Char.dash + Data.String.padNumber( date.getDate() );
+    }
+
+    export function getStorageDate( data: string ) : string[] {
+        return data.split( Char.dash );
+    }
+
+    export function getStorageDateYear( data: string ) : string {
+        return data.split( Char.dash )[ 0 ];
     }
 }

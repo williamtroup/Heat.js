@@ -151,16 +151,12 @@ var DomElement;
     }
     e.createWithHTML = o;
     function i(e, t, n = false) {
-        let o = null;
-        if (document.defaultView.getComputedStyle) {
-            o = document.defaultView.getComputedStyle(e, null).getPropertyValue(t);
-        } else if (e.currentStyle) {
-            o = e.currentStyle[t];
-        }
+        const o = getComputedStyle(e);
+        let i = o.getPropertyValue(t);
         if (n) {
-            o = parseFloat(o);
+            i = parseFloat(i);
         }
-        return o;
+        return i;
     }
     e.getStyleValueByName = i;
     function a(e, t) {
@@ -175,7 +171,7 @@ var DomElement;
     e.removeClass = r;
     function s(e) {
         e.preventDefault();
-        e.cancelBubble = true;
+        e.stopPropagation();
     }
     e.cancelBubble = s;
     function l() {
@@ -272,6 +268,18 @@ var DateTime;
         return a;
     }
     e.getCustomFormattedDateText = i;
+    function a(e) {
+        return e.getFullYear() + "-" + Data.String.padNumber(e.getMonth() + 1) + "-" + Data.String.padNumber(e.getDate());
+    }
+    e.toStorageDate = a;
+    function r(e) {
+        return e.split("-");
+    }
+    e.getStorageDate = r;
+    function s(e) {
+        return e.split("-")[0];
+    }
+    e.getStorageDateYear = s;
 })(DateTime || (DateTime = {}));
 
 (() => {
@@ -867,7 +875,7 @@ var DateTime;
         const r = n + 1;
         const s = DomElement.create(t, "div", "day");
         const l = new Date(i, o, r);
-        let u = _elements_DateCounts[e._currentView.element.id].typeData[e._currentView.type][toStorageDate(l)];
+        let u = _elements_DateCounts[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(l)];
         u = Data.getDefaultNumber(u, 0);
         renderDayToolTip(e, s, l, u);
         if (e.views.map.showDayNumbers && u > 0) {
@@ -896,7 +904,7 @@ var DateTime;
         const o = e._currentView.year.toString();
         for (let e in n) {
             if (n.hasOwnProperty(e)) {
-                if (getStorageDateYear(e) === o) {
+                if (DateTime.getStorageDateYear(e) === o) {
                     t = true;
                     break;
                 }
@@ -995,7 +1003,7 @@ var DateTime;
     function renderControlChartDay(e, t, n, o, i, a, r) {
         const s = new Date(i, o, n);
         const l = DomElement.create(e, "div", "day-line");
-        let u = getCurrentViewData(t)[toStorageDate(s)];
+        let u = getCurrentViewData(t)[DateTime.toStorageDate(s)];
         u = Data.getDefaultNumber(u, 0);
         renderDayToolTip(t, l, s, u);
         if (t.views.chart.showLineNumbers && u > 0) {
@@ -1029,7 +1037,7 @@ var DateTime;
         for (let o = 0; o < 12; o++) {
             const i = DateTime.getTotalDaysInMonth(e._currentView.year, o);
             for (let a = 0; a < i; a++) {
-                const i = toStorageDate(new Date(e._currentView.year, o, a + 1));
+                const i = DateTime.toStorageDate(new Date(e._currentView.year, o, a + 1));
                 if (n.hasOwnProperty(i)) {
                     if (isMonthVisible(e.views.chart.monthsToShow, o) && isDayVisible(e.views.chart.daysToShow, a + 1)) {
                         t = Math.max(t, n[i]);
@@ -1128,9 +1136,9 @@ var DateTime;
         for (let o = 0; o < 12; o++) {
             const i = DateTime.getTotalDaysInMonth(e._currentView.year, o);
             for (let a = 0; a < i; a++) {
-                const i = toStorageDate(new Date(e._currentView.year, o, a + 1));
+                const i = DateTime.toStorageDate(new Date(e._currentView.year, o, a + 1));
                 if (n.hasOwnProperty(i)) {
-                    const o = getStorageDate(i);
+                    const o = DateTime.getStorageDate(i);
                     const a = new Date(parseInt(o[2]), parseInt(o[1]), parseInt(o[0]));
                     const r = DateTime.getWeekdayNumber(a) + 1;
                     if (!isHoliday(e, a).matched && isMonthVisible(e.views.days.monthsToShow, a.getMonth()) && isDayVisible(e.views.days.daysToShow, r)) {
@@ -1241,9 +1249,9 @@ var DateTime;
         for (let i = 0; i < 12; i++) {
             const a = DateTime.getTotalDaysInMonth(e._currentView.year, i);
             for (let r = 0; r < a; r++) {
-                const a = toStorageDate(new Date(e._currentView.year, i, r + 1));
+                const a = DateTime.toStorageDate(new Date(e._currentView.year, i, r + 1));
                 if (n.hasOwnProperty(a)) {
-                    const i = getStorageDate(a);
+                    const i = DateTime.getStorageDate(a);
                     const r = new Date(parseInt(i[2]), parseInt(i[1]), parseInt(i[0]));
                     const s = DateTime.getWeekdayNumber(r) + 1;
                     if (!isHoliday(e, r).matched && isMonthVisible(e.views.statistics.monthsToShow, r.getMonth()) && isDayVisible(e.views.statistics.daysToShow, s)) {
@@ -1410,7 +1418,7 @@ var DateTime;
             let n = getCurrentViewData(e);
             for (let e in n) {
                 if (n.hasOwnProperty(e)) {
-                    let n = parseInt(getStorageDateYear(e));
+                    let n = parseInt(DateTime.getStorageDateYear(e));
                     if (t.indexOf(n) === -1) {
                         t.push(n);
                     }
@@ -1793,7 +1801,7 @@ var DateTime;
             for (let o = 0; o < 12; o++) {
                 const i = DateTime.getTotalDaysInMonth(e._currentView.year, o);
                 for (let a = 0; a < i; a++) {
-                    const i = toStorageDate(new Date(e._currentView.year, o, a + 1));
+                    const i = DateTime.toStorageDate(new Date(e._currentView.year, o, a + 1));
                     if (n.hasOwnProperty(i)) {
                         t[i] = n[i];
                     }
@@ -2101,15 +2109,6 @@ var DateTime;
         }
         return result;
     }
-    function toStorageDate(e) {
-        return e.getFullYear() + "-" + Data.String.padNumber(e.getMonth() + 1) + "-" + Data.String.padNumber(e.getDate());
-    }
-    function getStorageDate(e) {
-        return e.split("-");
-    }
-    function getStorageDateYear(e) {
-        return e.split("-")[0];
-    }
     function moveToPreviousYear(e, t = true) {
         let n = true;
         let o = e._currentView.year;
@@ -2230,7 +2229,7 @@ var DateTime;
                 const i = _elements_DateCounts[e].options;
                 if (!i._currentView.isInFetchMode) {
                     n = Data.getDefaultString(n, _configuration.unknownTrendText);
-                    const a = toStorageDate(t);
+                    const a = DateTime.toStorageDate(t);
                     if (!_elements_DateCounts[e].typeData.hasOwnProperty(n)) {
                         _elements_DateCounts[e].typeData[n] = {};
                         _elements_DateCounts[e].totalTypes++;
@@ -2251,7 +2250,7 @@ var DateTime;
             if (Is.definedString(e) && Is.definedDate(t) && _elements_DateCounts.hasOwnProperty(e)) {
                 const a = _elements_DateCounts[e].options;
                 if (!a._currentView.isInFetchMode && n > 0) {
-                    const r = toStorageDate(t);
+                    const r = DateTime.toStorageDate(t);
                     if (_elements_DateCounts[e].typeData.hasOwnProperty(o)) {
                         o = Data.getDefaultString(o, _configuration.unknownTrendText);
                         _elements_DateCounts[e].typeData[o][r] = n;
@@ -2284,7 +2283,7 @@ var DateTime;
             if (Is.definedString(e) && Is.definedDate(t) && _elements_DateCounts.hasOwnProperty(e)) {
                 const i = _elements_DateCounts[e].options;
                 if (!i._currentView.isInFetchMode) {
-                    const a = toStorageDate(t);
+                    const a = DateTime.toStorageDate(t);
                     if (_elements_DateCounts[e].typeData.hasOwnProperty(n) && _elements_DateCounts[e].typeData[n].hasOwnProperty(a)) {
                         n = Data.getDefaultString(n, _configuration.unknownTrendText);
                         if (_elements_DateCounts[e].typeData[n][a] > 0) {
@@ -2303,7 +2302,7 @@ var DateTime;
             if (Is.definedString(e) && Is.definedDate(t) && _elements_DateCounts.hasOwnProperty(e)) {
                 const i = _elements_DateCounts[e].options;
                 if (!i._currentView.isInFetchMode) {
-                    const a = toStorageDate(t);
+                    const a = DateTime.toStorageDate(t);
                     if (_elements_DateCounts[e].typeData.hasOwnProperty(n) && _elements_DateCounts[e].typeData[n].hasOwnProperty(a)) {
                         n = Data.getDefaultString(n, _configuration.unknownTrendText);
                         delete _elements_DateCounts[e].typeData[n][a];
@@ -2338,9 +2337,13 @@ var DateTime;
             }
             return _public;
         },
-        import: function(e, t) {
-            if (Is.definedString(e) && _elements_DateCounts.hasOwnProperty(e) && Is.definedArray(t)) {
-                importFromFiles(t, _elements_DateCounts[e].options);
+        import: function(e, t = null) {
+            if (Is.definedString(e) && _elements_DateCounts.hasOwnProperty(e)) {
+                if (Is.definedArray(t)) {
+                    importFromFiles(t, _elements_DateCounts[e].options);
+                } else {
+                    importFromFilesSelected(_elements_DateCounts[e].options);
+                }
             }
             return _public;
         },
@@ -2388,7 +2391,7 @@ var DateTime;
                 let o = 0;
                 for (let e in n) {
                     if (n.hasOwnProperty(e)) {
-                        o = Math.max(o, parseInt(getStorageDateYear(e)));
+                        o = Math.max(o, parseInt(DateTime.getStorageDateYear(e)));
                     }
                 }
                 if (o > 0) {
@@ -2410,7 +2413,7 @@ var DateTime;
                 let o = 9999;
                 for (let e in n) {
                     if (n.hasOwnProperty(e)) {
-                        o = Math.min(o, parseInt(getStorageDateYear(e)));
+                        o = Math.min(o, parseInt(DateTime.getStorageDateYear(e)));
                     }
                 }
                 if (o < 9999) {
@@ -2566,7 +2569,7 @@ var DateTime;
             return e;
         },
         getVersion: function() {
-            return "4.0.3";
+            return "4.0.4";
         }
     };
     (() => {
