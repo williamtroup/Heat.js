@@ -71,8 +71,8 @@ export namespace Data {
         return Is.definedObject( value ) ? value : defaultValue;
     }
 
-    export function getDefaultStringOrArray( value: any, defaultValue: any[] ) : any[] {
-        let result: any[] = defaultValue;
+    export function getDefaultStringOrArray( value: any, defaultValue: string[] ) : string[] {
+        let result: string[] = defaultValue;
 
         if ( Is.definedString( value ) ) {
             const values: string[] = value.toString().split( Char.space );

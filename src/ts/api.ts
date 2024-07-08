@@ -445,7 +445,7 @@ export type PublicApi = {
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    setConfiguration: ( newConfiguration: Configuration, triggerRefresh?: boolean ) => PublicApi;
+    setConfiguration: ( newConfiguration: any, triggerRefresh?: boolean ) => PublicApi;
 
 
     /*
