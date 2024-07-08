@@ -214,7 +214,7 @@ var init_dom = __esm({
             e.removeClass = r;
             function s(e) {
                 e.preventDefault();
-                e.cancelBubble = true;
+                e.stopPropagation();
             }
             e.cancelBubble = s;
             function l() {

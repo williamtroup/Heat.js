@@ -80,7 +80,7 @@ export namespace DomElement {
 
     export function cancelBubble( e: Event ) {
         e.preventDefault();
-        e.cancelBubble = true;
+        e.stopPropagation();
     }
 
     export function getScrollPosition() : Position {
