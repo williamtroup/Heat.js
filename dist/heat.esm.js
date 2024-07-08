@@ -190,16 +190,12 @@ var init_dom = __esm({
             }
             e.createWithHTML = o;
             function i(e, t, n = false) {
-                let o = null;
-                if (document.defaultView.getComputedStyle) {
-                    o = document.defaultView.getComputedStyle(e, null).getPropertyValue(t);
-                } else if (e.currentStyle) {
-                    o = e.currentStyle[t];
-                }
+                const o = getComputedStyle(e);
+                let i = o.getPropertyValue(t);
                 if (n) {
-                    o = parseFloat(o);
+                    i = parseFloat(i);
                 }
-                return o;
+                return i;
             }
             e.getStyleValueByName = i;
             function a(e, t) {

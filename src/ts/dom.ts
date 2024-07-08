@@ -53,19 +53,14 @@ export namespace DomElement {
     }
 
     export function getStyleValueByName( element: any, stylePropertyName: string, toNumber: boolean = false ) : any {
-        let value: any = null;
-        
-        if ( document.defaultView!.getComputedStyle! ) {
-            value = document.defaultView!.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
-        } else if ( element.currentStyle ) {
-            value = element.currentStyle[ stylePropertyName ];
-        }   
+        const styles: CSSStyleDeclaration = getComputedStyle( element );
+        let style: any = styles.getPropertyValue( stylePropertyName );
         
         if ( toNumber ) {
-            value = parseFloat( value );
+            style = parseFloat( style );
         }
 
-        return value;
+        return style;
     }
 
     export function addClass( element: HTMLElement, className: string ) {
