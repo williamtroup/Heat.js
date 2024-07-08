@@ -42,14 +42,14 @@ var init_is = __esm({
                 return t(e) && typeof e === "object";
             }
             e.definedObject = n;
-            function o(e) {
+            function i(e) {
                 return t(e) && typeof e === "boolean";
             }
-            e.definedBoolean = o;
-            function i(e) {
+            e.definedBoolean = i;
+            function o(e) {
                 return t(e) && typeof e === "string";
             }
-            e.definedString = i;
+            e.definedString = o;
             function a(e) {
                 return t(e) && typeof e === "function";
             }
@@ -101,23 +101,23 @@ var init_data = __esm({
                     return t.length === 1 ? "0" + t : t;
                 }
                 e.padNumber = n;
-                function o(e, t) {
+                function i(e, t) {
                     return e.substring(0, t.length).toLowerCase() === t.toLowerCase();
                 }
-                e.startsWithAnyCase = o;
+                e.startsWithAnyCase = i;
             })(t = e.String || (e.String = {}));
             function n(e, t) {
                 return typeof e === "string" ? e : t;
             }
             e.getDefaultAnyString = n;
-            function o(e, t) {
+            function i(e, t) {
                 return Is.definedString(e) ? e : t;
             }
-            e.getDefaultString = o;
-            function i(e, t) {
+            e.getDefaultString = i;
+            function o(e, t) {
                 return Is.definedBoolean(e) ? e : t;
             }
-            e.getDefaultBoolean = i;
+            e.getDefaultBoolean = o;
             function a(e, t) {
                 return Is.definedNumber(e) ? e : t;
             }
@@ -137,11 +137,11 @@ var init_data = __esm({
             function u(e, t) {
                 let n = t;
                 if (Is.definedString(e)) {
-                    const o = e.toString().split(" ");
-                    if (o.length === 0) {
+                    const i = e.toString().split(" ");
+                    if (i.length === 0) {
                         e = t;
                     } else {
-                        n = o;
+                        n = i;
                     }
                 } else {
                     n = s(e, t);
@@ -164,40 +164,40 @@ var init_dom = __esm({
             function t(e) {
                 const t = e.toLowerCase();
                 const n = t === "text";
-                let o = n ? document.createTextNode("") : document.createElement(t);
-                return o;
+                let i = n ? document.createTextNode("") : document.createElement(t);
+                return i;
             }
             e.createWithNoContainer = t;
-            function n(e, t, n = "", o = null) {
-                const i = t.toLowerCase();
-                const a = i === "text";
-                let r = a ? document.createTextNode("") : document.createElement(i);
+            function n(e, t, n = "", i = null) {
+                const o = t.toLowerCase();
+                const a = o === "text";
+                let r = a ? document.createTextNode("") : document.createElement(o);
                 if (Is.defined(n)) {
                     r.className = n;
                 }
-                if (Is.defined(o)) {
-                    e.insertBefore(r, o);
+                if (Is.defined(i)) {
+                    e.insertBefore(r, i);
                 } else {
                     e.appendChild(r);
                 }
                 return r;
             }
             e.create = n;
-            function o(e, t, o, i, a = null) {
-                const r = n(e, t, o, a);
-                r.innerHTML = i;
+            function i(e, t, i, o, a = null) {
+                const r = n(e, t, i, a);
+                r.innerHTML = o;
                 return r;
             }
-            e.createWithHTML = o;
-            function i(e, t, n = false) {
-                const o = getComputedStyle(e);
-                let i = o.getPropertyValue(t);
+            e.createWithHTML = i;
+            function o(e, t, n = false) {
+                const i = getComputedStyle(e);
+                let o = i.getPropertyValue(t);
                 if (n) {
-                    i = parseFloat(i);
+                    o = parseFloat(o);
                 }
-                return i;
+                return o;
             }
-            e.getStyleValueByName = i;
+            e.getStyleValueByName = o;
             function a(e, t) {
                 e.className += " " + t;
                 e.className = e.className.trim();
@@ -224,27 +224,27 @@ var init_dom = __esm({
             e.getScrollPosition = l;
             function u(e, t) {
                 let n = e.pageX;
-                let o = e.pageY;
-                const i = l();
+                let i = e.pageY;
+                const o = l();
                 t.style.display = "block";
                 if (n + t.offsetWidth > window.innerWidth) {
                     n -= t.offsetWidth;
                 } else {
                     n++;
                 }
-                if (o + t.offsetHeight > window.innerHeight) {
-                    o -= t.offsetHeight;
+                if (i + t.offsetHeight > window.innerHeight) {
+                    i -= t.offsetHeight;
                 } else {
-                    o++;
+                    i++;
                 }
-                if (n < i.left) {
+                if (n < o.left) {
                     n = e.pageX + 1;
                 }
-                if (o < i.top) {
-                    o = e.pageY + 1;
+                if (i < o.top) {
+                    i = e.pageY + 1;
                 }
                 t.style.left = n + "px";
-                t.style.top = o + "px";
+                t.style.top = i + "px";
             }
             e.showElementAtMousePosition = u;
             function c(e) {
@@ -256,12 +256,12 @@ var init_dom = __esm({
             }
             e.reverseChildrenOrder = c;
             function d(e, t) {
-                const i = n(e, "div");
-                const a = n(i, "label", "checkbox");
+                const o = n(e, "div");
+                const a = n(o, "label", "checkbox");
                 const r = n(a, "input");
                 r.type = "checkbox";
                 n(a, "span", "check-mark");
-                o(a, "span", "text", t);
+                i(a, "span", "text", t);
                 return r;
             }
             e.createCheckBox = d;
@@ -275,6 +275,7 @@ var init_datetime = __esm({
     "src/ts/datetime.ts"() {
         "use strict";
         init_data();
+        init_enum();
         (e => {
             function t(e, t) {
                 return new Date(e, t + 1, 0).getDate();
@@ -284,7 +285,7 @@ var init_datetime = __esm({
                 return e.getDay() - 1 < 0 ? 6 : e.getDay() - 1;
             }
             e.getWeekdayNumber = n;
-            function o(e, t) {
+            function i(e, t) {
                 let n = e.thText;
                 if (t === 31 || t === 21 || t === 1) {
                     n = e.stText;
@@ -295,24 +296,36 @@ var init_datetime = __esm({
                 }
                 return n;
             }
-            e.getDayOrdinal = o;
-            function i(e, t, i) {
+            e.getDayOrdinal = i;
+            function o(e, t, o) {
                 let a = t;
-                const r = n(i);
+                const r = n(o);
                 a = a.replace("{dddd}", e.dayNames[r]);
-                a = a.replace("{dd}", Data.String.padNumber(i.getDate()));
-                a = a.replace("{d}", i.getDate().toString());
-                a = a.replace("{o}", o(e, i.getDate()));
-                a = a.replace("{mmmm}", e.monthNames[i.getMonth()]);
-                a = a.replace("{mm}", Data.String.padNumber(i.getMonth() + 1));
-                a = a.replace("{m}", (i.getMonth() + 1).toString());
-                a = a.replace("{yyyy}", i.getFullYear().toString());
-                a = a.replace("{yyy}", i.getFullYear().toString().substring(1));
-                a = a.replace("{yy}", i.getFullYear().toString().substring(2));
-                a = a.replace("{y}", parseInt(i.getFullYear().toString().substring(2)).toString());
+                a = a.replace("{dd}", Data.String.padNumber(o.getDate()));
+                a = a.replace("{d}", o.getDate().toString());
+                a = a.replace("{o}", i(e, o.getDate()));
+                a = a.replace("{mmmm}", e.monthNames[o.getMonth()]);
+                a = a.replace("{mm}", Data.String.padNumber(o.getMonth() + 1));
+                a = a.replace("{m}", (o.getMonth() + 1).toString());
+                a = a.replace("{yyyy}", o.getFullYear().toString());
+                a = a.replace("{yyy}", o.getFullYear().toString().substring(1));
+                a = a.replace("{yy}", o.getFullYear().toString().substring(2));
+                a = a.replace("{y}", parseInt(o.getFullYear().toString().substring(2)).toString());
                 return a;
             }
-            e.getCustomFormattedDateText = i;
+            e.getCustomFormattedDateText = o;
+            function a(e) {
+                return e.getFullYear() + "-" + Data.String.padNumber(e.getMonth() + 1) + "-" + Data.String.padNumber(e.getDate());
+            }
+            e.toStorageDate = a;
+            function r(e) {
+                return e.split("-");
+            }
+            e.getStorageDate = r;
+            function s(e) {
+                return e.split("-")[0];
+            }
+            e.getStorageDateYear = s;
         })(DateTime || (DateTime = {}));
     }
 });
@@ -351,10 +364,10 @@ var require_heat = __commonJS({
                 const t = e.length;
                 for (let n = 0; n < t; n++) {
                     const t = document.getElementsByTagName(e[n]);
-                    const o = [].slice.call(t);
-                    const i = o.length;
-                    for (let e = 0; e < i; e++) {
-                        if (!renderElement(o[e])) {
+                    const i = [].slice.call(t);
+                    const o = i.length;
+                    for (let e = 0; e < o; e++) {
+                        if (!renderElement(i[e])) {
                             break;
                         }
                     }
@@ -365,9 +378,9 @@ var require_heat = __commonJS({
                 if (Is.defined(e) && e.hasAttribute(Constants.HEAT_JS_ATTRIBUTE_NAME)) {
                     const n = e.getAttribute(Constants.HEAT_JS_ATTRIBUTE_NAME);
                     if (Is.definedString(n)) {
-                        const o = getObjectFromString(n);
-                        if (o.parsed && Is.definedObject(o.object)) {
-                            renderControl(renderBindingOptions(o.object, e));
+                        const i = getObjectFromString(n);
+                        if (i.parsed && Is.definedObject(i.object)) {
+                            renderControl(renderBindingOptions(i.object, e));
                         } else {
                             if (!_configuration.safeMode) {
                                 console.error(_configuration.attributeNotValidErrorText.replace("{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME));
@@ -385,46 +398,46 @@ var require_heat = __commonJS({
             }
             function renderBindingOptions(e, t) {
                 const n = buildAttributeOptions(e);
-                const o = Data.getDefaultString(n.view, "").toLowerCase();
-                let i = {};
-                i.element = t;
-                i.disabledBackground = null;
-                i.configurationDialog = null;
-                i.dayCheckBoxes = [];
-                i.monthCheckBoxes = [];
-                i.tooltip = null;
-                i.tooltipTimer = 0;
-                i.mapContents = null;
-                i.mapContentsScrollLeft = 0;
-                i.year = n.year;
-                i.type = _configuration.unknownTrendText;
-                i.isInFetchMode = Is.definedFunction(n.events.onDataFetch);
-                i.isInFetchModeTimer = 0;
-                i.yearsAvailable = [];
+                const i = Data.getDefaultString(n.view, "").toLowerCase();
+                let o = {};
+                o.element = t;
+                o.disabledBackground = null;
+                o.configurationDialog = null;
+                o.dayCheckBoxes = [];
+                o.monthCheckBoxes = [];
+                o.tooltip = null;
+                o.tooltipTimer = 0;
+                o.mapContents = null;
+                o.mapContentsScrollLeft = 0;
+                o.year = n.year;
+                o.type = _configuration.unknownTrendText;
+                o.isInFetchMode = Is.definedFunction(n.events.onDataFetch);
+                o.isInFetchModeTimer = 0;
+                o.yearsAvailable = [];
                 if (n.views.chart.enabled) {
-                    i.chartContents = null;
-                    i.chartContentsScrollLeft = 0;
+                    o.chartContents = null;
+                    o.chartContentsScrollLeft = 0;
                 }
                 if (n.views.days.enabled) {
-                    i.daysContents = null;
-                    i.daysContentsScrollLeft = 0;
+                    o.daysContents = null;
+                    o.daysContentsScrollLeft = 0;
                 }
                 if (n.views.statistics.enabled) {
-                    i.statisticsContents = null;
-                    i.statisticsContentsScrollLeft = 0;
+                    o.statisticsContents = null;
+                    o.statisticsContentsScrollLeft = 0;
                 }
-                if (o === "map") {
-                    i.view = 1;
-                } else if (o === "chart") {
-                    i.view = 2;
-                } else if (o === "days") {
-                    i.view = 3;
-                } else if (o === "statistics") {
-                    i.view = 4;
+                if (i === "map") {
+                    o.view = 1;
+                } else if (i === "chart") {
+                    o.view = 2;
+                } else if (i === "days") {
+                    o.view = 3;
+                } else if (i === "statistics") {
+                    o.view = 4;
                 } else {
-                    i.view = 1;
+                    o.view = 1;
                 }
-                n._currentView = i;
+                n._currentView = o;
                 return n;
             }
             function renderControl(e) {
@@ -499,19 +512,19 @@ var require_heat = __commonJS({
                 e._currentView.configurationDialog = DomElement.create(e._currentView.disabledBackground, "div", "dialog configuration");
                 const t = DomElement.create(e._currentView.configurationDialog, "div", "dialog-title-bar");
                 const n = DomElement.create(e._currentView.configurationDialog, "div", "dialog-contents");
-                const o = DomElement.create(t, "div", "dialog-close");
-                const i = DomElement.create(n, "div", "side-container panel");
+                const i = DomElement.create(t, "div", "dialog-close");
+                const o = DomElement.create(n, "div", "side-container panel");
                 const a = DomElement.create(n, "div", "side-container panel");
                 DomElement.createWithHTML(t, "span", "dialog-title-bar-text", _configuration.configurationTitleText);
-                DomElement.createWithHTML(i, "div", "side-container-title-text", _configuration.visibleDaysText + ":");
+                DomElement.createWithHTML(o, "div", "side-container-title-text", _configuration.visibleDaysText + ":");
                 DomElement.createWithHTML(a, "div", "side-container-title-text", _configuration.visibleMonthsText + ":");
                 const r = DomElement.create(a, "div", "side-container");
                 const s = DomElement.create(a, "div", "side-container");
-                o.onclick = () => {
+                i.onclick = () => {
                     hideConfigurationDialog(e);
                 };
                 for (let t = 0; t < 7; t++) {
-                    e._currentView.dayCheckBoxes[t] = DomElement.createCheckBox(i, _configuration.dayNames[t]);
+                    e._currentView.dayCheckBoxes[t] = DomElement.createCheckBox(o, _configuration.dayNames[t]);
                 }
                 for (let t = 0; t < 7; t++) {
                     e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(r, _configuration.monthNames[t]);
@@ -519,7 +532,7 @@ var require_heat = __commonJS({
                 for (let t = 7; t < 12; t++) {
                     e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(s, _configuration.monthNames[t]);
                 }
-                addToolTip(o, e, _configuration.closeToolTipText);
+                addToolTip(i, e, _configuration.closeToolTipText);
             }
             function showConfigurationDialog(e) {
                 showDisabledBackground(e);
@@ -559,7 +572,7 @@ var require_heat = __commonJS({
                 }
                 const t = [];
                 const n = [];
-                let o = false;
+                let i = false;
                 for (let n = 0; n < 7; n++) {
                     if (e._currentView.dayCheckBoxes[n].checked) {
                         t.push(n + 1);
@@ -582,7 +595,7 @@ var require_heat = __commonJS({
                     } else {
                         e.views.map.daysToShow = t;
                     }
-                    o = true;
+                    i = true;
                 }
                 if (n.length >= 1) {
                     if (e._currentView.view === 1) {
@@ -596,9 +609,9 @@ var require_heat = __commonJS({
                     } else {
                         e.views.map.monthsToShow = n;
                     }
-                    o = true;
+                    i = true;
                 }
-                if (o) {
+                if (i) {
                     renderControlContainer(e);
                     fireCustomTriggerEvent(e.events.onOptionsUpdate, e._currentView.element, e);
                 } else {
@@ -614,11 +627,11 @@ var require_heat = __commonJS({
             }
             function assignToolTipEvents(e, t = true) {
                 let n = t ? window.addEventListener : window.removeEventListener;
-                let o = t ? document.addEventListener : document.removeEventListener;
+                let i = t ? document.addEventListener : document.removeEventListener;
                 n("mousemove", (() => {
                     hideToolTip(e);
                 }));
-                o("scroll", (() => {
+                i("scroll", (() => {
                     hideToolTip(e);
                 }));
             }
@@ -706,50 +719,50 @@ var require_heat = __commonJS({
                                 showConfigurationDialog(e);
                             };
                         }
-                        const o = DomElement.createWithHTML(t, "button", "next", _configuration.nextButtonText);
-                        o.onclick = () => {
+                        const i = DomElement.createWithHTML(t, "button", "next", _configuration.nextButtonText);
+                        i.onclick = () => {
                             moveToNextYear(e);
                         };
                         if (isLastVisibleYear(e, e._currentView.year)) {
-                            o.disabled = true;
+                            i.disabled = true;
                         }
                     }
                 }
             }
             function renderTitleDropDownMenu(e, t) {
                 const n = DomElement.create(t, "div", "titles-menu-container");
-                const o = DomElement.create(n, "div", "titles-menu");
+                const i = DomElement.create(n, "div", "titles-menu");
                 if (e.title.showTitleDropDownHeaders) {
-                    DomElement.createWithHTML(o, "div", "title-menu-header", _configuration.dataText + ":");
+                    DomElement.createWithHTML(i, "div", "title-menu-header", _configuration.dataText + ":");
                 }
-                const i = DomElement.createWithHTML(o, "div", "title-menu-item", _configuration.mapText);
-                renderTitleDropDownMenuItemClickEvent(e, i, 1, "map");
+                const o = DomElement.createWithHTML(i, "div", "title-menu-item", _configuration.mapText);
+                renderTitleDropDownMenuItemClickEvent(e, o, 1, "map");
                 if (e.views.chart.enabled) {
-                    const t = DomElement.createWithHTML(o, "div", "title-menu-item", _configuration.chartText);
+                    const t = DomElement.createWithHTML(i, "div", "title-menu-item", _configuration.chartText);
                     renderTitleDropDownMenuItemClickEvent(e, t, 2, "chart");
                 }
                 if (e.views.days.enabled) {
                     if (e.title.showTitleDropDownHeaders) {
-                        DomElement.createWithHTML(o, "div", "title-menu-header", _configuration.yearText + ":");
+                        DomElement.createWithHTML(i, "div", "title-menu-header", _configuration.yearText + ":");
                     }
-                    const t = DomElement.createWithHTML(o, "div", "title-menu-item", _configuration.daysText);
+                    const t = DomElement.createWithHTML(i, "div", "title-menu-item", _configuration.daysText);
                     renderTitleDropDownMenuItemClickEvent(e, t, 3, "days");
                 }
                 if (e.views.statistics.enabled) {
                     if (e.title.showTitleDropDownHeaders) {
-                        DomElement.createWithHTML(o, "div", "title-menu-header", _configuration.statisticsText + ":");
+                        DomElement.createWithHTML(i, "div", "title-menu-header", _configuration.statisticsText + ":");
                     }
-                    const t = DomElement.createWithHTML(o, "div", "title-menu-item", _configuration.colorRangesText);
+                    const t = DomElement.createWithHTML(i, "div", "title-menu-item", _configuration.colorRangesText);
                     renderTitleDropDownMenuItemClickEvent(e, t, 4, "statistics");
                 }
             }
-            function renderTitleDropDownMenuItemClickEvent(e, t, n, o) {
+            function renderTitleDropDownMenuItemClickEvent(e, t, n, i) {
                 if (e._currentView.view === n) {
                     DomElement.addClass(t, "title-menu-item-active");
                 } else {
                     t.onclick = () => {
                         e._currentView.view = n;
-                        fireCustomTriggerEvent(e.events.onViewSwitch, o);
+                        fireCustomTriggerEvent(e.events.onViewSwitch, i);
                         renderControlContainer(e, false, true);
                     };
                 }
@@ -758,26 +771,26 @@ var require_heat = __commonJS({
                 DomElement.create(e._currentView.yearText, "div", "down-arrow");
                 const t = DomElement.create(e._currentView.yearText, "div", "years-menu-container");
                 const n = DomElement.create(t, "div", "years-menu");
-                const o = (new Date).getFullYear();
-                let i = null;
+                const i = (new Date).getFullYear();
+                let o = null;
                 t.style.display = "block";
                 t.style.visibility = "hidden";
-                for (let t = o - e.title.extraSelectionYears; t < o + e.title.extraSelectionYears; t++) {
+                for (let t = i - e.title.extraSelectionYears; t < i + e.title.extraSelectionYears; t++) {
                     if (isYearVisible(e, t)) {
-                        let a = renderYearDropDownMenuItem(e, n, t, o);
-                        if (!Is.defined(i)) {
-                            i = a;
+                        let a = renderYearDropDownMenuItem(e, n, t, i);
+                        if (!Is.defined(o)) {
+                            o = a;
                         }
                     }
                 }
-                if (Is.defined(i)) {
-                    n.scrollTop = i.offsetTop - n.offsetHeight / 2;
+                if (Is.defined(o)) {
+                    n.scrollTop = o.offsetTop - n.offsetHeight / 2;
                 }
                 t.style.display = "none";
                 t.style.visibility = "visible";
             }
-            function renderYearDropDownMenuItem(e, t, n, o) {
-                let i = null;
+            function renderYearDropDownMenuItem(e, t, n, i) {
+                let o = null;
                 const a = DomElement.createWithHTML(t, "div", "year-menu-item", n.toString());
                 if (e._currentView.year !== n) {
                     a.onclick = () => {
@@ -785,14 +798,14 @@ var require_heat = __commonJS({
                         renderControlContainer(e);
                         fireCustomTriggerEvent(e.events.onSetYear, e._currentView.year);
                     };
-                    if (n === o) {
+                    if (n === i) {
                         DomElement.addClass(a, "year-menu-item-current");
                     }
                 } else {
                     DomElement.addClass(a, "year-menu-item-active");
-                    i = a;
+                    o = a;
                 }
-                return i;
+                return o;
             }
             function renderControlMap(e, t) {
                 e._currentView.mapContents = DomElement.create(e._currentView.element, "div", "map-contents");
@@ -815,20 +828,20 @@ var require_heat = __commonJS({
                     e._currentView.mapContents.style.minHeight = "unset";
                     makeAreaDroppable(e._currentView.mapContents, e);
                     const n = DomElement.create(e._currentView.mapContents, "div", "map");
-                    const o = e._currentView.year;
-                    let i = false;
+                    const i = e._currentView.year;
+                    let o = false;
                     if (t) {
                         DomElement.addClass(n, "view-switch");
                     }
                     if (e.views.map.showDayNames) {
                         const t = DomElement.create(n, "div", "days");
-                        const o = e.views.map.showMinimalDayNames && e.views.map.daysToShow.length === 7;
+                        const i = e.views.map.showMinimalDayNames && e.views.map.daysToShow.length === 7;
                         if (!e.views.map.showMonthNames || e.views.map.placeMonthNamesOnTheBottom) {
                             t.className = "days-months-bottom";
                         }
                         for (let n = 0; n < 7; n++) {
                             if (isDayVisible(e.views.map.daysToShow, n + 1)) {
-                                const e = !o || n % 3 === 0 ? _configuration.dayNames[n] : " ";
+                                const e = !i || n % 3 === 0 ? _configuration.dayNames[n] : " ";
                                 DomElement.createWithHTML(t, "div", "day-name", e);
                             }
                         }
@@ -842,10 +855,10 @@ var require_heat = __commonJS({
                         if (isMonthVisible(e.views.map.monthsToShow, t)) {
                             const n = DomElement.create(a, "div", "month");
                             const s = DomElement.create(n, "div", "day-columns");
-                            let l = DateTime.getTotalDaysInMonth(o, t);
+                            let l = DateTime.getTotalDaysInMonth(i, t);
                             let u = DomElement.create(s, "div", "day-column");
                             let c = false;
-                            const d = new Date(o, t, 1);
+                            const d = new Date(i, t, 1);
                             const f = DateTime.getWeekdayNumber(d);
                             let m = 1;
                             l += f;
@@ -858,9 +871,9 @@ var require_heat = __commonJS({
                                     }
                                 }
                                 if (c) {
-                                    let i = null;
+                                    let o = null;
                                     if (isDayVisible(e.views.map.daysToShow, m)) {
-                                        i = renderControlMapMonthDay(e, u, n - f, t, o, r);
+                                        o = renderControlMapMonthDay(e, u, n - f, t, i, r);
                                     }
                                     if ((n + 1) % 7 === 0) {
                                         if (e.views.map.showDaysInReverseOrder) {
@@ -868,32 +881,32 @@ var require_heat = __commonJS({
                                         }
                                         u = DomElement.create(s, "div", "day-column");
                                         m = 0;
-                                        if (_elements_Day_Width === 0 && Is.defined(i)) {
-                                            let e = DomElement.getStyleValueByName(i, "margin-left", true);
-                                            let t = DomElement.getStyleValueByName(i, "margin-right", true);
-                                            _elements_Day_Width = i.offsetWidth + e + t;
+                                        if (_elements_Day_Width === 0 && Is.defined(o)) {
+                                            let e = DomElement.getStyleValueByName(o, "margin-left", true);
+                                            let t = DomElement.getStyleValueByName(o, "margin-right", true);
+                                            _elements_Day_Width = o.offsetWidth + e + t;
                                         }
                                     }
                                 }
                                 m++;
                             }
                             if (e.views.map.showMonthNames) {
-                                let o;
-                                const i = n.offsetWidth;
+                                let i;
+                                const o = n.offsetWidth;
                                 if (!e.views.map.placeMonthNamesOnTheBottom) {
-                                    o = DomElement.createWithHTML(n, "div", "month-name", _configuration.monthNames[t], s);
+                                    i = DomElement.createWithHTML(n, "div", "month-name", _configuration.monthNames[t], s);
                                 } else {
-                                    o = DomElement.createWithHTML(n, "div", "month-name-bottom", _configuration.monthNames[t]);
+                                    i = DomElement.createWithHTML(n, "div", "month-name-bottom", _configuration.monthNames[t]);
                                 }
-                                if (Is.defined(o)) {
+                                if (Is.defined(i)) {
                                     if (e.views.map.showMonthDayGaps) {
-                                        o.style.width = i + "px";
+                                        i.style.width = o + "px";
                                     } else {
-                                        o.style.width = i - _elements_Day_Width + "px";
+                                        i.style.width = o - _elements_Day_Width + "px";
                                     }
                                 }
                             }
-                            if (i && Is.defined(_elements_Day_Width)) {
+                            if (o && Is.defined(_elements_Day_Width)) {
                                 if (f > 0 && !e.views.map.showMonthDayGaps) {
                                     n.style.marginLeft = -_elements_Day_Width + "px";
                                 } else if (f === 0 && e.views.map.showMonthDayGaps) {
@@ -903,7 +916,7 @@ var require_heat = __commonJS({
                             if (e.views.map.showMonthsInReverseOrder) {
                                 DomElement.reverseChildrenOrder(s);
                             }
-                            i = true;
+                            o = true;
                         }
                     }
                     if (e.views.map.showMonthsInReverseOrder) {
@@ -914,11 +927,11 @@ var require_heat = __commonJS({
                     }
                 }
             }
-            function renderControlMapMonthDay(e, t, n, o, i, a) {
+            function renderControlMapMonthDay(e, t, n, i, o, a) {
                 const r = n + 1;
                 const s = DomElement.create(t, "div", "day");
-                const l = new Date(i, o, r);
-                let u = _elements_DateCounts[e._currentView.element.id].typeData[e._currentView.type][toStorageDate(l)];
+                const l = new Date(o, i, r);
+                let u = _elements_DateCounts[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(l)];
                 u = Data.getDefaultNumber(u, 0);
                 renderDayToolTip(e, s, l, u);
                 if (e.views.map.showDayNumbers && u > 0) {
@@ -944,10 +957,10 @@ var require_heat = __commonJS({
             function isDataAvailableForYear(e) {
                 let t = false;
                 const n = getCurrentViewData(e);
-                const o = e._currentView.year.toString();
+                const i = e._currentView.year.toString();
                 for (let e in n) {
                     if (n.hasOwnProperty(e)) {
-                        if (getStorageDateYear(e) === o) {
+                        if (DateTime.getStorageDateYear(e) === i) {
                             t = true;
                             break;
                         }
@@ -961,8 +974,8 @@ var require_heat = __commonJS({
             }
             function renderControlChart(e, t) {
                 const n = DomElement.create(e._currentView.chartContents, "div", "chart");
-                let o = DomElement.create(n, "div", "y-labels");
-                const i = DomElement.create(n, "div", "day-lines");
+                let i = DomElement.create(n, "div", "y-labels");
+                const o = DomElement.create(n, "div", "day-lines");
                 const a = getSortedColorRanges(e);
                 const r = getLargestValueForChartYear(e);
                 const s = e._currentView.year;
@@ -971,28 +984,28 @@ var require_heat = __commonJS({
                     DomElement.addClass(n, "view-switch");
                 }
                 if (r > 0 && e.views.chart.showChartYLabels) {
-                    const e = DomElement.createWithHTML(o, "div", "label-0", r.toString());
-                    DomElement.createWithHTML(o, "div", "label-25", (Math.floor(r / 4) * 3).toString());
-                    DomElement.createWithHTML(o, "div", "label-50", Math.floor(r / 2).toString());
-                    DomElement.createWithHTML(o, "div", "label-75", Math.floor(r / 4).toString());
-                    DomElement.createWithHTML(o, "div", "label-100", "0");
-                    o.style.width = e.offsetWidth + "px";
-                    l = o.offsetWidth + DomElement.getStyleValueByName(o, "margin-right", true);
+                    const e = DomElement.createWithHTML(i, "div", "label-0", r.toString());
+                    DomElement.createWithHTML(i, "div", "label-25", (Math.floor(r / 4) * 3).toString());
+                    DomElement.createWithHTML(i, "div", "label-50", Math.floor(r / 2).toString());
+                    DomElement.createWithHTML(i, "div", "label-75", Math.floor(r / 4).toString());
+                    DomElement.createWithHTML(i, "div", "label-100", "0");
+                    i.style.width = e.offsetWidth + "px";
+                    l = i.offsetWidth + DomElement.getStyleValueByName(i, "margin-right", true);
                 } else {
-                    o.parentNode.removeChild(o);
-                    o = null;
+                    i.parentNode.removeChild(i);
+                    i = null;
                 }
                 if (r === 0) {
                     e._currentView.chartContents.style.minHeight = e._currentView.mapContents.offsetHeight + "px";
                     n.parentNode.removeChild(n);
-                    const o = DomElement.createWithHTML(e._currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage);
+                    const i = DomElement.createWithHTML(e._currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage);
                     if (t) {
-                        DomElement.addClass(o, "view-switch");
+                        DomElement.addClass(i, "view-switch");
                     }
                 } else {
                     const t = e._currentView.mapContents.offsetHeight / r;
                     let n = 0;
-                    let o = 0;
+                    let i = 0;
                     for (let r = 0; r < 12; r++) {
                         if (isMonthVisible(e.views.chart.monthsToShow, r)) {
                             const l = DateTime.getTotalDaysInMonth(s, r);
@@ -1000,27 +1013,27 @@ var require_heat = __commonJS({
                             n++;
                             for (let n = 0; n < l; n++) {
                                 if (isDayVisible(e.views.chart.daysToShow, u)) {
-                                    renderControlChartDay(i, e, n + 1, r, s, a, t);
+                                    renderControlChartDay(o, e, n + 1, r, s, a, t);
                                 }
                                 if ((n + 1) % 7 === 0) {
                                     u = 0;
                                 }
                                 u++;
-                                o++;
+                                i++;
                             }
                         }
                     }
                     if (e.views.chart.showInReverseOrder) {
-                        DomElement.reverseChildrenOrder(i);
+                        DomElement.reverseChildrenOrder(o);
                     }
                     if (e.views.chart.showMonthNames) {
                         const t = DomElement.create(e._currentView.chartContents, "div", "chart-months");
-                        const o = i.offsetWidth / n;
+                        const i = o.offsetWidth / n;
                         let a = 0;
                         const r = n => {
                             if (isMonthVisible(e.views.chart.monthsToShow, n)) {
                                 let e = DomElement.createWithHTML(t, "div", "month-name", _configuration.monthNames[n]);
-                                e.style.left = l + o * a + "px";
+                                e.style.left = l + i * a + "px";
                                 a++;
                             }
                         };
@@ -1033,7 +1046,7 @@ var require_heat = __commonJS({
                                 r(e);
                             }
                         }
-                        t.style.width = i.offsetWidth + "px";
+                        t.style.width = o.offsetWidth + "px";
                         const s = DomElement.create(t, "div", "month-name-space");
                         s.style.height = t.offsetHeight + "px";
                         s.style.width = l + "px";
@@ -1043,10 +1056,10 @@ var require_heat = __commonJS({
                     }
                 }
             }
-            function renderControlChartDay(e, t, n, o, i, a, r) {
-                const s = new Date(i, o, n);
+            function renderControlChartDay(e, t, n, i, o, a, r) {
+                const s = new Date(o, i, n);
                 const l = DomElement.create(e, "div", "day-line");
-                let u = getCurrentViewData(t)[toStorageDate(s)];
+                let u = getCurrentViewData(t)[DateTime.toStorageDate(s)];
                 u = Data.getDefaultNumber(u, 0);
                 renderDayToolTip(t, l, s, u);
                 if (t.views.chart.showLineNumbers && u > 0) {
@@ -1077,13 +1090,13 @@ var require_heat = __commonJS({
             function getLargestValueForChartYear(e) {
                 let t = 0;
                 const n = getCurrentViewData(e);
-                for (let o = 0; o < 12; o++) {
-                    const i = DateTime.getTotalDaysInMonth(e._currentView.year, o);
-                    for (let a = 0; a < i; a++) {
-                        const i = toStorageDate(new Date(e._currentView.year, o, a + 1));
-                        if (n.hasOwnProperty(i)) {
-                            if (isMonthVisible(e.views.chart.monthsToShow, o) && isDayVisible(e.views.chart.daysToShow, a + 1)) {
-                                t = Math.max(t, n[i]);
+                for (let i = 0; i < 12; i++) {
+                    const o = DateTime.getTotalDaysInMonth(e._currentView.year, i);
+                    for (let a = 0; a < o; a++) {
+                        const o = DateTime.toStorageDate(new Date(e._currentView.year, i, a + 1));
+                        if (n.hasOwnProperty(o)) {
+                            if (isMonthVisible(e.views.chart.monthsToShow, i) && isDayVisible(e.views.chart.daysToShow, a + 1)) {
+                                t = Math.max(t, n[o]);
                             }
                         }
                     }
@@ -1096,32 +1109,32 @@ var require_heat = __commonJS({
             }
             function renderControlDays(e, t) {
                 const n = DomElement.create(e._currentView.daysContents, "div", "days");
-                const o = DomElement.create(e._currentView.daysContents, "div", "day-names");
-                let i = DomElement.create(n, "div", "y-labels");
+                const i = DomElement.create(e._currentView.daysContents, "div", "day-names");
+                let o = DomElement.create(n, "div", "y-labels");
                 const a = DomElement.create(n, "div", "day-lines");
                 const r = getLargestValuesForEachDay(e);
                 if (t) {
                     DomElement.addClass(n, "view-switch");
                 }
                 if (r.largestValue > 0 && e.views.days.showChartYLabels) {
-                    const e = DomElement.createWithHTML(i, "div", "label-0", r.largestValue.toString());
-                    DomElement.createWithHTML(i, "div", "label-25", (Math.floor(r.largestValue / 4) * 3).toString());
-                    DomElement.createWithHTML(i, "div", "label-50", Math.floor(r.largestValue / 2).toString());
-                    DomElement.createWithHTML(i, "div", "label-75", Math.floor(r.largestValue / 4).toString());
-                    DomElement.createWithHTML(i, "div", "label-100", "0");
-                    i.style.width = e.offsetWidth + "px";
-                    o.style.paddingLeft = i.offsetWidth + DomElement.getStyleValueByName(i, "margin-right", true) + "px";
+                    const e = DomElement.createWithHTML(o, "div", "label-0", r.largestValue.toString());
+                    DomElement.createWithHTML(o, "div", "label-25", (Math.floor(r.largestValue / 4) * 3).toString());
+                    DomElement.createWithHTML(o, "div", "label-50", Math.floor(r.largestValue / 2).toString());
+                    DomElement.createWithHTML(o, "div", "label-75", Math.floor(r.largestValue / 4).toString());
+                    DomElement.createWithHTML(o, "div", "label-100", "0");
+                    o.style.width = e.offsetWidth + "px";
+                    i.style.paddingLeft = o.offsetWidth + DomElement.getStyleValueByName(o, "margin-right", true) + "px";
                 } else {
-                    i.parentNode.removeChild(i);
-                    i = null;
+                    o.parentNode.removeChild(o);
+                    o = null;
                 }
                 if (r.largestValue === 0) {
                     e._currentView.daysContents.style.minHeight = e._currentView.mapContents.offsetHeight + "px";
                     n.parentNode.removeChild(n);
-                    o.parentNode.removeChild(o);
-                    const i = DomElement.createWithHTML(e._currentView.daysContents, "div", "no-days-message", _configuration.noDaysDataMessage);
+                    i.parentNode.removeChild(i);
+                    const o = DomElement.createWithHTML(e._currentView.daysContents, "div", "no-days-message", _configuration.noDaysDataMessage);
                     if (t) {
-                        DomElement.addClass(i, "view-switch");
+                        DomElement.addClass(o, "view-switch");
                     }
                 } else {
                     const t = e._currentView.mapContents.offsetHeight / r.largestValue;
@@ -1129,35 +1142,35 @@ var require_heat = __commonJS({
                         if (r.days.hasOwnProperty(n) && isDayVisible(e.views.days.daysToShow, parseInt(n))) {
                             renderControlDaysDayLine(a, parseInt(n), r.days[n], e, t);
                             if (e.views.days.showDayNames) {
-                                DomElement.createWithHTML(o, "div", "day-name", _configuration.dayNames[parseInt(n) - 1]);
+                                DomElement.createWithHTML(i, "div", "day-name", _configuration.dayNames[parseInt(n) - 1]);
                             }
                         }
                     }
                     if (e.views.days.showInReverseOrder) {
                         DomElement.reverseChildrenOrder(a);
-                        DomElement.reverseChildrenOrder(o);
+                        DomElement.reverseChildrenOrder(i);
                     }
                     if (e.views.days.keepScrollPositions) {
                         e._currentView.daysContents.scrollLeft = e._currentView.daysContentsScrollLeft;
                     }
                 }
             }
-            function renderControlDaysDayLine(e, t, n, o, i) {
+            function renderControlDaysDayLine(e, t, n, i, o) {
                 const a = DomElement.create(e, "div", "day-line");
-                const r = n * i;
+                const r = n * o;
                 a.style.height = r + "px";
                 if (r <= 0) {
                     a.style.visibility = "hidden";
                 }
-                addToolTip(a, o, n.toString());
-                if (Is.definedFunction(o.events.onWeekDayClick)) {
+                addToolTip(a, i, n.toString());
+                if (Is.definedFunction(i.events.onWeekDayClick)) {
                     a.onclick = () => {
-                        fireCustomTriggerEvent(o.events.onWeekDayClick, t, n);
+                        fireCustomTriggerEvent(i.events.onWeekDayClick, t, n);
                     };
                 } else {
                     DomElement.addClass(a, "no-hover");
                 }
-                if (o.views.days.showDayNumbers && n > 0) {
+                if (i.views.days.showDayNumbers && n > 0) {
                     DomElement.addClass(a, "day-line-number");
                     DomElement.createWithHTML(a, "div", "count", n.toString());
                 }
@@ -1176,16 +1189,16 @@ var require_heat = __commonJS({
                     largestValue: 0
                 };
                 const n = getCurrentViewData(e);
-                for (let o = 0; o < 12; o++) {
-                    const i = DateTime.getTotalDaysInMonth(e._currentView.year, o);
-                    for (let a = 0; a < i; a++) {
-                        const i = toStorageDate(new Date(e._currentView.year, o, a + 1));
-                        if (n.hasOwnProperty(i)) {
-                            const o = getStorageDate(i);
-                            const a = new Date(parseInt(o[2]), parseInt(o[1]), parseInt(o[0]));
+                for (let i = 0; i < 12; i++) {
+                    const o = DateTime.getTotalDaysInMonth(e._currentView.year, i);
+                    for (let a = 0; a < o; a++) {
+                        const o = DateTime.toStorageDate(new Date(e._currentView.year, i, a + 1));
+                        if (n.hasOwnProperty(o)) {
+                            const i = DateTime.getStorageDate(o);
+                            const a = new Date(parseInt(i[2]), parseInt(i[1]), parseInt(i[0]));
                             const r = DateTime.getWeekdayNumber(a) + 1;
                             if (!isHoliday(e, a).matched && isMonthVisible(e.views.days.monthsToShow, a.getMonth()) && isDayVisible(e.views.days.daysToShow, r)) {
-                                t.days[r] += n[i];
+                                t.days[r] += n[o];
                                 t.largestValue = Math.max(t.largestValue, t.days[r]);
                             }
                         }
@@ -1199,8 +1212,8 @@ var require_heat = __commonJS({
             }
             function renderControlStatistics(e, t) {
                 const n = DomElement.create(e._currentView.statisticsContents, "div", "statistics");
-                const o = DomElement.create(e._currentView.statisticsContents, "div", "statistics-ranges");
-                let i = DomElement.create(n, "div", "y-labels");
+                const i = DomElement.create(e._currentView.statisticsContents, "div", "statistics-ranges");
+                let o = DomElement.create(n, "div", "y-labels");
                 const a = DomElement.create(n, "div", "range-lines");
                 const r = getSortedColorRanges(e);
                 const s = getLargestValuesForEachRangeType(e, r);
@@ -1208,73 +1221,73 @@ var require_heat = __commonJS({
                     DomElement.addClass(n, "view-switch");
                 }
                 if (s.largestValue > 0 && e.views.statistics.showChartYLabels) {
-                    const e = DomElement.createWithHTML(i, "div", "label-0", s.largestValue.toString());
-                    DomElement.createWithHTML(i, "div", "label-25", (Math.floor(s.largestValue / 4) * 3).toString());
-                    DomElement.createWithHTML(i, "div", "label-50", Math.floor(s.largestValue / 2).toString());
-                    DomElement.createWithHTML(i, "div", "label-75", Math.floor(s.largestValue / 4).toString());
-                    DomElement.createWithHTML(i, "div", "label-100", "0");
-                    i.style.width = e.offsetWidth + "px";
-                    o.style.paddingLeft = i.offsetWidth + DomElement.getStyleValueByName(i, "margin-right", true) + "px";
+                    const e = DomElement.createWithHTML(o, "div", "label-0", s.largestValue.toString());
+                    DomElement.createWithHTML(o, "div", "label-25", (Math.floor(s.largestValue / 4) * 3).toString());
+                    DomElement.createWithHTML(o, "div", "label-50", Math.floor(s.largestValue / 2).toString());
+                    DomElement.createWithHTML(o, "div", "label-75", Math.floor(s.largestValue / 4).toString());
+                    DomElement.createWithHTML(o, "div", "label-100", "0");
+                    o.style.width = e.offsetWidth + "px";
+                    i.style.paddingLeft = o.offsetWidth + DomElement.getStyleValueByName(o, "margin-right", true) + "px";
                 } else {
-                    i.parentNode.removeChild(i);
-                    i = null;
+                    o.parentNode.removeChild(o);
+                    o = null;
                 }
                 if (s.largestValue === 0) {
                     e._currentView.statisticsContents.style.minHeight = e._currentView.mapContents.offsetHeight + "px";
                     n.parentNode.removeChild(n);
-                    o.parentNode.removeChild(o);
-                    const i = DomElement.createWithHTML(e._currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage);
+                    i.parentNode.removeChild(i);
+                    const o = DomElement.createWithHTML(e._currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage);
                     if (t) {
-                        DomElement.addClass(i, "view-switch");
+                        DomElement.addClass(o, "view-switch");
                     }
                 } else {
                     const t = e._currentView.mapContents.offsetHeight / s.largestValue;
                     if (!e.views.statistics.showColorRangeLabels) {
-                        o.parentNode.removeChild(o);
+                        i.parentNode.removeChild(i);
                     }
                     for (let n in s.types) {
                         if (s.types.hasOwnProperty(n)) {
                             renderControlStatisticsRangeLine(parseInt(n), a, s.types[n], e, r, t);
-                            const i = getColorRangeByMinimum(r, parseInt(n));
+                            const o = getColorRangeByMinimum(r, parseInt(n));
                             if (e.views.statistics.showColorRangeLabels) {
-                                if (!e.views.statistics.useColorRangeNamesForLabels || !Is.defined(i) || !Is.definedString(i.name)) {
-                                    DomElement.createWithHTML(o, "div", "range-name", n + "+");
+                                if (!e.views.statistics.useColorRangeNamesForLabels || !Is.defined(o) || !Is.definedString(o.name)) {
+                                    DomElement.createWithHTML(i, "div", "range-name", n + "+");
                                 } else {
-                                    DomElement.createWithHTML(o, "div", "range-name", i.name);
+                                    DomElement.createWithHTML(i, "div", "range-name", o.name);
                                 }
                             }
                         }
                     }
                     if (e.views.statistics.showInReverseOrder) {
                         DomElement.reverseChildrenOrder(a);
-                        DomElement.reverseChildrenOrder(o);
+                        DomElement.reverseChildrenOrder(i);
                     }
                     if (e.views.statistics.keepScrollPositions) {
                         e._currentView.statisticsContents.scrollLeft = e._currentView.statisticsContentsScrollLeft;
                     }
                 }
             }
-            function renderControlStatisticsRangeLine(e, t, n, o, i, a) {
+            function renderControlStatisticsRangeLine(e, t, n, i, o, a) {
                 const r = DomElement.create(t, "div", "range-line");
-                const s = getColorRangeByMinimum(i, e);
+                const s = getColorRangeByMinimum(o, e);
                 const l = n * a;
                 r.style.height = l + "px";
                 if (l <= 0) {
                     r.style.visibility = "hidden";
                 }
-                addToolTip(r, o, n.toString());
-                if (o.views.statistics.showRangeNumbers && n > 0) {
+                addToolTip(r, i, n.toString());
+                if (i.views.statistics.showRangeNumbers && n > 0) {
                     DomElement.addClass(r, "range-line-number");
                     DomElement.createWithHTML(r, "div", "count", n.toString());
                 }
-                if (Is.definedFunction(o.events.onStatisticClick)) {
+                if (Is.definedFunction(i.events.onStatisticClick)) {
                     r.onclick = () => {
-                        fireCustomTriggerEvent(o.events.onStatisticClick, s);
+                        fireCustomTriggerEvent(i.events.onStatisticClick, s);
                     };
                 } else {
                     DomElement.addClass(r, "no-hover");
                 }
-                if (Is.defined(s) && isColorRangeVisible(o, s.id)) {
+                if (Is.defined(s) && isColorRangeVisible(i, s.id)) {
                     if (Is.definedString(s.statisticsCssClassName)) {
                         DomElement.addClass(r, s.statisticsCssClassName);
                     } else {
@@ -1284,43 +1297,43 @@ var require_heat = __commonJS({
             }
             function getLargestValuesForEachRangeType(e, t) {
                 const n = getCurrentViewData(e);
-                const o = {
+                const i = {
                     types: {},
                     largestValue: 0
                 };
-                o.types["0"] = 0;
-                for (let i = 0; i < 12; i++) {
-                    const a = DateTime.getTotalDaysInMonth(e._currentView.year, i);
+                i.types["0"] = 0;
+                for (let o = 0; o < 12; o++) {
+                    const a = DateTime.getTotalDaysInMonth(e._currentView.year, o);
                     for (let r = 0; r < a; r++) {
-                        const a = toStorageDate(new Date(e._currentView.year, i, r + 1));
+                        const a = DateTime.toStorageDate(new Date(e._currentView.year, o, r + 1));
                         if (n.hasOwnProperty(a)) {
-                            const i = getStorageDate(a);
-                            const r = new Date(parseInt(i[2]), parseInt(i[1]), parseInt(i[0]));
+                            const o = DateTime.getStorageDate(a);
+                            const r = new Date(parseInt(o[2]), parseInt(o[1]), parseInt(o[0]));
                             const s = DateTime.getWeekdayNumber(r) + 1;
                             if (!isHoliday(e, r).matched && isMonthVisible(e.views.statistics.monthsToShow, r.getMonth()) && isDayVisible(e.views.statistics.daysToShow, s)) {
-                                const i = getColorRange(e, t, n[a]);
-                                if (!Is.defined(i)) {
-                                    o.types["0"]++;
+                                const o = getColorRange(e, t, n[a]);
+                                if (!Is.defined(o)) {
+                                    i.types["0"]++;
                                 } else {
-                                    if (!o.types.hasOwnProperty(i.minimum.toString())) {
-                                        o.types[i.minimum.toString()] = 0;
+                                    if (!i.types.hasOwnProperty(o.minimum.toString())) {
+                                        i.types[o.minimum.toString()] = 0;
                                     }
-                                    o.types[i.minimum]++;
-                                    o.largestValue = Math.max(o.largestValue, o.types[i.minimum]);
+                                    i.types[o.minimum]++;
+                                    i.largestValue = Math.max(i.largestValue, i.types[o.minimum]);
                                 }
                             }
                         }
                     }
                 }
-                return o;
+                return i;
             }
             function renderControlViewGuide(e) {
                 const t = DomElement.create(e._currentView.element, "div", "guide");
                 const n = DomElement.create(t, "div", "map-types");
-                let o = 0;
+                let i = 0;
                 for (let t in _elements_DateCounts[e._currentView.element.id].typeData[_configuration.unknownTrendText]) {
                     if (_elements_DateCounts[e._currentView.element.id].typeData[_configuration.unknownTrendText].hasOwnProperty(t)) {
-                        o++;
+                        i++;
                         break;
                     }
                 }
@@ -1330,8 +1343,8 @@ var require_heat = __commonJS({
                         renderDescription(e, n);
                     }
                     for (let t in _elements_DateCounts[e._currentView.element.id].typeData) {
-                        if (t !== _configuration.unknownTrendText || o > 0) {
-                            if (o === 0 && e._currentView.type === _configuration.unknownTrendText) {
+                        if (t !== _configuration.unknownTrendText || i > 0) {
+                            if (i === 0 && e._currentView.type === _configuration.unknownTrendText) {
                                 e._currentView.type = t;
                             }
                             renderControlViewGuideTypeButton(e, n, t);
@@ -1352,11 +1365,11 @@ var require_heat = __commonJS({
                             DomElement.addClass(t, "no-click");
                         }
                     }
-                    const o = DomElement.create(n, "div", "days");
-                    const i = getSortedColorRanges(e);
-                    const a = i.length;
+                    const i = DomElement.create(n, "div", "days");
+                    const o = getSortedColorRanges(e);
+                    const a = o.length;
                     for (let t = 0; t < a; t++) {
-                        renderControlViewGuideDay(e, o, i[t]);
+                        renderControlViewGuideDay(e, i, o[t]);
                     }
                     if (e.guide.showLessAndMoreLabels) {
                         const t = DomElement.createWithHTML(n, "div", "more-text", _configuration.moreText);
@@ -1371,11 +1384,11 @@ var require_heat = __commonJS({
                 }
             }
             function renderControlViewGuideTypeButton(e, t, n) {
-                const o = DomElement.createWithHTML(t, "button", "type", n);
+                const i = DomElement.createWithHTML(t, "button", "type", n);
                 if (e._currentView.type === n) {
-                    DomElement.addClass(o, "active");
+                    DomElement.addClass(i, "active");
                 }
-                o.onclick = () => {
+                i.onclick = () => {
                     if (e._currentView.type !== n) {
                         e._currentView.type = n;
                         fireCustomTriggerEvent(e.events.onTypeSwitch, n);
@@ -1384,30 +1397,30 @@ var require_heat = __commonJS({
                 };
             }
             function renderControlViewGuideDay(e, t, n) {
-                const o = DomElement.create(t, "div");
-                o.className = "day";
-                addToolTip(o, e, n.tooltipText);
+                const i = DomElement.create(t, "div");
+                i.className = "day";
+                addToolTip(i, e, n.tooltipText);
                 if (isColorRangeVisible(e, n.id)) {
                     if (e._currentView.view === 1 && Is.definedString(n.mapCssClassName)) {
-                        DomElement.addClass(o, n.mapCssClassName);
+                        DomElement.addClass(i, n.mapCssClassName);
                     } else if (e.views.chart.enabled && e._currentView.view === 2 && Is.definedString(n.chartCssClassName)) {
-                        DomElement.addClass(o, n.chartCssClassName);
+                        DomElement.addClass(i, n.chartCssClassName);
                     } else if (e.views.statistics.enabled && e._currentView.view === 4 && Is.definedString(n.statisticsCssClassName)) {
-                        DomElement.addClass(o, n.statisticsCssClassName);
+                        DomElement.addClass(i, n.statisticsCssClassName);
                     } else {
-                        DomElement.addClass(o, n.cssClassName);
+                        DomElement.addClass(i, n.cssClassName);
                     }
                 }
                 if (e.guide.showNumbersInGuide) {
-                    DomElement.addClass(o, "day-number");
-                    o.innerHTML = n.minimum + "+";
+                    DomElement.addClass(i, "day-number");
+                    i.innerHTML = n.minimum + "+";
                 }
                 if (e.guide.colorRangeTogglesEnabled) {
-                    o.onclick = () => {
+                    i.onclick = () => {
                         toggleColorRangeVisibleState(e, n.id);
                     };
                 } else {
-                    DomElement.addClass(o, "no-hover");
+                    DomElement.addClass(i, "no-hover");
                 }
             }
             function renderDescription(e, t) {
@@ -1421,18 +1434,18 @@ var require_heat = __commonJS({
                     }
                 }
             }
-            function renderDayToolTip(e, t, n, o) {
+            function renderDayToolTip(e, t, n, i) {
                 if (Is.definedFunction(e.events.onDayToolTipRender)) {
-                    addToolTip(t, e, fireCustomTriggerEvent(e.events.onDayToolTipRender, n, o));
+                    addToolTip(t, e, fireCustomTriggerEvent(e.events.onDayToolTipRender, n, i));
                 } else {
-                    let o = DateTime.getCustomFormattedDateText(_configuration, e.tooltip.dayText, n);
+                    let i = DateTime.getCustomFormattedDateText(_configuration, e.tooltip.dayText, n);
                     if (e.showHolidaysInDayToolTips) {
                         let t = isHoliday(e, n);
                         if (t.matched && Is.definedString(t.name)) {
-                            o += ":" + " " + t.name;
+                            i += ":" + " " + t.name;
                         }
                     }
-                    addToolTip(t, e, o);
+                    addToolTip(t, e, i);
                 }
             }
             function createDateStorageForElement(e, t, n = true) {
@@ -1461,7 +1474,7 @@ var require_heat = __commonJS({
                     let n = getCurrentViewData(e);
                     for (let e in n) {
                         if (n.hasOwnProperty(e)) {
-                            let n = parseInt(getStorageDateYear(e));
+                            let n = parseInt(DateTime.getStorageDateYear(e));
                             if (t.indexOf(n) === -1) {
                                 t.push(n);
                             }
@@ -1490,9 +1503,9 @@ var require_heat = __commonJS({
                         const t = window.localStorage.key(e);
                         if (Data.String.startsWithAnyCase(t, _local_Storage_Start_ID)) {
                             const e = window.localStorage.getItem(t);
-                            const o = getObjectFromString(e);
-                            if (o.parsed) {
-                                _elements_DateCounts[n].typeData = o.object;
+                            const i = getObjectFromString(e);
+                            if (i.parsed) {
+                                _elements_DateCounts[n].typeData = i.object;
                                 _elements_DateCounts[n].totalTypes = 0;
                                 for (let e in _elements_DateCounts[n].typeData) {
                                     if (_elements_DateCounts[n].typeData.hasOwnProperty(e)) {
@@ -1516,14 +1529,14 @@ var require_heat = __commonJS({
                 if (e.useLocalStorageForData && window.localStorage) {
                     const t = window.localStorage.length;
                     const n = [];
-                    const o = e._currentView.element.id;
+                    const i = e._currentView.element.id;
                     for (let e = 0; e < t; e++) {
-                        if (Data.String.startsWithAnyCase(window.localStorage.key(e), _local_Storage_Start_ID + o)) {
+                        if (Data.String.startsWithAnyCase(window.localStorage.key(e), _local_Storage_Start_ID + i)) {
                             n.push(window.localStorage.key(e));
                         }
                     }
-                    const i = n.length;
-                    for (let e = 0; e < i; e++) {
+                    const o = n.length;
+                    for (let e = 0; e < o; e++) {
                         window.localStorage.removeItem(n[e]);
                     }
                 }
@@ -1572,10 +1585,10 @@ var require_heat = __commonJS({
                 if (t === _internal_Name_Holiday) {
                     n = true;
                 } else {
-                    const o = e.colorRanges.length;
-                    for (let i = 0; i < o; i++) {
-                        const o = e.colorRanges[i];
-                        if (o.id === t && Data.getDefaultBoolean(o.visible, true)) {
+                    const i = e.colorRanges.length;
+                    for (let o = 0; o < i; o++) {
+                        const i = e.colorRanges[o];
+                        if (i.id === t && Data.getDefaultBoolean(i.visible, true)) {
                             n = true;
                             break;
                         }
@@ -1585,16 +1598,16 @@ var require_heat = __commonJS({
             }
             function updateColorRangeToggles(e, t) {
                 const n = e.colorRanges.length;
-                for (let o = 0; o < n; o++) {
-                    e.colorRanges[o].visible = t;
-                    fireCustomTriggerEvent(e.events.onColorRangeTypeToggle, e.colorRanges[o].id, t);
+                for (let i = 0; i < n; i++) {
+                    e.colorRanges[i].visible = t;
+                    fireCustomTriggerEvent(e.events.onColorRangeTypeToggle, e.colorRanges[i].id, t);
                 }
                 renderControlContainer(e);
             }
             function toggleColorRangeVisibleState(e, t) {
                 const n = e.colorRanges.length;
-                for (let o = 0; o < n; o++) {
-                    const n = e.colorRanges[o];
+                for (let i = 0; i < n; i++) {
+                    const n = e.colorRanges[i];
                     if (n.id === t) {
                         n.visible = !Data.getDefaultBoolean(n.visible, true);
                         fireCustomTriggerEvent(e.events.onColorRangeTypeToggle, n.id, n.visible);
@@ -1603,40 +1616,40 @@ var require_heat = __commonJS({
                     }
                 }
             }
-            function getColorRange(e, t, n, o = null) {
-                let i = null;
-                if (Is.defined(o) && isHoliday(e, o).matched) {
-                    i = {
+            function getColorRange(e, t, n, i = null) {
+                let o = null;
+                if (Is.defined(i) && isHoliday(e, i).matched) {
+                    o = {
                         cssClassName: "holiday",
                         id: _internal_Name_Holiday,
                         visible: true,
                         minimum: 0
                     };
                 }
-                if (!Is.defined(i)) {
+                if (!Is.defined(o)) {
                     const e = t.length;
-                    for (let o = 0; o < e; o++) {
-                        const e = t[o];
+                    for (let i = 0; i < e; i++) {
+                        const e = t[i];
                         if (n >= e.minimum) {
-                            i = e;
+                            o = e;
                         } else {
                             break;
                         }
                     }
                 }
-                return i;
+                return o;
             }
             function getColorRangeByMinimum(e, t) {
                 const n = e.length;
-                let o = null;
-                for (let i = 0; i < n; i++) {
-                    const n = e[i];
+                let i = null;
+                for (let o = 0; o < n; o++) {
+                    const n = e[o];
                     if (t.toString() === n.minimum.toString()) {
-                        o = n;
+                        i = n;
                         break;
                     }
                 }
-                return o;
+                return i;
             }
             function getSortedColorRanges(e) {
                 return e.colorRanges.sort((function(e, t) {
@@ -1648,21 +1661,21 @@ var require_heat = __commonJS({
                     matched: false,
                     name: null
                 };
-                const o = e.holidays.length;
-                const i = t.getDate();
+                const i = e.holidays.length;
+                const o = t.getDate();
                 const a = t.getMonth() + 1;
                 const r = t.getFullYear();
-                for (let t = 0; t < o; t++) {
-                    let o = e.holidays[t];
-                    if (Is.definedString(o.date) && o.showInViews) {
-                        const e = o.date.split("/");
+                for (let t = 0; t < i; t++) {
+                    let i = e.holidays[t];
+                    if (Is.definedString(i.date) && i.showInViews) {
+                        const e = i.date.split("/");
                         if (e.length === 2) {
-                            n.matched = i === parseInt(e[0]) && a === parseInt(e[1]);
+                            n.matched = o === parseInt(e[0]) && a === parseInt(e[1]);
                         } else if (e.length === 3) {
-                            n.matched = i === parseInt(e[0]) && a === parseInt(e[1]) && r === parseInt(e[2]);
+                            n.matched = o === parseInt(e[0]) && a === parseInt(e[1]) && r === parseInt(e[2]);
                         }
                         if (n.matched) {
-                            n.name = o.name;
+                            n.name = i.name;
                             break;
                         }
                     }
@@ -1694,101 +1707,101 @@ var require_heat = __commonJS({
             }
             function importFromFiles(e, t) {
                 const n = e.length;
-                const o = [];
-                const i = getCurrentViewData(t);
+                const i = [];
+                const o = getCurrentViewData(t);
                 const a = (e, a) => {
-                    o.push(e);
+                    i.push(e);
                     for (let e in a) {
                         if (a.hasOwnProperty(e)) {
-                            if (!i.hasOwnProperty(e)) {
-                                i[e] = 0;
+                            if (!o.hasOwnProperty(e)) {
+                                o[e] = 0;
                             }
-                            i[e] += a[e];
+                            o[e] += a[e];
                         }
                     }
-                    if (o.length === n) {
+                    if (i.length === n) {
                         fireCustomTriggerEvent(t.events.onImport, t._currentView.element);
                         renderControlContainer(t);
                     }
                 };
                 for (let t = 0; t < n; t++) {
                     const n = e[t];
-                    const o = n.name.split(".").pop().toLowerCase();
-                    if (o === "json") {
+                    const i = n.name.split(".").pop().toLowerCase();
+                    if (i === "json") {
                         importFromJson(n, a);
-                    } else if (o === "txt") {
+                    } else if (i === "txt") {
                         importFromTxt(n, a);
-                    } else if (o === "csv") {
+                    } else if (i === "csv") {
                         importFromCsv(n, a);
                     }
                 }
             }
             function importFromJson(e, t) {
                 const n = new FileReader;
-                let o = {};
+                let i = {};
                 n.readAsText(e);
                 n.onloadend = () => {
-                    t(e.name, o);
+                    t(e.name, i);
                 };
                 n.onload = e => {
                     const t = getObjectFromString(e.target.result);
                     if (t.parsed && Is.definedObject(t.object)) {
-                        o = t.object;
+                        i = t.object;
                     }
                 };
             }
             function importFromTxt(e, t) {
                 const n = new FileReader;
-                const o = {};
+                const i = {};
                 n.readAsText(e);
                 n.onloadend = () => {
-                    t(e.name, o);
+                    t(e.name, i);
                 };
                 n.onload = e => {
                     const t = e.target.result.toString().split("\n");
                     const n = t.length;
                     for (let e = 0; e < n; e++) {
                         const n = t[e].split(":");
-                        o[n[0].trim()] = parseInt(n[1].trim());
+                        i[n[0].trim()] = parseInt(n[1].trim());
                     }
                 };
             }
             function importFromCsv(e, t) {
                 const n = new FileReader;
-                const o = {};
+                const i = {};
                 n.readAsText(e);
                 n.onloadend = () => {
-                    t(e.name, o);
+                    t(e.name, i);
                 };
                 n.onload = e => {
                     const t = e.target.result.toString().replace(new RegExp('"', "g"), "");
                     const n = t.split("\n");
                     n.shift();
-                    let i = n.length;
-                    for (let e = 0; e < i; e++) {
+                    let o = n.length;
+                    for (let e = 0; e < o; e++) {
                         let t = n[e].split(",");
-                        o[t[0].trim()] = parseInt(t[1].trim());
+                        i[t[0].trim()] = parseInt(t[1].trim());
                     }
                 };
             }
             function exportAllData(e, t = null) {
                 let n = null;
-                const o = getExportMimeType(e);
-                const i = Data.getDefaultString(t, e.exportType).toLowerCase();
-                if (i === "csv") {
+                const i = getExportMimeType(e);
+                const o = Data.getDefaultString(t, e.exportType).toLowerCase();
+                if (o === "csv") {
                     n = getCsvContent(e);
-                } else if (i === "json") {
+                } else if (o === "json") {
                     n = getJsonContent(e);
-                } else if (i === "xml") {
+                } else if (o === "xml") {
                     n = getXmlContents(e);
-                } else if (i === "txt") {
+                } else if (o === "txt") {
                     n = getTxtContents(e);
                 }
                 if (Is.definedString(n)) {
                     const t = DomElement.create(document.body, "a");
                     t.style.display = "none";
                     t.setAttribute("target", "_blank");
-                    t.setAttribute("href", "data:" + o + ";charset=utf-8," + encodeURIComponent(n));
+                    t.setAttribute("href", "data:" + i + ";charset=utf-8," + encodeURIComponent(n));
                     t.setAttribute("download", getExportFilename(e));
                     t.click();
                     document.body.removeChild(t);
@@ -1841,12 +1854,12 @@ var require_heat = __commonJS({
                 const t = {};
                 const n = getCurrentViewData(e);
                 if (e.exportOnlyYearBeingViewed) {
-                    for (let o = 0; o < 12; o++) {
-                        const i = DateTime.getTotalDaysInMonth(e._currentView.year, o);
-                        for (let a = 0; a < i; a++) {
-                            const i = toStorageDate(new Date(e._currentView.year, o, a + 1));
-                            if (n.hasOwnProperty(i)) {
-                                t[i] = n[i];
+                    for (let i = 0; i < 12; i++) {
+                        const o = DateTime.getTotalDaysInMonth(e._currentView.year, i);
+                        for (let a = 0; a < o; a++) {
+                            const o = DateTime.toStorageDate(new Date(e._currentView.year, i, a + 1));
+                            if (n.hasOwnProperty(o)) {
+                                t[o] = n[o];
                             }
                         }
                     }
@@ -1858,11 +1871,11 @@ var require_heat = __commonJS({
                         }
                     }
                     e.sort();
-                    const o = e.length;
-                    for (let i = 0; i < o; i++) {
-                        const o = e[i];
-                        if (n.hasOwnProperty(o)) {
-                            t[o] = n[o];
+                    const i = e.length;
+                    for (let o = 0; o < i; o++) {
+                        const i = e[o];
+                        if (n.hasOwnProperty(i)) {
+                            t[i] = n[i];
                         }
                     }
                 }
@@ -1884,12 +1897,12 @@ var require_heat = __commonJS({
             function getExportFilename(e) {
                 const t = new Date;
                 const n = Data.String.padNumber(t.getDate()) + "-" + Data.String.padNumber(t.getMonth() + 1) + "-" + t.getFullYear();
-                const o = Data.String.padNumber(t.getHours()) + "-" + Data.String.padNumber(t.getMinutes());
-                let i = "";
+                const i = Data.String.padNumber(t.getHours()) + "-" + Data.String.padNumber(t.getMinutes());
+                let o = "";
                 if (e._currentView.type !== _configuration.unknownTrendText) {
-                    i = e._currentView.type.toLowerCase().replace(" ", "_") + "_";
+                    o = e._currentView.type.toLowerCase().replace(" ", "_") + "_";
                 }
-                return i + n + "_" + o + "." + e.exportType.toLowerCase();
+                return o + n + "_" + i + "." + e.exportType.toLowerCase();
             }
             function getCsvValue(e) {
                 let t = e.toString().replace(/(\r\n|\n|\r)/gm, "").replace(/(\s\s)/gm, " ");
@@ -2152,28 +2165,19 @@ var require_heat = __commonJS({
                 }
                 return result;
             }
-            function toStorageDate(e) {
-                return e.getFullYear() + "-" + Data.String.padNumber(e.getMonth() + 1) + "-" + Data.String.padNumber(e.getDate());
-            }
-            function getStorageDate(e) {
-                return e.split("-");
-            }
-            function getStorageDateYear(e) {
-                return e.split("-")[0];
-            }
             function moveToPreviousYear(e, t = true) {
                 let n = true;
-                let o = e._currentView.year;
-                o--;
-                while (!isYearVisible(e, o)) {
-                    if (isFirstVisibleYear(e, o)) {
+                let i = e._currentView.year;
+                i--;
+                while (!isYearVisible(e, i)) {
+                    if (isFirstVisibleYear(e, i)) {
                         n = false;
                         break;
                     }
-                    o--;
+                    i--;
                 }
                 if (n) {
-                    e._currentView.year = o;
+                    e._currentView.year = i;
                     renderControlContainer(e);
                     if (t) {
                         fireCustomTriggerEvent(e.events.onBackYear, e._currentView.year);
@@ -2182,17 +2186,17 @@ var require_heat = __commonJS({
             }
             function moveToNextYear(e, t = true) {
                 let n = true;
-                let o = e._currentView.year;
-                o++;
-                while (!isYearVisible(e, o)) {
-                    if (isLastVisibleYear(e, o)) {
+                let i = e._currentView.year;
+                i++;
+                while (!isYearVisible(e, i)) {
+                    if (isLastVisibleYear(e, i)) {
                         n = false;
                         break;
                     }
-                    o++;
+                    i++;
                 }
                 if (n) {
-                    e._currentView.year = o;
+                    e._currentView.year = i;
                     renderControlContainer(e);
                     if (t) {
                         fireCustomTriggerEvent(e.events.onBackYear, e._currentView.year);
@@ -2260,28 +2264,28 @@ var require_heat = __commonJS({
                 }
             }
             const _public = {
-                addDates: function(e, t, n = null, o = true) {
+                addDates: function(e, t, n = null, i = true) {
                     if (Is.definedString(e) && Is.definedArray(t) && _elements_DateCounts.hasOwnProperty(e)) {
-                        const i = _elements_DateCounts[e].options;
-                        if (!i._currentView.isInFetchMode) {
+                        const o = _elements_DateCounts[e].options;
+                        if (!o._currentView.isInFetchMode) {
                             n = Data.getDefaultString(n, _configuration.unknownTrendText);
                             const a = t.length;
-                            for (let o = 0; o < a; o++) {
-                                _public.addDate(e, t[o], n, false);
+                            for (let i = 0; i < a; i++) {
+                                _public.addDate(e, t[i], n, false);
                             }
-                            if (o) {
-                                renderControlContainer(i, true);
+                            if (i) {
+                                renderControlContainer(o, true);
                             }
                         }
                     }
                     return _public;
                 },
-                addDate: function(e, t, n = null, o = true) {
+                addDate: function(e, t, n = null, i = true) {
                     if (Is.definedString(e) && Is.definedDate(t) && _elements_DateCounts.hasOwnProperty(e)) {
-                        const i = _elements_DateCounts[e].options;
-                        if (!i._currentView.isInFetchMode) {
+                        const o = _elements_DateCounts[e].options;
+                        if (!o._currentView.isInFetchMode) {
                             n = Data.getDefaultString(n, _configuration.unknownTrendText);
-                            const a = toStorageDate(t);
+                            const a = DateTime.toStorageDate(t);
                             if (!_elements_DateCounts[e].typeData.hasOwnProperty(n)) {
                                 _elements_DateCounts[e].typeData[n] = {};
                                 _elements_DateCounts[e].totalTypes++;
@@ -2290,24 +2294,24 @@ var require_heat = __commonJS({
                                 _elements_DateCounts[e].typeData[n][a] = 0;
                             }
                             _elements_DateCounts[e].typeData[n][a]++;
-                            fireCustomTriggerEvent(i.events.onAdd, i._currentView.element);
-                            if (o) {
-                                renderControlContainer(i, true);
+                            fireCustomTriggerEvent(o.events.onAdd, o._currentView.element);
+                            if (i) {
+                                renderControlContainer(o, true);
                             }
                         }
                     }
                     return _public;
                 },
-                updateDate: function(e, t, n, o = null, i = true) {
+                updateDate: function(e, t, n, i = null, o = true) {
                     if (Is.definedString(e) && Is.definedDate(t) && _elements_DateCounts.hasOwnProperty(e)) {
                         const a = _elements_DateCounts[e].options;
                         if (!a._currentView.isInFetchMode && n > 0) {
-                            const r = toStorageDate(t);
-                            if (_elements_DateCounts[e].typeData.hasOwnProperty(o)) {
-                                o = Data.getDefaultString(o, _configuration.unknownTrendText);
-                                _elements_DateCounts[e].typeData[o][r] = n;
+                            const r = DateTime.toStorageDate(t);
+                            if (_elements_DateCounts[e].typeData.hasOwnProperty(i)) {
+                                i = Data.getDefaultString(i, _configuration.unknownTrendText);
+                                _elements_DateCounts[e].typeData[i][r] = n;
                                 fireCustomTriggerEvent(a.events.onUpdate, a._currentView.element);
-                                if (i) {
+                                if (o) {
                                     renderControlContainer(a, true);
                                 }
                             }
@@ -2315,52 +2319,52 @@ var require_heat = __commonJS({
                     }
                     return _public;
                 },
-                removeDates: function(e, t, n = null, o = true) {
+                removeDates: function(e, t, n = null, i = true) {
                     if (Is.definedString(e) && Is.definedArray(t) && _elements_DateCounts.hasOwnProperty(e)) {
-                        const i = _elements_DateCounts[e].options;
-                        if (!i._currentView.isInFetchMode) {
+                        const o = _elements_DateCounts[e].options;
+                        if (!o._currentView.isInFetchMode) {
                             n = Data.getDefaultString(n, _configuration.unknownTrendText);
                             const a = t.length;
-                            for (let o = 0; o < a; o++) {
-                                _public.removeDate(e, t[o], n, false);
+                            for (let i = 0; i < a; i++) {
+                                _public.removeDate(e, t[i], n, false);
                             }
-                            if (o) {
-                                renderControlContainer(i, true);
+                            if (i) {
+                                renderControlContainer(o, true);
                             }
                         }
                     }
                     return _public;
                 },
-                removeDate: function(e, t, n = null, o = true) {
+                removeDate: function(e, t, n = null, i = true) {
                     if (Is.definedString(e) && Is.definedDate(t) && _elements_DateCounts.hasOwnProperty(e)) {
-                        const i = _elements_DateCounts[e].options;
-                        if (!i._currentView.isInFetchMode) {
-                            const a = toStorageDate(t);
+                        const o = _elements_DateCounts[e].options;
+                        if (!o._currentView.isInFetchMode) {
+                            const a = DateTime.toStorageDate(t);
                             if (_elements_DateCounts[e].typeData.hasOwnProperty(n) && _elements_DateCounts[e].typeData[n].hasOwnProperty(a)) {
                                 n = Data.getDefaultString(n, _configuration.unknownTrendText);
                                 if (_elements_DateCounts[e].typeData[n][a] > 0) {
                                     _elements_DateCounts[e].typeData[n][a]--;
                                 }
-                                fireCustomTriggerEvent(i.events.onRemove, i._currentView.element);
-                                if (o) {
-                                    renderControlContainer(i, true);
+                                fireCustomTriggerEvent(o.events.onRemove, o._currentView.element);
+                                if (i) {
+                                    renderControlContainer(o, true);
                                 }
                             }
                         }
                     }
                     return _public;
                 },
-                clearDate: function(e, t, n = null, o = true) {
+                clearDate: function(e, t, n = null, i = true) {
                     if (Is.definedString(e) && Is.definedDate(t) && _elements_DateCounts.hasOwnProperty(e)) {
-                        const i = _elements_DateCounts[e].options;
-                        if (!i._currentView.isInFetchMode) {
-                            const a = toStorageDate(t);
+                        const o = _elements_DateCounts[e].options;
+                        if (!o._currentView.isInFetchMode) {
+                            const a = DateTime.toStorageDate(t);
                             if (_elements_DateCounts[e].typeData.hasOwnProperty(n) && _elements_DateCounts[e].typeData[n].hasOwnProperty(a)) {
                                 n = Data.getDefaultString(n, _configuration.unknownTrendText);
                                 delete _elements_DateCounts[e].typeData[n][a];
-                                fireCustomTriggerEvent(i.events.onClear, i._currentView.element);
-                                if (o) {
-                                    renderControlContainer(i, true);
+                                fireCustomTriggerEvent(o.events.onClear, o._currentView.element);
+                                if (i) {
+                                    renderControlContainer(o, true);
                                 }
                             }
                         }
@@ -2436,14 +2440,14 @@ var require_heat = __commonJS({
                     if (Is.definedString(e) && _elements_DateCounts.hasOwnProperty(e)) {
                         const t = _elements_DateCounts[e].options;
                         const n = getCurrentViewData(t);
-                        let o = 0;
+                        let i = 0;
                         for (let e in n) {
                             if (n.hasOwnProperty(e)) {
-                                o = Math.max(o, parseInt(getStorageDateYear(e)));
+                                i = Math.max(i, parseInt(DateTime.getStorageDateYear(e)));
                             }
                         }
-                        if (o > 0) {
-                            t._currentView.year = o;
+                        if (i > 0) {
+                            t._currentView.year = i;
                             if (!isYearVisible(t, t._currentView.year)) {
                                 moveToNextYear(t, false);
                             } else {
@@ -2458,14 +2462,14 @@ var require_heat = __commonJS({
                     if (Is.definedString(e) && _elements_DateCounts.hasOwnProperty(e)) {
                         const t = _elements_DateCounts[e].options;
                         const n = getCurrentViewData(t);
-                        let o = 9999;
+                        let i = 9999;
                         for (let e in n) {
                             if (n.hasOwnProperty(e)) {
-                                o = Math.min(o, parseInt(getStorageDateYear(e)));
+                                i = Math.min(i, parseInt(DateTime.getStorageDateYear(e)));
                             }
                         }
-                        if (o < 9999) {
-                            t._currentView.year = o;
+                        if (i < 9999) {
+                            t._currentView.year = i;
                             if (!isYearVisible(t, t._currentView.year)) {
                                 moveToPreviousYear(t, false);
                             } else {
@@ -2522,20 +2526,20 @@ var require_heat = __commonJS({
                 switchView: function(e, t) {
                     if (Is.definedString(e) && Is.definedString(t) && _elements_DateCounts.hasOwnProperty(e)) {
                         const n = _elements_DateCounts[e].options;
-                        let o;
+                        let i;
                         if (t.toLowerCase() === "map") {
-                            o = 1;
+                            i = 1;
                         } else if (t.toLowerCase() === "chart") {
-                            o = 2;
+                            i = 2;
                         } else if (t.toLowerCase() === "days") {
-                            o = 3;
+                            i = 3;
                         } else if (t.toLowerCase() === "statistics") {
-                            o = 4;
+                            i = 4;
                         } else {
-                            o = 1;
+                            i = 1;
                         }
-                        if (Is.definedNumber(o)) {
-                            n._currentView.view = o;
+                        if (Is.definedNumber(i)) {
+                            n._currentView.view = i;
                             fireCustomTriggerEvent(n.events.onViewSwitch, t);
                             renderControlContainer(n, false, true);
                         }
@@ -2556,15 +2560,15 @@ var require_heat = __commonJS({
                 updateOptions: function(e, t) {
                     if (Is.definedString(e) && Is.definedObject(t) && _elements_DateCounts.hasOwnProperty(e)) {
                         const n = _elements_DateCounts[e].options;
-                        const o = buildAttributeOptions(t);
-                        let i = false;
-                        for (let e in o) {
-                            if (o.hasOwnProperty(e) && n.hasOwnProperty(e) && n[e] !== o[e]) {
-                                n[e] = o[e];
-                                i = true;
+                        const i = buildAttributeOptions(t);
+                        let o = false;
+                        for (let e in i) {
+                            if (i.hasOwnProperty(e) && n.hasOwnProperty(e) && n[e] !== i[e]) {
+                                n[e] = i[e];
+                                o = true;
                             }
                         }
-                        if (i) {
+                        if (o) {
                             renderControlContainer(n, true);
                             fireCustomTriggerEvent(n.events.onRefresh, n._currentView.element);
                             fireCustomTriggerEvent(n.events.onOptionsUpdate, n._currentView.element, n);
@@ -2591,15 +2595,15 @@ var require_heat = __commonJS({
                 setConfiguration: function(e, t = true) {
                     if (Is.definedObject(e)) {
                         let n = false;
-                        const o = _configuration;
+                        const i = _configuration;
                         for (let t in e) {
-                            if (e.hasOwnProperty(t) && _configuration.hasOwnProperty(t) && o[t] !== e[t]) {
-                                o[t] = e[t];
+                            if (e.hasOwnProperty(t) && _configuration.hasOwnProperty(t) && i[t] !== e[t]) {
+                                i[t] = e[t];
                                 n = true;
                             }
                         }
                         if (n) {
-                            buildDefaultConfiguration(o);
+                            buildDefaultConfiguration(i);
                             if (t) {
                                 _public.refreshAll();
                             }

@@ -12,6 +12,7 @@
 
 
 import { Data } from "./data";
+import { Char } from "./enum";
 import { Configuration } from "./type";
 
 
@@ -58,5 +59,17 @@ export namespace DateTime {
         result = result.replace( "{y}", parseInt( date.getFullYear().toString().substring( 2 ) ).toString() );
 
         return result;
+    }
+
+    export function toStorageDate( date: Date ) : string {
+        return date.getFullYear() + Char.dash + Data.String.padNumber( date.getMonth() + 1 ) + Char.dash + Data.String.padNumber( date.getDate() );
+    }
+
+    export function getStorageDate( data: string ) : string[] {
+        return data.split( Char.dash );
+    }
+
+    export function getStorageDateYear( data: string ) : string {
+        return data.split( Char.dash )[ 0 ];
     }
 }
