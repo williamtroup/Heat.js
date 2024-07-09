@@ -2625,7 +2625,7 @@ var require_heat = __commonJS({
                     return e;
                 },
                 getVersion: function() {
-                    return "4.0.4";
+                    return "4.0.5";
                 }
             };
             (() => {
