@@ -64,13 +64,11 @@ export namespace DomElement {
     }
 
     export function addClass( element: HTMLElement, className: string ) {
-        element.className += Char.space + className;
-        element.className = element.className.trim();
+        element.classList.add( className );
     }
 
     export function removeClass( element: HTMLElement, className: string ) {
-        element.className = element.className.replace( className, Char.empty );
-        element.className = element.className.trim();
+        element.classList.remove( className );
     }
 
     export function cancelBubble( e: Event ) {

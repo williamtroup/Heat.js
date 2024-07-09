@@ -160,13 +160,11 @@ var DomElement;
     }
     e.getStyleValueByName = i;
     function a(e, t) {
-        e.className += " " + t;
-        e.className = e.className.trim();
+        e.classList.add(t);
     }
     e.addClass = a;
     function r(e, t) {
-        e.className = e.className.replace(t, "");
-        e.className = e.className.trim();
+        e.classList.remove(t);
     }
     e.removeClass = r;
     function s(e) {
