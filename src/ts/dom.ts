@@ -114,8 +114,8 @@ export namespace DomElement {
             top = e.pageY + 1;
         }
         
-        element.style.left = left + "px";
-        element.style.top = top + "px";
+        element.style.left = `${left}px`;
+        element.style.top = `${top}px`;
     }
 
     export function reverseChildrenOrder( parent: HTMLElement ) {

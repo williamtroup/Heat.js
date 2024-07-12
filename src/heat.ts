@@ -837,18 +837,18 @@ type LargestValuesForEachRangeType = {
     
                         if ( Is.defined( monthName ) ) {
                             if ( bindingOptions.views!.map!.showMonthDayGaps ) {
-                                monthName.style.width = monthWidth + "px";
+                                monthName.style.width = `${monthWidth}px`;
                             } else {
-                                monthName.style.width = ( monthWidth - _elements_Day_Width ) + "px";
+                                monthName.style.width = `${monthWidth - _elements_Day_Width}px`;
                             }
                         }
                     }
     
                     if ( monthAdded && Is.defined( _elements_Day_Width ) ) {
                         if ( firstDayNumberInMonth > 0 && !bindingOptions.views!.map!.showMonthDayGaps ) {
-                            month.style.marginLeft = -_elements_Day_Width + "px";
+                            month.style.marginLeft = `${-_elements_Day_Width}px`;
                         } else if ( firstDayNumberInMonth === 0 && bindingOptions.views!.map!.showMonthDayGaps ) {
-                            month.style.marginLeft = _elements_Day_Width + "px";
+                            month.style.marginLeft = `${_elements_Day_Width}px`;
                         }
                     }
 
@@ -957,7 +957,7 @@ type LargestValuesForEachRangeType = {
             DomElement.createWithHTML( labels, "div", "label-75", Math.floor( largestValueForCurrentYear / 4 ).toString() );
             DomElement.createWithHTML( labels, "div", "label-100", Char.zero );
 
-            labels.style.width = topLabel.offsetWidth + "px";
+            labels.style.width = `${topLabel.offsetWidth}px`;
             labelsWidth = labels.offsetWidth + DomElement.getStyleValueByName( labels, "margin-right", true );
 
         } else {
@@ -966,7 +966,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( largestValueForCurrentYear === 0 ) {
-            bindingOptions._currentView.chartContents.style.minHeight = bindingOptions._currentView.mapContents.offsetHeight + "px";
+            bindingOptions._currentView.chartContents.style.minHeight = `${bindingOptions._currentView.mapContents.offsetHeight}px`;
             chart.parentNode!.removeChild( chart );
 
             const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage! );
@@ -1014,7 +1014,7 @@ type LargestValuesForEachRangeType = {
                 const addMonthName: Function = ( addMonthNameIndex: number ) => {
                     if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, addMonthNameIndex ) ) {
                         let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", _configuration.monthNames![ addMonthNameIndex ] );
-                        monthName.style.left = labelsWidth + ( linesWidth * monthTimesValue ) + "px";
+                        monthName.style.left = `${labelsWidth + (linesWidth * monthTimesValue)}px`;
 
                         monthTimesValue++;
                     }
@@ -1030,11 +1030,11 @@ type LargestValuesForEachRangeType = {
                     }
                 }
 
-                chartMonths.style.width = dayLines.offsetWidth + "px";
+                chartMonths.style.width = `${dayLines.offsetWidth}px`;
 
                 const monthNameSpace: HTMLElement = DomElement.create( chartMonths, "div", "month-name-space" );
-                monthNameSpace.style.height = chartMonths.offsetHeight + "px";
-                monthNameSpace.style.width = labelsWidth + "px";
+                monthNameSpace.style.height = `${chartMonths.offsetHeight}px`;
+                monthNameSpace.style.width = `${labelsWidth}px`;
             }
     
             if ( bindingOptions.views!.chart!.keepScrollPositions ) {
@@ -1059,7 +1059,7 @@ type LargestValuesForEachRangeType = {
         }
 
         const dayLineHeight: number = dateCount * pixelsPerNumbers;
-        dayLine.style.height = dayLineHeight + "px";
+        dayLine.style.height = `${dayLineHeight}px`;
 
         if ( dayLineHeight <= 0 ) {
             dayLine.style.visibility = "hidden";
@@ -1138,8 +1138,8 @@ type LargestValuesForEachRangeType = {
             DomElement.createWithHTML( labels, "div", "label-75", Math.floor( dayValuesForCurrentYear.largestValue / 4 ).toString() );
             DomElement.createWithHTML( labels, "div", "label-100", Char.zero );
 
-            labels.style.width = topLabel.offsetWidth + "px";
-            dayNames.style.paddingLeft = labels.offsetWidth + DomElement.getStyleValueByName( labels, "margin-right", true ) + "px";
+            labels.style.width = `${topLabel.offsetWidth}px`;
+            dayNames.style.paddingLeft = `${labels.offsetWidth + DomElement.getStyleValueByName(labels, "margin-right", true)}px`;
 
         } else {
             labels.parentNode!.removeChild( labels );
@@ -1147,7 +1147,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( dayValuesForCurrentYear.largestValue === 0 ) {
-            bindingOptions._currentView.daysContents.style.minHeight = bindingOptions._currentView.mapContents.offsetHeight + "px";
+            bindingOptions._currentView.daysContents.style.minHeight = `${bindingOptions._currentView.mapContents.offsetHeight}px`;
             days.parentNode!.removeChild( days );
             dayNames.parentNode!.removeChild( dayNames );
 
@@ -1185,7 +1185,7 @@ type LargestValuesForEachRangeType = {
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
 
-        dayLine.style.height = dayLineHeight + "px";
+        dayLine.style.height = `${dayLineHeight}px`;
 
         if ( dayLineHeight <= 0 ) {
             dayLine.style.visibility = "hidden";
@@ -1281,8 +1281,8 @@ type LargestValuesForEachRangeType = {
             DomElement.createWithHTML( labels, "div", "label-75", Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ).toString() );
             DomElement.createWithHTML( labels, "div", "label-100", Char.zero );
 
-            labels.style.width = topLabel.offsetWidth + "px";
-            statisticsRanges.style.paddingLeft = labels.offsetWidth + DomElement.getStyleValueByName( labels, "margin-right", true ) + "px";
+            labels.style.width = `${topLabel.offsetWidth}px`;
+            statisticsRanges.style.paddingLeft = `${labels.offsetWidth + DomElement.getStyleValueByName(labels, "margin-right", true)}px`;
 
         } else {
             labels.parentNode!.removeChild( labels );
@@ -1290,7 +1290,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( colorRangeValuesForCurrentYear.largestValue === 0 ) {
-            bindingOptions._currentView.statisticsContents.style.minHeight = bindingOptions._currentView.mapContents.offsetHeight + "px";
+            bindingOptions._currentView.statisticsContents.style.minHeight = `${bindingOptions._currentView.mapContents.offsetHeight}px`;
             statistics.parentNode!.removeChild( statistics );
             statisticsRanges.parentNode!.removeChild( statisticsRanges );
 
@@ -1339,7 +1339,7 @@ type LargestValuesForEachRangeType = {
         const useColorRange: ColorRange = getColorRangeByMinimum( colorRanges, colorRangeMinimum );
         const rangeLineHeight: number = rangeCount * pixelsPerNumbers;
 
-        rangeLine.style.height = rangeLineHeight + "px";
+        rangeLine.style.height = `${rangeLineHeight}px`;
 
         if ( rangeLineHeight <= 0 ) {
             rangeLine.style.visibility = "hidden";
@@ -2088,7 +2088,7 @@ type LargestValuesForEachRangeType = {
             const tempLink: HTMLElement = DomElement.create( document.body, "a" );
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
-            tempLink.setAttribute( "href", "data:" + contentsMimeType + ";charset=utf-8," + encodeURIComponent( contents ) );
+            tempLink.setAttribute( "href", `data:${contentsMimeType};charset=utf-8,${encodeURIComponent(contents)}` );
             tempLink.setAttribute( "download", getExportFilename( bindingOptions ) );
             tempLink.click();
             
@@ -2129,8 +2129,8 @@ type LargestValuesForEachRangeType = {
         for ( let storageDate in data ) {
             if ( data.hasOwnProperty( storageDate ) ) {
                 contents.push( "<Date>" );
-                contents.push( "<FullDate>" + storageDate + "</FullDate>" );
-                contents.push( "<Count>" + data[ storageDate ].toString() + "</Count>" );
+                contents.push( `<FullDate>${storageDate}</FullDate>` );
+                contents.push( `<Count>${data[storageDate].toString()}</Count>` );
                 contents.push( "</Date>" );
             }
         }
@@ -2221,7 +2221,7 @@ type LargestValuesForEachRangeType = {
             filenameStart = bindingOptions._currentView.type.toLowerCase().replace( Char.space, Char.underscore ) + Char.underscore;
         }
 
-        return filenameStart + datePart + Char.underscore + timePart + "." + bindingOptions.exportType!.toLowerCase();
+        return `${filenameStart + datePart + Char.underscore + timePart}.${bindingOptions.exportType!.toLowerCase()}`;
     }
 
     function getCsvValue( text: string ) : string {
@@ -2544,7 +2544,7 @@ type LargestValuesForEachRangeType = {
 
         } catch ( e1: any ) {
             try {
-                result.object = eval( "(" + objectString + ")" );
+                result.object = eval( `(${objectString})` );
 
                 if ( Is.definedFunction( result.object ) ) {
                     result.object = result.object();
