@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        dom.ts
- * @version     v4.0.4
+ * @version     v4.0.5
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -64,13 +64,11 @@ export namespace DomElement {
     }
 
     export function addClass( element: HTMLElement, className: string ) {
-        element.className += Char.space + className;
-        element.className = element.className.trim();
+        element.classList.add( className );
     }
 
     export function removeClass( element: HTMLElement, className: string ) {
-        element.className = element.className.replace( className, Char.empty );
-        element.className = element.className.trim();
+        element.classList.remove( className );
     }
 
     export function cancelBubble( e: Event ) {
@@ -116,8 +114,8 @@ export namespace DomElement {
             top = e.pageY + 1;
         }
         
-        element.style.left = left + "px";
-        element.style.top = top + "px";
+        element.style.left = `${left}px`;
+        element.style.top = `${top}px`;
     }
 
     export function reverseChildrenOrder( parent: HTMLElement ) {

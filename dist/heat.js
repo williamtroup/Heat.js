@@ -160,13 +160,11 @@ var DomElement;
     }
     e.getStyleValueByName = i;
     function a(e, t) {
-        e.className += " " + t;
-        e.className = e.className.trim();
+        e.classList.add(t);
     }
     e.addClass = a;
     function r(e, t) {
-        e.className = e.className.replace(t, "");
-        e.className = e.className.trim();
+        e.classList.remove(t);
     }
     e.removeClass = r;
     function s(e) {
@@ -204,8 +202,8 @@ var DomElement;
         if (o < i.top) {
             o = e.pageY + 1;
         }
-        t.style.left = n + "px";
-        t.style.top = o + "px";
+        t.style.left = `${n}px`;
+        t.style.top = `${o}px`;
     }
     e.showElementAtMousePosition = u;
     function c(e) {
@@ -844,17 +842,17 @@ var DateTime;
                         }
                         if (Is.defined(o)) {
                             if (e.views.map.showMonthDayGaps) {
-                                o.style.width = i + "px";
+                                o.style.width = `${i}px`;
                             } else {
-                                o.style.width = i - _elements_Day_Width + "px";
+                                o.style.width = `${i - _elements_Day_Width}px`;
                             }
                         }
                     }
                     if (i && Is.defined(_elements_Day_Width)) {
                         if (f > 0 && !e.views.map.showMonthDayGaps) {
-                            n.style.marginLeft = -_elements_Day_Width + "px";
+                            n.style.marginLeft = `${-_elements_Day_Width}px`;
                         } else if (f === 0 && e.views.map.showMonthDayGaps) {
-                            n.style.marginLeft = _elements_Day_Width + "px";
+                            n.style.marginLeft = `${_elements_Day_Width}px`;
                         }
                     }
                     if (e.views.map.showMonthsInReverseOrder) {
@@ -933,14 +931,14 @@ var DateTime;
             DomElement.createWithHTML(o, "div", "label-50", Math.floor(r / 2).toString());
             DomElement.createWithHTML(o, "div", "label-75", Math.floor(r / 4).toString());
             DomElement.createWithHTML(o, "div", "label-100", "0");
-            o.style.width = e.offsetWidth + "px";
+            o.style.width = `${e.offsetWidth}px`;
             l = o.offsetWidth + DomElement.getStyleValueByName(o, "margin-right", true);
         } else {
             o.parentNode.removeChild(o);
             o = null;
         }
         if (r === 0) {
-            e._currentView.chartContents.style.minHeight = e._currentView.mapContents.offsetHeight + "px";
+            e._currentView.chartContents.style.minHeight = `${e._currentView.mapContents.offsetHeight}px`;
             n.parentNode.removeChild(n);
             const o = DomElement.createWithHTML(e._currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage);
             if (t) {
@@ -977,7 +975,7 @@ var DateTime;
                 const r = n => {
                     if (isMonthVisible(e.views.chart.monthsToShow, n)) {
                         let e = DomElement.createWithHTML(t, "div", "month-name", _configuration.monthNames[n]);
-                        e.style.left = l + o * a + "px";
+                        e.style.left = `${l + o * a}px`;
                         a++;
                     }
                 };
@@ -990,10 +988,10 @@ var DateTime;
                         r(e);
                     }
                 }
-                t.style.width = i.offsetWidth + "px";
+                t.style.width = `${i.offsetWidth}px`;
                 const s = DomElement.create(t, "div", "month-name-space");
-                s.style.height = t.offsetHeight + "px";
-                s.style.width = l + "px";
+                s.style.height = `${t.offsetHeight}px`;
+                s.style.width = `${l}px`;
             }
             if (e.views.chart.keepScrollPositions) {
                 e._currentView.chartContents.scrollLeft = e._currentView.chartContentsScrollLeft;
@@ -1011,7 +1009,7 @@ var DateTime;
             l.innerHTML = u.toString();
         }
         const c = u * r;
-        l.style.height = c + "px";
+        l.style.height = `${c}px`;
         if (c <= 0) {
             l.style.visibility = "hidden";
         }
@@ -1066,14 +1064,14 @@ var DateTime;
             DomElement.createWithHTML(i, "div", "label-50", Math.floor(r.largestValue / 2).toString());
             DomElement.createWithHTML(i, "div", "label-75", Math.floor(r.largestValue / 4).toString());
             DomElement.createWithHTML(i, "div", "label-100", "0");
-            i.style.width = e.offsetWidth + "px";
-            o.style.paddingLeft = i.offsetWidth + DomElement.getStyleValueByName(i, "margin-right", true) + "px";
+            i.style.width = `${e.offsetWidth}px`;
+            o.style.paddingLeft = `${i.offsetWidth + DomElement.getStyleValueByName(i, "margin-right", true)}px`;
         } else {
             i.parentNode.removeChild(i);
             i = null;
         }
         if (r.largestValue === 0) {
-            e._currentView.daysContents.style.minHeight = e._currentView.mapContents.offsetHeight + "px";
+            e._currentView.daysContents.style.minHeight = `${e._currentView.mapContents.offsetHeight}px`;
             n.parentNode.removeChild(n);
             o.parentNode.removeChild(o);
             const i = DomElement.createWithHTML(e._currentView.daysContents, "div", "no-days-message", _configuration.noDaysDataMessage);
@@ -1102,7 +1100,7 @@ var DateTime;
     function renderControlDaysDayLine(e, t, n, o, i) {
         const a = DomElement.create(e, "div", "day-line");
         const r = n * i;
-        a.style.height = r + "px";
+        a.style.height = `${r}px`;
         if (r <= 0) {
             a.style.visibility = "hidden";
         }
@@ -1170,14 +1168,14 @@ var DateTime;
             DomElement.createWithHTML(i, "div", "label-50", Math.floor(s.largestValue / 2).toString());
             DomElement.createWithHTML(i, "div", "label-75", Math.floor(s.largestValue / 4).toString());
             DomElement.createWithHTML(i, "div", "label-100", "0");
-            i.style.width = e.offsetWidth + "px";
-            o.style.paddingLeft = i.offsetWidth + DomElement.getStyleValueByName(i, "margin-right", true) + "px";
+            i.style.width = `${e.offsetWidth}px`;
+            o.style.paddingLeft = `${i.offsetWidth + DomElement.getStyleValueByName(i, "margin-right", true)}px`;
         } else {
             i.parentNode.removeChild(i);
             i = null;
         }
         if (s.largestValue === 0) {
-            e._currentView.statisticsContents.style.minHeight = e._currentView.mapContents.offsetHeight + "px";
+            e._currentView.statisticsContents.style.minHeight = `${e._currentView.mapContents.offsetHeight}px`;
             n.parentNode.removeChild(n);
             o.parentNode.removeChild(o);
             const i = DomElement.createWithHTML(e._currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage);
@@ -1215,7 +1213,7 @@ var DateTime;
         const r = DomElement.create(t, "div", "range-line");
         const s = getColorRangeByMinimum(i, e);
         const l = n * a;
-        r.style.height = l + "px";
+        r.style.height = `${l}px`;
         if (l <= 0) {
             r.style.visibility = "hidden";
         }
@@ -1745,7 +1743,7 @@ var DateTime;
             const t = DomElement.create(document.body, "a");
             t.style.display = "none";
             t.setAttribute("target", "_blank");
-            t.setAttribute("href", "data:" + o + ";charset=utf-8," + encodeURIComponent(n));
+            t.setAttribute("href", `data:${o};charset=utf-8,${encodeURIComponent(n)}`);
             t.setAttribute("download", getExportFilename(e));
             t.click();
             document.body.removeChild(t);
@@ -1776,8 +1774,8 @@ var DateTime;
         for (let e in t) {
             if (t.hasOwnProperty(e)) {
                 n.push("<Date>");
-                n.push("<FullDate>" + e + "</FullDate>");
-                n.push("<Count>" + t[e].toString() + "</Count>");
+                n.push(`<FullDate>${e}</FullDate>`);
+                n.push(`<Count>${t[e].toString()}</Count>`);
                 n.push("</Date>");
             }
         }
@@ -1846,7 +1844,7 @@ var DateTime;
         if (e._currentView.type !== _configuration.unknownTrendText) {
             i = e._currentView.type.toLowerCase().replace(" ", "_") + "_";
         }
-        return i + n + "_" + o + "." + e.exportType.toLowerCase();
+        return `${i + n + "_" + o}.${e.exportType.toLowerCase()}`;
     }
     function getCsvValue(e) {
         let t = e.toString().replace(/(\r\n|\n|\r)/gm, "").replace(/(\s\s)/gm, " ");
@@ -2095,7 +2093,7 @@ var DateTime;
             }
         } catch (e1) {
             try {
-                result.object = eval("(" + objectString + ")");
+                result.object = eval(`(${objectString})`);
                 if (Is.definedFunction(result.object)) {
                     result.object = result.object();
                 }
@@ -2569,7 +2567,7 @@ var DateTime;
             return e;
         },
         getVersion: function() {
-            return "4.0.4";
+            return "4.0.5";
         }
     };
     (() => {

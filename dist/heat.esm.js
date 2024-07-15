@@ -199,13 +199,11 @@ var init_dom = __esm({
             }
             e.getStyleValueByName = o;
             function a(e, t) {
-                e.className += " " + t;
-                e.className = e.className.trim();
+                e.classList.add(t);
             }
             e.addClass = a;
             function r(e, t) {
-                e.className = e.className.replace(t, "");
-                e.className = e.className.trim();
+                e.classList.remove(t);
             }
             e.removeClass = r;
             function s(e) {
@@ -243,8 +241,8 @@ var init_dom = __esm({
                 if (i < o.top) {
                     i = e.pageY + 1;
                 }
-                t.style.left = n + "px";
-                t.style.top = i + "px";
+                t.style.left = `${n}px`;
+                t.style.top = `${i}px`;
             }
             e.showElementAtMousePosition = u;
             function c(e) {
@@ -900,17 +898,17 @@ var require_heat = __commonJS({
                                 }
                                 if (Is.defined(i)) {
                                     if (e.views.map.showMonthDayGaps) {
-                                        i.style.width = o + "px";
+                                        i.style.width = `${o}px`;
                                     } else {
-                                        i.style.width = o - _elements_Day_Width + "px";
+                                        i.style.width = `${o - _elements_Day_Width}px`;
                                     }
                                 }
                             }
                             if (o && Is.defined(_elements_Day_Width)) {
                                 if (f > 0 && !e.views.map.showMonthDayGaps) {
-                                    n.style.marginLeft = -_elements_Day_Width + "px";
+                                    n.style.marginLeft = `${-_elements_Day_Width}px`;
                                 } else if (f === 0 && e.views.map.showMonthDayGaps) {
-                                    n.style.marginLeft = _elements_Day_Width + "px";
+                                    n.style.marginLeft = `${_elements_Day_Width}px`;
                                 }
                             }
                             if (e.views.map.showMonthsInReverseOrder) {
@@ -989,14 +987,14 @@ var require_heat = __commonJS({
                     DomElement.createWithHTML(i, "div", "label-50", Math.floor(r / 2).toString());
                     DomElement.createWithHTML(i, "div", "label-75", Math.floor(r / 4).toString());
                     DomElement.createWithHTML(i, "div", "label-100", "0");
-                    i.style.width = e.offsetWidth + "px";
+                    i.style.width = `${e.offsetWidth}px`;
                     l = i.offsetWidth + DomElement.getStyleValueByName(i, "margin-right", true);
                 } else {
                     i.parentNode.removeChild(i);
                     i = null;
                 }
                 if (r === 0) {
-                    e._currentView.chartContents.style.minHeight = e._currentView.mapContents.offsetHeight + "px";
+                    e._currentView.chartContents.style.minHeight = `${e._currentView.mapContents.offsetHeight}px`;
                     n.parentNode.removeChild(n);
                     const i = DomElement.createWithHTML(e._currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage);
                     if (t) {
@@ -1033,7 +1031,7 @@ var require_heat = __commonJS({
                         const r = n => {
                             if (isMonthVisible(e.views.chart.monthsToShow, n)) {
                                 let e = DomElement.createWithHTML(t, "div", "month-name", _configuration.monthNames[n]);
-                                e.style.left = l + i * a + "px";
+                                e.style.left = `${l + i * a}px`;
                                 a++;
                             }
                         };
@@ -1046,10 +1044,10 @@ var require_heat = __commonJS({
                                 r(e);
                             }
                         }
-                        t.style.width = o.offsetWidth + "px";
+                        t.style.width = `${o.offsetWidth}px`;
                         const s = DomElement.create(t, "div", "month-name-space");
-                        s.style.height = t.offsetHeight + "px";
-                        s.style.width = l + "px";
+                        s.style.height = `${t.offsetHeight}px`;
+                        s.style.width = `${l}px`;
                     }
                     if (e.views.chart.keepScrollPositions) {
                         e._currentView.chartContents.scrollLeft = e._currentView.chartContentsScrollLeft;
@@ -1067,7 +1065,7 @@ var require_heat = __commonJS({
                     l.innerHTML = u.toString();
                 }
                 const c = u * r;
-                l.style.height = c + "px";
+                l.style.height = `${c}px`;
                 if (c <= 0) {
                     l.style.visibility = "hidden";
                 }
@@ -1122,14 +1120,14 @@ var require_heat = __commonJS({
                     DomElement.createWithHTML(o, "div", "label-50", Math.floor(r.largestValue / 2).toString());
                     DomElement.createWithHTML(o, "div", "label-75", Math.floor(r.largestValue / 4).toString());
                     DomElement.createWithHTML(o, "div", "label-100", "0");
-                    o.style.width = e.offsetWidth + "px";
-                    i.style.paddingLeft = o.offsetWidth + DomElement.getStyleValueByName(o, "margin-right", true) + "px";
+                    o.style.width = `${e.offsetWidth}px`;
+                    i.style.paddingLeft = `${o.offsetWidth + DomElement.getStyleValueByName(o, "margin-right", true)}px`;
                 } else {
                     o.parentNode.removeChild(o);
                     o = null;
                 }
                 if (r.largestValue === 0) {
-                    e._currentView.daysContents.style.minHeight = e._currentView.mapContents.offsetHeight + "px";
+                    e._currentView.daysContents.style.minHeight = `${e._currentView.mapContents.offsetHeight}px`;
                     n.parentNode.removeChild(n);
                     i.parentNode.removeChild(i);
                     const o = DomElement.createWithHTML(e._currentView.daysContents, "div", "no-days-message", _configuration.noDaysDataMessage);
@@ -1158,7 +1156,7 @@ var require_heat = __commonJS({
             function renderControlDaysDayLine(e, t, n, i, o) {
                 const a = DomElement.create(e, "div", "day-line");
                 const r = n * o;
-                a.style.height = r + "px";
+                a.style.height = `${r}px`;
                 if (r <= 0) {
                     a.style.visibility = "hidden";
                 }
@@ -1226,14 +1224,14 @@ var require_heat = __commonJS({
                     DomElement.createWithHTML(o, "div", "label-50", Math.floor(s.largestValue / 2).toString());
                     DomElement.createWithHTML(o, "div", "label-75", Math.floor(s.largestValue / 4).toString());
                     DomElement.createWithHTML(o, "div", "label-100", "0");
-                    o.style.width = e.offsetWidth + "px";
-                    i.style.paddingLeft = o.offsetWidth + DomElement.getStyleValueByName(o, "margin-right", true) + "px";
+                    o.style.width = `${e.offsetWidth}px`;
+                    i.style.paddingLeft = `${o.offsetWidth + DomElement.getStyleValueByName(o, "margin-right", true)}px`;
                 } else {
                     o.parentNode.removeChild(o);
                     o = null;
                 }
                 if (s.largestValue === 0) {
-                    e._currentView.statisticsContents.style.minHeight = e._currentView.mapContents.offsetHeight + "px";
+                    e._currentView.statisticsContents.style.minHeight = `${e._currentView.mapContents.offsetHeight}px`;
                     n.parentNode.removeChild(n);
                     i.parentNode.removeChild(i);
                     const o = DomElement.createWithHTML(e._currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage);
@@ -1271,7 +1269,7 @@ var require_heat = __commonJS({
                 const r = DomElement.create(t, "div", "range-line");
                 const s = getColorRangeByMinimum(o, e);
                 const l = n * a;
-                r.style.height = l + "px";
+                r.style.height = `${l}px`;
                 if (l <= 0) {
                     r.style.visibility = "hidden";
                 }
@@ -1801,7 +1799,7 @@ var require_heat = __commonJS({
                     const t = DomElement.create(document.body, "a");
                     t.style.display = "none";
                     t.setAttribute("target", "_blank");
-                    t.setAttribute("href", "data:" + i + ";charset=utf-8," + encodeURIComponent(n));
+                    t.setAttribute("href", `data:${i};charset=utf-8,${encodeURIComponent(n)}`);
                     t.setAttribute("download", getExportFilename(e));
                     t.click();
                     document.body.removeChild(t);
@@ -1832,8 +1830,8 @@ var require_heat = __commonJS({
                 for (let e in t) {
                     if (t.hasOwnProperty(e)) {
                         n.push("<Date>");
-                        n.push("<FullDate>" + e + "</FullDate>");
-                        n.push("<Count>" + t[e].toString() + "</Count>");
+                        n.push(`<FullDate>${e}</FullDate>`);
+                        n.push(`<Count>${t[e].toString()}</Count>`);
                         n.push("</Date>");
                     }
                 }
@@ -1902,7 +1900,7 @@ var require_heat = __commonJS({
                 if (e._currentView.type !== _configuration.unknownTrendText) {
                     o = e._currentView.type.toLowerCase().replace(" ", "_") + "_";
                 }
-                return o + n + "_" + i + "." + e.exportType.toLowerCase();
+                return `${o + n + "_" + i}.${e.exportType.toLowerCase()}`;
             }
             function getCsvValue(e) {
                 let t = e.toString().replace(/(\r\n|\n|\r)/gm, "").replace(/(\s\s)/gm, " ");
@@ -2151,7 +2149,7 @@ var require_heat = __commonJS({
                     }
                 } catch (e1) {
                     try {
-                        result.object = eval("(" + objectString + ")");
+                        result.object = eval(`(${objectString})`);
                         if (Is.definedFunction(result.object)) {
                             result.object = result.object();
                         }
@@ -2625,7 +2623,7 @@ var require_heat = __commonJS({
                     return e;
                 },
                 getVersion: function() {
-                    return "4.0.4";
+                    return "4.0.5";
                 }
             };
             (() => {
