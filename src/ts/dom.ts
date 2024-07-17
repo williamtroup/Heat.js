@@ -63,15 +63,15 @@ export namespace DomElement {
         return style;
     }
 
-    export function addClass( element: HTMLElement, className: string ) {
+    export function addClass( element: HTMLElement, className: string ) : void {
         element.classList.add( className );
     }
 
-    export function removeClass( element: HTMLElement, className: string ) {
+    export function removeClass( element: HTMLElement, className: string ) : void {
         element.classList.remove( className );
     }
 
-    export function cancelBubble( e: Event ) {
+    export function cancelBubble( e: Event ) : void {
         e.preventDefault();
         e.stopPropagation();
     }
@@ -87,7 +87,7 @@ export namespace DomElement {
         return result;
     }
 
-    export function showElementAtMousePosition( e: any, element: HTMLElement ) {
+    export function showElementAtMousePosition( e: any, element: HTMLElement ) : void {
         let left: number = e.pageX;
         let top: number = e.pageY;
         const scrollPosition: Position = getScrollPosition();
@@ -118,7 +118,7 @@ export namespace DomElement {
         element.style.top = `${top}px`;
     }
 
-    export function reverseChildrenOrder( parent: HTMLElement ) {
+    export function reverseChildrenOrder( parent: HTMLElement ) : void {
         const children: HTMLCollection = parent.children;
         let childrenLength: number = children.length - 1;
 
