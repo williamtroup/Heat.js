@@ -11,9 +11,9 @@
  */
 
 
+import { type BindingOptions } from "../type";
 import { DomElement } from "../dom/dom";
 import { Is } from "../data/is";
-import { type BindingOptions } from "../type";
 
 
 export namespace ToolTip {
