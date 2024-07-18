@@ -28,7 +28,7 @@ import {
     type Events,
     type TypeCountsData,
     type DateCounts, 
-    ConfigurationText} from "./ts/type";
+    type ConfigurationText } from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
 import { ExportType, Char, Value, ViewId, ViewName } from "./ts/enum";
