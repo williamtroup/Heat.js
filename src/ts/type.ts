@@ -27,6 +27,10 @@ export type Position = {
 export type Configuration = {
 	safeMode?: boolean;
 	domElementTypes?: string[] | string;
+    text?: ConfigurationText;
+};
+
+export type ConfigurationText = {
     stText?: string;
     ndText?: string;
     rdText?: string;

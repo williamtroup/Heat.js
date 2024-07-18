@@ -26,14 +26,14 @@ export namespace DateTime {
     }
 
     export function getDayOrdinal( configuration: Configuration, value: number ) : string {
-        let result: string = configuration.thText!;
+        let result: string = configuration.text!.thText!;
 
         if ( value === 31 || value === 21 || value === 1 ) {
-            result = configuration.stText!;
+            result = configuration.text!.stText!;
         } else if ( value === 22 || value === 2 ) {
-            result = configuration.ndText!;
+            result = configuration.text!.ndText!;
         } else if ( value === 23 || value === 3 ) {
-            result = configuration.rdText!;
+            result = configuration.text!.rdText!;
         }
 
         return result;
@@ -43,13 +43,13 @@ export namespace DateTime {
         let result: string = dateFormat;
         const weekDayNumber: number = getWeekdayNumber( date );
 
-        result = result.replace( "{dddd}", configuration.dayNames![ weekDayNumber ] );
+        result = result.replace( "{dddd}", configuration.text!.dayNames![ weekDayNumber ] );
         result = result.replace( "{dd}", Data.String.padNumber( date.getDate() ) );
         result = result.replace( "{d}", date.getDate().toString() );
 
         result = result.replace( "{o}", getDayOrdinal( configuration, date.getDate() ) );
 
-        result = result.replace( "{mmmm}", configuration.monthNames![ date.getMonth() ] );
+        result = result.replace( "{mmmm}", configuration.text!.monthNames![ date.getMonth() ] );
         result = result.replace( "{mm}", Data.String.padNumber( date.getMonth() + 1 ) );
         result = result.replace( "{m}", ( date.getMonth() + 1 ).toString() );
 

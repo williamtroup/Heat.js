@@ -238,13 +238,13 @@ var DateTime;
     }
     e.getWeekdayNumber = n;
     function o(e, t) {
-        let n = e.thText;
+        let n = e.text.thText;
         if (t === 31 || t === 21 || t === 1) {
-            n = e.stText;
+            n = e.text.stText;
         } else if (t === 22 || t === 2) {
-            n = e.ndText;
+            n = e.text.ndText;
         } else if (t === 23 || t === 3) {
-            n = e.rdText;
+            n = e.text.rdText;
         }
         return n;
     }
@@ -252,11 +252,11 @@ var DateTime;
     function i(e, t, i) {
         let a = t;
         const r = n(i);
-        a = a.replace("{dddd}", e.dayNames[r]);
+        a = a.replace("{dddd}", e.text.dayNames[r]);
         a = a.replace("{dd}", Data.String.padNumber(i.getDate()));
         a = a.replace("{d}", i.getDate().toString());
         a = a.replace("{o}", o(e, i.getDate()));
-        a = a.replace("{mmmm}", e.monthNames[i.getMonth()]);
+        a = a.replace("{mmmm}", e.text.monthNames[i.getMonth()]);
         a = a.replace("{mm}", Data.String.padNumber(i.getMonth() + 1));
         a = a.replace("{m}", (i.getMonth() + 1).toString());
         a = a.replace("{yyyy}", i.getFullYear().toString());
@@ -392,13 +392,13 @@ var Trigger;
                     renderControl(renderBindingOptions(o.object, e));
                 } else {
                     if (!_configuration.safeMode) {
-                        console.error(_configuration.attributeNotValidErrorText.replace("{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME));
+                        console.error(_configuration.text.attributeNotValidErrorText.replace("{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME));
                         t = false;
                     }
                 }
             } else {
                 if (!_configuration.safeMode) {
-                    console.error(_configuration.attributeNotSetErrorText.replace("{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME));
+                    console.error(_configuration.text.attributeNotSetErrorText.replace("{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME));
                     t = false;
                 }
             }
@@ -419,7 +419,7 @@ var Trigger;
         i.mapContents = null;
         i.mapContentsScrollLeft = 0;
         i.year = n.year;
-        i.type = _configuration.unknownTrendText;
+        i.type = _configuration.text.unknownTrendText;
         i.isInFetchMode = Is.definedFunction(n.events.onDataFetch);
         i.isInFetchModeTimer = 0;
         i.yearsAvailable = [];
@@ -524,24 +524,24 @@ var Trigger;
         const o = DomElement.create(t, "div", "dialog-close");
         const i = DomElement.create(n, "div", "side-container panel");
         const a = DomElement.create(n, "div", "side-container panel");
-        DomElement.createWithHTML(t, "span", "dialog-title-bar-text", _configuration.configurationTitleText);
-        DomElement.createWithHTML(i, "div", "side-container-title-text", _configuration.visibleDaysText + ":");
-        DomElement.createWithHTML(a, "div", "side-container-title-text", _configuration.visibleMonthsText + ":");
+        DomElement.createWithHTML(t, "span", "dialog-title-bar-text", _configuration.text.configurationTitleText);
+        DomElement.createWithHTML(i, "div", "side-container-title-text", _configuration.text.visibleDaysText + ":");
+        DomElement.createWithHTML(a, "div", "side-container-title-text", _configuration.text.visibleMonthsText + ":");
         const r = DomElement.create(a, "div", "side-container");
         const s = DomElement.create(a, "div", "side-container");
         o.onclick = () => {
             hideConfigurationDialog(e);
         };
         for (let t = 0; t < 7; t++) {
-            e._currentView.dayCheckBoxes[t] = DomElement.createCheckBox(i, _configuration.dayNames[t]);
+            e._currentView.dayCheckBoxes[t] = DomElement.createCheckBox(i, _configuration.text.dayNames[t]);
         }
         for (let t = 0; t < 7; t++) {
-            e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(r, _configuration.monthNames[t]);
+            e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(r, _configuration.text.monthNames[t]);
         }
         for (let t = 7; t < 12; t++) {
-            e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(s, _configuration.monthNames[t]);
+            e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(s, _configuration.text.monthNames[t]);
         }
-        ToolTip.add(o, e, _configuration.closeToolTipText);
+        ToolTip.add(o, e, _configuration.text.closeToolTipText);
     }
     function showConfigurationDialog(e) {
         showDisabledBackground(e);
@@ -645,26 +645,26 @@ var Trigger;
                 renderTitleDropDownMenu(e, n);
             }
             if (e.title.showImportButton && !e._currentView.isInFetchMode) {
-                const n = DomElement.createWithHTML(t, "button", "import", _configuration.importButtonText);
+                const n = DomElement.createWithHTML(t, "button", "import", _configuration.text.importButtonText);
                 n.onclick = () => {
                     importFromFilesSelected(e);
                 };
             }
             if (e.title.showExportButton) {
-                const n = DomElement.createWithHTML(t, "button", "export", _configuration.exportButtonText);
+                const n = DomElement.createWithHTML(t, "button", "export", _configuration.text.exportButtonText);
                 n.onclick = () => {
                     exportAllData(e);
                 };
             }
             if (e.title.showRefreshButton) {
-                const n = DomElement.createWithHTML(t, "button", "refresh", _configuration.refreshButtonText);
+                const n = DomElement.createWithHTML(t, "button", "refresh", _configuration.text.refreshButtonText);
                 n.onclick = () => {
                     renderControlContainer(e);
                     Trigger.customEvent(e.events.onRefresh, e._currentView.element);
                 };
             }
             if (e.title.showYearSelector) {
-                const n = DomElement.createWithHTML(t, "button", "back", _configuration.backButtonText);
+                const n = DomElement.createWithHTML(t, "button", "back", _configuration.text.backButtonText);
                 n.onclick = () => {
                     moveToPreviousYear(e);
                 };
@@ -679,12 +679,12 @@ var Trigger;
                 }
                 if (e.title.showConfigurationButton) {
                     let n = DomElement.create(t, "div", "configure");
-                    ToolTip.add(n, e, _configuration.configurationToolTipText);
+                    ToolTip.add(n, e, _configuration.text.configurationToolTipText);
                     n.onclick = () => {
                         showConfigurationDialog(e);
                     };
                 }
-                const o = DomElement.createWithHTML(t, "button", "next", _configuration.nextButtonText);
+                const o = DomElement.createWithHTML(t, "button", "next", _configuration.text.nextButtonText);
                 o.onclick = () => {
                     moveToNextYear(e);
                 };
@@ -698,26 +698,26 @@ var Trigger;
         const n = DomElement.create(t, "div", "titles-menu-container");
         const o = DomElement.create(n, "div", "titles-menu");
         if (e.title.showTitleDropDownHeaders) {
-            DomElement.createWithHTML(o, "div", "title-menu-header", _configuration.dataText + ":");
+            DomElement.createWithHTML(o, "div", "title-menu-header", _configuration.text.dataText + ":");
         }
-        const i = DomElement.createWithHTML(o, "div", "title-menu-item", _configuration.mapText);
+        const i = DomElement.createWithHTML(o, "div", "title-menu-item", _configuration.text.mapText);
         renderTitleDropDownMenuItemClickEvent(e, i, 1, "map");
         if (e.views.chart.enabled) {
-            const t = DomElement.createWithHTML(o, "div", "title-menu-item", _configuration.chartText);
+            const t = DomElement.createWithHTML(o, "div", "title-menu-item", _configuration.text.chartText);
             renderTitleDropDownMenuItemClickEvent(e, t, 2, "chart");
         }
         if (e.views.days.enabled) {
             if (e.title.showTitleDropDownHeaders) {
-                DomElement.createWithHTML(o, "div", "title-menu-header", _configuration.yearText + ":");
+                DomElement.createWithHTML(o, "div", "title-menu-header", _configuration.text.yearText + ":");
             }
-            const t = DomElement.createWithHTML(o, "div", "title-menu-item", _configuration.daysText);
+            const t = DomElement.createWithHTML(o, "div", "title-menu-item", _configuration.text.daysText);
             renderTitleDropDownMenuItemClickEvent(e, t, 3, "days");
         }
         if (e.views.statistics.enabled) {
             if (e.title.showTitleDropDownHeaders) {
-                DomElement.createWithHTML(o, "div", "title-menu-header", _configuration.statisticsText + ":");
+                DomElement.createWithHTML(o, "div", "title-menu-header", _configuration.text.statisticsText + ":");
             }
-            const t = DomElement.createWithHTML(o, "div", "title-menu-item", _configuration.colorRangesText);
+            const t = DomElement.createWithHTML(o, "div", "title-menu-item", _configuration.text.colorRangesText);
             renderTitleDropDownMenuItemClickEvent(e, t, 4, "statistics");
         }
     }
@@ -785,7 +785,7 @@ var Trigger;
         }
         renderControlViewGuide(e);
         if (e.views.map.showNoDataMessageWhenDataIsNotAvailable && !isDataAvailableForYear(e)) {
-            const n = DomElement.createWithHTML(e._currentView.mapContents, "div", "no-data-message", _configuration.noMapDataMessage);
+            const n = DomElement.createWithHTML(e._currentView.mapContents, "div", "no-data-message", _configuration.text.noMapDataMessage);
             if (t) {
                 DomElement.addClass(n, "view-switch");
             }
@@ -806,7 +806,7 @@ var Trigger;
                 }
                 for (let n = 0; n < 7; n++) {
                     if (isDayVisible(e.views.map.daysToShow, n + 1)) {
-                        const e = !o || n % 3 === 0 ? _configuration.dayNames[n] : " ";
+                        const e = !o || n % 3 === 0 ? _configuration.text.dayNames[n] : " ";
                         DomElement.createWithHTML(t, "div", "day-name", e);
                     }
                 }
@@ -859,9 +859,9 @@ var Trigger;
                         let o;
                         const i = n.offsetWidth;
                         if (!e.views.map.placeMonthNamesOnTheBottom) {
-                            o = DomElement.createWithHTML(n, "div", "month-name", _configuration.monthNames[t], s);
+                            o = DomElement.createWithHTML(n, "div", "month-name", _configuration.text.monthNames[t], s);
                         } else {
-                            o = DomElement.createWithHTML(n, "div", "month-name-bottom", _configuration.monthNames[t]);
+                            o = DomElement.createWithHTML(n, "div", "month-name-bottom", _configuration.text.monthNames[t]);
                         }
                         if (Is.defined(o)) {
                             if (e.views.map.showMonthDayGaps) {
@@ -963,7 +963,7 @@ var Trigger;
         if (r === 0) {
             e._currentView.chartContents.style.minHeight = `${e._currentView.mapContents.offsetHeight}px`;
             n.parentNode.removeChild(n);
-            const o = DomElement.createWithHTML(e._currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage);
+            const o = DomElement.createWithHTML(e._currentView.chartContents, "div", "no-data-message", _configuration.text.noChartDataMessage);
             if (t) {
                 DomElement.addClass(o, "view-switch");
             }
@@ -997,7 +997,7 @@ var Trigger;
                 let a = 0;
                 const r = n => {
                     if (isMonthVisible(e.views.chart.monthsToShow, n)) {
-                        let e = DomElement.createWithHTML(t, "div", "month-name", _configuration.monthNames[n]);
+                        let e = DomElement.createWithHTML(t, "div", "month-name", _configuration.text.monthNames[n]);
                         e.style.left = `${l + o * a}px`;
                         a++;
                     }
@@ -1097,7 +1097,7 @@ var Trigger;
             e._currentView.daysContents.style.minHeight = `${e._currentView.mapContents.offsetHeight}px`;
             n.parentNode.removeChild(n);
             o.parentNode.removeChild(o);
-            const i = DomElement.createWithHTML(e._currentView.daysContents, "div", "no-days-message", _configuration.noDaysDataMessage);
+            const i = DomElement.createWithHTML(e._currentView.daysContents, "div", "no-days-message", _configuration.text.noDaysDataMessage);
             if (t) {
                 DomElement.addClass(i, "view-switch");
             }
@@ -1107,7 +1107,7 @@ var Trigger;
                 if (r.days.hasOwnProperty(n) && isDayVisible(e.views.days.daysToShow, parseInt(n))) {
                     renderControlDaysDayLine(a, parseInt(n), r.days[n], e, t);
                     if (e.views.days.showDayNames) {
-                        DomElement.createWithHTML(o, "div", "day-name", _configuration.dayNames[parseInt(n) - 1]);
+                        DomElement.createWithHTML(o, "div", "day-name", _configuration.text.dayNames[parseInt(n) - 1]);
                     }
                 }
             }
@@ -1201,7 +1201,7 @@ var Trigger;
             e._currentView.statisticsContents.style.minHeight = `${e._currentView.mapContents.offsetHeight}px`;
             n.parentNode.removeChild(n);
             o.parentNode.removeChild(o);
-            const i = DomElement.createWithHTML(e._currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage);
+            const i = DomElement.createWithHTML(e._currentView.statisticsContents, "div", "no-statistics-message", _configuration.text.noStatisticsDataMessage);
             if (t) {
                 DomElement.addClass(i, "view-switch");
             }
@@ -1296,8 +1296,8 @@ var Trigger;
         const t = DomElement.create(e._currentView.element, "div", "guide");
         const n = DomElement.create(t, "div", "map-types");
         let o = 0;
-        for (let t in _elements_DateCounts[e._currentView.element.id].typeData[_configuration.unknownTrendText]) {
-            if (_elements_DateCounts[e._currentView.element.id].typeData[_configuration.unknownTrendText].hasOwnProperty(t)) {
+        for (let t in _elements_DateCounts[e._currentView.element.id].typeData[_configuration.text.unknownTrendText]) {
+            if (_elements_DateCounts[e._currentView.element.id].typeData[_configuration.text.unknownTrendText].hasOwnProperty(t)) {
                 o++;
                 break;
             }
@@ -1308,8 +1308,8 @@ var Trigger;
                 renderDescription(e, n);
             }
             for (let t in _elements_DateCounts[e._currentView.element.id].typeData) {
-                if (t !== _configuration.unknownTrendText || o > 0) {
-                    if (o === 0 && e._currentView.type === _configuration.unknownTrendText) {
+                if (t !== _configuration.text.unknownTrendText || o > 0) {
+                    if (o === 0 && e._currentView.type === _configuration.text.unknownTrendText) {
                         e._currentView.type = t;
                     }
                     renderControlViewGuideTypeButton(e, n, t);
@@ -1321,7 +1321,7 @@ var Trigger;
         if (e.guide.enabled) {
             const n = DomElement.create(t, "div", "map-toggles");
             if (e.guide.showLessAndMoreLabels) {
-                let t = DomElement.createWithHTML(n, "div", "less-text", _configuration.lessText);
+                let t = DomElement.createWithHTML(n, "div", "less-text", _configuration.text.lessText);
                 if (e.guide.colorRangeTogglesEnabled) {
                     t.onclick = () => {
                         updateColorRangeToggles(e, false);
@@ -1337,7 +1337,7 @@ var Trigger;
                 renderControlViewGuideDay(e, o, i[t]);
             }
             if (e.guide.showLessAndMoreLabels) {
-                const t = DomElement.createWithHTML(n, "div", "more-text", _configuration.moreText);
+                const t = DomElement.createWithHTML(n, "div", "more-text", _configuration.text.moreText);
                 if (e.guide.colorRangeTogglesEnabled) {
                     t.onclick = () => {
                         updateColorRangeToggles(e, true);
@@ -1419,7 +1419,7 @@ var Trigger;
             typeData: {},
             totalTypes: 1
         };
-        _elements_DateCounts[e].typeData[_configuration.unknownTrendText] = {};
+        _elements_DateCounts[e].typeData[_configuration.text.unknownTrendText] = {};
         if (n && !t._currentView.isInFetchMode) {
             loadDataFromLocalStorage(t);
         }
@@ -1526,10 +1526,10 @@ var Trigger;
             createDateStorageForElement(t, e, false);
             for (let e in n) {
                 if (n.hasOwnProperty(e)) {
-                    if (!_elements_DateCounts[t].typeData[_configuration.unknownTrendText].hasOwnProperty(e)) {
-                        _elements_DateCounts[t].typeData[_configuration.unknownTrendText][e] = 0;
+                    if (!_elements_DateCounts[t].typeData[_configuration.text.unknownTrendText].hasOwnProperty(e)) {
+                        _elements_DateCounts[t].typeData[_configuration.text.unknownTrendText][e] = 0;
                     }
-                    _elements_DateCounts[t].typeData[_configuration.unknownTrendText][e] += n[e];
+                    _elements_DateCounts[t].typeData[_configuration.text.unknownTrendText][e] += n[e];
                 }
             }
         }
@@ -1782,7 +1782,7 @@ var Trigger;
             }
         }
         if (n.length > 0) {
-            n.unshift(getCsvValueLine([ getCsvValue(_configuration.dateText), getCsvValue(_configuration.countText) ]));
+            n.unshift(getCsvValueLine([ getCsvValue(_configuration.text.dateText), getCsvValue(_configuration.text.countText) ]));
         }
         return n.join("\n");
     }
@@ -1864,7 +1864,7 @@ var Trigger;
         const n = Data.String.padNumber(t.getDate()) + "-" + Data.String.padNumber(t.getMonth() + 1) + "-" + t.getFullYear();
         const o = Data.String.padNumber(t.getHours()) + "-" + Data.String.padNumber(t.getMinutes());
         let i = "";
-        if (e._currentView.type !== _configuration.unknownTrendText) {
+        if (e._currentView.type !== _configuration.text.unknownTrendText) {
             i = e._currentView.type.toLowerCase().replace(" ", "_") + "_";
         }
         return `${i + n + "_" + o}.${e.exportType.toLowerCase()}`;
@@ -2115,7 +2115,7 @@ var Trigger;
                 }
             } catch (e) {
                 if (!_configuration.safeMode) {
-                    console.error(_configuration.objectErrorText.replace("{{error_1}}", e1.message).replace("{{error_2}}", e.message));
+                    console.error(_configuration.text.objectErrorText.replace("{{error_1}}", e1.message).replace("{{error_2}}", e.message));
                     result.parsed = false;
                 }
                 result.object = null;
@@ -2179,46 +2179,47 @@ var Trigger;
         buildDefaultConfigurationArrays();
     }
     function buildDefaultConfigurationStrings() {
-        _configuration.stText = Data.getDefaultAnyString(_configuration.stText, "st");
-        _configuration.ndText = Data.getDefaultAnyString(_configuration.ndText, "nd");
-        _configuration.rdText = Data.getDefaultAnyString(_configuration.rdText, "rd");
-        _configuration.thText = Data.getDefaultAnyString(_configuration.thText, "th");
-        _configuration.backButtonText = Data.getDefaultAnyString(_configuration.backButtonText, "Back");
-        _configuration.nextButtonText = Data.getDefaultAnyString(_configuration.nextButtonText, "Next");
-        _configuration.refreshButtonText = Data.getDefaultAnyString(_configuration.refreshButtonText, "Refresh");
-        _configuration.exportButtonText = Data.getDefaultAnyString(_configuration.exportButtonText, "Export");
-        _configuration.lessText = Data.getDefaultAnyString(_configuration.lessText, "Less");
-        _configuration.moreText = Data.getDefaultAnyString(_configuration.moreText, "More");
-        _configuration.dateText = Data.getDefaultAnyString(_configuration.dateText, "Date");
-        _configuration.countText = Data.getDefaultAnyString(_configuration.countText, "Count");
-        _configuration.mapText = Data.getDefaultAnyString(_configuration.mapText, "Map");
-        _configuration.chartText = Data.getDefaultAnyString(_configuration.chartText, "Chart");
-        _configuration.noChartDataMessage = Data.getDefaultAnyString(_configuration.noChartDataMessage, "There is currently no data to view.");
-        _configuration.statisticsText = Data.getDefaultAnyString(_configuration.statisticsText, "Statistics");
-        _configuration.noStatisticsDataMessage = Data.getDefaultAnyString(_configuration.noStatisticsDataMessage, "There are currently no statistics to view.");
-        _configuration.unknownTrendText = Data.getDefaultAnyString(_configuration.unknownTrendText, "Unknown");
-        _configuration.importButtonText = Data.getDefaultAnyString(_configuration.importButtonText, "Import");
-        _configuration.noMapDataMessage = Data.getDefaultAnyString(_configuration.noMapDataMessage, "There is currently no data to view.");
-        _configuration.objectErrorText = Data.getDefaultAnyString(_configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
-        _configuration.attributeNotValidErrorText = Data.getDefaultAnyString(_configuration.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object.");
-        _configuration.attributeNotSetErrorText = Data.getDefaultAnyString(_configuration.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly.");
-        _configuration.closeToolTipText = Data.getDefaultAnyString(_configuration.closeToolTipText, "Close");
-        _configuration.configurationToolTipText = Data.getDefaultAnyString(_configuration.configurationToolTipText, "Configuration");
-        _configuration.configurationTitleText = Data.getDefaultAnyString(_configuration.configurationTitleText, "Configuration");
-        _configuration.visibleMonthsText = Data.getDefaultAnyString(_configuration.visibleMonthsText, "Visible Months");
-        _configuration.visibleDaysText = Data.getDefaultAnyString(_configuration.visibleDaysText, "Visible Days");
-        _configuration.dataText = Data.getDefaultAnyString(_configuration.dataText, "Data");
-        _configuration.colorRangesText = Data.getDefaultAnyString(_configuration.colorRangesText, "Color Ranges");
-        _configuration.yearText = Data.getDefaultAnyString(_configuration.yearText, "Year");
-        _configuration.daysText = Data.getDefaultAnyString(_configuration.daysText, "Days");
-        _configuration.noDaysDataMessage = Data.getDefaultAnyString(_configuration.noDaysDataMessage, "There are currently no days to view.");
+        _configuration.text = Data.getDefaultObject(_configuration.text, {});
+        _configuration.text.stText = Data.getDefaultAnyString(_configuration.text.stText, "st");
+        _configuration.text.ndText = Data.getDefaultAnyString(_configuration.text.ndText, "nd");
+        _configuration.text.rdText = Data.getDefaultAnyString(_configuration.text.rdText, "rd");
+        _configuration.text.thText = Data.getDefaultAnyString(_configuration.text.thText, "th");
+        _configuration.text.backButtonText = Data.getDefaultAnyString(_configuration.text.backButtonText, "Back");
+        _configuration.text.nextButtonText = Data.getDefaultAnyString(_configuration.text.nextButtonText, "Next");
+        _configuration.text.refreshButtonText = Data.getDefaultAnyString(_configuration.text.refreshButtonText, "Refresh");
+        _configuration.text.exportButtonText = Data.getDefaultAnyString(_configuration.text.exportButtonText, "Export");
+        _configuration.text.lessText = Data.getDefaultAnyString(_configuration.text.lessText, "Less");
+        _configuration.text.moreText = Data.getDefaultAnyString(_configuration.text.moreText, "More");
+        _configuration.text.dateText = Data.getDefaultAnyString(_configuration.text.dateText, "Date");
+        _configuration.text.countText = Data.getDefaultAnyString(_configuration.text.countText, "Count");
+        _configuration.text.mapText = Data.getDefaultAnyString(_configuration.text.mapText, "Map");
+        _configuration.text.chartText = Data.getDefaultAnyString(_configuration.text.chartText, "Chart");
+        _configuration.text.noChartDataMessage = Data.getDefaultAnyString(_configuration.text.noChartDataMessage, "There is currently no data to view.");
+        _configuration.text.statisticsText = Data.getDefaultAnyString(_configuration.text.statisticsText, "Statistics");
+        _configuration.text.noStatisticsDataMessage = Data.getDefaultAnyString(_configuration.text.noStatisticsDataMessage, "There are currently no statistics to view.");
+        _configuration.text.unknownTrendText = Data.getDefaultAnyString(_configuration.text.unknownTrendText, "Unknown");
+        _configuration.text.importButtonText = Data.getDefaultAnyString(_configuration.text.importButtonText, "Import");
+        _configuration.text.noMapDataMessage = Data.getDefaultAnyString(_configuration.text.noMapDataMessage, "There is currently no data to view.");
+        _configuration.text.objectErrorText = Data.getDefaultAnyString(_configuration.text.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
+        _configuration.text.attributeNotValidErrorText = Data.getDefaultAnyString(_configuration.text.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object.");
+        _configuration.text.attributeNotSetErrorText = Data.getDefaultAnyString(_configuration.text.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly.");
+        _configuration.text.closeToolTipText = Data.getDefaultAnyString(_configuration.text.closeToolTipText, "Close");
+        _configuration.text.configurationToolTipText = Data.getDefaultAnyString(_configuration.text.configurationToolTipText, "Configuration");
+        _configuration.text.configurationTitleText = Data.getDefaultAnyString(_configuration.text.configurationTitleText, "Configuration");
+        _configuration.text.visibleMonthsText = Data.getDefaultAnyString(_configuration.text.visibleMonthsText, "Visible Months");
+        _configuration.text.visibleDaysText = Data.getDefaultAnyString(_configuration.text.visibleDaysText, "Visible Days");
+        _configuration.text.dataText = Data.getDefaultAnyString(_configuration.text.dataText, "Data");
+        _configuration.text.colorRangesText = Data.getDefaultAnyString(_configuration.text.colorRangesText, "Color Ranges");
+        _configuration.text.yearText = Data.getDefaultAnyString(_configuration.text.yearText, "Year");
+        _configuration.text.daysText = Data.getDefaultAnyString(_configuration.text.daysText, "Days");
+        _configuration.text.noDaysDataMessage = Data.getDefaultAnyString(_configuration.text.noDaysDataMessage, "There are currently no days to view.");
     }
     function buildDefaultConfigurationArrays() {
-        if (Is.invalidOptionArray(_configuration.monthNames, 12)) {
-            _configuration.monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+        if (Is.invalidOptionArray(_configuration.text.monthNames, 12)) {
+            _configuration.text.monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
         }
-        if (Is.invalidOptionArray(_configuration.dayNames, 7)) {
-            _configuration.dayNames = [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ];
+        if (Is.invalidOptionArray(_configuration.text.dayNames, 7)) {
+            _configuration.text.dayNames = [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ];
         }
     }
     const _public = {
@@ -2226,7 +2227,7 @@ var Trigger;
             if (Is.definedString(e) && Is.definedArray(t) && _elements_DateCounts.hasOwnProperty(e)) {
                 const i = _elements_DateCounts[e].options;
                 if (!i._currentView.isInFetchMode) {
-                    n = Data.getDefaultString(n, _configuration.unknownTrendText);
+                    n = Data.getDefaultString(n, _configuration.text.unknownTrendText);
                     const a = t.length;
                     for (let o = 0; o < a; o++) {
                         _public.addDate(e, t[o], n, false);
@@ -2242,7 +2243,7 @@ var Trigger;
             if (Is.definedString(e) && Is.definedDate(t) && _elements_DateCounts.hasOwnProperty(e)) {
                 const i = _elements_DateCounts[e].options;
                 if (!i._currentView.isInFetchMode) {
-                    n = Data.getDefaultString(n, _configuration.unknownTrendText);
+                    n = Data.getDefaultString(n, _configuration.text.unknownTrendText);
                     const a = DateTime.toStorageDate(t);
                     if (!_elements_DateCounts[e].typeData.hasOwnProperty(n)) {
                         _elements_DateCounts[e].typeData[n] = {};
@@ -2266,7 +2267,7 @@ var Trigger;
                 if (!a._currentView.isInFetchMode && n > 0) {
                     const r = DateTime.toStorageDate(t);
                     if (_elements_DateCounts[e].typeData.hasOwnProperty(o)) {
-                        o = Data.getDefaultString(o, _configuration.unknownTrendText);
+                        o = Data.getDefaultString(o, _configuration.text.unknownTrendText);
                         _elements_DateCounts[e].typeData[o][r] = n;
                         Trigger.customEvent(a.events.onUpdate, a._currentView.element);
                         if (i) {
@@ -2281,7 +2282,7 @@ var Trigger;
             if (Is.definedString(e) && Is.definedArray(t) && _elements_DateCounts.hasOwnProperty(e)) {
                 const i = _elements_DateCounts[e].options;
                 if (!i._currentView.isInFetchMode) {
-                    n = Data.getDefaultString(n, _configuration.unknownTrendText);
+                    n = Data.getDefaultString(n, _configuration.text.unknownTrendText);
                     const a = t.length;
                     for (let o = 0; o < a; o++) {
                         _public.removeDate(e, t[o], n, false);
@@ -2299,7 +2300,7 @@ var Trigger;
                 if (!i._currentView.isInFetchMode) {
                     const a = DateTime.toStorageDate(t);
                     if (_elements_DateCounts[e].typeData.hasOwnProperty(n) && _elements_DateCounts[e].typeData[n].hasOwnProperty(a)) {
-                        n = Data.getDefaultString(n, _configuration.unknownTrendText);
+                        n = Data.getDefaultString(n, _configuration.text.unknownTrendText);
                         if (_elements_DateCounts[e].typeData[n][a] > 0) {
                             _elements_DateCounts[e].typeData[n][a]--;
                         }
@@ -2318,7 +2319,7 @@ var Trigger;
                 if (!i._currentView.isInFetchMode) {
                     const a = DateTime.toStorageDate(t);
                     if (_elements_DateCounts[e].typeData.hasOwnProperty(n) && _elements_DateCounts[e].typeData[n].hasOwnProperty(a)) {
-                        n = Data.getDefaultString(n, _configuration.unknownTrendText);
+                        n = Data.getDefaultString(n, _configuration.text.unknownTrendText);
                         delete _elements_DateCounts[e].typeData[n][a];
                         Trigger.customEvent(i.events.onClear, i._currentView.element);
                         if (o) {
@@ -2341,7 +2342,7 @@ var Trigger;
             if (Is.definedString(e) && _elements_DateCounts.hasOwnProperty(e)) {
                 const n = _elements_DateCounts[e].options;
                 if (!n._currentView.isInFetchMode) {
-                    n._currentView.type = _configuration.unknownTrendText;
+                    n._currentView.type = _configuration.text.unknownTrendText;
                     createDateStorageForElement(e, n, false);
                     Trigger.customEvent(n.events.onReset, n._currentView.element);
                     if (t) {

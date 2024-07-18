@@ -27,7 +27,8 @@ import {
     type Statistics,
     type Events,
     type TypeCountsData,
-    type DateCounts } from "./ts/type";
+    type DateCounts, 
+    ConfigurationText} from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
 import { ExportType, Char, Value, ViewId, ViewName } from "./ts/enum";
@@ -142,14 +143,14 @@ type LargestValuesForEachRangeType = {
 
                 } else {
                     if ( !_configuration.safeMode ) {
-                        console.error( _configuration.attributeNotValidErrorText!.replace( "{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME ) );
+                        console.error( _configuration.text!.attributeNotValidErrorText!.replace( "{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME ) );
                         result = false;
                     }
                 }
 
             } else {
                 if ( !_configuration.safeMode ) {
-                    console.error( _configuration.attributeNotSetErrorText!.replace( "{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME ) );
+                    console.error( _configuration.text!.attributeNotSetErrorText!.replace( "{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME ) );
                     result = false;
                 }
             }
@@ -173,7 +174,7 @@ type LargestValuesForEachRangeType = {
         currentView.mapContents = null!;
         currentView.mapContentsScrollLeft = 0;
         currentView.year = bindingOptions.year!;
-        currentView.type = _configuration.unknownTrendText!;
+        currentView.type = _configuration.text!.unknownTrendText!;
         currentView.isInFetchMode = Is.definedFunction( bindingOptions.events!.onDataFetch );
         currentView.isInFetchModeTimer = 0;
         currentView.yearsAvailable = [];
@@ -317,9 +318,9 @@ type LargestValuesForEachRangeType = {
         const daysContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
         const monthsContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
 
-        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText! );
-        DomElement.createWithHTML( daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + Char.colon );
-        DomElement.createWithHTML( monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + Char.colon );
+        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.text!.configurationTitleText! );
+        DomElement.createWithHTML( daysContainer, "div", "side-container-title-text", _configuration.text!.visibleDaysText + Char.colon );
+        DomElement.createWithHTML( monthsContainer, "div", "side-container-title-text", _configuration.text!.visibleMonthsText + Char.colon );
 
         const months1Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
         const months2Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
@@ -329,18 +330,18 @@ type LargestValuesForEachRangeType = {
         };
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
-            bindingOptions._currentView.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.dayNames![ dayIndex ] );
+            bindingOptions._currentView.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.text!.dayNames![ dayIndex ] );
         }
 
         for ( let monthIndex1: number = 0; monthIndex1 < 7; monthIndex1++ ) {
-            bindingOptions._currentView.monthCheckBoxes[ monthIndex1 ] = DomElement.createCheckBox( months1Container, _configuration.monthNames![ monthIndex1 ] );
+            bindingOptions._currentView.monthCheckBoxes[ monthIndex1 ] = DomElement.createCheckBox( months1Container, _configuration.text!.monthNames![ monthIndex1 ] );
         }
 
         for ( let monthIndex2: number = 7; monthIndex2 < 12; monthIndex2++ ) {
-            bindingOptions._currentView.monthCheckBoxes[ monthIndex2 ] = DomElement.createCheckBox( months2Container, _configuration.monthNames![ monthIndex2 ] );
+            bindingOptions._currentView.monthCheckBoxes[ monthIndex2 ] = DomElement.createCheckBox( months2Container, _configuration.text!.monthNames![ monthIndex2 ] );
         }
 
-        ToolTip.add( closeButton, bindingOptions, _configuration.closeToolTipText! );
+        ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
     }
 
     function showConfigurationDialog( bindingOptions: BindingOptions ) : void {
@@ -475,7 +476,7 @@ type LargestValuesForEachRangeType = {
             }
 
             if ( bindingOptions.title!.showImportButton && !bindingOptions._currentView.isInFetchMode ) {
-                const importData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "import", _configuration.importButtonText! );
+                const importData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "import", _configuration.text!.importButtonText! );
         
                 importData.onclick = () => {
                     importFromFilesSelected( bindingOptions );
@@ -483,7 +484,7 @@ type LargestValuesForEachRangeType = {
             }
 
             if ( bindingOptions.title!.showExportButton ) {
-                const exportData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "export", _configuration.exportButtonText! );
+                const exportData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "export", _configuration.text!.exportButtonText! );
         
                 exportData.onclick = () => {
                     exportAllData( bindingOptions );
@@ -491,7 +492,7 @@ type LargestValuesForEachRangeType = {
             }
 
             if ( bindingOptions.title!.showRefreshButton ) {
-                const refresh: HTMLElement = DomElement.createWithHTML( titleBar, "button", "refresh", _configuration.refreshButtonText! );
+                const refresh: HTMLElement = DomElement.createWithHTML( titleBar, "button", "refresh", _configuration.text!.refreshButtonText! );
         
                 refresh.onclick = () => {
                     renderControlContainer( bindingOptions );
@@ -500,7 +501,7 @@ type LargestValuesForEachRangeType = {
             }
     
             if ( bindingOptions.title!.showYearSelector ) {
-                const back: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "back", _configuration.backButtonText! ) as HTMLInputElement;
+                const back: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "back", _configuration.text!.backButtonText! ) as HTMLInputElement;
         
                 back.onclick = () => {
                     moveToPreviousYear( bindingOptions );
@@ -521,14 +522,14 @@ type LargestValuesForEachRangeType = {
                 if ( bindingOptions.title!.showConfigurationButton ) {
                     let configureButton: HTMLElement = DomElement.create( titleBar, "div", "configure" );
 
-                    ToolTip.add( configureButton, bindingOptions, _configuration.configurationToolTipText! );
+                    ToolTip.add( configureButton, bindingOptions, _configuration.text!.configurationToolTipText! );
 
                     configureButton.onclick = () => {
                         showConfigurationDialog( bindingOptions );
                     };
                 }
 
-                const next: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "next", _configuration.nextButtonText! ) as HTMLInputElement;
+                const next: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "next", _configuration.text!.nextButtonText! ) as HTMLInputElement;
 
                 next.onclick = () => {
                     moveToNextYear( bindingOptions );
@@ -546,35 +547,35 @@ type LargestValuesForEachRangeType = {
         const titlesMenu: HTMLElement = DomElement.create( titlesMenuContainer, "div", "titles-menu" );
         
         if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-            DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.dataText + Char.colon );
+            DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.text!.dataText + Char.colon );
         }
 
-        const menuItemMap: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.mapText! );
+        const menuItemMap: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.mapText! );
             
         renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, ViewId.map, ViewName.map );
 
         if ( bindingOptions.views!.chart!.enabled ) {
-            const menuItemChart = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.chartText! );
+            const menuItemChart = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.chartText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, ViewId.chart, ViewName.chart );
         }
 
         if ( bindingOptions.views!.days!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.yearText + Char.colon );
+                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.text!.yearText + Char.colon );
             }
 
-            const menuItemDays: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.daysText! );
+            const menuItemDays: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.daysText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemDays, ViewId.days, ViewName.days );
         }
 
         if ( bindingOptions.views!.statistics!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.statisticsText + Char.colon );
+                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.text!.statisticsText + Char.colon );
             }
 
-            const menuItemStatistics: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.colorRangesText! );
+            const menuItemStatistics: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.colorRangesText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemStatistics, ViewId.statistics, ViewName.statistics );
         }
@@ -672,7 +673,7 @@ type LargestValuesForEachRangeType = {
         renderControlViewGuide( bindingOptions );
 
         if ( bindingOptions.views!.map!.showNoDataMessageWhenDataIsNotAvailable && !isDataAvailableForYear( bindingOptions ) ) {
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.mapContents, "div", "no-data-message", _configuration.noMapDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.mapContents, "div", "no-data-message", _configuration.text!.noMapDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
@@ -701,7 +702,7 @@ type LargestValuesForEachRangeType = {
         
                 for ( let dayNameIndex: number = 0; dayNameIndex < 7; dayNameIndex++ ) {
                     if ( isDayVisible( bindingOptions.views!.map!.daysToShow!, dayNameIndex + 1 ) ) {
-                        const dayText: string = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.dayNames![ dayNameIndex ] : Char.space;
+                        const dayText: string = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.text!.dayNames![ dayNameIndex ] : Char.space;
 
                         DomElement.createWithHTML( days, "div", "day-name", dayText );
                     }
@@ -770,9 +771,9 @@ type LargestValuesForEachRangeType = {
                         const monthWidth: number = month.offsetWidth;
     
                         if ( !bindingOptions.views!.map!.placeMonthNamesOnTheBottom ) {
-                            monthName = DomElement.createWithHTML( month, "div", "month-name", _configuration.monthNames![ monthIndex ], dayColumns );
+                            monthName = DomElement.createWithHTML( month, "div", "month-name", _configuration.text!.monthNames![ monthIndex ], dayColumns );
                         } else {
-                            monthName = DomElement.createWithHTML( month, "div", "month-name-bottom", _configuration.monthNames![ monthIndex ] );
+                            monthName = DomElement.createWithHTML( month, "div", "month-name-bottom", _configuration.text!.monthNames![ monthIndex ] );
                         }
     
                         if ( Is.defined( monthName ) ) {
@@ -909,7 +910,7 @@ type LargestValuesForEachRangeType = {
             bindingOptions._currentView.chartContents.style.minHeight = `${bindingOptions._currentView.mapContents.offsetHeight}px`;
             chart.parentNode!.removeChild( chart );
 
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.chartContents, "div", "no-data-message", _configuration.text!.noChartDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
@@ -953,7 +954,7 @@ type LargestValuesForEachRangeType = {
 
                 const addMonthName: Function = ( addMonthNameIndex: number ) => {
                     if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, addMonthNameIndex ) ) {
-                        let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", _configuration.monthNames![ addMonthNameIndex ] );
+                        let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", _configuration.text!.monthNames![ addMonthNameIndex ] );
                         monthName.style.left = `${labelsWidth + (linesWidth * monthTimesValue)}px`;
 
                         monthTimesValue++;
@@ -1091,7 +1092,7 @@ type LargestValuesForEachRangeType = {
             days.parentNode!.removeChild( days );
             dayNames.parentNode!.removeChild( dayNames );
 
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.daysContents, "div", "no-days-message", _configuration.noDaysDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.daysContents, "div", "no-days-message", _configuration.text!.noDaysDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
@@ -1105,7 +1106,7 @@ type LargestValuesForEachRangeType = {
                     renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.days[ day ], bindingOptions, pixelsPerNumbers );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
-                        DomElement.createWithHTML( dayNames, "div", "day-name", _configuration.dayNames![ parseInt( day ) - 1 ] );
+                        DomElement.createWithHTML( dayNames, "div", "day-name", _configuration.text!.dayNames![ parseInt( day ) - 1 ] );
                     }
                 }
             }
@@ -1234,7 +1235,7 @@ type LargestValuesForEachRangeType = {
             statistics.parentNode!.removeChild( statistics );
             statisticsRanges.parentNode!.removeChild( statisticsRanges );
 
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.statisticsContents, "div", "no-statistics-message", _configuration.text!.noStatisticsDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
@@ -1367,8 +1368,8 @@ type LargestValuesForEachRangeType = {
         const mapTypes: HTMLElement = DomElement.create( guide, "div", "map-types" );
         let noneTypeCount: number = 0;
 
-        for ( let storageDate in _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ _configuration.unknownTrendText! ] ) {
-            if ( _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ _configuration.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
+        for ( let storageDate in _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ _configuration.text!.unknownTrendText! ] ) {
+            if ( _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ _configuration.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
                 noneTypeCount++;
                 break;
             }
@@ -1382,8 +1383,8 @@ type LargestValuesForEachRangeType = {
             }
 
             for ( let type in _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData ) {
-                if ( type !== _configuration.unknownTrendText || noneTypeCount > 0 ) {
-                    if ( noneTypeCount === 0 && bindingOptions._currentView.type === _configuration.unknownTrendText ) {
+                if ( type !== _configuration.text!.unknownTrendText || noneTypeCount > 0 ) {
+                    if ( noneTypeCount === 0 && bindingOptions._currentView.type === _configuration.text!.unknownTrendText ) {
                         bindingOptions._currentView.type = type;
                     }
 
@@ -1399,7 +1400,7 @@ type LargestValuesForEachRangeType = {
             const mapToggles: HTMLElement = DomElement.create( guide, "div", "map-toggles" );
 
             if ( bindingOptions.guide!.showLessAndMoreLabels ) {
-                let lessText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "less-text", _configuration.lessText! );
+                let lessText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "less-text", _configuration.text!.lessText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
                     lessText.onclick = () => {
@@ -1420,7 +1421,7 @@ type LargestValuesForEachRangeType = {
             }
 
             if ( bindingOptions.guide!.showLessAndMoreLabels ) {
-                const moreText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "more-text", _configuration.moreText! );
+                const moreText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "more-text", _configuration.text!.moreText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
                     moreText.onclick = () => {
@@ -1538,7 +1539,7 @@ type LargestValuesForEachRangeType = {
             totalTypes: 1
         };
 
-        _elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText! ] = {} as TypeCountsData;
+        _elements_DateCounts[ elementId ].typeData[ _configuration.text!.unknownTrendText! ] = {} as TypeCountsData;
 
         if ( storeLocalData && !bindingOptions._currentView.isInFetchMode ) {
             loadDataFromLocalStorage( bindingOptions );
@@ -1690,11 +1691,11 @@ type LargestValuesForEachRangeType = {
 
             for ( let storageDate in data ) {
                 if ( data.hasOwnProperty( storageDate ) ) {
-                    if ( !_elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
-                        _elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText! ][ storageDate ] = 0;
+                    if ( !_elements_DateCounts[ elementId ].typeData[ _configuration.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
+                        _elements_DateCounts[ elementId ].typeData[ _configuration.text!.unknownTrendText! ][ storageDate ] = 0;
                     }
             
-                    _elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText! ][ storageDate ] += data[ storageDate ];
+                    _elements_DateCounts[ elementId ].typeData[ _configuration.text!.unknownTrendText! ][ storageDate ] += data[ storageDate ];
                 }
             }
         }
@@ -2049,7 +2050,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( csvContents.length > 0 ) {
-            csvContents.unshift( getCsvValueLine( [ getCsvValue( _configuration.dateText! ), getCsvValue( _configuration.countText! ) ] ) );
+            csvContents.unshift( getCsvValueLine( [ getCsvValue( _configuration.text!.dateText! ), getCsvValue( _configuration.text!.countText! ) ] ) );
         }
         
         return csvContents.join( Char.newLine );
@@ -2157,7 +2158,7 @@ type LargestValuesForEachRangeType = {
         const timePart: string = Data.String.padNumber( date.getHours() ) + Char.dash + Data.String.padNumber( date.getMinutes() );
         let filenameStart: string = Char.empty;
 
-        if ( bindingOptions._currentView.type !== _configuration.unknownTrendText ) {
+        if ( bindingOptions._currentView.type !== _configuration.text!.unknownTrendText ) {
             filenameStart = bindingOptions._currentView.type.toLowerCase().replace( Char.space, Char.underscore ) + Char.underscore;
         }
 
@@ -2475,7 +2476,7 @@ type LargestValuesForEachRangeType = {
                 
             } catch ( e2: any ) {
                 if ( !_configuration.safeMode ) {
-                    console.error( _configuration.objectErrorText!.replace( "{{error_1}}",  e1.message ).replace( "{{error_2}}",  e2.message ) );
+                    console.error( _configuration.text!.objectErrorText!.replace( "{{error_1}}",  e1.message ).replace( "{{error_2}}",  e2.message ) );
                     result.parsed = false;
                 }
                 
@@ -2584,44 +2585,45 @@ type LargestValuesForEachRangeType = {
     }
 
     function buildDefaultConfigurationStrings() : void {
-        _configuration.stText = Data.getDefaultAnyString( _configuration.stText, "st" );
-        _configuration.ndText = Data.getDefaultAnyString( _configuration.ndText, "nd" );
-        _configuration.rdText = Data.getDefaultAnyString( _configuration.rdText, "rd" );
-        _configuration.thText = Data.getDefaultAnyString( _configuration.thText, "th" );
-        _configuration.backButtonText = Data.getDefaultAnyString( _configuration.backButtonText, "Back" );
-        _configuration.nextButtonText = Data.getDefaultAnyString( _configuration.nextButtonText, "Next" );
-        _configuration.refreshButtonText = Data.getDefaultAnyString( _configuration.refreshButtonText, "Refresh" );
-        _configuration.exportButtonText = Data.getDefaultAnyString( _configuration.exportButtonText, "Export" );
-        _configuration.lessText = Data.getDefaultAnyString( _configuration.lessText, "Less" );
-        _configuration.moreText = Data.getDefaultAnyString( _configuration.moreText, "More" );
-        _configuration.dateText = Data.getDefaultAnyString( _configuration.dateText, "Date" );
-        _configuration.countText = Data.getDefaultAnyString( _configuration.countText, "Count" );
-        _configuration.mapText = Data.getDefaultAnyString( _configuration.mapText, "Map" );
-        _configuration.chartText = Data.getDefaultAnyString( _configuration.chartText, "Chart" );
-        _configuration.noChartDataMessage = Data.getDefaultAnyString( _configuration.noChartDataMessage, "There is currently no data to view." );
-        _configuration.statisticsText = Data.getDefaultAnyString( _configuration.statisticsText, "Statistics" );
-        _configuration.noStatisticsDataMessage = Data.getDefaultAnyString( _configuration.noStatisticsDataMessage, "There are currently no statistics to view." );
-        _configuration.unknownTrendText = Data.getDefaultAnyString( _configuration.unknownTrendText, "Unknown" );
-        _configuration.importButtonText = Data.getDefaultAnyString( _configuration.importButtonText, "Import" );
-        _configuration.noMapDataMessage = Data.getDefaultAnyString( _configuration.noMapDataMessage, "There is currently no data to view." );
-        _configuration.objectErrorText = Data.getDefaultAnyString( _configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}" );
-        _configuration.attributeNotValidErrorText = Data.getDefaultAnyString( _configuration.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object." );
-        _configuration.attributeNotSetErrorText = Data.getDefaultAnyString( _configuration.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly." );
-        _configuration.closeToolTipText = Data.getDefaultAnyString( _configuration.closeToolTipText, "Close" );
-        _configuration.configurationToolTipText = Data.getDefaultAnyString( _configuration.configurationToolTipText, "Configuration" );
-        _configuration.configurationTitleText = Data.getDefaultAnyString( _configuration.configurationTitleText, "Configuration" );
-        _configuration.visibleMonthsText = Data.getDefaultAnyString( _configuration.visibleMonthsText, "Visible Months" );
-        _configuration.visibleDaysText = Data.getDefaultAnyString( _configuration.visibleDaysText, "Visible Days" );
-        _configuration.dataText = Data.getDefaultAnyString( _configuration.dataText, "Data" );
-        _configuration.colorRangesText = Data.getDefaultAnyString( _configuration.colorRangesText, "Color Ranges" );
-        _configuration.yearText = Data.getDefaultAnyString( _configuration.yearText, "Year" );
-        _configuration.daysText = Data.getDefaultAnyString( _configuration.daysText, "Days" );
-        _configuration.noDaysDataMessage = Data.getDefaultAnyString( _configuration.noDaysDataMessage, "There are currently no days to view." );
+        _configuration.text = Data.getDefaultObject( _configuration.text, {} as ConfigurationText );
+        _configuration.text!.stText = Data.getDefaultAnyString( _configuration.text!.stText, "st" );
+        _configuration.text!.ndText = Data.getDefaultAnyString( _configuration.text!.ndText, "nd" );
+        _configuration.text!.rdText = Data.getDefaultAnyString( _configuration.text!.rdText, "rd" );
+        _configuration.text!.thText = Data.getDefaultAnyString( _configuration.text!.thText, "th" );
+        _configuration.text!.backButtonText = Data.getDefaultAnyString( _configuration.text!.backButtonText, "Back" );
+        _configuration.text!.nextButtonText = Data.getDefaultAnyString( _configuration.text!.nextButtonText, "Next" );
+        _configuration.text!.refreshButtonText = Data.getDefaultAnyString( _configuration.text!.refreshButtonText, "Refresh" );
+        _configuration.text!.exportButtonText = Data.getDefaultAnyString( _configuration.text!.exportButtonText, "Export" );
+        _configuration.text!.lessText = Data.getDefaultAnyString( _configuration.text!.lessText, "Less" );
+        _configuration.text!.moreText = Data.getDefaultAnyString( _configuration.text!.moreText, "More" );
+        _configuration.text!.dateText = Data.getDefaultAnyString( _configuration.text!.dateText, "Date" );
+        _configuration.text!.countText = Data.getDefaultAnyString( _configuration.text!.countText, "Count" );
+        _configuration.text!.mapText = Data.getDefaultAnyString( _configuration.text!.mapText, "Map" );
+        _configuration.text!.chartText = Data.getDefaultAnyString( _configuration.text!.chartText, "Chart" );
+        _configuration.text!.noChartDataMessage = Data.getDefaultAnyString( _configuration.text!.noChartDataMessage, "There is currently no data to view." );
+        _configuration.text!.statisticsText = Data.getDefaultAnyString( _configuration.text!.statisticsText, "Statistics" );
+        _configuration.text!.noStatisticsDataMessage = Data.getDefaultAnyString( _configuration.text!.noStatisticsDataMessage, "There are currently no statistics to view." );
+        _configuration.text!.unknownTrendText = Data.getDefaultAnyString( _configuration.text!.unknownTrendText, "Unknown" );
+        _configuration.text!.importButtonText = Data.getDefaultAnyString( _configuration.text!.importButtonText, "Import" );
+        _configuration.text!.noMapDataMessage = Data.getDefaultAnyString( _configuration.text!.noMapDataMessage, "There is currently no data to view." );
+        _configuration.text!.objectErrorText = Data.getDefaultAnyString( _configuration.text!.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}" );
+        _configuration.text!.attributeNotValidErrorText = Data.getDefaultAnyString( _configuration.text!.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object." );
+        _configuration.text!.attributeNotSetErrorText = Data.getDefaultAnyString( _configuration.text!.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly." );
+        _configuration.text!.closeToolTipText = Data.getDefaultAnyString( _configuration.text!.closeToolTipText, "Close" );
+        _configuration.text!.configurationToolTipText = Data.getDefaultAnyString( _configuration.text!.configurationToolTipText, "Configuration" );
+        _configuration.text!.configurationTitleText = Data.getDefaultAnyString( _configuration.text!.configurationTitleText, "Configuration" );
+        _configuration.text!.visibleMonthsText = Data.getDefaultAnyString( _configuration.text!.visibleMonthsText, "Visible Months" );
+        _configuration.text!.visibleDaysText = Data.getDefaultAnyString( _configuration.text!.visibleDaysText, "Visible Days" );
+        _configuration.text!.dataText = Data.getDefaultAnyString( _configuration.text!.dataText, "Data" );
+        _configuration.text!.colorRangesText = Data.getDefaultAnyString( _configuration.text!.colorRangesText, "Color Ranges" );
+        _configuration.text!.yearText = Data.getDefaultAnyString( _configuration.text!.yearText, "Year" );
+        _configuration.text!.daysText = Data.getDefaultAnyString( _configuration.text!.daysText, "Days" );
+        _configuration.text!.noDaysDataMessage = Data.getDefaultAnyString( _configuration.text!.noDaysDataMessage, "There are currently no days to view." );
     }
 
     function buildDefaultConfigurationArrays() : void {
-        if ( Is.invalidOptionArray( _configuration.monthNames, 12 ) ) {
-            _configuration.monthNames = [
+        if ( Is.invalidOptionArray( _configuration.text!.monthNames, 12 ) ) {
+            _configuration.text!.monthNames = [
                 "Jan",
                 "Feb",
                 "Mar",
@@ -2637,8 +2639,8 @@ type LargestValuesForEachRangeType = {
             ];
         }
 
-        if ( Is.invalidOptionArray( _configuration.dayNames, 7 ) ) {
-            _configuration.dayNames = [
+        if ( Is.invalidOptionArray( _configuration.text!.dayNames, 7 ) ) {
+            _configuration.text!.dayNames = [
                 "Mon",
                 "Tue",
                 "Wed",
@@ -2669,7 +2671,7 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
-                    type = Data.getDefaultString( type, _configuration.unknownTrendText! );
+                    type = Data.getDefaultString( type, _configuration.text!.unknownTrendText! );
 
                     const datesLength: number = dates.length;
         
@@ -2691,7 +2693,7 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
-                    type = Data.getDefaultString( type, _configuration.unknownTrendText! );
+                    type = Data.getDefaultString( type, _configuration.text!.unknownTrendText! );
 
                     const storageDate: string = DateTime.toStorageDate( date );
         
@@ -2725,7 +2727,7 @@ type LargestValuesForEachRangeType = {
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) ) {    
-                        type = Data.getDefaultString( type, _configuration.unknownTrendText! );
+                        type = Data.getDefaultString( type, _configuration.text!.unknownTrendText! );
 
                         _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ] = count;
         
@@ -2746,7 +2748,7 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
-                    type = Data.getDefaultString( type, _configuration.unknownTrendText! );
+                    type = Data.getDefaultString( type, _configuration.text!.unknownTrendText! );
 
                     const datesLength: number = dates.length;
         
@@ -2771,7 +2773,7 @@ type LargestValuesForEachRangeType = {
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
-                        type = Data.getDefaultString( type, _configuration.unknownTrendText! );
+                        type = Data.getDefaultString( type, _configuration.text!.unknownTrendText! );
 
                         if ( _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ] > 0 ) {
                             _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ]--;
@@ -2797,7 +2799,7 @@ type LargestValuesForEachRangeType = {
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
-                        type = Data.getDefaultString( type, _configuration.unknownTrendText! );
+                        type = Data.getDefaultString( type, _configuration.text!.unknownTrendText! );
 
                         delete _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ];
         
@@ -2828,7 +2830,7 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
-                    bindingOptions._currentView.type = _configuration.unknownTrendText!;
+                    bindingOptions._currentView.type = _configuration.text!.unknownTrendText!;
         
                     createDateStorageForElement( elementId, bindingOptions, false );
                     Trigger.customEvent( bindingOptions.events!.onReset!, bindingOptions._currentView.element );
