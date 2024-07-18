@@ -11,9 +11,9 @@
  */
 
 
-import { type Configuration, type ConfigurationText } from "./type";
-import { Data } from "./data";
-import { Is } from "./is";
+import { type Configuration, type ConfigurationText } from "../type";
+import { Data } from "../data";
+import { Is } from "../is";
 
 
 export namespace Config {

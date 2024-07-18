@@ -411,7 +411,7 @@ var init_trigger = __esm({
 var binding;
 
 var init_binding = __esm({
-    "src/ts/binding.ts"() {
+    "src/ts/options/binding.ts"() {
         "use strict";
         init_data();
         init_enum();
@@ -650,7 +650,7 @@ var init_binding = __esm({
 var Config;
 
 var init_config = __esm({
-    "src/ts/config.ts"() {
+    "src/ts/options/config.ts"() {
         "use strict";
         init_data();
         init_is();

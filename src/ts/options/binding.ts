@@ -23,11 +23,11 @@ import {
     type Chart,
     type Days,
     type Statistics,
-    type Events } from "./type";
+    type Events } from "../type";
 
-import { Data } from "./data";
-import { Char, ExportType, ViewName } from "./enum";
-import { Is } from "./is";
+import { Data } from "../data";
+import { Char, ExportType, ViewName } from "../enum";
+import { Is } from "../is";
 
 
 export namespace binding {

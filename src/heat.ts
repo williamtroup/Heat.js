@@ -29,8 +29,8 @@ import { DomElement } from "./ts/dom"
 import { DateTime } from "./ts/datetime"
 import { ToolTip } from "./ts/area/tooltip";
 import { Trigger } from "./ts/area/trigger";
-import { binding } from "./ts/binding";
-import { Config } from "./ts/config";
+import { binding } from "./ts/options/binding";
+import { Config } from "./ts/options/config";
 
 
 type IsHoliday = {
