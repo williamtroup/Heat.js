@@ -328,6 +328,67 @@ var init_datetime = __esm({
     }
 });
 
+var ToolTip;
+
+var init_tooltip = __esm({
+    "src/ts/area/tooltip.ts"() {
+        "use strict";
+        init_dom();
+        init_is();
+        (e => {
+            function t(e) {
+                if (!Is.defined(e._currentView.tooltip)) {
+                    e._currentView.tooltip = DomElement.create(document.body, "div", "heat-js-tooltip");
+                    e._currentView.tooltip.style.display = "none";
+                    n(e);
+                }
+            }
+            e.renderControl = t;
+            function n(e, t = true) {
+                let n = t ? window.addEventListener : window.removeEventListener;
+                let i = t ? document.addEventListener : document.removeEventListener;
+                n("mousemove", (() => {
+                    a(e);
+                }));
+                i("scroll", (() => {
+                    a(e);
+                }));
+            }
+            e.assignToEvents = n;
+            function i(e, t, n) {
+                if (e !== null) {
+                    e.onmousemove = e => {
+                        o(e, t, n);
+                    };
+                }
+            }
+            e.add = i;
+            function o(e, t, n) {
+                DomElement.cancelBubble(e);
+                a(t);
+                t._currentView.tooltipTimer = setTimeout((() => {
+                    t._currentView.tooltip.innerHTML = n;
+                    t._currentView.tooltip.style.display = "block";
+                    DomElement.showElementAtMousePosition(e, t._currentView.tooltip);
+                }), t.tooltip.delay);
+            }
+            e.show = o;
+            function a(e) {
+                if (Is.defined(e._currentView.tooltip)) {
+                    if (e._currentView.tooltipTimer !== 0) {
+                        clearTimeout(e._currentView.tooltipTimer);
+                        e._currentView.tooltipTimer = 0;
+                    }
+                    if (e._currentView.tooltip.style.display !== "none") {
+                        e._currentView.tooltip.style.display = "none";
+                    }
+                }
+            }
+            e.hide = a;
+        })(ToolTip || (ToolTip = {}));
+    }
+});
+
 var require_heat = __commonJS({
     "src/heat.ts"(exports, module) {
         init_enum();
@@ -336,6 +397,7 @@ var require_heat = __commonJS({
         init_data();
         init_dom();
         init_datetime();
+        init_tooltip();
         (() => {
             let _configuration = {};
             let _elements_Day_Width = 0;
@@ -471,13 +533,13 @@ var require_heat = __commonJS({
                 }
                 e._currentView.element.innerHTML = "";
                 e._currentView.yearsAvailable = getYearsAvailableInData(e);
-                hideToolTip(e);
+                ToolTip.hide(e);
                 startDataPullTimer(e);
                 if (e.title.showConfigurationButton) {
                     renderDisabledBackground(e);
                     renderConfigurationDialog(e);
                 }
-                renderControlToolTip(e);
+                ToolTip.renderControl(e);
                 renderControlTitleBar(e);
                 renderControlMap(e, n);
                 if (e.views.chart.enabled) {
@@ -530,7 +592,7 @@ var require_heat = __commonJS({
                 for (let t = 7; t < 12; t++) {
                     e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(s, _configuration.monthNames[t]);
                 }
-                addToolTip(i, e, _configuration.closeToolTipText);
+                ToolTip.add(i, e, _configuration.closeToolTipText);
             }
             function showConfigurationDialog(e) {
                 showDisabledBackground(e);
@@ -561,7 +623,7 @@ var require_heat = __commonJS({
                 for (let t = 0; t < 12; t++) {
                     e._currentView.monthCheckBoxes[t].checked = isMonthVisible(n, t);
                 }
-                hideToolTip(e);
+                ToolTip.hide(e);
             }
             function hideConfigurationDialog(e) {
                 hideDisabledBackground(e);
@@ -613,51 +675,7 @@ var require_heat = __commonJS({
                     renderControlContainer(e);
                     fireCustomTriggerEvent(e.events.onOptionsUpdate, e._currentView.element, e);
                 } else {
-                    hideToolTip(e);
-                }
-            }
-            function renderControlToolTip(e) {
-                if (!Is.defined(e._currentView.tooltip)) {
-                    e._currentView.tooltip = DomElement.create(document.body, "div", "heat-js-tooltip");
-                    e._currentView.tooltip.style.display = "none";
-                    assignToolTipEvents(e);
-                }
-            }
-            function assignToolTipEvents(e, t = true) {
-                let n = t ? window.addEventListener : window.removeEventListener;
-                let i = t ? document.addEventListener : document.removeEventListener;
-                n("mousemove", (() => {
-                    hideToolTip(e);
-                }));
-                i("scroll", (() => {
-                    hideToolTip(e);
-                }));
-            }
-            function addToolTip(e, t, n) {
-                if (e !== null) {
-                    e.onmousemove = e => {
-                        showToolTip(e, t, n);
-                    };
-                }
-            }
-            function showToolTip(e, t, n) {
-                DomElement.cancelBubble(e);
-                hideToolTip(t);
-                t._currentView.tooltipTimer = setTimeout((() => {
-                    t._currentView.tooltip.innerHTML = n;
-                    t._currentView.tooltip.style.display = "block";
-                    DomElement.showElementAtMousePosition(e, t._currentView.tooltip);
-                }), t.tooltip.delay);
-            }
-            function hideToolTip(e) {
-                if (Is.defined(e._currentView.tooltip)) {
-                    if (e._currentView.tooltipTimer !== 0) {
-                        clearTimeout(e._currentView.tooltipTimer);
-                        e._currentView.tooltipTimer = 0;
-                    }
-                    if (e._currentView.tooltip.style.display !== "none") {
-                        e._currentView.tooltip.style.display = "none";
-                    }
+                    ToolTip.hide(e);
                 }
             }
             function renderControlTitleBar(e) {
@@ -712,7 +730,7 @@ var require_heat = __commonJS({
                         }
                         if (e.title.showConfigurationButton) {
                             let n = DomElement.create(t, "div", "configure");
-                            addToolTip(n, e, _configuration.configurationToolTipText);
+                            ToolTip.add(n, e, _configuration.configurationToolTipText);
                             n.onclick = () => {
                                 showConfigurationDialog(e);
                             };
@@ -1160,7 +1178,7 @@ var require_heat = __commonJS({
                 if (r <= 0) {
                     a.style.visibility = "hidden";
                 }
-                addToolTip(a, i, n.toString());
+                ToolTip.add(a, i, n.toString());
                 if (Is.definedFunction(i.events.onWeekDayClick)) {
                     a.onclick = () => {
                         fireCustomTriggerEvent(i.events.onWeekDayClick, t, n);
@@ -1273,7 +1291,7 @@ var require_heat = __commonJS({
                 if (l <= 0) {
                     r.style.visibility = "hidden";
                 }
-                addToolTip(r, i, n.toString());
+                ToolTip.add(r, i, n.toString());
                 if (i.views.statistics.showRangeNumbers && n > 0) {
                     DomElement.addClass(r, "range-line-number");
                     DomElement.createWithHTML(r, "div", "count", n.toString());
@@ -1397,7 +1415,7 @@ var require_heat = __commonJS({
             function renderControlViewGuideDay(e, t, n) {
                 const i = DomElement.create(t, "div");
                 i.className = "day";
-                addToolTip(i, e, n.tooltipText);
+                ToolTip.add(i, e, n.tooltipText);
                 if (isColorRangeVisible(e, n.id)) {
                     if (e._currentView.view === 1 && Is.definedString(n.mapCssClassName)) {
                         DomElement.addClass(i, n.mapCssClassName);
@@ -1434,7 +1452,7 @@ var require_heat = __commonJS({
             }
             function renderDayToolTip(e, t, n, i) {
                 if (Is.definedFunction(e.events.onDayToolTipRender)) {
-                    addToolTip(t, e, fireCustomTriggerEvent(e.events.onDayToolTipRender, n, i));
+                    ToolTip.add(t, e, fireCustomTriggerEvent(e.events.onDayToolTipRender, n, i));
                 } else {
                     let i = DateTime.getCustomFormattedDateText(_configuration, e.tooltip.dayText, n);
                     if (e.showHolidaysInDayToolTips) {
@@ -1443,7 +1461,7 @@ var require_heat = __commonJS({
                             i += ":" + " " + t.name;
                         }
                     }
-                    addToolTip(t, e, i);
+                    ToolTip.add(t, e, i);
                 }
             }
             function createDateStorageForElement(e, t, n = true) {
@@ -2204,7 +2222,7 @@ var require_heat = __commonJS({
             function destroyElement(e) {
                 e._currentView.element.innerHTML = "";
                 DomElement.removeClass(e._currentView.element, "heat-js");
-                assignToolTipEvents(e, false);
+                ToolTip.assignToEvents(e, false);
                 document.body.removeChild(e._currentView.tooltip);
                 if (e._currentView.isInFetchMode && Is.defined(e._currentView.isInFetchModeTimer)) {
                     clearInterval(e._currentView.isInFetchModeTimer);

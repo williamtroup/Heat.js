@@ -36,6 +36,7 @@ import { Data } from "./ts/data"
 import { DomElement } from "./ts/dom"
 import { DateTime } from "./ts/datetime"
 import { type PublicApi } from "./ts/api";
+import { ToolTip } from "./ts/area/tooltip";
 
 
 type IsHoliday = {
@@ -252,7 +253,7 @@ type LargestValuesForEachRangeType = {
         bindingOptions._currentView.element.innerHTML = Char.empty;
         bindingOptions._currentView.yearsAvailable = getYearsAvailableInData( bindingOptions );
         
-        hideToolTip( bindingOptions );
+        ToolTip.hide( bindingOptions );
 
         startDataPullTimer( bindingOptions );
 
@@ -261,7 +262,7 @@ type LargestValuesForEachRangeType = {
             renderConfigurationDialog( bindingOptions );
         }
 
-        renderControlToolTip( bindingOptions );
+        ToolTip.renderControl( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions, isForViewSwitch );
 
@@ -338,7 +339,7 @@ type LargestValuesForEachRangeType = {
             bindingOptions._currentView.monthCheckBoxes[ monthIndex2 ] = DomElement.createCheckBox( months2Container, _configuration.monthNames![ monthIndex2 ] );
         }
 
-        addToolTip( closeButton, bindingOptions, _configuration.closeToolTipText! );
+        ToolTip.add( closeButton, bindingOptions, _configuration.closeToolTipText! );
     }
 
     function showConfigurationDialog( bindingOptions: BindingOptions ) : void {
@@ -376,7 +377,7 @@ type LargestValuesForEachRangeType = {
             bindingOptions._currentView.monthCheckBoxes[ monthIndex ].checked = isMonthVisible( monthsToShow, monthIndex );
         }
 
-        hideToolTip( bindingOptions );
+        ToolTip.hide( bindingOptions );
     }
 
     function hideConfigurationDialog( bindingOptions: BindingOptions ) : void {
@@ -439,69 +440,7 @@ type LargestValuesForEachRangeType = {
             fireCustomTriggerEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView.element, bindingOptions );
             
         } else {
-            hideToolTip( bindingOptions );
-        }
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Render:  ToolTip
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function renderControlToolTip( bindingOptions: BindingOptions ) : void {
-        if ( !Is.defined( bindingOptions._currentView.tooltip ) ) {
-            bindingOptions._currentView.tooltip = DomElement.create( document.body, "div", "heat-js-tooltip" );
-            bindingOptions._currentView.tooltip.style.display = "none";
-    
-            assignToolTipEvents( bindingOptions );
-        }
-    }
-
-    function assignToolTipEvents( bindingOptions: BindingOptions, add: boolean = true ) : void {
-        let addEventListener_Window: Function = add ? window.addEventListener : window.removeEventListener;
-        let addEventListener_Document: Function = add ? document.addEventListener : document.removeEventListener;
-
-        addEventListener_Window( "mousemove", () => {
-            hideToolTip( bindingOptions );
-        } );
-
-        addEventListener_Document( "scroll", () => {
-            hideToolTip( bindingOptions );
-        } );
-    }
-
-    function addToolTip( element: HTMLElement, bindingOptions: BindingOptions, text: string ) : void {
-        if ( element !== null ) {
-            element.onmousemove = ( e: MouseEvent ) => {
-                showToolTip( e, bindingOptions, text );
-            };
-        }
-    }
-
-    function showToolTip( e: MouseEvent, bindingOptions: BindingOptions, text: string ) : void {
-        DomElement.cancelBubble( e );
-        hideToolTip( bindingOptions );
-
-        bindingOptions._currentView.tooltipTimer = setTimeout( () => {
-            bindingOptions._currentView.tooltip.innerHTML = text;
-            bindingOptions._currentView.tooltip.style.display = "block";
-
-            DomElement.showElementAtMousePosition( e, bindingOptions._currentView.tooltip );
-        }, bindingOptions.tooltip!.delay );
-    }
-
-    function hideToolTip( bindingOptions: BindingOptions ) : void {
-        if ( Is.defined( bindingOptions._currentView.tooltip ) ) {
-            if ( bindingOptions._currentView.tooltipTimer !== 0 ) {
-                clearTimeout( bindingOptions._currentView.tooltipTimer );
-                bindingOptions._currentView.tooltipTimer = 0;
-            }
-    
-            if ( bindingOptions._currentView.tooltip.style.display !== "none" ) {
-                bindingOptions._currentView.tooltip.style.display = "none";
-            }
+            ToolTip.hide( bindingOptions );
         }
     }
 
@@ -581,7 +520,7 @@ type LargestValuesForEachRangeType = {
                 if ( bindingOptions.title!.showConfigurationButton ) {
                     let configureButton: HTMLElement = DomElement.create( titleBar, "div", "configure" );
 
-                    addToolTip( configureButton, bindingOptions, _configuration.configurationToolTipText! );
+                    ToolTip.add( configureButton, bindingOptions, _configuration.configurationToolTipText! );
 
                     configureButton.onclick = () => {
                         showConfigurationDialog( bindingOptions );
@@ -1191,7 +1130,7 @@ type LargestValuesForEachRangeType = {
             dayLine.style.visibility = "hidden";
         }
         
-        addToolTip( dayLine, bindingOptions, dayCount.toString() );
+        ToolTip.add( dayLine, bindingOptions, dayCount.toString() );
 
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
             dayLine.onclick = () => {
@@ -1345,7 +1284,7 @@ type LargestValuesForEachRangeType = {
             rangeLine.style.visibility = "hidden";
         }
         
-        addToolTip( rangeLine, bindingOptions, rangeCount.toString() );
+        ToolTip.add( rangeLine, bindingOptions, rangeCount.toString() );
 
         if ( bindingOptions.views!.statistics!.showRangeNumbers && rangeCount > 0 ) {
             DomElement.addClass( rangeLine, "range-line-number" );
@@ -1515,7 +1454,7 @@ type LargestValuesForEachRangeType = {
         const day: HTMLElement = DomElement.create( days, "div" );
         day.className = "day";
 
-        addToolTip( day, bindingOptions, colorRange.tooltipText! );
+        ToolTip.add( day, bindingOptions, colorRange.tooltipText! );
 
         if ( isColorRangeVisible( bindingOptions, colorRange.id! ) ) {
             if ( bindingOptions._currentView.view === ViewId.map && Is.definedString( colorRange.mapCssClassName ) ) {
@@ -1567,7 +1506,7 @@ type LargestValuesForEachRangeType = {
 
     function renderDayToolTip( bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number ) : void {
         if ( Is.definedFunction( bindingOptions.events!.onDayToolTipRender ) ) {
-            addToolTip( day, bindingOptions, fireCustomTriggerEvent( bindingOptions.events!.onDayToolTipRender!, date, dateCount ) );
+            ToolTip.add( day, bindingOptions, fireCustomTriggerEvent( bindingOptions.events!.onDayToolTipRender!, date, dateCount ) );
         } else {
 
             let tooltip: string = DateTime.getCustomFormattedDateText( _configuration, bindingOptions.tooltip!.dayText!, date );
@@ -1580,7 +1519,7 @@ type LargestValuesForEachRangeType = {
                 }
             }
 
-            addToolTip( day, bindingOptions, tooltip );
+            ToolTip.add( day, bindingOptions, tooltip );
         }
     }
 
@@ -2633,7 +2572,7 @@ type LargestValuesForEachRangeType = {
         bindingOptions._currentView.element.innerHTML = Char.empty;
 
         DomElement.removeClass( bindingOptions._currentView.element, "heat-js" );
-        assignToolTipEvents( bindingOptions, false );
+        ToolTip.assignToEvents( bindingOptions, false );
 
         document.body.removeChild( bindingOptions._currentView.tooltip );
 
