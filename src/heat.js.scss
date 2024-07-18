@@ -157,6 +157,10 @@ div.heat-js {
     max-width: 700px;
     margin: 0 !important;
 
+    button {
+        font-family: var(--heat-js-default-font);
+    }
+
     div.view-switch {
         animation: fade-in-animation var(--heat-js-animation-length);
     }
