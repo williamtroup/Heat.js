@@ -325,6 +325,10 @@ div.heat-js {
 
         @include buttons;
 
+        button {
+            font-weight: var(--heat-js-title-bold-weight);
+        }
+
         button.back {
             margin-left: calc( var(--heat-js-spacing) * 2 ) !important;
         }

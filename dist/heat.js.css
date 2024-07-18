@@ -282,6 +282,9 @@ div.heat-js div.title-bar button.active {
   transition: var(--heat-js-transition);
   font-weight: var(--heat-js-text-bold-weight-active);
 }
+div.heat-js div.title-bar button {
+  font-weight: var(--heat-js-title-bold-weight);
+}
 div.heat-js div.title-bar button.back {
   margin-left: calc(var(--heat-js-spacing) * 2) !important;
 }
