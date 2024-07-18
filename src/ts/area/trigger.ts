@@ -11,7 +11,7 @@
  */
 
 
-import { Is } from "../is";
+import { Is } from "../data/is";
 
 
 export namespace Trigger {

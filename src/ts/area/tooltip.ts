@@ -11,8 +11,8 @@
  */
 
 
-import { DomElement } from "../dom";
-import { Is } from "../is";
+import { DomElement } from "../dom/dom";
+import { Is } from "../data/is";
 import { type BindingOptions } from "../type";
 
 

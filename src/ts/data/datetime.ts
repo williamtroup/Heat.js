@@ -11,9 +11,9 @@
  */
 
 
-import { type Configuration } from "./type";
-import { Data } from "./data";
+import { type Configuration } from "../type";
 import { Char } from "./enum";
+import { Str } from "./str";
 
 
 export namespace DateTime {
@@ -44,13 +44,13 @@ export namespace DateTime {
         const weekDayNumber: number = getWeekdayNumber( date );
 
         result = result.replace( "{dddd}", configuration.text!.dayNames![ weekDayNumber ] );
-        result = result.replace( "{dd}", Data.String.padNumber( date.getDate() ) );
+        result = result.replace( "{dd}", Str.padNumber( date.getDate() ) );
         result = result.replace( "{d}", date.getDate().toString() );
 
         result = result.replace( "{o}", getDayOrdinal( configuration, date.getDate() ) );
 
         result = result.replace( "{mmmm}", configuration.text!.monthNames![ date.getMonth() ] );
-        result = result.replace( "{mm}", Data.String.padNumber( date.getMonth() + 1 ) );
+        result = result.replace( "{mm}", Str.padNumber( date.getMonth() + 1 ) );
         result = result.replace( "{m}", ( date.getMonth() + 1 ).toString() );
 
         result = result.replace( "{yyyy}", date.getFullYear().toString() );
@@ -62,7 +62,7 @@ export namespace DateTime {
     }
 
     export function toStorageDate( date: Date ) : string {
-        return date.getFullYear() + Char.dash + Data.String.padNumber( date.getMonth() + 1 ) + Char.dash + Data.String.padNumber( date.getDate() );
+        return date.getFullYear() + Char.dash + Str.padNumber( date.getMonth() + 1 ) + Char.dash + Str.padNumber( date.getDate() );
     }
 
     export function getStorageDate( data: string ) : string[] {

@@ -21,15 +21,16 @@ import {
     type DateCounts } from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
-import { ExportType, Char, Value, ViewId, ViewName } from "./ts/enum";
 import { Constant } from "./ts/constant"
-import { Is } from "./ts/is"
-import { Data } from "./ts/data"
-import { DomElement } from "./ts/dom"
-import { DateTime } from "./ts/datetime"
+import { ExportType, Char, Value, ViewId, ViewName } from "./ts/data/enum";
+import { Is } from "./ts/data/is"
+import { Default } from "./ts/data/default"
+import { DateTime } from "./ts/data/datetime"
+import { DomElement } from "./ts/dom/dom"
+import { Str } from "./ts/data/str";
 import { ToolTip } from "./ts/area/tooltip";
 import { Trigger } from "./ts/area/trigger";
-import { binding } from "./ts/options/binding";
+import { Binding } from "./ts/options/binding";
 import { Config } from "./ts/options/config";
 
 
@@ -148,8 +149,8 @@ type LargestValuesForEachRangeType = {
     }
 
     function renderBindingOptions( data: any, element: HTMLElement ) : BindingOptions {
-        const bindingOptions: BindingOptions = binding.options.get( data );
-        const view: string = Data.getDefaultString( bindingOptions.view, Char.empty ).toLowerCase();
+        const bindingOptions: BindingOptions = Binding.Options.get( data );
+        const view: string = Default.getString( bindingOptions.view, Char.empty ).toLowerCase();
 
         let currentView: BindingOptionsCurrentView = {} as BindingOptionsCurrentView;
         currentView.element = element;
@@ -203,7 +204,7 @@ type LargestValuesForEachRangeType = {
         Trigger.customEvent( bindingOptions.events!.onBeforeRender!, bindingOptions._currentView.element );
 
         if ( !Is.definedString( bindingOptions._currentView.element.id ) ) {
-            bindingOptions._currentView.element.id = Data.String.newGuid();
+            bindingOptions._currentView.element.id = Str.newGuid();
         }
 
         if ( bindingOptions._currentView.element.className.trim() === Char.empty ) {
@@ -815,7 +816,7 @@ type LargestValuesForEachRangeType = {
         const date: Date = new Date( year, month, actualDay );
         let dateCount: number = _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ bindingOptions._currentView.type ][ DateTime.toStorageDate( date ) ];
 
-        dateCount = Data.getDefaultNumber( dateCount, 0 );
+        dateCount = Default.getNumber( dateCount, 0 );
 
         renderDayToolTip( bindingOptions, day, date, dateCount );
 
@@ -987,7 +988,7 @@ type LargestValuesForEachRangeType = {
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
 
-        dateCount = Data.getDefaultNumber( dateCount, 0 );
+        dateCount = Default.getNumber( dateCount, 0 );
 
         renderDayToolTip( bindingOptions, dayLine, date, dateCount );
 
@@ -1607,7 +1608,7 @@ type LargestValuesForEachRangeType = {
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
                 const key : string = window.localStorage.key( keyIndex )!;
 
-                if ( Data.String.startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
+                if ( Str.startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
                     const typesJson: string = window.localStorage.getItem( key )!;
                     const typesObject: StringToJson = getObjectFromString( typesJson );
 
@@ -1645,7 +1646,7 @@ type LargestValuesForEachRangeType = {
             const elementId: string = bindingOptions._currentView.element.id;
 
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
-                if ( Data.String.startsWithAnyCase( window.localStorage.key( keyIndex )!, _local_Storage_Start_ID + elementId ) ) {
+                if ( Str.startsWithAnyCase( window.localStorage.key( keyIndex )!, _local_Storage_Start_ID + elementId ) ) {
                     keysToRemove.push( window.localStorage.key( keyIndex )! );
                 }
             }
@@ -1731,7 +1732,7 @@ type LargestValuesForEachRangeType = {
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
                 const colorRange: ColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
     
-                if ( colorRange.id === id && Data.getDefaultBoolean( colorRange.visible, true ) ) {
+                if ( colorRange.id === id && Default.getBoolean( colorRange.visible, true ) ) {
                     result = true;
                     break;
                 }
@@ -1760,7 +1761,7 @@ type LargestValuesForEachRangeType = {
             const colorRange: ColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
 
             if ( colorRange.id === id ) {
-                colorRange.visible = !Data.getDefaultBoolean( colorRange.visible, true );
+                colorRange.visible = !Default.getBoolean( colorRange.visible, true );
 
                 Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, colorRange.id, colorRange.visible );
                 renderControlContainer( bindingOptions );
@@ -2011,7 +2012,7 @@ type LargestValuesForEachRangeType = {
     function exportAllData( bindingOptions: BindingOptions, exportType: string = null! ) : void {
         let contents: string = null!;
         const contentsMimeType: string = getExportMimeType( bindingOptions );
-        const contentExportType: string = Data.getDefaultString( exportType, bindingOptions.exportType! ).toLowerCase();
+        const contentExportType: string = Default.getString( exportType, bindingOptions.exportType! ).toLowerCase();
 
         if ( contentExportType === ExportType.csv ) {
             contents = getCsvContent( bindingOptions );
@@ -2152,8 +2153,8 @@ type LargestValuesForEachRangeType = {
 
     function getExportFilename( bindingOptions: BindingOptions ) : string {
         const date: Date = new Date();
-        const datePart: string = Data.String.padNumber( date.getDate() ) + Char.dash + Data.String.padNumber( date.getMonth() + 1 ) + Char.dash + date.getFullYear();
-        const timePart: string = Data.String.padNumber( date.getHours() ) + Char.dash + Data.String.padNumber( date.getMinutes() );
+        const datePart: string = Str.padNumber( date.getDate() ) + Char.dash + Str.padNumber( date.getMonth() + 1 ) + Char.dash + date.getFullYear();
+        const timePart: string = Str.padNumber( date.getHours() ) + Char.dash + Str.padNumber( date.getMinutes() );
         let filenameStart: string = Char.empty;
 
         if ( bindingOptions._currentView.type !== _configuration.text!.unknownTrendText ) {
@@ -2314,7 +2315,7 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
-                    type = Data.getDefaultString( type, _configuration.text!.unknownTrendText! );
+                    type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                     const datesLength: number = dates.length;
         
@@ -2336,7 +2337,7 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
-                    type = Data.getDefaultString( type, _configuration.text!.unknownTrendText! );
+                    type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                     const storageDate: string = DateTime.toStorageDate( date );
         
@@ -2370,7 +2371,7 @@ type LargestValuesForEachRangeType = {
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) ) {    
-                        type = Data.getDefaultString( type, _configuration.text!.unknownTrendText! );
+                        type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                         _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ] = count;
         
@@ -2391,7 +2392,7 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
-                    type = Data.getDefaultString( type, _configuration.text!.unknownTrendText! );
+                    type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                     const datesLength: number = dates.length;
         
@@ -2416,7 +2417,7 @@ type LargestValuesForEachRangeType = {
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
-                        type = Data.getDefaultString( type, _configuration.text!.unknownTrendText! );
+                        type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                         if ( _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ] > 0 ) {
                             _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ]--;
@@ -2442,7 +2443,7 @@ type LargestValuesForEachRangeType = {
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
-                        type = Data.getDefaultString( type, _configuration.text!.unknownTrendText! );
+                        type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                         delete _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ];
         
@@ -2723,7 +2724,7 @@ type LargestValuesForEachRangeType = {
         updateOptions: function ( elementId: string, newOptions: BindingOptions ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedObject( newOptions ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: any = _elements_DateCounts[ elementId ].options;
-                const newBindingOptions: any = binding.options.get( newOptions );
+                const newBindingOptions: any = Binding.Options.get( newOptions );
                 let optionChanged: boolean = false;
     
                 for ( let propertyName in newBindingOptions ) {

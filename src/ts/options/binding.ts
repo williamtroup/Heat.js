@@ -25,29 +25,30 @@ import {
     type Statistics,
     type Events } from "../type";
 
-import { Data } from "../data";
-import { Char, ExportType, ViewName } from "../enum";
-import { Is } from "../is";
+import { Default } from "../data/default";
+import { Char, ExportType, ViewName } from "../data/enum";
+import { Is } from "../data/is";
+import { Str } from "../data/str";
 
 
-export namespace binding {
-    export namespace options {
+export namespace Binding {
+    export namespace Options {
         const _default_MonthsToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
         const _default_DaysToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7 ];
 
         export function get( newOptions: any ) : BindingOptions {
-            let options: BindingOptions = Data.getDefaultObject( newOptions, {} as BindingOptions );
-            options.views = Data.getDefaultObject( options.views, {} );
-            options.exportOnlyYearBeingViewed = Data.getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
-            options.year = Data.getDefaultNumber( options.year, new Date().getFullYear() );
-            options.view = Data.getDefaultString( options.view, ViewName.map );
-            options.exportType = Data.getDefaultString( options.exportType, ExportType.csv );
-            options.useLocalStorageForData = Data.getDefaultBoolean( options.useLocalStorageForData, false );
-            options.allowFileImports = Data.getDefaultBoolean( options.allowFileImports, true );
-            options.yearsToHide = Data.getDefaultArray( options.yearsToHide, [] );
-            options.dataFetchDelay = Data.getDefaultNumber( options.dataFetchDelay, 60000 );
-            options.showOnlyDataForYearsAvailable = Data.getDefaultBoolean( options.showOnlyDataForYearsAvailable, false );
-            options.showHolidaysInDayToolTips = Data.getDefaultBoolean( options.showHolidaysInDayToolTips, false );
+            let options: BindingOptions = Default.getObject( newOptions, {} as BindingOptions );
+            options.views = Default.getObject( options.views, {} );
+            options.exportOnlyYearBeingViewed = Default.getBoolean( options.exportOnlyYearBeingViewed, true );
+            options.year = Default.getNumber( options.year, new Date().getFullYear() );
+            options.view = Default.getString( options.view, ViewName.map );
+            options.exportType = Default.getString( options.exportType, ExportType.csv );
+            options.useLocalStorageForData = Default.getBoolean( options.useLocalStorageForData, false );
+            options.allowFileImports = Default.getBoolean( options.allowFileImports, true );
+            options.yearsToHide = Default.getArray( options.yearsToHide, [] );
+            options.dataFetchDelay = Default.getNumber( options.dataFetchDelay, 60000 );
+            options.showOnlyDataForYearsAvailable = Default.getBoolean( options.showOnlyDataForYearsAvailable, false );
+            options.showHolidaysInDayToolTips = Default.getBoolean( options.showHolidaysInDayToolTips, false );
             
             options = buildAttributeOptionColorRanges( options );
             options = buildAttributeOptionHolidays( options );
@@ -71,21 +72,21 @@ export namespace binding {
                 for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
                     const colorRange: ColorRange = options.colorRanges![ colorRangeIndex ];
     
-                    colorRange.id = Data.getDefaultString( colorRange.id, Data.String.newGuid() );
-                    colorRange.name = Data.getDefaultString( colorRange.name, Char.empty );
-                    colorRange.minimum = Data.getDefaultNumber( colorRange.minimum, 0 );
-                    colorRange.cssClassName = Data.getDefaultString( colorRange.cssClassName, Char.empty );
-                    colorRange.mapCssClassName = Data.getDefaultString( colorRange.mapCssClassName, Char.empty );
-                    colorRange.chartCssClassName = Data.getDefaultString( colorRange.chartCssClassName, Char.empty );
-                    colorRange.statisticsCssClassName = Data.getDefaultString( colorRange.statisticsCssClassName, Char.empty );
-                    colorRange.tooltipText = Data.getDefaultString( colorRange.tooltipText, Char.empty );
-                    colorRange.visible = Data.getDefaultBoolean( colorRange.visible, true );
+                    colorRange.id = Default.getString( colorRange.id, Str.newGuid() );
+                    colorRange.name = Default.getString( colorRange.name, Char.empty );
+                    colorRange.minimum = Default.getNumber( colorRange.minimum, 0 );
+                    colorRange.cssClassName = Default.getString( colorRange.cssClassName, Char.empty );
+                    colorRange.mapCssClassName = Default.getString( colorRange.mapCssClassName, Char.empty );
+                    colorRange.chartCssClassName = Default.getString( colorRange.chartCssClassName, Char.empty );
+                    colorRange.statisticsCssClassName = Default.getString( colorRange.statisticsCssClassName, Char.empty );
+                    colorRange.tooltipText = Default.getString( colorRange.tooltipText, Char.empty );
+                    colorRange.visible = Default.getBoolean( colorRange.visible, true );
                 }
     
             } else {
                 options.colorRanges = [
                     {
-                        id: Data.String.newGuid(),
+                        id: Str.newGuid(),
                         name: "Day Color 1",
                         minimum: 10,
                         cssClassName: "day-color-1",
@@ -93,7 +94,7 @@ export namespace binding {
                         visible: true
                     },
                     {
-                        id: Data.String.newGuid(),
+                        id: Str.newGuid(),
                         name: "Day Color 2",
                         minimum: 15,
                         cssClassName: "day-color-2",
@@ -101,7 +102,7 @@ export namespace binding {
                         visible: true
                     },
                     {
-                        id: Data.String.newGuid(),
+                        id: Str.newGuid(),
                         name: "Day Color 3",
                         minimum: 20,
                         cssClassName: "day-color-3",
@@ -109,7 +110,7 @@ export namespace binding {
                         visible: true
                     },
                     {
-                        id: Data.String.newGuid(),
+                        id: Str.newGuid(),
                         name: "Day Color 4",
                         minimum: 25,
                         cssClassName: "day-color-4",
@@ -129,9 +130,9 @@ export namespace binding {
                 for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
                     const holiday: Holiday = options.holidays![ holidayIndex ];
                     
-                    holiday.date = Data.getDefaultString( holiday.date, Char.empty );
-                    holiday.name = Data.getDefaultString( holiday.name, Char.empty );
-                    holiday.showInViews = Data.getDefaultBoolean( holiday.showInViews, true );
+                    holiday.date = Default.getString( holiday.date, Char.empty );
+                    holiday.name = Default.getString( holiday.name, Char.empty );
+                    holiday.showInViews = Default.getBoolean( holiday.showInViews, true );
                 }
     
             } else {
@@ -142,61 +143,61 @@ export namespace binding {
         }
     
         function buildAttributeOptionTitle( options: BindingOptions ) : BindingOptions {
-            options.title = Data.getDefaultObject( options.title, {} as Title );
-            options.title!.text = Data.getDefaultString( options.title!.text, "Heat.js" );
-            options.title!.showText = Data.getDefaultBoolean( options.title!.showText, true );
-            options.title!.showYearSelector = Data.getDefaultBoolean( options.title!.showYearSelector, true );
-            options.title!.showRefreshButton = Data.getDefaultBoolean( options.title!.showRefreshButton, false );
-            options.title!.showExportButton = Data.getDefaultBoolean( options.title!.showExportButton, false );
-            options.title!.extraSelectionYears = Data.getDefaultNumber( options.title!.extraSelectionYears, 50 );
-            options.title!.showYearSelectionDropDown = Data.getDefaultBoolean( options.title!.showYearSelectionDropDown, true );
-            options.title!.showImportButton = Data.getDefaultBoolean( options.title!.showImportButton, false );
-            options.title!.showConfigurationButton = Data.getDefaultBoolean( options.title!.showConfigurationButton, true );
-            options.title!.showTitleDropDownButton = Data.getDefaultBoolean( options.title!.showTitleDropDownButton, true );
-            options.title!.showTitleDropDownHeaders = Data.getDefaultBoolean( options.title!.showTitleDropDownHeaders, true );
+            options.title = Default.getObject( options.title, {} as Title );
+            options.title!.text = Default.getString( options.title!.text, "Heat.js" );
+            options.title!.showText = Default.getBoolean( options.title!.showText, true );
+            options.title!.showYearSelector = Default.getBoolean( options.title!.showYearSelector, true );
+            options.title!.showRefreshButton = Default.getBoolean( options.title!.showRefreshButton, false );
+            options.title!.showExportButton = Default.getBoolean( options.title!.showExportButton, false );
+            options.title!.extraSelectionYears = Default.getNumber( options.title!.extraSelectionYears, 50 );
+            options.title!.showYearSelectionDropDown = Default.getBoolean( options.title!.showYearSelectionDropDown, true );
+            options.title!.showImportButton = Default.getBoolean( options.title!.showImportButton, false );
+            options.title!.showConfigurationButton = Default.getBoolean( options.title!.showConfigurationButton, true );
+            options.title!.showTitleDropDownButton = Default.getBoolean( options.title!.showTitleDropDownButton, true );
+            options.title!.showTitleDropDownHeaders = Default.getBoolean( options.title!.showTitleDropDownHeaders, true );
     
             return options;
         }
     
         function buildAttributeOptionDescription( options: BindingOptions ) : BindingOptions {
-            options.description = Data.getDefaultObject( options.description, {} as Description );
-            options.description!.text = Data.getDefaultString( options.description!.text, Char.empty );
-            options.description!.url = Data.getDefaultString( options.description!.url, Char.empty );
-            options.description!.urlTarget = Data.getDefaultString( options.description!.urlTarget, "_blank" );
+            options.description = Default.getObject( options.description, {} as Description );
+            options.description!.text = Default.getString( options.description!.text, Char.empty );
+            options.description!.url = Default.getString( options.description!.url, Char.empty );
+            options.description!.urlTarget = Default.getString( options.description!.urlTarget, "_blank" );
     
             return options;
         }
     
         function buildAttributeOptionGuide( options: BindingOptions ) : BindingOptions {
-            options.guide = Data.getDefaultObject( options.guide, {} as Guide );
-            options.guide!.enabled = Data.getDefaultBoolean( options.guide!.enabled, true );
-            options.guide!.colorRangeTogglesEnabled = Data.getDefaultBoolean( options.guide!.colorRangeTogglesEnabled, true );
-            options.guide!.showLessAndMoreLabels = Data.getDefaultBoolean( options.guide!.showLessAndMoreLabels, true );
-            options.guide!.showNumbersInGuide = Data.getDefaultBoolean( options.guide!.showNumbersInGuide, false );
+            options.guide = Default.getObject( options.guide, {} as Guide );
+            options.guide!.enabled = Default.getBoolean( options.guide!.enabled, true );
+            options.guide!.colorRangeTogglesEnabled = Default.getBoolean( options.guide!.colorRangeTogglesEnabled, true );
+            options.guide!.showLessAndMoreLabels = Default.getBoolean( options.guide!.showLessAndMoreLabels, true );
+            options.guide!.showNumbersInGuide = Default.getBoolean( options.guide!.showNumbersInGuide, false );
     
             return options;
         }
     
         function buildAttributeOptionToolTip( options: BindingOptions ) : BindingOptions {
-            options.tooltip = Data.getDefaultObject( options.tooltip, {} as Tooltip );
-            options.tooltip!.delay = Data.getDefaultNumber( options.tooltip!.delay, 750 );
-            options.tooltip!.dayText = Data.getDefaultString( options.tooltip!.dayText, "{d}{o} {mmmm} {yyyy}" );
+            options.tooltip = Default.getObject( options.tooltip, {} as Tooltip );
+            options.tooltip!.delay = Default.getNumber( options.tooltip!.delay, 750 );
+            options.tooltip!.dayText = Default.getString( options.tooltip!.dayText, "{d}{o} {mmmm} {yyyy}" );
     
             return options;
         }
     
         function buildAttributeOptionMapView( options: BindingOptions ) : BindingOptions {
-            options.views!.map = Data.getDefaultObject( options.views!.map, {} as Map );
-            options.views!.map!.showMonthDayGaps = Data.getDefaultBoolean( options.views!.map!.showMonthDayGaps, true );
-            options.views!.map!.showDayNames = Data.getDefaultBoolean( options.views!.map!.showDayNames, true );
-            options.views!.map!.placeMonthNamesOnTheBottom = Data.getDefaultBoolean( options.views!.map!.placeMonthNamesOnTheBottom, false );
-            options.views!.map!.showDayNumbers = Data.getDefaultBoolean( options.views!.map!.showDayNumbers, false );
-            options.views!.map!.showMonthNames = Data.getDefaultBoolean( options.views!.map!.showMonthNames, true );
-            options.views!.map!.showDaysInReverseOrder = Data.getDefaultBoolean( options.views!.map!.showDaysInReverseOrder, false );
-            options.views!.map!.showNoDataMessageWhenDataIsNotAvailable = Data.getDefaultBoolean( options.views!.map!.showNoDataMessageWhenDataIsNotAvailable, false );
-            options.views!.map!.showMinimalDayNames = Data.getDefaultBoolean( options.views!.map!.showMinimalDayNames, false );
-            options.views!.map!.showMonthsInReverseOrder = Data.getDefaultBoolean( options.views!.map!.showMonthsInReverseOrder, false );
-            options.views!.map!.keepScrollPositions = Data.getDefaultBoolean( options.views!.map!.keepScrollPositions, false );
+            options.views!.map = Default.getObject( options.views!.map, {} as Map );
+            options.views!.map!.showMonthDayGaps = Default.getBoolean( options.views!.map!.showMonthDayGaps, true );
+            options.views!.map!.showDayNames = Default.getBoolean( options.views!.map!.showDayNames, true );
+            options.views!.map!.placeMonthNamesOnTheBottom = Default.getBoolean( options.views!.map!.placeMonthNamesOnTheBottom, false );
+            options.views!.map!.showDayNumbers = Default.getBoolean( options.views!.map!.showDayNumbers, false );
+            options.views!.map!.showMonthNames = Default.getBoolean( options.views!.map!.showMonthNames, true );
+            options.views!.map!.showDaysInReverseOrder = Default.getBoolean( options.views!.map!.showDaysInReverseOrder, false );
+            options.views!.map!.showNoDataMessageWhenDataIsNotAvailable = Default.getBoolean( options.views!.map!.showNoDataMessageWhenDataIsNotAvailable, false );
+            options.views!.map!.showMinimalDayNames = Default.getBoolean( options.views!.map!.showMinimalDayNames, false );
+            options.views!.map!.showMonthsInReverseOrder = Default.getBoolean( options.views!.map!.showMonthsInReverseOrder, false );
+            options.views!.map!.keepScrollPositions = Default.getBoolean( options.views!.map!.keepScrollPositions, false );
     
             if ( Is.invalidOptionArray( options.views!.map!.monthsToShow ) ) {
                 options.views!.map!.monthsToShow = _default_MonthsToShow;
@@ -210,13 +211,13 @@ export namespace binding {
         }
     
         function buildAttributeOptionChartView( options: BindingOptions ) : BindingOptions {
-            options.views!.chart = Data.getDefaultObject( options.views!.chart, {} as Chart );
-            options.views!.chart!.enabled = Data.getDefaultBoolean( options.views!.chart!.enabled, true );
-            options.views!.chart!.showChartYLabels = Data.getDefaultBoolean( options.views!.chart!.showChartYLabels, true );
-            options.views!.chart!.showMonthNames = Data.getDefaultBoolean( options.views!.chart!.showMonthNames, true );
-            options.views!.chart!.showLineNumbers = Data.getDefaultBoolean( options.views!.chart!.showLineNumbers, false );
-            options.views!.chart!.showInReverseOrder = Data.getDefaultBoolean( options.views!.chart!.showInReverseOrder, false );
-            options.views!.chart!.keepScrollPositions = Data.getDefaultBoolean( options.views!.chart!.keepScrollPositions, false );
+            options.views!.chart = Default.getObject( options.views!.chart, {} as Chart );
+            options.views!.chart!.enabled = Default.getBoolean( options.views!.chart!.enabled, true );
+            options.views!.chart!.showChartYLabels = Default.getBoolean( options.views!.chart!.showChartYLabels, true );
+            options.views!.chart!.showMonthNames = Default.getBoolean( options.views!.chart!.showMonthNames, true );
+            options.views!.chart!.showLineNumbers = Default.getBoolean( options.views!.chart!.showLineNumbers, false );
+            options.views!.chart!.showInReverseOrder = Default.getBoolean( options.views!.chart!.showInReverseOrder, false );
+            options.views!.chart!.keepScrollPositions = Default.getBoolean( options.views!.chart!.keepScrollPositions, false );
     
             if ( Is.invalidOptionArray( options.views!.chart!.monthsToShow ) ) {
                 options.views!.chart!.monthsToShow = _default_MonthsToShow;
@@ -230,13 +231,13 @@ export namespace binding {
         }
     
         function buildAttributeOptionDaysView( options: BindingOptions ) : BindingOptions {
-            options.views!.days = Data.getDefaultObject( options.views!.days, {} as Days );
-            options.views!.days!.enabled = Data.getDefaultBoolean( options.views!.days!.enabled, true );
-            options.views!.days!.showChartYLabels = Data.getDefaultBoolean( options.views!.days!.showChartYLabels, true );
-            options.views!.days!.showDayNames = Data.getDefaultBoolean( options.views!.days!.showDayNames, true );
-            options.views!.days!.showInReverseOrder = Data.getDefaultBoolean( options.views!.days!.showInReverseOrder, false );
-            options.views!.days!.showDayNumbers = Data.getDefaultBoolean( options.views!.days!.showDayNumbers, false );
-            options.views!.days!.keepScrollPositions = Data.getDefaultBoolean( options.views!.days!.keepScrollPositions, false );
+            options.views!.days = Default.getObject( options.views!.days, {} as Days );
+            options.views!.days!.enabled = Default.getBoolean( options.views!.days!.enabled, true );
+            options.views!.days!.showChartYLabels = Default.getBoolean( options.views!.days!.showChartYLabels, true );
+            options.views!.days!.showDayNames = Default.getBoolean( options.views!.days!.showDayNames, true );
+            options.views!.days!.showInReverseOrder = Default.getBoolean( options.views!.days!.showInReverseOrder, false );
+            options.views!.days!.showDayNumbers = Default.getBoolean( options.views!.days!.showDayNumbers, false );
+            options.views!.days!.keepScrollPositions = Default.getBoolean( options.views!.days!.keepScrollPositions, false );
     
             if ( Is.invalidOptionArray( options.views!.days!.monthsToShow ) ) {
                 options.views!.days!.monthsToShow = _default_MonthsToShow;
@@ -250,14 +251,14 @@ export namespace binding {
         }
     
         function buildAttributeOptionStatisticsView( options: BindingOptions ) : BindingOptions {
-            options.views!.statistics = Data.getDefaultObject( options.views!.statistics, {} as Statistics );
-            options.views!.statistics!.enabled = Data.getDefaultBoolean( options.views!.statistics!.enabled, true );
-            options.views!.statistics!.showChartYLabels = Data.getDefaultBoolean( options.views!.statistics!.showChartYLabels, true );
-            options.views!.statistics!.showColorRangeLabels = Data.getDefaultBoolean( options.views!.statistics!.showColorRangeLabels, true );
-            options.views!.statistics!.useColorRangeNamesForLabels = Data.getDefaultBoolean( options.views!.statistics!.useColorRangeNamesForLabels, false );
-            options.views!.statistics!.showRangeNumbers = Data.getDefaultBoolean( options.views!.statistics!.showRangeNumbers, false );
-            options.views!.statistics!.showInReverseOrder = Data.getDefaultBoolean( options.views!.statistics!.showInReverseOrder, false );
-            options.views!.statistics!.keepScrollPositions = Data.getDefaultBoolean( options.views!.statistics!.keepScrollPositions, false );
+            options.views!.statistics = Default.getObject( options.views!.statistics, {} as Statistics );
+            options.views!.statistics!.enabled = Default.getBoolean( options.views!.statistics!.enabled, true );
+            options.views!.statistics!.showChartYLabels = Default.getBoolean( options.views!.statistics!.showChartYLabels, true );
+            options.views!.statistics!.showColorRangeLabels = Default.getBoolean( options.views!.statistics!.showColorRangeLabels, true );
+            options.views!.statistics!.useColorRangeNamesForLabels = Default.getBoolean( options.views!.statistics!.useColorRangeNamesForLabels, false );
+            options.views!.statistics!.showRangeNumbers = Default.getBoolean( options.views!.statistics!.showRangeNumbers, false );
+            options.views!.statistics!.showInReverseOrder = Default.getBoolean( options.views!.statistics!.showInReverseOrder, false );
+            options.views!.statistics!.keepScrollPositions = Default.getBoolean( options.views!.statistics!.keepScrollPositions, false );
     
             if ( Is.invalidOptionArray( options.views!.statistics!.monthsToShow ) ) {
                 options.views!.statistics!.monthsToShow = _default_MonthsToShow;
@@ -271,30 +272,30 @@ export namespace binding {
         }
     
         function buildAttributeOptionCustomTriggers( options : BindingOptions ) : BindingOptions {
-            options.events = Data.getDefaultObject( options.events, {} as Events );
-            options.events!.onDayClick = Data.getDefaultFunction( options.events!.onDayClick, null! );
-            options.events!.onBackYear = Data.getDefaultFunction( options.events!.onBackYear, null! );
-            options.events!.onNextYear = Data.getDefaultFunction( options.events!.onNextYear, null! );
-            options.events!.onRefresh = Data.getDefaultFunction( options.events!.onRefresh, null! );
-            options.events!.onBeforeRender = Data.getDefaultFunction( options.events!.onBeforeRender, null! );
-            options.events!.onRenderComplete = Data.getDefaultFunction( options.events!.onRenderComplete, null! );
-            options.events!.onDestroy = Data.getDefaultFunction( options.events!.onDestroy, null! );
-            options.events!.onExport = Data.getDefaultFunction( options.events!.onExport, null! );
-            options.events!.onSetYear = Data.getDefaultFunction( options.events!.onSetYear, null! );
-            options.events!.onTypeSwitch = Data.getDefaultFunction( options.events!.onTypeSwitch, null! );
-            options.events!.onDayToolTipRender = Data.getDefaultFunction( options.events!.onDayToolTipRender, null! );
-            options.events!.onAdd = Data.getDefaultFunction( options.events!.onAdd, null! );
-            options.events!.onRemove = Data.getDefaultFunction( options.events!.onRemove, null! );
-            options.events!.onReset = Data.getDefaultFunction( options.events!.onReset, null! );
-            options.events!.onViewSwitch = Data.getDefaultFunction( options.events!.onViewSwitch, null! );
-            options.events!.onColorRangeTypeToggle = Data.getDefaultFunction( options.events!.onColorRangeTypeToggle, null! );
-            options.events!.onImport = Data.getDefaultFunction( options.events!.onImport, null! );
-            options.events!.onStatisticClick = Data.getDefaultFunction( options.events!.onStatisticClick, null! );
-            options.events!.onDataFetch = Data.getDefaultFunction( options.events!.onDataFetch, null! );
-            options.events!.onClear = Data.getDefaultFunction( options.events!.onClear, null! );
-            options.events!.onUpdate = Data.getDefaultFunction( options.events!.onUpdate, null! );
-            options.events!.onOptionsUpdate = Data.getDefaultFunction( options.events!.onOptionsUpdate, null! );
-            options.events!.onWeekDayClick = Data.getDefaultFunction( options.events!.onWeekDayClick, null! );
+            options.events = Default.getObject( options.events, {} as Events );
+            options.events!.onDayClick = Default.getFunction( options.events!.onDayClick, null! );
+            options.events!.onBackYear = Default.getFunction( options.events!.onBackYear, null! );
+            options.events!.onNextYear = Default.getFunction( options.events!.onNextYear, null! );
+            options.events!.onRefresh = Default.getFunction( options.events!.onRefresh, null! );
+            options.events!.onBeforeRender = Default.getFunction( options.events!.onBeforeRender, null! );
+            options.events!.onRenderComplete = Default.getFunction( options.events!.onRenderComplete, null! );
+            options.events!.onDestroy = Default.getFunction( options.events!.onDestroy, null! );
+            options.events!.onExport = Default.getFunction( options.events!.onExport, null! );
+            options.events!.onSetYear = Default.getFunction( options.events!.onSetYear, null! );
+            options.events!.onTypeSwitch = Default.getFunction( options.events!.onTypeSwitch, null! );
+            options.events!.onDayToolTipRender = Default.getFunction( options.events!.onDayToolTipRender, null! );
+            options.events!.onAdd = Default.getFunction( options.events!.onAdd, null! );
+            options.events!.onRemove = Default.getFunction( options.events!.onRemove, null! );
+            options.events!.onReset = Default.getFunction( options.events!.onReset, null! );
+            options.events!.onViewSwitch = Default.getFunction( options.events!.onViewSwitch, null! );
+            options.events!.onColorRangeTypeToggle = Default.getFunction( options.events!.onColorRangeTypeToggle, null! );
+            options.events!.onImport = Default.getFunction( options.events!.onImport, null! );
+            options.events!.onStatisticClick = Default.getFunction( options.events!.onStatisticClick, null! );
+            options.events!.onDataFetch = Default.getFunction( options.events!.onDataFetch, null! );
+            options.events!.onClear = Default.getFunction( options.events!.onClear, null! );
+            options.events!.onUpdate = Default.getFunction( options.events!.onUpdate, null! );
+            options.events!.onOptionsUpdate = Default.getFunction( options.events!.onOptionsUpdate, null! );
+            options.events!.onWeekDayClick = Default.getFunction( options.events!.onWeekDayClick, null! );
     
             return options;
         }

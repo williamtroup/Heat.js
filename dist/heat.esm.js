@@ -10,12 +10,6 @@ var __commonJS = (e, t) => function n() {
     }).exports, t), t.exports;
 };
 
-var init_enum = __esm({
-    "src/ts/enum.ts"() {
-        "use strict";
-    }
-});
-
 var Constant;
 
 var init_constant = __esm({
@@ -27,10 +21,16 @@ var init_constant = __esm({
     }
 });
 
+var init_enum = __esm({
+    "src/ts/data/enum.ts"() {
+        "use strict";
+    }
+});
+
 var Is;
 
 var init_is = __esm({
-    "src/ts/is.ts"() {
+    "src/ts/data/is.ts"() {
         "use strict";
         init_enum();
         (e => {
@@ -50,91 +50,67 @@ var init_is = __esm({
                 return t(e) && typeof e === "string";
             }
             e.definedString = i;
-            function a(e) {
+            function r(e) {
                 return t(e) && typeof e === "function";
             }
-            e.definedFunction = a;
-            function r(e) {
+            e.definedFunction = r;
+            function s(e) {
                 return t(e) && typeof e === "number";
             }
-            e.definedNumber = r;
-            function s(e) {
+            e.definedNumber = s;
+            function a(e) {
                 return n(e) && e instanceof Array;
             }
-            e.definedArray = s;
+            e.definedArray = a;
             function l(e) {
                 return n(e) && e instanceof Date;
             }
             e.definedDate = l;
             function c(e, t = 1) {
-                return !s(e) || e.length < t;
+                return !a(e) || e.length < t;
             }
             e.invalidOptionArray = c;
         })(Is || (Is = {}));
     }
 });
 
-var Data;
+var Default;
 
-var init_data = __esm({
-    "src/ts/data.ts"() {
+var init_default = __esm({
+    "src/ts/data/default.ts"() {
         "use strict";
         init_enum();
         init_is();
         (e => {
-            let t;
-            (e => {
-                function t() {
-                    const e = [];
-                    for (let t = 0; t < 32; t++) {
-                        if (t === 8 || t === 12 || t === 16 || t === 20) {
-                            e.push("-");
-                        }
-                        const n = Math.floor(Math.random() * 16).toString(16);
-                        e.push(n);
-                    }
-                    return e.join("");
-                }
-                e.newGuid = t;
-                function n(e) {
-                    const t = e.toString();
-                    return t.length === 1 ? "0" + t : t;
-                }
-                e.padNumber = n;
-                function o(e, t) {
-                    return e.substring(0, t.length).toLowerCase() === t.toLowerCase();
-                }
-                e.startsWithAnyCase = o;
-            })(t = e.String || (e.String = {}));
-            function n(e, t) {
+            function t(e, t) {
                 return typeof e === "string" ? e : t;
             }
-            e.getDefaultAnyString = n;
-            function o(e, t) {
+            e.getAnyString = t;
+            function n(e, t) {
                 return Is.definedString(e) ? e : t;
             }
-            e.getDefaultString = o;
-            function i(e, t) {
+            e.getString = n;
+            function o(e, t) {
                 return Is.definedBoolean(e) ? e : t;
             }
-            e.getDefaultBoolean = i;
-            function a(e, t) {
+            e.getBoolean = o;
+            function i(e, t) {
                 return Is.definedNumber(e) ? e : t;
             }
-            e.getDefaultNumber = a;
+            e.getNumber = i;
             function r(e, t) {
                 return Is.definedFunction(e) ? e : t;
             }
-            e.getDefaultFunction = r;
+            e.getFunction = r;
             function s(e, t) {
                 return Is.definedArray(e) ? e : t;
             }
-            e.getDefaultArray = s;
-            function l(e, t) {
+            e.getArray = s;
+            function a(e, t) {
                 return Is.definedObject(e) ? e : t;
             }
-            e.getDefaultObject = l;
-            function c(e, t) {
+            e.getObject = a;
+            function l(e, t) {
                 let n = t;
                 if (Is.definedString(e)) {
                     const o = e.toString().split(" ");
@@ -148,15 +124,108 @@ var init_data = __esm({
                 }
                 return n;
             }
-            e.getDefaultStringOrArray = c;
-        })(Data || (Data = {}));
+            e.getStringOrArray = l;
+        })(Default || (Default = {}));
+    }
+});
+
+var Str;
+
+var init_str = __esm({
+    "src/ts/data/str.ts"() {
+        "use strict";
+        init_enum();
+        (e => {
+            function t() {
+                const e = [];
+                for (let t = 0; t < 32; t++) {
+                    if (t === 8 || t === 12 || t === 16 || t === 20) {
+                        e.push("-");
+                    }
+                    const n = Math.floor(Math.random() * 16).toString(16);
+                    e.push(n);
+                }
+                return e.join("");
+            }
+            e.newGuid = t;
+            function n(e) {
+                const t = e.toString();
+                return t.length === 1 ? "0" + t : t;
+            }
+            e.padNumber = n;
+            function o(e, t) {
+                return e.substring(0, t.length).toLowerCase() === t.toLowerCase();
+            }
+            e.startsWithAnyCase = o;
+        })(Str || (Str = {}));
+    }
+});
+
+var DateTime;
+
+var init_datetime = __esm({
+    "src/ts/data/datetime.ts"() {
+        "use strict";
+        init_enum();
+        init_str();
+        (e => {
+            function t(e, t) {
+                return new Date(e, t + 1, 0).getDate();
+            }
+            e.getTotalDaysInMonth = t;
+            function n(e) {
+                return e.getDay() - 1 < 0 ? 6 : e.getDay() - 1;
+            }
+            e.getWeekdayNumber = n;
+            function o(e, t) {
+                let n = e.text.thText;
+                if (t === 31 || t === 21 || t === 1) {
+                    n = e.text.stText;
+                } else if (t === 22 || t === 2) {
+                    n = e.text.ndText;
+                } else if (t === 23 || t === 3) {
+                    n = e.text.rdText;
+                }
+                return n;
+            }
+            e.getDayOrdinal = o;
+            function i(e, t, i) {
+                let r = t;
+                const s = n(i);
+                r = r.replace("{dddd}", e.text.dayNames[s]);
+                r = r.replace("{dd}", Str.padNumber(i.getDate()));
+                r = r.replace("{d}", i.getDate().toString());
+                r = r.replace("{o}", o(e, i.getDate()));
+                r = r.replace("{mmmm}", e.text.monthNames[i.getMonth()]);
+                r = r.replace("{mm}", Str.padNumber(i.getMonth() + 1));
+                r = r.replace("{m}", (i.getMonth() + 1).toString());
+                r = r.replace("{yyyy}", i.getFullYear().toString());
+                r = r.replace("{yyy}", i.getFullYear().toString().substring(1));
+                r = r.replace("{yy}", i.getFullYear().toString().substring(2));
+                r = r.replace("{y}", parseInt(i.getFullYear().toString().substring(2)).toString());
+                return r;
+            }
+            e.getCustomFormattedDateText = i;
+            function r(e) {
+                return e.getFullYear() + "-" + Str.padNumber(e.getMonth() + 1) + "-" + Str.padNumber(e.getDate());
+            }
+            e.toStorageDate = r;
+            function s(e) {
+                return e.split("-");
+            }
+            e.getStorageDate = s;
+            function a(e) {
+                return e.split("-")[0];
+            }
+            e.getStorageDateYear = a;
+        })(DateTime || (DateTime = {}));
     }
 });
 
 var DomElement;
 
 var init_dom = __esm({
-    "src/ts/dom.ts"() {
+    "src/ts/dom/dom.ts"() {
         "use strict";
         init_enum();
         init_is();
@@ -170,23 +239,23 @@ var init_dom = __esm({
             e.createWithNoContainer = t;
             function n(e, t, n = "", o = null) {
                 const i = t.toLowerCase();
-                const a = i === "text";
-                let r = a ? document.createTextNode("") : document.createElement(i);
+                const r = i === "text";
+                let s = r ? document.createTextNode("") : document.createElement(i);
                 if (Is.defined(n)) {
-                    r.className = n;
+                    s.className = n;
                 }
                 if (Is.defined(o)) {
-                    e.insertBefore(r, o);
+                    e.insertBefore(s, o);
                 } else {
-                    e.appendChild(r);
+                    e.appendChild(s);
                 }
-                return r;
+                return s;
             }
             e.create = n;
-            function o(e, t, o, i, a = null) {
-                const r = n(e, t, o, a);
-                r.innerHTML = i;
-                return r;
+            function o(e, t, o, i, r = null) {
+                const s = n(e, t, o, r);
+                s.innerHTML = i;
+                return s;
             }
             e.createWithHTML = o;
             function i(e, t, n = false) {
@@ -198,19 +267,19 @@ var init_dom = __esm({
                 return i;
             }
             e.getStyleValueByName = i;
-            function a(e, t) {
+            function r(e, t) {
                 e.classList.add(t);
             }
-            e.addClass = a;
-            function r(e, t) {
+            e.addClass = r;
+            function s(e, t) {
                 e.classList.remove(t);
             }
-            e.removeClass = r;
-            function s(e) {
+            e.removeClass = s;
+            function a(e) {
                 e.preventDefault();
                 e.stopPropagation();
             }
-            e.cancelBubble = s;
+            e.cancelBubble = a;
             function l() {
                 const e = document.documentElement;
                 const t = {
@@ -255,76 +324,15 @@ var init_dom = __esm({
             e.reverseChildrenOrder = u;
             function d(e, t) {
                 const i = n(e, "div");
-                const a = n(i, "label", "checkbox");
-                const r = n(a, "input");
-                r.type = "checkbox";
-                n(a, "span", "check-mark");
-                o(a, "span", "text", t);
-                return r;
+                const r = n(i, "label", "checkbox");
+                const s = n(r, "input");
+                s.type = "checkbox";
+                n(r, "span", "check-mark");
+                o(r, "span", "text", t);
+                return s;
             }
             e.createCheckBox = d;
         })(DomElement || (DomElement = {}));
-    }
-});
-
-var DateTime;
-
-var init_datetime = __esm({
-    "src/ts/datetime.ts"() {
-        "use strict";
-        init_data();
-        init_enum();
-        (e => {
-            function t(e, t) {
-                return new Date(e, t + 1, 0).getDate();
-            }
-            e.getTotalDaysInMonth = t;
-            function n(e) {
-                return e.getDay() - 1 < 0 ? 6 : e.getDay() - 1;
-            }
-            e.getWeekdayNumber = n;
-            function o(e, t) {
-                let n = e.text.thText;
-                if (t === 31 || t === 21 || t === 1) {
-                    n = e.text.stText;
-                } else if (t === 22 || t === 2) {
-                    n = e.text.ndText;
-                } else if (t === 23 || t === 3) {
-                    n = e.text.rdText;
-                }
-                return n;
-            }
-            e.getDayOrdinal = o;
-            function i(e, t, i) {
-                let a = t;
-                const r = n(i);
-                a = a.replace("{dddd}", e.text.dayNames[r]);
-                a = a.replace("{dd}", Data.String.padNumber(i.getDate()));
-                a = a.replace("{d}", i.getDate().toString());
-                a = a.replace("{o}", o(e, i.getDate()));
-                a = a.replace("{mmmm}", e.text.monthNames[i.getMonth()]);
-                a = a.replace("{mm}", Data.String.padNumber(i.getMonth() + 1));
-                a = a.replace("{m}", (i.getMonth() + 1).toString());
-                a = a.replace("{yyyy}", i.getFullYear().toString());
-                a = a.replace("{yyy}", i.getFullYear().toString().substring(1));
-                a = a.replace("{yy}", i.getFullYear().toString().substring(2));
-                a = a.replace("{y}", parseInt(i.getFullYear().toString().substring(2)).toString());
-                return a;
-            }
-            e.getCustomFormattedDateText = i;
-            function a(e) {
-                return e.getFullYear() + "-" + Data.String.padNumber(e.getMonth() + 1) + "-" + Data.String.padNumber(e.getDate());
-            }
-            e.toStorageDate = a;
-            function r(e) {
-                return e.split("-");
-            }
-            e.getStorageDate = r;
-            function s(e) {
-                return e.split("-")[0];
-            }
-            e.getStorageDateYear = s;
-        })(DateTime || (DateTime = {}));
     }
 });
 
@@ -348,10 +356,10 @@ var init_tooltip = __esm({
                 let n = t ? window.addEventListener : window.removeEventListener;
                 let o = t ? document.addEventListener : document.removeEventListener;
                 n("mousemove", (() => {
-                    a(e);
+                    r(e);
                 }));
                 o("scroll", (() => {
-                    a(e);
+                    r(e);
                 }));
             }
             e.assignToEvents = n;
@@ -365,7 +373,7 @@ var init_tooltip = __esm({
             e.add = o;
             function i(e, t, n) {
                 DomElement.cancelBubble(e);
-                a(t);
+                r(t);
                 t._currentView.tooltipTimer = setTimeout((() => {
                     t._currentView.tooltip.innerHTML = n;
                     t._currentView.tooltip.style.display = "block";
@@ -373,7 +381,7 @@ var init_tooltip = __esm({
                 }), t.tooltip.delay);
             }
             e.show = i;
-            function a(e) {
+            function r(e) {
                 if (Is.defined(e._currentView.tooltip)) {
                     if (e._currentView.tooltipTimer !== 0) {
                         clearTimeout(e._currentView.tooltipTimer);
@@ -384,7 +392,7 @@ var init_tooltip = __esm({
                     }
                 }
             }
-            e.hide = a;
+            e.hide = r;
         })(ToolTip || (ToolTip = {}));
     }
 });
@@ -408,36 +416,37 @@ var init_trigger = __esm({
     }
 });
 
-var binding;
+var Binding;
 
 var init_binding = __esm({
     "src/ts/options/binding.ts"() {
         "use strict";
-        init_data();
+        init_default();
         init_enum();
         init_is();
+        init_str();
         (e => {
             let t;
             (e => {
                 const t = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
                 const n = [ 1, 2, 3, 4, 5, 6, 7 ];
                 function o(e) {
-                    let t = Data.getDefaultObject(e, {});
-                    t.views = Data.getDefaultObject(t.views, {});
-                    t.exportOnlyYearBeingViewed = Data.getDefaultBoolean(t.exportOnlyYearBeingViewed, true);
-                    t.year = Data.getDefaultNumber(t.year, (new Date).getFullYear());
-                    t.view = Data.getDefaultString(t.view, "map");
-                    t.exportType = Data.getDefaultString(t.exportType, "csv");
-                    t.useLocalStorageForData = Data.getDefaultBoolean(t.useLocalStorageForData, false);
-                    t.allowFileImports = Data.getDefaultBoolean(t.allowFileImports, true);
-                    t.yearsToHide = Data.getDefaultArray(t.yearsToHide, []);
-                    t.dataFetchDelay = Data.getDefaultNumber(t.dataFetchDelay, 6e4);
-                    t.showOnlyDataForYearsAvailable = Data.getDefaultBoolean(t.showOnlyDataForYearsAvailable, false);
-                    t.showHolidaysInDayToolTips = Data.getDefaultBoolean(t.showHolidaysInDayToolTips, false);
+                    let t = Default.getObject(e, {});
+                    t.views = Default.getObject(t.views, {});
+                    t.exportOnlyYearBeingViewed = Default.getBoolean(t.exportOnlyYearBeingViewed, true);
+                    t.year = Default.getNumber(t.year, (new Date).getFullYear());
+                    t.view = Default.getString(t.view, "map");
+                    t.exportType = Default.getString(t.exportType, "csv");
+                    t.useLocalStorageForData = Default.getBoolean(t.useLocalStorageForData, false);
+                    t.allowFileImports = Default.getBoolean(t.allowFileImports, true);
+                    t.yearsToHide = Default.getArray(t.yearsToHide, []);
+                    t.dataFetchDelay = Default.getNumber(t.dataFetchDelay, 6e4);
+                    t.showOnlyDataForYearsAvailable = Default.getBoolean(t.showOnlyDataForYearsAvailable, false);
+                    t.showHolidaysInDayToolTips = Default.getBoolean(t.showHolidaysInDayToolTips, false);
                     t = i(t);
-                    t = a(t);
                     t = r(t);
                     t = s(t);
+                    t = a(t);
                     t = l(t);
                     t = c(t);
                     t = u(t);
@@ -453,40 +462,40 @@ var init_binding = __esm({
                         const t = e.colorRanges.length;
                         for (let n = 0; n < t; n++) {
                             const t = e.colorRanges[n];
-                            t.id = Data.getDefaultString(t.id, Data.String.newGuid());
-                            t.name = Data.getDefaultString(t.name, "");
-                            t.minimum = Data.getDefaultNumber(t.minimum, 0);
-                            t.cssClassName = Data.getDefaultString(t.cssClassName, "");
-                            t.mapCssClassName = Data.getDefaultString(t.mapCssClassName, "");
-                            t.chartCssClassName = Data.getDefaultString(t.chartCssClassName, "");
-                            t.statisticsCssClassName = Data.getDefaultString(t.statisticsCssClassName, "");
-                            t.tooltipText = Data.getDefaultString(t.tooltipText, "");
-                            t.visible = Data.getDefaultBoolean(t.visible, true);
+                            t.id = Default.getString(t.id, Str.newGuid());
+                            t.name = Default.getString(t.name, "");
+                            t.minimum = Default.getNumber(t.minimum, 0);
+                            t.cssClassName = Default.getString(t.cssClassName, "");
+                            t.mapCssClassName = Default.getString(t.mapCssClassName, "");
+                            t.chartCssClassName = Default.getString(t.chartCssClassName, "");
+                            t.statisticsCssClassName = Default.getString(t.statisticsCssClassName, "");
+                            t.tooltipText = Default.getString(t.tooltipText, "");
+                            t.visible = Default.getBoolean(t.visible, true);
                         }
                     } else {
                         e.colorRanges = [ {
-                            id: Data.String.newGuid(),
+                            id: Str.newGuid(),
                             name: "Day Color 1",
                             minimum: 10,
                             cssClassName: "day-color-1",
                             tooltipText: "Day Color 1",
                             visible: true
                         }, {
-                            id: Data.String.newGuid(),
+                            id: Str.newGuid(),
                             name: "Day Color 2",
                             minimum: 15,
                             cssClassName: "day-color-2",
                             tooltipText: "Day Color 2",
                             visible: true
                         }, {
-                            id: Data.String.newGuid(),
+                            id: Str.newGuid(),
                             name: "Day Color 3",
                             minimum: 20,
                             cssClassName: "day-color-3",
                             tooltipText: "Day Color 3",
                             visible: true
                         }, {
-                            id: Data.String.newGuid(),
+                            id: Str.newGuid(),
                             name: "Day Color 4",
                             minimum: 25,
                             cssClassName: "day-color-4",
@@ -496,68 +505,68 @@ var init_binding = __esm({
                     }
                     return e;
                 }
-                function a(e) {
+                function r(e) {
                     if (Is.definedArray(e.holidays)) {
                         const t = e.holidays.length;
                         for (let n = 0; n < t; n++) {
                             const t = e.holidays[n];
-                            t.date = Data.getDefaultString(t.date, "");
-                            t.name = Data.getDefaultString(t.name, "");
-                            t.showInViews = Data.getDefaultBoolean(t.showInViews, true);
+                            t.date = Default.getString(t.date, "");
+                            t.name = Default.getString(t.name, "");
+                            t.showInViews = Default.getBoolean(t.showInViews, true);
                         }
                     } else {
                         e.holidays = [];
                     }
                     return e;
                 }
-                function r(e) {
-                    e.title = Data.getDefaultObject(e.title, {});
-                    e.title.text = Data.getDefaultString(e.title.text, "Heat.js");
-                    e.title.showText = Data.getDefaultBoolean(e.title.showText, true);
-                    e.title.showYearSelector = Data.getDefaultBoolean(e.title.showYearSelector, true);
-                    e.title.showRefreshButton = Data.getDefaultBoolean(e.title.showRefreshButton, false);
-                    e.title.showExportButton = Data.getDefaultBoolean(e.title.showExportButton, false);
-                    e.title.extraSelectionYears = Data.getDefaultNumber(e.title.extraSelectionYears, 50);
-                    e.title.showYearSelectionDropDown = Data.getDefaultBoolean(e.title.showYearSelectionDropDown, true);
-                    e.title.showImportButton = Data.getDefaultBoolean(e.title.showImportButton, false);
-                    e.title.showConfigurationButton = Data.getDefaultBoolean(e.title.showConfigurationButton, true);
-                    e.title.showTitleDropDownButton = Data.getDefaultBoolean(e.title.showTitleDropDownButton, true);
-                    e.title.showTitleDropDownHeaders = Data.getDefaultBoolean(e.title.showTitleDropDownHeaders, true);
+                function s(e) {
+                    e.title = Default.getObject(e.title, {});
+                    e.title.text = Default.getString(e.title.text, "Heat.js");
+                    e.title.showText = Default.getBoolean(e.title.showText, true);
+                    e.title.showYearSelector = Default.getBoolean(e.title.showYearSelector, true);
+                    e.title.showRefreshButton = Default.getBoolean(e.title.showRefreshButton, false);
+                    e.title.showExportButton = Default.getBoolean(e.title.showExportButton, false);
+                    e.title.extraSelectionYears = Default.getNumber(e.title.extraSelectionYears, 50);
+                    e.title.showYearSelectionDropDown = Default.getBoolean(e.title.showYearSelectionDropDown, true);
+                    e.title.showImportButton = Default.getBoolean(e.title.showImportButton, false);
+                    e.title.showConfigurationButton = Default.getBoolean(e.title.showConfigurationButton, true);
+                    e.title.showTitleDropDownButton = Default.getBoolean(e.title.showTitleDropDownButton, true);
+                    e.title.showTitleDropDownHeaders = Default.getBoolean(e.title.showTitleDropDownHeaders, true);
                     return e;
                 }
-                function s(e) {
-                    e.description = Data.getDefaultObject(e.description, {});
-                    e.description.text = Data.getDefaultString(e.description.text, "");
-                    e.description.url = Data.getDefaultString(e.description.url, "");
-                    e.description.urlTarget = Data.getDefaultString(e.description.urlTarget, "_blank");
+                function a(e) {
+                    e.description = Default.getObject(e.description, {});
+                    e.description.text = Default.getString(e.description.text, "");
+                    e.description.url = Default.getString(e.description.url, "");
+                    e.description.urlTarget = Default.getString(e.description.urlTarget, "_blank");
                     return e;
                 }
                 function l(e) {
-                    e.guide = Data.getDefaultObject(e.guide, {});
-                    e.guide.enabled = Data.getDefaultBoolean(e.guide.enabled, true);
-                    e.guide.colorRangeTogglesEnabled = Data.getDefaultBoolean(e.guide.colorRangeTogglesEnabled, true);
-                    e.guide.showLessAndMoreLabels = Data.getDefaultBoolean(e.guide.showLessAndMoreLabels, true);
-                    e.guide.showNumbersInGuide = Data.getDefaultBoolean(e.guide.showNumbersInGuide, false);
+                    e.guide = Default.getObject(e.guide, {});
+                    e.guide.enabled = Default.getBoolean(e.guide.enabled, true);
+                    e.guide.colorRangeTogglesEnabled = Default.getBoolean(e.guide.colorRangeTogglesEnabled, true);
+                    e.guide.showLessAndMoreLabels = Default.getBoolean(e.guide.showLessAndMoreLabels, true);
+                    e.guide.showNumbersInGuide = Default.getBoolean(e.guide.showNumbersInGuide, false);
                     return e;
                 }
                 function c(e) {
-                    e.tooltip = Data.getDefaultObject(e.tooltip, {});
-                    e.tooltip.delay = Data.getDefaultNumber(e.tooltip.delay, 750);
-                    e.tooltip.dayText = Data.getDefaultString(e.tooltip.dayText, "{d}{o} {mmmm} {yyyy}");
+                    e.tooltip = Default.getObject(e.tooltip, {});
+                    e.tooltip.delay = Default.getNumber(e.tooltip.delay, 750);
+                    e.tooltip.dayText = Default.getString(e.tooltip.dayText, "{d}{o} {mmmm} {yyyy}");
                     return e;
                 }
                 function u(e) {
-                    e.views.map = Data.getDefaultObject(e.views.map, {});
-                    e.views.map.showMonthDayGaps = Data.getDefaultBoolean(e.views.map.showMonthDayGaps, true);
-                    e.views.map.showDayNames = Data.getDefaultBoolean(e.views.map.showDayNames, true);
-                    e.views.map.placeMonthNamesOnTheBottom = Data.getDefaultBoolean(e.views.map.placeMonthNamesOnTheBottom, false);
-                    e.views.map.showDayNumbers = Data.getDefaultBoolean(e.views.map.showDayNumbers, false);
-                    e.views.map.showMonthNames = Data.getDefaultBoolean(e.views.map.showMonthNames, true);
-                    e.views.map.showDaysInReverseOrder = Data.getDefaultBoolean(e.views.map.showDaysInReverseOrder, false);
-                    e.views.map.showNoDataMessageWhenDataIsNotAvailable = Data.getDefaultBoolean(e.views.map.showNoDataMessageWhenDataIsNotAvailable, false);
-                    e.views.map.showMinimalDayNames = Data.getDefaultBoolean(e.views.map.showMinimalDayNames, false);
-                    e.views.map.showMonthsInReverseOrder = Data.getDefaultBoolean(e.views.map.showMonthsInReverseOrder, false);
-                    e.views.map.keepScrollPositions = Data.getDefaultBoolean(e.views.map.keepScrollPositions, false);
+                    e.views.map = Default.getObject(e.views.map, {});
+                    e.views.map.showMonthDayGaps = Default.getBoolean(e.views.map.showMonthDayGaps, true);
+                    e.views.map.showDayNames = Default.getBoolean(e.views.map.showDayNames, true);
+                    e.views.map.placeMonthNamesOnTheBottom = Default.getBoolean(e.views.map.placeMonthNamesOnTheBottom, false);
+                    e.views.map.showDayNumbers = Default.getBoolean(e.views.map.showDayNumbers, false);
+                    e.views.map.showMonthNames = Default.getBoolean(e.views.map.showMonthNames, true);
+                    e.views.map.showDaysInReverseOrder = Default.getBoolean(e.views.map.showDaysInReverseOrder, false);
+                    e.views.map.showNoDataMessageWhenDataIsNotAvailable = Default.getBoolean(e.views.map.showNoDataMessageWhenDataIsNotAvailable, false);
+                    e.views.map.showMinimalDayNames = Default.getBoolean(e.views.map.showMinimalDayNames, false);
+                    e.views.map.showMonthsInReverseOrder = Default.getBoolean(e.views.map.showMonthsInReverseOrder, false);
+                    e.views.map.keepScrollPositions = Default.getBoolean(e.views.map.keepScrollPositions, false);
                     if (Is.invalidOptionArray(e.views.map.monthsToShow)) {
                         e.views.map.monthsToShow = t;
                     }
@@ -567,13 +576,13 @@ var init_binding = __esm({
                     return e;
                 }
                 function d(e) {
-                    e.views.chart = Data.getDefaultObject(e.views.chart, {});
-                    e.views.chart.enabled = Data.getDefaultBoolean(e.views.chart.enabled, true);
-                    e.views.chart.showChartYLabels = Data.getDefaultBoolean(e.views.chart.showChartYLabels, true);
-                    e.views.chart.showMonthNames = Data.getDefaultBoolean(e.views.chart.showMonthNames, true);
-                    e.views.chart.showLineNumbers = Data.getDefaultBoolean(e.views.chart.showLineNumbers, false);
-                    e.views.chart.showInReverseOrder = Data.getDefaultBoolean(e.views.chart.showInReverseOrder, false);
-                    e.views.chart.keepScrollPositions = Data.getDefaultBoolean(e.views.chart.keepScrollPositions, false);
+                    e.views.chart = Default.getObject(e.views.chart, {});
+                    e.views.chart.enabled = Default.getBoolean(e.views.chart.enabled, true);
+                    e.views.chart.showChartYLabels = Default.getBoolean(e.views.chart.showChartYLabels, true);
+                    e.views.chart.showMonthNames = Default.getBoolean(e.views.chart.showMonthNames, true);
+                    e.views.chart.showLineNumbers = Default.getBoolean(e.views.chart.showLineNumbers, false);
+                    e.views.chart.showInReverseOrder = Default.getBoolean(e.views.chart.showInReverseOrder, false);
+                    e.views.chart.keepScrollPositions = Default.getBoolean(e.views.chart.keepScrollPositions, false);
                     if (Is.invalidOptionArray(e.views.chart.monthsToShow)) {
                         e.views.chart.monthsToShow = t;
                     }
@@ -583,13 +592,13 @@ var init_binding = __esm({
                     return e;
                 }
                 function m(e) {
-                    e.views.days = Data.getDefaultObject(e.views.days, {});
-                    e.views.days.enabled = Data.getDefaultBoolean(e.views.days.enabled, true);
-                    e.views.days.showChartYLabels = Data.getDefaultBoolean(e.views.days.showChartYLabels, true);
-                    e.views.days.showDayNames = Data.getDefaultBoolean(e.views.days.showDayNames, true);
-                    e.views.days.showInReverseOrder = Data.getDefaultBoolean(e.views.days.showInReverseOrder, false);
-                    e.views.days.showDayNumbers = Data.getDefaultBoolean(e.views.days.showDayNumbers, false);
-                    e.views.days.keepScrollPositions = Data.getDefaultBoolean(e.views.days.keepScrollPositions, false);
+                    e.views.days = Default.getObject(e.views.days, {});
+                    e.views.days.enabled = Default.getBoolean(e.views.days.enabled, true);
+                    e.views.days.showChartYLabels = Default.getBoolean(e.views.days.showChartYLabels, true);
+                    e.views.days.showDayNames = Default.getBoolean(e.views.days.showDayNames, true);
+                    e.views.days.showInReverseOrder = Default.getBoolean(e.views.days.showInReverseOrder, false);
+                    e.views.days.showDayNumbers = Default.getBoolean(e.views.days.showDayNumbers, false);
+                    e.views.days.keepScrollPositions = Default.getBoolean(e.views.days.keepScrollPositions, false);
                     if (Is.invalidOptionArray(e.views.days.monthsToShow)) {
                         e.views.days.monthsToShow = t;
                     }
@@ -599,14 +608,14 @@ var init_binding = __esm({
                     return e;
                 }
                 function f(e) {
-                    e.views.statistics = Data.getDefaultObject(e.views.statistics, {});
-                    e.views.statistics.enabled = Data.getDefaultBoolean(e.views.statistics.enabled, true);
-                    e.views.statistics.showChartYLabels = Data.getDefaultBoolean(e.views.statistics.showChartYLabels, true);
-                    e.views.statistics.showColorRangeLabels = Data.getDefaultBoolean(e.views.statistics.showColorRangeLabels, true);
-                    e.views.statistics.useColorRangeNamesForLabels = Data.getDefaultBoolean(e.views.statistics.useColorRangeNamesForLabels, false);
-                    e.views.statistics.showRangeNumbers = Data.getDefaultBoolean(e.views.statistics.showRangeNumbers, false);
-                    e.views.statistics.showInReverseOrder = Data.getDefaultBoolean(e.views.statistics.showInReverseOrder, false);
-                    e.views.statistics.keepScrollPositions = Data.getDefaultBoolean(e.views.statistics.keepScrollPositions, false);
+                    e.views.statistics = Default.getObject(e.views.statistics, {});
+                    e.views.statistics.enabled = Default.getBoolean(e.views.statistics.enabled, true);
+                    e.views.statistics.showChartYLabels = Default.getBoolean(e.views.statistics.showChartYLabels, true);
+                    e.views.statistics.showColorRangeLabels = Default.getBoolean(e.views.statistics.showColorRangeLabels, true);
+                    e.views.statistics.useColorRangeNamesForLabels = Default.getBoolean(e.views.statistics.useColorRangeNamesForLabels, false);
+                    e.views.statistics.showRangeNumbers = Default.getBoolean(e.views.statistics.showRangeNumbers, false);
+                    e.views.statistics.showInReverseOrder = Default.getBoolean(e.views.statistics.showInReverseOrder, false);
+                    e.views.statistics.keepScrollPositions = Default.getBoolean(e.views.statistics.keepScrollPositions, false);
                     if (Is.invalidOptionArray(e.views.statistics.monthsToShow)) {
                         e.views.statistics.monthsToShow = t;
                     }
@@ -616,34 +625,34 @@ var init_binding = __esm({
                     return e;
                 }
                 function g(e) {
-                    e.events = Data.getDefaultObject(e.events, {});
-                    e.events.onDayClick = Data.getDefaultFunction(e.events.onDayClick, null);
-                    e.events.onBackYear = Data.getDefaultFunction(e.events.onBackYear, null);
-                    e.events.onNextYear = Data.getDefaultFunction(e.events.onNextYear, null);
-                    e.events.onRefresh = Data.getDefaultFunction(e.events.onRefresh, null);
-                    e.events.onBeforeRender = Data.getDefaultFunction(e.events.onBeforeRender, null);
-                    e.events.onRenderComplete = Data.getDefaultFunction(e.events.onRenderComplete, null);
-                    e.events.onDestroy = Data.getDefaultFunction(e.events.onDestroy, null);
-                    e.events.onExport = Data.getDefaultFunction(e.events.onExport, null);
-                    e.events.onSetYear = Data.getDefaultFunction(e.events.onSetYear, null);
-                    e.events.onTypeSwitch = Data.getDefaultFunction(e.events.onTypeSwitch, null);
-                    e.events.onDayToolTipRender = Data.getDefaultFunction(e.events.onDayToolTipRender, null);
-                    e.events.onAdd = Data.getDefaultFunction(e.events.onAdd, null);
-                    e.events.onRemove = Data.getDefaultFunction(e.events.onRemove, null);
-                    e.events.onReset = Data.getDefaultFunction(e.events.onReset, null);
-                    e.events.onViewSwitch = Data.getDefaultFunction(e.events.onViewSwitch, null);
-                    e.events.onColorRangeTypeToggle = Data.getDefaultFunction(e.events.onColorRangeTypeToggle, null);
-                    e.events.onImport = Data.getDefaultFunction(e.events.onImport, null);
-                    e.events.onStatisticClick = Data.getDefaultFunction(e.events.onStatisticClick, null);
-                    e.events.onDataFetch = Data.getDefaultFunction(e.events.onDataFetch, null);
-                    e.events.onClear = Data.getDefaultFunction(e.events.onClear, null);
-                    e.events.onUpdate = Data.getDefaultFunction(e.events.onUpdate, null);
-                    e.events.onOptionsUpdate = Data.getDefaultFunction(e.events.onOptionsUpdate, null);
-                    e.events.onWeekDayClick = Data.getDefaultFunction(e.events.onWeekDayClick, null);
+                    e.events = Default.getObject(e.events, {});
+                    e.events.onDayClick = Default.getFunction(e.events.onDayClick, null);
+                    e.events.onBackYear = Default.getFunction(e.events.onBackYear, null);
+                    e.events.onNextYear = Default.getFunction(e.events.onNextYear, null);
+                    e.events.onRefresh = Default.getFunction(e.events.onRefresh, null);
+                    e.events.onBeforeRender = Default.getFunction(e.events.onBeforeRender, null);
+                    e.events.onRenderComplete = Default.getFunction(e.events.onRenderComplete, null);
+                    e.events.onDestroy = Default.getFunction(e.events.onDestroy, null);
+                    e.events.onExport = Default.getFunction(e.events.onExport, null);
+                    e.events.onSetYear = Default.getFunction(e.events.onSetYear, null);
+                    e.events.onTypeSwitch = Default.getFunction(e.events.onTypeSwitch, null);
+                    e.events.onDayToolTipRender = Default.getFunction(e.events.onDayToolTipRender, null);
+                    e.events.onAdd = Default.getFunction(e.events.onAdd, null);
+                    e.events.onRemove = Default.getFunction(e.events.onRemove, null);
+                    e.events.onReset = Default.getFunction(e.events.onReset, null);
+                    e.events.onViewSwitch = Default.getFunction(e.events.onViewSwitch, null);
+                    e.events.onColorRangeTypeToggle = Default.getFunction(e.events.onColorRangeTypeToggle, null);
+                    e.events.onImport = Default.getFunction(e.events.onImport, null);
+                    e.events.onStatisticClick = Default.getFunction(e.events.onStatisticClick, null);
+                    e.events.onDataFetch = Default.getFunction(e.events.onDataFetch, null);
+                    e.events.onClear = Default.getFunction(e.events.onClear, null);
+                    e.events.onUpdate = Default.getFunction(e.events.onUpdate, null);
+                    e.events.onOptionsUpdate = Default.getFunction(e.events.onOptionsUpdate, null);
+                    e.events.onWeekDayClick = Default.getFunction(e.events.onWeekDayClick, null);
                     return e;
                 }
-            })(t = e.options || (e.options = {}));
-        })(binding || (binding = {}));
+            })(t = e.Options || (e.Options = {}));
+        })(Binding || (Binding = {}));
     }
 });
 
@@ -652,60 +661,60 @@ var Config;
 var init_config = __esm({
     "src/ts/options/config.ts"() {
         "use strict";
-        init_data();
+        init_default();
         init_is();
         (e => {
             let t;
             (e => {
                 function t(e = null) {
-                    let t = Data.getDefaultObject(e, {});
-                    t.safeMode = Data.getDefaultBoolean(t.safeMode, true);
-                    t.domElementTypes = Data.getDefaultStringOrArray(t.domElementTypes, [ "*" ]);
+                    let t = Default.getObject(e, {});
+                    t.safeMode = Default.getBoolean(t.safeMode, true);
+                    t.domElementTypes = Default.getStringOrArray(t.domElementTypes, [ "*" ]);
                     t = n(t);
                     t = o(t);
                     return t;
                 }
                 e.get = t;
                 function n(e) {
-                    e.text = Data.getDefaultObject(e.text, {});
-                    e.text.stText = Data.getDefaultAnyString(e.text.stText, "st");
-                    e.text.ndText = Data.getDefaultAnyString(e.text.ndText, "nd");
-                    e.text.rdText = Data.getDefaultAnyString(e.text.rdText, "rd");
-                    e.text.thText = Data.getDefaultAnyString(e.text.thText, "th");
-                    e.text.backButtonText = Data.getDefaultAnyString(e.text.backButtonText, "Back");
-                    e.text.nextButtonText = Data.getDefaultAnyString(e.text.nextButtonText, "Next");
-                    e.text.refreshButtonText = Data.getDefaultAnyString(e.text.refreshButtonText, "Refresh");
-                    e.text.exportButtonText = Data.getDefaultAnyString(e.text.exportButtonText, "Export");
-                    e.text.lessText = Data.getDefaultAnyString(e.text.lessText, "Less");
-                    e.text.moreText = Data.getDefaultAnyString(e.text.moreText, "More");
-                    e.text.dateText = Data.getDefaultAnyString(e.text.dateText, "Date");
-                    e.text.countText = Data.getDefaultAnyString(e.text.countText, "Count");
-                    e.text.mapText = Data.getDefaultAnyString(e.text.mapText, "Map");
-                    e.text.chartText = Data.getDefaultAnyString(e.text.chartText, "Chart");
-                    e.text.noChartDataMessage = Data.getDefaultAnyString(e.text.noChartDataMessage, "There is currently no data to view.");
-                    e.text.statisticsText = Data.getDefaultAnyString(e.text.statisticsText, "Statistics");
-                    e.text.noStatisticsDataMessage = Data.getDefaultAnyString(e.text.noStatisticsDataMessage, "There are currently no statistics to view.");
-                    e.text.unknownTrendText = Data.getDefaultAnyString(e.text.unknownTrendText, "Unknown");
-                    e.text.importButtonText = Data.getDefaultAnyString(e.text.importButtonText, "Import");
-                    e.text.noMapDataMessage = Data.getDefaultAnyString(e.text.noMapDataMessage, "There is currently no data to view.");
-                    e.text.objectErrorText = Data.getDefaultAnyString(e.text.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
-                    e.text.attributeNotValidErrorText = Data.getDefaultAnyString(e.text.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object.");
-                    e.text.attributeNotSetErrorText = Data.getDefaultAnyString(e.text.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly.");
-                    e.text.closeToolTipText = Data.getDefaultAnyString(e.text.closeToolTipText, "Close");
-                    e.text.configurationToolTipText = Data.getDefaultAnyString(e.text.configurationToolTipText, "Configuration");
-                    e.text.configurationTitleText = Data.getDefaultAnyString(e.text.configurationTitleText, "Configuration");
-                    e.text.visibleMonthsText = Data.getDefaultAnyString(e.text.visibleMonthsText, "Visible Months");
-                    e.text.visibleDaysText = Data.getDefaultAnyString(e.text.visibleDaysText, "Visible Days");
-                    e.text.dataText = Data.getDefaultAnyString(e.text.dataText, "Data");
-                    e.text.colorRangesText = Data.getDefaultAnyString(e.text.colorRangesText, "Color Ranges");
-                    e.text.yearText = Data.getDefaultAnyString(e.text.yearText, "Year");
-                    e.text.daysText = Data.getDefaultAnyString(e.text.daysText, "Days");
-                    e.text.noDaysDataMessage = Data.getDefaultAnyString(e.text.noDaysDataMessage, "There are currently no days to view.");
-                    e.text.backButtonSymbolText = Data.getDefaultAnyString(e.text.backButtonSymbolText, "←");
-                    e.text.nextButtonSymbolText = Data.getDefaultAnyString(e.text.nextButtonSymbolText, "→");
-                    e.text.refreshButtonSymbolText = Data.getDefaultAnyString(e.text.refreshButtonSymbolText, "↻");
-                    e.text.exportButtonSymbolText = Data.getDefaultAnyString(e.text.exportButtonSymbolText, "↓");
-                    e.text.importButtonSymbolText = Data.getDefaultAnyString(e.text.importButtonSymbolText, "↑");
+                    e.text = Default.getObject(e.text, {});
+                    e.text.stText = Default.getAnyString(e.text.stText, "st");
+                    e.text.ndText = Default.getAnyString(e.text.ndText, "nd");
+                    e.text.rdText = Default.getAnyString(e.text.rdText, "rd");
+                    e.text.thText = Default.getAnyString(e.text.thText, "th");
+                    e.text.backButtonText = Default.getAnyString(e.text.backButtonText, "Back");
+                    e.text.nextButtonText = Default.getAnyString(e.text.nextButtonText, "Next");
+                    e.text.refreshButtonText = Default.getAnyString(e.text.refreshButtonText, "Refresh");
+                    e.text.exportButtonText = Default.getAnyString(e.text.exportButtonText, "Export");
+                    e.text.lessText = Default.getAnyString(e.text.lessText, "Less");
+                    e.text.moreText = Default.getAnyString(e.text.moreText, "More");
+                    e.text.dateText = Default.getAnyString(e.text.dateText, "Date");
+                    e.text.countText = Default.getAnyString(e.text.countText, "Count");
+                    e.text.mapText = Default.getAnyString(e.text.mapText, "Map");
+                    e.text.chartText = Default.getAnyString(e.text.chartText, "Chart");
+                    e.text.noChartDataMessage = Default.getAnyString(e.text.noChartDataMessage, "There is currently no data to view.");
+                    e.text.statisticsText = Default.getAnyString(e.text.statisticsText, "Statistics");
+                    e.text.noStatisticsDataMessage = Default.getAnyString(e.text.noStatisticsDataMessage, "There are currently no statistics to view.");
+                    e.text.unknownTrendText = Default.getAnyString(e.text.unknownTrendText, "Unknown");
+                    e.text.importButtonText = Default.getAnyString(e.text.importButtonText, "Import");
+                    e.text.noMapDataMessage = Default.getAnyString(e.text.noMapDataMessage, "There is currently no data to view.");
+                    e.text.objectErrorText = Default.getAnyString(e.text.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
+                    e.text.attributeNotValidErrorText = Default.getAnyString(e.text.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object.");
+                    e.text.attributeNotSetErrorText = Default.getAnyString(e.text.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly.");
+                    e.text.closeToolTipText = Default.getAnyString(e.text.closeToolTipText, "Close");
+                    e.text.configurationToolTipText = Default.getAnyString(e.text.configurationToolTipText, "Configuration");
+                    e.text.configurationTitleText = Default.getAnyString(e.text.configurationTitleText, "Configuration");
+                    e.text.visibleMonthsText = Default.getAnyString(e.text.visibleMonthsText, "Visible Months");
+                    e.text.visibleDaysText = Default.getAnyString(e.text.visibleDaysText, "Visible Days");
+                    e.text.dataText = Default.getAnyString(e.text.dataText, "Data");
+                    e.text.colorRangesText = Default.getAnyString(e.text.colorRangesText, "Color Ranges");
+                    e.text.yearText = Default.getAnyString(e.text.yearText, "Year");
+                    e.text.daysText = Default.getAnyString(e.text.daysText, "Days");
+                    e.text.noDaysDataMessage = Default.getAnyString(e.text.noDaysDataMessage, "There are currently no days to view.");
+                    e.text.backButtonSymbolText = Default.getAnyString(e.text.backButtonSymbolText, "←");
+                    e.text.nextButtonSymbolText = Default.getAnyString(e.text.nextButtonSymbolText, "→");
+                    e.text.refreshButtonSymbolText = Default.getAnyString(e.text.refreshButtonSymbolText, "↻");
+                    e.text.exportButtonSymbolText = Default.getAnyString(e.text.exportButtonSymbolText, "↓");
+                    e.text.importButtonSymbolText = Default.getAnyString(e.text.importButtonSymbolText, "↑");
                     return e;
                 }
                 function o(e) {
@@ -724,12 +733,13 @@ var init_config = __esm({
 
 var require_heat = __commonJS({
     "src/heat.ts"(exports, module) {
-        init_enum();
         init_constant();
+        init_enum();
         init_is();
-        init_data();
-        init_dom();
+        init_default();
         init_datetime();
+        init_dom();
+        init_str();
         init_tooltip();
         init_trigger();
         init_binding();
@@ -791,8 +801,8 @@ var require_heat = __commonJS({
                 return t;
             }
             function renderBindingOptions(e, t) {
-                const n = binding.options.get(e);
-                const o = Data.getDefaultString(n.view, "").toLowerCase();
+                const n = Binding.Options.get(e);
+                const o = Default.getString(n.view, "").toLowerCase();
                 let i = {};
                 i.element = t;
                 i.disabledBackground = null;
@@ -837,7 +847,7 @@ var require_heat = __commonJS({
             function renderControl(e) {
                 Trigger.customEvent(e.events.onBeforeRender, e._currentView.element);
                 if (!Is.definedString(e._currentView.element.id)) {
-                    e._currentView.element.id = Data.String.newGuid();
+                    e._currentView.element.id = Str.newGuid();
                 }
                 if (e._currentView.element.className.trim() === "") {
                     e._currentView.element.className = "heat-js";
@@ -908,12 +918,12 @@ var require_heat = __commonJS({
                 const n = DomElement.create(e._currentView.configurationDialog, "div", "dialog-contents");
                 const o = DomElement.create(t, "div", "dialog-close");
                 const i = DomElement.create(n, "div", "side-container panel");
-                const a = DomElement.create(n, "div", "side-container panel");
+                const r = DomElement.create(n, "div", "side-container panel");
                 DomElement.createWithHTML(t, "span", "dialog-title-bar-text", _configuration.text.configurationTitleText);
                 DomElement.createWithHTML(i, "div", "side-container-title-text", _configuration.text.visibleDaysText + ":");
-                DomElement.createWithHTML(a, "div", "side-container-title-text", _configuration.text.visibleMonthsText + ":");
-                const r = DomElement.create(a, "div", "side-container");
-                const s = DomElement.create(a, "div", "side-container");
+                DomElement.createWithHTML(r, "div", "side-container-title-text", _configuration.text.visibleMonthsText + ":");
+                const s = DomElement.create(r, "div", "side-container");
+                const a = DomElement.create(r, "div", "side-container");
                 o.onclick = () => {
                     hideConfigurationDialog(e);
                 };
@@ -921,10 +931,10 @@ var require_heat = __commonJS({
                     e._currentView.dayCheckBoxes[t] = DomElement.createCheckBox(i, _configuration.text.dayNames[t]);
                 }
                 for (let t = 0; t < 7; t++) {
-                    e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(r, _configuration.text.monthNames[t]);
+                    e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(s, _configuration.text.monthNames[t]);
                 }
                 for (let t = 7; t < 12; t++) {
-                    e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(s, _configuration.text.monthNames[t]);
+                    e._currentView.monthCheckBoxes[t] = DomElement.createCheckBox(a, _configuration.text.monthNames[t]);
                 }
                 ToolTip.add(o, e, _configuration.text.closeToolTipText);
             }
@@ -1132,9 +1142,9 @@ var require_heat = __commonJS({
                 t.style.visibility = "hidden";
                 for (let t = o - e.title.extraSelectionYears; t < o + e.title.extraSelectionYears; t++) {
                     if (isYearVisible(e, t)) {
-                        let a = renderYearDropDownMenuItem(e, n, t, o);
+                        let r = renderYearDropDownMenuItem(e, n, t, o);
                         if (!Is.defined(i)) {
-                            i = a;
+                            i = r;
                         }
                     }
                 }
@@ -1146,19 +1156,19 @@ var require_heat = __commonJS({
             }
             function renderYearDropDownMenuItem(e, t, n, o) {
                 let i = null;
-                const a = DomElement.createWithHTML(t, "div", "year-menu-item", n.toString());
+                const r = DomElement.createWithHTML(t, "div", "year-menu-item", n.toString());
                 if (e._currentView.year !== n) {
-                    a.onclick = () => {
+                    r.onclick = () => {
                         e._currentView.year = n;
                         renderControlContainer(e);
                         Trigger.customEvent(e.events.onSetYear, e._currentView.year);
                     };
                     if (n === o) {
-                        DomElement.addClass(a, "year-menu-item-current");
+                        DomElement.addClass(r, "year-menu-item-current");
                     }
                 } else {
-                    DomElement.addClass(a, "year-menu-item-active");
-                    i = a;
+                    DomElement.addClass(r, "year-menu-item-active");
+                    i = r;
                 }
                 return i;
             }
@@ -1204,14 +1214,14 @@ var require_heat = __commonJS({
                             DomElement.reverseChildrenOrder(t);
                         }
                     }
-                    const a = DomElement.create(n, "div", "months");
-                    const r = getSortedColorRanges(e);
+                    const r = DomElement.create(n, "div", "months");
+                    const s = getSortedColorRanges(e);
                     for (let t = 0; t < 12; t++) {
                         if (isMonthVisible(e.views.map.monthsToShow, t)) {
-                            const n = DomElement.create(a, "div", "month");
-                            const s = DomElement.create(n, "div", "day-columns");
+                            const n = DomElement.create(r, "div", "month");
+                            const a = DomElement.create(n, "div", "day-columns");
                             let l = DateTime.getTotalDaysInMonth(o, t);
-                            let c = DomElement.create(s, "div", "day-column");
+                            let c = DomElement.create(a, "div", "day-column");
                             let u = false;
                             const d = new Date(o, t, 1);
                             const m = DateTime.getWeekdayNumber(d);
@@ -1228,13 +1238,13 @@ var require_heat = __commonJS({
                                 if (u) {
                                     let i = null;
                                     if (isDayVisible(e.views.map.daysToShow, f)) {
-                                        i = renderControlMapMonthDay(e, c, n - m, t, o, r);
+                                        i = renderControlMapMonthDay(e, c, n - m, t, o, s);
                                     }
                                     if ((n + 1) % 7 === 0) {
                                         if (e.views.map.showDaysInReverseOrder) {
                                             DomElement.reverseChildrenOrder(c);
                                         }
-                                        c = DomElement.create(s, "div", "day-column");
+                                        c = DomElement.create(a, "div", "day-column");
                                         f = 0;
                                         if (_elements_Day_Width === 0 && Is.defined(i)) {
                                             let e = DomElement.getStyleValueByName(i, "margin-left", true);
@@ -1249,7 +1259,7 @@ var require_heat = __commonJS({
                                 let o;
                                 const i = n.offsetWidth;
                                 if (!e.views.map.placeMonthNamesOnTheBottom) {
-                                    o = DomElement.createWithHTML(n, "div", "month-name", _configuration.text.monthNames[t], s);
+                                    o = DomElement.createWithHTML(n, "div", "month-name", _configuration.text.monthNames[t], a);
                                 } else {
                                     o = DomElement.createWithHTML(n, "div", "month-name-bottom", _configuration.text.monthNames[t]);
                                 }
@@ -1269,45 +1279,45 @@ var require_heat = __commonJS({
                                 }
                             }
                             if (e.views.map.showMonthsInReverseOrder) {
-                                DomElement.reverseChildrenOrder(s);
+                                DomElement.reverseChildrenOrder(a);
                             }
                             i = true;
                         }
                     }
                     if (e.views.map.showMonthsInReverseOrder) {
-                        DomElement.reverseChildrenOrder(a);
+                        DomElement.reverseChildrenOrder(r);
                     }
                     if (e.views.map.keepScrollPositions) {
                         e._currentView.mapContents.scrollLeft = e._currentView.mapContentsScrollLeft;
                     }
                 }
             }
-            function renderControlMapMonthDay(e, t, n, o, i, a) {
-                const r = n + 1;
-                const s = DomElement.create(t, "div", "day");
-                const l = new Date(i, o, r);
+            function renderControlMapMonthDay(e, t, n, o, i, r) {
+                const s = n + 1;
+                const a = DomElement.create(t, "div", "day");
+                const l = new Date(i, o, s);
                 let c = _elements_DateCounts[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(l)];
-                c = Data.getDefaultNumber(c, 0);
-                renderDayToolTip(e, s, l, c);
+                c = Default.getNumber(c, 0);
+                renderDayToolTip(e, a, l, c);
                 if (e.views.map.showDayNumbers && c > 0) {
-                    s.innerHTML = c.toString();
+                    a.innerHTML = c.toString();
                 }
                 if (Is.definedFunction(e.events.onDayClick)) {
-                    s.onclick = () => {
+                    a.onclick = () => {
                         Trigger.customEvent(e.events.onDayClick, l, c);
                     };
                 } else {
-                    DomElement.addClass(s, "no-hover");
+                    DomElement.addClass(a, "no-hover");
                 }
-                const u = getColorRange(e, a, c, l);
+                const u = getColorRange(e, r, c, l);
                 if (Is.defined(u) && isColorRangeVisible(e, u.id)) {
                     if (Is.definedString(u.mapCssClassName)) {
-                        DomElement.addClass(s, u.mapCssClassName);
+                        DomElement.addClass(a, u.mapCssClassName);
                     } else {
-                        DomElement.addClass(s, u.cssClassName);
+                        DomElement.addClass(a, u.cssClassName);
                     }
                 }
-                return s;
+                return a;
             }
             function isDataAvailableForYear(e) {
                 let t = false;
@@ -1331,18 +1341,18 @@ var require_heat = __commonJS({
                 const n = DomElement.create(e._currentView.chartContents, "div", "chart");
                 let o = DomElement.create(n, "div", "y-labels");
                 const i = DomElement.create(n, "div", "day-lines");
-                const a = getSortedColorRanges(e);
-                const r = getLargestValueForChartYear(e);
-                const s = e._currentView.year;
+                const r = getSortedColorRanges(e);
+                const s = getLargestValueForChartYear(e);
+                const a = e._currentView.year;
                 let l = 0;
                 if (t) {
                     DomElement.addClass(n, "view-switch");
                 }
-                if (r > 0 && e.views.chart.showChartYLabels) {
-                    const e = DomElement.createWithHTML(o, "div", "label-0", r.toString());
-                    DomElement.createWithHTML(o, "div", "label-25", (Math.floor(r / 4) * 3).toString());
-                    DomElement.createWithHTML(o, "div", "label-50", Math.floor(r / 2).toString());
-                    DomElement.createWithHTML(o, "div", "label-75", Math.floor(r / 4).toString());
+                if (s > 0 && e.views.chart.showChartYLabels) {
+                    const e = DomElement.createWithHTML(o, "div", "label-0", s.toString());
+                    DomElement.createWithHTML(o, "div", "label-25", (Math.floor(s / 4) * 3).toString());
+                    DomElement.createWithHTML(o, "div", "label-50", Math.floor(s / 2).toString());
+                    DomElement.createWithHTML(o, "div", "label-75", Math.floor(s / 4).toString());
                     DomElement.createWithHTML(o, "div", "label-100", "0");
                     o.style.width = `${e.offsetWidth}px`;
                     l = o.offsetWidth + DomElement.getStyleValueByName(o, "margin-right", true);
@@ -1350,7 +1360,7 @@ var require_heat = __commonJS({
                     o.parentNode.removeChild(o);
                     o = null;
                 }
-                if (r === 0) {
+                if (s === 0) {
                     e._currentView.chartContents.style.minHeight = `${e._currentView.mapContents.offsetHeight}px`;
                     n.parentNode.removeChild(n);
                     const o = DomElement.createWithHTML(e._currentView.chartContents, "div", "no-data-message", _configuration.text.noChartDataMessage);
@@ -1358,17 +1368,17 @@ var require_heat = __commonJS({
                         DomElement.addClass(o, "view-switch");
                     }
                 } else {
-                    const t = e._currentView.mapContents.offsetHeight / r;
+                    const t = e._currentView.mapContents.offsetHeight / s;
                     let n = 0;
                     let o = 0;
-                    for (let r = 0; r < 12; r++) {
-                        if (isMonthVisible(e.views.chart.monthsToShow, r)) {
-                            const l = DateTime.getTotalDaysInMonth(s, r);
+                    for (let s = 0; s < 12; s++) {
+                        if (isMonthVisible(e.views.chart.monthsToShow, s)) {
+                            const l = DateTime.getTotalDaysInMonth(a, s);
                             let c = 1;
                             n++;
                             for (let n = 0; n < l; n++) {
                                 if (isDayVisible(e.views.chart.daysToShow, c)) {
-                                    renderControlChartDay(i, e, n + 1, r, s, a, t);
+                                    renderControlChartDay(i, e, n + 1, s, a, r, t);
                                 }
                                 if ((n + 1) % 7 === 0) {
                                     c = 0;
@@ -1384,56 +1394,56 @@ var require_heat = __commonJS({
                     if (e.views.chart.showMonthNames) {
                         const t = DomElement.create(e._currentView.chartContents, "div", "chart-months");
                         const o = i.offsetWidth / n;
-                        let a = 0;
-                        const r = n => {
+                        let r = 0;
+                        const s = n => {
                             if (isMonthVisible(e.views.chart.monthsToShow, n)) {
                                 let e = DomElement.createWithHTML(t, "div", "month-name", _configuration.text.monthNames[n]);
-                                e.style.left = `${l + o * a}px`;
-                                a++;
+                                e.style.left = `${l + o * r}px`;
+                                r++;
                             }
                         };
                         if (e.views.chart.showInReverseOrder) {
                             for (let e = 12; e--; ) {
-                                r(e);
+                                s(e);
                             }
                         } else {
                             for (let e = 0; e < 12; e++) {
-                                r(e);
+                                s(e);
                             }
                         }
                         t.style.width = `${i.offsetWidth}px`;
-                        const s = DomElement.create(t, "div", "month-name-space");
-                        s.style.height = `${t.offsetHeight}px`;
-                        s.style.width = `${l}px`;
+                        const a = DomElement.create(t, "div", "month-name-space");
+                        a.style.height = `${t.offsetHeight}px`;
+                        a.style.width = `${l}px`;
                     }
                     if (e.views.chart.keepScrollPositions) {
                         e._currentView.chartContents.scrollLeft = e._currentView.chartContentsScrollLeft;
                     }
                 }
             }
-            function renderControlChartDay(e, t, n, o, i, a, r) {
-                const s = new Date(i, o, n);
+            function renderControlChartDay(e, t, n, o, i, r, s) {
+                const a = new Date(i, o, n);
                 const l = DomElement.create(e, "div", "day-line");
-                let c = getCurrentViewData(t)[DateTime.toStorageDate(s)];
-                c = Data.getDefaultNumber(c, 0);
-                renderDayToolTip(t, l, s, c);
+                let c = getCurrentViewData(t)[DateTime.toStorageDate(a)];
+                c = Default.getNumber(c, 0);
+                renderDayToolTip(t, l, a, c);
                 if (t.views.chart.showLineNumbers && c > 0) {
                     DomElement.addClass(l, "day-line-number");
                     l.innerHTML = c.toString();
                 }
-                const u = c * r;
+                const u = c * s;
                 l.style.height = `${u}px`;
                 if (u <= 0) {
                     l.style.visibility = "hidden";
                 }
                 if (Is.definedFunction(t.events.onDayClick)) {
                     l.onclick = () => {
-                        Trigger.customEvent(t.events.onDayClick, s, c);
+                        Trigger.customEvent(t.events.onDayClick, a, c);
                     };
                 } else {
                     DomElement.addClass(l, "no-hover");
                 }
-                const d = getColorRange(t, a, c, s);
+                const d = getColorRange(t, r, c, a);
                 if (Is.defined(d) && isColorRangeVisible(t, d.id)) {
                     if (Is.definedString(d.chartCssClassName)) {
                         DomElement.addClass(l, d.chartCssClassName);
@@ -1447,10 +1457,10 @@ var require_heat = __commonJS({
                 const n = getCurrentViewData(e);
                 for (let o = 0; o < 12; o++) {
                     const i = DateTime.getTotalDaysInMonth(e._currentView.year, o);
-                    for (let a = 0; a < i; a++) {
-                        const i = DateTime.toStorageDate(new Date(e._currentView.year, o, a + 1));
+                    for (let r = 0; r < i; r++) {
+                        const i = DateTime.toStorageDate(new Date(e._currentView.year, o, r + 1));
                         if (n.hasOwnProperty(i)) {
-                            if (isMonthVisible(e.views.chart.monthsToShow, o) && isDayVisible(e.views.chart.daysToShow, a + 1)) {
+                            if (isMonthVisible(e.views.chart.monthsToShow, o) && isDayVisible(e.views.chart.daysToShow, r + 1)) {
                                 t = Math.max(t, n[i]);
                             }
                         }
@@ -1466,16 +1476,16 @@ var require_heat = __commonJS({
                 const n = DomElement.create(e._currentView.daysContents, "div", "days");
                 const o = DomElement.create(e._currentView.daysContents, "div", "day-names");
                 let i = DomElement.create(n, "div", "y-labels");
-                const a = DomElement.create(n, "div", "day-lines");
-                const r = getLargestValuesForEachDay(e);
+                const r = DomElement.create(n, "div", "day-lines");
+                const s = getLargestValuesForEachDay(e);
                 if (t) {
                     DomElement.addClass(n, "view-switch");
                 }
-                if (r.largestValue > 0 && e.views.days.showChartYLabels) {
-                    const e = DomElement.createWithHTML(i, "div", "label-0", r.largestValue.toString());
-                    DomElement.createWithHTML(i, "div", "label-25", (Math.floor(r.largestValue / 4) * 3).toString());
-                    DomElement.createWithHTML(i, "div", "label-50", Math.floor(r.largestValue / 2).toString());
-                    DomElement.createWithHTML(i, "div", "label-75", Math.floor(r.largestValue / 4).toString());
+                if (s.largestValue > 0 && e.views.days.showChartYLabels) {
+                    const e = DomElement.createWithHTML(i, "div", "label-0", s.largestValue.toString());
+                    DomElement.createWithHTML(i, "div", "label-25", (Math.floor(s.largestValue / 4) * 3).toString());
+                    DomElement.createWithHTML(i, "div", "label-50", Math.floor(s.largestValue / 2).toString());
+                    DomElement.createWithHTML(i, "div", "label-75", Math.floor(s.largestValue / 4).toString());
                     DomElement.createWithHTML(i, "div", "label-100", "0");
                     i.style.width = `${e.offsetWidth}px`;
                     o.style.paddingLeft = `${i.offsetWidth + DomElement.getStyleValueByName(i, "margin-right", true)}px`;
@@ -1483,7 +1493,7 @@ var require_heat = __commonJS({
                     i.parentNode.removeChild(i);
                     i = null;
                 }
-                if (r.largestValue === 0) {
+                if (s.largestValue === 0) {
                     e._currentView.daysContents.style.minHeight = `${e._currentView.mapContents.offsetHeight}px`;
                     n.parentNode.removeChild(n);
                     o.parentNode.removeChild(o);
@@ -1492,17 +1502,17 @@ var require_heat = __commonJS({
                         DomElement.addClass(i, "view-switch");
                     }
                 } else {
-                    const t = e._currentView.mapContents.offsetHeight / r.largestValue;
-                    for (let n in r.days) {
-                        if (r.days.hasOwnProperty(n) && isDayVisible(e.views.days.daysToShow, parseInt(n))) {
-                            renderControlDaysDayLine(a, parseInt(n), r.days[n], e, t);
+                    const t = e._currentView.mapContents.offsetHeight / s.largestValue;
+                    for (let n in s.days) {
+                        if (s.days.hasOwnProperty(n) && isDayVisible(e.views.days.daysToShow, parseInt(n))) {
+                            renderControlDaysDayLine(r, parseInt(n), s.days[n], e, t);
                             if (e.views.days.showDayNames) {
                                 DomElement.createWithHTML(o, "div", "day-name", _configuration.text.dayNames[parseInt(n) - 1]);
                             }
                         }
                     }
                     if (e.views.days.showInReverseOrder) {
-                        DomElement.reverseChildrenOrder(a);
+                        DomElement.reverseChildrenOrder(r);
                         DomElement.reverseChildrenOrder(o);
                     }
                     if (e.views.days.keepScrollPositions) {
@@ -1511,23 +1521,23 @@ var require_heat = __commonJS({
                 }
             }
             function renderControlDaysDayLine(e, t, n, o, i) {
-                const a = DomElement.create(e, "div", "day-line");
-                const r = n * i;
-                a.style.height = `${r}px`;
-                if (r <= 0) {
-                    a.style.visibility = "hidden";
+                const r = DomElement.create(e, "div", "day-line");
+                const s = n * i;
+                r.style.height = `${s}px`;
+                if (s <= 0) {
+                    r.style.visibility = "hidden";
                 }
-                ToolTip.add(a, o, n.toString());
+                ToolTip.add(r, o, n.toString());
                 if (Is.definedFunction(o.events.onWeekDayClick)) {
-                    a.onclick = () => {
+                    r.onclick = () => {
                         Trigger.customEvent(o.events.onWeekDayClick, t, n);
                     };
                 } else {
-                    DomElement.addClass(a, "no-hover");
+                    DomElement.addClass(r, "no-hover");
                 }
                 if (o.views.days.showDayNumbers && n > 0) {
-                    DomElement.addClass(a, "day-line-number");
-                    DomElement.createWithHTML(a, "div", "count", n.toString());
+                    DomElement.addClass(r, "day-line-number");
+                    DomElement.createWithHTML(r, "div", "count", n.toString());
                 }
             }
             function getLargestValuesForEachDay(e) {
@@ -1546,15 +1556,15 @@ var require_heat = __commonJS({
                 const n = getCurrentViewData(e);
                 for (let o = 0; o < 12; o++) {
                     const i = DateTime.getTotalDaysInMonth(e._currentView.year, o);
-                    for (let a = 0; a < i; a++) {
-                        const i = DateTime.toStorageDate(new Date(e._currentView.year, o, a + 1));
+                    for (let r = 0; r < i; r++) {
+                        const i = DateTime.toStorageDate(new Date(e._currentView.year, o, r + 1));
                         if (n.hasOwnProperty(i)) {
                             const o = DateTime.getStorageDate(i);
-                            const a = new Date(parseInt(o[2]), parseInt(o[1]), parseInt(o[0]));
-                            const r = DateTime.getWeekdayNumber(a) + 1;
-                            if (!isHoliday(e, a).matched && isMonthVisible(e.views.days.monthsToShow, a.getMonth()) && isDayVisible(e.views.days.daysToShow, r)) {
-                                t.days[r] += n[i];
-                                t.largestValue = Math.max(t.largestValue, t.days[r]);
+                            const r = new Date(parseInt(o[2]), parseInt(o[1]), parseInt(o[0]));
+                            const s = DateTime.getWeekdayNumber(r) + 1;
+                            if (!isHoliday(e, r).matched && isMonthVisible(e.views.days.monthsToShow, r.getMonth()) && isDayVisible(e.views.days.daysToShow, s)) {
+                                t.days[s] += n[i];
+                                t.largestValue = Math.max(t.largestValue, t.days[s]);
                             }
                         }
                     }
@@ -1569,17 +1579,17 @@ var require_heat = __commonJS({
                 const n = DomElement.create(e._currentView.statisticsContents, "div", "statistics");
                 const o = DomElement.create(e._currentView.statisticsContents, "div", "statistics-ranges");
                 let i = DomElement.create(n, "div", "y-labels");
-                const a = DomElement.create(n, "div", "range-lines");
-                const r = getSortedColorRanges(e);
-                const s = getLargestValuesForEachRangeType(e, r);
+                const r = DomElement.create(n, "div", "range-lines");
+                const s = getSortedColorRanges(e);
+                const a = getLargestValuesForEachRangeType(e, s);
                 if (t) {
                     DomElement.addClass(n, "view-switch");
                 }
-                if (s.largestValue > 0 && e.views.statistics.showChartYLabels) {
-                    const e = DomElement.createWithHTML(i, "div", "label-0", s.largestValue.toString());
-                    DomElement.createWithHTML(i, "div", "label-25", (Math.floor(s.largestValue / 4) * 3).toString());
-                    DomElement.createWithHTML(i, "div", "label-50", Math.floor(s.largestValue / 2).toString());
-                    DomElement.createWithHTML(i, "div", "label-75", Math.floor(s.largestValue / 4).toString());
+                if (a.largestValue > 0 && e.views.statistics.showChartYLabels) {
+                    const e = DomElement.createWithHTML(i, "div", "label-0", a.largestValue.toString());
+                    DomElement.createWithHTML(i, "div", "label-25", (Math.floor(a.largestValue / 4) * 3).toString());
+                    DomElement.createWithHTML(i, "div", "label-50", Math.floor(a.largestValue / 2).toString());
+                    DomElement.createWithHTML(i, "div", "label-75", Math.floor(a.largestValue / 4).toString());
                     DomElement.createWithHTML(i, "div", "label-100", "0");
                     i.style.width = `${e.offsetWidth}px`;
                     o.style.paddingLeft = `${i.offsetWidth + DomElement.getStyleValueByName(i, "margin-right", true)}px`;
@@ -1587,7 +1597,7 @@ var require_heat = __commonJS({
                     i.parentNode.removeChild(i);
                     i = null;
                 }
-                if (s.largestValue === 0) {
+                if (a.largestValue === 0) {
                     e._currentView.statisticsContents.style.minHeight = `${e._currentView.mapContents.offsetHeight}px`;
                     n.parentNode.removeChild(n);
                     o.parentNode.removeChild(o);
@@ -1596,14 +1606,14 @@ var require_heat = __commonJS({
                         DomElement.addClass(i, "view-switch");
                     }
                 } else {
-                    const t = e._currentView.mapContents.offsetHeight / s.largestValue;
+                    const t = e._currentView.mapContents.offsetHeight / a.largestValue;
                     if (!e.views.statistics.showColorRangeLabels) {
                         o.parentNode.removeChild(o);
                     }
-                    for (let n in s.types) {
-                        if (s.types.hasOwnProperty(n)) {
-                            renderControlStatisticsRangeLine(parseInt(n), a, s.types[n], e, r, t);
-                            const i = getColorRangeByMinimum(r, parseInt(n));
+                    for (let n in a.types) {
+                        if (a.types.hasOwnProperty(n)) {
+                            renderControlStatisticsRangeLine(parseInt(n), r, a.types[n], e, s, t);
+                            const i = getColorRangeByMinimum(s, parseInt(n));
                             if (e.views.statistics.showColorRangeLabels) {
                                 if (!e.views.statistics.useColorRangeNamesForLabels || !Is.defined(i) || !Is.definedString(i.name)) {
                                     DomElement.createWithHTML(o, "div", "range-name", n + "+");
@@ -1614,7 +1624,7 @@ var require_heat = __commonJS({
                         }
                     }
                     if (e.views.statistics.showInReverseOrder) {
-                        DomElement.reverseChildrenOrder(a);
+                        DomElement.reverseChildrenOrder(r);
                         DomElement.reverseChildrenOrder(o);
                     }
                     if (e.views.statistics.keepScrollPositions) {
@@ -1622,31 +1632,31 @@ var require_heat = __commonJS({
                     }
                 }
             }
-            function renderControlStatisticsRangeLine(e, t, n, o, i, a) {
-                const r = DomElement.create(t, "div", "range-line");
-                const s = getColorRangeByMinimum(i, e);
-                const l = n * a;
-                r.style.height = `${l}px`;
+            function renderControlStatisticsRangeLine(e, t, n, o, i, r) {
+                const s = DomElement.create(t, "div", "range-line");
+                const a = getColorRangeByMinimum(i, e);
+                const l = n * r;
+                s.style.height = `${l}px`;
                 if (l <= 0) {
-                    r.style.visibility = "hidden";
+                    s.style.visibility = "hidden";
                 }
-                ToolTip.add(r, o, n.toString());
+                ToolTip.add(s, o, n.toString());
                 if (o.views.statistics.showRangeNumbers && n > 0) {
-                    DomElement.addClass(r, "range-line-number");
-                    DomElement.createWithHTML(r, "div", "count", n.toString());
+                    DomElement.addClass(s, "range-line-number");
+                    DomElement.createWithHTML(s, "div", "count", n.toString());
                 }
                 if (Is.definedFunction(o.events.onStatisticClick)) {
-                    r.onclick = () => {
-                        Trigger.customEvent(o.events.onStatisticClick, s);
+                    s.onclick = () => {
+                        Trigger.customEvent(o.events.onStatisticClick, a);
                     };
                 } else {
-                    DomElement.addClass(r, "no-hover");
+                    DomElement.addClass(s, "no-hover");
                 }
-                if (Is.defined(s) && isColorRangeVisible(o, s.id)) {
-                    if (Is.definedString(s.statisticsCssClassName)) {
-                        DomElement.addClass(r, s.statisticsCssClassName);
+                if (Is.defined(a) && isColorRangeVisible(o, a.id)) {
+                    if (Is.definedString(a.statisticsCssClassName)) {
+                        DomElement.addClass(s, a.statisticsCssClassName);
                     } else {
-                        DomElement.addClass(r, s.cssClassName);
+                        DomElement.addClass(s, a.cssClassName);
                     }
                 }
             }
@@ -1658,15 +1668,15 @@ var require_heat = __commonJS({
                 };
                 o.types["0"] = 0;
                 for (let i = 0; i < 12; i++) {
-                    const a = DateTime.getTotalDaysInMonth(e._currentView.year, i);
-                    for (let r = 0; r < a; r++) {
-                        const a = DateTime.toStorageDate(new Date(e._currentView.year, i, r + 1));
-                        if (n.hasOwnProperty(a)) {
-                            const i = DateTime.getStorageDate(a);
-                            const r = new Date(parseInt(i[2]), parseInt(i[1]), parseInt(i[0]));
-                            const s = DateTime.getWeekdayNumber(r) + 1;
-                            if (!isHoliday(e, r).matched && isMonthVisible(e.views.statistics.monthsToShow, r.getMonth()) && isDayVisible(e.views.statistics.daysToShow, s)) {
-                                const i = getColorRange(e, t, n[a]);
+                    const r = DateTime.getTotalDaysInMonth(e._currentView.year, i);
+                    for (let s = 0; s < r; s++) {
+                        const r = DateTime.toStorageDate(new Date(e._currentView.year, i, s + 1));
+                        if (n.hasOwnProperty(r)) {
+                            const i = DateTime.getStorageDate(r);
+                            const s = new Date(parseInt(i[2]), parseInt(i[1]), parseInt(i[0]));
+                            const a = DateTime.getWeekdayNumber(s) + 1;
+                            if (!isHoliday(e, s).matched && isMonthVisible(e.views.statistics.monthsToShow, s.getMonth()) && isDayVisible(e.views.statistics.daysToShow, a)) {
+                                const i = getColorRange(e, t, n[r]);
                                 if (!Is.defined(i)) {
                                     o.types["0"]++;
                                 } else {
@@ -1722,8 +1732,8 @@ var require_heat = __commonJS({
                     }
                     const o = DomElement.create(n, "div", "days");
                     const i = getSortedColorRanges(e);
-                    const a = i.length;
-                    for (let t = 0; t < a; t++) {
+                    const r = i.length;
+                    for (let t = 0; t < r; t++) {
                         renderControlViewGuideDay(e, o, i[t]);
                     }
                     if (e.guide.showLessAndMoreLabels) {
@@ -1856,7 +1866,7 @@ var require_heat = __commonJS({
                     const n = e._currentView.element.id;
                     for (let e = 0; e < t; e++) {
                         const t = window.localStorage.key(e);
-                        if (Data.String.startsWithAnyCase(t, _local_Storage_Start_ID)) {
+                        if (Str.startsWithAnyCase(t, _local_Storage_Start_ID)) {
                             const e = window.localStorage.getItem(t);
                             const o = getObjectFromString(e);
                             if (o.parsed) {
@@ -1886,7 +1896,7 @@ var require_heat = __commonJS({
                     const n = [];
                     const o = e._currentView.element.id;
                     for (let e = 0; e < t; e++) {
-                        if (Data.String.startsWithAnyCase(window.localStorage.key(e), _local_Storage_Start_ID + o)) {
+                        if (Str.startsWithAnyCase(window.localStorage.key(e), _local_Storage_Start_ID + o)) {
                             n.push(window.localStorage.key(e));
                         }
                     }
@@ -1943,7 +1953,7 @@ var require_heat = __commonJS({
                     const o = e.colorRanges.length;
                     for (let i = 0; i < o; i++) {
                         const o = e.colorRanges[i];
-                        if (o.id === t && Data.getDefaultBoolean(o.visible, true)) {
+                        if (o.id === t && Default.getBoolean(o.visible, true)) {
                             n = true;
                             break;
                         }
@@ -1964,7 +1974,7 @@ var require_heat = __commonJS({
                 for (let o = 0; o < n; o++) {
                     const n = e.colorRanges[o];
                     if (n.id === t) {
-                        n.visible = !Data.getDefaultBoolean(n.visible, true);
+                        n.visible = !Default.getBoolean(n.visible, true);
                         Trigger.customEvent(e.events.onColorRangeTypeToggle, n.id, n.visible);
                         renderControlContainer(e);
                         break;
@@ -2018,16 +2028,16 @@ var require_heat = __commonJS({
                 };
                 const o = e.holidays.length;
                 const i = t.getDate();
-                const a = t.getMonth() + 1;
-                const r = t.getFullYear();
+                const r = t.getMonth() + 1;
+                const s = t.getFullYear();
                 for (let t = 0; t < o; t++) {
                     let o = e.holidays[t];
                     if (Is.definedString(o.date) && o.showInViews) {
                         const e = o.date.split("/");
                         if (e.length === 2) {
-                            n.matched = i === parseInt(e[0]) && a === parseInt(e[1]);
+                            n.matched = i === parseInt(e[0]) && r === parseInt(e[1]);
                         } else if (e.length === 3) {
-                            n.matched = i === parseInt(e[0]) && a === parseInt(e[1]) && r === parseInt(e[2]);
+                            n.matched = i === parseInt(e[0]) && r === parseInt(e[1]) && s === parseInt(e[2]);
                         }
                         if (n.matched) {
                             n.name = o.name;
@@ -2064,14 +2074,14 @@ var require_heat = __commonJS({
                 const n = e.length;
                 const o = [];
                 const i = getCurrentViewData(t);
-                const a = (e, a) => {
+                const r = (e, r) => {
                     o.push(e);
-                    for (let e in a) {
-                        if (a.hasOwnProperty(e)) {
+                    for (let e in r) {
+                        if (r.hasOwnProperty(e)) {
                             if (!i.hasOwnProperty(e)) {
                                 i[e] = 0;
                             }
-                            i[e] += a[e];
+                            i[e] += r[e];
                         }
                     }
                     if (o.length === n) {
@@ -2083,11 +2093,11 @@ var require_heat = __commonJS({
                     const n = e[t];
                     const o = n.name.split(".").pop().toLowerCase();
                     if (o === "json") {
-                        importFromJson(n, a);
+                        importFromJson(n, r);
                     } else if (o === "txt") {
-                        importFromTxt(n, a);
+                        importFromTxt(n, r);
                     } else if (o === "csv") {
-                        importFromCsv(n, a);
+                        importFromCsv(n, r);
                     }
                 }
             }
@@ -2142,7 +2152,7 @@ var require_heat = __commonJS({
             function exportAllData(e, t = null) {
                 let n = null;
                 const o = getExportMimeType(e);
-                const i = Data.getDefaultString(t, e.exportType).toLowerCase();
+                const i = Default.getString(t, e.exportType).toLowerCase();
                 if (i === "csv") {
                     n = getCsvContent(e);
                 } else if (i === "json") {
@@ -2211,8 +2221,8 @@ var require_heat = __commonJS({
                 if (e.exportOnlyYearBeingViewed) {
                     for (let o = 0; o < 12; o++) {
                         const i = DateTime.getTotalDaysInMonth(e._currentView.year, o);
-                        for (let a = 0; a < i; a++) {
-                            const i = DateTime.toStorageDate(new Date(e._currentView.year, o, a + 1));
+                        for (let r = 0; r < i; r++) {
+                            const i = DateTime.toStorageDate(new Date(e._currentView.year, o, r + 1));
                             if (n.hasOwnProperty(i)) {
                                 t[i] = n[i];
                             }
@@ -2251,8 +2261,8 @@ var require_heat = __commonJS({
             }
             function getExportFilename(e) {
                 const t = new Date;
-                const n = Data.String.padNumber(t.getDate()) + "-" + Data.String.padNumber(t.getMonth() + 1) + "-" + t.getFullYear();
-                const o = Data.String.padNumber(t.getHours()) + "-" + Data.String.padNumber(t.getMinutes());
+                const n = Str.padNumber(t.getDate()) + "-" + Str.padNumber(t.getMonth() + 1) + "-" + t.getFullYear();
+                const o = Str.padNumber(t.getHours()) + "-" + Str.padNumber(t.getMinutes());
                 let i = "";
                 if (e._currentView.type !== _configuration.text.unknownTrendText) {
                     i = e._currentView.type.toLowerCase().replace(" ", "_") + "_";
@@ -2346,9 +2356,9 @@ var require_heat = __commonJS({
                     if (Is.definedString(e) && Is.definedArray(t) && _elements_DateCounts.hasOwnProperty(e)) {
                         const i = _elements_DateCounts[e].options;
                         if (!i._currentView.isInFetchMode) {
-                            n = Data.getDefaultString(n, _configuration.text.unknownTrendText);
-                            const a = t.length;
-                            for (let o = 0; o < a; o++) {
+                            n = Default.getString(n, _configuration.text.unknownTrendText);
+                            const r = t.length;
+                            for (let o = 0; o < r; o++) {
                                 _public.addDate(e, t[o], n, false);
                             }
                             if (o) {
@@ -2362,16 +2372,16 @@ var require_heat = __commonJS({
                     if (Is.definedString(e) && Is.definedDate(t) && _elements_DateCounts.hasOwnProperty(e)) {
                         const i = _elements_DateCounts[e].options;
                         if (!i._currentView.isInFetchMode) {
-                            n = Data.getDefaultString(n, _configuration.text.unknownTrendText);
-                            const a = DateTime.toStorageDate(t);
+                            n = Default.getString(n, _configuration.text.unknownTrendText);
+                            const r = DateTime.toStorageDate(t);
                             if (!_elements_DateCounts[e].typeData.hasOwnProperty(n)) {
                                 _elements_DateCounts[e].typeData[n] = {};
                                 _elements_DateCounts[e].totalTypes++;
                             }
-                            if (!_elements_DateCounts[e].typeData[n].hasOwnProperty(a)) {
-                                _elements_DateCounts[e].typeData[n][a] = 0;
+                            if (!_elements_DateCounts[e].typeData[n].hasOwnProperty(r)) {
+                                _elements_DateCounts[e].typeData[n][r] = 0;
                             }
-                            _elements_DateCounts[e].typeData[n][a]++;
+                            _elements_DateCounts[e].typeData[n][r]++;
                             Trigger.customEvent(i.events.onAdd, i._currentView.element);
                             if (o) {
                                 renderControlContainer(i, true);
@@ -2382,15 +2392,15 @@ var require_heat = __commonJS({
                 },
                 updateDate: function(e, t, n, o = null, i = true) {
                     if (Is.definedString(e) && Is.definedDate(t) && _elements_DateCounts.hasOwnProperty(e)) {
-                        const a = _elements_DateCounts[e].options;
-                        if (!a._currentView.isInFetchMode && n > 0) {
-                            const r = DateTime.toStorageDate(t);
+                        const r = _elements_DateCounts[e].options;
+                        if (!r._currentView.isInFetchMode && n > 0) {
+                            const s = DateTime.toStorageDate(t);
                             if (_elements_DateCounts[e].typeData.hasOwnProperty(o)) {
-                                o = Data.getDefaultString(o, _configuration.text.unknownTrendText);
-                                _elements_DateCounts[e].typeData[o][r] = n;
-                                Trigger.customEvent(a.events.onUpdate, a._currentView.element);
+                                o = Default.getString(o, _configuration.text.unknownTrendText);
+                                _elements_DateCounts[e].typeData[o][s] = n;
+                                Trigger.customEvent(r.events.onUpdate, r._currentView.element);
                                 if (i) {
-                                    renderControlContainer(a, true);
+                                    renderControlContainer(r, true);
                                 }
                             }
                         }
@@ -2401,9 +2411,9 @@ var require_heat = __commonJS({
                     if (Is.definedString(e) && Is.definedArray(t) && _elements_DateCounts.hasOwnProperty(e)) {
                         const i = _elements_DateCounts[e].options;
                         if (!i._currentView.isInFetchMode) {
-                            n = Data.getDefaultString(n, _configuration.text.unknownTrendText);
-                            const a = t.length;
-                            for (let o = 0; o < a; o++) {
+                            n = Default.getString(n, _configuration.text.unknownTrendText);
+                            const r = t.length;
+                            for (let o = 0; o < r; o++) {
                                 _public.removeDate(e, t[o], n, false);
                             }
                             if (o) {
@@ -2417,11 +2427,11 @@ var require_heat = __commonJS({
                     if (Is.definedString(e) && Is.definedDate(t) && _elements_DateCounts.hasOwnProperty(e)) {
                         const i = _elements_DateCounts[e].options;
                         if (!i._currentView.isInFetchMode) {
-                            const a = DateTime.toStorageDate(t);
-                            if (_elements_DateCounts[e].typeData.hasOwnProperty(n) && _elements_DateCounts[e].typeData[n].hasOwnProperty(a)) {
-                                n = Data.getDefaultString(n, _configuration.text.unknownTrendText);
-                                if (_elements_DateCounts[e].typeData[n][a] > 0) {
-                                    _elements_DateCounts[e].typeData[n][a]--;
+                            const r = DateTime.toStorageDate(t);
+                            if (_elements_DateCounts[e].typeData.hasOwnProperty(n) && _elements_DateCounts[e].typeData[n].hasOwnProperty(r)) {
+                                n = Default.getString(n, _configuration.text.unknownTrendText);
+                                if (_elements_DateCounts[e].typeData[n][r] > 0) {
+                                    _elements_DateCounts[e].typeData[n][r]--;
                                 }
                                 Trigger.customEvent(i.events.onRemove, i._currentView.element);
                                 if (o) {
@@ -2436,10 +2446,10 @@ var require_heat = __commonJS({
                     if (Is.definedString(e) && Is.definedDate(t) && _elements_DateCounts.hasOwnProperty(e)) {
                         const i = _elements_DateCounts[e].options;
                         if (!i._currentView.isInFetchMode) {
-                            const a = DateTime.toStorageDate(t);
-                            if (_elements_DateCounts[e].typeData.hasOwnProperty(n) && _elements_DateCounts[e].typeData[n].hasOwnProperty(a)) {
-                                n = Data.getDefaultString(n, _configuration.text.unknownTrendText);
-                                delete _elements_DateCounts[e].typeData[n][a];
+                            const r = DateTime.toStorageDate(t);
+                            if (_elements_DateCounts[e].typeData.hasOwnProperty(n) && _elements_DateCounts[e].typeData[n].hasOwnProperty(r)) {
+                                n = Default.getString(n, _configuration.text.unknownTrendText);
+                                delete _elements_DateCounts[e].typeData[n][r];
                                 Trigger.customEvent(i.events.onClear, i._currentView.element);
                                 if (o) {
                                     renderControlContainer(i, true);
@@ -2642,7 +2652,7 @@ var require_heat = __commonJS({
                 updateOptions: function(e, t) {
                     if (Is.definedString(e) && Is.definedObject(t) && _elements_DateCounts.hasOwnProperty(e)) {
                         const n = _elements_DateCounts[e].options;
-                        const o = binding.options.get(t);
+                        const o = Binding.Options.get(t);
                         let i = false;
                         for (let e in o) {
                             if (o.hasOwnProperty(e) && n.hasOwnProperty(e) && n[e] !== o[e]) {
