@@ -41,10 +41,10 @@ var Is;
         return n(e) && e instanceof Date;
     }
     e.definedDate = l;
-    function u(e, t = 1) {
+    function c(e, t = 1) {
         return !s(e) || e.length < t;
     }
-    e.invalidOptionArray = u;
+    e.invalidOptionArray = c;
 })(Is || (Is = {}));
 
 var Data;
@@ -102,7 +102,7 @@ var Data;
         return Is.definedObject(e) ? e : t;
     }
     e.getDefaultObject = l;
-    function u(e, t) {
+    function c(e, t) {
         let n = t;
         if (Is.definedString(e)) {
             const o = e.toString().split(" ");
@@ -116,7 +116,7 @@ var Data;
         }
         return n;
     }
-    e.getDefaultStringOrArray = u;
+    e.getDefaultStringOrArray = c;
 })(Data || (Data = {}));
 
 var DomElement;
@@ -181,7 +181,7 @@ var DomElement;
         return t;
     }
     e.getScrollPosition = l;
-    function u(e, t) {
+    function c(e, t) {
         let n = e.pageX;
         let o = e.pageY;
         const i = l();
@@ -205,15 +205,15 @@ var DomElement;
         t.style.left = `${n}px`;
         t.style.top = `${o}px`;
     }
-    e.showElementAtMousePosition = u;
-    function c(e) {
+    e.showElementAtMousePosition = c;
+    function u(e) {
         const t = e.children;
         let n = t.length - 1;
         for (;n--; ) {
             e.appendChild(t[n]);
         }
     }
-    e.reverseChildrenOrder = c;
+    e.reverseChildrenOrder = u;
     function d(e, t) {
         const i = n(e, "div");
         const a = n(i, "label", "checkbox");
@@ -334,6 +334,19 @@ var ToolTip;
     e.hide = a;
 })(ToolTip || (ToolTip = {}));
 
+var Trigger;
+
+(e => {
+    function t(e, ...t) {
+        let n = null;
+        if (Is.definedFunction(e)) {
+            n = e.apply(null, [].slice.call(t, 0));
+        }
+        return n;
+    }
+    e.customEvent = t;
+})(Trigger || (Trigger = {}));
+
 (() => {
     let _configuration = {};
     let _elements_Day_Width = 0;
@@ -437,7 +450,7 @@ var ToolTip;
         return n;
     }
     function renderControl(e) {
-        fireCustomTriggerEvent(e.events.onBeforeRender, e._currentView.element);
+        Trigger.customEvent(e.events.onBeforeRender, e._currentView.element);
         if (!Is.definedString(e._currentView.element.id)) {
             e._currentView.element.id = Data.String.newGuid();
         }
@@ -449,7 +462,7 @@ var ToolTip;
         e._currentView.element.removeAttribute(Constants.HEAT_JS_ATTRIBUTE_NAME);
         createDateStorageForElement(e._currentView.element.id, e);
         renderControlContainer(e);
-        fireCustomTriggerEvent(e.events.onRenderComplete, e._currentView.element);
+        Trigger.customEvent(e.events.onRenderComplete, e._currentView.element);
     }
     function renderControlContainer(e, t = false, n = false) {
         if (t) {
@@ -609,7 +622,7 @@ var ToolTip;
         }
         if (o) {
             renderControlContainer(e);
-            fireCustomTriggerEvent(e.events.onOptionsUpdate, e._currentView.element, e);
+            Trigger.customEvent(e.events.onOptionsUpdate, e._currentView.element, e);
         } else {
             ToolTip.hide(e);
         }
@@ -647,7 +660,7 @@ var ToolTip;
                 const n = DomElement.createWithHTML(t, "button", "refresh", _configuration.refreshButtonText);
                 n.onclick = () => {
                     renderControlContainer(e);
-                    fireCustomTriggerEvent(e.events.onRefresh, e._currentView.element);
+                    Trigger.customEvent(e.events.onRefresh, e._currentView.element);
                 };
             }
             if (e.title.showYearSelector) {
@@ -714,7 +727,7 @@ var ToolTip;
         } else {
             t.onclick = () => {
                 e._currentView.view = n;
-                fireCustomTriggerEvent(e.events.onViewSwitch, o);
+                Trigger.customEvent(e.events.onViewSwitch, o);
                 renderControlContainer(e, false, true);
             };
         }
@@ -748,7 +761,7 @@ var ToolTip;
             a.onclick = () => {
                 e._currentView.year = n;
                 renderControlContainer(e);
-                fireCustomTriggerEvent(e.events.onSetYear, e._currentView.year);
+                Trigger.customEvent(e.events.onSetYear, e._currentView.year);
             };
             if (n === o) {
                 DomElement.addClass(a, "year-menu-item-current");
@@ -808,30 +821,30 @@ var ToolTip;
                     const n = DomElement.create(a, "div", "month");
                     const s = DomElement.create(n, "div", "day-columns");
                     let l = DateTime.getTotalDaysInMonth(o, t);
-                    let u = DomElement.create(s, "div", "day-column");
-                    let c = false;
+                    let c = DomElement.create(s, "div", "day-column");
+                    let u = false;
                     const d = new Date(o, t, 1);
                     const f = DateTime.getWeekdayNumber(d);
                     let m = 1;
                     l += f;
                     for (let n = 0; n < l; n++) {
                         if (n >= f) {
-                            c = true;
+                            u = true;
                         } else {
                             if (isDayVisible(e.views.map.daysToShow, m)) {
-                                DomElement.create(u, "div", "day-disabled");
+                                DomElement.create(c, "div", "day-disabled");
                             }
                         }
-                        if (c) {
+                        if (u) {
                             let i = null;
                             if (isDayVisible(e.views.map.daysToShow, m)) {
-                                i = renderControlMapMonthDay(e, u, n - f, t, o, r);
+                                i = renderControlMapMonthDay(e, c, n - f, t, o, r);
                             }
                             if ((n + 1) % 7 === 0) {
                                 if (e.views.map.showDaysInReverseOrder) {
-                                    DomElement.reverseChildrenOrder(u);
+                                    DomElement.reverseChildrenOrder(c);
                                 }
-                                u = DomElement.create(s, "div", "day-column");
+                                c = DomElement.create(s, "div", "day-column");
                                 m = 0;
                                 if (_elements_Day_Width === 0 && Is.defined(i)) {
                                     let e = DomElement.getStyleValueByName(i, "margin-left", true);
@@ -883,25 +896,25 @@ var ToolTip;
         const r = n + 1;
         const s = DomElement.create(t, "div", "day");
         const l = new Date(i, o, r);
-        let u = _elements_DateCounts[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(l)];
-        u = Data.getDefaultNumber(u, 0);
-        renderDayToolTip(e, s, l, u);
-        if (e.views.map.showDayNumbers && u > 0) {
-            s.innerHTML = u.toString();
+        let c = _elements_DateCounts[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(l)];
+        c = Data.getDefaultNumber(c, 0);
+        renderDayToolTip(e, s, l, c);
+        if (e.views.map.showDayNumbers && c > 0) {
+            s.innerHTML = c.toString();
         }
         if (Is.definedFunction(e.events.onDayClick)) {
             s.onclick = () => {
-                fireCustomTriggerEvent(e.events.onDayClick, l, u);
+                Trigger.customEvent(e.events.onDayClick, l, c);
             };
         } else {
             DomElement.addClass(s, "no-hover");
         }
-        const c = getColorRange(e, a, u, l);
-        if (Is.defined(c) && isColorRangeVisible(e, c.id)) {
-            if (Is.definedString(c.mapCssClassName)) {
-                DomElement.addClass(s, c.mapCssClassName);
+        const u = getColorRange(e, a, c, l);
+        if (Is.defined(u) && isColorRangeVisible(e, u.id)) {
+            if (Is.definedString(u.mapCssClassName)) {
+                DomElement.addClass(s, u.mapCssClassName);
             } else {
-                DomElement.addClass(s, c.cssClassName);
+                DomElement.addClass(s, u.cssClassName);
             }
         }
         return s;
@@ -961,16 +974,16 @@ var ToolTip;
             for (let r = 0; r < 12; r++) {
                 if (isMonthVisible(e.views.chart.monthsToShow, r)) {
                     const l = DateTime.getTotalDaysInMonth(s, r);
-                    let u = 1;
+                    let c = 1;
                     n++;
                     for (let n = 0; n < l; n++) {
-                        if (isDayVisible(e.views.chart.daysToShow, u)) {
+                        if (isDayVisible(e.views.chart.daysToShow, c)) {
                             renderControlChartDay(i, e, n + 1, r, s, a, t);
                         }
                         if ((n + 1) % 7 === 0) {
-                            u = 0;
+                            c = 0;
                         }
-                        u++;
+                        c++;
                         o++;
                     }
                 }
@@ -1011,26 +1024,26 @@ var ToolTip;
     function renderControlChartDay(e, t, n, o, i, a, r) {
         const s = new Date(i, o, n);
         const l = DomElement.create(e, "div", "day-line");
-        let u = getCurrentViewData(t)[DateTime.toStorageDate(s)];
-        u = Data.getDefaultNumber(u, 0);
-        renderDayToolTip(t, l, s, u);
-        if (t.views.chart.showLineNumbers && u > 0) {
+        let c = getCurrentViewData(t)[DateTime.toStorageDate(s)];
+        c = Data.getDefaultNumber(c, 0);
+        renderDayToolTip(t, l, s, c);
+        if (t.views.chart.showLineNumbers && c > 0) {
             DomElement.addClass(l, "day-line-number");
-            l.innerHTML = u.toString();
+            l.innerHTML = c.toString();
         }
-        const c = u * r;
-        l.style.height = `${c}px`;
-        if (c <= 0) {
+        const u = c * r;
+        l.style.height = `${u}px`;
+        if (u <= 0) {
             l.style.visibility = "hidden";
         }
         if (Is.definedFunction(t.events.onDayClick)) {
             l.onclick = () => {
-                fireCustomTriggerEvent(t.events.onDayClick, s, u);
+                Trigger.customEvent(t.events.onDayClick, s, c);
             };
         } else {
             DomElement.addClass(l, "no-hover");
         }
-        const d = getColorRange(t, a, u, s);
+        const d = getColorRange(t, a, c, s);
         if (Is.defined(d) && isColorRangeVisible(t, d.id)) {
             if (Is.definedString(d.chartCssClassName)) {
                 DomElement.addClass(l, d.chartCssClassName);
@@ -1117,7 +1130,7 @@ var ToolTip;
         ToolTip.add(a, o, n.toString());
         if (Is.definedFunction(o.events.onWeekDayClick)) {
             a.onclick = () => {
-                fireCustomTriggerEvent(o.events.onWeekDayClick, t, n);
+                Trigger.customEvent(o.events.onWeekDayClick, t, n);
             };
         } else {
             DomElement.addClass(a, "no-hover");
@@ -1234,7 +1247,7 @@ var ToolTip;
         }
         if (Is.definedFunction(o.events.onStatisticClick)) {
             r.onclick = () => {
-                fireCustomTriggerEvent(o.events.onStatisticClick, s);
+                Trigger.customEvent(o.events.onStatisticClick, s);
             };
         } else {
             DomElement.addClass(r, "no-hover");
@@ -1343,7 +1356,7 @@ var ToolTip;
         o.onclick = () => {
             if (e._currentView.type !== n) {
                 e._currentView.type = n;
-                fireCustomTriggerEvent(e.events.onTypeSwitch, n);
+                Trigger.customEvent(e.events.onTypeSwitch, n);
                 renderControlContainer(e);
             }
         };
@@ -1388,7 +1401,7 @@ var ToolTip;
     }
     function renderDayToolTip(e, t, n, o) {
         if (Is.definedFunction(e.events.onDayToolTipRender)) {
-            ToolTip.add(t, e, fireCustomTriggerEvent(e.events.onDayToolTipRender, n, o));
+            ToolTip.add(t, e, Trigger.customEvent(e.events.onDayToolTipRender, n, o));
         } else {
             let o = DateTime.getCustomFormattedDateText(_configuration, e.tooltip.dayText, n);
             if (e.showHolidaysInDayToolTips) {
@@ -1508,7 +1521,7 @@ var ToolTip;
     }
     function pullDataFromCustomTrigger(e) {
         const t = e._currentView.element.id;
-        const n = fireCustomTriggerEvent(e.events.onDataFetch, t);
+        const n = Trigger.customEvent(e.events.onDataFetch, t);
         if (Is.definedObject(n)) {
             createDateStorageForElement(t, e, false);
             for (let e in n) {
@@ -1552,7 +1565,7 @@ var ToolTip;
         const n = e.colorRanges.length;
         for (let o = 0; o < n; o++) {
             e.colorRanges[o].visible = t;
-            fireCustomTriggerEvent(e.events.onColorRangeTypeToggle, e.colorRanges[o].id, t);
+            Trigger.customEvent(e.events.onColorRangeTypeToggle, e.colorRanges[o].id, t);
         }
         renderControlContainer(e);
     }
@@ -1562,7 +1575,7 @@ var ToolTip;
             const n = e.colorRanges[o];
             if (n.id === t) {
                 n.visible = !Data.getDefaultBoolean(n.visible, true);
-                fireCustomTriggerEvent(e.events.onColorRangeTypeToggle, n.id, n.visible);
+                Trigger.customEvent(e.events.onColorRangeTypeToggle, n.id, n.visible);
                 renderControlContainer(e);
                 break;
             }
@@ -1672,7 +1685,7 @@ var ToolTip;
                 }
             }
             if (o.length === n) {
-                fireCustomTriggerEvent(t.events.onImport, t._currentView.element);
+                Trigger.customEvent(t.events.onImport, t._currentView.element);
                 renderControlContainer(t);
             }
         };
@@ -1757,7 +1770,7 @@ var ToolTip;
             t.setAttribute("download", getExportFilename(e));
             t.click();
             document.body.removeChild(t);
-            fireCustomTriggerEvent(e.events.onExport, e._currentView.element);
+            Trigger.customEvent(e.events.onExport, e._currentView.element);
         }
     }
     function getCsvContent(e) {
@@ -2085,13 +2098,6 @@ var ToolTip;
         e.events.onWeekDayClick = Data.getDefaultFunction(e.events.onWeekDayClick, null);
         return e;
     }
-    function fireCustomTriggerEvent(e, ...t) {
-        let n = null;
-        if (Is.definedFunction(e)) {
-            n = e.apply(null, [].slice.call(t, 0));
-        }
-        return n;
-    }
     function getObjectFromString(objectString) {
         const result = {
             parsed: true,
@@ -2132,7 +2138,7 @@ var ToolTip;
             e._currentView.year = o;
             renderControlContainer(e);
             if (t) {
-                fireCustomTriggerEvent(e.events.onBackYear, e._currentView.year);
+                Trigger.customEvent(e.events.onBackYear, e._currentView.year);
             }
         }
     }
@@ -2151,7 +2157,7 @@ var ToolTip;
             e._currentView.year = o;
             renderControlContainer(e);
             if (t) {
-                fireCustomTriggerEvent(e.events.onBackYear, e._currentView.year);
+                Trigger.customEvent(e.events.onBackYear, e._currentView.year);
             }
         }
     }
@@ -2163,7 +2169,7 @@ var ToolTip;
         if (e._currentView.isInFetchMode && Is.defined(e._currentView.isInFetchModeTimer)) {
             clearInterval(e._currentView.isInFetchModeTimer);
         }
-        fireCustomTriggerEvent(e.events.onDestroy, e._currentView.element);
+        Trigger.customEvent(e.events.onDestroy, e._currentView.element);
     }
     function buildDefaultConfiguration(e = null) {
         _configuration = Data.getDefaultObject(e, {});
@@ -2246,7 +2252,7 @@ var ToolTip;
                         _elements_DateCounts[e].typeData[n][a] = 0;
                     }
                     _elements_DateCounts[e].typeData[n][a]++;
-                    fireCustomTriggerEvent(i.events.onAdd, i._currentView.element);
+                    Trigger.customEvent(i.events.onAdd, i._currentView.element);
                     if (o) {
                         renderControlContainer(i, true);
                     }
@@ -2262,7 +2268,7 @@ var ToolTip;
                     if (_elements_DateCounts[e].typeData.hasOwnProperty(o)) {
                         o = Data.getDefaultString(o, _configuration.unknownTrendText);
                         _elements_DateCounts[e].typeData[o][r] = n;
-                        fireCustomTriggerEvent(a.events.onUpdate, a._currentView.element);
+                        Trigger.customEvent(a.events.onUpdate, a._currentView.element);
                         if (i) {
                             renderControlContainer(a, true);
                         }
@@ -2297,7 +2303,7 @@ var ToolTip;
                         if (_elements_DateCounts[e].typeData[n][a] > 0) {
                             _elements_DateCounts[e].typeData[n][a]--;
                         }
-                        fireCustomTriggerEvent(i.events.onRemove, i._currentView.element);
+                        Trigger.customEvent(i.events.onRemove, i._currentView.element);
                         if (o) {
                             renderControlContainer(i, true);
                         }
@@ -2314,7 +2320,7 @@ var ToolTip;
                     if (_elements_DateCounts[e].typeData.hasOwnProperty(n) && _elements_DateCounts[e].typeData[n].hasOwnProperty(a)) {
                         n = Data.getDefaultString(n, _configuration.unknownTrendText);
                         delete _elements_DateCounts[e].typeData[n][a];
-                        fireCustomTriggerEvent(i.events.onClear, i._currentView.element);
+                        Trigger.customEvent(i.events.onClear, i._currentView.element);
                         if (o) {
                             renderControlContainer(i, true);
                         }
@@ -2337,7 +2343,7 @@ var ToolTip;
                 if (!n._currentView.isInFetchMode) {
                     n._currentView.type = _configuration.unknownTrendText;
                     createDateStorageForElement(e, n, false);
-                    fireCustomTriggerEvent(n.events.onReset, n._currentView.element);
+                    Trigger.customEvent(n.events.onReset, n._currentView.element);
                     if (t) {
                         renderControlContainer(n, true);
                     }
@@ -2365,7 +2371,7 @@ var ToolTip;
             if (Is.definedString(e) && _elements_DateCounts.hasOwnProperty(e)) {
                 const t = _elements_DateCounts[e].options;
                 renderControlContainer(t, true);
-                fireCustomTriggerEvent(t.events.onRefresh, t._currentView.element);
+                Trigger.customEvent(t.events.onRefresh, t._currentView.element);
             }
             return _public;
         },
@@ -2374,7 +2380,7 @@ var ToolTip;
                 if (_elements_DateCounts.hasOwnProperty(e)) {
                     const t = _elements_DateCounts[e].options;
                     renderControlContainer(t, true);
-                    fireCustomTriggerEvent(t.events.onRefresh, t._currentView.element);
+                    Trigger.customEvent(t.events.onRefresh, t._currentView.element);
                 }
             }
             return _public;
@@ -2388,7 +2394,7 @@ var ToolTip;
                 } else {
                     renderControlContainer(n);
                 }
-                fireCustomTriggerEvent(n.events.onSetYear, n._currentView.year);
+                Trigger.customEvent(n.events.onSetYear, n._currentView.year);
             }
             return _public;
         },
@@ -2409,7 +2415,7 @@ var ToolTip;
                     } else {
                         renderControlContainer(t);
                     }
-                    fireCustomTriggerEvent(t.events.onSetYear, t._currentView.year);
+                    Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                 }
             }
             return _public;
@@ -2431,7 +2437,7 @@ var ToolTip;
                     } else {
                         renderControlContainer(t);
                     }
-                    fireCustomTriggerEvent(t.events.onSetYear, t._currentView.year);
+                    Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                 }
             }
             return _public;
@@ -2457,7 +2463,7 @@ var ToolTip;
                 } else {
                     renderControlContainer(t);
                 }
-                fireCustomTriggerEvent(t.events.onSetYear, t._currentView.year);
+                Trigger.customEvent(t.events.onSetYear, t._currentView.year);
             }
             return _public;
         },
@@ -2496,7 +2502,7 @@ var ToolTip;
                 }
                 if (Is.definedNumber(o)) {
                     n._currentView.view = o;
-                    fireCustomTriggerEvent(n.events.onViewSwitch, t);
+                    Trigger.customEvent(n.events.onViewSwitch, t);
                     renderControlContainer(n, false, true);
                 }
             }
@@ -2507,7 +2513,7 @@ var ToolTip;
                 const n = _elements_DateCounts[e].options;
                 if (n._currentView.type !== t) {
                     n._currentView.type = t;
-                    fireCustomTriggerEvent(n.events.onTypeSwitch, t);
+                    Trigger.customEvent(n.events.onTypeSwitch, t);
                     renderControlContainer(n);
                 }
             }
@@ -2526,8 +2532,8 @@ var ToolTip;
                 }
                 if (i) {
                     renderControlContainer(n, true);
-                    fireCustomTriggerEvent(n.events.onRefresh, n._currentView.element);
-                    fireCustomTriggerEvent(n.events.onOptionsUpdate, n._currentView.element, n);
+                    Trigger.customEvent(n.events.onRefresh, n._currentView.element);
+                    Trigger.customEvent(n.events.onOptionsUpdate, n._currentView.element, n);
                 }
             }
             return _public;

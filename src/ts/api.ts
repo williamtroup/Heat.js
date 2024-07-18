@@ -11,7 +11,7 @@
  */
 
 
-import { type Configuration, type BindingOptions } from "./type";
+import { type BindingOptions } from "./type";
 
     
 export type PublicApi = {

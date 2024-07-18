@@ -29,14 +29,15 @@ import {
     type TypeCountsData,
     type DateCounts } from "./ts/type";
 
+import { type PublicApi } from "./ts/api";
 import { ExportType, Char, Value, ViewId, ViewName } from "./ts/enum";
 import { Constants } from "./ts/constant"
 import { Is } from "./ts/is"
 import { Data } from "./ts/data"
 import { DomElement } from "./ts/dom"
 import { DateTime } from "./ts/datetime"
-import { type PublicApi } from "./ts/api";
 import { ToolTip } from "./ts/area/tooltip";
+import { Trigger } from "./ts/area/trigger";
 
 
 type IsHoliday = {
@@ -210,7 +211,7 @@ type LargestValuesForEachRangeType = {
     }
 
     function renderControl( bindingOptions: BindingOptions ) : void {
-        fireCustomTriggerEvent( bindingOptions.events!.onBeforeRender!, bindingOptions._currentView.element );
+        Trigger.customEvent( bindingOptions.events!.onBeforeRender!, bindingOptions._currentView.element );
 
         if ( !Is.definedString( bindingOptions._currentView.element.id ) ) {
             bindingOptions._currentView.element.id = Data.String.newGuid();
@@ -226,7 +227,7 @@ type LargestValuesForEachRangeType = {
 
         createDateStorageForElement( bindingOptions._currentView.element.id, bindingOptions );
         renderControlContainer( bindingOptions );
-        fireCustomTriggerEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView.element );
+        Trigger.customEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView.element );
     }
 
     function renderControlContainer( bindingOptions: BindingOptions, isForDataRefresh: boolean = false, isForViewSwitch: boolean = false ) : void {
@@ -437,7 +438,7 @@ type LargestValuesForEachRangeType = {
 
         if ( render ) {
             renderControlContainer( bindingOptions );
-            fireCustomTriggerEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView.element, bindingOptions );
+            Trigger.customEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView.element, bindingOptions );
             
         } else {
             ToolTip.hide( bindingOptions );
@@ -494,7 +495,7 @@ type LargestValuesForEachRangeType = {
         
                 refresh.onclick = () => {
                     renderControlContainer( bindingOptions );
-                    fireCustomTriggerEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
+                    Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
                 };
             }
     
@@ -587,7 +588,7 @@ type LargestValuesForEachRangeType = {
             option.onclick = () => {
                 bindingOptions._currentView.view = view;
 
-                fireCustomTriggerEvent( bindingOptions.events!.onViewSwitch!, viewName );
+                Trigger.customEvent( bindingOptions.events!.onViewSwitch!, viewName );
                 renderControlContainer( bindingOptions, false, true );
             };
         }
@@ -631,7 +632,7 @@ type LargestValuesForEachRangeType = {
                 bindingOptions._currentView.year = currentYear;
     
                 renderControlContainer( bindingOptions );
-                fireCustomTriggerEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
             };
 
             if ( currentYear === actualYear ) {
@@ -825,7 +826,7 @@ type LargestValuesForEachRangeType = {
 
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
             day.onclick = () => {
-                fireCustomTriggerEvent( bindingOptions.events!.onDayClick!, date, dateCount );
+                Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount );
             };
 
         } else {
@@ -1006,7 +1007,7 @@ type LargestValuesForEachRangeType = {
 
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
             dayLine.onclick = () => {
-                fireCustomTriggerEvent( bindingOptions.events!.onDayClick!, date, dateCount );
+                Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount );
             };
 
         } else {
@@ -1134,7 +1135,7 @@ type LargestValuesForEachRangeType = {
 
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
             dayLine.onclick = () => {
-                fireCustomTriggerEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount );
+                Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount );
             };
 
         } else {
@@ -1294,7 +1295,7 @@ type LargestValuesForEachRangeType = {
 
         if ( Is.definedFunction( bindingOptions.events!.onStatisticClick ) ) {
             rangeLine.onclick = () => {
-                fireCustomTriggerEvent( bindingOptions.events!.onStatisticClick!, useColorRange );
+                Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange );
             };
 
         } else {
@@ -1444,7 +1445,7 @@ type LargestValuesForEachRangeType = {
             if ( bindingOptions._currentView.type !== type ) {
                 bindingOptions._currentView.type = type;
 
-                fireCustomTriggerEvent( bindingOptions.events!.onTypeSwitch!, type );
+                Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, type );
                 renderControlContainer( bindingOptions );
             }
         };
@@ -1506,7 +1507,7 @@ type LargestValuesForEachRangeType = {
 
     function renderDayToolTip( bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number ) : void {
         if ( Is.definedFunction( bindingOptions.events!.onDayToolTipRender ) ) {
-            ToolTip.add( day, bindingOptions, fireCustomTriggerEvent( bindingOptions.events!.onDayToolTipRender!, date, dateCount ) );
+            ToolTip.add( day, bindingOptions, Trigger.customEvent( bindingOptions.events!.onDayToolTipRender!, date, dateCount ) );
         } else {
 
             let tooltip: string = DateTime.getCustomFormattedDateText( _configuration, bindingOptions.tooltip!.dayText!, date );
@@ -1682,7 +1683,7 @@ type LargestValuesForEachRangeType = {
 
     function pullDataFromCustomTrigger( bindingOptions: BindingOptions ) : void {
         const elementId: string = bindingOptions._currentView.element.id;
-        const data: TypeCountsData = fireCustomTriggerEvent( bindingOptions.events!.onDataFetch!, elementId );
+        const data: TypeCountsData = Trigger.customEvent( bindingOptions.events!.onDataFetch!, elementId );
 
         if ( Is.definedObject( data ) ) {
             createDateStorageForElement( elementId, bindingOptions, false );
@@ -1747,7 +1748,7 @@ type LargestValuesForEachRangeType = {
         for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
             bindingOptions.colorRanges![ colorRangesIndex ].visible = flag;
 
-            fireCustomTriggerEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions.colorRanges![ colorRangesIndex ].id, flag );
+            Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions.colorRanges![ colorRangesIndex ].id, flag );
         }
 
         renderControlContainer( bindingOptions );
@@ -1762,7 +1763,7 @@ type LargestValuesForEachRangeType = {
             if ( colorRange.id === id ) {
                 colorRange.visible = !Data.getDefaultBoolean( colorRange.visible, true );
 
-                fireCustomTriggerEvent( bindingOptions.events!.onColorRangeTypeToggle!, colorRange.id, colorRange.visible );
+                Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, colorRange.id, colorRange.visible );
                 renderControlContainer( bindingOptions );
                 break;
             }
@@ -1915,7 +1916,7 @@ type LargestValuesForEachRangeType = {
             }
             
             if ( filesCompleted.length === filesLength ) {
-                fireCustomTriggerEvent( bindingOptions.events!.onImport!, bindingOptions._currentView.element );
+                Trigger.customEvent( bindingOptions.events!.onImport!, bindingOptions._currentView.element );
                 renderControlContainer( bindingOptions );
             }
         };
@@ -2033,7 +2034,7 @@ type LargestValuesForEachRangeType = {
             
             document.body.removeChild( tempLink );
 
-            fireCustomTriggerEvent( bindingOptions.events!.onExport!, bindingOptions._currentView.element );
+            Trigger.customEvent( bindingOptions.events!.onExport!, bindingOptions._currentView.element );
         }
     }
 
@@ -2449,23 +2450,6 @@ type LargestValuesForEachRangeType = {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Triggering Custom Events
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function fireCustomTriggerEvent<Type>( triggerFunction: Function, ...args : any[] ) : Type {
-        let result: any = null;
-
-        if ( Is.definedFunction( triggerFunction ) ) {
-            result = triggerFunction.apply( null, [].slice.call( args, 0 ) );
-        }
-
-        return result;
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Default Parameter/Option Handling
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -2530,7 +2514,7 @@ type LargestValuesForEachRangeType = {
             renderControlContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
-                fireCustomTriggerEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView.year );
             }
         }
     }
@@ -2556,7 +2540,7 @@ type LargestValuesForEachRangeType = {
             renderControlContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
-                fireCustomTriggerEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView.year );
             }
         }
     }
@@ -2580,7 +2564,7 @@ type LargestValuesForEachRangeType = {
             clearInterval( bindingOptions._currentView.isInFetchModeTimer );
         }
 
-        fireCustomTriggerEvent( bindingOptions.events!.onDestroy!, bindingOptions._currentView.element );
+        Trigger.customEvent( bindingOptions.events!.onDestroy!, bindingOptions._currentView.element );
     }
 
 
@@ -2722,7 +2706,7 @@ type LargestValuesForEachRangeType = {
             
                     _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ]++;
         
-                    fireCustomTriggerEvent( bindingOptions.events!.onAdd!, bindingOptions._currentView.element );
+                    Trigger.customEvent( bindingOptions.events!.onAdd!, bindingOptions._currentView.element );
         
                     if ( triggerRefresh ) {
                         renderControlContainer( bindingOptions, true );
@@ -2745,7 +2729,7 @@ type LargestValuesForEachRangeType = {
 
                         _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ] = count;
         
-                        fireCustomTriggerEvent( bindingOptions.events!.onUpdate!, bindingOptions._currentView.element );
+                        Trigger.customEvent( bindingOptions.events!.onUpdate!, bindingOptions._currentView.element );
         
                         if ( triggerRefresh ) {
                             renderControlContainer( bindingOptions, true );
@@ -2793,7 +2777,7 @@ type LargestValuesForEachRangeType = {
                             _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ]--;
                         }
         
-                        fireCustomTriggerEvent( bindingOptions.events!.onRemove!, bindingOptions._currentView.element );
+                        Trigger.customEvent( bindingOptions.events!.onRemove!, bindingOptions._currentView.element );
         
                         if ( triggerRefresh ) {
                             renderControlContainer( bindingOptions, true );
@@ -2817,7 +2801,7 @@ type LargestValuesForEachRangeType = {
 
                         delete _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ];
         
-                        fireCustomTriggerEvent( bindingOptions.events!.onClear!, bindingOptions._currentView.element );
+                        Trigger.customEvent( bindingOptions.events!.onClear!, bindingOptions._currentView.element );
         
                         if ( triggerRefresh ) {
                             renderControlContainer( bindingOptions, true );
@@ -2847,7 +2831,7 @@ type LargestValuesForEachRangeType = {
                     bindingOptions._currentView.type = _configuration.unknownTrendText!;
         
                     createDateStorageForElement( elementId, bindingOptions, false );
-                    fireCustomTriggerEvent( bindingOptions.events!.onReset!, bindingOptions._currentView.element );
+                    Trigger.customEvent( bindingOptions.events!.onReset!, bindingOptions._currentView.element );
         
                     if ( triggerRefresh ) {
                         renderControlContainer( bindingOptions, true );
@@ -2897,7 +2881,7 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
     
                 renderControlContainer( bindingOptions, true );
-                fireCustomTriggerEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
+                Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
             }
     
             return _public;
@@ -2909,7 +2893,7 @@ type LargestValuesForEachRangeType = {
                     const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
     
                     renderControlContainer( bindingOptions, true );
-                    fireCustomTriggerEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
+                    Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
                 }
             }
     
@@ -2927,7 +2911,7 @@ type LargestValuesForEachRangeType = {
                     renderControlContainer( bindingOptions );
                 }
     
-                fireCustomTriggerEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
             }
     
             return _public;
@@ -2954,7 +2938,7 @@ type LargestValuesForEachRangeType = {
                         renderControlContainer( bindingOptions );
                     }
     
-                    fireCustomTriggerEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
                 }
             }
     
@@ -2982,7 +2966,7 @@ type LargestValuesForEachRangeType = {
                         renderControlContainer( bindingOptions );
                     }
     
-                    fireCustomTriggerEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
                 }
             }
     
@@ -3016,7 +3000,7 @@ type LargestValuesForEachRangeType = {
                     renderControlContainer( bindingOptions );
                 }
     
-                fireCustomTriggerEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
             }
     
             return _public;
@@ -3068,7 +3052,7 @@ type LargestValuesForEachRangeType = {
                 if ( Is.definedNumber( view ) ) {
                     bindingOptions._currentView.view = view;
     
-                    fireCustomTriggerEvent( bindingOptions.events!.onViewSwitch!, viewName );
+                    Trigger.customEvent( bindingOptions.events!.onViewSwitch!, viewName );
                     renderControlContainer( bindingOptions, false, true );
                 }
             }
@@ -3083,7 +3067,7 @@ type LargestValuesForEachRangeType = {
                 if ( bindingOptions._currentView.type !== type ) {
                     bindingOptions._currentView.type = type;
                 
-                    fireCustomTriggerEvent( bindingOptions.events!.onTypeSwitch!, type );
+                    Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, type );
                     renderControlContainer( bindingOptions );
                 }
             }
@@ -3106,8 +3090,8 @@ type LargestValuesForEachRangeType = {
     
                 if ( optionChanged ) {
                     renderControlContainer( bindingOptions, true );
-                    fireCustomTriggerEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
-                    fireCustomTriggerEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView.element, bindingOptions );
+                    Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
+                    Trigger.customEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView.element, bindingOptions );
                 }
             }
     

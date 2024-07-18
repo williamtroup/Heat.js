@@ -11,9 +11,9 @@
  */
 
 
+import { type Configuration } from "./type";
 import { Data } from "./data";
 import { Char } from "./enum";
-import { Configuration } from "./type";
 
 
 export namespace DateTime {

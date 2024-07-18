@@ -11,9 +11,9 @@
  */
 
 
+import { type Position } from "./type";
 import { Char } from "./enum";
 import { Is } from "./is";
-import { type Position } from "./type";
 
 
 export namespace DomElement {
