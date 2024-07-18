@@ -32,6 +32,7 @@ import { ToolTip } from "./ts/area/tooltip";
 import { Trigger } from "./ts/area/trigger";
 import { Binding } from "./ts/options/binding";
 import { Config } from "./ts/options/config";
+import { Disabled } from "./ts/area/disabled";
 
 
 type IsHoliday = {
@@ -70,29 +71,6 @@ type LargestValuesForEachRangeType = {
 
     // Variables: Local Storage
     const _local_Storage_Start_ID: string = "HJS_";
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Render:  Disabled Background
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function renderDisabledBackground( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView.disabledBackground = DomElement.create( bindingOptions._currentView.element, "div", "disabled" );
-    }
-
-    function showDisabledBackground( bindingOptions: BindingOptions ) : void {
-        if ( Is.defined( bindingOptions._currentView.disabledBackground ) && bindingOptions._currentView.disabledBackground.style.display !== "block" ) {
-            bindingOptions._currentView.disabledBackground.style.display = "block";
-        }
-    }
-
-    function hideDisabledBackground( bindingOptions: BindingOptions ) : void {
-        if ( Is.defined( bindingOptions._currentView.disabledBackground ) && bindingOptions._currentView.disabledBackground.style.display !== "none" ) {
-            bindingOptions._currentView.disabledBackground.style.display = "none";
-        }
-    }
 
 
     /*
@@ -249,7 +227,7 @@ type LargestValuesForEachRangeType = {
         startDataPullTimer( bindingOptions );
 
         if ( bindingOptions.title!.showConfigurationButton ) {
-            renderDisabledBackground( bindingOptions );
+            Disabled.Background.render( bindingOptions );
             renderConfigurationDialog( bindingOptions );
         }
 
@@ -334,7 +312,7 @@ type LargestValuesForEachRangeType = {
     }
 
     function showConfigurationDialog( bindingOptions: BindingOptions ) : void {
-        showDisabledBackground( bindingOptions );
+        Disabled.Background.show( bindingOptions );
 
         if ( Is.defined( bindingOptions._currentView.configurationDialog ) && bindingOptions._currentView.configurationDialog.style.display !== "block" ) {
             bindingOptions._currentView.configurationDialog.style.display = "block";
@@ -372,7 +350,7 @@ type LargestValuesForEachRangeType = {
     }
 
     function hideConfigurationDialog( bindingOptions: BindingOptions ) : void {
-        hideDisabledBackground( bindingOptions );
+        Disabled.Background.hide( bindingOptions );
 
         if ( Is.defined( bindingOptions._currentView.configurationDialog ) && bindingOptions._currentView.configurationDialog.style.display !== "none" ) {
             bindingOptions._currentView.configurationDialog.style.display = "none";

@@ -731,6 +731,37 @@ var init_config = __esm({
     }
 });
 
+var Disabled;
+
+var init_disabled = __esm({
+    "src/ts/area/disabled.ts"() {
+        "use strict";
+        init_is();
+        init_dom();
+        (e => {
+            let t;
+            (e => {
+                function t(e) {
+                    e._currentView.disabledBackground = DomElement.create(e._currentView.element, "div", "disabled");
+                }
+                e.render = t;
+                function n(e) {
+                    if (Is.defined(e._currentView.disabledBackground) && e._currentView.disabledBackground.style.display !== "block") {
+                        e._currentView.disabledBackground.style.display = "block";
+                    }
+                }
+                e.show = n;
+                function o(e) {
+                    if (Is.defined(e._currentView.disabledBackground) && e._currentView.disabledBackground.style.display !== "none") {
+                        e._currentView.disabledBackground.style.display = "none";
+                    }
+                }
+                e.hide = o;
+            })(t = e.Background || (e.Background = {}));
+        })(Disabled || (Disabled = {}));
+    }
+});
+
 var require_heat = __commonJS({
     "src/heat.ts"(exports, module) {
         init_constant();
@@ -744,25 +775,13 @@ var require_heat = __commonJS({
         init_trigger();
         init_binding();
         init_config();
+        init_disabled();
         (() => {
             let _configuration = {};
             let _elements_Day_Width = 0;
             let _elements_DateCounts = {};
             const _internal_Name_Holiday = "HOLIDAY";
             const _local_Storage_Start_ID = "HJS_";
-            function renderDisabledBackground(e) {
-                e._currentView.disabledBackground = DomElement.create(e._currentView.element, "div", "disabled");
-            }
-            function showDisabledBackground(e) {
-                if (Is.defined(e._currentView.disabledBackground) && e._currentView.disabledBackground.style.display !== "block") {
-                    e._currentView.disabledBackground.style.display = "block";
-                }
-            }
-            function hideDisabledBackground(e) {
-                if (Is.defined(e._currentView.disabledBackground) && e._currentView.disabledBackground.style.display !== "none") {
-                    e._currentView.disabledBackground.style.display = "none";
-                }
-            }
             function render() {
                 const e = _configuration.domElementTypes;
                 const t = e.length;
@@ -880,7 +899,7 @@ var require_heat = __commonJS({
                 ToolTip.hide(e);
                 startDataPullTimer(e);
                 if (e.title.showConfigurationButton) {
-                    renderDisabledBackground(e);
+                    Disabled.Background.render(e);
                     renderConfigurationDialog(e);
                 }
                 ToolTip.renderControl(e);
@@ -939,7 +958,7 @@ var require_heat = __commonJS({
                 ToolTip.add(o, e, _configuration.text.closeToolTipText);
             }
             function showConfigurationDialog(e) {
-                showDisabledBackground(e);
+                Disabled.Background.show(e);
                 if (Is.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "block") {
                     e._currentView.configurationDialog.style.display = "block";
                 }
@@ -970,7 +989,7 @@ var require_heat = __commonJS({
                 ToolTip.hide(e);
             }
             function hideConfigurationDialog(e) {
-                hideDisabledBackground(e);
+                Disabled.Background.hide(e);
                 if (Is.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "none") {
                     e._currentView.configurationDialog.style.display = "none";
                 }
