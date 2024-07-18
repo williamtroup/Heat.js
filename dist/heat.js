@@ -356,7 +356,51 @@ var Binding;
     (e => {
         const t = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
         const n = [ 1, 2, 3, 4, 5, 6, 7 ];
-        function o(e) {
+        function o(e, t, n) {
+            const o = i(t);
+            const r = Default.getString(o.view, "").toLowerCase();
+            o._currentView = {};
+            o._currentView.element = n;
+            o._currentView.disabledBackground = null;
+            o._currentView.configurationDialog = null;
+            o._currentView.dayCheckBoxes = [];
+            o._currentView.monthCheckBoxes = [];
+            o._currentView.tooltip = null;
+            o._currentView.tooltipTimer = 0;
+            o._currentView.mapContents = null;
+            o._currentView.mapContentsScrollLeft = 0;
+            o._currentView.year = o.year;
+            o._currentView.type = e.text.unknownTrendText;
+            o._currentView.isInFetchMode = Is.definedFunction(o.events.onDataFetch);
+            o._currentView.isInFetchModeTimer = 0;
+            o._currentView.yearsAvailable = [];
+            if (o.views.chart.enabled) {
+                o._currentView.chartContents = null;
+                o._currentView.chartContentsScrollLeft = 0;
+            }
+            if (o.views.days.enabled) {
+                o._currentView.daysContents = null;
+                o._currentView.daysContentsScrollLeft = 0;
+            }
+            if (o.views.statistics.enabled) {
+                o._currentView.statisticsContents = null;
+                o._currentView.statisticsContentsScrollLeft = 0;
+            }
+            if (r === "map") {
+                o._currentView.view = 1;
+            } else if (r === "chart") {
+                o._currentView.view = 2;
+            } else if (r === "days") {
+                o._currentView.view = 3;
+            } else if (r === "statistics") {
+                o._currentView.view = 4;
+            } else {
+                o._currentView.view = 1;
+            }
+            return o;
+        }
+        e.getForNewInstance = o;
+        function i(e) {
             let t = Default.getObject(e, {});
             t.views = Default.getObject(t.views, {});
             t.exportOnlyYearBeingViewed = Default.getBoolean(t.exportOnlyYearBeingViewed, true);
@@ -369,7 +413,6 @@ var Binding;
             t.dataFetchDelay = Default.getNumber(t.dataFetchDelay, 6e4);
             t.showOnlyDataForYearsAvailable = Default.getBoolean(t.showOnlyDataForYearsAvailable, false);
             t.showHolidaysInDayToolTips = Default.getBoolean(t.showHolidaysInDayToolTips, false);
-            t = i(t);
             t = r(t);
             t = s(t);
             t = a(t);
@@ -380,10 +423,11 @@ var Binding;
             t = m(t);
             t = f(t);
             t = g(t);
+            t = w(t);
             return t;
         }
-        e.get = o;
-        function i(e) {
+        e.get = i;
+        function r(e) {
             if (Is.definedArray(e.colorRanges)) {
                 const t = e.colorRanges.length;
                 for (let n = 0; n < t; n++) {
@@ -431,7 +475,7 @@ var Binding;
             }
             return e;
         }
-        function r(e) {
+        function s(e) {
             if (Is.definedArray(e.holidays)) {
                 const t = e.holidays.length;
                 for (let n = 0; n < t; n++) {
@@ -445,7 +489,7 @@ var Binding;
             }
             return e;
         }
-        function s(e) {
+        function a(e) {
             e.title = Default.getObject(e.title, {});
             e.title.text = Default.getString(e.title.text, "Heat.js");
             e.title.showText = Default.getBoolean(e.title.showText, true);
@@ -460,14 +504,14 @@ var Binding;
             e.title.showTitleDropDownHeaders = Default.getBoolean(e.title.showTitleDropDownHeaders, true);
             return e;
         }
-        function a(e) {
+        function l(e) {
             e.description = Default.getObject(e.description, {});
             e.description.text = Default.getString(e.description.text, "");
             e.description.url = Default.getString(e.description.url, "");
             e.description.urlTarget = Default.getString(e.description.urlTarget, "_blank");
             return e;
         }
-        function l(e) {
+        function c(e) {
             e.guide = Default.getObject(e.guide, {});
             e.guide.enabled = Default.getBoolean(e.guide.enabled, true);
             e.guide.colorRangeTogglesEnabled = Default.getBoolean(e.guide.colorRangeTogglesEnabled, true);
@@ -475,13 +519,13 @@ var Binding;
             e.guide.showNumbersInGuide = Default.getBoolean(e.guide.showNumbersInGuide, false);
             return e;
         }
-        function c(e) {
+        function u(e) {
             e.tooltip = Default.getObject(e.tooltip, {});
             e.tooltip.delay = Default.getNumber(e.tooltip.delay, 750);
             e.tooltip.dayText = Default.getString(e.tooltip.dayText, "{d}{o} {mmmm} {yyyy}");
             return e;
         }
-        function u(e) {
+        function d(e) {
             e.views.map = Default.getObject(e.views.map, {});
             e.views.map.showMonthDayGaps = Default.getBoolean(e.views.map.showMonthDayGaps, true);
             e.views.map.showDayNames = Default.getBoolean(e.views.map.showDayNames, true);
@@ -501,7 +545,7 @@ var Binding;
             }
             return e;
         }
-        function d(e) {
+        function m(e) {
             e.views.chart = Default.getObject(e.views.chart, {});
             e.views.chart.enabled = Default.getBoolean(e.views.chart.enabled, true);
             e.views.chart.showChartYLabels = Default.getBoolean(e.views.chart.showChartYLabels, true);
@@ -517,7 +561,7 @@ var Binding;
             }
             return e;
         }
-        function m(e) {
+        function f(e) {
             e.views.days = Default.getObject(e.views.days, {});
             e.views.days.enabled = Default.getBoolean(e.views.days.enabled, true);
             e.views.days.showChartYLabels = Default.getBoolean(e.views.days.showChartYLabels, true);
@@ -533,7 +577,7 @@ var Binding;
             }
             return e;
         }
-        function f(e) {
+        function g(e) {
             e.views.statistics = Default.getObject(e.views.statistics, {});
             e.views.statistics.enabled = Default.getBoolean(e.views.statistics.enabled, true);
             e.views.statistics.showChartYLabels = Default.getBoolean(e.views.statistics.showChartYLabels, true);
@@ -550,7 +594,7 @@ var Binding;
             }
             return e;
         }
-        function g(e) {
+        function w(e) {
             e.events = Default.getObject(e.events, {});
             e.events.onDayClick = Default.getFunction(e.events.onDayClick, null);
             e.events.onBackYear = Default.getFunction(e.events.onBackYear, null);
@@ -699,7 +743,7 @@ var Disabled;
             if (Is.definedString(n)) {
                 const o = getObjectFromString(n);
                 if (o.parsed && Is.definedObject(o.object)) {
-                    renderControl(renderBindingOptions(o.object, e));
+                    renderControl(Binding.Options.getForNewInstance(_configuration, o.object, e));
                 } else {
                     if (!_configuration.safeMode) {
                         console.error(_configuration.text.attributeNotValidErrorText.replace("{{attribute_name}}", Constant.HEAT_JS_ATTRIBUTE_NAME));
@@ -714,50 +758,6 @@ var Disabled;
             }
         }
         return t;
-    }
-    function renderBindingOptions(e, t) {
-        const n = Binding.Options.get(e);
-        const o = Default.getString(n.view, "").toLowerCase();
-        let i = {};
-        i.element = t;
-        i.disabledBackground = null;
-        i.configurationDialog = null;
-        i.dayCheckBoxes = [];
-        i.monthCheckBoxes = [];
-        i.tooltip = null;
-        i.tooltipTimer = 0;
-        i.mapContents = null;
-        i.mapContentsScrollLeft = 0;
-        i.year = n.year;
-        i.type = _configuration.text.unknownTrendText;
-        i.isInFetchMode = Is.definedFunction(n.events.onDataFetch);
-        i.isInFetchModeTimer = 0;
-        i.yearsAvailable = [];
-        if (n.views.chart.enabled) {
-            i.chartContents = null;
-            i.chartContentsScrollLeft = 0;
-        }
-        if (n.views.days.enabled) {
-            i.daysContents = null;
-            i.daysContentsScrollLeft = 0;
-        }
-        if (n.views.statistics.enabled) {
-            i.statisticsContents = null;
-            i.statisticsContentsScrollLeft = 0;
-        }
-        if (o === "map") {
-            i.view = 1;
-        } else if (o === "chart") {
-            i.view = 2;
-        } else if (o === "days") {
-            i.view = 3;
-        } else if (o === "statistics") {
-            i.view = 4;
-        } else {
-            i.view = 1;
-        }
-        n._currentView = i;
-        return n;
     }
     function renderControl(e) {
         Trigger.customEvent(e.events.onBeforeRender, e._currentView.element);
@@ -2522,7 +2522,7 @@ var Disabled;
         },
         render: function(e, t) {
             if (Is.definedObject(e) && Is.definedObject(t)) {
-                renderControl(renderBindingOptions(t, e));
+                renderControl(Binding.Options.getForNewInstance(_configuration, t, e));
             }
             return _public;
         },

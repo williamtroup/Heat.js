@@ -23,13 +23,13 @@ export namespace Config {
             configuration.safeMode = Default.getBoolean( configuration.safeMode, true );
             configuration.domElementTypes = Default.getStringOrArray( configuration.domElementTypes, [ "*" ] );
     
-            configuration = buildDefaultConfigurationStrings( configuration );
-            configuration = buildDefaultConfigurationArrays( configuration );
+            configuration = getText( configuration );
+            configuration = getTextArrays( configuration );
 
             return configuration;
         }
     
-        function buildDefaultConfigurationStrings( configuration: Configuration ) : Configuration {
+        function getText( configuration: Configuration ) : Configuration {
             configuration.text = Default.getObject( configuration.text, {} as ConfigurationText );
             configuration.text!.stText = Default.getAnyString( configuration.text!.stText, "st" );
             configuration.text!.ndText = Default.getAnyString( configuration.text!.ndText, "nd" );
@@ -73,7 +73,7 @@ export namespace Config {
             return configuration;
         }
     
-        function buildDefaultConfigurationArrays( configuration: Configuration ) : Configuration {
+        function getTextArrays( configuration: Configuration ) : Configuration {
             if ( Is.invalidOptionArray( configuration.text!.monthNames, 12 ) ) {
                 configuration.text!.monthNames = [
                     "Jan",

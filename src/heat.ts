@@ -16,7 +16,6 @@ import {
     type Holiday,
     type ColorRange,
     type BindingOptions,
-    type BindingOptionsCurrentView,
     type TypeCountsData,
     type DateCounts } from "./ts/type";
 
@@ -106,7 +105,7 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: StringToJson = getObjectFromString( bindingOptionsData );
 
                 if ( bindingOptions.parsed && Is.definedObject( bindingOptions.object ) ) {
-                    renderControl( renderBindingOptions( bindingOptions.object, element ) );
+                    renderControl( Binding.Options.getForNewInstance( _configuration, bindingOptions.object, element ) );
 
                 } else {
                     if ( !_configuration.safeMode ) {
@@ -124,58 +123,6 @@ type LargestValuesForEachRangeType = {
         }
 
         return result;
-    }
-
-    function renderBindingOptions( data: any, element: HTMLElement ) : BindingOptions {
-        const bindingOptions: BindingOptions = Binding.Options.get( data );
-        const view: string = Default.getString( bindingOptions.view, Char.empty ).toLowerCase();
-
-        let currentView: BindingOptionsCurrentView = {} as BindingOptionsCurrentView;
-        currentView.element = element;
-        currentView.disabledBackground = null!;
-        currentView.configurationDialog = null!;
-        currentView.dayCheckBoxes = [];
-        currentView.monthCheckBoxes = [];
-        currentView.tooltip = null!;
-        currentView.tooltipTimer = 0;
-        currentView.mapContents = null!;
-        currentView.mapContentsScrollLeft = 0;
-        currentView.year = bindingOptions.year!;
-        currentView.type = _configuration.text!.unknownTrendText!;
-        currentView.isInFetchMode = Is.definedFunction( bindingOptions.events!.onDataFetch );
-        currentView.isInFetchModeTimer = 0;
-        currentView.yearsAvailable = [];
-
-        if ( bindingOptions.views!.chart!.enabled ) {
-            currentView.chartContents = null!;
-            currentView.chartContentsScrollLeft = 0;
-        }
-
-        if ( bindingOptions.views!.days!.enabled ) {
-            currentView.daysContents = null!;
-            currentView.daysContentsScrollLeft = 0;
-        }
-        
-        if ( bindingOptions.views!.statistics!.enabled ) {
-            currentView.statisticsContents = null!;
-            currentView.statisticsContentsScrollLeft = 0;
-        }
-
-        if ( view === ViewName.map ) {
-            currentView.view = ViewId.map;
-        } else if ( view === ViewName.chart ) {
-            currentView.view = ViewId.chart;
-        } else if ( view === ViewName.days ) {
-            currentView.view = ViewId.days;
-        } else if ( view === ViewName.statistics ) {
-            currentView.view = ViewId.statistics;
-        } else {
-            currentView.view = ViewId.map;
-        }
-
-        bindingOptions._currentView = currentView;
-
-        return bindingOptions;
     }
 
     function renderControl( bindingOptions: BindingOptions ) : void {
@@ -2644,7 +2591,7 @@ type LargestValuesForEachRangeType = {
 
         render: function ( element: HTMLElement, options: BindingOptions ) : PublicApi {
             if ( Is.definedObject( element ) && Is.definedObject( options ) ) {
-                renderControl( renderBindingOptions( options, element ) );
+                renderControl( Binding.Options.getForNewInstance(_configuration, options, element ) );
             }
     
             return _public;

@@ -23,10 +23,12 @@ import {
     type Chart,
     type Days,
     type Statistics,
-    type Events } from "../type";
+    type Events, 
+    type BindingOptionsCurrentView,
+    type Configuration } from "../type";
 
 import { Default } from "../data/default";
-import { Char, ExportType, ViewName } from "../data/enum";
+import { Char, ExportType, ViewId, ViewName } from "../data/enum";
 import { Is } from "../data/is";
 import { Str } from "../data/str";
 
@@ -35,6 +37,56 @@ export namespace Binding {
     export namespace Options {
         const _default_MonthsToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
         const _default_DaysToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7 ];
+
+        export function getForNewInstance( configuration: Configuration, data: any, element: HTMLElement ) : BindingOptions {
+            const bindingOptions: BindingOptions = get( data );
+            const view: string = Default.getString( bindingOptions.view, Char.empty ).toLowerCase();
+    
+            bindingOptions._currentView = {} as BindingOptionsCurrentView;
+            bindingOptions._currentView.element = element;
+            bindingOptions._currentView.disabledBackground = null!;
+            bindingOptions._currentView.configurationDialog = null!;
+            bindingOptions._currentView.dayCheckBoxes = [];
+            bindingOptions._currentView.monthCheckBoxes = [];
+            bindingOptions._currentView.tooltip = null!;
+            bindingOptions._currentView.tooltipTimer = 0;
+            bindingOptions._currentView.mapContents = null!;
+            bindingOptions._currentView.mapContentsScrollLeft = 0;
+            bindingOptions._currentView.year = bindingOptions.year!;
+            bindingOptions._currentView.type = configuration.text!.unknownTrendText!;
+            bindingOptions._currentView.isInFetchMode = Is.definedFunction( bindingOptions.events!.onDataFetch );
+            bindingOptions._currentView.isInFetchModeTimer = 0;
+            bindingOptions._currentView.yearsAvailable = [];
+    
+            if ( bindingOptions.views!.chart!.enabled ) {
+                bindingOptions._currentView.chartContents = null!;
+                bindingOptions._currentView.chartContentsScrollLeft = 0;
+            }
+    
+            if ( bindingOptions.views!.days!.enabled ) {
+                bindingOptions._currentView.daysContents = null!;
+                bindingOptions._currentView.daysContentsScrollLeft = 0;
+            }
+            
+            if ( bindingOptions.views!.statistics!.enabled ) {
+                bindingOptions._currentView.statisticsContents = null!;
+                bindingOptions._currentView.statisticsContentsScrollLeft = 0;
+            }
+    
+            if ( view === ViewName.map ) {
+                bindingOptions._currentView.view = ViewId.map;
+            } else if ( view === ViewName.chart ) {
+                bindingOptions._currentView.view = ViewId.chart;
+            } else if ( view === ViewName.days ) {
+                bindingOptions._currentView.view = ViewId.days;
+            } else if ( view === ViewName.statistics ) {
+                bindingOptions._currentView.view = ViewId.statistics;
+            } else {
+                bindingOptions._currentView.view = ViewId.map;
+            }
+    
+            return bindingOptions;
+        }
 
         export function get( newOptions: any ) : BindingOptions {
             let options: BindingOptions = Default.getObject( newOptions, {} as BindingOptions );
@@ -50,22 +102,22 @@ export namespace Binding {
             options.showOnlyDataForYearsAvailable = Default.getBoolean( options.showOnlyDataForYearsAvailable, false );
             options.showHolidaysInDayToolTips = Default.getBoolean( options.showHolidaysInDayToolTips, false );
             
-            options = buildAttributeOptionColorRanges( options );
-            options = buildAttributeOptionHolidays( options );
-            options = buildAttributeOptionTitle( options );
-            options = buildAttributeOptionDescription( options );
-            options = buildAttributeOptionGuide( options );
-            options = buildAttributeOptionToolTip( options );
-            options = buildAttributeOptionMapView( options );
-            options = buildAttributeOptionChartView( options );
-            options = buildAttributeOptionDaysView( options );
-            options = buildAttributeOptionStatisticsView( options );
-            options = buildAttributeOptionCustomTriggers( options );
+            options = getColorRanges( options );
+            options = getHolidays( options );
+            options = getTitle( options );
+            options = getDescription( options );
+            options = getGuide( options );
+            options = getToolTip( options );
+            options = getMapView( options );
+            options = getChartView( options );
+            options = getDaysView( options );
+            options = getStatisticsView( options );
+            options = getCustomTriggers( options );
             
             return options;
         }
     
-        function buildAttributeOptionColorRanges( options: BindingOptions ) : BindingOptions {
+        function getColorRanges( options: BindingOptions ) : BindingOptions {
             if ( Is.definedArray( options.colorRanges ) ) {
                 const colorRangesLength: number = options.colorRanges!.length;
     
@@ -123,7 +175,7 @@ export namespace Binding {
             return options;
         }
     
-        function buildAttributeOptionHolidays( options: BindingOptions ) : BindingOptions {
+        function getHolidays( options: BindingOptions ) : BindingOptions {
             if ( Is.definedArray( options.holidays ) ) {
                 const holidaysLength: number = options.holidays!.length;
     
@@ -142,7 +194,7 @@ export namespace Binding {
             return options;
         }
     
-        function buildAttributeOptionTitle( options: BindingOptions ) : BindingOptions {
+        function getTitle( options: BindingOptions ) : BindingOptions {
             options.title = Default.getObject( options.title, {} as Title );
             options.title!.text = Default.getString( options.title!.text, "Heat.js" );
             options.title!.showText = Default.getBoolean( options.title!.showText, true );
@@ -159,7 +211,7 @@ export namespace Binding {
             return options;
         }
     
-        function buildAttributeOptionDescription( options: BindingOptions ) : BindingOptions {
+        function getDescription( options: BindingOptions ) : BindingOptions {
             options.description = Default.getObject( options.description, {} as Description );
             options.description!.text = Default.getString( options.description!.text, Char.empty );
             options.description!.url = Default.getString( options.description!.url, Char.empty );
@@ -168,7 +220,7 @@ export namespace Binding {
             return options;
         }
     
-        function buildAttributeOptionGuide( options: BindingOptions ) : BindingOptions {
+        function getGuide( options: BindingOptions ) : BindingOptions {
             options.guide = Default.getObject( options.guide, {} as Guide );
             options.guide!.enabled = Default.getBoolean( options.guide!.enabled, true );
             options.guide!.colorRangeTogglesEnabled = Default.getBoolean( options.guide!.colorRangeTogglesEnabled, true );
@@ -178,7 +230,7 @@ export namespace Binding {
             return options;
         }
     
-        function buildAttributeOptionToolTip( options: BindingOptions ) : BindingOptions {
+        function getToolTip( options: BindingOptions ) : BindingOptions {
             options.tooltip = Default.getObject( options.tooltip, {} as Tooltip );
             options.tooltip!.delay = Default.getNumber( options.tooltip!.delay, 750 );
             options.tooltip!.dayText = Default.getString( options.tooltip!.dayText, "{d}{o} {mmmm} {yyyy}" );
@@ -186,7 +238,7 @@ export namespace Binding {
             return options;
         }
     
-        function buildAttributeOptionMapView( options: BindingOptions ) : BindingOptions {
+        function getMapView( options: BindingOptions ) : BindingOptions {
             options.views!.map = Default.getObject( options.views!.map, {} as Map );
             options.views!.map!.showMonthDayGaps = Default.getBoolean( options.views!.map!.showMonthDayGaps, true );
             options.views!.map!.showDayNames = Default.getBoolean( options.views!.map!.showDayNames, true );
@@ -210,7 +262,7 @@ export namespace Binding {
             return options;
         }
     
-        function buildAttributeOptionChartView( options: BindingOptions ) : BindingOptions {
+        function getChartView( options: BindingOptions ) : BindingOptions {
             options.views!.chart = Default.getObject( options.views!.chart, {} as Chart );
             options.views!.chart!.enabled = Default.getBoolean( options.views!.chart!.enabled, true );
             options.views!.chart!.showChartYLabels = Default.getBoolean( options.views!.chart!.showChartYLabels, true );
@@ -230,7 +282,7 @@ export namespace Binding {
             return options;
         }
     
-        function buildAttributeOptionDaysView( options: BindingOptions ) : BindingOptions {
+        function getDaysView( options: BindingOptions ) : BindingOptions {
             options.views!.days = Default.getObject( options.views!.days, {} as Days );
             options.views!.days!.enabled = Default.getBoolean( options.views!.days!.enabled, true );
             options.views!.days!.showChartYLabels = Default.getBoolean( options.views!.days!.showChartYLabels, true );
@@ -250,7 +302,7 @@ export namespace Binding {
             return options;
         }
     
-        function buildAttributeOptionStatisticsView( options: BindingOptions ) : BindingOptions {
+        function getStatisticsView( options: BindingOptions ) : BindingOptions {
             options.views!.statistics = Default.getObject( options.views!.statistics, {} as Statistics );
             options.views!.statistics!.enabled = Default.getBoolean( options.views!.statistics!.enabled, true );
             options.views!.statistics!.showChartYLabels = Default.getBoolean( options.views!.statistics!.showChartYLabels, true );
@@ -271,7 +323,7 @@ export namespace Binding {
             return options;
         }
     
-        function buildAttributeOptionCustomTriggers( options : BindingOptions ) : BindingOptions {
+        function getCustomTriggers( options : BindingOptions ) : BindingOptions {
             options.events = Default.getObject( options.events, {} as Events );
             options.events!.onDayClick = Default.getFunction( options.events!.onDayClick, null! );
             options.events!.onBackYear = Default.getFunction( options.events!.onBackYear, null! );
