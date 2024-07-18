@@ -66,6 +66,11 @@ export type ConfigurationText = {
     noDaysDataMessage?: string;
 	dayNames?: string[];
 	monthNames?: string[];
+    backButtonSymbolText?: string;
+    nextButtonSymbolText?: string;
+    refreshButtonSymbolText?: string;
+    exportButtonSymbolText?: string;
+    importButtonSymbolText?: string;
 };
 
 export type BindingOptions = {

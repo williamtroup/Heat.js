@@ -716,26 +716,30 @@ var require_heat = __commonJS({
                         renderTitleDropDownMenu(e, n);
                     }
                     if (e.title.showImportButton && !e._currentView.isInFetchMode) {
-                        const n = DomElement.createWithHTML(t, "button", "import", _configuration.text.importButtonText);
+                        const n = DomElement.createWithHTML(t, "button", "import", _configuration.text.importButtonSymbolText);
+                        ToolTip.add(n, e, _configuration.text.importButtonText);
                         n.onclick = () => {
                             importFromFilesSelected(e);
                         };
                     }
                     if (e.title.showExportButton) {
-                        const n = DomElement.createWithHTML(t, "button", "export", _configuration.text.exportButtonText);
+                        const n = DomElement.createWithHTML(t, "button", "export", _configuration.text.exportButtonSymbolText);
+                        ToolTip.add(n, e, _configuration.text.exportButtonText);
                         n.onclick = () => {
                             exportAllData(e);
                         };
                     }
                     if (e.title.showRefreshButton) {
-                        const n = DomElement.createWithHTML(t, "button", "refresh", _configuration.text.refreshButtonText);
+                        const n = DomElement.createWithHTML(t, "button", "refresh", _configuration.text.refreshButtonSymbolText);
+                        ToolTip.add(n, e, _configuration.text.refreshButtonText);
                         n.onclick = () => {
                             renderControlContainer(e);
                             Trigger.customEvent(e.events.onRefresh, e._currentView.element);
                         };
                     }
                     if (e.title.showYearSelector) {
-                        const n = DomElement.createWithHTML(t, "button", "back", _configuration.text.backButtonText);
+                        const n = DomElement.createWithHTML(t, "button", "back", _configuration.text.backButtonSymbolText);
+                        ToolTip.add(n, e, _configuration.text.backButtonText);
                         n.onclick = () => {
                             moveToPreviousYear(e);
                         };
@@ -755,7 +759,8 @@ var require_heat = __commonJS({
                                 showConfigurationDialog(e);
                             };
                         }
-                        const o = DomElement.createWithHTML(t, "button", "next", _configuration.text.nextButtonText);
+                        const o = DomElement.createWithHTML(t, "button", "next", _configuration.text.nextButtonSymbolText);
+                        ToolTip.add(o, e, _configuration.text.nextButtonText);
                         o.onclick = () => {
                             moveToNextYear(e);
                         };
@@ -2284,6 +2289,11 @@ var require_heat = __commonJS({
                 _configuration.text.yearText = Data.getDefaultAnyString(_configuration.text.yearText, "Year");
                 _configuration.text.daysText = Data.getDefaultAnyString(_configuration.text.daysText, "Days");
                 _configuration.text.noDaysDataMessage = Data.getDefaultAnyString(_configuration.text.noDaysDataMessage, "There are currently no days to view.");
+                _configuration.text.backButtonSymbolText = Data.getDefaultAnyString(_configuration.text.backButtonSymbolText, "←");
+                _configuration.text.nextButtonSymbolText = Data.getDefaultAnyString(_configuration.text.nextButtonSymbolText, "→");
+                _configuration.text.refreshButtonSymbolText = Data.getDefaultAnyString(_configuration.text.refreshButtonSymbolText, "↻");
+                _configuration.text.exportButtonSymbolText = Data.getDefaultAnyString(_configuration.text.exportButtonSymbolText, "↓");
+                _configuration.text.importButtonSymbolText = Data.getDefaultAnyString(_configuration.text.importButtonSymbolText, "↑");
             }
             function buildDefaultConfigurationArrays() {
                 if (Is.invalidOptionArray(_configuration.text.monthNames, 12)) {

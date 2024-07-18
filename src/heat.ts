@@ -476,15 +476,19 @@ type LargestValuesForEachRangeType = {
             }
 
             if ( bindingOptions.title!.showImportButton && !bindingOptions._currentView.isInFetchMode ) {
-                const importData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "import", _configuration.text!.importButtonText! );
-        
+                const importData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "import", _configuration.text!.importButtonSymbolText! );
+
+                ToolTip.add( importData, bindingOptions, _configuration.text!.importButtonText! );
+                
                 importData.onclick = () => {
                     importFromFilesSelected( bindingOptions );
                 };
             }
 
             if ( bindingOptions.title!.showExportButton ) {
-                const exportData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "export", _configuration.text!.exportButtonText! );
+                const exportData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "export", _configuration.text!.exportButtonSymbolText! );
+
+                ToolTip.add( exportData, bindingOptions, _configuration.text!.exportButtonText! );
         
                 exportData.onclick = () => {
                     exportAllData( bindingOptions );
@@ -492,7 +496,9 @@ type LargestValuesForEachRangeType = {
             }
 
             if ( bindingOptions.title!.showRefreshButton ) {
-                const refresh: HTMLElement = DomElement.createWithHTML( titleBar, "button", "refresh", _configuration.text!.refreshButtonText! );
+                const refresh: HTMLElement = DomElement.createWithHTML( titleBar, "button", "refresh", _configuration.text!.refreshButtonSymbolText! );
+
+                ToolTip.add( refresh, bindingOptions, _configuration.text!.refreshButtonText! );
         
                 refresh.onclick = () => {
                     renderControlContainer( bindingOptions );
@@ -501,7 +507,9 @@ type LargestValuesForEachRangeType = {
             }
     
             if ( bindingOptions.title!.showYearSelector ) {
-                const back: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "back", _configuration.text!.backButtonText! ) as HTMLInputElement;
+                const back: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "back", _configuration.text!.backButtonSymbolText! ) as HTMLInputElement;
+
+                ToolTip.add( back, bindingOptions, _configuration.text!.backButtonText! );
         
                 back.onclick = () => {
                     moveToPreviousYear( bindingOptions );
@@ -529,7 +537,9 @@ type LargestValuesForEachRangeType = {
                     };
                 }
 
-                const next: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "next", _configuration.text!.nextButtonText! ) as HTMLInputElement;
+                const next: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "next", _configuration.text!.nextButtonSymbolText! ) as HTMLInputElement;
+
+                ToolTip.add( next, bindingOptions, _configuration.text!.nextButtonText! );
 
                 next.onclick = () => {
                     moveToNextYear( bindingOptions );
@@ -2619,6 +2629,11 @@ type LargestValuesForEachRangeType = {
         _configuration.text!.yearText = Data.getDefaultAnyString( _configuration.text!.yearText, "Year" );
         _configuration.text!.daysText = Data.getDefaultAnyString( _configuration.text!.daysText, "Days" );
         _configuration.text!.noDaysDataMessage = Data.getDefaultAnyString( _configuration.text!.noDaysDataMessage, "There are currently no days to view." );
+        _configuration.text!.backButtonSymbolText = Data.getDefaultAnyString( _configuration.text!.backButtonSymbolText, "←" );
+        _configuration.text!.nextButtonSymbolText = Data.getDefaultAnyString( _configuration.text!.nextButtonSymbolText, "→" );
+        _configuration.text!.refreshButtonSymbolText = Data.getDefaultAnyString( _configuration.text!.refreshButtonSymbolText, "↻" );
+        _configuration.text!.exportButtonSymbolText = Data.getDefaultAnyString( _configuration.text!.exportButtonSymbolText, "↓" );
+        _configuration.text!.importButtonSymbolText = Data.getDefaultAnyString( _configuration.text!.importButtonSymbolText, "↑" );
     }
 
     function buildDefaultConfigurationArrays() : void {
