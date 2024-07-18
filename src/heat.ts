@@ -1939,8 +1939,6 @@ type LargestValuesForEachRangeType = {
         const reader: FileReader = new FileReader();
         let readingObject: TypeCountsData = {} as TypeCountsData;
 
-        reader.readAsText( file );
-
         reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
         };
@@ -1952,13 +1950,13 @@ type LargestValuesForEachRangeType = {
                 readingObject = json.object;
             }
         };
+
+        reader.readAsText( file );
     }
 
     function importFromTxt( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
         const readingObject: TypeCountsData = {} as TypeCountsData;
-
-        reader.readAsText( file );
 
         reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
@@ -1974,13 +1972,13 @@ type LargestValuesForEachRangeType = {
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
             }
         };
+
+        reader.readAsText( file );
     }
 
     function importFromCsv( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
         const readingObject: TypeCountsData = {} as TypeCountsData;
-
-        reader.readAsText( file );
 
         reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
@@ -2000,6 +1998,8 @@ type LargestValuesForEachRangeType = {
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
             }
         };
+
+        reader.readAsText( file );
     }
 
 

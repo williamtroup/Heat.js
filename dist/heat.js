@@ -2008,7 +2008,6 @@ var Config;
     function importFromJson(e, t) {
         const n = new FileReader;
         let o = {};
-        n.readAsText(e);
         n.onloadend = () => {
             t(e.name, o);
         };
@@ -2018,11 +2017,11 @@ var Config;
                 o = t.object;
             }
         };
+        n.readAsText(e);
     }
     function importFromTxt(e, t) {
         const n = new FileReader;
         const o = {};
-        n.readAsText(e);
         n.onloadend = () => {
             t(e.name, o);
         };
@@ -2034,11 +2033,11 @@ var Config;
                 o[n[0].trim()] = parseInt(n[1].trim());
             }
         };
+        n.readAsText(e);
     }
     function importFromCsv(e, t) {
         const n = new FileReader;
         const o = {};
-        n.readAsText(e);
         n.onloadend = () => {
             t(e.name, o);
         };
@@ -2052,6 +2051,7 @@ var Config;
                 o[t[0].trim()] = parseInt(t[1].trim());
             }
         };
+        n.readAsText(e);
     }
     function exportAllData(e, t = null) {
         let n = null;

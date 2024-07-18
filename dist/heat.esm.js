@@ -2104,7 +2104,6 @@ var require_heat = __commonJS({
             function importFromJson(e, t) {
                 const n = new FileReader;
                 let o = {};
-                n.readAsText(e);
                 n.onloadend = () => {
                     t(e.name, o);
                 };
@@ -2114,11 +2113,11 @@ var require_heat = __commonJS({
                         o = t.object;
                     }
                 };
+                n.readAsText(e);
             }
             function importFromTxt(e, t) {
                 const n = new FileReader;
                 const o = {};
-                n.readAsText(e);
                 n.onloadend = () => {
                     t(e.name, o);
                 };
@@ -2130,11 +2129,11 @@ var require_heat = __commonJS({
                         o[n[0].trim()] = parseInt(n[1].trim());
                     }
                 };
+                n.readAsText(e);
             }
             function importFromCsv(e, t) {
                 const n = new FileReader;
                 const o = {};
-                n.readAsText(e);
                 n.onloadend = () => {
                     t(e.name, o);
                 };
@@ -2148,6 +2147,7 @@ var require_heat = __commonJS({
                         o[t[0].trim()] = parseInt(t[1].trim());
                     }
                 };
+                n.readAsText(e);
             }
             function exportAllData(e, t = null) {
                 let n = null;
