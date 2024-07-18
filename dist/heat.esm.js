@@ -2655,7 +2655,7 @@ var require_heat = __commonJS({
                     return e;
                 },
                 getVersion: function() {
-                    return "4.0.6";
+                    return "4.1.0";
                 }
             };
             (() => {
