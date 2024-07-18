@@ -1946,10 +1946,10 @@ type LargestValuesForEachRangeType = {
         };
     
         reader.onload = ( e: ProgressEvent<FileReader> ) => {
-            const JSON: StringToJson = getObjectFromString( e.target!.result );
+            const json: StringToJson = getObjectFromString( e.target!.result );
 
-            if ( JSON.parsed && Is.definedObject( JSON.object ) ) {
-                readingObject = JSON.object;
+            if ( json.parsed && Is.definedObject( json.object ) ) {
+                readingObject = json.object;
             }
         };
     }
