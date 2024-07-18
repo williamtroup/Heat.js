@@ -18,8 +18,7 @@ import {
     type BindingOptions,
     type BindingOptionsCurrentView,
     type TypeCountsData,
-    type DateCounts, 
-    type ConfigurationText } from "./ts/type";
+    type DateCounts } from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
 import { ExportType, Char, Value, ViewId, ViewName } from "./ts/enum";
@@ -31,6 +30,7 @@ import { DateTime } from "./ts/datetime"
 import { ToolTip } from "./ts/area/tooltip";
 import { Trigger } from "./ts/area/trigger";
 import { binding } from "./ts/binding";
+import { Config } from "./ts/config";
 
 
 type IsHoliday = {
@@ -2298,95 +2298,6 @@ type LargestValuesForEachRangeType = {
 
 	/*
 	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	 * Public API Functions:  Helpers:  Configuration
-	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	 */
-
-    function buildDefaultConfiguration( newConfiguration: Configuration = null! ) : void {
-        _configuration = Data.getDefaultObject( newConfiguration, {} as Configuration );
-        _configuration.safeMode = Data.getDefaultBoolean( _configuration.safeMode, true );
-        _configuration.domElementTypes = Data.getDefaultStringOrArray( _configuration.domElementTypes, [ "*" ] );
-
-        buildDefaultConfigurationStrings();
-        buildDefaultConfigurationArrays();
-    }
-
-    function buildDefaultConfigurationStrings() : void {
-        _configuration.text = Data.getDefaultObject( _configuration.text, {} as ConfigurationText );
-        _configuration.text!.stText = Data.getDefaultAnyString( _configuration.text!.stText, "st" );
-        _configuration.text!.ndText = Data.getDefaultAnyString( _configuration.text!.ndText, "nd" );
-        _configuration.text!.rdText = Data.getDefaultAnyString( _configuration.text!.rdText, "rd" );
-        _configuration.text!.thText = Data.getDefaultAnyString( _configuration.text!.thText, "th" );
-        _configuration.text!.backButtonText = Data.getDefaultAnyString( _configuration.text!.backButtonText, "Back" );
-        _configuration.text!.nextButtonText = Data.getDefaultAnyString( _configuration.text!.nextButtonText, "Next" );
-        _configuration.text!.refreshButtonText = Data.getDefaultAnyString( _configuration.text!.refreshButtonText, "Refresh" );
-        _configuration.text!.exportButtonText = Data.getDefaultAnyString( _configuration.text!.exportButtonText, "Export" );
-        _configuration.text!.lessText = Data.getDefaultAnyString( _configuration.text!.lessText, "Less" );
-        _configuration.text!.moreText = Data.getDefaultAnyString( _configuration.text!.moreText, "More" );
-        _configuration.text!.dateText = Data.getDefaultAnyString( _configuration.text!.dateText, "Date" );
-        _configuration.text!.countText = Data.getDefaultAnyString( _configuration.text!.countText, "Count" );
-        _configuration.text!.mapText = Data.getDefaultAnyString( _configuration.text!.mapText, "Map" );
-        _configuration.text!.chartText = Data.getDefaultAnyString( _configuration.text!.chartText, "Chart" );
-        _configuration.text!.noChartDataMessage = Data.getDefaultAnyString( _configuration.text!.noChartDataMessage, "There is currently no data to view." );
-        _configuration.text!.statisticsText = Data.getDefaultAnyString( _configuration.text!.statisticsText, "Statistics" );
-        _configuration.text!.noStatisticsDataMessage = Data.getDefaultAnyString( _configuration.text!.noStatisticsDataMessage, "There are currently no statistics to view." );
-        _configuration.text!.unknownTrendText = Data.getDefaultAnyString( _configuration.text!.unknownTrendText, "Unknown" );
-        _configuration.text!.importButtonText = Data.getDefaultAnyString( _configuration.text!.importButtonText, "Import" );
-        _configuration.text!.noMapDataMessage = Data.getDefaultAnyString( _configuration.text!.noMapDataMessage, "There is currently no data to view." );
-        _configuration.text!.objectErrorText = Data.getDefaultAnyString( _configuration.text!.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}" );
-        _configuration.text!.attributeNotValidErrorText = Data.getDefaultAnyString( _configuration.text!.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object." );
-        _configuration.text!.attributeNotSetErrorText = Data.getDefaultAnyString( _configuration.text!.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly." );
-        _configuration.text!.closeToolTipText = Data.getDefaultAnyString( _configuration.text!.closeToolTipText, "Close" );
-        _configuration.text!.configurationToolTipText = Data.getDefaultAnyString( _configuration.text!.configurationToolTipText, "Configuration" );
-        _configuration.text!.configurationTitleText = Data.getDefaultAnyString( _configuration.text!.configurationTitleText, "Configuration" );
-        _configuration.text!.visibleMonthsText = Data.getDefaultAnyString( _configuration.text!.visibleMonthsText, "Visible Months" );
-        _configuration.text!.visibleDaysText = Data.getDefaultAnyString( _configuration.text!.visibleDaysText, "Visible Days" );
-        _configuration.text!.dataText = Data.getDefaultAnyString( _configuration.text!.dataText, "Data" );
-        _configuration.text!.colorRangesText = Data.getDefaultAnyString( _configuration.text!.colorRangesText, "Color Ranges" );
-        _configuration.text!.yearText = Data.getDefaultAnyString( _configuration.text!.yearText, "Year" );
-        _configuration.text!.daysText = Data.getDefaultAnyString( _configuration.text!.daysText, "Days" );
-        _configuration.text!.noDaysDataMessage = Data.getDefaultAnyString( _configuration.text!.noDaysDataMessage, "There are currently no days to view." );
-        _configuration.text!.backButtonSymbolText = Data.getDefaultAnyString( _configuration.text!.backButtonSymbolText, "←" );
-        _configuration.text!.nextButtonSymbolText = Data.getDefaultAnyString( _configuration.text!.nextButtonSymbolText, "→" );
-        _configuration.text!.refreshButtonSymbolText = Data.getDefaultAnyString( _configuration.text!.refreshButtonSymbolText, "↻" );
-        _configuration.text!.exportButtonSymbolText = Data.getDefaultAnyString( _configuration.text!.exportButtonSymbolText, "↓" );
-        _configuration.text!.importButtonSymbolText = Data.getDefaultAnyString( _configuration.text!.importButtonSymbolText, "↑" );
-    }
-
-    function buildDefaultConfigurationArrays() : void {
-        if ( Is.invalidOptionArray( _configuration.text!.monthNames, 12 ) ) {
-            _configuration.text!.monthNames = [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec"
-            ];
-        }
-
-        if ( Is.invalidOptionArray( _configuration.text!.dayNames, 7 ) ) {
-            _configuration.text!.dayNames = [
-                "Mon",
-                "Tue",
-                "Wed",
-                "Thu",
-                "Fri",
-                "Sat",
-                "Sun"
-            ];
-        }
-    }
-
-
-	/*
-	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	 * Public API Functions:
 	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	 */
@@ -2881,7 +2792,7 @@ type LargestValuesForEachRangeType = {
                 }
         
                 if ( configurationHasChanged ) {
-                    buildDefaultConfiguration( newInternalConfiguration );
+                    _configuration = Config.Options.get( newInternalConfiguration );
         
                     if ( triggerRefresh ) {
                         _public.refreshAll();
@@ -2924,7 +2835,7 @@ type LargestValuesForEachRangeType = {
      */
 
     ( () => {
-        buildDefaultConfiguration();
+        _configuration = Config.Options.get();
 
         document.addEventListener( "DOMContentLoaded", () => {
             render();

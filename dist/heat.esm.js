@@ -442,8 +442,8 @@ var init_binding = __esm({
                     t = c(t);
                     t = u(t);
                     t = d(t);
-                    t = f(t);
                     t = m(t);
+                    t = f(t);
                     t = g(t);
                     return t;
                 }
@@ -582,7 +582,7 @@ var init_binding = __esm({
                     }
                     return e;
                 }
-                function f(e) {
+                function m(e) {
                     e.views.days = Data.getDefaultObject(e.views.days, {});
                     e.views.days.enabled = Data.getDefaultBoolean(e.views.days.enabled, true);
                     e.views.days.showChartYLabels = Data.getDefaultBoolean(e.views.days.showChartYLabels, true);
@@ -598,7 +598,7 @@ var init_binding = __esm({
                     }
                     return e;
                 }
-                function m(e) {
+                function f(e) {
                     e.views.statistics = Data.getDefaultObject(e.views.statistics, {});
                     e.views.statistics.enabled = Data.getDefaultBoolean(e.views.statistics.enabled, true);
                     e.views.statistics.showChartYLabels = Data.getDefaultBoolean(e.views.statistics.showChartYLabels, true);
@@ -647,6 +647,81 @@ var init_binding = __esm({
     }
 });
 
+var Config;
+
+var init_config = __esm({
+    "src/ts/config.ts"() {
+        "use strict";
+        init_data();
+        init_is();
+        (e => {
+            let t;
+            (e => {
+                function t(e = null) {
+                    let t = Data.getDefaultObject(e, {});
+                    t.safeMode = Data.getDefaultBoolean(t.safeMode, true);
+                    t.domElementTypes = Data.getDefaultStringOrArray(t.domElementTypes, [ "*" ]);
+                    t = n(t);
+                    t = o(t);
+                    return t;
+                }
+                e.get = t;
+                function n(e) {
+                    e.text = Data.getDefaultObject(e.text, {});
+                    e.text.stText = Data.getDefaultAnyString(e.text.stText, "st");
+                    e.text.ndText = Data.getDefaultAnyString(e.text.ndText, "nd");
+                    e.text.rdText = Data.getDefaultAnyString(e.text.rdText, "rd");
+                    e.text.thText = Data.getDefaultAnyString(e.text.thText, "th");
+                    e.text.backButtonText = Data.getDefaultAnyString(e.text.backButtonText, "Back");
+                    e.text.nextButtonText = Data.getDefaultAnyString(e.text.nextButtonText, "Next");
+                    e.text.refreshButtonText = Data.getDefaultAnyString(e.text.refreshButtonText, "Refresh");
+                    e.text.exportButtonText = Data.getDefaultAnyString(e.text.exportButtonText, "Export");
+                    e.text.lessText = Data.getDefaultAnyString(e.text.lessText, "Less");
+                    e.text.moreText = Data.getDefaultAnyString(e.text.moreText, "More");
+                    e.text.dateText = Data.getDefaultAnyString(e.text.dateText, "Date");
+                    e.text.countText = Data.getDefaultAnyString(e.text.countText, "Count");
+                    e.text.mapText = Data.getDefaultAnyString(e.text.mapText, "Map");
+                    e.text.chartText = Data.getDefaultAnyString(e.text.chartText, "Chart");
+                    e.text.noChartDataMessage = Data.getDefaultAnyString(e.text.noChartDataMessage, "There is currently no data to view.");
+                    e.text.statisticsText = Data.getDefaultAnyString(e.text.statisticsText, "Statistics");
+                    e.text.noStatisticsDataMessage = Data.getDefaultAnyString(e.text.noStatisticsDataMessage, "There are currently no statistics to view.");
+                    e.text.unknownTrendText = Data.getDefaultAnyString(e.text.unknownTrendText, "Unknown");
+                    e.text.importButtonText = Data.getDefaultAnyString(e.text.importButtonText, "Import");
+                    e.text.noMapDataMessage = Data.getDefaultAnyString(e.text.noMapDataMessage, "There is currently no data to view.");
+                    e.text.objectErrorText = Data.getDefaultAnyString(e.text.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
+                    e.text.attributeNotValidErrorText = Data.getDefaultAnyString(e.text.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object.");
+                    e.text.attributeNotSetErrorText = Data.getDefaultAnyString(e.text.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly.");
+                    e.text.closeToolTipText = Data.getDefaultAnyString(e.text.closeToolTipText, "Close");
+                    e.text.configurationToolTipText = Data.getDefaultAnyString(e.text.configurationToolTipText, "Configuration");
+                    e.text.configurationTitleText = Data.getDefaultAnyString(e.text.configurationTitleText, "Configuration");
+                    e.text.visibleMonthsText = Data.getDefaultAnyString(e.text.visibleMonthsText, "Visible Months");
+                    e.text.visibleDaysText = Data.getDefaultAnyString(e.text.visibleDaysText, "Visible Days");
+                    e.text.dataText = Data.getDefaultAnyString(e.text.dataText, "Data");
+                    e.text.colorRangesText = Data.getDefaultAnyString(e.text.colorRangesText, "Color Ranges");
+                    e.text.yearText = Data.getDefaultAnyString(e.text.yearText, "Year");
+                    e.text.daysText = Data.getDefaultAnyString(e.text.daysText, "Days");
+                    e.text.noDaysDataMessage = Data.getDefaultAnyString(e.text.noDaysDataMessage, "There are currently no days to view.");
+                    e.text.backButtonSymbolText = Data.getDefaultAnyString(e.text.backButtonSymbolText, "←");
+                    e.text.nextButtonSymbolText = Data.getDefaultAnyString(e.text.nextButtonSymbolText, "→");
+                    e.text.refreshButtonSymbolText = Data.getDefaultAnyString(e.text.refreshButtonSymbolText, "↻");
+                    e.text.exportButtonSymbolText = Data.getDefaultAnyString(e.text.exportButtonSymbolText, "↓");
+                    e.text.importButtonSymbolText = Data.getDefaultAnyString(e.text.importButtonSymbolText, "↑");
+                    return e;
+                }
+                function o(e) {
+                    if (Is.invalidOptionArray(e.text.monthNames, 12)) {
+                        e.text.monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+                    }
+                    if (Is.invalidOptionArray(e.text.dayNames, 7)) {
+                        e.text.dayNames = [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ];
+                    }
+                    return e;
+                }
+            })(t = e.Options || (e.Options = {}));
+        })(Config || (Config = {}));
+    }
+});
+
 var require_heat = __commonJS({
     "src/heat.ts"(exports, module) {
         init_enum();
@@ -658,6 +733,7 @@ var require_heat = __commonJS({
         init_tooltip();
         init_trigger();
         init_binding();
+        init_config();
         (() => {
             let _configuration = {};
             let _elements_Day_Width = 0;
@@ -1138,28 +1214,28 @@ var require_heat = __commonJS({
                             let c = DomElement.create(s, "div", "day-column");
                             let u = false;
                             const d = new Date(o, t, 1);
-                            const f = DateTime.getWeekdayNumber(d);
-                            let m = 1;
-                            l += f;
+                            const m = DateTime.getWeekdayNumber(d);
+                            let f = 1;
+                            l += m;
                             for (let n = 0; n < l; n++) {
-                                if (n >= f) {
+                                if (n >= m) {
                                     u = true;
                                 } else {
-                                    if (isDayVisible(e.views.map.daysToShow, m)) {
+                                    if (isDayVisible(e.views.map.daysToShow, f)) {
                                         DomElement.create(c, "div", "day-disabled");
                                     }
                                 }
                                 if (u) {
                                     let i = null;
-                                    if (isDayVisible(e.views.map.daysToShow, m)) {
-                                        i = renderControlMapMonthDay(e, c, n - f, t, o, r);
+                                    if (isDayVisible(e.views.map.daysToShow, f)) {
+                                        i = renderControlMapMonthDay(e, c, n - m, t, o, r);
                                     }
                                     if ((n + 1) % 7 === 0) {
                                         if (e.views.map.showDaysInReverseOrder) {
                                             DomElement.reverseChildrenOrder(c);
                                         }
                                         c = DomElement.create(s, "div", "day-column");
-                                        m = 0;
+                                        f = 0;
                                         if (_elements_Day_Width === 0 && Is.defined(i)) {
                                             let e = DomElement.getStyleValueByName(i, "margin-left", true);
                                             let t = DomElement.getStyleValueByName(i, "margin-right", true);
@@ -1167,7 +1243,7 @@ var require_heat = __commonJS({
                                         }
                                     }
                                 }
-                                m++;
+                                f++;
                             }
                             if (e.views.map.showMonthNames) {
                                 let o;
@@ -1186,9 +1262,9 @@ var require_heat = __commonJS({
                                 }
                             }
                             if (i && Is.defined(_elements_Day_Width)) {
-                                if (f > 0 && !e.views.map.showMonthDayGaps) {
+                                if (m > 0 && !e.views.map.showMonthDayGaps) {
                                     n.style.marginLeft = `${-_elements_Day_Width}px`;
-                                } else if (f === 0 && e.views.map.showMonthDayGaps) {
+                                } else if (m === 0 && e.views.map.showMonthDayGaps) {
                                     n.style.marginLeft = `${_elements_Day_Width}px`;
                                 }
                             }
@@ -2265,62 +2341,6 @@ var require_heat = __commonJS({
                 }
                 Trigger.customEvent(e.events.onDestroy, e._currentView.element);
             }
-            function buildDefaultConfiguration(e = null) {
-                _configuration = Data.getDefaultObject(e, {});
-                _configuration.safeMode = Data.getDefaultBoolean(_configuration.safeMode, true);
-                _configuration.domElementTypes = Data.getDefaultStringOrArray(_configuration.domElementTypes, [ "*" ]);
-                buildDefaultConfigurationStrings();
-                buildDefaultConfigurationArrays();
-            }
-            function buildDefaultConfigurationStrings() {
-                _configuration.text = Data.getDefaultObject(_configuration.text, {});
-                _configuration.text.stText = Data.getDefaultAnyString(_configuration.text.stText, "st");
-                _configuration.text.ndText = Data.getDefaultAnyString(_configuration.text.ndText, "nd");
-                _configuration.text.rdText = Data.getDefaultAnyString(_configuration.text.rdText, "rd");
-                _configuration.text.thText = Data.getDefaultAnyString(_configuration.text.thText, "th");
-                _configuration.text.backButtonText = Data.getDefaultAnyString(_configuration.text.backButtonText, "Back");
-                _configuration.text.nextButtonText = Data.getDefaultAnyString(_configuration.text.nextButtonText, "Next");
-                _configuration.text.refreshButtonText = Data.getDefaultAnyString(_configuration.text.refreshButtonText, "Refresh");
-                _configuration.text.exportButtonText = Data.getDefaultAnyString(_configuration.text.exportButtonText, "Export");
-                _configuration.text.lessText = Data.getDefaultAnyString(_configuration.text.lessText, "Less");
-                _configuration.text.moreText = Data.getDefaultAnyString(_configuration.text.moreText, "More");
-                _configuration.text.dateText = Data.getDefaultAnyString(_configuration.text.dateText, "Date");
-                _configuration.text.countText = Data.getDefaultAnyString(_configuration.text.countText, "Count");
-                _configuration.text.mapText = Data.getDefaultAnyString(_configuration.text.mapText, "Map");
-                _configuration.text.chartText = Data.getDefaultAnyString(_configuration.text.chartText, "Chart");
-                _configuration.text.noChartDataMessage = Data.getDefaultAnyString(_configuration.text.noChartDataMessage, "There is currently no data to view.");
-                _configuration.text.statisticsText = Data.getDefaultAnyString(_configuration.text.statisticsText, "Statistics");
-                _configuration.text.noStatisticsDataMessage = Data.getDefaultAnyString(_configuration.text.noStatisticsDataMessage, "There are currently no statistics to view.");
-                _configuration.text.unknownTrendText = Data.getDefaultAnyString(_configuration.text.unknownTrendText, "Unknown");
-                _configuration.text.importButtonText = Data.getDefaultAnyString(_configuration.text.importButtonText, "Import");
-                _configuration.text.noMapDataMessage = Data.getDefaultAnyString(_configuration.text.noMapDataMessage, "There is currently no data to view.");
-                _configuration.text.objectErrorText = Data.getDefaultAnyString(_configuration.text.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
-                _configuration.text.attributeNotValidErrorText = Data.getDefaultAnyString(_configuration.text.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object.");
-                _configuration.text.attributeNotSetErrorText = Data.getDefaultAnyString(_configuration.text.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly.");
-                _configuration.text.closeToolTipText = Data.getDefaultAnyString(_configuration.text.closeToolTipText, "Close");
-                _configuration.text.configurationToolTipText = Data.getDefaultAnyString(_configuration.text.configurationToolTipText, "Configuration");
-                _configuration.text.configurationTitleText = Data.getDefaultAnyString(_configuration.text.configurationTitleText, "Configuration");
-                _configuration.text.visibleMonthsText = Data.getDefaultAnyString(_configuration.text.visibleMonthsText, "Visible Months");
-                _configuration.text.visibleDaysText = Data.getDefaultAnyString(_configuration.text.visibleDaysText, "Visible Days");
-                _configuration.text.dataText = Data.getDefaultAnyString(_configuration.text.dataText, "Data");
-                _configuration.text.colorRangesText = Data.getDefaultAnyString(_configuration.text.colorRangesText, "Color Ranges");
-                _configuration.text.yearText = Data.getDefaultAnyString(_configuration.text.yearText, "Year");
-                _configuration.text.daysText = Data.getDefaultAnyString(_configuration.text.daysText, "Days");
-                _configuration.text.noDaysDataMessage = Data.getDefaultAnyString(_configuration.text.noDaysDataMessage, "There are currently no days to view.");
-                _configuration.text.backButtonSymbolText = Data.getDefaultAnyString(_configuration.text.backButtonSymbolText, "←");
-                _configuration.text.nextButtonSymbolText = Data.getDefaultAnyString(_configuration.text.nextButtonSymbolText, "→");
-                _configuration.text.refreshButtonSymbolText = Data.getDefaultAnyString(_configuration.text.refreshButtonSymbolText, "↻");
-                _configuration.text.exportButtonSymbolText = Data.getDefaultAnyString(_configuration.text.exportButtonSymbolText, "↓");
-                _configuration.text.importButtonSymbolText = Data.getDefaultAnyString(_configuration.text.importButtonSymbolText, "↑");
-            }
-            function buildDefaultConfigurationArrays() {
-                if (Is.invalidOptionArray(_configuration.text.monthNames, 12)) {
-                    _configuration.text.monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-                }
-                if (Is.invalidOptionArray(_configuration.text.dayNames, 7)) {
-                    _configuration.text.dayNames = [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ];
-                }
-            }
             const _public = {
                 addDates: function(e, t, n = null, o = true) {
                     if (Is.definedString(e) && Is.definedArray(t) && _elements_DateCounts.hasOwnProperty(e)) {
@@ -2665,7 +2685,7 @@ var require_heat = __commonJS({
                             }
                         }
                         if (n) {
-                            buildDefaultConfiguration(o);
+                            _configuration = Config.Options.get(o);
                             if (t) {
                                 _public.refreshAll();
                             }
@@ -2687,7 +2707,7 @@ var require_heat = __commonJS({
                 }
             };
             (() => {
-                buildDefaultConfiguration();
+                _configuration = Config.Options.get();
                 document.addEventListener("DOMContentLoaded", (() => {
                     render();
                 }));
