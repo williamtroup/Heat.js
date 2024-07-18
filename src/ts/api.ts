@@ -4,14 +4,14 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        api.ts
- * @version     v4.0.5
+ * @version     v4.1.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
  */
 
 
-import { type Configuration, type BindingOptions } from "./type";
+import { type BindingOptions } from "./type";
 
     
 export type PublicApi = {

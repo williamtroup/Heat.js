@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        heat.ts
- * @version     v4.0.5
+ * @version     v4.1.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -16,26 +16,22 @@ import {
     type Holiday,
     type ColorRange,
     type BindingOptions,
-    type BindingOptionsCurrentView,
-    type Title,
-    type Description,
-    type Guide,
-    type Tooltip,
-    type Map, 
-    type Chart,
-    type Days,
-    type Statistics,
-    type Events,
     type TypeCountsData,
     type DateCounts } from "./ts/type";
 
-import { ExportType, Char, Value, ViewId, ViewName } from "./ts/enum";
-import { Constants } from "./ts/constant"
-import { Is } from "./ts/is"
-import { Data } from "./ts/data"
-import { DomElement } from "./ts/dom"
-import { DateTime } from "./ts/datetime"
 import { type PublicApi } from "./ts/api";
+import { Constant } from "./ts/constant"
+import { ExportType, Char, Value, ViewId, ViewName } from "./ts/data/enum";
+import { Is } from "./ts/data/is"
+import { Default } from "./ts/data/default"
+import { DateTime } from "./ts/data/datetime"
+import { DomElement } from "./ts/dom/dom"
+import { Str } from "./ts/data/str";
+import { ToolTip } from "./ts/area/tooltip";
+import { Trigger } from "./ts/area/trigger";
+import { Binding } from "./ts/options/binding";
+import { Config } from "./ts/options/config";
+import { Disabled } from "./ts/area/disabled";
 
 
 type IsHoliday = {
@@ -75,33 +71,6 @@ type LargestValuesForEachRangeType = {
     // Variables: Local Storage
     const _local_Storage_Start_ID: string = "HJS_";
 
-    // Variables: Defaults
-    const _default_MonthsToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
-    const _default_DaysToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7 ];
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Render:  Disabled Background
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function renderDisabledBackground( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView.disabledBackground = DomElement.create( bindingOptions._currentView.element, "div", "disabled" );
-    }
-
-    function showDisabledBackground( bindingOptions: BindingOptions ) : void {
-        if ( Is.defined( bindingOptions._currentView.disabledBackground ) && bindingOptions._currentView.disabledBackground.style.display !== "block" ) {
-            bindingOptions._currentView.disabledBackground.style.display = "block";
-        }
-    }
-
-    function hideDisabledBackground( bindingOptions: BindingOptions ) : void {
-        if ( Is.defined( bindingOptions._currentView.disabledBackground ) && bindingOptions._currentView.disabledBackground.style.display !== "none" ) {
-            bindingOptions._currentView.disabledBackground.style.display = "none";
-        }
-    }
-
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -129,25 +98,25 @@ type LargestValuesForEachRangeType = {
     function renderElement( element: HTMLElement ) : boolean {
         let result: boolean = true;
 
-        if ( Is.defined( element ) && element.hasAttribute( Constants.HEAT_JS_ATTRIBUTE_NAME ) ) {
-            const bindingOptionsData: string = element.getAttribute( Constants.HEAT_JS_ATTRIBUTE_NAME )!;
+        if ( Is.defined( element ) && element.hasAttribute( Constant.HEAT_JS_ATTRIBUTE_NAME ) ) {
+            const bindingOptionsData: string = element.getAttribute( Constant.HEAT_JS_ATTRIBUTE_NAME )!;
 
             if ( Is.definedString( bindingOptionsData ) ) {
                 const bindingOptions: StringToJson = getObjectFromString( bindingOptionsData );
 
                 if ( bindingOptions.parsed && Is.definedObject( bindingOptions.object ) ) {
-                    renderControl( renderBindingOptions( bindingOptions.object, element ) );
+                    renderControl( Binding.Options.getForNewInstance( _configuration, bindingOptions.object, element ) );
 
                 } else {
                     if ( !_configuration.safeMode ) {
-                        console.error( _configuration.attributeNotValidErrorText!.replace( "{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME ) );
+                        console.error( _configuration.text!.attributeNotValidErrorText!.replace( "{{attribute_name}}", Constant.HEAT_JS_ATTRIBUTE_NAME ) );
                         result = false;
                     }
                 }
 
             } else {
                 if ( !_configuration.safeMode ) {
-                    console.error( _configuration.attributeNotSetErrorText!.replace( "{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME ) );
+                    console.error( _configuration.text!.attributeNotSetErrorText!.replace( "{{attribute_name}}", Constant.HEAT_JS_ATTRIBUTE_NAME ) );
                     result = false;
                 }
             }
@@ -156,63 +125,11 @@ type LargestValuesForEachRangeType = {
         return result;
     }
 
-    function renderBindingOptions( data: any, element: HTMLElement ) : BindingOptions {
-        const bindingOptions: BindingOptions = buildAttributeOptions( data );
-        const view: string = Data.getDefaultString( bindingOptions.view, Char.empty ).toLowerCase();
-
-        let currentView: BindingOptionsCurrentView = {} as BindingOptionsCurrentView;
-        currentView.element = element;
-        currentView.disabledBackground = null!;
-        currentView.configurationDialog = null!;
-        currentView.dayCheckBoxes = [];
-        currentView.monthCheckBoxes = [];
-        currentView.tooltip = null!;
-        currentView.tooltipTimer = 0;
-        currentView.mapContents = null!;
-        currentView.mapContentsScrollLeft = 0;
-        currentView.year = bindingOptions.year!;
-        currentView.type = _configuration.unknownTrendText!;
-        currentView.isInFetchMode = Is.definedFunction( bindingOptions.events!.onDataFetch );
-        currentView.isInFetchModeTimer = 0;
-        currentView.yearsAvailable = [];
-
-        if ( bindingOptions.views!.chart!.enabled ) {
-            currentView.chartContents = null!;
-            currentView.chartContentsScrollLeft = 0;
-        }
-
-        if ( bindingOptions.views!.days!.enabled ) {
-            currentView.daysContents = null!;
-            currentView.daysContentsScrollLeft = 0;
-        }
-        
-        if ( bindingOptions.views!.statistics!.enabled ) {
-            currentView.statisticsContents = null!;
-            currentView.statisticsContentsScrollLeft = 0;
-        }
-
-        if ( view === ViewName.map ) {
-            currentView.view = ViewId.map;
-        } else if ( view === ViewName.chart ) {
-            currentView.view = ViewId.chart;
-        } else if ( view === ViewName.days ) {
-            currentView.view = ViewId.days;
-        } else if ( view === ViewName.statistics ) {
-            currentView.view = ViewId.statistics;
-        } else {
-            currentView.view = ViewId.map;
-        }
-
-        bindingOptions._currentView = currentView;
-
-        return bindingOptions;
-    }
-
     function renderControl( bindingOptions: BindingOptions ) : void {
-        fireCustomTriggerEvent( bindingOptions.events!.onBeforeRender!, bindingOptions._currentView.element );
+        Trigger.customEvent( bindingOptions.events!.onBeforeRender!, bindingOptions._currentView.element );
 
         if ( !Is.definedString( bindingOptions._currentView.element.id ) ) {
-            bindingOptions._currentView.element.id = Data.String.newGuid();
+            bindingOptions._currentView.element.id = Str.newGuid();
         }
 
         if ( bindingOptions._currentView.element.className.trim() === Char.empty ) {
@@ -221,11 +138,11 @@ type LargestValuesForEachRangeType = {
             DomElement.addClass( bindingOptions._currentView.element, "heat-js" );
         }
 
-        bindingOptions._currentView.element.removeAttribute( Constants.HEAT_JS_ATTRIBUTE_NAME );
+        bindingOptions._currentView.element.removeAttribute( Constant.HEAT_JS_ATTRIBUTE_NAME );
 
         createDateStorageForElement( bindingOptions._currentView.element.id, bindingOptions );
         renderControlContainer( bindingOptions );
-        fireCustomTriggerEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView.element );
+        Trigger.customEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView.element );
     }
 
     function renderControlContainer( bindingOptions: BindingOptions, isForDataRefresh: boolean = false, isForViewSwitch: boolean = false ) : void {
@@ -252,16 +169,16 @@ type LargestValuesForEachRangeType = {
         bindingOptions._currentView.element.innerHTML = Char.empty;
         bindingOptions._currentView.yearsAvailable = getYearsAvailableInData( bindingOptions );
         
-        hideToolTip( bindingOptions );
+        ToolTip.hide( bindingOptions );
 
         startDataPullTimer( bindingOptions );
 
         if ( bindingOptions.title!.showConfigurationButton ) {
-            renderDisabledBackground( bindingOptions );
+            Disabled.Background.render( bindingOptions );
             renderConfigurationDialog( bindingOptions );
         }
 
-        renderControlToolTip( bindingOptions );
+        ToolTip.renderControl( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions, isForViewSwitch );
 
@@ -315,9 +232,9 @@ type LargestValuesForEachRangeType = {
         const daysContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
         const monthsContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
 
-        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.configurationTitleText! );
-        DomElement.createWithHTML( daysContainer, "div", "side-container-title-text", _configuration.visibleDaysText + Char.colon );
-        DomElement.createWithHTML( monthsContainer, "div", "side-container-title-text", _configuration.visibleMonthsText + Char.colon );
+        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.text!.configurationTitleText! );
+        DomElement.createWithHTML( daysContainer, "div", "side-container-title-text", _configuration.text!.visibleDaysText + Char.colon );
+        DomElement.createWithHTML( monthsContainer, "div", "side-container-title-text", _configuration.text!.visibleMonthsText + Char.colon );
 
         const months1Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
         const months2Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
@@ -327,22 +244,22 @@ type LargestValuesForEachRangeType = {
         };
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
-            bindingOptions._currentView.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.dayNames![ dayIndex ] );
+            bindingOptions._currentView.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.text!.dayNames![ dayIndex ] );
         }
 
         for ( let monthIndex1: number = 0; monthIndex1 < 7; monthIndex1++ ) {
-            bindingOptions._currentView.monthCheckBoxes[ monthIndex1 ] = DomElement.createCheckBox( months1Container, _configuration.monthNames![ monthIndex1 ] );
+            bindingOptions._currentView.monthCheckBoxes[ monthIndex1 ] = DomElement.createCheckBox( months1Container, _configuration.text!.monthNames![ monthIndex1 ] );
         }
 
         for ( let monthIndex2: number = 7; monthIndex2 < 12; monthIndex2++ ) {
-            bindingOptions._currentView.monthCheckBoxes[ monthIndex2 ] = DomElement.createCheckBox( months2Container, _configuration.monthNames![ monthIndex2 ] );
+            bindingOptions._currentView.monthCheckBoxes[ monthIndex2 ] = DomElement.createCheckBox( months2Container, _configuration.text!.monthNames![ monthIndex2 ] );
         }
 
-        addToolTip( closeButton, bindingOptions, _configuration.closeToolTipText! );
+        ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
     }
 
     function showConfigurationDialog( bindingOptions: BindingOptions ) : void {
-        showDisabledBackground( bindingOptions );
+        Disabled.Background.show( bindingOptions );
 
         if ( Is.defined( bindingOptions._currentView.configurationDialog ) && bindingOptions._currentView.configurationDialog.style.display !== "block" ) {
             bindingOptions._currentView.configurationDialog.style.display = "block";
@@ -376,11 +293,11 @@ type LargestValuesForEachRangeType = {
             bindingOptions._currentView.monthCheckBoxes[ monthIndex ].checked = isMonthVisible( monthsToShow, monthIndex );
         }
 
-        hideToolTip( bindingOptions );
+        ToolTip.hide( bindingOptions );
     }
 
     function hideConfigurationDialog( bindingOptions: BindingOptions ) : void {
-        hideDisabledBackground( bindingOptions );
+        Disabled.Background.hide( bindingOptions );
 
         if ( Is.defined( bindingOptions._currentView.configurationDialog ) && bindingOptions._currentView.configurationDialog.style.display !== "none" ) {
             bindingOptions._currentView.configurationDialog.style.display = "none";
@@ -436,72 +353,10 @@ type LargestValuesForEachRangeType = {
 
         if ( render ) {
             renderControlContainer( bindingOptions );
-            fireCustomTriggerEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView.element, bindingOptions );
+            Trigger.customEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView.element, bindingOptions );
             
         } else {
-            hideToolTip( bindingOptions );
-        }
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Render:  ToolTip
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function renderControlToolTip( bindingOptions: BindingOptions ) : void {
-        if ( !Is.defined( bindingOptions._currentView.tooltip ) ) {
-            bindingOptions._currentView.tooltip = DomElement.create( document.body, "div", "heat-js-tooltip" );
-            bindingOptions._currentView.tooltip.style.display = "none";
-    
-            assignToolTipEvents( bindingOptions );
-        }
-    }
-
-    function assignToolTipEvents( bindingOptions: BindingOptions, add: boolean = true ) : void {
-        let addEventListener_Window: Function = add ? window.addEventListener : window.removeEventListener;
-        let addEventListener_Document: Function = add ? document.addEventListener : document.removeEventListener;
-
-        addEventListener_Window( "mousemove", () => {
-            hideToolTip( bindingOptions );
-        } );
-
-        addEventListener_Document( "scroll", () => {
-            hideToolTip( bindingOptions );
-        } );
-    }
-
-    function addToolTip( element: HTMLElement, bindingOptions: BindingOptions, text: string ) : void {
-        if ( element !== null ) {
-            element.onmousemove = ( e: MouseEvent ) => {
-                showToolTip( e, bindingOptions, text );
-            };
-        }
-    }
-
-    function showToolTip( e: MouseEvent, bindingOptions: BindingOptions, text: string ) : void {
-        DomElement.cancelBubble( e );
-        hideToolTip( bindingOptions );
-
-        bindingOptions._currentView.tooltipTimer = setTimeout( () => {
-            bindingOptions._currentView.tooltip.innerHTML = text;
-            bindingOptions._currentView.tooltip.style.display = "block";
-
-            DomElement.showElementAtMousePosition( e, bindingOptions._currentView.tooltip );
-        }, bindingOptions.tooltip!.delay );
-    }
-
-    function hideToolTip( bindingOptions: BindingOptions ) : void {
-        if ( Is.defined( bindingOptions._currentView.tooltip ) ) {
-            if ( bindingOptions._currentView.tooltipTimer !== 0 ) {
-                clearTimeout( bindingOptions._currentView.tooltipTimer );
-                bindingOptions._currentView.tooltipTimer = 0;
-            }
-    
-            if ( bindingOptions._currentView.tooltip.style.display !== "none" ) {
-                bindingOptions._currentView.tooltip.style.display = "none";
-            }
+            ToolTip.hide( bindingOptions );
         }
     }
 
@@ -535,15 +390,19 @@ type LargestValuesForEachRangeType = {
             }
 
             if ( bindingOptions.title!.showImportButton && !bindingOptions._currentView.isInFetchMode ) {
-                const importData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "import", _configuration.importButtonText! );
-        
+                const importData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "import", _configuration.text!.importButtonSymbolText! );
+
+                ToolTip.add( importData, bindingOptions, _configuration.text!.importButtonText! );
+                
                 importData.onclick = () => {
                     importFromFilesSelected( bindingOptions );
                 };
             }
 
             if ( bindingOptions.title!.showExportButton ) {
-                const exportData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "export", _configuration.exportButtonText! );
+                const exportData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "export", _configuration.text!.exportButtonSymbolText! );
+
+                ToolTip.add( exportData, bindingOptions, _configuration.text!.exportButtonText! );
         
                 exportData.onclick = () => {
                     exportAllData( bindingOptions );
@@ -551,16 +410,20 @@ type LargestValuesForEachRangeType = {
             }
 
             if ( bindingOptions.title!.showRefreshButton ) {
-                const refresh: HTMLElement = DomElement.createWithHTML( titleBar, "button", "refresh", _configuration.refreshButtonText! );
+                const refresh: HTMLElement = DomElement.createWithHTML( titleBar, "button", "refresh", _configuration.text!.refreshButtonSymbolText! );
+
+                ToolTip.add( refresh, bindingOptions, _configuration.text!.refreshButtonText! );
         
                 refresh.onclick = () => {
                     renderControlContainer( bindingOptions );
-                    fireCustomTriggerEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
+                    Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
                 };
             }
     
             if ( bindingOptions.title!.showYearSelector ) {
-                const back: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "back", _configuration.backButtonText! ) as HTMLInputElement;
+                const back: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "back", _configuration.text!.backButtonSymbolText! ) as HTMLInputElement;
+
+                ToolTip.add( back, bindingOptions, _configuration.text!.backButtonText! );
         
                 back.onclick = () => {
                     moveToPreviousYear( bindingOptions );
@@ -581,14 +444,16 @@ type LargestValuesForEachRangeType = {
                 if ( bindingOptions.title!.showConfigurationButton ) {
                     let configureButton: HTMLElement = DomElement.create( titleBar, "div", "configure" );
 
-                    addToolTip( configureButton, bindingOptions, _configuration.configurationToolTipText! );
+                    ToolTip.add( configureButton, bindingOptions, _configuration.text!.configurationToolTipText! );
 
                     configureButton.onclick = () => {
                         showConfigurationDialog( bindingOptions );
                     };
                 }
 
-                const next: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "next", _configuration.nextButtonText! ) as HTMLInputElement;
+                const next: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "next", _configuration.text!.nextButtonSymbolText! ) as HTMLInputElement;
+
+                ToolTip.add( next, bindingOptions, _configuration.text!.nextButtonText! );
 
                 next.onclick = () => {
                     moveToNextYear( bindingOptions );
@@ -606,35 +471,35 @@ type LargestValuesForEachRangeType = {
         const titlesMenu: HTMLElement = DomElement.create( titlesMenuContainer, "div", "titles-menu" );
         
         if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-            DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.dataText + Char.colon );
+            DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.text!.dataText + Char.colon );
         }
 
-        const menuItemMap: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.mapText! );
+        const menuItemMap: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.mapText! );
             
         renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, ViewId.map, ViewName.map );
 
         if ( bindingOptions.views!.chart!.enabled ) {
-            const menuItemChart = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.chartText! );
+            const menuItemChart = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.chartText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, ViewId.chart, ViewName.chart );
         }
 
         if ( bindingOptions.views!.days!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.yearText + Char.colon );
+                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.text!.yearText + Char.colon );
             }
 
-            const menuItemDays: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.daysText! );
+            const menuItemDays: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.daysText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemDays, ViewId.days, ViewName.days );
         }
 
         if ( bindingOptions.views!.statistics!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.statisticsText + Char.colon );
+                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.text!.statisticsText + Char.colon );
             }
 
-            const menuItemStatistics: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.colorRangesText! );
+            const menuItemStatistics: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.colorRangesText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemStatistics, ViewId.statistics, ViewName.statistics );
         }
@@ -648,7 +513,7 @@ type LargestValuesForEachRangeType = {
             option.onclick = () => {
                 bindingOptions._currentView.view = view;
 
-                fireCustomTriggerEvent( bindingOptions.events!.onViewSwitch!, viewName );
+                Trigger.customEvent( bindingOptions.events!.onViewSwitch!, viewName );
                 renderControlContainer( bindingOptions, false, true );
             };
         }
@@ -692,7 +557,7 @@ type LargestValuesForEachRangeType = {
                 bindingOptions._currentView.year = currentYear;
     
                 renderControlContainer( bindingOptions );
-                fireCustomTriggerEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
             };
 
             if ( currentYear === actualYear ) {
@@ -732,7 +597,7 @@ type LargestValuesForEachRangeType = {
         renderControlViewGuide( bindingOptions );
 
         if ( bindingOptions.views!.map!.showNoDataMessageWhenDataIsNotAvailable && !isDataAvailableForYear( bindingOptions ) ) {
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.mapContents, "div", "no-data-message", _configuration.noMapDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.mapContents, "div", "no-data-message", _configuration.text!.noMapDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
@@ -761,7 +626,7 @@ type LargestValuesForEachRangeType = {
         
                 for ( let dayNameIndex: number = 0; dayNameIndex < 7; dayNameIndex++ ) {
                     if ( isDayVisible( bindingOptions.views!.map!.daysToShow!, dayNameIndex + 1 ) ) {
-                        const dayText: string = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.dayNames![ dayNameIndex ] : Char.space;
+                        const dayText: string = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.text!.dayNames![ dayNameIndex ] : Char.space;
 
                         DomElement.createWithHTML( days, "div", "day-name", dayText );
                     }
@@ -830,9 +695,9 @@ type LargestValuesForEachRangeType = {
                         const monthWidth: number = month.offsetWidth;
     
                         if ( !bindingOptions.views!.map!.placeMonthNamesOnTheBottom ) {
-                            monthName = DomElement.createWithHTML( month, "div", "month-name", _configuration.monthNames![ monthIndex ], dayColumns );
+                            monthName = DomElement.createWithHTML( month, "div", "month-name", _configuration.text!.monthNames![ monthIndex ], dayColumns );
                         } else {
-                            monthName = DomElement.createWithHTML( month, "div", "month-name-bottom", _configuration.monthNames![ monthIndex ] );
+                            monthName = DomElement.createWithHTML( month, "div", "month-name-bottom", _configuration.text!.monthNames![ monthIndex ] );
                         }
     
                         if ( Is.defined( monthName ) ) {
@@ -876,7 +741,7 @@ type LargestValuesForEachRangeType = {
         const date: Date = new Date( year, month, actualDay );
         let dateCount: number = _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ bindingOptions._currentView.type ][ DateTime.toStorageDate( date ) ];
 
-        dateCount = Data.getDefaultNumber( dateCount, 0 );
+        dateCount = Default.getNumber( dateCount, 0 );
 
         renderDayToolTip( bindingOptions, day, date, dateCount );
 
@@ -886,7 +751,7 @@ type LargestValuesForEachRangeType = {
 
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
             day.onclick = () => {
-                fireCustomTriggerEvent( bindingOptions.events!.onDayClick!, date, dateCount );
+                Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount );
             };
 
         } else {
@@ -969,7 +834,7 @@ type LargestValuesForEachRangeType = {
             bindingOptions._currentView.chartContents.style.minHeight = `${bindingOptions._currentView.mapContents.offsetHeight}px`;
             chart.parentNode!.removeChild( chart );
 
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.chartContents, "div", "no-data-message", _configuration.noChartDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.chartContents, "div", "no-data-message", _configuration.text!.noChartDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
@@ -1013,7 +878,7 @@ type LargestValuesForEachRangeType = {
 
                 const addMonthName: Function = ( addMonthNameIndex: number ) => {
                     if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, addMonthNameIndex ) ) {
-                        let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", _configuration.monthNames![ addMonthNameIndex ] );
+                        let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", _configuration.text!.monthNames![ addMonthNameIndex ] );
                         monthName.style.left = `${labelsWidth + (linesWidth * monthTimesValue)}px`;
 
                         monthTimesValue++;
@@ -1048,7 +913,7 @@ type LargestValuesForEachRangeType = {
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
 
-        dateCount = Data.getDefaultNumber( dateCount, 0 );
+        dateCount = Default.getNumber( dateCount, 0 );
 
         renderDayToolTip( bindingOptions, dayLine, date, dateCount );
 
@@ -1067,7 +932,7 @@ type LargestValuesForEachRangeType = {
 
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
             dayLine.onclick = () => {
-                fireCustomTriggerEvent( bindingOptions.events!.onDayClick!, date, dateCount );
+                Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount );
             };
 
         } else {
@@ -1151,7 +1016,7 @@ type LargestValuesForEachRangeType = {
             days.parentNode!.removeChild( days );
             dayNames.parentNode!.removeChild( dayNames );
 
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.daysContents, "div", "no-days-message", _configuration.noDaysDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.daysContents, "div", "no-days-message", _configuration.text!.noDaysDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
@@ -1165,7 +1030,7 @@ type LargestValuesForEachRangeType = {
                     renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.days[ day ], bindingOptions, pixelsPerNumbers );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
-                        DomElement.createWithHTML( dayNames, "div", "day-name", _configuration.dayNames![ parseInt( day ) - 1 ] );
+                        DomElement.createWithHTML( dayNames, "div", "day-name", _configuration.text!.dayNames![ parseInt( day ) - 1 ] );
                     }
                 }
             }
@@ -1191,11 +1056,11 @@ type LargestValuesForEachRangeType = {
             dayLine.style.visibility = "hidden";
         }
         
-        addToolTip( dayLine, bindingOptions, dayCount.toString() );
+        ToolTip.add( dayLine, bindingOptions, dayCount.toString() );
 
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
             dayLine.onclick = () => {
-                fireCustomTriggerEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount );
+                Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount );
             };
 
         } else {
@@ -1294,7 +1159,7 @@ type LargestValuesForEachRangeType = {
             statistics.parentNode!.removeChild( statistics );
             statisticsRanges.parentNode!.removeChild( statisticsRanges );
 
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.statisticsContents, "div", "no-statistics-message", _configuration.noStatisticsDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.statisticsContents, "div", "no-statistics-message", _configuration.text!.noStatisticsDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
@@ -1345,7 +1210,7 @@ type LargestValuesForEachRangeType = {
             rangeLine.style.visibility = "hidden";
         }
         
-        addToolTip( rangeLine, bindingOptions, rangeCount.toString() );
+        ToolTip.add( rangeLine, bindingOptions, rangeCount.toString() );
 
         if ( bindingOptions.views!.statistics!.showRangeNumbers && rangeCount > 0 ) {
             DomElement.addClass( rangeLine, "range-line-number" );
@@ -1355,7 +1220,7 @@ type LargestValuesForEachRangeType = {
 
         if ( Is.definedFunction( bindingOptions.events!.onStatisticClick ) ) {
             rangeLine.onclick = () => {
-                fireCustomTriggerEvent( bindingOptions.events!.onStatisticClick!, useColorRange );
+                Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange );
             };
 
         } else {
@@ -1427,8 +1292,8 @@ type LargestValuesForEachRangeType = {
         const mapTypes: HTMLElement = DomElement.create( guide, "div", "map-types" );
         let noneTypeCount: number = 0;
 
-        for ( let storageDate in _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ _configuration.unknownTrendText! ] ) {
-            if ( _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ _configuration.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
+        for ( let storageDate in _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ _configuration.text!.unknownTrendText! ] ) {
+            if ( _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ _configuration.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
                 noneTypeCount++;
                 break;
             }
@@ -1442,8 +1307,8 @@ type LargestValuesForEachRangeType = {
             }
 
             for ( let type in _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData ) {
-                if ( type !== _configuration.unknownTrendText || noneTypeCount > 0 ) {
-                    if ( noneTypeCount === 0 && bindingOptions._currentView.type === _configuration.unknownTrendText ) {
+                if ( type !== _configuration.text!.unknownTrendText || noneTypeCount > 0 ) {
+                    if ( noneTypeCount === 0 && bindingOptions._currentView.type === _configuration.text!.unknownTrendText ) {
                         bindingOptions._currentView.type = type;
                     }
 
@@ -1459,7 +1324,7 @@ type LargestValuesForEachRangeType = {
             const mapToggles: HTMLElement = DomElement.create( guide, "div", "map-toggles" );
 
             if ( bindingOptions.guide!.showLessAndMoreLabels ) {
-                let lessText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "less-text", _configuration.lessText! );
+                let lessText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "less-text", _configuration.text!.lessText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
                     lessText.onclick = () => {
@@ -1480,7 +1345,7 @@ type LargestValuesForEachRangeType = {
             }
 
             if ( bindingOptions.guide!.showLessAndMoreLabels ) {
-                const moreText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "more-text", _configuration.moreText! );
+                const moreText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "more-text", _configuration.text!.moreText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
                     moreText.onclick = () => {
@@ -1505,7 +1370,7 @@ type LargestValuesForEachRangeType = {
             if ( bindingOptions._currentView.type !== type ) {
                 bindingOptions._currentView.type = type;
 
-                fireCustomTriggerEvent( bindingOptions.events!.onTypeSwitch!, type );
+                Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, type );
                 renderControlContainer( bindingOptions );
             }
         };
@@ -1515,7 +1380,7 @@ type LargestValuesForEachRangeType = {
         const day: HTMLElement = DomElement.create( days, "div" );
         day.className = "day";
 
-        addToolTip( day, bindingOptions, colorRange.tooltipText! );
+        ToolTip.add( day, bindingOptions, colorRange.tooltipText! );
 
         if ( isColorRangeVisible( bindingOptions, colorRange.id! ) ) {
             if ( bindingOptions._currentView.view === ViewId.map && Is.definedString( colorRange.mapCssClassName ) ) {
@@ -1567,7 +1432,7 @@ type LargestValuesForEachRangeType = {
 
     function renderDayToolTip( bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number ) : void {
         if ( Is.definedFunction( bindingOptions.events!.onDayToolTipRender ) ) {
-            addToolTip( day, bindingOptions, fireCustomTriggerEvent( bindingOptions.events!.onDayToolTipRender!, date, dateCount ) );
+            ToolTip.add( day, bindingOptions, Trigger.customEvent( bindingOptions.events!.onDayToolTipRender!, date, dateCount ) );
         } else {
 
             let tooltip: string = DateTime.getCustomFormattedDateText( _configuration, bindingOptions.tooltip!.dayText!, date );
@@ -1580,7 +1445,7 @@ type LargestValuesForEachRangeType = {
                 }
             }
 
-            addToolTip( day, bindingOptions, tooltip );
+            ToolTip.add( day, bindingOptions, tooltip );
         }
     }
 
@@ -1598,7 +1463,7 @@ type LargestValuesForEachRangeType = {
             totalTypes: 1
         };
 
-        _elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText! ] = {} as TypeCountsData;
+        _elements_DateCounts[ elementId ].typeData[ _configuration.text!.unknownTrendText! ] = {} as TypeCountsData;
 
         if ( storeLocalData && !bindingOptions._currentView.isInFetchMode ) {
             loadDataFromLocalStorage( bindingOptions );
@@ -1668,7 +1533,7 @@ type LargestValuesForEachRangeType = {
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
                 const key : string = window.localStorage.key( keyIndex )!;
 
-                if ( Data.String.startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
+                if ( Str.startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
                     const typesJson: string = window.localStorage.getItem( key )!;
                     const typesObject: StringToJson = getObjectFromString( typesJson );
 
@@ -1706,7 +1571,7 @@ type LargestValuesForEachRangeType = {
             const elementId: string = bindingOptions._currentView.element.id;
 
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
-                if ( Data.String.startsWithAnyCase( window.localStorage.key( keyIndex )!, _local_Storage_Start_ID + elementId ) ) {
+                if ( Str.startsWithAnyCase( window.localStorage.key( keyIndex )!, _local_Storage_Start_ID + elementId ) ) {
                     keysToRemove.push( window.localStorage.key( keyIndex )! );
                 }
             }
@@ -1743,18 +1608,18 @@ type LargestValuesForEachRangeType = {
 
     function pullDataFromCustomTrigger( bindingOptions: BindingOptions ) : void {
         const elementId: string = bindingOptions._currentView.element.id;
-        const data: TypeCountsData = fireCustomTriggerEvent( bindingOptions.events!.onDataFetch!, elementId );
+        const data: TypeCountsData = Trigger.customEvent( bindingOptions.events!.onDataFetch!, elementId );
 
         if ( Is.definedObject( data ) ) {
             createDateStorageForElement( elementId, bindingOptions, false );
 
             for ( let storageDate in data ) {
                 if ( data.hasOwnProperty( storageDate ) ) {
-                    if ( !_elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
-                        _elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText! ][ storageDate ] = 0;
+                    if ( !_elements_DateCounts[ elementId ].typeData[ _configuration.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
+                        _elements_DateCounts[ elementId ].typeData[ _configuration.text!.unknownTrendText! ][ storageDate ] = 0;
                     }
             
-                    _elements_DateCounts[ elementId ].typeData[ _configuration.unknownTrendText! ][ storageDate ] += data[ storageDate ];
+                    _elements_DateCounts[ elementId ].typeData[ _configuration.text!.unknownTrendText! ][ storageDate ] += data[ storageDate ];
                 }
             }
         }
@@ -1792,7 +1657,7 @@ type LargestValuesForEachRangeType = {
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
                 const colorRange: ColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
     
-                if ( colorRange.id === id && Data.getDefaultBoolean( colorRange.visible, true ) ) {
+                if ( colorRange.id === id && Default.getBoolean( colorRange.visible, true ) ) {
                     result = true;
                     break;
                 }
@@ -1808,7 +1673,7 @@ type LargestValuesForEachRangeType = {
         for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
             bindingOptions.colorRanges![ colorRangesIndex ].visible = flag;
 
-            fireCustomTriggerEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions.colorRanges![ colorRangesIndex ].id, flag );
+            Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions.colorRanges![ colorRangesIndex ].id, flag );
         }
 
         renderControlContainer( bindingOptions );
@@ -1821,9 +1686,9 @@ type LargestValuesForEachRangeType = {
             const colorRange: ColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
 
             if ( colorRange.id === id ) {
-                colorRange.visible = !Data.getDefaultBoolean( colorRange.visible, true );
+                colorRange.visible = !Default.getBoolean( colorRange.visible, true );
 
-                fireCustomTriggerEvent( bindingOptions.events!.onColorRangeTypeToggle!, colorRange.id, colorRange.visible );
+                Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, colorRange.id, colorRange.visible );
                 renderControlContainer( bindingOptions );
                 break;
             }
@@ -1976,7 +1841,7 @@ type LargestValuesForEachRangeType = {
             }
             
             if ( filesCompleted.length === filesLength ) {
-                fireCustomTriggerEvent( bindingOptions.events!.onImport!, bindingOptions._currentView.element );
+                Trigger.customEvent( bindingOptions.events!.onImport!, bindingOptions._currentView.element );
                 renderControlContainer( bindingOptions );
             }
         };
@@ -1999,26 +1864,24 @@ type LargestValuesForEachRangeType = {
         const reader: FileReader = new FileReader();
         let readingObject: TypeCountsData = {} as TypeCountsData;
 
-        reader.readAsText( file );
-
         reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
         };
     
         reader.onload = ( e: ProgressEvent<FileReader> ) => {
-            const JSON: StringToJson = getObjectFromString( e.target!.result );
+            const json: StringToJson = getObjectFromString( e.target!.result );
 
-            if ( JSON.parsed && Is.definedObject( JSON.object ) ) {
-                readingObject = JSON.object;
+            if ( json.parsed && Is.definedObject( json.object ) ) {
+                readingObject = json.object;
             }
         };
+
+        reader.readAsText( file );
     }
 
     function importFromTxt( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
         const readingObject: TypeCountsData = {} as TypeCountsData;
-
-        reader.readAsText( file );
 
         reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
@@ -2034,13 +1897,13 @@ type LargestValuesForEachRangeType = {
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
             }
         };
+
+        reader.readAsText( file );
     }
 
     function importFromCsv( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
         const readingObject: TypeCountsData = {} as TypeCountsData;
-
-        reader.readAsText( file );
 
         reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
@@ -2060,6 +1923,8 @@ type LargestValuesForEachRangeType = {
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
             }
         };
+
+        reader.readAsText( file );
     }
 
 
@@ -2072,7 +1937,7 @@ type LargestValuesForEachRangeType = {
     function exportAllData( bindingOptions: BindingOptions, exportType: string = null! ) : void {
         let contents: string = null!;
         const contentsMimeType: string = getExportMimeType( bindingOptions );
-        const contentExportType: string = Data.getDefaultString( exportType, bindingOptions.exportType! ).toLowerCase();
+        const contentExportType: string = Default.getString( exportType, bindingOptions.exportType! ).toLowerCase();
 
         if ( contentExportType === ExportType.csv ) {
             contents = getCsvContent( bindingOptions );
@@ -2094,7 +1959,7 @@ type LargestValuesForEachRangeType = {
             
             document.body.removeChild( tempLink );
 
-            fireCustomTriggerEvent( bindingOptions.events!.onExport!, bindingOptions._currentView.element );
+            Trigger.customEvent( bindingOptions.events!.onExport!, bindingOptions._currentView.element );
         }
     }
 
@@ -2109,7 +1974,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( csvContents.length > 0 ) {
-            csvContents.unshift( getCsvValueLine( [ getCsvValue( _configuration.dateText! ), getCsvValue( _configuration.countText! ) ] ) );
+            csvContents.unshift( getCsvValueLine( [ getCsvValue( _configuration.text!.dateText! ), getCsvValue( _configuration.text!.countText! ) ] ) );
         }
         
         return csvContents.join( Char.newLine );
@@ -2213,11 +2078,11 @@ type LargestValuesForEachRangeType = {
 
     function getExportFilename( bindingOptions: BindingOptions ) : string {
         const date: Date = new Date();
-        const datePart: string = Data.String.padNumber( date.getDate() ) + Char.dash + Data.String.padNumber( date.getMonth() + 1 ) + Char.dash + date.getFullYear();
-        const timePart: string = Data.String.padNumber( date.getHours() ) + Char.dash + Data.String.padNumber( date.getMinutes() );
+        const datePart: string = Str.padNumber( date.getDate() ) + Char.dash + Str.padNumber( date.getMonth() + 1 ) + Char.dash + date.getFullYear();
+        const timePart: string = Str.padNumber( date.getHours() ) + Char.dash + Str.padNumber( date.getMinutes() );
         let filenameStart: string = Char.empty;
 
-        if ( bindingOptions._currentView.type !== _configuration.unknownTrendText ) {
+        if ( bindingOptions._currentView.type !== _configuration.text!.unknownTrendText ) {
             filenameStart = bindingOptions._currentView.type.toLowerCase().replace( Char.space, Char.underscore ) + Char.underscore;
         }
 
@@ -2234,294 +2099,6 @@ type LargestValuesForEachRangeType = {
 
     function getCsvValueLine( csvValues: string[] ) : string {
         return csvValues.join( "," );
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Attribute Options
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function buildAttributeOptions( newOptions: any ) : BindingOptions {
-        let options: BindingOptions = Data.getDefaultObject( newOptions, {} as BindingOptions );
-        options.views = Data.getDefaultObject( options.views, {} );
-        options.exportOnlyYearBeingViewed = Data.getDefaultBoolean( options.exportOnlyYearBeingViewed, true );
-        options.year = Data.getDefaultNumber( options.year, new Date().getFullYear() );
-        options.view = Data.getDefaultString( options.view, ViewName.map );
-        options.exportType = Data.getDefaultString( options.exportType, ExportType.csv );
-        options.useLocalStorageForData = Data.getDefaultBoolean( options.useLocalStorageForData, false );
-        options.allowFileImports = Data.getDefaultBoolean( options.allowFileImports, true );
-        options.yearsToHide = Data.getDefaultArray( options.yearsToHide, [] );
-        options.dataFetchDelay = Data.getDefaultNumber( options.dataFetchDelay, 60000 );
-        options.showOnlyDataForYearsAvailable = Data.getDefaultBoolean( options.showOnlyDataForYearsAvailable, false );
-        options.showHolidaysInDayToolTips = Data.getDefaultBoolean( options.showHolidaysInDayToolTips, false );
-        
-        options = buildAttributeOptionColorRanges( options );
-        options = buildAttributeOptionHolidays( options );
-        options = buildAttributeOptionTitle( options );
-        options = buildAttributeOptionDescription( options );
-        options = buildAttributeOptionGuide( options );
-        options = buildAttributeOptionToolTip( options );
-        options = buildAttributeOptionMapView( options );
-        options = buildAttributeOptionChartView( options );
-        options = buildAttributeOptionDaysView( options );
-        options = buildAttributeOptionStatisticsView( options );
-        options = buildAttributeOptionCustomTriggers( options );
-        
-        return options;
-    }
-
-    function buildAttributeOptionColorRanges( options: BindingOptions ) : BindingOptions {
-        if ( Is.definedArray( options.colorRanges ) ) {
-            const colorRangesLength: number = options.colorRanges!.length;
-
-            for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
-                const colorRange: ColorRange = options.colorRanges![ colorRangeIndex ];
-
-                colorRange.id = Data.getDefaultString( colorRange.id, Data.String.newGuid() );
-                colorRange.name = Data.getDefaultString( colorRange.name, Char.empty );
-                colorRange.minimum = Data.getDefaultNumber( colorRange.minimum, 0 );
-                colorRange.cssClassName = Data.getDefaultString( colorRange.cssClassName, Char.empty );
-                colorRange.mapCssClassName = Data.getDefaultString( colorRange.mapCssClassName, Char.empty );
-                colorRange.chartCssClassName = Data.getDefaultString( colorRange.chartCssClassName, Char.empty );
-                colorRange.statisticsCssClassName = Data.getDefaultString( colorRange.statisticsCssClassName, Char.empty );
-                colorRange.tooltipText = Data.getDefaultString( colorRange.tooltipText, Char.empty );
-                colorRange.visible = Data.getDefaultBoolean( colorRange.visible, true );
-            }
-
-        } else {
-            options.colorRanges = [
-                {
-                    id: Data.String.newGuid(),
-                    name: "Day Color 1",
-                    minimum: 10,
-                    cssClassName: "day-color-1",
-                    tooltipText: "Day Color 1",
-                    visible: true
-                },
-                {
-                    id: Data.String.newGuid(),
-                    name: "Day Color 2",
-                    minimum: 15,
-                    cssClassName: "day-color-2",
-                    tooltipText: "Day Color 2",
-                    visible: true
-                },
-                {
-                    id: Data.String.newGuid(),
-                    name: "Day Color 3",
-                    minimum: 20,
-                    cssClassName: "day-color-3",
-                    tooltipText: "Day Color 3",
-                    visible: true
-                },
-                {
-                    id: Data.String.newGuid(),
-                    name: "Day Color 4",
-                    minimum: 25,
-                    cssClassName: "day-color-4",
-                    tooltipText: "Day Color 4",
-                    visible: true
-                }
-            ];
-        }
-
-        return options;
-    }
-
-    function buildAttributeOptionHolidays( options: BindingOptions ) : BindingOptions {
-        if ( Is.definedArray( options.holidays ) ) {
-            const holidaysLength: number = options.holidays!.length;
-
-            for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-                const holiday: Holiday = options.holidays![ holidayIndex ];
-                
-                holiday.date = Data.getDefaultString( holiday.date, Char.empty );
-                holiday.name = Data.getDefaultString( holiday.name, Char.empty );
-                holiday.showInViews = Data.getDefaultBoolean( holiday.showInViews, true );
-            }
-
-        } else {
-            options.holidays = [];
-        }
-
-        return options;
-    }
-
-    function buildAttributeOptionTitle( options: BindingOptions ) : BindingOptions {
-        options.title = Data.getDefaultObject( options.title, {} as Title );
-        options.title!.text = Data.getDefaultString( options.title!.text, "Heat.js" );
-        options.title!.showText = Data.getDefaultBoolean( options.title!.showText, true );
-        options.title!.showYearSelector = Data.getDefaultBoolean( options.title!.showYearSelector, true );
-        options.title!.showRefreshButton = Data.getDefaultBoolean( options.title!.showRefreshButton, false );
-        options.title!.showExportButton = Data.getDefaultBoolean( options.title!.showExportButton, false );
-        options.title!.extraSelectionYears = Data.getDefaultNumber( options.title!.extraSelectionYears, 50 );
-        options.title!.showYearSelectionDropDown = Data.getDefaultBoolean( options.title!.showYearSelectionDropDown, true );
-        options.title!.showImportButton = Data.getDefaultBoolean( options.title!.showImportButton, false );
-        options.title!.showConfigurationButton = Data.getDefaultBoolean( options.title!.showConfigurationButton, true );
-        options.title!.showTitleDropDownButton = Data.getDefaultBoolean( options.title!.showTitleDropDownButton, true );
-        options.title!.showTitleDropDownHeaders = Data.getDefaultBoolean( options.title!.showTitleDropDownHeaders, true );
-
-        return options;
-    }
-
-    function buildAttributeOptionDescription( options: BindingOptions ) : BindingOptions {
-        options.description = Data.getDefaultObject( options.description, {} as Description );
-        options.description!.text = Data.getDefaultString( options.description!.text, Char.empty );
-        options.description!.url = Data.getDefaultString( options.description!.url, Char.empty );
-        options.description!.urlTarget = Data.getDefaultString( options.description!.urlTarget, "_blank" );
-
-        return options;
-    }
-
-    function buildAttributeOptionGuide( options: BindingOptions ) : BindingOptions {
-        options.guide = Data.getDefaultObject( options.guide, {} as Guide );
-        options.guide!.enabled = Data.getDefaultBoolean( options.guide!.enabled, true );
-        options.guide!.colorRangeTogglesEnabled = Data.getDefaultBoolean( options.guide!.colorRangeTogglesEnabled, true );
-        options.guide!.showLessAndMoreLabels = Data.getDefaultBoolean( options.guide!.showLessAndMoreLabels, true );
-        options.guide!.showNumbersInGuide = Data.getDefaultBoolean( options.guide!.showNumbersInGuide, false );
-
-        return options;
-    }
-
-    function buildAttributeOptionToolTip( options: BindingOptions ) : BindingOptions {
-        options.tooltip = Data.getDefaultObject( options.tooltip, {} as Tooltip );
-        options.tooltip!.delay = Data.getDefaultNumber( options.tooltip!.delay, 750 );
-        options.tooltip!.dayText = Data.getDefaultString( options.tooltip!.dayText, "{d}{o} {mmmm} {yyyy}" );
-
-        return options;
-    }
-
-    function buildAttributeOptionMapView( options: BindingOptions ) : BindingOptions {
-        options.views!.map = Data.getDefaultObject( options.views!.map, {} as Map );
-        options.views!.map!.showMonthDayGaps = Data.getDefaultBoolean( options.views!.map!.showMonthDayGaps, true );
-        options.views!.map!.showDayNames = Data.getDefaultBoolean( options.views!.map!.showDayNames, true );
-        options.views!.map!.placeMonthNamesOnTheBottom = Data.getDefaultBoolean( options.views!.map!.placeMonthNamesOnTheBottom, false );
-        options.views!.map!.showDayNumbers = Data.getDefaultBoolean( options.views!.map!.showDayNumbers, false );
-        options.views!.map!.showMonthNames = Data.getDefaultBoolean( options.views!.map!.showMonthNames, true );
-        options.views!.map!.showDaysInReverseOrder = Data.getDefaultBoolean( options.views!.map!.showDaysInReverseOrder, false );
-        options.views!.map!.showNoDataMessageWhenDataIsNotAvailable = Data.getDefaultBoolean( options.views!.map!.showNoDataMessageWhenDataIsNotAvailable, false );
-        options.views!.map!.showMinimalDayNames = Data.getDefaultBoolean( options.views!.map!.showMinimalDayNames, false );
-        options.views!.map!.showMonthsInReverseOrder = Data.getDefaultBoolean( options.views!.map!.showMonthsInReverseOrder, false );
-        options.views!.map!.keepScrollPositions = Data.getDefaultBoolean( options.views!.map!.keepScrollPositions, false );
-
-        if ( Is.invalidOptionArray( options.views!.map!.monthsToShow ) ) {
-            options.views!.map!.monthsToShow = _default_MonthsToShow;
-        }
-
-        if ( Is.invalidOptionArray( options.views!.map!.daysToShow ) ) {
-            options.views!.map!.daysToShow = _default_DaysToShow;
-        }
-
-        return options;
-    }
-
-    function buildAttributeOptionChartView( options: BindingOptions ) : BindingOptions {
-        options.views!.chart = Data.getDefaultObject( options.views!.chart, {} as Chart );
-        options.views!.chart!.enabled = Data.getDefaultBoolean( options.views!.chart!.enabled, true );
-        options.views!.chart!.showChartYLabels = Data.getDefaultBoolean( options.views!.chart!.showChartYLabels, true );
-        options.views!.chart!.showMonthNames = Data.getDefaultBoolean( options.views!.chart!.showMonthNames, true );
-        options.views!.chart!.showLineNumbers = Data.getDefaultBoolean( options.views!.chart!.showLineNumbers, false );
-        options.views!.chart!.showInReverseOrder = Data.getDefaultBoolean( options.views!.chart!.showInReverseOrder, false );
-        options.views!.chart!.keepScrollPositions = Data.getDefaultBoolean( options.views!.chart!.keepScrollPositions, false );
-
-        if ( Is.invalidOptionArray( options.views!.chart!.monthsToShow ) ) {
-            options.views!.chart!.monthsToShow = _default_MonthsToShow;
-        }
-
-        if ( Is.invalidOptionArray( options.views!.chart!.daysToShow ) ) {
-            options.views!.chart!.daysToShow = _default_DaysToShow;
-        }
-
-        return options;
-    }
-
-    function buildAttributeOptionDaysView( options: BindingOptions ) : BindingOptions {
-        options.views!.days = Data.getDefaultObject( options.views!.days, {} as Days );
-        options.views!.days!.enabled = Data.getDefaultBoolean( options.views!.days!.enabled, true );
-        options.views!.days!.showChartYLabels = Data.getDefaultBoolean( options.views!.days!.showChartYLabels, true );
-        options.views!.days!.showDayNames = Data.getDefaultBoolean( options.views!.days!.showDayNames, true );
-        options.views!.days!.showInReverseOrder = Data.getDefaultBoolean( options.views!.days!.showInReverseOrder, false );
-        options.views!.days!.showDayNumbers = Data.getDefaultBoolean( options.views!.days!.showDayNumbers, false );
-        options.views!.days!.keepScrollPositions = Data.getDefaultBoolean( options.views!.days!.keepScrollPositions, false );
-
-        if ( Is.invalidOptionArray( options.views!.days!.monthsToShow ) ) {
-            options.views!.days!.monthsToShow = _default_MonthsToShow;
-        }
-
-        if ( Is.invalidOptionArray( options.views!.days!.daysToShow ) ) {
-            options.views!.days!.daysToShow = _default_DaysToShow;
-        }
-
-        return options;
-    }
-
-    function buildAttributeOptionStatisticsView( options: BindingOptions ) : BindingOptions {
-        options.views!.statistics = Data.getDefaultObject( options.views!.statistics, {} as Statistics );
-        options.views!.statistics!.enabled = Data.getDefaultBoolean( options.views!.statistics!.enabled, true );
-        options.views!.statistics!.showChartYLabels = Data.getDefaultBoolean( options.views!.statistics!.showChartYLabels, true );
-        options.views!.statistics!.showColorRangeLabels = Data.getDefaultBoolean( options.views!.statistics!.showColorRangeLabels, true );
-        options.views!.statistics!.useColorRangeNamesForLabels = Data.getDefaultBoolean( options.views!.statistics!.useColorRangeNamesForLabels, false );
-        options.views!.statistics!.showRangeNumbers = Data.getDefaultBoolean( options.views!.statistics!.showRangeNumbers, false );
-        options.views!.statistics!.showInReverseOrder = Data.getDefaultBoolean( options.views!.statistics!.showInReverseOrder, false );
-        options.views!.statistics!.keepScrollPositions = Data.getDefaultBoolean( options.views!.statistics!.keepScrollPositions, false );
-
-        if ( Is.invalidOptionArray( options.views!.statistics!.monthsToShow ) ) {
-            options.views!.statistics!.monthsToShow = _default_MonthsToShow;
-        }
-
-        if ( Is.invalidOptionArray( options.views!.statistics!.daysToShow ) ) {
-            options.views!.statistics!.daysToShow = _default_DaysToShow;
-        }
-
-        return options;
-    }
-
-    function buildAttributeOptionCustomTriggers( options : BindingOptions ) : BindingOptions {
-        options.events = Data.getDefaultObject( options.events, {} as Events );
-        options.events!.onDayClick = Data.getDefaultFunction( options.events!.onDayClick, null! );
-        options.events!.onBackYear = Data.getDefaultFunction( options.events!.onBackYear, null! );
-        options.events!.onNextYear = Data.getDefaultFunction( options.events!.onNextYear, null! );
-        options.events!.onRefresh = Data.getDefaultFunction( options.events!.onRefresh, null! );
-        options.events!.onBeforeRender = Data.getDefaultFunction( options.events!.onBeforeRender, null! );
-        options.events!.onRenderComplete = Data.getDefaultFunction( options.events!.onRenderComplete, null! );
-        options.events!.onDestroy = Data.getDefaultFunction( options.events!.onDestroy, null! );
-        options.events!.onExport = Data.getDefaultFunction( options.events!.onExport, null! );
-        options.events!.onSetYear = Data.getDefaultFunction( options.events!.onSetYear, null! );
-        options.events!.onTypeSwitch = Data.getDefaultFunction( options.events!.onTypeSwitch, null! );
-        options.events!.onDayToolTipRender = Data.getDefaultFunction( options.events!.onDayToolTipRender, null! );
-        options.events!.onAdd = Data.getDefaultFunction( options.events!.onAdd, null! );
-        options.events!.onRemove = Data.getDefaultFunction( options.events!.onRemove, null! );
-        options.events!.onReset = Data.getDefaultFunction( options.events!.onReset, null! );
-        options.events!.onViewSwitch = Data.getDefaultFunction( options.events!.onViewSwitch, null! );
-        options.events!.onColorRangeTypeToggle = Data.getDefaultFunction( options.events!.onColorRangeTypeToggle, null! );
-        options.events!.onImport = Data.getDefaultFunction( options.events!.onImport, null! );
-        options.events!.onStatisticClick = Data.getDefaultFunction( options.events!.onStatisticClick, null! );
-        options.events!.onDataFetch = Data.getDefaultFunction( options.events!.onDataFetch, null! );
-        options.events!.onClear = Data.getDefaultFunction( options.events!.onClear, null! );
-        options.events!.onUpdate = Data.getDefaultFunction( options.events!.onUpdate, null! );
-        options.events!.onOptionsUpdate = Data.getDefaultFunction( options.events!.onOptionsUpdate, null! );
-        options.events!.onWeekDayClick = Data.getDefaultFunction( options.events!.onWeekDayClick, null! );
-
-        return options;
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Triggering Custom Events
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function fireCustomTriggerEvent<Type>( triggerFunction: Function, ...args : any[] ) : Type {
-        let result: any = null;
-
-        if ( Is.definedFunction( triggerFunction ) ) {
-            result = triggerFunction.apply( null, [].slice.call( args, 0 ) );
-        }
-
-        return result;
     }
 
 
@@ -2552,7 +2129,7 @@ type LargestValuesForEachRangeType = {
                 
             } catch ( e2: any ) {
                 if ( !_configuration.safeMode ) {
-                    console.error( _configuration.objectErrorText!.replace( "{{error_1}}",  e1.message ).replace( "{{error_2}}",  e2.message ) );
+                    console.error( _configuration.text!.objectErrorText!.replace( "{{error_1}}",  e1.message ).replace( "{{error_2}}",  e2.message ) );
                     result.parsed = false;
                 }
                 
@@ -2591,7 +2168,7 @@ type LargestValuesForEachRangeType = {
             renderControlContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
-                fireCustomTriggerEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView.year );
             }
         }
     }
@@ -2617,7 +2194,7 @@ type LargestValuesForEachRangeType = {
             renderControlContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
-                fireCustomTriggerEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView.year );
             }
         }
     }
@@ -2633,7 +2210,7 @@ type LargestValuesForEachRangeType = {
         bindingOptions._currentView.element.innerHTML = Char.empty;
 
         DomElement.removeClass( bindingOptions._currentView.element, "heat-js" );
-        assignToolTipEvents( bindingOptions, false );
+        ToolTip.assignToEvents( bindingOptions, false );
 
         document.body.removeChild( bindingOptions._currentView.tooltip );
 
@@ -2641,90 +2218,7 @@ type LargestValuesForEachRangeType = {
             clearInterval( bindingOptions._currentView.isInFetchModeTimer );
         }
 
-        fireCustomTriggerEvent( bindingOptions.events!.onDestroy!, bindingOptions._currentView.element );
-    }
-
-
-	/*
-	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	 * Public API Functions:  Helpers:  Configuration
-	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	 */
-
-    function buildDefaultConfiguration( newConfiguration: Configuration = null! ) : void {
-        _configuration = Data.getDefaultObject( newConfiguration, {} as Configuration );
-        _configuration.safeMode = Data.getDefaultBoolean( _configuration.safeMode, true );
-        _configuration.domElementTypes = Data.getDefaultStringOrArray( _configuration.domElementTypes, [ "*" ] );
-
-        buildDefaultConfigurationStrings();
-        buildDefaultConfigurationArrays();
-    }
-
-    function buildDefaultConfigurationStrings() : void {
-        _configuration.stText = Data.getDefaultAnyString( _configuration.stText, "st" );
-        _configuration.ndText = Data.getDefaultAnyString( _configuration.ndText, "nd" );
-        _configuration.rdText = Data.getDefaultAnyString( _configuration.rdText, "rd" );
-        _configuration.thText = Data.getDefaultAnyString( _configuration.thText, "th" );
-        _configuration.backButtonText = Data.getDefaultAnyString( _configuration.backButtonText, "Back" );
-        _configuration.nextButtonText = Data.getDefaultAnyString( _configuration.nextButtonText, "Next" );
-        _configuration.refreshButtonText = Data.getDefaultAnyString( _configuration.refreshButtonText, "Refresh" );
-        _configuration.exportButtonText = Data.getDefaultAnyString( _configuration.exportButtonText, "Export" );
-        _configuration.lessText = Data.getDefaultAnyString( _configuration.lessText, "Less" );
-        _configuration.moreText = Data.getDefaultAnyString( _configuration.moreText, "More" );
-        _configuration.dateText = Data.getDefaultAnyString( _configuration.dateText, "Date" );
-        _configuration.countText = Data.getDefaultAnyString( _configuration.countText, "Count" );
-        _configuration.mapText = Data.getDefaultAnyString( _configuration.mapText, "Map" );
-        _configuration.chartText = Data.getDefaultAnyString( _configuration.chartText, "Chart" );
-        _configuration.noChartDataMessage = Data.getDefaultAnyString( _configuration.noChartDataMessage, "There is currently no data to view." );
-        _configuration.statisticsText = Data.getDefaultAnyString( _configuration.statisticsText, "Statistics" );
-        _configuration.noStatisticsDataMessage = Data.getDefaultAnyString( _configuration.noStatisticsDataMessage, "There are currently no statistics to view." );
-        _configuration.unknownTrendText = Data.getDefaultAnyString( _configuration.unknownTrendText, "Unknown" );
-        _configuration.importButtonText = Data.getDefaultAnyString( _configuration.importButtonText, "Import" );
-        _configuration.noMapDataMessage = Data.getDefaultAnyString( _configuration.noMapDataMessage, "There is currently no data to view." );
-        _configuration.objectErrorText = Data.getDefaultAnyString( _configuration.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}" );
-        _configuration.attributeNotValidErrorText = Data.getDefaultAnyString( _configuration.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object." );
-        _configuration.attributeNotSetErrorText = Data.getDefaultAnyString( _configuration.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly." );
-        _configuration.closeToolTipText = Data.getDefaultAnyString( _configuration.closeToolTipText, "Close" );
-        _configuration.configurationToolTipText = Data.getDefaultAnyString( _configuration.configurationToolTipText, "Configuration" );
-        _configuration.configurationTitleText = Data.getDefaultAnyString( _configuration.configurationTitleText, "Configuration" );
-        _configuration.visibleMonthsText = Data.getDefaultAnyString( _configuration.visibleMonthsText, "Visible Months" );
-        _configuration.visibleDaysText = Data.getDefaultAnyString( _configuration.visibleDaysText, "Visible Days" );
-        _configuration.dataText = Data.getDefaultAnyString( _configuration.dataText, "Data" );
-        _configuration.colorRangesText = Data.getDefaultAnyString( _configuration.colorRangesText, "Color Ranges" );
-        _configuration.yearText = Data.getDefaultAnyString( _configuration.yearText, "Year" );
-        _configuration.daysText = Data.getDefaultAnyString( _configuration.daysText, "Days" );
-        _configuration.noDaysDataMessage = Data.getDefaultAnyString( _configuration.noDaysDataMessage, "There are currently no days to view." );
-    }
-
-    function buildDefaultConfigurationArrays() : void {
-        if ( Is.invalidOptionArray( _configuration.monthNames, 12 ) ) {
-            _configuration.monthNames = [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec"
-            ];
-        }
-
-        if ( Is.invalidOptionArray( _configuration.dayNames, 7 ) ) {
-            _configuration.dayNames = [
-                "Mon",
-                "Tue",
-                "Wed",
-                "Thu",
-                "Fri",
-                "Sat",
-                "Sun"
-            ];
-        }
+        Trigger.customEvent( bindingOptions.events!.onDestroy!, bindingOptions._currentView.element );
     }
 
 
@@ -2746,7 +2240,7 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
-                    type = Data.getDefaultString( type, _configuration.unknownTrendText! );
+                    type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                     const datesLength: number = dates.length;
         
@@ -2768,7 +2262,7 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
-                    type = Data.getDefaultString( type, _configuration.unknownTrendText! );
+                    type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                     const storageDate: string = DateTime.toStorageDate( date );
         
@@ -2783,7 +2277,7 @@ type LargestValuesForEachRangeType = {
             
                     _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ]++;
         
-                    fireCustomTriggerEvent( bindingOptions.events!.onAdd!, bindingOptions._currentView.element );
+                    Trigger.customEvent( bindingOptions.events!.onAdd!, bindingOptions._currentView.element );
         
                     if ( triggerRefresh ) {
                         renderControlContainer( bindingOptions, true );
@@ -2802,11 +2296,11 @@ type LargestValuesForEachRangeType = {
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) ) {    
-                        type = Data.getDefaultString( type, _configuration.unknownTrendText! );
+                        type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                         _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ] = count;
         
-                        fireCustomTriggerEvent( bindingOptions.events!.onUpdate!, bindingOptions._currentView.element );
+                        Trigger.customEvent( bindingOptions.events!.onUpdate!, bindingOptions._currentView.element );
         
                         if ( triggerRefresh ) {
                             renderControlContainer( bindingOptions, true );
@@ -2823,7 +2317,7 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
-                    type = Data.getDefaultString( type, _configuration.unknownTrendText! );
+                    type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                     const datesLength: number = dates.length;
         
@@ -2848,13 +2342,13 @@ type LargestValuesForEachRangeType = {
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
-                        type = Data.getDefaultString( type, _configuration.unknownTrendText! );
+                        type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                         if ( _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ] > 0 ) {
                             _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ]--;
                         }
         
-                        fireCustomTriggerEvent( bindingOptions.events!.onRemove!, bindingOptions._currentView.element );
+                        Trigger.customEvent( bindingOptions.events!.onRemove!, bindingOptions._currentView.element );
         
                         if ( triggerRefresh ) {
                             renderControlContainer( bindingOptions, true );
@@ -2874,11 +2368,11 @@ type LargestValuesForEachRangeType = {
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) && _elements_DateCounts[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
-                        type = Data.getDefaultString( type, _configuration.unknownTrendText! );
+                        type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                         delete _elements_DateCounts[ elementId ].typeData[ type ][ storageDate ];
         
-                        fireCustomTriggerEvent( bindingOptions.events!.onClear!, bindingOptions._currentView.element );
+                        Trigger.customEvent( bindingOptions.events!.onClear!, bindingOptions._currentView.element );
         
                         if ( triggerRefresh ) {
                             renderControlContainer( bindingOptions, true );
@@ -2905,10 +2399,10 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
                 
                 if ( !bindingOptions._currentView.isInFetchMode ) {
-                    bindingOptions._currentView.type = _configuration.unknownTrendText!;
+                    bindingOptions._currentView.type = _configuration.text!.unknownTrendText!;
         
                     createDateStorageForElement( elementId, bindingOptions, false );
-                    fireCustomTriggerEvent( bindingOptions.events!.onReset!, bindingOptions._currentView.element );
+                    Trigger.customEvent( bindingOptions.events!.onReset!, bindingOptions._currentView.element );
         
                     if ( triggerRefresh ) {
                         renderControlContainer( bindingOptions, true );
@@ -2958,7 +2452,7 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
     
                 renderControlContainer( bindingOptions, true );
-                fireCustomTriggerEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
+                Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
             }
     
             return _public;
@@ -2970,7 +2464,7 @@ type LargestValuesForEachRangeType = {
                     const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
     
                     renderControlContainer( bindingOptions, true );
-                    fireCustomTriggerEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
+                    Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
                 }
             }
     
@@ -2988,7 +2482,7 @@ type LargestValuesForEachRangeType = {
                     renderControlContainer( bindingOptions );
                 }
     
-                fireCustomTriggerEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
             }
     
             return _public;
@@ -3015,7 +2509,7 @@ type LargestValuesForEachRangeType = {
                         renderControlContainer( bindingOptions );
                     }
     
-                    fireCustomTriggerEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
                 }
             }
     
@@ -3043,7 +2537,7 @@ type LargestValuesForEachRangeType = {
                         renderControlContainer( bindingOptions );
                     }
     
-                    fireCustomTriggerEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
                 }
             }
     
@@ -3077,7 +2571,7 @@ type LargestValuesForEachRangeType = {
                     renderControlContainer( bindingOptions );
                 }
     
-                fireCustomTriggerEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
             }
     
             return _public;
@@ -3097,7 +2591,7 @@ type LargestValuesForEachRangeType = {
 
         render: function ( element: HTMLElement, options: BindingOptions ) : PublicApi {
             if ( Is.definedObject( element ) && Is.definedObject( options ) ) {
-                renderControl( renderBindingOptions( options, element ) );
+                renderControl( Binding.Options.getForNewInstance(_configuration, options, element ) );
             }
     
             return _public;
@@ -3129,7 +2623,7 @@ type LargestValuesForEachRangeType = {
                 if ( Is.definedNumber( view ) ) {
                     bindingOptions._currentView.view = view;
     
-                    fireCustomTriggerEvent( bindingOptions.events!.onViewSwitch!, viewName );
+                    Trigger.customEvent( bindingOptions.events!.onViewSwitch!, viewName );
                     renderControlContainer( bindingOptions, false, true );
                 }
             }
@@ -3144,7 +2638,7 @@ type LargestValuesForEachRangeType = {
                 if ( bindingOptions._currentView.type !== type ) {
                     bindingOptions._currentView.type = type;
                 
-                    fireCustomTriggerEvent( bindingOptions.events!.onTypeSwitch!, type );
+                    Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, type );
                     renderControlContainer( bindingOptions );
                 }
             }
@@ -3155,7 +2649,7 @@ type LargestValuesForEachRangeType = {
         updateOptions: function ( elementId: string, newOptions: BindingOptions ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedObject( newOptions ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: any = _elements_DateCounts[ elementId ].options;
-                const newBindingOptions: any = buildAttributeOptions( newOptions );
+                const newBindingOptions: any = Binding.Options.get( newOptions );
                 let optionChanged: boolean = false;
     
                 for ( let propertyName in newBindingOptions ) {
@@ -3167,8 +2661,8 @@ type LargestValuesForEachRangeType = {
     
                 if ( optionChanged ) {
                     renderControlContainer( bindingOptions, true );
-                    fireCustomTriggerEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
-                    fireCustomTriggerEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView.element, bindingOptions );
+                    Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
+                    Trigger.customEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView.element, bindingOptions );
                 }
             }
     
@@ -3224,7 +2718,7 @@ type LargestValuesForEachRangeType = {
                 }
         
                 if ( configurationHasChanged ) {
-                    buildDefaultConfiguration( newInternalConfiguration );
+                    _configuration = Config.Options.get( newInternalConfiguration );
         
                     if ( triggerRefresh ) {
                         _public.refreshAll();
@@ -3255,7 +2749,7 @@ type LargestValuesForEachRangeType = {
         },
 
         getVersion: function () : string {
-            return "4.0.5";
+            return "4.1.0";
         }
     };
 
@@ -3267,7 +2761,7 @@ type LargestValuesForEachRangeType = {
      */
 
     ( () => {
-        buildDefaultConfiguration();
+        _configuration = Config.Options.get();
 
         document.addEventListener( "DOMContentLoaded", () => {
             render();

@@ -4,16 +4,16 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        datetime.ts
- * @version     v4.0.5
+ * @version     v4.1.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
  */
 
 
-import { Data } from "./data";
+import { type Configuration } from "../type";
 import { Char } from "./enum";
-import { Configuration } from "./type";
+import { Str } from "./str";
 
 
 export namespace DateTime {
@@ -26,14 +26,14 @@ export namespace DateTime {
     }
 
     export function getDayOrdinal( configuration: Configuration, value: number ) : string {
-        let result: string = configuration.thText!;
+        let result: string = configuration.text!.thText!;
 
         if ( value === 31 || value === 21 || value === 1 ) {
-            result = configuration.stText!;
+            result = configuration.text!.stText!;
         } else if ( value === 22 || value === 2 ) {
-            result = configuration.ndText!;
+            result = configuration.text!.ndText!;
         } else if ( value === 23 || value === 3 ) {
-            result = configuration.rdText!;
+            result = configuration.text!.rdText!;
         }
 
         return result;
@@ -43,14 +43,14 @@ export namespace DateTime {
         let result: string = dateFormat;
         const weekDayNumber: number = getWeekdayNumber( date );
 
-        result = result.replace( "{dddd}", configuration.dayNames![ weekDayNumber ] );
-        result = result.replace( "{dd}", Data.String.padNumber( date.getDate() ) );
+        result = result.replace( "{dddd}", configuration.text!.dayNames![ weekDayNumber ] );
+        result = result.replace( "{dd}", Str.padNumber( date.getDate() ) );
         result = result.replace( "{d}", date.getDate().toString() );
 
         result = result.replace( "{o}", getDayOrdinal( configuration, date.getDate() ) );
 
-        result = result.replace( "{mmmm}", configuration.monthNames![ date.getMonth() ] );
-        result = result.replace( "{mm}", Data.String.padNumber( date.getMonth() + 1 ) );
+        result = result.replace( "{mmmm}", configuration.text!.monthNames![ date.getMonth() ] );
+        result = result.replace( "{mm}", Str.padNumber( date.getMonth() + 1 ) );
         result = result.replace( "{m}", ( date.getMonth() + 1 ).toString() );
 
         result = result.replace( "{yyyy}", date.getFullYear().toString() );
@@ -62,7 +62,7 @@ export namespace DateTime {
     }
 
     export function toStorageDate( date: Date ) : string {
-        return date.getFullYear() + Char.dash + Data.String.padNumber( date.getMonth() + 1 ) + Char.dash + Data.String.padNumber( date.getDate() );
+        return date.getFullYear() + Char.dash + Str.padNumber( date.getMonth() + 1 ) + Char.dash + Str.padNumber( date.getDate() );
     }
 
     export function getStorageDate( data: string ) : string[] {

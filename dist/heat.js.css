@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v4.0.5
+ * Heat.js Library v4.1.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -122,6 +122,9 @@ div.heat-js {
   width: 100%;
   max-width: 700px;
   margin: 0 !important;
+}
+div.heat-js button {
+  font-family: var(--heat-js-default-font);
 }
 div.heat-js div.view-switch {
   animation: fade-in-animation var(--heat-js-animation-length);
@@ -278,6 +281,9 @@ div.heat-js div.title-bar button.active {
   color: var(--heat-js-button-text-color-hover);
   transition: var(--heat-js-transition);
   font-weight: var(--heat-js-text-bold-weight-active);
+}
+div.heat-js div.title-bar button {
+  font-weight: var(--heat-js-title-bold-weight);
 }
 div.heat-js div.title-bar button.back {
   margin-left: calc(var(--heat-js-spacing) * 2) !important;
