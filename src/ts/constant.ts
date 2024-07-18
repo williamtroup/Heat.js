@@ -11,6 +11,6 @@
  */
 
 
-export namespace Constants {
+export namespace Constant {
     export const HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
 }

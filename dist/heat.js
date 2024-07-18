@@ -1,10 +1,10 @@
 "use strict";
 
-var Constants;
+var Constant;
 
 (e => {
     e.HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
-})(Constants || (Constants = {}));
+})(Constant || (Constant = {}));
 
 var Is;
 
@@ -347,14 +347,243 @@ var Trigger;
     e.customEvent = t;
 })(Trigger || (Trigger = {}));
 
+var binding;
+
+(e => {
+    let t;
+    (e => {
+        const t = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
+        const n = [ 1, 2, 3, 4, 5, 6, 7 ];
+        function o(e) {
+            let t = Data.getDefaultObject(e, {});
+            t.views = Data.getDefaultObject(t.views, {});
+            t.exportOnlyYearBeingViewed = Data.getDefaultBoolean(t.exportOnlyYearBeingViewed, true);
+            t.year = Data.getDefaultNumber(t.year, (new Date).getFullYear());
+            t.view = Data.getDefaultString(t.view, "map");
+            t.exportType = Data.getDefaultString(t.exportType, "csv");
+            t.useLocalStorageForData = Data.getDefaultBoolean(t.useLocalStorageForData, false);
+            t.allowFileImports = Data.getDefaultBoolean(t.allowFileImports, true);
+            t.yearsToHide = Data.getDefaultArray(t.yearsToHide, []);
+            t.dataFetchDelay = Data.getDefaultNumber(t.dataFetchDelay, 6e4);
+            t.showOnlyDataForYearsAvailable = Data.getDefaultBoolean(t.showOnlyDataForYearsAvailable, false);
+            t.showHolidaysInDayToolTips = Data.getDefaultBoolean(t.showHolidaysInDayToolTips, false);
+            t = i(t);
+            t = a(t);
+            t = r(t);
+            t = s(t);
+            t = l(t);
+            t = c(t);
+            t = u(t);
+            t = d(t);
+            t = f(t);
+            t = m(t);
+            t = g(t);
+            return t;
+        }
+        e.get = o;
+        function i(e) {
+            if (Is.definedArray(e.colorRanges)) {
+                const t = e.colorRanges.length;
+                for (let n = 0; n < t; n++) {
+                    const t = e.colorRanges[n];
+                    t.id = Data.getDefaultString(t.id, Data.String.newGuid());
+                    t.name = Data.getDefaultString(t.name, "");
+                    t.minimum = Data.getDefaultNumber(t.minimum, 0);
+                    t.cssClassName = Data.getDefaultString(t.cssClassName, "");
+                    t.mapCssClassName = Data.getDefaultString(t.mapCssClassName, "");
+                    t.chartCssClassName = Data.getDefaultString(t.chartCssClassName, "");
+                    t.statisticsCssClassName = Data.getDefaultString(t.statisticsCssClassName, "");
+                    t.tooltipText = Data.getDefaultString(t.tooltipText, "");
+                    t.visible = Data.getDefaultBoolean(t.visible, true);
+                }
+            } else {
+                e.colorRanges = [ {
+                    id: Data.String.newGuid(),
+                    name: "Day Color 1",
+                    minimum: 10,
+                    cssClassName: "day-color-1",
+                    tooltipText: "Day Color 1",
+                    visible: true
+                }, {
+                    id: Data.String.newGuid(),
+                    name: "Day Color 2",
+                    minimum: 15,
+                    cssClassName: "day-color-2",
+                    tooltipText: "Day Color 2",
+                    visible: true
+                }, {
+                    id: Data.String.newGuid(),
+                    name: "Day Color 3",
+                    minimum: 20,
+                    cssClassName: "day-color-3",
+                    tooltipText: "Day Color 3",
+                    visible: true
+                }, {
+                    id: Data.String.newGuid(),
+                    name: "Day Color 4",
+                    minimum: 25,
+                    cssClassName: "day-color-4",
+                    tooltipText: "Day Color 4",
+                    visible: true
+                } ];
+            }
+            return e;
+        }
+        function a(e) {
+            if (Is.definedArray(e.holidays)) {
+                const t = e.holidays.length;
+                for (let n = 0; n < t; n++) {
+                    const t = e.holidays[n];
+                    t.date = Data.getDefaultString(t.date, "");
+                    t.name = Data.getDefaultString(t.name, "");
+                    t.showInViews = Data.getDefaultBoolean(t.showInViews, true);
+                }
+            } else {
+                e.holidays = [];
+            }
+            return e;
+        }
+        function r(e) {
+            e.title = Data.getDefaultObject(e.title, {});
+            e.title.text = Data.getDefaultString(e.title.text, "Heat.js");
+            e.title.showText = Data.getDefaultBoolean(e.title.showText, true);
+            e.title.showYearSelector = Data.getDefaultBoolean(e.title.showYearSelector, true);
+            e.title.showRefreshButton = Data.getDefaultBoolean(e.title.showRefreshButton, false);
+            e.title.showExportButton = Data.getDefaultBoolean(e.title.showExportButton, false);
+            e.title.extraSelectionYears = Data.getDefaultNumber(e.title.extraSelectionYears, 50);
+            e.title.showYearSelectionDropDown = Data.getDefaultBoolean(e.title.showYearSelectionDropDown, true);
+            e.title.showImportButton = Data.getDefaultBoolean(e.title.showImportButton, false);
+            e.title.showConfigurationButton = Data.getDefaultBoolean(e.title.showConfigurationButton, true);
+            e.title.showTitleDropDownButton = Data.getDefaultBoolean(e.title.showTitleDropDownButton, true);
+            e.title.showTitleDropDownHeaders = Data.getDefaultBoolean(e.title.showTitleDropDownHeaders, true);
+            return e;
+        }
+        function s(e) {
+            e.description = Data.getDefaultObject(e.description, {});
+            e.description.text = Data.getDefaultString(e.description.text, "");
+            e.description.url = Data.getDefaultString(e.description.url, "");
+            e.description.urlTarget = Data.getDefaultString(e.description.urlTarget, "_blank");
+            return e;
+        }
+        function l(e) {
+            e.guide = Data.getDefaultObject(e.guide, {});
+            e.guide.enabled = Data.getDefaultBoolean(e.guide.enabled, true);
+            e.guide.colorRangeTogglesEnabled = Data.getDefaultBoolean(e.guide.colorRangeTogglesEnabled, true);
+            e.guide.showLessAndMoreLabels = Data.getDefaultBoolean(e.guide.showLessAndMoreLabels, true);
+            e.guide.showNumbersInGuide = Data.getDefaultBoolean(e.guide.showNumbersInGuide, false);
+            return e;
+        }
+        function c(e) {
+            e.tooltip = Data.getDefaultObject(e.tooltip, {});
+            e.tooltip.delay = Data.getDefaultNumber(e.tooltip.delay, 750);
+            e.tooltip.dayText = Data.getDefaultString(e.tooltip.dayText, "{d}{o} {mmmm} {yyyy}");
+            return e;
+        }
+        function u(e) {
+            e.views.map = Data.getDefaultObject(e.views.map, {});
+            e.views.map.showMonthDayGaps = Data.getDefaultBoolean(e.views.map.showMonthDayGaps, true);
+            e.views.map.showDayNames = Data.getDefaultBoolean(e.views.map.showDayNames, true);
+            e.views.map.placeMonthNamesOnTheBottom = Data.getDefaultBoolean(e.views.map.placeMonthNamesOnTheBottom, false);
+            e.views.map.showDayNumbers = Data.getDefaultBoolean(e.views.map.showDayNumbers, false);
+            e.views.map.showMonthNames = Data.getDefaultBoolean(e.views.map.showMonthNames, true);
+            e.views.map.showDaysInReverseOrder = Data.getDefaultBoolean(e.views.map.showDaysInReverseOrder, false);
+            e.views.map.showNoDataMessageWhenDataIsNotAvailable = Data.getDefaultBoolean(e.views.map.showNoDataMessageWhenDataIsNotAvailable, false);
+            e.views.map.showMinimalDayNames = Data.getDefaultBoolean(e.views.map.showMinimalDayNames, false);
+            e.views.map.showMonthsInReverseOrder = Data.getDefaultBoolean(e.views.map.showMonthsInReverseOrder, false);
+            e.views.map.keepScrollPositions = Data.getDefaultBoolean(e.views.map.keepScrollPositions, false);
+            if (Is.invalidOptionArray(e.views.map.monthsToShow)) {
+                e.views.map.monthsToShow = t;
+            }
+            if (Is.invalidOptionArray(e.views.map.daysToShow)) {
+                e.views.map.daysToShow = n;
+            }
+            return e;
+        }
+        function d(e) {
+            e.views.chart = Data.getDefaultObject(e.views.chart, {});
+            e.views.chart.enabled = Data.getDefaultBoolean(e.views.chart.enabled, true);
+            e.views.chart.showChartYLabels = Data.getDefaultBoolean(e.views.chart.showChartYLabels, true);
+            e.views.chart.showMonthNames = Data.getDefaultBoolean(e.views.chart.showMonthNames, true);
+            e.views.chart.showLineNumbers = Data.getDefaultBoolean(e.views.chart.showLineNumbers, false);
+            e.views.chart.showInReverseOrder = Data.getDefaultBoolean(e.views.chart.showInReverseOrder, false);
+            e.views.chart.keepScrollPositions = Data.getDefaultBoolean(e.views.chart.keepScrollPositions, false);
+            if (Is.invalidOptionArray(e.views.chart.monthsToShow)) {
+                e.views.chart.monthsToShow = t;
+            }
+            if (Is.invalidOptionArray(e.views.chart.daysToShow)) {
+                e.views.chart.daysToShow = n;
+            }
+            return e;
+        }
+        function f(e) {
+            e.views.days = Data.getDefaultObject(e.views.days, {});
+            e.views.days.enabled = Data.getDefaultBoolean(e.views.days.enabled, true);
+            e.views.days.showChartYLabels = Data.getDefaultBoolean(e.views.days.showChartYLabels, true);
+            e.views.days.showDayNames = Data.getDefaultBoolean(e.views.days.showDayNames, true);
+            e.views.days.showInReverseOrder = Data.getDefaultBoolean(e.views.days.showInReverseOrder, false);
+            e.views.days.showDayNumbers = Data.getDefaultBoolean(e.views.days.showDayNumbers, false);
+            e.views.days.keepScrollPositions = Data.getDefaultBoolean(e.views.days.keepScrollPositions, false);
+            if (Is.invalidOptionArray(e.views.days.monthsToShow)) {
+                e.views.days.monthsToShow = t;
+            }
+            if (Is.invalidOptionArray(e.views.days.daysToShow)) {
+                e.views.days.daysToShow = n;
+            }
+            return e;
+        }
+        function m(e) {
+            e.views.statistics = Data.getDefaultObject(e.views.statistics, {});
+            e.views.statistics.enabled = Data.getDefaultBoolean(e.views.statistics.enabled, true);
+            e.views.statistics.showChartYLabels = Data.getDefaultBoolean(e.views.statistics.showChartYLabels, true);
+            e.views.statistics.showColorRangeLabels = Data.getDefaultBoolean(e.views.statistics.showColorRangeLabels, true);
+            e.views.statistics.useColorRangeNamesForLabels = Data.getDefaultBoolean(e.views.statistics.useColorRangeNamesForLabels, false);
+            e.views.statistics.showRangeNumbers = Data.getDefaultBoolean(e.views.statistics.showRangeNumbers, false);
+            e.views.statistics.showInReverseOrder = Data.getDefaultBoolean(e.views.statistics.showInReverseOrder, false);
+            e.views.statistics.keepScrollPositions = Data.getDefaultBoolean(e.views.statistics.keepScrollPositions, false);
+            if (Is.invalidOptionArray(e.views.statistics.monthsToShow)) {
+                e.views.statistics.monthsToShow = t;
+            }
+            if (Is.invalidOptionArray(e.views.statistics.daysToShow)) {
+                e.views.statistics.daysToShow = n;
+            }
+            return e;
+        }
+        function g(e) {
+            e.events = Data.getDefaultObject(e.events, {});
+            e.events.onDayClick = Data.getDefaultFunction(e.events.onDayClick, null);
+            e.events.onBackYear = Data.getDefaultFunction(e.events.onBackYear, null);
+            e.events.onNextYear = Data.getDefaultFunction(e.events.onNextYear, null);
+            e.events.onRefresh = Data.getDefaultFunction(e.events.onRefresh, null);
+            e.events.onBeforeRender = Data.getDefaultFunction(e.events.onBeforeRender, null);
+            e.events.onRenderComplete = Data.getDefaultFunction(e.events.onRenderComplete, null);
+            e.events.onDestroy = Data.getDefaultFunction(e.events.onDestroy, null);
+            e.events.onExport = Data.getDefaultFunction(e.events.onExport, null);
+            e.events.onSetYear = Data.getDefaultFunction(e.events.onSetYear, null);
+            e.events.onTypeSwitch = Data.getDefaultFunction(e.events.onTypeSwitch, null);
+            e.events.onDayToolTipRender = Data.getDefaultFunction(e.events.onDayToolTipRender, null);
+            e.events.onAdd = Data.getDefaultFunction(e.events.onAdd, null);
+            e.events.onRemove = Data.getDefaultFunction(e.events.onRemove, null);
+            e.events.onReset = Data.getDefaultFunction(e.events.onReset, null);
+            e.events.onViewSwitch = Data.getDefaultFunction(e.events.onViewSwitch, null);
+            e.events.onColorRangeTypeToggle = Data.getDefaultFunction(e.events.onColorRangeTypeToggle, null);
+            e.events.onImport = Data.getDefaultFunction(e.events.onImport, null);
+            e.events.onStatisticClick = Data.getDefaultFunction(e.events.onStatisticClick, null);
+            e.events.onDataFetch = Data.getDefaultFunction(e.events.onDataFetch, null);
+            e.events.onClear = Data.getDefaultFunction(e.events.onClear, null);
+            e.events.onUpdate = Data.getDefaultFunction(e.events.onUpdate, null);
+            e.events.onOptionsUpdate = Data.getDefaultFunction(e.events.onOptionsUpdate, null);
+            e.events.onWeekDayClick = Data.getDefaultFunction(e.events.onWeekDayClick, null);
+            return e;
+        }
+    })(t = e.options || (e.options = {}));
+})(binding || (binding = {}));
+
 (() => {
     let _configuration = {};
     let _elements_Day_Width = 0;
     let _elements_DateCounts = {};
     const _internal_Name_Holiday = "HOLIDAY";
     const _local_Storage_Start_ID = "HJS_";
-    const _default_MonthsToShow = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
-    const _default_DaysToShow = [ 1, 2, 3, 4, 5, 6, 7 ];
     function renderDisabledBackground(e) {
         e._currentView.disabledBackground = DomElement.create(e._currentView.element, "div", "disabled");
     }
@@ -384,21 +613,21 @@ var Trigger;
     }
     function renderElement(e) {
         let t = true;
-        if (Is.defined(e) && e.hasAttribute(Constants.HEAT_JS_ATTRIBUTE_NAME)) {
-            const n = e.getAttribute(Constants.HEAT_JS_ATTRIBUTE_NAME);
+        if (Is.defined(e) && e.hasAttribute(Constant.HEAT_JS_ATTRIBUTE_NAME)) {
+            const n = e.getAttribute(Constant.HEAT_JS_ATTRIBUTE_NAME);
             if (Is.definedString(n)) {
                 const o = getObjectFromString(n);
                 if (o.parsed && Is.definedObject(o.object)) {
                     renderControl(renderBindingOptions(o.object, e));
                 } else {
                     if (!_configuration.safeMode) {
-                        console.error(_configuration.text.attributeNotValidErrorText.replace("{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME));
+                        console.error(_configuration.text.attributeNotValidErrorText.replace("{{attribute_name}}", Constant.HEAT_JS_ATTRIBUTE_NAME));
                         t = false;
                     }
                 }
             } else {
                 if (!_configuration.safeMode) {
-                    console.error(_configuration.text.attributeNotSetErrorText.replace("{{attribute_name}}", Constants.HEAT_JS_ATTRIBUTE_NAME));
+                    console.error(_configuration.text.attributeNotSetErrorText.replace("{{attribute_name}}", Constant.HEAT_JS_ATTRIBUTE_NAME));
                     t = false;
                 }
             }
@@ -406,7 +635,7 @@ var Trigger;
         return t;
     }
     function renderBindingOptions(e, t) {
-        const n = buildAttributeOptions(e);
+        const n = binding.options.get(e);
         const o = Data.getDefaultString(n.view, "").toLowerCase();
         let i = {};
         i.element = t;
@@ -459,7 +688,7 @@ var Trigger;
         } else {
             DomElement.addClass(e._currentView.element, "heat-js");
         }
-        e._currentView.element.removeAttribute(Constants.HEAT_JS_ATTRIBUTE_NAME);
+        e._currentView.element.removeAttribute(Constant.HEAT_JS_ATTRIBUTE_NAME);
         createDateStorageForElement(e._currentView.element.id, e);
         renderControlContainer(e);
         Trigger.customEvent(e.events.onRenderComplete, e._currentView.element);
@@ -1883,226 +2112,6 @@ var Trigger;
     function getCsvValueLine(e) {
         return e.join(",");
     }
-    function buildAttributeOptions(e) {
-        let t = Data.getDefaultObject(e, {});
-        t.views = Data.getDefaultObject(t.views, {});
-        t.exportOnlyYearBeingViewed = Data.getDefaultBoolean(t.exportOnlyYearBeingViewed, true);
-        t.year = Data.getDefaultNumber(t.year, (new Date).getFullYear());
-        t.view = Data.getDefaultString(t.view, "map");
-        t.exportType = Data.getDefaultString(t.exportType, "csv");
-        t.useLocalStorageForData = Data.getDefaultBoolean(t.useLocalStorageForData, false);
-        t.allowFileImports = Data.getDefaultBoolean(t.allowFileImports, true);
-        t.yearsToHide = Data.getDefaultArray(t.yearsToHide, []);
-        t.dataFetchDelay = Data.getDefaultNumber(t.dataFetchDelay, 6e4);
-        t.showOnlyDataForYearsAvailable = Data.getDefaultBoolean(t.showOnlyDataForYearsAvailable, false);
-        t.showHolidaysInDayToolTips = Data.getDefaultBoolean(t.showHolidaysInDayToolTips, false);
-        t = buildAttributeOptionColorRanges(t);
-        t = buildAttributeOptionHolidays(t);
-        t = buildAttributeOptionTitle(t);
-        t = buildAttributeOptionDescription(t);
-        t = buildAttributeOptionGuide(t);
-        t = buildAttributeOptionToolTip(t);
-        t = buildAttributeOptionMapView(t);
-        t = buildAttributeOptionChartView(t);
-        t = buildAttributeOptionDaysView(t);
-        t = buildAttributeOptionStatisticsView(t);
-        t = buildAttributeOptionCustomTriggers(t);
-        return t;
-    }
-    function buildAttributeOptionColorRanges(e) {
-        if (Is.definedArray(e.colorRanges)) {
-            const t = e.colorRanges.length;
-            for (let n = 0; n < t; n++) {
-                const t = e.colorRanges[n];
-                t.id = Data.getDefaultString(t.id, Data.String.newGuid());
-                t.name = Data.getDefaultString(t.name, "");
-                t.minimum = Data.getDefaultNumber(t.minimum, 0);
-                t.cssClassName = Data.getDefaultString(t.cssClassName, "");
-                t.mapCssClassName = Data.getDefaultString(t.mapCssClassName, "");
-                t.chartCssClassName = Data.getDefaultString(t.chartCssClassName, "");
-                t.statisticsCssClassName = Data.getDefaultString(t.statisticsCssClassName, "");
-                t.tooltipText = Data.getDefaultString(t.tooltipText, "");
-                t.visible = Data.getDefaultBoolean(t.visible, true);
-            }
-        } else {
-            e.colorRanges = [ {
-                id: Data.String.newGuid(),
-                name: "Day Color 1",
-                minimum: 10,
-                cssClassName: "day-color-1",
-                tooltipText: "Day Color 1",
-                visible: true
-            }, {
-                id: Data.String.newGuid(),
-                name: "Day Color 2",
-                minimum: 15,
-                cssClassName: "day-color-2",
-                tooltipText: "Day Color 2",
-                visible: true
-            }, {
-                id: Data.String.newGuid(),
-                name: "Day Color 3",
-                minimum: 20,
-                cssClassName: "day-color-3",
-                tooltipText: "Day Color 3",
-                visible: true
-            }, {
-                id: Data.String.newGuid(),
-                name: "Day Color 4",
-                minimum: 25,
-                cssClassName: "day-color-4",
-                tooltipText: "Day Color 4",
-                visible: true
-            } ];
-        }
-        return e;
-    }
-    function buildAttributeOptionHolidays(e) {
-        if (Is.definedArray(e.holidays)) {
-            const t = e.holidays.length;
-            for (let n = 0; n < t; n++) {
-                const t = e.holidays[n];
-                t.date = Data.getDefaultString(t.date, "");
-                t.name = Data.getDefaultString(t.name, "");
-                t.showInViews = Data.getDefaultBoolean(t.showInViews, true);
-            }
-        } else {
-            e.holidays = [];
-        }
-        return e;
-    }
-    function buildAttributeOptionTitle(e) {
-        e.title = Data.getDefaultObject(e.title, {});
-        e.title.text = Data.getDefaultString(e.title.text, "Heat.js");
-        e.title.showText = Data.getDefaultBoolean(e.title.showText, true);
-        e.title.showYearSelector = Data.getDefaultBoolean(e.title.showYearSelector, true);
-        e.title.showRefreshButton = Data.getDefaultBoolean(e.title.showRefreshButton, false);
-        e.title.showExportButton = Data.getDefaultBoolean(e.title.showExportButton, false);
-        e.title.extraSelectionYears = Data.getDefaultNumber(e.title.extraSelectionYears, 50);
-        e.title.showYearSelectionDropDown = Data.getDefaultBoolean(e.title.showYearSelectionDropDown, true);
-        e.title.showImportButton = Data.getDefaultBoolean(e.title.showImportButton, false);
-        e.title.showConfigurationButton = Data.getDefaultBoolean(e.title.showConfigurationButton, true);
-        e.title.showTitleDropDownButton = Data.getDefaultBoolean(e.title.showTitleDropDownButton, true);
-        e.title.showTitleDropDownHeaders = Data.getDefaultBoolean(e.title.showTitleDropDownHeaders, true);
-        return e;
-    }
-    function buildAttributeOptionDescription(e) {
-        e.description = Data.getDefaultObject(e.description, {});
-        e.description.text = Data.getDefaultString(e.description.text, "");
-        e.description.url = Data.getDefaultString(e.description.url, "");
-        e.description.urlTarget = Data.getDefaultString(e.description.urlTarget, "_blank");
-        return e;
-    }
-    function buildAttributeOptionGuide(e) {
-        e.guide = Data.getDefaultObject(e.guide, {});
-        e.guide.enabled = Data.getDefaultBoolean(e.guide.enabled, true);
-        e.guide.colorRangeTogglesEnabled = Data.getDefaultBoolean(e.guide.colorRangeTogglesEnabled, true);
-        e.guide.showLessAndMoreLabels = Data.getDefaultBoolean(e.guide.showLessAndMoreLabels, true);
-        e.guide.showNumbersInGuide = Data.getDefaultBoolean(e.guide.showNumbersInGuide, false);
-        return e;
-    }
-    function buildAttributeOptionToolTip(e) {
-        e.tooltip = Data.getDefaultObject(e.tooltip, {});
-        e.tooltip.delay = Data.getDefaultNumber(e.tooltip.delay, 750);
-        e.tooltip.dayText = Data.getDefaultString(e.tooltip.dayText, "{d}{o} {mmmm} {yyyy}");
-        return e;
-    }
-    function buildAttributeOptionMapView(e) {
-        e.views.map = Data.getDefaultObject(e.views.map, {});
-        e.views.map.showMonthDayGaps = Data.getDefaultBoolean(e.views.map.showMonthDayGaps, true);
-        e.views.map.showDayNames = Data.getDefaultBoolean(e.views.map.showDayNames, true);
-        e.views.map.placeMonthNamesOnTheBottom = Data.getDefaultBoolean(e.views.map.placeMonthNamesOnTheBottom, false);
-        e.views.map.showDayNumbers = Data.getDefaultBoolean(e.views.map.showDayNumbers, false);
-        e.views.map.showMonthNames = Data.getDefaultBoolean(e.views.map.showMonthNames, true);
-        e.views.map.showDaysInReverseOrder = Data.getDefaultBoolean(e.views.map.showDaysInReverseOrder, false);
-        e.views.map.showNoDataMessageWhenDataIsNotAvailable = Data.getDefaultBoolean(e.views.map.showNoDataMessageWhenDataIsNotAvailable, false);
-        e.views.map.showMinimalDayNames = Data.getDefaultBoolean(e.views.map.showMinimalDayNames, false);
-        e.views.map.showMonthsInReverseOrder = Data.getDefaultBoolean(e.views.map.showMonthsInReverseOrder, false);
-        e.views.map.keepScrollPositions = Data.getDefaultBoolean(e.views.map.keepScrollPositions, false);
-        if (Is.invalidOptionArray(e.views.map.monthsToShow)) {
-            e.views.map.monthsToShow = _default_MonthsToShow;
-        }
-        if (Is.invalidOptionArray(e.views.map.daysToShow)) {
-            e.views.map.daysToShow = _default_DaysToShow;
-        }
-        return e;
-    }
-    function buildAttributeOptionChartView(e) {
-        e.views.chart = Data.getDefaultObject(e.views.chart, {});
-        e.views.chart.enabled = Data.getDefaultBoolean(e.views.chart.enabled, true);
-        e.views.chart.showChartYLabels = Data.getDefaultBoolean(e.views.chart.showChartYLabels, true);
-        e.views.chart.showMonthNames = Data.getDefaultBoolean(e.views.chart.showMonthNames, true);
-        e.views.chart.showLineNumbers = Data.getDefaultBoolean(e.views.chart.showLineNumbers, false);
-        e.views.chart.showInReverseOrder = Data.getDefaultBoolean(e.views.chart.showInReverseOrder, false);
-        e.views.chart.keepScrollPositions = Data.getDefaultBoolean(e.views.chart.keepScrollPositions, false);
-        if (Is.invalidOptionArray(e.views.chart.monthsToShow)) {
-            e.views.chart.monthsToShow = _default_MonthsToShow;
-        }
-        if (Is.invalidOptionArray(e.views.chart.daysToShow)) {
-            e.views.chart.daysToShow = _default_DaysToShow;
-        }
-        return e;
-    }
-    function buildAttributeOptionDaysView(e) {
-        e.views.days = Data.getDefaultObject(e.views.days, {});
-        e.views.days.enabled = Data.getDefaultBoolean(e.views.days.enabled, true);
-        e.views.days.showChartYLabels = Data.getDefaultBoolean(e.views.days.showChartYLabels, true);
-        e.views.days.showDayNames = Data.getDefaultBoolean(e.views.days.showDayNames, true);
-        e.views.days.showInReverseOrder = Data.getDefaultBoolean(e.views.days.showInReverseOrder, false);
-        e.views.days.showDayNumbers = Data.getDefaultBoolean(e.views.days.showDayNumbers, false);
-        e.views.days.keepScrollPositions = Data.getDefaultBoolean(e.views.days.keepScrollPositions, false);
-        if (Is.invalidOptionArray(e.views.days.monthsToShow)) {
-            e.views.days.monthsToShow = _default_MonthsToShow;
-        }
-        if (Is.invalidOptionArray(e.views.days.daysToShow)) {
-            e.views.days.daysToShow = _default_DaysToShow;
-        }
-        return e;
-    }
-    function buildAttributeOptionStatisticsView(e) {
-        e.views.statistics = Data.getDefaultObject(e.views.statistics, {});
-        e.views.statistics.enabled = Data.getDefaultBoolean(e.views.statistics.enabled, true);
-        e.views.statistics.showChartYLabels = Data.getDefaultBoolean(e.views.statistics.showChartYLabels, true);
-        e.views.statistics.showColorRangeLabels = Data.getDefaultBoolean(e.views.statistics.showColorRangeLabels, true);
-        e.views.statistics.useColorRangeNamesForLabels = Data.getDefaultBoolean(e.views.statistics.useColorRangeNamesForLabels, false);
-        e.views.statistics.showRangeNumbers = Data.getDefaultBoolean(e.views.statistics.showRangeNumbers, false);
-        e.views.statistics.showInReverseOrder = Data.getDefaultBoolean(e.views.statistics.showInReverseOrder, false);
-        e.views.statistics.keepScrollPositions = Data.getDefaultBoolean(e.views.statistics.keepScrollPositions, false);
-        if (Is.invalidOptionArray(e.views.statistics.monthsToShow)) {
-            e.views.statistics.monthsToShow = _default_MonthsToShow;
-        }
-        if (Is.invalidOptionArray(e.views.statistics.daysToShow)) {
-            e.views.statistics.daysToShow = _default_DaysToShow;
-        }
-        return e;
-    }
-    function buildAttributeOptionCustomTriggers(e) {
-        e.events = Data.getDefaultObject(e.events, {});
-        e.events.onDayClick = Data.getDefaultFunction(e.events.onDayClick, null);
-        e.events.onBackYear = Data.getDefaultFunction(e.events.onBackYear, null);
-        e.events.onNextYear = Data.getDefaultFunction(e.events.onNextYear, null);
-        e.events.onRefresh = Data.getDefaultFunction(e.events.onRefresh, null);
-        e.events.onBeforeRender = Data.getDefaultFunction(e.events.onBeforeRender, null);
-        e.events.onRenderComplete = Data.getDefaultFunction(e.events.onRenderComplete, null);
-        e.events.onDestroy = Data.getDefaultFunction(e.events.onDestroy, null);
-        e.events.onExport = Data.getDefaultFunction(e.events.onExport, null);
-        e.events.onSetYear = Data.getDefaultFunction(e.events.onSetYear, null);
-        e.events.onTypeSwitch = Data.getDefaultFunction(e.events.onTypeSwitch, null);
-        e.events.onDayToolTipRender = Data.getDefaultFunction(e.events.onDayToolTipRender, null);
-        e.events.onAdd = Data.getDefaultFunction(e.events.onAdd, null);
-        e.events.onRemove = Data.getDefaultFunction(e.events.onRemove, null);
-        e.events.onReset = Data.getDefaultFunction(e.events.onReset, null);
-        e.events.onViewSwitch = Data.getDefaultFunction(e.events.onViewSwitch, null);
-        e.events.onColorRangeTypeToggle = Data.getDefaultFunction(e.events.onColorRangeTypeToggle, null);
-        e.events.onImport = Data.getDefaultFunction(e.events.onImport, null);
-        e.events.onStatisticClick = Data.getDefaultFunction(e.events.onStatisticClick, null);
-        e.events.onDataFetch = Data.getDefaultFunction(e.events.onDataFetch, null);
-        e.events.onClear = Data.getDefaultFunction(e.events.onClear, null);
-        e.events.onUpdate = Data.getDefaultFunction(e.events.onUpdate, null);
-        e.events.onOptionsUpdate = Data.getDefaultFunction(e.events.onOptionsUpdate, null);
-        e.events.onWeekDayClick = Data.getDefaultFunction(e.events.onWeekDayClick, null);
-        return e;
-    }
     function getObjectFromString(objectString) {
         const result = {
             parsed: true,
@@ -2533,7 +2542,7 @@ var Trigger;
         updateOptions: function(e, t) {
             if (Is.definedString(e) && Is.definedObject(t) && _elements_DateCounts.hasOwnProperty(e)) {
                 const n = _elements_DateCounts[e].options;
-                const o = buildAttributeOptions(t);
+                const o = binding.options.get(t);
                 let i = false;
                 for (let e in o) {
                     if (o.hasOwnProperty(e) && n.hasOwnProperty(e) && n[e] !== o[e]) {
