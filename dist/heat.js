@@ -2628,7 +2628,7 @@ var Disabled;
             return e;
         },
         getVersion: function() {
-            return "4.1.0";
+            return "4.2.0";
         }
     };
     (() => {
