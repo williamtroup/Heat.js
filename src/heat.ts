@@ -16,7 +16,7 @@ import {
     type Holiday,
     type ColorRange,
     type BindingOptions,
-    type TypeCountsData,
+    type TypeDateCount,
     type DateCounts } from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
@@ -50,7 +50,7 @@ type LargestValueForDays = {
 };
 
 type LargestValuesForEachRangeType = {
-    types: TypeCountsData;
+    types: TypeDateCount;
     largestValue: number;
 };
 
@@ -773,7 +773,7 @@ type LargestValuesForEachRangeType = {
 
     function isDataAvailableForYear( bindingOptions: BindingOptions ) : boolean {
         let result: boolean = false;
-        const data: TypeCountsData = getCurrentViewData( bindingOptions );
+        const data: TypeDateCount = getCurrentViewData( bindingOptions );
         const checkDate: string = bindingOptions._currentView.year.toString();
 
         for ( let storageDate in data ) {
@@ -952,7 +952,7 @@ type LargestValuesForEachRangeType = {
 
     function getLargestValueForChartYear( bindingOptions: BindingOptions ) : number {
         let result: number = 0;
-        const data: TypeCountsData = getCurrentViewData( bindingOptions );
+        const data: TypeDateCount = getCurrentViewData( bindingOptions );
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
             const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
@@ -1088,7 +1088,7 @@ type LargestValuesForEachRangeType = {
             largestValue: 0
         } as LargestValueForDays;
 
-        const data: TypeCountsData = getCurrentViewData( bindingOptions );
+        const data: TypeDateCount = getCurrentViewData( bindingOptions );
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
             const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
@@ -1237,10 +1237,10 @@ type LargestValuesForEachRangeType = {
     }
 
     function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: ColorRange[] ) : LargestValuesForEachRangeType {
-        const data: TypeCountsData = getCurrentViewData( bindingOptions );
+        const data: TypeDateCount = getCurrentViewData( bindingOptions );
 
         const result: LargestValuesForEachRangeType = {
-            types: {} as TypeCountsData,
+            types: {} as TypeDateCount,
             largestValue: 0
         } as LargestValuesForEachRangeType;
 
@@ -1463,14 +1463,14 @@ type LargestValuesForEachRangeType = {
             totalTypes: 1
         };
 
-        _elements_DateCounts[ elementId ].typeData[ _configuration.text!.unknownTrendText! ] = {} as TypeCountsData;
+        _elements_DateCounts[ elementId ].typeData[ _configuration.text!.unknownTrendText! ] = {} as TypeDateCount;
 
         if ( storeLocalData && !bindingOptions._currentView.isInFetchMode ) {
             loadDataFromLocalStorage( bindingOptions );
         }
     }
 
-    function getCurrentViewData( bindingOptions: BindingOptions ) : TypeCountsData {
+    function getCurrentViewData( bindingOptions: BindingOptions ) : TypeDateCount {
         return _elements_DateCounts[ bindingOptions._currentView.element.id ].typeData[ bindingOptions._currentView.type ];
     }
 
@@ -1486,7 +1486,7 @@ type LargestValuesForEachRangeType = {
         let years: number[] = [];
 
         if ( bindingOptions.showOnlyDataForYearsAvailable ) {
-            let data: TypeCountsData = getCurrentViewData( bindingOptions );
+            let data: TypeDateCount = getCurrentViewData( bindingOptions );
 
             for ( let storageDate in data ) {
                 if ( data.hasOwnProperty( storageDate ) ) {
@@ -1608,7 +1608,7 @@ type LargestValuesForEachRangeType = {
 
     function pullDataFromCustomTrigger( bindingOptions: BindingOptions ) : void {
         const elementId: string = bindingOptions._currentView.element.id;
-        const data: TypeCountsData = Trigger.customEvent( bindingOptions.events!.onDataFetch!, elementId );
+        const data: TypeDateCount = Trigger.customEvent( bindingOptions.events!.onDataFetch!, elementId );
 
         if ( Is.definedObject( data ) ) {
             createDateStorageForElement( elementId, bindingOptions, false );
@@ -1825,9 +1825,9 @@ type LargestValuesForEachRangeType = {
     function importFromFiles( files: FileList, bindingOptions: BindingOptions ) : void {
         const filesLength: number = files.length;
         const filesCompleted: string[] = [];
-        const data: TypeCountsData = getCurrentViewData( bindingOptions );
+        const data: TypeDateCount = getCurrentViewData( bindingOptions );
 
-        const onLoadEnd: Function = ( filename: string, readingObject: TypeCountsData ) => {
+        const onLoadEnd: Function = ( filename: string, readingObject: TypeDateCount ) => {
             filesCompleted.push( filename );
 
             for ( let storageDate in readingObject ) {
@@ -1862,7 +1862,7 @@ type LargestValuesForEachRangeType = {
 
     function importFromJson( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
-        let readingObject: TypeCountsData = {} as TypeCountsData;
+        let readingObject: TypeDateCount = {} as TypeDateCount;
 
         reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
@@ -1881,7 +1881,7 @@ type LargestValuesForEachRangeType = {
 
     function importFromTxt( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
-        const readingObject: TypeCountsData = {} as TypeCountsData;
+        const readingObject: TypeDateCount = {} as TypeDateCount;
 
         reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
@@ -1903,7 +1903,7 @@ type LargestValuesForEachRangeType = {
 
     function importFromCsv( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
-        const readingObject: TypeCountsData = {} as TypeCountsData;
+        const readingObject: TypeDateCount = {} as TypeDateCount;
 
         reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
@@ -1964,7 +1964,7 @@ type LargestValuesForEachRangeType = {
     }
 
     function getCsvContent( bindingOptions: BindingOptions ) : string {
-        const data: TypeCountsData = getExportData( bindingOptions );
+        const data: TypeDateCount = getExportData( bindingOptions );
         const csvContents: string[] = [];
 
         for ( let storageDate in data ) {
@@ -1985,7 +1985,7 @@ type LargestValuesForEachRangeType = {
     }
 
     function getXmlContents( bindingOptions: BindingOptions ) : string {
-        const data: TypeCountsData = getExportData( bindingOptions );
+        const data: TypeDateCount = getExportData( bindingOptions );
         const contents: string[] = [];
 
         contents.push( "<?xml version=\"1.0\" ?>" );
@@ -2006,7 +2006,7 @@ type LargestValuesForEachRangeType = {
     }
 
     function getTxtContents( bindingOptions: BindingOptions ) : string {
-        const data: TypeCountsData = getExportData( bindingOptions );
+        const data: TypeDateCount = getExportData( bindingOptions );
         const contents: string[] = [];
 
         for ( let storageDate in data ) {
@@ -2018,9 +2018,9 @@ type LargestValuesForEachRangeType = {
         return contents.join( Char.newLine );
     }
 
-    function getExportData( bindingOptions: BindingOptions ) : TypeCountsData {
-        const contents: TypeCountsData = {} as TypeCountsData;
-        const data: TypeCountsData = getCurrentViewData( bindingOptions );
+    function getExportData( bindingOptions: BindingOptions ) : TypeDateCount {
+        const contents: TypeDateCount = {} as TypeDateCount;
+        const data: TypeDateCount = getCurrentViewData( bindingOptions );
 
         if ( bindingOptions.exportOnlyYearBeingViewed ) {
             for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
@@ -2267,7 +2267,7 @@ type LargestValuesForEachRangeType = {
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( !_elements_DateCounts[ elementId ].typeData.hasOwnProperty( type ) ) {
-                        _elements_DateCounts[ elementId ].typeData[ type ] = {} as TypeCountsData;
+                        _elements_DateCounts[ elementId ].typeData[ type ] = {} as TypeDateCount;
                         _elements_DateCounts[ elementId ].totalTypes++;
                     }
         
@@ -2491,7 +2491,7 @@ type LargestValuesForEachRangeType = {
         setYearToHighest: function ( elementId: string ) : PublicApi {
             if ( Is.definedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
-                const data: TypeCountsData = getCurrentViewData( bindingOptions );
+                const data: TypeDateCount = getCurrentViewData( bindingOptions );
                 let maximumYear: number = 0;
     
                 for ( let storageDate in data ) {
@@ -2519,7 +2519,7 @@ type LargestValuesForEachRangeType = {
         setYearToLowest: function ( elementId: string ) : PublicApi {
             if ( Is.definedString( elementId ) && _elements_DateCounts.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_DateCounts[ elementId ].options;
-                const data: TypeCountsData = getCurrentViewData( bindingOptions );
+                const data: TypeDateCount = getCurrentViewData( bindingOptions );
                 let minimumYear: number = 9999;
     
                 for ( let storageDate in data ) {
