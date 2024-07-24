@@ -13,8 +13,8 @@
 
 import {
     type Configuration,
-    type Holiday,
-    type ColorRange,
+    type BindingOptionsHoliday,
+    type BindingOptionsColorRange,
     type BindingOptions,
     type TypeDateCount,
     type DateCounts } from "./ts/type";
@@ -638,7 +638,7 @@ type LargestValuesForEachRangeType = {
             }
     
             const months: HTMLElement = DomElement.create( map, "div", "months" );
-            const colorRanges: ColorRange[] = getSortedColorRanges( bindingOptions );
+            const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
     
             for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
                 if ( isMonthVisible( bindingOptions.views!.map!.monthsToShow!, monthIndex ) ) {
@@ -735,7 +735,7 @@ type LargestValuesForEachRangeType = {
         }
     }
 
-    function renderControlMapMonthDay( bindingOptions: BindingOptions, currentDayColumn: HTMLElement, dayNumber: number, month: number, year: number, colorRanges: ColorRange[] ) : HTMLElement {
+    function renderControlMapMonthDay( bindingOptions: BindingOptions, currentDayColumn: HTMLElement, dayNumber: number, month: number, year: number, colorRanges: BindingOptionsColorRange[] ) : HTMLElement {
         const actualDay: number = dayNumber + 1;
         const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day" );
         const date: Date = new Date( year, month, actualDay );
@@ -758,7 +758,7 @@ type LargestValuesForEachRangeType = {
             DomElement.addClass( day, "no-hover" );
         }
 
-        const useColorRange: ColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
+        const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
 
         if ( Is.defined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id! ) ) {
             if ( Is.definedString( useColorRange.mapCssClassName ) ) {
@@ -805,7 +805,7 @@ type LargestValuesForEachRangeType = {
         const chart: HTMLElement = DomElement.create( bindingOptions._currentView.chartContents, "div", "chart" );
         let labels: HTMLElement = DomElement.create( chart, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( chart, "div", "day-lines" );
-        const colorRanges: ColorRange[] = getSortedColorRanges( bindingOptions );
+        const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
         const largestValueForCurrentYear: number = getLargestValueForChartYear( bindingOptions );
         const currentYear: number = bindingOptions._currentView.year;
         let labelsWidth: number = 0;
@@ -908,7 +908,7 @@ type LargestValuesForEachRangeType = {
         }
     }
 
-    function renderControlChartDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: ColorRange[], pixelsPerNumbers: number ) : void {
+    function renderControlChartDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number ) : void {
         const date: Date = new Date( year, month, day );
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
@@ -939,7 +939,7 @@ type LargestValuesForEachRangeType = {
             DomElement.addClass( dayLine, "no-hover" );
         }
 
-        const useColorRange: ColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
+        const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
 
         if ( Is.defined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id! ) ) {
             if ( Is.definedString( useColorRange.chartCssClassName ) ) {
@@ -1131,7 +1131,7 @@ type LargestValuesForEachRangeType = {
         const statisticsRanges: HTMLElement = DomElement.create( bindingOptions._currentView.statisticsContents, "div", "statistics-ranges" );
         let labels: HTMLElement = DomElement.create( statistics, "div", "y-labels" );
         const rangeLines: HTMLElement = DomElement.create( statistics, "div", "range-lines" );
-        const colorRanges: ColorRange[] = getSortedColorRanges( bindingOptions );
+        const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
         const colorRangeValuesForCurrentYear: LargestValuesForEachRangeType = getLargestValuesForEachRangeType( bindingOptions, colorRanges );
 
         if ( isForViewSwitch ) {
@@ -1176,7 +1176,7 @@ type LargestValuesForEachRangeType = {
                 if ( colorRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
                     renderControlStatisticsRangeLine( parseInt( type ), rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers );
 
-                    const useColorRange: ColorRange = getColorRangeByMinimum( colorRanges, parseInt( type ) );
+                    const useColorRange: BindingOptionsColorRange = getColorRangeByMinimum( colorRanges, parseInt( type ) );
 
                     if ( bindingOptions.views!.statistics!.showColorRangeLabels ) {
                         if ( !bindingOptions.views!.statistics!.useColorRangeNamesForLabels || !Is.defined( useColorRange ) || !Is.definedString( useColorRange.name ) ) {
@@ -1199,9 +1199,9 @@ type LargestValuesForEachRangeType = {
         }
     }
 
-    function renderControlStatisticsRangeLine( colorRangeMinimum: number, dayLines: HTMLElement, rangeCount: number, bindingOptions: BindingOptions, colorRanges: ColorRange[], pixelsPerNumbers: number ) : void {
+    function renderControlStatisticsRangeLine( colorRangeMinimum: number, dayLines: HTMLElement, rangeCount: number, bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number ) : void {
         const rangeLine: HTMLElement = DomElement.create( dayLines, "div", "range-line" );
-        const useColorRange: ColorRange = getColorRangeByMinimum( colorRanges, colorRangeMinimum );
+        const useColorRange: BindingOptionsColorRange = getColorRangeByMinimum( colorRanges, colorRangeMinimum );
         const rangeLineHeight: number = rangeCount * pixelsPerNumbers;
 
         rangeLine.style.height = `${rangeLineHeight}px`;
@@ -1236,7 +1236,7 @@ type LargestValuesForEachRangeType = {
         }
     }
 
-    function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: ColorRange[] ) : LargestValuesForEachRangeType {
+    function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValuesForEachRangeType {
         const data: TypeDateCount = getCurrentViewData( bindingOptions );
 
         const result: LargestValuesForEachRangeType = {
@@ -1258,7 +1258,7 @@ type LargestValuesForEachRangeType = {
                     const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
                     if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views!.statistics!.monthsToShow!, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views!.statistics!.daysToShow!, weekDayNumber ) ) {
-                        const useColorRange: ColorRange = getColorRange( bindingOptions, colorRanges, data[ storageDate ] );
+                        const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, data[ storageDate ] );
 
                         if ( !Is.defined( useColorRange ) ) {
                             result.types[ Char.zero ]++;
@@ -1337,7 +1337,7 @@ type LargestValuesForEachRangeType = {
             }
     
             const days: HTMLElement = DomElement.create( mapToggles, "div", "days" );
-            const colorRanges: ColorRange[] = getSortedColorRanges( bindingOptions );
+            const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
             const colorRangesLength: number = colorRanges.length;
     
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
@@ -1376,7 +1376,7 @@ type LargestValuesForEachRangeType = {
         };
     }
 
-    function renderControlViewGuideDay( bindingOptions: BindingOptions, days: HTMLElement, colorRange: ColorRange ) : void {
+    function renderControlViewGuideDay( bindingOptions: BindingOptions, days: HTMLElement, colorRange: BindingOptionsColorRange ) : void {
         const day: HTMLElement = DomElement.create( days, "div" );
         day.className = "day";
 
@@ -1655,7 +1655,7 @@ type LargestValuesForEachRangeType = {
             const colorRangesLength : number = bindingOptions.colorRanges!.length;
 
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-                const colorRange: ColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
+                const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
     
                 if ( colorRange.id === id && Default.getBoolean( colorRange.visible, true ) ) {
                     result = true;
@@ -1683,7 +1683,7 @@ type LargestValuesForEachRangeType = {
         const colorRangesLength: number = bindingOptions.colorRanges!.length;
 
         for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-            const colorRange: ColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
+            const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
 
             if ( colorRange.id === id ) {
                 colorRange.visible = !Default.getBoolean( colorRange.visible, true );
@@ -1695,8 +1695,8 @@ type LargestValuesForEachRangeType = {
         }
     }
 
-    function getColorRange( bindingOptions: BindingOptions, colorRanges: ColorRange[], dateCount: number, date: Date = null! ) : ColorRange {
-        let useColorRange: ColorRange = null!;
+    function getColorRange( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], dateCount: number, date: Date = null! ) : BindingOptionsColorRange {
+        let useColorRange: BindingOptionsColorRange = null!;
 
         if ( Is.defined( date ) && isHoliday( bindingOptions, date ).matched ) {
             useColorRange = {
@@ -1704,14 +1704,14 @@ type LargestValuesForEachRangeType = {
                 id: _internal_Name_Holiday,
                 visible: true,
                 minimum: 0,
-            } as ColorRange;
+            } as BindingOptionsColorRange;
         }
 
         if ( !Is.defined( useColorRange ) ) {
             const colorRangesLength: number = colorRanges.length;
 
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-                const colorRange: ColorRange = colorRanges[ colorRangesIndex ];
+                const colorRange: BindingOptionsColorRange = colorRanges[ colorRangesIndex ];
     
                 if ( dateCount >= colorRange.minimum! ) {
                     useColorRange = colorRange;
@@ -1724,12 +1724,12 @@ type LargestValuesForEachRangeType = {
         return useColorRange;
     }
 
-    function getColorRangeByMinimum( colorRanges: ColorRange[], minimum: number ) : ColorRange {
+    function getColorRangeByMinimum( colorRanges: BindingOptionsColorRange[], minimum: number ) : BindingOptionsColorRange {
         const colorRangesLength: number = colorRanges.length;
-        let useColorRange: ColorRange = null!;
+        let useColorRange: BindingOptionsColorRange = null!;
 
         for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-            const colorRange: ColorRange = colorRanges[ colorRangesIndex ];
+            const colorRange: BindingOptionsColorRange = colorRanges[ colorRangesIndex ];
 
             if ( minimum.toString() === colorRange.minimum!.toString() ) {
                 useColorRange = colorRange;
@@ -1740,7 +1740,7 @@ type LargestValuesForEachRangeType = {
         return useColorRange;
     }
 
-    function getSortedColorRanges( bindingOptions: BindingOptions ) : ColorRange[] {
+    function getSortedColorRanges( bindingOptions: BindingOptions ) : BindingOptionsColorRange[] {
         return bindingOptions.colorRanges!.sort( function( a, b ) {
             return a.minimum! - b.minimum!;
         } );
@@ -1765,7 +1765,7 @@ type LargestValuesForEachRangeType = {
         const year: number = date.getFullYear();
         
         for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-            let holiday: Holiday = bindingOptions.holidays![ holidayIndex ];
+            let holiday: BindingOptionsHoliday = bindingOptions.holidays![ holidayIndex ];
 
             if ( Is.definedString( holiday.date ) && holiday.showInViews ) {
                 const dateParts: string[] = holiday.date!.split( "/" );

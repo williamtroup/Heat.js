@@ -85,14 +85,14 @@ export type BindingOptions = {
     dataFetchDelay?: number;
     showOnlyDataForYearsAvailable?: boolean;
     showHolidaysInDayToolTips?: boolean;
-    colorRanges?: ColorRange[];
-    holidays?: Holiday[];
-    title?: Title;
-    description?: Description;
-    guide?: Guide;
-    tooltip?: Tooltip;
-    events?: Events;
-    views?: Views; 
+    colorRanges?: BindingOptionsColorRange[];
+    holidays?: BindingOptionsHoliday[];
+    title?: BindingOptionsTitle;
+    description?: BindingOptionsDescription;
+    guide?: BindingOptionsGuide;
+    tooltip?: BindingOptionsTooltip;
+    events?: BindingOptionsEvents;
+    views?: BindingOptionsViews; 
 };
 
 export type BindingOptionsCurrentView = {
@@ -120,46 +120,14 @@ export type BindingOptionsCurrentView = {
     disabledBackground: HTMLElement;
 };
 
-export type Views = {
-    map?: Map;
-    chart?: Chart;
-    days?: Days;
-    statistics?: Statistics;
+export type BindingOptionsViews = {
+    map?: BindingOptionsViewsMap;
+    chart?: BindingOptionsViewsChart;
+    days?: BindingOptionsViewsDays;
+    statistics?: BindingOptionsViewsStatistics;
 };
 
-export type Title = {
-    text?: string;
-    showText?: boolean;
-    showYearSelector?: boolean;
-    showRefreshButton?: boolean;
-    showExportButton?: boolean;
-    extraSelectionYears?: number;
-    showYearSelectionDropDown?: boolean;
-    showImportButton?: boolean;
-    showConfigurationButton?: boolean;
-    showTitleDropDownButton?: boolean;
-    showTitleDropDownHeaders?: boolean;
-};
-
-export type Description = {
-    text?: string;
-    url?: string;
-    urlTarget?: string;
-};
-
-export type Guide = {
-    enabled?: boolean;
-    colorRangeTogglesEnabled?: boolean;
-    showLessAndMoreLabels?: boolean;
-    showNumbersInGuide?: boolean;
-};
-
-export type Tooltip = {
-    delay?: number;
-    dayText?: string;
-};
-
-export type Map = {
+export type BindingOptionsViewsMap = {
     showMonthDayGaps?: boolean;
     showDayNames?: boolean;
     placeMonthNamesOnTheBottom?: boolean;
@@ -174,7 +142,7 @@ export type Map = {
     daysToShow?: number[];
 };
 
-export type Chart = {
+export type BindingOptionsViewsChart = {
     enabled?: boolean;
     showChartYLabels?: boolean;
     showMonthNames?: boolean;
@@ -185,7 +153,7 @@ export type Chart = {
     daysToShow?: number[];
 };
 
-export type Days = {
+export type BindingOptionsViewsDays = {
     enabled?: boolean;
     showChartYLabels?: boolean;
     showDayNames?: boolean;
@@ -196,7 +164,7 @@ export type Days = {
     daysToShow?: number[];
 };
 
-export type Statistics = {
+export type BindingOptionsViewsStatistics = {
     enabled?: boolean;
     showChartYLabels?: boolean;
     showColorRangeLabels?: boolean;
@@ -208,7 +176,39 @@ export type Statistics = {
     daysToShow?: number[];
 };
 
-export type Events = {
+export type BindingOptionsTitle = {
+    text?: string;
+    showText?: boolean;
+    showYearSelector?: boolean;
+    showRefreshButton?: boolean;
+    showExportButton?: boolean;
+    extraSelectionYears?: number;
+    showYearSelectionDropDown?: boolean;
+    showImportButton?: boolean;
+    showConfigurationButton?: boolean;
+    showTitleDropDownButton?: boolean;
+    showTitleDropDownHeaders?: boolean;
+};
+
+export type BindingOptionsDescription = {
+    text?: string;
+    url?: string;
+    urlTarget?: string;
+};
+
+export type BindingOptionsGuide = {
+    enabled?: boolean;
+    colorRangeTogglesEnabled?: boolean;
+    showLessAndMoreLabels?: boolean;
+    showNumbersInGuide?: boolean;
+};
+
+export type BindingOptionsTooltip = {
+    delay?: number;
+    dayText?: string;
+};
+
+export type BindingOptionsEvents = {
     onDayClick?: ( date: Date, count: number ) => void;
     onBackYear?: ( year: number ) => void;
     onNextYear?: ( year: number ) => void;
@@ -226,7 +226,7 @@ export type Events = {
     onViewSwitch?: ( view: string ) => void;
     onColorRangeTypeToggle?: ( id: string, visible: boolean ) => void;
     onImport?: ( element: HTMLElement ) => void;
-    onStatisticClick?: ( colorRange: ColorRange ) => void;
+    onStatisticClick?: ( colorRange: BindingOptionsColorRange ) => void;
     onDataFetch?: ( element: HTMLElement ) => TypeDateCount;
     onClear?: ( element: HTMLElement ) => void;
     onUpdate?: ( element: HTMLElement ) => void;
@@ -234,7 +234,7 @@ export type Events = {
     onWeekDayClick?: ( dayNumber: number, count: number ) => void;
 };
 
-export type ColorRange = {
+export type BindingOptionsColorRange = {
     id?: string;
     name?: string;
     minimum?: number;
@@ -246,7 +246,7 @@ export type ColorRange = {
     visible?: boolean;
 };
 
-export type Holiday = {
+export type BindingOptionsHoliday = {
     date?: string;
     name?: string;
     showInViews?: boolean;

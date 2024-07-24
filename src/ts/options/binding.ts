@@ -13,17 +13,17 @@
 
 import {
     type BindingOptions,
-    type ColorRange,
-    type Description,
-    type Guide,
-    type Title,
-    type Tooltip,
-    type Map,
-    type Holiday,
-    type Chart,
-    type Days,
-    type Statistics,
-    type Events, 
+    type BindingOptionsColorRange,
+    type BindingOptionsDescription,
+    type BindingOptionsGuide,
+    type BindingOptionsTitle,
+    type BindingOptionsTooltip,
+    type BindingOptionsViewsMap,
+    type BindingOptionsHoliday,
+    type BindingOptionsViewsChart,
+    type BindingOptionsViewsDays,
+    type BindingOptionsViewsStatistics,
+    type BindingOptionsEvents, 
     type BindingOptionsCurrentView,
     type Configuration } from "../type";
 
@@ -122,7 +122,7 @@ export namespace Binding {
                 const colorRangesLength: number = options.colorRanges!.length;
     
                 for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
-                    const colorRange: ColorRange = options.colorRanges![ colorRangeIndex ];
+                    const colorRange: BindingOptionsColorRange = options.colorRanges![ colorRangeIndex ];
     
                     colorRange.id = Default.getString( colorRange.id, Str.newGuid() );
                     colorRange.name = Default.getString( colorRange.name, Char.empty );
@@ -180,7 +180,7 @@ export namespace Binding {
                 const holidaysLength: number = options.holidays!.length;
     
                 for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-                    const holiday: Holiday = options.holidays![ holidayIndex ];
+                    const holiday: BindingOptionsHoliday = options.holidays![ holidayIndex ];
                     
                     holiday.date = Default.getString( holiday.date, Char.empty );
                     holiday.name = Default.getString( holiday.name, Char.empty );
@@ -195,7 +195,7 @@ export namespace Binding {
         }
     
         function getTitle( options: BindingOptions ) : BindingOptions {
-            options.title = Default.getObject( options.title, {} as Title );
+            options.title = Default.getObject( options.title, {} as BindingOptionsTitle );
             options.title!.text = Default.getString( options.title!.text, "Heat.js" );
             options.title!.showText = Default.getBoolean( options.title!.showText, true );
             options.title!.showYearSelector = Default.getBoolean( options.title!.showYearSelector, true );
@@ -212,7 +212,7 @@ export namespace Binding {
         }
     
         function getDescription( options: BindingOptions ) : BindingOptions {
-            options.description = Default.getObject( options.description, {} as Description );
+            options.description = Default.getObject( options.description, {} as BindingOptionsDescription );
             options.description!.text = Default.getString( options.description!.text, Char.empty );
             options.description!.url = Default.getString( options.description!.url, Char.empty );
             options.description!.urlTarget = Default.getString( options.description!.urlTarget, "_blank" );
@@ -221,7 +221,7 @@ export namespace Binding {
         }
     
         function getGuide( options: BindingOptions ) : BindingOptions {
-            options.guide = Default.getObject( options.guide, {} as Guide );
+            options.guide = Default.getObject( options.guide, {} as BindingOptionsGuide );
             options.guide!.enabled = Default.getBoolean( options.guide!.enabled, true );
             options.guide!.colorRangeTogglesEnabled = Default.getBoolean( options.guide!.colorRangeTogglesEnabled, true );
             options.guide!.showLessAndMoreLabels = Default.getBoolean( options.guide!.showLessAndMoreLabels, true );
@@ -231,7 +231,7 @@ export namespace Binding {
         }
     
         function getToolTip( options: BindingOptions ) : BindingOptions {
-            options.tooltip = Default.getObject( options.tooltip, {} as Tooltip );
+            options.tooltip = Default.getObject( options.tooltip, {} as BindingOptionsTooltip );
             options.tooltip!.delay = Default.getNumber( options.tooltip!.delay, 750 );
             options.tooltip!.dayText = Default.getString( options.tooltip!.dayText, "{d}{o} {mmmm} {yyyy}" );
     
@@ -239,7 +239,7 @@ export namespace Binding {
         }
     
         function getMapView( options: BindingOptions ) : BindingOptions {
-            options.views!.map = Default.getObject( options.views!.map, {} as Map );
+            options.views!.map = Default.getObject( options.views!.map, {} as BindingOptionsViewsMap );
             options.views!.map!.showMonthDayGaps = Default.getBoolean( options.views!.map!.showMonthDayGaps, true );
             options.views!.map!.showDayNames = Default.getBoolean( options.views!.map!.showDayNames, true );
             options.views!.map!.placeMonthNamesOnTheBottom = Default.getBoolean( options.views!.map!.placeMonthNamesOnTheBottom, false );
@@ -263,7 +263,7 @@ export namespace Binding {
         }
     
         function getChartView( options: BindingOptions ) : BindingOptions {
-            options.views!.chart = Default.getObject( options.views!.chart, {} as Chart );
+            options.views!.chart = Default.getObject( options.views!.chart, {} as BindingOptionsViewsChart );
             options.views!.chart!.enabled = Default.getBoolean( options.views!.chart!.enabled, true );
             options.views!.chart!.showChartYLabels = Default.getBoolean( options.views!.chart!.showChartYLabels, true );
             options.views!.chart!.showMonthNames = Default.getBoolean( options.views!.chart!.showMonthNames, true );
@@ -283,7 +283,7 @@ export namespace Binding {
         }
     
         function getDaysView( options: BindingOptions ) : BindingOptions {
-            options.views!.days = Default.getObject( options.views!.days, {} as Days );
+            options.views!.days = Default.getObject( options.views!.days, {} as BindingOptionsViewsDays );
             options.views!.days!.enabled = Default.getBoolean( options.views!.days!.enabled, true );
             options.views!.days!.showChartYLabels = Default.getBoolean( options.views!.days!.showChartYLabels, true );
             options.views!.days!.showDayNames = Default.getBoolean( options.views!.days!.showDayNames, true );
@@ -303,7 +303,7 @@ export namespace Binding {
         }
     
         function getStatisticsView( options: BindingOptions ) : BindingOptions {
-            options.views!.statistics = Default.getObject( options.views!.statistics, {} as Statistics );
+            options.views!.statistics = Default.getObject( options.views!.statistics, {} as BindingOptionsViewsStatistics );
             options.views!.statistics!.enabled = Default.getBoolean( options.views!.statistics!.enabled, true );
             options.views!.statistics!.showChartYLabels = Default.getBoolean( options.views!.statistics!.showChartYLabels, true );
             options.views!.statistics!.showColorRangeLabels = Default.getBoolean( options.views!.statistics!.showColorRangeLabels, true );
@@ -324,7 +324,7 @@ export namespace Binding {
         }
     
         function getCustomTriggers( options : BindingOptions ) : BindingOptions {
-            options.events = Default.getObject( options.events, {} as Events );
+            options.events = Default.getObject( options.events, {} as BindingOptionsEvents );
             options.events!.onDayClick = Default.getFunction( options.events!.onDayClick, null! );
             options.events!.onBackYear = Default.getFunction( options.events!.onBackYear, null! );
             options.events!.onNextYear = Default.getFunction( options.events!.onNextYear, null! );
