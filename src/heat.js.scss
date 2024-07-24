@@ -216,6 +216,9 @@ div.heat-js {
                 position: relative;
                 padding: var(--heat-js-spacing);
                 text-align: left;
+                background-color: var(--heat-js-panel-background-color);
+                border-bottom: var(--heat-js-border-size) solid var(--heat-js-panel-border-color);
+                border-radius: var(--heat-js-border-radius);
 
                 span.dialog-title-bar-text {
                     font-weight: var(--heat-js-title-bold-weight);
