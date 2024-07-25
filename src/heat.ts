@@ -958,10 +958,12 @@ type LargestValuesForEachRangeType = {
             const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
     
             for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                const storageDate: string = DateTime.toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
+                const date: Date = new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 );
+                const storageDate: string = DateTime.toStorageDate( date );
+                const weekdayNumber: number = DateTime.getWeekdayNumber( date );
 
                 if ( data.hasOwnProperty( storageDate ) ) {
-                    if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, monthIndex ) && isDayVisible( bindingOptions.views!.chart!.daysToShow!, dayIndex + 1 ) ) {
+                    if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, monthIndex ) && isDayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
                         result = Math.max( result, data[ storageDate ] );
                     }
                 }

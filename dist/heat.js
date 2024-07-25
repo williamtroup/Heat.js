@@ -1373,10 +1373,12 @@ var Disabled;
         for (let o = 0; o < 12; o++) {
             const i = DateTime.getTotalDaysInMonth(e._currentView.year, o);
             for (let r = 0; r < i; r++) {
-                const i = DateTime.toStorageDate(new Date(e._currentView.year, o, r + 1));
-                if (n.hasOwnProperty(i)) {
-                    if (isMonthVisible(e.views.chart.monthsToShow, o) && isDayVisible(e.views.chart.daysToShow, r + 1)) {
-                        t = Math.max(t, n[i]);
+                const i = new Date(e._currentView.year, o, r + 1);
+                const s = DateTime.toStorageDate(i);
+                const a = DateTime.getWeekdayNumber(i);
+                if (n.hasOwnProperty(s)) {
+                    if (isMonthVisible(e.views.chart.monthsToShow, o) && isDayVisible(e.views.chart.daysToShow, a)) {
+                        t = Math.max(t, n[s]);
                     }
                 }
             }
