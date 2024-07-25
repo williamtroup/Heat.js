@@ -11,12 +11,12 @@
  */
 
 
-export type TypeDateCount = Record<string, number>;
+export type InstanceTypeDateCount = Record<string, number>;
 
 export type InstanceData = Record<string, {
     options: BindingOptions;
     totalTypes: number;
-    typeData: Record<string, TypeDateCount>;
+    typeData: Record<string, InstanceTypeDateCount>;
 }>;
 
 export type Position = {
@@ -227,7 +227,7 @@ export type BindingOptionsEvents = {
     onColorRangeTypeToggle?: ( id: string, visible: boolean ) => void;
     onImport?: ( element: HTMLElement ) => void;
     onStatisticClick?: ( colorRange: BindingOptionsColorRange ) => void;
-    onDataFetch?: ( element: HTMLElement ) => TypeDateCount;
+    onDataFetch?: ( element: HTMLElement ) => InstanceTypeDateCount;
     onClear?: ( element: HTMLElement ) => void;
     onUpdate?: ( element: HTMLElement ) => void;
     onOptionsUpdate?: ( element: HTMLElement , options: BindingOptions ) => void;

@@ -16,7 +16,7 @@ import {
     type BindingOptionsHoliday,
     type BindingOptionsColorRange,
     type BindingOptions,
-    type TypeDateCount,
+    type InstanceTypeDateCount,
     type InstanceData } from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
@@ -50,7 +50,7 @@ type LargestValueForDays = {
 };
 
 type LargestValuesForEachRangeType = {
-    types: TypeDateCount;
+    types: InstanceTypeDateCount;
     largestValue: number;
 };
 
@@ -773,11 +773,11 @@ type LargestValuesForEachRangeType = {
 
     function isDataAvailableForYear( bindingOptions: BindingOptions ) : boolean {
         let result: boolean = false;
-        const data: TypeDateCount = getCurrentViewData( bindingOptions );
+        const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
         const checkDate: string = bindingOptions._currentView.year.toString();
 
-        for ( let storageDate in data ) {
-            if ( data.hasOwnProperty( storageDate ) ) {
+        for ( let storageDate in typeDateCounts ) {
+            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                 if ( DateTime.getStorageDateYear( storageDate ) === checkDate ) {
                     result = true;
                     break;
@@ -952,7 +952,7 @@ type LargestValuesForEachRangeType = {
 
     function getLargestValueForChartYear( bindingOptions: BindingOptions ) : number {
         let result: number = 0;
-        const data: TypeDateCount = getCurrentViewData( bindingOptions );
+        const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
             const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
@@ -962,9 +962,9 @@ type LargestValuesForEachRangeType = {
                 const storageDate: string = DateTime.toStorageDate( date );
                 const weekdayNumber: number = DateTime.getWeekdayNumber( date );
 
-                if ( data.hasOwnProperty( storageDate ) ) {
+                if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                     if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, monthIndex ) && isDayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
-                        result = Math.max( result, data[ storageDate ] );
+                        result = Math.max( result, typeDateCounts[ storageDate ] );
                     }
                 }
             }
@@ -1090,7 +1090,7 @@ type LargestValuesForEachRangeType = {
             largestValue: 0
         } as LargestValueForDays;
 
-        const data: TypeDateCount = getCurrentViewData( bindingOptions );
+        const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
             const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
@@ -1098,13 +1098,13 @@ type LargestValuesForEachRangeType = {
             for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                 const storageDate: string = DateTime.toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
 
-                if ( data.hasOwnProperty( storageDate ) ) {
+                if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                     const storageDateParts: string[] = DateTime.getStorageDate( storageDate );
                     const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
                     const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
                     if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views!.days!.monthsToShow!, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
-                        result.days[ weekDayNumber ] += data[ storageDate ];
+                        result.days[ weekDayNumber ] += typeDateCounts[ storageDate ];
 
                         result.largestValue = Math.max( result.largestValue, result.days[ weekDayNumber ] );
                     }
@@ -1239,10 +1239,10 @@ type LargestValuesForEachRangeType = {
     }
 
     function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValuesForEachRangeType {
-        const data: TypeDateCount = getCurrentViewData( bindingOptions );
+        const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
         const result: LargestValuesForEachRangeType = {
-            types: {} as TypeDateCount,
+            types: {} as InstanceTypeDateCount,
             largestValue: 0
         } as LargestValuesForEachRangeType;
 
@@ -1254,13 +1254,13 @@ type LargestValuesForEachRangeType = {
             for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                 const storageDate: string = DateTime.toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
 
-                if ( data.hasOwnProperty( storageDate ) ) {
+                if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                     const storageDateParts: string[] = DateTime.getStorageDate( storageDate );
                     const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
                     const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
                     if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views!.statistics!.monthsToShow!, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views!.statistics!.daysToShow!, weekDayNumber ) ) {
-                        const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, data[ storageDate ] );
+                        const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, typeDateCounts[ storageDate ] );
 
                         if ( !Is.defined( useColorRange ) ) {
                             result.types[ Char.zero ]++;
@@ -1465,14 +1465,14 @@ type LargestValuesForEachRangeType = {
             totalTypes: 1
         };
 
-        _elements_InstanceData[ elementId ].typeData[ _configuration.text!.unknownTrendText! ] = {} as TypeDateCount;
+        _elements_InstanceData[ elementId ].typeData[ _configuration.text!.unknownTrendText! ] = {} as InstanceTypeDateCount;
 
         if ( storeLocalData && !bindingOptions._currentView.isInFetchMode ) {
             loadDataFromLocalStorage( bindingOptions );
         }
     }
 
-    function getCurrentViewData( bindingOptions: BindingOptions ) : TypeDateCount {
+    function getCurrentViewData( bindingOptions: BindingOptions ) : InstanceTypeDateCount {
         return _elements_InstanceData[ bindingOptions._currentView.element.id ].typeData[ bindingOptions._currentView.type ];
     }
 
@@ -1488,10 +1488,10 @@ type LargestValuesForEachRangeType = {
         let years: number[] = [];
 
         if ( bindingOptions.showOnlyDataForYearsAvailable ) {
-            let data: TypeDateCount = getCurrentViewData( bindingOptions );
+            let typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
-            for ( let storageDate in data ) {
-                if ( data.hasOwnProperty( storageDate ) ) {
+            for ( let storageDate in typeDateCounts ) {
+                if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                     let year: number = parseInt( DateTime.getStorageDateYear( storageDate ) );
                     
                     if ( years.indexOf( year ) === Value.notFound ) {
@@ -1610,18 +1610,18 @@ type LargestValuesForEachRangeType = {
 
     function pullDataFromCustomTrigger( bindingOptions: BindingOptions ) : void {
         const elementId: string = bindingOptions._currentView.element.id;
-        const data: TypeDateCount = Trigger.customEvent( bindingOptions.events!.onDataFetch!, elementId );
+        const typeDateCounts: InstanceTypeDateCount = Trigger.customEvent( bindingOptions.events!.onDataFetch!, elementId );
 
-        if ( Is.definedObject( data ) ) {
+        if ( Is.definedObject( typeDateCounts ) ) {
             createInstanceDataForElement( elementId, bindingOptions, false );
 
-            for ( let storageDate in data ) {
-                if ( data.hasOwnProperty( storageDate ) ) {
+            for ( let storageDate in typeDateCounts ) {
+                if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                     if ( !_elements_InstanceData[ elementId ].typeData[ _configuration.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
                         _elements_InstanceData[ elementId ].typeData[ _configuration.text!.unknownTrendText! ][ storageDate ] = 0;
                     }
             
-                    _elements_InstanceData[ elementId ].typeData[ _configuration.text!.unknownTrendText! ][ storageDate ] += data[ storageDate ];
+                    _elements_InstanceData[ elementId ].typeData[ _configuration.text!.unknownTrendText! ][ storageDate ] += typeDateCounts[ storageDate ];
                 }
             }
         }
@@ -1827,18 +1827,18 @@ type LargestValuesForEachRangeType = {
     function importFromFiles( files: FileList, bindingOptions: BindingOptions ) : void {
         const filesLength: number = files.length;
         const filesCompleted: string[] = [];
-        const data: TypeDateCount = getCurrentViewData( bindingOptions );
+        const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
-        const onLoadEnd: Function = ( filename: string, readingObject: TypeDateCount ) => {
+        const onLoadEnd: Function = ( filename: string, readingObject: InstanceTypeDateCount ) => {
             filesCompleted.push( filename );
 
             for ( let storageDate in readingObject ) {
                 if ( readingObject.hasOwnProperty( storageDate ) ) {
-                    if ( !data.hasOwnProperty( storageDate ) ) {
-                        data[ storageDate ] = 0;
+                    if ( !typeDateCounts.hasOwnProperty( storageDate ) ) {
+                        typeDateCounts[ storageDate ] = 0;
                     }
 
-                    data[ storageDate ] += readingObject[ storageDate ];
+                    typeDateCounts[ storageDate ] += readingObject[ storageDate ];
                 }
             }
             
@@ -1864,7 +1864,7 @@ type LargestValuesForEachRangeType = {
 
     function importFromJson( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
-        let readingObject: TypeDateCount = {} as TypeDateCount;
+        let readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
         reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
@@ -1883,7 +1883,7 @@ type LargestValuesForEachRangeType = {
 
     function importFromTxt( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
-        const readingObject: TypeDateCount = {} as TypeDateCount;
+        const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
         reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
@@ -1905,7 +1905,7 @@ type LargestValuesForEachRangeType = {
 
     function importFromCsv( file: File, onLoadEnd: Function ) : void {
         const reader: FileReader = new FileReader();
-        const readingObject: TypeDateCount = {} as TypeDateCount;
+        const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
         reader.onloadend = () => {
             onLoadEnd( file.name, readingObject );
@@ -1966,12 +1966,12 @@ type LargestValuesForEachRangeType = {
     }
 
     function getCsvContent( bindingOptions: BindingOptions ) : string {
-        const data: TypeDateCount = getExportData( bindingOptions );
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
         const csvContents: string[] = [];
 
-        for ( let storageDate in data ) {
-            if ( data.hasOwnProperty( storageDate ) ) {
-                csvContents.push( getCsvValueLine( [ getCsvValue( storageDate ), getCsvValue( data[ storageDate ].toString() ) ] ) );
+        for ( let storageDate in typeDateCounts ) {
+            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                csvContents.push( getCsvValueLine( [ getCsvValue( storageDate ), getCsvValue( typeDateCounts[ storageDate ].toString() ) ] ) );
             }
         }
 
@@ -1987,17 +1987,17 @@ type LargestValuesForEachRangeType = {
     }
 
     function getXmlContents( bindingOptions: BindingOptions ) : string {
-        const data: TypeDateCount = getExportData( bindingOptions );
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
         const contents: string[] = [];
 
         contents.push( "<?xml version=\"1.0\" ?>" );
         contents.push( "<Dates>" );
 
-        for ( let storageDate in data ) {
-            if ( data.hasOwnProperty( storageDate ) ) {
+        for ( let storageDate in typeDateCounts ) {
+            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                 contents.push( "<Date>" );
                 contents.push( `<FullDate>${storageDate}</FullDate>` );
-                contents.push( `<Count>${data[storageDate].toString()}</Count>` );
+                contents.push( `<Count>${typeDateCounts[storageDate].toString()}</Count>` );
                 contents.push( "</Date>" );
             }
         }
@@ -2008,21 +2008,21 @@ type LargestValuesForEachRangeType = {
     }
 
     function getTxtContents( bindingOptions: BindingOptions ) : string {
-        const data: TypeDateCount = getExportData( bindingOptions );
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
         const contents: string[] = [];
 
-        for ( let storageDate in data ) {
-            if ( data.hasOwnProperty( storageDate ) ) {
-                contents.push( storageDate + Char.colon + Char.space + data[ storageDate ].toString() );
+        for ( let storageDate in typeDateCounts ) {
+            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                contents.push( storageDate + Char.colon + Char.space + typeDateCounts[ storageDate ].toString() );
             }
         }
 
         return contents.join( Char.newLine );
     }
 
-    function getExportData( bindingOptions: BindingOptions ) : TypeDateCount {
-        const contents: TypeDateCount = {} as TypeDateCount;
-        const data: TypeDateCount = getCurrentViewData( bindingOptions );
+    function getExportData( bindingOptions: BindingOptions ) : InstanceTypeDateCount {
+        const contents: InstanceTypeDateCount = {} as InstanceTypeDateCount;
+        const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
         if ( bindingOptions.exportOnlyYearBeingViewed ) {
             for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
@@ -2031,8 +2031,8 @@ type LargestValuesForEachRangeType = {
                 for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                     const storageDate2: string = DateTime.toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
 
-                    if ( data.hasOwnProperty( storageDate2 ) ) {
-                        contents[ storageDate2 ] = data[ storageDate2 ];
+                    if ( typeDateCounts.hasOwnProperty( storageDate2 ) ) {
+                        contents[ storageDate2 ] = typeDateCounts[ storageDate2 ];
                     }
                 }
             }
@@ -2040,8 +2040,8 @@ type LargestValuesForEachRangeType = {
         } else {
             const storageDates: string[] = [];
 
-            for ( let storageDate1 in data ) {
-                if ( data.hasOwnProperty( storageDate1 ) ) {
+            for ( let storageDate1 in typeDateCounts ) {
+                if ( typeDateCounts.hasOwnProperty( storageDate1 ) ) {
                     storageDates.push( storageDate1 );
                 }
             }
@@ -2053,8 +2053,8 @@ type LargestValuesForEachRangeType = {
             for ( let storageDateIndex: number = 0; storageDateIndex < storageDatesLength; storageDateIndex++ ) {
                 const storageDate3: string = storageDates[ storageDateIndex ];
     
-                if ( data.hasOwnProperty( storageDate3 ) ) {
-                    contents[ storageDate3 ] = data[ storageDate3 ];
+                if ( typeDateCounts.hasOwnProperty( storageDate3 ) ) {
+                    contents[ storageDate3 ] = typeDateCounts[ storageDate3 ];
                 }
             }
         }
@@ -2269,7 +2269,7 @@ type LargestValuesForEachRangeType = {
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
-                        _elements_InstanceData[ elementId ].typeData[ type ] = {} as TypeDateCount;
+                        _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
                         _elements_InstanceData[ elementId ].totalTypes++;
                     }
         
@@ -2493,11 +2493,11 @@ type LargestValuesForEachRangeType = {
         setYearToHighest: function ( elementId: string ) : PublicApi {
             if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-                const data: TypeDateCount = getCurrentViewData( bindingOptions );
+                const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
                 let maximumYear: number = 0;
     
-                for ( let storageDate in data ) {
-                    if ( data.hasOwnProperty( storageDate ) ) {
+                for ( let storageDate in typeDateCounts ) {
+                    if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                         maximumYear = Math.max( maximumYear, parseInt( DateTime.getStorageDateYear( storageDate ) ) );
                     }
                 }
@@ -2521,11 +2521,11 @@ type LargestValuesForEachRangeType = {
         setYearToLowest: function ( elementId: string ) : PublicApi {
             if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-                const data: TypeDateCount = getCurrentViewData( bindingOptions );
+                const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
                 let minimumYear: number = 9999;
     
-                for ( let storageDate in data ) {
-                    if ( data.hasOwnProperty( storageDate ) ) {
+                for ( let storageDate in typeDateCounts ) {
+                    if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                         minimumYear = Math.min( minimumYear, parseInt( DateTime.getStorageDateYear( storageDate ) ) );
                     }
                 }
