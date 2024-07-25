@@ -13,7 +13,7 @@
 
 export type TypeDateCount = Record<string, number>;
 
-export type DateCounts = Record<string, {
+export type InstanceData = Record<string, {
     options: BindingOptions;
     totalTypes: number;
     typeData: Record<string, TypeDateCount>;
