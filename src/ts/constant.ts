@@ -12,5 +12,5 @@
 
 
 export namespace Constant {
-    export const HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
+    export const HEAT_JS_ATTRIBUTE_NAME: string = "data-heat-js";
 }
