@@ -889,6 +889,7 @@ type LargestValuesForEachRangeType = {
                     for ( let monthIndex2: number = 12; monthIndex2--; ) {
                         addMonthName( monthIndex2 );
                     }
+                    
                 } else {
                     for ( let monthIndex3: number = 0; monthIndex3 < 12; monthIndex3++ ) {
                         addMonthName( monthIndex3 );
