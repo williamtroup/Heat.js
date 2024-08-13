@@ -57,6 +57,7 @@ export namespace Binding {
             bindingOptions._currentView.isInFetchMode = Is.definedFunction( bindingOptions.events!.onDataFetch );
             bindingOptions._currentView.isInFetchModeTimer = 0;
             bindingOptions._currentView.yearsAvailable = [];
+            bindingOptions._currentView.dayWidth = 0;
     
             if ( bindingOptions.views!.chart!.enabled ) {
                 bindingOptions._currentView.chartContents = null!;

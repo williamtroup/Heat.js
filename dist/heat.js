@@ -374,6 +374,7 @@ var Binding;
             o._currentView.isInFetchMode = Is.definedFunction(o.events.onDataFetch);
             o._currentView.isInFetchModeTimer = 0;
             o._currentView.yearsAvailable = [];
+            o._currentView.dayWidth = 0;
             if (o.views.chart.enabled) {
                 o._currentView.chartContents = null;
                 o._currentView.chartContentsScrollLeft = 0;
@@ -718,7 +719,6 @@ var Disabled;
 
 (() => {
     let _configuration = {};
-    let _elements_Day_Width = 0;
     let _elements_InstanceData = {};
     const _internal_Name_Holiday = "HOLIDAY";
     const _local_Storage_Start_ID = "HJS_";
@@ -1161,10 +1161,10 @@ var Disabled;
                                 }
                                 c = DomElement.create(s, "div", "day-column");
                                 f = 0;
-                                if (_elements_Day_Width === 0 && Is.defined(i)) {
-                                    let e = DomElement.getStyleValueByName(i, "margin-left", true);
-                                    let t = DomElement.getStyleValueByName(i, "margin-right", true);
-                                    _elements_Day_Width = i.offsetWidth + e + t;
+                                if (e._currentView.dayWidth === 0 && Is.defined(i)) {
+                                    let t = DomElement.getStyleValueByName(i, "margin-left", true);
+                                    let n = DomElement.getStyleValueByName(i, "margin-right", true);
+                                    e._currentView.dayWidth = i.offsetWidth + t + n;
                                 }
                             }
                         }
@@ -1182,15 +1182,15 @@ var Disabled;
                             if (e.views.map.showMonthDayGaps) {
                                 o.style.width = `${i}px`;
                             } else {
-                                o.style.width = `${i - _elements_Day_Width}px`;
+                                o.style.width = `${i - e._currentView.dayWidth}px`;
                             }
                         }
                     }
-                    if (i && Is.defined(_elements_Day_Width)) {
+                    if (i && Is.defined(e._currentView.dayWidth)) {
                         if (m > 0 && !e.views.map.showMonthDayGaps) {
-                            n.style.marginLeft = `${-_elements_Day_Width}px`;
+                            n.style.marginLeft = `${-e._currentView.dayWidth}px`;
                         } else if (m === 0 && e.views.map.showMonthDayGaps) {
-                            n.style.marginLeft = `${_elements_Day_Width}px`;
+                            n.style.marginLeft = `${e._currentView.dayWidth}px`;
                         }
                     }
                     if (e.views.map.showMonthsInReverseOrder) {

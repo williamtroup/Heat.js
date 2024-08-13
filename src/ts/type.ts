@@ -118,6 +118,7 @@ export type BindingOptionsCurrentView = {
     monthCheckBoxes: HTMLInputElement[];
     configurationDialog: HTMLElement;
     disabledBackground: HTMLElement;
+    dayWidth: number;
 };
 
 export type BindingOptionsViews = {

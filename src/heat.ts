@@ -59,9 +59,6 @@ type LargestValuesForEachRangeType = {
     // Variables: Configuration
     let _configuration: Configuration = {} as Configuration;
 
-    // Variables: Elements
-    let _elements_Day_Width: number = 0;
-
     // Variables: Date Counts
     let _elements_InstanceData: InstanceData = {} as InstanceData;
 
@@ -678,11 +675,11 @@ type LargestValuesForEachRangeType = {
                                 currentDayColumn = DomElement.create( dayColumns, "div", "day-column" );
                                 actualDay = 0;
     
-                                if ( _elements_Day_Width === 0 && Is.defined( day ) ) {
+                                if ( bindingOptions._currentView.dayWidth === 0 && Is.defined( day ) ) {
                                     let marginLeft: number = DomElement.getStyleValueByName( day, "margin-left", true );
                                     let marginRight: number = DomElement.getStyleValueByName( day, "margin-right", true );
                                     
-                                    _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
+                                    bindingOptions._currentView.dayWidth = day.offsetWidth + marginLeft + marginRight;
                                 }
                             }
                         }
@@ -704,16 +701,16 @@ type LargestValuesForEachRangeType = {
                             if ( bindingOptions.views!.map!.showMonthDayGaps ) {
                                 monthName.style.width = `${monthWidth}px`;
                             } else {
-                                monthName.style.width = `${monthWidth - _elements_Day_Width}px`;
+                                monthName.style.width = `${monthWidth - bindingOptions._currentView.dayWidth}px`;
                             }
                         }
                     }
     
-                    if ( monthAdded && Is.defined( _elements_Day_Width ) ) {
+                    if ( monthAdded && Is.defined( bindingOptions._currentView.dayWidth ) ) {
                         if ( firstDayNumberInMonth > 0 && !bindingOptions.views!.map!.showMonthDayGaps ) {
-                            month.style.marginLeft = `${-_elements_Day_Width}px`;
+                            month.style.marginLeft = `${-bindingOptions._currentView.dayWidth}px`;
                         } else if ( firstDayNumberInMonth === 0 && bindingOptions.views!.map!.showMonthDayGaps ) {
-                            month.style.marginLeft = `${_elements_Day_Width}px`;
+                            month.style.marginLeft = `${bindingOptions._currentView.dayWidth}px`;
                         }
                     }
 

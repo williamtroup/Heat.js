@@ -448,6 +448,7 @@ var init_binding = __esm({
                     i._currentView.isInFetchMode = Is.definedFunction(i.events.onDataFetch);
                     i._currentView.isInFetchModeTimer = 0;
                     i._currentView.yearsAvailable = [];
+                    i._currentView.dayWidth = 0;
                     if (i.views.chart.enabled) {
                         i._currentView.chartContents = null;
                         i._currentView.chartContentsScrollLeft = 0;
@@ -822,7 +823,6 @@ var require_heat = __commonJS({
         init_disabled();
         (() => {
             let _configuration = {};
-            let _elements_Day_Width = 0;
             let _elements_InstanceData = {};
             const _internal_Name_Holiday = "HOLIDAY";
             const _local_Storage_Start_ID = "HJS_";
@@ -1265,10 +1265,10 @@ var require_heat = __commonJS({
                                         }
                                         c = DomElement.create(s, "div", "day-column");
                                         f = 0;
-                                        if (_elements_Day_Width === 0 && Is.defined(o)) {
-                                            let e = DomElement.getStyleValueByName(o, "margin-left", true);
-                                            let t = DomElement.getStyleValueByName(o, "margin-right", true);
-                                            _elements_Day_Width = o.offsetWidth + e + t;
+                                        if (e._currentView.dayWidth === 0 && Is.defined(o)) {
+                                            let t = DomElement.getStyleValueByName(o, "margin-left", true);
+                                            let n = DomElement.getStyleValueByName(o, "margin-right", true);
+                                            e._currentView.dayWidth = o.offsetWidth + t + n;
                                         }
                                     }
                                 }
@@ -1286,15 +1286,15 @@ var require_heat = __commonJS({
                                     if (e.views.map.showMonthDayGaps) {
                                         i.style.width = `${o}px`;
                                     } else {
-                                        i.style.width = `${o - _elements_Day_Width}px`;
+                                        i.style.width = `${o - e._currentView.dayWidth}px`;
                                     }
                                 }
                             }
-                            if (o && Is.defined(_elements_Day_Width)) {
+                            if (o && Is.defined(e._currentView.dayWidth)) {
                                 if (m > 0 && !e.views.map.showMonthDayGaps) {
-                                    n.style.marginLeft = `${-_elements_Day_Width}px`;
+                                    n.style.marginLeft = `${-e._currentView.dayWidth}px`;
                                 } else if (m === 0 && e.views.map.showMonthDayGaps) {
-                                    n.style.marginLeft = `${_elements_Day_Width}px`;
+                                    n.style.marginLeft = `${e._currentView.dayWidth}px`;
                                 }
                             }
                             if (e.views.map.showMonthsInReverseOrder) {
