@@ -869,7 +869,7 @@ type LargestValuesForEachRangeType = {
                 const linesWidth: number = dayLines.offsetWidth / totalMonths;
                 let monthTimesValue: number = 0;
 
-                const addMonthName: Function = ( addMonthNameIndex: number ) => {
+                const addMonthName: Function = ( addMonthNameIndex: number ) : void => {
                     if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, addMonthNameIndex ) ) {
                         let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", _configuration.text!.monthNames![ addMonthNameIndex ] );
                         monthName.style.left = `${labelsWidth + (linesWidth * monthTimesValue)}px`;
@@ -1823,7 +1823,7 @@ type LargestValuesForEachRangeType = {
         const filesCompleted: string[] = [];
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
-        const onLoadEnd: Function = ( filename: string, readingObject: InstanceTypeDateCount ) => {
+        const onLoadEnd: Function = ( filename: string, readingObject: InstanceTypeDateCount ) : void => {
             filesCompleted.push( filename );
 
             for ( let storageDate in readingObject ) {
