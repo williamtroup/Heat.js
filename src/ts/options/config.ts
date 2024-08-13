@@ -69,6 +69,8 @@ export namespace Config {
             configuration.text!.refreshButtonSymbolText = Default.getAnyString( configuration.text!.refreshButtonSymbolText, "↻" );
             configuration.text!.exportButtonSymbolText = Default.getAnyString( configuration.text!.exportButtonSymbolText, "↓" );
             configuration.text!.importButtonSymbolText = Default.getAnyString( configuration.text!.importButtonSymbolText, "↑" );
+            configuration.text!.currentYearText = Default.getAnyString( configuration.text!.currentYearText, "Current Year" );
+            configuration.text!.currentYearSymbolText = Default.getAnyString( configuration.text!.currentYearSymbolText, "⏎" );
 
             return configuration;
         }

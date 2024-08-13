@@ -292,7 +292,8 @@ div.heat-js div.title-bar button.back {
   margin-left: calc(var(--heat-js-spacing) * 2) !important;
 }
 div.heat-js div.title-bar button.export,
-div.heat-js div.title-bar button.import {
+div.heat-js div.title-bar button.import,
+div.heat-js div.title-bar button.current {
   margin-right: calc(var(--heat-js-spacing) / 2) !important;
 }
 div.heat-js div.title-bar div.configure {

@@ -337,7 +337,8 @@ div.heat-js {
         }
 
         button.export,
-        button.import {
+        button.import,
+        button.current {
             margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
         }
 

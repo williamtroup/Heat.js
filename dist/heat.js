@@ -705,6 +705,8 @@ var Config;
             e.text.refreshButtonSymbolText = Default2.getAnyString(e.text.refreshButtonSymbolText, "↻");
             e.text.exportButtonSymbolText = Default2.getAnyString(e.text.exportButtonSymbolText, "↓");
             e.text.importButtonSymbolText = Default2.getAnyString(e.text.importButtonSymbolText, "↑");
+            e.text.currentYearText = Default2.getAnyString(e.text.currentYearText, "Current Year");
+            e.text.currentYearSymbolText = Default2.getAnyString(e.text.currentYearSymbolText, "⏎");
             return e;
         }
         function i(e) {
@@ -1008,7 +1010,7 @@ var Disabled;
                 i.onclick = () => {
                     De(t);
                 };
-                if (j(t, t._currentView.year)) {
+                if (Y(t, t._currentView.year)) {
                     i.disabled = true;
                 }
                 t._currentView.yearText = DomElement.createWithHTML(n, "div", "year-text", t._currentView.year.toString());
@@ -1024,13 +1026,20 @@ var Disabled;
                         c(t);
                     };
                 }
-                const o = DomElement.createWithHTML(n, "button", "next", e.text.nextButtonSymbolText);
-                ToolTip.add(o, t, e.text.nextButtonText);
+                const o = DomElement.createWithHTML(n, "button", "current", e.text.currentYearSymbolText);
+                ToolTip.add(o, t, e.text.currentYearText);
                 o.onclick = () => {
+                    t._currentView.year = (new Date).getFullYear() - 1;
+                    ve(t, false);
+                    Trigger.customEvent(t.events.onSetYear, t._currentView.year);
+                };
+                const r = DomElement.createWithHTML(n, "button", "next", e.text.nextButtonSymbolText);
+                ToolTip.add(r, t, e.text.nextButtonText);
+                r.onclick = () => {
                     ve(t);
                 };
-                if (Y(t, t._currentView.year)) {
-                    o.disabled = true;
+                if (j(t, t._currentView.year)) {
+                    r.disabled = true;
                 }
             }
         }
@@ -1797,10 +1806,10 @@ var Disabled;
     function P(e, t) {
         return e.yearsToHide.indexOf(t) === -1 && (e._currentView.yearsAvailable.length === 0 || e._currentView.yearsAvailable.indexOf(t) > -1);
     }
-    function j(e, t) {
+    function Y(e, t) {
         return e._currentView.yearsAvailable.length > 0 && t <= e._currentView.yearsAvailable[0];
     }
-    function Y(e, t) {
+    function j(e, t) {
         return e._currentView.yearsAvailable.length > 0 && t >= e._currentView.yearsAvailable[e._currentView.yearsAvailable.length - 1];
     }
     function $(n) {
@@ -2226,7 +2235,7 @@ var Disabled;
         let i = e._currentView.year;
         i--;
         while (!P(e, i)) {
-            if (j(e, i)) {
+            if (Y(e, i)) {
                 n = false;
                 break;
             }
@@ -2245,7 +2254,7 @@ var Disabled;
         let i = e._currentView.year;
         i++;
         while (!P(e, i)) {
-            if (Y(e, i)) {
+            if (j(e, i)) {
                 n = false;
                 break;
             }
@@ -2255,7 +2264,7 @@ var Disabled;
             e._currentView.year = i;
             a(e);
             if (t) {
-                Trigger.customEvent(e.events.onBackYear, e._currentView.year);
+                Trigger.customEvent(e.events.onNextYear, e._currentView.year);
             }
         }
     }

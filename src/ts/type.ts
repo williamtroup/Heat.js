@@ -76,6 +76,8 @@ export type ConfigurationText = {
     refreshButtonSymbolText?: string;
     exportButtonSymbolText?: string;
     importButtonSymbolText?: string;
+    currentYearText?: string;
+    currentYearSymbolText?: string;
 };
 
 export type BindingOptions = {

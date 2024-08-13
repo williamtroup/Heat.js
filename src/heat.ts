@@ -444,6 +444,17 @@ type LargestValuesForEachRangeType = {
                     };
                 }
 
+                const current: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "current", _configuration.text!.currentYearSymbolText! ) as HTMLInputElement;
+
+                ToolTip.add( current, bindingOptions, _configuration.text!.currentYearText! );
+
+                current.onclick = () => {
+                    bindingOptions._currentView.year = new Date().getFullYear() - 1;
+
+                    moveToNextYear( bindingOptions, false );
+                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                };
+
                 const next: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "next", _configuration.text!.nextButtonSymbolText! ) as HTMLInputElement;
 
                 ToolTip.add( next, bindingOptions, _configuration.text!.nextButtonText! );
@@ -2151,7 +2162,7 @@ type LargestValuesForEachRangeType = {
             renderControlContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
-                Trigger.customEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onNextYear!, bindingOptions._currentView.year );
             }
         }
     }
