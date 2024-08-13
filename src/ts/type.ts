@@ -19,6 +19,11 @@ export type InstanceData = Record<string, {
     typeData: Record<string, InstanceTypeDateCount>;
 }>;
 
+export type StringToJson = {
+    parsed: boolean;
+    object: any;
+};
+
 export type Position = {
     left: number;
     top: number;

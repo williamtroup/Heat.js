@@ -17,7 +17,8 @@ import {
     type BindingOptionsColorRange,
     type BindingOptions,
     type InstanceTypeDateCount,
-    type InstanceData } from "./ts/type";
+    type InstanceData, 
+    StringToJson} from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
 import { Constant } from "./ts/constant"
@@ -37,11 +38,6 @@ import { Disabled } from "./ts/area/disabled";
 type IsHoliday = {
     matched: boolean;
     name: string;
-};
-
-type StringToJson = {
-    parsed: boolean;
-    object: any;
 };
 
 type LargestValueForDays = {
@@ -99,7 +95,7 @@ type LargestValuesForEachRangeType = {
             const bindingOptionsData: string = element.getAttribute( Constant.HEAT_JS_ATTRIBUTE_NAME )!;
 
             if ( Is.definedString( bindingOptionsData ) ) {
-                const bindingOptions: StringToJson = getObjectFromString( bindingOptionsData );
+                const bindingOptions: StringToJson = Default.getObjectFromString( bindingOptionsData, _configuration );
 
                 if ( bindingOptions.parsed && Is.definedObject( bindingOptions.object ) ) {
                     renderControl( Binding.Options.getForNewInstance( _configuration, bindingOptions.object, element ) );
@@ -1535,7 +1531,7 @@ type LargestValuesForEachRangeType = {
 
                 if ( Str.startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
                     const typesJson: string = window.localStorage.getItem( key )!;
-                    const typesObject: StringToJson = getObjectFromString( typesJson );
+                    const typesObject: StringToJson = Default.getObjectFromString( typesJson, _configuration );
 
                     if ( typesObject.parsed ) {
                         _elements_InstanceData[ elementId ].typeData = typesObject.object;
@@ -1869,7 +1865,7 @@ type LargestValuesForEachRangeType = {
         };
     
         reader.onload = ( e: ProgressEvent<FileReader> ) => {
-            const json: StringToJson = getObjectFromString( e.target!.result );
+            const json: StringToJson = Default.getObjectFromString( e.target!.result, _configuration );
 
             if ( json.parsed && Is.definedObject( json.object ) ) {
                 readingObject = json.object;
@@ -2099,45 +2095,6 @@ type LargestValuesForEachRangeType = {
 
     function getCsvValueLine( csvValues: string[] ) : string {
         return csvValues.join( "," );
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Default Parameter/Option Handling
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function getObjectFromString( objectString: any ) : StringToJson {
-        const result: StringToJson = {
-            parsed: true,
-            object: null
-        } as StringToJson;
-
-        try {
-            if ( Is.definedString( objectString ) ) {
-                result.object = JSON.parse( objectString );
-            }
-
-        } catch ( e1: any ) {
-            try {
-                result.object = eval( `(${objectString})` );
-
-                if ( Is.definedFunction( result.object ) ) {
-                    result.object = result.object();
-                }
-                
-            } catch ( e2: any ) {
-                if ( !_configuration.safeMode ) {
-                    console.error( _configuration.text!.objectErrorText!.replace( "{{error_1}}",  e1.message ).replace( "{{error_2}}",  e2.message ) );
-                    result.parsed = false;
-                }
-                
-                result.object = null;
-            }
-        }
-
-        return result;
     }
 
 
