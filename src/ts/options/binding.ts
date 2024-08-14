@@ -208,7 +208,8 @@ export namespace Binding {
             options.title!.showConfigurationButton = Default.getBoolean( options.title!.showConfigurationButton, true );
             options.title!.showTitleDropDownButton = Default.getBoolean( options.title!.showTitleDropDownButton, true );
             options.title!.showTitleDropDownHeaders = Default.getBoolean( options.title!.showTitleDropDownHeaders, true );
-    
+            options.title!.showCurrentYearButton = Default.getBoolean( options.title!.showCurrentYearButton, true );
+
             return options;
         }
     

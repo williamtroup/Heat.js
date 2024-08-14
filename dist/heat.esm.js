@@ -527,6 +527,7 @@ var Binding;
             e.title.showConfigurationButton = Default2.getBoolean(e.title.showConfigurationButton, true);
             e.title.showTitleDropDownButton = Default2.getBoolean(e.title.showTitleDropDownButton, true);
             e.title.showTitleDropDownHeaders = Default2.getBoolean(e.title.showTitleDropDownHeaders, true);
+            e.title.showCurrentYearButton = Default2.getBoolean(e.title.showCurrentYearButton, false);
             return e;
         }
         function l(e) {
@@ -1024,20 +1025,22 @@ var Disabled;
                         c(t);
                     };
                 }
-                const o = DomElement.createWithHTML(n, "button", "current", e.text.currentYearSymbolText);
-                ToolTip.add(o, t, e.text.currentYearText);
+                if (t.title.showCurrentYearButton) {
+                    const i = DomElement.createWithHTML(n, "button", "current", e.text.currentYearSymbolText);
+                    ToolTip.add(i, t, e.text.currentYearText);
+                    i.onclick = () => {
+                        t._currentView.year = (new Date).getFullYear() - 1;
+                        ve(t, false);
+                        Trigger.customEvent(t.events.onSetYear, t._currentView.year);
+                    };
+                }
+                const o = DomElement.createWithHTML(n, "button", "next", e.text.nextButtonSymbolText);
+                ToolTip.add(o, t, e.text.nextButtonText);
                 o.onclick = () => {
-                    t._currentView.year = (new Date).getFullYear() - 1;
-                    ve(t, false);
-                    Trigger.customEvent(t.events.onSetYear, t._currentView.year);
-                };
-                const r = DomElement.createWithHTML(n, "button", "next", e.text.nextButtonSymbolText);
-                ToolTip.add(r, t, e.text.nextButtonText);
-                r.onclick = () => {
                     ve(t);
                 };
                 if (j(t, t._currentView.year)) {
-                    r.disabled = true;
+                    o.disabled = true;
                 }
             }
         }
