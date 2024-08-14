@@ -529,7 +529,7 @@ var Binding;
             e.title.showConfigurationButton = Default2.getBoolean(e.title.showConfigurationButton, true);
             e.title.showTitleDropDownButton = Default2.getBoolean(e.title.showTitleDropDownButton, true);
             e.title.showTitleDropDownHeaders = Default2.getBoolean(e.title.showTitleDropDownHeaders, true);
-            e.title.showCurrentYearButton = Default2.getBoolean(e.title.showCurrentYearButton, false);
+            e.title.showCurrentYearButton = Default2.getBoolean(e.title.showCurrentYearButton, true);
             return e;
         }
         function l(e) {
