@@ -296,14 +296,15 @@ var DomElement;
         }
     }
     e.reverseChildrenOrder = u;
-    function d(e, t) {
-        const o = n(e, "div");
-        const r = n(o, "label", "checkbox");
-        const s = n(r, "input");
-        s.type = "checkbox";
-        n(r, "span", "check-mark");
-        i(r, "span", "text", t);
-        return s;
+    function d(e, t, o) {
+        const r = n(e, "div");
+        const s = n(r, "label", "checkbox");
+        const a = n(s, "input");
+        a.type = "checkbox";
+        a.name = o;
+        n(s, "span", "check-mark");
+        i(s, "span", "text", t);
+        return a;
     }
     e.createCheckBox = d;
 })(DomElement || (DomElement = {}));
@@ -872,13 +873,13 @@ var Disabled;
             u(t);
         };
         for (let n = 0; n < 7; n++) {
-            t._currentView.dayCheckBoxes[n] = DomElement.createCheckBox(r, e.text.dayNames[n]);
+            t._currentView.dayCheckBoxes[n] = DomElement.createCheckBox(r, e.text.dayNames[n], n.toString());
         }
         for (let n = 0; n < 7; n++) {
-            t._currentView.monthCheckBoxes[n] = DomElement.createCheckBox(a, e.text.monthNames[n]);
+            t._currentView.monthCheckBoxes[n] = DomElement.createCheckBox(a, e.text.monthNames[n], n.toString());
         }
         for (let n = 7; n < 12; n++) {
-            t._currentView.monthCheckBoxes[n] = DomElement.createCheckBox(l, e.text.monthNames[n]);
+            t._currentView.monthCheckBoxes[n] = DomElement.createCheckBox(l, e.text.monthNames[n], n.toString());
         }
         ToolTip.add(o, t, e.text.closeToolTipText);
     }

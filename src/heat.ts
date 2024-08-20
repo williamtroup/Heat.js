@@ -237,15 +237,15 @@ type LargestValuesForEachRangeType = {
         };
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
-            bindingOptions._currentView.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.text!.dayNames![ dayIndex ] );
+            bindingOptions._currentView.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.text!.dayNames![ dayIndex ], dayIndex.toString() );
         }
 
         for ( let monthIndex1: number = 0; monthIndex1 < 7; monthIndex1++ ) {
-            bindingOptions._currentView.monthCheckBoxes[ monthIndex1 ] = DomElement.createCheckBox( months1Container, _configuration.text!.monthNames![ monthIndex1 ] );
+            bindingOptions._currentView.monthCheckBoxes[ monthIndex1 ] = DomElement.createCheckBox( months1Container, _configuration.text!.monthNames![ monthIndex1 ], monthIndex1.toString() );
         }
 
         for ( let monthIndex2: number = 7; monthIndex2 < 12; monthIndex2++ ) {
-            bindingOptions._currentView.monthCheckBoxes[ monthIndex2 ] = DomElement.createCheckBox( months2Container, _configuration.text!.monthNames![ monthIndex2 ] );
+            bindingOptions._currentView.monthCheckBoxes[ monthIndex2 ] = DomElement.createCheckBox( months2Container, _configuration.text!.monthNames![ monthIndex2 ], monthIndex2.toString() );
         }
 
         ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
