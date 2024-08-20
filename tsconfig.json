@@ -10,7 +10,9 @@
     "skipLibCheck": true,
     "removeComments": true,
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true
   },
   "include": [
     "src/**/*.ts"

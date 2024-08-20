@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        type.ts
- * @version     v4.1.1
+ * @version     v4.2.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -18,6 +18,11 @@ export type InstanceData = Record<string, {
     totalTypes: number;
     typeData: Record<string, InstanceTypeDateCount>;
 }>;
+
+export type StringToJson = {
+    parsed: boolean;
+    object: any;
+};
 
 export type Position = {
     left: number;
@@ -71,6 +76,8 @@ export type ConfigurationText = {
     refreshButtonSymbolText?: string;
     exportButtonSymbolText?: string;
     importButtonSymbolText?: string;
+    currentYearText?: string;
+    currentYearSymbolText?: string;
 };
 
 export type BindingOptions = {
@@ -118,6 +125,7 @@ export type BindingOptionsCurrentView = {
     monthCheckBoxes: HTMLInputElement[];
     configurationDialog: HTMLElement;
     disabledBackground: HTMLElement;
+    dayWidth: number;
 };
 
 export type BindingOptionsViews = {
@@ -188,6 +196,7 @@ export type BindingOptionsTitle = {
     showConfigurationButton?: boolean;
     showTitleDropDownButton?: boolean;
     showTitleDropDownHeaders?: boolean;
+    showCurrentYearButton?: boolean;
 };
 
 export type BindingOptionsDescription = {

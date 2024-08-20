@@ -4,13 +4,14 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        default.ts
- * @version     v4.1.1
+ * @version     v4.2.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
  */
 
 
+import { type Configuration, type StringToJson } from "../type";
 import { Char } from "./enum";
 import { Is } from "./is";
 
@@ -58,6 +59,38 @@ export namespace Default {
 
         } else {
             result = getArray( value, defaultValue );
+        }
+
+        return result;
+    }
+
+    export function getObjectFromString( objectString: any, configuration: Configuration ) : StringToJson {
+        const result: StringToJson = {
+            parsed: true,
+            object: null
+        } as StringToJson;
+
+        try {
+            if ( Is.definedString( objectString ) ) {
+                result.object = JSON.parse( objectString );
+            }
+
+        } catch ( e1: any ) {
+            try {
+                result.object = eval( `(${objectString})` );
+
+                if ( Is.definedFunction( result.object ) ) {
+                    result.object = result.object();
+                }
+                
+            } catch ( e2: any ) {
+                if ( !configuration.safeMode ) {
+                    console.error( configuration.text!.objectErrorText!.replace( "{{error_1}}",  e1.message ).replace( "{{error_2}}",  e2.message ) );
+                    result.parsed = false;
+                }
+                
+                result.object = null;
+            }
         }
 
         return result;

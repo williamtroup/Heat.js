@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        dom.ts
- * @version     v4.1.1
+ * @version     v4.2.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -14,6 +14,7 @@
 import { type Position } from "../type";
 import { Char } from "../data/enum";
 import { Is } from "../data/is";
+import { Str } from "../data/str";
 
 
 export namespace DomElement {
@@ -127,12 +128,13 @@ export namespace DomElement {
         }
     }
 
-    export function createCheckBox( container: HTMLElement, labelText: string ) : HTMLInputElement {
+    export function createCheckBox( container: HTMLElement, labelText: string, name: string ) : HTMLInputElement {
         const lineContainer: HTMLElement = create( container, "div" );
         const label: HTMLElement = create( lineContainer, "label", "checkbox" );
         const input: HTMLInputElement = create( label, "input" ) as HTMLInputElement;
 
         input.type = "checkbox";
+        input.name = name;
 
         create( label, "span", "check-mark" );
         createWithHTML( label, "span", "text", labelText );

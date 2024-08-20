@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v4.1.1
+ * Heat.js Library v4.2.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -337,7 +337,8 @@ div.heat-js {
         }
 
         button.export,
-        button.import {
+        button.import,
+        button.current {
             margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
         }
 

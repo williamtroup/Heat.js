@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        config.ts
- * @version     v4.1.1
+ * @version     v4.2.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -69,6 +69,8 @@ export namespace Config {
             configuration.text!.refreshButtonSymbolText = Default.getAnyString( configuration.text!.refreshButtonSymbolText, "↻" );
             configuration.text!.exportButtonSymbolText = Default.getAnyString( configuration.text!.exportButtonSymbolText, "↓" );
             configuration.text!.importButtonSymbolText = Default.getAnyString( configuration.text!.importButtonSymbolText, "↑" );
+            configuration.text!.currentYearText = Default.getAnyString( configuration.text!.currentYearText, "Current Year" );
+            configuration.text!.currentYearSymbolText = Default.getAnyString( configuration.text!.currentYearSymbolText, "⏎" );
 
             return configuration;
         }

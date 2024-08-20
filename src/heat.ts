@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        heat.ts
- * @version     v4.1.1
+ * @version     v4.2.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -17,7 +17,8 @@ import {
     type BindingOptionsColorRange,
     type BindingOptions,
     type InstanceTypeDateCount,
-    type InstanceData } from "./ts/type";
+    type InstanceData, 
+    StringToJson} from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
 import { Constant } from "./ts/constant"
@@ -39,11 +40,6 @@ type IsHoliday = {
     name: string;
 };
 
-type StringToJson = {
-    parsed: boolean;
-    object: any;
-};
-
 type LargestValueForDays = {
     days: Record<number, number>;
     largestValue: number;
@@ -58,9 +54,6 @@ type LargestValuesForEachRangeType = {
 ( () => {
     // Variables: Configuration
     let _configuration: Configuration = {} as Configuration;
-
-    // Variables: Elements
-    let _elements_Day_Width: number = 0;
 
     // Variables: Date Counts
     let _elements_InstanceData: InstanceData = {} as InstanceData;
@@ -102,7 +95,7 @@ type LargestValuesForEachRangeType = {
             const bindingOptionsData: string = element.getAttribute( Constant.HEAT_JS_ATTRIBUTE_NAME )!;
 
             if ( Is.definedString( bindingOptionsData ) ) {
-                const bindingOptions: StringToJson = getObjectFromString( bindingOptionsData );
+                const bindingOptions: StringToJson = Default.getObjectFromString( bindingOptionsData, _configuration );
 
                 if ( bindingOptions.parsed && Is.definedObject( bindingOptions.object ) ) {
                     renderControl( Binding.Options.getForNewInstance( _configuration, bindingOptions.object, element ) );
@@ -244,15 +237,15 @@ type LargestValuesForEachRangeType = {
         };
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
-            bindingOptions._currentView.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.text!.dayNames![ dayIndex ] );
+            bindingOptions._currentView.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.text!.dayNames![ dayIndex ], dayIndex.toString() );
         }
 
         for ( let monthIndex1: number = 0; monthIndex1 < 7; monthIndex1++ ) {
-            bindingOptions._currentView.monthCheckBoxes[ monthIndex1 ] = DomElement.createCheckBox( months1Container, _configuration.text!.monthNames![ monthIndex1 ] );
+            bindingOptions._currentView.monthCheckBoxes[ monthIndex1 ] = DomElement.createCheckBox( months1Container, _configuration.text!.monthNames![ monthIndex1 ], monthIndex1.toString() );
         }
 
         for ( let monthIndex2: number = 7; monthIndex2 < 12; monthIndex2++ ) {
-            bindingOptions._currentView.monthCheckBoxes[ monthIndex2 ] = DomElement.createCheckBox( months2Container, _configuration.text!.monthNames![ monthIndex2 ] );
+            bindingOptions._currentView.monthCheckBoxes[ monthIndex2 ] = DomElement.createCheckBox( months2Container, _configuration.text!.monthNames![ monthIndex2 ], monthIndex2.toString() );
         }
 
         ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
@@ -448,6 +441,19 @@ type LargestValuesForEachRangeType = {
 
                     configureButton.onclick = () => {
                         showConfigurationDialog( bindingOptions );
+                    };
+                }
+
+                if ( bindingOptions.title!.showCurrentYearButton ) {
+                    const current: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "current", _configuration.text!.currentYearSymbolText! ) as HTMLInputElement;
+
+                    ToolTip.add( current, bindingOptions, _configuration.text!.currentYearText! );
+    
+                    current.onclick = () => {
+                        bindingOptions._currentView.year = new Date().getFullYear() - 1;
+    
+                        moveToNextYear( bindingOptions, false );
+                        Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
                     };
                 }
 
@@ -678,11 +684,11 @@ type LargestValuesForEachRangeType = {
                                 currentDayColumn = DomElement.create( dayColumns, "div", "day-column" );
                                 actualDay = 0;
     
-                                if ( _elements_Day_Width === 0 && Is.defined( day ) ) {
+                                if ( bindingOptions._currentView.dayWidth === 0 && Is.defined( day ) ) {
                                     let marginLeft: number = DomElement.getStyleValueByName( day, "margin-left", true );
                                     let marginRight: number = DomElement.getStyleValueByName( day, "margin-right", true );
                                     
-                                    _elements_Day_Width = day.offsetWidth + marginLeft + marginRight;
+                                    bindingOptions._currentView.dayWidth = day.offsetWidth + marginLeft + marginRight;
                                 }
                             }
                         }
@@ -704,16 +710,16 @@ type LargestValuesForEachRangeType = {
                             if ( bindingOptions.views!.map!.showMonthDayGaps ) {
                                 monthName.style.width = `${monthWidth}px`;
                             } else {
-                                monthName.style.width = `${monthWidth - _elements_Day_Width}px`;
+                                monthName.style.width = `${monthWidth - bindingOptions._currentView.dayWidth}px`;
                             }
                         }
                     }
     
-                    if ( monthAdded && Is.defined( _elements_Day_Width ) ) {
+                    if ( monthAdded && Is.defined( bindingOptions._currentView.dayWidth ) ) {
                         if ( firstDayNumberInMonth > 0 && !bindingOptions.views!.map!.showMonthDayGaps ) {
-                            month.style.marginLeft = `${-_elements_Day_Width}px`;
+                            month.style.marginLeft = `${-bindingOptions._currentView.dayWidth}px`;
                         } else if ( firstDayNumberInMonth === 0 && bindingOptions.views!.map!.showMonthDayGaps ) {
-                            month.style.marginLeft = `${_elements_Day_Width}px`;
+                            month.style.marginLeft = `${bindingOptions._currentView.dayWidth}px`;
                         }
                     }
 
@@ -876,7 +882,7 @@ type LargestValuesForEachRangeType = {
                 const linesWidth: number = dayLines.offsetWidth / totalMonths;
                 let monthTimesValue: number = 0;
 
-                const addMonthName: Function = ( addMonthNameIndex: number ) => {
+                const addMonthName: Function = ( addMonthNameIndex: number ) : void => {
                     if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, addMonthNameIndex ) ) {
                         let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", _configuration.text!.monthNames![ addMonthNameIndex ] );
                         monthName.style.left = `${labelsWidth + (linesWidth * monthTimesValue)}px`;
@@ -889,6 +895,7 @@ type LargestValuesForEachRangeType = {
                     for ( let monthIndex2: number = 12; monthIndex2--; ) {
                         addMonthName( monthIndex2 );
                     }
+                    
                 } else {
                     for ( let monthIndex3: number = 0; monthIndex3 < 12; monthIndex3++ ) {
                         addMonthName( monthIndex3 );
@@ -1537,7 +1544,7 @@ type LargestValuesForEachRangeType = {
 
                 if ( Str.startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
                     const typesJson: string = window.localStorage.getItem( key )!;
-                    const typesObject: StringToJson = getObjectFromString( typesJson );
+                    const typesObject: StringToJson = Default.getObjectFromString( typesJson, _configuration );
 
                     if ( typesObject.parsed ) {
                         _elements_InstanceData[ elementId ].typeData = typesObject.object;
@@ -1829,7 +1836,7 @@ type LargestValuesForEachRangeType = {
         const filesCompleted: string[] = [];
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
-        const onLoadEnd: Function = ( filename: string, readingObject: InstanceTypeDateCount ) => {
+        const onLoadEnd: Function = ( filename: string, readingObject: InstanceTypeDateCount ) : void => {
             filesCompleted.push( filename );
 
             for ( let storageDate in readingObject ) {
@@ -1871,7 +1878,7 @@ type LargestValuesForEachRangeType = {
         };
     
         reader.onload = ( e: ProgressEvent<FileReader> ) => {
-            const json: StringToJson = getObjectFromString( e.target!.result );
+            const json: StringToJson = Default.getObjectFromString( e.target!.result, _configuration );
 
             if ( json.parsed && Is.definedObject( json.object ) ) {
                 readingObject = json.object;
@@ -2104,45 +2111,6 @@ type LargestValuesForEachRangeType = {
     }
 
 
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Default Parameter/Option Handling
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function getObjectFromString( objectString: any ) : StringToJson {
-        const result: StringToJson = {
-            parsed: true,
-            object: null
-        } as StringToJson;
-
-        try {
-            if ( Is.definedString( objectString ) ) {
-                result.object = JSON.parse( objectString );
-            }
-
-        } catch ( e1: any ) {
-            try {
-                result.object = eval( `(${objectString})` );
-
-                if ( Is.definedFunction( result.object ) ) {
-                    result.object = result.object();
-                }
-                
-            } catch ( e2: any ) {
-                if ( !_configuration.safeMode ) {
-                    console.error( _configuration.text!.objectErrorText!.replace( "{{error_1}}",  e1.message ).replace( "{{error_2}}",  e2.message ) );
-                    result.parsed = false;
-                }
-                
-                result.object = null;
-            }
-        }
-
-        return result;
-    }
-
-
 	/*
 	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	 * Public API Functions:  Helpers:  Manage Instances
@@ -2196,7 +2164,7 @@ type LargestValuesForEachRangeType = {
             renderControlContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
-                Trigger.customEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onNextYear!, bindingOptions._currentView.year );
             }
         }
     }
@@ -2751,7 +2719,7 @@ type LargestValuesForEachRangeType = {
         },
 
         getVersion: function () : string {
-            return "4.1.1";
+            return "4.2.0";
         }
     };
 
