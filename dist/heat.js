@@ -323,19 +323,13 @@ var ToolTip;
     function n(e, t = true) {
         let n = t ? window.addEventListener : window.removeEventListener;
         let i = t ? document.addEventListener : document.removeEventListener;
-        n("mousemove", (() => {
-            r(e);
-        }));
-        i("scroll", (() => {
-            r(e);
-        }));
+        n("mousemove", (() => r(e)));
+        i("scroll", (() => r(e)));
     }
     e.assignToEvents = n;
     function i(e, t, n) {
         if (e !== null) {
-            e.onmousemove = e => {
-                o(e, t, n);
-            };
+            e.onmousemove = e => o(e, t, n);
         }
     }
     e.add = i;
@@ -869,9 +863,7 @@ var Disabled;
         DomElement.createWithHTML(s, "div", "side-container-title-text", e.text.visibleMonthsText + ":");
         const a = DomElement.create(s, "div", "side-container");
         const l = DomElement.create(s, "div", "side-container");
-        o.onclick = () => {
-            u(t);
-        };
+        o.onclick = () => u(t);
         for (let n = 0; n < 7; n++) {
             t._currentView.dayCheckBoxes[n] = DomElement.createCheckBox(r, e.text.dayNames[n], n.toString());
         }
@@ -986,17 +978,13 @@ var Disabled;
             }
             if (t.title.showImportButton && !t._currentView.isInFetchMode) {
                 const i = DomElement.createWithHTML(n, "button", "import", e.text.importButtonSymbolText);
+                i.onclick = () => oe(t);
                 ToolTip.add(i, t, e.text.importButtonText);
-                i.onclick = () => {
-                    oe(t);
-                };
             }
             if (t.title.showExportButton) {
                 const i = DomElement.createWithHTML(n, "button", "export", e.text.exportButtonSymbolText);
+                i.onclick = () => ce(t);
                 ToolTip.add(i, t, e.text.exportButtonText);
-                i.onclick = () => {
-                    ce(t);
-                };
             }
             if (t.title.showRefreshButton) {
                 const i = DomElement.createWithHTML(n, "button", "refresh", e.text.refreshButtonSymbolText);
@@ -1008,10 +996,8 @@ var Disabled;
             }
             if (t.title.showYearSelector) {
                 const i = DomElement.createWithHTML(n, "button", "back", e.text.backButtonSymbolText);
+                i.onclick = () => De(t);
                 ToolTip.add(i, t, e.text.backButtonText);
-                i.onclick = () => {
-                    De(t);
-                };
                 if (Y(t, t._currentView.year)) {
                     i.disabled = true;
                 }
@@ -1023,10 +1009,8 @@ var Disabled;
                 }
                 if (t.title.showConfigurationButton) {
                     let i = DomElement.create(n, "div", "configure");
+                    i.onclick = () => c(t);
                     ToolTip.add(i, t, e.text.configurationToolTipText);
-                    i.onclick = () => {
-                        c(t);
-                    };
                 }
                 if (t.title.showCurrentYearButton) {
                     const i = DomElement.createWithHTML(n, "button", "current", e.text.currentYearSymbolText);
@@ -1038,10 +1022,8 @@ var Disabled;
                     };
                 }
                 const o = DomElement.createWithHTML(n, "button", "next", e.text.nextButtonSymbolText);
+                o.onclick = () => ve(t);
                 ToolTip.add(o, t, e.text.nextButtonText);
-                o.onclick = () => {
-                    ve(t);
-                };
                 if (j(t, t._currentView.year)) {
                     o.disabled = true;
                 }
@@ -1257,9 +1239,7 @@ var Disabled;
             l.innerHTML = u.toString();
         }
         if (Is.definedFunction(e.events.onDayClick)) {
-            l.onclick = () => {
-                Trigger.customEvent(e.events.onDayClick, c, u);
-            };
+            l.onclick = () => Trigger.customEvent(e.events.onDayClick, c, u);
         } else {
             DomElement.addClass(l, "no-hover");
         }
@@ -1391,9 +1371,7 @@ var Disabled;
             l.style.visibility = "hidden";
         }
         if (Is.definedFunction(t.events.onDayClick)) {
-            l.onclick = () => {
-                Trigger.customEvent(t.events.onDayClick, a, c);
-            };
+            l.onclick = () => Trigger.customEvent(t.events.onDayClick, a, c);
         } else {
             DomElement.addClass(l, "no-hover");
         }
@@ -1485,9 +1463,7 @@ var Disabled;
         }
         ToolTip.add(r, i, n.toString());
         if (Is.definedFunction(i.events.onWeekDayClick)) {
-            r.onclick = () => {
-                Trigger.customEvent(i.events.onWeekDayClick, t, n);
-            };
+            r.onclick = () => Trigger.customEvent(i.events.onWeekDayClick, t, n);
         } else {
             DomElement.addClass(r, "no-hover");
         }
@@ -1602,9 +1578,7 @@ var Disabled;
             DomElement.createWithHTML(s, "div", "count", n.toString());
         }
         if (Is.definedFunction(i.events.onStatisticClick)) {
-            s.onclick = () => {
-                Trigger.customEvent(i.events.onStatisticClick, a);
-            };
+            s.onclick = () => Trigger.customEvent(i.events.onStatisticClick, a);
         } else {
             DomElement.addClass(s, "no-hover");
         }
@@ -1679,9 +1653,7 @@ var Disabled;
             if (n.guide.showLessAndMoreLabels) {
                 let i = DomElement.createWithHTML(t, "div", "less-text", e.text.lessText);
                 if (n.guide.colorRangeTogglesEnabled) {
-                    i.onclick = () => {
-                        K(n, false);
-                    };
+                    i.onclick = () => K(n, false);
                 } else {
                     DomElement.addClass(i, "no-click");
                 }
@@ -1695,9 +1667,7 @@ var Disabled;
             if (n.guide.showLessAndMoreLabels) {
                 const i = DomElement.createWithHTML(t, "div", "more-text", e.text.moreText);
                 if (n.guide.colorRangeTogglesEnabled) {
-                    i.onclick = () => {
-                        K(n, true);
-                    };
+                    i.onclick = () => K(n, true);
                 } else {
                     DomElement.addClass(i, "no-click");
                 }
@@ -1737,9 +1707,7 @@ var Disabled;
             i.innerHTML = n.minimum + "+";
         }
         if (e.guide.colorRangeTogglesEnabled) {
-            i.onclick = () => {
-                Q(e, n.id);
-            };
+            i.onclick = () => Q(e, n.id);
         } else {
             DomElement.addClass(i, "no-hover");
         }
@@ -2021,9 +1989,7 @@ var Disabled;
         t.type = "file";
         t.accept = ".json, .txt, .csv";
         t.multiple = true;
-        t.onchange = () => {
-            re(t.files, e);
-        };
+        t.onchange = () => re(t.files, e);
         t.click();
     }
     function re(e, t) {
@@ -2060,9 +2026,7 @@ var Disabled;
     function se(t, n) {
         const i = new FileReader;
         let o = {};
-        i.onloadend = () => {
-            n(t.name, o);
-        };
+        i.onloadend = () => n(t.name, o);
         i.onload = t => {
             const n = Default2.getObjectFromString(t.target.result, e);
             if (n.parsed && Is.definedObject(n.object)) {
@@ -2074,9 +2038,7 @@ var Disabled;
     function ae(e, t) {
         const n = new FileReader;
         const i = {};
-        n.onloadend = () => {
-            t(e.name, i);
-        };
+        n.onloadend = () => t(e.name, i);
         n.onload = e => {
             const t = e.target.result.toString().split("\n");
             const n = t.length;
@@ -2090,9 +2052,7 @@ var Disabled;
     function le(e, t) {
         const n = new FileReader;
         const i = {};
-        n.onloadend = () => {
-            t(e.name, i);
-        };
+        n.onloadend = () => t(e.name, i);
         n.onload = e => {
             const t = e.target.result.toString().replace(new RegExp('"', "g"), "");
             const n = t.split("\n");
