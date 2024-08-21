@@ -122,27 +122,15 @@ var Default2;
 var Str;
 
 (e => {
-    function t() {
-        const e = [];
-        for (let t = 0; t < 32; t++) {
-            if (t === 8 || t === 12 || t === 16 || t === 20) {
-                e.push("-");
-            }
-            const n = Math.floor(Math.random() * 16).toString(16);
-            e.push(n);
-        }
-        return e.join("");
-    }
-    e.newGuid = t;
-    function n(e) {
+    function t(e) {
         const t = e.toString();
         return t.length === 1 ? "0" + t : t;
     }
-    e.padNumber = n;
-    function i(e, t) {
+    e.padNumber = t;
+    function n(e, t) {
         return e.substring(0, t.length).toLowerCase() === t.toLowerCase();
     }
-    e.startsWithAnyCase = i;
+    e.startsWithAnyCase = n;
 })(Str || (Str = {}));
 
 var DateTime;
@@ -784,7 +772,7 @@ var Disabled;
     function s(e) {
         Trigger.customEvent(e.events.onBeforeRender, e._currentView.element);
         if (!Is.definedString(e._currentView.element.id)) {
-            e._currentView.element.id = Str.newGuid();
+            e._currentView.element.id = crypto.randomUUID();
         }
         if (e._currentView.element.className.trim() === "") {
             e._currentView.element.className = "heat-js";
@@ -798,7 +786,7 @@ var Disabled;
     }
     function a(e, t = false, n = false) {
         if (t) {
-            G(e);
+            U(e);
         }
         if (Is.defined(e._currentView.mapContents)) {
             e._currentView.mapContentsScrollLeft = e._currentView.mapContents.scrollLeft;
@@ -1804,15 +1792,15 @@ var Disabled;
             }
         }
     }
-    function G(e) {
+    function U(e) {
         if (e.useLocalStorageForData && window.localStorage) {
             const n = e._currentView.element.id;
-            U(e);
+            G(e);
             const o = JSON.stringify(t[n].typeData);
             window.localStorage.setItem(i + n, o);
         }
     }
-    function U(e) {
+    function G(e) {
         if (e.useLocalStorageForData && window.localStorage) {
             const t = window.localStorage.length;
             const n = [];

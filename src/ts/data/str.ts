@@ -15,21 +15,6 @@ import { Char } from "./enum";
 
 
 export namespace Str {
-    export function newGuid() : string {
-        const result: string[] = [];
-
-        for ( let charIndex: number = 0; charIndex < 32; charIndex++ ) {
-            if ( charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20 ) {
-                result.push( Char.dash );
-            }
-
-            const character: string = Math.floor( Math.random() * 16 ).toString( 16 );
-            result.push( character );
-        }
-
-        return result.join( Char.empty );
-    }
-
     export function padNumber( number: number ) : string {
         const numberString: string = number.toString();
 

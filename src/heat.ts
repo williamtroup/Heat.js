@@ -122,7 +122,7 @@ type LargestValuesForEachRangeType = {
         Trigger.customEvent( bindingOptions.events!.onBeforeRender!, bindingOptions._currentView.element );
 
         if ( !Is.definedString( bindingOptions._currentView.element.id ) ) {
-            bindingOptions._currentView.element.id = Str.newGuid();
+            bindingOptions._currentView.element.id = crypto.randomUUID();
         }
 
         if ( bindingOptions._currentView.element.className.trim() === Char.empty ) {
