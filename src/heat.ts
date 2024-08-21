@@ -2733,13 +2733,8 @@ type LargestValuesForEachRangeType = {
     ( () => {
         _configuration = Config.Options.get();
 
-        document.addEventListener( "DOMContentLoaded", () => {
-            render();
-        } );
-
-        window.addEventListener( "pagehide", () => {
-            cancelAllPullDataTimers();
-        } );
+        document.addEventListener( "DOMContentLoaded", () => render() );
+        window.addEventListener( "pagehide", () => cancelAllPullDataTimers() );
 
         if ( !Is.defined( window.$heat ) ) {
             window.$heat = _public;

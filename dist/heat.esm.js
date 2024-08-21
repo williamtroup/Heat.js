@@ -2647,12 +2647,8 @@ var Disabled;
     };
     (() => {
         e = Config.Options.get();
-        document.addEventListener("DOMContentLoaded", (() => {
-            o();
-        }));
-        window.addEventListener("pagehide", (() => {
-            q();
-        }));
+        document.addEventListener("DOMContentLoaded", (() => o()));
+        window.addEventListener("pagehide", (() => q()));
         if (!Is.defined(window.$heat)) {
             window.$heat = xe;
         }
