@@ -440,7 +440,7 @@ var Binding;
                 const t = e.colorRanges.length;
                 for (let n = 0; n < t; n++) {
                     const t = e.colorRanges[n];
-                    t.id = Default2.getString(t.id, Str.newGuid());
+                    t.id = Default2.getString(t.id, crypto.randomUUID());
                     t.name = Default2.getString(t.name, "");
                     t.minimum = Default2.getNumber(t.minimum, 0);
                     t.cssClassName = Default2.getString(t.cssClassName, "");
@@ -452,28 +452,28 @@ var Binding;
                 }
             } else {
                 e.colorRanges = [ {
-                    id: Str.newGuid(),
+                    id: crypto.randomUUID(),
                     name: "Day Color 1",
                     minimum: 10,
                     cssClassName: "day-color-1",
                     tooltipText: "Day Color 1",
                     visible: true
                 }, {
-                    id: Str.newGuid(),
+                    id: crypto.randomUUID(),
                     name: "Day Color 2",
                     minimum: 15,
                     cssClassName: "day-color-2",
                     tooltipText: "Day Color 2",
                     visible: true
                 }, {
-                    id: Str.newGuid(),
+                    id: crypto.randomUUID(),
                     name: "Day Color 3",
                     minimum: 20,
                     cssClassName: "day-color-3",
                     tooltipText: "Day Color 3",
                     visible: true
                 }, {
-                    id: Str.newGuid(),
+                    id: crypto.randomUUID(),
                     name: "Day Color 4",
                     minimum: 25,
                     cssClassName: "day-color-4",
@@ -803,7 +803,7 @@ var Disabled;
         e._currentView.element.innerHTML = "";
         e._currentView.yearsAvailable = W(e);
         ToolTip.hide(e);
-        J(e);
+        G(e);
         if (e.title.showConfigurationButton) {
             Disabled.Background.render(e);
             l(e);
@@ -1795,12 +1795,12 @@ var Disabled;
     function U(e) {
         if (e.useLocalStorageForData && window.localStorage) {
             const n = e._currentView.element.id;
-            G(e);
+            J(e);
             const o = JSON.stringify(t[n].typeData);
             window.localStorage.setItem(i + n, o);
         }
     }
-    function G(e) {
+    function J(e) {
         if (e.useLocalStorageForData && window.localStorage) {
             const t = window.localStorage.length;
             const n = [];
@@ -1816,7 +1816,7 @@ var Disabled;
             }
         }
     }
-    function J(e) {
+    function G(e) {
         if (e._currentView.isInFetchMode) {
             if (e._currentView.isInFetchModeTimer === 0) {
                 X(e);

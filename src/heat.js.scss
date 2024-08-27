@@ -330,6 +330,9 @@ div.heat-js {
 
         button {
             font-weight: var(--heat-js-title-bold-weight);
+            text-align: center;
+            min-width: 30px;
+            min-height: 30px;
         }
 
         button.back {

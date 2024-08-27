@@ -287,6 +287,9 @@ div.heat-js div.title-bar button.active {
 }
 div.heat-js div.title-bar button {
   font-weight: var(--heat-js-title-bold-weight);
+  text-align: center;
+  min-width: 30px;
+  min-height: 30px;
 }
 div.heat-js div.title-bar button.back {
   margin-left: calc(var(--heat-js-spacing) * 2) !important;
