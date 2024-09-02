@@ -2592,7 +2592,7 @@ var Disabled;
             return e;
         },
         getVersion: function() {
-            return "4.2.1";
+            return "4.2.2";
         }
     };
     (() => {
