@@ -2167,7 +2167,7 @@ var Disabled;
         const o = `${Str.padNumber(n.getHours())}${"-"}${Str.padNumber(n.getMinutes())}`;
         let r = "";
         if (t._currentView.type !== e.text.unknownTrendText) {
-            r = `${t._currentView.type.toLowerCase().replace(" ", "_")}${"_"}`;
+            r = `${t._currentView.type.toLowerCase().replace(/ /g, "_")}${"_"}`;
         }
         return `${r}${i}${"_"}${o}.${t.exportType.toLowerCase()}`;
     }

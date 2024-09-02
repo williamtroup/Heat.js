@@ -2044,7 +2044,7 @@ type LargestValuesForEachRangeType = {
         let filenameStart: string = Char.empty;
 
         if ( bindingOptions._currentView.type !== _configuration.text!.unknownTrendText ) {
-            filenameStart = `${bindingOptions._currentView.type.toLowerCase().replace( Char.space, Char.underscore )}${Char.underscore}`;
+            filenameStart = `${bindingOptions._currentView.type.toLowerCase().replace( / /g, Char.underscore )}${Char.underscore}`;
         }
 
         return `${filenameStart}${datePart}${Char.underscore}${timePart}.${bindingOptions.exportType!.toLowerCase()}`;
