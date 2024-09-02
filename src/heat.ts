@@ -226,8 +226,8 @@ type LargestValuesForEachRangeType = {
         const monthsContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
 
         DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.text!.configurationTitleText! );
-        DomElement.createWithHTML( daysContainer, "div", "side-container-title-text", _configuration.text!.visibleDaysText + Char.colon );
-        DomElement.createWithHTML( monthsContainer, "div", "side-container-title-text", _configuration.text!.visibleMonthsText + Char.colon );
+        DomElement.createWithHTML( daysContainer, "div", "side-container-title-text", `${_configuration.text!.visibleDaysText}${Char.colon}` );
+        DomElement.createWithHTML( monthsContainer, "div", "side-container-title-text", `${_configuration.text!.visibleMonthsText}${Char.colon}` );
 
         const months1Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
         const months2Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
@@ -460,7 +460,7 @@ type LargestValuesForEachRangeType = {
         const titlesMenu: HTMLElement = DomElement.create( titlesMenuContainer, "div", "titles-menu" );
         
         if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-            DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.text!.dataText + Char.colon );
+            DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configuration.text!.dataText}${Char.colon}` );
         }
 
         const menuItemMap: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.mapText! );
@@ -475,7 +475,7 @@ type LargestValuesForEachRangeType = {
 
         if ( bindingOptions.views!.days!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.text!.yearText + Char.colon );
+                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configuration.text!.yearText}${Char.colon}` );
             }
 
             const menuItemDays: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.daysText! );
@@ -485,7 +485,7 @@ type LargestValuesForEachRangeType = {
 
         if ( bindingOptions.views!.statistics!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.text!.statisticsText + Char.colon );
+                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configuration.text!.statisticsText}${Char.colon}` );
             }
 
             const menuItemStatistics: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.colorRangesText! );
@@ -1162,7 +1162,7 @@ type LargestValuesForEachRangeType = {
 
                     if ( bindingOptions.views!.statistics!.showColorRangeLabels ) {
                         if ( !bindingOptions.views!.statistics!.useColorRangeNamesForLabels || !Is.defined( useColorRange ) || !Is.definedString( useColorRange.name ) ) {
-                            DomElement.createWithHTML( statisticsRanges, "div", "range-name", type + Char.plus );
+                            DomElement.createWithHTML( statisticsRanges, "div", "range-name", `${type}${Char.plus}` );
                         } else {
                             DomElement.createWithHTML( statisticsRanges, "div", "range-name", useColorRange.name! );
                         }
@@ -1370,7 +1370,7 @@ type LargestValuesForEachRangeType = {
         if ( bindingOptions.guide!.showNumbersInGuide ) {
             DomElement.addClass( day, "day-number" );
 
-            day.innerHTML = colorRange.minimum + Char.plus;
+            day.innerHTML = `${colorRange.minimum}${Char.plus}`;
         }
 
         if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
@@ -1411,7 +1411,7 @@ type LargestValuesForEachRangeType = {
                 let holiday: IsHoliday = isHoliday( bindingOptions, date );
 
                 if ( holiday.matched && Is.definedString( holiday.name ) ) {
-                    tooltip += Char.colon + Char.space + holiday.name;
+                    tooltip += `${Char.colon}${Char.space}${holiday.name}`;
                 }
             }
 
@@ -1972,7 +1972,7 @@ type LargestValuesForEachRangeType = {
 
         for ( let storageDate in typeDateCounts ) {
             if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                contents.push( storageDate + Char.colon + Char.space + typeDateCounts[ storageDate ].toString() );
+                contents.push( `${storageDate}${Char.colon}${Char.space}${typeDateCounts[ storageDate ].toString()}` );
             }
         }
 
@@ -2039,21 +2039,21 @@ type LargestValuesForEachRangeType = {
 
     function getExportFilename( bindingOptions: BindingOptions ) : string {
         const date: Date = new Date();
-        const datePart: string = Str.padNumber( date.getDate() ) + Char.dash + Str.padNumber( date.getMonth() + 1 ) + Char.dash + date.getFullYear();
-        const timePart: string = Str.padNumber( date.getHours() ) + Char.dash + Str.padNumber( date.getMinutes() );
+        const datePart: string = `${Str.padNumber( date.getDate() )}${Char.dash}${Str.padNumber( date.getMonth() + 1 )}${Char.dash}${date.getFullYear()}`;
+        const timePart: string = `${Str.padNumber( date.getHours() )}${Char.dash}${Str.padNumber( date.getMinutes() )}`;
         let filenameStart: string = Char.empty;
 
         if ( bindingOptions._currentView.type !== _configuration.text!.unknownTrendText ) {
-            filenameStart = bindingOptions._currentView.type.toLowerCase().replace( Char.space, Char.underscore ) + Char.underscore;
+            filenameStart = `${bindingOptions._currentView.type.toLowerCase().replace( Char.space, Char.underscore )}${Char.underscore}`;
         }
 
-        return `${filenameStart + datePart + Char.underscore + timePart}.${bindingOptions.exportType!.toLowerCase()}`;
+        return `${filenameStart}${datePart}${Char.underscore}${timePart}.${bindingOptions.exportType!.toLowerCase()}`;
     }
 
     function getCsvValue( text: string ) : string {
         let result: string = text.toString().replace( /(\r\n|\n|\r)/gm, Char.empty ).replace( /(\s\s)/gm, Char.space );
         result = result.replace( /"/g, '""' );
-        result = '"' + result + '"';
+        result = `"${result}"`;
 
         return result;
     }
