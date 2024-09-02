@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        binding.ts
- * @version     v4.2.0
+ * @version     v4.2.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -125,7 +125,7 @@ export namespace Binding {
                 for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
                     const colorRange: BindingOptionsColorRange = options.colorRanges![ colorRangeIndex ];
     
-                    colorRange.id = Default.getString( colorRange.id, Str.newGuid() );
+                    colorRange.id = Default.getString( colorRange.id, crypto.randomUUID() );
                     colorRange.name = Default.getString( colorRange.name, Char.empty );
                     colorRange.minimum = Default.getNumber( colorRange.minimum, 0 );
                     colorRange.cssClassName = Default.getString( colorRange.cssClassName, Char.empty );
@@ -139,7 +139,7 @@ export namespace Binding {
             } else {
                 options.colorRanges = [
                     {
-                        id: Str.newGuid(),
+                        id: crypto.randomUUID(),
                         name: "Day Color 1",
                         minimum: 10,
                         cssClassName: "day-color-1",
@@ -147,7 +147,7 @@ export namespace Binding {
                         visible: true
                     },
                     {
-                        id: Str.newGuid(),
+                        id: crypto.randomUUID(),
                         name: "Day Color 2",
                         minimum: 15,
                         cssClassName: "day-color-2",
@@ -155,7 +155,7 @@ export namespace Binding {
                         visible: true
                     },
                     {
-                        id: Str.newGuid(),
+                        id: crypto.randomUUID(),
                         name: "Day Color 3",
                         minimum: 20,
                         cssClassName: "day-color-3",
@@ -163,7 +163,7 @@ export namespace Binding {
                         visible: true
                     },
                     {
-                        id: Str.newGuid(),
+                        id: crypto.randomUUID(),
                         name: "Day Color 4",
                         minimum: 25,
                         cssClassName: "day-color-4",

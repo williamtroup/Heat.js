@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        heat.ts
- * @version     v4.2.0
+ * @version     v4.2.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -122,7 +122,7 @@ type LargestValuesForEachRangeType = {
         Trigger.customEvent( bindingOptions.events!.onBeforeRender!, bindingOptions._currentView.element );
 
         if ( !Is.definedString( bindingOptions._currentView.element.id ) ) {
-            bindingOptions._currentView.element.id = Str.newGuid();
+            bindingOptions._currentView.element.id = crypto.randomUUID();
         }
 
         if ( bindingOptions._currentView.element.className.trim() === Char.empty ) {
@@ -226,15 +226,13 @@ type LargestValuesForEachRangeType = {
         const monthsContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
 
         DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.text!.configurationTitleText! );
-        DomElement.createWithHTML( daysContainer, "div", "side-container-title-text", _configuration.text!.visibleDaysText + Char.colon );
-        DomElement.createWithHTML( monthsContainer, "div", "side-container-title-text", _configuration.text!.visibleMonthsText + Char.colon );
+        DomElement.createWithHTML( daysContainer, "div", "side-container-title-text", `${_configuration.text!.visibleDaysText}${Char.colon}` );
+        DomElement.createWithHTML( monthsContainer, "div", "side-container-title-text", `${_configuration.text!.visibleMonthsText}${Char.colon}` );
 
         const months1Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
         const months2Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
 
-        closeButton.onclick = () => {
-            hideConfigurationDialog( bindingOptions );
-        };
+        closeButton.onclick = () => hideConfigurationDialog( bindingOptions );
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
             bindingOptions._currentView.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.text!.dayNames![ dayIndex ], dayIndex.toString() );
@@ -384,22 +382,16 @@ type LargestValuesForEachRangeType = {
 
             if ( bindingOptions.title!.showImportButton && !bindingOptions._currentView.isInFetchMode ) {
                 const importData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "import", _configuration.text!.importButtonSymbolText! );
+                importData.onclick = () => importFromFilesSelected( bindingOptions );
 
                 ToolTip.add( importData, bindingOptions, _configuration.text!.importButtonText! );
-                
-                importData.onclick = () => {
-                    importFromFilesSelected( bindingOptions );
-                };
             }
 
             if ( bindingOptions.title!.showExportButton ) {
                 const exportData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "export", _configuration.text!.exportButtonSymbolText! );
+                exportData.onclick = () => exportAllData( bindingOptions );
 
                 ToolTip.add( exportData, bindingOptions, _configuration.text!.exportButtonText! );
-        
-                exportData.onclick = () => {
-                    exportAllData( bindingOptions );
-                };
             }
 
             if ( bindingOptions.title!.showRefreshButton ) {
@@ -415,12 +407,9 @@ type LargestValuesForEachRangeType = {
     
             if ( bindingOptions.title!.showYearSelector ) {
                 const back: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "back", _configuration.text!.backButtonSymbolText! ) as HTMLInputElement;
+                back.onclick = () => moveToPreviousYear( bindingOptions );
 
                 ToolTip.add( back, bindingOptions, _configuration.text!.backButtonText! );
-        
-                back.onclick = () => {
-                    moveToPreviousYear( bindingOptions );
-                };
 
                 if ( isFirstVisibleYear( bindingOptions, bindingOptions._currentView.year ) ) {
                     back.disabled = true;
@@ -436,12 +425,9 @@ type LargestValuesForEachRangeType = {
 
                 if ( bindingOptions.title!.showConfigurationButton ) {
                     let configureButton: HTMLElement = DomElement.create( titleBar, "div", "configure" );
+                    configureButton.onclick = () => showConfigurationDialog( bindingOptions );
 
                     ToolTip.add( configureButton, bindingOptions, _configuration.text!.configurationToolTipText! );
-
-                    configureButton.onclick = () => {
-                        showConfigurationDialog( bindingOptions );
-                    };
                 }
 
                 if ( bindingOptions.title!.showCurrentYearButton ) {
@@ -458,12 +444,9 @@ type LargestValuesForEachRangeType = {
                 }
 
                 const next: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "next", _configuration.text!.nextButtonSymbolText! ) as HTMLInputElement;
+                next.onclick = () => moveToNextYear( bindingOptions );
 
                 ToolTip.add( next, bindingOptions, _configuration.text!.nextButtonText! );
-
-                next.onclick = () => {
-                    moveToNextYear( bindingOptions );
-                };
 
                 if ( isLastVisibleYear( bindingOptions, bindingOptions._currentView.year ) ) {
                     next.disabled = true;
@@ -477,7 +460,7 @@ type LargestValuesForEachRangeType = {
         const titlesMenu: HTMLElement = DomElement.create( titlesMenuContainer, "div", "titles-menu" );
         
         if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-            DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.text!.dataText + Char.colon );
+            DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configuration.text!.dataText}${Char.colon}` );
         }
 
         const menuItemMap: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.mapText! );
@@ -492,7 +475,7 @@ type LargestValuesForEachRangeType = {
 
         if ( bindingOptions.views!.days!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.text!.yearText + Char.colon );
+                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configuration.text!.yearText}${Char.colon}` );
             }
 
             const menuItemDays: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.daysText! );
@@ -502,7 +485,7 @@ type LargestValuesForEachRangeType = {
 
         if ( bindingOptions.views!.statistics!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", _configuration.text!.statisticsText + Char.colon );
+                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configuration.text!.statisticsText}${Char.colon}` );
             }
 
             const menuItemStatistics: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.colorRangesText! );
@@ -756,10 +739,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
-            day.onclick = () => {
-                Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount );
-            };
-
+            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount );
         } else {
             DomElement.addClass( day, "no-hover" );
         }
@@ -938,10 +918,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
-            dayLine.onclick = () => {
-                Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount );
-            };
-
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -1068,17 +1045,13 @@ type LargestValuesForEachRangeType = {
         ToolTip.add( dayLine, bindingOptions, dayCount.toString() );
 
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
-            dayLine.onclick = () => {
-                Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount );
-            };
-
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
 
         if ( bindingOptions.views!.days!.showDayNumbers && dayCount > 0 ) {
             DomElement.addClass( dayLine, "day-line-number" );
-
             DomElement.createWithHTML( dayLine, "div", "count", dayCount.toString() );
         }
     }
@@ -1189,7 +1162,7 @@ type LargestValuesForEachRangeType = {
 
                     if ( bindingOptions.views!.statistics!.showColorRangeLabels ) {
                         if ( !bindingOptions.views!.statistics!.useColorRangeNamesForLabels || !Is.defined( useColorRange ) || !Is.definedString( useColorRange.name ) ) {
-                            DomElement.createWithHTML( statisticsRanges, "div", "range-name", type + Char.plus );
+                            DomElement.createWithHTML( statisticsRanges, "div", "range-name", `${type}${Char.plus}` );
                         } else {
                             DomElement.createWithHTML( statisticsRanges, "div", "range-name", useColorRange.name! );
                         }
@@ -1228,10 +1201,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onStatisticClick ) ) {
-            rangeLine.onclick = () => {
-                Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange );
-            };
-
+            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange );
         } else {
             DomElement.addClass( rangeLine, "no-hover" );
         }
@@ -1336,10 +1306,7 @@ type LargestValuesForEachRangeType = {
                 let lessText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "less-text", _configuration.text!.lessText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
-                    lessText.onclick = () => {
-                        updateColorRangeToggles( bindingOptions, false );
-                    };
-        
+                    lessText.onclick = () => updateColorRangeToggles( bindingOptions, false );
                 } else {
                     DomElement.addClass( lessText, "no-click" );
                 }
@@ -1357,10 +1324,7 @@ type LargestValuesForEachRangeType = {
                 const moreText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "more-text", _configuration.text!.moreText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
-                    moreText.onclick = () => {
-                        updateColorRangeToggles( bindingOptions, true );
-                    };
-        
+                    moreText.onclick = () => updateColorRangeToggles( bindingOptions, true );
                 } else {
                     DomElement.addClass( moreText, "no-click" );
                 }
@@ -1406,14 +1370,11 @@ type LargestValuesForEachRangeType = {
         if ( bindingOptions.guide!.showNumbersInGuide ) {
             DomElement.addClass( day, "day-number" );
 
-            day.innerHTML = colorRange.minimum + Char.plus;
+            day.innerHTML = `${colorRange.minimum}${Char.plus}`;
         }
 
         if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
-            day.onclick = () => {
-                toggleColorRangeVisibleState( bindingOptions, colorRange.id! );
-            };
-
+            day.onclick = () => toggleColorRangeVisibleState( bindingOptions, colorRange.id! );
         } else {
             DomElement.addClass( day, "no-hover" );
         }
@@ -1450,7 +1411,7 @@ type LargestValuesForEachRangeType = {
                 let holiday: IsHoliday = isHoliday( bindingOptions, date );
 
                 if ( holiday.matched && Is.definedString( holiday.name ) ) {
-                    tooltip += Char.colon + Char.space + holiday.name;
+                    tooltip += `${Char.colon}${Char.space}${holiday.name}`;
                 }
             }
 
@@ -1823,10 +1784,7 @@ type LargestValuesForEachRangeType = {
         input.type = "file";
         input.accept = ".json, .txt, .csv";
         input.multiple = true;
-
-        input.onchange = () => {
-            importFromFiles( input.files!, bindingOptions );
-        };
+        input.onchange = () => importFromFiles( input.files!, bindingOptions );
 
         input.click();
     }
@@ -1873,9 +1831,7 @@ type LargestValuesForEachRangeType = {
         const reader: FileReader = new FileReader();
         let readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        reader.onloadend = () => {
-            onLoadEnd( file.name, readingObject );
-        };
+        reader.onloadend = () => onLoadEnd( file.name, readingObject );
     
         reader.onload = ( e: ProgressEvent<FileReader> ) => {
             const json: StringToJson = Default.getObjectFromString( e.target!.result, _configuration );
@@ -1892,9 +1848,7 @@ type LargestValuesForEachRangeType = {
         const reader: FileReader = new FileReader();
         const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        reader.onloadend = () => {
-            onLoadEnd( file.name, readingObject );
-        };
+        reader.onloadend = () => onLoadEnd( file.name, readingObject );
     
         reader.onload = ( e: ProgressEvent<FileReader> ) => {
             const lines: string[] = e.target!.result!.toString().split( Char.newLine );
@@ -1914,9 +1868,7 @@ type LargestValuesForEachRangeType = {
         const reader: FileReader = new FileReader();
         const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        reader.onloadend = () => {
-            onLoadEnd( file.name, readingObject );
-        };
+        reader.onloadend = () => onLoadEnd( file.name, readingObject );
     
         reader.onload = ( e: ProgressEvent<FileReader> ) => {
             const data: string = e.target!.result!.toString().replace( new RegExp( "\"", "g" ), Char.empty );
@@ -2020,7 +1972,7 @@ type LargestValuesForEachRangeType = {
 
         for ( let storageDate in typeDateCounts ) {
             if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                contents.push( storageDate + Char.colon + Char.space + typeDateCounts[ storageDate ].toString() );
+                contents.push( `${storageDate}${Char.colon}${Char.space}${typeDateCounts[ storageDate ].toString()}` );
             }
         }
 
@@ -2087,21 +2039,21 @@ type LargestValuesForEachRangeType = {
 
     function getExportFilename( bindingOptions: BindingOptions ) : string {
         const date: Date = new Date();
-        const datePart: string = Str.padNumber( date.getDate() ) + Char.dash + Str.padNumber( date.getMonth() + 1 ) + Char.dash + date.getFullYear();
-        const timePart: string = Str.padNumber( date.getHours() ) + Char.dash + Str.padNumber( date.getMinutes() );
+        const datePart: string = `${Str.padNumber( date.getDate() )}${Char.dash}${Str.padNumber( date.getMonth() + 1 )}${Char.dash}${date.getFullYear()}`;
+        const timePart: string = `${Str.padNumber( date.getHours() )}${Char.dash}${Str.padNumber( date.getMinutes() )}`;
         let filenameStart: string = Char.empty;
 
         if ( bindingOptions._currentView.type !== _configuration.text!.unknownTrendText ) {
-            filenameStart = bindingOptions._currentView.type.toLowerCase().replace( Char.space, Char.underscore ) + Char.underscore;
+            filenameStart = `${bindingOptions._currentView.type.toLowerCase().replace( / /g, Char.underscore )}${Char.underscore}`;
         }
 
-        return `${filenameStart + datePart + Char.underscore + timePart}.${bindingOptions.exportType!.toLowerCase()}`;
+        return `${filenameStart}${datePart}${Char.underscore}${timePart}.${bindingOptions.exportType!.toLowerCase()}`;
     }
 
     function getCsvValue( text: string ) : string {
         let result: string = text.toString().replace( /(\r\n|\n|\r)/gm, Char.empty ).replace( /(\s\s)/gm, Char.space );
         result = result.replace( /"/g, '""' );
-        result = '"' + result + '"';
+        result = `"${result}"`;
 
         return result;
     }
@@ -2719,7 +2671,7 @@ type LargestValuesForEachRangeType = {
         },
 
         getVersion: function () : string {
-            return "4.2.0";
+            return "4.2.1";
         }
     };
 
@@ -2733,13 +2685,8 @@ type LargestValuesForEachRangeType = {
     ( () => {
         _configuration = Config.Options.get();
 
-        document.addEventListener( "DOMContentLoaded", () => {
-            render();
-        } );
-
-        window.addEventListener( "pagehide", () => {
-            cancelAllPullDataTimers();
-        } );
+        document.addEventListener( "DOMContentLoaded", () => render() );
+        window.addEventListener( "pagehide", () => cancelAllPullDataTimers() );
 
         if ( !Is.defined( window.$heat ) ) {
             window.$heat = _public;
