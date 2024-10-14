@@ -131,10 +131,6 @@ $minimum-width: 768px;
 @mixin description {
     text-align: center;
 
-    @media (min-width: $minimum-width) { 
-        text-align: left;
-    }
-
     span.label,
     a.label,
     a.label:visited {

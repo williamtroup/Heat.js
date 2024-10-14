@@ -1072,16 +1072,6 @@ div.heat-js div.description {
   margin-top: calc(var(--heat-js-spacing) + var(--heat-js-spacing) / 2);
   text-align: center;
 }
-@media (min-width: 768px) {
-  div.heat-js div.description {
-    text-align: left;
-  }
-}
-@media (min-width: 768px) {
-  div.heat-js div.description {
-    text-align: left;
-  }
-}
 div.heat-js div.description span.label,
 div.heat-js div.description a.label,
 div.heat-js div.description a.label:visited {
@@ -1097,6 +1087,11 @@ div.heat-js div.description a.label:active {
 }
 div.heat-js div.description a.label:hover {
   text-decoration: underline;
+}
+@media (min-width: 768px) {
+  div.heat-js div.description {
+    text-align: left;
+  }
 }
 
 /*
@@ -1129,14 +1124,6 @@ div.heat-js div.guide div.map-types {
   margin-right: 0;
   text-align: center;
 }
-@media (min-width: 768px) {
-  div.heat-js div.guide div.map-types {
-    text-align: left;
-    width: unset;
-    flex-grow: 1;
-    margin-right: var(--heat-js-spacing);
-  }
-}
 div.heat-js div.guide div.map-types button {
   background-color: var(--heat-js-button-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
@@ -1168,11 +1155,6 @@ div.heat-js div.guide div.map-types button.active {
   transition: var(--heat-js-transition);
   font-weight: var(--heat-js-text-bold-weight-active);
 }
-@media (min-width: 768px) {
-  div.heat-js div.guide div.map-types {
-    text-align: left;
-  }
-}
 div.heat-js div.guide div.map-types span.label,
 div.heat-js div.guide div.map-types a.label,
 div.heat-js div.guide div.map-types a.label:visited {
@@ -1192,6 +1174,15 @@ div.heat-js div.guide div.map-types a.label:hover {
 div.heat-js div.guide div.map-types button {
   margin-left: 0 !important;
   margin-right: calc(var(--heat-js-spacing) / 2) !important;
+}
+@media (min-width: 768px) {
+  div.heat-js div.guide div.map-types {
+    text-align: left;
+    width: unset;
+    flex-grow: 1;
+    margin-right: var(--heat-js-spacing);
+    text-align: left;
+  }
 }
 div.heat-js div.guide div.map-toggles {
   display: flex;

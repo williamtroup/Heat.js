@@ -1079,11 +1079,13 @@ div.heat-js {
         text-align: center;
         margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
 
+        @include description;
+    }
+
+    div.description {
         @media (min-width: $minimum-width) { 
             text-align: left;
         }
-
-        @include description;
     }
 }
 
@@ -1117,19 +1119,22 @@ div.heat-js {
             flex-grow: unset;
             margin-right: 0;
 
-            @media (min-width: $minimum-width) { 
-                text-align: left;
-                width: unset;
-                flex-grow: 1;
-                margin-right: var(--heat-js-spacing);
-            }
-
             @include buttons;
             @include description;
 
             button {
                 margin-left: 0 !important;
                 margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
+            }
+        }
+
+        div.map-types {
+            @media (min-width: $minimum-width) { 
+                text-align: left;
+                width: unset;
+                flex-grow: 1;
+                margin-right: var(--heat-js-spacing);
+                text-align: left;
             }
         }
 
