@@ -18,7 +18,7 @@ import {
     type BindingOptions,
     type InstanceTypeDateCount,
     type InstanceData, 
-    StringToJson} from "./ts/type";
+    type StringToJson } from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
 import { Constant } from "./ts/constant"
