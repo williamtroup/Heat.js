@@ -1247,7 +1247,7 @@ var Disabled;
         let t = false;
         const n = F(e);
         const i = e._currentView.year.toString();
-        for (let e in n) {
+        for (const e in n) {
             if (n.hasOwnProperty(e)) {
                 if (DateTime.getStorageDateYear(e) === i) {
                     t = true;
@@ -1427,7 +1427,7 @@ var Disabled;
             }
         } else {
             const n = t._currentView.mapContents.offsetHeight / a.largestValue;
-            for (let i in a.days) {
+            for (const i in a.days) {
                 if (a.days.hasOwnProperty(i) && R(t.views.days.daysToShow, parseInt(i))) {
                     V(s, parseInt(i), a.days[i], t, n);
                     if (t.views.days.showDayNames) {
@@ -1532,7 +1532,7 @@ var Disabled;
             if (!t.views.statistics.showColorRangeLabels) {
                 o.parentNode.removeChild(o);
             }
-            for (let n in l.types) {
+            for (const n in l.types) {
                 if (l.types.hasOwnProperty(n)) {
                     I(parseInt(n), s, l.types[n], t, a, e);
                     const i = ee(a, parseInt(n));
@@ -1616,7 +1616,7 @@ var Disabled;
         const i = DomElement.create(n._currentView.element, "div", "guide");
         const o = DomElement.create(i, "div", "map-types");
         let r = 0;
-        for (let i in t[n._currentView.element.id].typeData[e.text.unknownTrendText]) {
+        for (const i in t[n._currentView.element.id].typeData[e.text.unknownTrendText]) {
             if (t[n._currentView.element.id].typeData[e.text.unknownTrendText].hasOwnProperty(i)) {
                 r++;
                 break;
@@ -1627,7 +1627,7 @@ var Disabled;
                 const e = DomElement.create(n._currentView.element, "div", "description", i);
                 k(n, e);
             }
-            for (let i in t[n._currentView.element.id].typeData) {
+            for (const i in t[n._currentView.element.id].typeData) {
                 if (i !== e.text.unknownTrendText || r > 0) {
                     if (r === 0 && n._currentView.type === e.text.unknownTrendText) {
                         n._currentView.type = i;
@@ -1751,7 +1751,7 @@ var Disabled;
         let t = [];
         if (e.showOnlyDataForYearsAvailable) {
             let n = F(e);
-            for (let e in n) {
+            for (const e in n) {
                 if (n.hasOwnProperty(e)) {
                     let n = parseInt(DateTime.getStorageDateYear(e));
                     if (t.indexOf(n) === -1) {
@@ -1786,7 +1786,7 @@ var Disabled;
                     if (i.parsed) {
                         t[r].typeData = i.object;
                         t[r].totalTypes = 0;
-                        for (let e in t[r].typeData) {
+                        for (const e in t[r].typeData) {
                             if (t[r].typeData.hasOwnProperty(e)) {
                                 t[r].totalTypes++;
                             }
@@ -1838,7 +1838,7 @@ var Disabled;
         const o = Trigger.customEvent(n.events.onDataFetch, i);
         if (Is.definedObject(o)) {
             A(i, n, false);
-            for (let n in o) {
+            for (const n in o) {
                 if (o.hasOwnProperty(n)) {
                     if (!t[i].typeData[e.text.unknownTrendText].hasOwnProperty(n)) {
                         t[i].typeData[e.text.unknownTrendText][n] = 0;
@@ -1849,7 +1849,7 @@ var Disabled;
         }
     }
     function q() {
-        for (let e in t) {
+        for (const e in t) {
             if (t.hasOwnProperty(e)) {
                 const n = t[e].options;
                 if (Is.defined(n._currentView.isInFetchModeTimer)) {
@@ -1988,7 +1988,7 @@ var Disabled;
         const o = F(t);
         const r = (e, r) => {
             i.push(e);
-            for (let e in r) {
+            for (const e in r) {
                 if (r.hasOwnProperty(e)) {
                     if (!o.hasOwnProperty(e)) {
                         o[e] = 0;
@@ -2082,7 +2082,7 @@ var Disabled;
     function ue(t) {
         const n = we(t);
         const i = [];
-        for (let e in n) {
+        for (const e in n) {
             if (n.hasOwnProperty(e)) {
                 i.push(pe([ ye(e), ye(n[e].toString()) ]));
             }
@@ -2100,7 +2100,7 @@ var Disabled;
         const n = [];
         n.push('<?xml version="1.0" ?>');
         n.push("<Dates>");
-        for (let e in t) {
+        for (const e in t) {
             if (t.hasOwnProperty(e)) {
                 n.push("<Date>");
                 n.push(`<FullDate>${e}</FullDate>`);
@@ -2114,7 +2114,7 @@ var Disabled;
     function me(e) {
         const t = we(e);
         const n = [];
-        for (let e in t) {
+        for (const e in t) {
             if (t.hasOwnProperty(e)) {
                 n.push(`${e}${":"}${" "}${t[e].toString()}`);
             }
@@ -2136,7 +2136,7 @@ var Disabled;
             }
         } else {
             const e = [];
-            for (let t in n) {
+            for (const t in n) {
                 if (n.hasOwnProperty(t)) {
                     e.push(t);
                 }
@@ -2341,7 +2341,7 @@ var Disabled;
             return xe;
         },
         resetAll: function(e = true) {
-            for (let n in t) {
+            for (const n in t) {
                 if (t.hasOwnProperty(n)) {
                     xe.reset(n, e);
                 }
@@ -2387,7 +2387,7 @@ var Disabled;
             return xe;
         },
         refreshAll: function() {
-            for (let e in t) {
+            for (const e in t) {
                 if (t.hasOwnProperty(e)) {
                     const n = t[e].options;
                     a(n, true);
@@ -2414,7 +2414,7 @@ var Disabled;
                 const n = t[e].options;
                 const i = F(n);
                 let o = 0;
-                for (let e in i) {
+                for (const e in i) {
                     if (i.hasOwnProperty(e)) {
                         o = Math.max(o, parseInt(DateTime.getStorageDateYear(e)));
                     }
@@ -2436,7 +2436,7 @@ var Disabled;
                 const n = t[e].options;
                 const i = F(n);
                 let o = 9999;
-                for (let e in i) {
+                for (const e in i) {
                     if (i.hasOwnProperty(e)) {
                         o = Math.min(o, parseInt(DateTime.getStorageDateYear(e)));
                     }
@@ -2535,7 +2535,7 @@ var Disabled;
                 const i = t[e].options;
                 const o = Binding.Options.get(n);
                 let r = false;
-                for (let e in o) {
+                for (const e in o) {
                     if (o.hasOwnProperty(e) && i.hasOwnProperty(e) && i[e] !== o[e]) {
                         i[e] = o[e];
                         r = true;
@@ -2550,7 +2550,7 @@ var Disabled;
             return xe;
         },
         destroyAll: function() {
-            for (let e in t) {
+            for (const e in t) {
                 if (t.hasOwnProperty(e)) {
                     Te(t[e].options);
                 }
@@ -2569,7 +2569,7 @@ var Disabled;
             if (Is.definedObject(t)) {
                 let i = false;
                 const o = e;
-                for (let n in t) {
+                for (const n in t) {
                     if (t.hasOwnProperty(n) && e.hasOwnProperty(n) && o[n] !== t[n]) {
                         o[n] = t[n];
                         i = true;
@@ -2586,7 +2586,7 @@ var Disabled;
         },
         getIds: function() {
             const e = [];
-            for (let n in t) {
+            for (const n in t) {
                 if (t.hasOwnProperty(n)) {
                     e.push(n);
                 }
