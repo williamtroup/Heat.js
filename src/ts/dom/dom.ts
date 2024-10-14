@@ -71,9 +71,9 @@ export namespace DomElement {
         element.classList.remove( className );
     }
 
-    export function cancelBubble( e: Event ) : void {
-        e.preventDefault();
-        e.stopPropagation();
+    export function cancelBubble( ev: Event ) : void {
+        ev.preventDefault();
+        ev.stopPropagation();
     }
 
     export function getScrollPosition() : Position {
@@ -87,9 +87,9 @@ export namespace DomElement {
         return result;
     }
 
-    export function showElementAtMousePosition( e: any, element: HTMLElement ) : void {
-        let left: number = e.pageX;
-        let top: number = e.pageY;
+    export function showElementAtMousePosition( ev: MouseEvent, element: HTMLElement ) : void {
+        let left: number = ev.pageX;
+        let top: number = ev.pageY;
         const scrollPosition: Position = getScrollPosition();
 
         element.style.display = "block";
@@ -107,11 +107,11 @@ export namespace DomElement {
         }
 
         if ( left < scrollPosition.left ) {
-            left = e.pageX + 1;
+            left = ev.pageX + 1;
         }
 
         if ( top < scrollPosition.top ) {
-            top = e.pageY + 1;
+            top = ev.pageY + 1;
         }
         
         element.style.left = `${left}px`;

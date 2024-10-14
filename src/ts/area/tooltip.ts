@@ -40,15 +40,15 @@ export namespace ToolTip {
         }
     }
 
-    export function show( e: MouseEvent, bindingOptions: BindingOptions, text: string ) : void {
-        DomElement.cancelBubble( e );
+    export function show( ev: MouseEvent, bindingOptions: BindingOptions, text: string ) : void {
+        DomElement.cancelBubble( ev );
         hide( bindingOptions );
 
         bindingOptions._currentView.tooltipTimer = setTimeout( () => {
             bindingOptions._currentView.tooltip.innerHTML = text;
             bindingOptions._currentView.tooltip.style.display = "block";
 
-            DomElement.showElementAtMousePosition( e, bindingOptions._currentView.tooltip );
+            DomElement.showElementAtMousePosition( ev, bindingOptions._currentView.tooltip );
         }, bindingOptions.tooltip!.delay );
     }
 

@@ -1769,11 +1769,11 @@ type LargestValuesForEachRangeType = {
             element.ondragenter = DomElement.cancelBubble;
             element.ondragleave = DomElement.cancelBubble;
     
-            element.ondrop = ( e: DragEvent ) => {
-                DomElement.cancelBubble( e );
+            element.ondrop = ( ev: DragEvent ) => {
+                DomElement.cancelBubble( ev );
     
-                if ( Is.defined( window.FileReader ) && e.dataTransfer!.files.length > 0 ) {
-                    importFromFiles( e.dataTransfer!.files, bindingOptions );
+                if ( Is.defined( window.FileReader ) && ev.dataTransfer!.files.length > 0 ) {
+                    importFromFiles( ev.dataTransfer!.files, bindingOptions );
                 }
             };
         }
@@ -1833,8 +1833,8 @@ type LargestValuesForEachRangeType = {
 
         reader.onloadend = () => onLoadEnd( file.name, readingObject );
     
-        reader.onload = ( e: ProgressEvent<FileReader> ) => {
-            const json: StringToJson = Default.getObjectFromString( e.target!.result, _configuration );
+        reader.onload = ( ev: ProgressEvent<FileReader> ) => {
+            const json: StringToJson = Default.getObjectFromString( ev.target!.result, _configuration );
 
             if ( json.parsed && Is.definedObject( json.object ) ) {
                 readingObject = json.object;
@@ -1850,8 +1850,8 @@ type LargestValuesForEachRangeType = {
 
         reader.onloadend = () => onLoadEnd( file.name, readingObject );
     
-        reader.onload = ( e: ProgressEvent<FileReader> ) => {
-            const lines: string[] = e.target!.result!.toString().split( Char.newLine );
+        reader.onload = ( ev: ProgressEvent<FileReader> ) => {
+            const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
             const linesLength: number = lines.length;
 
             for ( let lineIndex: number = 0; lineIndex < linesLength; lineIndex++ ) {
@@ -1870,8 +1870,8 @@ type LargestValuesForEachRangeType = {
 
         reader.onloadend = () => onLoadEnd( file.name, readingObject );
     
-        reader.onload = ( e: ProgressEvent<FileReader> ) => {
-            const data: string = e.target!.result!.toString().replace( new RegExp( "\"", "g" ), Char.empty );
+        reader.onload = ( ev: ProgressEvent<FileReader> ) => {
+            const data: string = ev.target!.result!.toString().replace( new RegExp( "\"", "g" ), Char.empty );
             const lines: string[] = data.split( Char.newLine );
             
             lines.shift();
