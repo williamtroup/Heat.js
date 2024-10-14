@@ -409,7 +409,7 @@ var Binding;
         }
         e.getForNewInstance = i;
         function o(e) {
-            let t = Default2.getObject(e, {});
+            const t = Default2.getObject(e, {});
             t.views = Default2.getObject(t.views, {});
             t.exportOnlyYearBeingViewed = Default2.getBoolean(t.exportOnlyYearBeingViewed, true);
             t.year = Default2.getNumber(t.year, (new Date).getFullYear());
@@ -421,37 +421,39 @@ var Binding;
             t.dataFetchDelay = Default2.getNumber(t.dataFetchDelay, 6e4);
             t.showOnlyDataForYearsAvailable = Default2.getBoolean(t.showOnlyDataForYearsAvailable, false);
             t.showHolidaysInDayToolTips = Default2.getBoolean(t.showHolidaysInDayToolTips, false);
-            t = r(t);
-            t = s(t);
-            t = a(t);
-            t = l(t);
-            t = c(t);
-            t = u(t);
-            t = d(t);
-            t = f(t);
-            t = m(t);
-            t = w(t);
-            t = g(t);
+            t.colorRanges = r(t);
+            t.holidays = s(t);
+            t.title = a(t);
+            t.description = l(t);
+            t.guide = c(t);
+            t.tooltip = u(t);
+            t.views.map = d(t);
+            t.views.chart = f(t);
+            t.views.days = m(t);
+            t.views.statistics = w(t);
+            t.events = g(t);
             return t;
         }
         e.get = o;
         function r(e) {
+            let t = [];
             if (Is.definedArray(e.colorRanges)) {
-                const t = e.colorRanges.length;
-                for (let n = 0; n < t; n++) {
-                    const t = e.colorRanges[n];
-                    t.id = Default2.getString(t.id, crypto.randomUUID());
-                    t.name = Default2.getString(t.name, "");
-                    t.minimum = Default2.getNumber(t.minimum, 0);
-                    t.cssClassName = Default2.getString(t.cssClassName, "");
-                    t.mapCssClassName = Default2.getString(t.mapCssClassName, "");
-                    t.chartCssClassName = Default2.getString(t.chartCssClassName, "");
-                    t.statisticsCssClassName = Default2.getString(t.statisticsCssClassName, "");
-                    t.tooltipText = Default2.getString(t.tooltipText, "");
-                    t.visible = Default2.getBoolean(t.visible, true);
+                const n = e.colorRanges.length;
+                for (let i = 0; i < n; i++) {
+                    const n = e.colorRanges[i];
+                    n.id = Default2.getString(n.id, crypto.randomUUID());
+                    n.name = Default2.getString(n.name, "");
+                    n.minimum = Default2.getNumber(n.minimum, 0);
+                    n.cssClassName = Default2.getString(n.cssClassName, "");
+                    n.mapCssClassName = Default2.getString(n.mapCssClassName, "");
+                    n.chartCssClassName = Default2.getString(n.chartCssClassName, "");
+                    n.statisticsCssClassName = Default2.getString(n.statisticsCssClassName, "");
+                    n.tooltipText = Default2.getString(n.tooltipText, "");
+                    n.visible = Default2.getBoolean(n.visible, true);
+                    t.push(n);
                 }
             } else {
-                e.colorRanges = [ {
+                t = [ {
                     id: crypto.randomUUID(),
                     name: "Day Color 1",
                     minimum: 10,
@@ -481,21 +483,21 @@ var Binding;
                     visible: true
                 } ];
             }
-            return e;
+            return t;
         }
         function s(e) {
+            let t = [];
             if (Is.definedArray(e.holidays)) {
-                const t = e.holidays.length;
-                for (let n = 0; n < t; n++) {
-                    const t = e.holidays[n];
-                    t.date = Default2.getString(t.date, "");
-                    t.name = Default2.getString(t.name, "");
-                    t.showInViews = Default2.getBoolean(t.showInViews, true);
+                const n = e.holidays.length;
+                for (let i = 0; i < n; i++) {
+                    const n = e.holidays[i];
+                    n.date = Default2.getString(n.date, "");
+                    n.name = Default2.getString(n.name, "");
+                    n.showInViews = Default2.getBoolean(n.showInViews, true);
+                    t.push(n);
                 }
-            } else {
-                e.holidays = [];
             }
-            return e;
+            return t;
         }
         function a(e) {
             e.title = Default2.getObject(e.title, {});
@@ -511,14 +513,14 @@ var Binding;
             e.title.showTitleDropDownButton = Default2.getBoolean(e.title.showTitleDropDownButton, true);
             e.title.showTitleDropDownHeaders = Default2.getBoolean(e.title.showTitleDropDownHeaders, true);
             e.title.showCurrentYearButton = Default2.getBoolean(e.title.showCurrentYearButton, true);
-            return e;
+            return e.title;
         }
         function l(e) {
             e.description = Default2.getObject(e.description, {});
             e.description.text = Default2.getString(e.description.text, "");
             e.description.url = Default2.getString(e.description.url, "");
             e.description.urlTarget = Default2.getString(e.description.urlTarget, "_blank");
-            return e;
+            return e.description;
         }
         function c(e) {
             e.guide = Default2.getObject(e.guide, {});
@@ -526,13 +528,13 @@ var Binding;
             e.guide.colorRangeTogglesEnabled = Default2.getBoolean(e.guide.colorRangeTogglesEnabled, true);
             e.guide.showLessAndMoreLabels = Default2.getBoolean(e.guide.showLessAndMoreLabels, true);
             e.guide.showNumbersInGuide = Default2.getBoolean(e.guide.showNumbersInGuide, false);
-            return e;
+            return e.guide;
         }
         function u(e) {
             e.tooltip = Default2.getObject(e.tooltip, {});
             e.tooltip.delay = Default2.getNumber(e.tooltip.delay, 750);
             e.tooltip.dayText = Default2.getString(e.tooltip.dayText, "{d}{o} {mmmm} {yyyy}");
-            return e;
+            return e.tooltip;
         }
         function d(e) {
             e.views.map = Default2.getObject(e.views.map, {});
@@ -552,7 +554,7 @@ var Binding;
             if (Is.invalidOptionArray(e.views.map.daysToShow)) {
                 e.views.map.daysToShow = n;
             }
-            return e;
+            return e.views.map;
         }
         function f(e) {
             e.views.chart = Default2.getObject(e.views.chart, {});
@@ -568,7 +570,7 @@ var Binding;
             if (Is.invalidOptionArray(e.views.chart.daysToShow)) {
                 e.views.chart.daysToShow = n;
             }
-            return e;
+            return e.views.chart;
         }
         function m(e) {
             e.views.days = Default2.getObject(e.views.days, {});
@@ -584,7 +586,7 @@ var Binding;
             if (Is.invalidOptionArray(e.views.days.daysToShow)) {
                 e.views.days.daysToShow = n;
             }
-            return e;
+            return e.views.days;
         }
         function w(e) {
             e.views.statistics = Default2.getObject(e.views.statistics, {});
@@ -601,7 +603,7 @@ var Binding;
             if (Is.invalidOptionArray(e.views.statistics.daysToShow)) {
                 e.views.statistics.daysToShow = n;
             }
-            return e;
+            return e.views.statistics;
         }
         function g(e) {
             e.events = Default2.getObject(e.events, {});
@@ -628,7 +630,7 @@ var Binding;
             e.events.onUpdate = Default2.getFunction(e.events.onUpdate, null);
             e.events.onOptionsUpdate = Default2.getFunction(e.events.onOptionsUpdate, null);
             e.events.onWeekDayClick = Default2.getFunction(e.events.onWeekDayClick, null);
-            return e;
+            return e.events;
         }
     })(t = e.Options || (e.Options = {}));
 })(Binding || (Binding = {}));
@@ -639,11 +641,11 @@ var Config;
     let t;
     (e => {
         function t(e = null) {
-            let t = Default2.getObject(e, {});
+            const t = Default2.getObject(e, {});
             t.safeMode = Default2.getBoolean(t.safeMode, true);
             t.domElementTypes = Default2.getStringOrArray(t.domElementTypes, [ "*" ]);
-            t = n(t);
-            t = i(t);
+            t.text = n(t);
+            t.text = i(t.text);
             return t;
         }
         e.get = t;
@@ -689,14 +691,14 @@ var Config;
             e.text.importButtonSymbolText = Default2.getAnyString(e.text.importButtonSymbolText, "↑");
             e.text.currentYearText = Default2.getAnyString(e.text.currentYearText, "Current Year");
             e.text.currentYearSymbolText = Default2.getAnyString(e.text.currentYearSymbolText, "⏎");
-            return e;
+            return e.text;
         }
         function i(e) {
-            if (Is.invalidOptionArray(e.text.monthNames, 12)) {
-                e.text.monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+            if (Is.invalidOptionArray(e.monthNames, 12)) {
+                e.monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
             }
-            if (Is.invalidOptionArray(e.text.dayNames, 7)) {
-                e.text.dayNames = [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ];
+            if (Is.invalidOptionArray(e.dayNames, 7)) {
+                e.dayNames = [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ];
             }
             return e;
         }

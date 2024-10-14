@@ -19,17 +19,17 @@ import { Is } from "../data/is";
 export namespace Config {
     export namespace Options {
         export function get( newConfiguration: Configuration = null! ) : Configuration {
-            let configuration = Default.getObject( newConfiguration, {} as Configuration );
+            const configuration = Default.getObject( newConfiguration, {} as Configuration );
             configuration.safeMode = Default.getBoolean( configuration.safeMode, true );
             configuration.domElementTypes = Default.getStringOrArray( configuration.domElementTypes, [ "*" ] );
     
-            configuration = getText( configuration );
-            configuration = getTextArrays( configuration );
+            configuration.text = getText( configuration );
+            configuration.text = getTextArrays( configuration.text );
 
             return configuration;
         }
     
-        function getText( configuration: Configuration ) : Configuration {
+        function getText( configuration: Configuration ) : ConfigurationText {
             configuration.text = Default.getObject( configuration.text, {} as ConfigurationText );
             configuration.text!.stText = Default.getAnyString( configuration.text!.stText, "st" );
             configuration.text!.ndText = Default.getAnyString( configuration.text!.ndText, "nd" );
@@ -72,12 +72,12 @@ export namespace Config {
             configuration.text!.currentYearText = Default.getAnyString( configuration.text!.currentYearText, "Current Year" );
             configuration.text!.currentYearSymbolText = Default.getAnyString( configuration.text!.currentYearSymbolText, "⏎" );
 
-            return configuration;
+            return configuration.text!;
         }
     
-        function getTextArrays( configuration: Configuration ) : Configuration {
-            if ( Is.invalidOptionArray( configuration.text!.monthNames, 12 ) ) {
-                configuration.text!.monthNames = [
+        function getTextArrays( configurationText: ConfigurationText ) : ConfigurationText {
+            if ( Is.invalidOptionArray( configurationText.monthNames, 12 ) ) {
+                configurationText.monthNames = [
                     "Jan",
                     "Feb",
                     "Mar",
@@ -93,8 +93,8 @@ export namespace Config {
                 ];
             }
     
-            if ( Is.invalidOptionArray( configuration.text!.dayNames, 7 ) ) {
-                configuration.text!.dayNames = [
+            if ( Is.invalidOptionArray( configurationText.dayNames, 7 ) ) {
+                configurationText.dayNames = [
                     "Mon",
                     "Tue",
                     "Wed",
@@ -105,7 +105,7 @@ export namespace Config {
                 ];
             }
 
-            return configuration;
+            return configurationText;
         }
     }
 }
