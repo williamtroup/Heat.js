@@ -1,4 +1,4 @@
-/*! Heat.js v4.2.2 - Georgian | (c) Bunoon 2024 | MIT License */
+/*! Heat.js v4.3.0 - Georgian | (c) Bunoon 2024 | MIT License */
 $heat.setConfiguration( {
         "text": {
                 "stText": "",
