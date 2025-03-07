@@ -636,6 +636,7 @@ div.heat-js {
         overflow-y: hidden;
         min-height: 191px;
         position: relative;
+        padding-bottom: var(--heat-js-spacing);
 
         @include styles.scroll-bars;
 
@@ -772,6 +773,7 @@ div.heat-js {
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
+        padding-bottom: var(--heat-js-spacing);
 
         @include styles.scroll-bars;
 

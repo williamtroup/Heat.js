@@ -571,6 +571,7 @@ div.heat-js div.map-contents {
   overflow-y: hidden;
   min-height: 191px;
   position: relative;
+  padding-bottom: var(--heat-js-spacing);
 }
 div.heat-js div.map-contents::-webkit-scrollbar {
   width: var(--heat-js-scroll-bar-size);
@@ -701,6 +702,7 @@ div.heat-js div.chart-contents {
   text-wrap: nowrap;
   white-space: nowrap;
   position: relative;
+  padding-bottom: var(--heat-js-spacing);
 }
 div.heat-js div.chart-contents::-webkit-scrollbar {
   width: var(--heat-js-scroll-bar-size);
