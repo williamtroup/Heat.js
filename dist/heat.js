@@ -2594,7 +2594,7 @@ var Disabled;
             return e;
         },
         getVersion: function() {
-            return "4.2.2";
+            return "4.3.0";
         }
     };
     (() => {

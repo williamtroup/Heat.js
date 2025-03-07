@@ -156,3 +156,28 @@ $minimum-width: 768px;
     box-sizing: border-box;
     line-height: normal;
 }
+
+@mixin scroll-bars {
+    &::-webkit-scrollbar {
+        width: var(--heat-js-scroll-bar-size);
+        height: var(--heat-js-scroll-bar-size);
+        border-radius: var(--heat-js-border-radius);
+    }
+    
+    &::-webkit-scrollbar-track {
+        border-radius: var(--heat-js-border-radius);
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: var(--heat-js-scroll-bar-thumb-color);
+        border-radius: var(--heat-js-border-radius);
+
+        &:active {
+            background-color: var(--heat-js-color-light-gray);
+        }
+    }
+
+    &::-webkit-scrollbar-corner {
+        background-color: transparent;
+    }
+}
