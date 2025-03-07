@@ -170,6 +170,7 @@ div.heat-js div.disabled div.dialog {
   color: var(--heat-js-dialog-text-color);
   border-radius: var(--heat-js-border-radius);
   animation: fade-in-animation var(--heat-js-animation-length);
+  overflow: hidden;
 }
 div.heat-js div.disabled div.dialog div.dialog-title-bar {
   position: relative;
@@ -407,18 +408,7 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu {
   background-color: var(--heat-js-title-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-title-border-color);
   color: var(--heat-js-title-text-color);
-  overflow-y: scroll;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-}
-div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu::-webkit-scrollbar {
-  width: 1px;
-}
-div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu::-webkit-scrollbar-track {
-  background: transparent;
-}
-div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu::-webkit-scrollbar-thumb {
-  background-color: transparent;
+  overflow: hidden;
 }
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-header {
   color: var(--heat-js-color-white);

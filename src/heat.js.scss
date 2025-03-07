@@ -211,6 +211,7 @@ div.heat-js {
             color: var(--heat-js-dialog-text-color);
             border-radius: var(--heat-js-border-radius);
             animation: fade-in-animation var(--heat-js-animation-length);
+            overflow: hidden;
 
             div.dialog-title-bar {
                 position: relative;
@@ -451,9 +452,7 @@ div.heat-js {
                     background-color: var(--heat-js-title-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-title-border-color);
                     color: var(--heat-js-title-text-color);
-                    overflow-y: scroll;
-
-                    @include styles.scroll-bars;
+                    overflow: hidden;
 
                     div.title-menu-header {
                         color: var(--heat-js-color-white);
