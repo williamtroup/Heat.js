@@ -6,7 +6,7 @@
  */
 
 
-@import "sass/styles";
+@use "sass/styles";
 
 :root {
     // Fonts
@@ -142,8 +142,8 @@
 */
 
 div.heat-js {
-    @include no-selection-allowed;
-    @include box-sizing;
+    @include styles.no-selection-allowed;
+    @include styles.box-sizing;
     font-family: var(--heat-js-default-font);
     display: inline-block;
     position: relative;
@@ -170,11 +170,11 @@ div.heat-js {
     }
 
     * {
-        @include box-sizing;
+        @include styles.box-sizing;
 
         &::before,
         &::after {
-            @include box-sizing;
+            @include styles.box-sizing;
         }
     }
 }
@@ -326,7 +326,7 @@ div.heat-js {
         text-align: right;
         margin-bottom: calc( var(--heat-js-spacing) + var(--heat-js-spacing) / 2 );
 
-        @include buttons;
+        @include styles.buttons;
 
         button {
             font-weight: var(--heat-js-title-bold-weight);
@@ -395,7 +395,7 @@ div.heat-js {
         button.import {
             display: none;
     
-            @media (min-width: $minimum-width) { 
+            @media (min-width: styles.$minimum-width) { 
                 display: inline-block;
             }
         }
@@ -433,7 +433,7 @@ div.heat-js {
                 display: block;
             }
 
-            @include down-arrow;
+            @include styles.down-arrow;
 
             div.titles-menu-container {
                 animation: fade-in-animation var(--heat-js-animation-length);
@@ -551,7 +551,7 @@ div.heat-js {
                 display: block !important;
             }
 
-            @include down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );
+            @include styles.down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );
 
             div.years-menu-container {
                 animation: fade-in-animation var(--heat-js-animation-length);
@@ -631,7 +631,7 @@ div.heat-js {
         position: relative;
 
         div.no-data-message {
-            @include centered-label;
+            @include styles.centered-label;
         }
 
         div.map {
@@ -648,7 +648,7 @@ div.heat-js {
                 display: none;
                 z-index: 50;
     
-                @media (min-width: $minimum-width) { 
+                @media (min-width: styles.$minimum-width) { 
                     display: block;
                 }
         
@@ -765,7 +765,7 @@ div.heat-js {
         position: relative;
 
         div.no-data-message {
-            @include centered-label;
+            @include styles.centered-label;
         }
 
         div.chart {
@@ -773,7 +773,7 @@ div.heat-js {
             flex-direction: row;
 
             div.y-labels {
-                @include labels;
+                @include styles.labels;
             }
 
             div.day-lines {
@@ -798,7 +798,7 @@ div.heat-js {
                     display: inline-block;
                     transition: var(--heat-js-transition);
 
-                    @media (min-width: $minimum-width) { 
+                    @media (min-width: styles.$minimum-width) { 
                         &:first-child {
                             margin-left: calc( var(--heat-js-spacing) / 2 );
                         }
@@ -828,7 +828,7 @@ div.heat-js {
                 bottom: 0;
             }
 
-            @media (min-width: $minimum-width) { 
+            @media (min-width: styles.$minimum-width) { 
                 div.month-name:first-child {
                     margin-left: calc( var(--heat-js-spacing) / 2 );
                 }
@@ -864,7 +864,7 @@ div.heat-js {
         position: relative;
 
         div.no-days-message {
-            @include centered-label;
+            @include styles.centered-label;
         }
 
         div.days {
@@ -872,7 +872,7 @@ div.heat-js {
             flex-direction: row;
 
             div.y-labels {
-                @include labels;
+                @include styles.labels;
             }
 
             div.day-lines {
@@ -909,7 +909,7 @@ div.heat-js {
                     display: inline-block;
                     transition: var(--heat-js-transition);
 
-                    @media (min-width: $minimum-width) { 
+                    @media (min-width: styles.$minimum-width) { 
                         &:first-child {
                             margin-left: calc( var(--heat-js-spacing) / 2 );
                         }
@@ -944,7 +944,7 @@ div.heat-js {
                 text-overflow: ellipsis;
                 margin-right: var(--heat-js-spacing);
 
-                @media (min-width: $minimum-width) { 
+                @media (min-width: styles.$minimum-width) { 
                     &:first-child {
                         margin-left: calc( var(--heat-js-spacing) / 2 );
                     }
@@ -974,7 +974,7 @@ div.heat-js {
         position: relative;
 
         div.no-statistics-message {
-            @include centered-label;
+            @include styles.centered-label;
         }
 
         div.statistics {
@@ -982,7 +982,7 @@ div.heat-js {
             flex-direction: row;
 
             div.y-labels {
-                @include labels;
+                @include styles.labels;
             }
 
             div.range-lines {
@@ -1018,7 +1018,7 @@ div.heat-js {
                     display: inline-block;
                     transition: var(--heat-js-transition);
 
-                    @media (min-width: $minimum-width) { 
+                    @media (min-width: styles.$minimum-width) { 
                         &:first-child {
                             margin-left: calc( var(--heat-js-spacing) / 2 );
                         }
@@ -1053,7 +1053,7 @@ div.heat-js {
                 text-overflow: ellipsis;
                 margin-right: var(--heat-js-spacing);
 
-                @media (min-width: $minimum-width) { 
+                @media (min-width: styles.$minimum-width) { 
                     &:first-child {
                         margin-left: calc( var(--heat-js-spacing) / 2 );
                     }
@@ -1079,11 +1079,11 @@ div.heat-js {
         text-align: center;
         margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
 
-        @include description;
+        @include styles.description;
     }
 
     div.description {
-        @media (min-width: $minimum-width) { 
+        @media (min-width: styles.$minimum-width) { 
             text-align: left;
         }
     }
@@ -1100,7 +1100,7 @@ div.heat-js {
     div.guide {
         display: block;
     
-        @media (min-width: $minimum-width) { 
+        @media (min-width: styles.$minimum-width) { 
             display: flex;
         }
 
@@ -1109,7 +1109,7 @@ div.heat-js {
             margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
             width: 100%;
 
-            @media (min-width: $minimum-width) { 
+            @media (min-width: styles.$minimum-width) { 
                 margin-bottom: 0;
             }
         }
@@ -1119,8 +1119,8 @@ div.heat-js {
             flex-grow: unset;
             margin-right: 0;
 
-            @include buttons;
-            @include description;
+            @include styles.buttons;
+            @include styles.description;
 
             button {
                 margin-left: 0 !important;
@@ -1129,7 +1129,7 @@ div.heat-js {
         }
 
         div.map-types {
-            @media (min-width: $minimum-width) { 
+            @media (min-width: styles.$minimum-width) { 
                 text-align: left;
                 width: unset;
                 flex-grow: 1;
@@ -1144,7 +1144,7 @@ div.heat-js {
             justify-content: center;
             text-align: center;
 
-            @media (min-width: $minimum-width) { 
+            @media (min-width: styles.$minimum-width) { 
                 text-align: right;
                 justify-content: right;
                 width: auto;
@@ -1223,7 +1223,7 @@ div.heat-js {
 
 div.heat-js {
     label.checkbox {
-        @include no-selection-allowed;
+        @include styles.no-selection-allowed;
         display: inline-block;
         position: relative;
         padding-left: 20px;
@@ -1342,8 +1342,8 @@ div.heat-js {
 */
 
 div.heat-js-tooltip {
-    @include no-selection-allowed;
-    @include box-sizing;
+    @include styles.no-selection-allowed;
+    @include styles.box-sizing;
     font-family: var(--heat-js-default-font);
     animation: fade-in-animation var(--heat-js-animation-length);
     position: absolute;
