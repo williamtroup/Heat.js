@@ -158,18 +158,26 @@ $minimum-width: 768px;
 }
 
 @mixin scroll-bars {
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
-  
     &::-webkit-scrollbar {
-        width: 1px;
+        width: var(--heat-js-scroll-bar-size);
+        height: var(--heat-js-scroll-bar-size);
+        border-radius: var(--heat-js-border-radius);
     }
-  
+    
     &::-webkit-scrollbar-track {
-        background: transparent;
+        border-radius: var(--heat-js-border-radius);
     }
-  
+    
     &::-webkit-scrollbar-thumb {
+        background: var(--heat-js-scroll-bar-thumb-color);
+        border-radius: var(--heat-js-border-radius);
+
+        &:active {
+            background-color: var(--heat-js-color-light-gray);
+        }
+    }
+
+    &::-webkit-scrollbar-corner {
         background-color: transparent;
     }
 }

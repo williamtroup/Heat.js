@@ -34,6 +34,7 @@
     --heat-js-color-white: #adbac7;
     --heat-js-color-snow-white: #F5F5F5;
     --heat-js-color-gray: #AAAAAA;
+    --heat-js-color-light-gray: #BBBBBB;
 
     // Containers
     --heat-js-container-background-color: #22272e;
@@ -132,6 +133,10 @@
     // Transitions
     --heat-js-transition: all .3s;
     --heat-js-animation-length: 0.5s;
+
+    // Scroll Bars
+    --heat-js-scroll-bar-size: 3px;
+    --heat-js-scroll-bar-thumb-color: #3b434e;
 }
 
 
@@ -265,10 +270,7 @@ div.heat-js {
 
             div.dialog-contents {
                 padding: var(--heat-js-spacing);
-                overflow-x: scroll;
-                overflow-y: hidden;
-
-                @include styles.scroll-bars;
+                overflow: hidden;
             }
         }
     }
@@ -574,7 +576,7 @@ div.heat-js {
                     color: var(--heat-js-years-text-color);
                     max-height: 183px;
                     height: 100%;
-                    overflow-y: scroll;
+                    overflow-y: auto;
                     scroll-snap-type: y mandatory;
 
                     @include styles.scroll-bars;
@@ -630,7 +632,7 @@ div.heat-js {
 
 div.heat-js {
     div.map-contents {
-        overflow-x: scroll;
+        overflow-x: auto;
         overflow-y: hidden;
         min-height: 191px;
         position: relative;
@@ -765,7 +767,7 @@ div.heat-js {
 div.heat-js {
     div.chart-contents {
         display: flex;
-        overflow-x: scroll;
+        overflow-x: auto;
         overflow-y: hidden;
         text-wrap: nowrap;
         white-space: nowrap;

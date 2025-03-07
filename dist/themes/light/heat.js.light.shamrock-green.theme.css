@@ -62,4 +62,7 @@
     --heat-js-button-text-color-hover: var(--heat-js-color-snow-white);
     --heat-js-button-background-color-active: #616b79;
     --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
+
+    /* Scroll Bars */
+    --heat-js-scroll-bar-thumb-color: var(--heat-js-color-black);
 }

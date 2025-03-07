@@ -26,6 +26,7 @@
   --heat-js-color-white: #adbac7;
   --heat-js-color-snow-white: #F5F5F5;
   --heat-js-color-gray: #AAAAAA;
+  --heat-js-color-light-gray: #BBBBBB;
   --heat-js-container-background-color: #22272e;
   --heat-js-container-border-color: #454c56;
   --heat-js-dialog-background-color: var(--heat-js-container-background-color);
@@ -94,6 +95,8 @@
   --heat-js-spacing-day-font-size: 0.6rem;
   --heat-js-transition: all .3s;
   --heat-js-animation-length: 0.5s;
+  --heat-js-scroll-bar-size: 3px;
+  --heat-js-scroll-bar-thumb-color: #3b434e;
 }
 
 /*
@@ -212,19 +215,7 @@ div.heat-js div.disabled div.dialog div.dialog-title-bar div.dialog-close:hover:
 }
 div.heat-js div.disabled div.dialog div.dialog-contents {
   padding: var(--heat-js-spacing);
-  overflow-x: scroll;
-  overflow-y: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-}
-div.heat-js div.disabled div.dialog div.dialog-contents::-webkit-scrollbar {
-  width: 1px;
-}
-div.heat-js div.disabled div.dialog div.dialog-contents::-webkit-scrollbar-track {
-  background: transparent;
-}
-div.heat-js div.disabled div.dialog div.dialog-contents::-webkit-scrollbar-thumb {
-  background-color: transparent;
+  overflow: hidden;
 }
 
 /*
@@ -517,18 +508,25 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
   color: var(--heat-js-years-text-color);
   max-height: 183px;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   scroll-snap-type: y mandatory;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
 }
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu::-webkit-scrollbar {
-  width: 1px;
+  width: var(--heat-js-scroll-bar-size);
+  height: var(--heat-js-scroll-bar-size);
+  border-radius: var(--heat-js-border-radius);
 }
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu::-webkit-scrollbar-track {
-  background: transparent;
+  border-radius: var(--heat-js-border-radius);
 }
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu::-webkit-scrollbar-thumb {
+  background: var(--heat-js-scroll-bar-thumb-color);
+  border-radius: var(--heat-js-border-radius);
+}
+div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu::-webkit-scrollbar-thumb:active {
+  background-color: var(--heat-js-color-light-gray);
+}
+div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu::-webkit-scrollbar-corner {
   background-color: transparent;
 }
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu div.year-menu-item {
@@ -569,20 +567,27 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
     -------------------------------------------------------------------------
 */
 div.heat-js div.map-contents {
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   min-height: 191px;
   position: relative;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
 }
 div.heat-js div.map-contents::-webkit-scrollbar {
-  width: 1px;
+  width: var(--heat-js-scroll-bar-size);
+  height: var(--heat-js-scroll-bar-size);
+  border-radius: var(--heat-js-border-radius);
 }
 div.heat-js div.map-contents::-webkit-scrollbar-track {
-  background: transparent;
+  border-radius: var(--heat-js-border-radius);
 }
 div.heat-js div.map-contents::-webkit-scrollbar-thumb {
+  background: var(--heat-js-scroll-bar-thumb-color);
+  border-radius: var(--heat-js-border-radius);
+}
+div.heat-js div.map-contents::-webkit-scrollbar-thumb:active {
+  background-color: var(--heat-js-color-light-gray);
+}
+div.heat-js div.map-contents::-webkit-scrollbar-corner {
   background-color: transparent;
 }
 div.heat-js div.map-contents div.no-data-message {
@@ -691,21 +696,28 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
 */
 div.heat-js div.chart-contents {
   display: flex;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   text-wrap: nowrap;
   white-space: nowrap;
   position: relative;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
 }
 div.heat-js div.chart-contents::-webkit-scrollbar {
-  width: 1px;
+  width: var(--heat-js-scroll-bar-size);
+  height: var(--heat-js-scroll-bar-size);
+  border-radius: var(--heat-js-border-radius);
 }
 div.heat-js div.chart-contents::-webkit-scrollbar-track {
-  background: transparent;
+  border-radius: var(--heat-js-border-radius);
 }
 div.heat-js div.chart-contents::-webkit-scrollbar-thumb {
+  background: var(--heat-js-scroll-bar-thumb-color);
+  border-radius: var(--heat-js-border-radius);
+}
+div.heat-js div.chart-contents::-webkit-scrollbar-thumb:active {
+  background-color: var(--heat-js-color-light-gray);
+}
+div.heat-js div.chart-contents::-webkit-scrollbar-corner {
   background-color: transparent;
 }
 div.heat-js div.chart-contents div.no-data-message {
