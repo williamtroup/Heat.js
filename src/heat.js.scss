@@ -266,6 +266,8 @@ div.heat-js {
                 padding: var(--heat-js-spacing);
                 overflow-x: scroll;
                 overflow-y: hidden;
+
+                @include styles.scroll-bars;
             }
         }
     }
@@ -451,6 +453,8 @@ div.heat-js {
                     color: var(--heat-js-title-text-color);
                     overflow-y: scroll;
 
+                    @include styles.scroll-bars;
+
                     div.title-menu-header {
                         color: var(--heat-js-color-white);
                         font-weight: var(--heat-js-title-bold-weight);
@@ -574,6 +578,8 @@ div.heat-js {
                     overflow-y: scroll;
                     scroll-snap-type: y mandatory;
 
+                    @include styles.scroll-bars;
+
                     div.year-menu-item {
                         color: var(--heat-js-color-white);
                         font-weight: var(--heat-js-text-bold-weight);
@@ -629,6 +635,8 @@ div.heat-js {
         overflow-y: hidden;
         min-height: 191px;
         position: relative;
+
+        @include styles.scroll-bars;
 
         div.no-data-message {
             @include styles.centered-label;
@@ -763,6 +771,8 @@ div.heat-js {
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
+
+        @include styles.scroll-bars;
 
         div.no-data-message {
             @include styles.centered-label;

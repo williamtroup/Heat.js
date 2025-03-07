@@ -156,3 +156,20 @@ $minimum-width: 768px;
     box-sizing: border-box;
     line-height: normal;
 }
+
+@mixin scroll-bars {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  
+    &::-webkit-scrollbar {
+        width: 1px;
+    }
+  
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+}
