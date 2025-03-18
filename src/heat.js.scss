@@ -1,7 +1,7 @@
 /*
- * Heat.js Library v4.3.0
+ * Heat.js Library v4.3.1
  *
- * Copyright 2024 Bunoon
+ * Copyright 2025 Bunoon
  * Released under the MIT License
  */
 
@@ -51,7 +51,7 @@
     --heat-js-tooltip-text-color: var(--heat-js-color-white);
 
     // Year
-    --heat-js-years-background-color: var(--heat-js-container-background-color);
+    --heat-js-years-background-color: #11161e;
     --heat-js-years-border-color: var(--heat-js-container-border-color);
     --heat-js-years-text-color: var(--heat-js-color-white);
     --heat-js-years-background-color-hover: var(--heat-js-button-background-color-hover);
@@ -59,7 +59,7 @@
 
     // Title
     --heat-js-title-opener-text-color-hover: var(--heat-js-color-gray);
-    --heat-js-title-background-color: var(--heat-js-container-background-color);
+    --heat-js-title-background-color: var(--heat-js-years-background-color);
     --heat-js-title-border-color: var(--heat-js-container-border-color);
     --heat-js-title-text-color: var(--heat-js-color-white);
     --heat-js-title-background-color-hover: var(--heat-js-button-background-color-hover);
@@ -129,6 +129,7 @@
     --heat-js-spacing: 10px;
     --heat-js-spacing-font-size: 0.85rem;
     --heat-js-spacing-day-font-size: 0.6rem;
+    --heat-js-left-border: 8px;
 
     // Transitions
     --heat-js-transition: all .3s;
@@ -156,6 +157,7 @@ div.heat-js {
     background-color: var(--heat-js-container-background-color);
     color: var(--heat-js-color-white);
     border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+    border-left-width: var(--heat-js-left-border);
     padding: var(--heat-js-spacing);
     font-size: var(--heat-js-spacing-font-size);
     width: 100%;
@@ -655,12 +657,7 @@ div.heat-js {
                 padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
                 position: sticky;
                 left: 0;
-                display: none;
                 z-index: 50;
-    
-                @media (min-width: styles.$minimum-width) { 
-                    display: block;
-                }
         
                 div.day-name {
                     font-weight: var(--heat-js-text-bold-weight);
