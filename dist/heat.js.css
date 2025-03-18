@@ -93,6 +93,7 @@
   --heat-js-spacing: 10px;
   --heat-js-spacing-font-size: 0.85rem;
   --heat-js-spacing-day-font-size: 0.6rem;
+  --heat-js-left-border: 8px;
   --heat-js-transition: all .3s;
   --heat-js-animation-length: 0.5s;
   --heat-js-scroll-bar-size: 3px;
@@ -120,6 +121,7 @@ div.heat-js {
   background-color: var(--heat-js-container-background-color);
   color: var(--heat-js-color-white);
   border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+  border-left-width: var(--heat-js-left-border);
   padding: var(--heat-js-spacing);
   font-size: var(--heat-js-spacing-font-size);
   width: 100%;
@@ -1456,6 +1458,4 @@ div.heat-js-tooltip {
   100% {
     opacity: 1;
   }
-}
-
-/*# sourceMappingURL=heat.js.css.map */
+}/*# sourceMappingURL=heat.js.css.map */

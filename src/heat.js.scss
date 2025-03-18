@@ -129,6 +129,7 @@
     --heat-js-spacing: 10px;
     --heat-js-spacing-font-size: 0.85rem;
     --heat-js-spacing-day-font-size: 0.6rem;
+    --heat-js-left-border: 8px;
 
     // Transitions
     --heat-js-transition: all .3s;
@@ -156,6 +157,7 @@ div.heat-js {
     background-color: var(--heat-js-container-background-color);
     color: var(--heat-js-color-white);
     border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+    border-left-width: var(--heat-js-left-border);
     padding: var(--heat-js-spacing);
     font-size: var(--heat-js-spacing-font-size);
     width: 100%;
