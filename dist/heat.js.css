@@ -611,14 +611,7 @@ div.heat-js div.map-contents div.map div.days-months-bottom {
   padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
   position: sticky;
   left: 0;
-  display: none;
   z-index: 50;
-}
-@media (min-width: 768px) {
-  div.heat-js div.map-contents div.map div.days,
-  div.heat-js div.map-contents div.map div.days-months-bottom {
-    display: block;
-  }
 }
 div.heat-js div.map-contents div.map div.days div.day-name,
 div.heat-js div.map-contents div.map div.days-months-bottom div.day-name {

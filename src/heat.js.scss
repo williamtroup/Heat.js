@@ -657,12 +657,7 @@ div.heat-js {
                 padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
                 position: sticky;
                 left: 0;
-                display: none;
                 z-index: 50;
-    
-                @media (min-width: styles.$minimum-width) { 
-                    display: block;
-                }
         
                 div.day-name {
                     font-weight: var(--heat-js-text-bold-weight);
