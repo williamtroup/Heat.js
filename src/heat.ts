@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        heat.ts
- * @version     v4.3.1
+ * @version     v4.3.2
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -2671,7 +2671,7 @@ type LargestValuesForEachRangeType = {
         },
 
         getVersion: function () : string {
-            return "4.3.1";
+            return "4.3.2";
         }
     };
 
