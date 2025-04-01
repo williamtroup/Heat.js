@@ -32,9 +32,6 @@
   --heat-js-dialog-background-color: var(--heat-js-container-background-color);
   --heat-js-dialog-border-color: var(--heat-js-container-border-color);
   --heat-js-dialog-text-color: var(--heat-js-color-white);
-  --heat-js-tooltip-background-color: var(--heat-js-container-background-color);
-  --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
-  --heat-js-tooltip-text-color: var(--heat-js-color-white);
   --heat-js-years-background-color: #11161e;
   --heat-js-years-border-color: var(--heat-js-container-border-color);
   --heat-js-years-text-color: var(--heat-js-color-white);
@@ -46,6 +43,9 @@
   --heat-js-title-text-color: var(--heat-js-color-white);
   --heat-js-title-background-color-hover: var(--heat-js-button-background-color-hover);
   --heat-js-title-text-color-hover: var(--heat-js-color-snow-white);
+  --heat-js-tooltip-background-color: var(--heat-js-years-background-color);
+  --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
+  --heat-js-tooltip-text-color: var(--heat-js-color-white);
   --heat-js-holiday-background-color: rgba( 210, 43, 43, 0.75 );
   --heat-js-holiday-border-color: rgba( 210, 43, 43, 0.5 );
   --heat-js-holiday-text-color: var(--heat-js-color-black);
