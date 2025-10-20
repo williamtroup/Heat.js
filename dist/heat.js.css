@@ -368,6 +368,13 @@ div.heat-js div.title-bar div.title {
   transition: var(--heat-js-transition);
   cursor: pointer;
 }
+div.heat-js div.title-bar div.title span.section-text {
+  font-weight: 300;
+  margin-left: 5px;
+}
+div.heat-js div.title-bar div.title span.section-text:first-of-type {
+  margin-left: 10px;
+}
 div.heat-js div.title-bar div.title:hover {
   color: var(--heat-js-title-opener-text-color-hover);
 }

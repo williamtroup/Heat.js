@@ -197,6 +197,7 @@ export type BindingOptionsTitle = {
     showTitleDropDownButton?: boolean;
     showTitleDropDownHeaders?: boolean;
     showCurrentYearButton?: boolean;
+    showSectionText?: boolean;
 };
 
 export type BindingOptionsDescription = {

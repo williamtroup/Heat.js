@@ -374,6 +374,22 @@ type LargestValuesForEachRangeType = {
 
             if ( bindingOptions.title!.showText ) {
                 title.innerHTML += bindingOptions.title!.text;
+
+                if ( bindingOptions.title!.showSectionText ) {
+                    DomElement.createWithHTML( title, "span", "section-text", "[" );
+
+                    if ( bindingOptions._currentView.view === ViewId.map ) {
+                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.mapText! );
+                    } else if ( bindingOptions._currentView.view === ViewId.chart ) {
+                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.chartText! );
+                    } else if ( bindingOptions._currentView.view === ViewId.statistics ) {
+                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.colorRangesText! );
+                    } else if ( bindingOptions._currentView.view === ViewId.days ) {
+                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.daysText! );
+                    }
+
+                    DomElement.createWithHTML( title, "span", "section-text", "]" );
+                }
             }
 
             if ( bindingOptions.views!.chart!.enabled || bindingOptions.views!.days!.enabled || bindingOptions.views!.statistics!.enabled ) {

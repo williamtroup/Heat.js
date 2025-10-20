@@ -214,6 +214,7 @@ export namespace Binding {
             options.title!.showTitleDropDownButton = Default.getBoolean( options.title!.showTitleDropDownButton, true );
             options.title!.showTitleDropDownHeaders = Default.getBoolean( options.title!.showTitleDropDownHeaders, true );
             options.title!.showCurrentYearButton = Default.getBoolean( options.title!.showCurrentYearButton, true );
+            options.title!.showSectionText = Default.getBoolean( options.title!.showSectionText, true );
 
             return options.title!;
         }

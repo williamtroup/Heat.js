@@ -428,6 +428,15 @@ div.heat-js {
             transition: var(--heat-js-transition);
             cursor: pointer;
 
+            span.section-text {
+                font-weight: 300;
+                margin-left: 5px;
+
+                &:first-of-type {
+                    margin-left: 10px;
+                }
+            }
+
             &:hover {
                 color: var(--heat-js-title-opener-text-color-hover);
             }
