@@ -46,10 +46,10 @@
     "build-sass-minimized": "sass src/heat.js.scss dist/heat.js.min.css --style=compressed --no-source-map"
   },
   "devDependencies": {
-    "@swc/core": "^1.11.11",
-    "sass": "^1.86.0",
-    "terser": "^5.39.0",
-    "tsup": "^8.4.0",
-    "typescript": "^5.8.2"
+    "@swc/core": "^1.13.5",
+    "sass": "^1.93.2",
+    "terser": "^5.44.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
   }
 }

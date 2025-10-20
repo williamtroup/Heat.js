@@ -1176,7 +1176,6 @@ div.heat-js div.guide div.map-types {
   text-align: center;
   flex-grow: unset;
   margin-right: 0;
-  text-align: center;
 }
 div.heat-js div.guide div.map-types button {
   background-color: var(--heat-js-button-background-color);
@@ -1208,6 +1207,9 @@ div.heat-js div.guide div.map-types button.active {
   color: var(--heat-js-button-text-color-hover);
   transition: var(--heat-js-transition);
   font-weight: var(--heat-js-text-bold-weight-active);
+}
+div.heat-js div.guide div.map-types {
+  text-align: center;
 }
 div.heat-js div.guide div.map-types span.label,
 div.heat-js div.guide div.map-types a.label,

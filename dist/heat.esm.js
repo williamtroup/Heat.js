@@ -309,8 +309,8 @@ var ToolTip;
     function n(e, t = true) {
         let n = t ? window.addEventListener : window.removeEventListener;
         let i = t ? document.addEventListener : document.removeEventListener;
-        n("mousemove", (() => r(e)));
-        i("scroll", (() => r(e)));
+        n("mousemove", () => r(e));
+        i("scroll", () => r(e));
     }
     e.assignToEvents = n;
     function i(e, t, n) {
@@ -322,11 +322,11 @@ var ToolTip;
     function o(e, t, n) {
         DomElement.cancelBubble(e);
         r(t);
-        t._currentView.tooltipTimer = setTimeout((() => {
+        t._currentView.tooltipTimer = setTimeout(() => {
             t._currentView.tooltip.innerHTML = n;
             t._currentView.tooltip.style.display = "block";
             DomElement.showElementAtMousePosition(e, t._currentView.tooltip);
-        }), t.tooltip.delay);
+        }, t.tooltip.delay);
     }
     e.show = o;
     function r(e) {
@@ -1758,9 +1758,9 @@ var Disabled;
                 }
             }
         }
-        t = t.sort((function(e, t) {
+        t = t.sort(function(e, t) {
             return e - t;
-        }));
+        });
         return t;
     }
     function P(e, t) {
@@ -1824,10 +1824,10 @@ var Disabled;
                 X(e);
             }
             if (e._currentView.isInFetchModeTimer === 0) {
-                e._currentView.isInFetchModeTimer = setInterval((() => {
+                e._currentView.isInFetchModeTimer = setInterval(() => {
                     X(e);
                     a(e);
-                }), e.dataFetchDelay);
+                }, e.dataFetchDelay);
             }
         }
     }
@@ -1929,9 +1929,9 @@ var Disabled;
         return i;
     }
     function te(e) {
-        return e.colorRanges.sort((function(e, t) {
+        return e.colorRanges.sort(function(e, t) {
             return e.minimum - t.minimum;
-        }));
+        });
     }
     function ne(e, t) {
         const n = {
@@ -2597,8 +2597,8 @@ var Disabled;
     };
     (() => {
         e = Config.Options.get();
-        document.addEventListener("DOMContentLoaded", (() => o()));
-        window.addEventListener("pagehide", (() => q()));
+        document.addEventListener("DOMContentLoaded", () => o());
+        window.addEventListener("pagehide", () => q());
         if (!Is.defined(window.$heat)) {
             window.$heat = xe;
         }
