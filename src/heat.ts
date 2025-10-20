@@ -380,12 +380,14 @@ type LargestValuesForEachRangeType = {
 
                     if ( bindingOptions._currentView.view === ViewId.map ) {
                         DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.mapText! );
-                    } else if ( bindingOptions._currentView.view === ViewId.chart ) {
+                    } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView.view === ViewId.chart ) {
                         DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.chartText! );
-                    } else if ( bindingOptions._currentView.view === ViewId.statistics ) {
-                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.colorRangesText! );
-                    } else if ( bindingOptions._currentView.view === ViewId.days ) {
+                    } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView.view === ViewId.days ) {
                         DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.daysText! );
+                    } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView.view === ViewId.statistics ) {
+                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.colorRangesText! );
+                    } else {
+                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.mapText! );
                     }
 
                     DomElement.createWithHTML( title, "span", "section-text", "]" );
