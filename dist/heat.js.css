@@ -371,9 +371,15 @@ div.heat-js div.title-bar div.title {
 div.heat-js div.title-bar div.title span.section-text {
   font-weight: 300;
   margin-left: 5px;
+  display: none;
 }
 div.heat-js div.title-bar div.title span.section-text:first-of-type {
   margin-left: 10px;
+}
+@media (min-width: 768px) {
+  div.heat-js div.title-bar div.title span.section-text {
+    display: inline;
+  }
 }
 div.heat-js div.title-bar div.title:hover {
   color: var(--heat-js-title-opener-text-color-hover);
