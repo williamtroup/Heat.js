@@ -384,11 +384,11 @@ div.heat-js div.title-bar div.title span.section-text:first-of-type {
 div.heat-js div.title-bar div.title:hover {
   color: var(--heat-js-title-opener-text-color-hover);
 }
-div.heat-js div.title-bar div.title:hover div.down-arrow {
-  border-top-color: var(--heat-js-title-opener-text-color-hover);
-}
 div.heat-js div.title-bar div.title:hover div.titles-menu-container {
   display: block;
+}
+div.heat-js div.title-bar div.title:hover div.down-arrow {
+  border-top-color: var(--heat-js-title-opener-text-color-hover);
 }
 div.heat-js div.title-bar div.title div.down-arrow {
   display: inline-block;
