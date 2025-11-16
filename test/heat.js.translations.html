@@ -25,8 +25,8 @@
         document.title += " - v" + $heat.getVersion();
         document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
 
-        function onDayClick( date ) {
-            console.log( "Day clicked for: " + date.toString() );
+        function onDayClick( date, count, isHoliday ) {
+            console.log( "Day clicked for: " + date.toString() + ", Count: " + count + " Is Holiday: " + isHoliday.toString() );
         }
 
         document.addEventListener( "DOMContentLoaded", function() {

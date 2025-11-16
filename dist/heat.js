@@ -1238,23 +1238,24 @@ var Disabled;
         const a = i + 1;
         const l = DomElement.create(n, "div", "day");
         const c = new Date(r, o, a);
-        let u = t[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(c)];
-        u = Default2.getNumber(u, 0);
-        k(e, l, c, u);
-        if (e.views.map.showDayNumbers && u > 0) {
-            l.innerHTML = u.toString();
+        const u = ne(e, c);
+        let d = t[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(c)];
+        d = Default2.getNumber(d, 0);
+        k(e, l, c, d);
+        if (e.views.map.showDayNumbers && d > 0) {
+            l.innerHTML = d.toString();
         }
         if (Is.definedFunction(e.events.onDayClick)) {
-            l.onclick = () => Trigger.customEvent(e.events.onDayClick, c, u);
+            l.onclick = () => Trigger.customEvent(e.events.onDayClick, c, d, u.matched);
         } else {
             DomElement.addClass(l, "no-hover");
         }
-        const d = Z(e, s, u, c);
-        if (Is.defined(d) && z(e, d.id)) {
-            if (Is.definedString(d.mapCssClassName)) {
-                DomElement.addClass(l, d.mapCssClassName);
+        const f = Z(e, s, d, c);
+        if (Is.defined(f) && z(e, f.id)) {
+            if (Is.definedString(f.mapCssClassName)) {
+                DomElement.addClass(l, f.mapCssClassName);
             } else {
-                DomElement.addClass(l, d.cssClassName);
+                DomElement.addClass(l, f.cssClassName);
             }
         }
         return l;
@@ -1364,29 +1365,30 @@ var Disabled;
     function T(e, t, n, i, o, r, s) {
         const a = new Date(o, i, n);
         const l = DomElement.create(e, "div", "day-line");
-        let c = F(t)[DateTime.toStorageDate(a)];
-        c = Default2.getNumber(c, 0);
-        k(t, l, a, c);
-        if (t.views.chart.showLineNumbers && c > 0) {
+        const c = ne(t, a);
+        let u = F(t)[DateTime.toStorageDate(a)];
+        u = Default2.getNumber(u, 0);
+        k(t, l, a, u);
+        if (t.views.chart.showLineNumbers && u > 0) {
             DomElement.addClass(l, "day-line-number");
-            l.innerHTML = c.toString();
+            l.innerHTML = u.toString();
         }
-        const u = c * s;
-        l.style.height = `${u}px`;
-        if (u <= 0) {
+        const d = u * s;
+        l.style.height = `${d}px`;
+        if (d <= 0) {
             l.style.visibility = "hidden";
         }
         if (Is.definedFunction(t.events.onDayClick)) {
-            l.onclick = () => Trigger.customEvent(t.events.onDayClick, a, c);
+            l.onclick = () => Trigger.customEvent(t.events.onDayClick, a, u, c.matched);
         } else {
             DomElement.addClass(l, "no-hover");
         }
-        const d = Z(t, r, c, a);
-        if (Is.defined(d) && z(t, d.id)) {
-            if (Is.definedString(d.chartCssClassName)) {
-                DomElement.addClass(l, d.chartCssClassName);
+        const f = Z(t, r, u, a);
+        if (Is.defined(f) && z(t, f.id)) {
+            if (Is.definedString(f.chartCssClassName)) {
+                DomElement.addClass(l, f.chartCssClassName);
             } else {
-                DomElement.addClass(l, d.cssClassName);
+                DomElement.addClass(l, f.cssClassName);
             }
         }
     }

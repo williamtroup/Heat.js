@@ -746,6 +746,7 @@ type LargestValuesForEachRangeType = {
         const actualDay: number = dayNumber + 1;
         const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day" );
         const date: Date = new Date( year, month, actualDay );
+        const holiday: IsHoliday = isHoliday( bindingOptions, date );
         let dateCount: number = _elements_InstanceData[ bindingOptions._currentView.element.id ].typeData[ bindingOptions._currentView.type ][ DateTime.toStorageDate( date ) ];
 
         dateCount = Default.getNumber( dateCount, 0 );
@@ -757,7 +758,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
-            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount );
+            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( day, "no-hover" );
         }
@@ -916,6 +917,7 @@ type LargestValuesForEachRangeType = {
     function renderControlChartDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number ) : void {
         const date: Date = new Date( year, month, day );
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
+        const holiday: IsHoliday = isHoliday( bindingOptions, date );
         let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
 
         dateCount = Default.getNumber( dateCount, 0 );
@@ -936,7 +938,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount );
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
