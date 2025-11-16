@@ -1471,7 +1471,7 @@ var Disabled;
         }
         ToolTip.add(r, i, n.toString());
         if (Is.definedFunction(i.events.onWeekDayClick)) {
-            r.onclick = () => Trigger.customEvent(i.events.onWeekDayClick, t, n);
+            r.onclick = () => Trigger.customEvent(i.events.onWeekDayClick, t, n, i._currentView.year);
         } else {
             DomElement.addClass(r, "no-hover");
         }

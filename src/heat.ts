@@ -1065,7 +1065,7 @@ type LargestValuesForEachRangeType = {
         ToolTip.add( dayLine, bindingOptions, dayCount.toString() );
 
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount );
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount, bindingOptions._currentView.year );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }

@@ -222,15 +222,15 @@
         }
 
         function onDayClick( date, count, isHoliday ) {
-            console.log( "Day clicked for: " + date.toString() + ", Count: " + count + " Is Holiday: " + isHoliday.toString() );
+            console.log( "Day clicked for: " + date.toString() + ", Count: " + count + ", Is Holiday: " + isHoliday.toString() );
         }
 
         function onStatisticClick( colorRange ) {
             console.log( "Statistic clicked for: " + JSON.stringify( colorRange ) );
         }
 
-        function onWeekDayClick( day, count ) {
-            console.log( "Week day clicked for: " + day + ", Count: " + count );
+        function onWeekDayClick( day, count, year ) {
+            console.log( "Week day clicked for: " + day + ", Count: " + count + ", Year: " + year );
         }
 
         function onDayToolTipRenderEvent( date, count ) {
