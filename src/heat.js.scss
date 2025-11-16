@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v4.3.1
+ * Heat.js Library v4.3.2
  *
  * Copyright 2025 Bunoon
  * Released under the MIT License
@@ -45,11 +45,6 @@
     --heat-js-dialog-border-color: var(--heat-js-container-border-color);
     --heat-js-dialog-text-color: var(--heat-js-color-white);
 
-    // ToolTip
-    --heat-js-tooltip-background-color: var(--heat-js-container-background-color);
-    --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
-    --heat-js-tooltip-text-color: var(--heat-js-color-white);
-
     // Year
     --heat-js-years-background-color: #11161e;
     --heat-js-years-border-color: var(--heat-js-container-border-color);
@@ -64,6 +59,11 @@
     --heat-js-title-text-color: var(--heat-js-color-white);
     --heat-js-title-background-color-hover: var(--heat-js-button-background-color-hover);
     --heat-js-title-text-color-hover: var(--heat-js-color-snow-white);
+
+    // ToolTip
+    --heat-js-tooltip-background-color: var(--heat-js-years-background-color);
+    --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
+    --heat-js-tooltip-text-color: var(--heat-js-color-white);
 
     // Holidays
     --heat-js-holiday-background-color: rgba( 210, 43, 43, 0.75 );
@@ -136,7 +136,7 @@
     --heat-js-animation-length: 0.5s;
 
     // Scroll Bars
-    --heat-js-scroll-bar-size: 3px;
+    --heat-js-scroll-bar-size: 4px;
     --heat-js-scroll-bar-thumb-color: #3b434e;
 }
 
@@ -314,6 +314,7 @@ div.heat-js {
 
                     label.checkbox {
                         margin-left: var(--heat-js-spacing);
+                        margin-bottom: 3px;
                     }
                 }
             }
@@ -428,16 +429,30 @@ div.heat-js {
             transition: var(--heat-js-transition);
             cursor: pointer;
 
+            span.section-text {
+                font-weight: 300;
+                margin-left: 5px;
+                display: none;
+
+                &:first-of-type {
+                    margin-left: 10px;
+                }
+
+                @media (min-width: styles.$minimum-width) { 
+                    display: inline;
+                }
+            }
+
             &:hover {
                 color: var(--heat-js-title-opener-text-color-hover);
-            }
 
-            &:hover div.down-arrow {
-                border-top-color:  var(--heat-js-title-opener-text-color-hover);
-            }
+                div.titles-menu-container {
+                    display: block;
+                }
 
-            &:hover div.titles-menu-container {
-                display: block;
+                div.down-arrow {
+                    border-top-color: var(--heat-js-title-opener-text-color-hover);
+                }
             }
 
             @include styles.down-arrow;

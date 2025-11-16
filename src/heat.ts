@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        heat.ts
- * @version     v4.3.1
+ * @version     v4.3.2
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -374,6 +374,24 @@ type LargestValuesForEachRangeType = {
 
             if ( bindingOptions.title!.showText ) {
                 title.innerHTML += bindingOptions.title!.text;
+
+                if ( bindingOptions.title!.showSectionText ) {
+                    DomElement.createWithHTML( title, "span", "section-text", "[" );
+
+                    if ( bindingOptions._currentView.view === ViewId.map ) {
+                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.mapText! );
+                    } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView.view === ViewId.chart ) {
+                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.chartText! );
+                    } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView.view === ViewId.days ) {
+                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.daysText! );
+                    } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView.view === ViewId.statistics ) {
+                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.colorRangesText! );
+                    } else {
+                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.mapText! );
+                    }
+
+                    DomElement.createWithHTML( title, "span", "section-text", "]" );
+                }
             }
 
             if ( bindingOptions.views!.chart!.enabled || bindingOptions.views!.days!.enabled || bindingOptions.views!.statistics!.enabled ) {
@@ -728,6 +746,7 @@ type LargestValuesForEachRangeType = {
         const actualDay: number = dayNumber + 1;
         const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day" );
         const date: Date = new Date( year, month, actualDay );
+        const holiday: IsHoliday = isHoliday( bindingOptions, date );
         let dateCount: number = _elements_InstanceData[ bindingOptions._currentView.element.id ].typeData[ bindingOptions._currentView.type ][ DateTime.toStorageDate( date ) ];
 
         dateCount = Default.getNumber( dateCount, 0 );
@@ -739,7 +758,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
-            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount );
+            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( day, "no-hover" );
         }
@@ -898,6 +917,7 @@ type LargestValuesForEachRangeType = {
     function renderControlChartDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number ) : void {
         const date: Date = new Date( year, month, day );
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
+        const holiday: IsHoliday = isHoliday( bindingOptions, date );
         let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
 
         dateCount = Default.getNumber( dateCount, 0 );
@@ -918,7 +938,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount );
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -1045,7 +1065,7 @@ type LargestValuesForEachRangeType = {
         ToolTip.add( dayLine, bindingOptions, dayCount.toString() );
 
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount );
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount, bindingOptions._currentView.year );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -1201,7 +1221,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onStatisticClick ) ) {
-            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange );
+            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange, rangeCount );
         } else {
             DomElement.addClass( rangeLine, "no-hover" );
         }
@@ -2671,7 +2691,7 @@ type LargestValuesForEachRangeType = {
         },
 
         getVersion: function () : string {
-            return "4.3.1";
+            return "4.3.2";
         }
     };
 

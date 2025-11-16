@@ -23,7 +23,7 @@
             <div id="heat-map-2" data-heat-js="{ 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': false, 'placeMonthNamesOnTheBottom': true } }, 'title': { 'showRefreshButton': true, 'showExportButton': true, 'showImportButton': true }, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
             <br>
             <br>
-            <div id="heat-map-3" data-heat-js="{ 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': true } }, 'view': 'chart', 'yearsToHide': [ 2026 ], 'title': { 'showTitleDropDownHeaders': false } }"></div>
+            <div id="heat-map-3" data-heat-js="{ 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': true } }, 'view': 'chart', 'yearsToHide': [ 2026 ], 'title': { 'showTitleDropDownHeaders': false, 'showSectionText': false } }"></div>
             <br>
             <br>
             <div id="heat-map-4"></div>
@@ -161,7 +161,7 @@
     </body>
 
     <script>
-        var __CURRENT_YEAR = new Date().getFullYear();
+        const __CURRENT_YEAR = new Date().getFullYear();
 
         document.title += " - v" + $heat.getVersion();
         document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
@@ -174,14 +174,14 @@
         }
 
         function updateDatesFixed( remove ) {
-            var date = new Date( new Date().getFullYear(), new Date().getMonth(), 1 ),
-                dateNumbers = [ 10, 15, 20, 25 ],
-                dateNumbersLength = dateNumbers.length;
+            let date = new Date( new Date().getFullYear(), new Date().getMonth(), 1 );
+            const dateNumbers = [ 10, 15, 20, 25 ];
+            const dateNumbersLength = dateNumbers.length;
 
-            for ( var dateNumbersIndex = 0; dateNumbersIndex < dateNumbersLength; dateNumbersIndex++ ) {
+            for ( let dateNumbersIndex = 0; dateNumbersIndex < dateNumbersLength; dateNumbersIndex++ ) {
                 date.setDate( date.getDate() + 2 );
 
-                for ( var dateNumber = 0; dateNumber < dateNumbers[ dateNumbersIndex ]; dateNumber++ ) {
+                for ( let dateNumber = 0; dateNumber < dateNumbers[ dateNumbersIndex ]; dateNumber++ ) {
                     addRemoveDates( date, remove );
                 }
             }
@@ -190,15 +190,15 @@
         }
 
         function updateDates( remove ) {
-            var types = [ "Type 1", "Type 2" ],
-                typesLength = types.length;
+            const types = [ "Type 1", "Type 2" ];
+            const typesLength = types.length;
 
-            for ( var typeIndex = 0; typeIndex < typesLength; typeIndex++ ) {
-                var date = new Date( new Date().getFullYear(), 0, 1 );
+            for ( let typeIndex = 0; typeIndex < typesLength; typeIndex++ ) {
+                let date = new Date( new Date().getFullYear(), 0, 1 );
 
-                for ( var dayNumber = 0; dayNumber < 8000; dayNumber++ ) {
-                    var daysToIncrease = Math.floor( Math.random() * 500 ),
-                        newDate = new Date( date );
+                for ( let dayNumber = 0; dayNumber < 8000; dayNumber++ ) {
+                    const daysToIncrease = Math.floor( Math.random() * 500 );
+                    let newDate = new Date( date );
 
                     newDate.setDate( newDate.getDate() + daysToIncrease );
 
@@ -221,16 +221,16 @@
             }
         }
 
-        function onDayClick( date, count ) {
-            console.log( "Day clicked for: " + date.toString() + ", Count: " + count );
+        function onDayClick( date, count, isHoliday ) {
+            console.log( "Day clicked for: " + date.toString() + ", Count: " + count + ", Is Holiday: " + isHoliday.toString() );
         }
 
-        function onStatisticClick( colorRange ) {
-            console.log( "Statistic clicked for: " + JSON.stringify( colorRange ) );
+        function onStatisticClick( colorRange, count ) {
+            console.log( "Statistic clicked for: " + JSON.stringify( colorRange ) + ", Count: " + count );
         }
 
-        function onWeekDayClick( day, count ) {
-            console.log( "Week day clicked for: " + day + ", Count: " + count );
+        function onWeekDayClick( day, count, year ) {
+            console.log( "Week day clicked for: " + day + ", Count: " + count + ", Year: " + year );
         }
 
         function onDayToolTipRenderEvent( date, count ) {

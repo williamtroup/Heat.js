@@ -2,7 +2,7 @@
   "name": "jheat.js",
   "title": "Heat.js",
   "description": "A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "homepage": "https://www.william-troup.com/heat-js/",
   "author": {
     "name": "Bunoon"
@@ -46,10 +46,10 @@
     "build-sass-minimized": "sass src/heat.js.scss dist/heat.js.min.css --style=compressed --no-source-map"
   },
   "devDependencies": {
-    "@swc/core": "^1.11.11",
-    "sass": "^1.86.0",
-    "terser": "^5.39.0",
-    "tsup": "^8.4.0",
-    "typescript": "^5.8.2"
+    "@swc/core": "^1.15.2",
+    "sass": "^1.94.0",
+    "terser": "^5.44.1",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
   }
 }
