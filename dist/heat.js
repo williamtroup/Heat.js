@@ -1586,7 +1586,7 @@ var Disabled;
             DomElement.createWithHTML(s, "div", "count", n.toString());
         }
         if (Is.definedFunction(i.events.onStatisticClick)) {
-            s.onclick = () => Trigger.customEvent(i.events.onStatisticClick, a);
+            s.onclick = () => Trigger.customEvent(i.events.onStatisticClick, a, n);
         } else {
             DomElement.addClass(s, "no-hover");
         }
