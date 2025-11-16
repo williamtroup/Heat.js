@@ -29,11 +29,11 @@
         }
 
         document.addEventListener( "DOMContentLoaded", function() {
-            var date = new Date( new Date().getFullYear(), 0, 1 );
+            const date = new Date( new Date().getFullYear(), 0, 1 );
 
-            for ( var dayNumber = 0; dayNumber < 8000; dayNumber++ ) {
-                var daysToIncrease = Math.floor( Math.random() * 500 ),
-                    newDate = new Date( date );
+            for ( let dayNumber = 0; dayNumber < 8000; dayNumber++ ) {
+                const daysToIncrease = Math.floor( Math.random() * 500 );
+                let newDate = new Date( date );
 
                 newDate.setDate( newDate.getDate() + daysToIncrease );
 

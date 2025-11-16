@@ -157,7 +157,7 @@ Now, you can add/remove dates, which will update the heat map automatically!
 
 ```markdown
 <script>
-  var newDateObject = new Date();
+  let newDateObject = new Date();
 
   $heat.addDate( "heat-map", newDateObject, "Trend Type 1", true );
   $heat.removeDate( "heat-map", newDateObject, "Trend Type 1", true );

@@ -29,16 +29,16 @@
         }
 
         function onPullData( elementId ) {
-            var result = {},
-                date = new Date( new Date().getFullYear(), 0, 1 );
+            let result = {};
+            const date = new Date( new Date().getFullYear(), 0, 1 );
 
-            for ( var dayNumber = 0; dayNumber < 8000; dayNumber++ ) {
-                var daysToIncrease = Math.floor( Math.random() * 500 ),
-                    newDate = new Date( date );
+            for ( let dayNumber = 0; dayNumber < 8000; dayNumber++ ) {
+                const daysToIncrease = Math.floor( Math.random() * 500 );
+                let newDate = new Date( date );
 
                 newDate.setDate( newDate.getDate() + daysToIncrease );
                 
-                var storageDate = toStorageDate( newDate );
+                const storageDate = toStorageDate( newDate );
 
                 if ( !result.hasOwnProperty( storageDate ) ) {
                     result[ storageDate ] = 0;
@@ -55,7 +55,7 @@
         }
 
         function padNumber( number ) {
-            var numberString = number.toString();
+            const numberString = number.toString();
 
             return numberString.length === 1 ? "0" + numberString : numberString;
         }
