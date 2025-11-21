@@ -98,6 +98,7 @@
   --heat-js-animation-length: 0.5s;
   --heat-js-scroll-bar-size: 4px;
   --heat-js-scroll-bar-thumb-color: #3b434e;
+  --heat-js-scroll-bar-border-radius: 0.5rem;
 }
 
 /*
@@ -534,14 +535,14 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu::-webkit-scrollbar {
   width: var(--heat-js-scroll-bar-size);
   height: var(--heat-js-scroll-bar-size);
-  border-radius: var(--heat-js-border-radius);
+  border-radius: var(--heat-js-scroll-bar-border-radius);
 }
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu::-webkit-scrollbar-track {
-  border-radius: var(--heat-js-border-radius);
+  border-radius: var(--heat-js-scroll-bar-border-radius);
 }
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu::-webkit-scrollbar-thumb {
   background: var(--heat-js-scroll-bar-thumb-color);
-  border-radius: var(--heat-js-border-radius);
+  border-radius: var(--heat-js-scroll-bar-border-radius);
 }
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu::-webkit-scrollbar-thumb:active {
   background-color: var(--heat-js-color-light-gray);
@@ -596,14 +597,14 @@ div.heat-js div.map-contents {
 div.heat-js div.map-contents::-webkit-scrollbar {
   width: var(--heat-js-scroll-bar-size);
   height: var(--heat-js-scroll-bar-size);
-  border-radius: var(--heat-js-border-radius);
+  border-radius: var(--heat-js-scroll-bar-border-radius);
 }
 div.heat-js div.map-contents::-webkit-scrollbar-track {
-  border-radius: var(--heat-js-border-radius);
+  border-radius: var(--heat-js-scroll-bar-border-radius);
 }
 div.heat-js div.map-contents::-webkit-scrollbar-thumb {
   background: var(--heat-js-scroll-bar-thumb-color);
-  border-radius: var(--heat-js-border-radius);
+  border-radius: var(--heat-js-scroll-bar-border-radius);
 }
 div.heat-js div.map-contents::-webkit-scrollbar-thumb:active {
   background-color: var(--heat-js-color-light-gray);
@@ -720,14 +721,14 @@ div.heat-js div.chart-contents {
 div.heat-js div.chart-contents::-webkit-scrollbar {
   width: var(--heat-js-scroll-bar-size);
   height: var(--heat-js-scroll-bar-size);
-  border-radius: var(--heat-js-border-radius);
+  border-radius: var(--heat-js-scroll-bar-border-radius);
 }
 div.heat-js div.chart-contents::-webkit-scrollbar-track {
-  border-radius: var(--heat-js-border-radius);
+  border-radius: var(--heat-js-scroll-bar-border-radius);
 }
 div.heat-js div.chart-contents::-webkit-scrollbar-thumb {
   background: var(--heat-js-scroll-bar-thumb-color);
-  border-radius: var(--heat-js-border-radius);
+  border-radius: var(--heat-js-scroll-bar-border-radius);
 }
 div.heat-js div.chart-contents::-webkit-scrollbar-thumb:active {
   background-color: var(--heat-js-color-light-gray);
