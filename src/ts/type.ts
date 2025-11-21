@@ -148,6 +148,7 @@ export type BindingOptionsViewsMap = {
     keepScrollPositions?: boolean;
     monthsToShow?: number[];
     daysToShow?: number[];
+    showDayDateNumbers?: boolean;
 };
 
 export type BindingOptionsViewsChart = {
@@ -159,6 +160,7 @@ export type BindingOptionsViewsChart = {
     keepScrollPositions?: boolean;
     monthsToShow?: number[];
     daysToShow?: number[];
+    showLineDateNumbers?: boolean;
 };
 
 export type BindingOptionsViewsDays = {

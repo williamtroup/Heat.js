@@ -755,6 +755,8 @@ type LargestValuesForEachRangeType = {
 
         if ( bindingOptions.views!.map!.showDayNumbers && dateCount > 0 ) {
             day.innerHTML = dateCount.toString();
+        } else if ( bindingOptions.views!.map!.showDayDateNumbers ) {
+            day.innerHTML = actualDay.toString();
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
@@ -928,6 +930,11 @@ type LargestValuesForEachRangeType = {
             DomElement.addClass( dayLine, "day-line-number" );
 
             dayLine.innerHTML = dateCount.toString();
+            
+        } else if ( bindingOptions.views!.chart!.showLineDateNumbers ) {
+            DomElement.addClass( dayLine, "day-line-number" );
+
+            dayLine.innerHTML = day.toString();
         }
 
         const dayLineHeight: number = dateCount * pixelsPerNumbers;
