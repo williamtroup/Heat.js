@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        type.ts
- * @version     v4.3.2
+ * @version     v4.3.3
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -148,6 +148,7 @@ export type BindingOptionsViewsMap = {
     keepScrollPositions?: boolean;
     monthsToShow?: number[];
     daysToShow?: number[];
+    showDayDateNumbers?: boolean;
 };
 
 export type BindingOptionsViewsChart = {
@@ -159,6 +160,7 @@ export type BindingOptionsViewsChart = {
     keepScrollPositions?: boolean;
     monthsToShow?: number[];
     daysToShow?: number[];
+    showLineDateNumbers?: boolean;
 };
 
 export type BindingOptionsViewsDays = {
@@ -219,7 +221,7 @@ export type BindingOptionsTooltip = {
 };
 
 export type BindingOptionsEvents = {
-    onDayClick?: ( date: Date, count: number ) => void;
+    onDayClick?: ( date: Date, count: number, isHoliday: boolean ) => void;
     onBackYear?: ( year: number ) => void;
     onNextYear?: ( year: number ) => void;
     onRefresh?: ( element: HTMLElement ) => void;
@@ -236,12 +238,12 @@ export type BindingOptionsEvents = {
     onViewSwitch?: ( view: string ) => void;
     onColorRangeTypeToggle?: ( id: string, visible: boolean ) => void;
     onImport?: ( element: HTMLElement ) => void;
-    onStatisticClick?: ( colorRange: BindingOptionsColorRange ) => void;
+    onStatisticClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
     onDataFetch?: ( element: HTMLElement ) => InstanceTypeDateCount;
     onClear?: ( element: HTMLElement ) => void;
     onUpdate?: ( element: HTMLElement ) => void;
     onOptionsUpdate?: ( element: HTMLElement , options: BindingOptions ) => void;
-    onWeekDayClick?: ( dayNumber: number, count: number ) => void;
+    onWeekDayClick?: ( dayNumber: number, count: number, year: number ) => void;
 };
 
 export type BindingOptionsColorRange = {

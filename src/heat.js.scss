@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v4.3.2
+ * Heat.js Library v4.3.3
  *
  * Copyright 2025 Bunoon
  * Released under the MIT License
@@ -77,7 +77,7 @@
     --heat-js-day-spacing: 6.3px;
     --heat-js-day-opacity-hover: 0.7;
     --heat-js-day-opacity-active: 0.5;
-    --heat-js-day-size: 1.1rem;
+    --heat-js-day-size: 1.2rem;
     --heat-js-day-chart-width: 10px;
 
     // Days - Colors
@@ -138,6 +138,7 @@
     // Scroll Bars
     --heat-js-scroll-bar-size: 4px;
     --heat-js-scroll-bar-thumb-color: #3b434e;
+    --heat-js-scroll-bar-border-radius: 0.5rem;
 }
 
 
@@ -157,12 +158,15 @@ div.heat-js {
     background-color: var(--heat-js-container-background-color);
     color: var(--heat-js-color-white);
     border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-    border-left-width: var(--heat-js-left-border);
     padding: var(--heat-js-spacing);
     font-size: var(--heat-js-spacing-font-size);
     width: 100%;
     max-width: 700px;
     margin: 0 !important;
+
+    @media (min-width: styles.$minimum-width) { 
+        border-left-width: var(--heat-js-left-border);
+    }
 
     button {
         font-family: var(--heat-js-default-font);

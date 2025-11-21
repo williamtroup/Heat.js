@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        heat.ts
- * @version     v4.3.2
+ * @version     v4.3.3
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -755,6 +755,8 @@ type LargestValuesForEachRangeType = {
 
         if ( bindingOptions.views!.map!.showDayNumbers && dateCount > 0 ) {
             day.innerHTML = dateCount.toString();
+        } else if ( bindingOptions.views!.map!.showDayDateNumbers ) {
+            day.innerHTML = actualDay.toString();
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
@@ -928,6 +930,11 @@ type LargestValuesForEachRangeType = {
             DomElement.addClass( dayLine, "day-line-number" );
 
             dayLine.innerHTML = dateCount.toString();
+            
+        } else if ( bindingOptions.views!.chart!.showLineDateNumbers ) {
+            DomElement.addClass( dayLine, "day-line-number" );
+
+            dayLine.innerHTML = day.toString();
         }
 
         const dayLineHeight: number = dateCount * pixelsPerNumbers;
@@ -1221,7 +1228,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onStatisticClick ) ) {
-            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange, rangeCount );
+            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange, rangeCount, bindingOptions._currentView.year );
         } else {
             DomElement.addClass( rangeLine, "no-hover" );
         }
@@ -2691,7 +2698,7 @@ type LargestValuesForEachRangeType = {
         },
 
         getVersion: function () : string {
-            return "4.3.2";
+            return "4.3.3";
         }
     };
 

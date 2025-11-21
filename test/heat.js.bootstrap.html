@@ -20,7 +20,7 @@
             <div class="mt-5" id="heat-map-1" data-heat-js="{ 'holidays': [ { 'date': '25/12', 'name': 'Christmas Day', 'showInViews': true } ], 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': true } }, 'description': { 'text': 'A basic example of how to use Heat.js.', 'url': 'https://william-troup.com/heat-js/examples/basic.html' } }"></div>
             <br>
             <br>
-            <div id="heat-map-2" data-heat-js="{ 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': false, 'placeMonthNamesOnTheBottom': true } }, 'title': { 'showRefreshButton': true, 'showExportButton': true, 'showImportButton': true }, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
+            <div id="heat-map-2" data-heat-js="{ 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': false, 'placeMonthNamesOnTheBottom': true, 'showDayDateNumbers': false }, 'chart': { 'showLineDateNumbers': false } }, 'title': { 'showRefreshButton': true, 'showExportButton': true, 'showImportButton': true }, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
             <br>
             <br>
             <div id="heat-map-3" data-heat-js="{ 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': true } }, 'view': 'chart', 'yearsToHide': [ 2026 ], 'title': { 'showTitleDropDownHeaders': false, 'showSectionText': false } }"></div>
@@ -225,8 +225,8 @@
             console.log( "Day clicked for: " + date.toString() + ", Count: " + count + ", Is Holiday: " + isHoliday.toString() );
         }
 
-        function onStatisticClick( colorRange, count ) {
-            console.log( "Statistic clicked for: " + JSON.stringify( colorRange ) + ", Count: " + count );
+        function onStatisticClick( colorRange, count, year ) {
+            console.log( "Statistic clicked for: " + JSON.stringify( colorRange ) + ", Count: " + count + ", Year: " + year );
         }
 
         function onWeekDayClick( day, count, year ) {

@@ -549,6 +549,7 @@ var Binding;
             e.views.map.showMinimalDayNames = Default2.getBoolean(e.views.map.showMinimalDayNames, false);
             e.views.map.showMonthsInReverseOrder = Default2.getBoolean(e.views.map.showMonthsInReverseOrder, false);
             e.views.map.keepScrollPositions = Default2.getBoolean(e.views.map.keepScrollPositions, false);
+            e.views.map.showDayDateNumbers = Default2.getBoolean(e.views.map.showDayDateNumbers, false);
             if (Is.invalidOptionArray(e.views.map.monthsToShow)) {
                 e.views.map.monthsToShow = t;
             }
@@ -565,6 +566,7 @@ var Binding;
             e.views.chart.showLineNumbers = Default2.getBoolean(e.views.chart.showLineNumbers, false);
             e.views.chart.showInReverseOrder = Default2.getBoolean(e.views.chart.showInReverseOrder, false);
             e.views.chart.keepScrollPositions = Default2.getBoolean(e.views.chart.keepScrollPositions, false);
+            e.views.chart.showLineDateNumbers = Default2.getBoolean(e.views.chart.showLineDateNumbers, false);
             if (Is.invalidOptionArray(e.views.chart.monthsToShow)) {
                 e.views.chart.monthsToShow = t;
             }
@@ -1242,6 +1244,8 @@ var Disabled;
         k(e, l, c, d);
         if (e.views.map.showDayNumbers && d > 0) {
             l.innerHTML = d.toString();
+        } else if (e.views.map.showDayDateNumbers) {
+            l.innerHTML = a.toString();
         }
         if (Is.definedFunction(e.events.onDayClick)) {
             l.onclick = () => Trigger.customEvent(e.events.onDayClick, c, d, u.matched);
@@ -1370,6 +1374,9 @@ var Disabled;
         if (t.views.chart.showLineNumbers && u > 0) {
             DomElement.addClass(l, "day-line-number");
             l.innerHTML = u.toString();
+        } else if (t.views.chart.showLineDateNumbers) {
+            DomElement.addClass(l, "day-line-number");
+            l.innerHTML = n.toString();
         }
         const d = u * s;
         l.style.height = `${d}px`;
@@ -1584,7 +1591,7 @@ var Disabled;
             DomElement.createWithHTML(s, "div", "count", n.toString());
         }
         if (Is.definedFunction(i.events.onStatisticClick)) {
-            s.onclick = () => Trigger.customEvent(i.events.onStatisticClick, a, n);
+            s.onclick = () => Trigger.customEvent(i.events.onStatisticClick, a, n, i._currentView.year);
         } else {
             DomElement.addClass(s, "no-hover");
         }
@@ -1648,7 +1655,7 @@ var Disabled;
                     if (r === 0 && n._currentView.type === e.text.unknownTrendText) {
                         n._currentView.type = i;
                     }
-                    O(n, o, i);
+                    N(n, o, i);
                 }
             }
         } else {
@@ -1668,7 +1675,7 @@ var Disabled;
             const r = te(n);
             const s = r.length;
             for (let e = 0; e < s; e++) {
-                N(n, o, r[e]);
+                O(n, o, r[e]);
             }
             if (n.guide.showLessAndMoreLabels) {
                 const i = DomElement.createWithHTML(t, "div", "more-text", e.text.moreText);
@@ -1680,7 +1687,7 @@ var Disabled;
             }
         }
     }
-    function O(e, t, n) {
+    function N(e, t, n) {
         const i = DomElement.createWithHTML(t, "button", "type", n);
         if (e._currentView.type === n) {
             DomElement.addClass(i, "active");
@@ -1693,7 +1700,7 @@ var Disabled;
             }
         };
     }
-    function N(e, t, n) {
+    function O(e, t, n) {
         const i = DomElement.create(t, "div");
         i.className = "day";
         ToolTip.add(i, e, n.tooltipText);
@@ -2610,7 +2617,7 @@ var Disabled;
             return e;
         },
         getVersion: function() {
-            return "4.3.2";
+            return "4.3.3";
         }
     };
     (() => {
