@@ -1221,7 +1221,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onStatisticClick ) ) {
-            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange, rangeCount );
+            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange, rangeCount, bindingOptions._currentView.year );
         } else {
             DomElement.addClass( rangeLine, "no-hover" );
         }
