@@ -1241,6 +1241,7 @@ var Disabled;
         const u = ne(e, c);
         let d = t[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(c)];
         d = Default2.getNumber(d, 0);
+        l.setAttribute("data-heat-js-map-date", `${Str.padNumber(a)}-${Str.padNumber(o + 1)}-${r}`);
         k(e, l, c, d);
         if (e.views.map.showDayNumbers && d > 0) {
             l.innerHTML = d.toString();
@@ -1370,6 +1371,7 @@ var Disabled;
         const c = ne(t, a);
         let u = F(t)[DateTime.toStorageDate(a)];
         u = Default2.getNumber(u, 0);
+        l.setAttribute("data-heat-js-chart-date", `${Str.padNumber(n)}-${Str.padNumber(i + 1)}-${o}`);
         k(t, l, a, u);
         if (t.views.chart.showLineNumbers && u > 0) {
             DomElement.addClass(l, "day-line-number");
@@ -1471,6 +1473,7 @@ var Disabled;
         const r = DomElement.create(e, "div", "day-line");
         const s = n * o;
         r.style.height = `${s}px`;
+        r.setAttribute("data-heat-js-day-number", t.toString());
         if (s <= 0) {
             r.style.visibility = "hidden";
         }
@@ -1582,6 +1585,9 @@ var Disabled;
         const a = ee(o, e);
         const l = n * r;
         s.style.height = `${l}px`;
+        if (Is.defined(a) && Is.definedString(a.name)) {
+            s.setAttribute("data-heat-js-statistics-color-range-name", a.name);
+        }
         if (l <= 0) {
             s.style.visibility = "hidden";
         }

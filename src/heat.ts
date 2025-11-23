@@ -751,6 +751,8 @@ type LargestValuesForEachRangeType = {
 
         dateCount = Default.getNumber( dateCount, 0 );
 
+        day.setAttribute("data-heat-js-map-date", `${Str.padNumber(actualDay)}-${Str.padNumber(month + 1)}-${year}` );
+
         renderDayToolTip( bindingOptions, day, date, dateCount );
 
         if ( bindingOptions.views!.map!.showDayNumbers && dateCount > 0 ) {
@@ -924,6 +926,8 @@ type LargestValuesForEachRangeType = {
 
         dateCount = Default.getNumber( dateCount, 0 );
 
+        dayLine.setAttribute("data-heat-js-chart-date", `${Str.padNumber(day)}-${Str.padNumber(month + 1)}-${year}` );
+
         renderDayToolTip( bindingOptions, dayLine, date, dateCount );
 
         if ( bindingOptions.views!.chart!.showLineNumbers && dateCount > 0 ) {
@@ -1064,6 +1068,7 @@ type LargestValuesForEachRangeType = {
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
 
         dayLine.style.height = `${dayLineHeight}px`;
+        dayLine.setAttribute("data-heat-js-day-number", dayNumber.toString() );
 
         if ( dayLineHeight <= 0 ) {
             dayLine.style.visibility = "hidden";
@@ -1214,6 +1219,10 @@ type LargestValuesForEachRangeType = {
         const rangeLineHeight: number = rangeCount * pixelsPerNumbers;
 
         rangeLine.style.height = `${rangeLineHeight}px`;
+
+        if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) ) {
+            rangeLine.setAttribute("data-heat-js-statistics-color-range-name", useColorRange.name! );
+        }
 
         if ( rangeLineHeight <= 0 ) {
             rangeLine.style.visibility = "hidden";
