@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        enum.ts
- * @version     v4.3.4
+ * @version     v4.4.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025

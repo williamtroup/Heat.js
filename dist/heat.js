@@ -2653,7 +2653,7 @@ var Disabled;
             return e;
         },
         getVersion: function() {
-            return "4.3.4";
+            return "4.4.0";
         }
     };
     (() => {
