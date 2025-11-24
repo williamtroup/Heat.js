@@ -25,6 +25,7 @@ Heat.js
 - Fully styled in CSS/SASS, fully responsive, and compatible with the Bootstrap library.
 - Full CSS theme support (using :root variables).
 - 4 views supported: Map, Chart, Days, and Statistics!
+- Auto spawning support (when HTML is added via 3rd party libraries).
 - Configuration dialog support per view.
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
