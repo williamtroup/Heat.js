@@ -17,13 +17,13 @@
         </div>
 
         <div class="contents">
-            <div class="mt-5" id="heat-map-1" data-heat-js="{ 'holidays': [ { 'date': '25/12', 'name': 'Christmas Day', 'showInViews': true } ], 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': true } }, 'description': { 'text': 'A basic example of how to use Heat.js.', 'url': 'https://william-troup.com/heat-js/examples/basic.html' } }"></div>
+            <div class="mt-5" id="heat-map-1" data-heat-js="{ 'resizable': false, 'holidays': [ { 'date': '25/12', 'name': 'Christmas Day', 'showInViews': true } ], 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': true } }, 'description': { 'text': 'A basic example of how to use Heat.js.', 'url': 'https://william-troup.com/heat-js/examples/basic.html' } }"></div>
             <br>
             <br>
-            <div id="heat-map-2" data-heat-js="{ 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': false, 'placeMonthNamesOnTheBottom': true, 'showDayDateNumbers': false }, 'chart': { 'showLineDateNumbers': false } }, 'title': { 'showRefreshButton': true, 'showExportButton': true, 'showImportButton': true }, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
+            <div id="heat-map-2" data-heat-js="{ 'resizable': false, 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': false, 'placeMonthNamesOnTheBottom': true, 'showDayDateNumbers': false }, 'chart': { 'showLineDateNumbers': false } }, 'title': { 'showRefreshButton': true, 'showExportButton': true, 'showImportButton': true }, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
             <br>
             <br>
-            <div id="heat-map-3" data-heat-js="{ 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': true } }, 'view': 'chart', 'yearsToHide': [ 2026 ], 'title': { 'showTitleDropDownHeaders': false, 'showSectionText': false } }"></div>
+            <div id="heat-map-3" data-heat-js="{ 'resizable': false, 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': true } }, 'view': 'chart', 'yearsToHide': [ 2026 ], 'title': { 'showTitleDropDownHeaders': false, 'showSectionText': false } }"></div>
             <br>
             <br>
             <div id="heat-map-4"></div>
@@ -103,6 +103,7 @@
             <button class="btn btn-primary" onclick="console.log( $heat.getYear( 'heat-map-4' ) );">Get Year (4)</button>
             <br>
             <button class="btn btn-primary" onclick="$heat.render( document.getElementById( 'heat-map-4' ), {} );">Render</button>
+            <button class="btn btn-primary" onclick="mutationRender();">Render (mutation)</button>
             <button class="btn btn-primary" onclick="$heat.renderAll();">Render All</button>
             <br />
             <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-1', 'map' );">Switch View - Map (1)</button>
@@ -235,6 +236,10 @@
 
         function onDayToolTipRenderEvent( date, count ) {
             return "This date '" + date.toString() + "' has " + count.toString() + " events in it.";
+        }
+
+        function mutationRender() {
+            document.getElementById( 'heat-map-4' ).setAttribute( "data-heat-js", "{}" );
         }
     </script>
 </html>

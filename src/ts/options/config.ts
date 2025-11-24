@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        config.ts
- * @version     v4.3.3
+ * @version     v4.4.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -21,6 +21,7 @@ export namespace Config {
         export function get( newConfiguration: Configuration = null! ) : Configuration {
             const configuration = Default.getObject( newConfiguration, {} as Configuration );
             configuration.safeMode = Default.getBoolean( configuration.safeMode, true );
+            configuration.observationMode = Default.getBoolean( configuration.observationMode, true );
             configuration.domElementTypes = Default.getStringOrArray( configuration.domElementTypes, [ "*" ] );
     
             configuration.text = getText( configuration );

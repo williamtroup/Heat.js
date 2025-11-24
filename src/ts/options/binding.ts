@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        binding.ts
- * @version     v4.3.3
+ * @version     v4.4.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -102,6 +102,7 @@ export namespace Binding {
             options.dataFetchDelay = Default.getNumber( options.dataFetchDelay, 60000 );
             options.showOnlyDataForYearsAvailable = Default.getBoolean( options.showOnlyDataForYearsAvailable, false );
             options.showHolidaysInDayToolTips = Default.getBoolean( options.showHolidaysInDayToolTips, false );
+            options.resizable = Default.getBoolean( options.resizable, false );
             
             options.colorRanges = getColorRanges( options );
             options.holidays = getHolidays( options );

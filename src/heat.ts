@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        heat.ts
- * @version     v4.3.3
+ * @version     v4.4.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -54,6 +54,9 @@ type LargestValuesForEachRangeType = {
 ( () => {
     // Variables: Configuration
     let _configuration: Configuration = {} as Configuration;
+
+    // Variables: Document Mutation Observer
+    let _mutationObserver: MutationObserver = null! as MutationObserver;
 
     // Variables: Date Counts
     let _elements_InstanceData: InstanceData = {} as InstanceData;
@@ -129,6 +132,10 @@ type LargestValuesForEachRangeType = {
             bindingOptions._currentView.element.className = "heat-js";
         } else {
             DomElement.addClass( bindingOptions._currentView.element, "heat-js" );
+        }
+
+        if ( bindingOptions.resizable ) {
+            DomElement.addClass( bindingOptions._currentView.element, "resizable" );
         }
 
         bindingOptions._currentView.element.removeAttribute( Constant.HEAT_JS_ATTRIBUTE_NAME );
@@ -751,6 +758,8 @@ type LargestValuesForEachRangeType = {
 
         dateCount = Default.getNumber( dateCount, 0 );
 
+        day.setAttribute("data-heat-js-map-date", `${Str.padNumber(actualDay)}-${Str.padNumber(month + 1)}-${year}` );
+
         renderDayToolTip( bindingOptions, day, date, dateCount );
 
         if ( bindingOptions.views!.map!.showDayNumbers && dateCount > 0 ) {
@@ -924,6 +933,8 @@ type LargestValuesForEachRangeType = {
 
         dateCount = Default.getNumber( dateCount, 0 );
 
+        dayLine.setAttribute("data-heat-js-chart-date", `${Str.padNumber(day)}-${Str.padNumber(month + 1)}-${year}` );
+
         renderDayToolTip( bindingOptions, dayLine, date, dateCount );
 
         if ( bindingOptions.views!.chart!.showLineNumbers && dateCount > 0 ) {
@@ -1064,6 +1075,7 @@ type LargestValuesForEachRangeType = {
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
 
         dayLine.style.height = `${dayLineHeight}px`;
+        dayLine.setAttribute("data-heat-js-day-number", dayNumber.toString() );
 
         if ( dayLineHeight <= 0 ) {
             dayLine.style.visibility = "hidden";
@@ -1214,6 +1226,10 @@ type LargestValuesForEachRangeType = {
         const rangeLineHeight: number = rangeCount * pixelsPerNumbers;
 
         rangeLine.style.height = `${rangeLineHeight}px`;
+
+        if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) ) {
+            rangeLine.setAttribute("data-heat-js-statistics-color-range-name", useColorRange.name! );
+        }
 
         if ( rangeLineHeight <= 0 ) {
             rangeLine.style.visibility = "hidden";
@@ -1632,6 +1648,11 @@ type LargestValuesForEachRangeType = {
                     bindingOptions._currentView.isInFetchModeTimer = 0;
                 }
             }
+        }
+
+        if ( _configuration.observationMode && Is.defined( _mutationObserver ) ) {
+            _mutationObserver.disconnect();
+            _mutationObserver = null!;
         }
     }
 
@@ -2170,6 +2191,28 @@ type LargestValuesForEachRangeType = {
         Trigger.customEvent( bindingOptions.events!.onDestroy!, bindingOptions._currentView.element );
     }
 
+    function setupObservationMode() : void {
+        if ( _configuration.observationMode ) {
+            if ( !Is.defined( _mutationObserver ) ) {
+                _mutationObserver = new MutationObserver( ( _1: any, _2: any ) => {
+                    _public.renderAll();
+                } );
+
+                const observeConfig: MutationObserverInit = {
+                    attributes: true,
+                    childList: true,
+                    subtree: true
+                } as MutationObserverInit;
+
+                _mutationObserver.observe( document.body, observeConfig );
+            }
+            
+        } else {
+            _mutationObserver.disconnect();
+            _mutationObserver = null!;
+        }
+    }
+
 
 	/*
 	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2668,6 +2711,8 @@ type LargestValuesForEachRangeType = {
         
                 if ( configurationHasChanged ) {
                     _configuration = Config.Options.get( newInternalConfiguration );
+
+                    setupObservationMode();
         
                     if ( triggerRefresh ) {
                         _public.refreshAll();
@@ -2698,7 +2743,7 @@ type LargestValuesForEachRangeType = {
         },
 
         getVersion: function () : string {
-            return "4.3.3";
+            return "4.4.0";
         }
     };
 
@@ -2712,7 +2757,11 @@ type LargestValuesForEachRangeType = {
     ( () => {
         _configuration = Config.Options.get();
 
-        document.addEventListener( "DOMContentLoaded", () => render() );
+        document.addEventListener( "DOMContentLoaded", () => {
+            setupObservationMode();
+            render();
+        } );
+
         window.addEventListener( "pagehide", () => cancelAllPullDataTimers() );
 
         if ( !Is.defined( window.$heat ) ) {

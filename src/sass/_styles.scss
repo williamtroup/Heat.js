@@ -136,6 +136,7 @@ $minimum-width: 768px;
     a.label:visited {
         color: var(--heat-js-color-white);
         font-weight: var(--heat-js-text-bold-weight);
+        border-bottom: 1px solid transparent;
         text-decoration: none;
     }
 
@@ -147,7 +148,7 @@ $minimum-width: 768px;
         }
 
         &:hover {
-            text-decoration: underline;
+            border-bottom: 1px solid var(--heat-js-color-white);
         }
     }
 }
