@@ -1192,10 +1192,11 @@ div.heat-js {
                 display: inline-block;
                 font-weight: var(--heat-js-text-bold-weight);
                 transition: var(--heat-js-transition);
+                border-bottom: 1px solid transparent;
 
                 &:hover {
                     cursor: pointer;
-                    text-decoration: underline;
+                    border-bottom: 1px solid var(--heat-js-color-white);
                 }
 
                 &:active {

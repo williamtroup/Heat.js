@@ -1157,6 +1157,7 @@ div.heat-js div.description a.label,
 div.heat-js div.description a.label:visited {
   color: var(--heat-js-color-white);
   font-weight: var(--heat-js-text-bold-weight);
+  border-bottom: 1px solid transparent;
   text-decoration: none;
 }
 div.heat-js div.description a.label {
@@ -1166,7 +1167,7 @@ div.heat-js div.description a.label:active {
   color: var(--heat-js-color-gray);
 }
 div.heat-js div.description a.label:hover {
-  text-decoration: underline;
+  border-bottom: 1px solid var(--heat-js-color-white);
 }
 @media (min-width: 768px) {
   div.heat-js div.description {
@@ -1242,6 +1243,7 @@ div.heat-js div.guide div.map-types a.label,
 div.heat-js div.guide div.map-types a.label:visited {
   color: var(--heat-js-color-white);
   font-weight: var(--heat-js-text-bold-weight);
+  border-bottom: 1px solid transparent;
   text-decoration: none;
 }
 div.heat-js div.guide div.map-types a.label {
@@ -1251,7 +1253,7 @@ div.heat-js div.guide div.map-types a.label:active {
   color: var(--heat-js-color-gray);
 }
 div.heat-js div.guide div.map-types a.label:hover {
-  text-decoration: underline;
+  border-bottom: 1px solid var(--heat-js-color-white);
 }
 div.heat-js div.guide div.map-types button {
   margin-left: 0 !important;
@@ -1284,11 +1286,12 @@ div.heat-js div.guide div.map-toggles div.more-text {
   display: inline-block;
   font-weight: var(--heat-js-text-bold-weight);
   transition: var(--heat-js-transition);
+  border-bottom: 1px solid transparent;
 }
 div.heat-js div.guide div.map-toggles div.less-text:hover,
 div.heat-js div.guide div.map-toggles div.more-text:hover {
   cursor: pointer;
-  text-decoration: underline;
+  border-bottom: 1px solid var(--heat-js-color-white);
 }
 div.heat-js div.guide div.map-toggles div.less-text:active,
 div.heat-js div.guide div.map-toggles div.more-text:active {
