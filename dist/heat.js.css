@@ -94,6 +94,7 @@
   --heat-js-spacing-font-size: 0.85rem;
   --heat-js-spacing-day-font-size: 0.6rem;
   --heat-js-left-border: 8px;
+  --heat-js-default-width: 700px;
   --heat-js-transition: all .3s;
   --heat-js-animation-length: 0.5s;
   --heat-js-scroll-bar-size: 4px;
@@ -125,13 +126,13 @@ div.heat-js {
   padding: var(--heat-js-spacing);
   font-size: var(--heat-js-spacing-font-size);
   width: 100%;
-  max-width: 700px;
+  max-width: var(--heat-js-default-width);
   margin: 0 !important;
 }
 div.heat-js.resizable {
   resize: horizontal;
   overflow: auto;
-  width: 700px;
+  width: var(--heat-js-default-width);
   max-width: none;
 }
 @media (min-width: 768px) {
