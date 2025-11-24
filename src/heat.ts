@@ -2201,7 +2201,7 @@ type LargestValuesForEachRangeType = {
                     attributes: true,
                     childList: true,
                     subtree: true
-                };
+                } as MutationObserverInit;
 
                 _mutationObserver.observe( document.body, observeConfig );
             }
