@@ -1897,6 +1897,7 @@ var Disabled;
         }
         if (e.observationMode && Is.defined(t)) {
             t.disconnect();
+            t = null;
         }
     }
     function K(e, t) {

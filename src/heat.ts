@@ -1652,6 +1652,7 @@ type LargestValuesForEachRangeType = {
 
         if ( _configuration.observationMode && Is.defined( _mutationObserver ) ) {
             _mutationObserver.disconnect();
+            _mutationObserver = null!;
         }
     }
 
