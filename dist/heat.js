@@ -423,6 +423,7 @@ var Binding;
             t.dataFetchDelay = Default2.getNumber(t.dataFetchDelay, 6e4);
             t.showOnlyDataForYearsAvailable = Default2.getBoolean(t.showOnlyDataForYearsAvailable, false);
             t.showHolidaysInDayToolTips = Default2.getBoolean(t.showHolidaysInDayToolTips, false);
+            t.resizable = Default2.getBoolean(t.resizable, false);
             t.colorRanges = r(t);
             t.holidays = s(t);
             t.title = a(t);
@@ -785,6 +786,9 @@ var Disabled;
             e._currentView.element.className = "heat-js";
         } else {
             DomElement.addClass(e._currentView.element, "heat-js");
+        }
+        if (e.resizable) {
+            DomElement.addClass(e._currentView.element, "resizable");
         }
         e._currentView.element.removeAttribute(Constant.HEAT_JS_ATTRIBUTE_NAME);
         A(e._currentView.element.id, e);
@@ -1256,7 +1260,7 @@ var Disabled;
             DomElement.addClass(l, "no-hover");
         }
         const f = Z(e, s, d, c);
-        if (Is.defined(f) && z(e, f.id)) {
+        if (Is.defined(f) && q(e, f.id)) {
             if (Is.definedString(f.mapCssClassName)) {
                 DomElement.addClass(l, f.mapCssClassName);
             } else {
@@ -1393,7 +1397,7 @@ var Disabled;
             DomElement.addClass(l, "no-hover");
         }
         const f = Z(t, r, u, a);
-        if (Is.defined(f) && z(t, f.id)) {
+        if (Is.defined(f) && q(t, f.id)) {
             if (Is.definedString(f.chartCssClassName)) {
                 DomElement.addClass(l, f.chartCssClassName);
             } else {
@@ -1603,7 +1607,7 @@ var Disabled;
         } else {
             DomElement.addClass(s, "no-hover");
         }
-        if (Is.defined(a) && z(i, a.id)) {
+        if (Is.defined(a) && q(i, a.id)) {
             if (Is.definedString(a.statisticsCssClassName)) {
                 DomElement.addClass(s, a.statisticsCssClassName);
             } else {
@@ -1712,7 +1716,7 @@ var Disabled;
         const i = DomElement.create(t, "div");
         i.className = "day";
         ToolTip.add(i, e, n.tooltipText);
-        if (z(e, n.id)) {
+        if (q(e, n.id)) {
             if (e._currentView.view === 1 && Is.definedString(n.mapCssClassName)) {
                 DomElement.addClass(i, n.mapCssClassName);
             } else if (e.views.chart.enabled && e._currentView.view === 2 && Is.definedString(n.chartCssClassName)) {
@@ -1854,17 +1858,17 @@ var Disabled;
     function G(e) {
         if (e._currentView.isInFetchMode) {
             if (e._currentView.isInFetchModeTimer === 0) {
-                X(e);
+                z(e);
             }
             if (e._currentView.isInFetchModeTimer === 0) {
                 e._currentView.isInFetchModeTimer = setInterval(() => {
-                    X(e);
+                    z(e);
                     a(e);
                 }, e.dataFetchDelay);
             }
         }
     }
-    function X(n) {
+    function z(n) {
         const i = n._currentView.element.id;
         const o = Trigger.customEvent(n.events.onDataFetch, i);
         if (Is.definedObject(o)) {
@@ -1879,7 +1883,7 @@ var Disabled;
             }
         }
     }
-    function q() {
+    function X() {
         for (const e in t) {
             if (t.hasOwnProperty(e)) {
                 const n = t[e].options;
@@ -1890,7 +1894,7 @@ var Disabled;
             }
         }
     }
-    function z(e, t) {
+    function q(e, t) {
         let i = false;
         if (t === n) {
             i = true;
@@ -2631,7 +2635,7 @@ var Disabled;
     (() => {
         e = Config.Options.get();
         document.addEventListener("DOMContentLoaded", () => o());
-        window.addEventListener("pagehide", () => q());
+        window.addEventListener("pagehide", () => X());
         if (!Is.defined(window.$heat)) {
             window.$heat = xe;
         }

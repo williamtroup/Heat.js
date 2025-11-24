@@ -131,6 +131,10 @@ type LargestValuesForEachRangeType = {
             DomElement.addClass( bindingOptions._currentView.element, "heat-js" );
         }
 
+        if ( bindingOptions.resizable ) {
+            DomElement.addClass( bindingOptions._currentView.element, "resizable" );
+        }
+
         bindingOptions._currentView.element.removeAttribute( Constant.HEAT_JS_ATTRIBUTE_NAME );
 
         createInstanceDataForElement( bindingOptions._currentView.element.id, bindingOptions );

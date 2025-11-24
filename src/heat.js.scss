@@ -164,6 +164,13 @@ div.heat-js {
     max-width: 700px;
     margin: 0 !important;
 
+    &.resizable {
+        resize: horizontal;
+        overflow: auto;
+        width: 700px;
+        max-width: none;
+    }
+
     @media (min-width: styles.$minimum-width) { 
         border-left-width: var(--heat-js-left-border);
     }

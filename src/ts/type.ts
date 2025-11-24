@@ -92,6 +92,7 @@ export type BindingOptions = {
     dataFetchDelay?: number;
     showOnlyDataForYearsAvailable?: boolean;
     showHolidaysInDayToolTips?: boolean;
+    resizable?: boolean;
     colorRanges?: BindingOptionsColorRange[];
     holidays?: BindingOptionsHoliday[];
     title?: BindingOptionsTitle;

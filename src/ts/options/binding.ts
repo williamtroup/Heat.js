@@ -102,6 +102,7 @@ export namespace Binding {
             options.dataFetchDelay = Default.getNumber( options.dataFetchDelay, 60000 );
             options.showOnlyDataForYearsAvailable = Default.getBoolean( options.showOnlyDataForYearsAvailable, false );
             options.showHolidaysInDayToolTips = Default.getBoolean( options.showHolidaysInDayToolTips, false );
+            options.resizable = Default.getBoolean( options.resizable, false );
             
             options.colorRanges = getColorRanges( options );
             options.holidays = getHolidays( options );
