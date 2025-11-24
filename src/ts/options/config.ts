@@ -21,6 +21,7 @@ export namespace Config {
         export function get( newConfiguration: Configuration = null! ) : Configuration {
             const configuration = Default.getObject( newConfiguration, {} as Configuration );
             configuration.safeMode = Default.getBoolean( configuration.safeMode, true );
+            configuration.observationMode = Default.getBoolean( configuration.observationMode, true );
             configuration.domElementTypes = Default.getStringOrArray( configuration.domElementTypes, [ "*" ] );
     
             configuration.text = getText( configuration );

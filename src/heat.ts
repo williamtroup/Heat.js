@@ -55,6 +55,9 @@ type LargestValuesForEachRangeType = {
     // Variables: Configuration
     let _configuration: Configuration = {} as Configuration;
 
+    // Variables: Document Mutation Observer
+    let _mutationObserver: MutationObserver = null! as MutationObserver;
+
     // Variables: Date Counts
     let _elements_InstanceData: InstanceData = {} as InstanceData;
 
@@ -1646,6 +1649,10 @@ type LargestValuesForEachRangeType = {
                 }
             }
         }
+
+        if ( _configuration.observationMode && Is.defined( _mutationObserver ) ) {
+            _mutationObserver.disconnect();
+        }
     }
 
 
@@ -2183,6 +2190,28 @@ type LargestValuesForEachRangeType = {
         Trigger.customEvent( bindingOptions.events!.onDestroy!, bindingOptions._currentView.element );
     }
 
+    function setupObservationMode() : void {
+        if ( _configuration.observationMode ) {
+            if ( !Is.defined( _mutationObserver ) ) {
+                _mutationObserver = new MutationObserver( ( _1: any, _2: any ) => {
+                    _public.renderAll();
+                } );
+
+                const observeConfig: MutationObserverInit = {
+                    attributes: true,
+                    childList: true,
+                    subtree: true
+                };
+
+                _mutationObserver.observe( document.body, observeConfig );
+            }
+            
+        } else {
+            _mutationObserver.disconnect();
+            _mutationObserver = null!;
+        }
+    }
+
 
 	/*
 	 * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2681,6 +2710,8 @@ type LargestValuesForEachRangeType = {
         
                 if ( configurationHasChanged ) {
                     _configuration = Config.Options.get( newInternalConfiguration );
+
+                    setupObservationMode();
         
                     if ( triggerRefresh ) {
                         _public.refreshAll();
@@ -2725,7 +2756,11 @@ type LargestValuesForEachRangeType = {
     ( () => {
         _configuration = Config.Options.get();
 
-        document.addEventListener( "DOMContentLoaded", () => render() );
+        document.addEventListener( "DOMContentLoaded", () => {
+            setupObservationMode();
+            render();
+        } );
+
         window.addEventListener( "pagehide", () => cancelAllPullDataTimers() );
 
         if ( !Is.defined( window.$heat ) ) {
