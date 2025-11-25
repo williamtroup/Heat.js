@@ -304,8 +304,10 @@ div.heat-js div.title-bar button.active {
   font-weight: var(--heat-js-text-bold-weight-active);
 }
 div.heat-js div.title-bar button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-weight: var(--heat-js-title-bold-weight);
-  text-align: center;
   width: 35px;
   height: 30px;
 }
