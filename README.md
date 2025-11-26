@@ -29,7 +29,7 @@ Heat.js
 - Configuration dialog support per view.
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
-- Export all data to CSV, JSON, XML, and TXT.
+- Export all data to CSV, JSON, XML, TXT, HTML, MD, and TSV.
 - Import data from JSON, TXT, and CSV.
 - 51 language translations available!
 - Trend types allows data to be split up and viewed separately.
