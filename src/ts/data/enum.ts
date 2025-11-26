@@ -46,4 +46,5 @@ export const enum ExportType {
     json = "json",
     xml = "xml",
     txt = "txt",
+    html = "html",
 }

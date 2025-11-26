@@ -1988,6 +1988,8 @@ type LargestValuesForEachRangeType = {
             contents = getXmlContents( bindingOptions );
         } else if ( contentExportType === ExportType.txt ) {
             contents = getTxtContents( bindingOptions );
+        } else if ( contentExportType === ExportType.html ) {
+            contents = getHtmlContents( bindingOptions );
         }
 
         if ( Is.definedString( contents ) ) {
@@ -2059,6 +2061,32 @@ type LargestValuesForEachRangeType = {
         return contents.join( Char.newLine );
     }
 
+    function getHtmlContents( bindingOptions: BindingOptions ) : string {
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
+        const contents: string[] = [];
+        const exportedDateTime: string = DateTime.getCustomFormattedDateText( _configuration, "{ddd}, {dd} {mmm} {yyyy}", new Date() );
+
+        contents.push( "<!DOCTYPE html>" );
+        contents.push( "<html>" );
+        contents.push( "<head>" );
+        contents.push( "<meta charset=\"utf-8\" />" );
+        contents.push( `<meta http-equiv=\"Last-Modified\" content=\"${exportedDateTime} GMT\" />` );
+        contents.push( "</head>" );
+        contents.push( "<body>" );
+        contents.push( "<ul>" );
+
+        for ( const storageDate in typeDateCounts ) {
+            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                contents.push( `<li><b>${storageDate}:</b> ${typeDateCounts[storageDate].toString()}</li>` );
+            }
+        }
+        contents.push( "</ul>" );
+        contents.push( "</body>" );
+        contents.push( "</html>" );
+
+        return contents.join( Char.newLine );
+    }
+
     function getExportData( bindingOptions: BindingOptions ) : InstanceTypeDateCount {
         const contents: InstanceTypeDateCount = {} as InstanceTypeDateCount;
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
@@ -2112,6 +2140,8 @@ type LargestValuesForEachRangeType = {
             result = "application/xml";
         } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.txt ) {
             result = "text/plain";
+        } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.html ) {
+            result = "text/html";
         }
 
         return result;
