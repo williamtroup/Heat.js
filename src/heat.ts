@@ -448,7 +448,13 @@ type LargestValuesForEachRangeType = {
                     back.disabled = true;
                 }
 
-                bindingOptions._currentView.yearText = DomElement.createWithHTML( titleBar, "div", "year-text", bindingOptions._currentView.year.toString() );
+                let yearText: string = bindingOptions._currentView.year.toString();
+
+                if ( bindingOptions.startMonth! > 0 ) {
+                    yearText += ` / ${bindingOptions._currentView.year + 1}`;
+                }
+
+                bindingOptions._currentView.yearText = DomElement.createWithHTML( titleBar, "div", "year-text", yearText );
 
                 if ( bindingOptions.title!.showYearSelectionDropDown ) {
                     renderYearDropDownMenu( bindingOptions );
@@ -555,6 +561,10 @@ type LargestValuesForEachRangeType = {
         const thisYear: number = new Date().getFullYear();
         let activeYearMenuItem: HTMLElement = null!;
 
+        if ( bindingOptions.startMonth! > 0 ) {
+            DomElement.addClass( yearsMenuContainer, "custom-start-year" );
+        }
+
         yearsMenuContainer.style.display = "block";
         yearsMenuContainer.style.visibility = "hidden";
 
@@ -578,7 +588,8 @@ type LargestValuesForEachRangeType = {
 
     function renderYearDropDownMenuItem( bindingOptions: BindingOptions, years: HTMLElement, currentYear: number, actualYear: number ) : HTMLElement {
         let result: HTMLElement = null!;
-        const year: HTMLElement = DomElement.createWithHTML( years, "div", "year-menu-item", currentYear.toString() );
+        const currentYearText: string = bindingOptions.startMonth === 0 ? currentYear.toString() : `${currentYear} / ${currentYear + 1}`;
+        const year: HTMLElement = DomElement.createWithHTML( years, "div", "year-menu-item", currentYearText );
 
         if ( bindingOptions._currentView.year !== currentYear ) {
             year.onclick = () => {
@@ -668,14 +679,22 @@ type LargestValuesForEachRangeType = {
             const months: HTMLElement = DomElement.create( map, "div", "months" );
             const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
     
-            for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-                if ( isMonthVisible( bindingOptions.views!.map!.monthsToShow!, monthIndex ) ) {
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+                let actualMonthIndex: number = monthIndex;
+                let actualYear: number = currentYear;
+
+                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                    actualMonthIndex = monthIndex - 12;
+                    actualYear++;
+                }
+
+                if ( isMonthVisible( bindingOptions.views!.map!.monthsToShow!, actualMonthIndex ) ) {
                     const month: HTMLElement = DomElement.create( months, "div", "month" );
                     const dayColumns: HTMLElement = DomElement.create( month, "div", "day-columns" );
-                    let totalDaysInMonth: number = DateTime.getTotalDaysInMonth( currentYear, monthIndex );
+                    let totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
                     let currentDayColumn: HTMLElement = DomElement.create( dayColumns, "div", "day-column" );
                     let startFillingDays: boolean = false;
-                    const firstDayInMonth: Date = new Date( currentYear, monthIndex, 1 );
+                    const firstDayInMonth: Date = new Date( actualYear, actualMonthIndex, 1 );
                     const firstDayNumberInMonth: number = DateTime.getWeekdayNumber( firstDayInMonth );
                     let actualDay: number = 1;
         
@@ -695,7 +714,7 @@ type LargestValuesForEachRangeType = {
                             let day: HTMLElement = null!;
     
                             if ( isDayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
-                                day = renderControlMapMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, colorRanges );
+                                day = renderControlMapMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, actualMonthIndex, actualYear, colorRanges );
                             }
             
                             if ( ( dayIndex + 1 ) % 7 === 0 ) {
@@ -721,11 +740,17 @@ type LargestValuesForEachRangeType = {
                     if ( bindingOptions.views!.map!.showMonthNames ) {
                         let monthName: HTMLElement;
                         const monthWidth: number = month.offsetWidth;
+
+                        let monthNameText: string = _configuration.text!.monthNames![ actualMonthIndex ];
+
+                        if ( bindingOptions.startMonth! > 0 ) {
+                            monthNameText += `${Char.space}${actualYear}`;
+                        }
     
                         if ( !bindingOptions.views!.map!.placeMonthNamesOnTheBottom ) {
-                            monthName = DomElement.createWithHTML( month, "div", "month-name", _configuration.text!.monthNames![ monthIndex ], dayColumns );
+                            monthName = DomElement.createWithHTML( month, "div", "month-name", monthNameText, dayColumns );
                         } else {
-                            monthName = DomElement.createWithHTML( month, "div", "month-name-bottom", _configuration.text!.monthNames![ monthIndex ] );
+                            monthName = DomElement.createWithHTML( month, "div", "month-name-bottom", monthNameText );
                         }
     
                         if ( Is.defined( monthName ) ) {
@@ -879,16 +904,24 @@ type LargestValuesForEachRangeType = {
             let totalMonths: number = 0;
             let totalDays: number = 0;
 
-            for ( let monthIndex1: number = 0; monthIndex1 < 12; monthIndex1++ ) {
-                if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, monthIndex1 ) ) {
-                    const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( currentYear, monthIndex1 );
+            for ( let monthIndex1: number = bindingOptions.startMonth!; monthIndex1 < ( 12 + bindingOptions.startMonth! ); monthIndex1++ ) {
+                let actualMonthIndex: number = monthIndex1;
+                let actualYear: number = currentYear;
+
+                if ( bindingOptions.startMonth! > 0 && monthIndex1 > 11 ) {
+                    actualMonthIndex = monthIndex1 - 12;
+                    actualYear++;
+                }
+
+                if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) ) {
+                    const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
                     let actualDay: number = 1;
                     
                     totalMonths++;
 
                     for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                         if ( isDayVisible( bindingOptions.views!.chart!.daysToShow!, actualDay ) ) {
-                            renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, colorRanges, pixelsPerNumbers );
+                            renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, pixelsPerNumbers );
                         }
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
@@ -911,8 +944,22 @@ type LargestValuesForEachRangeType = {
                 let monthTimesValue: number = 0;
 
                 const addMonthName: Function = ( addMonthNameIndex: number ) : void => {
-                    if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, addMonthNameIndex ) ) {
-                        let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", _configuration.text!.monthNames![ addMonthNameIndex ] );
+                    let actualMonthIndex: number = addMonthNameIndex + bindingOptions.startMonth!;
+                    let actualYear: number = currentYear;
+
+                    if ( bindingOptions.startMonth! > 0 && actualMonthIndex > 11 ) {
+                        actualMonthIndex -= 12;
+                        actualYear++;
+                    }
+
+                    if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) ) {
+                        let monthNameText: string = _configuration.text!.monthNames![ actualMonthIndex ];
+
+                        if ( bindingOptions.startMonth! > 0 ) {
+                            monthNameText += `${Char.space}${actualYear}`;
+                        }
+
+                        let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", monthNameText );
                         monthName.style.left = `${labelsWidth + (linesWidth * monthTimesValue)}px`;
 
                         monthTimesValue++;
@@ -997,17 +1044,26 @@ type LargestValuesForEachRangeType = {
     function getLargestValueForChartYear( bindingOptions: BindingOptions ) : number {
         let result: number = 0;
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
+        const currentYear: number = bindingOptions._currentView.year;
 
-        for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            let actualMonthIndex: number = monthIndex;
+            let actualYear: number = currentYear;
+
+            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                actualMonthIndex = monthIndex - 12;
+                actualYear++;
+            }
+
+            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
     
             for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                const date: Date = new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 );
+                const date: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
                 const storageDate: string = DateTime.toStorageDate( date );
                 const weekdayNumber: number = DateTime.getWeekdayNumber( date );
 
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, monthIndex ) && isDayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
+                    if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) && isDayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
                         result = Math.max( result, typeDateCounts[ storageDate ] );
                     }
                 }
@@ -1136,12 +1192,21 @@ type LargestValuesForEachRangeType = {
         } as LargestValueForDays;
 
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
+        const currentYear: number = bindingOptions._currentView.year;
 
-        for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            let actualMonthIndex: number = monthIndex;
+            let actualYear: number = currentYear;
+
+            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                actualMonthIndex = monthIndex - 12;
+                actualYear++;
+            }
+
+            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
     
             for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                const storageDate: string = DateTime.toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
+                const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
 
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                     const storageDateParts: string[] = DateTime.getStorageDate( storageDate );
@@ -1290,6 +1355,7 @@ type LargestValuesForEachRangeType = {
 
     function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValuesForEachRangeType {
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
+        const currentYear: number = bindingOptions._currentView.year;
 
         const result: LargestValuesForEachRangeType = {
             types: {} as InstanceTypeDateCount,
@@ -1298,11 +1364,19 @@ type LargestValuesForEachRangeType = {
 
         result.types[ Char.zero ] = 0;
 
-        for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            let actualMonthIndex: number = monthIndex;
+            let actualYear: number = currentYear;
+
+            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                actualMonthIndex = monthIndex - 12;
+                actualYear++;
+            }
+
+            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
     
             for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                const storageDate: string = DateTime.toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
+                const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
 
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                     const storageDateParts: string[] = DateTime.getStorageDate( storageDate );
@@ -2150,11 +2224,21 @@ type LargestValuesForEachRangeType = {
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
         if ( bindingOptions.exportOnlyYearBeingViewed ) {
-            for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-                const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
+            const currentYear: number = bindingOptions._currentView.year;
+
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+                let actualMonthIndex: number = monthIndex;
+                let actualYear: number = currentYear;
+
+                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                    actualMonthIndex = monthIndex - 12;
+                    actualYear++;
+                }
+
+                const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
         
                 for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                    const storageDate2: string = DateTime.toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
+                    const storageDate2: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
 
                     if ( typeDateCounts.hasOwnProperty( storageDate2 ) ) {
                         contents[ storageDate2 ] = typeDateCounts[ storageDate2 ];

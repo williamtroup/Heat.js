@@ -30,6 +30,7 @@
 - 12 additional themes available (for dark and light mode).
 - Data pulling (does not support trend types).
 - Color ranges support different colors per view.
+- Custom year month range support (Jan-Dec, or Apr-Mar).
 
 
 ## Where can I find the documentation?

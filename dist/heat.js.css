@@ -531,6 +531,9 @@ div.heat-js div.title-bar div.year-text div.years-menu-container {
   margin-top: 5px;
   z-index: 1000;
 }
+div.heat-js div.title-bar div.year-text div.years-menu-container.custom-start-year {
+  width: 130px;
+}
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu {
   border-radius: var(--heat-js-border-radius);
   background-color: var(--heat-js-years-background-color);

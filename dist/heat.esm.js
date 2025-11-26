@@ -422,6 +422,7 @@ var Binding;
             t.showOnlyDataForYearsAvailable = Default2.getBoolean(t.showOnlyDataForYearsAvailable, false);
             t.showHolidaysInDayToolTips = Default2.getBoolean(t.showHolidaysInDayToolTips, false);
             t.resizable = Default2.getBoolean(t.resizable, false);
+            t.startMonth = Default2.getNumber(t.startMonth, 0);
             t.colorRanges = s(t);
             t.holidays = r(t);
             t.title = a(t);
@@ -821,7 +822,7 @@ var Disabled;
             e._currentView.statisticsContentsScrollLeft = e._currentView.statisticsContents.scrollLeft;
         }
         e._currentView.element.innerHTML = "";
-        e._currentView.yearsAvailable = P(e);
+        e._currentView.yearsAvailable = $(e);
         ToolTip.hide(e);
         z(e);
         if (e.title.showConfigurationButton) {
@@ -1030,7 +1031,11 @@ var Disabled;
                 if (Y(t, t._currentView.year)) {
                     i.disabled = true;
                 }
-                t._currentView.yearText = DomElement.createWithHTML(n, "div", "year-text", t._currentView.year.toString());
+                let o = t._currentView.year.toString();
+                if (t.startMonth > 0) {
+                    o += ` / ${t._currentView.year + 1}`;
+                }
+                t._currentView.yearText = DomElement.createWithHTML(n, "div", "year-text", o);
                 if (t.title.showYearSelectionDropDown) {
                     g(t);
                 } else {
@@ -1054,13 +1059,13 @@ var Disabled;
                         Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                     };
                 }
-                const o = DomElement.createWithHTML(n, "button", "next", e.text.nextButtonSymbolText);
-                o.onclick = () => Ve(t);
+                const s = DomElement.createWithHTML(n, "button", "next", e.text.nextButtonSymbolText);
+                s.onclick = () => Ve(t);
                 if (t.title.showToolTips) {
-                    ToolTip.add(o, t, e.text.nextButtonText);
+                    ToolTip.add(s, t, e.text.nextButtonText);
                 }
                 if (j(t, t._currentView.year)) {
-                    o.disabled = true;
+                    s.disabled = true;
                 }
             }
         }
@@ -1109,10 +1114,13 @@ var Disabled;
         const n = DomElement.create(t, "div", "years-menu");
         const i = (new Date).getFullYear();
         let o = null;
+        if (e.startMonth > 0) {
+            DomElement.addClass(t, "custom-start-year");
+        }
         t.style.display = "block";
         t.style.visibility = "hidden";
         for (let t = i - e.title.extraSelectionYears; t < i + e.title.extraSelectionYears; t++) {
-            if ($(e, t)) {
+            if (P(e, t)) {
                 let s = h(e, n, t, i);
                 if (!Is.defined(o)) {
                     o = s;
@@ -1127,19 +1135,20 @@ var Disabled;
     }
     function h(e, t, n, i) {
         let o = null;
-        const s = DomElement.createWithHTML(t, "div", "year-menu-item", n.toString());
+        const s = e.startMonth === 0 ? n.toString() : `${n} / ${n + 1}`;
+        const r = DomElement.createWithHTML(t, "div", "year-menu-item", s);
         if (e._currentView.year !== n) {
-            s.onclick = () => {
+            r.onclick = () => {
                 e._currentView.year = n;
                 l(e);
                 Trigger.customEvent(e.events.onSetYear, e._currentView.year);
             };
             if (n === i) {
-                DomElement.addClass(s, "year-menu-item-current");
+                DomElement.addClass(r, "year-menu-item-current");
             }
         } else {
-            DomElement.addClass(s, "year-menu-item-active");
-            o = s;
+            DomElement.addClass(r, "year-menu-item-active");
+            o = r;
         }
         return o;
     }
@@ -1187,14 +1196,20 @@ var Disabled;
             }
             const r = DomElement.create(i, "div", "months");
             const a = ne(t);
-            for (let n = 0; n < 12; n++) {
-                if (W(t.views.map.monthsToShow, n)) {
-                    const i = DomElement.create(r, "div", "month");
-                    const l = DomElement.create(i, "div", "day-columns");
-                    let c = DateTime.getTotalDaysInMonth(o, n);
-                    let u = DomElement.create(l, "div", "day-column");
+            for (let n = t.startMonth; n < 12 + t.startMonth; n++) {
+                let i = n;
+                let l = o;
+                if (t.startMonth > 0 && n > 11) {
+                    i = n - 12;
+                    l++;
+                }
+                if (W(t.views.map.monthsToShow, i)) {
+                    const n = DomElement.create(r, "div", "month");
+                    const o = DomElement.create(n, "div", "day-columns");
+                    let c = DateTime.getTotalDaysInMonth(l, i);
+                    let u = DomElement.create(o, "div", "day-column");
                     let d = false;
-                    const f = new Date(o, n, 1);
+                    const f = new Date(l, i, 1);
                     const m = DateTime.getWeekdayNumber(f);
                     let w = 1;
                     c += m;
@@ -1207,50 +1222,54 @@ var Disabled;
                             }
                         }
                         if (d) {
-                            let i = null;
+                            let n = null;
                             if (R(t.views.map.daysToShow, w)) {
-                                i = y(t, u, e - m, n, o, a);
+                                n = y(t, u, e - m, i, l, a);
                             }
                             if ((e + 1) % 7 === 0) {
                                 if (t.views.map.showDaysInReverseOrder) {
                                     DomElement.reverseChildrenOrder(u);
                                 }
-                                u = DomElement.create(l, "div", "day-column");
+                                u = DomElement.create(o, "div", "day-column");
                                 w = 0;
-                                if (t._currentView.dayWidth === 0 && Is.defined(i)) {
-                                    let e = DomElement.getStyleValueByName(i, "margin-left", true);
-                                    let n = DomElement.getStyleValueByName(i, "margin-right", true);
-                                    t._currentView.dayWidth = i.offsetWidth + e + n;
+                                if (t._currentView.dayWidth === 0 && Is.defined(n)) {
+                                    let e = DomElement.getStyleValueByName(n, "margin-left", true);
+                                    let i = DomElement.getStyleValueByName(n, "margin-right", true);
+                                    t._currentView.dayWidth = n.offsetWidth + e + i;
                                 }
                             }
                         }
                         w++;
                     }
                     if (t.views.map.showMonthNames) {
-                        let o;
-                        const s = i.offsetWidth;
-                        if (!t.views.map.placeMonthNamesOnTheBottom) {
-                            o = DomElement.createWithHTML(i, "div", "month-name", e.text.monthNames[n], l);
-                        } else {
-                            o = DomElement.createWithHTML(i, "div", "month-name-bottom", e.text.monthNames[n]);
+                        let s;
+                        const r = n.offsetWidth;
+                        let a = e.text.monthNames[i];
+                        if (t.startMonth > 0) {
+                            a += `${" "}${l}`;
                         }
-                        if (Is.defined(o)) {
+                        if (!t.views.map.placeMonthNamesOnTheBottom) {
+                            s = DomElement.createWithHTML(n, "div", "month-name", a, o);
+                        } else {
+                            s = DomElement.createWithHTML(n, "div", "month-name-bottom", a);
+                        }
+                        if (Is.defined(s)) {
                             if (t.views.map.showMonthDayGaps) {
-                                o.style.width = `${s}px`;
+                                s.style.width = `${r}px`;
                             } else {
-                                o.style.width = `${s - t._currentView.dayWidth}px`;
+                                s.style.width = `${r - t._currentView.dayWidth}px`;
                             }
                         }
                     }
                     if (s && Is.defined(t._currentView.dayWidth)) {
                         if (m > 0 && !t.views.map.showMonthDayGaps) {
-                            i.style.marginLeft = `${-t._currentView.dayWidth}px`;
+                            n.style.marginLeft = `${-t._currentView.dayWidth}px`;
                         } else if (m === 0 && t.views.map.showMonthDayGaps) {
-                            i.style.marginLeft = `${t._currentView.dayWidth}px`;
+                            n.style.marginLeft = `${t._currentView.dayWidth}px`;
                         }
                     }
                     if (t.views.map.showMonthsInReverseOrder) {
-                        DomElement.reverseChildrenOrder(l);
+                        DomElement.reverseChildrenOrder(o);
                     }
                     s = true;
                 }
@@ -1348,19 +1367,25 @@ var Disabled;
             const n = t._currentView.mapContents.offsetHeight / a;
             let i = 0;
             let o = 0;
-            for (let e = 0; e < 12; e++) {
-                if (W(t.views.chart.monthsToShow, e)) {
-                    const a = DateTime.getTotalDaysInMonth(l, e);
-                    let c = 1;
+            for (let e = t.startMonth; e < 12 + t.startMonth; e++) {
+                let a = e;
+                let c = l;
+                if (t.startMonth > 0 && e > 11) {
+                    a = e - 12;
+                    c++;
+                }
+                if (W(t.views.chart.monthsToShow, a)) {
+                    const e = DateTime.getTotalDaysInMonth(c, a);
+                    let l = 1;
                     i++;
-                    for (let i = 0; i < a; i++) {
-                        if (R(t.views.chart.daysToShow, c)) {
-                            x(s, t, i + 1, e, l, r, n);
+                    for (let i = 0; i < e; i++) {
+                        if (R(t.views.chart.daysToShow, l)) {
+                            x(s, t, i + 1, a, c, r, n);
                         }
                         if ((i + 1) % 7 === 0) {
-                            c = 0;
+                            l = 0;
                         }
-                        c++;
+                        l++;
                         o++;
                     }
                 }
@@ -1373,9 +1398,19 @@ var Disabled;
                 const o = s.offsetWidth / i;
                 let r = 0;
                 const a = i => {
-                    if (W(t.views.chart.monthsToShow, i)) {
-                        let t = DomElement.createWithHTML(n, "div", "month-name", e.text.monthNames[i]);
-                        t.style.left = `${c + o * r}px`;
+                    let s = i + t.startMonth;
+                    let a = l;
+                    if (t.startMonth > 0 && s > 11) {
+                        s -= 12;
+                        a++;
+                    }
+                    if (W(t.views.chart.monthsToShow, s)) {
+                        let i = e.text.monthNames[s];
+                        if (t.startMonth > 0) {
+                            i += `${" "}${a}`;
+                        }
+                        let l = DomElement.createWithHTML(n, "div", "month-name", i);
+                        l.style.left = `${c + o * r}px`;
                         r++;
                     }
                 };
@@ -1389,9 +1424,9 @@ var Disabled;
                     }
                 }
                 n.style.width = `${s.offsetWidth}px`;
-                const l = DomElement.create(n, "div", "month-name-space");
-                l.style.height = `${n.offsetHeight}px`;
-                l.style.width = `${c}px`;
+                const u = DomElement.create(n, "div", "month-name-space");
+                u.style.height = `${n.offsetHeight}px`;
+                u.style.width = `${c}px`;
             }
             if (t.views.chart.keepScrollPositions) {
                 t._currentView.chartContents.scrollLeft = t._currentView.chartContentsScrollLeft;
@@ -1439,15 +1474,22 @@ var Disabled;
     function b(e) {
         let t = 0;
         const n = H(e);
-        for (let i = 0; i < 12; i++) {
-            const o = DateTime.getTotalDaysInMonth(e._currentView.year, i);
-            for (let s = 0; s < o; s++) {
-                const o = new Date(e._currentView.year, i, s + 1);
-                const r = DateTime.toStorageDate(o);
-                const a = DateTime.getWeekdayNumber(o);
-                if (n.hasOwnProperty(r)) {
-                    if (W(e.views.chart.monthsToShow, i) && R(e.views.chart.daysToShow, a)) {
-                        t = Math.max(t, n[r]);
+        const i = e._currentView.year;
+        for (let o = e.startMonth; o < 12 + e.startMonth; o++) {
+            let s = o;
+            let r = i;
+            if (e.startMonth > 0 && o > 11) {
+                s = o - 12;
+                r++;
+            }
+            const a = DateTime.getTotalDaysInMonth(r, s);
+            for (let i = 0; i < a; i++) {
+                const o = new Date(r, s, i + 1);
+                const a = DateTime.toStorageDate(o);
+                const l = DateTime.getWeekdayNumber(o);
+                if (n.hasOwnProperty(a)) {
+                    if (W(e.views.chart.monthsToShow, s) && R(e.views.chart.daysToShow, l)) {
+                        t = Math.max(t, n[a]);
                     }
                 }
             }
@@ -1543,10 +1585,17 @@ var Disabled;
             largestValue: 0
         };
         const n = H(e);
-        for (let i = 0; i < 12; i++) {
-            const o = DateTime.getTotalDaysInMonth(e._currentView.year, i);
-            for (let s = 0; s < o; s++) {
-                const o = DateTime.toStorageDate(new Date(e._currentView.year, i, s + 1));
+        const i = e._currentView.year;
+        for (let o = e.startMonth; o < 12 + e.startMonth; o++) {
+            let s = o;
+            let r = i;
+            if (e.startMonth > 0 && o > 11) {
+                s = o - 12;
+                r++;
+            }
+            const a = DateTime.getTotalDaysInMonth(r, s);
+            for (let i = 0; i < a; i++) {
+                const o = DateTime.toStorageDate(new Date(r, s, i + 1));
                 if (n.hasOwnProperty(o)) {
                     const i = DateTime.getStorageDate(o);
                     const s = new Date(parseInt(i[2]), parseInt(i[1]), parseInt(i[0]));
@@ -1656,35 +1705,42 @@ var Disabled;
     }
     function B(e, t) {
         const n = H(e);
-        const i = {
+        const i = e._currentView.year;
+        const o = {
             types: {},
             largestValue: 0
         };
-        i.types["0"] = 0;
-        for (let o = 0; o < 12; o++) {
-            const s = DateTime.getTotalDaysInMonth(e._currentView.year, o);
-            for (let r = 0; r < s; r++) {
-                const s = DateTime.toStorageDate(new Date(e._currentView.year, o, r + 1));
+        o.types["0"] = 0;
+        for (let s = e.startMonth; s < 12 + e.startMonth; s++) {
+            let r = s;
+            let a = i;
+            if (e.startMonth > 0 && s > 11) {
+                r = s - 12;
+                a++;
+            }
+            const l = DateTime.getTotalDaysInMonth(a, r);
+            for (let i = 0; i < l; i++) {
+                const s = DateTime.toStorageDate(new Date(a, r, i + 1));
                 if (n.hasOwnProperty(s)) {
-                    const o = DateTime.getStorageDate(s);
-                    const r = new Date(parseInt(o[2]), parseInt(o[1]), parseInt(o[0]));
+                    const i = DateTime.getStorageDate(s);
+                    const r = new Date(parseInt(i[2]), parseInt(i[1]), parseInt(i[0]));
                     const a = DateTime.getWeekdayNumber(r) + 1;
                     if (!ie(e, r).matched && W(e.views.statistics.monthsToShow, r.getMonth()) && R(e.views.statistics.daysToShow, a)) {
-                        const o = ee(e, t, n[s]);
-                        if (!Is.defined(o)) {
-                            i.types["0"]++;
+                        const i = ee(e, t, n[s]);
+                        if (!Is.defined(i)) {
+                            o.types["0"]++;
                         } else {
-                            if (!i.types.hasOwnProperty(o.minimum.toString())) {
-                                i.types[o.minimum.toString()] = 0;
+                            if (!o.types.hasOwnProperty(i.minimum.toString())) {
+                                o.types[i.minimum.toString()] = 0;
                             }
-                            i.types[o.minimum]++;
-                            i.largestValue = Math.max(i.largestValue, i.types[o.minimum]);
+                            o.types[i.minimum]++;
+                            o.largestValue = Math.max(o.largestValue, o.types[i.minimum]);
                         }
                     }
                 }
             }
         }
-        return i;
+        return o;
     }
     function k(t) {
         const i = DomElement.create(t._currentView.element, "div", "guide");
@@ -1823,7 +1879,7 @@ var Disabled;
     function R(e, t) {
         return e.indexOf(t) > -1;
     }
-    function P(e) {
+    function $(e) {
         let t = [];
         if (e.showOnlyDataForYearsAvailable) {
             let n = H(e);
@@ -1841,7 +1897,7 @@ var Disabled;
         });
         return t;
     }
-    function $(e, t) {
+    function P(e, t) {
         return e.yearsToHide.indexOf(t) === -1 && (e._currentView.yearsAvailable.length === 0 || e._currentView.yearsAvailable.indexOf(t) > -1);
     }
     function Y(e, t) {
@@ -2272,12 +2328,19 @@ var Disabled;
         const t = {};
         const n = H(e);
         if (e.exportOnlyYearBeingViewed) {
-            for (let i = 0; i < 12; i++) {
-                const o = DateTime.getTotalDaysInMonth(e._currentView.year, i);
-                for (let s = 0; s < o; s++) {
-                    const o = DateTime.toStorageDate(new Date(e._currentView.year, i, s + 1));
-                    if (n.hasOwnProperty(o)) {
-                        t[o] = n[o];
+            const i = e._currentView.year;
+            for (let o = e.startMonth; o < 12 + e.startMonth; o++) {
+                let s = o;
+                let r = i;
+                if (e.startMonth > 0 && o > 11) {
+                    s = o - 12;
+                    r++;
+                }
+                const a = DateTime.getTotalDaysInMonth(r, s);
+                for (let e = 0; e < a; e++) {
+                    const i = DateTime.toStorageDate(new Date(r, s, e + 1));
+                    if (n.hasOwnProperty(i)) {
+                        t[i] = n[i];
                     }
                 }
             }
@@ -2341,7 +2404,7 @@ var Disabled;
         let n = true;
         let i = e._currentView.year;
         i--;
-        while (!$(e, i)) {
+        while (!P(e, i)) {
             if (Y(e, i)) {
                 n = false;
                 break;
@@ -2360,7 +2423,7 @@ var Disabled;
         let n = true;
         let i = e._currentView.year;
         i++;
-        while (!$(e, i)) {
+        while (!P(e, i)) {
             if (j(e, i)) {
                 n = false;
                 break;
@@ -2571,7 +2634,7 @@ var Disabled;
             if (Is.definedString(e) && Is.definedNumber(t) && n.hasOwnProperty(e)) {
                 const i = n[e].options;
                 i._currentView.year = t;
-                if (!$(i, i._currentView.year)) {
+                if (!P(i, i._currentView.year)) {
                     Ve(i, false);
                 } else {
                     l(i);
@@ -2592,7 +2655,7 @@ var Disabled;
                 }
                 if (o > 0) {
                     t._currentView.year = o;
-                    if (!$(t, t._currentView.year)) {
+                    if (!P(t, t._currentView.year)) {
                         Ve(t, false);
                     } else {
                         l(t);
@@ -2614,7 +2677,7 @@ var Disabled;
                 }
                 if (o < 9999) {
                     t._currentView.year = o;
-                    if (!$(t, t._currentView.year)) {
+                    if (!P(t, t._currentView.year)) {
                         Se(t, false);
                     } else {
                         l(t);
@@ -2640,7 +2703,7 @@ var Disabled;
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
                 const t = n[e].options;
                 t._currentView.year = (new Date).getFullYear();
-                if (!$(t, t._currentView.year)) {
+                if (!P(t, t._currentView.year)) {
                     Ve(t, false);
                 } else {
                     l(t);

@@ -94,6 +94,7 @@ export type BindingOptions = {
     showOnlyDataForYearsAvailable?: boolean;
     showHolidaysInDayToolTips?: boolean;
     resizable?: boolean;
+    startMonth?: number;
     colorRanges?: BindingOptionsColorRange[];
     holidays?: BindingOptionsHoliday[];
     title?: BindingOptionsTitle;

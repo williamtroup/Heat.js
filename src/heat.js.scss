@@ -600,6 +600,10 @@ div.heat-js {
                 margin-top: $year-margin;
                 z-index: 1000;
 
+                &.custom-start-year {
+                    width: 130px;
+                }
+
                 div.years-menu {
                     border-radius: var(--heat-js-border-radius);
                     background-color: var(--heat-js-years-background-color);
