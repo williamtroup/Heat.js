@@ -1990,6 +1990,8 @@ type LargestValuesForEachRangeType = {
             contents = getTxtContents( bindingOptions );
         } else if ( contentExportType === ExportType.html ) {
             contents = getHtmlContents( bindingOptions );
+        } else if ( contentExportType === ExportType.md ) {
+            contents = getMdContents( bindingOptions );
         }
 
         if ( Is.definedString( contents ) ) {
@@ -2080,9 +2082,26 @@ type LargestValuesForEachRangeType = {
                 contents.push( `<li><b>${storageDate}:</b> ${typeDateCounts[storageDate].toString()}</li>` );
             }
         }
+
         contents.push( "</ul>" );
         contents.push( "</body>" );
         contents.push( "</html>" );
+
+        return contents.join( Char.newLine );
+    }
+
+    function getMdContents( bindingOptions: BindingOptions ) : string {
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
+        const contents: string[] = [];
+
+        contents.push("| Full Date | Count |");
+        contents.push("| --- | --- |");
+
+        for ( const storageDate in typeDateCounts ) {
+            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                contents.push( `| ${storageDate} | ${typeDateCounts[storageDate].toString()} |` );
+            }
+        }
 
         return contents.join( Char.newLine );
     }
@@ -2142,6 +2161,8 @@ type LargestValuesForEachRangeType = {
             result = "text/plain";
         } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.html ) {
             result = "text/html";
+        } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.md ) {
+            result = "text/x-markdown";
         }
 
         return result;
