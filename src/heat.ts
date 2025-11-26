@@ -1862,7 +1862,7 @@ type LargestValuesForEachRangeType = {
     function importFromFilesSelected( bindingOptions: BindingOptions ) : void {
         const input: HTMLInputElement = DomElement.createWithNoContainer( "input" ) as HTMLInputElement;
         input.type = "file";
-        input.accept = ".json, .txt, .csv";
+        input.accept = ".json, .txt, .csv, .tsv";
         input.multiple = true;
         input.onchange = () => importFromFiles( input.files!, bindingOptions );
 
@@ -1903,6 +1903,8 @@ type LargestValuesForEachRangeType = {
                 importFromTxt( file, onLoadEnd );
             } else if ( fileExtension === ExportType.csv ) {
                 importFromCsv( file, onLoadEnd );
+            } else if ( fileExtension === ExportType.tsv ) {
+                importFromTsv( file, onLoadEnd );
             }
         }
     }
@@ -1960,6 +1962,26 @@ type LargestValuesForEachRangeType = {
 
             for ( let lineIndex: number = 0; lineIndex < linesLength; lineIndex++ ) {
                 let line: string[] = lines[ lineIndex ].split( Char.comma );
+
+                readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
+            }
+        };
+
+        reader.readAsText( file );
+    }
+
+    function importFromTsv( file: File, onLoadEnd: Function ) : void {
+        const reader: FileReader = new FileReader();
+        const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
+
+        reader.onloadend = () => onLoadEnd( file.name, readingObject );
+    
+        reader.onload = ( ev: ProgressEvent<FileReader> ) => {
+            const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
+            const linesLength: number = lines.length;
+
+            for ( let lineIndex: number = 1; lineIndex < linesLength; lineIndex++ ) {
+                const line: string[] = lines[ lineIndex ].split( Char.tab );
 
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
             }
@@ -2112,11 +2134,11 @@ type LargestValuesForEachRangeType = {
         const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
         const contents: string[] = [];
 
-        contents.push( "Full Date\tCount" );
+        contents.push( `Full Date${Char.tab}Count` );
 
         for ( const storageDate in typeDateCounts ) {
             if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                contents.push( `${storageDate}\t${typeDateCounts[storageDate].toString()}` );
+                contents.push( `${storageDate}${Char.tab}${typeDateCounts[storageDate].toString()}` );
             }
         }
 
