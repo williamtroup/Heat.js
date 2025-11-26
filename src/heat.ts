@@ -760,7 +760,9 @@ type LargestValuesForEachRangeType = {
 
         day.setAttribute("data-heat-js-map-date", `${Str.padNumber(actualDay)}-${Str.padNumber(month + 1)}-${year}` );
 
-        renderDayToolTip( bindingOptions, day, date, dateCount );
+        if ( bindingOptions.views!.map!.showToolTips ) {
+            renderDayToolTip( bindingOptions, day, date, dateCount );
+        }
 
         if ( bindingOptions.views!.map!.showDayNumbers && dateCount > 0 ) {
             day.innerHTML = dateCount.toString();
@@ -935,7 +937,9 @@ type LargestValuesForEachRangeType = {
 
         dayLine.setAttribute("data-heat-js-chart-date", `${Str.padNumber(day)}-${Str.padNumber(month + 1)}-${year}` );
 
-        renderDayToolTip( bindingOptions, dayLine, date, dateCount );
+        if ( bindingOptions.views!.chart!.showToolTips ) {
+            renderDayToolTip( bindingOptions, dayLine, date, dateCount );
+        }
 
         if ( bindingOptions.views!.chart!.showLineNumbers && dateCount > 0 ) {
             DomElement.addClass( dayLine, "day-line-number" );
@@ -1080,8 +1084,10 @@ type LargestValuesForEachRangeType = {
         if ( dayLineHeight <= 0 ) {
             dayLine.style.visibility = "hidden";
         }
-        
-        ToolTip.add( dayLine, bindingOptions, dayCount.toString() );
+
+        if ( bindingOptions.views!.days!.showToolTips ) {
+            ToolTip.add( dayLine, bindingOptions, dayCount.toString() );
+        }
 
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
             dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount, bindingOptions._currentView.year );
@@ -1234,8 +1240,10 @@ type LargestValuesForEachRangeType = {
         if ( rangeLineHeight <= 0 ) {
             rangeLine.style.visibility = "hidden";
         }
-        
-        ToolTip.add( rangeLine, bindingOptions, rangeCount.toString() );
+
+        if ( bindingOptions.views!.statistics!.showToolTips ) {
+            ToolTip.add( rangeLine, bindingOptions, rangeCount.toString() );
+        }
 
         if ( bindingOptions.views!.statistics!.showRangeNumbers && rangeCount > 0 ) {
             DomElement.addClass( rangeLine, "range-line-number" );

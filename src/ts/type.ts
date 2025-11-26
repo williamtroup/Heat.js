@@ -151,6 +151,7 @@ export type BindingOptionsViewsMap = {
     monthsToShow?: number[];
     daysToShow?: number[];
     showDayDateNumbers?: boolean;
+    showToolTips?: boolean;
 };
 
 export type BindingOptionsViewsChart = {
@@ -163,6 +164,7 @@ export type BindingOptionsViewsChart = {
     monthsToShow?: number[];
     daysToShow?: number[];
     showLineDateNumbers?: boolean;
+    showToolTips?: boolean;
 };
 
 export type BindingOptionsViewsDays = {
@@ -174,6 +176,7 @@ export type BindingOptionsViewsDays = {
     keepScrollPositions?: boolean;
     monthsToShow?: number[];
     daysToShow?: number[];
+    showToolTips?: boolean;
 };
 
 export type BindingOptionsViewsStatistics = {
@@ -186,6 +189,7 @@ export type BindingOptionsViewsStatistics = {
     keepScrollPositions?: boolean;
     monthsToShow?: number[];
     daysToShow?: number[];
+    showToolTips?: boolean;
 };
 
 export type BindingOptionsTitle = {

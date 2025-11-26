@@ -260,6 +260,7 @@ export namespace Binding {
             options.views!.map!.showMonthsInReverseOrder = Default.getBoolean( options.views!.map!.showMonthsInReverseOrder, false );
             options.views!.map!.keepScrollPositions = Default.getBoolean( options.views!.map!.keepScrollPositions, false );
             options.views!.map!.showDayDateNumbers = Default.getBoolean( options.views!.map!.showDayDateNumbers, false );
+            options.views!.map!.showToolTips = Default.getBoolean( options.views!.map!.showToolTips, true );
 
             if ( Is.invalidOptionArray( options.views!.map!.monthsToShow ) ) {
                 options.views!.map!.monthsToShow = _default_MonthsToShow;
@@ -281,6 +282,7 @@ export namespace Binding {
             options.views!.chart!.showInReverseOrder = Default.getBoolean( options.views!.chart!.showInReverseOrder, false );
             options.views!.chart!.keepScrollPositions = Default.getBoolean( options.views!.chart!.keepScrollPositions, false );
             options.views!.chart!.showLineDateNumbers = Default.getBoolean( options.views!.chart!.showLineDateNumbers, false );
+            options.views!.chart!.showToolTips = Default.getBoolean( options.views!.chart!.showToolTips, true );
 
             if ( Is.invalidOptionArray( options.views!.chart!.monthsToShow ) ) {
                 options.views!.chart!.monthsToShow = _default_MonthsToShow;
@@ -301,6 +303,7 @@ export namespace Binding {
             options.views!.days!.showInReverseOrder = Default.getBoolean( options.views!.days!.showInReverseOrder, false );
             options.views!.days!.showDayNumbers = Default.getBoolean( options.views!.days!.showDayNumbers, false );
             options.views!.days!.keepScrollPositions = Default.getBoolean( options.views!.days!.keepScrollPositions, false );
+            options.views!.days!.showToolTips = Default.getBoolean( options.views!.days!.showToolTips, true );
     
             if ( Is.invalidOptionArray( options.views!.days!.monthsToShow ) ) {
                 options.views!.days!.monthsToShow = _default_MonthsToShow;
@@ -322,6 +325,7 @@ export namespace Binding {
             options.views!.statistics!.showRangeNumbers = Default.getBoolean( options.views!.statistics!.showRangeNumbers, false );
             options.views!.statistics!.showInReverseOrder = Default.getBoolean( options.views!.statistics!.showInReverseOrder, false );
             options.views!.statistics!.keepScrollPositions = Default.getBoolean( options.views!.statistics!.keepScrollPositions, false );
+            options.views!.statistics!.showToolTips = Default.getBoolean( options.views!.statistics!.showToolTips, true );
     
             if ( Is.invalidOptionArray( options.views!.statistics!.monthsToShow ) ) {
                 options.views!.statistics!.monthsToShow = _default_MonthsToShow;

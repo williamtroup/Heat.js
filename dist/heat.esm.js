@@ -551,6 +551,7 @@ var Binding;
             e.views.map.showMonthsInReverseOrder = Default2.getBoolean(e.views.map.showMonthsInReverseOrder, false);
             e.views.map.keepScrollPositions = Default2.getBoolean(e.views.map.keepScrollPositions, false);
             e.views.map.showDayDateNumbers = Default2.getBoolean(e.views.map.showDayDateNumbers, false);
+            e.views.map.showToolTips = Default2.getBoolean(e.views.map.showToolTips, true);
             if (Is.invalidOptionArray(e.views.map.monthsToShow)) {
                 e.views.map.monthsToShow = t;
             }
@@ -568,6 +569,7 @@ var Binding;
             e.views.chart.showInReverseOrder = Default2.getBoolean(e.views.chart.showInReverseOrder, false);
             e.views.chart.keepScrollPositions = Default2.getBoolean(e.views.chart.keepScrollPositions, false);
             e.views.chart.showLineDateNumbers = Default2.getBoolean(e.views.chart.showLineDateNumbers, false);
+            e.views.chart.showToolTips = Default2.getBoolean(e.views.chart.showToolTips, true);
             if (Is.invalidOptionArray(e.views.chart.monthsToShow)) {
                 e.views.chart.monthsToShow = t;
             }
@@ -584,6 +586,7 @@ var Binding;
             e.views.days.showInReverseOrder = Default2.getBoolean(e.views.days.showInReverseOrder, false);
             e.views.days.showDayNumbers = Default2.getBoolean(e.views.days.showDayNumbers, false);
             e.views.days.keepScrollPositions = Default2.getBoolean(e.views.days.keepScrollPositions, false);
+            e.views.days.showToolTips = Default2.getBoolean(e.views.days.showToolTips, true);
             if (Is.invalidOptionArray(e.views.days.monthsToShow)) {
                 e.views.days.monthsToShow = t;
             }
@@ -601,6 +604,7 @@ var Binding;
             e.views.statistics.showRangeNumbers = Default2.getBoolean(e.views.statistics.showRangeNumbers, false);
             e.views.statistics.showInReverseOrder = Default2.getBoolean(e.views.statistics.showInReverseOrder, false);
             e.views.statistics.keepScrollPositions = Default2.getBoolean(e.views.statistics.keepScrollPositions, false);
+            e.views.statistics.showToolTips = Default2.getBoolean(e.views.statistics.showToolTips, true);
             if (Is.invalidOptionArray(e.views.statistics.monthsToShow)) {
                 e.views.statistics.monthsToShow = t;
             }
@@ -1248,7 +1252,9 @@ var Disabled;
         let d = n[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(c)];
         d = Default2.getNumber(d, 0);
         l.setAttribute("data-heat-js-map-date", `${Str.padNumber(a)}-${Str.padNumber(o + 1)}-${r}`);
-        A(e, l, c, d);
+        if (e.views.map.showToolTips) {
+            A(e, l, c, d);
+        }
         if (e.views.map.showDayNumbers && d > 0) {
             l.innerHTML = d.toString();
         } else if (e.views.map.showDayDateNumbers) {
@@ -1378,7 +1384,9 @@ var Disabled;
         let u = H(t)[DateTime.toStorageDate(a)];
         u = Default2.getNumber(u, 0);
         l.setAttribute("data-heat-js-chart-date", `${Str.padNumber(n)}-${Str.padNumber(i + 1)}-${o}`);
-        A(t, l, a, u);
+        if (t.views.chart.showToolTips) {
+            A(t, l, a, u);
+        }
         if (t.views.chart.showLineNumbers && u > 0) {
             DomElement.addClass(l, "day-line-number");
             l.innerHTML = u.toString();
@@ -1483,7 +1491,9 @@ var Disabled;
         if (s <= 0) {
             r.style.visibility = "hidden";
         }
-        ToolTip.add(r, i, n.toString());
+        if (i.views.days.showToolTips) {
+            ToolTip.add(r, i, n.toString());
+        }
         if (Is.definedFunction(i.events.onWeekDayClick)) {
             r.onclick = () => Trigger.customEvent(i.events.onWeekDayClick, t, n, i._currentView.year);
         } else {
@@ -1597,7 +1607,9 @@ var Disabled;
         if (l <= 0) {
             s.style.visibility = "hidden";
         }
-        ToolTip.add(s, i, n.toString());
+        if (i.views.statistics.showToolTips) {
+            ToolTip.add(s, i, n.toString());
+        }
         if (i.views.statistics.showRangeNumbers && n > 0) {
             DomElement.addClass(s, "range-line-number");
             DomElement.createWithHTML(s, "div", "count", n.toString());
