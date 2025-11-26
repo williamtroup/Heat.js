@@ -229,7 +229,6 @@ export type BindingOptionsTooltip = {
 };
 
 export type BindingOptionsEvents = {
-    onDayClick?: ( date: Date, count: number, isHoliday: boolean ) => void;
     onBackYear?: ( year: number ) => void;
     onNextYear?: ( year: number ) => void;
     onRefresh?: ( element: HTMLElement ) => void;
@@ -246,12 +245,16 @@ export type BindingOptionsEvents = {
     onViewSwitch?: ( view: string ) => void;
     onColorRangeTypeToggle?: ( id: string, visible: boolean ) => void;
     onImport?: ( element: HTMLElement ) => void;
-    onStatisticClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
     onDataFetch?: ( element: HTMLElement ) => InstanceTypeDateCount;
     onClear?: ( element: HTMLElement ) => void;
     onUpdate?: ( element: HTMLElement ) => void;
     onOptionsUpdate?: ( element: HTMLElement , options: BindingOptions ) => void;
+    onDayClick?: ( date: Date, count: number, isHoliday: boolean ) => void;
+    onDayDblClick?: ( date: Date, count: number, isHoliday: boolean ) => void;
     onWeekDayClick?: ( dayNumber: number, count: number, year: number ) => void;
+    onWeekDayDblClick?: ( dayNumber: number, count: number, year: number ) => void;
+    onStatisticClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
+    onStatisticDblClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
 };
 
 export type BindingOptionsColorRange = {

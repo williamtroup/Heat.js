@@ -342,7 +342,6 @@ export namespace Binding {
     
         function getCustomTriggers( options : BindingOptions ) : BindingOptionsEvents {
             options.events = Default.getObject( options.events, {} as BindingOptionsEvents );
-            options.events!.onDayClick = Default.getFunction( options.events!.onDayClick, null! );
             options.events!.onBackYear = Default.getFunction( options.events!.onBackYear, null! );
             options.events!.onNextYear = Default.getFunction( options.events!.onNextYear, null! );
             options.events!.onRefresh = Default.getFunction( options.events!.onRefresh, null! );
@@ -359,13 +358,17 @@ export namespace Binding {
             options.events!.onViewSwitch = Default.getFunction( options.events!.onViewSwitch, null! );
             options.events!.onColorRangeTypeToggle = Default.getFunction( options.events!.onColorRangeTypeToggle, null! );
             options.events!.onImport = Default.getFunction( options.events!.onImport, null! );
-            options.events!.onStatisticClick = Default.getFunction( options.events!.onStatisticClick, null! );
             options.events!.onDataFetch = Default.getFunction( options.events!.onDataFetch, null! );
             options.events!.onClear = Default.getFunction( options.events!.onClear, null! );
             options.events!.onUpdate = Default.getFunction( options.events!.onUpdate, null! );
             options.events!.onOptionsUpdate = Default.getFunction( options.events!.onOptionsUpdate, null! );
+            options.events!.onDayClick = Default.getFunction( options.events!.onDayClick, null! );
+            options.events!.onDayDblClick = Default.getFunction( options.events!.onDayDblClick, null! );
             options.events!.onWeekDayClick = Default.getFunction( options.events!.onWeekDayClick, null! );
-    
+            options.events!.onWeekDayDblClick = Default.getFunction( options.events!.onWeekDayDblClick, null! );
+            options.events!.onStatisticClick = Default.getFunction( options.events!.onStatisticClick, null! );
+            options.events!.onStatisticDblClick = Default.getFunction( options.events!.onStatisticDblClick, null! );
+
             return options.events!;
         }
     }
