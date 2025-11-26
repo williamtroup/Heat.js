@@ -762,14 +762,8 @@ div.heat-js div.chart-contents div.chart div.y-labels {
   padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
   position: sticky;
   left: 0;
-  display: none;
   border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   z-index: 50;
-}
-@media (min-width: 768px) {
-  div.heat-js div.chart-contents div.chart div.y-labels {
-    display: block;
-  }
 }
 div.heat-js div.chart-contents div.chart div.y-labels div.label-0,
 div.heat-js div.chart-contents div.chart div.y-labels div.label-25,
@@ -894,14 +888,8 @@ div.heat-js div.days-contents div.days div.y-labels {
   padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
   position: sticky;
   left: 0;
-  display: none;
   border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   z-index: 50;
-}
-@media (min-width: 768px) {
-  div.heat-js div.days-contents div.days div.y-labels {
-    display: block;
-  }
 }
 div.heat-js div.days-contents div.days div.y-labels div.label-0,
 div.heat-js div.days-contents div.days div.y-labels div.label-25,
@@ -1035,14 +1023,8 @@ div.heat-js div.statistics-contents div.statistics div.y-labels {
   padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
   position: sticky;
   left: 0;
-  display: none;
   border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   z-index: 50;
-}
-@media (min-width: 768px) {
-  div.heat-js div.statistics-contents div.statistics div.y-labels {
-    display: block;
-  }
 }
 div.heat-js div.statistics-contents div.statistics div.y-labels div.label-0,
 div.heat-js div.statistics-contents div.statistics div.y-labels div.label-25,
