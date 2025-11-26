@@ -515,6 +515,7 @@ var Binding;
             e.title.showTitleDropDownHeaders = Default2.getBoolean(e.title.showTitleDropDownHeaders, true);
             e.title.showCurrentYearButton = Default2.getBoolean(e.title.showCurrentYearButton, true);
             e.title.showSectionText = Default2.getBoolean(e.title.showSectionText, true);
+            e.title.showToolTips = Default2.getBoolean(e.title.showToolTips, true);
             return e.title;
         }
         function l(e) {
@@ -530,6 +531,7 @@ var Binding;
             e.guide.colorRangeTogglesEnabled = Default2.getBoolean(e.guide.colorRangeTogglesEnabled, true);
             e.guide.showLessAndMoreLabels = Default2.getBoolean(e.guide.showLessAndMoreLabels, true);
             e.guide.showNumbersInGuide = Default2.getBoolean(e.guide.showNumbersInGuide, false);
+            e.guide.showToolTips = Default2.getBoolean(e.guide.showToolTips, true);
             return e.guide;
         }
         function u(e) {
@@ -825,7 +827,7 @@ var Disabled;
         }
         ToolTip.renderControl(e);
         f(e);
-        y(e, n);
+        p(e, n);
         if (e.views.chart.enabled) {
             T(e, n);
             e._currentView.chartContents.style.display = "none";
@@ -995,16 +997,22 @@ var Disabled;
             if (t.title.showImportButton && !t._currentView.isInFetchMode) {
                 const i = DomElement.createWithHTML(n, "button", "import", e.text.importButtonSymbolText);
                 i.onclick = () => re(t);
-                ToolTip.add(i, t, e.text.importButtonText);
+                if (t.title.showToolTips) {
+                    ToolTip.add(i, t, e.text.importButtonText);
+                }
             }
             if (t.title.showExportButton) {
                 const i = DomElement.createWithHTML(n, "button", "export", e.text.exportButtonSymbolText);
                 i.onclick = () => ue(t);
-                ToolTip.add(i, t, e.text.exportButtonText);
+                if (t.title.showToolTips) {
+                    ToolTip.add(i, t, e.text.exportButtonText);
+                }
             }
             if (t.title.showRefreshButton) {
                 const i = DomElement.createWithHTML(n, "button", "refresh", e.text.refreshButtonSymbolText);
-                ToolTip.add(i, t, e.text.refreshButtonText);
+                if (t.title.showToolTips) {
+                    ToolTip.add(i, t, e.text.refreshButtonText);
+                }
                 i.onclick = () => {
                     l(t);
                     Trigger.customEvent(t.events.onRefresh, t._currentView.element);
@@ -1013,7 +1021,9 @@ var Disabled;
             if (t.title.showYearSelector) {
                 const i = DomElement.createWithHTML(n, "button", "back", e.text.backButtonSymbolText);
                 i.onclick = () => ve(t);
-                ToolTip.add(i, t, e.text.backButtonText);
+                if (t.title.showToolTips) {
+                    ToolTip.add(i, t, e.text.backButtonText);
+                }
                 if (j(t, t._currentView.year)) {
                     i.disabled = true;
                 }
@@ -1026,11 +1036,15 @@ var Disabled;
                 if (t.title.showConfigurationButton) {
                     let i = DomElement.create(n, "div", "configure");
                     i.onclick = () => u(t);
-                    ToolTip.add(i, t, e.text.configurationToolTipText);
+                    if (t.title.showToolTips) {
+                        ToolTip.add(i, t, e.text.configurationToolTipText);
+                    }
                 }
                 if (t.title.showCurrentYearButton) {
                     const i = DomElement.createWithHTML(n, "button", "current", e.text.currentYearSymbolText);
-                    ToolTip.add(i, t, e.text.currentYearText);
+                    if (t.title.showToolTips) {
+                        ToolTip.add(i, t, e.text.currentYearText);
+                    }
                     i.onclick = () => {
                         t._currentView.year = (new Date).getFullYear() - 1;
                         Te(t, false);
@@ -1039,7 +1053,9 @@ var Disabled;
                 }
                 const o = DomElement.createWithHTML(n, "button", "next", e.text.nextButtonSymbolText);
                 o.onclick = () => Te(t);
-                ToolTip.add(o, t, e.text.nextButtonText);
+                if (t.title.showToolTips) {
+                    ToolTip.add(o, t, e.text.nextButtonText);
+                }
                 if ($(t, t._currentView.year)) {
                     o.disabled = true;
                 }
@@ -1124,7 +1140,7 @@ var Disabled;
         }
         return o;
     }
-    function y(t, n) {
+    function p(t, n) {
         t._currentView.mapContents = DomElement.create(t._currentView.element, "div", "map-contents");
         if (t.views.chart.enabled) {
             v(t);
@@ -1190,7 +1206,7 @@ var Disabled;
                         if (d) {
                             let i = null;
                             if (R(t.views.map.daysToShow, w)) {
-                                i = p(t, u, e - m, n, o, a);
+                                i = y(t, u, e - m, n, o, a);
                             }
                             if ((e + 1) % 7 === 0) {
                                 if (t.views.map.showDaysInReverseOrder) {
@@ -1244,7 +1260,7 @@ var Disabled;
             }
         }
     }
-    function p(e, t, i, o, r, s) {
+    function y(e, t, i, o, r, s) {
         const a = i + 1;
         const l = DomElement.create(t, "div", "day");
         const c = new Date(r, o, a);
@@ -1727,7 +1743,9 @@ var Disabled;
     function L(e, t, n) {
         const i = DomElement.create(t, "div");
         i.className = "day";
-        ToolTip.add(i, e, n.tooltipText);
+        if (e.guide.showToolTips) {
+            ToolTip.add(i, e, n.tooltipText);
+        }
         if (K(e, n.id)) {
             if (e._currentView.view === 1 && Is.definedString(n.mapCssClassName)) {
                 DomElement.addClass(i, n.mapCssClassName);
@@ -2124,7 +2142,7 @@ var Disabled;
             t.style.display = "none";
             t.setAttribute("target", "_blank");
             t.setAttribute("href", `data:${i};charset=utf-8,${encodeURIComponent(n)}`);
-            t.setAttribute("download", ye(e));
+            t.setAttribute("download", pe(e));
             t.click();
             document.body.removeChild(t);
             Trigger.customEvent(e.events.onExport, e._currentView.element);
@@ -2135,11 +2153,11 @@ var Disabled;
         const i = [];
         for (const e in n) {
             if (n.hasOwnProperty(e)) {
-                i.push(De([ pe(e), pe(n[e].toString()) ]));
+                i.push(De([ ye(e), ye(n[e].toString()) ]));
             }
         }
         if (i.length > 0) {
-            i.unshift(De([ pe(e.text.dateText), pe(e.text.countText) ]));
+            i.unshift(De([ ye(e.text.dateText), ye(e.text.countText) ]));
         }
         return i.join("\n");
     }
@@ -2216,7 +2234,7 @@ var Disabled;
         }
         return t;
     }
-    function ye(t) {
+    function pe(t) {
         const n = new Date;
         const i = `${Str.padNumber(n.getDate())}${"-"}${Str.padNumber(n.getMonth() + 1)}${"-"}${n.getFullYear()}`;
         const o = `${Str.padNumber(n.getHours())}${"-"}${Str.padNumber(n.getMinutes())}`;
@@ -2226,7 +2244,7 @@ var Disabled;
         }
         return `${r}${i}${"_"}${o}.${t.exportType.toLowerCase()}`;
     }
-    function pe(e) {
+    function ye(e) {
         let t = e.toString().replace(/(\r\n|\n|\r)/gm, "").replace(/(\s\s)/gm, " ");
         t = t.replace(/"/g, '""');
         t = `"${t}"`;

@@ -216,6 +216,7 @@ export namespace Binding {
             options.title!.showTitleDropDownHeaders = Default.getBoolean( options.title!.showTitleDropDownHeaders, true );
             options.title!.showCurrentYearButton = Default.getBoolean( options.title!.showCurrentYearButton, true );
             options.title!.showSectionText = Default.getBoolean( options.title!.showSectionText, true );
+            options.title!.showToolTips = Default.getBoolean( options.title!.showToolTips, true );
 
             return options.title!;
         }
@@ -235,7 +236,8 @@ export namespace Binding {
             options.guide!.colorRangeTogglesEnabled = Default.getBoolean( options.guide!.colorRangeTogglesEnabled, true );
             options.guide!.showLessAndMoreLabels = Default.getBoolean( options.guide!.showLessAndMoreLabels, true );
             options.guide!.showNumbersInGuide = Default.getBoolean( options.guide!.showNumbersInGuide, false );
-    
+            options.guide!.showToolTips = Default.getBoolean( options.guide!.showToolTips, true );
+
             return options.guide!;
         }
     

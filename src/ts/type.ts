@@ -206,6 +206,7 @@ export type BindingOptionsTitle = {
     showTitleDropDownHeaders?: boolean;
     showCurrentYearButton?: boolean;
     showSectionText?: boolean;
+    showToolTips?: boolean;
 };
 
 export type BindingOptionsDescription = {
@@ -219,6 +220,7 @@ export type BindingOptionsGuide = {
     colorRangeTogglesEnabled?: boolean;
     showLessAndMoreLabels?: boolean;
     showNumbersInGuide?: boolean;
+    showToolTips?: boolean;
 };
 
 export type BindingOptionsTooltip = {

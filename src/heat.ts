@@ -409,20 +409,26 @@ type LargestValuesForEachRangeType = {
                 const importData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "import", _configuration.text!.importButtonSymbolText! );
                 importData.onclick = () => importFromFilesSelected( bindingOptions );
 
-                ToolTip.add( importData, bindingOptions, _configuration.text!.importButtonText! );
+                if ( bindingOptions.title!.showToolTips ) {
+                    ToolTip.add( importData, bindingOptions, _configuration.text!.importButtonText! );
+                }
             }
 
             if ( bindingOptions.title!.showExportButton ) {
                 const exportData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "export", _configuration.text!.exportButtonSymbolText! );
                 exportData.onclick = () => exportAllData( bindingOptions );
 
-                ToolTip.add( exportData, bindingOptions, _configuration.text!.exportButtonText! );
+                if ( bindingOptions.title!.showToolTips ) {
+                    ToolTip.add( exportData, bindingOptions, _configuration.text!.exportButtonText! );
+                }
             }
 
             if ( bindingOptions.title!.showRefreshButton ) {
                 const refresh: HTMLElement = DomElement.createWithHTML( titleBar, "button", "refresh", _configuration.text!.refreshButtonSymbolText! );
 
-                ToolTip.add( refresh, bindingOptions, _configuration.text!.refreshButtonText! );
+                if ( bindingOptions.title!.showToolTips ) {
+                    ToolTip.add( refresh, bindingOptions, _configuration.text!.refreshButtonText! );
+                }
         
                 refresh.onclick = () => {
                     renderControlContainer( bindingOptions );
@@ -434,7 +440,9 @@ type LargestValuesForEachRangeType = {
                 const back: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "back", _configuration.text!.backButtonSymbolText! ) as HTMLInputElement;
                 back.onclick = () => moveToPreviousYear( bindingOptions );
 
-                ToolTip.add( back, bindingOptions, _configuration.text!.backButtonText! );
+                if ( bindingOptions.title!.showToolTips ) {
+                    ToolTip.add( back, bindingOptions, _configuration.text!.backButtonText! );
+                }
 
                 if ( isFirstVisibleYear( bindingOptions, bindingOptions._currentView.year ) ) {
                     back.disabled = true;
@@ -452,13 +460,17 @@ type LargestValuesForEachRangeType = {
                     let configureButton: HTMLElement = DomElement.create( titleBar, "div", "configure" );
                     configureButton.onclick = () => showConfigurationDialog( bindingOptions );
 
-                    ToolTip.add( configureButton, bindingOptions, _configuration.text!.configurationToolTipText! );
+                    if ( bindingOptions.title!.showToolTips ) {
+                        ToolTip.add( configureButton, bindingOptions, _configuration.text!.configurationToolTipText! );
+                    }
                 }
 
                 if ( bindingOptions.title!.showCurrentYearButton ) {
                     const current: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "current", _configuration.text!.currentYearSymbolText! ) as HTMLInputElement;
 
-                    ToolTip.add( current, bindingOptions, _configuration.text!.currentYearText! );
+                    if ( bindingOptions.title!.showToolTips ) {
+                        ToolTip.add( current, bindingOptions, _configuration.text!.currentYearText! );
+                    }
     
                     current.onclick = () => {
                         bindingOptions._currentView.year = new Date().getFullYear() - 1;
@@ -471,7 +483,9 @@ type LargestValuesForEachRangeType = {
                 const next: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "next", _configuration.text!.nextButtonSymbolText! ) as HTMLInputElement;
                 next.onclick = () => moveToNextYear( bindingOptions );
 
-                ToolTip.add( next, bindingOptions, _configuration.text!.nextButtonText! );
+                if ( bindingOptions.title!.showToolTips ) {
+                    ToolTip.add( next, bindingOptions, _configuration.text!.nextButtonText! );
+                }
 
                 if ( isLastVisibleYear( bindingOptions, bindingOptions._currentView.year ) ) {
                     next.disabled = true;
@@ -1404,7 +1418,9 @@ type LargestValuesForEachRangeType = {
         const day: HTMLElement = DomElement.create( days, "div" );
         day.className = "day";
 
-        ToolTip.add( day, bindingOptions, colorRange.tooltipText! );
+        if ( bindingOptions.guide!.showToolTips ) {
+            ToolTip.add( day, bindingOptions, colorRange.tooltipText! );
+        }
 
         if ( isColorRangeVisible( bindingOptions, colorRange.id! ) ) {
             if ( bindingOptions._currentView.view === ViewId.map && Is.definedString( colorRange.mapCssClassName ) ) {
