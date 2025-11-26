@@ -822,8 +822,10 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   vertical-align: bottom;
   min-width: var(--heat-js-day-chart-width);
   margin-right: 1px;
-  display: inline-block;
+  display: inline-flex;
   transition: var(--heat-js-transition);
+  align-items: center;
+  justify-content: center;
 }
 @media (min-width: 768px) {
   div.heat-js div.chart-contents div.chart div.day-lines div.day-line:first-child {
@@ -949,9 +951,9 @@ div.heat-js div.days-contents div.days div.day-lines div.day-line-number {
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line-number div.count {
   position: absolute;
-  top: calc(var(--heat-js-spacing) / 2);
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   color: var(--heat-js-view-days-text-color);
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line {
@@ -1090,9 +1092,9 @@ div.heat-js div.statistics-contents div.statistics div.range-lines div.range-lin
 }
 div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line-number div.count {
   position: absolute;
-  top: calc(var(--heat-js-spacing) / 2);
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
 }
 div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line {
   border-top-left-radius: var(--heat-js-border-radius-day);
