@@ -48,4 +48,5 @@ export const enum ExportType {
     txt = "txt",
     html = "html",
     md = "md",
+    tsv = "tsv",
 }

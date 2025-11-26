@@ -1992,6 +1992,8 @@ type LargestValuesForEachRangeType = {
             contents = getHtmlContents( bindingOptions );
         } else if ( contentExportType === ExportType.md ) {
             contents = getMdContents( bindingOptions );
+        } else if ( contentExportType === ExportType.tsv ) {
+            contents = getTsvContents( bindingOptions );
         }
 
         if ( Is.definedString( contents ) ) {
@@ -2094,12 +2096,27 @@ type LargestValuesForEachRangeType = {
         const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
         const contents: string[] = [];
 
-        contents.push("| Full Date | Count |");
-        contents.push("| --- | --- |");
+        contents.push( "| Full Date | Count |" );
+        contents.push( "| --- | --- |" );
 
         for ( const storageDate in typeDateCounts ) {
             if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                 contents.push( `| ${storageDate} | ${typeDateCounts[storageDate].toString()} |` );
+            }
+        }
+
+        return contents.join( Char.newLine );
+    }
+
+    function getTsvContents( bindingOptions: BindingOptions ) : string {
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
+        const contents: string[] = [];
+
+        contents.push( "Full Date\tCount" );
+
+        for ( const storageDate in typeDateCounts ) {
+            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                contents.push( `${storageDate}\t${typeDateCounts[storageDate].toString()}` );
             }
         }
 
@@ -2163,6 +2180,8 @@ type LargestValuesForEachRangeType = {
             result = "text/html";
         } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.md ) {
             result = "text/x-markdown";
+        } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.tsv ) {
+            result = "text/tab-separated-values";
         }
 
         return result;

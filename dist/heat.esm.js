@@ -1023,7 +1023,7 @@ var Disabled;
             }
             if (t.title.showYearSelector) {
                 const i = DomElement.createWithHTML(n, "button", "back", e.text.backButtonSymbolText);
-                i.onclick = () => xe(t);
+                i.onclick = () => be(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(i, t, e.text.backButtonText);
                 }
@@ -1050,12 +1050,12 @@ var Disabled;
                     }
                     i.onclick = () => {
                         t._currentView.year = (new Date).getFullYear() - 1;
-                        be(t, false);
+                        Se(t, false);
                         Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                     };
                 }
                 const o = DomElement.createWithHTML(n, "button", "next", e.text.nextButtonSymbolText);
-                o.onclick = () => be(t);
+                o.onclick = () => Se(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(o, t, e.text.nextButtonText);
                 }
@@ -1706,7 +1706,7 @@ var Disabled;
                     if (s === 0 && t._currentView.type === e.text.unknownTrendText) {
                         t._currentView.type = i;
                     }
-                    N(t, o, i);
+                    O(t, o, i);
                 }
             }
         } else {
@@ -1726,7 +1726,7 @@ var Disabled;
             const s = ne(t);
             const r = s.length;
             for (let e = 0; e < r; e++) {
-                O(t, o, s[e]);
+                N(t, o, s[e]);
             }
             if (t.guide.showLessAndMoreLabels) {
                 const i = DomElement.createWithHTML(n, "div", "more-text", e.text.moreText);
@@ -1738,7 +1738,7 @@ var Disabled;
             }
         }
     }
-    function N(e, t, n) {
+    function O(e, t, n) {
         const i = DomElement.createWithHTML(t, "button", "type", n);
         if (e._currentView.type === n) {
             DomElement.addClass(i, "active");
@@ -1751,7 +1751,7 @@ var Disabled;
             }
         };
     }
-    function O(e, t, n) {
+    function N(e, t, n) {
         const i = DomElement.create(t, "div");
         i.className = "day";
         if (e.guide.showToolTips) {
@@ -2137,7 +2137,7 @@ var Disabled;
     }
     function ue(e, t = null) {
         let n = null;
-        const i = ye(e);
+        const i = De(e);
         const o = Default2.getString(t, e.exportType).toLowerCase();
         if (o === "csv") {
             n = de(e);
@@ -2151,36 +2151,38 @@ var Disabled;
             n = ge(e);
         } else if (o === "md") {
             n = he(e);
+        } else if (o === "tsv") {
+            n = pe(e);
         }
         if (Is.definedString(n)) {
             const t = DomElement.create(document.body, "a");
             t.style.display = "none";
             t.setAttribute("target", "_blank");
             t.setAttribute("href", `data:${i};charset=utf-8,${encodeURIComponent(n)}`);
-            t.setAttribute("download", De(e));
+            t.setAttribute("download", ve(e));
             t.click();
             document.body.removeChild(t);
             Trigger.customEvent(e.events.onExport, e._currentView.element);
         }
     }
     function de(t) {
-        const n = pe(t);
+        const n = ye(t);
         const i = [];
         for (const e in n) {
             if (n.hasOwnProperty(e)) {
-                i.push(Te([ ve(e), ve(n[e].toString()) ]));
+                i.push(xe([ Te(e), Te(n[e].toString()) ]));
             }
         }
         if (i.length > 0) {
-            i.unshift(Te([ ve(e.text.dateText), ve(e.text.countText) ]));
+            i.unshift(xe([ Te(e.text.dateText), Te(e.text.countText) ]));
         }
         return i.join("\n");
     }
     function fe(e) {
-        return JSON.stringify(pe(e));
+        return JSON.stringify(ye(e));
     }
     function me(e) {
-        const t = pe(e);
+        const t = ye(e);
         const n = [];
         n.push('<?xml version="1.0" ?>');
         n.push("<Dates>");
@@ -2196,7 +2198,7 @@ var Disabled;
         return n.join("\n");
     }
     function we(e) {
-        const t = pe(e);
+        const t = ye(e);
         const n = [];
         for (const e in t) {
             if (t.hasOwnProperty(e)) {
@@ -2206,7 +2208,7 @@ var Disabled;
         return n.join("\n");
     }
     function ge(t) {
-        const n = pe(t);
+        const n = ye(t);
         const i = [];
         const o = DateTime.getCustomFormattedDateText(e, "{ddd}, {dd} {mmm} {yyyy}", new Date);
         i.push("<!DOCTYPE html>");
@@ -2228,7 +2230,7 @@ var Disabled;
         return i.join("\n");
     }
     function he(e) {
-        const t = pe(e);
+        const t = ye(e);
         const n = [];
         n.push("| Full Date | Count |");
         n.push("| --- | --- |");
@@ -2240,6 +2242,17 @@ var Disabled;
         return n.join("\n");
     }
     function pe(e) {
+        const t = ye(e);
+        const n = [];
+        n.push("Full Date\tCount");
+        for (const e in t) {
+            if (t.hasOwnProperty(e)) {
+                n.push(`${e}\t${t[e].toString()}`);
+            }
+        }
+        return n.join("\n");
+    }
+    function ye(e) {
         const t = {};
         const n = H(e);
         if (e.exportOnlyYearBeingViewed) {
@@ -2270,7 +2283,7 @@ var Disabled;
         }
         return t;
     }
-    function ye(e) {
+    function De(e) {
         let t = null;
         if (e.exportType.toLowerCase() === "csv") {
             t = "text/csv";
@@ -2284,10 +2297,12 @@ var Disabled;
             t = "text/html";
         } else if (e.exportType.toLowerCase() === "md") {
             t = "text/x-markdown";
+        } else if (e.exportType.toLowerCase() === "tsv") {
+            t = "text/tab-separated-values";
         }
         return t;
     }
-    function De(t) {
+    function ve(t) {
         const n = new Date;
         const i = `${Str.padNumber(n.getDate())}${"-"}${Str.padNumber(n.getMonth() + 1)}${"-"}${n.getFullYear()}`;
         const o = `${Str.padNumber(n.getHours())}${"-"}${Str.padNumber(n.getMinutes())}`;
@@ -2297,16 +2312,16 @@ var Disabled;
         }
         return `${s}${i}${"_"}${o}.${t.exportType.toLowerCase()}`;
     }
-    function ve(e) {
+    function Te(e) {
         let t = e.toString().replace(/(\r\n|\n|\r)/gm, "").replace(/(\s\s)/gm, " ");
         t = t.replace(/"/g, '""');
         t = `"${t}"`;
         return t;
     }
-    function Te(e) {
+    function xe(e) {
         return e.join(",");
     }
-    function xe(e, t = true) {
+    function be(e, t = true) {
         let n = true;
         let i = e._currentView.year;
         i--;
@@ -2325,7 +2340,7 @@ var Disabled;
             }
         }
     }
-    function be(e, t = true) {
+    function Se(e, t = true) {
         let n = true;
         let i = e._currentView.year;
         i++;
@@ -2344,7 +2359,7 @@ var Disabled;
             }
         }
     }
-    function Se(e) {
+    function Ve(e) {
         e._currentView.element.innerHTML = "";
         DomElement.removeClass(e._currentView.element, "heat-js");
         ToolTip.assignToEvents(e, false);
@@ -2354,11 +2369,11 @@ var Disabled;
         }
         Trigger.customEvent(e.events.onDestroy, e._currentView.element);
     }
-    function Ve() {
+    function Ce() {
         if (e.observationMode) {
             if (!Is.defined(t)) {
                 t = new MutationObserver((e, t) => {
-                    Ce.renderAll();
+                    _e.renderAll();
                 });
                 const e = {
                     attributes: true,
@@ -2372,7 +2387,7 @@ var Disabled;
             t = null;
         }
     }
-    const Ce = {
+    const _e = {
         addDates: function(t, i, o = null, s = true) {
             if (Is.definedString(t) && Is.definedArray(i) && n.hasOwnProperty(t)) {
                 const r = n[t].options;
@@ -2380,14 +2395,14 @@ var Disabled;
                     o = Default2.getString(o, e.text.unknownTrendText);
                     const n = i.length;
                     for (let e = 0; e < n; e++) {
-                        Ce.addDate(t, i[e], o, false);
+                        _e.addDate(t, i[e], o, false);
                     }
                     if (s) {
                         l(r, true);
                     }
                 }
             }
-            return Ce;
+            return _e;
         },
         addDate: function(t, i, o = null, s = true) {
             if (Is.definedString(t) && Is.definedDate(i) && n.hasOwnProperty(t)) {
@@ -2409,7 +2424,7 @@ var Disabled;
                     }
                 }
             }
-            return Ce;
+            return _e;
         },
         updateDate: function(t, i, o, s = null, r = true) {
             if (Is.definedString(t) && Is.definedDate(i) && n.hasOwnProperty(t)) {
@@ -2426,7 +2441,7 @@ var Disabled;
                     }
                 }
             }
-            return Ce;
+            return _e;
         },
         removeDates: function(t, i, o = null, s = true) {
             if (Is.definedString(t) && Is.definedArray(i) && n.hasOwnProperty(t)) {
@@ -2435,14 +2450,14 @@ var Disabled;
                     o = Default2.getString(o, e.text.unknownTrendText);
                     const n = i.length;
                     for (let e = 0; e < n; e++) {
-                        Ce.removeDate(t, i[e], o, false);
+                        _e.removeDate(t, i[e], o, false);
                     }
                     if (s) {
                         l(r, true);
                     }
                 }
             }
-            return Ce;
+            return _e;
         },
         removeDate: function(t, i, o = null, s = true) {
             if (Is.definedString(t) && Is.definedDate(i) && n.hasOwnProperty(t)) {
@@ -2461,7 +2476,7 @@ var Disabled;
                     }
                 }
             }
-            return Ce;
+            return _e;
         },
         clearDate: function(t, i, o = null, s = true) {
             if (Is.definedString(t) && Is.definedDate(i) && n.hasOwnProperty(t)) {
@@ -2478,15 +2493,15 @@ var Disabled;
                     }
                 }
             }
-            return Ce;
+            return _e;
         },
         resetAll: function(e = true) {
             for (const t in n) {
                 if (n.hasOwnProperty(t)) {
-                    Ce.reset(t, e);
+                    _e.reset(t, e);
                 }
             }
-            return Ce;
+            return _e;
         },
         reset: function(t, i = true) {
             if (Is.definedString(t) && n.hasOwnProperty(t)) {
@@ -2500,7 +2515,7 @@ var Disabled;
                     }
                 }
             }
-            return Ce;
+            return _e;
         },
         import: function(e, t = null) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
@@ -2510,13 +2525,13 @@ var Disabled;
                     se(n[e].options);
                 }
             }
-            return Ce;
+            return _e;
         },
         export: function(e, t = null) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
                 ue(n[e].options, t);
             }
-            return Ce;
+            return _e;
         },
         refresh: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
@@ -2524,7 +2539,7 @@ var Disabled;
                 l(t, true);
                 Trigger.customEvent(t.events.onRefresh, t._currentView.element);
             }
-            return Ce;
+            return _e;
         },
         refreshAll: function() {
             for (const e in n) {
@@ -2534,20 +2549,20 @@ var Disabled;
                     Trigger.customEvent(t.events.onRefresh, t._currentView.element);
                 }
             }
-            return Ce;
+            return _e;
         },
         setYear: function(e, t) {
             if (Is.definedString(e) && Is.definedNumber(t) && n.hasOwnProperty(e)) {
                 const i = n[e].options;
                 i._currentView.year = t;
                 if (!Y(i, i._currentView.year)) {
-                    be(i, false);
+                    Se(i, false);
                 } else {
                     l(i);
                 }
                 Trigger.customEvent(i.events.onSetYear, i._currentView.year);
             }
-            return Ce;
+            return _e;
         },
         setYearToHighest: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
@@ -2562,14 +2577,14 @@ var Disabled;
                 if (o > 0) {
                     t._currentView.year = o;
                     if (!Y(t, t._currentView.year)) {
-                        be(t, false);
+                        Se(t, false);
                     } else {
                         l(t);
                     }
                     Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                 }
             }
-            return Ce;
+            return _e;
         },
         setYearToLowest: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
@@ -2584,39 +2599,39 @@ var Disabled;
                 if (o < 9999) {
                     t._currentView.year = o;
                     if (!Y(t, t._currentView.year)) {
-                        xe(t, false);
+                        be(t, false);
                     } else {
                         l(t);
                     }
                     Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                 }
             }
-            return Ce;
+            return _e;
         },
         moveToPreviousYear: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                xe(n[e].options);
+                be(n[e].options);
             }
-            return Ce;
+            return _e;
         },
         moveToNextYear: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                be(n[e].options);
+                Se(n[e].options);
             }
-            return Ce;
+            return _e;
         },
         moveToCurrentYear: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
                 const t = n[e].options;
                 t._currentView.year = (new Date).getFullYear();
                 if (!Y(t, t._currentView.year)) {
-                    be(t, false);
+                    Se(t, false);
                 } else {
                     l(t);
                 }
                 Trigger.customEvent(t.events.onSetYear, t._currentView.year);
             }
-            return Ce;
+            return _e;
         },
         getYear: function(e) {
             let t = -1;
@@ -2630,11 +2645,11 @@ var Disabled;
             if (Is.definedObject(t) && Is.definedObject(n)) {
                 a(Binding.Options.getForNewInstance(e, n, t));
             }
-            return Ce;
+            return _e;
         },
         renderAll: function() {
             s();
-            return Ce;
+            return _e;
         },
         switchView: function(e, t) {
             if (Is.definedString(e) && Is.definedString(t) && n.hasOwnProperty(e)) {
@@ -2657,7 +2672,7 @@ var Disabled;
                     l(i, false, true);
                 }
             }
-            return Ce;
+            return _e;
         },
         switchType: function(e, t) {
             if (Is.definedString(e) && Is.definedString(t) && n.hasOwnProperty(e) && n[e].typeData.hasOwnProperty(t)) {
@@ -2668,7 +2683,7 @@ var Disabled;
                     l(i);
                 }
             }
-            return Ce;
+            return _e;
         },
         updateOptions: function(e, t) {
             if (Is.definedString(e) && Is.definedObject(t) && n.hasOwnProperty(e)) {
@@ -2687,23 +2702,23 @@ var Disabled;
                     Trigger.customEvent(i.events.onOptionsUpdate, i._currentView.element, i);
                 }
             }
-            return Ce;
+            return _e;
         },
         destroyAll: function() {
             for (const e in n) {
                 if (n.hasOwnProperty(e)) {
-                    Se(n[e].options);
+                    Ve(n[e].options);
                 }
             }
             n = {};
-            return Ce;
+            return _e;
         },
         destroy: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                Se(n[e].options);
+                Ve(n[e].options);
                 delete n[e];
             }
-            return Ce;
+            return _e;
         },
         setConfiguration: function(t, n = true) {
             if (Is.definedObject(t)) {
@@ -2717,13 +2732,13 @@ var Disabled;
                 }
                 if (i) {
                     e = Config.Options.get(o);
-                    Ve();
+                    Ce();
                     if (n) {
-                        Ce.refreshAll();
+                        _e.refreshAll();
                     }
                 }
             }
-            return Ce;
+            return _e;
         },
         getIds: function() {
             const e = [];
@@ -2741,12 +2756,12 @@ var Disabled;
     (() => {
         e = Config.Options.get();
         document.addEventListener("DOMContentLoaded", () => {
-            Ve();
+            Ce();
             s();
         });
         window.addEventListener("pagehide", () => q());
         if (!Is.defined(window.$heat)) {
-            window.$heat = Ce;
+            window.$heat = _e;
         }
     })();
 })();//# sourceMappingURL=heat.esm.js.map
