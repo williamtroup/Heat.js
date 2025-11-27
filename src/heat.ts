@@ -1067,7 +1067,7 @@ type LargestValuesForEachRangeType = {
             for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                 const date: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
                 const storageDate: string = DateTime.toStorageDate( date );
-                const weekdayNumber: number = DateTime.getWeekdayNumber( date );
+                const weekdayNumber: number = DateTime.getWeekdayNumber( date ) + 1;
 
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                     if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) && isDayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {

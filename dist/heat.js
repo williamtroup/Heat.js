@@ -1505,7 +1505,7 @@ var Disabled;
             for (let i = 0; i < a; i++) {
                 const o = new Date(r, s, i + 1);
                 const a = DateTime.toStorageDate(o);
-                const l = DateTime.getWeekdayNumber(o);
+                const l = DateTime.getWeekdayNumber(o) + 1;
                 if (n.hasOwnProperty(a)) {
                     if (W(e.views.chart.monthsToShow, s) && R(e.views.chart.daysToShow, l)) {
                         t = Math.max(t, n[a]);
