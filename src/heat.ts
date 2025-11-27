@@ -920,7 +920,10 @@ type LargestValuesForEachRangeType = {
                     totalMonths++;
 
                     for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                        if ( isDayVisible( bindingOptions.views!.chart!.daysToShow!, actualDay ) ) {
+                        const actualDate: Date = new Date( actualYear, actualMonthIndex, actualDay );
+                        const weekdayNumber: number = DateTime.getWeekdayNumber( actualDate ) + 1;
+                        
+                        if ( isDayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
                             renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, pixelsPerNumbers );
                         }
         

@@ -1393,7 +1393,9 @@ var Disabled;
                     let l = 1;
                     i++;
                     for (let i = 0; i < e; i++) {
-                        if (R(t.views.chart.daysToShow, l)) {
+                        const e = new Date(c, a, l);
+                        const u = DateTime.getWeekdayNumber(e) + 1;
+                        if (R(t.views.chart.daysToShow, u)) {
                             x(s, t, i + 1, a, c, r, n);
                         }
                         if ((i + 1) % 7 === 0) {
