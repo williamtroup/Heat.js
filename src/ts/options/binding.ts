@@ -289,6 +289,7 @@ export namespace Binding {
             options.views!.chart!.keepScrollPositions = Default.getBoolean( options.views!.chart!.keepScrollPositions, false );
             options.views!.chart!.showLineDateNumbers = Default.getBoolean( options.views!.chart!.showLineDateNumbers, false );
             options.views!.chart!.showToolTips = Default.getBoolean( options.views!.chart!.showToolTips, true );
+            options.views!.chart!.useGradients = Default.getBoolean( options.views!.chart!.useGradients, false );
 
             if ( Is.invalidOptionArray( options.views!.chart!.monthsToShow ) ) {
                 options.views!.chart!.monthsToShow = _default_MonthsToShow;
@@ -310,6 +311,7 @@ export namespace Binding {
             options.views!.days!.showDayNumbers = Default.getBoolean( options.views!.days!.showDayNumbers, false );
             options.views!.days!.keepScrollPositions = Default.getBoolean( options.views!.days!.keepScrollPositions, false );
             options.views!.days!.showToolTips = Default.getBoolean( options.views!.days!.showToolTips, true );
+            options.views!.days!.useGradients = Default.getBoolean( options.views!.days!.useGradients, false );
     
             if ( Is.invalidOptionArray( options.views!.days!.monthsToShow ) ) {
                 options.views!.days!.monthsToShow = _default_MonthsToShow;
@@ -332,6 +334,7 @@ export namespace Binding {
             options.views!.statistics!.showInReverseOrder = Default.getBoolean( options.views!.statistics!.showInReverseOrder, false );
             options.views!.statistics!.keepScrollPositions = Default.getBoolean( options.views!.statistics!.keepScrollPositions, false );
             options.views!.statistics!.showToolTips = Default.getBoolean( options.views!.statistics!.showToolTips, true );
+            options.views!.statistics!.useGradients = Default.getBoolean( options.views!.statistics!.useGradients, false );
     
             if ( Is.invalidOptionArray( options.views!.statistics!.monthsToShow ) ) {
                 options.views!.statistics!.monthsToShow = _default_MonthsToShow;

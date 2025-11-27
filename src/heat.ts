@@ -1039,6 +1039,10 @@ type LargestValuesForEachRangeType = {
                 DomElement.addClass( dayLine, useColorRange.cssClassName! );
             }
         }
+
+        if ( bindingOptions.views!.chart!.useGradients ) {
+            DomElement.adGradientEffect( bindingOptions._currentView.element, dayLine );
+        }
     }
 
     function getLargestValueForChartYear( bindingOptions: BindingOptions ) : number {
@@ -1174,6 +1178,10 @@ type LargestValuesForEachRangeType = {
         if ( bindingOptions.views!.days!.showDayNumbers && dayCount > 0 ) {
             DomElement.addClass( dayLine, "day-line-number" );
             DomElement.createWithHTML( dayLine, "div", "count", dayCount.toString() );
+        }
+
+        if ( bindingOptions.views!.days!.useGradients ) {
+            DomElement.adGradientEffect( bindingOptions._currentView.element, dayLine );
         }
     }
 
@@ -1350,6 +1358,10 @@ type LargestValuesForEachRangeType = {
             } else {
                 DomElement.addClass( rangeLine, useColorRange.cssClassName! );
             }
+        }
+
+        if ( bindingOptions.views!.statistics!.useGradients ) {
+            DomElement.adGradientEffect( bindingOptions._currentView.element, rangeLine );
         }
     }
 

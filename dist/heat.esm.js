@@ -293,6 +293,12 @@ var DomElement;
         return a;
     }
     e.createCheckBox = d;
+    function f(t, n) {
+        const i = e.getStyleValueByName(t, "background-color");
+        const o = e.getStyleValueByName(n, "background-color");
+        n.style.background = `linear-gradient(to top, ${i}, ${o})`;
+    }
+    e.adGradientEffect = f;
 })(DomElement || (DomElement = {}));
 
 var ToolTip;
@@ -433,7 +439,7 @@ var Binding;
             t.views.chart = f(t);
             t.views.days = m(t);
             t.views.statistics = w(t);
-            t.events = h(t);
+            t.events = g(t);
             if (t.startMonth > 0) {
                 t.yearsToHide = [];
             }
@@ -576,6 +582,7 @@ var Binding;
             e.views.chart.keepScrollPositions = Default2.getBoolean(e.views.chart.keepScrollPositions, false);
             e.views.chart.showLineDateNumbers = Default2.getBoolean(e.views.chart.showLineDateNumbers, false);
             e.views.chart.showToolTips = Default2.getBoolean(e.views.chart.showToolTips, true);
+            e.views.chart.useGradients = Default2.getBoolean(e.views.chart.useGradients, false);
             if (Is.invalidOptionArray(e.views.chart.monthsToShow)) {
                 e.views.chart.monthsToShow = t;
             }
@@ -593,6 +600,7 @@ var Binding;
             e.views.days.showDayNumbers = Default2.getBoolean(e.views.days.showDayNumbers, false);
             e.views.days.keepScrollPositions = Default2.getBoolean(e.views.days.keepScrollPositions, false);
             e.views.days.showToolTips = Default2.getBoolean(e.views.days.showToolTips, true);
+            e.views.days.useGradients = Default2.getBoolean(e.views.days.useGradients, false);
             if (Is.invalidOptionArray(e.views.days.monthsToShow)) {
                 e.views.days.monthsToShow = t;
             }
@@ -611,6 +619,7 @@ var Binding;
             e.views.statistics.showInReverseOrder = Default2.getBoolean(e.views.statistics.showInReverseOrder, false);
             e.views.statistics.keepScrollPositions = Default2.getBoolean(e.views.statistics.keepScrollPositions, false);
             e.views.statistics.showToolTips = Default2.getBoolean(e.views.statistics.showToolTips, true);
+            e.views.statistics.useGradients = Default2.getBoolean(e.views.statistics.useGradients, false);
             if (Is.invalidOptionArray(e.views.statistics.monthsToShow)) {
                 e.views.statistics.monthsToShow = t;
             }
@@ -619,7 +628,7 @@ var Binding;
             }
             return e.views.statistics;
         }
-        function h(e) {
+        function g(e) {
             e.events = Default2.getObject(e.events, {});
             e.events.onBackYear = Default2.getFunction(e.events.onBackYear, null);
             e.events.onNextYear = Default2.getFunction(e.events.onNextYear, null);
@@ -810,7 +819,7 @@ var Disabled;
     }
     function l(e, t = false, n = false) {
         if (t) {
-            J(e);
+            G(e);
         }
         if (Is.defined(e._currentView.mapContents)) {
             e._currentView.mapContentsScrollLeft = e._currentView.mapContents.scrollLeft;
@@ -1040,7 +1049,7 @@ var Disabled;
                 }
                 t._currentView.yearText = DomElement.createWithHTML(n, "div", "year-text", o);
                 if (t.title.showYearSelectionDropDown) {
-                    h(t);
+                    g(t);
                 } else {
                     DomElement.addClass(t._currentView.yearText, "no-click");
                 }
@@ -1111,7 +1120,7 @@ var Disabled;
             };
         }
     }
-    function h(e) {
+    function g(e) {
         DomElement.create(e._currentView.yearText, "div", "down-arrow");
         const t = DomElement.create(e._currentView.yearText, "div", "years-menu-container");
         const n = DomElement.create(t, "div", "years-menu");
@@ -1124,7 +1133,7 @@ var Disabled;
         t.style.visibility = "hidden";
         for (let t = i - e.title.extraSelectionYears; t < i + e.title.extraSelectionYears; t++) {
             if (P(e, t)) {
-                let s = g(e, n, t, i);
+                let s = h(e, n, t, i);
                 if (!Is.defined(o)) {
                     o = s;
                 }
@@ -1136,7 +1145,7 @@ var Disabled;
         t.style.display = "none";
         t.style.visibility = "visible";
     }
-    function g(e, t, n, i) {
+    function h(e, t, n, i) {
         let o = null;
         const s = e.startMonth === 0 ? n.toString() : `${n} / ${n + 1}`;
         const r = DomElement.createWithHTML(t, "div", "year-menu-item", s);
@@ -1473,6 +1482,9 @@ var Disabled;
                 DomElement.addClass(l, f.cssClassName);
             }
         }
+        if (t.views.chart.useGradients) {
+            DomElement.adGradientEffect(t._currentView.element, l);
+        }
     }
     function b(e) {
         let t = 0;
@@ -1572,6 +1584,9 @@ var Disabled;
         if (i.views.days.showDayNumbers && n > 0) {
             DomElement.addClass(s, "day-line-number");
             DomElement.createWithHTML(s, "div", "count", n.toString());
+        }
+        if (i.views.days.useGradients) {
+            DomElement.adGradientEffect(i._currentView.element, s);
         }
     }
     function _(e) {
@@ -1705,6 +1720,9 @@ var Disabled;
                 DomElement.addClass(r, a.cssClassName);
             }
         }
+        if (i.views.statistics.useGradients) {
+            DomElement.adGradientEffect(i._currentView.element, r);
+        }
     }
     function B(e, t) {
         const n = H(e);
@@ -1765,7 +1783,7 @@ var Disabled;
                     if (s === 0 && t._currentView.type === e.text.unknownTrendText) {
                         t._currentView.type = i;
                     }
-                    O(t, o, i);
+                    N(t, o, i);
                 }
             }
         } else {
@@ -1785,7 +1803,7 @@ var Disabled;
             const s = ne(t);
             const r = s.length;
             for (let e = 0; e < r; e++) {
-                N(t, o, s[e]);
+                O(t, o, s[e]);
             }
             if (t.guide.showLessAndMoreLabels) {
                 const i = DomElement.createWithHTML(n, "div", "more-text", e.text.moreText);
@@ -1797,7 +1815,7 @@ var Disabled;
             }
         }
     }
-    function O(e, t, n) {
+    function N(e, t, n) {
         const i = DomElement.createWithHTML(t, "button", "type", n);
         if (e._currentView.type === n) {
             DomElement.addClass(i, "active");
@@ -1810,7 +1828,7 @@ var Disabled;
             }
         };
     }
-    function N(e, t, n) {
+    function O(e, t, n) {
         const i = DomElement.create(t, "div");
         i.className = "day";
         if (e.guide.showToolTips) {
@@ -1931,15 +1949,15 @@ var Disabled;
             }
         }
     }
-    function J(e) {
+    function G(e) {
         if (e.useLocalStorageForData && window.localStorage) {
             const t = e._currentView.element.id;
-            G(e);
+            J(e);
             const i = JSON.stringify(n[t].typeData);
             window.localStorage.setItem(o + t, i);
         }
     }
-    function G(e) {
+    function J(e) {
         if (e.useLocalStorageForData && window.localStorage) {
             const t = window.localStorage.length;
             const n = [];
@@ -2221,9 +2239,9 @@ var Disabled;
         } else if (o === "xml") {
             n = we(e);
         } else if (o === "txt") {
-            n = he(e);
-        } else if (o === "html") {
             n = ge(e);
+        } else if (o === "html") {
+            n = he(e);
         } else if (o === "md") {
             n = pe(e);
         } else if (o === "tsv") {
@@ -2272,7 +2290,7 @@ var Disabled;
         n.push("</Dates>");
         return n.join("\n");
     }
-    function he(e) {
+    function ge(e) {
         const t = De(e);
         const n = [];
         for (const e in t) {
@@ -2282,7 +2300,7 @@ var Disabled;
         }
         return n.join("\n");
     }
-    function ge(t) {
+    function he(t) {
         const n = De(t);
         const i = [];
         const o = DateTime.getCustomFormattedDateText(e, "{ddd}, {dd} {mmm} {yyyy}", new Date);

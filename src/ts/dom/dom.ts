@@ -140,4 +140,11 @@ export namespace DomElement {
         
         return input;
     }
+
+    export function adGradientEffect( container: HTMLElement, element: HTMLElement ) : void {
+        const backgroundColor: string = DomElement.getStyleValueByName( container, "background-color" ) ;
+        const lineBackgroundColor: string = DomElement.getStyleValueByName( element, "background-color" ) ;
+
+        element.style.background = `linear-gradient(to top, ${backgroundColor}, ${lineBackgroundColor})`;
+    }
 }
