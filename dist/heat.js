@@ -422,7 +422,7 @@ var Binding;
             t.exportOnlyYearBeingViewed = Default2.getBoolean(t.exportOnlyYearBeingViewed, true);
             t.year = Default2.getNumber(t.year, (new Date).getFullYear());
             t.view = Default2.getString(t.view, "map");
-            t.exportType = Default2.getString(t.exportType, "csv");
+            t.exportType = Default2.getString(t.exportType, "json");
             t.useLocalStorageForData = Default2.getBoolean(t.useLocalStorageForData, false);
             t.allowFileImports = Default2.getBoolean(t.allowFileImports, true);
             t.yearsToHide = Default2.getArray(t.yearsToHide, []);

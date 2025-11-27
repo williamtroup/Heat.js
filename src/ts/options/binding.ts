@@ -95,7 +95,7 @@ export namespace Binding {
             options.exportOnlyYearBeingViewed = Default.getBoolean( options.exportOnlyYearBeingViewed, true );
             options.year = Default.getNumber( options.year, new Date().getFullYear() );
             options.view = Default.getString( options.view, ViewName.map );
-            options.exportType = Default.getString( options.exportType, ExportType.csv );
+            options.exportType = Default.getString( options.exportType, ExportType.json );
             options.useLocalStorageForData = Default.getBoolean( options.useLocalStorageForData, false );
             options.allowFileImports = Default.getBoolean( options.allowFileImports, true );
             options.yearsToHide = Default.getArray( options.yearsToHide, [] );
