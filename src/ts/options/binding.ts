@@ -92,7 +92,7 @@ export namespace Binding {
         export function get( newOptions: any ) : BindingOptions {
             const options: BindingOptions = Default.getObject( newOptions, {} as BindingOptions );
             options.views = Default.getObject( options.views, {} as BindingOptionsViews );
-            options.exportOnlyYearBeingViewed = Default.getBoolean( options.exportOnlyYearBeingViewed, true );
+            options.exportOnlyDataBeingViewed = Default.getBoolean( options.exportOnlyDataBeingViewed, true );
             options.year = Default.getNumber( options.year, new Date().getFullYear() );
             options.view = Default.getString( options.view, ViewName.map );
             options.exportType = Default.getString( options.exportType, ExportType.json );

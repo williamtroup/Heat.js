@@ -2238,8 +2238,27 @@ type LargestValuesForEachRangeType = {
         const contents: InstanceTypeDateCount = {} as InstanceTypeDateCount;
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
-        if ( bindingOptions.exportOnlyYearBeingViewed ) {
+        if ( bindingOptions.exportOnlyDataBeingViewed ) {
             const currentYear: number = bindingOptions._currentView.year;
+            let daysToShow: number[] = [];
+            let monthsToShow: number[] = [];
+
+            if ( bindingOptions._currentView.view === ViewId.map ) {
+                daysToShow = bindingOptions.views!.map!.daysToShow!;
+                monthsToShow = bindingOptions.views!.map!.monthsToShow!;
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView.view === ViewId.chart ) {
+                daysToShow = bindingOptions.views!.chart!.daysToShow!;
+                monthsToShow = bindingOptions.views!.chart!.monthsToShow!;
+            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView.view === ViewId.days ) {
+                daysToShow = bindingOptions.views!.days!.daysToShow!;
+                monthsToShow = bindingOptions.views!.days!.monthsToShow!;
+            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView.view === ViewId.statistics ) {
+                daysToShow = bindingOptions.views!.statistics!.daysToShow!;
+                monthsToShow = bindingOptions.views!.statistics!.monthsToShow!;
+            } else {
+                daysToShow = bindingOptions.views!.map!.daysToShow!;
+                monthsToShow = bindingOptions.views!.map!.monthsToShow!;
+            }
 
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
@@ -2250,13 +2269,19 @@ type LargestValuesForEachRangeType = {
                     actualYear++;
                 }
 
-                const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
-        
-                for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                    const storageDate2: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
+                if ( isMonthVisible( monthsToShow, actualMonthIndex ) ) {
+                    const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
+            
+                    for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                        const storageDate: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
+                        const storageDateKey: string = DateTime.toStorageDate( storageDate );
+                        const weekdayNumber: number = DateTime.getWeekdayNumber( storageDate ) + 1;
 
-                    if ( typeDateCounts.hasOwnProperty( storageDate2 ) ) {
-                        contents[ storageDate2 ] = typeDateCounts[ storageDate2 ];
+                        if ( isDayVisible( daysToShow, weekdayNumber ) ) {
+                            if ( typeDateCounts.hasOwnProperty( storageDateKey ) ) {
+                                contents[ storageDateKey ] = typeDateCounts[ storageDateKey ];
+                            }
+                        }
                     }
                 }
             }
@@ -2275,10 +2300,10 @@ type LargestValuesForEachRangeType = {
             const storageDatesLength: number = storageDates.length;
 
             for ( let storageDateIndex: number = 0; storageDateIndex < storageDatesLength; storageDateIndex++ ) {
-                const storageDate3: string = storageDates[ storageDateIndex ];
+                const storageDate2: string = storageDates[ storageDateIndex ];
     
-                if ( typeDateCounts.hasOwnProperty( storageDate3 ) ) {
-                    contents[ storageDate3 ] = typeDateCounts[ storageDate3 ];
+                if ( typeDateCounts.hasOwnProperty( storageDate2 ) ) {
+                    contents[ storageDate2 ] = typeDateCounts[ storageDate2 ];
                 }
             }
         }
