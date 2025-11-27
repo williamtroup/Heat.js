@@ -435,7 +435,10 @@ var Binding;
             t.views.chart = f(t);
             t.views.days = m(t);
             t.views.statistics = w(t);
-            t.events = g(t);
+            t.events = h(t);
+            if (t.startMonth > 0) {
+                t.yearsToHide = [];
+            }
             return t;
         }
         e.get = o;
@@ -618,7 +621,7 @@ var Binding;
             }
             return e.views.statistics;
         }
-        function g(e) {
+        function h(e) {
             e.events = Default2.getObject(e.events, {});
             e.events.onBackYear = Default2.getFunction(e.events.onBackYear, null);
             e.events.onNextYear = Default2.getFunction(e.events.onNextYear, null);
@@ -1039,7 +1042,7 @@ var Disabled;
                 }
                 t._currentView.yearText = DomElement.createWithHTML(n, "div", "year-text", o);
                 if (t.title.showYearSelectionDropDown) {
-                    g(t);
+                    h(t);
                 } else {
                     DomElement.addClass(t._currentView.yearText, "no-click");
                 }
@@ -1110,7 +1113,7 @@ var Disabled;
             };
         }
     }
-    function g(e) {
+    function h(e) {
         DomElement.create(e._currentView.yearText, "div", "down-arrow");
         const t = DomElement.create(e._currentView.yearText, "div", "years-menu-container");
         const n = DomElement.create(t, "div", "years-menu");
@@ -1123,7 +1126,7 @@ var Disabled;
         t.style.visibility = "hidden";
         for (let t = i - e.title.extraSelectionYears; t < i + e.title.extraSelectionYears; t++) {
             if (P(e, t)) {
-                let s = h(e, n, t, i);
+                let s = g(e, n, t, i);
                 if (!Is.defined(o)) {
                     o = s;
                 }
@@ -1135,7 +1138,7 @@ var Disabled;
         t.style.display = "none";
         t.style.visibility = "visible";
     }
-    function h(e, t, n, i) {
+    function g(e, t, n, i) {
         let o = null;
         const s = e.startMonth === 0 ? n.toString() : `${n} / ${n + 1}`;
         const r = DomElement.createWithHTML(t, "div", "year-menu-item", s);
@@ -2220,9 +2223,9 @@ var Disabled;
         } else if (o === "xml") {
             n = we(e);
         } else if (o === "txt") {
-            n = ge(e);
-        } else if (o === "html") {
             n = he(e);
+        } else if (o === "html") {
+            n = ge(e);
         } else if (o === "md") {
             n = pe(e);
         } else if (o === "tsv") {
@@ -2271,7 +2274,7 @@ var Disabled;
         n.push("</Dates>");
         return n.join("\n");
     }
-    function ge(e) {
+    function he(e) {
         const t = De(e);
         const n = [];
         for (const e in t) {
@@ -2281,7 +2284,7 @@ var Disabled;
         }
         return n.join("\n");
     }
-    function he(t) {
+    function ge(t) {
         const n = De(t);
         const i = [];
         const o = DateTime.getCustomFormattedDateText(e, "{ddd}, {dd} {mmm} {yyyy}", new Date);

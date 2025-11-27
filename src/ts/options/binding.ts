@@ -115,6 +115,10 @@ export namespace Binding {
             options.views!.days = getDaysView( options );
             options.views!.statistics = getStatisticsView( options );
             options.events = getCustomTriggers( options );
+
+            if ( options.startMonth > 0 ) {
+                options.yearsToHide = [];
+            }
             
             return options;
         }
