@@ -1,8 +1,8 @@
-# Heat.js v4.4.0
+# Heat.js v4.5.0
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Heat.js%2C%20a%20free%20JavaScript%heat%20map&url=https://github.com/williamtroup/Heat.js&hashtags=javascript,heat,map)
-[![npm](https://img.shields.io/badge/npmjs-v4.4.0-blue)](https://www.npmjs.com/package/jheat.js)
-[![nuget](https://img.shields.io/badge/nuget-v4.4.0-purple)](https://www.nuget.org/packages/jHeat.js/)
+[![npm](https://img.shields.io/badge/npmjs-v4.5.0-blue)](https://www.npmjs.com/package/jheat.js)
+[![nuget](https://img.shields.io/badge/nuget-v4.5.0-purple)](https://www.nuget.org/packages/jHeat.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Heat.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://william-troup.com/)
@@ -22,14 +22,15 @@
 - Configuration dialog support per view.
 - Fully configurable per DOM element.
 - Toggling colors on/off support.
-- Export all data to CSV, JSON, XML, and TXT.
-- Import data from JSON, TXT, and CSV.
+- Export all data to CSV, JSON, XML, TXT, HTML, MD, and TSV.
+- Import data from JSON, TXT, CSV, and TSV.
 - 51 language translations available!
 - Trend types allows data to be split up and viewed separately.
 - Customizable tooltips.
 - 12 additional themes available (for dark and light mode).
 - Data pulling (does not support trend types).
 - Color ranges support different colors per view.
+- Custom year month range support (Jan-Dec, or Apr-Mar).
 
 
 ## Where can I find the documentation?
@@ -115,8 +116,8 @@ Or, you can download the latest zipped up version [here](https://www.william-tro
 Or, you can also use the following CDN links:
 
 ```markdown
-https://cdn.jsdelivr.net/gh/williamtroup/Heat.js@4.4.0/dist/heat.min.js
-https://cdn.jsdelivr.net/gh/williamtroup/Heat.js@4.4.0/dist/heat.js.min.css
+https://cdn.jsdelivr.net/gh/williamtroup/Heat.js@4.5.0/dist/heat.min.js
+https://cdn.jsdelivr.net/gh/williamtroup/Heat.js@4.5.0/dist/heat.js.min.css
 ```
 
 

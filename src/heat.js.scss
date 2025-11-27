@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v4.4.0
+ * Heat.js Library v4.5.0
  *
  * Copyright 2025 Bunoon
  * Released under the MIT License
@@ -349,10 +349,12 @@ div.heat-js {
         @include styles.buttons;
 
         button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             font-weight: var(--heat-js-title-bold-weight);
-            text-align: center;
-            min-width: 30px;
-            min-height: 30px;
+            width: 35px;
+            height: 30px;
         }
 
         button.back {
@@ -598,6 +600,10 @@ div.heat-js {
                 margin-top: $year-margin;
                 z-index: 1000;
 
+                &.custom-start-year {
+                    width: 130px;
+                }
+
                 div.years-menu {
                     border-radius: var(--heat-js-border-radius);
                     background-color: var(--heat-js-years-background-color);
@@ -831,9 +837,11 @@ div.heat-js {
                     border-bottom: none !important;
                     vertical-align: bottom;
                     min-width: var(--heat-js-day-chart-width);
-                    margin-right: 1px;
-                    display: inline-block;
+                    margin-right: 1.5px;
+                    display: inline-flex;
                     transition: var(--heat-js-transition);
+                    align-items: center;
+                    justify-content: center;
 
                     @media (min-width: styles.$minimum-width) { 
                         &:first-child {
@@ -863,16 +871,6 @@ div.heat-js {
                 text-align: left !important;
                 position: absolute;
                 bottom: 0;
-            }
-
-            @media (min-width: styles.$minimum-width) { 
-                div.month-name:first-child {
-                    margin-left: calc( var(--heat-js-spacing) / 2 );
-                }
-            }
-
-            div.month-name:nth-child(2) {
-                margin-left: var(--heat-js-day-chart-width);
             }
 
             div.month-name-space {
@@ -927,9 +925,9 @@ div.heat-js {
 
                     div.count {
                         position: absolute;
-                        top: calc( var(--heat-js-spacing) / 2 );
+                        top: 50%;
                         left: 50%;
-                        transform: translateX( -50% );
+                        transform: translate( -50%, -50% );
                         color: var(--heat-js-view-days-text-color);
                     }
                 }
@@ -1037,9 +1035,9 @@ div.heat-js {
 
                     div.count {
                         position: absolute;
-                        top: calc( var(--heat-js-spacing) / 2 );
+                        top: 50%;
                         left: 50%;
-                        transform: translateX( -50% );
+                        transform: translate( -50%, -50% );
                     }
                 }
 

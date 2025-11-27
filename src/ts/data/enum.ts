@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        enum.ts
- * @version     v4.4.0
+ * @version     v4.5.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -21,6 +21,7 @@ export const enum Char {
     zero = "0",
     colon = ":",
     comma = ",",
+    tab = "\t",
 }
 
 export const enum Value {
@@ -46,4 +47,7 @@ export const enum ExportType {
     json = "json",
     xml = "xml",
     txt = "txt",
+    html = "html",
+    md = "md",
+    tsv = "tsv",
 }

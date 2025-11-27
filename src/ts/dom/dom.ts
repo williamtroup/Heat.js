@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        dom.ts
- * @version     v4.4.0
+ * @version     v4.5.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -139,5 +139,12 @@ export namespace DomElement {
         createWithHTML( label, "span", "text", labelText );
         
         return input;
+    }
+
+    export function adGradientEffect( container: HTMLElement, element: HTMLElement ) : void {
+        const backgroundColor: string = DomElement.getStyleValueByName( container, "background-color" ) ;
+        const lineBackgroundColor: string = DomElement.getStyleValueByName( element, "background-color" ) ;
+
+        element.style.background = `linear-gradient(to top, ${backgroundColor}, ${lineBackgroundColor})`;
     }
 }

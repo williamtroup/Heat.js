@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        binding.ts
- * @version     v4.4.0
+ * @version     v4.5.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -92,10 +92,10 @@ export namespace Binding {
         export function get( newOptions: any ) : BindingOptions {
             const options: BindingOptions = Default.getObject( newOptions, {} as BindingOptions );
             options.views = Default.getObject( options.views, {} as BindingOptionsViews );
-            options.exportOnlyYearBeingViewed = Default.getBoolean( options.exportOnlyYearBeingViewed, true );
+            options.exportOnlyDataBeingViewed = Default.getBoolean( options.exportOnlyDataBeingViewed, true );
             options.year = Default.getNumber( options.year, new Date().getFullYear() );
             options.view = Default.getString( options.view, ViewName.map );
-            options.exportType = Default.getString( options.exportType, ExportType.csv );
+            options.exportType = Default.getString( options.exportType, ExportType.json );
             options.useLocalStorageForData = Default.getBoolean( options.useLocalStorageForData, false );
             options.allowFileImports = Default.getBoolean( options.allowFileImports, true );
             options.yearsToHide = Default.getArray( options.yearsToHide, [] );
@@ -103,7 +103,7 @@ export namespace Binding {
             options.showOnlyDataForYearsAvailable = Default.getBoolean( options.showOnlyDataForYearsAvailable, false );
             options.showHolidaysInDayToolTips = Default.getBoolean( options.showHolidaysInDayToolTips, false );
             options.resizable = Default.getBoolean( options.resizable, false );
-            
+            options.startMonth = Default.getNumber( options.startMonth, 0 );
             options.colorRanges = getColorRanges( options );
             options.holidays = getHolidays( options );
             options.title = getTitle( options );
@@ -115,6 +115,10 @@ export namespace Binding {
             options.views!.days = getDaysView( options );
             options.views!.statistics = getStatisticsView( options );
             options.events = getCustomTriggers( options );
+
+            if ( options.startMonth > 0 ) {
+                options.yearsToHide = [];
+            }
             
             return options;
         }
@@ -216,6 +220,7 @@ export namespace Binding {
             options.title!.showTitleDropDownHeaders = Default.getBoolean( options.title!.showTitleDropDownHeaders, true );
             options.title!.showCurrentYearButton = Default.getBoolean( options.title!.showCurrentYearButton, true );
             options.title!.showSectionText = Default.getBoolean( options.title!.showSectionText, true );
+            options.title!.showToolTips = Default.getBoolean( options.title!.showToolTips, true );
 
             return options.title!;
         }
@@ -235,7 +240,8 @@ export namespace Binding {
             options.guide!.colorRangeTogglesEnabled = Default.getBoolean( options.guide!.colorRangeTogglesEnabled, true );
             options.guide!.showLessAndMoreLabels = Default.getBoolean( options.guide!.showLessAndMoreLabels, true );
             options.guide!.showNumbersInGuide = Default.getBoolean( options.guide!.showNumbersInGuide, false );
-    
+            options.guide!.showToolTips = Default.getBoolean( options.guide!.showToolTips, true );
+
             return options.guide!;
         }
     
@@ -260,6 +266,7 @@ export namespace Binding {
             options.views!.map!.showMonthsInReverseOrder = Default.getBoolean( options.views!.map!.showMonthsInReverseOrder, false );
             options.views!.map!.keepScrollPositions = Default.getBoolean( options.views!.map!.keepScrollPositions, false );
             options.views!.map!.showDayDateNumbers = Default.getBoolean( options.views!.map!.showDayDateNumbers, false );
+            options.views!.map!.showToolTips = Default.getBoolean( options.views!.map!.showToolTips, true );
 
             if ( Is.invalidOptionArray( options.views!.map!.monthsToShow ) ) {
                 options.views!.map!.monthsToShow = _default_MonthsToShow;
@@ -281,6 +288,8 @@ export namespace Binding {
             options.views!.chart!.showInReverseOrder = Default.getBoolean( options.views!.chart!.showInReverseOrder, false );
             options.views!.chart!.keepScrollPositions = Default.getBoolean( options.views!.chart!.keepScrollPositions, false );
             options.views!.chart!.showLineDateNumbers = Default.getBoolean( options.views!.chart!.showLineDateNumbers, false );
+            options.views!.chart!.showToolTips = Default.getBoolean( options.views!.chart!.showToolTips, true );
+            options.views!.chart!.useGradients = Default.getBoolean( options.views!.chart!.useGradients, false );
 
             if ( Is.invalidOptionArray( options.views!.chart!.monthsToShow ) ) {
                 options.views!.chart!.monthsToShow = _default_MonthsToShow;
@@ -301,6 +310,8 @@ export namespace Binding {
             options.views!.days!.showInReverseOrder = Default.getBoolean( options.views!.days!.showInReverseOrder, false );
             options.views!.days!.showDayNumbers = Default.getBoolean( options.views!.days!.showDayNumbers, false );
             options.views!.days!.keepScrollPositions = Default.getBoolean( options.views!.days!.keepScrollPositions, false );
+            options.views!.days!.showToolTips = Default.getBoolean( options.views!.days!.showToolTips, true );
+            options.views!.days!.useGradients = Default.getBoolean( options.views!.days!.useGradients, false );
     
             if ( Is.invalidOptionArray( options.views!.days!.monthsToShow ) ) {
                 options.views!.days!.monthsToShow = _default_MonthsToShow;
@@ -322,6 +333,8 @@ export namespace Binding {
             options.views!.statistics!.showRangeNumbers = Default.getBoolean( options.views!.statistics!.showRangeNumbers, false );
             options.views!.statistics!.showInReverseOrder = Default.getBoolean( options.views!.statistics!.showInReverseOrder, false );
             options.views!.statistics!.keepScrollPositions = Default.getBoolean( options.views!.statistics!.keepScrollPositions, false );
+            options.views!.statistics!.showToolTips = Default.getBoolean( options.views!.statistics!.showToolTips, true );
+            options.views!.statistics!.useGradients = Default.getBoolean( options.views!.statistics!.useGradients, false );
     
             if ( Is.invalidOptionArray( options.views!.statistics!.monthsToShow ) ) {
                 options.views!.statistics!.monthsToShow = _default_MonthsToShow;
@@ -336,7 +349,6 @@ export namespace Binding {
     
         function getCustomTriggers( options : BindingOptions ) : BindingOptionsEvents {
             options.events = Default.getObject( options.events, {} as BindingOptionsEvents );
-            options.events!.onDayClick = Default.getFunction( options.events!.onDayClick, null! );
             options.events!.onBackYear = Default.getFunction( options.events!.onBackYear, null! );
             options.events!.onNextYear = Default.getFunction( options.events!.onNextYear, null! );
             options.events!.onRefresh = Default.getFunction( options.events!.onRefresh, null! );
@@ -353,13 +365,17 @@ export namespace Binding {
             options.events!.onViewSwitch = Default.getFunction( options.events!.onViewSwitch, null! );
             options.events!.onColorRangeTypeToggle = Default.getFunction( options.events!.onColorRangeTypeToggle, null! );
             options.events!.onImport = Default.getFunction( options.events!.onImport, null! );
-            options.events!.onStatisticClick = Default.getFunction( options.events!.onStatisticClick, null! );
             options.events!.onDataFetch = Default.getFunction( options.events!.onDataFetch, null! );
             options.events!.onClear = Default.getFunction( options.events!.onClear, null! );
             options.events!.onUpdate = Default.getFunction( options.events!.onUpdate, null! );
             options.events!.onOptionsUpdate = Default.getFunction( options.events!.onOptionsUpdate, null! );
+            options.events!.onDayClick = Default.getFunction( options.events!.onDayClick, null! );
+            options.events!.onDayDblClick = Default.getFunction( options.events!.onDayDblClick, null! );
             options.events!.onWeekDayClick = Default.getFunction( options.events!.onWeekDayClick, null! );
-    
+            options.events!.onWeekDayDblClick = Default.getFunction( options.events!.onWeekDayDblClick, null! );
+            options.events!.onStatisticClick = Default.getFunction( options.events!.onStatisticClick, null! );
+            options.events!.onStatisticDblClick = Default.getFunction( options.events!.onStatisticDblClick, null! );
+
             return options.events!;
         }
     }

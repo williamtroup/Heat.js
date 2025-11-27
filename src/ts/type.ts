@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        type.ts
- * @version     v4.4.0
+ * @version     v4.5.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -83,7 +83,7 @@ export type ConfigurationText = {
 
 export type BindingOptions = {
     _currentView: BindingOptionsCurrentView,
-    exportOnlyYearBeingViewed?: boolean;
+    exportOnlyDataBeingViewed?: boolean;
     year?: number;
     view?: string;
     exportType?: string;
@@ -94,6 +94,7 @@ export type BindingOptions = {
     showOnlyDataForYearsAvailable?: boolean;
     showHolidaysInDayToolTips?: boolean;
     resizable?: boolean;
+    startMonth?: number;
     colorRanges?: BindingOptionsColorRange[];
     holidays?: BindingOptionsHoliday[];
     title?: BindingOptionsTitle;
@@ -151,6 +152,7 @@ export type BindingOptionsViewsMap = {
     monthsToShow?: number[];
     daysToShow?: number[];
     showDayDateNumbers?: boolean;
+    showToolTips?: boolean;
 };
 
 export type BindingOptionsViewsChart = {
@@ -163,6 +165,8 @@ export type BindingOptionsViewsChart = {
     monthsToShow?: number[];
     daysToShow?: number[];
     showLineDateNumbers?: boolean;
+    showToolTips?: boolean;
+    useGradients?: boolean;
 };
 
 export type BindingOptionsViewsDays = {
@@ -174,6 +178,8 @@ export type BindingOptionsViewsDays = {
     keepScrollPositions?: boolean;
     monthsToShow?: number[];
     daysToShow?: number[];
+    showToolTips?: boolean;
+    useGradients?: boolean;
 };
 
 export type BindingOptionsViewsStatistics = {
@@ -186,6 +192,8 @@ export type BindingOptionsViewsStatistics = {
     keepScrollPositions?: boolean;
     monthsToShow?: number[];
     daysToShow?: number[];
+    showToolTips?: boolean;
+    useGradients?: boolean;
 };
 
 export type BindingOptionsTitle = {
@@ -202,6 +210,7 @@ export type BindingOptionsTitle = {
     showTitleDropDownHeaders?: boolean;
     showCurrentYearButton?: boolean;
     showSectionText?: boolean;
+    showToolTips?: boolean;
 };
 
 export type BindingOptionsDescription = {
@@ -215,6 +224,7 @@ export type BindingOptionsGuide = {
     colorRangeTogglesEnabled?: boolean;
     showLessAndMoreLabels?: boolean;
     showNumbersInGuide?: boolean;
+    showToolTips?: boolean;
 };
 
 export type BindingOptionsTooltip = {
@@ -223,7 +233,6 @@ export type BindingOptionsTooltip = {
 };
 
 export type BindingOptionsEvents = {
-    onDayClick?: ( date: Date, count: number, isHoliday: boolean ) => void;
     onBackYear?: ( year: number ) => void;
     onNextYear?: ( year: number ) => void;
     onRefresh?: ( element: HTMLElement ) => void;
@@ -240,12 +249,16 @@ export type BindingOptionsEvents = {
     onViewSwitch?: ( view: string ) => void;
     onColorRangeTypeToggle?: ( id: string, visible: boolean ) => void;
     onImport?: ( element: HTMLElement ) => void;
-    onStatisticClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
     onDataFetch?: ( element: HTMLElement ) => InstanceTypeDateCount;
     onClear?: ( element: HTMLElement ) => void;
     onUpdate?: ( element: HTMLElement ) => void;
     onOptionsUpdate?: ( element: HTMLElement , options: BindingOptions ) => void;
+    onDayClick?: ( date: Date, count: number, isHoliday: boolean ) => void;
+    onDayDblClick?: ( date: Date, count: number, isHoliday: boolean ) => void;
     onWeekDayClick?: ( dayNumber: number, count: number, year: number ) => void;
+    onWeekDayDblClick?: ( dayNumber: number, count: number, year: number ) => void;
+    onStatisticClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
+    onStatisticDblClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
 };
 
 export type BindingOptionsColorRange = {
