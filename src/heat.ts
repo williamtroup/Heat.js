@@ -903,6 +903,7 @@ type LargestValuesForEachRangeType = {
             const pixelsPerNumbers: number = bindingOptions._currentView.mapContents.offsetHeight / largestValueForCurrentYear;
             let totalMonths: number = 0;
             let totalDays: number = 0;
+            let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
 
             for ( let monthIndex1: number = bindingOptions.startMonth!; monthIndex1 < ( 12 + bindingOptions.startMonth! ); monthIndex1++ ) {
                 let actualMonthIndex: number = monthIndex1;
@@ -916,6 +917,7 @@ type LargestValuesForEachRangeType = {
                 if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) ) {
                     const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
                     let actualDay: number = 1;
+                    let firstDayAdded: boolean = false;
                     
                     totalMonths++;
 
@@ -924,7 +926,12 @@ type LargestValuesForEachRangeType = {
                         const weekdayNumber: number = DateTime.getWeekdayNumber( actualDate ) + 1;
                         
                         if ( isDayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
-                            renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, pixelsPerNumbers );
+                            const dayLine: HTMLElement = renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, pixelsPerNumbers );
+
+                            if ( !firstDayAdded ) {
+                                firstMonthDayLines.push( dayLine );
+                                firstDayAdded = true;
+                            }
                         }
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
@@ -939,12 +946,12 @@ type LargestValuesForEachRangeType = {
 
             if ( bindingOptions.views!.chart!.showInReverseOrder ) {
                 DomElement.reverseChildrenOrder( dayLines );
+                firstMonthDayLines = firstMonthDayLines.reverse();
             }
 
             if ( bindingOptions.views!.chart!.showMonthNames ) {
                 const chartMonths: HTMLElement = DomElement.create( bindingOptions._currentView.chartContents, "div", "chart-months" );
-                const linesWidth: number = dayLines.offsetWidth / totalMonths;
-                let monthTimesValue: number = 0;
+                let monthNameAddedIndex: number = 0;
 
                 const addMonthName: Function = ( addMonthNameIndex: number ) : void => {
                     let actualMonthIndex: number = addMonthNameIndex + bindingOptions.startMonth!;
@@ -963,9 +970,9 @@ type LargestValuesForEachRangeType = {
                         }
 
                         let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", monthNameText );
-                        monthName.style.left = `${labelsWidth + (linesWidth * monthTimesValue)}px`;
+                        monthName.style.left = `${firstMonthDayLines[ monthNameAddedIndex ].offsetLeft}px`;
 
-                        monthTimesValue++;
+                        monthNameAddedIndex++;
                     }
                 };
 
@@ -993,7 +1000,7 @@ type LargestValuesForEachRangeType = {
         }
     }
 
-    function renderControlChartDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number ) : void {
+    function renderControlChartDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number ) : HTMLElement {
         const date: Date = new Date( year, month, day );
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const holiday: IsHoliday = isHoliday( bindingOptions, date );
@@ -1046,6 +1053,8 @@ type LargestValuesForEachRangeType = {
         if ( bindingOptions.views!.chart!.useGradients ) {
             DomElement.adGradientEffect( bindingOptions._currentView.element, dayLine );
         }
+
+        return dayLine;
     }
 
     function getLargestValueForChartYear( bindingOptions: BindingOptions ) : number {

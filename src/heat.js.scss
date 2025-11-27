@@ -873,16 +873,6 @@ div.heat-js {
                 bottom: 0;
             }
 
-            @media (min-width: styles.$minimum-width) { 
-                div.month-name:first-child {
-                    margin-left: calc( var(--heat-js-spacing) / 2 );
-                }
-            }
-
-            div.month-name:nth-child(2) {
-                margin-left: var(--heat-js-day-chart-width);
-            }
-
             div.month-name-space {
                 left: 0;
                 top: 0;

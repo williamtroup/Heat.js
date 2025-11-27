@@ -1379,6 +1379,7 @@ var Disabled;
             const n = t._currentView.mapContents.offsetHeight / a;
             let i = 0;
             let o = 0;
+            let u = [];
             for (let e = t.startMonth; e < 12 + t.startMonth; e++) {
                 let a = e;
                 let c = l;
@@ -1389,12 +1390,17 @@ var Disabled;
                 if (W(t.views.chart.monthsToShow, a)) {
                     const e = DateTime.getTotalDaysInMonth(c, a);
                     let l = 1;
+                    let d = false;
                     i++;
                     for (let i = 0; i < e; i++) {
                         const e = new Date(c, a, l);
-                        const u = DateTime.getWeekdayNumber(e) + 1;
-                        if (R(t.views.chart.daysToShow, u)) {
-                            x(s, t, i + 1, a, c, r, n);
+                        const f = DateTime.getWeekdayNumber(e) + 1;
+                        if (R(t.views.chart.daysToShow, f)) {
+                            const e = x(s, t, i + 1, a, c, r, n);
+                            if (!d) {
+                                u.push(e);
+                                d = true;
+                            }
                         }
                         if ((i + 1) % 7 === 0) {
                             l = 0;
@@ -1406,41 +1412,41 @@ var Disabled;
             }
             if (t.views.chart.showInReverseOrder) {
                 DomElement.reverseChildrenOrder(s);
+                u = u.reverse();
             }
             if (t.views.chart.showMonthNames) {
                 const n = DomElement.create(t._currentView.chartContents, "div", "chart-months");
-                const o = s.offsetWidth / i;
-                let r = 0;
-                const a = i => {
-                    let s = i + t.startMonth;
-                    let a = l;
+                let i = 0;
+                const o = o => {
+                    let s = o + t.startMonth;
+                    let r = l;
                     if (t.startMonth > 0 && s > 11) {
                         s -= 12;
-                        a++;
+                        r++;
                     }
                     if (W(t.views.chart.monthsToShow, s)) {
-                        let i = e.text.monthNames[s];
+                        let o = e.text.monthNames[s];
                         if (t.startMonth > 0) {
-                            i += `${" "}${a}`;
+                            o += `${" "}${r}`;
                         }
-                        let l = DomElement.createWithHTML(n, "div", "month-name", i);
-                        l.style.left = `${c + o * r}px`;
-                        r++;
+                        let a = DomElement.createWithHTML(n, "div", "month-name", o);
+                        a.style.left = `${u[i].offsetLeft}px`;
+                        i++;
                     }
                 };
                 if (t.views.chart.showInReverseOrder) {
                     for (let e = 12; e--; ) {
-                        a(e);
+                        o(e);
                     }
                 } else {
                     for (let e = 0; e < 12; e++) {
-                        a(e);
+                        o(e);
                     }
                 }
                 n.style.width = `${s.offsetWidth}px`;
-                const u = DomElement.create(n, "div", "month-name-space");
-                u.style.height = `${n.offsetHeight}px`;
-                u.style.width = `${c}px`;
+                const r = DomElement.create(n, "div", "month-name-space");
+                r.style.height = `${n.offsetHeight}px`;
+                r.style.width = `${c}px`;
             }
             if (t.views.chart.keepScrollPositions) {
                 t._currentView.chartContents.scrollLeft = t._currentView.chartContentsScrollLeft;
@@ -1487,6 +1493,7 @@ var Disabled;
         if (t.views.chart.useGradients) {
             DomElement.adGradientEffect(t._currentView.element, l);
         }
+        return l;
     }
     function b(e) {
         let t = 0;

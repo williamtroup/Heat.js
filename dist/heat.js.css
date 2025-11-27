@@ -847,14 +847,6 @@ div.heat-js div.chart-contents div.chart-months div.month-name-space {
   position: absolute;
   bottom: 0;
 }
-@media (min-width: 768px) {
-  div.heat-js div.chart-contents div.chart-months div.month-name:first-child {
-    margin-left: calc(var(--heat-js-spacing) / 2);
-  }
-}
-div.heat-js div.chart-contents div.chart-months div.month-name:nth-child(2) {
-  margin-left: var(--heat-js-day-chart-width);
-}
 div.heat-js div.chart-contents div.chart-months div.month-name-space {
   left: 0;
   top: 0;
