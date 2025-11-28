@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        heat.ts
- * @version     v4.5.0
+ * @version     v4.5.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -122,27 +122,27 @@ type LargestValuesForEachRangeType = {
     }
 
     function renderControl( bindingOptions: BindingOptions ) : void {
-        Trigger.customEvent( bindingOptions.events!.onBeforeRender!, bindingOptions._currentView.element );
+        Trigger.customEvent( bindingOptions.events!.onBeforeRender!, bindingOptions._currentView!.element );
 
-        if ( !Is.definedString( bindingOptions._currentView.element.id ) ) {
-            bindingOptions._currentView.element.id = crypto.randomUUID();
+        if ( !Is.definedString( bindingOptions._currentView!.element.id ) ) {
+            bindingOptions._currentView!.element.id = crypto.randomUUID();
         }
 
-        if ( bindingOptions._currentView.element.className.trim() === Char.empty ) {
-            bindingOptions._currentView.element.className = "heat-js";
+        if ( bindingOptions._currentView!.element.className.trim() === Char.empty ) {
+            bindingOptions._currentView!.element.className = "heat-js";
         } else {
-            DomElement.addClass( bindingOptions._currentView.element, "heat-js" );
+            DomElement.addClass( bindingOptions._currentView!.element, "heat-js" );
         }
 
         if ( bindingOptions.resizable ) {
-            DomElement.addClass( bindingOptions._currentView.element, "resizable" );
+            DomElement.addClass( bindingOptions._currentView!.element, "resizable" );
         }
 
-        bindingOptions._currentView.element.removeAttribute( Constant.HEAT_JS_ATTRIBUTE_NAME );
+        bindingOptions._currentView!.element.removeAttribute( Constant.HEAT_JS_ATTRIBUTE_NAME );
 
-        createInstanceDataForElement( bindingOptions._currentView.element.id, bindingOptions );
+        createInstanceDataForElement( bindingOptions._currentView!.element.id, bindingOptions );
         renderControlContainer( bindingOptions );
-        Trigger.customEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView.element );
+        Trigger.customEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView!.element );
     }
 
     function renderControlContainer( bindingOptions: BindingOptions, isForDataRefresh: boolean = false, isForViewSwitch: boolean = false ) : void {
@@ -150,24 +150,24 @@ type LargestValuesForEachRangeType = {
             storeDataInLocalStorage( bindingOptions );
         }
 
-        if ( Is.defined( bindingOptions._currentView.mapContents ) ) {
-            bindingOptions._currentView.mapContentsScrollLeft = bindingOptions._currentView.mapContents.scrollLeft;
+        if ( Is.defined( bindingOptions._currentView!.mapContents ) ) {
+            bindingOptions._currentView!.mapContentsScrollLeft = bindingOptions._currentView!.mapContents.scrollLeft;
         }
 
-        if ( bindingOptions.views!.chart!.enabled && Is.defined( bindingOptions._currentView.chartContents ) ) {
-            bindingOptions._currentView.chartContentsScrollLeft = bindingOptions._currentView.chartContents.scrollLeft;
+        if ( bindingOptions.views!.chart!.enabled && Is.defined( bindingOptions._currentView!.chartContents ) ) {
+            bindingOptions._currentView!.chartContentsScrollLeft = bindingOptions._currentView!.chartContents.scrollLeft;
         }
 
-        if ( bindingOptions.views!.days!.enabled && Is.defined( bindingOptions._currentView.daysContents ) ) {
-            bindingOptions._currentView.daysContentsScrollLeft = bindingOptions._currentView.daysContents.scrollLeft;
+        if ( bindingOptions.views!.days!.enabled && Is.defined( bindingOptions._currentView!.daysContents ) ) {
+            bindingOptions._currentView!.daysContentsScrollLeft = bindingOptions._currentView!.daysContents.scrollLeft;
         }
 
-        if ( bindingOptions.views!.statistics!.enabled && Is.defined( bindingOptions._currentView.statisticsContents ) ) {
-            bindingOptions._currentView.statisticsContentsScrollLeft = bindingOptions._currentView.statisticsContents.scrollLeft;
+        if ( bindingOptions.views!.statistics!.enabled && Is.defined( bindingOptions._currentView!.statisticsContents ) ) {
+            bindingOptions._currentView!.statisticsContentsScrollLeft = bindingOptions._currentView!.statisticsContents.scrollLeft;
         }
         
-        bindingOptions._currentView.element.innerHTML = Char.empty;
-        bindingOptions._currentView.yearsAvailable = getYearsAvailableInData( bindingOptions );
+        bindingOptions._currentView!.element.innerHTML = Char.empty;
+        bindingOptions._currentView!.yearsAvailable = getYearsAvailableInData( bindingOptions );
         
         ToolTip.hide( bindingOptions );
 
@@ -185,34 +185,34 @@ type LargestValuesForEachRangeType = {
         if ( bindingOptions.views!.chart!.enabled ) {
             renderControlChart( bindingOptions, isForViewSwitch );
 
-            bindingOptions._currentView.chartContents.style.display = "none";
+            bindingOptions._currentView!.chartContents.style.display = "none";
         }
 
         if ( bindingOptions.views!.days!.enabled ) {
             renderControlDays( bindingOptions, isForViewSwitch );
 
-            bindingOptions._currentView.daysContents.style.display = "none";
+            bindingOptions._currentView!.daysContents.style.display = "none";
         }
 
         if ( bindingOptions.views!.statistics!.enabled ) {
             renderControlStatistics( bindingOptions, isForViewSwitch );
 
-            bindingOptions._currentView.statisticsContents.style.display = "none";
+            bindingOptions._currentView!.statisticsContents.style.display = "none";
         }
 
-        bindingOptions._currentView.mapContents.style.display = "none";
+        bindingOptions._currentView!.mapContents.style.display = "none";
 
-        if ( bindingOptions._currentView.view === ViewId.map ) {
-            bindingOptions._currentView.mapContents.style.display = "block";
-        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView.view === ViewId.chart ) {
-            bindingOptions._currentView.chartContents.style.display = "block";
-        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView.view === ViewId.days ) {
-            bindingOptions._currentView.daysContents.style.display = "block";
-        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView.view === ViewId.statistics ) {
-            bindingOptions._currentView.statisticsContents.style.display = "block";
+        if ( bindingOptions._currentView!.view === ViewId.map ) {
+            bindingOptions._currentView!.mapContents.style.display = "block";
+        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            bindingOptions._currentView!.chartContents.style.display = "block";
+        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
+            bindingOptions._currentView!.daysContents.style.display = "block";
+        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
+            bindingOptions._currentView!.statisticsContents.style.display = "block";
         } else {
-            bindingOptions._currentView.view = ViewId.map;
-            bindingOptions._currentView.mapContents.style.display = "block";
+            bindingOptions._currentView!.view = ViewId.map;
+            bindingOptions._currentView!.mapContents.style.display = "block";
         }
     }
 
@@ -224,10 +224,10 @@ type LargestValuesForEachRangeType = {
      */
 
     function renderConfigurationDialog( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView.configurationDialog = DomElement.create( bindingOptions._currentView.disabledBackground, "div", "dialog configuration" );
+        bindingOptions._currentView!.configurationDialog = DomElement.create( bindingOptions._currentView!.disabledBackground, "div", "dialog configuration" );
 
-        const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView.configurationDialog, "div", "dialog-title-bar" );
-        const contents: HTMLElement = DomElement.create( bindingOptions._currentView.configurationDialog, "div", "dialog-contents" );
+        const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.configurationDialog, "div", "dialog-title-bar" );
+        const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.configurationDialog, "div", "dialog-contents" );
         const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
         const daysContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
         const monthsContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
@@ -242,15 +242,15 @@ type LargestValuesForEachRangeType = {
         closeButton.onclick = () => hideConfigurationDialog( bindingOptions );
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
-            bindingOptions._currentView.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.text!.dayNames![ dayIndex ], dayIndex.toString() );
+            bindingOptions._currentView!.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.text!.dayNames![ dayIndex ], dayIndex.toString() );
         }
 
         for ( let monthIndex1: number = 0; monthIndex1 < 7; monthIndex1++ ) {
-            bindingOptions._currentView.monthCheckBoxes[ monthIndex1 ] = DomElement.createCheckBox( months1Container, _configuration.text!.monthNames![ monthIndex1 ], monthIndex1.toString() );
+            bindingOptions._currentView!.monthCheckBoxes[ monthIndex1 ] = DomElement.createCheckBox( months1Container, _configuration.text!.monthNames![ monthIndex1 ], monthIndex1.toString() );
         }
 
         for ( let monthIndex2: number = 7; monthIndex2 < 12; monthIndex2++ ) {
-            bindingOptions._currentView.monthCheckBoxes[ monthIndex2 ] = DomElement.createCheckBox( months2Container, _configuration.text!.monthNames![ monthIndex2 ], monthIndex2.toString() );
+            bindingOptions._currentView!.monthCheckBoxes[ monthIndex2 ] = DomElement.createCheckBox( months2Container, _configuration.text!.monthNames![ monthIndex2 ], monthIndex2.toString() );
         }
 
         ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
@@ -259,23 +259,23 @@ type LargestValuesForEachRangeType = {
     function showConfigurationDialog( bindingOptions: BindingOptions ) : void {
         Disabled.Background.show( bindingOptions );
 
-        if ( Is.defined( bindingOptions._currentView.configurationDialog ) && bindingOptions._currentView.configurationDialog.style.display !== "block" ) {
-            bindingOptions._currentView.configurationDialog.style.display = "block";
+        if ( Is.defined( bindingOptions._currentView!.configurationDialog ) && bindingOptions._currentView!.configurationDialog.style.display !== "block" ) {
+            bindingOptions._currentView!.configurationDialog.style.display = "block";
         }
 
         let daysToShow: number[] = [];
         let monthsToShow: number[] = [];
 
-        if ( bindingOptions._currentView.view === ViewId.map ) {
+        if ( bindingOptions._currentView!.view === ViewId.map ) {
             daysToShow = bindingOptions.views!.map!.daysToShow!;
             monthsToShow = bindingOptions.views!.map!.monthsToShow!;
-        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView.view === ViewId.chart ) {
+        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
             daysToShow = bindingOptions.views!.chart!.daysToShow!;
             monthsToShow = bindingOptions.views!.chart!.monthsToShow!;
-        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView.view === ViewId.days ) {
+        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
             daysToShow = bindingOptions.views!.days!.daysToShow!;
             monthsToShow = bindingOptions.views!.days!.monthsToShow!;
-        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView.view === ViewId.statistics ) {
+        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
             daysToShow = bindingOptions.views!.statistics!.daysToShow!;
             monthsToShow = bindingOptions.views!.statistics!.monthsToShow!;
         } else {
@@ -284,11 +284,11 @@ type LargestValuesForEachRangeType = {
         }
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
-            bindingOptions._currentView.dayCheckBoxes[ dayIndex ].checked = isDayVisible( daysToShow, dayIndex + 1 );
+            bindingOptions._currentView!.dayCheckBoxes[ dayIndex ].checked = isDayVisible( daysToShow, dayIndex + 1 );
         }
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-            bindingOptions._currentView.monthCheckBoxes[ monthIndex ].checked = isMonthVisible( monthsToShow, monthIndex );
+            bindingOptions._currentView!.monthCheckBoxes[ monthIndex ].checked = isMonthVisible( monthsToShow, monthIndex );
         }
 
         ToolTip.hide( bindingOptions );
@@ -297,8 +297,8 @@ type LargestValuesForEachRangeType = {
     function hideConfigurationDialog( bindingOptions: BindingOptions ) : void {
         Disabled.Background.hide( bindingOptions );
 
-        if ( Is.defined( bindingOptions._currentView.configurationDialog ) && bindingOptions._currentView.configurationDialog.style.display !== "none" ) {
-            bindingOptions._currentView.configurationDialog.style.display = "none";
+        if ( Is.defined( bindingOptions._currentView!.configurationDialog ) && bindingOptions._currentView!.configurationDialog.style.display !== "none" ) {
+            bindingOptions._currentView!.configurationDialog.style.display = "none";
         }
 
         const daysChecked: number[] = [];
@@ -306,25 +306,25 @@ type LargestValuesForEachRangeType = {
         let render: boolean = false;
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
-            if ( bindingOptions._currentView.dayCheckBoxes[ dayIndex ].checked ) {
+            if ( bindingOptions._currentView!.dayCheckBoxes[ dayIndex ].checked ) {
                 daysChecked.push( dayIndex + 1 );
             }
         }
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-            if ( bindingOptions._currentView.monthCheckBoxes[ monthIndex ].checked ) {
+            if ( bindingOptions._currentView!.monthCheckBoxes[ monthIndex ].checked ) {
                 monthsChecked.push( monthIndex + 1 );
             }
         }
 
         if ( daysChecked.length >= 1 ) {
-            if ( bindingOptions._currentView.view === ViewId.map ) {
+            if ( bindingOptions._currentView!.view === ViewId.map ) {
                 bindingOptions.views!.map!.daysToShow = daysChecked;
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView.view === ViewId.chart ) {
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
                 bindingOptions.views!.chart!.daysToShow = daysChecked;
-            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView.view === ViewId.days ) {
+            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
                 bindingOptions.views!.days!.daysToShow! = daysChecked;
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView.view === ViewId.statistics ) {
+            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
                 bindingOptions.views!.statistics!.daysToShow = daysChecked;
             } else {
                 bindingOptions.views!.map!.daysToShow = daysChecked;
@@ -334,13 +334,13 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( monthsChecked.length >= 1 ) {
-            if ( bindingOptions._currentView.view === ViewId.map ) {
+            if ( bindingOptions._currentView!.view === ViewId.map ) {
                 bindingOptions.views!.map!.monthsToShow = monthsChecked;
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView.view === ViewId.chart ) {
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
                 bindingOptions.views!.chart!.monthsToShow = monthsChecked;
-            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView.view === ViewId.days ) {
+            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
                 bindingOptions.views!.days!.monthsToShow = monthsChecked;
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView.view === ViewId.statistics ) {
+            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
                 bindingOptions.views!.statistics!.monthsToShow = monthsChecked;
             } else {
                 bindingOptions.views!.map!.monthsToShow = monthsChecked;
@@ -351,7 +351,7 @@ type LargestValuesForEachRangeType = {
 
         if ( render ) {
             renderControlContainer( bindingOptions );
-            Trigger.customEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView.element, bindingOptions );
+            Trigger.customEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView!.element, bindingOptions );
             
         } else {
             ToolTip.hide( bindingOptions );
@@ -367,7 +367,7 @@ type LargestValuesForEachRangeType = {
 
     function renderControlTitleBar( bindingOptions: BindingOptions ) : void {
         if ( bindingOptions.title!.showText || bindingOptions.title!.showYearSelector || bindingOptions.title!.showRefreshButton || bindingOptions.title!.showExportButton || bindingOptions.title!.showImportButton ) {
-            const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView.element, "div", "title-bar" );
+            const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "title-bar" );
             const title: HTMLElement = DomElement.create( titleBar, "div", "title" );
 
             if ( bindingOptions.views!.chart!.enabled || bindingOptions.views!.days!.enabled || bindingOptions.views!.statistics!.enabled ) {
@@ -385,13 +385,13 @@ type LargestValuesForEachRangeType = {
                 if ( bindingOptions.title!.showSectionText ) {
                     DomElement.createWithHTML( title, "span", "section-text", "[" );
 
-                    if ( bindingOptions._currentView.view === ViewId.map ) {
+                    if ( bindingOptions._currentView!.view === ViewId.map ) {
                         DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.mapText! );
-                    } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView.view === ViewId.chart ) {
+                    } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
                         DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.chartText! );
-                    } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView.view === ViewId.days ) {
+                    } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
                         DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.daysText! );
-                    } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView.view === ViewId.statistics ) {
+                    } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
                         DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.colorRangesText! );
                     } else {
                         DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.mapText! );
@@ -405,7 +405,7 @@ type LargestValuesForEachRangeType = {
                 renderTitleDropDownMenu( bindingOptions, title );
             }
 
-            if ( bindingOptions.title!.showImportButton && !bindingOptions._currentView.isInFetchMode ) {
+            if ( bindingOptions.title!.showImportButton && !bindingOptions._currentView!.isInFetchMode ) {
                 const importData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "import", _configuration.text!.importButtonSymbolText! );
                 importData.onclick = () => importFromFilesSelected( bindingOptions );
 
@@ -432,7 +432,7 @@ type LargestValuesForEachRangeType = {
         
                 refresh.onclick = () => {
                     renderControlContainer( bindingOptions );
-                    Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
+                    Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView!.element );
                 };
             }
     
@@ -444,22 +444,22 @@ type LargestValuesForEachRangeType = {
                     ToolTip.add( back, bindingOptions, _configuration.text!.backButtonText! );
                 }
 
-                if ( isFirstVisibleYear( bindingOptions, bindingOptions._currentView.year ) ) {
+                if ( isFirstVisibleYear( bindingOptions, bindingOptions._currentView!.year ) ) {
                     back.disabled = true;
                 }
 
-                let yearText: string = bindingOptions._currentView.year.toString();
+                let yearText: string = bindingOptions._currentView!.year.toString();
 
                 if ( bindingOptions.startMonth! > 0 ) {
-                    yearText += ` / ${bindingOptions._currentView.year + 1}`;
+                    yearText += ` / ${bindingOptions._currentView!.year + 1}`;
                 }
 
-                bindingOptions._currentView.yearText = DomElement.createWithHTML( titleBar, "div", "year-text", yearText );
+                bindingOptions._currentView!.yearText = DomElement.createWithHTML( titleBar, "div", "year-text", yearText );
 
                 if ( bindingOptions.title!.showYearSelectionDropDown ) {
                     renderYearDropDownMenu( bindingOptions );
                 } else {
-                    DomElement.addClass( bindingOptions._currentView.yearText, "no-click" );
+                    DomElement.addClass( bindingOptions._currentView!.yearText, "no-click" );
                 }
 
                 if ( bindingOptions.title!.showConfigurationButton ) {
@@ -479,10 +479,10 @@ type LargestValuesForEachRangeType = {
                     }
     
                     current.onclick = () => {
-                        bindingOptions._currentView.year = new Date().getFullYear() - 1;
+                        bindingOptions._currentView!.year = new Date().getFullYear() - 1;
     
                         moveToNextYear( bindingOptions, false );
-                        Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                        Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.year );
                     };
                 }
 
@@ -493,7 +493,7 @@ type LargestValuesForEachRangeType = {
                     ToolTip.add( next, bindingOptions, _configuration.text!.nextButtonText! );
                 }
 
-                if ( isLastVisibleYear( bindingOptions, bindingOptions._currentView.year ) ) {
+                if ( isLastVisibleYear( bindingOptions, bindingOptions._currentView!.year ) ) {
                     next.disabled = true;
                 }
             }
@@ -540,12 +540,12 @@ type LargestValuesForEachRangeType = {
     }
 
     function renderTitleDropDownMenuItemClickEvent( bindingOptions: BindingOptions, option: HTMLElement, view: number, viewName: string ) : void {
-        if ( bindingOptions._currentView.view === view ) {
+        if ( bindingOptions._currentView!.view === view ) {
             DomElement.addClass( option, "title-menu-item-active" );
             
         } else {
             option.onclick = () => {
-                bindingOptions._currentView.view = view;
+                bindingOptions._currentView!.view = view;
 
                 Trigger.customEvent( bindingOptions.events!.onViewSwitch!, viewName );
                 renderControlContainer( bindingOptions, false, true );
@@ -554,9 +554,9 @@ type LargestValuesForEachRangeType = {
     }
 
     function renderYearDropDownMenu( bindingOptions: BindingOptions ) : void {
-        DomElement.create( bindingOptions._currentView.yearText, "div", "down-arrow" );
+        DomElement.create( bindingOptions._currentView!.yearText, "div", "down-arrow" );
 
-        const yearsMenuContainer: HTMLElement = DomElement.create( bindingOptions._currentView.yearText, "div", "years-menu-container" );
+        const yearsMenuContainer: HTMLElement = DomElement.create( bindingOptions._currentView!.yearText, "div", "years-menu-container" );
         const yearsMenu: HTMLElement = DomElement.create( yearsMenuContainer, "div", "years-menu" );
         const thisYear: number = new Date().getFullYear();
         let activeYearMenuItem: HTMLElement = null!;
@@ -591,12 +591,12 @@ type LargestValuesForEachRangeType = {
         const currentYearText: string = bindingOptions.startMonth === 0 ? currentYear.toString() : `${currentYear} / ${currentYear + 1}`;
         const year: HTMLElement = DomElement.createWithHTML( years, "div", "year-menu-item", currentYearText );
 
-        if ( bindingOptions._currentView.year !== currentYear ) {
+        if ( bindingOptions._currentView!.year !== currentYear ) {
             year.onclick = () => {
-                bindingOptions._currentView.year = currentYear;
+                bindingOptions._currentView!.year = currentYear;
     
                 renderControlContainer( bindingOptions );
-                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.year );
             };
 
             if ( currentYear === actualYear ) {
@@ -619,7 +619,7 @@ type LargestValuesForEachRangeType = {
      */
 
     function renderControlMap( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
-        bindingOptions._currentView.mapContents = DomElement.create( bindingOptions._currentView.element, "div", "map-contents" );
+        bindingOptions._currentView!.mapContents = DomElement.create( bindingOptions._currentView!.element, "div", "map-contents" );
 
         if ( bindingOptions.views!.chart!.enabled ) {
             renderControlChartContents( bindingOptions );
@@ -636,19 +636,19 @@ type LargestValuesForEachRangeType = {
         renderControlViewGuide( bindingOptions );
 
         if ( bindingOptions.views!.map!.showNoDataMessageWhenDataIsNotAvailable && !isDataAvailableForYear( bindingOptions ) ) {
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.mapContents, "div", "no-data-message", _configuration.text!.noMapDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.mapContents, "div", "no-data-message", _configuration.text!.noMapDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
             }
 
         } else {
-            bindingOptions._currentView.mapContents.style.minHeight = "unset";
+            bindingOptions._currentView!.mapContents.style.minHeight = "unset";
 
-            makeAreaDroppable( bindingOptions._currentView.mapContents, bindingOptions );
+            makeAreaDroppable( bindingOptions._currentView!.mapContents, bindingOptions );
 
-            const map: HTMLElement = DomElement.create( bindingOptions._currentView.mapContents, "div", "map" );
-            const currentYear: number = bindingOptions._currentView.year;
+            const map: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContents, "div", "map" );
+            const currentYear: number = bindingOptions._currentView!.year;
             let monthAdded: boolean = false;
     
             if ( isForViewSwitch ) {
@@ -725,11 +725,11 @@ type LargestValuesForEachRangeType = {
                                 currentDayColumn = DomElement.create( dayColumns, "div", "day-column" );
                                 actualDay = 0;
     
-                                if ( bindingOptions._currentView.dayWidth === 0 && Is.defined( day ) ) {
+                                if ( bindingOptions._currentView!.dayWidth === 0 && Is.defined( day ) ) {
                                     let marginLeft: number = DomElement.getStyleValueByName( day, "margin-left", true );
                                     let marginRight: number = DomElement.getStyleValueByName( day, "margin-right", true );
                                     
-                                    bindingOptions._currentView.dayWidth = day.offsetWidth + marginLeft + marginRight;
+                                    bindingOptions._currentView!.dayWidth = day.offsetWidth + marginLeft + marginRight;
                                 }
                             }
                         }
@@ -757,16 +757,16 @@ type LargestValuesForEachRangeType = {
                             if ( bindingOptions.views!.map!.showMonthDayGaps ) {
                                 monthName.style.width = `${monthWidth}px`;
                             } else {
-                                monthName.style.width = `${monthWidth - bindingOptions._currentView.dayWidth}px`;
+                                monthName.style.width = `${monthWidth - bindingOptions._currentView!.dayWidth}px`;
                             }
                         }
                     }
     
-                    if ( monthAdded && Is.defined( bindingOptions._currentView.dayWidth ) ) {
+                    if ( monthAdded && Is.defined( bindingOptions._currentView!.dayWidth ) ) {
                         if ( firstDayNumberInMonth > 0 && !bindingOptions.views!.map!.showMonthDayGaps ) {
-                            month.style.marginLeft = `${-bindingOptions._currentView.dayWidth}px`;
+                            month.style.marginLeft = `${-bindingOptions._currentView!.dayWidth}px`;
                         } else if ( firstDayNumberInMonth === 0 && bindingOptions.views!.map!.showMonthDayGaps ) {
-                            month.style.marginLeft = `${bindingOptions._currentView.dayWidth}px`;
+                            month.style.marginLeft = `${bindingOptions._currentView!.dayWidth}px`;
                         }
                     }
 
@@ -783,7 +783,7 @@ type LargestValuesForEachRangeType = {
             }
             
             if ( bindingOptions.views!.map!.keepScrollPositions ) {
-                bindingOptions._currentView.mapContents.scrollLeft = bindingOptions._currentView.mapContentsScrollLeft;
+                bindingOptions._currentView!.mapContents.scrollLeft = bindingOptions._currentView!.mapContentsScrollLeft;
             }
         }
     }
@@ -793,7 +793,7 @@ type LargestValuesForEachRangeType = {
         const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day" );
         const date: Date = new Date( year, month, actualDay );
         const holiday: IsHoliday = isHoliday( bindingOptions, date );
-        let dateCount: number = _elements_InstanceData[ bindingOptions._currentView.element.id ].typeData[ bindingOptions._currentView.type ][ DateTime.toStorageDate( date ) ];
+        let dateCount: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( date ) ];
 
         dateCount = Default.getNumber( dateCount, 0 );
 
@@ -833,7 +833,7 @@ type LargestValuesForEachRangeType = {
     function isDataAvailableForYear( bindingOptions: BindingOptions ) : boolean {
         let result: boolean = false;
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
-        const checkDate: string = bindingOptions._currentView.year.toString();
+        const checkDate: string = bindingOptions._currentView!.year.toString();
 
         for ( const storageDate in typeDateCounts ) {
             if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
@@ -855,18 +855,18 @@ type LargestValuesForEachRangeType = {
      */
 
     function renderControlChartContents( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView.chartContents = DomElement.create( bindingOptions._currentView.element, "div", "chart-contents" );
+        bindingOptions._currentView!.chartContents = DomElement.create( bindingOptions._currentView!.element, "div", "chart-contents" );
 
-        makeAreaDroppable( bindingOptions._currentView.chartContents, bindingOptions );
+        makeAreaDroppable( bindingOptions._currentView!.chartContents, bindingOptions );
     }
 
     function renderControlChart( bindingOptions: BindingOptions, isForViewSwitch: boolean) : void {
-        const chart: HTMLElement = DomElement.create( bindingOptions._currentView.chartContents, "div", "chart" );
+        const chart: HTMLElement = DomElement.create( bindingOptions._currentView!.chartContents, "div", "chart" );
         let labels: HTMLElement = DomElement.create( chart, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( chart, "div", "day-lines" );
         const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
         const largestValueForCurrentYear: number = getLargestValueForChartYear( bindingOptions );
-        const currentYear: number = bindingOptions._currentView.year;
+        const currentYear: number = bindingOptions._currentView!.year;
         let labelsWidth: number = 0;
 
         if ( isForViewSwitch ) {
@@ -890,17 +890,17 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( largestValueForCurrentYear === 0 ) {
-            bindingOptions._currentView.chartContents.style.minHeight = `${bindingOptions._currentView.mapContents.offsetHeight}px`;
+            bindingOptions._currentView!.chartContents.style.minHeight = `${bindingOptions._currentView!.mapContents.offsetHeight}px`;
             chart.parentNode!.removeChild( chart );
 
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.chartContents, "div", "no-data-message", _configuration.text!.noChartDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.chartContents, "div", "no-data-message", _configuration.text!.noChartDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
             }
 
         } else {
-            const pixelsPerNumbers: number = bindingOptions._currentView.mapContents.offsetHeight / largestValueForCurrentYear;
+            const pixelsPerNumbers: number = bindingOptions._currentView!.mapContents.offsetHeight / largestValueForCurrentYear;
             let totalMonths: number = 0;
             let totalDays: number = 0;
             let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
@@ -950,7 +950,7 @@ type LargestValuesForEachRangeType = {
             }
 
             if ( bindingOptions.views!.chart!.showMonthNames ) {
-                const chartMonths: HTMLElement = DomElement.create( bindingOptions._currentView.chartContents, "div", "chart-months" );
+                const chartMonths: HTMLElement = DomElement.create( bindingOptions._currentView!.chartContents, "div", "chart-months" );
                 let monthNameAddedIndex: number = 0;
 
                 const addMonthName: Function = ( addMonthNameIndex: number ) : void => {
@@ -995,7 +995,7 @@ type LargestValuesForEachRangeType = {
             }
     
             if ( bindingOptions.views!.chart!.keepScrollPositions ) {
-                bindingOptions._currentView.chartContents.scrollLeft = bindingOptions._currentView.chartContentsScrollLeft;
+                bindingOptions._currentView!.chartContents.scrollLeft = bindingOptions._currentView!.chartContentsScrollLeft;
             }
         }
     }
@@ -1051,7 +1051,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( bindingOptions.views!.chart!.useGradients ) {
-            DomElement.adGradientEffect( bindingOptions._currentView.element, dayLine );
+            DomElement.adGradientEffect( bindingOptions._currentView!.element, dayLine );
         }
 
         return dayLine;
@@ -1060,7 +1060,7 @@ type LargestValuesForEachRangeType = {
     function getLargestValueForChartYear( bindingOptions: BindingOptions ) : number {
         let result: number = 0;
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
-        const currentYear: number = bindingOptions._currentView.year;
+        const currentYear: number = bindingOptions._currentView!.year;
 
         for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
             let actualMonthIndex: number = monthIndex;
@@ -1097,14 +1097,14 @@ type LargestValuesForEachRangeType = {
      */
 
     function renderControlDaysContents( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView.daysContents = DomElement.create( bindingOptions._currentView.element, "div", "days-contents" );
+        bindingOptions._currentView!.daysContents = DomElement.create( bindingOptions._currentView!.element, "div", "days-contents" );
 
-        makeAreaDroppable( bindingOptions._currentView.daysContents, bindingOptions );
+        makeAreaDroppable( bindingOptions._currentView!.daysContents, bindingOptions );
     }
 
     function renderControlDays( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
-        const days: HTMLElement = DomElement.create( bindingOptions._currentView.daysContents, "div", "days" );
-        const dayNames: HTMLElement = DomElement.create( bindingOptions._currentView.daysContents, "div", "day-names" );
+        const days: HTMLElement = DomElement.create( bindingOptions._currentView!.daysContents, "div", "days" );
+        const dayNames: HTMLElement = DomElement.create( bindingOptions._currentView!.daysContents, "div", "day-names" );
         let labels: HTMLElement = DomElement.create( days, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( days, "div", "day-lines" );
         const dayValuesForCurrentYear: LargestValueForDays = getLargestValuesForEachDay( bindingOptions );
@@ -1130,18 +1130,18 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( dayValuesForCurrentYear.largestValue === 0 ) {
-            bindingOptions._currentView.daysContents.style.minHeight = `${bindingOptions._currentView.mapContents.offsetHeight}px`;
+            bindingOptions._currentView!.daysContents.style.minHeight = `${bindingOptions._currentView!.mapContents.offsetHeight}px`;
             days.parentNode!.removeChild( days );
             dayNames.parentNode!.removeChild( dayNames );
 
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.daysContents, "div", "no-days-message", _configuration.text!.noDaysDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.daysContents, "div", "no-days-message", _configuration.text!.noDaysDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
             }
 
         } else {
-            const pixelsPerNumbers: number = bindingOptions._currentView.mapContents.offsetHeight / dayValuesForCurrentYear.largestValue;
+            const pixelsPerNumbers: number = bindingOptions._currentView!.mapContents.offsetHeight / dayValuesForCurrentYear.largestValue;
 
             for ( const day in dayValuesForCurrentYear.days ) {
                 if ( dayValuesForCurrentYear.days.hasOwnProperty( day ) && isDayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
@@ -1159,7 +1159,7 @@ type LargestValuesForEachRangeType = {
             }
 
             if ( bindingOptions.views!.days!.keepScrollPositions ) {
-                bindingOptions._currentView.daysContents.scrollLeft = bindingOptions._currentView.daysContentsScrollLeft;
+                bindingOptions._currentView!.daysContents.scrollLeft = bindingOptions._currentView!.daysContentsScrollLeft;
             }
         }
     }
@@ -1180,9 +1180,9 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount, bindingOptions._currentView.year );
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount, bindingOptions._currentView!.year );
         } else if ( Is.definedFunction( bindingOptions.events!.onWeekDayDblClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayDblClick!, dayNumber, dayCount, bindingOptions._currentView.year );
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayDblClick!, dayNumber, dayCount, bindingOptions._currentView!.year );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -1193,7 +1193,7 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( bindingOptions.views!.days!.useGradients ) {
-            DomElement.adGradientEffect( bindingOptions._currentView.element, dayLine );
+            DomElement.adGradientEffect( bindingOptions._currentView!.element, dayLine );
         }
     }
 
@@ -1212,7 +1212,7 @@ type LargestValuesForEachRangeType = {
         } as LargestValueForDays;
 
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
-        const currentYear: number = bindingOptions._currentView.year;
+        const currentYear: number = bindingOptions._currentView!.year;
 
         for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
             let actualMonthIndex: number = monthIndex;
@@ -1253,14 +1253,14 @@ type LargestValuesForEachRangeType = {
      */
 
     function renderControlStatisticsContents( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView.statisticsContents = DomElement.create( bindingOptions._currentView.element, "div", "statistics-contents" );
+        bindingOptions._currentView!.statisticsContents = DomElement.create( bindingOptions._currentView!.element, "div", "statistics-contents" );
 
-        makeAreaDroppable( bindingOptions._currentView.statisticsContents, bindingOptions );
+        makeAreaDroppable( bindingOptions._currentView!.statisticsContents, bindingOptions );
     }
 
     function renderControlStatistics( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
-        const statistics: HTMLElement = DomElement.create( bindingOptions._currentView.statisticsContents, "div", "statistics" );
-        const statisticsRanges: HTMLElement = DomElement.create( bindingOptions._currentView.statisticsContents, "div", "statistics-ranges" );
+        const statistics: HTMLElement = DomElement.create( bindingOptions._currentView!.statisticsContents, "div", "statistics" );
+        const statisticsRanges: HTMLElement = DomElement.create( bindingOptions._currentView!.statisticsContents, "div", "statistics-ranges" );
         let labels: HTMLElement = DomElement.create( statistics, "div", "y-labels" );
         const rangeLines: HTMLElement = DomElement.create( statistics, "div", "range-lines" );
         const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
@@ -1287,18 +1287,18 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( colorRangeValuesForCurrentYear.largestValue === 0 ) {
-            bindingOptions._currentView.statisticsContents.style.minHeight = `${bindingOptions._currentView.mapContents.offsetHeight}px`;
+            bindingOptions._currentView!.statisticsContents.style.minHeight = `${bindingOptions._currentView!.mapContents.offsetHeight}px`;
             statistics.parentNode!.removeChild( statistics );
             statisticsRanges.parentNode!.removeChild( statisticsRanges );
 
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView.statisticsContents, "div", "no-statistics-message", _configuration.text!.noStatisticsDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.statisticsContents, "div", "no-statistics-message", _configuration.text!.noStatisticsDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
             }
 
         } else {
-            const pixelsPerNumbers: number = bindingOptions._currentView.mapContents.offsetHeight / colorRangeValuesForCurrentYear.largestValue;
+            const pixelsPerNumbers: number = bindingOptions._currentView!.mapContents.offsetHeight / colorRangeValuesForCurrentYear.largestValue;
 
             if ( !bindingOptions.views!.statistics!.showColorRangeLabels ) {
                 statisticsRanges.parentNode!.removeChild( statisticsRanges );
@@ -1326,7 +1326,7 @@ type LargestValuesForEachRangeType = {
             }
     
             if ( bindingOptions.views!.statistics!.keepScrollPositions ) {
-                bindingOptions._currentView.statisticsContents.scrollLeft = bindingOptions._currentView.statisticsContentsScrollLeft;
+                bindingOptions._currentView!.statisticsContents.scrollLeft = bindingOptions._currentView!.statisticsContentsScrollLeft;
             }
         }
     }
@@ -1357,9 +1357,9 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onStatisticClick ) ) {
-            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange, rangeCount, bindingOptions._currentView.year );
+            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange, rangeCount, bindingOptions._currentView!.year );
         } else if ( Is.definedFunction( bindingOptions.events!.onStatisticDblClick ) ) {
-            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticDblClick!, useColorRange, rangeCount, bindingOptions._currentView.year );
+            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticDblClick!, useColorRange, rangeCount, bindingOptions._currentView!.year );
         } else {
             DomElement.addClass( rangeLine, "no-hover" );
         }
@@ -1373,13 +1373,13 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( bindingOptions.views!.statistics!.useGradients ) {
-            DomElement.adGradientEffect( bindingOptions._currentView.element, rangeLine );
+            DomElement.adGradientEffect( bindingOptions._currentView!.element, rangeLine );
         }
     }
 
     function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValuesForEachRangeType {
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
-        const currentYear: number = bindingOptions._currentView.year;
+        const currentYear: number = bindingOptions._currentView!.year;
 
         const result: LargestValuesForEachRangeType = {
             types: {} as InstanceTypeDateCount,
@@ -1438,28 +1438,28 @@ type LargestValuesForEachRangeType = {
      */
 
     function renderControlViewGuide( bindingOptions: BindingOptions ) : void {
-        const guide: HTMLElement = DomElement.create( bindingOptions._currentView.element, "div", "guide" )
+        const guide: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "guide" )
         const mapTypes: HTMLElement = DomElement.create( guide, "div", "map-types" );
         let noneTypeCount: number = 0;
 
-        for ( const storageDate in _elements_InstanceData[ bindingOptions._currentView.element.id ].typeData[ _configuration.text!.unknownTrendText! ] ) {
-            if ( _elements_InstanceData[ bindingOptions._currentView.element.id ].typeData[ _configuration.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
+        for ( const storageDate in _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configuration.text!.unknownTrendText! ] ) {
+            if ( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configuration.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
                 noneTypeCount++;
                 break;
             }
         }
 
-        if ( _elements_InstanceData[ bindingOptions._currentView.element.id ].totalTypes > 1 ) {
+        if ( _elements_InstanceData[ bindingOptions._currentView!.element.id ].totalTypes > 1 ) {
             if ( Is.definedString( bindingOptions.description!.text ) ) {
-                const description: HTMLElement = DomElement.create( bindingOptions._currentView.element, "div", "description", guide );
+                const description: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "description", guide );
     
                 renderDescription( bindingOptions, description );
             }
 
-            for ( const type in _elements_InstanceData[ bindingOptions._currentView.element.id ].typeData ) {
+            for ( const type in _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData ) {
                 if ( type !== _configuration.text!.unknownTrendText || noneTypeCount > 0 ) {
-                    if ( noneTypeCount === 0 && bindingOptions._currentView.type === _configuration.text!.unknownTrendText ) {
-                        bindingOptions._currentView.type = type;
+                    if ( noneTypeCount === 0 && bindingOptions._currentView!.type === _configuration.text!.unknownTrendText ) {
+                        bindingOptions._currentView!.type = type;
                     }
 
                     renderControlViewGuideTypeButton( bindingOptions, mapTypes, type );
@@ -1506,13 +1506,13 @@ type LargestValuesForEachRangeType = {
     function renderControlViewGuideTypeButton( bindingOptions: BindingOptions, mapTypes: HTMLElement, type: string ) : void {
         const typeButton: HTMLElement = DomElement.createWithHTML( mapTypes, "button", "type", type );
 
-        if ( bindingOptions._currentView.type === type ) {
+        if ( bindingOptions._currentView!.type === type ) {
             DomElement.addClass( typeButton, "active" );
         }
 
         typeButton.onclick = () => {
-            if ( bindingOptions._currentView.type !== type ) {
-                bindingOptions._currentView.type = type;
+            if ( bindingOptions._currentView!.type !== type ) {
+                bindingOptions._currentView!.type = type;
 
                 Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, type );
                 renderControlContainer( bindingOptions );
@@ -1529,11 +1529,11 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( isColorRangeVisible( bindingOptions, colorRange.id! ) ) {
-            if ( bindingOptions._currentView.view === ViewId.map && Is.definedString( colorRange.mapCssClassName ) ) {
+            if ( bindingOptions._currentView!.view === ViewId.map && Is.definedString( colorRange.mapCssClassName ) ) {
                 DomElement.addClass( day, colorRange.mapCssClassName! );
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView.view === ViewId.chart && Is.definedString( colorRange.chartCssClassName ) ) {
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart && Is.definedString( colorRange.chartCssClassName ) ) {
                 DomElement.addClass( day, colorRange.chartCssClassName! );
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView.view === ViewId.statistics && Is.definedString( colorRange.statisticsCssClassName ) ) {
+            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics && Is.definedString( colorRange.statisticsCssClassName ) ) {
                 DomElement.addClass( day, colorRange.statisticsCssClassName! );
             } else {
                 DomElement.addClass( day, colorRange.cssClassName! );
@@ -1608,13 +1608,13 @@ type LargestValuesForEachRangeType = {
 
         _elements_InstanceData[ elementId ].typeData[ _configuration.text!.unknownTrendText! ] = {} as InstanceTypeDateCount;
 
-        if ( storeLocalData && !bindingOptions._currentView.isInFetchMode ) {
+        if ( storeLocalData && !bindingOptions._currentView!.isInFetchMode ) {
             loadDataFromLocalStorage( bindingOptions );
         }
     }
 
     function getCurrentViewData( bindingOptions: BindingOptions ) : InstanceTypeDateCount {
-        return _elements_InstanceData[ bindingOptions._currentView.element.id ].typeData[ bindingOptions._currentView.type ];
+        return _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ];
     }
 
     function isMonthVisible( monthsToShow: number[], month: number ) : boolean {
@@ -1650,15 +1650,15 @@ type LargestValuesForEachRangeType = {
     }
 
     function isYearVisible( bindingOptions: BindingOptions, year: number ) : boolean {
-        return bindingOptions.yearsToHide!.indexOf( year ) === Value.notFound && ( bindingOptions._currentView.yearsAvailable.length === 0 || bindingOptions._currentView.yearsAvailable.indexOf( year ) > Value.notFound );
+        return bindingOptions.yearsToHide!.indexOf( year ) === Value.notFound && ( bindingOptions._currentView!.yearsAvailable.length === 0 || bindingOptions._currentView!.yearsAvailable.indexOf( year ) > Value.notFound );
     }
 
     function isFirstVisibleYear( bindingOptions: BindingOptions, year: number ) : boolean {
-        return bindingOptions._currentView.yearsAvailable.length > 0 && year <= bindingOptions._currentView.yearsAvailable[ 0 ];
+        return bindingOptions._currentView!.yearsAvailable.length > 0 && year <= bindingOptions._currentView!.yearsAvailable[ 0 ];
     }
 
     function isLastVisibleYear( bindingOptions: BindingOptions, year: number ) : boolean {
-        return bindingOptions._currentView.yearsAvailable.length > 0 && year >= bindingOptions._currentView.yearsAvailable[ bindingOptions._currentView.yearsAvailable.length - 1 ];
+        return bindingOptions._currentView!.yearsAvailable.length > 0 && year >= bindingOptions._currentView!.yearsAvailable[ bindingOptions._currentView!.yearsAvailable.length - 1 ];
     }
 
 
@@ -1671,7 +1671,7 @@ type LargestValuesForEachRangeType = {
     function loadDataFromLocalStorage( bindingOptions: BindingOptions ) : void {
         if ( bindingOptions.useLocalStorageForData && window.localStorage ) {
             const keysLength: number = window.localStorage.length;
-            const elementId: string = bindingOptions._currentView.element.id;
+            const elementId: string = bindingOptions._currentView!.element.id;
 
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
                 const key : string = window.localStorage.key( keyIndex )!;
@@ -1697,7 +1697,7 @@ type LargestValuesForEachRangeType = {
 
     function storeDataInLocalStorage( bindingOptions: BindingOptions ) : void {
         if ( bindingOptions.useLocalStorageForData && window.localStorage ) {
-            const elementId: string = bindingOptions._currentView.element.id;
+            const elementId: string = bindingOptions._currentView!.element.id;
 
             clearLocalStorageObjects( bindingOptions );
 
@@ -1711,7 +1711,7 @@ type LargestValuesForEachRangeType = {
         if ( bindingOptions.useLocalStorageForData && window.localStorage ) {
             const keysLength: number = window.localStorage.length;
             const keysToRemove: string[] = [];
-            const elementId: string = bindingOptions._currentView.element.id;
+            const elementId: string = bindingOptions._currentView!.element.id;
 
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
                 if ( Str.startsWithAnyCase( window.localStorage.key( keyIndex )!, _local_Storage_Start_ID + elementId ) ) {
@@ -1735,13 +1735,13 @@ type LargestValuesForEachRangeType = {
      */
 
     function startDataPullTimer( bindingOptions: BindingOptions ) : void {
-        if ( bindingOptions._currentView.isInFetchMode ) {
-            if ( bindingOptions._currentView.isInFetchModeTimer === 0 ) {
+        if ( bindingOptions._currentView!.isInFetchMode ) {
+            if ( bindingOptions._currentView!.isInFetchModeTimer === 0 ) {
                 pullDataFromCustomTrigger( bindingOptions );
             }
 
-            if ( bindingOptions._currentView.isInFetchModeTimer === 0 ) {
-                bindingOptions._currentView.isInFetchModeTimer = setInterval( () => {
+            if ( bindingOptions._currentView!.isInFetchModeTimer === 0 ) {
+                bindingOptions._currentView!.isInFetchModeTimer = setInterval( () => {
                     pullDataFromCustomTrigger( bindingOptions );
                     renderControlContainer( bindingOptions );
                 }, bindingOptions.dataFetchDelay );
@@ -1750,7 +1750,7 @@ type LargestValuesForEachRangeType = {
     }
 
     function pullDataFromCustomTrigger( bindingOptions: BindingOptions ) : void {
-        const elementId: string = bindingOptions._currentView.element.id;
+        const elementId: string = bindingOptions._currentView!.element.id;
         const typeDateCounts: InstanceTypeDateCount = Trigger.customEvent( bindingOptions.events!.onDataFetch!, elementId );
 
         if ( Is.definedObject( typeDateCounts ) ) {
@@ -1773,9 +1773,9 @@ type LargestValuesForEachRangeType = {
             if ( _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
 
-                if ( Is.defined( bindingOptions._currentView.isInFetchModeTimer ) ) {
-                    clearInterval( bindingOptions._currentView.isInFetchModeTimer );
-                    bindingOptions._currentView.isInFetchModeTimer = 0;
+                if ( Is.defined( bindingOptions._currentView!.isInFetchModeTimer ) ) {
+                    clearInterval( bindingOptions._currentView!.isInFetchModeTimer );
+                    bindingOptions._currentView!.isInFetchModeTimer = 0;
                 }
             }
         }
@@ -1942,7 +1942,7 @@ type LargestValuesForEachRangeType = {
      */
 
     function makeAreaDroppable( element: HTMLElement, bindingOptions: BindingOptions ) : void {
-        if ( bindingOptions.allowFileImports && !bindingOptions._currentView.isInFetchMode ) {
+        if ( bindingOptions.allowFileImports && !bindingOptions._currentView!.isInFetchMode ) {
             element.ondragover = DomElement.cancelBubble;
             element.ondragenter = DomElement.cancelBubble;
             element.ondragleave = DomElement.cancelBubble;
@@ -1986,7 +1986,7 @@ type LargestValuesForEachRangeType = {
             }
             
             if ( filesCompleted.length === filesLength ) {
-                Trigger.customEvent( bindingOptions.events!.onImport!, bindingOptions._currentView.element );
+                Trigger.customEvent( bindingOptions.events!.onImport!, bindingOptions._currentView!.element );
                 renderControlContainer( bindingOptions );
             }
         };
@@ -2126,7 +2126,7 @@ type LargestValuesForEachRangeType = {
             
             document.body.removeChild( tempLink );
 
-            Trigger.customEvent( bindingOptions.events!.onExport!, bindingOptions._currentView.element );
+            Trigger.customEvent( bindingOptions.events!.onExport!, bindingOptions._currentView!.element );
         }
     }
 
@@ -2248,20 +2248,20 @@ type LargestValuesForEachRangeType = {
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
         if ( bindingOptions.exportOnlyDataBeingViewed ) {
-            const currentYear: number = bindingOptions._currentView.year;
+            const currentYear: number = bindingOptions._currentView!.year;
             let daysToShow: number[] = [];
             let monthsToShow: number[] = [];
 
-            if ( bindingOptions._currentView.view === ViewId.map ) {
+            if ( bindingOptions._currentView!.view === ViewId.map ) {
                 daysToShow = bindingOptions.views!.map!.daysToShow!;
                 monthsToShow = bindingOptions.views!.map!.monthsToShow!;
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView.view === ViewId.chart ) {
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
                 daysToShow = bindingOptions.views!.chart!.daysToShow!;
                 monthsToShow = bindingOptions.views!.chart!.monthsToShow!;
-            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView.view === ViewId.days ) {
+            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
                 daysToShow = bindingOptions.views!.days!.daysToShow!;
                 monthsToShow = bindingOptions.views!.days!.monthsToShow!;
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView.view === ViewId.statistics ) {
+            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
                 daysToShow = bindingOptions.views!.statistics!.daysToShow!;
                 monthsToShow = bindingOptions.views!.statistics!.monthsToShow!;
             } else {
@@ -2348,8 +2348,8 @@ type LargestValuesForEachRangeType = {
         const timePart: string = `${Str.padNumber( date.getHours() )}${Char.dash}${Str.padNumber( date.getMinutes() )}`;
         let filenameStart: string = Char.empty;
 
-        if ( bindingOptions._currentView.type !== _configuration.text!.unknownTrendText ) {
-            filenameStart = `${bindingOptions._currentView.type.toLowerCase().replace( / /g, Char.underscore )}${Char.underscore}`;
+        if ( bindingOptions._currentView!.type !== _configuration.text!.unknownTrendText ) {
+            filenameStart = `${bindingOptions._currentView!.type.toLowerCase().replace( / /g, Char.underscore )}${Char.underscore}`;
         }
 
         return `${filenameStart}${datePart}${Char.underscore}${timePart}.${bindingOptions.exportType!.toLowerCase()}`;
@@ -2376,7 +2376,7 @@ type LargestValuesForEachRangeType = {
 
     function moveToPreviousYear( bindingOptions: BindingOptions, callCustomTrigger: boolean = true ) : void {
         let render: boolean = true;
-        let year: number = bindingOptions._currentView.year;
+        let year: number = bindingOptions._currentView!.year;
             
         year--;
 
@@ -2390,19 +2390,19 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( render ) {
-            bindingOptions._currentView.year = year;
+            bindingOptions._currentView!.year = year;
 
             renderControlContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
-                Trigger.customEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView!.year );
             }
         }
     }
 
     function moveToNextYear( bindingOptions: BindingOptions, callCustomTrigger: boolean = true ) : void {
         let render: boolean = true;
-        let year: number = bindingOptions._currentView.year;
+        let year: number = bindingOptions._currentView!.year;
 
         year++;
 
@@ -2416,12 +2416,12 @@ type LargestValuesForEachRangeType = {
         }
 
         if ( render ) {
-            bindingOptions._currentView.year = year;
+            bindingOptions._currentView!.year = year;
 
             renderControlContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
-                Trigger.customEvent( bindingOptions.events!.onNextYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onNextYear!, bindingOptions._currentView!.year );
             }
         }
     }
@@ -2434,18 +2434,18 @@ type LargestValuesForEachRangeType = {
 	 */
 
     function destroyElement( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView.element.innerHTML = Char.empty;
+        bindingOptions._currentView!.element.innerHTML = Char.empty;
 
-        DomElement.removeClass( bindingOptions._currentView.element, "heat-js" );
+        DomElement.removeClass( bindingOptions._currentView!.element, "heat-js" );
         ToolTip.assignToEvents( bindingOptions, false );
 
-        document.body.removeChild( bindingOptions._currentView.tooltip );
+        document.body.removeChild( bindingOptions._currentView!.tooltip );
 
-        if ( bindingOptions._currentView.isInFetchMode && Is.defined( bindingOptions._currentView.isInFetchModeTimer ) ) {
-            clearInterval( bindingOptions._currentView.isInFetchModeTimer );
+        if ( bindingOptions._currentView!.isInFetchMode && Is.defined( bindingOptions._currentView!.isInFetchModeTimer ) ) {
+            clearInterval( bindingOptions._currentView!.isInFetchModeTimer );
         }
 
-        Trigger.customEvent( bindingOptions.events!.onDestroy!, bindingOptions._currentView.element );
+        Trigger.customEvent( bindingOptions.events!.onDestroy!, bindingOptions._currentView!.element );
     }
 
     function setupObservationMode() : void {
@@ -2488,7 +2488,7 @@ type LargestValuesForEachRangeType = {
             if ( Is.definedString( elementId ) && Is.definedArray( dates ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
-                if ( !bindingOptions._currentView.isInFetchMode ) {
+                if ( !bindingOptions._currentView!.isInFetchMode ) {
                     type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                     const datesLength: number = dates.length;
@@ -2510,7 +2510,7 @@ type LargestValuesForEachRangeType = {
             if ( Is.definedString( elementId ) && Is.definedDate( date ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
-                if ( !bindingOptions._currentView.isInFetchMode ) {
+                if ( !bindingOptions._currentView!.isInFetchMode ) {
                     type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                     const storageDate: string = DateTime.toStorageDate( date );
@@ -2526,7 +2526,7 @@ type LargestValuesForEachRangeType = {
             
                     _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ]++;
         
-                    Trigger.customEvent( bindingOptions.events!.onAdd!, bindingOptions._currentView.element );
+                    Trigger.customEvent( bindingOptions.events!.onAdd!, bindingOptions._currentView!.element );
         
                     if ( triggerRefresh ) {
                         renderControlContainer( bindingOptions, true );
@@ -2541,7 +2541,7 @@ type LargestValuesForEachRangeType = {
             if ( Is.definedString( elementId ) && Is.definedDate( date ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
-                if ( !bindingOptions._currentView.isInFetchMode && count > 0 ) {
+                if ( !bindingOptions._currentView!.isInFetchMode && count > 0 ) {
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {    
@@ -2549,7 +2549,7 @@ type LargestValuesForEachRangeType = {
 
                         _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ] = count;
         
-                        Trigger.customEvent( bindingOptions.events!.onUpdate!, bindingOptions._currentView.element );
+                        Trigger.customEvent( bindingOptions.events!.onUpdate!, bindingOptions._currentView!.element );
         
                         if ( triggerRefresh ) {
                             renderControlContainer( bindingOptions, true );
@@ -2565,7 +2565,7 @@ type LargestValuesForEachRangeType = {
             if ( Is.definedString( elementId ) && Is.definedArray( dates ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
-                if ( !bindingOptions._currentView.isInFetchMode ) {
+                if ( !bindingOptions._currentView!.isInFetchMode ) {
                     type = Default.getString( type, _configuration.text!.unknownTrendText! );
 
                     const datesLength: number = dates.length;
@@ -2587,7 +2587,7 @@ type LargestValuesForEachRangeType = {
             if ( Is.definedString( elementId ) && Is.definedDate( date ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
-                if ( !bindingOptions._currentView.isInFetchMode ) {
+                if ( !bindingOptions._currentView!.isInFetchMode ) {
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) && _elements_InstanceData[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
@@ -2597,7 +2597,7 @@ type LargestValuesForEachRangeType = {
                             _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ]--;
                         }
         
-                        Trigger.customEvent( bindingOptions.events!.onRemove!, bindingOptions._currentView.element );
+                        Trigger.customEvent( bindingOptions.events!.onRemove!, bindingOptions._currentView!.element );
         
                         if ( triggerRefresh ) {
                             renderControlContainer( bindingOptions, true );
@@ -2613,7 +2613,7 @@ type LargestValuesForEachRangeType = {
             if ( Is.definedString( elementId ) && Is.definedDate( date ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
-                if ( !bindingOptions._currentView.isInFetchMode ) {
+                if ( !bindingOptions._currentView!.isInFetchMode ) {
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) && _elements_InstanceData[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
@@ -2621,7 +2621,7 @@ type LargestValuesForEachRangeType = {
 
                         delete _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ];
         
-                        Trigger.customEvent( bindingOptions.events!.onClear!, bindingOptions._currentView.element );
+                        Trigger.customEvent( bindingOptions.events!.onClear!, bindingOptions._currentView!.element );
         
                         if ( triggerRefresh ) {
                             renderControlContainer( bindingOptions, true );
@@ -2647,11 +2647,11 @@ type LargestValuesForEachRangeType = {
             if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
-                if ( !bindingOptions._currentView.isInFetchMode ) {
-                    bindingOptions._currentView.type = _configuration.text!.unknownTrendText!;
+                if ( !bindingOptions._currentView!.isInFetchMode ) {
+                    bindingOptions._currentView!.type = _configuration.text!.unknownTrendText!;
         
                     createInstanceDataForElement( elementId, bindingOptions, false );
-                    Trigger.customEvent( bindingOptions.events!.onReset!, bindingOptions._currentView.element );
+                    Trigger.customEvent( bindingOptions.events!.onReset!, bindingOptions._currentView!.element );
         
                     if ( triggerRefresh ) {
                         renderControlContainer( bindingOptions, true );
@@ -2701,7 +2701,7 @@ type LargestValuesForEachRangeType = {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
     
                 renderControlContainer( bindingOptions, true );
-                Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
+                Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView!.element );
             }
     
             return _public;
@@ -2713,7 +2713,7 @@ type LargestValuesForEachRangeType = {
                     const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
     
                     renderControlContainer( bindingOptions, true );
-                    Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
+                    Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView!.element );
                 }
             }
     
@@ -2723,15 +2723,15 @@ type LargestValuesForEachRangeType = {
         setYear: function ( elementId: string, year: number ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedNumber( year ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-                bindingOptions._currentView.year = year;
+                bindingOptions._currentView!.year = year;
     
-                if ( !isYearVisible( bindingOptions, bindingOptions._currentView.year ) ) {
+                if ( !isYearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
                     moveToNextYear( bindingOptions, false );
                 } else {
                     renderControlContainer( bindingOptions );
                 }
     
-                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.year );
             }
     
             return _public;
@@ -2750,15 +2750,15 @@ type LargestValuesForEachRangeType = {
                 }
     
                 if ( maximumYear > 0 ) {
-                    bindingOptions._currentView.year = maximumYear;
+                    bindingOptions._currentView!.year = maximumYear;
     
-                    if ( !isYearVisible( bindingOptions, bindingOptions._currentView.year ) ) {
+                    if ( !isYearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
                         moveToNextYear( bindingOptions, false );
                     } else {
                         renderControlContainer( bindingOptions );
                     }
     
-                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.year );
                 }
             }
     
@@ -2778,15 +2778,15 @@ type LargestValuesForEachRangeType = {
                 }
     
                 if ( minimumYear < 9999 ) {
-                    bindingOptions._currentView.year = minimumYear;
+                    bindingOptions._currentView!.year = minimumYear;
     
-                    if ( !isYearVisible( bindingOptions, bindingOptions._currentView.year ) ) {
+                    if ( !isYearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
                         moveToPreviousYear( bindingOptions, false );
                     } else {
                         renderControlContainer( bindingOptions );
                     }
     
-                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.year );
                 }
             }
     
@@ -2812,15 +2812,15 @@ type LargestValuesForEachRangeType = {
         moveToCurrentYear: function ( elementId: string ) : PublicApi {
             if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-                bindingOptions._currentView.year = new Date().getFullYear();
+                bindingOptions._currentView!.year = new Date().getFullYear();
     
-                if ( !isYearVisible( bindingOptions, bindingOptions._currentView.year ) ) {
+                if ( !isYearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
                     moveToNextYear( bindingOptions, false );
                 } else {
                     renderControlContainer( bindingOptions );
                 }
     
-                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.year );
             }
     
             return _public;
@@ -2832,7 +2832,7 @@ type LargestValuesForEachRangeType = {
             if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
     
-                result = bindingOptions._currentView.year;
+                result = bindingOptions._currentView!.year;
             }
     
             return result;
@@ -2870,7 +2870,7 @@ type LargestValuesForEachRangeType = {
                 }
     
                 if ( Is.definedNumber( view ) ) {
-                    bindingOptions._currentView.view = view;
+                    bindingOptions._currentView!.view = view;
     
                     Trigger.customEvent( bindingOptions.events!.onViewSwitch!, viewName );
                     renderControlContainer( bindingOptions, false, true );
@@ -2884,8 +2884,8 @@ type LargestValuesForEachRangeType = {
             if ( Is.definedString( elementId ) && Is.definedString( type ) && _elements_InstanceData.hasOwnProperty( elementId ) && _elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
     
-                if ( bindingOptions._currentView.type !== type ) {
-                    bindingOptions._currentView.type = type;
+                if ( bindingOptions._currentView!.type !== type ) {
+                    bindingOptions._currentView!.type = type;
                 
                     Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, type );
                     renderControlContainer( bindingOptions );
@@ -2910,8 +2910,8 @@ type LargestValuesForEachRangeType = {
     
                 if ( optionChanged ) {
                     renderControlContainer( bindingOptions, true );
-                    Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView.element );
-                    Trigger.customEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView.element, bindingOptions );
+                    Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView!.element );
+                    Trigger.customEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView!.element, bindingOptions );
                 }
             }
     
@@ -3000,7 +3000,7 @@ type LargestValuesForEachRangeType = {
         },
 
         getVersion: function () : string {
-            return "4.5.0";
+            return "4.5.1";
         }
     };
 
