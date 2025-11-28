@@ -82,7 +82,7 @@ export type ConfigurationText = {
 };
 
 export type BindingOptions = {
-    _currentView: BindingOptionsCurrentView,
+    _currentView?: BindingOptionsCurrentView,
     exportOnlyDataBeingViewed?: boolean;
     year?: number;
     view?: string;
