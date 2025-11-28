@@ -177,6 +177,8 @@ div.heat-js {
     }
 
     button {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
         font-family: var(--heat-js-default-font);
     }
 
@@ -433,6 +435,8 @@ div.heat-js {
 
 div.heat-js {
     div.title-bar {
+        vertical-align: middle;
+
         div.title {
             $title-margin: 3px;
 

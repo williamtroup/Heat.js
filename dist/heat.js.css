@@ -141,6 +141,8 @@ div.heat-js.resizable {
   }
 }
 div.heat-js button {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
   font-family: var(--heat-js-default-font);
 }
 div.heat-js div.view-switch {
@@ -375,6 +377,9 @@ div.heat-js div.title-bar button.import {
     Heat.js - Title Bar - Title Drop-Down
     -------------------------------------------------------------------------
 */
+div.heat-js div.title-bar {
+  vertical-align: middle;
+}
 div.heat-js div.title-bar div.title {
   float: left;
   font-weight: var(--heat-js-title-bold-weight);
