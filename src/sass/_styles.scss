@@ -72,13 +72,8 @@ $minimum-width: 768px;
     padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
     position: sticky;
     left: 0;
-    display: none;
     border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
     z-index: 50;
-
-    @media (min-width: $minimum-width) { 
-        display: block;
-    }
 
     div.label-0,
     div.label-25,

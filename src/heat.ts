@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        heat.ts
- * @version     v4.4.0
+ * @version     v4.5.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -409,20 +409,26 @@ type LargestValuesForEachRangeType = {
                 const importData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "import", _configuration.text!.importButtonSymbolText! );
                 importData.onclick = () => importFromFilesSelected( bindingOptions );
 
-                ToolTip.add( importData, bindingOptions, _configuration.text!.importButtonText! );
+                if ( bindingOptions.title!.showToolTips ) {
+                    ToolTip.add( importData, bindingOptions, _configuration.text!.importButtonText! );
+                }
             }
 
             if ( bindingOptions.title!.showExportButton ) {
                 const exportData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "export", _configuration.text!.exportButtonSymbolText! );
                 exportData.onclick = () => exportAllData( bindingOptions );
 
-                ToolTip.add( exportData, bindingOptions, _configuration.text!.exportButtonText! );
+                if ( bindingOptions.title!.showToolTips ) {
+                    ToolTip.add( exportData, bindingOptions, _configuration.text!.exportButtonText! );
+                }
             }
 
             if ( bindingOptions.title!.showRefreshButton ) {
                 const refresh: HTMLElement = DomElement.createWithHTML( titleBar, "button", "refresh", _configuration.text!.refreshButtonSymbolText! );
 
-                ToolTip.add( refresh, bindingOptions, _configuration.text!.refreshButtonText! );
+                if ( bindingOptions.title!.showToolTips ) {
+                    ToolTip.add( refresh, bindingOptions, _configuration.text!.refreshButtonText! );
+                }
         
                 refresh.onclick = () => {
                     renderControlContainer( bindingOptions );
@@ -434,13 +440,21 @@ type LargestValuesForEachRangeType = {
                 const back: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "back", _configuration.text!.backButtonSymbolText! ) as HTMLInputElement;
                 back.onclick = () => moveToPreviousYear( bindingOptions );
 
-                ToolTip.add( back, bindingOptions, _configuration.text!.backButtonText! );
+                if ( bindingOptions.title!.showToolTips ) {
+                    ToolTip.add( back, bindingOptions, _configuration.text!.backButtonText! );
+                }
 
                 if ( isFirstVisibleYear( bindingOptions, bindingOptions._currentView.year ) ) {
                     back.disabled = true;
                 }
 
-                bindingOptions._currentView.yearText = DomElement.createWithHTML( titleBar, "div", "year-text", bindingOptions._currentView.year.toString() );
+                let yearText: string = bindingOptions._currentView.year.toString();
+
+                if ( bindingOptions.startMonth! > 0 ) {
+                    yearText += ` / ${bindingOptions._currentView.year + 1}`;
+                }
+
+                bindingOptions._currentView.yearText = DomElement.createWithHTML( titleBar, "div", "year-text", yearText );
 
                 if ( bindingOptions.title!.showYearSelectionDropDown ) {
                     renderYearDropDownMenu( bindingOptions );
@@ -452,13 +466,17 @@ type LargestValuesForEachRangeType = {
                     let configureButton: HTMLElement = DomElement.create( titleBar, "div", "configure" );
                     configureButton.onclick = () => showConfigurationDialog( bindingOptions );
 
-                    ToolTip.add( configureButton, bindingOptions, _configuration.text!.configurationToolTipText! );
+                    if ( bindingOptions.title!.showToolTips ) {
+                        ToolTip.add( configureButton, bindingOptions, _configuration.text!.configurationToolTipText! );
+                    }
                 }
 
                 if ( bindingOptions.title!.showCurrentYearButton ) {
                     const current: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "current", _configuration.text!.currentYearSymbolText! ) as HTMLInputElement;
 
-                    ToolTip.add( current, bindingOptions, _configuration.text!.currentYearText! );
+                    if ( bindingOptions.title!.showToolTips ) {
+                        ToolTip.add( current, bindingOptions, _configuration.text!.currentYearText! );
+                    }
     
                     current.onclick = () => {
                         bindingOptions._currentView.year = new Date().getFullYear() - 1;
@@ -471,7 +489,9 @@ type LargestValuesForEachRangeType = {
                 const next: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "next", _configuration.text!.nextButtonSymbolText! ) as HTMLInputElement;
                 next.onclick = () => moveToNextYear( bindingOptions );
 
-                ToolTip.add( next, bindingOptions, _configuration.text!.nextButtonText! );
+                if ( bindingOptions.title!.showToolTips ) {
+                    ToolTip.add( next, bindingOptions, _configuration.text!.nextButtonText! );
+                }
 
                 if ( isLastVisibleYear( bindingOptions, bindingOptions._currentView.year ) ) {
                     next.disabled = true;
@@ -541,6 +561,10 @@ type LargestValuesForEachRangeType = {
         const thisYear: number = new Date().getFullYear();
         let activeYearMenuItem: HTMLElement = null!;
 
+        if ( bindingOptions.startMonth! > 0 ) {
+            DomElement.addClass( yearsMenuContainer, "custom-start-year" );
+        }
+
         yearsMenuContainer.style.display = "block";
         yearsMenuContainer.style.visibility = "hidden";
 
@@ -564,7 +588,8 @@ type LargestValuesForEachRangeType = {
 
     function renderYearDropDownMenuItem( bindingOptions: BindingOptions, years: HTMLElement, currentYear: number, actualYear: number ) : HTMLElement {
         let result: HTMLElement = null!;
-        const year: HTMLElement = DomElement.createWithHTML( years, "div", "year-menu-item", currentYear.toString() );
+        const currentYearText: string = bindingOptions.startMonth === 0 ? currentYear.toString() : `${currentYear} / ${currentYear + 1}`;
+        const year: HTMLElement = DomElement.createWithHTML( years, "div", "year-menu-item", currentYearText );
 
         if ( bindingOptions._currentView.year !== currentYear ) {
             year.onclick = () => {
@@ -654,14 +679,22 @@ type LargestValuesForEachRangeType = {
             const months: HTMLElement = DomElement.create( map, "div", "months" );
             const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
     
-            for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-                if ( isMonthVisible( bindingOptions.views!.map!.monthsToShow!, monthIndex ) ) {
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+                let actualMonthIndex: number = monthIndex;
+                let actualYear: number = currentYear;
+
+                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                    actualMonthIndex = monthIndex - 12;
+                    actualYear++;
+                }
+
+                if ( isMonthVisible( bindingOptions.views!.map!.monthsToShow!, actualMonthIndex ) ) {
                     const month: HTMLElement = DomElement.create( months, "div", "month" );
                     const dayColumns: HTMLElement = DomElement.create( month, "div", "day-columns" );
-                    let totalDaysInMonth: number = DateTime.getTotalDaysInMonth( currentYear, monthIndex );
+                    let totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
                     let currentDayColumn: HTMLElement = DomElement.create( dayColumns, "div", "day-column" );
                     let startFillingDays: boolean = false;
-                    const firstDayInMonth: Date = new Date( currentYear, monthIndex, 1 );
+                    const firstDayInMonth: Date = new Date( actualYear, actualMonthIndex, 1 );
                     const firstDayNumberInMonth: number = DateTime.getWeekdayNumber( firstDayInMonth );
                     let actualDay: number = 1;
         
@@ -681,7 +714,7 @@ type LargestValuesForEachRangeType = {
                             let day: HTMLElement = null!;
     
                             if ( isDayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
-                                day = renderControlMapMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, monthIndex, currentYear, colorRanges );
+                                day = renderControlMapMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, actualMonthIndex, actualYear, colorRanges );
                             }
             
                             if ( ( dayIndex + 1 ) % 7 === 0 ) {
@@ -707,11 +740,17 @@ type LargestValuesForEachRangeType = {
                     if ( bindingOptions.views!.map!.showMonthNames ) {
                         let monthName: HTMLElement;
                         const monthWidth: number = month.offsetWidth;
+
+                        let monthNameText: string = _configuration.text!.monthNames![ actualMonthIndex ];
+
+                        if ( bindingOptions.startMonth! > 0 ) {
+                            monthNameText += `${Char.space}${actualYear}`;
+                        }
     
                         if ( !bindingOptions.views!.map!.placeMonthNamesOnTheBottom ) {
-                            monthName = DomElement.createWithHTML( month, "div", "month-name", _configuration.text!.monthNames![ monthIndex ], dayColumns );
+                            monthName = DomElement.createWithHTML( month, "div", "month-name", monthNameText, dayColumns );
                         } else {
-                            monthName = DomElement.createWithHTML( month, "div", "month-name-bottom", _configuration.text!.monthNames![ monthIndex ] );
+                            monthName = DomElement.createWithHTML( month, "div", "month-name-bottom", monthNameText );
                         }
     
                         if ( Is.defined( monthName ) ) {
@@ -760,7 +799,9 @@ type LargestValuesForEachRangeType = {
 
         day.setAttribute("data-heat-js-map-date", `${Str.padNumber(actualDay)}-${Str.padNumber(month + 1)}-${year}` );
 
-        renderDayToolTip( bindingOptions, day, date, dateCount );
+        if ( bindingOptions.views!.map!.showToolTips ) {
+            renderDayToolTip( bindingOptions, day, date, dateCount );
+        }
 
         if ( bindingOptions.views!.map!.showDayNumbers && dateCount > 0 ) {
             day.innerHTML = dateCount.toString();
@@ -770,6 +811,8 @@ type LargestValuesForEachRangeType = {
 
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
             day.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount, holiday.matched );
+        } else if ( Is.definedFunction( bindingOptions.events!.onDayDblClick ) ) {
+            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayDblClick!, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( day, "no-hover" );
         }
@@ -860,17 +903,35 @@ type LargestValuesForEachRangeType = {
             const pixelsPerNumbers: number = bindingOptions._currentView.mapContents.offsetHeight / largestValueForCurrentYear;
             let totalMonths: number = 0;
             let totalDays: number = 0;
+            let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
 
-            for ( let monthIndex1: number = 0; monthIndex1 < 12; monthIndex1++ ) {
-                if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, monthIndex1 ) ) {
-                    const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( currentYear, monthIndex1 );
+            for ( let monthIndex1: number = bindingOptions.startMonth!; monthIndex1 < ( 12 + bindingOptions.startMonth! ); monthIndex1++ ) {
+                let actualMonthIndex: number = monthIndex1;
+                let actualYear: number = currentYear;
+
+                if ( bindingOptions.startMonth! > 0 && monthIndex1 > 11 ) {
+                    actualMonthIndex = monthIndex1 - 12;
+                    actualYear++;
+                }
+
+                if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) ) {
+                    const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
                     let actualDay: number = 1;
+                    let firstDayAdded: boolean = false;
                     
                     totalMonths++;
 
                     for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                        if ( isDayVisible( bindingOptions.views!.chart!.daysToShow!, actualDay ) ) {
-                            renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, monthIndex1, currentYear, colorRanges, pixelsPerNumbers );
+                        const actualDate: Date = new Date( actualYear, actualMonthIndex, actualDay );
+                        const weekdayNumber: number = DateTime.getWeekdayNumber( actualDate ) + 1;
+                        
+                        if ( isDayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
+                            const dayLine: HTMLElement = renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, pixelsPerNumbers );
+
+                            if ( !firstDayAdded ) {
+                                firstMonthDayLines.push( dayLine );
+                                firstDayAdded = true;
+                            }
                         }
         
                         if ( ( dayIndex + 1 ) % 7 === 0 ) {
@@ -885,19 +946,33 @@ type LargestValuesForEachRangeType = {
 
             if ( bindingOptions.views!.chart!.showInReverseOrder ) {
                 DomElement.reverseChildrenOrder( dayLines );
+                firstMonthDayLines = firstMonthDayLines.reverse();
             }
 
             if ( bindingOptions.views!.chart!.showMonthNames ) {
                 const chartMonths: HTMLElement = DomElement.create( bindingOptions._currentView.chartContents, "div", "chart-months" );
-                const linesWidth: number = dayLines.offsetWidth / totalMonths;
-                let monthTimesValue: number = 0;
+                let monthNameAddedIndex: number = 0;
 
                 const addMonthName: Function = ( addMonthNameIndex: number ) : void => {
-                    if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, addMonthNameIndex ) ) {
-                        let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", _configuration.text!.monthNames![ addMonthNameIndex ] );
-                        monthName.style.left = `${labelsWidth + (linesWidth * monthTimesValue)}px`;
+                    let actualMonthIndex: number = addMonthNameIndex + bindingOptions.startMonth!;
+                    let actualYear: number = currentYear;
 
-                        monthTimesValue++;
+                    if ( bindingOptions.startMonth! > 0 && actualMonthIndex > 11 ) {
+                        actualMonthIndex -= 12;
+                        actualYear++;
+                    }
+
+                    if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) ) {
+                        let monthNameText: string = _configuration.text!.monthNames![ actualMonthIndex ];
+
+                        if ( bindingOptions.startMonth! > 0 ) {
+                            monthNameText += `${Char.space}${actualYear}`;
+                        }
+
+                        let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", monthNameText );
+                        monthName.style.left = `${firstMonthDayLines[ monthNameAddedIndex ].offsetLeft}px`;
+
+                        monthNameAddedIndex++;
                     }
                 };
 
@@ -925,7 +1000,7 @@ type LargestValuesForEachRangeType = {
         }
     }
 
-    function renderControlChartDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number ) : void {
+    function renderControlChartDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number ) : HTMLElement {
         const date: Date = new Date( year, month, day );
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const holiday: IsHoliday = isHoliday( bindingOptions, date );
@@ -935,7 +1010,9 @@ type LargestValuesForEachRangeType = {
 
         dayLine.setAttribute("data-heat-js-chart-date", `${Str.padNumber(day)}-${Str.padNumber(month + 1)}-${year}` );
 
-        renderDayToolTip( bindingOptions, dayLine, date, dateCount );
+        if ( bindingOptions.views!.chart!.showToolTips ) {
+            renderDayToolTip( bindingOptions, dayLine, date, dateCount );
+        }
 
         if ( bindingOptions.views!.chart!.showLineNumbers && dateCount > 0 ) {
             DomElement.addClass( dayLine, "day-line-number" );
@@ -957,6 +1034,8 @@ type LargestValuesForEachRangeType = {
 
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
             dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount, holiday.matched );
+        } else if ( Is.definedFunction( bindingOptions.events!.onDayDblClick ) ) {
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayDblClick!, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -970,22 +1049,37 @@ type LargestValuesForEachRangeType = {
                 DomElement.addClass( dayLine, useColorRange.cssClassName! );
             }
         }
+
+        if ( bindingOptions.views!.chart!.useGradients ) {
+            DomElement.adGradientEffect( bindingOptions._currentView.element, dayLine );
+        }
+
+        return dayLine;
     }
 
     function getLargestValueForChartYear( bindingOptions: BindingOptions ) : number {
         let result: number = 0;
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
+        const currentYear: number = bindingOptions._currentView.year;
 
-        for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            let actualMonthIndex: number = monthIndex;
+            let actualYear: number = currentYear;
+
+            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                actualMonthIndex = monthIndex - 12;
+                actualYear++;
+            }
+
+            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
     
             for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                const date: Date = new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 );
+                const date: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
                 const storageDate: string = DateTime.toStorageDate( date );
-                const weekdayNumber: number = DateTime.getWeekdayNumber( date );
+                const weekdayNumber: number = DateTime.getWeekdayNumber( date ) + 1;
 
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, monthIndex ) && isDayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
+                    if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) && isDayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
                         result = Math.max( result, typeDateCounts[ storageDate ] );
                     }
                 }
@@ -1080,11 +1174,15 @@ type LargestValuesForEachRangeType = {
         if ( dayLineHeight <= 0 ) {
             dayLine.style.visibility = "hidden";
         }
-        
-        ToolTip.add( dayLine, bindingOptions, dayCount.toString() );
+
+        if ( bindingOptions.views!.days!.showToolTips ) {
+            ToolTip.add( dayLine, bindingOptions, dayCount.toString() );
+        }
 
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
             dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount, bindingOptions._currentView.year );
+        } else if ( Is.definedFunction( bindingOptions.events!.onWeekDayDblClick ) ) {
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayDblClick!, dayNumber, dayCount, bindingOptions._currentView.year );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -1092,6 +1190,10 @@ type LargestValuesForEachRangeType = {
         if ( bindingOptions.views!.days!.showDayNumbers && dayCount > 0 ) {
             DomElement.addClass( dayLine, "day-line-number" );
             DomElement.createWithHTML( dayLine, "div", "count", dayCount.toString() );
+        }
+
+        if ( bindingOptions.views!.days!.useGradients ) {
+            DomElement.adGradientEffect( bindingOptions._currentView.element, dayLine );
         }
     }
 
@@ -1110,12 +1212,21 @@ type LargestValuesForEachRangeType = {
         } as LargestValueForDays;
 
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
+        const currentYear: number = bindingOptions._currentView.year;
 
-        for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            let actualMonthIndex: number = monthIndex;
+            let actualYear: number = currentYear;
+
+            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                actualMonthIndex = monthIndex - 12;
+                actualYear++;
+            }
+
+            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
     
             for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                const storageDate: string = DateTime.toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
+                const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
 
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                     const storageDateParts: string[] = DateTime.getStorageDate( storageDate );
@@ -1234,8 +1345,10 @@ type LargestValuesForEachRangeType = {
         if ( rangeLineHeight <= 0 ) {
             rangeLine.style.visibility = "hidden";
         }
-        
-        ToolTip.add( rangeLine, bindingOptions, rangeCount.toString() );
+
+        if ( bindingOptions.views!.statistics!.showToolTips ) {
+            ToolTip.add( rangeLine, bindingOptions, rangeCount.toString() );
+        }
 
         if ( bindingOptions.views!.statistics!.showRangeNumbers && rangeCount > 0 ) {
             DomElement.addClass( rangeLine, "range-line-number" );
@@ -1245,6 +1358,8 @@ type LargestValuesForEachRangeType = {
 
         if ( Is.definedFunction( bindingOptions.events!.onStatisticClick ) ) {
             rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange, rangeCount, bindingOptions._currentView.year );
+        } else if ( Is.definedFunction( bindingOptions.events!.onStatisticDblClick ) ) {
+            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticDblClick!, useColorRange, rangeCount, bindingOptions._currentView.year );
         } else {
             DomElement.addClass( rangeLine, "no-hover" );
         }
@@ -1256,10 +1371,15 @@ type LargestValuesForEachRangeType = {
                 DomElement.addClass( rangeLine, useColorRange.cssClassName! );
             }
         }
+
+        if ( bindingOptions.views!.statistics!.useGradients ) {
+            DomElement.adGradientEffect( bindingOptions._currentView.element, rangeLine );
+        }
     }
 
     function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValuesForEachRangeType {
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
+        const currentYear: number = bindingOptions._currentView.year;
 
         const result: LargestValuesForEachRangeType = {
             types: {} as InstanceTypeDateCount,
@@ -1268,11 +1388,19 @@ type LargestValuesForEachRangeType = {
 
         result.types[ Char.zero ] = 0;
 
-        for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            let actualMonthIndex: number = monthIndex;
+            let actualYear: number = currentYear;
+
+            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                actualMonthIndex = monthIndex - 12;
+                actualYear++;
+            }
+
+            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
     
             for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                const storageDate: string = DateTime.toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
+                const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
 
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                     const storageDateParts: string[] = DateTime.getStorageDate( storageDate );
@@ -1396,7 +1524,9 @@ type LargestValuesForEachRangeType = {
         const day: HTMLElement = DomElement.create( days, "div" );
         day.className = "day";
 
-        ToolTip.add( day, bindingOptions, colorRange.tooltipText! );
+        if ( bindingOptions.guide!.showToolTips ) {
+            ToolTip.add( day, bindingOptions, colorRange.tooltipText! );
+        }
 
         if ( isColorRangeVisible( bindingOptions, colorRange.id! ) ) {
             if ( bindingOptions._currentView.view === ViewId.map && Is.definedString( colorRange.mapCssClassName ) ) {
@@ -1830,7 +1960,7 @@ type LargestValuesForEachRangeType = {
     function importFromFilesSelected( bindingOptions: BindingOptions ) : void {
         const input: HTMLInputElement = DomElement.createWithNoContainer( "input" ) as HTMLInputElement;
         input.type = "file";
-        input.accept = ".json, .txt, .csv";
+        input.accept = ".json, .txt, .csv, .tsv";
         input.multiple = true;
         input.onchange = () => importFromFiles( input.files!, bindingOptions );
 
@@ -1871,6 +2001,8 @@ type LargestValuesForEachRangeType = {
                 importFromTxt( file, onLoadEnd );
             } else if ( fileExtension === ExportType.csv ) {
                 importFromCsv( file, onLoadEnd );
+            } else if ( fileExtension === ExportType.tsv ) {
+                importFromTsv( file, onLoadEnd );
             }
         }
     }
@@ -1936,6 +2068,26 @@ type LargestValuesForEachRangeType = {
         reader.readAsText( file );
     }
 
+    function importFromTsv( file: File, onLoadEnd: Function ) : void {
+        const reader: FileReader = new FileReader();
+        const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
+
+        reader.onloadend = () => onLoadEnd( file.name, readingObject );
+    
+        reader.onload = ( ev: ProgressEvent<FileReader> ) => {
+            const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
+            const linesLength: number = lines.length;
+
+            for ( let lineIndex: number = 1; lineIndex < linesLength; lineIndex++ ) {
+                const line: string[] = lines[ lineIndex ].split( Char.tab );
+
+                readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
+            }
+        };
+
+        reader.readAsText( file );
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1956,6 +2108,12 @@ type LargestValuesForEachRangeType = {
             contents = getXmlContents( bindingOptions );
         } else if ( contentExportType === ExportType.txt ) {
             contents = getTxtContents( bindingOptions );
+        } else if ( contentExportType === ExportType.html ) {
+            contents = getHtmlContents( bindingOptions );
+        } else if ( contentExportType === ExportType.md ) {
+            contents = getMdContents( bindingOptions );
+        } else if ( contentExportType === ExportType.tsv ) {
+            contents = getTsvContents( bindingOptions );
         }
 
         if ( Is.definedString( contents ) ) {
@@ -2027,19 +2185,112 @@ type LargestValuesForEachRangeType = {
         return contents.join( Char.newLine );
     }
 
+    function getHtmlContents( bindingOptions: BindingOptions ) : string {
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
+        const contents: string[] = [];
+        const exportedDateTime: string = DateTime.getCustomFormattedDateText( _configuration, "{ddd}, {dd} {mmm} {yyyy}", new Date() );
+
+        contents.push( "<!DOCTYPE html>" );
+        contents.push( "<html>" );
+        contents.push( "<head>" );
+        contents.push( "<meta charset=\"utf-8\" />" );
+        contents.push( `<meta http-equiv=\"Last-Modified\" content=\"${exportedDateTime} GMT\" />` );
+        contents.push( "</head>" );
+        contents.push( "<body>" );
+        contents.push( "<ul>" );
+
+        for ( const storageDate in typeDateCounts ) {
+            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                contents.push( `<li><b>${storageDate}:</b> ${typeDateCounts[storageDate].toString()}</li>` );
+            }
+        }
+
+        contents.push( "</ul>" );
+        contents.push( "</body>" );
+        contents.push( "</html>" );
+
+        return contents.join( Char.newLine );
+    }
+
+    function getMdContents( bindingOptions: BindingOptions ) : string {
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
+        const contents: string[] = [];
+
+        contents.push( "| Full Date | Count |" );
+        contents.push( "| --- | --- |" );
+
+        for ( const storageDate in typeDateCounts ) {
+            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                contents.push( `| ${storageDate} | ${typeDateCounts[storageDate].toString()} |` );
+            }
+        }
+
+        return contents.join( Char.newLine );
+    }
+
+    function getTsvContents( bindingOptions: BindingOptions ) : string {
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
+        const contents: string[] = [];
+
+        contents.push( `Full Date${Char.tab}Count` );
+
+        for ( const storageDate in typeDateCounts ) {
+            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                contents.push( `${storageDate}${Char.tab}${typeDateCounts[storageDate].toString()}` );
+            }
+        }
+
+        return contents.join( Char.newLine );
+    }
+
     function getExportData( bindingOptions: BindingOptions ) : InstanceTypeDateCount {
         const contents: InstanceTypeDateCount = {} as InstanceTypeDateCount;
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
-        if ( bindingOptions.exportOnlyYearBeingViewed ) {
-            for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-                const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( bindingOptions._currentView.year, monthIndex );
-        
-                for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                    const storageDate2: string = DateTime.toStorageDate( new Date( bindingOptions._currentView.year, monthIndex, dayIndex + 1 ) );
+        if ( bindingOptions.exportOnlyDataBeingViewed ) {
+            const currentYear: number = bindingOptions._currentView.year;
+            let daysToShow: number[] = [];
+            let monthsToShow: number[] = [];
 
-                    if ( typeDateCounts.hasOwnProperty( storageDate2 ) ) {
-                        contents[ storageDate2 ] = typeDateCounts[ storageDate2 ];
+            if ( bindingOptions._currentView.view === ViewId.map ) {
+                daysToShow = bindingOptions.views!.map!.daysToShow!;
+                monthsToShow = bindingOptions.views!.map!.monthsToShow!;
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView.view === ViewId.chart ) {
+                daysToShow = bindingOptions.views!.chart!.daysToShow!;
+                monthsToShow = bindingOptions.views!.chart!.monthsToShow!;
+            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView.view === ViewId.days ) {
+                daysToShow = bindingOptions.views!.days!.daysToShow!;
+                monthsToShow = bindingOptions.views!.days!.monthsToShow!;
+            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView.view === ViewId.statistics ) {
+                daysToShow = bindingOptions.views!.statistics!.daysToShow!;
+                monthsToShow = bindingOptions.views!.statistics!.monthsToShow!;
+            } else {
+                daysToShow = bindingOptions.views!.map!.daysToShow!;
+                monthsToShow = bindingOptions.views!.map!.monthsToShow!;
+            }
+
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+                let actualMonthIndex: number = monthIndex;
+                let actualYear: number = currentYear;
+
+                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                    actualMonthIndex = monthIndex - 12;
+                    actualYear++;
+                }
+
+                if ( isMonthVisible( monthsToShow, actualMonthIndex ) ) {
+                    const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
+            
+                    for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                        const storageDate: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
+                        const storageDateKey: string = DateTime.toStorageDate( storageDate );
+                        const weekdayNumber: number = DateTime.getWeekdayNumber( storageDate ) + 1;
+
+                        if ( isDayVisible( daysToShow, weekdayNumber ) ) {
+                            if ( typeDateCounts.hasOwnProperty( storageDateKey ) ) {
+                                contents[ storageDateKey ] = typeDateCounts[ storageDateKey ];
+                            }
+                        }
                     }
                 }
             }
@@ -2058,10 +2309,10 @@ type LargestValuesForEachRangeType = {
             const storageDatesLength: number = storageDates.length;
 
             for ( let storageDateIndex: number = 0; storageDateIndex < storageDatesLength; storageDateIndex++ ) {
-                const storageDate3: string = storageDates[ storageDateIndex ];
+                const storageDate2: string = storageDates[ storageDateIndex ];
     
-                if ( typeDateCounts.hasOwnProperty( storageDate3 ) ) {
-                    contents[ storageDate3 ] = typeDateCounts[ storageDate3 ];
+                if ( typeDateCounts.hasOwnProperty( storageDate2 ) ) {
+                    contents[ storageDate2 ] = typeDateCounts[ storageDate2 ];
                 }
             }
         }
@@ -2080,6 +2331,12 @@ type LargestValuesForEachRangeType = {
             result = "application/xml";
         } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.txt ) {
             result = "text/plain";
+        } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.html ) {
+            result = "text/html";
+        } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.md ) {
+            result = "text/x-markdown";
+        } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.tsv ) {
+            result = "text/tab-separated-values";
         }
 
         return result;
@@ -2743,7 +3000,7 @@ type LargestValuesForEachRangeType = {
         },
 
         getVersion: function () : string {
-            return "4.4.0";
+            return "4.5.0";
         }
     };
 
