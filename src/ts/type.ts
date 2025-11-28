@@ -29,6 +29,21 @@ export type Position = {
     top: number;
 };
 
+export type IsHoliday = {
+    matched: boolean;
+    name: string;
+};
+
+export type LargestValueForDays = {
+    days: Record<number, number>;
+    largestValue: number;
+};
+
+export type LargestValuesForEachRangeType = {
+    types: InstanceTypeDateCount;
+    largestValue: number;
+};
+
 export type Configuration = {
 	safeMode?: boolean;
 	domElementTypes?: string[] | string;

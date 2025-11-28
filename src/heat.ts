@@ -18,7 +18,10 @@ import {
     type BindingOptions,
     type InstanceTypeDateCount,
     type InstanceData, 
-    type StringToJson } from "./ts/type";
+    type StringToJson,
+    type IsHoliday,
+    type LargestValueForDays,
+    type LargestValuesForEachRangeType } from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
 import { Constant } from "./ts/constant"
@@ -33,22 +36,6 @@ import { Trigger } from "./ts/area/trigger";
 import { Binding } from "./ts/options/binding";
 import { Config } from "./ts/options/config";
 import { Disabled } from "./ts/area/disabled";
-
-
-type IsHoliday = {
-    matched: boolean;
-    name: string;
-};
-
-type LargestValueForDays = {
-    days: Record<number, number>;
-    largestValue: number;
-};
-
-type LargestValuesForEachRangeType = {
-    types: InstanceTypeDateCount;
-    largestValue: number;
-};
 
 
 ( () => {
