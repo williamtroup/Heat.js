@@ -2885,7 +2885,7 @@ var Disabled;
             return e;
         },
         getVersion: function() {
-            return "4.5.1";
+            return "4.5.2";
         }
     };
     (() => {
