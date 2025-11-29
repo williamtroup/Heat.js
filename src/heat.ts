@@ -1129,15 +1129,19 @@ import { Disabled } from "./ts/area/disabled";
 
         } else {
             const pixelsPerNumbers: number = bindingOptions._currentView!.mapContents.offsetHeight / dayValuesForCurrentYear.largestValue;
+            const opacity: number = 1 / 7;
+            let opacityIncrease: number = opacity;
 
             for ( const day in dayValuesForCurrentYear.days ) {
                 if ( dayValuesForCurrentYear.days.hasOwnProperty( day ) && isDayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
-                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.days[ day ], bindingOptions, pixelsPerNumbers );
+                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.days[ day ], bindingOptions, pixelsPerNumbers, opacityIncrease );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
                         DomElement.createWithHTML( dayNames, "div", "day-name", _configuration.text!.dayNames![ parseInt( day ) - 1 ] );
                     }
                 }
+
+                opacityIncrease += opacity;
             }
 
             if ( bindingOptions.views!.days!.showInReverseOrder ) {
@@ -1151,7 +1155,7 @@ import { Disabled } from "./ts/area/disabled";
         }
     }
 
-    function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number ) : void {
+    function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number ) : void {
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
 
@@ -1181,6 +1185,22 @@ import { Disabled } from "./ts/area/disabled";
 
         if ( bindingOptions.views!.days!.useGradients ) {
             DomElement.adGradientEffect( bindingOptions._currentView!.element, dayLine );
+
+        } else if ( bindingOptions.views!.days!.useDifferentBackgroundOpacities ) {
+            const backgroundColor: string = DomElement.getStyleValueByName( dayLine, "background-color" );
+
+            if ( backgroundColor.startsWith( "rgba" ) || backgroundColor.startsWith( "rgb" ) ) {
+                let backgroundColorParts: string[] = backgroundColor.replace( "rgba(", Char.empty ).replace( "rgb(", Char.empty ).replace( ")", Char.empty ).split(",");
+
+                if ( backgroundColor.startsWith( "rgba" ) ) {
+                    backgroundColorParts[ backgroundColorParts.length - 1 ] = opacityIncrease.toString();
+                } else
+                {
+                    backgroundColorParts.push( opacityIncrease.toString() );
+                }
+
+                dayLine.style.backgroundColor = `rgba(${backgroundColorParts.join()})`;
+            }
         }
     }
 

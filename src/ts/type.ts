@@ -195,6 +195,7 @@ export type BindingOptionsViewsDays = {
     daysToShow?: number[];
     showToolTips?: boolean;
     useGradients?: boolean;
+    useDifferentBackgroundOpacities?: boolean;
 };
 
 export type BindingOptionsViewsStatistics = {

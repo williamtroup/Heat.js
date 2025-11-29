@@ -312,6 +312,7 @@ export namespace Binding {
             options.views!.days!.keepScrollPositions = Default.getBoolean( options.views!.days!.keepScrollPositions, false );
             options.views!.days!.showToolTips = Default.getBoolean( options.views!.days!.showToolTips, true );
             options.views!.days!.useGradients = Default.getBoolean( options.views!.days!.useGradients, false );
+            options.views!.days!.useDifferentBackgroundOpacities = Default.getBoolean( options.views!.days!.useDifferentBackgroundOpacities, false );
     
             if ( Is.invalidOptionArray( options.views!.days!.monthsToShow ) ) {
                 options.views!.days!.monthsToShow = _default_MonthsToShow;

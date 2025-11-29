@@ -441,7 +441,7 @@ var Binding;
             t.views.chart = f(t);
             t.views.days = m(t);
             t.views.statistics = w(t);
-            t.events = h(t);
+            t.events = g(t);
             if (t.startMonth > 0) {
                 t.yearsToHide = [];
             }
@@ -603,6 +603,7 @@ var Binding;
             e.views.days.keepScrollPositions = Default2.getBoolean(e.views.days.keepScrollPositions, false);
             e.views.days.showToolTips = Default2.getBoolean(e.views.days.showToolTips, true);
             e.views.days.useGradients = Default2.getBoolean(e.views.days.useGradients, false);
+            e.views.days.useDifferentBackgroundOpacities = Default2.getBoolean(e.views.days.useDifferentBackgroundOpacities, false);
             if (Is.invalidOptionArray(e.views.days.monthsToShow)) {
                 e.views.days.monthsToShow = t;
             }
@@ -630,7 +631,7 @@ var Binding;
             }
             return e.views.statistics;
         }
-        function h(e) {
+        function g(e) {
             e.events = Default2.getObject(e.events, {});
             e.events.onBackYear = Default2.getFunction(e.events.onBackYear, null);
             e.events.onNextYear = Default2.getFunction(e.events.onNextYear, null);
@@ -1051,7 +1052,7 @@ var Disabled;
                 }
                 t._currentView.yearText = DomElement.createWithHTML(n, "div", "year-text", o);
                 if (t.title.showYearSelectionDropDown) {
-                    h(t);
+                    g(t);
                 } else {
                     DomElement.addClass(t._currentView.yearText, "no-click");
                 }
@@ -1122,7 +1123,7 @@ var Disabled;
             };
         }
     }
-    function h(e) {
+    function g(e) {
         DomElement.create(e._currentView.yearText, "div", "down-arrow");
         const t = DomElement.create(e._currentView.yearText, "div", "years-menu-container");
         const n = DomElement.create(t, "div", "years-menu");
@@ -1135,7 +1136,7 @@ var Disabled;
         t.style.visibility = "hidden";
         for (let t = i - e.title.extraSelectionYears; t < i + e.title.extraSelectionYears; t++) {
             if (P(e, t)) {
-                let s = g(e, n, t, i);
+                let s = h(e, n, t, i);
                 if (!Is.defined(o)) {
                     o = s;
                 }
@@ -1147,7 +1148,7 @@ var Disabled;
         t.style.display = "none";
         t.style.visibility = "visible";
     }
-    function g(e, t, n, i) {
+    function h(e, t, n, i) {
         let o = null;
         const s = e.startMonth === 0 ? n.toString() : `${n} / ${n + 1}`;
         const r = DomElement.createWithHTML(t, "div", "year-menu-item", s);
@@ -1557,13 +1558,16 @@ var Disabled;
             }
         } else {
             const n = t._currentView.mapContents.offsetHeight / a.largestValue;
-            for (const i in a.days) {
-                if (a.days.hasOwnProperty(i) && R(t.views.days.daysToShow, parseInt(i))) {
-                    C(r, parseInt(i), a.days[i], t, n);
+            const i = 1 / 7;
+            let s = i;
+            for (const l in a.days) {
+                if (a.days.hasOwnProperty(l) && R(t.views.days.daysToShow, parseInt(l))) {
+                    C(r, parseInt(l), a.days[l], t, n, s);
                     if (t.views.days.showDayNames) {
-                        DomElement.createWithHTML(o, "div", "day-name", e.text.dayNames[parseInt(i) - 1]);
+                        DomElement.createWithHTML(o, "div", "day-name", e.text.dayNames[parseInt(l) - 1]);
                     }
                 }
+                s += i;
             }
             if (t.views.days.showInReverseOrder) {
                 DomElement.reverseChildrenOrder(r);
@@ -1574,30 +1578,41 @@ var Disabled;
             }
         }
     }
-    function C(e, t, n, i, o) {
-        const s = DomElement.create(e, "div", "day-line");
-        const r = n * o;
-        s.style.height = `${r}px`;
-        s.setAttribute("data-heat-js-day-number", t.toString());
-        if (r <= 0) {
-            s.style.visibility = "hidden";
+    function C(e, t, n, i, o, s) {
+        const r = DomElement.create(e, "div", "day-line");
+        const a = n * o;
+        r.style.height = `${a}px`;
+        r.setAttribute("data-heat-js-day-number", t.toString());
+        if (a <= 0) {
+            r.style.visibility = "hidden";
         }
         if (i.views.days.showToolTips) {
-            ToolTip.add(s, i, n.toString());
+            ToolTip.add(r, i, n.toString());
         }
         if (Is.definedFunction(i.events.onWeekDayClick)) {
-            s.onclick = () => Trigger.customEvent(i.events.onWeekDayClick, t, n, i._currentView.year);
+            r.onclick = () => Trigger.customEvent(i.events.onWeekDayClick, t, n, i._currentView.year);
         } else if (Is.definedFunction(i.events.onWeekDayDblClick)) {
-            s.onclick = () => Trigger.customEvent(i.events.onWeekDayDblClick, t, n, i._currentView.year);
+            r.onclick = () => Trigger.customEvent(i.events.onWeekDayDblClick, t, n, i._currentView.year);
         } else {
-            DomElement.addClass(s, "no-hover");
+            DomElement.addClass(r, "no-hover");
         }
         if (i.views.days.showDayNumbers && n > 0) {
-            DomElement.addClass(s, "day-line-number");
-            DomElement.createWithHTML(s, "div", "count", n.toString());
+            DomElement.addClass(r, "day-line-number");
+            DomElement.createWithHTML(r, "div", "count", n.toString());
         }
         if (i.views.days.useGradients) {
-            DomElement.adGradientEffect(i._currentView.element, s);
+            DomElement.adGradientEffect(i._currentView.element, r);
+        } else if (i.views.days.useDifferentBackgroundOpacities) {
+            const e = DomElement.getStyleValueByName(r, "background-color");
+            if (e.startsWith("rgba") || e.startsWith("rgb")) {
+                let t = e.replace("rgba(", "").replace("rgb(", "").replace(")", "").split(",");
+                if (e.startsWith("rgba")) {
+                    t[t.length - 1] = s.toString();
+                } else {
+                    t.push(s.toString());
+                }
+                r.style.backgroundColor = `rgba(${t.join()})`;
+            }
         }
     }
     function _(e) {
@@ -2250,9 +2265,9 @@ var Disabled;
         } else if (o === "xml") {
             n = we(e);
         } else if (o === "txt") {
-            n = he(e);
-        } else if (o === "html") {
             n = ge(e);
+        } else if (o === "html") {
+            n = he(e);
         } else if (o === "md") {
             n = pe(e);
         } else if (o === "tsv") {
@@ -2301,7 +2316,7 @@ var Disabled;
         n.push("</Dates>");
         return n.join("\n");
     }
-    function he(e) {
+    function ge(e) {
         const t = De(e);
         const n = [];
         for (const e in t) {
@@ -2311,7 +2326,7 @@ var Disabled;
         }
         return n.join("\n");
     }
-    function ge(t) {
+    function he(t) {
         const n = De(t);
         const i = [];
         const o = DateTime.getCustomFormattedDateText(e, "{ddd}, {dd} {mmm} {yyyy}", new Date);
