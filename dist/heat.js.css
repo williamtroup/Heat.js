@@ -597,6 +597,7 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu div.year-menu-item-current {
   font-style: italic;
   font-weight: var(--heat-js-text-bold-weight-active);
+  color: var(--heat-js-day-color-4-background-color);
 }
 
 /*
