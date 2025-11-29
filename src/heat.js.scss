@@ -447,8 +447,9 @@ div.heat-js {
             transition: var(--heat-js-transition);
             cursor: pointer;
 
-            span.section-text {
-                font-weight: 300;
+            span.section-text,
+            span.section-text-name {
+                font-weight: 100;
                 margin-left: 5px;
                 display: none;
 

@@ -996,15 +996,15 @@ var Disabled;
                 if (t.title.showSectionText) {
                     DomElement.createWithHTML(i, "span", "section-text", "[");
                     if (t._currentView.view === 1) {
-                        DomElement.createWithHTML(i, "span", "section-text", e.text.mapText);
+                        DomElement.createWithHTML(i, "span", "section-text-name", e.text.mapText);
                     } else if (t.views.chart.enabled && t._currentView.view === 2) {
-                        DomElement.createWithHTML(i, "span", "section-text", e.text.chartText);
+                        DomElement.createWithHTML(i, "span", "section-text-name", e.text.chartText);
                     } else if (t.views.days.enabled && t._currentView.view === 3) {
-                        DomElement.createWithHTML(i, "span", "section-text", e.text.daysText);
+                        DomElement.createWithHTML(i, "span", "section-text-name", e.text.daysText);
                     } else if (t.views.statistics.enabled && t._currentView.view === 4) {
-                        DomElement.createWithHTML(i, "span", "section-text", e.text.colorRangesText);
+                        DomElement.createWithHTML(i, "span", "section-text-name", e.text.colorRangesText);
                     } else {
-                        DomElement.createWithHTML(i, "span", "section-text", e.text.mapText);
+                        DomElement.createWithHTML(i, "span", "section-text-name", e.text.mapText);
                     }
                     DomElement.createWithHTML(i, "span", "section-text", "]");
                 }

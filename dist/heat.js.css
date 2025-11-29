@@ -388,16 +388,19 @@ div.heat-js div.title-bar div.title {
   transition: var(--heat-js-transition);
   cursor: pointer;
 }
-div.heat-js div.title-bar div.title span.section-text {
-  font-weight: 300;
+div.heat-js div.title-bar div.title span.section-text,
+div.heat-js div.title-bar div.title span.section-text-name {
+  font-weight: 100;
   margin-left: 5px;
   display: none;
 }
-div.heat-js div.title-bar div.title span.section-text:first-of-type {
+div.heat-js div.title-bar div.title span.section-text:first-of-type,
+div.heat-js div.title-bar div.title span.section-text-name:first-of-type {
   margin-left: 10px;
 }
 @media (min-width: 768px) {
-  div.heat-js div.title-bar div.title span.section-text {
+  div.heat-js div.title-bar div.title span.section-text,
+  div.heat-js div.title-bar div.title span.section-text-name {
     display: inline;
   }
 }
