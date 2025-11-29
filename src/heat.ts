@@ -1190,7 +1190,11 @@ import { Disabled } from "./ts/area/disabled";
             const backgroundColor: string = DomElement.getStyleValueByName( dayLine, "background-color" );
 
             if ( backgroundColor.startsWith( "rgba" ) || backgroundColor.startsWith( "rgb" ) ) {
-                let backgroundColorParts: string[] = backgroundColor.replace( "rgba(", Char.empty ).replace( "rgb(", Char.empty ).replace( ")", Char.empty ).split(",");
+                let backgroundColorParts: string[] = backgroundColor
+                    .replace( "rgba(", Char.empty )
+                    .replace( "rgb(", Char.empty )
+                    .replace( ")", Char.empty )
+                    .split(",");
 
                 if ( backgroundColor.startsWith( "rgba" ) ) {
                     backgroundColorParts[ backgroundColorParts.length - 1 ] = opacityIncrease.toString();
