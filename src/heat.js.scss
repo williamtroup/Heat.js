@@ -78,7 +78,7 @@
     --heat-js-day-opacity-hover: 0.7;
     --heat-js-day-opacity-active: 0.5;
     --heat-js-day-size: 1.2rem;
-    --heat-js-day-chart-width: 10px;
+    --heat-js-day-chart-width: 12px;
 
     // Days - Colors
     --heat-js-day-color-1-background-color: rgba( 80, 200, 120, 0.25 );
@@ -843,7 +843,7 @@ div.heat-js {
                     border-bottom: none !important;
                     vertical-align: bottom;
                     min-width: var(--heat-js-day-chart-width);
-                    margin-right: 1.5px;
+                    margin-right: 2px;
                     display: inline-flex;
                     transition: var(--heat-js-transition);
                     align-items: center;
