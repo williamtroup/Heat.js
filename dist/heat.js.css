@@ -976,7 +976,6 @@ div.heat-js div.days-contents div.day-names {
   justify-content: space-between;
   align-items: baseline;
   height: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 3px);
-  padding-right: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js div.days-contents div.day-names div.day-name {
   flex: 1 100%;
@@ -985,15 +984,6 @@ div.heat-js div.days-contents div.day-names div.day-name {
   text-align: center !important;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-right: var(--heat-js-spacing);
-}
-@media (min-width: 768px) {
-  div.heat-js div.days-contents div.day-names div.day-name:first-child {
-    margin-left: calc(var(--heat-js-spacing) / 2);
-  }
-}
-div.heat-js div.days-contents div.day-names div.day-name:last-child {
-  margin-right: 0;
 }
 
 /*
@@ -1109,7 +1099,6 @@ div.heat-js div.statistics-contents div.statistics-ranges {
   justify-content: space-between;
   align-items: baseline;
   height: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 3px);
-  padding-right: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js div.statistics-contents div.statistics-ranges div.range-name {
   flex: 1 100%;
@@ -1118,15 +1107,6 @@ div.heat-js div.statistics-contents div.statistics-ranges div.range-name {
   text-align: center !important;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-right: var(--heat-js-spacing);
-}
-@media (min-width: 768px) {
-  div.heat-js div.statistics-contents div.statistics-ranges div.range-name:first-child {
-    margin-left: calc(var(--heat-js-spacing) / 2);
-  }
-}
-div.heat-js div.statistics-contents div.statistics-ranges div.range-name:last-child {
-  margin-right: 0;
 }
 
 /*
