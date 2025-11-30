@@ -63,6 +63,9 @@
     --heat-js-button-background-color-active: #616b79;
     --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
 
+    /* CheckBox */
+    --heat-js-checkbox-background-color-checked: var(--heat-js-day-color-4-background-color);
+
     /* Scroll Bars */
     --heat-js-scroll-bar-thumb-color: var(--heat-js-color-black);
 }
