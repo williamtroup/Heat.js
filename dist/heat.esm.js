@@ -887,11 +887,18 @@ var Disabled;
         for (let n = 0; n < 7; n++) {
             t._currentView.dayCheckBoxes[n] = DomElement.createCheckBox(s, e.text.dayNames[n], n.toString());
         }
-        for (let n = 0; n < 7; n++) {
-            t._currentView.monthCheckBoxes[n] = DomElement.createCheckBox(a, e.text.monthNames[n], n.toString());
-        }
-        for (let n = 7; n < 12; n++) {
-            t._currentView.monthCheckBoxes[n] = DomElement.createCheckBox(l, e.text.monthNames[n], n.toString());
+        let c = a;
+        let u = 0;
+        for (let n = t.startMonth; n < 12 + t.startMonth; n++) {
+            let i = n;
+            if (t.startMonth > 0 && n > 11) {
+                i = n - 12;
+            }
+            t._currentView.monthCheckBoxes[i] = DomElement.createCheckBox(c, e.text.monthNames[i], i.toString());
+            u++;
+            if (u > 6) {
+                c = l;
+            }
         }
         ToolTip.add(o, t, e.text.closeToolTipText);
     }

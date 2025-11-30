@@ -232,12 +232,22 @@ import { Disabled } from "./ts/area/disabled";
             bindingOptions._currentView!.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.text!.dayNames![ dayIndex ], dayIndex.toString() );
         }
 
-        for ( let monthIndex1: number = 0; monthIndex1 < 7; monthIndex1++ ) {
-            bindingOptions._currentView!.monthCheckBoxes[ monthIndex1 ] = DomElement.createCheckBox( months1Container, _configuration.text!.monthNames![ monthIndex1 ], monthIndex1.toString() );
-        }
+        let monthContainer: HTMLElement = months1Container;
+        let monthContainerIndex: number = 0;
 
-        for ( let monthIndex2: number = 7; monthIndex2 < 12; monthIndex2++ ) {
-            bindingOptions._currentView!.monthCheckBoxes[ monthIndex2 ] = DomElement.createCheckBox( months2Container, _configuration.text!.monthNames![ monthIndex2 ], monthIndex2.toString() );
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            let actualMonthIndex: number = monthIndex;
+
+            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                actualMonthIndex = monthIndex - 12;
+            }
+
+            bindingOptions._currentView!.monthCheckBoxes[ actualMonthIndex ] = DomElement.createCheckBox( monthContainer, _configuration.text!.monthNames![ actualMonthIndex ], actualMonthIndex.toString() );
+            monthContainerIndex++;
+
+            if ( monthContainerIndex > 6 ) {
+                monthContainer = months2Container;
+            }
         }
 
         ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
