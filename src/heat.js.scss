@@ -847,10 +847,8 @@ div.heat-js {
                     align-items: center;
                     justify-content: center;
 
-                    @media (min-width: styles.$minimum-width) { 
-                        &:first-child {
-                            margin-left: calc( var(--heat-js-spacing) / 2 );
-                        }
+                    &:first-child {
+                        margin-left: calc( var(--heat-js-spacing) / 2 );
                     }
     
                     &:last-child {
@@ -948,10 +946,8 @@ div.heat-js {
                     display: inline-block;
                     transition: var(--heat-js-transition);
 
-                    @media (min-width: styles.$minimum-width) { 
-                        &:first-child {
-                            margin-left: calc( var(--heat-js-spacing) / 2 );
-                        }
+                    &:first-child {
+                        margin-left: calc( var(--heat-js-spacing) / 2 );
                     }
     
                     &:last-child {
@@ -1057,10 +1053,8 @@ div.heat-js {
                     display: inline-block;
                     transition: var(--heat-js-transition);
 
-                    @media (min-width: styles.$minimum-width) { 
-                        &:first-child {
-                            margin-left: calc( var(--heat-js-spacing) / 2 );
-                        }
+                    &:first-child {
+                        margin-left: calc( var(--heat-js-spacing) / 2 );
                     }
     
                     &:last-child {

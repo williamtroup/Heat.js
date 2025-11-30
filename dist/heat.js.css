@@ -832,10 +832,8 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   align-items: center;
   justify-content: center;
 }
-@media (min-width: 768px) {
-  div.heat-js div.chart-contents div.chart div.day-lines div.day-line:first-child {
-    margin-left: calc(var(--heat-js-spacing) / 2);
-  }
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line:first-child {
+  margin-left: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line:last-child {
   margin-right: 0;
@@ -959,10 +957,8 @@ div.heat-js div.days-contents div.days div.day-lines div.day-line {
   display: inline-block;
   transition: var(--heat-js-transition);
 }
-@media (min-width: 768px) {
-  div.heat-js div.days-contents div.days div.day-lines div.day-line:first-child {
-    margin-left: calc(var(--heat-js-spacing) / 2);
-  }
+div.heat-js div.days-contents div.days div.day-lines div.day-line:first-child {
+  margin-left: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line:last-child {
   margin-right: 0;
@@ -1093,10 +1089,8 @@ div.heat-js div.statistics-contents div.statistics div.range-lines div.range-lin
   display: inline-block;
   transition: var(--heat-js-transition);
 }
-@media (min-width: 768px) {
-  div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line:first-child {
-    margin-left: calc(var(--heat-js-spacing) / 2);
-  }
+div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line:first-child {
+  margin-left: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line:last-child {
   margin-right: 0;
