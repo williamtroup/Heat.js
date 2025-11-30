@@ -471,6 +471,7 @@ div.heat-js {
 
                 div.down-arrow {
                     border-top-color: var(--heat-js-title-opener-text-color-hover);
+                    transform: rotate( -180deg );
                 }
             }
 
@@ -586,6 +587,7 @@ div.heat-js {
 
             &:hover div.down-arrow {
                 border-top-color:  var(--heat-js-title-opener-text-color-hover);
+                transform: rotate( -180deg );
             }
 
             &:hover div.years-menu-container {

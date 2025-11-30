@@ -412,6 +412,7 @@ div.heat-js div.title-bar div.title:hover div.titles-menu-container {
 }
 div.heat-js div.title-bar div.title:hover div.down-arrow {
   border-top-color: var(--heat-js-title-opener-text-color-hover);
+  transform: rotate(-180deg);
 }
 div.heat-js div.title-bar div.title div.down-arrow {
   display: inline-block;
@@ -514,6 +515,7 @@ div.heat-js div.title-bar div.year-text:hover {
 }
 div.heat-js div.title-bar div.year-text:hover div.down-arrow {
   border-top-color: var(--heat-js-title-opener-text-color-hover);
+  transform: rotate(-180deg);
 }
 div.heat-js div.title-bar div.year-text:hover div.years-menu-container {
   display: block !important;
