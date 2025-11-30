@@ -692,7 +692,7 @@ div.heat-js {
             div.days,
             div.days-months-bottom {
                 background-color: var(--heat-js-container-background-color);
-                padding-right: calc( var(--heat-js-spacing) * 3 );
+                padding-right: calc( var(--heat-js-spacing) * 2 );
                 padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
                 position: sticky;
                 left: 0;
