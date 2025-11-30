@@ -599,15 +599,10 @@ div.heat-js {
                 padding-top: $year-margin;
                 display: none;
                 position: absolute;
-                width: 80px;
                 left: 50%;
                 transform: translateX( -50% );
                 margin-top: $year-margin;
                 z-index: 1000;
-
-                &.custom-start-year {
-                    width: 130px;
-                }
 
                 div.years-menu {
                     border-radius: var(--heat-js-border-radius);
@@ -630,6 +625,9 @@ div.heat-js {
                         width: 100%;
                         transition: var(--heat-js-transition);
                         scroll-snap-align: start;
+                        white-space: nowrap;
+                        padding-left: calc( var(--heat-js-spacing) * 2 );
+                        padding-right: calc( var(--heat-js-spacing) * 2 );
     
                         &:not(.year-menu-item-active):active {
                             opacity: 0.5 !important;

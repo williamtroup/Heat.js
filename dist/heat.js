@@ -1136,9 +1136,6 @@ var Disabled;
         const n = DomElement.create(t, "div", "years-menu");
         const i = (new Date).getFullYear();
         let o = null;
-        if (e.startMonth > 0) {
-            DomElement.addClass(t, "custom-start-year");
-        }
         t.style.display = "block";
         t.style.visibility = "hidden";
         for (let t = i - e.title.extraSelectionYears; t < i + e.title.extraSelectionYears; t++) {
@@ -1539,7 +1536,7 @@ var Disabled;
         const o = DomElement.create(t._currentView.daysContents, "div", "day-names");
         let s = DomElement.create(i, "div", "y-labels");
         const r = DomElement.create(i, "div", "day-lines");
-        const a = _(t);
+        const a = C(t);
         if (n) {
             DomElement.addClass(i, "view-switch");
         }
@@ -1569,7 +1566,7 @@ var Disabled;
             let s = i;
             for (const l in a.days) {
                 if (a.days.hasOwnProperty(l) && R(t.views.days.daysToShow, parseInt(l))) {
-                    C(r, parseInt(l), a.days[l], t, n, s);
+                    _(r, parseInt(l), a.days[l], t, n, s);
                     if (t.views.days.showDayNames) {
                         DomElement.createWithHTML(o, "div", "day-name", e.text.dayNames[parseInt(l) - 1]);
                     }
@@ -1585,7 +1582,7 @@ var Disabled;
             }
         }
     }
-    function C(e, t, n, i, o, s) {
+    function _(e, t, n, i, o, s) {
         const r = DomElement.create(e, "div", "day-line");
         const a = n * o;
         r.style.height = `${a}px`;
@@ -1622,7 +1619,7 @@ var Disabled;
             }
         }
     }
-    function _(e) {
+    function C(e) {
         const t = {
             days: {
                 1: 0,
@@ -2516,7 +2513,7 @@ var Disabled;
             }
         }
     }
-    function Ce(e) {
+    function _e(e) {
         e._currentView.element.innerHTML = "";
         DomElement.removeClass(e._currentView.element, "heat-js");
         ToolTip.assignToEvents(e, false);
@@ -2526,7 +2523,7 @@ var Disabled;
         }
         Trigger.customEvent(e.events.onDestroy, e._currentView.element);
     }
-    function _e() {
+    function Ce() {
         if (e.observationMode) {
             if (!Is.defined(t)) {
                 t = new MutationObserver((e, t) => {
@@ -2864,7 +2861,7 @@ var Disabled;
         destroyAll: function() {
             for (const e in n) {
                 if (n.hasOwnProperty(e)) {
-                    Ce(n[e].options);
+                    _e(n[e].options);
                 }
             }
             n = {};
@@ -2872,7 +2869,7 @@ var Disabled;
         },
         destroy: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                Ce(n[e].options);
+                _e(n[e].options);
                 delete n[e];
             }
             return Ee;
@@ -2889,7 +2886,7 @@ var Disabled;
                 }
                 if (i) {
                     e = Config.Options.get(o);
-                    _e();
+                    Ce();
                     if (n) {
                         Ee.refreshAll();
                     }
@@ -2913,7 +2910,7 @@ var Disabled;
     (() => {
         e = Config.Options.get();
         document.addEventListener("DOMContentLoaded", () => {
-            _e();
+            Ce();
             s();
         });
         window.addEventListener("pagehide", () => q());

@@ -558,10 +558,6 @@ import { Disabled } from "./ts/area/disabled";
         const thisYear: number = new Date().getFullYear();
         let activeYearMenuItem: HTMLElement = null!;
 
-        if ( bindingOptions.startMonth! > 0 ) {
-            DomElement.addClass( yearsMenuContainer, "custom-start-year" );
-        }
-
         yearsMenuContainer.style.display = "block";
         yearsMenuContainer.style.visibility = "hidden";
 
