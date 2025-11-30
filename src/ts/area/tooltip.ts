@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        tooltip.ts
- * @version     v4.5.1
+ * @version     v4.5.2
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -18,9 +18,9 @@ import { Is } from "../data/is";
 
 export namespace ToolTip {
     export function renderControl( bindingOptions: BindingOptions ) : void {
-        if ( !Is.defined( bindingOptions._currentView.tooltip ) ) {
-            bindingOptions._currentView.tooltip = DomElement.create( document.body, "div", "heat-js-tooltip" );
-            bindingOptions._currentView.tooltip.style.display = "none";
+        if ( !Is.defined( bindingOptions._currentView!.tooltip ) ) {
+            bindingOptions._currentView!.tooltip = DomElement.create( document.body, "div", "heat-js-tooltip" );
+            bindingOptions._currentView!.tooltip.style.display = "none";
     
             assignToEvents( bindingOptions );
         }
@@ -44,23 +44,23 @@ export namespace ToolTip {
         DomElement.cancelBubble( ev );
         hide( bindingOptions );
 
-        bindingOptions._currentView.tooltipTimer = setTimeout( () => {
-            bindingOptions._currentView.tooltip.innerHTML = text;
-            bindingOptions._currentView.tooltip.style.display = "block";
+        bindingOptions._currentView!.tooltipTimer = setTimeout( () => {
+            bindingOptions._currentView!.tooltip.innerHTML = text;
+            bindingOptions._currentView!.tooltip.style.display = "block";
 
-            DomElement.showElementAtMousePosition( ev, bindingOptions._currentView.tooltip );
+            DomElement.showElementAtMousePosition( ev, bindingOptions._currentView!.tooltip );
         }, bindingOptions.tooltip!.delay );
     }
 
     export function hide( bindingOptions: BindingOptions ) : void {
-        if ( Is.defined( bindingOptions._currentView.tooltip ) ) {
-            if ( bindingOptions._currentView.tooltipTimer !== 0 ) {
-                clearTimeout( bindingOptions._currentView.tooltipTimer );
-                bindingOptions._currentView.tooltipTimer = 0;
+        if ( Is.defined( bindingOptions._currentView!.tooltip ) ) {
+            if ( bindingOptions._currentView!.tooltipTimer !== 0 ) {
+                clearTimeout( bindingOptions._currentView!.tooltipTimer );
+                bindingOptions._currentView!.tooltipTimer = 0;
             }
     
-            if ( bindingOptions._currentView.tooltip.style.display !== "none" ) {
-                bindingOptions._currentView.tooltip.style.display = "none";
+            if ( bindingOptions._currentView!.tooltip.style.display !== "none" ) {
+                bindingOptions._currentView!.tooltip.style.display = "none";
             }
         }
     }

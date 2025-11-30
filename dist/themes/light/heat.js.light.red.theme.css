@@ -1,4 +1,4 @@
-/*! Heat.js v4.5.1 | (c) Bunoon 2025 | MIT License */
+/*! Heat.js v4.5.2 | (c) Bunoon 2025 | MIT License */
 :root {
     /* Colors */
     --heat-js-color-black: #F5F5F5;
@@ -62,6 +62,9 @@
     --heat-js-button-text-color-hover: var(--heat-js-color-snow-white);
     --heat-js-button-background-color-active: #616b79;
     --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
+
+    /* CheckBox */
+    --heat-js-checkbox-background-color-checked: var(--heat-js-day-color-4-background-color);
 
     /* Scroll Bars */
     --heat-js-scroll-bar-thumb-color: var(--heat-js-color-white);

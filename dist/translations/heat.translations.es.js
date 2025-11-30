@@ -1,4 +1,4 @@
-/*! Heat.js v4.5.1 - Spanish | (c) Bunoon 2025 | MIT License */
+/*! Heat.js v4.5.2 - Spanish | (c) Bunoon 2025 | MIT License */
 $heat.setConfiguration( {
         "text": {
                 "stText": "",

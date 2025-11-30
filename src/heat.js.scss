@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v4.5.1
+ * Heat.js Library v4.5.2
  *
  * Copyright 2025 Bunoon
  * Released under the MIT License
@@ -78,7 +78,7 @@
     --heat-js-day-opacity-hover: 0.7;
     --heat-js-day-opacity-active: 0.5;
     --heat-js-day-size: 1.2rem;
-    --heat-js-day-chart-width: 10px;
+    --heat-js-day-chart-width: 12px;
 
     // Days - Colors
     --heat-js-day-color-1-background-color: rgba( 80, 200, 120, 0.25 );
@@ -109,9 +109,9 @@
     --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
 
     // CheckBox
-    --heat-js-checkbox-background-color-checked: rgba( 80, 200, 120, 1 );
+    --heat-js-checkbox-background-color-checked: var(--heat-js-day-color-4-background-color);
     --heat-js-checkbox-background-color: var(--heat-js-color-black);
-    --heat-js-checkbox-border-color-checked: --heat-js-checkbox-background-color-checked;
+    --heat-js-checkbox-border-color-checked: var(--heat-js-checkbox-background-color-checked);
     --heat-js-checkbox-border-color: var(--heat-js-color-white);
 
     // Panels
@@ -328,7 +328,7 @@ div.heat-js {
 
                     label.checkbox {
                         margin-left: var(--heat-js-spacing);
-                        margin-bottom: 3px;
+                        margin-bottom: 6px;
                     }
                 }
             }
@@ -447,8 +447,9 @@ div.heat-js {
             transition: var(--heat-js-transition);
             cursor: pointer;
 
-            span.section-text {
-                font-weight: 300;
+            span.section-text,
+            span.section-text-name {
+                font-weight: 100;
                 margin-left: 5px;
                 display: none;
 
@@ -470,6 +471,7 @@ div.heat-js {
 
                 div.down-arrow {
                     border-top-color: var(--heat-js-title-opener-text-color-hover);
+                    transform: rotate( -180deg );
                 }
             }
 
@@ -585,6 +587,7 @@ div.heat-js {
 
             &:hover div.down-arrow {
                 border-top-color:  var(--heat-js-title-opener-text-color-hover);
+                transform: rotate( -180deg );
             }
 
             &:hover div.years-menu-container {
@@ -598,15 +601,10 @@ div.heat-js {
                 padding-top: $year-margin;
                 display: none;
                 position: absolute;
-                width: 80px;
                 left: 50%;
                 transform: translateX( -50% );
                 margin-top: $year-margin;
                 z-index: 1000;
-
-                &.custom-start-year {
-                    width: 130px;
-                }
 
                 div.years-menu {
                     border-radius: var(--heat-js-border-radius);
@@ -629,6 +627,9 @@ div.heat-js {
                         width: 100%;
                         transition: var(--heat-js-transition);
                         scroll-snap-align: start;
+                        white-space: nowrap;
+                        padding-left: calc( var(--heat-js-spacing) * 2 );
+                        padding-right: calc( var(--heat-js-spacing) * 2 );
     
                         &:not(.year-menu-item-active):active {
                             opacity: 0.5 !important;
@@ -655,6 +656,7 @@ div.heat-js {
                     div.year-menu-item-current {
                         font-style: italic;
                         font-weight: var(--heat-js-text-bold-weight-active);
+                        color: var(--heat-js-day-color-4-background-color);
                     }
                 }
             }
@@ -841,16 +843,14 @@ div.heat-js {
                     border-bottom: none !important;
                     vertical-align: bottom;
                     min-width: var(--heat-js-day-chart-width);
-                    margin-right: 1.5px;
+                    margin-right: 2px;
                     display: inline-flex;
                     transition: var(--heat-js-transition);
                     align-items: center;
                     justify-content: center;
 
-                    @media (min-width: styles.$minimum-width) { 
-                        &:first-child {
-                            margin-left: calc( var(--heat-js-spacing) / 2 );
-                        }
+                    &:first-child {
+                        margin-left: calc( var(--heat-js-spacing) / 2 );
                     }
     
                     &:last-child {
@@ -948,10 +948,8 @@ div.heat-js {
                     display: inline-block;
                     transition: var(--heat-js-transition);
 
-                    @media (min-width: styles.$minimum-width) { 
-                        &:first-child {
-                            margin-left: calc( var(--heat-js-spacing) / 2 );
-                        }
+                    &:first-child {
+                        margin-left: calc( var(--heat-js-spacing) / 2 );
                     }
     
                     &:last-child {
@@ -1057,10 +1055,8 @@ div.heat-js {
                     display: inline-block;
                     transition: var(--heat-js-transition);
 
-                    @media (min-width: styles.$minimum-width) { 
-                        &:first-child {
-                            margin-left: calc( var(--heat-js-spacing) / 2 );
-                        }
+                    &:first-child {
+                        margin-left: calc( var(--heat-js-spacing) / 2 );
                     }
     
                     &:last-child {
@@ -1264,12 +1260,11 @@ div.heat-js {
 div.heat-js {
     label.checkbox {
         @include styles.no-selection-allowed;
-        display: inline-block;
+        display: inline-flex;
         position: relative;
         padding-left: 20px;
-        padding-top: 1px;
-        padding-bottom: 2px;
         color: var(--heat-js-color-white);
+        align-items: center;
 
         input {
             display: none !important;
@@ -1309,10 +1304,10 @@ div.heat-js {
                 transform: rotate( 45deg );
                 position: absolute;
                 display: none;
-                left: 4.5px;
-                top: 1px;
+                left: 4px;
+                top: 0.4px;
                 width: 6px;
-                height: 11px;
+                height: 11.5px;
                 border: solid var(--heat-js-color-black);
                 border-width: 0 3px 3px 0;
             }

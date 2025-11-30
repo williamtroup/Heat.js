@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        heat.ts
- * @version     v4.5.1
+ * @version     v4.5.2
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -18,7 +18,10 @@ import {
     type BindingOptions,
     type InstanceTypeDateCount,
     type InstanceData, 
-    type StringToJson } from "./ts/type";
+    type StringToJson,
+    type IsHoliday,
+    type LargestValueForDays,
+    type LargestValuesForEachRangeType } from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
 import { Constant } from "./ts/constant"
@@ -33,22 +36,6 @@ import { Trigger } from "./ts/area/trigger";
 import { Binding } from "./ts/options/binding";
 import { Config } from "./ts/options/config";
 import { Disabled } from "./ts/area/disabled";
-
-
-type IsHoliday = {
-    matched: boolean;
-    name: string;
-};
-
-type LargestValueForDays = {
-    days: Record<number, number>;
-    largestValue: number;
-};
-
-type LargestValuesForEachRangeType = {
-    types: InstanceTypeDateCount;
-    largestValue: number;
-};
 
 
 ( () => {
@@ -245,12 +232,22 @@ type LargestValuesForEachRangeType = {
             bindingOptions._currentView!.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.text!.dayNames![ dayIndex ], dayIndex.toString() );
         }
 
-        for ( let monthIndex1: number = 0; monthIndex1 < 7; monthIndex1++ ) {
-            bindingOptions._currentView!.monthCheckBoxes[ monthIndex1 ] = DomElement.createCheckBox( months1Container, _configuration.text!.monthNames![ monthIndex1 ], monthIndex1.toString() );
-        }
+        let monthContainer: HTMLElement = months1Container;
+        let monthContainerIndex: number = 0;
 
-        for ( let monthIndex2: number = 7; monthIndex2 < 12; monthIndex2++ ) {
-            bindingOptions._currentView!.monthCheckBoxes[ monthIndex2 ] = DomElement.createCheckBox( months2Container, _configuration.text!.monthNames![ monthIndex2 ], monthIndex2.toString() );
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            let actualMonthIndex: number = monthIndex;
+
+            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                actualMonthIndex = monthIndex - 12;
+            }
+
+            bindingOptions._currentView!.monthCheckBoxes[ actualMonthIndex ] = DomElement.createCheckBox( monthContainer, _configuration.text!.monthNames![ actualMonthIndex ], actualMonthIndex.toString() );
+            monthContainerIndex++;
+
+            if ( monthContainerIndex > 6 ) {
+                monthContainer = months2Container;
+            }
         }
 
         ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
@@ -386,15 +383,15 @@ type LargestValuesForEachRangeType = {
                     DomElement.createWithHTML( title, "span", "section-text", "[" );
 
                     if ( bindingOptions._currentView!.view === ViewId.map ) {
-                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.mapText! );
+                        DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.mapText! );
                     } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.chartText! );
+                        DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.chartText! );
                     } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
-                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.daysText! );
+                        DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.daysText! );
                     } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.colorRangesText! );
+                        DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.colorRangesText! );
                     } else {
-                        DomElement.createWithHTML( title, "span", "section-text", _configuration.text!.mapText! );
+                        DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.mapText! );
                     }
 
                     DomElement.createWithHTML( title, "span", "section-text", "]" );
@@ -560,10 +557,6 @@ type LargestValuesForEachRangeType = {
         const yearsMenu: HTMLElement = DomElement.create( yearsMenuContainer, "div", "years-menu" );
         const thisYear: number = new Date().getFullYear();
         let activeYearMenuItem: HTMLElement = null!;
-
-        if ( bindingOptions.startMonth! > 0 ) {
-            DomElement.addClass( yearsMenuContainer, "custom-start-year" );
-        }
 
         yearsMenuContainer.style.display = "block";
         yearsMenuContainer.style.visibility = "hidden";
@@ -1142,15 +1135,19 @@ type LargestValuesForEachRangeType = {
 
         } else {
             const pixelsPerNumbers: number = bindingOptions._currentView!.mapContents.offsetHeight / dayValuesForCurrentYear.largestValue;
+            const opacity: number = 1 / 7;
+            let opacityIncrease: number = opacity;
 
             for ( const day in dayValuesForCurrentYear.days ) {
                 if ( dayValuesForCurrentYear.days.hasOwnProperty( day ) && isDayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
-                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.days[ day ], bindingOptions, pixelsPerNumbers );
+                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.days[ day ], bindingOptions, pixelsPerNumbers, opacityIncrease );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
                         DomElement.createWithHTML( dayNames, "div", "day-name", _configuration.text!.dayNames![ parseInt( day ) - 1 ] );
                     }
                 }
+
+                opacityIncrease += opacity;
             }
 
             if ( bindingOptions.views!.days!.showInReverseOrder ) {
@@ -1164,7 +1161,7 @@ type LargestValuesForEachRangeType = {
         }
     }
 
-    function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number ) : void {
+    function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number ) : void {
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
 
@@ -1194,6 +1191,26 @@ type LargestValuesForEachRangeType = {
 
         if ( bindingOptions.views!.days!.useGradients ) {
             DomElement.adGradientEffect( bindingOptions._currentView!.element, dayLine );
+
+        } else if ( bindingOptions.views!.days!.useDifferentBackgroundOpacities ) {
+            const backgroundColor: string = DomElement.getStyleValueByName( dayLine, "background-color" );
+
+            if ( backgroundColor.startsWith( "rgba" ) || backgroundColor.startsWith( "rgb" ) ) {
+                let backgroundColorParts: string[] = backgroundColor
+                    .replace( "rgba(", Char.empty )
+                    .replace( "rgb(", Char.empty )
+                    .replace( ")", Char.empty )
+                    .split(",");
+
+                if ( backgroundColor.startsWith( "rgba" ) ) {
+                    backgroundColorParts[ backgroundColorParts.length - 1 ] = opacityIncrease.toString();
+                } else
+                {
+                    backgroundColorParts.push( opacityIncrease.toString() );
+                }
+
+                dayLine.style.backgroundColor = `rgba(${backgroundColorParts.join()})`;
+            }
         }
     }
 
@@ -3000,7 +3017,7 @@ type LargestValuesForEachRangeType = {
         },
 
         getVersion: function () : string {
-            return "4.5.1";
+            return "4.5.2";
         }
     };
 
