@@ -111,7 +111,7 @@
     // CheckBox
     --heat-js-checkbox-background-color-checked: rgba( 80, 200, 120, 1 );
     --heat-js-checkbox-background-color: var(--heat-js-color-black);
-    --heat-js-checkbox-border-color-checked: --heat-js-checkbox-background-color-checked;
+    --heat-js-checkbox-border-color-checked: var(--heat-js-checkbox-background-color-checked);
     --heat-js-checkbox-border-color: var(--heat-js-color-white);
 
     // Panels
@@ -328,7 +328,7 @@ div.heat-js {
 
                     label.checkbox {
                         margin-left: var(--heat-js-spacing);
-                        margin-bottom: 3px;
+                        margin-bottom: 6px;
                     }
                 }
             }
@@ -1266,12 +1266,11 @@ div.heat-js {
 div.heat-js {
     label.checkbox {
         @include styles.no-selection-allowed;
-        display: inline-block;
+        display: inline-flex;
         position: relative;
         padding-left: 20px;
-        padding-top: 1px;
-        padding-bottom: 2px;
         color: var(--heat-js-color-white);
+        align-items: center;
 
         input {
             display: none !important;
@@ -1311,10 +1310,10 @@ div.heat-js {
                 transform: rotate( 45deg );
                 position: absolute;
                 display: none;
-                left: 4.5px;
-                top: 1px;
+                left: 4px;
+                top: 0.4px;
                 width: 6px;
-                height: 11px;
+                height: 11.5px;
                 border: solid var(--heat-js-color-black);
                 border-width: 0 3px 3px 0;
             }
