@@ -88,7 +88,7 @@ $minimum-width: 768px;
         flex-direction: column;
         position: absolute;
         left: 0;
-        padding-right: calc( var(--heat-js-spacing) * 2 );
+        padding-right: var(--heat-js-y-label-spacing);
     }
 
     div.label-0 {
