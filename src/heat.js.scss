@@ -1240,7 +1240,7 @@ div.heat-js {
         @include styles.no-selection-allowed;
         display: inline-flex;
         position: relative;
-        padding-left: 20px;
+        padding-left: 37px;
         color: var(--heat-js-color-white);
         align-items: center;
 
@@ -1250,10 +1250,15 @@ div.heat-js {
             &:checked ~ span.check-mark {
                 background-color: var(--heat-js-checkbox-background-color-checked);
                 border: var(--heat-js-border-size) solid var(--heat-js-checkbox-border-color-checked);
+                justify-content: right;
             }
 
             &:checked ~ span.check-mark::before {
-                display: block;
+                background-color: var(--heat-js-color-black);
+                border-top-left-radius: var(--heat-js-border-control-radius);
+                border-bottom-left-radius: var(--heat-js-border-control-radius);
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
             }
 
             &:disabled ~ span.check-mark,
@@ -1268,26 +1273,28 @@ div.heat-js {
 
         span.check-mark {
             position: absolute;
+            display: inline-flex;
+            align-items: center;
+            justify-content: left;
             top: 1px;
             left: 0;
             height: 15px;
-            width: 15px;
+            width: 30px;
             background-color: var(--heat-js-checkbox-background-color);
             border-radius: var(--heat-js-border-control-radius);
             border: var(--heat-js-border-size) solid var(--heat-js-checkbox-border-color);
             transition: var(--heat-js-transition);
+            overflow: hidden;
 
             &::before {
                 content: "";
-                transform: rotate( 45deg );
-                position: absolute;
-                display: none;
-                left: 4px;
-                top: 0.4px;
-                width: 6px;
-                height: 11.5px;
-                border: solid var(--heat-js-color-black);
-                border-width: 0 3px 3px 0;
+                width: 15px;
+                height: 100%;
+                background-color: var(--heat-js-checkbox-border-color);
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+                border-top-right-radius: var(--heat-js-border-control-radius);
+                border-bottom-right-radius: var(--heat-js-border-control-radius);
             }
         }
     }
