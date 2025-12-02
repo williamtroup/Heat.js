@@ -50,4 +50,5 @@ export const enum ExportType {
     html = "html",
     md = "md",
     tsv = "tsv",
+    yaml = "yaml",
 }

@@ -2131,6 +2131,8 @@ import { Disabled } from "./ts/area/disabled";
             contents = getMdContents( bindingOptions );
         } else if ( contentExportType === ExportType.tsv ) {
             contents = getTsvContents( bindingOptions );
+        } else if ( contentExportType === ExportType.yaml ) {
+            contents = getYamlContents( bindingOptions );
         }
 
         if ( Is.definedString( contents ) ) {
@@ -2205,7 +2207,7 @@ import { Disabled } from "./ts/area/disabled";
     function getHtmlContents( bindingOptions: BindingOptions ) : string {
         const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
         const contents: string[] = [];
-        const exportedDateTime: string = DateTime.getCustomFormattedDateText( _configuration, "{ddd}, {dd} {mmm} {yyyy}", new Date() );
+        const exportedDateTime: string = DateTime.getCustomFormattedDateText( _configuration, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date() );
 
         contents.push( "<!DOCTYPE html>" );
         contents.push( "<html>" );
@@ -2254,6 +2256,22 @@ import { Disabled } from "./ts/area/disabled";
         for ( const storageDate in typeDateCounts ) {
             if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                 contents.push( `${storageDate}${Char.tab}${typeDateCounts[storageDate].toString()}` );
+            }
+        }
+
+        return contents.join( Char.newLine );
+    }
+
+    function getYamlContents( bindingOptions: BindingOptions ) : string {
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
+        const contents: string[] = [];
+        const exportedDateTime: string = DateTime.getCustomFormattedDateText( _configuration, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date() );
+
+        contents.push( `Last-Modified:${Char.space}${exportedDateTime}` );
+
+        for ( const storageDate in typeDateCounts ) {
+            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                contents.push( `${storageDate}${Char.colon}${Char.space}${typeDateCounts[storageDate].toString()}` );
             }
         }
 
@@ -2354,6 +2372,8 @@ import { Disabled } from "./ts/area/disabled";
             result = "text/x-markdown";
         } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.tsv ) {
             result = "text/tab-separated-values";
+        } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.yaml ) {
+            result = "application/yaml";
         }
 
         return result;
