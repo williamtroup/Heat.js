@@ -274,6 +274,9 @@ div.heat-js div.disabled div.configuration div.dialog-contents div.side-containe
 div.heat-js div.title-bar {
   text-align: right;
   margin-bottom: calc(var(--heat-js-spacing) + var(--heat-js-spacing) / 2);
+  display: flex;
+  align-items: center;
+  justify-content: right;
 }
 div.heat-js div.title-bar button {
   background-color: var(--heat-js-button-background-color);
@@ -382,11 +385,12 @@ div.heat-js div.title-bar {
   vertical-align: middle;
 }
 div.heat-js div.title-bar div.title {
-  float: left;
   font-weight: var(--heat-js-title-bold-weight);
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   padding-bottom: 3px;
   transition: var(--heat-js-transition);
+  margin-right: auto;
+  white-space: nowrap;
   cursor: pointer;
 }
 div.heat-js div.title-bar div.title span.section-text,
@@ -509,6 +513,7 @@ div.heat-js div.title-bar div.year-text {
   padding-top: 5px;
   padding-bottom: 5px;
   transition: var(--heat-js-transition);
+  white-space: nowrap;
   cursor: pointer;
 }
 div.heat-js div.title-bar div.year-text:hover {
