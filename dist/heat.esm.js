@@ -871,7 +871,6 @@ var Disabled;
         }
         ToolTip.renderControl(e);
         f(e);
-        y(e);
         D(e, n);
         if (e.views.chart.enabled) {
             b(e, n);
@@ -898,6 +897,7 @@ var Disabled;
             e._currentView.view = 1;
             e._currentView.mapContents.style.display = "block";
         }
+        y(e);
     }
     function c(t) {
         t._currentView.configurationDialog = DomElement.create(t._currentView.disabledBackground, "div", "dialog configuration");
@@ -1200,7 +1200,7 @@ var Disabled;
     function y(t) {
         const i = new Date;
         if (t.yearlyStatistics.enabled && t._currentView.year === i.getFullYear()) {
-            const o = DomElement.create(t._currentView.element, "div", "yearly-statistics");
+            const o = DomElement.create(t._currentView.element, "div", "yearly-statistics", t._currentView.mapContents);
             const s = n[t._currentView.element.id].typeData[t._currentView.type][DateTime.toStorageDate(i)];
             if (Is.defined(s)) {
                 const n = DateTime.getDateForMondayOfCurrentWeek();

@@ -167,7 +167,6 @@ import { Disabled } from "./ts/area/disabled";
 
         ToolTip.renderControl( bindingOptions );
         renderControlTitleBar( bindingOptions );
-        renderControlYearStatistics( bindingOptions );
         renderControlMap( bindingOptions, isForViewSwitch );
 
         if ( bindingOptions.views!.chart!.enabled ) {
@@ -202,6 +201,8 @@ import { Disabled } from "./ts/area/disabled";
             bindingOptions._currentView!.view = ViewId.map;
             bindingOptions._currentView!.mapContents.style.display = "block";
         }
+
+        renderControlYearStatistics( bindingOptions );
     }
 
 
@@ -616,7 +617,7 @@ import { Disabled } from "./ts/area/disabled";
         const today: Date = new Date();
 
         if ( bindingOptions.yearlyStatistics!.enabled && bindingOptions._currentView!.year === today.getFullYear() ) {
-            const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics" );
+            const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics", bindingOptions._currentView!.mapContents );
             const todaysCount: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( today ) ];
 
             if ( Is.defined( todaysCount ) ) {
