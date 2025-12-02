@@ -1977,7 +1977,7 @@ import { Disabled } from "./ts/area/disabled";
     function importFromFilesSelected( bindingOptions: BindingOptions ) : void {
         const input: HTMLInputElement = DomElement.createWithNoContainer( "input" ) as HTMLInputElement;
         input.type = "file";
-        input.accept = ".json, .txt, .csv, .tsv, .md";
+        input.accept = ".json, .txt, .csv, .tsv, .md, .yaml";
         input.multiple = true;
         input.onchange = () => importFromFiles( input.files!, bindingOptions );
 
@@ -2022,6 +2022,8 @@ import { Disabled } from "./ts/area/disabled";
                 importFromTsv( file, onLoadEnd );
             } else if ( fileExtension === ExportType.md ) {
                 importFromMd( file, onLoadEnd );
+            } else if ( fileExtension === ExportType.yaml ) {
+                importFromYaml( file, onLoadEnd );
             }
         }
     }
@@ -2123,6 +2125,26 @@ import { Disabled } from "./ts/area/disabled";
                 const lineParts: string[] = lineContents.split( Char.pipe );
 
                 readingObject[ lineParts[ 0 ].trim() ] = parseInt( lineParts[ 1 ].trim() );
+            }
+        };
+
+        reader.readAsText( file );
+    }
+
+    function importFromYaml( file: File, onLoadEnd: Function ) : void {
+        const reader: FileReader = new FileReader();
+        const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
+
+        reader.onloadend = () => onLoadEnd( file.name, readingObject );
+    
+        reader.onload = ( ev: ProgressEvent<FileReader> ) => {
+            const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
+            const linesLength: number = lines.length;
+
+            for ( let lineIndex: number = 1; lineIndex < linesLength; lineIndex++ ) {
+                const line: string[] = lines[ lineIndex ].split( Char.colon );
+
+                readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
             }
         };
 
