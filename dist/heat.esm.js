@@ -1213,7 +1213,7 @@ var Disabled;
                 const d = p(t, n, r);
                 const f = p(t, a, l);
                 const m = p(t, c, u);
-                if (s > 0 && d > 0 && f > 0 && m > 0) {
+                if (s > 0 || d > 0 || f > 0 || m > 0) {
                     const t = DomElement.create(o, "div", "statistics-box");
                     DomElement.createWithHTML(t, "div", "statistics-box-title", e.text.totalTodayText);
                     DomElement.createWithHTML(t, "div", "statistics-box-count", Str.friendlyNumber(s));
@@ -1238,7 +1238,10 @@ var Disabled;
         let o = 0;
         let s = new Date(t);
         while (s < i) {
-            o += n[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(s)];
+            const t = n[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(s)];
+            if (Is.definedNumber(t)) {
+                o += t;
+            }
             s.setDate(s.getDate() + 1);
         }
         return o;

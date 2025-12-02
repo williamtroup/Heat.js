@@ -634,7 +634,7 @@ import { Disabled } from "./ts/area/disabled";
                 const monthCount: number = getCountForDateRange( bindingOptions, startOfMonth, endOfMonth );
                 const yearCount: number = getCountForDateRange( bindingOptions, startOfYear, endOfYear );
 
-                if ( todaysCount > 0 && weekCount > 0 && monthCount > 0 && yearCount > 0 ) {
+                if ( todaysCount > 0 || weekCount > 0 || monthCount > 0 || yearCount > 0 ) {
                     const todaysBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
                     DomElement.createWithHTML( todaysBox, "div", "statistics-box-title", _configuration.text!.totalTodayText! );
                     DomElement.createWithHTML( todaysBox, "div", "statistics-box-count", Str.friendlyNumber( todaysCount ) );
@@ -666,7 +666,12 @@ import { Disabled } from "./ts/area/disabled";
         let currentDate: Date = new Date( from );
 
         while ( currentDate < to ) {
-            result += _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( currentDate ) ];
+            const count: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( currentDate ) ];
+
+            if ( Is.definedNumber( count ) ) {
+                result += count;
+            }
+
             currentDate.setDate( currentDate.getDate() + 1 );
         }
 
