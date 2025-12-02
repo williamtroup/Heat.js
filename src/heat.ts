@@ -1977,7 +1977,7 @@ import { Disabled } from "./ts/area/disabled";
     function importFromFilesSelected( bindingOptions: BindingOptions ) : void {
         const input: HTMLInputElement = DomElement.createWithNoContainer( "input" ) as HTMLInputElement;
         input.type = "file";
-        input.accept = ".json, .txt, .csv, .tsv";
+        input.accept = ".json, .txt, .csv, .tsv, .md";
         input.multiple = true;
         input.onchange = () => importFromFiles( input.files!, bindingOptions );
 
@@ -2020,6 +2020,8 @@ import { Disabled } from "./ts/area/disabled";
                 importFromCsv( file, onLoadEnd );
             } else if ( fileExtension === ExportType.tsv ) {
                 importFromTsv( file, onLoadEnd );
+            } else if ( fileExtension === ExportType.md ) {
+                importFromMd( file, onLoadEnd );
             }
         }
     }
@@ -2099,6 +2101,28 @@ import { Disabled } from "./ts/area/disabled";
                 const line: string[] = lines[ lineIndex ].split( Char.tab );
 
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
+            }
+        };
+
+        reader.readAsText( file );
+    }
+
+    function importFromMd( file: File, onLoadEnd: Function ) : void {
+        const reader: FileReader = new FileReader();
+        const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
+
+        reader.onloadend = () => onLoadEnd( file.name, readingObject );
+    
+        reader.onload = ( ev: ProgressEvent<FileReader> ) => {
+            const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
+            const linesLength: number = lines.length;
+
+            for ( let lineIndex: number = 2; lineIndex < linesLength; lineIndex++ ) {
+                const line: string = lines[ lineIndex ].trim();
+                const lineContents: string = line.substring( 1, line.length - 1 ).trim();
+                const lineParts: string[] = lineContents.split( Char.pipe );
+
+                readingObject[ lineParts[ 0 ].trim() ] = parseInt( lineParts[ 1 ].trim() );
             }
         };
 

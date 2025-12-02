@@ -22,6 +22,7 @@ export const enum Char {
     colon = ":",
     comma = ",",
     tab = "\t",
+    pipe = "|",
 }
 
 export const enum Value {

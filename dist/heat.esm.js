@@ -1031,7 +1031,7 @@ var Disabled;
             }
             if (t.title.showExportButton) {
                 const i = DomElement.createWithHTML(n, "button", "export", e.text.exportButtonSymbolText);
-                i.onclick = () => de(t);
+                i.onclick = () => fe(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(i, t, e.text.exportButtonText);
                 }
@@ -1048,7 +1048,7 @@ var Disabled;
             }
             if (t.title.showYearSelector) {
                 const i = DomElement.createWithHTML(n, "button", "back", e.text.backButtonSymbolText);
-                i.onclick = () => _e(t);
+                i.onclick = () => Ve(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(i, t, e.text.backButtonText);
                 }
@@ -1079,12 +1079,12 @@ var Disabled;
                     }
                     i.onclick = () => {
                         t._currentView.year = (new Date).getFullYear() - 1;
-                        Ve(t, false);
+                        Ce(t, false);
                         Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                     };
                 }
                 const s = DomElement.createWithHTML(n, "button", "next", e.text.nextButtonSymbolText);
-                s.onclick = () => Ve(t);
+                s.onclick = () => Ce(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(s, t, e.text.nextButtonText);
                 }
@@ -2166,7 +2166,7 @@ var Disabled;
     function se(e) {
         const t = DomElement.createWithNoContainer("input");
         t.type = "file";
-        t.accept = ".json, .txt, .csv, .tsv";
+        t.accept = ".json, .txt, .csv, .tsv, .md";
         t.multiple = true;
         t.onchange = () => re(t.files, e);
         t.click();
@@ -2201,6 +2201,8 @@ var Disabled;
                 ce(n, s);
             } else if (i === "tsv") {
                 ue(n, s);
+            } else if (i === "md") {
+                de(n, s);
             }
         }
     }
@@ -2260,56 +2262,72 @@ var Disabled;
         };
         n.readAsText(e);
     }
-    function de(e, t = null) {
+    function de(e, t) {
+        const n = new FileReader;
+        const i = {};
+        n.onloadend = () => t(e.name, i);
+        n.onload = e => {
+            const t = e.target.result.toString().split("\n");
+            const n = t.length;
+            for (let e = 2; e < n; e++) {
+                const n = t[e].trim();
+                const o = n.substring(1, n.length - 1).trim();
+                const s = o.split("|");
+                i[s[0].trim()] = parseInt(s[1].trim());
+            }
+        };
+        n.readAsText(e);
+    }
+    function fe(e, t = null) {
         let n = null;
-        const i = Te(e);
+        const i = xe(e);
         const o = Default2.getString(t, e.exportType).toLowerCase();
         if (o === "csv") {
-            n = fe(e);
-        } else if (o === "json") {
             n = me(e);
-        } else if (o === "xml") {
+        } else if (o === "json") {
             n = we(e);
-        } else if (o === "txt") {
+        } else if (o === "xml") {
             n = ge(e);
-        } else if (o === "html") {
+        } else if (o === "txt") {
             n = he(e);
-        } else if (o === "md") {
+        } else if (o === "html") {
             n = pe(e);
-        } else if (o === "tsv") {
+        } else if (o === "md") {
             n = ye(e);
-        } else if (o === "yaml") {
+        } else if (o === "tsv") {
             n = De(e);
+        } else if (o === "yaml") {
+            n = ve(e);
         }
         if (Is.definedString(n)) {
             const t = DomElement.create(document.body, "a");
             t.style.display = "none";
             t.setAttribute("target", "_blank");
             t.setAttribute("href", `data:${i};charset=utf-8,${encodeURIComponent(n)}`);
-            t.setAttribute("download", xe(e));
+            t.setAttribute("download", be(e));
             t.click();
             document.body.removeChild(t);
             Trigger.customEvent(e.events.onExport, e._currentView.element);
         }
     }
-    function fe(t) {
-        const n = ve(t);
+    function me(t) {
+        const n = Te(t);
         const i = [];
         for (const e in n) {
             if (n.hasOwnProperty(e)) {
-                i.push(Se([ be(e), be(n[e].toString()) ]));
+                i.push(_e([ Se(e), Se(n[e].toString()) ]));
             }
         }
         if (i.length > 0) {
-            i.unshift(Se([ be(e.text.dateText), be(e.text.countText) ]));
+            i.unshift(_e([ Se(e.text.dateText), Se(e.text.countText) ]));
         }
         return i.join("\n");
     }
-    function me(e) {
-        return JSON.stringify(ve(e));
-    }
     function we(e) {
-        const t = ve(e);
+        return JSON.stringify(Te(e));
+    }
+    function ge(e) {
+        const t = Te(e);
         const n = [];
         n.push('<?xml version="1.0" ?>');
         n.push("<Dates>");
@@ -2324,8 +2342,8 @@ var Disabled;
         n.push("</Dates>");
         return n.join("\n");
     }
-    function ge(e) {
-        const t = ve(e);
+    function he(e) {
+        const t = Te(e);
         const n = [];
         for (const e in t) {
             if (t.hasOwnProperty(e)) {
@@ -2334,8 +2352,8 @@ var Disabled;
         }
         return n.join("\n");
     }
-    function he(t) {
-        const n = ve(t);
+    function pe(t) {
+        const n = Te(t);
         const i = [];
         const o = DateTime.getCustomFormattedDateText(e, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date);
         i.push("<!DOCTYPE html>");
@@ -2356,8 +2374,8 @@ var Disabled;
         i.push("</html>");
         return i.join("\n");
     }
-    function pe(e) {
-        const t = ve(e);
+    function ye(e) {
+        const t = Te(e);
         const n = [];
         n.push("| Full Date | Count |");
         n.push("| --- | --- |");
@@ -2368,8 +2386,8 @@ var Disabled;
         }
         return n.join("\n");
     }
-    function ye(e) {
-        const t = ve(e);
+    function De(e) {
+        const t = Te(e);
         const n = [];
         n.push(`Full Date${"\t"}Count`);
         for (const e in t) {
@@ -2379,8 +2397,8 @@ var Disabled;
         }
         return n.join("\n");
     }
-    function De(t) {
-        const n = ve(t);
+    function ve(t) {
+        const n = Te(t);
         const i = [];
         const o = DateTime.getCustomFormattedDateText(e, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date);
         i.push(`Last-Modified:${" "}${o}`);
@@ -2391,7 +2409,7 @@ var Disabled;
         }
         return i.join("\n");
     }
-    function ve(e) {
+    function Te(e) {
         const t = {};
         const n = H(e);
         if (e.exportOnlyDataBeingViewed) {
@@ -2453,7 +2471,7 @@ var Disabled;
         }
         return t;
     }
-    function Te(e) {
+    function xe(e) {
         let t = null;
         if (e.exportType.toLowerCase() === "csv") {
             t = "text/csv";
@@ -2474,7 +2492,7 @@ var Disabled;
         }
         return t;
     }
-    function xe(t) {
+    function be(t) {
         const n = new Date;
         const i = `${Str.padNumber(n.getDate())}${"-"}${Str.padNumber(n.getMonth() + 1)}${"-"}${n.getFullYear()}`;
         const o = `${Str.padNumber(n.getHours())}${"-"}${Str.padNumber(n.getMinutes())}`;
@@ -2484,16 +2502,16 @@ var Disabled;
         }
         return `${s}${i}${"_"}${o}.${t.exportType.toLowerCase()}`;
     }
-    function be(e) {
+    function Se(e) {
         let t = e.toString().replace(/(\r\n|\n|\r)/gm, "").replace(/(\s\s)/gm, " ");
         t = t.replace(/"/g, '""');
         t = `"${t}"`;
         return t;
     }
-    function Se(e) {
+    function _e(e) {
         return e.join(",");
     }
-    function _e(e, t = true) {
+    function Ve(e, t = true) {
         let n = true;
         let i = e._currentView.year;
         i--;
@@ -2512,7 +2530,7 @@ var Disabled;
             }
         }
     }
-    function Ve(e, t = true) {
+    function Ce(e, t = true) {
         let n = true;
         let i = e._currentView.year;
         i++;
@@ -2531,7 +2549,7 @@ var Disabled;
             }
         }
     }
-    function Ce(e) {
+    function Ee(e) {
         e._currentView.element.innerHTML = "";
         DomElement.removeClass(e._currentView.element, "heat-js");
         ToolTip.assignToEvents(e, false);
@@ -2541,11 +2559,11 @@ var Disabled;
         }
         Trigger.customEvent(e.events.onDestroy, e._currentView.element);
     }
-    function Ee() {
+    function Ie() {
         if (e.observationMode) {
             if (!Is.defined(t)) {
                 t = new MutationObserver((e, t) => {
-                    Ie.renderAll();
+                    Me.renderAll();
                 });
                 const e = {
                     attributes: true,
@@ -2559,7 +2577,7 @@ var Disabled;
             t = null;
         }
     }
-    const Ie = {
+    const Me = {
         addDates: function(t, i, o = null, s = true) {
             if (Is.definedString(t) && Is.definedArray(i) && n.hasOwnProperty(t)) {
                 const r = n[t].options;
@@ -2567,14 +2585,14 @@ var Disabled;
                     o = Default2.getString(o, e.text.unknownTrendText);
                     const n = i.length;
                     for (let e = 0; e < n; e++) {
-                        Ie.addDate(t, i[e], o, false);
+                        Me.addDate(t, i[e], o, false);
                     }
                     if (s) {
                         l(r, true);
                     }
                 }
             }
-            return Ie;
+            return Me;
         },
         addDate: function(t, i, o = null, s = true) {
             if (Is.definedString(t) && Is.definedDate(i) && n.hasOwnProperty(t)) {
@@ -2596,7 +2614,7 @@ var Disabled;
                     }
                 }
             }
-            return Ie;
+            return Me;
         },
         updateDate: function(t, i, o, s = null, r = true) {
             if (Is.definedString(t) && Is.definedDate(i) && n.hasOwnProperty(t)) {
@@ -2613,7 +2631,7 @@ var Disabled;
                     }
                 }
             }
-            return Ie;
+            return Me;
         },
         removeDates: function(t, i, o = null, s = true) {
             if (Is.definedString(t) && Is.definedArray(i) && n.hasOwnProperty(t)) {
@@ -2622,14 +2640,14 @@ var Disabled;
                     o = Default2.getString(o, e.text.unknownTrendText);
                     const n = i.length;
                     for (let e = 0; e < n; e++) {
-                        Ie.removeDate(t, i[e], o, false);
+                        Me.removeDate(t, i[e], o, false);
                     }
                     if (s) {
                         l(r, true);
                     }
                 }
             }
-            return Ie;
+            return Me;
         },
         removeDate: function(t, i, o = null, s = true) {
             if (Is.definedString(t) && Is.definedDate(i) && n.hasOwnProperty(t)) {
@@ -2648,7 +2666,7 @@ var Disabled;
                     }
                 }
             }
-            return Ie;
+            return Me;
         },
         clearDate: function(t, i, o = null, s = true) {
             if (Is.definedString(t) && Is.definedDate(i) && n.hasOwnProperty(t)) {
@@ -2665,15 +2683,15 @@ var Disabled;
                     }
                 }
             }
-            return Ie;
+            return Me;
         },
         resetAll: function(e = true) {
             for (const t in n) {
                 if (n.hasOwnProperty(t)) {
-                    Ie.reset(t, e);
+                    Me.reset(t, e);
                 }
             }
-            return Ie;
+            return Me;
         },
         reset: function(t, i = true) {
             if (Is.definedString(t) && n.hasOwnProperty(t)) {
@@ -2687,7 +2705,7 @@ var Disabled;
                     }
                 }
             }
-            return Ie;
+            return Me;
         },
         import: function(e, t = null) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
@@ -2697,13 +2715,13 @@ var Disabled;
                     se(n[e].options);
                 }
             }
-            return Ie;
+            return Me;
         },
         export: function(e, t = null) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                de(n[e].options, t);
+                fe(n[e].options, t);
             }
-            return Ie;
+            return Me;
         },
         refresh: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
@@ -2711,7 +2729,7 @@ var Disabled;
                 l(t, true);
                 Trigger.customEvent(t.events.onRefresh, t._currentView.element);
             }
-            return Ie;
+            return Me;
         },
         refreshAll: function() {
             for (const e in n) {
@@ -2721,20 +2739,20 @@ var Disabled;
                     Trigger.customEvent(t.events.onRefresh, t._currentView.element);
                 }
             }
-            return Ie;
+            return Me;
         },
         setYear: function(e, t) {
             if (Is.definedString(e) && Is.definedNumber(t) && n.hasOwnProperty(e)) {
                 const i = n[e].options;
                 i._currentView.year = t;
                 if (!P(i, i._currentView.year)) {
-                    Ve(i, false);
+                    Ce(i, false);
                 } else {
                     l(i);
                 }
                 Trigger.customEvent(i.events.onSetYear, i._currentView.year);
             }
-            return Ie;
+            return Me;
         },
         setYearToHighest: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
@@ -2749,14 +2767,14 @@ var Disabled;
                 if (o > 0) {
                     t._currentView.year = o;
                     if (!P(t, t._currentView.year)) {
-                        Ve(t, false);
+                        Ce(t, false);
                     } else {
                         l(t);
                     }
                     Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                 }
             }
-            return Ie;
+            return Me;
         },
         setYearToLowest: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
@@ -2771,39 +2789,39 @@ var Disabled;
                 if (o < 9999) {
                     t._currentView.year = o;
                     if (!P(t, t._currentView.year)) {
-                        _e(t, false);
+                        Ve(t, false);
                     } else {
                         l(t);
                     }
                     Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                 }
             }
-            return Ie;
+            return Me;
         },
         moveToPreviousYear: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                _e(n[e].options);
+                Ve(n[e].options);
             }
-            return Ie;
+            return Me;
         },
         moveToNextYear: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                Ve(n[e].options);
+                Ce(n[e].options);
             }
-            return Ie;
+            return Me;
         },
         moveToCurrentYear: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
                 const t = n[e].options;
                 t._currentView.year = (new Date).getFullYear();
                 if (!P(t, t._currentView.year)) {
-                    Ve(t, false);
+                    Ce(t, false);
                 } else {
                     l(t);
                 }
                 Trigger.customEvent(t.events.onSetYear, t._currentView.year);
             }
-            return Ie;
+            return Me;
         },
         getYear: function(e) {
             let t = -1;
@@ -2817,11 +2835,11 @@ var Disabled;
             if (Is.definedObject(t) && Is.definedObject(n)) {
                 a(Binding.Options.getForNewInstance(e, n, t));
             }
-            return Ie;
+            return Me;
         },
         renderAll: function() {
             s();
-            return Ie;
+            return Me;
         },
         switchView: function(e, t) {
             if (Is.definedString(e) && Is.definedString(t) && n.hasOwnProperty(e)) {
@@ -2844,7 +2862,7 @@ var Disabled;
                     l(i, false, true);
                 }
             }
-            return Ie;
+            return Me;
         },
         switchType: function(e, t) {
             if (Is.definedString(e) && Is.definedString(t) && n.hasOwnProperty(e) && n[e].typeData.hasOwnProperty(t)) {
@@ -2855,7 +2873,7 @@ var Disabled;
                     l(i);
                 }
             }
-            return Ie;
+            return Me;
         },
         updateOptions: function(e, t) {
             if (Is.definedString(e) && Is.definedObject(t) && n.hasOwnProperty(e)) {
@@ -2874,23 +2892,23 @@ var Disabled;
                     Trigger.customEvent(i.events.onOptionsUpdate, i._currentView.element, i);
                 }
             }
-            return Ie;
+            return Me;
         },
         destroyAll: function() {
             for (const e in n) {
                 if (n.hasOwnProperty(e)) {
-                    Ce(n[e].options);
+                    Ee(n[e].options);
                 }
             }
             n = {};
-            return Ie;
+            return Me;
         },
         destroy: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                Ce(n[e].options);
+                Ee(n[e].options);
                 delete n[e];
             }
-            return Ie;
+            return Me;
         },
         setConfiguration: function(t, n = true) {
             if (Is.definedObject(t)) {
@@ -2904,13 +2922,13 @@ var Disabled;
                 }
                 if (i) {
                     e = Config.Options.get(o);
-                    Ee();
+                    Ie();
                     if (n) {
-                        Ie.refreshAll();
+                        Me.refreshAll();
                     }
                 }
             }
-            return Ie;
+            return Me;
         },
         getIds: function() {
             const e = [];
@@ -2928,12 +2946,12 @@ var Disabled;
     (() => {
         e = Config.Options.get();
         document.addEventListener("DOMContentLoaded", () => {
-            Ee();
+            Ie();
             s();
         });
         window.addEventListener("pagehide", () => q());
         if (!Is.defined(window.$heat)) {
-            window.$heat = Ie;
+            window.$heat = Me;
         }
     })();
 })();//# sourceMappingURL=heat.esm.js.map
