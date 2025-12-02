@@ -94,6 +94,10 @@ export type ConfigurationText = {
     importButtonSymbolText?: string;
     currentYearText?: string;
     currentYearSymbolText?: string;
+    totalTodayText?: string;
+    totalThisWeekText?: string;
+    totalThisMonthText?: string;
+    totalThisYearText?: string;
 };
 
 export type BindingOptions = {
@@ -113,6 +117,7 @@ export type BindingOptions = {
     colorRanges?: BindingOptionsColorRange[];
     holidays?: BindingOptionsHoliday[];
     title?: BindingOptionsTitle;
+    yearlyStatistics?: BindingOptionsYearlyStatistics;
     description?: BindingOptionsDescription;
     guide?: BindingOptionsGuide;
     tooltip?: BindingOptionsTooltip;
@@ -246,6 +251,10 @@ export type BindingOptionsGuide = {
 export type BindingOptionsTooltip = {
     delay?: number;
     dayText?: string;
+};
+
+export type BindingOptionsYearlyStatistics = {
+    enabled?: boolean;
 };
 
 export type BindingOptionsEvents = {

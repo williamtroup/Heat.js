@@ -72,4 +72,15 @@ export namespace DateTime {
     export function getStorageDateYear( data: string ) : string {
         return data.split( Char.dash )[ 0 ];
     }
+
+    export function getDateForMondayOfCurrentWeek() : Date {
+        const today: Date = new Date();
+        const dayOfWeek: number = today.getDay();
+        const differenceToMonday: number = ( dayOfWeek === 0 ? -6 : 1 ) - dayOfWeek;
+
+        const monday: Date = new Date( today );
+        monday.setDate( today.getDate() + differenceToMonday );
+
+        return monday;
+    }
 }

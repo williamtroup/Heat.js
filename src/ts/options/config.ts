@@ -72,6 +72,10 @@ export namespace Config {
             configuration.text!.importButtonSymbolText = Default.getAnyString( configuration.text!.importButtonSymbolText, "↑" );
             configuration.text!.currentYearText = Default.getAnyString( configuration.text!.currentYearText, "Current Year" );
             configuration.text!.currentYearSymbolText = Default.getAnyString( configuration.text!.currentYearSymbolText, "⏎" );
+            configuration.text!.totalTodayText = Default.getAnyString( configuration.text!.totalTodayText, "Total Today" );
+            configuration.text!.totalThisWeekText = Default.getAnyString( configuration.text!.totalThisWeekText, "Total This Week" );
+            configuration.text!.totalThisMonthText = Default.getAnyString( configuration.text!.totalThisMonthText, "Total This Month" );
+            configuration.text!.totalThisYearText = Default.getAnyString( configuration.text!.totalThisYearText, "Total This Year" );
 
             return configuration.text!;
         }

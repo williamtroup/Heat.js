@@ -26,7 +26,8 @@ import {
     type BindingOptionsEvents, 
     type BindingOptionsCurrentView,
     type Configuration, 
-    type BindingOptionsViews } from "../type";
+    type BindingOptionsViews,
+    type BindingOptionsYearlyStatistics } from "../type";
 
 import { Default } from "../data/default";
 import { Char, ExportType, ViewId, ViewName } from "../data/enum";
@@ -114,6 +115,7 @@ export namespace Binding {
             options.views!.chart = getChartView( options );
             options.views!.days = getDaysView( options );
             options.views!.statistics = getStatisticsView( options );
+            options.yearlyStatistics = getYearlyStatistics( options );
             options.events = getCustomTriggers( options );
 
             if ( options.startMonth > 0 ) {
@@ -346,6 +348,13 @@ export namespace Binding {
             }
     
             return options.views!.statistics!;
+        }
+
+        function getYearlyStatistics( options: BindingOptions ) : BindingOptionsYearlyStatistics {
+            options.yearlyStatistics = Default.getObject( options.yearlyStatistics, {} as BindingOptionsYearlyStatistics );
+            options.yearlyStatistics!.enabled = Default.getBoolean( options.yearlyStatistics!.enabled, true );
+
+            return options.yearlyStatistics!;
         }
     
         function getCustomTriggers( options : BindingOptions ) : BindingOptionsEvents {

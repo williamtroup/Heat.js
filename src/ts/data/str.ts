@@ -15,13 +15,17 @@ import { Char } from "./enum";
 
 
 export namespace Str {
-    export function padNumber( number: number ) : string {
-        const numberString: string = number.toString();
+    export function padNumber( value: number ) : string {
+        const valueString: string = value.toString();
 
-        return numberString.length === 1 ? Char.zero + numberString : numberString;
+        return valueString.length === 1 ? Char.zero + valueString : valueString;
     }
 
     export function startsWithAnyCase( data: string, start: string ) : boolean {
         return data.substring( 0, start.length ).toLowerCase() === start.toLowerCase();
+    }
+
+    export function friendlyNumber( value: number ) : string {
+        return value.toString().replace( /\B(?=(\d{3})+(?!\d))/g, Char.comma );
     }
 }
