@@ -790,7 +790,7 @@ import { Disabled } from "./ts/area/disabled";
 
         dateCount = Default.getNumber( dateCount, 0 );
 
-        day.setAttribute("data-heat-js-map-date", `${Str.padNumber(actualDay)}-${Str.padNumber(month + 1)}-${year}` );
+        day.setAttribute( Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber(actualDay)}-${Str.padNumber(month + 1)}-${year}` );
 
         if ( bindingOptions.views!.map!.showToolTips ) {
             renderDayToolTip( bindingOptions, day, date, dateCount );
@@ -1001,7 +1001,7 @@ import { Disabled } from "./ts/area/disabled";
 
         dateCount = Default.getNumber( dateCount, 0 );
 
-        dayLine.setAttribute("data-heat-js-chart-date", `${Str.padNumber(day)}-${Str.padNumber(month + 1)}-${year}` );
+        dayLine.setAttribute( Constant.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${Str.padNumber(day)}-${Str.padNumber(month + 1)}-${year}` );
 
         if ( bindingOptions.views!.chart!.showToolTips ) {
             renderDayToolTip( bindingOptions, dayLine, date, dateCount );
@@ -1166,7 +1166,7 @@ import { Disabled } from "./ts/area/disabled";
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
 
         dayLine.style.height = `${dayLineHeight}px`;
-        dayLine.setAttribute("data-heat-js-day-number", dayNumber.toString() );
+        dayLine.setAttribute( Constant.HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME, dayNumber.toString() );
 
         if ( dayLineHeight <= 0 ) {
             dayLine.style.visibility = "hidden";
@@ -1356,7 +1356,7 @@ import { Disabled } from "./ts/area/disabled";
         rangeLine.style.height = `${rangeLineHeight}px`;
 
         if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) ) {
-            rangeLine.setAttribute("data-heat-js-statistics-color-range-name", useColorRange.name! );
+            rangeLine.setAttribute( Constant.HEAT_JS_STATISTICS_COLOR_RANGE_NAME_ATTRIBUTE_NAME, useColorRange.name! );
         }
 
         if ( rangeLineHeight <= 0 ) {
