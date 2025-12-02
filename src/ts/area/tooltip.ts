@@ -4,7 +4,7 @@
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
  * @file        tooltip.ts
- * @version     v4.5.2
+ * @version     v4.5.3
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
