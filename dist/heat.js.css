@@ -83,6 +83,7 @@
   --heat-js-checkbox-background-color: var(--heat-js-color-black);
   --heat-js-checkbox-border-color-checked: var(--heat-js-checkbox-background-color-checked);
   --heat-js-checkbox-border-color: var(--heat-js-color-white);
+  --heat-js-checkbox-border-radius: 2em;
   --heat-js-panel-background-color: var(--heat-js-day-background-color);
   --heat-js-panel-border-color: var(--heat-js-container-border-color);
   --heat-js-border-control-radius: 0.25rem;
@@ -1340,8 +1341,8 @@ div.heat-js label.checkbox input:checked ~ span.check-mark {
 }
 div.heat-js label.checkbox input:checked ~ span.check-mark::before {
   background-color: var(--heat-js-color-black);
-  border-top-left-radius: var(--heat-js-border-control-radius);
-  border-bottom-left-radius: var(--heat-js-border-control-radius);
+  border-top-left-radius: var(--heat-js-checkbox-border-radius);
+  border-bottom-left-radius: var(--heat-js-checkbox-border-radius);
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -1358,7 +1359,7 @@ div.heat-js label.checkbox span.check-mark {
   height: 15px;
   width: 30px;
   background-color: var(--heat-js-checkbox-background-color);
-  border-radius: var(--heat-js-border-control-radius);
+  border-radius: var(--heat-js-checkbox-border-radius);
   border: var(--heat-js-border-size) solid var(--heat-js-checkbox-border-color);
   transition: var(--heat-js-transition);
   overflow: hidden;
@@ -1370,8 +1371,8 @@ div.heat-js label.checkbox span.check-mark::before {
   background-color: var(--heat-js-checkbox-border-color);
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  border-top-right-radius: var(--heat-js-border-control-radius);
-  border-bottom-right-radius: var(--heat-js-border-control-radius);
+  border-top-right-radius: var(--heat-js-checkbox-border-radius);
+  border-bottom-right-radius: var(--heat-js-checkbox-border-radius);
 }
 
 /*
