@@ -278,6 +278,7 @@ div.heat-js div.title-bar {
   display: flex;
   align-items: center;
   justify-content: right;
+  overflow-x: hidden;
 }
 div.heat-js div.title-bar button {
   background-color: var(--heat-js-button-background-color);

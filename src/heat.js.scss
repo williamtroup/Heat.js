@@ -352,6 +352,7 @@ div.heat-js {
         display: flex;
         align-items: center;
         justify-content: right;
+        overflow-x: hidden;
 
         @include styles.buttons;
 
