@@ -76,6 +76,7 @@ export namespace Config {
             configuration.text!.totalThisWeekText = Default.getAnyString( configuration.text!.totalThisWeekText, "Total This Week" );
             configuration.text!.totalThisMonthText = Default.getAnyString( configuration.text!.totalThisMonthText, "Total This Month" );
             configuration.text!.totalThisYearText = Default.getAnyString( configuration.text!.totalThisYearText, "Total This Year" );
+            configuration.text!.unknownText = Default.getAnyString( configuration.text!.unknownText, "Unknown" );
 
             return configuration.text!;
         }

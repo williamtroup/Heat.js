@@ -262,25 +262,8 @@ import { Disabled } from "./ts/area/disabled";
             bindingOptions._currentView!.configurationDialog.style.display = "block";
         }
 
-        let daysToShow: number[] = [];
-        let monthsToShow: number[] = [];
-
-        if ( bindingOptions._currentView!.view === ViewId.map ) {
-            daysToShow = bindingOptions.views!.map!.daysToShow!;
-            monthsToShow = bindingOptions.views!.map!.monthsToShow!;
-        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-            daysToShow = bindingOptions.views!.chart!.daysToShow!;
-            monthsToShow = bindingOptions.views!.chart!.monthsToShow!;
-        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
-            daysToShow = bindingOptions.views!.days!.daysToShow!;
-            monthsToShow = bindingOptions.views!.days!.monthsToShow!;
-        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-            daysToShow = bindingOptions.views!.statistics!.daysToShow!;
-            monthsToShow = bindingOptions.views!.statistics!.monthsToShow!;
-        } else {
-            daysToShow = bindingOptions.views!.map!.daysToShow!;
-            monthsToShow = bindingOptions.views!.map!.monthsToShow!;
-        }
+        const daysToShow: number[] = getDaysToShowForView( bindingOptions );
+        const monthsToShow: number[] = getMonthsToShowForView( bindingOptions );
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
             bindingOptions._currentView!.dayCheckBoxes[ dayIndex ].checked = isDayVisible( daysToShow, dayIndex + 1 );
@@ -616,54 +599,72 @@ import { Disabled } from "./ts/area/disabled";
     function renderControlYearStatistics( bindingOptions: BindingOptions ) : void {
         const today: Date = new Date();
 
-        if ( bindingOptions.yearlyStatistics!.enabled && bindingOptions._currentView!.year === today.getFullYear() ) {
+        if ( bindingOptions.yearlyStatistics!.enabled ) {
             const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics", bindingOptions._currentView!.mapContents );
-            const todaysCount: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( today ) ];
+            const isCurrentYear: boolean = bindingOptions._currentView!.year === today.getFullYear();
+            const daysToShow: number[] = getDaysToShowForView( bindingOptions );
+            const monthsToShow: number[] = getMonthsToShowForView( bindingOptions );
+            let todaysCount: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( today ) ];
             let remove: boolean = false;
 
             if ( Is.defined( todaysCount ) ) {
-                if ( bindingOptions.yearlyStatistics!.showTotalToday && todaysCount > 0 ) {
+                if ( bindingOptions.yearlyStatistics!.showTotalToday ) {
                     const todaysBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
+                    const weekdayNumber: number = DateTime.getWeekdayNumber( today ) + 1;
+
+                    if ( !isDayVisible( daysToShow, weekdayNumber ) ) {
+                        todaysCount = 0;
+                    }
+
+                    const todayCountText: string = isCurrentYear ? Str.friendlyNumber( todaysCount ) : _configuration.text!.unknownText!;
+
                     DomElement.createWithHTML( todaysBox, "div", "statistics-box-title", _configuration.text!.totalTodayText! );
-                    DomElement.createWithHTML( todaysBox, "div", "statistics-box-count", Str.friendlyNumber( todaysCount ) );
+                    DomElement.createWithHTML( todaysBox, "div", "statistics-box-count", todayCountText );
                 }
 
                 if ( bindingOptions.yearlyStatistics!.showTotalThisWeek ) {
-                    const startOfWeek: Date = DateTime.getDateForMondayOfCurrentWeek();
-                    const endOfWeek: Date = new Date( startOfWeek );
-                    endOfWeek.setDate( startOfWeek.getDate() + 7 );
-                    
-                    const weekCount: number = getCountForDateRange( bindingOptions, startOfWeek, endOfWeek );
+                    let weekCount: number = 0;
 
-                    if ( weekCount > 0 ) {
-                        const weekBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
-                        DomElement.createWithHTML( weekBox, "div", "statistics-box-title", _configuration.text!.totalThisWeekText! );
-                        DomElement.createWithHTML( weekBox, "div", "statistics-box-count", Str.friendlyNumber( weekCount ) );
+                    if ( isCurrentYear ) {
+                        const startOfWeek: Date = DateTime.getDateForMondayOfCurrentWeek();
+                        const endOfWeek: Date = new Date( startOfWeek );
+                        endOfWeek.setDate( startOfWeek.getDate() + 7 );
+                        
+                        weekCount = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfWeek, endOfWeek );
                     }
+
+                    const weekCountText: string = isCurrentYear ? Str.friendlyNumber( weekCount ) : _configuration.text!.unknownText!;
+                    const weekBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
+
+                    DomElement.createWithHTML( weekBox, "div", "statistics-box-title", _configuration.text!.totalThisWeekText! );
+                    DomElement.createWithHTML( weekBox, "div", "statistics-box-count", weekCountText );
                 }
 
                 if ( bindingOptions.yearlyStatistics!.showTotalThisMonth ) {
-                    const startOfMonth: Date = new Date( today.getFullYear(), today.getMonth(), 1 );
-                    const endOfMonth: Date = new Date( today.getFullYear(), today.getMonth(), DateTime.getTotalDaysInMonth( today.getFullYear(), today.getMonth() ) + 1 );
-                    const monthCount: number = getCountForDateRange( bindingOptions, startOfMonth, endOfMonth );
+                    let monthCount: number = 0;
 
-                    if ( monthCount > 0 ) {
-                        const monthBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
-                        DomElement.createWithHTML( monthBox, "div", "statistics-box-title", _configuration.text!.totalThisMonthText! );
-                        DomElement.createWithHTML( monthBox, "div", "statistics-box-count", Str.friendlyNumber( monthCount ) );
+                    if ( isCurrentYear ) {
+                        const startOfMonth: Date = new Date( today.getFullYear(), today.getMonth(), 1 );
+                        const endOfMonth: Date = new Date( today.getFullYear(), today.getMonth(), DateTime.getTotalDaysInMonth( today.getFullYear(), today.getMonth() ) + 1 );
+
+                        monthCount = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfMonth, endOfMonth );
                     }
+
+                    const monthCountText: string = isCurrentYear ? Str.friendlyNumber( monthCount ) : _configuration.text!.unknownText!;
+                    const monthBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
+
+                    DomElement.createWithHTML( monthBox, "div", "statistics-box-title", _configuration.text!.totalThisMonthText! );
+                    DomElement.createWithHTML( monthBox, "div", "statistics-box-count", monthCountText );
                 }
 
                 if ( bindingOptions.yearlyStatistics!.showTotalThisYear ) {
                     const startOfYear: Date = new Date( bindingOptions._currentView!.year, bindingOptions.startMonth!, 1 );
                     const endOfYear: Date = new Date( bindingOptions._currentView!.year + 1, bindingOptions.startMonth!, 1 );
-                    const yearCount: number = getCountForDateRange( bindingOptions, startOfYear, endOfYear );
+                    const yearCount: number = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfYear, endOfYear );
+                    const yearBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
-                    if ( yearCount > 0 ) {
-                        const yearBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
-                        DomElement.createWithHTML( yearBox, "div", "statistics-box-title", _configuration.text!.totalThisYearText! );
-                        DomElement.createWithHTML( yearBox, "div", "statistics-box-count", Str.friendlyNumber( yearCount ) );
-                    }
+                    DomElement.createWithHTML( yearBox, "div", "statistics-box-title", _configuration.text!.totalThisYearText! );
+                    DomElement.createWithHTML( yearBox, "div", "statistics-box-count", Str.friendlyNumber( yearCount ) );
                 }
                 
             } else {
@@ -676,14 +677,15 @@ import { Disabled } from "./ts/area/disabled";
         }
     }
 
-    function getCountForDateRange( bindingOptions: BindingOptions, from: Date, to: Date ) : number {
+    function getCountForDateRange( bindingOptions: BindingOptions, daysToShow: number[], monthsToShow: number[], from: Date, to: Date ) : number {
         let result: number = 0;
         let currentDate: Date = new Date( from );
 
         while ( currentDate < to ) {
             const count: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( currentDate ) ];
+            const weekdayNumber: number = DateTime.getWeekdayNumber( currentDate ) + 1;
 
-            if ( Is.definedNumber( count ) ) {
+            if ( isMonthVisible( monthsToShow, currentDate.getMonth() ) && isDayVisible( daysToShow, weekdayNumber ) && Is.definedNumber( count ) ) {
                 result += count;
             }
 
@@ -2419,25 +2421,8 @@ import { Disabled } from "./ts/area/disabled";
 
         if ( bindingOptions.exportOnlyDataBeingViewed ) {
             const currentYear: number = bindingOptions._currentView!.year;
-            let daysToShow: number[] = [];
-            let monthsToShow: number[] = [];
-
-            if ( bindingOptions._currentView!.view === ViewId.map ) {
-                daysToShow = bindingOptions.views!.map!.daysToShow!;
-                monthsToShow = bindingOptions.views!.map!.monthsToShow!;
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-                daysToShow = bindingOptions.views!.chart!.daysToShow!;
-                monthsToShow = bindingOptions.views!.chart!.monthsToShow!;
-            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
-                daysToShow = bindingOptions.views!.days!.daysToShow!;
-                monthsToShow = bindingOptions.views!.days!.monthsToShow!;
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-                daysToShow = bindingOptions.views!.statistics!.daysToShow!;
-                monthsToShow = bindingOptions.views!.statistics!.monthsToShow!;
-            } else {
-                daysToShow = bindingOptions.views!.map!.daysToShow!;
-                monthsToShow = bindingOptions.views!.map!.monthsToShow!;
-            }
+            const daysToShow: number[] = getDaysToShowForView( bindingOptions );
+            const monthsToShow: number[] = getMonthsToShowForView( bindingOptions );
 
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
@@ -2596,6 +2581,42 @@ import { Disabled } from "./ts/area/disabled";
                 Trigger.customEvent( bindingOptions.events!.onNextYear!, bindingOptions._currentView!.year );
             }
         }
+    }
+
+    function getMonthsToShowForView( bindingOptions: BindingOptions ) : number[] {
+        let monthsToShow: number[] = [];
+
+        if ( bindingOptions._currentView!.view === ViewId.map ) {
+            monthsToShow = bindingOptions.views!.map!.monthsToShow!;
+        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            monthsToShow = bindingOptions.views!.chart!.monthsToShow!;
+        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
+            monthsToShow = bindingOptions.views!.days!.monthsToShow!;
+        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
+            monthsToShow = bindingOptions.views!.statistics!.monthsToShow!;
+        } else {
+            monthsToShow = bindingOptions.views!.map!.monthsToShow!;
+        }
+
+        return monthsToShow;
+    }
+
+    function getDaysToShowForView( bindingOptions: BindingOptions ) : number[] {
+        let daysToShow: number[] = [];
+
+        if ( bindingOptions._currentView!.view === ViewId.map ) {
+            daysToShow = bindingOptions.views!.map!.daysToShow!;
+        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            daysToShow = bindingOptions.views!.chart!.daysToShow!;
+        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
+            daysToShow = bindingOptions.views!.days!.daysToShow!;
+        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
+            daysToShow = bindingOptions.views!.statistics!.daysToShow!;
+        } else {
+            daysToShow = bindingOptions.views!.map!.daysToShow!;
+        }
+
+        return daysToShow;
     }
 
 

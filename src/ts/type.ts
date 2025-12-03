@@ -98,6 +98,7 @@ export type ConfigurationText = {
     totalThisWeekText?: string;
     totalThisMonthText?: string;
     totalThisYearText?: string;
+    unknownText?: string;
 };
 
 export type BindingOptions = {
