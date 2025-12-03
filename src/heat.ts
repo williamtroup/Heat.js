@@ -911,11 +911,16 @@ import { Disabled } from "./ts/area/disabled";
     function isDataAvailableForYear( bindingOptions: BindingOptions ) : boolean {
         let result: boolean = false;
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
-        const checkDate: string = bindingOptions._currentView!.year.toString();
+        const checkYear: string = bindingOptions._currentView!.year.toString();
+        const checkNextYear: string = ( bindingOptions._currentView!.year + 1 ).toString();
 
         for ( const storageDate in typeDateCounts ) {
             if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                if ( DateTime.getStorageDateYear( storageDate ) === checkDate ) {
+                if ( DateTime.getStorageDateYear( storageDate ) === checkYear ) {
+                    result = true;
+                    break;
+                    
+                } else if ( bindingOptions.startMonth! > 0 && DateTime.getStorageDateYear( storageDate ) === checkNextYear ) {
                     result = true;
                     break;
                 }

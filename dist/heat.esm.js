@@ -1422,9 +1422,13 @@ var Disabled;
         let t = false;
         const n = R(e);
         const i = e._currentView.year.toString();
-        for (const e in n) {
-            if (n.hasOwnProperty(e)) {
-                if (DateTime.getStorageDateYear(e) === i) {
+        const o = (e._currentView.year + 1).toString();
+        for (const s in n) {
+            if (n.hasOwnProperty(s)) {
+                if (DateTime.getStorageDateYear(s) === i) {
+                    t = true;
+                    break;
+                } else if (e.startMonth > 0 && DateTime.getStorageDateYear(s) === o) {
                     t = true;
                     break;
                 }
