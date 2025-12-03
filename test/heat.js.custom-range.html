@@ -16,7 +16,7 @@
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-js="{ 'startMonth': 3, 'events': { 'onDayClick': onDayClick }, 'description': { 'text': 'A basic example of how to use Heat.js.' }, 'title': { 'showRefreshButton': true, 'showExportButton': true, 'showImportButton': true }, 'yearlyStatistics': { 'enabled': true } }"></div>
+            <div id="heat-map-1" data-heat-js="{ 'startMonth': 3, 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick, 'onMonthClick': onMonthClick }, 'description': { 'text': 'A basic example of how to use Heat.js.' }, 'title': { 'showRefreshButton': true, 'showExportButton': true, 'showImportButton': true }, 'yearlyStatistics': { 'enabled': true } }"></div>
         </div>
     </body>
 
@@ -26,6 +26,18 @@
 
         function onDayClick( date, count, isHoliday ) {
             console.log( "Day clicked for: " + date.toString() + ", Count: " + count + ", Is Holiday: " + isHoliday.toString() );
+        }
+
+        function onStatisticClick( colorRange, count, year ) {
+            console.log( "Statistic clicked for: " + JSON.stringify( colorRange ) + ", Count: " + count + ", Year: " + year );
+        }
+
+        function onWeekDayClick( day, count, year ) {
+            console.log( "Week day clicked for: " + day + ", Count: " + count + ", Year: " + year );
+        }
+
+        function onMonthClick( day, count, year ) {
+            console.log( "Month clicked for: " + day + ", Count: " + count + ", Year: " + year );
         }
 
         document.addEventListener( "DOMContentLoaded", function() {

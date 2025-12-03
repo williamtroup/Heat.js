@@ -27,7 +27,8 @@ import {
     type BindingOptionsCurrentView,
     type Configuration, 
     type BindingOptionsViews,
-    type BindingOptionsYearlyStatistics } from "../type";
+    type BindingOptionsYearlyStatistics,
+    type BindingOptionsViewsMonths } from "../type";
 
 import { Default } from "../data/default";
 import { Char, ExportType, ViewId, ViewName } from "../data/enum";
@@ -114,6 +115,7 @@ export namespace Binding {
             options.views!.map = getMapView( options );
             options.views!.chart = getChartView( options );
             options.views!.days = getDaysView( options );
+            options.views!.months = getMonthsView( options );
             options.views!.statistics = getStatisticsView( options );
             options.yearlyStatistics = getYearlyStatistics( options );
             options.events = getCustomTriggers( options );
@@ -326,6 +328,29 @@ export namespace Binding {
     
             return options.views!.days!;
         }
+
+        function getMonthsView( options: BindingOptions ) : BindingOptionsViewsMonths {
+            options.views!.months = Default.getObject( options.views!.months, {} as BindingOptionsViewsMonths );
+            options.views!.months!.enabled = Default.getBoolean( options.views!.months!.enabled, true );
+            options.views!.months!.showChartYLabels = Default.getBoolean( options.views!.months!.showChartYLabels, true );
+            options.views!.months!.showMonthNames = Default.getBoolean( options.views!.months!.showMonthNames, true );
+            options.views!.months!.showInReverseOrder = Default.getBoolean( options.views!.months!.showInReverseOrder, false );
+            options.views!.months!.showMonthNumbers = Default.getBoolean( options.views!.months!.showMonthNumbers, false );
+            options.views!.months!.keepScrollPositions = Default.getBoolean( options.views!.months!.keepScrollPositions, false );
+            options.views!.months!.showToolTips = Default.getBoolean( options.views!.months!.showToolTips, true );
+            options.views!.months!.useGradients = Default.getBoolean( options.views!.months!.useGradients, false );
+            options.views!.months!.useDifferentBackgroundOpacities = Default.getBoolean( options.views!.months!.useDifferentBackgroundOpacities, false );
+    
+            if ( Is.invalidOptionArray( options.views!.months!.monthsToShow ) ) {
+                options.views!.months!.monthsToShow = _default_MonthsToShow;
+            }
+    
+            if ( Is.invalidOptionArray( options.views!.months!.daysToShow ) ) {
+                options.views!.months!.daysToShow = _default_DaysToShow;
+            }
+    
+            return options.views!.months!;
+        }
     
         function getStatisticsView( options: BindingOptions ) : BindingOptionsViewsStatistics {
             options.views!.statistics = Default.getObject( options.views!.statistics, {} as BindingOptionsViewsStatistics );
@@ -387,6 +412,8 @@ export namespace Binding {
             options.events!.onDayDblClick = Default.getFunction( options.events!.onDayDblClick, null! );
             options.events!.onWeekDayClick = Default.getFunction( options.events!.onWeekDayClick, null! );
             options.events!.onWeekDayDblClick = Default.getFunction( options.events!.onWeekDayDblClick, null! );
+            options.events!.onMonthClick = Default.getFunction( options.events!.onMonthClick, null! );
+            options.events!.onMonthDblClick = Default.getFunction( options.events!.onMonthDblClick, null! );
             options.events!.onStatisticClick = Default.getFunction( options.events!.onStatisticClick, null! );
             options.events!.onStatisticDblClick = Default.getFunction( options.events!.onStatisticDblClick, null! );
 

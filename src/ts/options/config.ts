@@ -77,6 +77,8 @@ export namespace Config {
             configuration.text!.totalThisMonthText = Default.getAnyString( configuration.text!.totalThisMonthText, "Total This Month" );
             configuration.text!.totalThisYearText = Default.getAnyString( configuration.text!.totalThisYearText, "Total This Year" );
             configuration.text!.unknownText = Default.getAnyString( configuration.text!.unknownText, "Unknown" );
+            configuration.text!.monthsText = Default.getAnyString( configuration.text!.monthsText, "Months" );
+            configuration.text!.noMonthsDataMessage = Default.getAnyString( configuration.text!.noMonthsDataMessage, "There are currently no months to view." );
 
             return configuration.text!;
         }

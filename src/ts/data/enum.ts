@@ -34,6 +34,7 @@ export const enum ViewId {
     chart = 2,
     days = 3,
     statistics = 4,
+    months = 5,
 }
 
 export const enum ViewName {
@@ -41,6 +42,7 @@ export const enum ViewName {
     chart = "chart",
     days = "days",
     statistics = "statistics",
+    months = "months",
 }
 
 export const enum ExportType {

@@ -20,7 +20,7 @@ import {
     type InstanceData, 
     type StringToJson,
     type IsHoliday,
-    type LargestValueForDays,
+    type LargestValueForView,
     type LargestValuesForEachRangeType } from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
@@ -181,6 +181,12 @@ import { Disabled } from "./ts/area/disabled";
             bindingOptions._currentView!.daysContents.style.display = "none";
         }
 
+        if ( bindingOptions.views!.months!.enabled ) {
+            renderControlMonths( bindingOptions, isForViewSwitch );
+
+            bindingOptions._currentView!.monthsContents.style.display = "none";
+        }
+
         if ( bindingOptions.views!.statistics!.enabled ) {
             renderControlStatistics( bindingOptions, isForViewSwitch );
 
@@ -195,6 +201,8 @@ import { Disabled } from "./ts/area/disabled";
             bindingOptions._currentView!.chartContents.style.display = "block";
         } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
             bindingOptions._currentView!.daysContents.style.display = "block";
+        } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+            bindingOptions._currentView!.monthsContents.style.display = "block";
         } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
             bindingOptions._currentView!.statisticsContents.style.display = "block";
         } else {
@@ -306,6 +314,8 @@ import { Disabled } from "./ts/area/disabled";
                 bindingOptions.views!.chart!.daysToShow = daysChecked;
             } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
                 bindingOptions.views!.days!.daysToShow! = daysChecked;
+            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+                bindingOptions.views!.months!.daysToShow! = daysChecked;
             } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
                 bindingOptions.views!.statistics!.daysToShow = daysChecked;
             } else {
@@ -322,6 +332,8 @@ import { Disabled } from "./ts/area/disabled";
                 bindingOptions.views!.chart!.monthsToShow = monthsChecked;
             } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
                 bindingOptions.views!.days!.monthsToShow = monthsChecked;
+            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+                bindingOptions.views!.months!.monthsToShow = monthsChecked;
             } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
                 bindingOptions.views!.statistics!.monthsToShow = monthsChecked;
             } else {
@@ -373,6 +385,8 @@ import { Disabled } from "./ts/area/disabled";
                         DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.chartText! );
                     } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
                         DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.daysText! );
+                    } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+                        DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.monthsText! );
                     } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
                         DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.colorRangesText! );
                     } else {
@@ -500,14 +514,26 @@ import { Disabled } from "./ts/area/disabled";
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, ViewId.chart, ViewName.chart );
         }
 
+        let yearsHeader: HTMLElement = null!;
+
         if ( bindingOptions.views!.days!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configuration.text!.yearText}${Char.colon}` );
+                yearsHeader = DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configuration.text!.yearText}${Char.colon}` );
             }
 
             const menuItemDays: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.daysText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemDays, ViewId.days, ViewName.days );
+        }
+
+        if ( bindingOptions.views!.months!.enabled ) {
+            if ( bindingOptions.title!.showTitleDropDownHeaders && !Is.defined( yearsHeader ) ) {
+                yearsHeader = DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configuration.text!.yearText}${Char.colon}` );
+            }
+
+            const menuItemMonths: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.monthsText! );
+
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMonths, ViewId.months, ViewName.months );
         }
 
         if ( bindingOptions.views!.statistics!.enabled ) {
@@ -705,6 +731,10 @@ import { Disabled } from "./ts/area/disabled";
 
         if ( bindingOptions.views!.days!.enabled ) {
             renderControlDaysContents( bindingOptions );
+        }
+
+        if ( bindingOptions.views!.months!.enabled ) {
+            renderControlMonthsContents( bindingOptions );
         }
         
         if ( bindingOptions.views!.statistics!.enabled ) {
@@ -1190,7 +1220,7 @@ import { Disabled } from "./ts/area/disabled";
         const dayNames: HTMLElement = DomElement.create( bindingOptions._currentView!.daysContents, "div", "day-names" );
         let labels: HTMLElement = DomElement.create( days, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( days, "div", "day-lines" );
-        const dayValuesForCurrentYear: LargestValueForDays = getLargestValuesForEachDay( bindingOptions );
+        const dayValuesForCurrentYear: LargestValueForView = getLargestValuesForEachDay( bindingOptions );
 
         if ( isForViewSwitch ) {
             DomElement.addClass( days, "view-switch" );
@@ -1228,9 +1258,9 @@ import { Disabled } from "./ts/area/disabled";
             const opacity: number = 1 / 7;
             let opacityIncrease: number = opacity;
 
-            for ( const day in dayValuesForCurrentYear.days ) {
-                if ( dayValuesForCurrentYear.days.hasOwnProperty( day ) && isDayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
-                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.days[ day ], bindingOptions, pixelsPerNumbers, opacityIncrease );
+            for ( const day in dayValuesForCurrentYear.values ) {
+                if ( dayValuesForCurrentYear.values.hasOwnProperty( day ) && isDayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
+                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ], bindingOptions, pixelsPerNumbers, opacityIncrease );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
                         DomElement.createWithHTML( dayNames, "div", "day-name", _configuration.text!.dayNames![ parseInt( day ) - 1 ] );
@@ -1304,9 +1334,9 @@ import { Disabled } from "./ts/area/disabled";
         }
     }
 
-    function getLargestValuesForEachDay( bindingOptions: BindingOptions ) : LargestValueForDays {
-        const result: LargestValueForDays = {
-            days: {
+    function getLargestValuesForEachDay( bindingOptions: BindingOptions ) : LargestValueForView {
+        const result: LargestValueForView = {
+            values: {
                 1: 0,
                 2: 0,
                 3: 0,
@@ -1316,7 +1346,7 @@ import { Disabled } from "./ts/area/disabled";
                 7: 0,
             },
             largestValue: 0
-        } as LargestValueForDays;
+        } as LargestValueForView;
 
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
         const currentYear: number = bindingOptions._currentView!.year;
@@ -1330,20 +1360,222 @@ import { Disabled } from "./ts/area/disabled";
                 actualYear++;
             }
 
-            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
-    
-            for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
+            if ( isMonthVisible( bindingOptions.views!.days!.monthsToShow!, actualMonthIndex ) ) {
+                const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
+        
+                for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                    const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
 
-                if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    const storageDateParts: string[] = DateTime.getStorageDate( storageDate );
-                    const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
-                    const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
+                    if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                        const storageDateParts: string[] = DateTime.getStorageDate( storageDate );
+                        const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
+                        const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
-                    if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views!.days!.monthsToShow!, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
-                        result.days[ weekDayNumber ] += typeDateCounts[ storageDate ];
+                        if ( !isHoliday( bindingOptions, storageDateObject ).matched && isDayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
+                            result.values[ weekDayNumber ] += typeDateCounts[ storageDate ];
+                            result.largestValue = Math.max( result.largestValue, result.values[ weekDayNumber ] );
+                        }
+                    }
+                }
+            }
+        }
 
-                        result.largestValue = Math.max( result.largestValue, result.days[ weekDayNumber ] );
+        return result;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  View:  Months
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderControlMonthsContents( bindingOptions: BindingOptions ) : void {
+        bindingOptions._currentView!.monthsContents = DomElement.create( bindingOptions._currentView!.element, "div", "months-contents" );
+
+        makeAreaDroppable( bindingOptions._currentView!.monthsContents, bindingOptions );
+    }
+
+    function renderControlMonths( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
+        const months: HTMLElement = DomElement.create( bindingOptions._currentView!.monthsContents, "div", "months" );
+        const monthNames: HTMLElement = DomElement.create( bindingOptions._currentView!.monthsContents, "div", "month-names" );
+        let labels: HTMLElement = DomElement.create( months, "div", "y-labels" );
+        const monthLines: HTMLElement = DomElement.create( months, "div", "month-lines" );
+        const monthValuesForCurrentYear: LargestValueForView = getLargestValuesForEachMonth( bindingOptions );
+
+        if ( isForViewSwitch ) {
+            DomElement.addClass( months, "view-switch" );
+        }
+
+        if ( monthValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.months!.showChartYLabels ) {
+            const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", monthValuesForCurrentYear.largestValue.toString() );
+
+            DomElement.createWithHTML( labels, "div", "label-25", ( Math.floor( monthValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-50", Math.floor( monthValuesForCurrentYear.largestValue / 2 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-75", Math.floor( monthValuesForCurrentYear.largestValue / 4 ).toString() );
+            DomElement.createWithHTML( labels, "div", "label-100", Char.zero );
+
+            labels.style.width = `${topLabel.offsetWidth}px`;
+            monthNames.style.paddingLeft = `${labels.offsetWidth + DomElement.getStyleValueByName(labels, "margin-right", true)}px`;
+
+        } else {
+            labels.parentNode!.removeChild( labels );
+            labels = null!;
+        }
+
+        if ( monthValuesForCurrentYear.largestValue === 0 ) {
+            bindingOptions._currentView!.monthsContents.style.minHeight = `${bindingOptions._currentView!.mapContents.offsetHeight}px`;
+            months.parentNode!.removeChild( months );
+            monthNames.parentNode!.removeChild( monthNames );
+
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.monthsContents, "div", "no-months-message", _configuration.text!.noMonthsDataMessage! );
+
+            if ( isForViewSwitch ) {
+                DomElement.addClass( noDataMessage, "view-switch" );
+            }
+
+        } else {
+            const pixelsPerNumbers: number = bindingOptions._currentView!.mapContents.offsetHeight / monthValuesForCurrentYear.largestValue;
+            const opacity: number = 1 / 12;
+            let opacityIncrease: number = opacity;
+
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+                let actualMonthIndex: number = monthIndex;
+
+                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                    actualMonthIndex = monthIndex - 12;
+                }
+
+                const monthToShow: number = actualMonthIndex + 1;
+
+                if ( monthValuesForCurrentYear.values.hasOwnProperty( monthToShow ) && isMonthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
+                    renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ], bindingOptions, pixelsPerNumbers, opacityIncrease );
+
+                    if ( bindingOptions.views!.months!.showMonthNames ) {
+                        DomElement.createWithHTML( monthNames, "div", "month-name", _configuration.text!.monthNames![ actualMonthIndex ] );
+                    }
+                }
+
+                opacityIncrease += opacity;
+            }
+
+            if ( bindingOptions.views!.months!.showInReverseOrder ) {
+                DomElement.reverseChildrenOrder( monthLines );
+                DomElement.reverseChildrenOrder( monthNames );
+            }
+
+            if ( bindingOptions.views!.months!.keepScrollPositions ) {
+                bindingOptions._currentView!.monthsContents.scrollLeft = bindingOptions._currentView!.monthsContentsScrollLeft;
+            }
+        }
+    }
+
+    function renderControlMonthsMonthLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number ) : void {
+        const monthLine: HTMLElement = DomElement.create( monthLines, "div", "month-line" );
+        const monthLineHeight: number = monthCount * pixelsPerNumbers;
+
+        monthLine.style.height = `${monthLineHeight}px`;
+        monthLine.setAttribute( Constant.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, monthNumber.toString() );
+
+        if ( monthLineHeight <= 0 ) {
+            monthLine.style.visibility = "hidden";
+        }
+
+        if ( bindingOptions.views!.months!.showToolTips ) {
+            ToolTip.add( monthLine, bindingOptions, Str.friendlyNumber( monthCount ) );
+        }
+
+        let currentYear: number = bindingOptions._currentView!.year;
+
+        if ( bindingOptions.startMonth! > 0 && monthNumber - 1 < bindingOptions.startMonth! ) {
+            currentYear++;
+        }
+
+        if ( Is.definedFunction( bindingOptions.events!.onMonthClick ) ) {
+            monthLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onMonthClick!, monthNumber, monthCount, currentYear );
+        } else if ( Is.definedFunction( bindingOptions.events!.onMonthDblClick ) ) {
+            monthLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onMonthDblClick!, monthNumber, monthCount, currentYear );
+        } else {
+            DomElement.addClass( monthLine, "no-hover" );
+        }
+
+        if ( bindingOptions.views!.months!.showMonthNumbers && monthCount > 0 ) {
+            DomElement.addClass( monthLine, "month-line-number" );
+            DomElement.createWithHTML( monthLine, "div", "count", Str.friendlyNumber( monthCount ) );
+        }
+
+        if ( bindingOptions.views!.months!.useGradients ) {
+            DomElement.adGradientEffect( bindingOptions._currentView!.element, monthLine );
+
+        } else if ( bindingOptions.views!.months!.useDifferentBackgroundOpacities ) {
+            const backgroundColor: string = DomElement.getStyleValueByName( monthLine, "background-color" );
+
+            if ( backgroundColor.startsWith( "rgba" ) || backgroundColor.startsWith( "rgb" ) ) {
+                let backgroundColorParts: string[] = backgroundColor
+                    .replace( "rgba(", Char.empty )
+                    .replace( "rgb(", Char.empty )
+                    .replace( ")", Char.empty )
+                    .split(",");
+
+                if ( backgroundColor.startsWith( "rgba" ) ) {
+                    backgroundColorParts[ backgroundColorParts.length - 1 ] = opacityIncrease.toString();
+                } else
+                {
+                    backgroundColorParts.push( opacityIncrease.toString() );
+                }
+
+                monthLine.style.backgroundColor = `rgba(${backgroundColorParts.join()})`;
+            }
+        }
+    }
+
+    function getLargestValuesForEachMonth( bindingOptions: BindingOptions ) : LargestValueForView {
+        const result: LargestValueForView = {
+            values: {
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0,
+                6: 0,
+                7: 0,
+                8: 0,
+                9: 0,
+                10: 0,
+                11: 0,
+                12: 0,
+            },
+            largestValue: 0
+        } as LargestValueForView;
+
+        const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
+        const currentYear: number = bindingOptions._currentView!.year;
+
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            let actualMonthIndex: number = monthIndex;
+            let actualYear: number = currentYear;
+
+            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                actualMonthIndex = monthIndex - 12;
+                actualYear++;
+            }
+
+            if ( isMonthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
+                const monthValue: number = actualMonthIndex + 1;
+                const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
+
+                for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                    const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
+
+                    if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                        const storageDateParts: string[] = DateTime.getStorageDate( storageDate );
+                        const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
+                        const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
+
+                        if ( !isHoliday( bindingOptions, storageDateObject ).matched && isDayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
+                            result.values[ monthValue ] += typeDateCounts[ storageDate ];
+                            result.largestValue = Math.max( result.largestValue, result.values[ monthValue ] );
+                        }
                     }
                 }
             }
@@ -1504,30 +1736,32 @@ import { Disabled } from "./ts/area/disabled";
                 actualYear++;
             }
 
-            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
-    
-            for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
+            if ( isMonthVisible( bindingOptions.views!.statistics!.monthsToShow!, actualMonthIndex ) ) {
+                const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
+        
+                for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                    const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
 
-                if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    const storageDateParts: string[] = DateTime.getStorageDate( storageDate );
-                    const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
-                    const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
+                    if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                        const storageDateParts: string[] = DateTime.getStorageDate( storageDate );
+                        const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
+                        const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
-                    if ( !isHoliday( bindingOptions, storageDateObject ).matched && isMonthVisible( bindingOptions.views!.statistics!.monthsToShow!, storageDateObject.getMonth() ) && isDayVisible( bindingOptions.views!.statistics!.daysToShow!, weekDayNumber ) ) {
-                        const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, typeDateCounts[ storageDate ] );
+                        if ( !isHoliday( bindingOptions, storageDateObject ).matched && isDayVisible( bindingOptions.views!.statistics!.daysToShow!, weekDayNumber ) ) {
+                            const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, typeDateCounts[ storageDate ] );
 
-                        if ( !Is.defined( useColorRange ) ) {
-                            result.types[ Char.zero ]++;
-    
-                        } else {
-                            if ( !result.types.hasOwnProperty( useColorRange.minimum!.toString() ) ) {
-                                result.types[ useColorRange.minimum!.toString() ] = 0;
+                            if ( !Is.defined( useColorRange ) ) {
+                                result.types[ Char.zero ]++;
+        
+                            } else {
+                                if ( !result.types.hasOwnProperty( useColorRange.minimum!.toString() ) ) {
+                                    result.types[ useColorRange.minimum!.toString() ] = 0;
+                                }
+        
+                                result.types[ useColorRange.minimum! ]++;
+                                
+                                result.largestValue = Math.max( result.largestValue, result.types[ useColorRange.minimum! ] );
                             }
-    
-                            result.types[ useColorRange.minimum! ]++;
-                            
-                            result.largestValue = Math.max( result.largestValue, result.types[ useColorRange.minimum! ] );
                         }
                     }
                 }
@@ -2591,6 +2825,8 @@ import { Disabled } from "./ts/area/disabled";
             monthsToShow = bindingOptions.views!.chart!.monthsToShow!;
         } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
             monthsToShow = bindingOptions.views!.days!.monthsToShow!;
+        } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+            monthsToShow = bindingOptions.views!.months!.monthsToShow!;
         } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
             monthsToShow = bindingOptions.views!.statistics!.monthsToShow!;
         } else {
@@ -2609,6 +2845,8 @@ import { Disabled } from "./ts/area/disabled";
             daysToShow = bindingOptions.views!.chart!.daysToShow!;
         } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
             daysToShow = bindingOptions.views!.days!.daysToShow!;
+        } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+            daysToShow = bindingOptions.views!.months!.daysToShow!;
         } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
             daysToShow = bindingOptions.views!.statistics!.daysToShow!;
         } else {

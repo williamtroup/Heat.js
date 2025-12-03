@@ -34,8 +34,8 @@ export type IsHoliday = {
     name: string;
 };
 
-export type LargestValueForDays = {
-    days: Record<number, number>;
+export type LargestValueForView = {
+    values: Record<number, number>;
     largestValue: number;
 };
 
@@ -99,6 +99,8 @@ export type ConfigurationText = {
     totalThisMonthText?: string;
     totalThisYearText?: string;
     unknownText?: string;
+    monthsText?: string;
+    noMonthsDataMessage?: string;
 };
 
 export type BindingOptions = {
@@ -142,6 +144,8 @@ export type BindingOptionsCurrentView = {
     statisticsContentsScrollLeft: number;
     daysContents: HTMLElement;
     daysContentsScrollLeft: number;
+    monthsContents: HTMLElement;
+    monthsContentsScrollLeft: number;
     yearText: HTMLElement;
     tooltip: HTMLElement;
     tooltipTimer: number;
@@ -156,6 +160,7 @@ export type BindingOptionsViews = {
     map?: BindingOptionsViewsMap;
     chart?: BindingOptionsViewsChart;
     days?: BindingOptionsViewsDays;
+    months?: BindingOptionsViewsMonths;
     statistics?: BindingOptionsViewsStatistics;
 };
 
@@ -196,6 +201,20 @@ export type BindingOptionsViewsDays = {
     showDayNames?: boolean;
     showInReverseOrder?: boolean;
     showDayNumbers?: boolean;
+    keepScrollPositions?: boolean;
+    monthsToShow?: number[];
+    daysToShow?: number[];
+    showToolTips?: boolean;
+    useGradients?: boolean;
+    useDifferentBackgroundOpacities?: boolean;
+};
+
+export type BindingOptionsViewsMonths = {
+    enabled?: boolean;
+    showChartYLabels?: boolean;
+    showMonthNames?: boolean;
+    showInReverseOrder?: boolean;
+    showMonthNumbers?: boolean;
     keepScrollPositions?: boolean;
     monthsToShow?: number[];
     daysToShow?: number[];
@@ -287,6 +306,8 @@ export type BindingOptionsEvents = {
     onDayDblClick?: ( date: Date, count: number, isHoliday: boolean ) => void;
     onWeekDayClick?: ( dayNumber: number, count: number, year: number ) => void;
     onWeekDayDblClick?: ( dayNumber: number, count: number, year: number ) => void;
+    onMonthClick?: ( monthNumber: number, count: number, year: number ) => void;
+    onMonthDblClick?: ( monthNumber: number, count: number, year: number ) => void;
     onStatisticClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
     onStatisticDblClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
 };
