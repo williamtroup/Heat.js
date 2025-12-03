@@ -882,7 +882,7 @@ import { Disabled } from "./ts/area/disabled";
         }
 
         if ( bindingOptions.views!.map!.showDayNumbers && dateCount > 0 ) {
-            day.innerHTML = dateCount.toString();
+            day.innerHTML = Str.friendlyNumber( dateCount );
         } else if ( bindingOptions.views!.map!.showDayDateNumbers ) {
             day.innerHTML = actualDay.toString();
         }
@@ -1258,7 +1258,7 @@ import { Disabled } from "./ts/area/disabled";
         }
 
         if ( bindingOptions.views!.days!.showToolTips ) {
-            ToolTip.add( dayLine, bindingOptions, dayCount.toString() );
+            ToolTip.add( dayLine, bindingOptions, Str.friendlyNumber( dayCount ) );
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
@@ -1271,7 +1271,7 @@ import { Disabled } from "./ts/area/disabled";
 
         if ( bindingOptions.views!.days!.showDayNumbers && dayCount > 0 ) {
             DomElement.addClass( dayLine, "day-line-number" );
-            DomElement.createWithHTML( dayLine, "div", "count", dayCount.toString() );
+            DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dayCount ) );
         }
 
         if ( bindingOptions.views!.days!.useGradients ) {
@@ -1449,13 +1449,13 @@ import { Disabled } from "./ts/area/disabled";
         }
 
         if ( bindingOptions.views!.statistics!.showToolTips ) {
-            ToolTip.add( rangeLine, bindingOptions, rangeCount.toString() );
+            ToolTip.add( rangeLine, bindingOptions, Str.friendlyNumber( rangeCount ) );
         }
 
         if ( bindingOptions.views!.statistics!.showRangeNumbers && rangeCount > 0 ) {
             DomElement.addClass( rangeLine, "range-line-number" );
 
-            DomElement.createWithHTML( rangeLine, "div", "count", rangeCount.toString() );
+            DomElement.createWithHTML( rangeLine, "div", "count", Str.friendlyNumber( rangeCount ) );
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onStatisticClick ) ) {
