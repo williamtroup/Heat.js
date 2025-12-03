@@ -805,7 +805,7 @@ import { Disabled } from "./ts/area/disabled";
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
             day.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount, holiday.matched );
         } else if ( Is.definedFunction( bindingOptions.events!.onDayDblClick ) ) {
-            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayDblClick!, date, dateCount, holiday.matched );
+            day.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onDayDblClick!, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( day, "no-hover" );
         }
@@ -1028,7 +1028,7 @@ import { Disabled } from "./ts/area/disabled";
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
             dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount, holiday.matched );
         } else if ( Is.definedFunction( bindingOptions.events!.onDayDblClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayDblClick!, date, dateCount, holiday.matched );
+            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onDayDblClick!, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
