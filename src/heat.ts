@@ -627,8 +627,8 @@ import { Disabled } from "./ts/area/disabled";
 
                 const startOfMonth: Date = new Date( today.getFullYear(), today.getMonth(), 1 );
                 const endOfMonth: Date = new Date( today.getFullYear(), today.getMonth(), DateTime.getTotalDaysInMonth( today.getFullYear(), today.getMonth() ) + 1 );
-                const startOfYear: Date = new Date( today.getFullYear(), 0, 1 );
-                const endOfYear: Date = new Date( today.getFullYear() + 1, 0, 1 );
+                const startOfYear: Date = new Date( today.getFullYear(), bindingOptions.startMonth!, 1 );
+                const endOfYear: Date = new Date( today.getFullYear() + 1, bindingOptions.startMonth!, 1 );
 
                 const weekCount: number = getCountForDateRange( bindingOptions, startOfWeek, endOfWeek );
                 const monthCount: number = getCountForDateRange( bindingOptions, startOfMonth, endOfMonth );
