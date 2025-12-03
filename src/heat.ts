@@ -890,7 +890,7 @@ import { Disabled } from "./ts/area/disabled";
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
             day.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount, holiday.matched );
         } else if ( Is.definedFunction( bindingOptions.events!.onDayDblClick ) ) {
-            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayDblClick!, date, dateCount, holiday.matched );
+            day.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onDayDblClick!, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( day, "no-hover" );
         }
@@ -1118,7 +1118,7 @@ import { Disabled } from "./ts/area/disabled";
         if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
             dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount, holiday.matched );
         } else if ( Is.definedFunction( bindingOptions.events!.onDayDblClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayDblClick!, date, dateCount, holiday.matched );
+            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onDayDblClick!, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -1269,7 +1269,7 @@ import { Disabled } from "./ts/area/disabled";
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
             dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount, bindingOptions._currentView!.year );
         } else if ( Is.definedFunction( bindingOptions.events!.onWeekDayDblClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayDblClick!, dayNumber, dayCount, bindingOptions._currentView!.year );
+            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayDblClick!, dayNumber, dayCount, bindingOptions._currentView!.year );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -1466,7 +1466,7 @@ import { Disabled } from "./ts/area/disabled";
         if ( Is.definedFunction( bindingOptions.events!.onStatisticClick ) ) {
             rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange, rangeCount, bindingOptions._currentView!.year );
         } else if ( Is.definedFunction( bindingOptions.events!.onStatisticDblClick ) ) {
-            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticDblClick!, useColorRange, rangeCount, bindingOptions._currentView!.year );
+            rangeLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticDblClick!, useColorRange, rangeCount, bindingOptions._currentView!.year );
         } else {
             DomElement.addClass( rangeLine, "no-hover" );
         }

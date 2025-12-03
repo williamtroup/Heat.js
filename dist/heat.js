@@ -1406,7 +1406,7 @@ var Disabled;
         if (Is.definedFunction(e.events.onDayClick)) {
             l.onclick = () => Trigger.customEvent(e.events.onDayClick, c, d, u.matched);
         } else if (Is.definedFunction(e.events.onDayDblClick)) {
-            l.onclick = () => Trigger.customEvent(e.events.onDayDblClick, c, d, u.matched);
+            l.ondblclick = () => Trigger.customEvent(e.events.onDayDblClick, c, d, u.matched);
         } else {
             DomElement.addClass(l, "no-hover");
         }
@@ -1575,7 +1575,7 @@ var Disabled;
         if (Is.definedFunction(t.events.onDayClick)) {
             l.onclick = () => Trigger.customEvent(t.events.onDayClick, a, u, c.matched);
         } else if (Is.definedFunction(t.events.onDayDblClick)) {
-            l.onclick = () => Trigger.customEvent(t.events.onDayDblClick, a, u, c.matched);
+            l.ondblclick = () => Trigger.customEvent(t.events.onDayDblClick, a, u, c.matched);
         } else {
             DomElement.addClass(l, "no-hover");
         }
@@ -1686,7 +1686,7 @@ var Disabled;
         if (Is.definedFunction(i.events.onWeekDayClick)) {
             r.onclick = () => Trigger.customEvent(i.events.onWeekDayClick, t, n, i._currentView.year);
         } else if (Is.definedFunction(i.events.onWeekDayDblClick)) {
-            r.onclick = () => Trigger.customEvent(i.events.onWeekDayDblClick, t, n, i._currentView.year);
+            r.ondblclick = () => Trigger.customEvent(i.events.onWeekDayDblClick, t, n, i._currentView.year);
         } else {
             DomElement.addClass(r, "no-hover");
         }
@@ -1829,7 +1829,7 @@ var Disabled;
         if (Is.definedFunction(i.events.onStatisticClick)) {
             r.onclick = () => Trigger.customEvent(i.events.onStatisticClick, a, n, i._currentView.year);
         } else if (Is.definedFunction(i.events.onStatisticDblClick)) {
-            r.onclick = () => Trigger.customEvent(i.events.onStatisticDblClick, a, n, i._currentView.year);
+            r.ondblclick = () => Trigger.customEvent(i.events.onStatisticDblClick, a, n, i._currentView.year);
         } else {
             DomElement.addClass(r, "no-hover");
         }
