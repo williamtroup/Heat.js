@@ -1195,56 +1195,51 @@ var Disabled;
             const s = t._currentView.year === i.getFullYear();
             const r = Ne(t);
             const a = Be(t);
-            let l = n[t._currentView.element.id].typeData[t._currentView.type][DateTime.toStorageDate(i)];
-            let c = false;
-            if (Is.defined(l)) {
-                if (t.yearlyStatistics.showTotalToday) {
-                    const t = DomElement.create(o, "div", "statistics-box");
-                    const n = DateTime.getWeekdayNumber(i) + 1;
-                    if (!Y(r, n)) {
-                        l = 0;
-                    }
-                    const a = s ? Str.friendlyNumber(l) : e.text.unknownText;
-                    DomElement.createWithHTML(t, "div", "statistics-box-title", e.text.totalTodayText);
-                    DomElement.createWithHTML(t, "div", "statistics-box-count", a);
+            if (t.yearlyStatistics.showTotalToday) {
+                let a = n[t._currentView.element.id].typeData[t._currentView.type][DateTime.toStorageDate(i)];
+                const l = DomElement.create(o, "div", "statistics-box");
+                const c = DateTime.getWeekdayNumber(i) + 1;
+                if (!Is.defined(a) || !Y(r, c)) {
+                    a = 0;
                 }
-                if (t.yearlyStatistics.showTotalThisWeek) {
-                    let n = 0;
-                    if (s) {
-                        const e = DateTime.getDateForMondayOfCurrentWeek();
-                        const i = new Date(e);
-                        i.setDate(e.getDate() + 7);
-                        n = p(t, r, a, e, i);
-                    }
-                    const i = s ? Str.friendlyNumber(n) : e.text.unknownText;
-                    const l = DomElement.create(o, "div", "statistics-box");
-                    DomElement.createWithHTML(l, "div", "statistics-box-title", e.text.totalThisWeekText);
-                    DomElement.createWithHTML(l, "div", "statistics-box-count", i);
-                }
-                if (t.yearlyStatistics.showTotalThisMonth) {
-                    let n = 0;
-                    if (s) {
-                        const e = new Date(i.getFullYear(), i.getMonth(), 1);
-                        const o = new Date(i.getFullYear(), i.getMonth(), DateTime.getTotalDaysInMonth(i.getFullYear(), i.getMonth()) + 1);
-                        n = p(t, r, a, e, o);
-                    }
-                    const l = s ? Str.friendlyNumber(n) : e.text.unknownText;
-                    const c = DomElement.create(o, "div", "statistics-box");
-                    DomElement.createWithHTML(c, "div", "statistics-box-title", e.text.totalThisMonthText);
-                    DomElement.createWithHTML(c, "div", "statistics-box-count", l);
-                }
-                if (t.yearlyStatistics.showTotalThisYear) {
-                    const n = new Date(t._currentView.year, t.startMonth, 1);
-                    const i = new Date(t._currentView.year + 1, t.startMonth, 1);
-                    const s = p(t, r, a, n, i);
-                    const l = DomElement.create(o, "div", "statistics-box");
-                    DomElement.createWithHTML(l, "div", "statistics-box-title", e.text.totalThisYearText);
-                    DomElement.createWithHTML(l, "div", "statistics-box-count", Str.friendlyNumber(s));
-                }
-            } else {
-                c = true;
+                const u = s ? Str.friendlyNumber(a) : e.text.unknownText;
+                DomElement.createWithHTML(l, "div", "statistics-box-title", e.text.totalTodayText);
+                DomElement.createWithHTML(l, "div", "statistics-box-count", u);
             }
-            if (c || o.innerHTML === "") {
+            if (t.yearlyStatistics.showTotalThisWeek) {
+                let n = 0;
+                if (s) {
+                    const e = DateTime.getDateForMondayOfCurrentWeek();
+                    const i = new Date(e);
+                    i.setDate(e.getDate() + 7);
+                    n = p(t, r, a, e, i);
+                }
+                const i = s ? Str.friendlyNumber(n) : e.text.unknownText;
+                const l = DomElement.create(o, "div", "statistics-box");
+                DomElement.createWithHTML(l, "div", "statistics-box-title", e.text.totalThisWeekText);
+                DomElement.createWithHTML(l, "div", "statistics-box-count", i);
+            }
+            if (t.yearlyStatistics.showTotalThisMonth) {
+                let n = 0;
+                if (s) {
+                    const e = new Date(i.getFullYear(), i.getMonth(), 1);
+                    const o = new Date(i.getFullYear(), i.getMonth(), DateTime.getTotalDaysInMonth(i.getFullYear(), i.getMonth()) + 1);
+                    n = p(t, r, a, e, o);
+                }
+                const l = s ? Str.friendlyNumber(n) : e.text.unknownText;
+                const c = DomElement.create(o, "div", "statistics-box");
+                DomElement.createWithHTML(c, "div", "statistics-box-title", e.text.totalThisMonthText);
+                DomElement.createWithHTML(c, "div", "statistics-box-count", l);
+            }
+            if (t.yearlyStatistics.showTotalThisYear) {
+                const n = new Date(t._currentView.year, t.startMonth, 1);
+                const i = new Date(t._currentView.year + 1, t.startMonth, 1);
+                const s = p(t, r, a, n, i);
+                const l = DomElement.create(o, "div", "statistics-box");
+                DomElement.createWithHTML(l, "div", "statistics-box-title", e.text.totalThisYearText);
+                DomElement.createWithHTML(l, "div", "statistics-box-count", Str.friendlyNumber(s));
+            }
+            if (o.innerHTML === "") {
                 o.parentNode.removeChild(o);
             }
         }
