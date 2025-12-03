@@ -649,7 +649,7 @@ var Binding;
         }
         function g(e) {
             e.yearlyStatistics = Default2.getObject(e.yearlyStatistics, {});
-            e.yearlyStatistics.enabled = Default2.getBoolean(e.yearlyStatistics.enabled, true);
+            e.yearlyStatistics.enabled = Default2.getBoolean(e.yearlyStatistics.enabled, false);
             e.yearlyStatistics.showTotalToday = Default2.getBoolean(e.yearlyStatistics.showTotalToday, true);
             e.yearlyStatistics.showTotalThisWeek = Default2.getBoolean(e.yearlyStatistics.showTotalThisWeek, true);
             e.yearlyStatistics.showTotalThisMonth = Default2.getBoolean(e.yearlyStatistics.showTotalThisMonth, true);

@@ -352,7 +352,7 @@ export namespace Binding {
 
         function getYearlyStatistics( options: BindingOptions ) : BindingOptionsYearlyStatistics {
             options.yearlyStatistics = Default.getObject( options.yearlyStatistics, {} as BindingOptionsYearlyStatistics );
-            options.yearlyStatistics!.enabled = Default.getBoolean( options.yearlyStatistics!.enabled, true );
+            options.yearlyStatistics!.enabled = Default.getBoolean( options.yearlyStatistics!.enabled, false );
             options.yearlyStatistics!.showTotalToday = Default.getBoolean( options.yearlyStatistics!.showTotalToday, true );
             options.yearlyStatistics!.showTotalThisWeek = Default.getBoolean( options.yearlyStatistics!.showTotalThisWeek, true );
             options.yearlyStatistics!.showTotalThisMonth = Default.getBoolean( options.yearlyStatistics!.showTotalThisMonth, true );
