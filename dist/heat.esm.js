@@ -1208,39 +1208,41 @@ var Disabled;
             const s = n[t._currentView.element.id].typeData[t._currentView.type][DateTime.toStorageDate(i)];
             let r = false;
             if (Is.defined(s)) {
-                const n = DateTime.getDateForMondayOfCurrentWeek();
-                const a = new Date(n);
-                a.setDate(n.getDate() + 7);
-                const l = new Date(i.getFullYear(), i.getMonth(), 1);
-                const c = new Date(i.getFullYear(), i.getMonth(), DateTime.getTotalDaysInMonth(i.getFullYear(), i.getMonth()) + 1);
-                const u = new Date(i.getFullYear(), t.startMonth, 1);
-                const d = new Date(i.getFullYear() + 1, t.startMonth, 1);
-                const f = p(t, n, a);
-                const m = p(t, l, c);
-                const w = p(t, u, d);
-                if (s > 0 || f > 0 || m > 0 || w > 0) {
-                    if (t.yearlyStatistics.showTotalToday) {
-                        const t = DomElement.create(o, "div", "statistics-box");
-                        DomElement.createWithHTML(t, "div", "statistics-box-title", e.text.totalTodayText);
-                        DomElement.createWithHTML(t, "div", "statistics-box-count", Str.friendlyNumber(s));
-                    }
-                    if (t.yearlyStatistics.showTotalThisWeek) {
+                if (t.yearlyStatistics.showTotalToday && s > 0) {
+                    const t = DomElement.create(o, "div", "statistics-box");
+                    DomElement.createWithHTML(t, "div", "statistics-box-title", e.text.totalTodayText);
+                    DomElement.createWithHTML(t, "div", "statistics-box-count", Str.friendlyNumber(s));
+                }
+                if (t.yearlyStatistics.showTotalThisWeek) {
+                    const n = DateTime.getDateForMondayOfCurrentWeek();
+                    const i = new Date(n);
+                    i.setDate(n.getDate() + 7);
+                    const s = p(t, n, i);
+                    if (s > 0) {
                         const t = DomElement.create(o, "div", "statistics-box");
                         DomElement.createWithHTML(t, "div", "statistics-box-title", e.text.totalThisWeekText);
-                        DomElement.createWithHTML(t, "div", "statistics-box-count", Str.friendlyNumber(f));
+                        DomElement.createWithHTML(t, "div", "statistics-box-count", Str.friendlyNumber(s));
                     }
-                    if (t.yearlyStatistics.showTotalThisMonth) {
+                }
+                if (t.yearlyStatistics.showTotalThisMonth) {
+                    const n = new Date(i.getFullYear(), i.getMonth(), 1);
+                    const s = new Date(i.getFullYear(), i.getMonth(), DateTime.getTotalDaysInMonth(i.getFullYear(), i.getMonth()) + 1);
+                    const r = p(t, n, s);
+                    if (r > 0) {
                         const t = DomElement.create(o, "div", "statistics-box");
                         DomElement.createWithHTML(t, "div", "statistics-box-title", e.text.totalThisMonthText);
-                        DomElement.createWithHTML(t, "div", "statistics-box-count", Str.friendlyNumber(m));
+                        DomElement.createWithHTML(t, "div", "statistics-box-count", Str.friendlyNumber(r));
                     }
-                    if (t.yearlyStatistics.showTotalThisYear) {
+                }
+                if (t.yearlyStatistics.showTotalThisYear) {
+                    const n = new Date(t._currentView.year, t.startMonth, 1);
+                    const i = new Date(t._currentView.year + 1, t.startMonth, 1);
+                    const s = p(t, n, i);
+                    if (s > 0) {
                         const t = DomElement.create(o, "div", "statistics-box");
                         DomElement.createWithHTML(t, "div", "statistics-box-title", e.text.totalThisYearText);
-                        DomElement.createWithHTML(t, "div", "statistics-box-count", Str.friendlyNumber(w));
+                        DomElement.createWithHTML(t, "div", "statistics-box-count", Str.friendlyNumber(s));
                     }
-                } else {
-                    r = true;
                 }
             } else {
                 r = true;

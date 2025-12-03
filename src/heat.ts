@@ -622,46 +622,48 @@ import { Disabled } from "./ts/area/disabled";
             let remove: boolean = false;
 
             if ( Is.defined( todaysCount ) ) {
-                const startOfWeek: Date = DateTime.getDateForMondayOfCurrentWeek();
-                const endOfWeek: Date = new Date( startOfWeek );
-                endOfWeek.setDate( startOfWeek.getDate() + 7 );
+                if ( bindingOptions.yearlyStatistics!.showTotalToday && todaysCount > 0 ) {
+                    const todaysBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
+                    DomElement.createWithHTML( todaysBox, "div", "statistics-box-title", _configuration.text!.totalTodayText! );
+                    DomElement.createWithHTML( todaysBox, "div", "statistics-box-count", Str.friendlyNumber( todaysCount ) );
+                }
 
-                const startOfMonth: Date = new Date( today.getFullYear(), today.getMonth(), 1 );
-                const endOfMonth: Date = new Date( today.getFullYear(), today.getMonth(), DateTime.getTotalDaysInMonth( today.getFullYear(), today.getMonth() ) + 1 );
-                const startOfYear: Date = new Date( today.getFullYear(), bindingOptions.startMonth!, 1 );
-                const endOfYear: Date = new Date( today.getFullYear() + 1, bindingOptions.startMonth!, 1 );
+                if ( bindingOptions.yearlyStatistics!.showTotalThisWeek ) {
+                    const startOfWeek: Date = DateTime.getDateForMondayOfCurrentWeek();
+                    const endOfWeek: Date = new Date( startOfWeek );
+                    endOfWeek.setDate( startOfWeek.getDate() + 7 );
+                    
+                    const weekCount: number = getCountForDateRange( bindingOptions, startOfWeek, endOfWeek );
 
-                const weekCount: number = getCountForDateRange( bindingOptions, startOfWeek, endOfWeek );
-                const monthCount: number = getCountForDateRange( bindingOptions, startOfMonth, endOfMonth );
-                const yearCount: number = getCountForDateRange( bindingOptions, startOfYear, endOfYear );
-
-                if ( todaysCount > 0 || weekCount > 0 || monthCount > 0 || yearCount > 0 ) {
-                    if ( bindingOptions.yearlyStatistics!.showTotalToday ) {
-                        const todaysBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
-                        DomElement.createWithHTML( todaysBox, "div", "statistics-box-title", _configuration.text!.totalTodayText! );
-                        DomElement.createWithHTML( todaysBox, "div", "statistics-box-count", Str.friendlyNumber( todaysCount ) );
-                    }
-
-                    if ( bindingOptions.yearlyStatistics!.showTotalThisWeek ) {
+                    if ( weekCount > 0 ) {
                         const weekBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
                         DomElement.createWithHTML( weekBox, "div", "statistics-box-title", _configuration.text!.totalThisWeekText! );
                         DomElement.createWithHTML( weekBox, "div", "statistics-box-count", Str.friendlyNumber( weekCount ) );
                     }
+                }
 
-                    if ( bindingOptions.yearlyStatistics!.showTotalThisMonth ) {
+                if ( bindingOptions.yearlyStatistics!.showTotalThisMonth ) {
+                    const startOfMonth: Date = new Date( today.getFullYear(), today.getMonth(), 1 );
+                    const endOfMonth: Date = new Date( today.getFullYear(), today.getMonth(), DateTime.getTotalDaysInMonth( today.getFullYear(), today.getMonth() ) + 1 );
+                    const monthCount: number = getCountForDateRange( bindingOptions, startOfMonth, endOfMonth );
+
+                    if ( monthCount > 0 ) {
                         const monthBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
                         DomElement.createWithHTML( monthBox, "div", "statistics-box-title", _configuration.text!.totalThisMonthText! );
                         DomElement.createWithHTML( monthBox, "div", "statistics-box-count", Str.friendlyNumber( monthCount ) );
                     }
+                }
 
-                    if ( bindingOptions.yearlyStatistics!.showTotalThisYear ) {
+                if ( bindingOptions.yearlyStatistics!.showTotalThisYear ) {
+                    const startOfYear: Date = new Date( bindingOptions._currentView!.year, bindingOptions.startMonth!, 1 );
+                    const endOfYear: Date = new Date( bindingOptions._currentView!.year + 1, bindingOptions.startMonth!, 1 );
+                    const yearCount: number = getCountForDateRange( bindingOptions, startOfYear, endOfYear );
+
+                    if ( yearCount > 0 ) {
                         const yearBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
                         DomElement.createWithHTML( yearBox, "div", "statistics-box-title", _configuration.text!.totalThisYearText! );
                         DomElement.createWithHTML( yearBox, "div", "statistics-box-count", Str.friendlyNumber( yearCount ) );
                     }
-
-                } else {
-                    remove = true;
                 }
                 
             } else {
