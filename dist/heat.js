@@ -1203,7 +1203,7 @@ var Disabled;
                     a = 0;
                 }
                 const u = s ? Str.friendlyNumber(a) : e.text.unknownText;
-                DomElement.createWithHTML(l, "div", "statistics-box-title", e.text.totalTodayText);
+                DomElement.createWithHTML(l, "div", "statistics-box-title", `${e.text.totalTodayText}${":"}`);
                 DomElement.createWithHTML(l, "div", "statistics-box-count", u);
             }
             if (t.yearlyStatistics.showTotalThisWeek) {
@@ -1216,7 +1216,7 @@ var Disabled;
                 }
                 const i = s ? Str.friendlyNumber(n) : e.text.unknownText;
                 const l = DomElement.create(o, "div", "statistics-box");
-                DomElement.createWithHTML(l, "div", "statistics-box-title", e.text.totalThisWeekText);
+                DomElement.createWithHTML(l, "div", "statistics-box-title", `${e.text.totalThisWeekText}${":"}`);
                 DomElement.createWithHTML(l, "div", "statistics-box-count", i);
             }
             if (t.yearlyStatistics.showTotalThisMonth) {
@@ -1228,7 +1228,7 @@ var Disabled;
                 }
                 const l = s ? Str.friendlyNumber(n) : e.text.unknownText;
                 const c = DomElement.create(o, "div", "statistics-box");
-                DomElement.createWithHTML(c, "div", "statistics-box-title", e.text.totalThisMonthText);
+                DomElement.createWithHTML(c, "div", "statistics-box-title", `${e.text.totalThisMonthText}${":"}`);
                 DomElement.createWithHTML(c, "div", "statistics-box-count", l);
             }
             if (t.yearlyStatistics.showTotalThisYear) {
@@ -1236,7 +1236,7 @@ var Disabled;
                 const i = new Date(t._currentView.year + 1, t.startMonth, 1);
                 const s = p(t, r, a, n, i);
                 const l = DomElement.create(o, "div", "statistics-box");
-                DomElement.createWithHTML(l, "div", "statistics-box-title", e.text.totalThisYearText);
+                DomElement.createWithHTML(l, "div", "statistics-box-title", `${e.text.totalThisYearText}${":"}`);
                 DomElement.createWithHTML(l, "div", "statistics-box-count", Str.friendlyNumber(s));
             }
             if (o.innerHTML === "") {

@@ -616,7 +616,7 @@ import { Disabled } from "./ts/area/disabled";
 
                 const todayCountText: string = isCurrentYear ? Str.friendlyNumber( todaysCount ) : _configuration.text!.unknownText!;
 
-                DomElement.createWithHTML( todaysBox, "div", "statistics-box-title", _configuration.text!.totalTodayText! );
+                DomElement.createWithHTML( todaysBox, "div", "statistics-box-title", `${_configuration.text!.totalTodayText!}${Char.colon}` );
                 DomElement.createWithHTML( todaysBox, "div", "statistics-box-count", todayCountText );
             }
 
@@ -634,7 +634,7 @@ import { Disabled } from "./ts/area/disabled";
                 const weekCountText: string = isCurrentYear ? Str.friendlyNumber( weekCount ) : _configuration.text!.unknownText!;
                 const weekBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
-                DomElement.createWithHTML( weekBox, "div", "statistics-box-title", _configuration.text!.totalThisWeekText! );
+                DomElement.createWithHTML( weekBox, "div", "statistics-box-title", `${_configuration.text!.totalThisWeekText!}${Char.colon}` );
                 DomElement.createWithHTML( weekBox, "div", "statistics-box-count", weekCountText );
             }
 
@@ -651,7 +651,7 @@ import { Disabled } from "./ts/area/disabled";
                 const monthCountText: string = isCurrentYear ? Str.friendlyNumber( monthCount ) : _configuration.text!.unknownText!;
                 const monthBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
-                DomElement.createWithHTML( monthBox, "div", "statistics-box-title", _configuration.text!.totalThisMonthText! );
+                DomElement.createWithHTML( monthBox, "div", "statistics-box-title", `${_configuration.text!.totalThisMonthText!}${Char.colon}` );
                 DomElement.createWithHTML( monthBox, "div", "statistics-box-count", monthCountText );
             }
 
@@ -661,7 +661,7 @@ import { Disabled } from "./ts/area/disabled";
                 const yearCount: number = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfYear, endOfYear );
                 const yearBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
-                DomElement.createWithHTML( yearBox, "div", "statistics-box-title", _configuration.text!.totalThisYearText! );
+                DomElement.createWithHTML( yearBox, "div", "statistics-box-title", `${_configuration.text!.totalThisYearText!}${Char.colon}` );
                 DomElement.createWithHTML( yearBox, "div", "statistics-box-count", Str.friendlyNumber( yearCount ) );
             }
 
