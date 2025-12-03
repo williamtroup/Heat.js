@@ -1759,7 +1759,6 @@ import { Disabled } from "./ts/area/disabled";
                                 }
         
                                 result.types[ useColorRange.minimum! ]++;
-                                
                                 result.largestValue = Math.max( result.largestValue, result.types[ useColorRange.minimum! ] );
                             }
                         }
