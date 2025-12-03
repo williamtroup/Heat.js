@@ -619,6 +619,7 @@ import { Disabled } from "./ts/area/disabled";
         if ( bindingOptions.yearlyStatistics!.enabled && bindingOptions._currentView!.year === today.getFullYear() ) {
             const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics", bindingOptions._currentView!.mapContents );
             const todaysCount: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( today ) ];
+            let remove: boolean = false;
 
             if ( Is.defined( todaysCount ) ) {
                 const startOfWeek: Date = DateTime.getDateForMondayOfCurrentWeek();
@@ -635,27 +636,39 @@ import { Disabled } from "./ts/area/disabled";
                 const yearCount: number = getCountForDateRange( bindingOptions, startOfYear, endOfYear );
 
                 if ( todaysCount > 0 || weekCount > 0 || monthCount > 0 || yearCount > 0 ) {
-                    const todaysBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
-                    DomElement.createWithHTML( todaysBox, "div", "statistics-box-title", _configuration.text!.totalTodayText! );
-                    DomElement.createWithHTML( todaysBox, "div", "statistics-box-count", Str.friendlyNumber( todaysCount ) );
+                    if ( bindingOptions.yearlyStatistics!.showTotalToday ) {
+                        const todaysBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
+                        DomElement.createWithHTML( todaysBox, "div", "statistics-box-title", _configuration.text!.totalTodayText! );
+                        DomElement.createWithHTML( todaysBox, "div", "statistics-box-count", Str.friendlyNumber( todaysCount ) );
+                    }
 
-                    const weekBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
-                    DomElement.createWithHTML( weekBox, "div", "statistics-box-title", _configuration.text!.totalThisWeekText! );
-                    DomElement.createWithHTML( weekBox, "div", "statistics-box-count", Str.friendlyNumber( weekCount ) );
+                    if ( bindingOptions.yearlyStatistics!.showTotalThisWeek ) {
+                        const weekBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
+                        DomElement.createWithHTML( weekBox, "div", "statistics-box-title", _configuration.text!.totalThisWeekText! );
+                        DomElement.createWithHTML( weekBox, "div", "statistics-box-count", Str.friendlyNumber( weekCount ) );
+                    }
 
-                    const monthBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
-                    DomElement.createWithHTML( monthBox, "div", "statistics-box-title", _configuration.text!.totalThisMonthText! );
-                    DomElement.createWithHTML( monthBox, "div", "statistics-box-count", Str.friendlyNumber( monthCount ) );
+                    if ( bindingOptions.yearlyStatistics!.showTotalThisMonth ) {
+                        const monthBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
+                        DomElement.createWithHTML( monthBox, "div", "statistics-box-title", _configuration.text!.totalThisMonthText! );
+                        DomElement.createWithHTML( monthBox, "div", "statistics-box-count", Str.friendlyNumber( monthCount ) );
+                    }
 
-                    const yearBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
-                    DomElement.createWithHTML( yearBox, "div", "statistics-box-title", _configuration.text!.totalThisYearText! );
-                    DomElement.createWithHTML( yearBox, "div", "statistics-box-count", Str.friendlyNumber( yearCount ) );
+                    if ( bindingOptions.yearlyStatistics!.showTotalThisYear ) {
+                        const yearBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
+                        DomElement.createWithHTML( yearBox, "div", "statistics-box-title", _configuration.text!.totalThisYearText! );
+                        DomElement.createWithHTML( yearBox, "div", "statistics-box-count", Str.friendlyNumber( yearCount ) );
+                    }
 
                 } else {
-                    yearlyStatistics.parentNode!.removeChild( yearlyStatistics );
+                    remove = true;
                 }
                 
             } else {
+                remove = true;
+            }
+
+            if ( remove || yearlyStatistics.innerHTML === Char.empty ) {
                 yearlyStatistics.parentNode!.removeChild( yearlyStatistics );
             }
         }
