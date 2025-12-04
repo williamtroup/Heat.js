@@ -391,7 +391,7 @@ import { Disabled } from "./ts/area/disabled";
             optionA.text.toLowerCase().localeCompare( optionB.text.toLowerCase() )
         );
 
-        exportOptions.forEach( option => bindingOptions._currentView!.exportDialogExportTypeSelect.add( option ) );
+        exportOptions.forEach( ( option: HTMLOptionElement ) => bindingOptions._currentView!.exportDialogExportTypeSelect.add( option ) );
 
         const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
         const okButton: HTMLElement = DomElement.createWithHTML( buttons, "button", Char.empty, _configuration.text!.exportButtonText! );
