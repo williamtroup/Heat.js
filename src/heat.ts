@@ -376,16 +376,25 @@ import { Disabled } from "./ts/area/disabled";
         bindingOptions._currentView!.exportDialogExportTypeSelect.name = crypto.randomUUID();
 
         let exportType: keyof typeof ExportType;
+        let exportOptions: HTMLOptionElement[] = [];
 
         for ( exportType in ExportType ) {
-            const exportOption: HTMLOptionElement = DomElement.create( bindingOptions._currentView!.exportDialogExportTypeSelect, "option" ) as HTMLOptionElement;
+            const exportOption: HTMLOptionElement = DomElement.createWithNoContainer( "option" ) as HTMLOptionElement;
             exportOption.value = ExportType[ exportType ];
             exportOption.textContent = exportType.toString().toUpperCase();
 
             if ( exportType === bindingOptions.exportType! ) {
                 exportOption.selected = true;
             }
+
+            exportOptions.push( exportOption );
         }
+
+        exportOptions.sort( ( optionA: HTMLOptionElement, optionB: HTMLOptionElement ) => 
+            optionA.text.toLowerCase().localeCompare( optionB.text.toLowerCase() )
+        );
+
+        exportOptions.forEach( option => bindingOptions._currentView!.exportDialogExportTypeSelect.add( option ) );
 
         const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
         const okButton: HTMLElement = DomElement.createWithHTML( buttons, "button", Char.empty, _configuration.text!.exportButtonText! );

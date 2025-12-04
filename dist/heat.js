@@ -1074,17 +1074,21 @@ var Disabled;
         t._currentView.exportDialogExportTypeSelect = DomElement.create(o, "select", "select-box");
         t._currentView.exportDialogExportTypeSelect.name = crypto.randomUUID();
         let s;
+        let r = [];
         for (s in ExportType) {
-            const e = DomElement.create(t._currentView.exportDialogExportTypeSelect, "option");
+            const e = DomElement.createWithNoContainer("option");
             e.value = ExportType[s];
             e.textContent = s.toString().toUpperCase();
             if (s === t.exportType) {
                 e.selected = true;
             }
+            r.push(e);
         }
-        const r = DomElement.create(o, "div", "buttons");
-        const a = DomElement.createWithHTML(r, "button", "", e.text.exportButtonText);
-        a.onclick = () => {
+        r.sort((e, t) => e.text.toLowerCase().localeCompare(t.text.toLowerCase()));
+        r.forEach(e => t._currentView.exportDialogExportTypeSelect.add(e));
+        const a = DomElement.create(o, "div", "buttons");
+        const l = DomElement.createWithHTML(a, "button", "", e.text.exportButtonText);
+        l.onclick = () => {
             const e = t._currentView.exportDialogExportTypeSelect.value;
             w(t);
             xe(t, e);
@@ -1167,7 +1171,7 @@ var Disabled;
             }
             if (t.title.showYearSelector) {
                 const o = DomElement.createWithHTML(n, "button", "back", e.text.backButtonSymbolText);
-                o.onclick = () => Le(t);
+                o.onclick = () => Ae(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(o, t, e.text.backButtonText);
                 }
@@ -1879,7 +1883,7 @@ var Disabled;
         const i = DomElement.create(t._currentView.monthsContents, "div", "month-names");
         let s = DomElement.create(o, "div", "y-labels");
         const r = DomElement.create(o, "div", "month-lines");
-        const a = L(t);
+        const a = A(t);
         if (n) {
             DomElement.addClass(o, "view-switch");
         }
@@ -1914,7 +1918,7 @@ var Disabled;
                 }
                 const u = c + 1;
                 if (a.values.hasOwnProperty(u) && z(t.views.months.monthsToShow, c)) {
-                    A(r, u, a.values[u], t, n, s);
+                    L(r, u, a.values[u], t, n, s);
                     if (t.views.months.showMonthNames) {
                         DomElement.createWithHTML(i, "div", "month-name", e.text.monthNames[c]);
                     }
@@ -1930,7 +1934,7 @@ var Disabled;
             }
         }
     }
-    function A(e, t, n, o, i, s) {
+    function L(e, t, n, o, i, s) {
         const r = DomElement.create(e, "div", "month-line");
         const a = n * i;
         r.style.height = `${a}px`;
@@ -1971,7 +1975,7 @@ var Disabled;
             }
         }
     }
-    function L(e) {
+    function A(e) {
         const t = {
             values: {
                 1: 0,
@@ -2691,11 +2695,11 @@ var Disabled;
         const o = [];
         for (const e in n) {
             if (n.hasOwnProperty(e)) {
-                o.push(Ae([ Oe(e), Oe(n[e].toString()) ]));
+                o.push(Le([ Oe(e), Oe(n[e].toString()) ]));
             }
         }
         if (o.length > 0) {
-            o.unshift(Ae([ Oe(e.text.dateText), Oe(e.text.countText) ]));
+            o.unshift(Le([ Oe(e.text.dateText), Oe(e.text.countText) ]));
         }
         return o.join("\n");
     }
@@ -2868,10 +2872,10 @@ var Disabled;
         t = `"${t}"`;
         return t;
     }
-    function Ae(e) {
+    function Le(e) {
         return e.join(",");
     }
-    function Le(e, t = true) {
+    function Ae(e, t = true) {
         let n = true;
         let o = e._currentView.year;
         o--;
@@ -3183,7 +3187,7 @@ var Disabled;
                 if (i < 9999) {
                     t._currentView.year = i;
                     if (!K(t, t._currentView.year)) {
-                        Le(t, false);
+                        Ae(t, false);
                     } else {
                         l(t);
                     }
@@ -3194,7 +3198,7 @@ var Disabled;
         },
         moveToPreviousYear: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                Le(n[e].options);
+                Ae(n[e].options);
             }
             return Ye;
         },
