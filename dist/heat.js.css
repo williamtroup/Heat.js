@@ -73,6 +73,9 @@
   --heat-js-view-days-background-color: var(--heat-js-day-color-4-background-color);
   --heat-js-view-days-border-color: var(--heat-js-day-color-4-border-color);
   --heat-js-view-days-text-color: var(--heat-js-day-color-4-text-color);
+  --heat-js-view-months-background-color: var(--heat-js-day-color-4-background-color);
+  --heat-js-view-months-border-color: var(--heat-js-day-color-4-border-color);
+  --heat-js-view-months-text-color: var(--heat-js-day-color-4-text-color);
   --heat-js-button-background-color: var(--heat-js-day-background-color);
   --heat-js-button-border-color: var(--heat-js-container-border-color);
   --heat-js-button-text-color: var(--heat-js-color-white);
@@ -1176,13 +1179,13 @@ div.heat-js div.months-contents div.months div.month-lines div.month-line-number
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--heat-js-view-days-text-color);
+  color: var(--heat-js-view-months-text-color);
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line {
   border-top-left-radius: var(--heat-js-border-radius-day);
   border-top-right-radius: var(--heat-js-border-radius-day);
-  background-color: var(--heat-js-view-days-background-color);
-  border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
+  background-color: var(--heat-js-view-months-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-view-months-border-color);
   border-bottom: none !important;
   vertical-align: bottom;
   flex: 1 100%;
