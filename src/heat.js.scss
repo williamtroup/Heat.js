@@ -473,7 +473,7 @@ div.heat-js {
                 }
             }
 
-            &:hover {
+            &:not(.no-hover):hover {
                 color: var(--heat-js-title-opener-text-color-hover);
 
                 div.titles-menu-container {

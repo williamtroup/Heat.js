@@ -225,6 +225,7 @@ export namespace Binding {
             options.title!.showCurrentYearButton = Default.getBoolean( options.title!.showCurrentYearButton, true );
             options.title!.showSectionText = Default.getBoolean( options.title!.showSectionText, true );
             options.title!.showToolTips = Default.getBoolean( options.title!.showToolTips, true );
+            options.title!.showTitleDropDownMenu = Default.getBoolean( options.title!.showTitleDropDownMenu, true );
 
             return options.title!;
         }

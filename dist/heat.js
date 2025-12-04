@@ -548,6 +548,7 @@ var Binding;
             e.title.showCurrentYearButton = Default2.getBoolean(e.title.showCurrentYearButton, true);
             e.title.showSectionText = Default2.getBoolean(e.title.showSectionText, true);
             e.title.showToolTips = Default2.getBoolean(e.title.showToolTips, true);
+            e.title.showTitleDropDownMenu = Default2.getBoolean(e.title.showTitleDropDownMenu, true);
             return e.title;
         }
         function l(e) {
@@ -903,7 +904,7 @@ var Disabled;
         }
         ToolTip.renderControl(e);
         f(e);
-        v(e, n);
+        p(e, n);
         if (e.views.chart.enabled) {
             b(e, n);
             e._currentView.chartContents.style.display = "none";
@@ -1044,7 +1045,8 @@ var Disabled;
         if (t.title.showText || t.title.showYearSelector || t.title.showRefreshButton || t.title.showExportButton || t.title.showImportButton) {
             const n = DomElement.create(t._currentView.element, "div", "title-bar");
             const o = DomElement.create(n, "div", "title");
-            if (t.views.chart.enabled || t.views.days.enabled || t.views.statistics.enabled) {
+            const i = t.title.showTitleDropDownMenu && (t.views.chart.enabled || t.views.days.enabled || t.views.statistics.enabled);
+            if (i) {
                 if (t.title.showTitleDropDownButton) {
                     DomElement.create(o, "div", "down-arrow");
                 }
@@ -1071,7 +1073,7 @@ var Disabled;
                     DomElement.createWithHTML(o, "span", "section-text", "]");
                 }
             }
-            if (t.views.chart.enabled || t.views.days.enabled || t.views.statistics.enabled) {
+            if (i) {
                 m(t, o);
             }
             if (t.title.showImportButton && !t._currentView.isInFetchMode) {
@@ -1083,7 +1085,7 @@ var Disabled;
             }
             if (t.title.showExportButton) {
                 const o = DomElement.createWithHTML(n, "button", "export", e.text.exportButtonSymbolText);
-                o.onclick = () => ve(t);
+                o.onclick = () => pe(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(o, t, e.text.exportButtonText);
                 }
@@ -1302,7 +1304,7 @@ var Disabled;
         }
         return r;
     }
-    function v(t, n) {
+    function p(t, n) {
         t._currentView.mapContents = DomElement.create(t._currentView.element, "div", "map-contents");
         if (t.views.chart.enabled) {
             x(t);
@@ -1377,7 +1379,7 @@ var Disabled;
                         if (d) {
                             let n = null;
                             if (G(t.views.map.daysToShow, w)) {
-                                n = p(t, u, e - m, o, l, a);
+                                n = v(t, u, e - m, o, l, a);
                             }
                             if ((e + 1) % 7 === 0) {
                                 if (t.views.map.showDaysInReverseOrder) {
@@ -1435,7 +1437,7 @@ var Disabled;
             }
         }
     }
-    function p(e, t, o, i, s, r) {
+    function v(e, t, o, i, s, r) {
         const a = o + 1;
         const l = DomElement.create(t, "div", "day");
         const c = new Date(s, i, a);
@@ -2581,12 +2583,12 @@ var Disabled;
         };
         n.readAsText(e);
     }
-    function ve(e, t = null) {
+    function pe(e, t = null) {
         let n = null;
         const o = Me(e);
         const i = Default2.getString(t, e.exportType).toLowerCase();
         if (i === "csv") {
-            n = pe(e);
+            n = ve(e);
         } else if (i === "json") {
             n = Te(e);
         } else if (i === "xml") {
@@ -2613,7 +2615,7 @@ var Disabled;
             Trigger.customEvent(e.events.onExport, e._currentView.element);
         }
     }
-    function pe(t) {
+    function ve(t) {
         const n = Ee(t);
         const o = [];
         for (const e in n) {
@@ -3040,7 +3042,7 @@ var Disabled;
         },
         export: function(e, t = null) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                ve(n[e].options, t);
+                pe(n[e].options, t);
             }
             return Fe;
         },

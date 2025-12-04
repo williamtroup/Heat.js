@@ -413,13 +413,13 @@ div.heat-js div.title-bar div.title span.section-text-name:first-of-type {
     display: inline;
   }
 }
-div.heat-js div.title-bar div.title:hover {
+div.heat-js div.title-bar div.title:not(.no-hover):hover {
   color: var(--heat-js-title-opener-text-color-hover);
 }
-div.heat-js div.title-bar div.title:hover div.titles-menu-container {
+div.heat-js div.title-bar div.title:not(.no-hover):hover div.titles-menu-container {
   display: block;
 }
-div.heat-js div.title-bar div.title:hover div.down-arrow {
+div.heat-js div.title-bar div.title:not(.no-hover):hover div.down-arrow {
   border-top-color: var(--heat-js-title-opener-text-color-hover);
   transform: rotate(-180deg);
 }

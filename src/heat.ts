@@ -363,8 +363,9 @@ import { Disabled } from "./ts/area/disabled";
         if ( bindingOptions.title!.showText || bindingOptions.title!.showYearSelector || bindingOptions.title!.showRefreshButton || bindingOptions.title!.showExportButton || bindingOptions.title!.showImportButton ) {
             const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "title-bar" );
             const title: HTMLElement = DomElement.create( titleBar, "div", "title" );
+            const showTitleDropDownMenu: boolean = bindingOptions.title!.showTitleDropDownMenu! && ( bindingOptions.views!.chart!.enabled! || bindingOptions.views!.days!.enabled! || bindingOptions.views!.statistics!.enabled! );
 
-            if ( bindingOptions.views!.chart!.enabled || bindingOptions.views!.days!.enabled || bindingOptions.views!.statistics!.enabled ) {
+            if ( showTitleDropDownMenu ) {
                 if ( bindingOptions.title!.showTitleDropDownButton ) {
                     DomElement.create( title, "div", "down-arrow" );
                 }
@@ -397,7 +398,7 @@ import { Disabled } from "./ts/area/disabled";
                 }
             }
 
-            if ( bindingOptions.views!.chart!.enabled || bindingOptions.views!.days!.enabled || bindingOptions.views!.statistics!.enabled ) {
+            if ( showTitleDropDownMenu ) {
                 renderTitleDropDownMenu( bindingOptions, title );
             }
 
