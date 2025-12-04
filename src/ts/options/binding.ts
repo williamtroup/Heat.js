@@ -343,6 +343,7 @@ export namespace Binding {
             options.views!.months!.showToolTips = Default.getBoolean( options.views!.months!.showToolTips, true );
             options.views!.months!.useGradients = Default.getBoolean( options.views!.months!.useGradients, false );
             options.views!.months!.useDifferentBackgroundOpacities = Default.getBoolean( options.views!.months!.useDifferentBackgroundOpacities, false );
+            options.views!.months!.highlightCurrentMonth = Default.getBoolean( options.views!.months!.highlightCurrentMonth, false );
     
             if ( Is.invalidOptionArray( options.views!.months!.monthsToShow ) ) {
                 options.views!.months!.monthsToShow = _default_MonthsToShow;

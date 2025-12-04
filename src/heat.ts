@@ -1562,6 +1562,7 @@ import { Disabled } from "./ts/area/disabled";
     function renderControlMonthsMonthLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number ) : void {
         const monthLine: HTMLElement = DomElement.create( monthLines, "div", "month-line" );
         const monthLineHeight: number = monthCount * pixelsPerNumbers;
+        const today: Date = new Date();
 
         monthLine.style.height = `${monthLineHeight}px`;
         monthLine.setAttribute( Constant.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, monthNumber.toString() );
@@ -1591,6 +1592,10 @@ import { Disabled } from "./ts/area/disabled";
         if ( bindingOptions.views!.months!.showMonthNumbers && monthCount > 0 ) {
             DomElement.addClass( monthLine, "month-line-number" );
             DomElement.createWithHTML( monthLine, "div", "count", Str.friendlyNumber( monthCount ) );
+        }
+
+        if ( bindingOptions.views!.months!.highlightCurrentMonth && today.getMonth() === ( monthNumber - 1 ) && bindingOptions._currentView!.year === today.getFullYear() ) {
+            DomElement.addClass( monthLine, "today" );
         }
 
         if ( bindingOptions.views!.months!.useGradients ) {

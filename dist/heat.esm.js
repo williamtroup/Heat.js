@@ -661,6 +661,7 @@ var Binding;
             e.views.months.showToolTips = Default2.getBoolean(e.views.months.showToolTips, true);
             e.views.months.useGradients = Default2.getBoolean(e.views.months.useGradients, false);
             e.views.months.useDifferentBackgroundOpacities = Default2.getBoolean(e.views.months.useDifferentBackgroundOpacities, false);
+            e.views.months.highlightCurrentMonth = Default2.getBoolean(e.views.months.highlightCurrentMonth, false);
             if (Is.invalidOptionArray(e.views.months.monthsToShow)) {
                 e.views.months.monthsToShow = t;
             }
@@ -1937,6 +1938,7 @@ var Disabled;
     function L(e, t, n, o, i, s) {
         const r = DomElement.create(e, "div", "month-line");
         const a = n * i;
+        const l = new Date;
         r.style.height = `${a}px`;
         r.setAttribute(Constant.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, t.toString());
         if (a <= 0) {
@@ -1945,20 +1947,23 @@ var Disabled;
         if (o.views.months.showToolTips) {
             ToolTip.add(r, o, Str.friendlyNumber(n));
         }
-        let l = o._currentView.year;
+        let c = o._currentView.year;
         if (o.startMonth > 0 && t - 1 < o.startMonth) {
-            l++;
+            c++;
         }
         if (Is.definedFunction(o.events.onMonthClick)) {
-            r.onclick = () => Trigger.customEvent(o.events.onMonthClick, t, n, l);
+            r.onclick = () => Trigger.customEvent(o.events.onMonthClick, t, n, c);
         } else if (Is.definedFunction(o.events.onMonthDblClick)) {
-            r.ondblclick = () => Trigger.customEvent(o.events.onMonthDblClick, t, n, l);
+            r.ondblclick = () => Trigger.customEvent(o.events.onMonthDblClick, t, n, c);
         } else {
             DomElement.addClass(r, "no-hover");
         }
         if (o.views.months.showMonthNumbers && n > 0) {
             DomElement.addClass(r, "month-line-number");
             DomElement.createWithHTML(r, "div", "count", Str.friendlyNumber(n));
+        }
+        if (o.views.months.highlightCurrentMonth && l.getMonth() === t - 1 && o._currentView.year === l.getFullYear()) {
+            DomElement.addClass(r, "today");
         }
         if (o.views.months.useGradients) {
             DomElement.adGradientEffect(o._currentView.element, r);

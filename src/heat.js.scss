@@ -1000,7 +1000,6 @@ div.heat-js {
 div.heat-js {
     div.days-contents {
         display: flex;
-        overflow: hidden;
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
@@ -1097,7 +1096,6 @@ div.heat-js {
 div.heat-js {
     div.months-contents {
         display: flex;
-        overflow: hidden;
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
@@ -1120,6 +1118,10 @@ div.heat-js {
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
                 justify-content: space-between;
+
+                div.today {
+                    animation: highlight-effect 2s infinite;
+                }
 
                 div.month-line-number {
                     font-size: var(--heat-js-spacing-day-font-size);
@@ -1194,7 +1196,6 @@ div.heat-js {
 div.heat-js {
     div.statistics-contents {
         display: flex;
-        overflow: hidden;
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;

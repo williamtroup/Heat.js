@@ -975,7 +975,6 @@ div.heat-js div.chart-contents div.chart-months div.month-name-space {
 */
 div.heat-js div.days-contents {
   display: flex;
-  overflow: hidden;
   text-wrap: nowrap;
   white-space: nowrap;
   position: relative;
@@ -1099,7 +1098,6 @@ div.heat-js div.days-contents div.day-names div.day-name {
 */
 div.heat-js div.months-contents {
   display: flex;
-  overflow: hidden;
   text-wrap: nowrap;
   white-space: nowrap;
   position: relative;
@@ -1164,6 +1162,9 @@ div.heat-js div.months-contents div.months div.month-lines {
   border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   justify-content: space-between;
 }
+div.heat-js div.months-contents div.months div.month-lines div.today {
+  animation: highlight-effect 2s infinite;
+}
 div.heat-js div.months-contents div.months div.month-lines div.month-line-number {
   font-size: var(--heat-js-spacing-day-font-size);
   padding: calc(var(--heat-js-spacing) / 2);
@@ -1223,7 +1224,6 @@ div.heat-js div.months-contents div.month-names div.month-name {
 */
 div.heat-js div.statistics-contents {
   display: flex;
-  overflow: hidden;
   text-wrap: nowrap;
   white-space: nowrap;
   position: relative;

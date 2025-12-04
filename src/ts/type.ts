@@ -228,6 +228,7 @@ export type BindingOptionsViewsMonths = {
     showToolTips?: boolean;
     useGradients?: boolean;
     useDifferentBackgroundOpacities?: boolean;
+    highlightCurrentMonth?: boolean;
 };
 
 export type BindingOptionsViewsStatistics = {
