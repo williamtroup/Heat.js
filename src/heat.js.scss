@@ -370,7 +370,7 @@ div.heat-js {
 
                 div.buttons {
                     text-align: right;
-                    margin-top: var(--heat-js-spacing);
+                    margin-top: calc( var(--heat-js-spacing) * 2 );
 
                     button {
                         padding-left: calc( var(--heat-js-spacing) + 5px );

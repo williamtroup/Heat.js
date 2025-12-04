@@ -318,7 +318,7 @@ div.heat-js div.disabled div.export div.dialog-contents input.filename {
 }
 div.heat-js div.disabled div.export div.dialog-contents div.buttons {
   text-align: right;
-  margin-top: var(--heat-js-spacing);
+  margin-top: calc(var(--heat-js-spacing) * 2);
 }
 div.heat-js div.disabled div.export div.dialog-contents div.buttons button {
   padding-left: calc(var(--heat-js-spacing) + 5px);
