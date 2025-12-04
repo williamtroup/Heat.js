@@ -18,6 +18,7 @@
 - Fully styled in CSS/SASS, fully responsive, and compatible with the Bootstrap library.
 - Full CSS theme support (using :root variables).
 - 5 views supported: Map, Chart, Days, Months, and Statistics!
+- Yearly statistics (shows total for day, week, month, and year).
 - Auto spawning support (when HTML is added via 3rd party libraries).
 - Configuration dialog support per view.
 - Fully configurable per DOM element.
