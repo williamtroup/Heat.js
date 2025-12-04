@@ -382,10 +382,7 @@ import { Disabled } from "./ts/area/disabled";
             const exportOption: HTMLOptionElement = DomElement.createWithNoContainer( "option" ) as HTMLOptionElement;
             exportOption.value = ExportType[ exportType ];
             exportOption.textContent = exportType.toString().toUpperCase();
-
-            if ( exportType === bindingOptions.exportType! ) {
-                exportOption.selected = true;
-            }
+            exportOption.selected = exportType === bindingOptions.exportType!;
 
             exportOptions.push( exportOption );
         }

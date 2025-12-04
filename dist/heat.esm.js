@@ -1077,9 +1077,7 @@ var Disabled;
             const e = DomElement.createWithNoContainer("option");
             e.value = ExportType[s];
             e.textContent = s.toString().toUpperCase();
-            if (s === t.exportType) {
-                e.selected = true;
-            }
+            e.selected = s === t.exportType;
             r.push(e);
         }
         r.sort((e, t) => e.text.toLowerCase().localeCompare(t.text.toLowerCase()));
