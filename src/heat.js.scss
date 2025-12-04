@@ -109,6 +109,11 @@
     --heat-js-button-background-color-active: #616b79;
     --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
 
+    // Input/Select
+    --heat-js-input-background-color: var(--heat-js-day-background-color);
+    --heat-js-input-border-color: var(--heat-js-container-border-color);
+    --heat-js-input-text-color: var(--heat-js-color-white);
+
     // Yearly Statistics Box
     --heat-js-yearly-statistics-box-background-color: var(--heat-js-day-background-color);
     --heat-js-yearly-statistics-box-border-color: var(--heat-js-container-border-color);
@@ -337,6 +342,37 @@ div.heat-js {
                     label.checkbox {
                         margin-left: var(--heat-js-spacing);
                         margin-bottom: 6px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Configuration Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.disabled {
+        div.export {
+            max-width: 250px;
+
+            div.dialog-contents {
+                @include styles.buttons;
+
+                div.buttons {
+                    text-align: right;
+                    margin-top: var(--heat-js-spacing);
+
+                    button {
+                        padding-left: calc( var(--heat-js-spacing) + 5px );
+                        padding-right: calc( var(--heat-js-spacing) + 5px );
+                        padding-top: var(--heat-js-spacing);
+                        padding-bottom: var(--heat-js-spacing);
                     }
                 }
             }
@@ -1455,6 +1491,27 @@ div.heat-js {
                 border-bottom-right-radius: var(--heat-js-checkbox-border-radius);
             }
         }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Select
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    select.select-box {
+        background-color: var(--heat-js-input-background-color) !important;
+        outline: 0 !important;
+        box-shadow: none !important;
+        border-radius: var(--heat-js-border-radius);
+        padding: var(--heat-js-spacing);
+        border: var(--heat-js-border-size) solid var(--heat-js-input-border-color);
+        color: var(--heat-js-input-text-color) !important;
+        width: 100%;
+        appearance: none;
     }
 }
 

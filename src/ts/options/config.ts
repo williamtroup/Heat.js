@@ -79,6 +79,7 @@ export namespace Config {
             configuration.text!.unknownText = Default.getAnyString( configuration.text!.unknownText, "Unknown" );
             configuration.text!.monthsText = Default.getAnyString( configuration.text!.monthsText, "Months" );
             configuration.text!.noMonthsDataMessage = Default.getAnyString( configuration.text!.noMonthsDataMessage, "There are currently no months to view." );
+            configuration.text!.selectTypeText = Default.getAnyString( configuration.text!.selectTypeText, "Select Type" );
 
             return configuration.text!;
         }

@@ -45,7 +45,7 @@ export const enum ViewName {
     months = "months",
 }
 
-export const enum ExportType {
+export enum ExportType {
     csv = "csv",
     json = "json",
     xml = "xml",

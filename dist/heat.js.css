@@ -80,6 +80,9 @@
   --heat-js-button-text-color-hover: var(--heat-js-color-snow-white);
   --heat-js-button-background-color-active: #616b79;
   --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
+  --heat-js-input-background-color: var(--heat-js-day-background-color);
+  --heat-js-input-border-color: var(--heat-js-container-border-color);
+  --heat-js-input-text-color: var(--heat-js-color-white);
   --heat-js-yearly-statistics-box-background-color: var(--heat-js-day-background-color);
   --heat-js-yearly-statistics-box-border-color: var(--heat-js-container-border-color);
   --heat-js-yearly-statistics-box-text-color: var(--heat-js-color-white);
@@ -269,6 +272,56 @@ div.heat-js div.disabled div.configuration div.dialog-contents div.side-containe
 div.heat-js div.disabled div.configuration div.dialog-contents div.side-container label.checkbox {
   margin-left: var(--heat-js-spacing);
   margin-bottom: 6px;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Configuration Dialog
+    -------------------------------------------------------------------------
+*/
+div.heat-js div.disabled div.export {
+  max-width: 250px;
+}
+div.heat-js div.disabled div.export div.dialog-contents button {
+  background-color: var(--heat-js-button-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
+  color: var(--heat-js-button-text-color);
+  border-radius: var(--heat-js-border-radius);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 9px;
+  padding-right: 9px;
+  outline: none;
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.disabled div.export div.dialog-contents button:disabled {
+  color: var(--heat-js-button-border-color);
+}
+div.heat-js div.disabled div.export div.dialog-contents button:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-background-color-active) !important;
+  color: var(--heat-js-button-text-color-active) !important;
+}
+div.heat-js div.disabled div.export div.dialog-contents button:not(.active):not(:disabled):hover {
+  cursor: pointer;
+  background: var(--heat-js-button-background-color-hover);
+  color: var(--heat-js-button-text-color-hover);
+}
+div.heat-js div.disabled div.export div.dialog-contents button.active {
+  cursor: default;
+  background: var(--heat-js-button-background-color-hover);
+  color: var(--heat-js-button-text-color-hover);
+  transition: var(--heat-js-transition);
+  font-weight: var(--heat-js-text-bold-weight-active);
+}
+div.heat-js div.disabled div.export div.dialog-contents div.buttons {
+  text-align: right;
+  margin-top: var(--heat-js-spacing);
+}
+div.heat-js div.disabled div.export div.dialog-contents div.buttons button {
+  padding-left: calc(var(--heat-js-spacing) + 5px);
+  padding-right: calc(var(--heat-js-spacing) + 5px);
+  padding-top: var(--heat-js-spacing);
+  padding-bottom: var(--heat-js-spacing);
 }
 
 /*
@@ -1538,6 +1591,23 @@ div.heat-js label.checkbox span.check-mark::before {
   border-bottom-left-radius: 0;
   border-top-right-radius: var(--heat-js-checkbox-border-radius);
   border-bottom-right-radius: var(--heat-js-checkbox-border-radius);
+}
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Select
+    -------------------------------------------------------------------------
+*/
+div.heat-js select.select-box {
+  background-color: var(--heat-js-input-background-color) !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: var(--heat-js-border-radius);
+  padding: var(--heat-js-spacing);
+  border: var(--heat-js-border-size) solid var(--heat-js-input-border-color);
+  color: var(--heat-js-input-text-color) !important;
+  width: 100%;
+  appearance: none;
 }
 
 /*

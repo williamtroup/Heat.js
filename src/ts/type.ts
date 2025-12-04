@@ -101,6 +101,7 @@ export type ConfigurationText = {
     unknownText?: string;
     monthsText?: string;
     noMonthsDataMessage?: string;
+    selectTypeText?: string;
 };
 
 export type BindingOptions = {
@@ -149,11 +150,13 @@ export type BindingOptionsCurrentView = {
     yearText: HTMLElement;
     tooltip: HTMLElement;
     tooltipTimer: number;
-    dayCheckBoxes: HTMLInputElement[];
-    monthCheckBoxes: HTMLInputElement[];
     configurationDialog: HTMLElement;
+    configurationDialogDayCheckBoxes: HTMLInputElement[];
+    configurationDialogMonthCheckBoxes: HTMLInputElement[];
     disabledBackground: HTMLElement;
     dayWidth: number;
+    exportDialog: HTMLElement;
+    exportDialogExportTypeSelect: HTMLSelectElement;
 };
 
 export type BindingOptionsViews = {

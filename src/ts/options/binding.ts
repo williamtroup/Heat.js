@@ -48,8 +48,8 @@ export namespace Binding {
             bindingOptions._currentView.element = element;
             bindingOptions._currentView.disabledBackground = null!;
             bindingOptions._currentView.configurationDialog = null!;
-            bindingOptions._currentView.dayCheckBoxes = [];
-            bindingOptions._currentView.monthCheckBoxes = [];
+            bindingOptions._currentView.configurationDialogDayCheckBoxes = [];
+            bindingOptions._currentView.configurationDialogMonthCheckBoxes = [];
             bindingOptions._currentView.tooltip = null!;
             bindingOptions._currentView.tooltipTimer = 0;
             bindingOptions._currentView.mapContents = null!;

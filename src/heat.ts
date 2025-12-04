@@ -165,6 +165,10 @@ import { Disabled } from "./ts/area/disabled";
             renderConfigurationDialog( bindingOptions );
         }
 
+        if ( bindingOptions.title!.showExportButton ) {
+            renderExportDialog( bindingOptions );
+        }
+
         ToolTip.renderControl( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions, isForViewSwitch );
@@ -239,7 +243,7 @@ import { Disabled } from "./ts/area/disabled";
         closeButton.onclick = () => hideConfigurationDialog( bindingOptions );
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
-            bindingOptions._currentView!.dayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.text!.dayNames![ dayIndex ], dayIndex.toString() );
+            bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.text!.dayNames![ dayIndex ], dayIndex.toString() );
         }
 
         let monthContainer: HTMLElement = months1Container;
@@ -252,7 +256,7 @@ import { Disabled } from "./ts/area/disabled";
                 actualMonthIndex = monthIndex - 12;
             }
 
-            bindingOptions._currentView!.monthCheckBoxes[ actualMonthIndex ] = DomElement.createCheckBox( monthContainer, _configuration.text!.monthNames![ actualMonthIndex ], actualMonthIndex.toString() );
+            bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ actualMonthIndex ] = DomElement.createCheckBox( monthContainer, _configuration.text!.monthNames![ actualMonthIndex ], actualMonthIndex.toString() );
             monthContainerIndex++;
 
             if ( monthContainerIndex > 6 ) {
@@ -274,11 +278,11 @@ import { Disabled } from "./ts/area/disabled";
         const monthsToShow: number[] = getMonthsToShowForView( bindingOptions );
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
-            bindingOptions._currentView!.dayCheckBoxes[ dayIndex ].checked = isDayVisible( daysToShow, dayIndex + 1 );
+            bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ].checked = isDayVisible( daysToShow, dayIndex + 1 );
         }
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-            bindingOptions._currentView!.monthCheckBoxes[ monthIndex ].checked = isMonthVisible( monthsToShow, monthIndex );
+            bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ monthIndex ].checked = isMonthVisible( monthsToShow, monthIndex );
         }
 
         ToolTip.hide( bindingOptions );
@@ -296,13 +300,13 @@ import { Disabled } from "./ts/area/disabled";
         let render: boolean = false;
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
-            if ( bindingOptions._currentView!.dayCheckBoxes[ dayIndex ].checked ) {
+            if ( bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ].checked ) {
                 daysChecked.push( dayIndex + 1 );
             }
         }
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-            if ( bindingOptions._currentView!.monthCheckBoxes[ monthIndex ].checked ) {
+            if ( bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ monthIndex ].checked ) {
                 monthsChecked.push( monthIndex + 1 );
             }
         }
@@ -350,6 +354,72 @@ import { Disabled } from "./ts/area/disabled";
         } else {
             ToolTip.hide( bindingOptions );
         }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Export Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderExportDialog( bindingOptions: BindingOptions ) : void {
+        bindingOptions._currentView!.exportDialog = DomElement.create( bindingOptions._currentView!.disabledBackground, "div", "dialog export" );
+
+        const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.exportDialog, "div", "dialog-title-bar" );
+        const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.exportDialog, "div", "dialog-contents" );
+        const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
+
+        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.text!.selectTypeText! );
+
+        bindingOptions._currentView!.exportDialogExportTypeSelect = DomElement.create( contents, "select", "select-box" ) as HTMLSelectElement;
+        bindingOptions._currentView!.exportDialogExportTypeSelect.name = crypto.randomUUID();
+
+        let exportType: keyof typeof ExportType;
+
+        for ( exportType in ExportType ) {
+            const exportOption: HTMLOptionElement = DomElement.create( bindingOptions._currentView!.exportDialogExportTypeSelect, "option" ) as HTMLOptionElement;
+            exportOption.value = ExportType[ exportType ];
+            exportOption.textContent = exportType.toString().toUpperCase();
+
+            if ( exportType === bindingOptions.exportType! ) {
+                exportOption.selected = true;
+            }
+        }
+
+        const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
+        const okButton: HTMLElement = DomElement.createWithHTML( buttons, "button", Char.empty, _configuration.text!.exportButtonText! );
+
+        okButton.onclick = () => {
+            const selectedExportType: string = bindingOptions._currentView!.exportDialogExportTypeSelect.value;
+
+            hideExportDialog( bindingOptions );
+            exportAllData( bindingOptions, selectedExportType );
+        };
+
+        closeButton.onclick = () => hideExportDialog( bindingOptions );
+
+        ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
+    }
+
+    function showExportDialog( bindingOptions: BindingOptions ) : void {
+        Disabled.Background.show( bindingOptions );
+
+        if ( Is.defined( bindingOptions._currentView!.exportDialog ) && bindingOptions._currentView!.exportDialog.style.display !== "block" ) {
+            bindingOptions._currentView!.exportDialog.style.display = "block";
+        }
+
+        ToolTip.hide( bindingOptions );
+    }
+
+    function hideExportDialog( bindingOptions: BindingOptions ) : void {
+        Disabled.Background.hide( bindingOptions );
+
+        if ( Is.defined( bindingOptions._currentView!.exportDialog ) && bindingOptions._currentView!.exportDialog.style.display !== "none" ) {
+            bindingOptions._currentView!.exportDialog.style.display = "none";
+        }
+
+        ToolTip.hide( bindingOptions );
     }
 
 
@@ -413,7 +483,7 @@ import { Disabled } from "./ts/area/disabled";
 
             if ( bindingOptions.title!.showExportButton ) {
                 const exportData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "export", _configuration.text!.exportButtonSymbolText! );
-                exportData.onclick = () => exportAllData( bindingOptions );
+                exportData.onclick = () => showExportDialog( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( exportData, bindingOptions, _configuration.text!.exportButtonText! );
@@ -2518,7 +2588,7 @@ import { Disabled } from "./ts/area/disabled";
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
             tempLink.setAttribute( "href", `data:${contentsMimeType};charset=utf-8,${encodeURIComponent(contents)}` );
-            tempLink.setAttribute( "download", getExportFilename( bindingOptions ) );
+            tempLink.setAttribute( "download", getExportFilename( bindingOptions, contentExportType ) );
             tempLink.click();
             
             document.body.removeChild( tempLink );
@@ -2740,7 +2810,7 @@ import { Disabled } from "./ts/area/disabled";
         return result;
     }
 
-    function getExportFilename( bindingOptions: BindingOptions ) : string {
+    function getExportFilename( bindingOptions: BindingOptions, contentExportType: string ) : string {
         const date: Date = new Date();
         const datePart: string = `${Str.padNumber( date.getDate() )}${Char.dash}${Str.padNumber( date.getMonth() + 1 )}${Char.dash}${date.getFullYear()}`;
         const timePart: string = `${Str.padNumber( date.getHours() )}${Char.dash}${Str.padNumber( date.getMinutes() )}`;
@@ -2750,7 +2820,7 @@ import { Disabled } from "./ts/area/disabled";
             filenameStart = `${bindingOptions._currentView!.type.toLowerCase().replace( / /g, Char.underscore )}${Char.underscore}`;
         }
 
-        return `${filenameStart}${datePart}${Char.underscore}${timePart}.${bindingOptions.exportType!.toLowerCase()}`;
+        return `${filenameStart}${datePart}${Char.underscore}${timePart}.${contentExportType.toLowerCase()}`;
     }
 
     function getCsvValue( text: string ) : string {
