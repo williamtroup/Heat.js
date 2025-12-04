@@ -798,6 +798,7 @@ var Config;
             e.text.monthsText = Default2.getAnyString(e.text.monthsText, "Months");
             e.text.noMonthsDataMessage = Default2.getAnyString(e.text.noMonthsDataMessage, "There are currently no months to view.");
             e.text.selectTypeText = Default2.getAnyString(e.text.selectTypeText, "Select Type");
+            e.text.filenamePlaceholderText = Default2.getAnyString(e.text.filenamePlaceholderText, "Filename (optional)");
             return e.text;
         }
         function o(e) {
@@ -940,7 +941,7 @@ var Disabled;
             e._currentView.monthsContents.style.display = "none";
         }
         if (e.views.statistics.enabled) {
-            W(e, n);
+            F(e, n);
             e._currentView.statisticsContents.style.display = "none";
         }
         e._currentView.mapContents.style.display = "none";
@@ -996,8 +997,8 @@ var Disabled;
         if (Is.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "block") {
             e._currentView.configurationDialog.style.display = "block";
         }
-        const t = Fe(e);
-        const n = We(e);
+        const t = We(e);
+        const n = Fe(e);
         for (let n = 0; n < 7; n++) {
             e._currentView.configurationDialogDayCheckBoxes[n].checked = X(t, n + 1);
         }
@@ -1069,8 +1070,10 @@ var Disabled;
         const o = DomElement.create(t._currentView.exportDialog, "div", "dialog-contents");
         const i = DomElement.create(n, "div", "dialog-close");
         DomElement.createWithHTML(n, "span", "dialog-title-bar-text", e.text.selectTypeText);
-        t._currentView.exportDialogExportTypeSelect = DomElement.create(o, "select", "select-box");
+        t._currentView.exportDialogExportTypeSelect = DomElement.create(o, "select", "input-box");
         t._currentView.exportDialogExportTypeSelect.name = crypto.randomUUID();
+        t._currentView.exportDialogExportFilenameInput = DomElement.create(o, "input", "input-box filename");
+        t._currentView.exportDialogExportFilenameInput.placeholder = e.text.filenamePlaceholderText;
         let s;
         let r = [];
         for (s in ExportType) {
@@ -1087,7 +1090,7 @@ var Disabled;
         l.onclick = () => {
             const e = t._currentView.exportDialogExportTypeSelect.value;
             w(t);
-            xe(t, e);
+            xe(t, e, t._currentView.exportDialogExportFilenameInput.value);
         };
         i.onclick = () => w(t);
         ToolTip.add(i, t, e.text.closeToolTipText);
@@ -1095,6 +1098,7 @@ var Disabled;
     function m(e) {
         Disabled.Background.show(e);
         if (Is.defined(e._currentView.exportDialog) && e._currentView.exportDialog.style.display !== "block") {
+            e._currentView.exportDialogExportFilenameInput.value = "";
             e._currentView.exportDialog.style.display = "block";
         }
         ToolTip.hide(e);
@@ -1305,8 +1309,8 @@ var Disabled;
         const i = t._currentView.year === o.getFullYear();
         if (t.yearlyStatistics.enabled && (!t.yearlyStatistics.showOnlyForCurrentYear || i)) {
             const s = DomElement.create(t._currentView.element, "div", "yearly-statistics", t._currentView.mapContents);
-            const r = Fe(t);
-            const a = We(t);
+            const r = We(t);
+            const a = Fe(t);
             if (t.yearlyStatistics.showTotalToday) {
                 let a = n[t._currentView.element.id].typeData[t._currentView.type][DateTime.toStorageDate(o)];
                 const l = DomElement.create(s, "div", "statistics-box");
@@ -2021,7 +2025,7 @@ var Disabled;
         e._currentView.statisticsContents = DomElement.create(e._currentView.element, "div", "statistics-contents");
         me(e._currentView.statisticsContents, e);
     }
-    function W(t, n) {
+    function F(t, n) {
         const o = DomElement.create(t._currentView.statisticsContents, "div", "statistics");
         const i = DomElement.create(t._currentView.statisticsContents, "div", "statistics-ranges");
         let s = DomElement.create(o, "div", "y-labels");
@@ -2058,7 +2062,7 @@ var Disabled;
             }
             for (const n in l.types) {
                 if (l.types.hasOwnProperty(n)) {
-                    F(parseInt(n), r, l.types[n], t, a, e);
+                    W(parseInt(n), r, l.types[n], t, a, e);
                     const o = ue(a, parseInt(n));
                     if (t.views.statistics.showColorRangeLabels) {
                         if (!t.views.statistics.useColorRangeNamesForLabels || !Is.defined(o) || !Is.definedString(o.name)) {
@@ -2078,7 +2082,7 @@ var Disabled;
             }
         }
     }
-    function F(e, t, n, o, i, s) {
+    function W(e, t, n, o, i, s) {
         const r = DomElement.create(t, "div", "range-line");
         const a = ue(i, e);
         const l = n * s;
@@ -2654,33 +2658,33 @@ var Disabled;
         };
         n.readAsText(e);
     }
-    function xe(e, t = null) {
-        let n = null;
-        const o = ke(e);
-        const i = Default2.getString(t, e.exportType).toLowerCase();
-        if (i === "csv") {
-            n = be(e);
-        } else if (i === "json") {
-            n = Se(e);
-        } else if (i === "xml") {
-            n = _e(e);
-        } else if (i === "txt") {
-            n = Ve(e);
-        } else if (i === "html") {
-            n = Ee(e);
-        } else if (i === "md") {
-            n = Ce(e);
-        } else if (i === "tsv") {
-            n = Me(e);
-        } else if (i === "yaml") {
-            n = Ie(e);
+    function xe(e, t = null, n = null) {
+        let o = null;
+        const i = ke(e);
+        const s = Default2.getString(t, e.exportType).toLowerCase();
+        if (s === "csv") {
+            o = be(e);
+        } else if (s === "json") {
+            o = Se(e);
+        } else if (s === "xml") {
+            o = _e(e);
+        } else if (s === "txt") {
+            o = Ve(e);
+        } else if (s === "html") {
+            o = Ee(e);
+        } else if (s === "md") {
+            o = Ce(e);
+        } else if (s === "tsv") {
+            o = Me(e);
+        } else if (s === "yaml") {
+            o = Ie(e);
         }
-        if (Is.definedString(n)) {
+        if (Is.definedString(o)) {
             const t = DomElement.create(document.body, "a");
             t.style.display = "none";
             t.setAttribute("target", "_blank");
-            t.setAttribute("href", `data:${o};charset=utf-8,${encodeURIComponent(n)}`);
-            t.setAttribute("download", Ne(e, i));
+            t.setAttribute("href", `data:${i};charset=utf-8,${encodeURIComponent(o)}`);
+            t.setAttribute("download", Ne(e, n, s));
             t.click();
             document.body.removeChild(t);
             Trigger.customEvent(e.events.onExport, e._currentView.element);
@@ -2790,8 +2794,8 @@ var Disabled;
         const n = J(e);
         if (e.exportOnlyDataBeingViewed) {
             const o = e._currentView.year;
-            const i = Fe(e);
-            const s = We(e);
+            const i = We(e);
+            const s = Fe(e);
             for (let r = e.startMonth; r < 12 + e.startMonth; r++) {
                 let a = r;
                 let l = o;
@@ -2852,15 +2856,21 @@ var Disabled;
         }
         return t;
     }
-    function Ne(t, n) {
-        const o = new Date;
-        const i = `${Str.padNumber(o.getDate())}${"-"}${Str.padNumber(o.getMonth() + 1)}${"-"}${o.getFullYear()}`;
-        const s = `${Str.padNumber(o.getHours())}${"-"}${Str.padNumber(o.getMinutes())}`;
-        let r = "";
-        if (t._currentView.type !== e.text.unknownTrendText) {
-            r = `${t._currentView.type.toLowerCase().replace(/ /g, "_")}${"_"}`;
+    function Ne(t, n, o) {
+        let i = null;
+        if (Is.definedString(n)) {
+            i = `${n}.${o.toLowerCase()}`;
+        } else {
+            const n = new Date;
+            const s = `${Str.padNumber(n.getDate())}${"-"}${Str.padNumber(n.getMonth() + 1)}${"-"}${n.getFullYear()}`;
+            const r = `${Str.padNumber(n.getHours())}${"-"}${Str.padNumber(n.getMinutes())}`;
+            let a = "";
+            if (t._currentView.type !== e.text.unknownTrendText) {
+                a = `${t._currentView.type.toLowerCase().replace(/ /g, "_")}${"_"}`;
+            }
+            i = `${a}${s}${"_"}${r}.${o.toLowerCase()}`;
         }
-        return `${r}${i}${"_"}${s}.${n.toLowerCase()}`;
+        return i;
     }
     function Oe(e) {
         let t = e.toString().replace(/(\r\n|\n|\r)/gm, "").replace(/(\s\s)/gm, " ");
@@ -2909,7 +2919,7 @@ var Disabled;
             }
         }
     }
-    function We(e) {
+    function Fe(e) {
         let t = [];
         if (e._currentView.view === 1) {
             t = e.views.map.monthsToShow;
@@ -2926,7 +2936,7 @@ var Disabled;
         }
         return t;
     }
-    function Fe(e) {
+    function We(e) {
         let t = [];
         if (e._currentView.view === 1) {
             t = e.views.map.daysToShow;

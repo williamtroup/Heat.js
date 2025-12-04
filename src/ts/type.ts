@@ -102,6 +102,7 @@ export type ConfigurationText = {
     monthsText?: string;
     noMonthsDataMessage?: string;
     selectTypeText?: string;
+    filenamePlaceholderText?: string;
 };
 
 export type BindingOptions = {
@@ -157,6 +158,7 @@ export type BindingOptionsCurrentView = {
     dayWidth: number;
     exportDialog: HTMLElement;
     exportDialogExportTypeSelect: HTMLSelectElement;
+    exportDialogExportFilenameInput: HTMLInputElement;
 };
 
 export type BindingOptionsViews = {

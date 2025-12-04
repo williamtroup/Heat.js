@@ -352,7 +352,7 @@ div.heat-js {
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Configuration Dialog
+    Heat.js - Export Dialog
     -------------------------------------------------------------------------
 */
 
@@ -363,6 +363,10 @@ div.heat-js {
 
             div.dialog-contents {
                 @include styles.buttons;
+
+                input.filename {
+                    margin-top: var(--heat-js-spacing);
+                }
 
                 div.buttons {
                     text-align: right;
@@ -1497,12 +1501,13 @@ div.heat-js {
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Select
+    Heat.js - Input/Select
     -------------------------------------------------------------------------
 */
 
 div.heat-js {
-    select.select-box {
+    select.input-box,
+    input.input-box {
         background-color: var(--heat-js-input-background-color) !important;
         outline: 0 !important;
         box-shadow: none !important;
@@ -1512,6 +1517,10 @@ div.heat-js {
         color: var(--heat-js-input-text-color) !important;
         width: 100%;
         appearance: none;
+
+        &::placeholder {
+            font-style: italic;
+        }
     }
 }
 

@@ -276,7 +276,7 @@ div.heat-js div.disabled div.configuration div.dialog-contents div.side-containe
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Configuration Dialog
+    Heat.js - Export Dialog
     -------------------------------------------------------------------------
 */
 div.heat-js div.disabled div.export {
@@ -312,6 +312,9 @@ div.heat-js div.disabled div.export div.dialog-contents button.active {
   color: var(--heat-js-button-text-color-hover);
   transition: var(--heat-js-transition);
   font-weight: var(--heat-js-text-bold-weight-active);
+}
+div.heat-js div.disabled div.export div.dialog-contents input.filename {
+  margin-top: var(--heat-js-spacing);
 }
 div.heat-js div.disabled div.export div.dialog-contents div.buttons {
   text-align: right;
@@ -1595,10 +1598,11 @@ div.heat-js label.checkbox span.check-mark::before {
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Select
+    Heat.js - Input/Select
     -------------------------------------------------------------------------
 */
-div.heat-js select.select-box {
+div.heat-js select.input-box,
+div.heat-js input.input-box {
   background-color: var(--heat-js-input-background-color) !important;
   outline: 0 !important;
   box-shadow: none !important;
@@ -1608,6 +1612,10 @@ div.heat-js select.select-box {
   color: var(--heat-js-input-text-color) !important;
   width: 100%;
   appearance: none;
+}
+div.heat-js select.input-box::placeholder,
+div.heat-js input.input-box::placeholder {
+  font-style: italic;
 }
 
 /*

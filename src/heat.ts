@@ -372,8 +372,11 @@ import { Disabled } from "./ts/area/disabled";
 
         DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.text!.selectTypeText! );
 
-        bindingOptions._currentView!.exportDialogExportTypeSelect = DomElement.create( contents, "select", "select-box" ) as HTMLSelectElement;
+        bindingOptions._currentView!.exportDialogExportTypeSelect = DomElement.create( contents, "select", "input-box" ) as HTMLSelectElement;
         bindingOptions._currentView!.exportDialogExportTypeSelect.name = crypto.randomUUID();
+
+        bindingOptions._currentView!.exportDialogExportFilenameInput = DomElement.create( contents, "input", "input-box filename" ) as HTMLInputElement;
+        bindingOptions._currentView!.exportDialogExportFilenameInput.placeholder = _configuration.text!.filenamePlaceholderText!;
 
         let exportType: keyof typeof ExportType;
         let exportOptions: HTMLOptionElement[] = [];
@@ -400,7 +403,7 @@ import { Disabled } from "./ts/area/disabled";
             const selectedExportType: string = bindingOptions._currentView!.exportDialogExportTypeSelect.value;
 
             hideExportDialog( bindingOptions );
-            exportAllData( bindingOptions, selectedExportType );
+            exportAllData( bindingOptions, selectedExportType, bindingOptions._currentView!.exportDialogExportFilenameInput.value );
         };
 
         closeButton.onclick = () => hideExportDialog( bindingOptions );
@@ -412,6 +415,7 @@ import { Disabled } from "./ts/area/disabled";
         Disabled.Background.show( bindingOptions );
 
         if ( Is.defined( bindingOptions._currentView!.exportDialog ) && bindingOptions._currentView!.exportDialog.style.display !== "block" ) {
+            bindingOptions._currentView!.exportDialogExportFilenameInput.value = Char.empty;
             bindingOptions._currentView!.exportDialog.style.display = "block";
         }
 
@@ -2566,7 +2570,7 @@ import { Disabled } from "./ts/area/disabled";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function exportAllData( bindingOptions: BindingOptions, exportType: string = null! ) : void {
+    function exportAllData( bindingOptions: BindingOptions, exportType: string = null!, exportFilename: string = null! ) : void {
         let contents: string = null!;
         const contentsMimeType: string = getExportMimeType( bindingOptions );
         const contentExportType: string = Default.getString( exportType, bindingOptions.exportType! ).toLowerCase();
@@ -2594,7 +2598,7 @@ import { Disabled } from "./ts/area/disabled";
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
             tempLink.setAttribute( "href", `data:${contentsMimeType};charset=utf-8,${encodeURIComponent(contents)}` );
-            tempLink.setAttribute( "download", getExportFilename( bindingOptions, contentExportType ) );
+            tempLink.setAttribute( "download", getExportFilename( bindingOptions, exportFilename, contentExportType ) );
             tempLink.click();
             
             document.body.removeChild( tempLink );
@@ -2816,17 +2820,26 @@ import { Disabled } from "./ts/area/disabled";
         return result;
     }
 
-    function getExportFilename( bindingOptions: BindingOptions, contentExportType: string ) : string {
-        const date: Date = new Date();
-        const datePart: string = `${Str.padNumber( date.getDate() )}${Char.dash}${Str.padNumber( date.getMonth() + 1 )}${Char.dash}${date.getFullYear()}`;
-        const timePart: string = `${Str.padNumber( date.getHours() )}${Char.dash}${Str.padNumber( date.getMinutes() )}`;
-        let filenameStart: string = Char.empty;
+    function getExportFilename( bindingOptions: BindingOptions, exportFilename: string, contentExportType: string ) : string {
+        let filename: string = null!;
 
-        if ( bindingOptions._currentView!.type !== _configuration.text!.unknownTrendText ) {
-            filenameStart = `${bindingOptions._currentView!.type.toLowerCase().replace( / /g, Char.underscore )}${Char.underscore}`;
+        if ( Is.definedString( exportFilename ) ) {
+            filename = `${exportFilename}.${contentExportType.toLowerCase()}`;
+        } else {
+
+            const date: Date = new Date();
+            const datePart: string = `${Str.padNumber( date.getDate() )}${Char.dash}${Str.padNumber( date.getMonth() + 1 )}${Char.dash}${date.getFullYear()}`;
+            const timePart: string = `${Str.padNumber( date.getHours() )}${Char.dash}${Str.padNumber( date.getMinutes() )}`;
+            let filenameStart: string = Char.empty;
+
+            if ( bindingOptions._currentView!.type !== _configuration.text!.unknownTrendText ) {
+                filenameStart = `${bindingOptions._currentView!.type.toLowerCase().replace( / /g, Char.underscore )}${Char.underscore}`;
+            }
+
+            filename = `${filenameStart}${datePart}${Char.underscore}${timePart}.${contentExportType.toLowerCase()}`;
         }
 
-        return `${filenameStart}${datePart}${Char.underscore}${timePart}.${contentExportType.toLowerCase()}`;
+        return filename;
     }
 
     function getCsvValue( text: string ) : string {
