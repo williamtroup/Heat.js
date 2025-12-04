@@ -203,6 +203,11 @@ var DateTime;
         return o;
     }
     e.getDateForMondayOfCurrentWeek = l;
+    function c(e) {
+        const t = new Date;
+        return e.getDate() === t.getDate() && e.getMonth() === t.getMonth() && e.getFullYear() === t.getFullYear();
+    }
+    e.isTodaysDate = c;
 })(DateTime || (DateTime = {}));
 
 var DomElement;
@@ -585,6 +590,7 @@ var Binding;
             e.views.map.keepScrollPositions = Default2.getBoolean(e.views.map.keepScrollPositions, false);
             e.views.map.showDayDateNumbers = Default2.getBoolean(e.views.map.showDayDateNumbers, false);
             e.views.map.showToolTips = Default2.getBoolean(e.views.map.showToolTips, true);
+            e.views.map.highlightCurrentDay = Default2.getBoolean(e.views.map.highlightCurrentDay, false);
             if (Is.invalidOptionArray(e.views.map.monthsToShow)) {
                 e.views.map.monthsToShow = t;
             }
@@ -604,6 +610,7 @@ var Binding;
             e.views.chart.showLineDateNumbers = Default2.getBoolean(e.views.chart.showLineDateNumbers, false);
             e.views.chart.showToolTips = Default2.getBoolean(e.views.chart.showToolTips, true);
             e.views.chart.useGradients = Default2.getBoolean(e.views.chart.useGradients, false);
+            e.views.chart.highlightCurrentDay = Default2.getBoolean(e.views.chart.highlightCurrentDay, false);
             if (Is.invalidOptionArray(e.views.chart.monthsToShow)) {
                 e.views.chart.monthsToShow = t;
             }
@@ -903,7 +910,7 @@ var Disabled;
         }
         ToolTip.renderControl(e);
         f(e);
-        p(e, n);
+        v(e, n);
         if (e.views.chart.enabled) {
             b(e, n);
             e._currentView.chartContents.style.display = "none";
@@ -1084,7 +1091,7 @@ var Disabled;
             }
             if (t.title.showExportButton) {
                 const o = DomElement.createWithHTML(n, "button", "export", e.text.exportButtonSymbolText);
-                o.onclick = () => pe(t);
+                o.onclick = () => ve(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(o, t, e.text.exportButtonText);
                 }
@@ -1303,7 +1310,7 @@ var Disabled;
         }
         return r;
     }
-    function p(t, n) {
+    function v(t, n) {
         t._currentView.mapContents = DomElement.create(t._currentView.element, "div", "map-contents");
         if (t.views.chart.enabled) {
             x(t);
@@ -1378,7 +1385,7 @@ var Disabled;
                         if (d) {
                             let n = null;
                             if (G(t.views.map.daysToShow, w)) {
-                                n = v(t, u, e - m, o, l, a);
+                                n = p(t, u, e - m, o, l, a);
                             }
                             if ((e + 1) % 7 === 0) {
                                 if (t.views.map.showDaysInReverseOrder) {
@@ -1436,7 +1443,7 @@ var Disabled;
             }
         }
     }
-    function v(e, t, o, i, s, r) {
+    function p(e, t, o, i, s, r) {
         const a = o + 1;
         const l = DomElement.create(t, "div", "day");
         const c = new Date(s, i, a);
@@ -1466,6 +1473,9 @@ var Disabled;
             } else {
                 DomElement.addClass(l, f.cssClassName);
             }
+        }
+        if (e.views.map.highlightCurrentDay && DateTime.isTodaysDate(c)) {
+            DomElement.addClass(l, "today");
         }
         return l;
     }
@@ -1635,6 +1645,9 @@ var Disabled;
             } else {
                 DomElement.addClass(l, f.cssClassName);
             }
+        }
+        if (t.views.chart.highlightCurrentDay && DateTime.isTodaysDate(a)) {
+            DomElement.addClass(l, "today");
         }
         if (t.views.chart.useGradients) {
             DomElement.adGradientEffect(t._currentView.element, l);
@@ -2582,12 +2595,12 @@ var Disabled;
         };
         n.readAsText(e);
     }
-    function pe(e, t = null) {
+    function ve(e, t = null) {
         let n = null;
         const o = Me(e);
         const i = Default2.getString(t, e.exportType).toLowerCase();
         if (i === "csv") {
-            n = ve(e);
+            n = pe(e);
         } else if (i === "json") {
             n = Te(e);
         } else if (i === "xml") {
@@ -2614,7 +2627,7 @@ var Disabled;
             Trigger.customEvent(e.events.onExport, e._currentView.element);
         }
     }
-    function ve(t) {
+    function pe(t) {
         const n = Ee(t);
         const o = [];
         for (const e in n) {
@@ -3041,7 +3054,7 @@ var Disabled;
         },
         export: function(e, t = null) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                pe(n[e].options, t);
+                ve(n[e].options, t);
             }
             return Fe;
         },

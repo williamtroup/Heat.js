@@ -83,4 +83,10 @@ export namespace DateTime {
 
         return monday;
     }
+
+    export function isTodaysDate( date: Date ) : boolean {
+        const today: Date = new Date();
+
+        return date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
+    }
 }

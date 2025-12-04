@@ -27,6 +27,7 @@
   --heat-js-color-snow-white: #F5F5F5;
   --heat-js-color-gray: #AAAAAA;
   --heat-js-color-light-gray: #BBBBBB;
+  --heat-js-color-highlight: 245, 245, 245;
   --heat-js-container-background-color: #22272e;
   --heat-js-container-border-color: #454c56;
   --heat-js-dialog-background-color: var(--heat-js-container-background-color);
@@ -738,6 +739,9 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns {
   display: flex;
   justify-content: space-between;
 }
+div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.today {
+  animation: highlight-effect 2s infinite;
+}
 div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day,
 div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day-disabled {
   display: flex;
@@ -855,6 +859,9 @@ div.heat-js div.chart-contents div.chart div.y-labels div.label-100 {
 div.heat-js div.chart-contents div.chart div.day-lines {
   flex: 1;
   border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.today {
+  animation: highlight-effect 2s infinite;
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line-number {
   font-size: var(--heat-js-spacing-day-font-size);
@@ -1619,6 +1626,17 @@ div.heat-js-tooltip {
   }
   100% {
     opacity: 1;
+  }
+}
+@keyframes highlight-effect {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--heat-js-color-highlight), 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 var(--heat-js-spacing) rgba(var(--heat-js-color-highlight), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--heat-js-color-highlight), 0);
   }
 }
 

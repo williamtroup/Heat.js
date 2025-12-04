@@ -936,6 +936,10 @@ import { Disabled } from "./ts/area/disabled";
             }
         }
 
+        if ( bindingOptions.views!.map!.highlightCurrentDay && DateTime.isTodaysDate( date ) ) {
+            DomElement.addClass( day, "today" );
+        }
+
         return day;
     }
 
@@ -1162,6 +1166,10 @@ import { Disabled } from "./ts/area/disabled";
             } else {
                 DomElement.addClass( dayLine, useColorRange.cssClassName! );
             }
+        }
+
+        if ( bindingOptions.views!.chart!.highlightCurrentDay && DateTime.isTodaysDate( date ) ) {
+            DomElement.addClass( dayLine, "today" );
         }
 
         if ( bindingOptions.views!.chart!.useGradients ) {

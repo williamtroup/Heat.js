@@ -272,6 +272,7 @@ export namespace Binding {
             options.views!.map!.keepScrollPositions = Default.getBoolean( options.views!.map!.keepScrollPositions, false );
             options.views!.map!.showDayDateNumbers = Default.getBoolean( options.views!.map!.showDayDateNumbers, false );
             options.views!.map!.showToolTips = Default.getBoolean( options.views!.map!.showToolTips, true );
+            options.views!.map!.highlightCurrentDay = Default.getBoolean( options.views!.map!.highlightCurrentDay, false );
 
             if ( Is.invalidOptionArray( options.views!.map!.monthsToShow ) ) {
                 options.views!.map!.monthsToShow = _default_MonthsToShow;
@@ -295,6 +296,7 @@ export namespace Binding {
             options.views!.chart!.showLineDateNumbers = Default.getBoolean( options.views!.chart!.showLineDateNumbers, false );
             options.views!.chart!.showToolTips = Default.getBoolean( options.views!.chart!.showToolTips, true );
             options.views!.chart!.useGradients = Default.getBoolean( options.views!.chart!.useGradients, false );
+            options.views!.chart!.highlightCurrentDay = Default.getBoolean( options.views!.chart!.highlightCurrentDay, false );
 
             if ( Is.invalidOptionArray( options.views!.chart!.monthsToShow ) ) {
                 options.views!.chart!.monthsToShow = _default_MonthsToShow;
