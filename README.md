@@ -22,7 +22,7 @@ Heat.js
 - 😏 Zero-dependencies and extremely lightweight!
 - 🦾 100% TypeScript, allowing greater support for React, Angular, and other libraries!
 - 💻 Full API available via public functions.
-- 🎏 51 language translations available!
+- 🎏 52 language translations available!
 - 📱 Fully styled in CSS/SASS, fully responsive, and compatible with the Bootstrap library!
 - 🌈 Full CSS theme support (using :root variables), with dark and light themes (12 available by default).
 - 🔍 5 views supported: Map, Chart, Days, Months, and Statistics!
@@ -109,6 +109,7 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `th` Thai
 - `tr` Turkish
 - `uk` Ukrainian
+- `vi` Vietnamese
 <br>
 <br>
 
