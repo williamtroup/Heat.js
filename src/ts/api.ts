@@ -355,7 +355,7 @@ export type PublicApi = {
      * @fires       onViewSwitch
      * 
      * @param       {string}    elementId                                   The Heat.js element ID.
-     * @param       {string}    viewName                                    The name of the view to switch to (either "map", "chart", or "statistics").
+     * @param       {string}    viewName                                    The name of the view to switch to (either "map", "chart", "days", "months", or "statistics").
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
