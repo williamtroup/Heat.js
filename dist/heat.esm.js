@@ -676,6 +676,7 @@ var Binding;
             e.yearlyStatistics.showTotalThisWeek = Default2.getBoolean(e.yearlyStatistics.showTotalThisWeek, true);
             e.yearlyStatistics.showTotalThisMonth = Default2.getBoolean(e.yearlyStatistics.showTotalThisMonth, true);
             e.yearlyStatistics.showTotalThisYear = Default2.getBoolean(e.yearlyStatistics.showTotalThisYear, true);
+            e.yearlyStatistics.showOnlyForCurrentYear = Default2.getBoolean(e.yearlyStatistics.showOnlyForCurrentYear, false);
             return e.yearlyStatistics;
         }
         function y(e) {
@@ -1235,57 +1236,57 @@ var Disabled;
     }
     function y(t) {
         const o = new Date;
-        if (t.yearlyStatistics.enabled) {
-            const i = DomElement.create(t._currentView.element, "div", "yearly-statistics", t._currentView.mapContents);
-            const s = t._currentView.year === o.getFullYear();
+        const i = t._currentView.year === o.getFullYear();
+        if (t.yearlyStatistics.enabled && (!t.yearlyStatistics.showOnlyForCurrentYear || i)) {
+            const s = DomElement.create(t._currentView.element, "div", "yearly-statistics", t._currentView.mapContents);
             const r = Le(t);
             const a = Ae(t);
             if (t.yearlyStatistics.showTotalToday) {
                 let a = n[t._currentView.element.id].typeData[t._currentView.type][DateTime.toStorageDate(o)];
-                const l = DomElement.create(i, "div", "statistics-box");
+                const l = DomElement.create(s, "div", "statistics-box");
                 const c = DateTime.getWeekdayNumber(o) + 1;
                 if (!Is.defined(a) || !G(r, c)) {
                     a = 0;
                 }
-                const u = s ? Str.friendlyNumber(a) : e.text.unknownText;
+                const u = i ? Str.friendlyNumber(a) : e.text.unknownText;
                 DomElement.createWithHTML(l, "div", "statistics-box-title", `${e.text.totalTodayText}${":"}`);
                 DomElement.createWithHTML(l, "div", "statistics-box-count", u);
             }
             if (t.yearlyStatistics.showTotalThisWeek) {
                 let n = 0;
-                if (s) {
+                if (i) {
                     const e = DateTime.getDateForMondayOfCurrentWeek();
                     const o = new Date(e);
                     o.setDate(e.getDate() + 7);
                     n = D(t, r, a, e, o);
                 }
-                const o = s ? Str.friendlyNumber(n) : e.text.unknownText;
-                const l = DomElement.create(i, "div", "statistics-box");
+                const o = i ? Str.friendlyNumber(n) : e.text.unknownText;
+                const l = DomElement.create(s, "div", "statistics-box");
                 DomElement.createWithHTML(l, "div", "statistics-box-title", `${e.text.totalThisWeekText}${":"}`);
                 DomElement.createWithHTML(l, "div", "statistics-box-count", o);
             }
             if (t.yearlyStatistics.showTotalThisMonth) {
                 let n = 0;
-                if (s) {
+                if (i) {
                     const e = new Date(o.getFullYear(), o.getMonth(), 1);
                     const i = new Date(o.getFullYear(), o.getMonth(), DateTime.getTotalDaysInMonth(o.getFullYear(), o.getMonth()) + 1);
                     n = D(t, r, a, e, i);
                 }
-                const l = s ? Str.friendlyNumber(n) : e.text.unknownText;
-                const c = DomElement.create(i, "div", "statistics-box");
+                const l = i ? Str.friendlyNumber(n) : e.text.unknownText;
+                const c = DomElement.create(s, "div", "statistics-box");
                 DomElement.createWithHTML(c, "div", "statistics-box-title", `${e.text.totalThisMonthText}${":"}`);
                 DomElement.createWithHTML(c, "div", "statistics-box-count", l);
             }
             if (t.yearlyStatistics.showTotalThisYear) {
                 const n = new Date(t._currentView.year, t.startMonth, 1);
                 const o = new Date(t._currentView.year + 1, t.startMonth, 1);
-                const s = D(t, r, a, n, o);
-                const l = DomElement.create(i, "div", "statistics-box");
+                const i = D(t, r, a, n, o);
+                const l = DomElement.create(s, "div", "statistics-box");
                 DomElement.createWithHTML(l, "div", "statistics-box-title", `${e.text.totalThisYearText}${":"}`);
-                DomElement.createWithHTML(l, "div", "statistics-box-count", Str.friendlyNumber(s));
+                DomElement.createWithHTML(l, "div", "statistics-box-count", Str.friendlyNumber(i));
             }
-            if (i.innerHTML === "") {
-                i.parentNode.removeChild(i);
+            if (s.innerHTML === "") {
+                s.parentNode.removeChild(s);
             }
         }
     }

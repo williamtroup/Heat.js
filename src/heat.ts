@@ -625,10 +625,10 @@ import { Disabled } from "./ts/area/disabled";
 
     function renderControlYearStatistics( bindingOptions: BindingOptions ) : void {
         const today: Date = new Date();
+        const isCurrentYear: boolean = bindingOptions._currentView!.year === today.getFullYear();
 
-        if ( bindingOptions.yearlyStatistics!.enabled ) {
+        if ( bindingOptions.yearlyStatistics!.enabled && ( !bindingOptions.yearlyStatistics!.showOnlyForCurrentYear || isCurrentYear ) ) {
             const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics", bindingOptions._currentView!.mapContents );
-            const isCurrentYear: boolean = bindingOptions._currentView!.year === today.getFullYear();
             const daysToShow: number[] = getDaysToShowForView( bindingOptions );
             const monthsToShow: number[] = getMonthsToShowForView( bindingOptions );
 

@@ -280,6 +280,7 @@ export type BindingOptionsYearlyStatistics = {
     showTotalThisWeek?: boolean;
     showTotalThisMonth?: boolean;
     showTotalThisYear?: boolean;
+    showOnlyForCurrentYear?: boolean;
 };
 
 export type BindingOptionsEvents = {

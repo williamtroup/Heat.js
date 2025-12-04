@@ -383,6 +383,7 @@ export namespace Binding {
             options.yearlyStatistics!.showTotalThisWeek = Default.getBoolean( options.yearlyStatistics!.showTotalThisWeek, true );
             options.yearlyStatistics!.showTotalThisMonth = Default.getBoolean( options.yearlyStatistics!.showTotalThisMonth, true );
             options.yearlyStatistics!.showTotalThisYear = Default.getBoolean( options.yearlyStatistics!.showTotalThisYear, true );
+            options.yearlyStatistics!.showOnlyForCurrentYear = Default.getBoolean( options.yearlyStatistics!.showOnlyForCurrentYear, false );
 
             return options.yearlyStatistics!;
         }
