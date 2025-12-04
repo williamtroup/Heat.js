@@ -392,6 +392,19 @@ export type PublicApi = {
      */
     updateOptions: ( elementId: string, newOptions: BindingOptions ) => PublicApi;
 
+    /**
+     * getActiveView().
+     * 
+     * Gets the active view being displayed.
+     * 
+     * @public
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID.
+     * 
+     * @returns     {string}                                                The view being displayed.
+     */
+    getActiveView: ( elementId: string ) => string;
+    
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

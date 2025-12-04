@@ -3349,6 +3349,30 @@ import { Disabled } from "./ts/area/disabled";
             return _public;
         },
 
+        getActiveView: function ( elementId: string ) : string {
+            let result: string = Char.empty;
+
+            if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
+    
+                if ( bindingOptions._currentView!.view ===  ViewId.map ) {
+                    result = ViewName.map;
+                } else if ( bindingOptions._currentView!.view ===  ViewId.chart ) {
+                    result = ViewName.chart;
+                } else if ( bindingOptions._currentView!.view ===  ViewId.days ) {
+                    result = ViewName.days;
+                } else if ( bindingOptions._currentView!.view ===  ViewId.months ) {
+                    result = ViewName.months;
+                } else if ( bindingOptions._currentView!.view ===  ViewId.statistics ) {
+                    result = ViewName.statistics;
+                } else {
+                    result = ViewName.map;
+                }
+            }
+    
+            return result;
+        },
+
 
         /*
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

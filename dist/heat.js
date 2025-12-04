@@ -3217,6 +3217,26 @@ var Disabled;
             }
             return Fe;
         },
+        getActiveView: function(e) {
+            let t = "";
+            if (Is.definedString(e) && n.hasOwnProperty(e)) {
+                const o = n[e].options;
+                if (o._currentView.view === 1) {
+                    t = "map";
+                } else if (o._currentView.view === 2) {
+                    t = "chart";
+                } else if (o._currentView.view === 3) {
+                    t = "days";
+                } else if (o._currentView.view === 5) {
+                    t = "months";
+                } else if (o._currentView.view === 4) {
+                    t = "statistics";
+                } else {
+                    t = "map";
+                }
+            }
+            return t;
+        },
         destroyAll: function() {
             for (const e in n) {
                 if (n.hasOwnProperty(e)) {

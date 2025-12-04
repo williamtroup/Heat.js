@@ -145,7 +145,11 @@
             <button class="btn btn-primary" onclick="$heat.updateOptions( 'heat-map-2', { 'title': { 'showText': false } } );">Update Options (2)</button>
             <button class="btn btn-primary" onclick="$heat.updateOptions( 'heat-map-3', { 'title': { 'showText': false } } );">Update Options (3)</button>
             <button class="btn btn-primary" onclick="$heat.updateOptions( 'heat-map-4', { 'title': { 'showText': false } } );">Update Options (4)</button>
-            <br />
+            <br>
+            <button class="btn btn-primary" onclick="console.log( $heat.getActiveView( 'heat-map-1' ) );">Get Active Year (1)</button>
+            <button class="btn btn-primary" onclick="console.log( $heat.getActiveView( 'heat-map-2' ) );">Get Active Year (2)</button>
+            <button class="btn btn-primary" onclick="console.log( $heat.getActiveView( 'heat-map-3' ) );">Get Active Year (3)</button>
+            <button class="btn btn-primary" onclick="console.log( $heat.getActiveView( 'heat-map-4' ) );">Get Active Year (4)</button>
 
             <h2>Destroy:</h2>
             <button class="btn btn-primary" onclick="$heat.destroy( 'heat-map-1' );">Destroy (1)</button>
