@@ -3292,6 +3292,8 @@ import { Disabled } from "./ts/area/disabled";
                     view = ViewId.chart;
                 } else if ( viewName.toLowerCase() === ViewName.days ) {
                     view = ViewId.days;
+                } else if ( viewName.toLowerCase() === ViewName.months ) {
+                    view = ViewId.months;
                 } else if ( viewName.toLowerCase() === ViewName.statistics ) {
                     view = ViewId.statistics;
                 } else {

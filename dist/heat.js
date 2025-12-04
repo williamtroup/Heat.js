@@ -3172,6 +3172,8 @@ var Disabled;
                     i = 2;
                 } else if (t.toLowerCase() === "days") {
                     i = 3;
+                } else if (t.toLowerCase() === "months") {
+                    i = 5;
                 } else if (t.toLowerCase() === "statistics") {
                     i = 4;
                 } else {
