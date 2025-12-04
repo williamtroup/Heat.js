@@ -12,26 +12,25 @@
 
 ## What features does Heat.js have?
 
-- Zero-dependencies and extremely lightweight!
-- Written in TypeScript, allowing greater support for React, Angular, and other libraries!
-- Full API available via public functions.
-- Fully styled in CSS/SASS, fully responsive, and compatible with the Bootstrap library.
-- Full CSS theme support (using :root variables).
-- 5 views supported: Map, Chart, Days, Months, and Statistics!
-- Yearly statistics (shows total for day, week, month, and year).
-- Auto spawning support (when HTML is added via 3rd party libraries).
-- Configuration dialog support per view.
-- Fully configurable per DOM element.
-- Toggling colors on/off support.
-- Export all data to CSV, JSON, XML, TXT, HTML, MD, TSV, and YAML.
-- Import data from JSON, TXT, CSV, TSV, MD, and YAML.
-- 51 language translations available!
-- Trend types allows data to be split up and viewed separately.
-- Customizable tooltips.
-- 12 additional themes available (for dark and light mode).
-- Data pulling (does not support trend types).
-- Color ranges support different colors per view.
-- Custom year month range support (Jan-Dec, or Apr-Mar).
+- 😏 Zero-dependencies and extremely lightweight!
+- 🦾 100% TypeScript, allowing greater support for React, Angular, and other libraries!
+- 💻 Full API available via public functions.
+- 🎏 51 language translations available!
+- 📱 Fully styled in CSS/SASS, fully responsive, and compatible with the Bootstrap library!
+- 🌈 Full CSS theme support (using :root variables), with dark and light themes (12 available by default).
+- 🔍 5 views supported: Map, Chart, Days, Months, and Statistics!
+- 🔍 Yearly statistics (shows total for day, week, month, and year).
+- 📃 Auto spawning support (when HTML is added via 3rd party libraries).
+- ☑️ Configuration dialog support per view.
+- ⭐ Fully configurable per DOM element via binding options.
+- 🎥 Toggling colors on/off support.
+- 🔨 Export all data to CSV, JSON, XML, TXT, HTML, MD, TSV, and YAML.
+- 🔨 Import data from JSON, TXT, CSV, TSV, MD, and YAML.
+- 💁 Trend types allows data to be split up and viewed separately.
+- ❓ Customizable tooltips.
+- 💧 Data pulling (does not support trend types).
+- 🌈 Color ranges support different colors per view.
+- 💥 Custom year month range support (Jan-Dec, or Apr-Mar).
 
 
 ## Where can I find the documentation?
