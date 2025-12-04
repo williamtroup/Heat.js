@@ -184,7 +184,7 @@ export type PublicApi = {
      * @fires       onExport
      * 
      * @param       {string}    elementId                                   The Heat.js element ID whose data should be exported.
-     * @param       {string}    [exportType]                                The export type to use (defaults to "csv", also accepts "json", "xml", and "txt").
+     * @param       {string}    [exportType]                                The export type to use (defaults to "json", also accepts "csv", "xml", "txt", "md", "html", "tsv", and "yaml").
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
