@@ -5,7 +5,7 @@
     --heat-js-holiday-border-color: rgba( 31, 81, 255, 0.5 );
     --heat-js-holiday-text-color: var(--heat-js-color-white);
 
-    /* Days - Colors */
+    /* View - Map / Chart - Day - Colors */
     --heat-js-day-color-1-background-color: rgba( 191, 64, 191, 0.25 );
     --heat-js-day-color-1-border-color: rgba( 191, 64, 191, 0.15 );
     --heat-js-day-color-1-text-color: var(--heat-js-color-white);

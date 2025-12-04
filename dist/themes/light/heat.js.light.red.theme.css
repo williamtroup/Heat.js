@@ -11,7 +11,7 @@
     --heat-js-container-background-color: #e8e6e6;
     --heat-js-container-border-color: var(--heat-js-color-white);
 
-    /* ToolTip */
+    /* ToolTips */
     --heat-js-tooltip-background-color: var(--heat-js-container-background-color);
     --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
     --heat-js-tooltip-text-color: var(--heat-js-color-white);
@@ -36,12 +36,12 @@
     --heat-js-holiday-border-color: rgba( 31, 81, 255, 0.5 );
     --heat-js-holiday-text-color: var(--heat-js-color-black);
 
-    /* Days */
+    /* View - Map / Chart - Day - Defaults */
     --heat-js-day-background-color: var(--heat-js-color-black);
     --heat-js-day-border-color: var(--heat-js-color-gray);
     --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
 
-    /* Days - Colors */
+    /* View - Map / Chart - Day - Colors */
     --heat-js-day-color-1-background-color: rgba( 255, 0, 0, 0.25 );
     --heat-js-day-color-1-border-color: rgba( 255, 0, 0, 0.15 );
     --heat-js-day-color-1-text-color: var(--heat-js-color-white);
@@ -55,7 +55,7 @@
     --heat-js-day-color-4-border-color: rgba( 255, 0, 0, 0.75 );
     --heat-js-day-color-4-text-color: var(--heat-js-color-black);
 
-    /* Button */
+    /* Buttons */
     --heat-js-button-background-color: var(--heat-js-color-white);
     --heat-js-button-border-color: var(--heat-js-container-border-color);
     --heat-js-button-text-color: var(--heat-js-color-black);
@@ -64,7 +64,7 @@
     --heat-js-button-background-color-active: #616b79;
     --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
 
-    /* CheckBox */
+    /* CheckBoxes */
     --heat-js-checkbox-background-color-checked: var(--heat-js-day-color-4-background-color);
 
     /* Scroll Bars */

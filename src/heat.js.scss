@@ -41,19 +41,12 @@
     --heat-js-container-background-color: #22272e;
     --heat-js-container-border-color: #454c56;
 
-    // Dialog
+    // Dialogs
     --heat-js-dialog-background-color: var(--heat-js-container-background-color);
     --heat-js-dialog-border-color: var(--heat-js-container-border-color);
     --heat-js-dialog-text-color: var(--heat-js-color-white);
 
-    // Year
-    --heat-js-years-background-color: #11161e;
-    --heat-js-years-border-color: var(--heat-js-container-border-color);
-    --heat-js-years-text-color: var(--heat-js-color-white);
-    --heat-js-years-background-color-hover: var(--heat-js-button-background-color-hover);
-    --heat-js-years-text-color-hover: var(--heat-js-color-snow-white);
-
-    // Title
+    // Title Bar / Drop Down Menu
     --heat-js-title-opener-text-color-hover: var(--heat-js-color-gray);
     --heat-js-title-background-color: var(--heat-js-years-background-color);
     --heat-js-title-border-color: var(--heat-js-container-border-color);
@@ -61,7 +54,14 @@
     --heat-js-title-background-color-hover: var(--heat-js-button-background-color-hover);
     --heat-js-title-text-color-hover: var(--heat-js-color-snow-white);
 
-    // ToolTip
+    // Title Bar - Year Drop Down Menu
+    --heat-js-years-background-color: #11161e;
+    --heat-js-years-border-color: var(--heat-js-container-border-color);
+    --heat-js-years-text-color: var(--heat-js-color-white);
+    --heat-js-years-background-color-hover: var(--heat-js-button-background-color-hover);
+    --heat-js-years-text-color-hover: var(--heat-js-color-snow-white);
+
+    // ToolTips
     --heat-js-tooltip-background-color: var(--heat-js-years-background-color);
     --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
     --heat-js-tooltip-text-color: var(--heat-js-color-white);
@@ -71,7 +71,7 @@
     --heat-js-holiday-border-color: rgba( 210, 43, 43, 0.5 );
     --heat-js-holiday-text-color: var(--heat-js-color-black);
 
-    // Days
+    // View - Map / Chart - Day - Defaults
     --heat-js-day-background-color: #2d333b;
     --heat-js-day-border-color: var(--heat-js-container-border-color);
     --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
@@ -81,7 +81,7 @@
     --heat-js-day-size: 1.2rem;
     --heat-js-day-chart-width: 12px;
 
-    // Days - Colors
+    // View - Map / Chart - Day - Colors
     --heat-js-day-color-1-background-color: rgba( 80, 200, 120, 0.25 );
     --heat-js-day-color-1-border-color: rgba( 80, 200, 120, 0.15 );
     --heat-js-day-color-1-text-color: var(--heat-js-color-white);
@@ -105,7 +105,7 @@
     --heat-js-view-months-border-color: var(--heat-js-day-color-4-border-color);
     --heat-js-view-months-text-color: var(--heat-js-day-color-4-text-color);
 
-    // Button
+    // Buttons
     --heat-js-button-background-color: var(--heat-js-day-background-color);
     --heat-js-button-border-color: var(--heat-js-container-border-color);
     --heat-js-button-text-color: var(--heat-js-color-white);
@@ -114,7 +114,7 @@
     --heat-js-button-background-color-active: #616b79;
     --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
 
-    // Input/Select
+    // Inputs/Selects
     --heat-js-input-background-color: var(--heat-js-day-background-color);
     --heat-js-input-border-color: var(--heat-js-container-border-color);
     --heat-js-input-text-color: var(--heat-js-color-white);
@@ -124,7 +124,7 @@
     --heat-js-yearly-statistics-box-border-color: var(--heat-js-container-border-color);
     --heat-js-yearly-statistics-box-text-color: var(--heat-js-color-white);
 
-    // CheckBox
+    // CheckBoxes
     --heat-js-checkbox-background-color-checked: var(--heat-js-day-color-4-background-color);
     --heat-js-checkbox-background-color: var(--heat-js-color-black);
     --heat-js-checkbox-border-color-checked: var(--heat-js-checkbox-background-color-checked);
