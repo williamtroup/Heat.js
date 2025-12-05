@@ -11,7 +11,7 @@
  */
 
 
-export const enum Char {
+export enum Char {
     empty = "",
     space = " ",
     newLine = "\n",
@@ -25,11 +25,11 @@ export const enum Char {
     pipe = "|",
 }
 
-export const enum Value {
+export enum Value {
     notFound = -1,
 }
 
-export const enum ViewId {
+export enum ViewId {
     map = 1,
     chart = 2,
     days = 3,
@@ -37,7 +37,7 @@ export const enum ViewId {
     months = 5,
 }
 
-export const enum ViewName {
+export enum ViewName {
     map = "map",
     chart = "chart",
     days = "days",
@@ -54,4 +54,8 @@ export enum ExportType {
     md = "md",
     tsv = "tsv",
     yaml = "yaml",
+}
+
+export enum KeyCode {
+    enter = "Enter",
 }

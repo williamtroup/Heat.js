@@ -25,7 +25,7 @@ import {
 
 import { type PublicApi } from "./ts/api";
 import { Constant } from "./ts/constant"
-import { ExportType, Char, Value, ViewId, ViewName } from "./ts/data/enum";
+import { ExportType, Char, Value, ViewId, ViewName, KeyCode } from "./ts/data/enum";
 import { Is } from "./ts/data/is"
 import { Default } from "./ts/data/default"
 import { DateTime } from "./ts/data/datetime"
@@ -386,7 +386,7 @@ import { Disabled } from "./ts/area/disabled";
 
         renderExportDialogOptions( bindingOptions );
 
-        okButton.onclick = () => {
+        const exportDataFunc: Function = () => {
             const selectedExportType: string = bindingOptions._currentView!.exportDialogExportTypeSelect.value;
             const exportFilename: string = bindingOptions._currentView!.exportDialogExportFilenameInput.value;
             const exportOnlyDataBeingViewed: boolean = bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
@@ -395,6 +395,13 @@ import { Disabled } from "./ts/area/disabled";
             exportAllData( bindingOptions, selectedExportType, exportFilename, exportOnlyDataBeingViewed );
         };
 
+        bindingOptions._currentView!.exportDialogExportFilenameInput.onkeydown = ( ev: KeyboardEvent ) => {
+            if ( ev.key === KeyCode.enter ) {
+                exportDataFunc();
+            }
+        };
+
+        okButton.onclick = () => exportDataFunc();
         closeButton.onclick = () => hideExportDialog( bindingOptions );
 
         ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );

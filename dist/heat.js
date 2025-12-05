@@ -1083,13 +1083,19 @@ var Disabled;
         const s = DomElement.create(o, "div", "buttons");
         const r = DomElement.createWithHTML(s, "button", "", e.text.exportButtonText);
         m(t);
-        r.onclick = () => {
+        const a = () => {
             const e = t._currentView.exportDialogExportTypeSelect.value;
             const n = t._currentView.exportDialogExportFilenameInput.value;
             const o = t._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
             h(t);
             be(t, e, n, o);
         };
+        t._currentView.exportDialogExportFilenameInput.onkeydown = e => {
+            if (e.key === "Enter") {
+                a();
+            }
+        };
+        r.onclick = () => a();
         i.onclick = () => h(t);
         ToolTip.add(i, t, e.text.closeToolTipText);
     }
