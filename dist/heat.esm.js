@@ -328,12 +328,12 @@ var DomElement;
         return a;
     }
     e.createCheckBox = d;
-    function f(t, n) {
+    function m(t, n) {
         const o = e.getStyleValueByName(t, "background-color");
         const i = e.getStyleValueByName(n, "background-color");
         n.style.background = `linear-gradient(to top, ${o}, ${i})`;
     }
-    e.adGradientEffect = f;
+    e.adGradientEffect = m;
 })(DomElement || (DomElement = {}));
 
 var ToolTip;
@@ -471,8 +471,8 @@ var Binding;
             t.guide = c(t);
             t.tooltip = u(t);
             t.views.map = d(t);
-            t.views.chart = f(t);
-            t.views.days = m(t);
+            t.views.chart = m(t);
+            t.views.days = f(t);
             t.views.months = w(t);
             t.views.statistics = h(t);
             t.yearlyStatistics = g(t);
@@ -585,7 +585,6 @@ var Binding;
         function u(e) {
             e.tooltip = Default2.getObject(e.tooltip, {});
             e.tooltip.delay = Default2.getNumber(e.tooltip.delay, 750);
-            e.tooltip.dayText = Default2.getString(e.tooltip.dayText, "{d}{o} {mmmm} {yyyy}");
             return e.tooltip;
         }
         function d(e) {
@@ -603,6 +602,7 @@ var Binding;
             e.views.map.showDayDateNumbers = Default2.getBoolean(e.views.map.showDayDateNumbers, false);
             e.views.map.showToolTips = Default2.getBoolean(e.views.map.showToolTips, true);
             e.views.map.highlightCurrentDay = Default2.getBoolean(e.views.map.highlightCurrentDay, false);
+            e.views.map.dayToolTipText = Default2.getString(e.views.map.dayToolTipText, "{d}{o} {mmmm} {yyyy}");
             if (Is.invalidOptionArray(e.views.map.monthsToShow)) {
                 e.views.map.monthsToShow = t;
             }
@@ -611,7 +611,7 @@ var Binding;
             }
             return e.views.map;
         }
-        function f(e) {
+        function m(e) {
             e.views.chart = Default2.getObject(e.views.chart, {});
             e.views.chart.enabled = Default2.getBoolean(e.views.chart.enabled, true);
             e.views.chart.showChartYLabels = Default2.getBoolean(e.views.chart.showChartYLabels, true);
@@ -623,6 +623,7 @@ var Binding;
             e.views.chart.showToolTips = Default2.getBoolean(e.views.chart.showToolTips, true);
             e.views.chart.useGradients = Default2.getBoolean(e.views.chart.useGradients, false);
             e.views.chart.highlightCurrentDay = Default2.getBoolean(e.views.chart.highlightCurrentDay, false);
+            e.views.chart.dayToolTipText = Default2.getString(e.views.chart.dayToolTipText, "{d}{o} {mmmm} {yyyy}");
             if (Is.invalidOptionArray(e.views.chart.monthsToShow)) {
                 e.views.chart.monthsToShow = t;
             }
@@ -631,7 +632,7 @@ var Binding;
             }
             return e.views.chart;
         }
-        function m(e) {
+        function f(e) {
             e.views.days = Default2.getObject(e.views.days, {});
             e.views.days.enabled = Default2.getBoolean(e.views.days.enabled, true);
             e.views.days.showChartYLabels = Default2.getBoolean(e.views.days.showChartYLabels, true);
@@ -926,7 +927,7 @@ var Disabled;
             u(e);
         }
         if (e.title.showExportButton) {
-            m(e);
+            f(e);
         }
         ToolTip.renderControl(e);
         y(e);
@@ -980,7 +981,7 @@ var Disabled;
         DomElement.createWithHTML(r, "div", "side-container-title-text", `${e.text.visibleMonthsText}${":"}`);
         const a = DomElement.create(r, "div", "side-container");
         const l = DomElement.create(r, "div", "side-container");
-        i.onclick = () => f(t);
+        i.onclick = () => m(t);
         for (let n = 0; n < 7; n++) {
             t._currentView.configurationDialogDayCheckBoxes[n] = DomElement.createCheckBox(s, e.text.dayNames[n], n.toString());
         }
@@ -1014,7 +1015,7 @@ var Disabled;
         }
         ToolTip.hide(e);
     }
-    function f(e) {
+    function m(e) {
         Disabled.Background.hide(e);
         if (Is.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "none") {
             e._currentView.configurationDialog.style.display = "none";
@@ -1071,7 +1072,7 @@ var Disabled;
             ToolTip.hide(e);
         }
     }
-    function m(t) {
+    function f(t) {
         t._currentView.exportDialog = DomElement.create(t._currentView.disabledBackground, "div", "dialog export");
         const n = DomElement.create(t._currentView.exportDialog, "div", "dialog-title-bar");
         const o = DomElement.create(t._currentView.exportDialog, "div", "dialog-contents");
@@ -1439,7 +1440,7 @@ var Disabled;
                 }
             }
             const r = DomElement.create(o, "div", "months");
-            const a = me(t);
+            const a = fe(t);
             for (let n = t.startMonth; n < 12 + t.startMonth; n++) {
                 let o = n;
                 let l = i;
@@ -1453,12 +1454,12 @@ var Disabled;
                     let c = DateTime.getTotalDaysInMonth(l, o);
                     let u = DomElement.create(i, "div", "day-column");
                     let d = false;
-                    const f = new Date(l, o, 1);
-                    const m = DateTime.getWeekdayNumber(f);
+                    const m = new Date(l, o, 1);
+                    const f = DateTime.getWeekdayNumber(m);
                     let w = 1;
-                    c += m;
+                    c += f;
                     for (let e = 0; e < c; e++) {
-                        if (e >= m) {
+                        if (e >= f) {
                             d = true;
                         } else {
                             if (K(t.views.map.daysToShow, w)) {
@@ -1468,7 +1469,7 @@ var Disabled;
                         if (d) {
                             let n = null;
                             if (K(t.views.map.daysToShow, w)) {
-                                n = _(t, u, e - m, o, l, a);
+                                n = _(t, u, e - f, o, l, a);
                             }
                             if ((e + 1) % 7 === 0) {
                                 if (t.views.map.showDaysInReverseOrder) {
@@ -1506,9 +1507,9 @@ var Disabled;
                         }
                     }
                     if (s && Is.defined(t._currentView.dayWidth)) {
-                        if (m > 0 && !t.views.map.showMonthDayGaps) {
+                        if (f > 0 && !t.views.map.showMonthDayGaps) {
                             n.style.marginLeft = `${-t._currentView.dayWidth}px`;
-                        } else if (m === 0 && t.views.map.showMonthDayGaps) {
+                        } else if (f === 0 && t.views.map.showMonthDayGaps) {
                             n.style.marginLeft = `${t._currentView.dayWidth}px`;
                         }
                     }
@@ -1535,7 +1536,7 @@ var Disabled;
         d = Default2.getNumber(d, 0);
         l.setAttribute(Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber(a)}-${Str.padNumber(i + 1)}-${s}`);
         if (e.views.map.showToolTips) {
-            J(e, l, c, d);
+            J(e, l, c, d, e.views.map.dayToolTipText);
         }
         if (e.views.map.showDayNumbers && d > 0) {
             l.innerHTML = Str.friendlyNumber(d);
@@ -1549,12 +1550,12 @@ var Disabled;
         } else {
             DomElement.addClass(l, "no-hover");
         }
-        const f = de(e, r, d, c);
-        if (Is.defined(f) && le(e, f.id)) {
-            if (Is.definedString(f.mapCssClassName)) {
-                DomElement.addClass(l, f.mapCssClassName);
+        const m = de(e, r, d, c);
+        if (Is.defined(m) && le(e, m.id)) {
+            if (Is.definedString(m.mapCssClassName)) {
+                DomElement.addClass(l, m.mapCssClassName);
             } else {
-                DomElement.addClass(l, f.cssClassName);
+                DomElement.addClass(l, m.cssClassName);
             }
         }
         if (e.views.map.highlightCurrentDay && DateTime.isTodaysDate(c)) {
@@ -1588,7 +1589,7 @@ var Disabled;
         const o = DomElement.create(t._currentView.chartContents, "div", "chart");
         let i = DomElement.create(o, "div", "y-labels");
         const s = DomElement.create(o, "div", "day-lines");
-        const r = me(t);
+        const r = fe(t);
         const a = I(t);
         const l = t._currentView.year;
         let c = 0;
@@ -1633,8 +1634,8 @@ var Disabled;
                     o++;
                     for (let o = 0; o < e; o++) {
                         const e = new Date(c, a, l);
-                        const f = DateTime.getWeekdayNumber(e) + 1;
-                        if (K(t.views.chart.daysToShow, f)) {
+                        const m = DateTime.getWeekdayNumber(e) + 1;
+                        if (K(t.views.chart.daysToShow, m)) {
                             const e = M(s, t, o + 1, a, c, r, n);
                             if (!d) {
                                 u.push(e);
@@ -1700,7 +1701,7 @@ var Disabled;
         u = Default2.getNumber(u, 0);
         l.setAttribute(Constant.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${Str.padNumber(n)}-${Str.padNumber(o + 1)}-${i}`);
         if (t.views.chart.showToolTips) {
-            J(t, l, a, u);
+            J(t, l, a, u, t.views.chart.dayToolTipText);
         }
         if (t.views.chart.showLineNumbers && u > 0) {
             DomElement.addClass(l, "day-line-number");
@@ -1721,12 +1722,12 @@ var Disabled;
         } else {
             DomElement.addClass(l, "no-hover");
         }
-        const f = de(t, s, u, a);
-        if (Is.defined(f) && le(t, f.id)) {
-            if (Is.definedString(f.chartCssClassName)) {
-                DomElement.addClass(l, f.chartCssClassName);
+        const m = de(t, s, u, a);
+        if (Is.defined(m) && le(t, m.id)) {
+            if (Is.definedString(m.chartCssClassName)) {
+                DomElement.addClass(l, m.chartCssClassName);
             } else {
-                DomElement.addClass(l, f.cssClassName);
+                DomElement.addClass(l, m.cssClassName);
             }
         }
         if (t.views.chart.highlightCurrentDay && DateTime.isTodaysDate(a)) {
@@ -2054,7 +2055,7 @@ var Disabled;
         const i = DomElement.create(t._currentView.statisticsContents, "div", "statistics-ranges");
         let s = DomElement.create(o, "div", "y-labels");
         const r = DomElement.create(o, "div", "range-lines");
-        const a = me(t);
+        const a = fe(t);
         const l = Y(t, a);
         if (n) {
             DomElement.addClass(o, "view-switch");
@@ -2087,7 +2088,7 @@ var Disabled;
             for (const n in l.types) {
                 if (l.types.hasOwnProperty(n)) {
                     $(parseInt(n), r, l.types[n], t, a, e);
-                    const o = fe(a, parseInt(n));
+                    const o = me(a, parseInt(n));
                     if (t.views.statistics.showColorRangeLabels) {
                         if (!t.views.statistics.useColorRangeNamesForLabels || !Is.defined(o) || !Is.definedString(o.name)) {
                             DomElement.createWithHTML(i, "div", "range-name", `${n}${"+"}`);
@@ -2108,7 +2109,7 @@ var Disabled;
     }
     function $(e, t, n, o, i, s) {
         const r = DomElement.create(t, "div", "range-line");
-        const a = fe(i, e);
+        const a = me(i, e);
         const l = n * s;
         r.style.height = `${l}px`;
         if (Is.defined(a) && Is.definedString(a.name)) {
@@ -2220,7 +2221,7 @@ var Disabled;
                 }
             }
             const i = DomElement.create(n, "div", "days");
-            const s = me(t);
+            const s = fe(t);
             const r = s.length;
             for (let e = 0; e < r; e++) {
                 U(t, i, s[e]);
@@ -2286,11 +2287,11 @@ var Disabled;
             }
         }
     }
-    function J(t, n, o, i) {
+    function J(t, n, o, i, s) {
         if (Is.definedFunction(t.events.onDayToolTipRender)) {
             ToolTip.add(n, t, Trigger.customEvent(t.events.onDayToolTipRender, o, i));
         } else {
-            let i = DateTime.getCustomFormattedDateText(e, t.tooltip.dayText, o);
+            let i = DateTime.getCustomFormattedDateText(e, s, o);
             if (t.showHolidaysInDayToolTips) {
                 let e = we(t, o);
                 if (e.matched && Is.definedString(e.name)) {
@@ -2496,7 +2497,7 @@ var Disabled;
         }
         return s;
     }
-    function fe(e, t) {
+    function me(e, t) {
         const n = e.length;
         let o = null;
         for (let i = 0; i < n; i++) {
@@ -2508,7 +2509,7 @@ var Disabled;
         }
         return o;
     }
-    function me(e) {
+    function fe(e) {
         return e.colorRanges.sort(function(e, t) {
             return e.minimum - t.minimum;
         });

@@ -884,9 +884,9 @@ import { Disabled } from "./ts/area/disabled";
         
                 for ( let dayNameIndex: number = 0; dayNameIndex < 7; dayNameIndex++ ) {
                     if ( isDayVisible( bindingOptions.views!.map!.daysToShow!, dayNameIndex + 1 ) ) {
-                        const dayText: string = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.text!.dayNames![ dayNameIndex ] : Char.space;
+                        const dayNameText: string = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.text!.dayNames![ dayNameIndex ] : Char.space;
 
-                        DomElement.createWithHTML( days, "div", "day-name", dayText );
+                        DomElement.createWithHTML( days, "div", "day-name", dayNameText );
                     }
                 }
     
@@ -1019,7 +1019,7 @@ import { Disabled } from "./ts/area/disabled";
         day.setAttribute( Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber(actualDay)}-${Str.padNumber(month + 1)}-${year}` );
 
         if ( bindingOptions.views!.map!.showToolTips ) {
-            renderDayToolTip( bindingOptions, day, date, dateCount );
+            renderDayToolTip( bindingOptions, day, date, dateCount, bindingOptions.views!.map!.dayToolTipText! );
         }
 
         if ( bindingOptions.views!.map!.showDayNumbers && dateCount > 0 ) {
@@ -1239,7 +1239,7 @@ import { Disabled } from "./ts/area/disabled";
         dayLine.setAttribute( Constant.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${Str.padNumber(day)}-${Str.padNumber(month + 1)}-${year}` );
 
         if ( bindingOptions.views!.chart!.showToolTips ) {
-            renderDayToolTip( bindingOptions, dayLine, date, dateCount );
+            renderDayToolTip( bindingOptions, dayLine, date, dateCount, bindingOptions.views!.chart!.dayToolTipText! );
         }
 
         if ( bindingOptions.views!.chart!.showLineNumbers && dateCount > 0 ) {
@@ -2037,12 +2037,12 @@ import { Disabled } from "./ts/area/disabled";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderDayToolTip( bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number ) : void {
+    function renderDayToolTip( bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number, tooltipFormat: string ) : void {
         if ( Is.definedFunction( bindingOptions.events!.onDayToolTipRender ) ) {
             ToolTip.add( day, bindingOptions, Trigger.customEvent( bindingOptions.events!.onDayToolTipRender!, date, dateCount ) );
         } else {
 
-            let tooltip: string = DateTime.getCustomFormattedDateText( _configuration, bindingOptions.tooltip!.dayText!, date );
+            let tooltip: string = DateTime.getCustomFormattedDateText( _configuration, tooltipFormat, date );
 
             if ( bindingOptions.showHolidaysInDayToolTips ) {
                 let holiday: IsHoliday = isHoliday( bindingOptions, date );

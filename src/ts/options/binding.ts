@@ -253,7 +253,6 @@ export namespace Binding {
         function getToolTip( options: BindingOptions ) : BindingOptionsTooltip {
             options.tooltip = Default.getObject( options.tooltip, {} as BindingOptionsTooltip );
             options.tooltip!.delay = Default.getNumber( options.tooltip!.delay, 750 );
-            options.tooltip!.dayText = Default.getString( options.tooltip!.dayText, "{d}{o} {mmmm} {yyyy}" );
     
             return options.tooltip!;
         }
@@ -273,6 +272,7 @@ export namespace Binding {
             options.views!.map!.showDayDateNumbers = Default.getBoolean( options.views!.map!.showDayDateNumbers, false );
             options.views!.map!.showToolTips = Default.getBoolean( options.views!.map!.showToolTips, true );
             options.views!.map!.highlightCurrentDay = Default.getBoolean( options.views!.map!.highlightCurrentDay, false );
+            options.views!.map!.dayToolTipText = Default.getString( options.views!.map!.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
 
             if ( Is.invalidOptionArray( options.views!.map!.monthsToShow ) ) {
                 options.views!.map!.monthsToShow = _default_MonthsToShow;
@@ -297,6 +297,7 @@ export namespace Binding {
             options.views!.chart!.showToolTips = Default.getBoolean( options.views!.chart!.showToolTips, true );
             options.views!.chart!.useGradients = Default.getBoolean( options.views!.chart!.useGradients, false );
             options.views!.chart!.highlightCurrentDay = Default.getBoolean( options.views!.chart!.highlightCurrentDay, false );
+            options.views!.chart!.dayToolTipText = Default.getString( options.views!.chart!.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
 
             if ( Is.invalidOptionArray( options.views!.chart!.monthsToShow ) ) {
                 options.views!.chart!.monthsToShow = _default_MonthsToShow;
