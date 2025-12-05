@@ -129,6 +129,7 @@ import { Disabled } from "./ts/area/disabled";
 
         createInstanceDataForElement( bindingOptions._currentView!.element.id, bindingOptions );
         renderControlContainer( bindingOptions );
+        renderWindowEvents( bindingOptions );
         Trigger.customEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView!.element );
     }
 
@@ -215,6 +216,19 @@ import { Disabled } from "./ts/area/disabled";
         }
 
         renderControlYearStatistics( bindingOptions );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Window Events
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderWindowEvents( bindingOptions: BindingOptions, addEvents: boolean = true ) : void {
+        const windowFunc: Function = addEvents ? window.addEventListener : window.removeEventListener;
+
+        windowFunc( "blur", () => ToolTip.hide( bindingOptions ) );
     }
 
 
@@ -2218,10 +2232,12 @@ import { Disabled } from "./ts/area/disabled";
         }
     }
 
-    function cancelAllPullDataTimers() : void {
+    function cancelAllPullDataTimersAndClearWindowEvents() : void {
         for ( const elementId in _elements_InstanceData ) {
             if ( _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
+
+                renderWindowEvents( bindingOptions, false );
 
                 if ( Is.defined( bindingOptions._currentView!.isInFetchModeTimer ) ) {
                     clearInterval( bindingOptions._currentView!.isInFetchModeTimer );
@@ -3595,7 +3611,7 @@ import { Disabled } from "./ts/area/disabled";
             render();
         } );
 
-        window.addEventListener( "pagehide", () => cancelAllPullDataTimers() );
+        window.addEventListener( "pagehide", () => cancelAllPullDataTimersAndClearWindowEvents() );
 
         if ( !Is.defined( window.$heat ) ) {
             window.$heat = _public;
