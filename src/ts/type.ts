@@ -103,6 +103,7 @@ export type ConfigurationText = {
     noMonthsDataMessage?: string;
     selectTypeText?: string;
     filenamePlaceholderText?: string;
+    onlyDataBeingViewedText?: string;
 };
 
 export type BindingOptions = {
@@ -159,6 +160,7 @@ export type BindingOptionsCurrentView = {
     exportDialog: HTMLElement;
     exportDialogExportTypeSelect: HTMLSelectElement;
     exportDialogExportFilenameInput: HTMLInputElement;
+    exportDialogExportOnlyDataBeingViewedCheckBox: HTMLInputElement;
 };
 
 export type BindingOptionsViews = {

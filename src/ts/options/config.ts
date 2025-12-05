@@ -81,6 +81,7 @@ export namespace Config {
             configuration.text!.noMonthsDataMessage = Default.getAnyString( configuration.text!.noMonthsDataMessage, "There are currently no months to view." );
             configuration.text!.selectTypeText = Default.getAnyString( configuration.text!.selectTypeText, "Select Type" );
             configuration.text!.filenamePlaceholderText = Default.getAnyString( configuration.text!.filenamePlaceholderText, "Filename (optional)" );
+            configuration.text!.onlyDataBeingViewedText = Default.getAnyString( configuration.text!.onlyDataBeingViewedText, "Only data being viewed" );
 
             return configuration.text!;
         }

@@ -378,6 +378,29 @@ import { Disabled } from "./ts/area/disabled";
         bindingOptions._currentView!.exportDialogExportFilenameInput = DomElement.create( contents, "input", "input-box filename" ) as HTMLInputElement;
         bindingOptions._currentView!.exportDialogExportFilenameInput.placeholder = _configuration.text!.filenamePlaceholderText!;
 
+        bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox = DomElement.createCheckBox( contents, _configuration.text!.onlyDataBeingViewedText!, crypto.randomUUID() );
+        bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked = bindingOptions.exportOnlyDataBeingViewed!;
+
+        const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
+        const okButton: HTMLElement = DomElement.createWithHTML( buttons, "button", Char.empty, _configuration.text!.exportButtonText! );
+
+        renderExportDialogOptions( bindingOptions );
+
+        okButton.onclick = () => {
+            const selectedExportType: string = bindingOptions._currentView!.exportDialogExportTypeSelect.value;
+            const exportFilename: string = bindingOptions._currentView!.exportDialogExportFilenameInput.value;
+            const exportOnlyDataBeingViewed: boolean = bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
+
+            hideExportDialog( bindingOptions );
+            exportAllData( bindingOptions, selectedExportType, exportFilename, exportOnlyDataBeingViewed );
+        };
+
+        closeButton.onclick = () => hideExportDialog( bindingOptions );
+
+        ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
+    }
+
+    function renderExportDialogOptions( bindingOptions: BindingOptions ) : void {
         let exportType: keyof typeof ExportType;
         let exportOptions: HTMLOptionElement[] = [];
 
@@ -395,20 +418,6 @@ import { Disabled } from "./ts/area/disabled";
         );
 
         exportOptions.forEach( ( option: HTMLOptionElement ) => bindingOptions._currentView!.exportDialogExportTypeSelect.add( option ) );
-
-        const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-        const okButton: HTMLElement = DomElement.createWithHTML( buttons, "button", Char.empty, _configuration.text!.exportButtonText! );
-
-        okButton.onclick = () => {
-            const selectedExportType: string = bindingOptions._currentView!.exportDialogExportTypeSelect.value;
-
-            hideExportDialog( bindingOptions );
-            exportAllData( bindingOptions, selectedExportType, bindingOptions._currentView!.exportDialogExportFilenameInput.value );
-        };
-
-        closeButton.onclick = () => hideExportDialog( bindingOptions );
-
-        ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
     }
 
     function showExportDialog( bindingOptions: BindingOptions ) : void {
@@ -2575,27 +2584,27 @@ import { Disabled } from "./ts/area/disabled";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function exportAllData( bindingOptions: BindingOptions, exportType: string = null!, exportFilename: string = null! ) : void {
+    function exportAllData( bindingOptions: BindingOptions, exportType: string = null!, exportFilename: string = null!, exportOnlyDataBeingViewed: boolean = true ) : void {
         let contents: string = null!;
         const contentsMimeType: string = getExportMimeType( bindingOptions );
         const contentExportType: string = Default.getString( exportType, bindingOptions.exportType! ).toLowerCase();
 
         if ( contentExportType === ExportType.csv ) {
-            contents = getCsvContent( bindingOptions );
+            contents = getCsvContent( bindingOptions, exportOnlyDataBeingViewed );
         } else if ( contentExportType === ExportType.json ) {
-            contents = getJsonContent( bindingOptions );
+            contents = getJsonContent( bindingOptions, exportOnlyDataBeingViewed );
         } else if ( contentExportType === ExportType.xml ) {
-            contents = getXmlContents( bindingOptions );
+            contents = getXmlContents( bindingOptions, exportOnlyDataBeingViewed );
         } else if ( contentExportType === ExportType.txt ) {
-            contents = getTxtContents( bindingOptions );
+            contents = getTxtContents( bindingOptions, exportOnlyDataBeingViewed );
         } else if ( contentExportType === ExportType.html ) {
-            contents = getHtmlContents( bindingOptions );
+            contents = getHtmlContents( bindingOptions, exportOnlyDataBeingViewed );
         } else if ( contentExportType === ExportType.md ) {
-            contents = getMdContents( bindingOptions );
+            contents = getMdContents( bindingOptions, exportOnlyDataBeingViewed );
         } else if ( contentExportType === ExportType.tsv ) {
-            contents = getTsvContents( bindingOptions );
+            contents = getTsvContents( bindingOptions, exportOnlyDataBeingViewed );
         } else if ( contentExportType === ExportType.yaml ) {
-            contents = getYamlContents( bindingOptions );
+            contents = getYamlContents( bindingOptions, exportOnlyDataBeingViewed );
         }
 
         if ( Is.definedString( contents ) ) {
@@ -2612,8 +2621,8 @@ import { Disabled } from "./ts/area/disabled";
         }
     }
 
-    function getCsvContent( bindingOptions: BindingOptions ) : string {
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
+    function getCsvContent( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, onlyDataBeingViewed );
         const csvContents: string[] = [];
 
         for ( const storageDate in typeDateCounts ) {
@@ -2629,12 +2638,12 @@ import { Disabled } from "./ts/area/disabled";
         return csvContents.join( Char.newLine );
     }
 
-    function getJsonContent( bindingOptions: BindingOptions ) : string {
-        return JSON.stringify( getExportData( bindingOptions ) );
+    function getJsonContent( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
+        return JSON.stringify( getExportData( bindingOptions, onlyDataBeingViewed ) );
     }
 
-    function getXmlContents( bindingOptions: BindingOptions ) : string {
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
+    function getXmlContents( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, onlyDataBeingViewed );
         const contents: string[] = [];
 
         contents.push( "<?xml version=\"1.0\" ?>" );
@@ -2654,8 +2663,8 @@ import { Disabled } from "./ts/area/disabled";
         return contents.join( Char.newLine );
     }
 
-    function getTxtContents( bindingOptions: BindingOptions ) : string {
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
+    function getTxtContents( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, onlyDataBeingViewed );
         const contents: string[] = [];
 
         for ( const storageDate in typeDateCounts ) {
@@ -2667,8 +2676,8 @@ import { Disabled } from "./ts/area/disabled";
         return contents.join( Char.newLine );
     }
 
-    function getHtmlContents( bindingOptions: BindingOptions ) : string {
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
+    function getHtmlContents( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, onlyDataBeingViewed );
         const contents: string[] = [];
         const exportedDateTime: string = DateTime.getCustomFormattedDateText( _configuration, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date() );
 
@@ -2694,8 +2703,8 @@ import { Disabled } from "./ts/area/disabled";
         return contents.join( Char.newLine );
     }
 
-    function getMdContents( bindingOptions: BindingOptions ) : string {
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
+    function getMdContents( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, onlyDataBeingViewed );
         const contents: string[] = [];
 
         contents.push( "| Full Date | Count |" );
@@ -2710,8 +2719,8 @@ import { Disabled } from "./ts/area/disabled";
         return contents.join( Char.newLine );
     }
 
-    function getTsvContents( bindingOptions: BindingOptions ) : string {
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
+    function getTsvContents( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, onlyDataBeingViewed );
         const contents: string[] = [];
 
         contents.push( `Full Date${Char.tab}Count` );
@@ -2725,8 +2734,8 @@ import { Disabled } from "./ts/area/disabled";
         return contents.join( Char.newLine );
     }
 
-    function getYamlContents( bindingOptions: BindingOptions ) : string {
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions );
+    function getYamlContents( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, onlyDataBeingViewed );
         const contents: string[] = [];
         const exportedDateTime: string = DateTime.getCustomFormattedDateText( _configuration, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date() );
 
@@ -2741,11 +2750,11 @@ import { Disabled } from "./ts/area/disabled";
         return contents.join( Char.newLine );
     }
 
-    function getExportData( bindingOptions: BindingOptions ) : InstanceTypeDateCount {
+    function getExportData( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean ) : InstanceTypeDateCount {
         const contents: InstanceTypeDateCount = {} as InstanceTypeDateCount;
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
-        if ( bindingOptions.exportOnlyDataBeingViewed ) {
+        if ( onlyDataBeingViewed ) {
             const currentYear: number = bindingOptions._currentView!.year;
             const daysToShow: number[] = getDaysToShowForView( bindingOptions );
             const monthsToShow: number[] = getMonthsToShowForView( bindingOptions );
@@ -3215,7 +3224,9 @@ import { Disabled } from "./ts/area/disabled";
 
         export: function ( elementId: string, exportType: string = null! ) : PublicApi {
             if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
-                exportAllData( _elements_InstanceData[ elementId ].options, exportType );
+                const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
+
+                exportAllData( bindingOptions, exportType, null!, bindingOptions.exportOnlyDataBeingViewed );
             }
     
             return _public;

@@ -369,7 +369,8 @@ div.heat-js {
             div.dialog-contents {
                 @include styles.buttons;
 
-                input.filename {
+                input.filename,
+                label.checkbox {
                     margin-top: var(--heat-js-spacing);
                 }
 

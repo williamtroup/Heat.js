@@ -316,7 +316,8 @@ div.heat-js div.disabled div.export div.dialog-contents button.active {
   transition: var(--heat-js-transition);
   font-weight: var(--heat-js-text-bold-weight-active);
 }
-div.heat-js div.disabled div.export div.dialog-contents input.filename {
+div.heat-js div.disabled div.export div.dialog-contents input.filename,
+div.heat-js div.disabled div.export div.dialog-contents label.checkbox {
   margin-top: var(--heat-js-spacing);
 }
 div.heat-js div.disabled div.export div.dialog-contents div.buttons {
