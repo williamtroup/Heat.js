@@ -36,6 +36,7 @@ import { Trigger } from "./ts/area/trigger";
 import { Binding } from "./ts/options/binding";
 import { Config } from "./ts/options/config";
 import { Disabled } from "./ts/area/disabled";
+import { Visible } from "./ts/data/visible";
 
 
 ( () => {
@@ -288,8 +289,8 @@ import { Disabled } from "./ts/area/disabled";
             bindingOptions._currentView!.configurationDialog.style.display = "block";
         }
 
-        const daysToShow: number[] = getDaysToShowForView( bindingOptions );
-        const monthsToShow: number[] = getMonthsToShowForView( bindingOptions );
+        const daysToShow: number[] = Visible.days( bindingOptions );
+        const monthsToShow: number[] = Visible.months( bindingOptions );
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
             bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ].checked = isDayVisible( daysToShow, dayIndex + 1 );
@@ -739,8 +740,8 @@ import { Disabled } from "./ts/area/disabled";
 
         if ( bindingOptions.yearlyStatistics!.enabled && ( !bindingOptions.yearlyStatistics!.showOnlyForCurrentYear || isCurrentYear ) ) {
             const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics", bindingOptions._currentView!.mapContents );
-            const daysToShow: number[] = getDaysToShowForView( bindingOptions );
-            const monthsToShow: number[] = getMonthsToShowForView( bindingOptions );
+            const daysToShow: number[] = Visible.days( bindingOptions );
+            const monthsToShow: number[] = Visible.months( bindingOptions );
 
             if ( bindingOptions.yearlyStatistics!.showTotalToday ) {
                 let todaysCount: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( today ) ];
@@ -2779,8 +2780,8 @@ import { Disabled } from "./ts/area/disabled";
 
         if ( onlyDataBeingViewed ) {
             const currentYear: number = bindingOptions._currentView!.year;
-            const daysToShow: number[] = getDaysToShowForView( bindingOptions );
-            const monthsToShow: number[] = getMonthsToShowForView( bindingOptions );
+            const daysToShow: number[] = Visible.days( bindingOptions );
+            const monthsToShow: number[] = Visible.months( bindingOptions );
 
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
@@ -2948,46 +2949,6 @@ import { Disabled } from "./ts/area/disabled";
                 Trigger.customEvent( bindingOptions.events!.onNextYear!, bindingOptions._currentView!.year );
             }
         }
-    }
-
-    function getMonthsToShowForView( bindingOptions: BindingOptions ) : number[] {
-        let monthsToShow: number[] = [];
-
-        if ( bindingOptions._currentView!.view === ViewId.map ) {
-            monthsToShow = bindingOptions.views!.map!.monthsToShow!;
-        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-            monthsToShow = bindingOptions.views!.chart!.monthsToShow!;
-        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
-            monthsToShow = bindingOptions.views!.days!.monthsToShow!;
-        } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
-            monthsToShow = bindingOptions.views!.months!.monthsToShow!;
-        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-            monthsToShow = bindingOptions.views!.statistics!.monthsToShow!;
-        } else {
-            monthsToShow = bindingOptions.views!.map!.monthsToShow!;
-        }
-
-        return monthsToShow;
-    }
-
-    function getDaysToShowForView( bindingOptions: BindingOptions ) : number[] {
-        let daysToShow: number[] = [];
-
-        if ( bindingOptions._currentView!.view === ViewId.map ) {
-            daysToShow = bindingOptions.views!.map!.daysToShow!;
-        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-            daysToShow = bindingOptions.views!.chart!.daysToShow!;
-        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
-            daysToShow = bindingOptions.views!.days!.daysToShow!;
-        } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
-            daysToShow = bindingOptions.views!.months!.daysToShow!;
-        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-            daysToShow = bindingOptions.views!.statistics!.daysToShow!;
-        } else {
-            daysToShow = bindingOptions.views!.map!.daysToShow!;
-        }
-
-        return daysToShow;
     }
 
 
