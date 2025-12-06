@@ -1131,7 +1131,7 @@ import { Export } from "./ts/files/export";
             }
 
         } else {
-            const pixelsPerNumbers: number = bindingOptions._currentView!.mapContents.offsetHeight / largestValueForCurrentYear;
+            const pixelsPerNumbers: number = dayLines.offsetHeight / largestValueForCurrentYear;
             let totalMonths: number = 0;
             let totalDays: number = 0;
             let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
@@ -1378,7 +1378,7 @@ import { Export } from "./ts/files/export";
             }
 
         } else {
-            const pixelsPerNumbers: number = bindingOptions._currentView!.mapContents.offsetHeight / dayValuesForCurrentYear.largestValue;
+            const pixelsPerNumbers: number = dayLines.offsetHeight / dayValuesForCurrentYear.largestValue;
             const opacity: number = 1 / 7;
             let opacityIncrease: number = opacity;
 
@@ -1559,7 +1559,7 @@ import { Export } from "./ts/files/export";
             }
 
         } else {
-            const pixelsPerNumbers: number = bindingOptions._currentView!.mapContents.offsetHeight / monthValuesForCurrentYear.largestValue;
+            const pixelsPerNumbers: number = monthLines.offsetHeight / monthValuesForCurrentYear.largestValue;
             const opacity: number = 1 / 12;
             let opacityIncrease: number = opacity;
 
@@ -1766,7 +1766,7 @@ import { Export } from "./ts/files/export";
             }
 
         } else {
-            const pixelsPerNumbers: number = bindingOptions._currentView!.mapContents.offsetHeight / colorRangeValuesForCurrentYear.largestValue;
+            const pixelsPerNumbers: number = rangeLines.offsetHeight / colorRangeValuesForCurrentYear.largestValue;
 
             if ( !bindingOptions.views!.statistics!.showColorRangeLabels ) {
                 statisticsRanges.parentNode!.removeChild( statisticsRanges );

@@ -933,6 +933,7 @@ div.heat-js {
             div.day-lines {
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+                height: 176px !important;;
 
                 div.today {
                     animation: highlight-effect 2s infinite;
@@ -1028,6 +1029,7 @@ div.heat-js {
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
                 justify-content: space-between;
+                height: 190px !important;
 
                 div.day-line-number {
                     font-size: var(--heat-js-spacing-day-font-size);
@@ -1124,6 +1126,7 @@ div.heat-js {
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
                 justify-content: space-between;
+                height: 190px !important;
 
                 div.today {
                     animation: highlight-effect 2s infinite;
@@ -1224,6 +1227,7 @@ div.heat-js {
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
                 justify-content: space-between;
+                height: 190px !important;
 
                 div.range-line-number {
                     font-size: var(--heat-js-spacing-day-font-size);

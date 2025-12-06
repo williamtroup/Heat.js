@@ -508,8 +508,8 @@ var Binding;
             t.views.map = d(t);
             t.views.chart = m(t);
             t.views.days = f(t);
-            t.views.months = w(t);
-            t.views.statistics = h(t);
+            t.views.months = h(t);
+            t.views.statistics = w(t);
             t.yearlyStatistics = g(t);
             t.events = y(t);
             if (t.startMonth > 0) {
@@ -686,7 +686,7 @@ var Binding;
             }
             return e.views.days;
         }
-        function w(e) {
+        function h(e) {
             e.views.months = Default2.getObject(e.views.months, {});
             e.views.months.enabled = Default2.getBoolean(e.views.months.enabled, true);
             e.views.months.showChartYLabels = Default2.getBoolean(e.views.months.showChartYLabels, true);
@@ -706,7 +706,7 @@ var Binding;
             }
             return e.views.months;
         }
-        function h(e) {
+        function w(e) {
             e.views.statistics = Default2.getObject(e.views.statistics, {});
             e.views.statistics.enabled = Default2.getBoolean(e.views.statistics.enabled, true);
             e.views.statistics.showChartYLabels = Default2.getBoolean(e.views.statistics.showChartYLabels, true);
@@ -1421,13 +1421,13 @@ var Export;
         t._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked = t.exportOnlyDataBeingViewed;
         const s = DomElement.create(i, "div", "buttons");
         const r = DomElement.createWithHTML(s, "button", "", e.text.exportButtonText);
-        w(t);
+        h(t);
         const a = () => {
             const e = t._currentView.exportDialogExportTypeSelect.value;
             const n = t._currentView.exportDialogExportFilenameInput.value;
             const i = t._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
             g(t);
-            he(t, e, n, i);
+            we(t, e, n, i);
         };
         t._currentView.exportDialogExportFilenameInput.onkeydown = e => {
             if (e.key === "Enter") {
@@ -1438,7 +1438,7 @@ var Export;
         o.onclick = () => g(t);
         ToolTip.add(o, t, e.text.closeToolTipText);
     }
-    function w(e) {
+    function h(e) {
         let t;
         let n = [];
         for (t in ExportType) {
@@ -1451,7 +1451,7 @@ var Export;
         n.sort((e, t) => e.text.toLowerCase().localeCompare(t.text.toLowerCase()));
         n.forEach(t => e._currentView.exportDialogExportTypeSelect.add(t));
     }
-    function h(e) {
+    function w(e) {
         Disabled.Background.show(e);
         if (Is.defined(e._currentView.exportDialog) && e._currentView.exportDialog.style.display !== "block") {
             e._currentView.exportDialogExportFilenameInput.value = "";
@@ -1510,7 +1510,7 @@ var Export;
             }
             if (t.title.showExportButton) {
                 const i = DomElement.createWithHTML(n, "button", "export", e.text.exportButtonSymbolText);
-                i.onclick = () => h(t);
+                i.onclick = () => w(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(i, t, e.text.exportButtonText);
                 }
@@ -1791,19 +1791,19 @@ var Export;
                     let d = false;
                     const m = new Date(l, i, 1);
                     const f = DateTime.getWeekdayNumber(m);
-                    let w = 1;
+                    let h = 1;
                     c += f;
                     for (let e = 0; e < c; e++) {
                         if (e >= f) {
                             d = true;
                         } else {
-                            if (Is.dayVisible(t.views.map.daysToShow, w)) {
+                            if (Is.dayVisible(t.views.map.daysToShow, h)) {
                                 DomElement.create(u, "div", "day-disabled");
                             }
                         }
                         if (d) {
                             let n = null;
-                            if (Is.dayVisible(t.views.map.daysToShow, w)) {
+                            if (Is.dayVisible(t.views.map.daysToShow, h)) {
                                 n = V(t, u, e - f, i, l, a);
                             }
                             if ((e + 1) % 7 === 0) {
@@ -1811,7 +1811,7 @@ var Export;
                                     DomElement.reverseChildrenOrder(u);
                                 }
                                 u = DomElement.create(o, "div", "day-column");
-                                w = 0;
+                                h = 0;
                                 if (t._currentView.dayWidth === 0 && Is.defined(n)) {
                                     let e = DomElement.getStyleValueByName(n, "margin-left", true);
                                     let i = DomElement.getStyleValueByName(n, "margin-right", true);
@@ -1819,7 +1819,7 @@ var Export;
                                 }
                             }
                         }
-                        w++;
+                        h++;
                     }
                     if (t.views.map.showMonthNames) {
                         let s;
@@ -1951,7 +1951,7 @@ var Export;
                 DomElement.addClass(o, "view-switch");
             }
         } else {
-            const n = t._currentView.mapContents.offsetHeight / a;
+            const n = s.offsetHeight / a;
             let i = 0;
             let o = 0;
             let u = [];
@@ -2134,7 +2134,7 @@ var Export;
                 DomElement.addClass(s, "view-switch");
             }
         } else {
-            const n = t._currentView.mapContents.offsetHeight / a.largestValue;
+            const n = r.offsetHeight / a.largestValue;
             const i = 1 / 7;
             let s = i;
             for (const l in a.values) {
@@ -2266,7 +2266,7 @@ var Export;
                 DomElement.addClass(s, "view-switch");
             }
         } else {
-            const n = t._currentView.mapContents.offsetHeight / a.largestValue;
+            const n = r.offsetHeight / a.largestValue;
             const i = 1 / 12;
             let s = i;
             for (let l = t.startMonth; l < 12 + t.startMonth; l++) {
@@ -2418,7 +2418,7 @@ var Export;
                 DomElement.addClass(s, "view-switch");
             }
         } else {
-            const e = t._currentView.mapContents.offsetHeight / l.largestValue;
+            const e = r.offsetHeight / l.largestValue;
             if (!t.views.statistics.showColorRangeLabels) {
                 o.parentNode.removeChild(o);
             }
@@ -2853,7 +2853,7 @@ var Export;
             e.ondrop = e => {
                 DomElement.cancelBubble(e);
                 if (Is.defined(window.FileReader) && e.dataTransfer.files.length > 0) {
-                    we(e.dataTransfer.files, t);
+                    he(e.dataTransfer.files, t);
                 }
             };
         }
@@ -2863,10 +2863,10 @@ var Export;
         t.type = "file";
         t.accept = ".json, .txt, .csv, .tsv, .md, .yaml";
         t.multiple = true;
-        t.onchange = () => we(t.files, e);
+        t.onchange = () => he(t.files, e);
         t.click();
     }
-    function we(t, n) {
+    function he(t, n) {
         const i = t.length;
         const o = [];
         const s = X(n);
@@ -2903,7 +2903,7 @@ var Export;
             }
         }
     }
-    function he(t, n = null, i = null, o = true) {
+    function we(t, n = null, i = null, o = true) {
         let s = null;
         const r = Export.File.mimeType(n);
         const a = Default2.getString(n, t.exportType).toLowerCase();
@@ -3181,7 +3181,7 @@ var Export;
         import: function(e, t = null) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
                 if (Is.definedArray(t)) {
-                    we(t, n[e].options);
+                    he(t, n[e].options);
                 } else {
                     fe(n[e].options);
                 }
@@ -3191,7 +3191,7 @@ var Export;
         export: function(e, t = null) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
                 const i = n[e].options;
-                he(i, t, null, i.exportOnlyDataBeingViewed);
+                we(i, t, null, i.exportOnlyDataBeingViewed);
             }
             return Te;
         },

@@ -921,6 +921,7 @@ div.heat-js div.chart-contents div.chart div.y-labels div.label-100 {
 div.heat-js div.chart-contents div.chart div.day-lines {
   flex: 1;
   border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+  height: 176px !important;
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.today {
   animation: highlight-effect 2s infinite;
@@ -1042,6 +1043,7 @@ div.heat-js div.days-contents div.days div.day-lines {
   flex: 1;
   border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   justify-content: space-between;
+  height: 190px !important;
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line-number {
   font-size: var(--heat-js-spacing-day-font-size);
@@ -1165,6 +1167,7 @@ div.heat-js div.months-contents div.months div.month-lines {
   flex: 1;
   border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   justify-content: space-between;
+  height: 190px !important;
 }
 div.heat-js div.months-contents div.months div.month-lines div.today {
   animation: highlight-effect 2s infinite;
@@ -1291,6 +1294,7 @@ div.heat-js div.statistics-contents div.statistics div.range-lines {
   flex: 1;
   border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   justify-content: space-between;
+  height: 190px !important;
 }
 div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line-number {
   font-size: var(--heat-js-spacing-day-font-size);
