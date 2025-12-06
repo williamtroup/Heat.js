@@ -38,6 +38,7 @@ import { Config } from "./ts/options/config";
 import { Disabled } from "./ts/area/disabled";
 import { Visible } from "./ts/data/visible";
 import { Import } from "./ts/files/import";
+import { Export } from "./ts/files/export";
 
 
 ( () => {
@@ -2464,7 +2465,7 @@ import { Import } from "./ts/files/import";
             const fileExtension: string = file!.name!.split( "." )!.pop()!.toLowerCase();
 
             if ( fileExtension === ExportType.json ) {
-                Import.File.json( _configuration, file, onLoadEnd );
+                Import.File.json( file, onLoadEnd, _configuration );
             } else if ( fileExtension === ExportType.txt ) {
                 Import.File.txt( file, onLoadEnd );
             } else if ( fileExtension === ExportType.csv ) {
@@ -2488,26 +2489,26 @@ import { Import } from "./ts/files/import";
 
     function exportAllData( bindingOptions: BindingOptions, exportType: string = null!, exportFilename: string = null!, exportOnlyDataBeingViewed: boolean = true ) : void {
         let contents: string = null!;
-        const contentsMimeType: string = getExportMimeType( exportType );
+        const contentsMimeType: string = Export.File.mimeType( exportType );
         const contentExportType: string = Default.getString( exportType, bindingOptions.exportType! ).toLowerCase();
         const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, exportOnlyDataBeingViewed );
 
         if ( contentExportType === ExportType.csv ) {
-            contents = getCsvContent( typeDateCounts );
+            contents = Export.Contents.csv( typeDateCounts, _configuration );
         } else if ( contentExportType === ExportType.json ) {
-            contents = getJsonContent( typeDateCounts );
+            contents = Export.Contents.json( typeDateCounts );
         } else if ( contentExportType === ExportType.xml ) {
-            contents = getXmlContents( typeDateCounts );
+            contents = Export.Contents.xml( typeDateCounts );
         } else if ( contentExportType === ExportType.txt ) {
-            contents = getTxtContents( typeDateCounts );
+            contents = Export.Contents.txt( typeDateCounts );
         } else if ( contentExportType === ExportType.html ) {
-            contents = getHtmlContents( typeDateCounts );
+            contents = Export.Contents.html( typeDateCounts, _configuration );
         } else if ( contentExportType === ExportType.md ) {
-            contents = getMdContents( typeDateCounts );
+            contents = Export.Contents.md( typeDateCounts );
         } else if ( contentExportType === ExportType.tsv ) {
-            contents = getTsvContents( typeDateCounts );
+            contents = Export.Contents.tsv( typeDateCounts );
         } else if ( contentExportType === ExportType.yaml ) {
-            contents = getYamlContents( typeDateCounts );
+            contents = Export.Contents.yaml( typeDateCounts, _configuration );
         }
 
         if ( Is.definedString( contents ) ) {
@@ -2515,135 +2516,13 @@ import { Import } from "./ts/files/import";
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
             tempLink.setAttribute( "href", `data:${contentsMimeType};charset=utf-8,${encodeURIComponent(contents)}` );
-            tempLink.setAttribute( "download", getExportFilename( bindingOptions, exportFilename, contentExportType ) );
+            tempLink.setAttribute( "download", Export.File.filename( _configuration, bindingOptions, exportFilename, contentExportType ) );
             tempLink.click();
             
             document.body.removeChild( tempLink );
 
             Trigger.customEvent( bindingOptions.events!.onExport!, bindingOptions._currentView!.element );
         }
-    }
-
-    function getCsvContent( typeDateCounts: InstanceTypeDateCount ) : string {
-        const csvContents: string[] = [];
-
-        for ( const storageDate in typeDateCounts ) {
-            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                csvContents.push( getCsvValueLine( [ getCsvValue( storageDate ), getCsvValue( typeDateCounts[ storageDate ].toString() ) ] ) );
-            }
-        }
-
-        if ( csvContents.length > 0 ) {
-            csvContents.unshift( getCsvValueLine( [ getCsvValue( _configuration.text!.dateText! ), getCsvValue( _configuration.text!.countText! ) ] ) );
-        }
-        
-        return csvContents.join( Char.newLine );
-    }
-
-    function getJsonContent( typeDateCounts: InstanceTypeDateCount ) : string {
-        return JSON.stringify( typeDateCounts );
-    }
-
-    function getXmlContents( typeDateCounts: InstanceTypeDateCount ) : string {
-        const contents: string[] = [];
-
-        contents.push( "<?xml version=\"1.0\" ?>" );
-        contents.push( "<Dates>" );
-
-        for ( const storageDate in typeDateCounts ) {
-            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                contents.push( "<Date>" );
-                contents.push( `<FullDate>${storageDate}</FullDate>` );
-                contents.push( `<Count>${typeDateCounts[storageDate].toString()}</Count>` );
-                contents.push( "</Date>" );
-            }
-        }
-
-        contents.push( "</Dates>" );
-
-        return contents.join( Char.newLine );
-    }
-
-    function getTxtContents( typeDateCounts: InstanceTypeDateCount ) : string {
-        const contents: string[] = [];
-
-        for ( const storageDate in typeDateCounts ) {
-            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                contents.push( `${storageDate}${Char.colon}${Char.space}${typeDateCounts[ storageDate ].toString()}` );
-            }
-        }
-
-        return contents.join( Char.newLine );
-    }
-
-    function getHtmlContents( typeDateCounts: InstanceTypeDateCount ) : string {
-        const contents: string[] = [];
-        const exportedDateTime: string = DateTime.getCustomFormattedDateText( _configuration, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date() );
-
-        contents.push( "<!DOCTYPE html>" );
-        contents.push( "<html>" );
-        contents.push( "<head>" );
-        contents.push( "<meta charset=\"utf-8\" />" );
-        contents.push( `<meta http-equiv=\"Last-Modified\" content=\"${exportedDateTime} GMT\" />` );
-        contents.push( "</head>" );
-        contents.push( "<body>" );
-        contents.push( "<ul>" );
-
-        for ( const storageDate in typeDateCounts ) {
-            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                contents.push( `<li><b>${storageDate}:</b> ${typeDateCounts[storageDate].toString()}</li>` );
-            }
-        }
-
-        contents.push( "</ul>" );
-        contents.push( "</body>" );
-        contents.push( "</html>" );
-
-        return contents.join( Char.newLine );
-    }
-
-    function getMdContents( typeDateCounts: InstanceTypeDateCount ) : string {
-        const contents: string[] = [];
-
-        contents.push( "| Full Date | Count |" );
-        contents.push( "| --- | --- |" );
-
-        for ( const storageDate in typeDateCounts ) {
-            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                contents.push( `| ${storageDate} | ${typeDateCounts[storageDate].toString()} |` );
-            }
-        }
-
-        return contents.join( Char.newLine );
-    }
-
-    function getTsvContents( typeDateCounts: InstanceTypeDateCount ) : string {
-        const contents: string[] = [];
-
-        contents.push( `Full Date${Char.tab}Count` );
-
-        for ( const storageDate in typeDateCounts ) {
-            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                contents.push( `${storageDate}${Char.tab}${typeDateCounts[storageDate].toString()}` );
-            }
-        }
-
-        return contents.join( Char.newLine );
-    }
-
-    function getYamlContents( typeDateCounts: InstanceTypeDateCount ) : string {
-        const contents: string[] = [];
-        const exportedDateTime: string = DateTime.getCustomFormattedDateText( _configuration, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date() );
-
-        contents.push( `Last-Modified:${Char.space}${exportedDateTime}` );
-
-        for ( const storageDate in typeDateCounts ) {
-            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                contents.push( `${storageDate}${Char.colon}${Char.space}${typeDateCounts[storageDate].toString()}` );
-            }
-        }
-
-        return contents.join( Char.newLine );
     }
 
     function getExportData( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean ) : InstanceTypeDateCount {
@@ -2704,64 +2583,6 @@ import { Import } from "./ts/files/import";
         }
 
         return contents;
-    }
-
-    function getExportMimeType( exportType: string ) : string {
-        let result: string = null!;
-
-        if ( exportType.toLowerCase() === ExportType.csv ) {
-            result = "text/csv";
-        } else if ( exportType.toLowerCase() === ExportType.json ) {
-            result = "application/json";
-        } else if ( exportType.toLowerCase() === ExportType.xml ) {
-            result = "application/xml";
-        } else if ( exportType.toLowerCase() === ExportType.txt ) {
-            result = "text/plain";
-        } else if ( exportType.toLowerCase() === ExportType.html ) {
-            result = "text/html";
-        } else if ( exportType.toLowerCase() === ExportType.md ) {
-            result = "text/x-markdown";
-        } else if ( exportType.toLowerCase() === ExportType.tsv ) {
-            result = "text/tab-separated-values";
-        } else if ( exportType.toLowerCase() === ExportType.yaml ) {
-            result = "application/yaml";
-        }
-
-        return result;
-    }
-
-    function getExportFilename( bindingOptions: BindingOptions, exportFilename: string, contentExportType: string ) : string {
-        let filename: string = null!;
-
-        if ( Is.definedString( exportFilename ) ) {
-            filename = `${exportFilename}.${contentExportType.toLowerCase()}`;
-        } else {
-
-            const date: Date = new Date();
-            const datePart: string = `${Str.padNumber( date.getDate() )}${Char.dash}${Str.padNumber( date.getMonth() + 1 )}${Char.dash}${date.getFullYear()}`;
-            const timePart: string = `${Str.padNumber( date.getHours() )}${Char.dash}${Str.padNumber( date.getMinutes() )}`;
-            let filenameStart: string = Char.empty;
-
-            if ( bindingOptions._currentView!.type !== _configuration.text!.unknownTrendText ) {
-                filenameStart = `${bindingOptions._currentView!.type.toLowerCase().replace( / /g, Char.underscore )}${Char.underscore}`;
-            }
-
-            filename = `${filenameStart}${datePart}${Char.underscore}${timePart}.${contentExportType.toLowerCase()}`;
-        }
-
-        return filename;
-    }
-
-    function getCsvValue( text: string ) : string {
-        let result: string = text.toString().replace( /(\r\n|\n|\r)/gm, Char.empty ).replace( /(\s\s)/gm, Char.space );
-        result = result.replace( /"/g, '""' );
-        result = `"${result}"`;
-
-        return result;
-    }
-
-    function getCsvValueLine( csvValues: string[] ) : string {
-        return csvValues.join( "," );
     }
 
 

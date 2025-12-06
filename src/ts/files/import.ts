@@ -19,7 +19,7 @@ import { Is } from "../data/is";
 
 export namespace Import {
     export namespace File {
-        export function json( configuration: Configuration, file: File, onLoadEnd: Function ) : void {
+        export function json( file: File, onLoadEnd: Function, configuration: Configuration ) : void {
             const reader: FileReader = new FileReader();
             let readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 

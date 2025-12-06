@@ -891,14 +891,14 @@ var Import;
         function t(e, t, n) {
             const o = new FileReader;
             let i = {};
-            o.onloadend = () => n(t.name, i);
-            o.onload = t => {
-                const n = Default2.getObjectFromString(t.target.result, e);
-                if (n.parsed && Is.definedObject(n.object)) {
-                    i = n.object;
+            o.onloadend = () => t(e.name, i);
+            o.onload = e => {
+                const t = Default2.getObjectFromString(e.target.result, n);
+                if (t.parsed && Is.definedObject(t.object)) {
+                    i = t.object;
                 }
             };
-            o.readAsText(t);
+            o.readAsText(e);
         }
         e.json = t;
         function n(e, t) {
@@ -982,6 +982,165 @@ var Import;
         e.yaml = r;
     })(t = e.File || (e.File = {}));
 })(Import || (Import = {}));
+
+var Export;
+
+(e => {
+    let t;
+    (e => {
+        function t(e) {
+            let t = null;
+            if (e.toLowerCase() === "csv") {
+                t = "text/csv";
+            } else if (e.toLowerCase() === "json") {
+                t = "application/json";
+            } else if (e.toLowerCase() === "xml") {
+                t = "application/xml";
+            } else if (e.toLowerCase() === "txt") {
+                t = "text/plain";
+            } else if (e.toLowerCase() === "html") {
+                t = "text/html";
+            } else if (e.toLowerCase() === "md") {
+                t = "text/x-markdown";
+            } else if (e.toLowerCase() === "tsv") {
+                t = "text/tab-separated-values";
+            } else if (e.toLowerCase() === "yaml") {
+                t = "application/yaml";
+            }
+            return t;
+        }
+        e.mimeType = t;
+        function n(e, t, n, o) {
+            let i = null;
+            if (Is.definedString(n)) {
+                i = `${n}.${o.toLowerCase()}`;
+            } else {
+                const n = new Date;
+                const s = `${Str.padNumber(n.getDate())}${"-"}${Str.padNumber(n.getMonth() + 1)}${"-"}${n.getFullYear()}`;
+                const r = `${Str.padNumber(n.getHours())}${"-"}${Str.padNumber(n.getMinutes())}`;
+                let a = "";
+                if (t._currentView.type !== e.text.unknownTrendText) {
+                    a = `${t._currentView.type.toLowerCase().replace(/ /g, "_")}${"_"}`;
+                }
+                i = `${a}${s}${"_"}${r}.${o.toLowerCase()}`;
+            }
+            return i;
+        }
+        e.filename = n;
+    })(t = e.File || (e.File = {}));
+    let n;
+    (e => {
+        function t(e, t) {
+            const n = [];
+            for (const t in e) {
+                if (e.hasOwnProperty(t)) {
+                    n.push(u([ c(t), c(e[t].toString()) ]));
+                }
+            }
+            if (n.length > 0) {
+                n.unshift(u([ c(t.text.dateText), c(t.text.countText) ]));
+            }
+            return n.join("\n");
+        }
+        e.csv = t;
+        function n(e) {
+            return JSON.stringify(e);
+        }
+        e.json = n;
+        function o(e) {
+            const t = [];
+            t.push('<?xml version="1.0" ?>');
+            t.push("<Dates>");
+            for (const n in e) {
+                if (e.hasOwnProperty(n)) {
+                    t.push("<Date>");
+                    t.push(`<FullDate>${n}</FullDate>`);
+                    t.push(`<Count>${e[n].toString()}</Count>`);
+                    t.push("</Date>");
+                }
+            }
+            t.push("</Dates>");
+            return t.join("\n");
+        }
+        e.xml = o;
+        function i(e) {
+            const t = [];
+            for (const n in e) {
+                if (e.hasOwnProperty(n)) {
+                    t.push(`${n}${":"}${" "}${e[n].toString()}`);
+                }
+            }
+            return t.join("\n");
+        }
+        e.txt = i;
+        function s(e, t) {
+            const n = [];
+            const o = DateTime.getCustomFormattedDateText(t, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date);
+            n.push("<!DOCTYPE html>");
+            n.push("<html>");
+            n.push("<head>");
+            n.push('<meta charset="utf-8" />');
+            n.push(`<meta http-equiv="Last-Modified" content="${o} GMT" />`);
+            n.push("</head>");
+            n.push("<body>");
+            n.push("<ul>");
+            for (const t in e) {
+                if (e.hasOwnProperty(t)) {
+                    n.push(`<li><b>${t}:</b> ${e[t].toString()}</li>`);
+                }
+            }
+            n.push("</ul>");
+            n.push("</body>");
+            n.push("</html>");
+            return n.join("\n");
+        }
+        e.html = s;
+        function r(e) {
+            const t = [];
+            t.push("| Full Date | Count |");
+            t.push("| --- | --- |");
+            for (const n in e) {
+                if (e.hasOwnProperty(n)) {
+                    t.push(`| ${n} | ${e[n].toString()} |`);
+                }
+            }
+            return t.join("\n");
+        }
+        e.md = r;
+        function a(e) {
+            const t = [];
+            t.push(`Full Date${"\t"}Count`);
+            for (const n in e) {
+                if (e.hasOwnProperty(n)) {
+                    t.push(`${n}${"\t"}${e[n].toString()}`);
+                }
+            }
+            return t.join("\n");
+        }
+        e.tsv = a;
+        function l(e, t) {
+            const n = [];
+            const o = DateTime.getCustomFormattedDateText(t, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date);
+            n.push(`Last-Modified:${" "}${o}`);
+            for (const t in e) {
+                if (e.hasOwnProperty(t)) {
+                    n.push(`${t}${":"}${" "}${e[t].toString()}`);
+                }
+            }
+            return n.join("\n");
+        }
+        e.yaml = l;
+        function c(e) {
+            let t = e.toString().replace(/(\r\n|\n|\r)/gm, "").replace(/(\s\s)/gm, " ");
+            t = t.replace(/"/g, '""');
+            t = `"${t}"`;
+            return t;
+        }
+        function u(e) {
+            return e.join(",");
+        }
+    })(n = e.Contents || (e.Contents = {}));
+})(Export || (Export = {}));
 
 (() => {
     let e = {};
@@ -1335,7 +1494,7 @@ var Import;
             }
             if (t.title.showYearSelector) {
                 const o = DomElement.createWithHTML(n, "button", "back", e.text.backButtonSymbolText);
-                o.onclick = () => ke(t);
+                o.onclick = () => ve(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(o, t, e.text.backButtonText);
                 }
@@ -1366,12 +1525,12 @@ var Import;
                     }
                     o.onclick = () => {
                         t._currentView.year = (new Date).getFullYear() - 1;
-                        Ne(t, false);
+                        Te(t, false);
                         Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                     };
                 }
                 const s = DomElement.createWithHTML(n, "button", "next", e.text.nextButtonSymbolText);
-                s.onclick = () => Ne(t);
+                s.onclick = () => Te(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(s, t, e.text.nextButtonText);
                 }
@@ -2727,7 +2886,7 @@ var Import;
             const o = t[n];
             const i = o.name.split(".").pop().toLowerCase();
             if (i === "json") {
-                Import.File.json(e, o, r);
+                Import.File.json(o, r, e);
             } else if (i === "txt") {
                 Import.File.txt(o, r);
             } else if (i === "csv") {
@@ -2741,132 +2900,40 @@ var Import;
             }
         }
     }
-    function De(e, t = null, n = null, o = true) {
-        let i = null;
-        const s = Ce(t);
-        const r = Default2.getString(t, e.exportType).toLowerCase();
-        const a = Ee(e, o);
-        if (r === "csv") {
-            i = pe(a);
-        } else if (r === "json") {
-            i = ve(a);
-        } else if (r === "xml") {
-            i = Te(a);
-        } else if (r === "txt") {
-            i = xe(a);
-        } else if (r === "html") {
-            i = be(a);
-        } else if (r === "md") {
-            i = Se(a);
-        } else if (r === "tsv") {
-            i = _e(a);
-        } else if (r === "yaml") {
-            i = Ve(a);
+    function De(t, n = null, o = null, i = true) {
+        let s = null;
+        const r = Export.File.mimeType(n);
+        const a = Default2.getString(n, t.exportType).toLowerCase();
+        const l = pe(t, i);
+        if (a === "csv") {
+            s = Export.Contents.csv(l, e);
+        } else if (a === "json") {
+            s = Export.Contents.json(l);
+        } else if (a === "xml") {
+            s = Export.Contents.xml(l);
+        } else if (a === "txt") {
+            s = Export.Contents.txt(l);
+        } else if (a === "html") {
+            s = Export.Contents.html(l, e);
+        } else if (a === "md") {
+            s = Export.Contents.md(l);
+        } else if (a === "tsv") {
+            s = Export.Contents.tsv(l);
+        } else if (a === "yaml") {
+            s = Export.Contents.yaml(l, e);
         }
-        if (Is.definedString(i)) {
-            const t = DomElement.create(document.body, "a");
-            t.style.display = "none";
-            t.setAttribute("target", "_blank");
-            t.setAttribute("href", `data:${s};charset=utf-8,${encodeURIComponent(i)}`);
-            t.setAttribute("download", Me(e, n, r));
-            t.click();
-            document.body.removeChild(t);
-            Trigger.customEvent(e.events.onExport, e._currentView.element);
+        if (Is.definedString(s)) {
+            const n = DomElement.create(document.body, "a");
+            n.style.display = "none";
+            n.setAttribute("target", "_blank");
+            n.setAttribute("href", `data:${r};charset=utf-8,${encodeURIComponent(s)}`);
+            n.setAttribute("download", Export.File.filename(e, t, o, a));
+            n.click();
+            document.body.removeChild(n);
+            Trigger.customEvent(t.events.onExport, t._currentView.element);
         }
     }
-    function pe(t) {
-        const n = [];
-        for (const e in t) {
-            if (t.hasOwnProperty(e)) {
-                n.push(Be([ Ie(e), Ie(t[e].toString()) ]));
-            }
-        }
-        if (n.length > 0) {
-            n.unshift(Be([ Ie(e.text.dateText), Ie(e.text.countText) ]));
-        }
-        return n.join("\n");
-    }
-    function ve(e) {
-        return JSON.stringify(e);
-    }
-    function Te(e) {
-        const t = [];
-        t.push('<?xml version="1.0" ?>');
-        t.push("<Dates>");
-        for (const n in e) {
-            if (e.hasOwnProperty(n)) {
-                t.push("<Date>");
-                t.push(`<FullDate>${n}</FullDate>`);
-                t.push(`<Count>${e[n].toString()}</Count>`);
-                t.push("</Date>");
-            }
-        }
-        t.push("</Dates>");
-        return t.join("\n");
-    }
-    function xe(e) {
-        const t = [];
-        for (const n in e) {
-            if (e.hasOwnProperty(n)) {
-                t.push(`${n}${":"}${" "}${e[n].toString()}`);
-            }
-        }
-        return t.join("\n");
-    }
-    function be(t) {
-        const n = [];
-        const o = DateTime.getCustomFormattedDateText(e, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date);
-        n.push("<!DOCTYPE html>");
-        n.push("<html>");
-        n.push("<head>");
-        n.push('<meta charset="utf-8" />');
-        n.push(`<meta http-equiv="Last-Modified" content="${o} GMT" />`);
-        n.push("</head>");
-        n.push("<body>");
-        n.push("<ul>");
-        for (const e in t) {
-            if (t.hasOwnProperty(e)) {
-                n.push(`<li><b>${e}:</b> ${t[e].toString()}</li>`);
-            }
-        }
-        n.push("</ul>");
-        n.push("</body>");
-        n.push("</html>");
-        return n.join("\n");
-    }
-    function Se(e) {
-        const t = [];
-        t.push("| Full Date | Count |");
-        t.push("| --- | --- |");
-        for (const n in e) {
-            if (e.hasOwnProperty(n)) {
-                t.push(`| ${n} | ${e[n].toString()} |`);
-            }
-        }
-        return t.join("\n");
-    }
-    function _e(e) {
-        const t = [];
-        t.push(`Full Date${"\t"}Count`);
-        for (const n in e) {
-            if (e.hasOwnProperty(n)) {
-                t.push(`${n}${"\t"}${e[n].toString()}`);
-            }
-        }
-        return t.join("\n");
-    }
-    function Ve(t) {
-        const n = [];
-        const o = DateTime.getCustomFormattedDateText(e, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date);
-        n.push(`Last-Modified:${" "}${o}`);
-        for (const e in t) {
-            if (t.hasOwnProperty(e)) {
-                n.push(`${e}${":"}${" "}${t[e].toString()}`);
-            }
-        }
-        return n.join("\n");
-    }
-    function Ee(e, t) {
+    function pe(e, t) {
         const n = {};
         const o = X(e);
         if (t) {
@@ -2912,53 +2979,7 @@ var Import;
         }
         return n;
     }
-    function Ce(e) {
-        let t = null;
-        if (e.toLowerCase() === "csv") {
-            t = "text/csv";
-        } else if (e.toLowerCase() === "json") {
-            t = "application/json";
-        } else if (e.toLowerCase() === "xml") {
-            t = "application/xml";
-        } else if (e.toLowerCase() === "txt") {
-            t = "text/plain";
-        } else if (e.toLowerCase() === "html") {
-            t = "text/html";
-        } else if (e.toLowerCase() === "md") {
-            t = "text/x-markdown";
-        } else if (e.toLowerCase() === "tsv") {
-            t = "text/tab-separated-values";
-        } else if (e.toLowerCase() === "yaml") {
-            t = "application/yaml";
-        }
-        return t;
-    }
-    function Me(t, n, o) {
-        let i = null;
-        if (Is.definedString(n)) {
-            i = `${n}.${o.toLowerCase()}`;
-        } else {
-            const n = new Date;
-            const s = `${Str.padNumber(n.getDate())}${"-"}${Str.padNumber(n.getMonth() + 1)}${"-"}${n.getFullYear()}`;
-            const r = `${Str.padNumber(n.getHours())}${"-"}${Str.padNumber(n.getMinutes())}`;
-            let a = "";
-            if (t._currentView.type !== e.text.unknownTrendText) {
-                a = `${t._currentView.type.toLowerCase().replace(/ /g, "_")}${"_"}`;
-            }
-            i = `${a}${s}${"_"}${r}.${o.toLowerCase()}`;
-        }
-        return i;
-    }
-    function Ie(e) {
-        let t = e.toString().replace(/(\r\n|\n|\r)/gm, "").replace(/(\s\s)/gm, " ");
-        t = t.replace(/"/g, '""');
-        t = `"${t}"`;
-        return t;
-    }
-    function Be(e) {
-        return e.join(",");
-    }
-    function ke(e, t = true) {
+    function ve(e, t = true) {
         let n = true;
         let o = e._currentView.year;
         o--;
@@ -2977,7 +2998,7 @@ var Import;
             }
         }
     }
-    function Ne(e, t = true) {
+    function Te(e, t = true) {
         let n = true;
         let o = e._currentView.year;
         o++;
@@ -2996,7 +3017,7 @@ var Import;
             }
         }
     }
-    function Oe(e) {
+    function xe(e) {
         e._currentView.element.innerHTML = "";
         DomElement.removeClass(e._currentView.element, "heat-js");
         ToolTip.assignToEvents(e, false);
@@ -3006,11 +3027,11 @@ var Import;
         }
         Trigger.customEvent(e.events.onDestroy, e._currentView.element);
     }
-    function Le() {
+    function be() {
         if (e.observationMode) {
             if (!Is.defined(t)) {
                 t = new MutationObserver((e, t) => {
-                    Ae.renderAll();
+                    Se.renderAll();
                 });
                 const e = {
                     attributes: true,
@@ -3024,7 +3045,7 @@ var Import;
             t = null;
         }
     }
-    const Ae = {
+    const Se = {
         addDates: function(t, o, i = null, s = true) {
             if (Is.definedString(t) && Is.definedArray(o) && n.hasOwnProperty(t)) {
                 const r = n[t].options;
@@ -3032,14 +3053,14 @@ var Import;
                     i = Default2.getString(i, e.text.unknownTrendText);
                     const n = o.length;
                     for (let e = 0; e < n; e++) {
-                        Ae.addDate(t, o[e], i, false);
+                        Se.addDate(t, o[e], i, false);
                     }
                     if (s) {
                         l(r, true);
                     }
                 }
             }
-            return Ae;
+            return Se;
         },
         addDate: function(t, o, i = null, s = true) {
             if (Is.definedString(t) && Is.definedDate(o) && n.hasOwnProperty(t)) {
@@ -3061,7 +3082,7 @@ var Import;
                     }
                 }
             }
-            return Ae;
+            return Se;
         },
         updateDate: function(t, o, i, s = null, r = true) {
             if (Is.definedString(t) && Is.definedDate(o) && n.hasOwnProperty(t)) {
@@ -3078,7 +3099,7 @@ var Import;
                     }
                 }
             }
-            return Ae;
+            return Se;
         },
         removeDates: function(t, o, i = null, s = true) {
             if (Is.definedString(t) && Is.definedArray(o) && n.hasOwnProperty(t)) {
@@ -3087,14 +3108,14 @@ var Import;
                     i = Default2.getString(i, e.text.unknownTrendText);
                     const n = o.length;
                     for (let e = 0; e < n; e++) {
-                        Ae.removeDate(t, o[e], i, false);
+                        Se.removeDate(t, o[e], i, false);
                     }
                     if (s) {
                         l(r, true);
                     }
                 }
             }
-            return Ae;
+            return Se;
         },
         removeDate: function(t, o, i = null, s = true) {
             if (Is.definedString(t) && Is.definedDate(o) && n.hasOwnProperty(t)) {
@@ -3113,7 +3134,7 @@ var Import;
                     }
                 }
             }
-            return Ae;
+            return Se;
         },
         clearDate: function(t, o, i = null, s = true) {
             if (Is.definedString(t) && Is.definedDate(o) && n.hasOwnProperty(t)) {
@@ -3130,15 +3151,15 @@ var Import;
                     }
                 }
             }
-            return Ae;
+            return Se;
         },
         resetAll: function(e = true) {
             for (const t in n) {
                 if (n.hasOwnProperty(t)) {
-                    Ae.reset(t, e);
+                    Se.reset(t, e);
                 }
             }
-            return Ae;
+            return Se;
         },
         reset: function(t, o = true) {
             if (Is.definedString(t) && n.hasOwnProperty(t)) {
@@ -3152,7 +3173,7 @@ var Import;
                     }
                 }
             }
-            return Ae;
+            return Se;
         },
         import: function(e, t = null) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
@@ -3162,14 +3183,14 @@ var Import;
                     ge(n[e].options);
                 }
             }
-            return Ae;
+            return Se;
         },
         export: function(e, t = null) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
                 const o = n[e].options;
                 De(o, t, null, o.exportOnlyDataBeingViewed);
             }
-            return Ae;
+            return Se;
         },
         refresh: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
@@ -3177,7 +3198,7 @@ var Import;
                 l(t, true);
                 Trigger.customEvent(t.events.onRefresh, t._currentView.element);
             }
-            return Ae;
+            return Se;
         },
         refreshAll: function() {
             for (const e in n) {
@@ -3187,20 +3208,20 @@ var Import;
                     Trigger.customEvent(t.events.onRefresh, t._currentView.element);
                 }
             }
-            return Ae;
+            return Se;
         },
         setYear: function(e, t) {
             if (Is.definedString(e) && Is.definedNumber(t) && n.hasOwnProperty(e)) {
                 const o = n[e].options;
                 o._currentView.year = t;
                 if (!Z(o, o._currentView.year)) {
-                    Ne(o, false);
+                    Te(o, false);
                 } else {
                     l(o);
                 }
                 Trigger.customEvent(o.events.onSetYear, o._currentView.year);
             }
-            return Ae;
+            return Se;
         },
         setYearToHighest: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
@@ -3215,14 +3236,14 @@ var Import;
                 if (i > 0) {
                     t._currentView.year = i;
                     if (!Z(t, t._currentView.year)) {
-                        Ne(t, false);
+                        Te(t, false);
                     } else {
                         l(t);
                     }
                     Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                 }
             }
-            return Ae;
+            return Se;
         },
         setYearToLowest: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
@@ -3237,39 +3258,39 @@ var Import;
                 if (i < 9999) {
                     t._currentView.year = i;
                     if (!Z(t, t._currentView.year)) {
-                        ke(t, false);
+                        ve(t, false);
                     } else {
                         l(t);
                     }
                     Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                 }
             }
-            return Ae;
+            return Se;
         },
         moveToPreviousYear: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                ke(n[e].options);
+                ve(n[e].options);
             }
-            return Ae;
+            return Se;
         },
         moveToNextYear: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                Ne(n[e].options);
+                Te(n[e].options);
             }
-            return Ae;
+            return Se;
         },
         moveToCurrentYear: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
                 const t = n[e].options;
                 t._currentView.year = (new Date).getFullYear();
                 if (!Z(t, t._currentView.year)) {
-                    Ne(t, false);
+                    Te(t, false);
                 } else {
                     l(t);
                 }
                 Trigger.customEvent(t.events.onSetYear, t._currentView.year);
             }
-            return Ae;
+            return Se;
         },
         getYear: function(e) {
             let t = -1;
@@ -3283,11 +3304,11 @@ var Import;
             if (Is.definedObject(t) && Is.definedObject(n)) {
                 a(Binding.Options.getForNewInstance(e, n, t));
             }
-            return Ae;
+            return Se;
         },
         renderAll: function() {
             s();
-            return Ae;
+            return Se;
         },
         switchView: function(e, t) {
             if (Is.definedString(e) && Is.definedString(t) && n.hasOwnProperty(e)) {
@@ -3312,7 +3333,7 @@ var Import;
                     l(o, false, true);
                 }
             }
-            return Ae;
+            return Se;
         },
         switchType: function(e, t) {
             if (Is.definedString(e) && Is.definedString(t) && n.hasOwnProperty(e) && n[e].typeData.hasOwnProperty(t)) {
@@ -3323,7 +3344,7 @@ var Import;
                     l(o);
                 }
             }
-            return Ae;
+            return Se;
         },
         updateOptions: function(e, t) {
             if (Is.definedString(e) && Is.definedObject(t) && n.hasOwnProperty(e)) {
@@ -3342,7 +3363,7 @@ var Import;
                     Trigger.customEvent(o.events.onOptionsUpdate, o._currentView.element, o);
                 }
             }
-            return Ae;
+            return Se;
         },
         getActiveView: function(e) {
             let t = "";
@@ -3367,18 +3388,18 @@ var Import;
         destroyAll: function() {
             for (const e in n) {
                 if (n.hasOwnProperty(e)) {
-                    Oe(n[e].options);
+                    xe(n[e].options);
                 }
             }
             n = {};
-            return Ae;
+            return Se;
         },
         destroy: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                Oe(n[e].options);
+                xe(n[e].options);
                 delete n[e];
             }
-            return Ae;
+            return Se;
         },
         setConfiguration: function(t, n = true) {
             if (Is.definedObject(t)) {
@@ -3392,13 +3413,13 @@ var Import;
                 }
                 if (o) {
                     e = Config.Options.get(i);
-                    Le();
+                    be();
                     if (n) {
-                        Ae.refreshAll();
+                        Se.refreshAll();
                     }
                 }
             }
-            return Ae;
+            return Se;
         },
         getIds: function() {
             const e = [];
@@ -3416,12 +3437,12 @@ var Import;
     (() => {
         e = Config.Options.get();
         document.addEventListener("DOMContentLoaded", () => {
-            Le();
+            be();
             s();
         });
         window.addEventListener("pagehide", () => ae());
         if (!Is.defined(window.$heat)) {
-            window.$heat = Ae;
+            window.$heat = Se;
         }
     })();
 })();//# sourceMappingURL=heat.js.map
