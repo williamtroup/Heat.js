@@ -1346,7 +1346,7 @@ var Import;
                 }
                 t._currentView.yearText = DomElement.createWithHTML(n, "div", "year-text", i);
                 if (t.title.showYearSelectionDropDown) {
-                    T(t);
+                    v(t);
                 } else {
                     DomElement.addClass(t._currentView.yearText, "no-click");
                 }
@@ -1425,7 +1425,7 @@ var Import;
             };
         }
     }
-    function T(e) {
+    function v(e) {
         DomElement.create(e._currentView.yearText, "div", "down-arrow");
         const t = DomElement.create(e._currentView.yearText, "div", "years-menu-container");
         const n = DomElement.create(t, "div", "years-menu");
@@ -1435,7 +1435,7 @@ var Import;
         t.style.visibility = "hidden";
         for (let t = o - e.title.extraSelectionYears; t < o + e.title.extraSelectionYears; t++) {
             if (Z(e, t)) {
-                let s = v(e, n, t, o);
+                let s = T(e, n, t, o);
                 if (!Is.defined(i)) {
                     i = s;
                 }
@@ -1447,7 +1447,7 @@ var Import;
         t.style.display = "none";
         t.style.visibility = "visible";
     }
-    function v(e, t, n, o) {
+    function T(e, t, n, o) {
         let i = null;
         const s = e.startMonth === 0 ? n.toString() : `${n} / ${n + 1}`;
         const r = DomElement.createWithHTML(t, "div", "year-menu-item", s);
@@ -2741,14 +2741,14 @@ var Import;
     }
     function De(e, t = null, n = null, o = true) {
         let i = null;
-        const s = Ce(e);
+        const s = Ce(t);
         const r = Default2.getString(t, e.exportType).toLowerCase();
         if (r === "csv") {
             i = pe(e, o);
         } else if (r === "json") {
-            i = Te(e, o);
-        } else if (r === "xml") {
             i = ve(e, o);
+        } else if (r === "xml") {
+            i = Te(e, o);
         } else if (r === "txt") {
             i = xe(e, o);
         } else if (r === "html") {
@@ -2784,10 +2784,10 @@ var Import;
         }
         return i.join("\n");
     }
-    function Te(e, t) {
+    function ve(e, t) {
         return JSON.stringify(Ee(e, t));
     }
-    function ve(e, t) {
+    function Te(e, t) {
         const n = Ee(e, t);
         const o = [];
         o.push('<?xml version="1.0" ?>');
@@ -2918,21 +2918,21 @@ var Import;
     }
     function Ce(e) {
         let t = null;
-        if (e.exportType.toLowerCase() === "csv") {
+        if (e.toLowerCase() === "csv") {
             t = "text/csv";
-        } else if (e.exportType.toLowerCase() === "json") {
+        } else if (e.toLowerCase() === "json") {
             t = "application/json";
-        } else if (e.exportType.toLowerCase() === "xml") {
+        } else if (e.toLowerCase() === "xml") {
             t = "application/xml";
-        } else if (e.exportType.toLowerCase() === "txt") {
+        } else if (e.toLowerCase() === "txt") {
             t = "text/plain";
-        } else if (e.exportType.toLowerCase() === "html") {
+        } else if (e.toLowerCase() === "html") {
             t = "text/html";
-        } else if (e.exportType.toLowerCase() === "md") {
+        } else if (e.toLowerCase() === "md") {
             t = "text/x-markdown";
-        } else if (e.exportType.toLowerCase() === "tsv") {
+        } else if (e.toLowerCase() === "tsv") {
             t = "text/tab-separated-values";
-        } else if (e.exportType.toLowerCase() === "yaml") {
+        } else if (e.toLowerCase() === "yaml") {
             t = "application/yaml";
         }
         return t;

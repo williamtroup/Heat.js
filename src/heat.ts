@@ -2488,7 +2488,7 @@ import { Import } from "./ts/files/import";
 
     function exportAllData( bindingOptions: BindingOptions, exportType: string = null!, exportFilename: string = null!, exportOnlyDataBeingViewed: boolean = true ) : void {
         let contents: string = null!;
-        const contentsMimeType: string = getExportMimeType( bindingOptions );
+        const contentsMimeType: string = getExportMimeType( exportType );
         const contentExportType: string = Default.getString( exportType, bindingOptions.exportType! ).toLowerCase();
 
         if ( contentExportType === ExportType.csv ) {
@@ -2712,24 +2712,24 @@ import { Import } from "./ts/files/import";
         return contents;
     }
 
-    function getExportMimeType( bindingOptions: BindingOptions ) : string {
+    function getExportMimeType( exportType: string ) : string {
         let result: string = null!;
 
-        if ( bindingOptions.exportType!.toLowerCase() === ExportType.csv ) {
+        if ( exportType.toLowerCase() === ExportType.csv ) {
             result = "text/csv";
-        } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.json ) {
+        } else if ( exportType.toLowerCase() === ExportType.json ) {
             result = "application/json";
-        } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.xml ) {
+        } else if ( exportType.toLowerCase() === ExportType.xml ) {
             result = "application/xml";
-        } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.txt ) {
+        } else if ( exportType.toLowerCase() === ExportType.txt ) {
             result = "text/plain";
-        } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.html ) {
+        } else if ( exportType.toLowerCase() === ExportType.html ) {
             result = "text/html";
-        } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.md ) {
+        } else if ( exportType.toLowerCase() === ExportType.md ) {
             result = "text/x-markdown";
-        } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.tsv ) {
+        } else if ( exportType.toLowerCase() === ExportType.tsv ) {
             result = "text/tab-separated-values";
-        } else if ( bindingOptions.exportType!.toLowerCase() === ExportType.yaml ) {
+        } else if ( exportType.toLowerCase() === ExportType.yaml ) {
             result = "application/yaml";
         }
 
