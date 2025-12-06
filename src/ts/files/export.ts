@@ -1,8 +1,22 @@
+/**
+ * Heat.js
+ * 
+ * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
+ * 
+ * @file        export.ts
+ * @version     v5.0.0
+ * @author      Bunoon
+ * @license     MIT License
+ * @copyright   Bunoon 2025
+ */
+
+
+import { type BindingOptions, type Configuration, type InstanceTypeDateCount } from "../type";
 import { DateTime } from "../data/datetime";
 import { Char, ExportType } from "../data/enum";
 import { Is } from "../data/is";
 import { Str } from "../data/str";
-import { BindingOptions, Configuration, InstanceTypeDateCount } from "../type";
+
 
 export namespace Export {
     export namespace File {

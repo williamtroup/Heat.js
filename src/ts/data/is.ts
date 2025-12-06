@@ -11,7 +11,8 @@
  */
 
 
-import { Char } from "./enum";
+import { type BindingOptions, type BindingOptionsHoliday, type IsHoliday } from "../type";
+import { Char, Value } from "./enum";
 
 
 export namespace Is {
@@ -49,5 +50,46 @@ export namespace Is {
 
     export function invalidOptionArray( array: any, minimumLength: number = 1 ) : boolean {
         return !definedArray( array ) || array.length < minimumLength;
+    }
+
+    export function holiday( bindingOptions: BindingOptions, date: Date ) : IsHoliday {
+        const result: IsHoliday = {
+            matched: false,
+            name: null!
+        } as IsHoliday;
+
+        const holidaysLength: number = bindingOptions.holidays!.length;
+        const day: number = date.getDate();
+        const month: number = date.getMonth() + 1;
+        const year: number = date.getFullYear();
+        
+        for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+            let holiday: BindingOptionsHoliday = bindingOptions.holidays![ holidayIndex ];
+
+            if ( Is.definedString( holiday.date ) && holiday.showInViews ) {
+                const dateParts: string[] = holiday.date!.split( "/" );
+
+                if ( dateParts.length === 2 ) {
+                    result.matched = day === parseInt( dateParts[ 0 ] ) && month === parseInt( dateParts[ 1 ] );
+                } else if ( dateParts.length === 3 ) {
+                    result.matched = day === parseInt( dateParts[ 0 ] ) && month === parseInt( dateParts[ 1 ] ) && year === parseInt( dateParts[ 2 ] );
+                }
+
+                if ( result.matched ) {
+                    result.name = holiday.name!;
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    export function monthVisible( monthsToShow: number[], month: number ) : boolean {
+        return monthsToShow.indexOf( month + 1 ) > Value.notFound;
+    }
+
+    export function dayVisible( daysToShow: number[], day: number ) : boolean {
+        return daysToShow.indexOf( day ) > Value.notFound;
     }
 }

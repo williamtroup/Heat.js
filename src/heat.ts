@@ -295,11 +295,11 @@ import { Export } from "./ts/files/export";
         const monthsToShow: number[] = Visible.months( bindingOptions );
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
-            bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ].checked = isDayVisible( daysToShow, dayIndex + 1 );
+            bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ].checked = Is.dayVisible( daysToShow, dayIndex + 1 );
         }
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
-            bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ monthIndex ].checked = isMonthVisible( monthsToShow, monthIndex );
+            bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ monthIndex ].checked = Is.monthVisible( monthsToShow, monthIndex );
         }
 
         ToolTip.hide( bindingOptions );
@@ -750,7 +750,7 @@ import { Export } from "./ts/files/export";
                 const todaysBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
                 const weekdayNumber: number = DateTime.getWeekdayNumber( today ) + 1;
 
-                if ( !Is.defined( todaysCount ) || !isDayVisible( daysToShow, weekdayNumber ) ) {
+                if ( !Is.defined( todaysCount ) || !Is.dayVisible( daysToShow, weekdayNumber ) ) {
                     todaysCount = 0;
                 }
 
@@ -819,7 +819,7 @@ import { Export } from "./ts/files/export";
             const count: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( currentDate ) ];
             const weekdayNumber: number = DateTime.getWeekdayNumber( currentDate ) + 1;
 
-            if ( isMonthVisible( monthsToShow, currentDate.getMonth() ) && isDayVisible( daysToShow, weekdayNumber ) && Is.definedNumber( count ) ) {
+            if ( Is.monthVisible( monthsToShow, currentDate.getMonth() ) && Is.dayVisible( daysToShow, weekdayNumber ) && Is.definedNumber( count ) ) {
                 result += count;
             }
 
@@ -886,7 +886,7 @@ import { Export } from "./ts/files/export";
                 }
         
                 for ( let dayNameIndex: number = 0; dayNameIndex < 7; dayNameIndex++ ) {
-                    if ( isDayVisible( bindingOptions.views!.map!.daysToShow!, dayNameIndex + 1 ) ) {
+                    if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, dayNameIndex + 1 ) ) {
                         const dayNameText: string = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.text!.dayNames![ dayNameIndex ] : Char.space;
 
                         DomElement.createWithHTML( days, "div", "day-name", dayNameText );
@@ -910,7 +910,7 @@ import { Export } from "./ts/files/export";
                     actualYear++;
                 }
 
-                if ( isMonthVisible( bindingOptions.views!.map!.monthsToShow!, actualMonthIndex ) ) {
+                if ( Is.monthVisible( bindingOptions.views!.map!.monthsToShow!, actualMonthIndex ) ) {
                     const month: HTMLElement = DomElement.create( months, "div", "month" );
                     const dayColumns: HTMLElement = DomElement.create( month, "div", "day-columns" );
                     let totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
@@ -927,7 +927,7 @@ import { Export } from "./ts/files/export";
                             startFillingDays = true;
         
                         } else {
-                            if ( isDayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
+                            if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
                                 DomElement.create( currentDayColumn, "div", "day-disabled" );
                             }
                         }
@@ -935,7 +935,7 @@ import { Export } from "./ts/files/export";
                         if ( startFillingDays ) {
                             let day: HTMLElement = null!;
     
-                            if ( isDayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
+                            if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
                                 day = renderControlMapMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, actualMonthIndex, actualYear, colorRanges );
                             }
             
@@ -1014,7 +1014,7 @@ import { Export } from "./ts/files/export";
         const actualDay: number = dayNumber + 1;
         const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day" );
         const date: Date = new Date( year, month, actualDay );
-        const holiday: IsHoliday = isHoliday( bindingOptions, date );
+        const holiday: IsHoliday = Is.holiday( bindingOptions, date );
         let dateCount: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( date ) ];
 
         dateCount = Default.getNumber( dateCount, 0 );
@@ -1145,7 +1145,7 @@ import { Export } from "./ts/files/export";
                     actualYear++;
                 }
 
-                if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) ) {
+                if ( Is.monthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) ) {
                     const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
                     let actualDay: number = 1;
                     let firstDayAdded: boolean = false;
@@ -1156,7 +1156,7 @@ import { Export } from "./ts/files/export";
                         const actualDate: Date = new Date( actualYear, actualMonthIndex, actualDay );
                         const weekdayNumber: number = DateTime.getWeekdayNumber( actualDate ) + 1;
                         
-                        if ( isDayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
+                        if ( Is.dayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
                             const dayLine: HTMLElement = renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, pixelsPerNumbers );
 
                             if ( !firstDayAdded ) {
@@ -1193,7 +1193,7 @@ import { Export } from "./ts/files/export";
                         actualYear++;
                     }
 
-                    if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) ) {
+                    if ( Is.monthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) ) {
                         let monthNameText: string = _configuration.text!.monthNames![ actualMonthIndex ];
 
                         if ( bindingOptions.startMonth! > 0 ) {
@@ -1234,7 +1234,7 @@ import { Export } from "./ts/files/export";
     function renderControlChartDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number ) : HTMLElement {
         const date: Date = new Date( year, month, day );
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
-        const holiday: IsHoliday = isHoliday( bindingOptions, date );
+        const holiday: IsHoliday = Is.holiday( bindingOptions, date );
         let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
 
         dateCount = Default.getNumber( dateCount, 0 );
@@ -1314,7 +1314,7 @@ import { Export } from "./ts/files/export";
                 const weekdayNumber: number = DateTime.getWeekdayNumber( date ) + 1;
 
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    if ( isMonthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) && isDayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
+                    if ( Is.monthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) && Is.dayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
                         result = Math.max( result, typeDateCounts[ storageDate ] );
                     }
                 }
@@ -1381,7 +1381,7 @@ import { Export } from "./ts/files/export";
             let opacityIncrease: number = opacity;
 
             for ( const day in dayValuesForCurrentYear.values ) {
-                if ( dayValuesForCurrentYear.values.hasOwnProperty( day ) && isDayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
+                if ( dayValuesForCurrentYear.values.hasOwnProperty( day ) && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
                     renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ], bindingOptions, pixelsPerNumbers, opacityIncrease );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
@@ -1482,7 +1482,7 @@ import { Export } from "./ts/files/export";
                 actualYear++;
             }
 
-            if ( isMonthVisible( bindingOptions.views!.days!.monthsToShow!, actualMonthIndex ) ) {
+            if ( Is.monthVisible( bindingOptions.views!.days!.monthsToShow!, actualMonthIndex ) ) {
                 const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
         
                 for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
@@ -1493,7 +1493,7 @@ import { Export } from "./ts/files/export";
                         const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
                         const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
-                        if ( !isHoliday( bindingOptions, storageDateObject ).matched && isDayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
+                        if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
                             result.values[ weekDayNumber ] += typeDateCounts[ storageDate ];
                             result.largestValue = Math.max( result.largestValue, result.values[ weekDayNumber ] );
                         }
@@ -1570,7 +1570,7 @@ import { Export } from "./ts/files/export";
 
                 const monthToShow: number = actualMonthIndex + 1;
 
-                if ( monthValuesForCurrentYear.values.hasOwnProperty( monthToShow ) && isMonthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
+                if ( monthValuesForCurrentYear.values.hasOwnProperty( monthToShow ) && Is.monthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
                     renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ], bindingOptions, pixelsPerNumbers, opacityIncrease );
 
                     if ( bindingOptions.views!.months!.showMonthNames ) {
@@ -1687,7 +1687,7 @@ import { Export } from "./ts/files/export";
                 actualYear++;
             }
 
-            if ( isMonthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
+            if ( Is.monthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
                 const monthValue: number = actualMonthIndex + 1;
                 const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
 
@@ -1699,7 +1699,7 @@ import { Export } from "./ts/files/export";
                         const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
                         const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
-                        if ( !isHoliday( bindingOptions, storageDateObject ).matched && isDayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
+                        if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
                             result.values[ monthValue ] += typeDateCounts[ storageDate ];
                             result.largestValue = Math.max( result.largestValue, result.values[ monthValue ] );
                         }
@@ -1863,7 +1863,7 @@ import { Export } from "./ts/files/export";
                 actualYear++;
             }
 
-            if ( isMonthVisible( bindingOptions.views!.statistics!.monthsToShow!, actualMonthIndex ) ) {
+            if ( Is.monthVisible( bindingOptions.views!.statistics!.monthsToShow!, actualMonthIndex ) ) {
                 const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
         
                 for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
@@ -1874,7 +1874,7 @@ import { Export } from "./ts/files/export";
                         const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
                         const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
-                        if ( !isHoliday( bindingOptions, storageDateObject ).matched && isDayVisible( bindingOptions.views!.statistics!.daysToShow!, weekDayNumber ) ) {
+                        if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.statistics!.daysToShow!, weekDayNumber ) ) {
                             const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, typeDateCounts[ storageDate ] );
 
                             if ( !Is.defined( useColorRange ) ) {
@@ -2048,7 +2048,7 @@ import { Export } from "./ts/files/export";
             let tooltip: string = DateTime.getCustomFormattedDateText( _configuration, tooltipFormat, date );
 
             if ( bindingOptions.showHolidaysInDayToolTips ) {
-                let holiday: IsHoliday = isHoliday( bindingOptions, date );
+                let holiday: IsHoliday = Is.holiday( bindingOptions, date );
 
                 if ( holiday.matched && Is.definedString( holiday.name ) ) {
                     tooltip += `${Char.colon}${Char.space}${holiday.name}`;
@@ -2082,14 +2082,6 @@ import { Export } from "./ts/files/export";
 
     function getCurrentViewData( bindingOptions: BindingOptions ) : InstanceTypeDateCount {
         return _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ];
-    }
-
-    function isMonthVisible( monthsToShow: number[], month: number ) : boolean {
-        return monthsToShow.indexOf( month + 1 ) > Value.notFound;
-    }
-
-    function isDayVisible( daysToShow: number[], day: number ) : boolean {
-        return daysToShow.indexOf( day ) > Value.notFound;
     }
 
     function getYearsAvailableInData( bindingOptions: BindingOptions ) : number[] {
@@ -2315,7 +2307,7 @@ import { Export } from "./ts/files/export";
     function getColorRange( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], dateCount: number, date: Date = null! ) : BindingOptionsColorRange {
         let useColorRange: BindingOptionsColorRange = null!;
 
-        if ( Is.defined( date ) && isHoliday( bindingOptions, date ).matched ) {
+        if ( Is.defined( date ) && Is.holiday( bindingOptions, date ).matched ) {
             useColorRange = {
                 cssClassName: "holiday",
                 id: _internal_Name_Holiday,
@@ -2361,46 +2353,6 @@ import { Export } from "./ts/files/export";
         return bindingOptions.colorRanges!.sort( function( a, b ) {
             return a.minimum! - b.minimum!;
         } );
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Holiday
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function isHoliday( bindingOptions: BindingOptions, date: Date ) : IsHoliday {
-        const result: IsHoliday = {
-            matched: false,
-            name: null!
-        } as IsHoliday;
-
-        const holidaysLength: number = bindingOptions.holidays!.length;
-        const day: number = date.getDate();
-        const month: number = date.getMonth() + 1;
-        const year: number = date.getFullYear();
-        
-        for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-            let holiday: BindingOptionsHoliday = bindingOptions.holidays![ holidayIndex ];
-
-            if ( Is.definedString( holiday.date ) && holiday.showInViews ) {
-                const dateParts: string[] = holiday.date!.split( "/" );
-
-                if ( dateParts.length === 2 ) {
-                    result.matched = day === parseInt( dateParts[ 0 ] ) && month === parseInt( dateParts[ 1 ] );
-                } else if ( dateParts.length === 3 ) {
-                    result.matched = day === parseInt( dateParts[ 0 ] ) && month === parseInt( dateParts[ 1 ] ) && year === parseInt( dateParts[ 2 ] );
-                }
-
-                if ( result.matched ) {
-                    result.name = holiday.name!;
-                    break;
-                }
-            }
-        }
-
-        return result;
     }
 
 
@@ -2543,7 +2495,7 @@ import { Export } from "./ts/files/export";
                     actualYear++;
                 }
 
-                if ( isMonthVisible( monthsToShow, actualMonthIndex ) ) {
+                if ( Is.monthVisible( monthsToShow, actualMonthIndex ) ) {
                     const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
             
                     for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
@@ -2551,7 +2503,7 @@ import { Export } from "./ts/files/export";
                         const storageDateKey: string = DateTime.toStorageDate( storageDate );
                         const weekdayNumber: number = DateTime.getWeekdayNumber( storageDate ) + 1;
 
-                        if ( isDayVisible( daysToShow, weekdayNumber ) ) {
+                        if ( Is.dayVisible( daysToShow, weekdayNumber ) ) {
                             if ( typeDateCounts.hasOwnProperty( storageDateKey ) ) {
                                 contents[ storageDateKey ] = typeDateCounts[ storageDateKey ];
                             }
