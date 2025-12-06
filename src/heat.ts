@@ -2490,23 +2490,24 @@ import { Import } from "./ts/files/import";
         let contents: string = null!;
         const contentsMimeType: string = getExportMimeType( exportType );
         const contentExportType: string = Default.getString( exportType, bindingOptions.exportType! ).toLowerCase();
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, exportOnlyDataBeingViewed );
 
         if ( contentExportType === ExportType.csv ) {
-            contents = getCsvContent( bindingOptions, exportOnlyDataBeingViewed );
+            contents = getCsvContent( typeDateCounts );
         } else if ( contentExportType === ExportType.json ) {
-            contents = getJsonContent( bindingOptions, exportOnlyDataBeingViewed );
+            contents = getJsonContent( typeDateCounts );
         } else if ( contentExportType === ExportType.xml ) {
-            contents = getXmlContents( bindingOptions, exportOnlyDataBeingViewed );
+            contents = getXmlContents( typeDateCounts );
         } else if ( contentExportType === ExportType.txt ) {
-            contents = getTxtContents( bindingOptions, exportOnlyDataBeingViewed );
+            contents = getTxtContents( typeDateCounts );
         } else if ( contentExportType === ExportType.html ) {
-            contents = getHtmlContents( bindingOptions, exportOnlyDataBeingViewed );
+            contents = getHtmlContents( typeDateCounts );
         } else if ( contentExportType === ExportType.md ) {
-            contents = getMdContents( bindingOptions, exportOnlyDataBeingViewed );
+            contents = getMdContents( typeDateCounts );
         } else if ( contentExportType === ExportType.tsv ) {
-            contents = getTsvContents( bindingOptions, exportOnlyDataBeingViewed );
+            contents = getTsvContents( typeDateCounts );
         } else if ( contentExportType === ExportType.yaml ) {
-            contents = getYamlContents( bindingOptions, exportOnlyDataBeingViewed );
+            contents = getYamlContents( typeDateCounts );
         }
 
         if ( Is.definedString( contents ) ) {
@@ -2523,8 +2524,7 @@ import { Import } from "./ts/files/import";
         }
     }
 
-    function getCsvContent( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, onlyDataBeingViewed );
+    function getCsvContent( typeDateCounts: InstanceTypeDateCount ) : string {
         const csvContents: string[] = [];
 
         for ( const storageDate in typeDateCounts ) {
@@ -2540,12 +2540,11 @@ import { Import } from "./ts/files/import";
         return csvContents.join( Char.newLine );
     }
 
-    function getJsonContent( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
-        return JSON.stringify( getExportData( bindingOptions, onlyDataBeingViewed ) );
+    function getJsonContent( typeDateCounts: InstanceTypeDateCount ) : string {
+        return JSON.stringify( typeDateCounts );
     }
 
-    function getXmlContents( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, onlyDataBeingViewed );
+    function getXmlContents( typeDateCounts: InstanceTypeDateCount ) : string {
         const contents: string[] = [];
 
         contents.push( "<?xml version=\"1.0\" ?>" );
@@ -2565,8 +2564,7 @@ import { Import } from "./ts/files/import";
         return contents.join( Char.newLine );
     }
 
-    function getTxtContents( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, onlyDataBeingViewed );
+    function getTxtContents( typeDateCounts: InstanceTypeDateCount ) : string {
         const contents: string[] = [];
 
         for ( const storageDate in typeDateCounts ) {
@@ -2578,8 +2576,7 @@ import { Import } from "./ts/files/import";
         return contents.join( Char.newLine );
     }
 
-    function getHtmlContents( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, onlyDataBeingViewed );
+    function getHtmlContents( typeDateCounts: InstanceTypeDateCount ) : string {
         const contents: string[] = [];
         const exportedDateTime: string = DateTime.getCustomFormattedDateText( _configuration, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date() );
 
@@ -2605,8 +2602,7 @@ import { Import } from "./ts/files/import";
         return contents.join( Char.newLine );
     }
 
-    function getMdContents( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, onlyDataBeingViewed );
+    function getMdContents( typeDateCounts: InstanceTypeDateCount ) : string {
         const contents: string[] = [];
 
         contents.push( "| Full Date | Count |" );
@@ -2621,8 +2617,7 @@ import { Import } from "./ts/files/import";
         return contents.join( Char.newLine );
     }
 
-    function getTsvContents( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, onlyDataBeingViewed );
+    function getTsvContents( typeDateCounts: InstanceTypeDateCount ) : string {
         const contents: string[] = [];
 
         contents.push( `Full Date${Char.tab}Count` );
@@ -2636,8 +2631,7 @@ import { Import } from "./ts/files/import";
         return contents.join( Char.newLine );
     }
 
-    function getYamlContents( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean  ) : string {
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, onlyDataBeingViewed );
+    function getYamlContents( typeDateCounts: InstanceTypeDateCount ) : string {
         const contents: string[] = [];
         const exportedDateTime: string = DateTime.getCustomFormattedDateText( _configuration, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date() );
 

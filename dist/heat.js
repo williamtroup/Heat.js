@@ -2745,22 +2745,23 @@ var Import;
         let i = null;
         const s = Ce(t);
         const r = Default2.getString(t, e.exportType).toLowerCase();
+        const a = Ee(e, o);
         if (r === "csv") {
-            i = pe(e, o);
+            i = pe(a);
         } else if (r === "json") {
-            i = ve(e, o);
+            i = ve(a);
         } else if (r === "xml") {
-            i = Te(e, o);
+            i = Te(a);
         } else if (r === "txt") {
-            i = xe(e, o);
+            i = xe(a);
         } else if (r === "html") {
-            i = be(e, o);
+            i = be(a);
         } else if (r === "md") {
-            i = Se(e, o);
+            i = Se(a);
         } else if (r === "tsv") {
-            i = _e(e, o);
+            i = _e(a);
         } else if (r === "yaml") {
-            i = Ve(e, o);
+            i = Ve(a);
         }
         if (Is.definedString(i)) {
             const t = DomElement.create(document.body, "a");
@@ -2773,104 +2774,97 @@ var Import;
             Trigger.customEvent(e.events.onExport, e._currentView.element);
         }
     }
-    function pe(t, n) {
-        const o = Ee(t, n);
-        const i = [];
-        for (const e in o) {
-            if (o.hasOwnProperty(e)) {
-                i.push(Be([ Ie(e), Ie(o[e].toString()) ]));
+    function pe(t) {
+        const n = [];
+        for (const e in t) {
+            if (t.hasOwnProperty(e)) {
+                n.push(Be([ Ie(e), Ie(t[e].toString()) ]));
             }
         }
-        if (i.length > 0) {
-            i.unshift(Be([ Ie(e.text.dateText), Ie(e.text.countText) ]));
+        if (n.length > 0) {
+            n.unshift(Be([ Ie(e.text.dateText), Ie(e.text.countText) ]));
         }
-        return i.join("\n");
+        return n.join("\n");
     }
-    function ve(e, t) {
-        return JSON.stringify(Ee(e, t));
+    function ve(e) {
+        return JSON.stringify(e);
     }
-    function Te(e, t) {
-        const n = Ee(e, t);
-        const o = [];
-        o.push('<?xml version="1.0" ?>');
-        o.push("<Dates>");
-        for (const e in n) {
-            if (n.hasOwnProperty(e)) {
-                o.push("<Date>");
-                o.push(`<FullDate>${e}</FullDate>`);
-                o.push(`<Count>${n[e].toString()}</Count>`);
-                o.push("</Date>");
+    function Te(e) {
+        const t = [];
+        t.push('<?xml version="1.0" ?>');
+        t.push("<Dates>");
+        for (const n in e) {
+            if (e.hasOwnProperty(n)) {
+                t.push("<Date>");
+                t.push(`<FullDate>${n}</FullDate>`);
+                t.push(`<Count>${e[n].toString()}</Count>`);
+                t.push("</Date>");
             }
         }
-        o.push("</Dates>");
-        return o.join("\n");
+        t.push("</Dates>");
+        return t.join("\n");
     }
-    function xe(e, t) {
-        const n = Ee(e, t);
-        const o = [];
-        for (const e in n) {
-            if (n.hasOwnProperty(e)) {
-                o.push(`${e}${":"}${" "}${n[e].toString()}`);
+    function xe(e) {
+        const t = [];
+        for (const n in e) {
+            if (e.hasOwnProperty(n)) {
+                t.push(`${n}${":"}${" "}${e[n].toString()}`);
             }
         }
-        return o.join("\n");
+        return t.join("\n");
     }
-    function be(t, n) {
-        const o = Ee(t, n);
-        const i = [];
-        const s = DateTime.getCustomFormattedDateText(e, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date);
-        i.push("<!DOCTYPE html>");
-        i.push("<html>");
-        i.push("<head>");
-        i.push('<meta charset="utf-8" />');
-        i.push(`<meta http-equiv="Last-Modified" content="${s} GMT" />`);
-        i.push("</head>");
-        i.push("<body>");
-        i.push("<ul>");
-        for (const e in o) {
-            if (o.hasOwnProperty(e)) {
-                i.push(`<li><b>${e}:</b> ${o[e].toString()}</li>`);
+    function be(t) {
+        const n = [];
+        const o = DateTime.getCustomFormattedDateText(e, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date);
+        n.push("<!DOCTYPE html>");
+        n.push("<html>");
+        n.push("<head>");
+        n.push('<meta charset="utf-8" />');
+        n.push(`<meta http-equiv="Last-Modified" content="${o} GMT" />`);
+        n.push("</head>");
+        n.push("<body>");
+        n.push("<ul>");
+        for (const e in t) {
+            if (t.hasOwnProperty(e)) {
+                n.push(`<li><b>${e}:</b> ${t[e].toString()}</li>`);
             }
         }
-        i.push("</ul>");
-        i.push("</body>");
-        i.push("</html>");
-        return i.join("\n");
+        n.push("</ul>");
+        n.push("</body>");
+        n.push("</html>");
+        return n.join("\n");
     }
-    function Se(e, t) {
-        const n = Ee(e, t);
-        const o = [];
-        o.push("| Full Date | Count |");
-        o.push("| --- | --- |");
-        for (const e in n) {
-            if (n.hasOwnProperty(e)) {
-                o.push(`| ${e} | ${n[e].toString()} |`);
+    function Se(e) {
+        const t = [];
+        t.push("| Full Date | Count |");
+        t.push("| --- | --- |");
+        for (const n in e) {
+            if (e.hasOwnProperty(n)) {
+                t.push(`| ${n} | ${e[n].toString()} |`);
             }
         }
-        return o.join("\n");
+        return t.join("\n");
     }
-    function _e(e, t) {
-        const n = Ee(e, t);
-        const o = [];
-        o.push(`Full Date${"\t"}Count`);
-        for (const e in n) {
-            if (n.hasOwnProperty(e)) {
-                o.push(`${e}${"\t"}${n[e].toString()}`);
+    function _e(e) {
+        const t = [];
+        t.push(`Full Date${"\t"}Count`);
+        for (const n in e) {
+            if (e.hasOwnProperty(n)) {
+                t.push(`${n}${"\t"}${e[n].toString()}`);
             }
         }
-        return o.join("\n");
+        return t.join("\n");
     }
-    function Ve(t, n) {
-        const o = Ee(t, n);
-        const i = [];
-        const s = DateTime.getCustomFormattedDateText(e, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date);
-        i.push(`Last-Modified:${" "}${s}`);
-        for (const e in o) {
-            if (o.hasOwnProperty(e)) {
-                i.push(`${e}${":"}${" "}${o[e].toString()}`);
+    function Ve(t) {
+        const n = [];
+        const o = DateTime.getCustomFormattedDateText(e, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date);
+        n.push(`Last-Modified:${" "}${o}`);
+        for (const e in t) {
+            if (t.hasOwnProperty(e)) {
+                n.push(`${e}${":"}${" "}${t[e].toString()}`);
             }
         }
-        return i.join("\n");
+        return n.join("\n");
     }
     function Ee(e, t) {
         const n = {};
