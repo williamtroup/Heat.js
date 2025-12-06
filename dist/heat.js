@@ -2086,14 +2086,16 @@ var Export;
                 s = o - 12;
                 r++;
             }
-            const a = DateTime.getTotalDaysInMonth(r, s);
-            for (let i = 0; i < a; i++) {
-                const o = new Date(r, s, i + 1);
-                const a = DateTime.toStorageDate(o);
-                const l = DateTime.getWeekdayNumber(o) + 1;
-                if (n.hasOwnProperty(a)) {
-                    if (Is.monthVisible(e.views.chart.monthsToShow, s) && Is.dayVisible(e.views.chart.daysToShow, l)) {
-                        t = Math.max(t, n[a]);
+            if (Is.monthVisible(e.views.chart.monthsToShow, s)) {
+                const i = DateTime.getTotalDaysInMonth(r, s);
+                for (let o = 0; o < i; o++) {
+                    const i = new Date(r, s, o + 1);
+                    const a = DateTime.toStorageDate(i);
+                    const l = DateTime.getWeekdayNumber(i) + 1;
+                    if (n.hasOwnProperty(a)) {
+                        if (Is.dayVisible(e.views.chart.daysToShow, l)) {
+                            t = Math.max(t, n[a]);
+                        }
                     }
                 }
             }

@@ -1306,16 +1306,18 @@ import { Export } from "./ts/files/export";
                 actualYear++;
             }
 
-            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
-    
-            for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                const date: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
-                const storageDate: string = DateTime.toStorageDate( date );
-                const weekdayNumber: number = DateTime.getWeekdayNumber( date ) + 1;
+            if ( Is.monthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) ) {
+                const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
+        
+                for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                    const date: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
+                    const storageDate: string = DateTime.toStorageDate( date );
+                    const weekdayNumber: number = DateTime.getWeekdayNumber( date ) + 1;
 
-                if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    if ( Is.monthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) && Is.dayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
-                        result = Math.max( result, typeDateCounts[ storageDate ] );
+                    if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                        if ( Is.dayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
+                            result = Math.max( result, typeDateCounts[ storageDate ] );
+                        }
                     }
                 }
             }
