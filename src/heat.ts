@@ -1848,6 +1848,7 @@ import { Export } from "./ts/files/export";
     function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValuesForEachRangeType {
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
         const currentYear: number = bindingOptions._currentView!.year;
+        const colorRangesLength: number = colorRanges.length;
 
         const result: LargestValuesForEachRangeType = {
             types: {} as InstanceTypeDateCount,
@@ -1855,6 +1856,10 @@ import { Export } from "./ts/files/export";
         } as LargestValuesForEachRangeType;
 
         result.types[ Char.zero ] = 0;
+
+        for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
+            result.types[ colorRanges[ colorRangeIndex ].minimum!.toString() ] = 0;
+        }
 
         for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
             let actualMonthIndex: number = monthIndex;

@@ -2483,43 +2483,47 @@ var Export;
     function Y(e, t) {
         const n = X(e);
         const i = e._currentView.year;
-        const o = {
+        const o = t.length;
+        const s = {
             types: {},
             largestValue: 0
         };
-        o.types["0"] = 0;
-        for (let s = e.startMonth; s < 12 + e.startMonth; s++) {
-            let r = s;
+        s.types["0"] = 0;
+        for (let e = 0; e < o; e++) {
+            s.types[t[e].minimum.toString()] = 0;
+        }
+        for (let o = e.startMonth; o < 12 + e.startMonth; o++) {
+            let r = o;
             let a = i;
-            if (e.startMonth > 0 && s > 11) {
-                r = s - 12;
+            if (e.startMonth > 0 && o > 11) {
+                r = o - 12;
                 a++;
             }
             if (Is.monthVisible(e.views.statistics.monthsToShow, r)) {
                 const i = DateTime.getTotalDaysInMonth(a, r);
-                for (let s = 0; s < i; s++) {
-                    const i = DateTime.toStorageDate(new Date(a, r, s + 1));
+                for (let o = 0; o < i; o++) {
+                    const i = DateTime.toStorageDate(new Date(a, r, o + 1));
                     if (n.hasOwnProperty(i)) {
-                        const s = DateTime.getStorageDate(i);
-                        const r = new Date(parseInt(s[2]), parseInt(s[1]), parseInt(s[0]));
+                        const o = DateTime.getStorageDate(i);
+                        const r = new Date(parseInt(o[2]), parseInt(o[1]), parseInt(o[0]));
                         const a = DateTime.getWeekdayNumber(r) + 1;
                         if (!Is.holiday(e, r).matched && Is.dayVisible(e.views.statistics.daysToShow, a)) {
-                            const s = ce(e, t, n[i]);
-                            if (!Is.defined(s)) {
-                                o.types["0"]++;
+                            const o = ce(e, t, n[i]);
+                            if (!Is.defined(o)) {
+                                s.types["0"]++;
                             } else {
-                                if (!o.types.hasOwnProperty(s.minimum.toString())) {
-                                    o.types[s.minimum.toString()] = 0;
+                                if (!s.types.hasOwnProperty(o.minimum.toString())) {
+                                    s.types[o.minimum.toString()] = 0;
                                 }
-                                o.types[s.minimum]++;
-                                o.largestValue = Math.max(o.largestValue, o.types[s.minimum]);
+                                s.types[o.minimum]++;
+                                s.largestValue = Math.max(s.largestValue, s.types[o.minimum]);
                             }
                         }
                     }
                 }
             }
         }
-        return o;
+        return s;
     }
     function P(t) {
         const i = DomElement.create(t._currentView.element, "div", "guide");
