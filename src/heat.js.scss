@@ -71,13 +71,15 @@
     --heat-js-holiday-border-color: rgba( 210, 43, 43, 0.5 );
     --heat-js-holiday-text-color: var(--heat-js-color-black);
 
+    // Views
+    --heat-js-view-opacity-hover: 0.7;
+    --heat-js-view-opacity-active: 0.5;
+
     // View - Map / Chart - Day - Defaults
     --heat-js-day-background-color: #2d333b;
     --heat-js-day-border-color: var(--heat-js-container-border-color);
     --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
     --heat-js-day-spacing: 6.3px;
-    --heat-js-day-opacity-hover: 0.7;
-    --heat-js-day-opacity-active: 0.5;
     --heat-js-day-size: 1.2rem;
     --heat-js-day-chart-width: 12px;
 
@@ -886,6 +888,10 @@ div.heat-js {
                                 transition: var(--heat-js-transition);
                                 transition-property: opacity, background-color, color, border-color;
 
+                                &:not(.no-hover):active {
+                                    opacity: var(--heat-js-view-opacity-active) !important;
+                                }
+
                                 &:not(.no-hover):hover {
                                     cursor: pointer;
                                     background: var(--heat-js-day-background-color-hover);
@@ -965,6 +971,10 @@ div.heat-js {
     
                     &:last-child {
                         margin-right: calc( var(--heat-js-spacing) / 2 );
+                    }
+
+                    &:not(.no-hover):active {
+                        opacity: var(--heat-js-view-opacity-active) !important;
                     }
 
                     &:not(.no-hover):hover {
@@ -1066,9 +1076,13 @@ div.heat-js {
                         margin-right: calc( var(--heat-js-spacing) / 2 );
                     }
 
+                    &:not(.no-hover):active {
+                        opacity: var(--heat-js-view-opacity-active) !important;
+                    }
+
                     &:not(.no-hover):hover {
                         cursor: pointer;
-                        opacity: var(--heat-js-day-opacity-hover);
+                        opacity: var(--heat-js-view-opacity-hover);
                     }
                 }
             }
@@ -1167,9 +1181,13 @@ div.heat-js {
                         margin-right: calc( var(--heat-js-spacing) / 2 );
                     }
 
+                    &:not(.no-hover):active {
+                        opacity: var(--heat-js-view-opacity-active) !important;
+                    }
+
                     &:not(.no-hover):hover {
                         cursor: pointer;
-                        opacity: var(--heat-js-day-opacity-hover);
+                        opacity: var(--heat-js-view-opacity-hover);
                     }
                 }
             }
@@ -1261,6 +1279,10 @@ div.heat-js {
     
                     &:last-child {
                         margin-right: calc( var(--heat-js-spacing) / 2 );
+                    }
+
+                    &:not(.no-hover):active {
+                        opacity: var(--heat-js-view-opacity-active) !important;
                     }
 
                     &:not(.no-hover):hover {
@@ -1552,12 +1574,12 @@ div.heat-js {
     div.day-color-4,
     div.holiday {
         &:not(.no-hover):active {
-            opacity: var(--heat-js-day-opacity-active) !important;
+            opacity: var(--heat-js-view-opacity-active) !important;
         }
 
         &:not(.no-hover):hover {
             cursor: pointer;
-            opacity: var(--heat-js-day-opacity-hover);
+            opacity: var(--heat-js-view-opacity-hover);
         }
     }
 
