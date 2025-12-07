@@ -2878,7 +2878,7 @@ var Export;
     function de(e) {
         const t = DomElement.createWithNoContainer("input");
         t.type = "file";
-        t.accept = ".json, .txt, .csv, .tsv, .md, .yaml";
+        t.accept = `.${"json"}, .${"txt"}, .${"csv"}, .${"tsv"}, .${"md"}, .${"yaml"}`;
         t.multiple = true;
         t.onchange = () => me(t.files, e);
         t.click();

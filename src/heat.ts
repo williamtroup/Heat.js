@@ -2386,7 +2386,7 @@ import { Export } from "./ts/files/export";
     function importFromFilesSelected( bindingOptions: BindingOptions ) : void {
         const input: HTMLInputElement = DomElement.createWithNoContainer( "input" ) as HTMLInputElement;
         input.type = "file";
-        input.accept = ".json, .txt, .csv, .tsv, .md, .yaml";
+        input.accept = `.${ExportType.json}, .${ExportType.txt}, .${ExportType.csv}, .${ExportType.tsv}, .${ExportType.md}, .${ExportType.yaml}`;
         input.multiple = true;
         input.onchange = () => importFromFiles( input.files!, bindingOptions );
 
