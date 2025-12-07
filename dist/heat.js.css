@@ -778,7 +778,6 @@ div.heat-js div.map-contents div.map div.months {
 }
 div.heat-js div.map-contents div.map div.months div.month {
   flex: 1;
-  pointer-events: none;
 }
 div.heat-js div.map-contents div.map div.months div.month:last-child div.day-columns div.day-column:last-child div.day {
   margin-right: 0 !important;

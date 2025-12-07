@@ -661,17 +661,11 @@ import { Export } from "./ts/files/export";
         }
     }
 
-    function renderTitleDropDownMenuItemClickEvent( bindingOptions: BindingOptions, option: HTMLElement, view: number, viewName: string ) : void {
-        if ( bindingOptions._currentView!.view === view ) {
+    function renderTitleDropDownMenuItemClickEvent( bindingOptions: BindingOptions, option: HTMLElement, viewId: ViewId, viewName: string ) : void {
+        if ( bindingOptions._currentView!.view === viewId ) {
             DomElement.addClass( option, "title-menu-item-active" );
-            
         } else {
-            option.onclick = () => {
-                bindingOptions._currentView!.view = view;
-
-                Trigger.customEvent( bindingOptions.events!.onViewSwitch!, viewName );
-                renderControlContainer( bindingOptions, false, true );
-            };
+            option.onclick = () => switchView( bindingOptions, viewId, viewName );
         }
     }
 
@@ -888,8 +882,11 @@ import { Export } from "./ts/files/export";
                 for ( let dayNameIndex: number = 0; dayNameIndex < 7; dayNameIndex++ ) {
                     if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, dayNameIndex + 1 ) ) {
                         const dayNameText: string = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.text!.dayNames![ dayNameIndex ] : Char.space;
+                        const dayName: HTMLElement = DomElement.createWithHTML( days, "div", "day-name", dayNameText );
 
-                        DomElement.createWithHTML( days, "div", "day-name", dayNameText );
+                        if ( bindingOptions.views!.days!.enabled ) {
+                            dayName.ondblclick = () => switchView( bindingOptions, ViewId.days, ViewName.days );
+                        }
                     }
                 }
     
@@ -975,12 +972,14 @@ import { Export } from "./ts/files/export";
                             monthName = DomElement.createWithHTML( month, "div", "month-name-bottom", monthNameText );
                         }
     
-                        if ( Is.defined( monthName ) ) {
-                            if ( bindingOptions.views!.map!.showMonthDayGaps ) {
-                                monthName.style.width = `${monthWidth}px`;
-                            } else {
-                                monthName.style.width = `${monthWidth - bindingOptions._currentView!.dayWidth}px`;
-                            }
+                        if ( bindingOptions.views!.map!.showMonthDayGaps ) {
+                            monthName.style.width = `${monthWidth}px`;
+                        } else {
+                            monthName.style.width = `${monthWidth - bindingOptions._currentView!.dayWidth}px`;
+                        }
+
+                        if ( bindingOptions.views!.months!.enabled ) {
+                            monthName.ondblclick = () => switchView( bindingOptions, ViewId.months, ViewName.months );
                         }
                     }
     
@@ -1202,6 +1201,10 @@ import { Export } from "./ts/files/export";
 
                         let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", monthNameText );
                         monthName.style.left = `${firstMonthDayLines[ monthNameAddedIndex ].offsetLeft}px`;
+
+                        if ( bindingOptions.views!.months!.enabled ) {
+                            monthName.ondblclick = () => switchView( bindingOptions, ViewId.months, ViewName.months );
+                        }
 
                         monthNameAddedIndex++;
                     }
@@ -2064,6 +2067,13 @@ import { Export } from "./ts/files/export";
 
             ToolTip.add( day, bindingOptions, tooltip );
         }
+    }
+
+    function switchView( bindingOptions: BindingOptions, viewId: ViewId, viewName: string ) : void {
+        bindingOptions._currentView!.view = viewId;
+
+        Trigger.customEvent( bindingOptions.events!.onViewSwitch!, viewName );
+        renderControlContainer( bindingOptions, false, true );
     }
 
 
@@ -3034,27 +3044,24 @@ import { Export } from "./ts/files/export";
         switchView: function ( elementId: string, viewName: string ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedString( viewName ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-                let view: number;
+                let viewId: ViewId;
     
                 if ( viewName.toLowerCase() === ViewName.map ) {
-                    view = ViewId.map;
+                    viewId = ViewId.map;
                 } else if ( viewName.toLowerCase() === ViewName.chart ) {
-                    view = ViewId.chart;
+                    viewId = ViewId.chart;
                 } else if ( viewName.toLowerCase() === ViewName.days ) {
-                    view = ViewId.days;
+                    viewId = ViewId.days;
                 } else if ( viewName.toLowerCase() === ViewName.months ) {
-                    view = ViewId.months;
+                    viewId = ViewId.months;
                 } else if ( viewName.toLowerCase() === ViewName.statistics ) {
-                    view = ViewId.statistics;
+                    viewId = ViewId.statistics;
                 } else {
-                    view = ViewId.map;
+                    viewId = ViewId.map;
                 }
     
-                if ( Is.definedNumber( view ) ) {
-                    bindingOptions._currentView!.view = view;
-    
-                    Trigger.customEvent( bindingOptions.events!.onViewSwitch!, viewName );
-                    renderControlContainer( bindingOptions, false, true );
+                if ( Is.definedNumber( viewId ) ) {
+                    switchView( bindingOptions, viewId, viewName );
                 }
             }
     
