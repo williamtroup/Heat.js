@@ -25,7 +25,7 @@ import {
 
 import { type PublicApi } from "./ts/api";
 import { Constant } from "./ts/constant"
-import { ExportType, Char, Value, ViewId, ViewName, KeyCode } from "./ts/data/enum";
+import { ExportType, Char, Value, ViewId, ViewName, KeyCode, ImportType } from "./ts/data/enum";
 import { Is } from "./ts/data/is"
 import { Default } from "./ts/data/default"
 import { DateTime } from "./ts/data/datetime"
@@ -2385,8 +2385,15 @@ import { Export } from "./ts/files/export";
 
     function importFromFilesSelected( bindingOptions: BindingOptions ) : void {
         const input: HTMLInputElement = DomElement.createWithNoContainer( "input" ) as HTMLInputElement;
+        const importTypes: string[] = [];
+        let importType: keyof typeof ImportType;
+
+        for ( importType in ImportType ) {
+            importTypes.push( `.${importType}` );
+        }
+
         input.type = "file";
-        input.accept = `.${ExportType.json}, .${ExportType.txt}, .${ExportType.csv}, .${ExportType.tsv}, .${ExportType.md}, .${ExportType.yaml}`;
+        input.accept = importTypes.join( ", " );
         input.multiple = true;
         input.onchange = () => importFromFiles( input.files!, bindingOptions );
 
@@ -2421,17 +2428,17 @@ import { Export } from "./ts/files/export";
             const file: File = files[ fileIndex ];
             const fileExtension: string = file!.name!.split( "." )!.pop()!.toLowerCase();
 
-            if ( fileExtension === ExportType.json ) {
+            if ( fileExtension === ImportType.json ) {
                 Import.File.json( file, onLoadEnd, _configuration );
-            } else if ( fileExtension === ExportType.txt ) {
+            } else if ( fileExtension === ImportType.txt ) {
                 Import.File.txt( file, onLoadEnd );
-            } else if ( fileExtension === ExportType.csv ) {
+            } else if ( fileExtension === ImportType.csv ) {
                 Import.File.csv( file, onLoadEnd );
-            } else if ( fileExtension === ExportType.tsv ) {
+            } else if ( fileExtension === ImportType.tsv ) {
                 Import.File.tsv( file, onLoadEnd );
-            } else if ( fileExtension === ExportType.md ) {
+            } else if ( fileExtension === ImportType.md ) {
                 Import.File.md( file, onLoadEnd );
-            } else if ( fileExtension === ExportType.yaml ) {
+            } else if ( fileExtension === ImportType.yaml ) {
                 Import.File.yaml( file, onLoadEnd );
             }
         }

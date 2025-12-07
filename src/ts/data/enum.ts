@@ -45,6 +45,15 @@ export enum ViewName {
     months = "months",
 }
 
+export enum ImportType {
+    csv = "csv",
+    json = "json",
+    txt = "txt",
+    md = "md",
+    tsv = "tsv",
+    yaml = "yaml",
+}
+
 export enum ExportType {
     csv = "csv",
     json = "json",
