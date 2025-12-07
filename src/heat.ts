@@ -554,7 +554,7 @@ import { Export } from "./ts/files/export";
                     ToolTip.add( back, bindingOptions, _configuration.text!.backButtonText! );
                 }
 
-                if ( isFirstVisibleYear( bindingOptions, bindingOptions._currentView!.year ) ) {
+                if ( Is.firstVisibleYear( bindingOptions, bindingOptions._currentView!.year ) ) {
                     back.disabled = true;
                 }
 
@@ -603,7 +603,7 @@ import { Export } from "./ts/files/export";
                     ToolTip.add( next, bindingOptions, _configuration.text!.nextButtonText! );
                 }
 
-                if ( isLastVisibleYear( bindingOptions, bindingOptions._currentView!.year ) ) {
+                if ( Is.lastVisibleYear( bindingOptions, bindingOptions._currentView!.year ) ) {
                     next.disabled = true;
                 }
             }
@@ -681,7 +681,7 @@ import { Export } from "./ts/files/export";
         yearsMenuContainer.style.visibility = "hidden";
 
         for ( let currentYear: number = thisYear - bindingOptions.title!.extraSelectionYears!; currentYear < thisYear + bindingOptions.title!.extraSelectionYears!; currentYear++ ) {
-            if ( isYearVisible( bindingOptions, currentYear ) ) {
+            if ( Is.yearVisible( bindingOptions, currentYear ) ) {
                 let yearMenuItem: HTMLElement = renderYearDropDownMenuItem( bindingOptions, yearsMenu, currentYear, thisYear );
 
                 if ( !Is.defined( activeYearMenuItem ) ) {
@@ -2125,18 +2125,6 @@ import { Export } from "./ts/files/export";
         return years;
     }
 
-    function isYearVisible( bindingOptions: BindingOptions, year: number ) : boolean {
-        return bindingOptions.yearsToHide!.indexOf( year ) === Value.notFound && ( bindingOptions._currentView!.yearsAvailable.length === 0 || bindingOptions._currentView!.yearsAvailable.indexOf( year ) > Value.notFound );
-    }
-
-    function isFirstVisibleYear( bindingOptions: BindingOptions, year: number ) : boolean {
-        return bindingOptions._currentView!.yearsAvailable.length > 0 && year <= bindingOptions._currentView!.yearsAvailable[ 0 ];
-    }
-
-    function isLastVisibleYear( bindingOptions: BindingOptions, year: number ) : boolean {
-        return bindingOptions._currentView!.yearsAvailable.length > 0 && year >= bindingOptions._currentView!.yearsAvailable[ bindingOptions._currentView!.yearsAvailable.length - 1 ];
-    }
-
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2567,8 +2555,8 @@ import { Export } from "./ts/files/export";
             
         year--;
 
-        while ( !isYearVisible( bindingOptions, year ) ) {
-            if ( isFirstVisibleYear( bindingOptions, year ) ) {
+        while ( !Is.yearVisible( bindingOptions, year ) ) {
+            if ( Is.firstVisibleYear( bindingOptions, year ) ) {
                 render = false;
                 break;
             }
@@ -2593,8 +2581,8 @@ import { Export } from "./ts/files/export";
 
         year++;
 
-        while ( !isYearVisible( bindingOptions, year ) ) {
-            if ( isLastVisibleYear( bindingOptions, year ) ) {
+        while ( !Is.yearVisible( bindingOptions, year ) ) {
+            if ( Is.lastVisibleYear( bindingOptions, year ) ) {
                 render = false;
                 break;
             }
@@ -2914,7 +2902,7 @@ import { Export } from "./ts/files/export";
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 bindingOptions._currentView!.year = year;
     
-                if ( !isYearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
+                if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
                     moveToNextYear( bindingOptions, false );
                 } else {
                     renderControlContainer( bindingOptions );
@@ -2941,7 +2929,7 @@ import { Export } from "./ts/files/export";
                 if ( maximumYear > 0 ) {
                     bindingOptions._currentView!.year = maximumYear;
     
-                    if ( !isYearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
+                    if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
                         moveToNextYear( bindingOptions, false );
                     } else {
                         renderControlContainer( bindingOptions );
@@ -2969,7 +2957,7 @@ import { Export } from "./ts/files/export";
                 if ( minimumYear < 9999 ) {
                     bindingOptions._currentView!.year = minimumYear;
     
-                    if ( !isYearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
+                    if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
                         moveToPreviousYear( bindingOptions, false );
                     } else {
                         renderControlContainer( bindingOptions );
@@ -3003,7 +2991,7 @@ import { Export } from "./ts/files/export";
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 bindingOptions._currentView!.year = new Date().getFullYear();
     
-                if ( !isYearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
+                if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
                     moveToNextYear( bindingOptions, false );
                 } else {
                     renderControlContainer( bindingOptions );

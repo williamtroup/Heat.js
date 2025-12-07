@@ -92,4 +92,16 @@ export namespace Is {
     export function dayVisible( daysToShow: number[], day: number ) : boolean {
         return daysToShow.indexOf( day ) > Value.notFound;
     }
+
+    export function yearVisible( bindingOptions: BindingOptions, year: number ) : boolean {
+        return bindingOptions.yearsToHide!.indexOf( year ) === Value.notFound && ( bindingOptions._currentView!.yearsAvailable.length === 0 || bindingOptions._currentView!.yearsAvailable.indexOf( year ) > Value.notFound );
+    }
+
+    export function firstVisibleYear( bindingOptions: BindingOptions, year: number ) : boolean {
+        return bindingOptions._currentView!.yearsAvailable.length > 0 && year <= bindingOptions._currentView!.yearsAvailable[ 0 ];
+    }
+
+    export function lastVisibleYear( bindingOptions: BindingOptions, year: number ) : boolean {
+        return bindingOptions._currentView!.yearsAvailable.length > 0 && year >= bindingOptions._currentView!.yearsAvailable[ bindingOptions._currentView!.yearsAvailable.length - 1 ];
+    }
 }
