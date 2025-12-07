@@ -534,7 +534,7 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu di
   transition: var(--heat-js-transition);
   font-size: var(--heat-js-spacing-font-size) !important;
 }
-div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item::before {
+div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item:not(.title-menu-item-active)::before {
   content: "";
   position: absolute;
   left: var(--heat-js-spacing);
@@ -557,13 +557,22 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu di
   background-color: var(--heat-js-title-text-color-hover);
 }
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item-active {
+  position: relative;
   background-color: var(--heat-js-title-background-color-hover);
   color: var(--heat-js-title-text-color-hover);
   font-weight: var(--heat-js-text-bold-weight-active);
   cursor: default !important;
 }
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item-active::before {
-  background-color: var(--heat-js-title-text-color-hover);
+  content: "";
+  position: absolute;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 8px solid var(--heat-js-title-text-color-hover);
+  left: var(--heat-js-spacing);
+  top: 50%;
+  transform: translate(0, -50%);
+  background-color: transparent;
 }
 
 /*
