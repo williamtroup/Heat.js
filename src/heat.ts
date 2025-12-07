@@ -2384,7 +2384,6 @@ import { Export } from "./ts/files/export";
     }
 
     function importFromFilesSelected( bindingOptions: BindingOptions ) : void {
-        const input: HTMLInputElement = DomElement.createWithNoContainer( "input" ) as HTMLInputElement;
         const importTypes: string[] = [];
         let importType: keyof typeof ImportType;
 
@@ -2392,11 +2391,11 @@ import { Export } from "./ts/files/export";
             importTypes.push( `.${importType}` );
         }
 
+        const input: HTMLInputElement = DomElement.createWithNoContainer( "input" ) as HTMLInputElement;
         input.type = "file";
         input.accept = importTypes.join( ", " );
         input.multiple = true;
         input.onchange = () => importFromFiles( input.files!, bindingOptions );
-
         input.click();
     }
 

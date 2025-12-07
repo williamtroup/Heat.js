@@ -2884,17 +2884,17 @@ var Export;
         }
     }
     function de(e) {
-        const t = DomElement.createWithNoContainer("input");
-        const n = [];
-        let i;
-        for (i in ImportType) {
-            n.push(`.${i}`);
+        const t = [];
+        let n;
+        for (n in ImportType) {
+            t.push(`.${n}`);
         }
-        t.type = "file";
-        t.accept = n.join(", ");
-        t.multiple = true;
-        t.onchange = () => me(t.files, e);
-        t.click();
+        const i = DomElement.createWithNoContainer("input");
+        i.type = "file";
+        i.accept = t.join(", ");
+        i.multiple = true;
+        i.onchange = () => me(i.files, e);
+        i.click();
     }
     function me(t, n) {
         const i = t.length;
