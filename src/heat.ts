@@ -3019,9 +3019,7 @@ import { Export } from "./ts/files/export";
             let result: number = Value.notFound;
 
             if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
-                const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-    
-                result = bindingOptions._currentView!.year;
+                result = _elements_InstanceData[ elementId ].options._currentView!.year;
             }
     
             return result;

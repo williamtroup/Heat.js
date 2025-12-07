@@ -3310,8 +3310,7 @@ var Export;
         getYear: function(e) {
             let t = -1;
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                const i = n[e].options;
-                t = i._currentView.year;
+                t = n[e].options._currentView.year;
             }
             return t;
         },
