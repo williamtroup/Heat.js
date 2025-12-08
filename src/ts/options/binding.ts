@@ -106,6 +106,7 @@ export namespace Binding {
             options.showHolidaysInDayToolTips = Default.getBoolean( options.showHolidaysInDayToolTips, false );
             options.resizable = Default.getBoolean( options.resizable, false );
             options.startMonth = Default.getNumberInRange( options.startMonth, 0, 11, 0 );
+            options.allowMultipleFileImports = Default.getBoolean( options.allowMultipleFileImports, true );
             options.colorRanges = getColorRanges( options );
             options.holidays = getHolidays( options );
             options.title = getTitle( options );

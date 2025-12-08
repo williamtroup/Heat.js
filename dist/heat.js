@@ -537,6 +537,7 @@ var Binding;
             t.showHolidaysInDayToolTips = Default2.getBoolean(t.showHolidaysInDayToolTips, false);
             t.resizable = Default2.getBoolean(t.resizable, false);
             t.startMonth = Default2.getNumberInRange(t.startMonth, 0, 11, 0);
+            t.allowMultipleFileImports = Default2.getBoolean(t.allowMultipleFileImports, true);
             t.colorRanges = s(t);
             t.holidays = r(t);
             t.title = a(t);
@@ -2976,7 +2977,7 @@ var Convert;
         const o = DomElement.createWithNoContainer("input");
         o.type = "file";
         o.accept = t.join(", ");
-        o.multiple = true;
+        o.multiple = e.allowMultipleFileImports;
         o.onchange = () => me(o.files, e);
         o.click();
     }

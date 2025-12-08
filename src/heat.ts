@@ -2378,7 +2378,7 @@ import { Convert } from "./ts/data/convert";
         const input: HTMLInputElement = DomElement.createWithNoContainer( "input" ) as HTMLInputElement;
         input.type = "file";
         input.accept = importTypes.join( ", " );
-        input.multiple = true;
+        input.multiple = bindingOptions.allowMultipleFileImports!;
         input.onchange = () => importFromFiles( input.files!, bindingOptions );
         input.click();
     }

@@ -120,6 +120,7 @@ export type BindingOptions = {
     showHolidaysInDayToolTips?: boolean;
     resizable?: boolean;
     startMonth?: number;
+    allowMultipleFileImports?: boolean;
     colorRanges?: BindingOptionsColorRange[];
     holidays?: BindingOptionsHoliday[];
     title?: BindingOptionsTitle;
