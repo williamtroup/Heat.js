@@ -1258,10 +1258,10 @@ import { Convert } from "./ts/data/convert";
             dayLine.style.visibility = "hidden";
         }
 
-        if ( Is.definedFunction( bindingOptions.events!.onMapDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayClick!, date, dateCount, holiday.matched );
-        } else if ( Is.definedFunction( bindingOptions.events!.onMapDayDblClick ) ) {
-            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayDblClick!, date, dateCount, holiday.matched );
+        if ( Is.definedFunction( bindingOptions.events!.onChartDayClick ) ) {
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onChartDayClick!, date, dateCount, holiday.matched );
+        } else if ( Is.definedFunction( bindingOptions.events!.onChartDayDblClick ) ) {
+            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onChartDayDblClick!, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }

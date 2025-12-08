@@ -797,6 +797,8 @@ var Binding;
             e.events.onOptionsUpdate = Default2.getFunction(e.events.onOptionsUpdate, null);
             e.events.onMapDayClick = Default2.getFunction(e.events.onMapDayClick, null);
             e.events.onMapDayDblClick = Default2.getFunction(e.events.onMapDayDblClick, null);
+            e.events.onChartDayClick = Default2.getFunction(e.events.onChartDayClick, e.events.onMapDayClick);
+            e.events.onChartDayDblClick = Default2.getFunction(e.events.onChartDayDblClick, e.events.onMapDayDblClick);
             e.events.onWeekDayClick = Default2.getFunction(e.events.onWeekDayClick, null);
             e.events.onWeekDayDblClick = Default2.getFunction(e.events.onWeekDayDblClick, null);
             e.events.onMonthClick = Default2.getFunction(e.events.onMonthClick, null);
@@ -2150,10 +2152,10 @@ var Convert;
         if (d <= 0) {
             l.style.visibility = "hidden";
         }
-        if (Is.definedFunction(t.events.onMapDayClick)) {
-            l.onclick = () => Trigger.customEvent(t.events.onMapDayClick, a, u, c.matched);
-        } else if (Is.definedFunction(t.events.onMapDayDblClick)) {
-            l.ondblclick = () => Trigger.customEvent(t.events.onMapDayDblClick, a, u, c.matched);
+        if (Is.definedFunction(t.events.onChartDayClick)) {
+            l.onclick = () => Trigger.customEvent(t.events.onChartDayClick, a, u, c.matched);
+        } else if (Is.definedFunction(t.events.onChartDayDblClick)) {
+            l.ondblclick = () => Trigger.customEvent(t.events.onChartDayDblClick, a, u, c.matched);
         } else {
             DomElement.addClass(l, "no-hover");
         }
