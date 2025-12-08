@@ -1013,7 +1013,7 @@ import { Convert } from "./ts/data/convert";
         day.setAttribute( Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber(actualDay)}-${Str.padNumber(month + 1)}-${year}` );
 
         if ( bindingOptions.views!.map!.showToolTips ) {
-            renderDayToolTip( bindingOptions, day, date, dateCount, bindingOptions.views!.map!.dayToolTipText!, bindingOptions.events!.onMapDayToolTipRender! );
+            renderDayToolTip( bindingOptions, day, date, dateCount, bindingOptions.views!.map!.dayToolTipText!, bindingOptions.events!.onMapDayToolTipRender!, holiday.matched );
         }
 
         if ( bindingOptions.views!.map!.showDayNumbers && dateCount > 0 ) {
@@ -1237,7 +1237,7 @@ import { Convert } from "./ts/data/convert";
         dayLine.setAttribute( Constant.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${Str.padNumber(day)}-${Str.padNumber(month + 1)}-${year}` );
 
         if ( bindingOptions.views!.chart!.showToolTips ) {
-            renderDayToolTip( bindingOptions, dayLine, date, dateCount, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender! );
+            renderDayToolTip( bindingOptions, dayLine, date, dateCount, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender!, holiday.matched );
         }
 
         if ( bindingOptions.views!.chart!.showLineNumbers && dateCount > 0 ) {
@@ -2034,9 +2034,9 @@ import { Convert } from "./ts/data/convert";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderDayToolTip( bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number, tooltipFormat: string, tooltipRenderFunc: Function ) : void {
+    function renderDayToolTip( bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number, tooltipFormat: string, tooltipRenderFunc: Function, isHoliday: boolean ) : void {
         if ( Is.definedFunction( tooltipRenderFunc ) ) {
-            ToolTip.add( day, bindingOptions, Trigger.customEvent( tooltipRenderFunc, date, dateCount ) );
+            ToolTip.add( day, bindingOptions, Trigger.customEvent( tooltipRenderFunc, date, dateCount, isHoliday ) );
         } else {
 
             let tooltip: string = DateTime.getCustomFormattedDateText( _configuration, tooltipFormat, date );

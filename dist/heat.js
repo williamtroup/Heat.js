@@ -1971,7 +1971,7 @@ var Convert;
         d = Default2.getNumber(d, 0);
         l.setAttribute(Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber(a)}-${Str.padNumber(o + 1)}-${s}`);
         if (e.views.map.showToolTips) {
-            J(e, l, c, d, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender);
+            J(e, l, c, d, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, u.matched);
         }
         if (e.views.map.showDayNumbers && d > 0) {
             l.innerHTML = Str.friendlyNumber(d);
@@ -2139,7 +2139,7 @@ var Convert;
         u = Default2.getNumber(u, 0);
         l.setAttribute(Constant.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${Str.padNumber(n)}-${Str.padNumber(o + 1)}-${i}`);
         if (t.views.chart.showToolTips) {
-            J(t, l, a, u, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender);
+            J(t, l, a, u, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, c.matched);
         }
         if (t.views.chart.showLineNumbers && u > 0) {
             DomElement.addClass(l, "day-line-number");
@@ -2735,9 +2735,9 @@ var Convert;
             }
         }
     }
-    function J(e, t, o, i, s, r) {
+    function J(e, t, o, i, s, r, a) {
         if (Is.definedFunction(r)) {
-            ToolTip.add(t, e, Trigger.customEvent(r, o, i));
+            ToolTip.add(t, e, Trigger.customEvent(r, o, i, a));
         } else {
             let i = DateTime.getCustomFormattedDateText(n, s, o);
             if (e.showHolidaysInDayToolTips) {
