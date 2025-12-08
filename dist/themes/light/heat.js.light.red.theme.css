@@ -12,10 +12,13 @@
     --heat-js-container-background-color: #e8e6e6;
     --heat-js-container-border-color: var(--heat-js-color-white);
 
-    /* ToolTips */
-    --heat-js-tooltip-background-color: var(--heat-js-color-black-dark);
-    --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
-    --heat-js-tooltip-text-color: var(--heat-js-color-white);
+    /* Title Bar / Drop Down Menu */
+    --heat-js-title-opener-text-color-hover: rgb(109, 108, 108);
+    --heat-js-years-background-color: var(--heat-js-color-black-dark);
+    --heat-js-title-border-color: var(--heat-js-container-border-color);
+    --heat-js-title-text-color: var(--heat-js-color-black);
+    --heat-js-title-background-color-hover: var(--heat-js-color-gray);
+    --heat-js-title-text-color-hover: var(--heat-js-color-white);
 
     /* Title Bar - Year Drop Down Menu */
     --heat-js-years-background-color: var(--heat-js-color-black-dark);
@@ -24,13 +27,10 @@
     --heat-js-years-background-color-hover: var(--heat-js-color-gray);
     --heat-js-years-text-color-hover: var(--heat-js-color-white);
 
-    /* Title Bar / Drop Down Menu */
-    --heat-js-title-opener-text-color-hover: rgb(109, 108, 108);
-    --heat-js-years-background-color: var(--heat-js-color-black-dark);
-    --heat-js-title-border-color: var(--heat-js-container-border-color);
-    --heat-js-title-text-color: var(--heat-js-color-black);
-    --heat-js-title-background-color-hover: var(--heat-js-color-gray);
-    --heat-js-title-text-color-hover: var(--heat-js-color-white);
+    /* ToolTips */
+    --heat-js-tooltip-background-color: var(--heat-js-color-black-dark);
+    --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
+    --heat-js-tooltip-text-color: var(--heat-js-color-white);
 
     /* Holidays */
     --heat-js-holiday-background-color: rgba( 31, 81, 255, 0.75 );
