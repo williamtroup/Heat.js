@@ -217,7 +217,7 @@ export type BindingOptionsViewsDays = {
     daysToShow?: number[];
     showToolTips?: boolean;
     useGradients?: boolean;
-    useDifferentBackgroundOpacities?: boolean;
+    useDifferentOpacities?: boolean;
 };
 
 export type BindingOptionsViewsMonths = {
@@ -231,7 +231,7 @@ export type BindingOptionsViewsMonths = {
     daysToShow?: number[];
     showToolTips?: boolean;
     useGradients?: boolean;
-    useDifferentBackgroundOpacities?: boolean;
+    useDifferentOpacities?: boolean;
     highlightCurrentMonth?: boolean;
 };
 

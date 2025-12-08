@@ -104,4 +104,12 @@ export namespace Is {
     export function lastVisibleYear( bindingOptions: BindingOptions, year: number ) : boolean {
         return bindingOptions._currentView!.yearsAvailable.length > 0 && year >= bindingOptions._currentView!.yearsAvailable[ bindingOptions._currentView!.yearsAvailable.length - 1 ];
     }
+
+    export function rgbColor( color: string ) : boolean {
+        return color.startsWith( "rgba" ) || color.startsWith( "rgb" );
+    }
+
+    export function hexColor( color: string ) : boolean {
+        return color.startsWith( "#" ) && ( color.length === 6 || color.length === 8 );
+    }
 }

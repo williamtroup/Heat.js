@@ -39,6 +39,7 @@ import { Disabled } from "./ts/area/disabled";
 import { Visible } from "./ts/data/visible";
 import { Import } from "./ts/files/import";
 import { Export } from "./ts/files/export";
+import { Convert } from "./ts/data/convert";
 
 
 ( () => {
@@ -1439,24 +1440,20 @@ import { Export } from "./ts/files/export";
         if ( bindingOptions.views!.days!.useGradients ) {
             DomElement.adGradientEffect( bindingOptions._currentView!.element, dayLine );
 
-        } else if ( bindingOptions.views!.days!.useDifferentBackgroundOpacities ) {
+        } else if ( bindingOptions.views!.days!.useDifferentOpacities ) {
             const backgroundColor: string = DomElement.getStyleValueByName( dayLine, "background-color" );
+            const borderColor: string = DomElement.getStyleValueByName( dayLine, "border-color" );
 
-            if ( backgroundColor.startsWith( "rgba" ) || backgroundColor.startsWith( "rgb" ) ) {
-                let backgroundColorParts: string[] = backgroundColor
-                    .replace( "rgba(", Char.empty )
-                    .replace( "rgb(", Char.empty )
-                    .replace( ")", Char.empty )
-                    .split(",");
+            if ( Is.rgbColor( backgroundColor ) ) {
+                dayLine.style.backgroundColor = Convert.toRgbOpacityColor( backgroundColor, opacityIncrease );
+            } else if ( Is.hexColor( backgroundColor ) ) {
+                dayLine.style.backgroundColor = Convert.toRgbOpacityColor( Convert.hexToRgba( backgroundColor ), opacityIncrease );
+            }
 
-                if ( backgroundColor.startsWith( "rgba" ) ) {
-                    backgroundColorParts[ backgroundColorParts.length - 1 ] = opacityIncrease.toString();
-                } else
-                {
-                    backgroundColorParts.push( opacityIncrease.toString() );
-                }
-
-                dayLine.style.backgroundColor = `rgba(${backgroundColorParts.join()})`;
+            if ( Is.rgbColor( borderColor ) ) {
+                dayLine.style.borderColor = Convert.toRgbOpacityColor( borderColor, opacityIncrease );
+            } else if ( Is.hexColor( borderColor ) ) {
+                dayLine.style.borderColor = Convert.toRgbOpacityColor( Convert.hexToRgba( borderColor ), opacityIncrease );
             }
         }
     }
@@ -1639,24 +1636,20 @@ import { Export } from "./ts/files/export";
         if ( bindingOptions.views!.months!.useGradients ) {
             DomElement.adGradientEffect( bindingOptions._currentView!.element, monthLine );
 
-        } else if ( bindingOptions.views!.months!.useDifferentBackgroundOpacities ) {
+        } else if ( bindingOptions.views!.months!.useDifferentOpacities ) {
             const backgroundColor: string = DomElement.getStyleValueByName( monthLine, "background-color" );
+            const borderColor: string = DomElement.getStyleValueByName( monthLine, "border-color" );
 
-            if ( backgroundColor.startsWith( "rgba" ) || backgroundColor.startsWith( "rgb" ) ) {
-                let backgroundColorParts: string[] = backgroundColor
-                    .replace( "rgba(", Char.empty )
-                    .replace( "rgb(", Char.empty )
-                    .replace( ")", Char.empty )
-                    .split(",");
+            if ( Is.rgbColor( backgroundColor ) ) {
+                monthLine.style.backgroundColor = Convert.toRgbOpacityColor( backgroundColor, opacityIncrease );
+            } else if ( Is.hexColor( backgroundColor ) ) {
+                monthLine.style.backgroundColor = Convert.toRgbOpacityColor( Convert.hexToRgba( backgroundColor ), opacityIncrease );
+            }
 
-                if ( backgroundColor.startsWith( "rgba" ) ) {
-                    backgroundColorParts[ backgroundColorParts.length - 1 ] = opacityIncrease.toString();
-                } else
-                {
-                    backgroundColorParts.push( opacityIncrease.toString() );
-                }
-
-                monthLine.style.backgroundColor = `rgba(${backgroundColorParts.join()})`;
+            if ( Is.rgbColor( borderColor ) ) {
+                monthLine.style.borderColor = Convert.toRgbOpacityColor( borderColor, opacityIncrease );
+            } else if ( Is.hexColor( borderColor ) ) {
+                monthLine.style.borderColor = Convert.toRgbOpacityColor( Convert.hexToRgba( borderColor ), opacityIncrease );
             }
         }
     }

@@ -23,6 +23,7 @@ export enum Char {
     comma = ",",
     tab = "\t",
     pipe = "|",
+    hash = "#",
 }
 
 export enum Value {
