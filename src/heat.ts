@@ -2071,7 +2071,7 @@ import { Convert } from "./ts/data/convert";
         _elements_InstanceData[ elementId ] = {
             options: bindingOptions,
             typeData: {},
-            totalTypes: 1
+            totalTypes: 1,
         };
 
         _elements_InstanceData[ elementId ].typeData[ _configuration.text!.unknownTrendText! ] = {} as InstanceTypeDateCount;
