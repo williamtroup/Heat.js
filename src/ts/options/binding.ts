@@ -403,7 +403,8 @@ export namespace Binding {
             options.events!.onExport = Default.getFunction( options.events!.onExport, null! );
             options.events!.onSetYear = Default.getFunction( options.events!.onSetYear, null! );
             options.events!.onTypeSwitch = Default.getFunction( options.events!.onTypeSwitch, null! );
-            options.events!.onDayToolTipRender = Default.getFunction( options.events!.onDayToolTipRender, null! );
+            options.events!.onMapDayToolTipRender = Default.getFunction( options.events!.onMapDayToolTipRender, null! );
+            options.events!.onChartDayToolTipRender = Default.getFunction( options.events!.onChartDayToolTipRender, options.events!.onMapDayToolTipRender! );
             options.events!.onAdd = Default.getFunction( options.events!.onAdd, null! );
             options.events!.onRemove = Default.getFunction( options.events!.onRemove, null! );
             options.events!.onReset = Default.getFunction( options.events!.onReset, null! );

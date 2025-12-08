@@ -784,7 +784,8 @@ var Binding;
             e.events.onExport = Default2.getFunction(e.events.onExport, null);
             e.events.onSetYear = Default2.getFunction(e.events.onSetYear, null);
             e.events.onTypeSwitch = Default2.getFunction(e.events.onTypeSwitch, null);
-            e.events.onDayToolTipRender = Default2.getFunction(e.events.onDayToolTipRender, null);
+            e.events.onMapDayToolTipRender = Default2.getFunction(e.events.onMapDayToolTipRender, null);
+            e.events.onChartDayToolTipRender = Default2.getFunction(e.events.onChartDayToolTipRender, e.events.onMapDayToolTipRender);
             e.events.onAdd = Default2.getFunction(e.events.onAdd, null);
             e.events.onRemove = Default2.getFunction(e.events.onRemove, null);
             e.events.onReset = Default2.getFunction(e.events.onReset, null);
@@ -1839,7 +1840,7 @@ var Convert;
             W(e);
         }
         P(e);
-        if (e.views.map.showNoDataMessageWhenDataIsNotAvailable && !C(e)) {
+        if (e.views.map.showNoDataMessageWhenDataIsNotAvailable && !V(e)) {
             const o = DomElement.createWithHTML(e._currentView.mapContents, "div", "no-data-message", n.text.noMapDataMessage);
             if (t) {
                 DomElement.addClass(o, "view-switch");
@@ -1902,7 +1903,7 @@ var Convert;
                         if (d) {
                             let n = null;
                             if (Is.dayVisible(e.views.map.daysToShow, h)) {
-                                n = V(e, u, t - f, o, l, a);
+                                n = C(e, u, t - f, o, l, a);
                             }
                             if ((t + 1) % 7 === 0) {
                                 if (e.views.map.showDaysInReverseOrder) {
@@ -1961,7 +1962,7 @@ var Convert;
             }
         }
     }
-    function V(e, t, n, o, s, r) {
+    function C(e, t, n, o, s, r) {
         const a = n + 1;
         const l = DomElement.create(t, "div", "day");
         const c = new Date(s, o, a);
@@ -1970,7 +1971,7 @@ var Convert;
         d = Default2.getNumber(d, 0);
         l.setAttribute(Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber(a)}-${Str.padNumber(o + 1)}-${s}`);
         if (e.views.map.showToolTips) {
-            J(e, l, c, d, e.views.map.dayToolTipText);
+            J(e, l, c, d, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender);
         }
         if (e.views.map.showDayNumbers && d > 0) {
             l.innerHTML = Str.friendlyNumber(d);
@@ -1997,7 +1998,7 @@ var Convert;
         }
         return l;
     }
-    function C(e) {
+    function V(e) {
         let t = false;
         const n = q(e);
         const o = e._currentView.year.toString();
@@ -2138,7 +2139,7 @@ var Convert;
         u = Default2.getNumber(u, 0);
         l.setAttribute(Constant.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${Str.padNumber(n)}-${Str.padNumber(o + 1)}-${i}`);
         if (t.views.chart.showToolTips) {
-            J(t, l, a, u, t.views.chart.dayToolTipText);
+            J(t, l, a, u, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender);
         }
         if (t.views.chart.showLineNumbers && u > 0) {
             DomElement.addClass(l, "day-line-number");
@@ -2734,9 +2735,9 @@ var Convert;
             }
         }
     }
-    function J(e, t, o, i, s) {
-        if (Is.definedFunction(e.events.onDayToolTipRender)) {
-            ToolTip.add(t, e, Trigger.customEvent(e.events.onDayToolTipRender, o, i));
+    function J(e, t, o, i, s, r) {
+        if (Is.definedFunction(r)) {
+            ToolTip.add(t, e, Trigger.customEvent(r, o, i));
         } else {
             let i = DateTime.getCustomFormattedDateText(n, s, o);
             if (e.showHolidaysInDayToolTips) {
