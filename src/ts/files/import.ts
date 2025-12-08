@@ -141,5 +141,25 @@ export namespace Import {
 
             reader.readAsText( file );
         }
+
+        export function toml( file: File, onLoadEnd: Function ) : void {
+            const reader: FileReader = new FileReader();
+            const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
+
+            reader.onloadend = () => onLoadEnd( file.name, readingObject );
+        
+            reader.onload = ( ev: ProgressEvent<FileReader> ) => {
+                const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
+                const linesLength: number = lines.length;
+
+                for ( let lineIndex: number = 3; lineIndex < linesLength; lineIndex++ ) {
+                    const line: string[] = lines[ lineIndex ].split( Char.equals );
+
+                    readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
+                }
+            };
+
+            reader.readAsText( file );
+        }
     }
 }

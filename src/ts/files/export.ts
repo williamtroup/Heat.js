@@ -39,6 +39,8 @@ export namespace Export {
                 result = "text/tab-separated-values";
             } else if ( exportType.toLowerCase() === ExportType.yaml ) {
                 result = "application/yaml";
+            } else if ( exportType.toLowerCase() === ExportType.toml ) {
+                result = "application/toml";
             }
 
             return result;
@@ -184,6 +186,23 @@ export namespace Export {
             for ( const storageDate in typeDateCounts ) {
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                     contents.push( `${storageDate}${Char.colon}${Char.space}${typeDateCounts[storageDate].toString()}` );
+                }
+            }
+
+            return contents.join( Char.newLine );
+        }
+
+        export function toml( typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
+            const contents: string[] = [];
+            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configuration, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date() );
+
+            contents.push( `last_modified = \"${exportedDateTime}\"` );
+            contents.push( Char.empty );
+            contents.push( "[dates]" );
+
+            for ( const storageDate in typeDateCounts ) {
+                if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                    contents.push( `${storageDate} = ${typeDateCounts[storageDate].toString()}` );
                 }
             }
 

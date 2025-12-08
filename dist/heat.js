@@ -18,6 +18,7 @@ var ImportType = (e => {
     e["md"] = "md";
     e["tsv"] = "tsv";
     e["yaml"] = "yaml";
+    e["toml"] = "toml";
     return e;
 })(ImportType || {});
 
@@ -30,6 +31,7 @@ var ExportType = (e => {
     e["md"] = "md";
     e["tsv"] = "tsv";
     e["yaml"] = "yaml";
+    e["toml"] = "toml";
     return e;
 })(ExportType || {});
 
@@ -1045,6 +1047,21 @@ var Import;
             n.readAsText(e);
         }
         e.yaml = r;
+        function a(e, t) {
+            const n = new FileReader;
+            const o = {};
+            n.onloadend = () => t(e.name, o);
+            n.onload = e => {
+                const t = e.target.result.toString().split("\n");
+                const n = t.length;
+                for (let e = 3; e < n; e++) {
+                    const n = t[e].split("=");
+                    o[n[0].trim()] = parseInt(n[1].trim());
+                }
+            };
+            n.readAsText(e);
+        }
+        e.toml = a;
     })(t = e.File || (e.File = {}));
 })(Import || (Import = {}));
 
@@ -1071,6 +1088,8 @@ var Export;
                 t = "text/tab-separated-values";
             } else if (e.toLowerCase() === "yaml") {
                 t = "application/yaml";
+            } else if (e.toLowerCase() === "toml") {
+                t = "application/toml";
             }
             return t;
         }
@@ -1099,11 +1118,11 @@ var Export;
             const n = [];
             for (const t in e) {
                 if (e.hasOwnProperty(t)) {
-                    n.push(u([ c(t), c(e[t].toString()) ]));
+                    n.push(d([ u(t), u(e[t].toString()) ]));
                 }
             }
             if (n.length > 0) {
-                n.unshift(u([ c(t.text.dateText), c(t.text.countText) ]));
+                n.unshift(d([ u(t.text.dateText), u(t.text.countText) ]));
             }
             return n.join("\n");
         }
@@ -1195,13 +1214,27 @@ var Export;
             return n.join("\n");
         }
         e.yaml = l;
-        function c(e) {
+        function c(e, t) {
+            const n = [];
+            const o = DateTime.getCustomFormattedDateText(t, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date);
+            n.push(`last_modified = "${o}"`);
+            n.push("");
+            n.push("[dates]");
+            for (const t in e) {
+                if (e.hasOwnProperty(t)) {
+                    n.push(`${t} = ${e[t].toString()}`);
+                }
+            }
+            return n.join("\n");
+        }
+        e.toml = c;
+        function u(e) {
             let t = e.toString().replace(/(\r\n|\n|\r)/gm, "").replace(/(\s\s)/gm, " ");
             t = t.replace(/"/g, '""');
             t = `"${t}"`;
             return t;
         }
-        function u(e) {
+        function d(e) {
             return e.join(",");
         }
     })(n = e.Contents || (e.Contents = {}));
@@ -2972,6 +3005,8 @@ var Convert;
                 Import.File.md(o, r);
             } else if (i === "yaml") {
                 Import.File.yaml(o, r);
+            } else if (i === "toml") {
+                Import.File.toml(o, r);
             }
         }
     }
@@ -2996,6 +3031,8 @@ var Convert;
             s = Export.Contents.tsv(l);
         } else if (a === "yaml") {
             s = Export.Contents.yaml(l, e);
+        } else if (a === "toml") {
+            s = Export.Contents.toml(l, e);
         }
         if (Is.definedString(s)) {
             const n = DomElement.create(document.body, "a");

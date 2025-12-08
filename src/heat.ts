@@ -13,7 +13,6 @@
 
 import {
     type Configuration,
-    type BindingOptionsHoliday,
     type BindingOptionsColorRange,
     type BindingOptions,
     type InstanceTypeDateCount,
@@ -2432,6 +2431,8 @@ import { Convert } from "./ts/data/convert";
                 Import.File.md( file, onLoadEnd );
             } else if ( fileExtension === ImportType.yaml ) {
                 Import.File.yaml( file, onLoadEnd );
+            } else if ( fileExtension === ImportType.toml ) {
+                Import.File.toml( file, onLoadEnd );
             }
         }
     }
@@ -2465,6 +2466,8 @@ import { Convert } from "./ts/data/convert";
             contents = Export.Contents.tsv( typeDateCounts );
         } else if ( contentExportType === ExportType.yaml ) {
             contents = Export.Contents.yaml( typeDateCounts, _configuration );
+        } else if ( contentExportType === ExportType.toml ) {
+            contents = Export.Contents.toml( typeDateCounts, _configuration );
         }
 
         if ( Is.definedString( contents ) ) {

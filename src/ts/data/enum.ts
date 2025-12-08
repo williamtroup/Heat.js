@@ -24,6 +24,7 @@ export enum Char {
     tab = "\t",
     pipe = "|",
     hash = "#",
+    equals = "=",
 }
 
 export enum Value {
@@ -53,6 +54,7 @@ export enum ImportType {
     md = "md",
     tsv = "tsv",
     yaml = "yaml",
+    toml = "toml",
 }
 
 export enum ExportType {
@@ -64,6 +66,7 @@ export enum ExportType {
     md = "md",
     tsv = "tsv",
     yaml = "yaml",
+    toml = "toml",
 }
 
 export enum KeyCode {
