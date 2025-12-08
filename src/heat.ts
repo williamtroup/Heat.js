@@ -1022,10 +1022,10 @@ import { Convert } from "./ts/data/convert";
             day.innerHTML = actualDay.toString();
         }
 
-        if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
-            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount, holiday.matched );
-        } else if ( Is.definedFunction( bindingOptions.events!.onDayDblClick ) ) {
-            day.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onDayDblClick!, date, dateCount, holiday.matched );
+        if ( Is.definedFunction( bindingOptions.events!.onMapDayClick ) ) {
+            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayClick!, date, dateCount, holiday.matched );
+        } else if ( Is.definedFunction( bindingOptions.events!.onMapDayDblClick ) ) {
+            day.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayDblClick!, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( day, "no-hover" );
         }
@@ -1258,10 +1258,10 @@ import { Convert } from "./ts/data/convert";
             dayLine.style.visibility = "hidden";
         }
 
-        if ( Is.definedFunction( bindingOptions.events!.onDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onDayClick!, date, dateCount, holiday.matched );
-        } else if ( Is.definedFunction( bindingOptions.events!.onDayDblClick ) ) {
-            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onDayDblClick!, date, dateCount, holiday.matched );
+        if ( Is.definedFunction( bindingOptions.events!.onMapDayClick ) ) {
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayClick!, date, dateCount, holiday.matched );
+        } else if ( Is.definedFunction( bindingOptions.events!.onMapDayDblClick ) ) {
+            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayDblClick!, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }

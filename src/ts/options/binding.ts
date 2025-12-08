@@ -414,8 +414,8 @@ export namespace Binding {
             options.events!.onClear = Default.getFunction( options.events!.onClear, null! );
             options.events!.onUpdate = Default.getFunction( options.events!.onUpdate, null! );
             options.events!.onOptionsUpdate = Default.getFunction( options.events!.onOptionsUpdate, null! );
-            options.events!.onDayClick = Default.getFunction( options.events!.onDayClick, null! );
-            options.events!.onDayDblClick = Default.getFunction( options.events!.onDayDblClick, null! );
+            options.events!.onMapDayClick = Default.getFunction( options.events!.onMapDayClick, null! );
+            options.events!.onMapDayDblClick = Default.getFunction( options.events!.onMapDayDblClick, null! );
             options.events!.onWeekDayClick = Default.getFunction( options.events!.onWeekDayClick, null! );
             options.events!.onWeekDayDblClick = Default.getFunction( options.events!.onWeekDayDblClick, null! );
             options.events!.onMonthClick = Default.getFunction( options.events!.onMonthClick, null! );

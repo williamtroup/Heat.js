@@ -63,15 +63,15 @@
                     tooltipText: "Day Color 4",
                     visible: true
                 } ],
-                onDayClick: onDayClick,
+                onMapDayClick: onMapDayClick,
                 description: {
                     text: "A basic example of how to use Heat.js."
                 }
             };
         }
 
-        function onDayClick( date, count, isHoliday ) {
-            console.log( "Day clicked for: " + date.toString() + ", Count: " + count + ", Is Holiday: " + isHoliday.toString() );
+        function onMapDayClick( date, count, isHoliday ) {
+            console.log( "Map Day clicked for: " + date.toString() + ", Count: " + count + ", Is Holiday: " + isHoliday.toString() );
         }
 
         document.addEventListener( "DOMContentLoaded", function() {

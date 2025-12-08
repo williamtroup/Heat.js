@@ -793,8 +793,8 @@ var Binding;
             e.events.onClear = Default2.getFunction(e.events.onClear, null);
             e.events.onUpdate = Default2.getFunction(e.events.onUpdate, null);
             e.events.onOptionsUpdate = Default2.getFunction(e.events.onOptionsUpdate, null);
-            e.events.onDayClick = Default2.getFunction(e.events.onDayClick, null);
-            e.events.onDayDblClick = Default2.getFunction(e.events.onDayDblClick, null);
+            e.events.onMapDayClick = Default2.getFunction(e.events.onMapDayClick, null);
+            e.events.onMapDayDblClick = Default2.getFunction(e.events.onMapDayDblClick, null);
             e.events.onWeekDayClick = Default2.getFunction(e.events.onWeekDayClick, null);
             e.events.onWeekDayDblClick = Default2.getFunction(e.events.onWeekDayDblClick, null);
             e.events.onMonthClick = Default2.getFunction(e.events.onMonthClick, null);
@@ -1973,10 +1973,10 @@ var Convert;
         } else if (e.views.map.showDayDateNumbers) {
             l.innerHTML = a.toString();
         }
-        if (Is.definedFunction(e.events.onDayClick)) {
-            l.onclick = () => Trigger.customEvent(e.events.onDayClick, c, d, u.matched);
-        } else if (Is.definedFunction(e.events.onDayDblClick)) {
-            l.ondblclick = () => Trigger.customEvent(e.events.onDayDblClick, c, d, u.matched);
+        if (Is.definedFunction(e.events.onMapDayClick)) {
+            l.onclick = () => Trigger.customEvent(e.events.onMapDayClick, c, d, u.matched);
+        } else if (Is.definedFunction(e.events.onMapDayDblClick)) {
+            l.ondblclick = () => Trigger.customEvent(e.events.onMapDayDblClick, c, d, u.matched);
         } else {
             DomElement.addClass(l, "no-hover");
         }
@@ -2148,10 +2148,10 @@ var Convert;
         if (d <= 0) {
             l.style.visibility = "hidden";
         }
-        if (Is.definedFunction(t.events.onDayClick)) {
-            l.onclick = () => Trigger.customEvent(t.events.onDayClick, a, u, c.matched);
-        } else if (Is.definedFunction(t.events.onDayDblClick)) {
-            l.ondblclick = () => Trigger.customEvent(t.events.onDayDblClick, a, u, c.matched);
+        if (Is.definedFunction(t.events.onMapDayClick)) {
+            l.onclick = () => Trigger.customEvent(t.events.onMapDayClick, a, u, c.matched);
+        } else if (Is.definedFunction(t.events.onMapDayDblClick)) {
+            l.ondblclick = () => Trigger.customEvent(t.events.onMapDayDblClick, a, u, c.matched);
         } else {
             DomElement.addClass(l, "no-hover");
         }
