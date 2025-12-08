@@ -1789,6 +1789,7 @@ var Convert;
             const s = DomElement.create(e._currentView.element, "div", "yearly-statistics", e._currentView.mapContents);
             const r = Visible.days(e);
             const a = Visible.months(e);
+            ue(s, e);
             if (e.yearlyStatistics.showTotalToday) {
                 let a = i[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(t)];
                 const l = DomElement.create(s, "div", "statistics-box");

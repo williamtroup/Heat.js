@@ -731,6 +731,8 @@ import { Convert } from "./ts/data/convert";
             const daysToShow: number[] = Visible.days( bindingOptions );
             const monthsToShow: number[] = Visible.months( bindingOptions );
 
+            makeAreaDroppable( yearlyStatistics, bindingOptions );
+
             if ( bindingOptions.yearlyStatistics!.showTotalToday ) {
                 let todaysCount: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( today ) ];
                 const todaysBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
