@@ -674,6 +674,7 @@ var Binding;
             e.views.map.showToolTips = Default2.getBoolean(e.views.map.showToolTips, true);
             e.views.map.highlightCurrentDay = Default2.getBoolean(e.views.map.highlightCurrentDay, false);
             e.views.map.dayToolTipText = Default2.getString(e.views.map.dayToolTipText, "{d}{o} {mmmm} {yyyy}");
+            e.views.map.showYearsInMonthNames = Default2.getBoolean(e.views.map.showYearsInMonthNames, true);
             if (Is.invalidOptionArray(e.views.map.monthsToShow)) {
                 e.views.map.monthsToShow = t;
             }
@@ -695,6 +696,7 @@ var Binding;
             e.views.chart.useGradients = Default2.getBoolean(e.views.chart.useGradients, false);
             e.views.chart.highlightCurrentDay = Default2.getBoolean(e.views.chart.highlightCurrentDay, false);
             e.views.chart.dayToolTipText = Default2.getString(e.views.chart.dayToolTipText, "{d}{o} {mmmm} {yyyy}");
+            e.views.chart.showYearsInMonthNames = Default2.getBoolean(e.views.chart.showYearsInMonthNames, true);
             if (Is.invalidOptionArray(e.views.chart.monthsToShow)) {
                 e.views.chart.monthsToShow = t;
             }
@@ -1922,7 +1924,7 @@ var Convert;
                         let s;
                         const r = t.offsetWidth;
                         let a = n.text.monthNames[o];
-                        if (e.startMonth > 0) {
+                        if (e.startMonth > 0 && e.views.map.showYearsInMonthNames) {
                             a += `${" "}${l}`;
                         }
                         if (!e.views.map.placeMonthNamesOnTheBottom) {
@@ -2099,7 +2101,7 @@ var Convert;
                     }
                     if (Is.monthVisible(e.views.chart.monthsToShow, s)) {
                         let i = n.text.monthNames[s];
-                        if (e.startMonth > 0) {
+                        if (e.startMonth > 0 && e.views.chart.showYearsInMonthNames) {
                             i += `${" "}${r}`;
                         }
                         let a = DomElement.createWithHTML(t, "div", "month-name", i);

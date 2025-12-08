@@ -954,7 +954,7 @@ import { Convert } from "./ts/data/convert";
 
                         let monthNameText: string = _configuration.text!.monthNames![ actualMonthIndex ];
 
-                        if ( bindingOptions.startMonth! > 0 ) {
+                        if ( bindingOptions.startMonth! > 0 && bindingOptions.views!.map!.showYearsInMonthNames ) {
                             monthNameText += `${Char.space}${actualYear}`;
                         }
     
@@ -1187,7 +1187,7 @@ import { Convert } from "./ts/data/convert";
                     if ( Is.monthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) ) {
                         let monthNameText: string = _configuration.text!.monthNames![ actualMonthIndex ];
 
-                        if ( bindingOptions.startMonth! > 0 ) {
+                        if ( bindingOptions.startMonth! > 0 && bindingOptions.views!.chart!.showYearsInMonthNames ) {
                             monthNameText += `${Char.space}${actualYear}`;
                         }
 

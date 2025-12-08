@@ -188,6 +188,7 @@ export type BindingOptionsViewsMap = {
     showToolTips?: boolean;
     highlightCurrentDay?: boolean;
     dayToolTipText?: string;
+    showYearsInMonthNames?: boolean;
 };
 
 export type BindingOptionsViewsChart = {
@@ -204,6 +205,7 @@ export type BindingOptionsViewsChart = {
     useGradients?: boolean;
     highlightCurrentDay?: boolean;
     dayToolTipText?: string;
+    showYearsInMonthNames?: boolean;
 };
 
 export type BindingOptionsViewsDays = {

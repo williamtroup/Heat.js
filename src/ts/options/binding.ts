@@ -273,6 +273,7 @@ export namespace Binding {
             options.views!.map!.showToolTips = Default.getBoolean( options.views!.map!.showToolTips, true );
             options.views!.map!.highlightCurrentDay = Default.getBoolean( options.views!.map!.highlightCurrentDay, false );
             options.views!.map!.dayToolTipText = Default.getString( options.views!.map!.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
+            options.views!.map!.showYearsInMonthNames = Default.getBoolean( options.views!.map!.showYearsInMonthNames, true );
 
             if ( Is.invalidOptionArray( options.views!.map!.monthsToShow ) ) {
                 options.views!.map!.monthsToShow = _default_MonthsToShow;
@@ -298,6 +299,7 @@ export namespace Binding {
             options.views!.chart!.useGradients = Default.getBoolean( options.views!.chart!.useGradients, false );
             options.views!.chart!.highlightCurrentDay = Default.getBoolean( options.views!.chart!.highlightCurrentDay, false );
             options.views!.chart!.dayToolTipText = Default.getString( options.views!.chart!.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
+            options.views!.chart!.showYearsInMonthNames = Default.getBoolean( options.views!.chart!.showYearsInMonthNames, true );
 
             if ( Is.invalidOptionArray( options.views!.chart!.monthsToShow ) ) {
                 options.views!.chart!.monthsToShow = _default_MonthsToShow;
