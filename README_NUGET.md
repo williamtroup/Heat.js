@@ -24,8 +24,8 @@
 - ☑️ Configuration dialog support per view.
 - ⭐ Fully configurable per DOM element via binding options.
 - 🎥 Toggling colors on/off support.
-- 🔨 Export all data to CSV, JSON, XML, TXT, HTML, MD, TSV, and YAML.
-- 🔨 Import data from JSON, TXT, CSV, TSV, MD, and YAML.
+- 🔨 Export all data to CSV, JSON, XML, TXT, HTML, MD, TSV, YAML, and TOML.
+- 🔨 Import data from JSON, TXT, CSV, TSV, MD, YAML, and TOML.
 - 💁 Trend types allows data to be split up and viewed separately.
 - ❓ Customizable tooltips.
 - 💧 Data pulling (does not support trend types).
