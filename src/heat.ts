@@ -42,20 +42,12 @@ import { Convert } from "./ts/data/convert";
 
 
 ( () => {
-    // Variables: Configuration
-    let _configuration: Configuration = {} as Configuration;
-
-    // Variables: Document Mutation Observer
-    let _mutationObserver: MutationObserver = null! as MutationObserver;
-
-    // Variables: Date Counts
-    let _elements_InstanceData: InstanceData = {} as InstanceData;
-
-    // Variables: Internal Names
     const _internal_Name_Holiday: string = "HOLIDAY";
+    const _internal_Name_Local_Storage_Start_ID: string = "HJS_";
 
-    // Variables: Local Storage
-    const _local_Storage_Start_ID: string = "HJS_";
+    let _configuration: Configuration = {} as Configuration;
+    let _mutationObserver: MutationObserver = null! as MutationObserver;
+    let _elements_InstanceData: InstanceData = {} as InstanceData;
 
 
     /*
@@ -2132,7 +2124,7 @@ import { Convert } from "./ts/data/convert";
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
                 const key : string = window.localStorage.key( keyIndex )!;
 
-                if ( Str.startsWithAnyCase( key, _local_Storage_Start_ID ) ) {
+                if ( Str.startsWithAnyCase( key, _internal_Name_Local_Storage_Start_ID ) ) {
                     const typesJson: string = window.localStorage.getItem( key )!;
                     const typesObject: StringToJson = Default.getObjectFromString( typesJson, _configuration );
 
@@ -2159,7 +2151,7 @@ import { Convert } from "./ts/data/convert";
 
             const jsonData: string = JSON.stringify( _elements_InstanceData[ elementId ].typeData );
 
-            window.localStorage.setItem( _local_Storage_Start_ID + elementId, jsonData );
+            window.localStorage.setItem( _internal_Name_Local_Storage_Start_ID + elementId, jsonData );
         }
     }
 
@@ -2170,7 +2162,7 @@ import { Convert } from "./ts/data/convert";
             const elementId: string = bindingOptions._currentView!.element.id;
 
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
-                if ( Str.startsWithAnyCase( window.localStorage.key( keyIndex )!, _local_Storage_Start_ID + elementId ) ) {
+                if ( Str.startsWithAnyCase( window.localStorage.key( keyIndex )!, _internal_Name_Local_Storage_Start_ID + elementId ) ) {
                     keysToRemove.push( window.localStorage.key( keyIndex )! );
                 }
             }
