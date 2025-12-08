@@ -105,7 +105,7 @@ export namespace Binding {
             options.showOnlyDataForYearsAvailable = Default.getBoolean( options.showOnlyDataForYearsAvailable, false );
             options.showHolidaysInDayToolTips = Default.getBoolean( options.showHolidaysInDayToolTips, false );
             options.resizable = Default.getBoolean( options.resizable, false );
-            options.startMonth = Default.getNumber( options.startMonth, 0 );
+            options.startMonth = Default.getNumberInRange( options.startMonth, 0, 11, 0 );
             options.colorRanges = getColorRanges( options );
             options.holidays = getHolidays( options );
             options.title = getTitle( options );

@@ -33,6 +33,10 @@ export namespace Default {
         return Is.definedNumber( value ) ? value : defaultValue;
     }
 
+    export function getNumberInRange( value: any, minimum: number, maximum: number, defaultValue: number ) : number {
+        return Is.definedNumber( value ) ? ( value >= minimum && value <= maximum ? value : defaultValue ) : defaultValue;
+    }
+
     export function getFunction( value: any, defaultValue: object ) : any {
         return Is.definedFunction( value ) ? value : defaultValue;
     }

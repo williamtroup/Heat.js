@@ -150,6 +150,10 @@ var Default2;
         return Is.definedNumber(e) ? e : t;
     }
     Default.getNumber = getNumber;
+    function getNumberInRange(e, t, n, o) {
+        return Is.definedNumber(e) ? e >= t && e <= n ? e : o : o;
+    }
+    Default.getNumberInRange = getNumberInRange;
     function getFunction(e, t) {
         return Is.definedFunction(e) ? e : t;
     }
@@ -532,7 +536,7 @@ var Binding;
             t.showOnlyDataForYearsAvailable = Default2.getBoolean(t.showOnlyDataForYearsAvailable, false);
             t.showHolidaysInDayToolTips = Default2.getBoolean(t.showHolidaysInDayToolTips, false);
             t.resizable = Default2.getBoolean(t.resizable, false);
-            t.startMonth = Default2.getNumber(t.startMonth, 0);
+            t.startMonth = Default2.getNumberInRange(t.startMonth, 0, 11, 0);
             t.colorRanges = s(t);
             t.holidays = r(t);
             t.title = a(t);
