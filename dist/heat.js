@@ -963,116 +963,124 @@ var Visible;
 var Import;
 
 (e => {
-    let t;
-    (e => {
-        function t(e, t, n) {
-            const o = new FileReader;
-            let i = {};
-            o.onloadend = () => t(e.name, i);
-            o.onload = e => {
-                const t = Default2.getObjectFromString(e.target.result, n);
-                if (t.parsed && Is.definedObject(t.object)) {
-                    i = t.object;
-                }
-            };
-            o.readAsText(e);
+    function t(e, t, c, u) {
+        if (t === "json") {
+            n(e, c, u);
+        } else if (t === "txt") {
+            o(e, c);
+        } else if (t === "csv") {
+            i(e, c);
+        } else if (t === "tsv") {
+            s(e, c);
+        } else if (t === "md") {
+            r(e, c);
+        } else if (t === "yaml") {
+            a(e, c);
+        } else if (t === "toml") {
+            l(e, c);
         }
-        e.json = t;
-        function n(e, t) {
-            const n = new FileReader;
-            const o = {};
-            n.onloadend = () => t(e.name, o);
-            n.onload = e => {
-                const t = e.target.result.toString().split("\n");
-                const n = t.length;
-                for (let e = 0; e < n; e++) {
-                    const n = t[e].split(":");
-                    o[n[0].trim()] = parseInt(n[1].trim());
-                }
-            };
-            n.readAsText(e);
-        }
-        e.txt = n;
-        function o(e, t) {
-            const n = new FileReader;
-            const o = {};
-            n.onloadend = () => t(e.name, o);
-            n.onload = e => {
-                const t = e.target.result.toString().replace(new RegExp('"', "g"), "");
-                const n = t.split("\n");
-                n.shift();
-                let i = n.length;
-                for (let e = 0; e < i; e++) {
-                    let t = n[e].split(",");
-                    o[t[0].trim()] = parseInt(t[1].trim());
-                }
-            };
-            n.readAsText(e);
-        }
-        e.csv = o;
-        function i(e, t) {
-            const n = new FileReader;
-            const o = {};
-            n.onloadend = () => t(e.name, o);
-            n.onload = e => {
-                const t = e.target.result.toString().split("\n");
-                const n = t.length;
-                for (let e = 1; e < n; e++) {
-                    const n = t[e].split("\t");
-                    o[n[0].trim()] = parseInt(n[1].trim());
-                }
-            };
-            n.readAsText(e);
-        }
-        e.tsv = i;
-        function s(e, t) {
-            const n = new FileReader;
-            const o = {};
-            n.onloadend = () => t(e.name, o);
-            n.onload = e => {
-                const t = e.target.result.toString().split("\n");
-                const n = t.length;
-                for (let e = 2; e < n; e++) {
-                    const n = t[e].trim();
-                    const i = n.substring(1, n.length - 1).trim();
-                    const s = i.split("|");
-                    o[s[0].trim()] = parseInt(s[1].trim());
-                }
-            };
-            n.readAsText(e);
-        }
-        e.md = s;
-        function r(e, t) {
-            const n = new FileReader;
-            const o = {};
-            n.onloadend = () => t(e.name, o);
-            n.onload = e => {
-                const t = e.target.result.toString().split("\n");
-                const n = t.length;
-                for (let e = 1; e < n; e++) {
-                    const n = t[e].split(":");
-                    o[n[0].trim()] = parseInt(n[1].trim());
-                }
-            };
-            n.readAsText(e);
-        }
-        e.yaml = r;
-        function a(e, t) {
-            const n = new FileReader;
-            const o = {};
-            n.onloadend = () => t(e.name, o);
-            n.onload = e => {
-                const t = e.target.result.toString().split("\n");
-                const n = t.length;
-                for (let e = 3; e < n; e++) {
-                    const n = t[e].split("=");
-                    o[n[0].trim()] = parseInt(n[1].trim());
-                }
-            };
-            n.readAsText(e);
-        }
-        e.toml = a;
-    })(t = e.File || (e.File = {}));
+    }
+    e.file = t;
+    function n(e, t, n) {
+        const o = new FileReader;
+        let i = {};
+        o.onloadend = () => t(e.name, i);
+        o.onload = e => {
+            const t = Default2.getObjectFromString(e.target.result, n);
+            if (t.parsed && Is.definedObject(t.object)) {
+                i = t.object;
+            }
+        };
+        o.readAsText(e);
+    }
+    function o(e, t) {
+        const n = new FileReader;
+        const o = {};
+        n.onloadend = () => t(e.name, o);
+        n.onload = e => {
+            const t = e.target.result.toString().split("\n");
+            const n = t.length;
+            for (let e = 0; e < n; e++) {
+                const n = t[e].split(":");
+                o[n[0].trim()] = parseInt(n[1].trim());
+            }
+        };
+        n.readAsText(e);
+    }
+    function i(e, t) {
+        const n = new FileReader;
+        const o = {};
+        n.onloadend = () => t(e.name, o);
+        n.onload = e => {
+            const t = e.target.result.toString().replace(new RegExp('"', "g"), "");
+            const n = t.split("\n");
+            n.shift();
+            let i = n.length;
+            for (let e = 0; e < i; e++) {
+                let t = n[e].split(",");
+                o[t[0].trim()] = parseInt(t[1].trim());
+            }
+        };
+        n.readAsText(e);
+    }
+    function s(e, t) {
+        const n = new FileReader;
+        const o = {};
+        n.onloadend = () => t(e.name, o);
+        n.onload = e => {
+            const t = e.target.result.toString().split("\n");
+            const n = t.length;
+            for (let e = 1; e < n; e++) {
+                const n = t[e].split("\t");
+                o[n[0].trim()] = parseInt(n[1].trim());
+            }
+        };
+        n.readAsText(e);
+    }
+    function r(e, t) {
+        const n = new FileReader;
+        const o = {};
+        n.onloadend = () => t(e.name, o);
+        n.onload = e => {
+            const t = e.target.result.toString().split("\n");
+            const n = t.length;
+            for (let e = 2; e < n; e++) {
+                const n = t[e].trim();
+                const i = n.substring(1, n.length - 1).trim();
+                const s = i.split("|");
+                o[s[0].trim()] = parseInt(s[1].trim());
+            }
+        };
+        n.readAsText(e);
+    }
+    function a(e, t) {
+        const n = new FileReader;
+        const o = {};
+        n.onloadend = () => t(e.name, o);
+        n.onload = e => {
+            const t = e.target.result.toString().split("\n");
+            const n = t.length;
+            for (let e = 1; e < n; e++) {
+                const n = t[e].split(":");
+                o[n[0].trim()] = parseInt(n[1].trim());
+            }
+        };
+        n.readAsText(e);
+    }
+    function l(e, t) {
+        const n = new FileReader;
+        const o = {};
+        n.onloadend = () => t(e.name, o);
+        n.onload = e => {
+            const t = e.target.result.toString().split("\n");
+            const n = t.length;
+            for (let e = 3; e < n; e++) {
+                const n = t[e].split("=");
+                o[n[0].trim()] = parseInt(n[1].trim());
+            }
+        };
+        n.readAsText(e);
+    }
 })(Import || (Import = {}));
 
 var Export;
@@ -1124,24 +1132,46 @@ var Export;
     })(t = e.File || (e.File = {}));
     let n;
     (e => {
-        function t(e, t) {
+        function t(e, t, d) {
+            let m = null;
+            if (e === "csv") {
+                m = n(t, d);
+            } else if (e === "json") {
+                m = o(t);
+            } else if (e === "xml") {
+                m = i(t);
+            } else if (e === "txt") {
+                m = s(t);
+            } else if (e === "html") {
+                m = r(t, d);
+            } else if (e === "md") {
+                m = a(t);
+            } else if (e === "tsv") {
+                m = l(t);
+            } else if (e === "yaml") {
+                m = c(t, d);
+            } else if (e === "toml") {
+                m = u(t, d);
+            }
+            return m;
+        }
+        e.get = t;
+        function n(e, t) {
             const n = [];
             for (const t in e) {
                 if (e.hasOwnProperty(t)) {
-                    n.push(d([ u(t), u(e[t].toString()) ]));
+                    n.push(m([ d(t), d(e[t].toString()) ]));
                 }
             }
             if (n.length > 0) {
-                n.unshift(d([ u(t.text.dateText), u(t.text.countText) ]));
+                n.unshift(m([ d(t.text.dateText), d(t.text.countText) ]));
             }
             return n.join("\n");
         }
-        e.csv = t;
-        function n(e) {
+        function o(e) {
             return JSON.stringify(e);
         }
-        e.json = n;
-        function o(e) {
+        function i(e) {
             const t = [];
             t.push('<?xml version="1.0" ?>');
             t.push("<Dates>");
@@ -1156,8 +1186,7 @@ var Export;
             t.push("</Dates>");
             return t.join("\n");
         }
-        e.xml = o;
-        function i(e) {
+        function s(e) {
             const t = [];
             for (const n in e) {
                 if (e.hasOwnProperty(n)) {
@@ -1166,8 +1195,7 @@ var Export;
             }
             return t.join("\n");
         }
-        e.txt = i;
-        function s(e, t) {
+        function r(e, t) {
             const n = [];
             const o = DateTime.getCustomFormattedDateText(t, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date);
             n.push("<!DOCTYPE html>");
@@ -1188,8 +1216,7 @@ var Export;
             n.push("</html>");
             return n.join("\n");
         }
-        e.html = s;
-        function r(e) {
+        function a(e) {
             const t = [];
             t.push("| Full Date | Count |");
             t.push("| --- | --- |");
@@ -1200,8 +1227,7 @@ var Export;
             }
             return t.join("\n");
         }
-        e.md = r;
-        function a(e) {
+        function l(e) {
             const t = [];
             t.push(`Full Date${"\t"}Count`);
             for (const n in e) {
@@ -1211,8 +1237,7 @@ var Export;
             }
             return t.join("\n");
         }
-        e.tsv = a;
-        function l(e, t) {
+        function c(e, t) {
             const n = [];
             const o = DateTime.getCustomFormattedDateText(t, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date);
             n.push(`Last-Modified:${" "}${o}`);
@@ -1223,8 +1248,7 @@ var Export;
             }
             return n.join("\n");
         }
-        e.yaml = l;
-        function c(e, t) {
+        function u(e, t) {
             const n = [];
             const o = DateTime.getCustomFormattedDateText(t, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date);
             n.push(`last_modified = "${o}"`);
@@ -1237,14 +1261,13 @@ var Export;
             }
             return n.join("\n");
         }
-        e.toml = c;
-        function u(e) {
+        function d(e) {
             let t = e.toString().replace(/(\r\n|\n|\r)/gm, "").replace(/(\s\s)/gm, " ");
             t = t.replace(/"/g, '""');
             t = `"${t}"`;
             return t;
         }
-        function d(e) {
+        function m(e) {
             return e.join(",");
         }
     })(n = e.Contents || (e.Contents = {}));
@@ -1843,7 +1866,7 @@ var Convert;
             W(e);
         }
         P(e);
-        if (e.views.map.showNoDataMessageWhenDataIsNotAvailable && !V(e)) {
+        if (e.views.map.showNoDataMessageWhenDataIsNotAvailable && !C(e)) {
             const o = DomElement.createWithHTML(e._currentView.mapContents, "div", "no-data-message", n.text.noMapDataMessage);
             if (t) {
                 DomElement.addClass(o, "view-switch");
@@ -1906,7 +1929,7 @@ var Convert;
                         if (d) {
                             let n = null;
                             if (Is.dayVisible(e.views.map.daysToShow, h)) {
-                                n = C(e, u, t - f, o, l, a);
+                                n = V(e, u, t - f, o, l, a);
                             }
                             if ((t + 1) % 7 === 0) {
                                 if (e.views.map.showDaysInReverseOrder) {
@@ -1965,7 +1988,7 @@ var Convert;
             }
         }
     }
-    function C(e, t, n, o, s, r) {
+    function V(e, t, n, o, s, r) {
         const a = n + 1;
         const l = DomElement.create(t, "div", "day");
         const c = new Date(s, o, a);
@@ -2001,7 +2024,7 @@ var Convert;
         }
         return l;
     }
-    function V(e) {
+    function C(e) {
         let t = false;
         const n = q(e);
         const o = e._currentView.year.toString();
@@ -3003,53 +3026,20 @@ var Convert;
         for (let t = 0; t < o; t++) {
             const o = e[t];
             const i = o.name.split(".").pop().toLowerCase();
-            if (i === "json") {
-                Import.File.json(o, r, n);
-            } else if (i === "txt") {
-                Import.File.txt(o, r);
-            } else if (i === "csv") {
-                Import.File.csv(o, r);
-            } else if (i === "tsv") {
-                Import.File.tsv(o, r);
-            } else if (i === "md") {
-                Import.File.md(o, r);
-            } else if (i === "yaml") {
-                Import.File.yaml(o, r);
-            } else if (i === "toml") {
-                Import.File.toml(o, r);
-            }
+            Import.file(o, i, r, n);
         }
     }
     function fe(e, t = null, o = null, i = true) {
-        let s = null;
-        const r = Export.File.mimeType(t);
-        const a = Default2.getString(t, e.exportType).toLowerCase();
-        const l = he(e, i);
-        if (a === "csv") {
-            s = Export.Contents.csv(l, n);
-        } else if (a === "json") {
-            s = Export.Contents.json(l);
-        } else if (a === "xml") {
-            s = Export.Contents.xml(l);
-        } else if (a === "txt") {
-            s = Export.Contents.txt(l);
-        } else if (a === "html") {
-            s = Export.Contents.html(l, n);
-        } else if (a === "md") {
-            s = Export.Contents.md(l);
-        } else if (a === "tsv") {
-            s = Export.Contents.tsv(l);
-        } else if (a === "yaml") {
-            s = Export.Contents.yaml(l, n);
-        } else if (a === "toml") {
-            s = Export.Contents.toml(l, n);
-        }
-        if (Is.definedString(s)) {
+        const s = Export.File.mimeType(t);
+        const r = Default2.getString(t, e.exportType).toLowerCase();
+        const a = he(e, i);
+        const l = Export.Contents.get(r, a, n);
+        if (Is.definedString(l)) {
             const t = DomElement.create(document.body, "a");
             t.style.display = "none";
             t.setAttribute("target", "_blank");
-            t.setAttribute("href", `data:${r};charset=utf-8,${encodeURIComponent(s)}`);
-            t.setAttribute("download", Export.File.filename(n, e, o, a));
+            t.setAttribute("href", `data:${s};charset=utf-8,${encodeURIComponent(l)}`);
+            t.setAttribute("download", Export.File.filename(n, e, o, r));
             t.click();
             document.body.removeChild(t);
             Trigger.customEvent(e.events.onExport, e._currentView.element);

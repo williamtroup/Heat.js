@@ -70,7 +70,33 @@ export namespace Export {
     }
 
     export namespace Contents {
-        export function csv( typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
+        export function get( contentExportType: string, typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
+            let contents: string = null!;
+
+            if ( contentExportType === ExportType.csv ) {
+                contents = csv( typeDateCounts, configuration );
+            } else if ( contentExportType === ExportType.json ) {
+                contents = json( typeDateCounts );
+            } else if ( contentExportType === ExportType.xml ) {
+                contents = xml( typeDateCounts );
+            } else if ( contentExportType === ExportType.txt ) {
+                contents = txt( typeDateCounts );
+            } else if ( contentExportType === ExportType.html ) {
+                contents = html( typeDateCounts, configuration );
+            } else if ( contentExportType === ExportType.md ) {
+                contents = md( typeDateCounts );
+            } else if ( contentExportType === ExportType.tsv ) {
+                contents = tsv( typeDateCounts );
+            } else if ( contentExportType === ExportType.yaml ) {
+                contents = yaml( typeDateCounts, configuration );
+            } else if ( contentExportType === ExportType.toml ) {
+                contents = toml( typeDateCounts, configuration );
+            }
+
+            return contents;
+        }
+
+        function csv( typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
             const csvContents: string[] = [];
 
             for ( const storageDate in typeDateCounts ) {
@@ -86,11 +112,11 @@ export namespace Export {
             return csvContents.join( Char.newLine );
         }
 
-        export function json( typeDateCounts: InstanceTypeDateCount ) : string {
+        function json( typeDateCounts: InstanceTypeDateCount ) : string {
             return JSON.stringify( typeDateCounts );
         }
 
-        export function xml( typeDateCounts: InstanceTypeDateCount ) : string {
+        function xml( typeDateCounts: InstanceTypeDateCount ) : string {
             const contents: string[] = [];
 
             contents.push( "<?xml version=\"1.0\" ?>" );
@@ -110,7 +136,7 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        export function txt( typeDateCounts: InstanceTypeDateCount ) : string {
+        function txt( typeDateCounts: InstanceTypeDateCount ) : string {
             const contents: string[] = [];
 
             for ( const storageDate in typeDateCounts ) {
@@ -122,7 +148,7 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        export function html( typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
+        function html( typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
             const contents: string[] = [];
             const exportedDateTime: string = DateTime.getCustomFormattedDateText( configuration, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date() );
 
@@ -148,7 +174,7 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        export function md( typeDateCounts: InstanceTypeDateCount ) : string {
+        function md( typeDateCounts: InstanceTypeDateCount ) : string {
             const contents: string[] = [];
 
             contents.push( "| Full Date | Count |" );
@@ -163,7 +189,7 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        export function tsv( typeDateCounts: InstanceTypeDateCount ) : string {
+        function tsv( typeDateCounts: InstanceTypeDateCount ) : string {
             const contents: string[] = [];
 
             contents.push( `Full Date${Char.tab}Count` );
@@ -177,7 +203,7 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        export function yaml( typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
+        function yaml( typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
             const contents: string[] = [];
             const exportedDateTime: string = DateTime.getCustomFormattedDateText( configuration, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date() );
 
@@ -192,7 +218,7 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        export function toml( typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
+        function toml( typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
             const contents: string[] = [];
             const exportedDateTime: string = DateTime.getCustomFormattedDateText( configuration, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date() );
 

@@ -2388,7 +2388,7 @@ import { Convert } from "./ts/data/convert";
         const filesCompleted: string[] = [];
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
-        const onLoadEnd: Function = ( filename: string, readingObject: InstanceTypeDateCount ) : void => {
+        const onLoadEndFunc: Function = ( filename: string, readingObject: InstanceTypeDateCount ) : void => {
             filesCompleted.push( filename );
 
             for ( const storageDate in readingObject ) {
@@ -2411,21 +2411,7 @@ import { Convert } from "./ts/data/convert";
             const file: File = files[ fileIndex ];
             const fileExtension: string = file!.name!.split( "." )!.pop()!.toLowerCase();
 
-            if ( fileExtension === ImportType.json ) {
-                Import.File.json( file, onLoadEnd, _configuration );
-            } else if ( fileExtension === ImportType.txt ) {
-                Import.File.txt( file, onLoadEnd );
-            } else if ( fileExtension === ImportType.csv ) {
-                Import.File.csv( file, onLoadEnd );
-            } else if ( fileExtension === ImportType.tsv ) {
-                Import.File.tsv( file, onLoadEnd );
-            } else if ( fileExtension === ImportType.md ) {
-                Import.File.md( file, onLoadEnd );
-            } else if ( fileExtension === ImportType.yaml ) {
-                Import.File.yaml( file, onLoadEnd );
-            } else if ( fileExtension === ImportType.toml ) {
-                Import.File.toml( file, onLoadEnd );
-            }
+            Import.file( file, fileExtension, onLoadEndFunc, _configuration );
         }
     }
 
@@ -2437,30 +2423,10 @@ import { Convert } from "./ts/data/convert";
      */
 
     function exportAllData( bindingOptions: BindingOptions, exportType: string = null!, exportFilename: string = null!, exportOnlyDataBeingViewed: boolean = true ) : void {
-        let contents: string = null!;
         const contentsMimeType: string = Export.File.mimeType( exportType );
         const contentExportType: string = Default.getString( exportType, bindingOptions.exportType! ).toLowerCase();
         const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, exportOnlyDataBeingViewed );
-
-        if ( contentExportType === ExportType.csv ) {
-            contents = Export.Contents.csv( typeDateCounts, _configuration );
-        } else if ( contentExportType === ExportType.json ) {
-            contents = Export.Contents.json( typeDateCounts );
-        } else if ( contentExportType === ExportType.xml ) {
-            contents = Export.Contents.xml( typeDateCounts );
-        } else if ( contentExportType === ExportType.txt ) {
-            contents = Export.Contents.txt( typeDateCounts );
-        } else if ( contentExportType === ExportType.html ) {
-            contents = Export.Contents.html( typeDateCounts, _configuration );
-        } else if ( contentExportType === ExportType.md ) {
-            contents = Export.Contents.md( typeDateCounts );
-        } else if ( contentExportType === ExportType.tsv ) {
-            contents = Export.Contents.tsv( typeDateCounts );
-        } else if ( contentExportType === ExportType.yaml ) {
-            contents = Export.Contents.yaml( typeDateCounts, _configuration );
-        } else if ( contentExportType === ExportType.toml ) {
-            contents = Export.Contents.toml( typeDateCounts, _configuration );
-        }
+        const contents: string = Export.Contents.get( contentExportType, typeDateCounts, _configuration );
 
         if ( Is.definedString( contents ) ) {
             const tempLink: HTMLElement = DomElement.create( document.body, "a" );
