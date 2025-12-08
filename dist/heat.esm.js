@@ -398,7 +398,7 @@ var DomElement;
         const i = e.getStyleValueByName(n, "background-color");
         n.style.background = `linear-gradient(to top, ${o}, ${i})`;
     }
-    e.adGradientEffect = m;
+    e.addGradientEffect = m;
 })(DomElement || (DomElement = {}));
 
 var ToolTip;
@@ -2130,7 +2130,7 @@ var Convert;
             DomElement.addClass(l, "today");
         }
         if (t.views.chart.useGradients) {
-            DomElement.adGradientEffect(t._currentView.element, l);
+            DomElement.addGradientEffect(t._currentView.element, l);
         }
         return l;
     }
@@ -2239,7 +2239,7 @@ var Convert;
             DomElement.createWithHTML(r, "div", "count", Str.friendlyNumber(n));
         }
         if (o.views.days.useGradients) {
-            DomElement.adGradientEffect(o._currentView.element, r);
+            DomElement.addGradientEffect(o._currentView.element, r);
         } else if (o.views.days.useDifferentOpacities) {
             const e = DomElement.getStyleValueByName(r, "background-color");
             const t = DomElement.getStyleValueByName(r, "border-color");
@@ -2386,7 +2386,7 @@ var Convert;
             DomElement.addClass(r, "today");
         }
         if (o.views.months.useGradients) {
-            DomElement.adGradientEffect(o._currentView.element, r);
+            DomElement.addGradientEffect(o._currentView.element, r);
         } else if (o.views.months.useDifferentOpacities) {
             const e = DomElement.getStyleValueByName(r, "background-color");
             const t = DomElement.getStyleValueByName(r, "border-color");
@@ -2542,7 +2542,7 @@ var Convert;
             }
         }
         if (o.views.statistics.useGradients) {
-            DomElement.adGradientEffect(o._currentView.element, r);
+            DomElement.addGradientEffect(o._currentView.element, r);
         }
     }
     function Y(e, t) {

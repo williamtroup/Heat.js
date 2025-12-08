@@ -1290,7 +1290,7 @@ import { Convert } from "./ts/data/convert";
         }
 
         if ( bindingOptions.views!.chart!.useGradients ) {
-            DomElement.adGradientEffect( bindingOptions._currentView!.element, dayLine );
+            DomElement.addGradientEffect( bindingOptions._currentView!.element, dayLine );
         }
 
         return dayLine;
@@ -1438,7 +1438,7 @@ import { Convert } from "./ts/data/convert";
         }
 
         if ( bindingOptions.views!.days!.useGradients ) {
-            DomElement.adGradientEffect( bindingOptions._currentView!.element, dayLine );
+            DomElement.addGradientEffect( bindingOptions._currentView!.element, dayLine );
 
         } else if ( bindingOptions.views!.days!.useDifferentOpacities ) {
             const backgroundColor: string = DomElement.getStyleValueByName( dayLine, "background-color" );
@@ -1634,7 +1634,7 @@ import { Convert } from "./ts/data/convert";
         }
 
         if ( bindingOptions.views!.months!.useGradients ) {
-            DomElement.adGradientEffect( bindingOptions._currentView!.element, monthLine );
+            DomElement.addGradientEffect( bindingOptions._currentView!.element, monthLine );
 
         } else if ( bindingOptions.views!.months!.useDifferentOpacities ) {
             const backgroundColor: string = DomElement.getStyleValueByName( monthLine, "background-color" );
@@ -1837,7 +1837,7 @@ import { Convert } from "./ts/data/convert";
         }
 
         if ( bindingOptions.views!.statistics!.useGradients ) {
-            DomElement.adGradientEffect( bindingOptions._currentView!.element, rangeLine );
+            DomElement.addGradientEffect( bindingOptions._currentView!.element, rangeLine );
         }
     }
 
