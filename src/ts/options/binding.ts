@@ -107,6 +107,7 @@ export namespace Binding {
             options.resizable = Default.getBoolean( options.resizable, false );
             options.startMonth = Default.getNumberInRange( options.startMonth, 0, 11, 0 );
             options.allowMultipleFileImports = Default.getBoolean( options.allowMultipleFileImports, true );
+            options.percentageDecimalPoints = Default.getNumber( options.percentageDecimalPoints, 2 );
             options.colorRanges = getColorRanges( options );
             options.holidays = getHolidays( options );
             options.title = getTitle( options );
@@ -324,6 +325,7 @@ export namespace Binding {
             options.views!.days!.showToolTips = Default.getBoolean( options.views!.days!.showToolTips, true );
             options.views!.days!.useGradients = Default.getBoolean( options.views!.days!.useGradients, false );
             options.views!.days!.useDifferentOpacities = Default.getBoolean( options.views!.days!.useDifferentOpacities, false );
+            options.views!.days!.showDayNumberPercentages = Default.getBoolean( options.views!.days!.showDayNumberPercentages, true );
     
             if ( Is.invalidOptionArray( options.views!.days!.monthsToShow ) ) {
                 options.views!.days!.monthsToShow = _default_MonthsToShow;
@@ -348,6 +350,7 @@ export namespace Binding {
             options.views!.months!.useGradients = Default.getBoolean( options.views!.months!.useGradients, false );
             options.views!.months!.useDifferentOpacities = Default.getBoolean( options.views!.months!.useDifferentOpacities, false );
             options.views!.months!.highlightCurrentMonth = Default.getBoolean( options.views!.months!.highlightCurrentMonth, false );
+            options.views!.months!.showMonthNumberPercentages = Default.getBoolean( options.views!.months!.showMonthNumberPercentages, true );
     
             if ( Is.invalidOptionArray( options.views!.months!.monthsToShow ) ) {
                 options.views!.months!.monthsToShow = _default_MonthsToShow;

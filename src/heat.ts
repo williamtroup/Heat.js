@@ -807,7 +807,7 @@ import { Convert } from "./ts/data/convert";
 
     function renderControlYearStatisticsPercentage( bindingOptions: BindingOptions, boxCount: HTMLElement, yearCount: number, count: number, isCurrentYear: boolean ) : void {
         if ( isCurrentYear && bindingOptions.yearlyStatistics!.showPercentages ) {
-            const percentageText: string = `${( ( count / yearCount ) * 100 ).toFixed( 2 )}%`;
+            const percentageText: string = `${( ( count / yearCount ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%`;
 
             DomElement.createWithHTML( boxCount, "span", "percentage-bracket", "(" );
             DomElement.createWithHTML( boxCount, "span", "percentage-text", percentageText );
@@ -1397,7 +1397,7 @@ import { Convert } from "./ts/data/convert";
 
             for ( const day in dayValuesForCurrentYear.values ) {
                 if ( dayValuesForCurrentYear.values.hasOwnProperty( day ) && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
-                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ], bindingOptions, pixelsPerNumbers, opacityIncrease );
+                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ], bindingOptions, pixelsPerNumbers, opacityIncrease, dayValuesForCurrentYear.totalValue );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
                         DomElement.createWithHTML( dayNames, "div", "day-name", _configuration.text!.dayNames![ parseInt( day ) - 1 ] );
@@ -1418,7 +1418,7 @@ import { Convert } from "./ts/data/convert";
         }
     }
 
-    function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number ) : void {
+    function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number ) : void {
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
 
@@ -1443,7 +1443,11 @@ import { Convert } from "./ts/data/convert";
 
         if ( bindingOptions.views!.days!.showDayNumbers && dayCount > 0 ) {
             DomElement.addClass( dayLine, "day-line-number" );
-            DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dayCount ) );
+            const count: HTMLElement = DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dayCount ) );
+
+            if ( bindingOptions.views!.days!.showDayNumberPercentages ) {
+                DomElement.createWithHTML( count, "div", "percentage", `${( ( dayCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
+            }
         }
 
         if ( bindingOptions.views!.days!.useGradients ) {
@@ -1478,7 +1482,8 @@ import { Convert } from "./ts/data/convert";
                 6: 0,
                 7: 0,
             },
-            largestValue: 0
+            largestValue: 0,
+            totalValue: 0
         } as LargestValueForView;
 
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
@@ -1506,6 +1511,7 @@ import { Convert } from "./ts/data/convert";
 
                         if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
                             result.values[ weekDayNumber ] += typeDateCounts[ storageDate ];
+                            result.totalValue += typeDateCounts[ storageDate ];
                             result.largestValue = Math.max( result.largestValue, result.values[ weekDayNumber ] );
                         }
                     }
@@ -1582,7 +1588,7 @@ import { Convert } from "./ts/data/convert";
                 const monthToShow: number = actualMonthIndex + 1;
 
                 if ( monthValuesForCurrentYear.values.hasOwnProperty( monthToShow ) && Is.monthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
-                    renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ], bindingOptions, pixelsPerNumbers, opacityIncrease );
+                    renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ], bindingOptions, pixelsPerNumbers, opacityIncrease, monthValuesForCurrentYear.totalValue );
 
                     if ( bindingOptions.views!.months!.showMonthNames ) {
                         DomElement.createWithHTML( monthNames, "div", "month-name", _configuration.text!.monthNames![ actualMonthIndex ] );
@@ -1603,7 +1609,7 @@ import { Convert } from "./ts/data/convert";
         }
     }
 
-    function renderControlMonthsMonthLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number ) : void {
+    function renderControlMonthsMonthLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number ) : void {
         const monthLine: HTMLElement = DomElement.create( monthLines, "div", "month-line" );
         const monthLineHeight: number = monthCount * pixelsPerNumbers;
         const today: Date = new Date();
@@ -1635,7 +1641,11 @@ import { Convert } from "./ts/data/convert";
 
         if ( bindingOptions.views!.months!.showMonthNumbers && monthCount > 0 ) {
             DomElement.addClass( monthLine, "month-line-number" );
-            DomElement.createWithHTML( monthLine, "div", "count", Str.friendlyNumber( monthCount ) );
+            const count: HTMLElement = DomElement.createWithHTML( monthLine, "div", "count", Str.friendlyNumber( monthCount ) );
+
+            if ( bindingOptions.views!.months!.showMonthNumberPercentages ) {
+                DomElement.createWithHTML( count, "div", "percentage", `${( ( monthCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
+            }
         }
 
         if ( bindingOptions.views!.months!.highlightCurrentMonth && today.getMonth() === ( monthNumber - 1 ) && bindingOptions._currentView!.year === today.getFullYear() ) {
@@ -1679,7 +1689,8 @@ import { Convert } from "./ts/data/convert";
                 11: 0,
                 12: 0,
             },
-            largestValue: 0
+            largestValue: 0,
+            totalValue: 0
         } as LargestValueForView;
 
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
@@ -1708,6 +1719,7 @@ import { Convert } from "./ts/data/convert";
 
                         if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
                             result.values[ monthValue ] += typeDateCounts[ storageDate ];
+                            result.totalValue += typeDateCounts[ storageDate ];
                             result.largestValue = Math.max( result.largestValue, result.values[ monthValue ] );
                         }
                     }

@@ -1071,6 +1071,7 @@ div.heat-js {
                     padding: calc( var(--heat-js-spacing) / 2 );
                     position: relative;
                     overflow: hidden;
+                    text-align: center;
 
                     div.count {
                         position: absolute;
@@ -1078,6 +1079,10 @@ div.heat-js {
                         left: 50%;
                         transform: translate( -50%, -50% );
                         color: var(--heat-js-view-days-text-color);
+
+                        div.percentage {
+                            font-style: italic;
+                        }
                     }
                 }
 
@@ -1177,6 +1182,7 @@ div.heat-js {
                     padding: calc( var(--heat-js-spacing) / 2 );
                     position: relative;
                     overflow: hidden;
+                    text-align: center;
 
                     div.count {
                         position: absolute;
@@ -1184,6 +1190,10 @@ div.heat-js {
                         left: 50%;
                         transform: translate( -50%, -50% );
                         color: var(--heat-js-view-months-text-color);
+
+                        div.percentage {
+                            font-style: italic;
+                        }
                     }
                 }
 

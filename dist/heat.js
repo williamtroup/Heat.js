@@ -538,6 +538,7 @@ var Binding;
             t.resizable = Default2.getBoolean(t.resizable, false);
             t.startMonth = Default2.getNumberInRange(t.startMonth, 0, 11, 0);
             t.allowMultipleFileImports = Default2.getBoolean(t.allowMultipleFileImports, true);
+            t.percentageDecimalPoints = Default2.getNumber(t.percentageDecimalPoints, 2);
             t.colorRanges = s(t);
             t.holidays = r(t);
             t.title = a(t);
@@ -719,6 +720,7 @@ var Binding;
             e.views.days.showToolTips = Default2.getBoolean(e.views.days.showToolTips, true);
             e.views.days.useGradients = Default2.getBoolean(e.views.days.useGradients, false);
             e.views.days.useDifferentOpacities = Default2.getBoolean(e.views.days.useDifferentOpacities, false);
+            e.views.days.showDayNumberPercentages = Default2.getBoolean(e.views.days.showDayNumberPercentages, true);
             if (Is.invalidOptionArray(e.views.days.monthsToShow)) {
                 e.views.days.monthsToShow = t;
             }
@@ -739,6 +741,7 @@ var Binding;
             e.views.months.useGradients = Default2.getBoolean(e.views.months.useGradients, false);
             e.views.months.useDifferentOpacities = Default2.getBoolean(e.views.months.useDifferentOpacities, false);
             e.views.months.highlightCurrentMonth = Default2.getBoolean(e.views.months.highlightCurrentMonth, false);
+            e.views.months.showMonthNumberPercentages = Default2.getBoolean(e.views.months.showMonthNumberPercentages, true);
             if (Is.invalidOptionArray(e.views.months.monthsToShow)) {
                 e.views.months.monthsToShow = t;
             }
@@ -1399,7 +1402,7 @@ var Convert;
             e._currentView.chartContents.style.display = "none";
         }
         if (e.views.days.enabled) {
-            N(e, n);
+            k(e, n);
             e._currentView.daysContents.style.display = "none";
         }
         if (e.views.months.enabled) {
@@ -1425,7 +1428,7 @@ var Convert;
             e._currentView.view = 1;
             e._currentView.mapContents.style.display = "block";
         }
-        x(e);
+        b(e);
     }
     function c(e, t = true) {
         const n = t ? window.addEventListener : window.removeEventListener;
@@ -1783,7 +1786,7 @@ var Convert;
         }
         return i;
     }
-    function x(e) {
+    function b(e) {
         const t = new Date;
         const o = e._currentView.year === t.getFullYear();
         if (e.yearlyStatistics.enabled && (!e.yearlyStatistics.showOnlyForCurrentYear || o)) {
@@ -1804,7 +1807,7 @@ var Convert;
                 const d = o ? Str.friendlyNumber(a) : n.text.unknownText;
                 DomElement.createWithHTML(l, "div", "statistics-box-title", `${n.text.totalTodayText}${":"}`);
                 const m = DomElement.createWithHTML(l, "div", "statistics-box-count", d);
-                b(e, m, u, a, o);
+                x(e, m, u, a, o);
             }
             if (e.yearlyStatistics.showTotalThisWeek) {
                 let t = 0;
@@ -1818,7 +1821,7 @@ var Convert;
                 const l = DomElement.create(s, "div", "statistics-box");
                 DomElement.createWithHTML(l, "div", "statistics-box-title", `${n.text.totalThisWeekText}${":"}`);
                 const c = DomElement.createWithHTML(l, "div", "statistics-box-count", i);
-                b(e, c, u, t, o);
+                x(e, c, u, t, o);
             }
             if (e.yearlyStatistics.showTotalThisMonth) {
                 let i = 0;
@@ -1831,7 +1834,7 @@ var Convert;
                 const c = DomElement.create(s, "div", "statistics-box");
                 DomElement.createWithHTML(c, "div", "statistics-box-title", `${n.text.totalThisMonthText}${":"}`);
                 const d = DomElement.createWithHTML(c, "div", "statistics-box-count", l);
-                b(e, d, u, i, o);
+                x(e, d, u, i, o);
             }
             if (e.yearlyStatistics.showTotalThisYear) {
                 const e = DomElement.create(s, "div", "statistics-box");
@@ -1843,11 +1846,11 @@ var Convert;
             }
         }
     }
-    function b(e, t, n, o, i) {
+    function x(e, t, n, o, i) {
         if (i && e.yearlyStatistics.showPercentages) {
-            const e = `${(o / n * 100).toFixed(2)}%`;
+            const i = `${(o / n * 100).toFixed(e.percentageDecimalPoints)}%`;
             DomElement.createWithHTML(t, "span", "percentage-bracket", "(");
-            DomElement.createWithHTML(t, "span", "percentage-text", e);
+            DomElement.createWithHTML(t, "span", "percentage-text", i);
             DomElement.createWithHTML(t, "span", "percentage-bracket", ")");
         }
     }
@@ -1870,7 +1873,7 @@ var Convert;
             E(e);
         }
         if (e.views.days.enabled) {
-            k(e);
+            N(e);
         }
         if (e.views.months.enabled) {
             A(e);
@@ -2242,11 +2245,11 @@ var Convert;
         }
         return t;
     }
-    function k(e) {
+    function N(e) {
         e._currentView.daysContents = DomElement.create(e._currentView.element, "div", "days-contents");
         de(e._currentView.daysContents, e);
     }
-    function N(e, t) {
+    function k(e, t) {
         const o = DomElement.create(e._currentView.daysContents, "div", "days");
         const i = DomElement.create(e._currentView.daysContents, "div", "day-names");
         let s = DomElement.create(o, "div", "y-labels");
@@ -2281,7 +2284,7 @@ var Convert;
             let s = o;
             for (const l in a.values) {
                 if (a.values.hasOwnProperty(l) && Is.dayVisible(e.views.days.daysToShow, parseInt(l))) {
-                    O(r, parseInt(l), a.values[l], e, t, s);
+                    O(r, parseInt(l), a.values[l], e, t, s, a.totalValue);
                     if (e.views.days.showDayNames) {
                         DomElement.createWithHTML(i, "div", "day-name", n.text.dayNames[parseInt(l) - 1]);
                     }
@@ -2297,42 +2300,45 @@ var Convert;
             }
         }
     }
-    function O(e, t, n, o, i, s) {
-        const r = DomElement.create(e, "div", "day-line");
-        const a = n * i;
-        r.style.height = `${a}px`;
-        r.setAttribute(Constant.HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME, t.toString());
-        if (a <= 0) {
-            r.style.visibility = "hidden";
+    function O(e, t, n, o, i, s, r) {
+        const a = DomElement.create(e, "div", "day-line");
+        const l = n * i;
+        a.style.height = `${l}px`;
+        a.setAttribute(Constant.HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME, t.toString());
+        if (l <= 0) {
+            a.style.visibility = "hidden";
         }
         if (o.views.days.showToolTips) {
-            ToolTip.add(r, o, Str.friendlyNumber(n));
+            ToolTip.add(a, o, Str.friendlyNumber(n));
         }
         if (Is.definedFunction(o.events.onWeekDayClick)) {
-            r.onclick = () => Trigger.customEvent(o.events.onWeekDayClick, t, n, o._currentView.year);
+            a.onclick = () => Trigger.customEvent(o.events.onWeekDayClick, t, n, o._currentView.year);
         } else if (Is.definedFunction(o.events.onWeekDayDblClick)) {
-            r.ondblclick = () => Trigger.customEvent(o.events.onWeekDayDblClick, t, n, o._currentView.year);
+            a.ondblclick = () => Trigger.customEvent(o.events.onWeekDayDblClick, t, n, o._currentView.year);
         } else {
-            DomElement.addClass(r, "no-hover");
+            DomElement.addClass(a, "no-hover");
         }
         if (o.views.days.showDayNumbers && n > 0) {
-            DomElement.addClass(r, "day-line-number");
-            DomElement.createWithHTML(r, "div", "count", Str.friendlyNumber(n));
+            DomElement.addClass(a, "day-line-number");
+            const e = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
+            if (o.views.days.showDayNumberPercentages) {
+                DomElement.createWithHTML(e, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
+            }
         }
         if (o.views.days.useGradients) {
-            DomElement.addGradientEffect(o._currentView.element, r);
+            DomElement.addGradientEffect(o._currentView.element, a);
         } else if (o.views.days.useDifferentOpacities) {
-            const e = DomElement.getStyleValueByName(r, "background-color");
-            const t = DomElement.getStyleValueByName(r, "border-color");
+            const e = DomElement.getStyleValueByName(a, "background-color");
+            const t = DomElement.getStyleValueByName(a, "border-color");
             if (Is.rgbColor(e)) {
-                r.style.backgroundColor = Convert.toRgbOpacityColor(e, s);
+                a.style.backgroundColor = Convert.toRgbOpacityColor(e, s);
             } else if (Is.hexColor(e)) {
-                r.style.backgroundColor = Convert.toRgbOpacityColor(Convert.hexToRgba(e), s);
+                a.style.backgroundColor = Convert.toRgbOpacityColor(Convert.hexToRgba(e), s);
             }
             if (Is.rgbColor(t)) {
-                r.style.borderColor = Convert.toRgbOpacityColor(t, s);
+                a.style.borderColor = Convert.toRgbOpacityColor(t, s);
             } else if (Is.hexColor(t)) {
-                r.style.borderColor = Convert.toRgbOpacityColor(Convert.hexToRgba(t), s);
+                a.style.borderColor = Convert.toRgbOpacityColor(Convert.hexToRgba(t), s);
             }
         }
     }
@@ -2347,7 +2353,8 @@ var Convert;
                 6: 0,
                 7: 0
             },
-            largestValue: 0
+            largestValue: 0,
+            totalValue: 0
         };
         const n = K(e);
         const o = e._currentView.year;
@@ -2368,6 +2375,7 @@ var Convert;
                         const r = DateTime.getWeekdayNumber(s) + 1;
                         if (!Is.holiday(e, s).matched && Is.dayVisible(e.views.days.daysToShow, r)) {
                             t.values[r] += n[o];
+                            t.totalValue += n[o];
                             t.largestValue = Math.max(t.largestValue, t.values[r]);
                         }
                     }
@@ -2420,7 +2428,7 @@ var Convert;
                 }
                 const u = c + 1;
                 if (a.values.hasOwnProperty(u) && Is.monthVisible(e.views.months.monthsToShow, c)) {
-                    H(r, u, a.values[u], e, t, s);
+                    H(r, u, a.values[u], e, t, s, a.totalValue);
                     if (e.views.months.showMonthNames) {
                         DomElement.createWithHTML(i, "div", "month-name", n.text.monthNames[c]);
                     }
@@ -2436,50 +2444,53 @@ var Convert;
             }
         }
     }
-    function H(e, t, n, o, i, s) {
-        const r = DomElement.create(e, "div", "month-line");
-        const a = n * i;
-        const l = new Date;
-        r.style.height = `${a}px`;
-        r.setAttribute(Constant.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, t.toString());
-        if (a <= 0) {
-            r.style.visibility = "hidden";
+    function H(e, t, n, o, i, s, r) {
+        const a = DomElement.create(e, "div", "month-line");
+        const l = n * i;
+        const c = new Date;
+        a.style.height = `${l}px`;
+        a.setAttribute(Constant.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, t.toString());
+        if (l <= 0) {
+            a.style.visibility = "hidden";
         }
         if (o.views.months.showToolTips) {
-            ToolTip.add(r, o, Str.friendlyNumber(n));
+            ToolTip.add(a, o, Str.friendlyNumber(n));
         }
-        let c = o._currentView.year;
+        let u = o._currentView.year;
         if (o.startMonth > 0 && t - 1 < o.startMonth) {
-            c++;
+            u++;
         }
         if (Is.definedFunction(o.events.onMonthClick)) {
-            r.onclick = () => Trigger.customEvent(o.events.onMonthClick, t, n, c);
+            a.onclick = () => Trigger.customEvent(o.events.onMonthClick, t, n, u);
         } else if (Is.definedFunction(o.events.onMonthDblClick)) {
-            r.ondblclick = () => Trigger.customEvent(o.events.onMonthDblClick, t, n, c);
+            a.ondblclick = () => Trigger.customEvent(o.events.onMonthDblClick, t, n, u);
         } else {
-            DomElement.addClass(r, "no-hover");
+            DomElement.addClass(a, "no-hover");
         }
         if (o.views.months.showMonthNumbers && n > 0) {
-            DomElement.addClass(r, "month-line-number");
-            DomElement.createWithHTML(r, "div", "count", Str.friendlyNumber(n));
+            DomElement.addClass(a, "month-line-number");
+            const e = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
+            if (o.views.months.showMonthNumberPercentages) {
+                DomElement.createWithHTML(e, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
+            }
         }
-        if (o.views.months.highlightCurrentMonth && l.getMonth() === t - 1 && o._currentView.year === l.getFullYear()) {
-            DomElement.addClass(r, "today");
+        if (o.views.months.highlightCurrentMonth && c.getMonth() === t - 1 && o._currentView.year === c.getFullYear()) {
+            DomElement.addClass(a, "today");
         }
         if (o.views.months.useGradients) {
-            DomElement.addGradientEffect(o._currentView.element, r);
+            DomElement.addGradientEffect(o._currentView.element, a);
         } else if (o.views.months.useDifferentOpacities) {
-            const e = DomElement.getStyleValueByName(r, "background-color");
-            const t = DomElement.getStyleValueByName(r, "border-color");
+            const e = DomElement.getStyleValueByName(a, "background-color");
+            const t = DomElement.getStyleValueByName(a, "border-color");
             if (Is.rgbColor(e)) {
-                r.style.backgroundColor = Convert.toRgbOpacityColor(e, s);
+                a.style.backgroundColor = Convert.toRgbOpacityColor(e, s);
             } else if (Is.hexColor(e)) {
-                r.style.backgroundColor = Convert.toRgbOpacityColor(Convert.hexToRgba(e), s);
+                a.style.backgroundColor = Convert.toRgbOpacityColor(Convert.hexToRgba(e), s);
             }
             if (Is.rgbColor(t)) {
-                r.style.borderColor = Convert.toRgbOpacityColor(t, s);
+                a.style.borderColor = Convert.toRgbOpacityColor(t, s);
             } else if (Is.hexColor(t)) {
-                r.style.borderColor = Convert.toRgbOpacityColor(Convert.hexToRgba(t), s);
+                a.style.borderColor = Convert.toRgbOpacityColor(Convert.hexToRgba(t), s);
             }
         }
     }
@@ -2499,7 +2510,8 @@ var Convert;
                 11: 0,
                 12: 0
             },
-            largestValue: 0
+            largestValue: 0,
+            totalValue: 0
         };
         const n = K(e);
         const o = e._currentView.year;
@@ -2521,6 +2533,7 @@ var Convert;
                         const a = DateTime.getWeekdayNumber(r) + 1;
                         if (!Is.holiday(e, r).matched && Is.dayVisible(e.views.days.daysToShow, a)) {
                             t.values[o] += n[i];
+                            t.totalValue += n[i];
                             t.largestValue = Math.max(t.largestValue, t.values[o]);
                         }
                     }

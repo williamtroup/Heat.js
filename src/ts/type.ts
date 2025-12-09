@@ -37,6 +37,7 @@ export type IsHoliday = {
 export type LargestValueForView = {
     values: Record<number, number>;
     largestValue: number;
+    totalValue: number;
 };
 
 export type LargestValuesForEachRangeType = {
@@ -121,6 +122,7 @@ export type BindingOptions = {
     resizable?: boolean;
     startMonth?: number;
     allowMultipleFileImports?: boolean;
+    percentageDecimalPoints?: number;
     colorRanges?: BindingOptionsColorRange[];
     holidays?: BindingOptionsHoliday[];
     title?: BindingOptionsTitle;
@@ -221,6 +223,7 @@ export type BindingOptionsViewsDays = {
     showToolTips?: boolean;
     useGradients?: boolean;
     useDifferentOpacities?: boolean;
+    showDayNumberPercentages?: boolean;
 };
 
 export type BindingOptionsViewsMonths = {
@@ -236,6 +239,7 @@ export type BindingOptionsViewsMonths = {
     useGradients?: boolean;
     useDifferentOpacities?: boolean;
     highlightCurrentMonth?: boolean;
+    showMonthNumberPercentages?: boolean;
 };
 
 export type BindingOptionsViewsStatistics = {
