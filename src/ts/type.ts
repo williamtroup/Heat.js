@@ -295,6 +295,7 @@ export type BindingOptionsYearlyStatistics = {
     showTotalThisMonth?: boolean;
     showTotalThisYear?: boolean;
     showOnlyForCurrentYear?: boolean;
+    showPercentages?: boolean;
 };
 
 export type BindingOptionsEvents = {

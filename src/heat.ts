@@ -730,6 +730,9 @@ import { Convert } from "./ts/data/convert";
             const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics", bindingOptions._currentView!.mapContents );
             const daysToShow: number[] = Visible.days( bindingOptions );
             const monthsToShow: number[] = Visible.months( bindingOptions );
+            const startOfYear: Date = new Date( bindingOptions._currentView!.year, bindingOptions.startMonth!, 1 );
+            const endOfYear: Date = new Date( bindingOptions._currentView!.year + 1, bindingOptions.startMonth!, 1 );
+            const yearCount: number = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfYear, endOfYear );
 
             makeAreaDroppable( yearlyStatistics, bindingOptions );
 
@@ -745,7 +748,9 @@ import { Convert } from "./ts/data/convert";
                 const todayCountText: string = isCurrentYear ? Str.friendlyNumber( todaysCount ) : _configuration.text!.unknownText!;
 
                 DomElement.createWithHTML( todaysBox, "div", "statistics-box-title", `${_configuration.text!.totalTodayText!}${Char.colon}` );
-                DomElement.createWithHTML( todaysBox, "div", "statistics-box-count", todayCountText );
+                const boxCount: HTMLElement = DomElement.createWithHTML( todaysBox, "div", "statistics-box-count", todayCountText );
+
+                renderControlYearStatisticsPercentage( bindingOptions, boxCount, yearCount, todaysCount, isCurrentYear );
             }
 
             if ( bindingOptions.yearlyStatistics!.showTotalThisWeek ) {
@@ -763,7 +768,9 @@ import { Convert } from "./ts/data/convert";
                 const weekBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
                 DomElement.createWithHTML( weekBox, "div", "statistics-box-title", `${_configuration.text!.totalThisWeekText!}${Char.colon}` );
-                DomElement.createWithHTML( weekBox, "div", "statistics-box-count", weekCountText );
+                const boxCount: HTMLElement = DomElement.createWithHTML( weekBox, "div", "statistics-box-count", weekCountText );
+
+                renderControlYearStatisticsPercentage( bindingOptions, boxCount, yearCount, weekCount, isCurrentYear );
             }
 
             if ( bindingOptions.yearlyStatistics!.showTotalThisMonth ) {
@@ -780,13 +787,12 @@ import { Convert } from "./ts/data/convert";
                 const monthBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
                 DomElement.createWithHTML( monthBox, "div", "statistics-box-title", `${_configuration.text!.totalThisMonthText!}${Char.colon}` );
-                DomElement.createWithHTML( monthBox, "div", "statistics-box-count", monthCountText );
+                const boxCount: HTMLElement = DomElement.createWithHTML( monthBox, "div", "statistics-box-count", monthCountText );
+
+                renderControlYearStatisticsPercentage( bindingOptions, boxCount, yearCount, monthCount, isCurrentYear );
             }
 
             if ( bindingOptions.yearlyStatistics!.showTotalThisYear ) {
-                const startOfYear: Date = new Date( bindingOptions._currentView!.year, bindingOptions.startMonth!, 1 );
-                const endOfYear: Date = new Date( bindingOptions._currentView!.year + 1, bindingOptions.startMonth!, 1 );
-                const yearCount: number = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfYear, endOfYear );
                 const yearBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
                 DomElement.createWithHTML( yearBox, "div", "statistics-box-title", `${_configuration.text!.totalThisYearText!}${Char.colon}` );
@@ -796,6 +802,16 @@ import { Convert } from "./ts/data/convert";
             if ( yearlyStatistics.innerHTML === Char.empty ) {
                 yearlyStatistics.parentNode!.removeChild( yearlyStatistics );
             }
+        }
+    }
+
+    function renderControlYearStatisticsPercentage( bindingOptions: BindingOptions, boxCount: HTMLElement, yearCount: number, count: number, isCurrentYear: boolean ) : void {
+        if ( isCurrentYear && bindingOptions.yearlyStatistics!.showPercentages ) {
+            const percentageText: string = `${( ( count / yearCount ) * 100 ).toFixed( 2 )}%`;
+
+            DomElement.createWithHTML( boxCount, "span", "percentage-bracket", "(" );
+            DomElement.createWithHTML( boxCount, "span", "percentage-text", percentageText );
+            DomElement.createWithHTML( boxCount, "span", "percentage-bracket", ")" );
         }
     }
 

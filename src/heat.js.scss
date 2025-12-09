@@ -770,6 +770,18 @@ div.heat-js {
             div.statistics-box-count {
                 text-align: center;
                 font-weight: 300;
+
+                span.percentage-bracket {
+                    margin-left: calc( var(--heat-js-spacing) / 3 );
+
+                    &:last-of-type {
+                        margin-left: 0;
+                    }
+                }
+
+                span.percentage-text {
+                    font-style: italic;
+                }
             }
 
             &:last-child {

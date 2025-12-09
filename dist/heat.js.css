@@ -714,6 +714,15 @@ div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count {
   text-align: center;
   font-weight: 300;
 }
+div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count span.percentage-bracket {
+  margin-left: calc(var(--heat-js-spacing) / 3);
+}
+div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count span.percentage-bracket:last-of-type {
+  margin-left: 0;
+}
+div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count span.percentage-text {
+  font-style: italic;
+}
 div.heat-js div.yearly-statistics div.statistics-box:last-child {
   margin-right: 0;
 }
