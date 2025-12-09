@@ -761,6 +761,7 @@ var Binding;
             e.views.statistics.keepScrollPositions = Default2.getBoolean(e.views.statistics.keepScrollPositions, false);
             e.views.statistics.showToolTips = Default2.getBoolean(e.views.statistics.showToolTips, true);
             e.views.statistics.useGradients = Default2.getBoolean(e.views.statistics.useGradients, false);
+            e.views.statistics.showRangeNumberPercentages = Default2.getBoolean(e.views.statistics.showRangeNumberPercentages, true);
             if (Is.invalidOptionArray(e.views.statistics.monthsToShow)) {
                 e.views.statistics.monthsToShow = t;
             }
@@ -2552,7 +2553,7 @@ var Convert;
         let s = DomElement.create(o, "div", "y-labels");
         const r = DomElement.create(o, "div", "range-lines");
         const a = ue(e);
-        const l = P(e, a);
+        const l = Y(e, a);
         if (t) {
             DomElement.addClass(o, "view-switch");
         }
@@ -2583,7 +2584,7 @@ var Convert;
             }
             for (const n in l.types) {
                 if (l.types.hasOwnProperty(n)) {
-                    Y(parseInt(n), r, l.types[n], e, a, t);
+                    P(parseInt(n), r, l.types[n], e, a, t, l.totalValue);
                     const o = ce(a, parseInt(n));
                     if (e.views.statistics.showColorRangeLabels) {
                         if (!e.views.statistics.useColorRangeNamesForLabels || !Is.defined(o) || !Is.definedString(o.name)) {
@@ -2603,49 +2604,53 @@ var Convert;
             }
         }
     }
-    function Y(e, t, n, o, i, s) {
-        const r = DomElement.create(t, "div", "range-line");
-        const a = ce(i, e);
-        const l = n * s;
-        r.style.height = `${l}px`;
-        if (Is.defined(a) && Is.definedString(a.name)) {
-            r.setAttribute(Constant.HEAT_JS_STATISTICS_COLOR_RANGE_NAME_ATTRIBUTE_NAME, a.name);
+    function P(e, t, n, o, i, s, r) {
+        const a = DomElement.create(t, "div", "range-line");
+        const l = ce(i, e);
+        const c = n * s;
+        a.style.height = `${c}px`;
+        if (Is.defined(l) && Is.definedString(l.name)) {
+            a.setAttribute(Constant.HEAT_JS_STATISTICS_COLOR_RANGE_NAME_ATTRIBUTE_NAME, l.name);
         }
-        if (l <= 0) {
-            r.style.visibility = "hidden";
+        if (c <= 0) {
+            a.style.visibility = "hidden";
         }
         if (o.views.statistics.showToolTips) {
-            ToolTip.add(r, o, Str.friendlyNumber(n));
+            ToolTip.add(a, o, Str.friendlyNumber(n));
         }
         if (o.views.statistics.showRangeNumbers && n > 0) {
-            DomElement.addClass(r, "range-line-number");
-            DomElement.createWithHTML(r, "div", "count", Str.friendlyNumber(n));
+            DomElement.addClass(a, "range-line-number");
+            const e = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
+            if (o.views.statistics.showRangeNumberPercentages) {
+                DomElement.createWithHTML(e, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
+            }
         }
         if (Is.definedFunction(o.events.onStatisticClick)) {
-            r.onclick = () => Trigger.customEvent(o.events.onStatisticClick, a, n, o._currentView.year);
+            a.onclick = () => Trigger.customEvent(o.events.onStatisticClick, l, n, o._currentView.year);
         } else if (Is.definedFunction(o.events.onStatisticDblClick)) {
-            r.ondblclick = () => Trigger.customEvent(o.events.onStatisticDblClick, a, n, o._currentView.year);
+            a.ondblclick = () => Trigger.customEvent(o.events.onStatisticDblClick, l, n, o._currentView.year);
         } else {
-            DomElement.addClass(r, "no-hover");
+            DomElement.addClass(a, "no-hover");
         }
-        if (Is.defined(a) && se(o, a.id)) {
-            if (Is.definedString(a.statisticsCssClassName)) {
-                DomElement.addClass(r, a.statisticsCssClassName);
+        if (Is.defined(l) && se(o, l.id)) {
+            if (Is.definedString(l.statisticsCssClassName)) {
+                DomElement.addClass(a, l.statisticsCssClassName);
             } else {
-                DomElement.addClass(r, a.cssClassName);
+                DomElement.addClass(a, l.cssClassName);
             }
         }
         if (o.views.statistics.useGradients) {
-            DomElement.addGradientEffect(o._currentView.element, r);
+            DomElement.addGradientEffect(o._currentView.element, a);
         }
     }
-    function P(e, t) {
+    function Y(e, t) {
         const n = K(e);
         const o = e._currentView.year;
         const i = t.length;
         const s = {
             types: {},
-            largestValue: 0
+            largestValue: 0,
+            totalValue: 0
         };
         s.types["0"] = 0;
         for (let e = 0; e < i; e++) {
@@ -2675,6 +2680,7 @@ var Convert;
                                     s.types[i.minimum.toString()] = 0;
                                 }
                                 s.types[i.minimum]++;
+                                s.totalValue++;
                                 s.largestValue = Math.max(s.largestValue, s.types[i.minimum]);
                             }
                         }

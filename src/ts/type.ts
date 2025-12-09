@@ -43,6 +43,7 @@ export type LargestValueForView = {
 export type LargestValuesForEachRangeType = {
     types: InstanceTypeDateCount;
     largestValue: number;
+    totalValue: number;
 };
 
 export type Configuration = {
@@ -254,6 +255,7 @@ export type BindingOptionsViewsStatistics = {
     daysToShow?: number[];
     showToolTips?: boolean;
     useGradients?: boolean;
+    showRangeNumberPercentages?: boolean;
 };
 
 export type BindingOptionsTitle = {

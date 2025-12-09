@@ -1791,7 +1791,7 @@ import { Convert } from "./ts/data/convert";
 
             for ( const type in colorRangeValuesForCurrentYear.types ) {
                 if ( colorRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
-                    renderControlStatisticsRangeLine( parseInt( type ), rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers );
+                    renderControlStatisticsRangeLine( parseInt( type ), rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers, colorRangeValuesForCurrentYear.totalValue );
 
                     const useColorRange: BindingOptionsColorRange = getColorRangeByMinimum( colorRanges, parseInt( type ) );
 
@@ -1816,7 +1816,7 @@ import { Convert } from "./ts/data/convert";
         }
     }
 
-    function renderControlStatisticsRangeLine( colorRangeMinimum: number, dayLines: HTMLElement, rangeCount: number, bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number ) : void {
+    function renderControlStatisticsRangeLine( colorRangeMinimum: number, dayLines: HTMLElement, rangeCount: number, bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, totalValue: number ) : void {
         const rangeLine: HTMLElement = DomElement.create( dayLines, "div", "range-line" );
         const useColorRange: BindingOptionsColorRange = getColorRangeByMinimum( colorRanges, colorRangeMinimum );
         const rangeLineHeight: number = rangeCount * pixelsPerNumbers;
@@ -1837,8 +1837,11 @@ import { Convert } from "./ts/data/convert";
 
         if ( bindingOptions.views!.statistics!.showRangeNumbers && rangeCount > 0 ) {
             DomElement.addClass( rangeLine, "range-line-number" );
+            const count: HTMLElement = DomElement.createWithHTML( rangeLine, "div", "count", Str.friendlyNumber( rangeCount ) );
 
-            DomElement.createWithHTML( rangeLine, "div", "count", Str.friendlyNumber( rangeCount ) );
+            if ( bindingOptions.views!.statistics!.showRangeNumberPercentages ) {
+                DomElement.createWithHTML( count, "div", "percentage", `${( ( rangeCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
+            }
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onStatisticClick ) ) {
@@ -1869,7 +1872,8 @@ import { Convert } from "./ts/data/convert";
 
         const result: LargestValuesForEachRangeType = {
             types: {} as InstanceTypeDateCount,
-            largestValue: 0
+            largestValue: 0,
+            totalValue: 0
         } as LargestValuesForEachRangeType;
 
         result.types[ Char.zero ] = 0;
@@ -1910,6 +1914,7 @@ import { Convert } from "./ts/data/convert";
                                 }
         
                                 result.types[ useColorRange.minimum! ]++;
+                                result.totalValue++;
                                 result.largestValue = Math.max( result.largestValue, result.types[ useColorRange.minimum! ] );
                             }
                         }
