@@ -188,6 +188,16 @@ div.heat-js div.disabled {
   height: 100%;
   width: 100%;
   animation: fade-in-animation var(--heat-js-animation-length);
+  border-top-right-radius: var(--heat-js-border-radius);
+  border-bottom-right-radius: var(--heat-js-border-radius);
+  border-top-left-radius: var(--heat-js-border-radius);
+  border-bottom-left-radius: var(--heat-js-border-radius);
+}
+@media (min-width: 768px) {
+  div.heat-js div.disabled {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }
 div.heat-js div.disabled div.dialog {
   display: none;

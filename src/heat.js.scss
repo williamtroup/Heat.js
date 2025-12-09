@@ -239,6 +239,15 @@ div.heat-js {
         height: 100%;
         width: 100%;
         animation: fade-in-animation var(--heat-js-animation-length);
+        border-top-right-radius: var(--heat-js-border-radius);
+        border-bottom-right-radius: var(--heat-js-border-radius);
+        border-top-left-radius: var(--heat-js-border-radius);
+        border-bottom-left-radius: var(--heat-js-border-radius);
+
+        @media (min-width: styles.$minimum-width) { 
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
 
         div.dialog {
             display: none;
