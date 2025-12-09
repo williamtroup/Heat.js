@@ -3071,16 +3071,16 @@ var Convert;
         }
     }
     function he(e, t = null, o = null, i = true) {
-        const s = Export.File.mimeType(t);
-        const r = Default2.getString(t, e.exportType).toLowerCase();
+        const s = Default2.getString(t, e.exportType).toLowerCase();
+        const r = Export.File.mimeType(s);
         const a = we(e, i);
-        const l = Export.Contents.get(r, a, n);
+        const l = Export.Contents.get(s, a, n);
         if (Is.definedString(l)) {
             const t = DomElement.create(document.body, "a");
             t.style.display = "none";
             t.setAttribute("target", "_blank");
-            t.setAttribute("href", `data:${s};charset=utf-8,${encodeURIComponent(l)}`);
-            t.setAttribute("download", Export.File.filename(n, e, o, r));
+            t.setAttribute("href", `data:${r};charset=utf-8,${encodeURIComponent(l)}`);
+            t.setAttribute("download", Export.File.filename(n, e, o, s));
             t.click();
             document.body.removeChild(t);
             Trigger.customEvent(e.events.onExport, e._currentView.element);

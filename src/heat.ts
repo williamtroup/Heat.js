@@ -2470,8 +2470,8 @@ import { Convert } from "./ts/data/convert";
      */
 
     function exportAllData( bindingOptions: BindingOptions, exportType: string = null!, exportFilename: string = null!, exportOnlyDataBeingViewed: boolean = true ) : void {
-        const contentsMimeType: string = Export.File.mimeType( exportType );
         const contentExportType: string = Default.getString( exportType, bindingOptions.exportType! ).toLowerCase();
+        const contentsMimeType: string = Export.File.mimeType( contentExportType );
         const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, exportOnlyDataBeingViewed );
         const contents: string = Export.Contents.get( contentExportType, typeDateCounts, _configuration );
 
