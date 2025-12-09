@@ -769,6 +769,8 @@ div.heat-js {
             border: var(--heat-js-border-size) solid var(--heat-js-yearly-statistics-box-border-color);
             color: var(--heat-js-yearly-statistics-box-text-color);
             margin-right: var(--heat-js-spacing);
+            width: 0;
+            overflow: hidden;
 
             div.statistics-box-title {
                 text-align: center;
