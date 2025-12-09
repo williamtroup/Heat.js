@@ -745,10 +745,14 @@ import { Convert } from "./ts/data/convert";
                     todaysCount = 0;
                 }
 
-                const todayCountText: string = isCurrentYear ? Str.friendlyNumber( todaysCount ) : _configuration.text!.unknownText!;
+                const todayCountText: string = isCurrentYear ? Str.friendlyNumber( todaysCount ) : _configuration.text!.unavailableText!;
 
                 DomElement.createWithHTML( todaysBox, "div", "statistics-box-title", `${_configuration.text!.totalTodayText!}${Char.colon}` );
                 const boxCount: HTMLElement = DomElement.createWithHTML( todaysBox, "div", "statistics-box-count", todayCountText );
+
+                if ( !isCurrentYear ) {
+                    DomElement.addClass( boxCount, "unavailable" );
+                }
 
                 renderControlYearStatisticsPercentage( bindingOptions, boxCount, yearCount, todaysCount, isCurrentYear );
             }
@@ -764,11 +768,15 @@ import { Convert } from "./ts/data/convert";
                     weekCount = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfWeek, endOfWeek );
                 }
 
-                const weekCountText: string = isCurrentYear ? Str.friendlyNumber( weekCount ) : _configuration.text!.unknownText!;
+                const weekCountText: string = isCurrentYear ? Str.friendlyNumber( weekCount ) : _configuration.text!.unavailableText!;
                 const weekBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
                 DomElement.createWithHTML( weekBox, "div", "statistics-box-title", `${_configuration.text!.totalThisWeekText!}${Char.colon}` );
                 const boxCount: HTMLElement = DomElement.createWithHTML( weekBox, "div", "statistics-box-count", weekCountText );
+
+                if ( !isCurrentYear ) {
+                    DomElement.addClass( boxCount, "unavailable" );
+                }
 
                 renderControlYearStatisticsPercentage( bindingOptions, boxCount, yearCount, weekCount, isCurrentYear );
             }
@@ -783,11 +791,15 @@ import { Convert } from "./ts/data/convert";
                     monthCount = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfMonth, endOfMonth );
                 }
 
-                const monthCountText: string = isCurrentYear ? Str.friendlyNumber( monthCount ) : _configuration.text!.unknownText!;
+                const monthCountText: string = isCurrentYear ? Str.friendlyNumber( monthCount ) : _configuration.text!.unavailableText!;
                 const monthBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
                 DomElement.createWithHTML( monthBox, "div", "statistics-box-title", `${_configuration.text!.totalThisMonthText!}${Char.colon}` );
                 const boxCount: HTMLElement = DomElement.createWithHTML( monthBox, "div", "statistics-box-count", monthCountText );
+
+                if ( !isCurrentYear ) {
+                    DomElement.addClass( boxCount, "unavailable" );
+                }
 
                 renderControlYearStatisticsPercentage( bindingOptions, boxCount, yearCount, monthCount, isCurrentYear );
             }

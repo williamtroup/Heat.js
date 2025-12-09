@@ -100,7 +100,7 @@ export type ConfigurationText = {
     totalThisWeekText?: string;
     totalThisMonthText?: string;
     totalThisYearText?: string;
-    unknownText?: string;
+    unavailableText?: string;
     monthsText?: string;
     noMonthsDataMessage?: string;
     selectTypeText?: string;

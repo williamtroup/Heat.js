@@ -880,7 +880,7 @@ var Config;
             e.text.totalThisWeekText = Default2.getAnyString(e.text.totalThisWeekText, "Total This Week");
             e.text.totalThisMonthText = Default2.getAnyString(e.text.totalThisMonthText, "Total This Month");
             e.text.totalThisYearText = Default2.getAnyString(e.text.totalThisYearText, "Total This Year");
-            e.text.unknownText = Default2.getAnyString(e.text.unknownText, "Unknown");
+            e.text.unavailableText = Default2.getAnyString(e.text.unavailableText, "Unavailable");
             e.text.monthsText = Default2.getAnyString(e.text.monthsText, "Months");
             e.text.noMonthsDataMessage = Default2.getAnyString(e.text.noMonthsDataMessage, "There are currently no months to view.");
             e.text.selectTypeText = Default2.getAnyString(e.text.selectTypeText, "Select Type");
@@ -1805,9 +1805,12 @@ var Convert;
                 if (!Is.defined(a) || !Is.dayVisible(r, c)) {
                     a = 0;
                 }
-                const d = o ? Str.friendlyNumber(a) : n.text.unknownText;
+                const d = o ? Str.friendlyNumber(a) : n.text.unavailableText;
                 DomElement.createWithHTML(l, "div", "statistics-box-title", `${n.text.totalTodayText}${":"}`);
                 const m = DomElement.createWithHTML(l, "div", "statistics-box-count", d);
+                if (!o) {
+                    DomElement.addClass(m, "unavailable");
+                }
                 x(e, m, u, a, o);
             }
             if (e.yearlyStatistics.showTotalThisWeek) {
@@ -1818,10 +1821,13 @@ var Convert;
                     o.setDate(n.getDate() + 7);
                     t = S(e, r, a, n, o);
                 }
-                const i = o ? Str.friendlyNumber(t) : n.text.unknownText;
+                const i = o ? Str.friendlyNumber(t) : n.text.unavailableText;
                 const l = DomElement.create(s, "div", "statistics-box");
                 DomElement.createWithHTML(l, "div", "statistics-box-title", `${n.text.totalThisWeekText}${":"}`);
                 const c = DomElement.createWithHTML(l, "div", "statistics-box-count", i);
+                if (!o) {
+                    DomElement.addClass(c, "unavailable");
+                }
                 x(e, c, u, t, o);
             }
             if (e.yearlyStatistics.showTotalThisMonth) {
@@ -1831,10 +1837,13 @@ var Convert;
                     const o = new Date(t.getFullYear(), t.getMonth(), DateTime.getTotalDaysInMonth(t.getFullYear(), t.getMonth()) + 1);
                     i = S(e, r, a, n, o);
                 }
-                const l = o ? Str.friendlyNumber(i) : n.text.unknownText;
+                const l = o ? Str.friendlyNumber(i) : n.text.unavailableText;
                 const c = DomElement.create(s, "div", "statistics-box");
                 DomElement.createWithHTML(c, "div", "statistics-box-title", `${n.text.totalThisMonthText}${":"}`);
                 const d = DomElement.createWithHTML(c, "div", "statistics-box-count", l);
+                if (!o) {
+                    DomElement.addClass(d, "unavailable");
+                }
                 x(e, d, u, i, o);
             }
             if (e.yearlyStatistics.showTotalThisYear) {

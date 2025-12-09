@@ -771,6 +771,10 @@ div.heat-js {
                 text-align: center;
                 font-weight: 300;
 
+                &.unavailable {
+                    font-style: italic;
+                }
+
                 span.percentage-bracket {
                     margin-left: calc( var(--heat-js-spacing) / 3 );
 

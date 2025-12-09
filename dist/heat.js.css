@@ -714,6 +714,9 @@ div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count {
   text-align: center;
   font-weight: 300;
 }
+div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count.unavailable {
+  font-style: italic;
+}
 div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count span.percentage-bracket {
   margin-left: calc(var(--heat-js-spacing) / 3);
 }
