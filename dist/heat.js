@@ -2186,7 +2186,7 @@ var Convert;
         }
         if (t.views.chart.showLineNumbers && u > 0) {
             DomElement.addClass(l, "day-line-number");
-            l.innerHTML = u.toString();
+            l.innerHTML = Str.friendlyNumber(u);
         } else if (t.views.chart.showLineDateNumbers) {
             DomElement.addClass(l, "day-line-number");
             l.innerHTML = n.toString();

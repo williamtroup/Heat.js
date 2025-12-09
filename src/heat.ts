@@ -1261,7 +1261,7 @@ import { Convert } from "./ts/data/convert";
         if ( bindingOptions.views!.chart!.showLineNumbers && dateCount > 0 ) {
             DomElement.addClass( dayLine, "day-line-number" );
 
-            dayLine.innerHTML = dateCount.toString();
+            dayLine.innerHTML = Str.friendlyNumber( dateCount );
             
         } else if ( bindingOptions.views!.chart!.showLineDateNumbers ) {
             DomElement.addClass( dayLine, "day-line-number" );
