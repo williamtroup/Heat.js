@@ -178,8 +178,7 @@ $minimum-width: 768px;
     }
 }
 
-@mixin close-button($float: right) {
-    $close-button-size: 16px;
+@mixin close-button($float: right, $close-button-size: 16px) {
     $close-button-width: 3px;
     float: $float;
     width: $close-button-size;

@@ -809,18 +809,18 @@ div.heat-js div.map-contents-container div.zooming button {
   margin-right: 0;
 }
 div.heat-js div.map-contents-container div.zooming div.zoom-close-button {
-  float: right;
-  width: 16px;
-  height: 16px;
+  float: unset;
+  width: 12px;
+  height: 12px;
   position: relative;
   cursor: pointer;
 }
 div.heat-js div.map-contents-container div.zooming div.zoom-close-button::before, div.heat-js div.map-contents-container div.zooming div.zoom-close-button::after {
   content: "";
   position: absolute;
-  height: 16px;
+  height: 12px;
   width: 3px;
-  left: 6.5px;
+  left: 4.5px;
   top: 0;
   background-color: var(--heat-js-color-white);
   border-radius: var(--heat-js-border-radius);

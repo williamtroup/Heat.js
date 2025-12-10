@@ -818,7 +818,7 @@ div.heat-js {
             }
 
             div.zoom-close-button {
-                @include styles.close-button;
+                @include styles.close-button(unset, 12px);
                 
                 display: inline-block;
                 margin-right: var(--heat-js-spacing);
