@@ -193,10 +193,10 @@ import { Convert } from "./ts/data/convert";
             bindingOptions._currentView!.statisticsContents.style.display = "none";
         }
 
-        bindingOptions._currentView!.mapContents.style.display = "none";
+        bindingOptions._currentView!.mapContentsContainer.style.display = "none";
 
         if ( bindingOptions._currentView!.view === ViewId.map ) {
-            bindingOptions._currentView!.mapContents.style.display = "block";
+            bindingOptions._currentView!.mapContentsContainer.style.display = "block";
         } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
             bindingOptions._currentView!.chartContents.style.display = "block";
         } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
@@ -207,7 +207,7 @@ import { Convert } from "./ts/data/convert";
             bindingOptions._currentView!.statisticsContents.style.display = "block";
         } else {
             bindingOptions._currentView!.view = ViewId.map;
-            bindingOptions._currentView!.mapContents.style.display = "block";
+            bindingOptions._currentView!.mapContentsContainer.style.display = "block";
         }
 
         renderControlYearStatistics( bindingOptions );
@@ -727,7 +727,7 @@ import { Convert } from "./ts/data/convert";
         const isCurrentYear: boolean = bindingOptions._currentView!.year === today.getFullYear();
 
         if ( bindingOptions.yearlyStatistics!.enabled && ( !bindingOptions.yearlyStatistics!.showOnlyForCurrentYear || isCurrentYear ) ) {
-            const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics", bindingOptions._currentView!.mapContents );
+            const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics", bindingOptions._currentView!.mapContentsContainer );
             const daysToShow: number[] = Visible.days( bindingOptions );
             const monthsToShow: number[] = Visible.months( bindingOptions );
             const startOfYear: Date = new Date( bindingOptions._currentView!.year, bindingOptions.startMonth!, 1 );
@@ -853,7 +853,8 @@ import { Convert } from "./ts/data/convert";
      */
 
     function renderControlMap( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
-        bindingOptions._currentView!.mapContents = DomElement.create( bindingOptions._currentView!.element, "div", "map-contents" );
+        bindingOptions._currentView!.mapContentsContainer = DomElement.create( bindingOptions._currentView!.element, "div", "map-contents-container" );
+        bindingOptions._currentView!.mapContents = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "map-contents" );
 
         if ( bindingOptions.views!.chart!.enabled ) {
             renderControlChartContents( bindingOptions );
@@ -884,6 +885,7 @@ import { Convert } from "./ts/data/convert";
             bindingOptions._currentView!.mapContents.style.minHeight = "unset";
 
             makeAreaDroppable( bindingOptions._currentView!.mapContents, bindingOptions );
+            renderControlMapZooming( bindingOptions );
 
             const map: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContents, "div", "map" );
             const currentYear: number = bindingOptions._currentView!.year;
@@ -1028,6 +1030,43 @@ import { Convert } from "./ts/data/convert";
             if ( bindingOptions.views!.map!.keepScrollPositions ) {
                 bindingOptions._currentView!.mapContents.scrollLeft = bindingOptions._currentView!.mapContentsScrollLeft;
             }
+        }
+    }
+
+    function renderControlMapZooming( bindingOptions: BindingOptions ) : void {
+        if ( bindingOptions.views!.map!.allowZooming ) {
+            const zooming: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "zooming" );
+            const zoomInButton: HTMLButtonElement = DomElement.createWithHTML( zooming, "button", "zoom-in", _configuration.text!.zoomInText! ) as HTMLButtonElement;
+            const zoomOutButton: HTMLButtonElement = DomElement.createWithHTML( zooming, "button", "zoom-out", _configuration.text!.zoomOutText! ) as HTMLButtonElement;
+            const spacing: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-spacing", true );
+            const sizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, "--heat-js-day-size" );
+
+            ToolTip.add( zoomInButton, bindingOptions, _configuration.text!.zoomInToolTipText! );
+            ToolTip.add( zoomOutButton, bindingOptions, _configuration.text!.zoomOutToolTipText! );
+
+            bindingOptions._currentView!.mapContents.style.paddingRight = `${zooming.offsetWidth + spacing}px`;
+
+            zoomOutButton.disabled = true;
+
+            zoomInButton.onclick = () => {
+                let daySize: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-day-size", true );
+                daySize += 0.1;
+                bindingOptions._currentView!.mapZoomLevel++;
+
+                document.documentElement.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
+                zoomOutButton.disabled = false;
+            };
+
+            zoomOutButton.onclick = () => {
+                if ( bindingOptions._currentView!.mapZoomLevel > 0 ) {
+                    let daySize: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-day-size", true );
+                    daySize -= 0.1;
+                    bindingOptions._currentView!.mapZoomLevel--;
+
+                    document.documentElement.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
+                    zoomOutButton.disabled = bindingOptions._currentView!.mapZoomLevel === 0;
+                }
+            };
         }
     }
 

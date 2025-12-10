@@ -106,6 +106,10 @@ export type ConfigurationText = {
     selectTypeText?: string;
     filenamePlaceholderText?: string;
     onlyDataBeingViewedText?: string;
+    zoomInText?: string;
+    zoomOutText?: string;
+    zoomInToolTipText?: string;
+    zoomOutToolTipText?: string;
 };
 
 export type BindingOptions = {
@@ -143,6 +147,7 @@ export type BindingOptionsCurrentView = {
     isInFetchModeTimer: number;
     yearsAvailable: number[];
     view: number;
+    mapContentsContainer: HTMLElement;
     mapContents: HTMLElement;
     mapContentsScrollLeft: number;
     chartContents: HTMLElement;
@@ -165,6 +170,7 @@ export type BindingOptionsCurrentView = {
     exportDialogExportTypeSelect: HTMLSelectElement;
     exportDialogExportFilenameInput: HTMLInputElement;
     exportDialogExportOnlyDataBeingViewedCheckBox: HTMLInputElement;
+    mapZoomLevel: number;
 };
 
 export type BindingOptionsViews = {
@@ -193,6 +199,7 @@ export type BindingOptionsViewsMap = {
     highlightCurrentDay?: boolean;
     dayToolTipText?: string;
     showYearsInMonthNames?: boolean;
+    allowZooming?: boolean;
 };
 
 export type BindingOptionsViewsChart = {

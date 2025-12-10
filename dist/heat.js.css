@@ -747,44 +747,93 @@ div.heat-js div.yearly-statistics div.statistics-box:last-child {
     Heat.js - View - Map
     -------------------------------------------------------------------------
 */
-div.heat-js div.map-contents {
+div.heat-js div.map-contents-container {
+  position: relative;
+}
+div.heat-js div.map-contents-container div.zooming {
+  position: absolute;
+  right: 0;
+  bottom: calc(var(--heat-js-spacing) + var(--heat-js-scroll-bar-size));
+  white-space: nowrap;
+}
+div.heat-js div.map-contents-container div.zooming button {
+  background-color: var(--heat-js-button-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
+  color: var(--heat-js-button-text-color);
+  border-radius: var(--heat-js-border-radius);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 9px;
+  padding-right: 9px;
+  outline: none;
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.map-contents-container div.zooming button:disabled {
+  color: var(--heat-js-button-border-color);
+}
+div.heat-js div.map-contents-container div.zooming button:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-background-color-active) !important;
+  color: var(--heat-js-button-text-color-active) !important;
+}
+div.heat-js div.map-contents-container div.zooming button:not(.active):not(:disabled):hover {
+  cursor: pointer;
+  background: var(--heat-js-button-background-color-hover);
+  color: var(--heat-js-button-text-color-hover);
+}
+div.heat-js div.map-contents-container div.zooming button.active {
+  cursor: default;
+  background: var(--heat-js-button-background-color-hover);
+  color: var(--heat-js-button-text-color-hover);
+  transition: var(--heat-js-transition);
+  font-weight: var(--heat-js-text-bold-weight-active);
+}
+div.heat-js div.map-contents-container div.zooming button {
+  width: 35px;
+  height: 30px;
+  margin-right: calc(var(--heat-js-spacing) / 2);
+  font-weight: var(--heat-js-title-bold-weight);
+}
+div.heat-js div.map-contents-container div.zooming button:last-child {
+  margin-right: 0;
+}
+div.heat-js div.map-contents-container div.map-contents {
   overflow-x: auto;
   overflow-y: hidden;
   min-height: 191px;
   position: relative;
   padding-bottom: var(--heat-js-spacing);
 }
-div.heat-js div.map-contents::-webkit-scrollbar {
+div.heat-js div.map-contents-container div.map-contents::-webkit-scrollbar {
   width: var(--heat-js-scroll-bar-size);
   height: var(--heat-js-scroll-bar-size);
   border-radius: var(--heat-js-scroll-bar-border-radius);
 }
-div.heat-js div.map-contents::-webkit-scrollbar-track {
+div.heat-js div.map-contents-container div.map-contents::-webkit-scrollbar-track {
   border-radius: var(--heat-js-scroll-bar-border-radius);
 }
-div.heat-js div.map-contents::-webkit-scrollbar-thumb {
+div.heat-js div.map-contents-container div.map-contents::-webkit-scrollbar-thumb {
   background: var(--heat-js-scroll-bar-thumb-color);
   border-radius: var(--heat-js-scroll-bar-border-radius);
 }
-div.heat-js div.map-contents::-webkit-scrollbar-thumb:active {
+div.heat-js div.map-contents-container div.map-contents::-webkit-scrollbar-thumb:active {
   background-color: var(--heat-js-color-light-gray);
 }
-div.heat-js div.map-contents::-webkit-scrollbar-corner {
+div.heat-js div.map-contents-container div.map-contents::-webkit-scrollbar-corner {
   background-color: transparent;
 }
-div.heat-js div.map-contents div.no-data-message {
+div.heat-js div.map-contents-container div.map-contents div.no-data-message {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   font-weight: var(--heat-js-text-bold-weight);
 }
-div.heat-js div.map-contents div.map {
+div.heat-js div.map-contents-container div.map-contents div.map {
   display: inline-flex;
   flex-direction: row;
 }
-div.heat-js div.map-contents div.map div.days,
-div.heat-js div.map-contents div.map div.days-months-bottom {
+div.heat-js div.map-contents-container div.map-contents div.map div.days,
+div.heat-js div.map-contents-container div.map-contents div.map div.days-months-bottom {
   background-color: var(--heat-js-container-background-color);
   padding-right: var(--heat-js-y-label-spacing);
   padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
@@ -792,8 +841,8 @@ div.heat-js div.map-contents div.map div.days-months-bottom {
   left: 0;
   z-index: 50;
 }
-div.heat-js div.map-contents div.map div.days div.day-name,
-div.heat-js div.map-contents div.map div.days-months-bottom div.day-name {
+div.heat-js div.map-contents-container div.map-contents div.map div.days div.day-name,
+div.heat-js div.map-contents-container div.map-contents div.map div.days-months-bottom div.day-name {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
   height: var(--heat-js-day-size);
@@ -802,43 +851,43 @@ div.heat-js div.map-contents div.map div.days-months-bottom div.day-name {
   justify-content: center;
   flex-direction: column;
 }
-div.heat-js div.map-contents div.map div.days-months-bottom {
+div.heat-js div.map-contents-container div.map-contents div.map div.days-months-bottom {
   padding-top: 0 !important;
 }
-div.heat-js div.map-contents div.map div.months {
+div.heat-js div.map-contents-container div.map-contents div.map div.months {
   display: flex;
   justify-content: space-between;
   flex-grow: 1;
 }
-div.heat-js div.map-contents div.map div.months div.month {
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month {
   flex: 1;
 }
-div.heat-js div.map-contents div.map div.months div.month:last-child div.day-columns div.day-column:last-child div.day {
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month:last-child div.day-columns div.day-column:last-child div.day {
   margin-right: 0 !important;
 }
-div.heat-js div.map-contents div.map div.months div.month div.month-name,
-div.heat-js div.map-contents div.map div.months div.month div.month-name-bottom {
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name,
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name-bottom {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-div.heat-js div.map-contents div.map div.months div.month div.month-name {
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name {
   margin-bottom: var(--heat-js-spacing);
 }
-div.heat-js div.map-contents div.map div.months div.month div.month-name-bottom {
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name-bottom {
   margin-top: var(--heat-js-spacing);
 }
-div.heat-js div.map-contents div.map div.months div.month div.day-columns {
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns {
   display: flex;
   justify-content: space-between;
 }
-div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.today {
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.today {
   animation: highlight-effect 2s infinite;
 }
-div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day,
-div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day-disabled {
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day,
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day-disabled {
   display: flex;
   border-radius: var(--heat-js-border-radius-day);
   width: var(--heat-js-day-size);
@@ -850,21 +899,21 @@ div.heat-js div.map-contents div.map div.months div.month div.day-columns div.da
   align-items: center;
   overflow: hidden;
 }
-div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:last-child,
-div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day-disabled:last-child {
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:last-child,
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day-disabled:last-child {
   margin-bottom: 0;
 }
-div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day {
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day {
   pointer-events: all;
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   transition: var(--heat-js-transition);
   transition-property: opacity, background-color, color, border-color;
 }
-div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:not(.no-hover):active {
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:not(.no-hover):active {
   opacity: var(--heat-js-view-opacity-active) !important;
 }
-div.heat-js div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:not(.no-hover):hover {
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:not(.no-hover):hover {
   cursor: pointer;
   background: var(--heat-js-day-background-color-hover);
 }

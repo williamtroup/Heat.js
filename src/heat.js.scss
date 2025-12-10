@@ -814,125 +814,149 @@ div.heat-js {
 */
 
 div.heat-js {
-    div.map-contents {
-        overflow-x: auto;
-        overflow-y: hidden;
-        min-height: 191px;
+    div.map-contents-container {
         position: relative;
-        padding-bottom: var(--heat-js-spacing);
 
-        @include styles.scroll-bars;
+        div.zooming {
+            position: absolute;
+            right: 0;
+            bottom: calc( var(--heat-js-spacing) + var(--heat-js-scroll-bar-size) );
+            white-space: nowrap;
 
-        div.no-data-message {
-            @include styles.centered-label;
-        }
+            @include styles.buttons;
 
-        div.map {
-            display: inline-flex;
-            flex-direction: row;
-    
-            div.days,
-            div.days-months-bottom {
-                background-color: var(--heat-js-container-background-color);
-                padding-right: var(--heat-js-y-label-spacing);
-                padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
-                position: sticky;
-                left: 0;
-                z-index: 50;
-        
-                div.day-name {
-                    font-weight: var(--heat-js-text-bold-weight);
-                    text-align: left !important;
-                    height: var(--heat-js-day-size);
-                    margin-bottom: var(--heat-js-day-spacing);
-                    display: flex;
-                    justify-content: center;
-                    flex-direction: column;
+            button {
+                width: 35px;
+                height: 30px;
+                margin-right: calc( var(--heat-js-spacing) / 2 );
+                font-weight: var(--heat-js-title-bold-weight);
+
+                &:last-child {
+                    margin-right: 0;
                 }
             }
+        }
 
-            div.days-months-bottom {
-                padding-top: 0 !important;
+        div.map-contents {
+            overflow-x: auto;
+            overflow-y: hidden;
+            min-height: 191px;
+            position: relative;
+            padding-bottom: var(--heat-js-spacing);
+
+            @include styles.scroll-bars;
+
+            div.no-data-message {
+                @include styles.centered-label;
             }
+
+            div.map {
+                display: inline-flex;
+                flex-direction: row;
         
-            div.months {
-                display: flex;
-                justify-content: space-between;
-                flex-grow: 1;
-        
-                div.month {
-                    flex: 1;
-        
-                    &:last-child {
-                        div.day-columns {
-                            div.day-column {
-                                &:last-child {
-                                    div.day {
-                                        margin-right: 0 !important;
+                div.days,
+                div.days-months-bottom {
+                    background-color: var(--heat-js-container-background-color);
+                    padding-right: var(--heat-js-y-label-spacing);
+                    padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
+                    position: sticky;
+                    left: 0;
+                    z-index: 50;
+            
+                    div.day-name {
+                        font-weight: var(--heat-js-text-bold-weight);
+                        text-align: left !important;
+                        height: var(--heat-js-day-size);
+                        margin-bottom: var(--heat-js-day-spacing);
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                    }
+                }
+
+                div.days-months-bottom {
+                    padding-top: 0 !important;
+                }
+            
+                div.months {
+                    display: flex;
+                    justify-content: space-between;
+                    flex-grow: 1;
+            
+                    div.month {
+                        flex: 1;
+            
+                        &:last-child {
+                            div.day-columns {
+                                div.day-column {
+                                    &:last-child {
+                                        div.day {
+                                            margin-right: 0 !important;
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
+            
+                        div.month-name,
+                        div.month-name-bottom {
+                            font-weight: var(--heat-js-text-bold-weight);
+                            text-align: left !important;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
         
-                    div.month-name,
-                    div.month-name-bottom {
-                        font-weight: var(--heat-js-text-bold-weight);
-                        text-align: left !important;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                    }
-    
-                    div.month-name {
-                        margin-bottom: var(--heat-js-spacing);
-                    }
-    
-                    div.month-name-bottom {
-                        margin-top: var(--heat-js-spacing);
-                    }
+                        div.month-name {
+                            margin-bottom: var(--heat-js-spacing);
+                        }
         
-                    div.day-columns {
-                        display: flex;
-                        justify-content: space-between;
-        
-                        div.day-column {
-                            div.today {
-                                animation: highlight-effect 2s infinite;
-                            }
-
-                            div.day,
-                            div.day-disabled {
-                                display: flex;
-                                border-radius: var(--heat-js-border-radius-day);
-                                width: var(--heat-js-day-size);
-                                height: var(--heat-js-day-size);
-                                margin-right: var(--heat-js-day-spacing);
-                                margin-bottom: var(--heat-js-day-spacing);
-                                font-size: var(--heat-js-spacing-day-font-size);
-                                justify-content: center;
-                                align-items: center;
-                                overflow: hidden;
-        
-                                &:last-child {
-                                    margin-bottom: 0;
-                                }
-                            }
-        
-                            div.day {
-                                pointer-events: all;
-                                background-color: var(--heat-js-day-background-color);
-                                border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
-                                transition: var(--heat-js-transition);
-                                transition-property: opacity, background-color, color, border-color;
-
-                                &:not(.no-hover):active {
-                                    opacity: var(--heat-js-view-opacity-active) !important;
+                        div.month-name-bottom {
+                            margin-top: var(--heat-js-spacing);
+                        }
+            
+                        div.day-columns {
+                            display: flex;
+                            justify-content: space-between;
+            
+                            div.day-column {
+                                div.today {
+                                    animation: highlight-effect 2s infinite;
                                 }
 
-                                &:not(.no-hover):hover {
-                                    cursor: pointer;
-                                    background: var(--heat-js-day-background-color-hover);
+                                div.day,
+                                div.day-disabled {
+                                    display: flex;
+                                    border-radius: var(--heat-js-border-radius-day);
+                                    width: var(--heat-js-day-size);
+                                    height: var(--heat-js-day-size);
+                                    margin-right: var(--heat-js-day-spacing);
+                                    margin-bottom: var(--heat-js-day-spacing);
+                                    font-size: var(--heat-js-spacing-day-font-size);
+                                    justify-content: center;
+                                    align-items: center;
+                                    overflow: hidden;
+            
+                                    &:last-child {
+                                        margin-bottom: 0;
+                                    }
+                                }
+            
+                                div.day {
+                                    pointer-events: all;
+                                    background-color: var(--heat-js-day-background-color);
+                                    border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+                                    transition: var(--heat-js-transition);
+                                    transition-property: opacity, background-color, color, border-color;
+
+                                    &:not(.no-hover):active {
+                                        opacity: var(--heat-js-view-opacity-active) !important;
+                                    }
+
+                                    &:not(.no-hover):hover {
+                                        cursor: pointer;
+                                        background: var(--heat-js-day-background-color-hover);
+                                    }
                                 }
                             }
                         }

@@ -82,6 +82,10 @@ export namespace Config {
             configuration.text!.selectTypeText = Default.getAnyString( configuration.text!.selectTypeText, "Select Type" );
             configuration.text!.filenamePlaceholderText = Default.getAnyString( configuration.text!.filenamePlaceholderText, "Filename (optional)" );
             configuration.text!.onlyDataBeingViewedText = Default.getAnyString( configuration.text!.onlyDataBeingViewedText, "Only data being viewed" );
+            configuration.text!.zoomInText = Default.getAnyString( configuration.text!.zoomInText, "+" );
+            configuration.text!.zoomOutText = Default.getAnyString( configuration.text!.zoomOutText, "−" );
+            configuration.text!.zoomInToolTipText = Default.getAnyString( configuration.text!.zoomInToolTipText, "Zoom In" );
+            configuration.text!.zoomOutToolTipText = Default.getAnyString( configuration.text!.zoomOutToolTipText, "Zoom Out" );
 
             return configuration.text!;
         }

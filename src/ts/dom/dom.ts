@@ -63,6 +63,14 @@ export namespace DomElement {
         return style;
     }
 
+    export function getStyleValueByNameSizingMetic( element: any, stylePropertyName: string ) : string {
+        const styles: CSSStyleDeclaration = getComputedStyle( element );
+        const style: any = styles.getPropertyValue( stylePropertyName );
+        const value: number = parseFloat( style );
+
+        return style.replace( value.toString(), Char.empty );
+    }
+
     export function addClass( element: HTMLElement, className: string ) : void {
         element.classList.add( className );
     }
