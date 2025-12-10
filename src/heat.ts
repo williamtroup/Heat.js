@@ -1068,6 +1068,7 @@ import { Convert } from "./ts/data/convert";
                 zoomLevel.innerText = bindingOptions._currentView!.mapZoomLevel!.toString();
 
                 Trigger.customEvent( bindingOptions.events!.onMapZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.mapZoomLevel );
+                renderControlContainer( bindingOptions );
             };
 
             zoomOutButton.onclick = () => {
@@ -1081,6 +1082,7 @@ import { Convert } from "./ts/data/convert";
                     zoomLevel.innerText = bindingOptions._currentView!.mapZoomLevel!.toString();
 
                     Trigger.customEvent( bindingOptions.events!.onMapZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.mapZoomLevel );
+                    renderControlContainer( bindingOptions );
                 }
             };
         }

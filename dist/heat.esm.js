@@ -2036,9 +2036,9 @@ var Convert;
             const s = DomElement.createWithHTML(t, "button", "zoom-in", n.text.zoomInText);
             const r = DomElement.getStyleValueByName(document.documentElement, "--heat-js-spacing", true);
             const a = DomElement.getStyleValueByNameSizingMetic(document.documentElement, "--heat-js-day-size");
-            let l = DomElement.getStyleValueByName(e._currentView.element, "--heat-js-day-size", true);
-            if (l === 0) {
-                l = DomElement.getStyleValueByName(document.documentElement, "--heat-js-day-size", true);
+            let c = DomElement.getStyleValueByName(e._currentView.element, "--heat-js-day-size", true);
+            if (c === 0) {
+                c = DomElement.getStyleValueByName(document.documentElement, "--heat-js-day-size", true);
             }
             ToolTip.add(s, e, n.text.zoomInToolTipText);
             ToolTip.add(o, e, n.text.zoomOutToolTipText);
@@ -2049,23 +2049,25 @@ var Convert;
             e._currentView.mapContents.style.paddingRight = `${t.offsetWidth + r}px`;
             o.disabled = e._currentView.mapZoomLevel === 0;
             s.onclick = () => {
-                l += .1;
-                l = parseFloat(l.toFixed(1));
+                c += .1;
+                c = parseFloat(c.toFixed(1));
                 e._currentView.mapZoomLevel++;
-                e._currentView.element.style.setProperty("--heat-js-day-size", `${l}${a}`);
+                e._currentView.element.style.setProperty("--heat-js-day-size", `${c}${a}`);
                 o.disabled = false;
                 i.innerText = e._currentView.mapZoomLevel.toString();
                 Trigger.customEvent(e.events.onMapZoomLevelChange, e._currentView.element, e._currentView.mapZoomLevel);
+                l(e);
             };
             o.onclick = () => {
                 if (e._currentView.mapZoomLevel > 0) {
-                    l -= .1;
-                    l = parseFloat(l.toFixed(1));
+                    c -= .1;
+                    c = parseFloat(c.toFixed(1));
                     e._currentView.mapZoomLevel--;
-                    e._currentView.element.style.setProperty("--heat-js-day-size", `${l}${a}`);
+                    e._currentView.element.style.setProperty("--heat-js-day-size", `${c}${a}`);
                     o.disabled = e._currentView.mapZoomLevel === 0;
                     i.innerText = e._currentView.mapZoomLevel.toString();
                     Trigger.customEvent(e.events.onMapZoomLevelChange, e._currentView.element, e._currentView.mapZoomLevel);
+                    l(e);
                 }
             };
         }
