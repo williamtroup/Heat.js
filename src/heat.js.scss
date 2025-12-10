@@ -282,40 +282,7 @@ div.heat-js {
                 }
 
                 div.dialog-close {
-                    $close-button-size: 16px;
-                    $close-button-width: 3px;
-
-                    float: right;
-                    width: $close-button-size;
-                    height: $close-button-size;
-                    position: relative;
-                    cursor: pointer;
-
-                    &::before,
-                    &::after {
-                        content: "";
-                        position: absolute;
-                        height: $close-button-size;
-                        width: $close-button-width;
-                        left: calc( ( $close-button-size / 2 ) - ( $close-button-width / 2 ) );
-                        top: 0;
-                        background-color: var(--heat-js-color-white);
-                        border-radius: var(--heat-js-border-radius);
-                        transition: var(--heat-js-transition);
-                    }
-
-                    &::before {
-                        transform: rotate( 45deg );
-                    }
-
-                    &::after {
-                        transform: rotate( -45deg );
-                    }
-
-                    &:hover::before,
-                    &:hover::after {
-                        background-color: var(--heat-js-color-gray);
-                    }
+                    @include styles.close-button;
                 }
             }
 
@@ -848,6 +815,13 @@ div.heat-js {
                 margin-right: calc( var(--heat-js-spacing) / 2 );
                 font-weight: var(--heat-js-title-bold-weight);
                 margin-right: 0;
+            }
+
+            div.zoom-close-button {
+                @include styles.close-button;
+                
+                display: inline-block;
+                margin-right: var(--heat-js-spacing);
             }
         }
 

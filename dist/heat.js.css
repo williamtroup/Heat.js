@@ -808,6 +808,37 @@ div.heat-js div.map-contents-container div.zooming button {
   font-weight: var(--heat-js-title-bold-weight);
   margin-right: 0;
 }
+div.heat-js div.map-contents-container div.zooming div.zoom-close-button {
+  float: right;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  cursor: pointer;
+}
+div.heat-js div.map-contents-container div.zooming div.zoom-close-button::before, div.heat-js div.map-contents-container div.zooming div.zoom-close-button::after {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 3px;
+  left: 6.5px;
+  top: 0;
+  background-color: var(--heat-js-color-white);
+  border-radius: var(--heat-js-border-radius);
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.map-contents-container div.zooming div.zoom-close-button::before {
+  transform: rotate(45deg);
+}
+div.heat-js div.map-contents-container div.zooming div.zoom-close-button::after {
+  transform: rotate(-45deg);
+}
+div.heat-js div.map-contents-container div.zooming div.zoom-close-button:hover::before, div.heat-js div.map-contents-container div.zooming div.zoom-close-button:hover::after {
+  background-color: var(--heat-js-color-gray);
+}
+div.heat-js div.map-contents-container div.zooming div.zoom-close-button {
+  display: inline-block;
+  margin-right: var(--heat-js-spacing);
+}
 div.heat-js div.map-contents-container div.map-contents {
   overflow-x: auto;
   overflow-y: hidden;

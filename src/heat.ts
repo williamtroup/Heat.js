@@ -1036,6 +1036,7 @@ import { Convert } from "./ts/data/convert";
     function renderControlMapZooming( bindingOptions: BindingOptions ) : void {
         if ( bindingOptions.views!.map!.allowZooming ) {
             const zooming: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "zooming" );
+            const closeButton: HTMLElement = DomElement.create( zooming, "div", "zoom-close-button" ) as HTMLElement;
             const zoomOutButton: HTMLButtonElement = DomElement.createWithHTML( zooming, "button", "zoom-out", _configuration.text!.zoomOutText! ) as HTMLButtonElement;
             const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%` ) as HTMLSpanElement;
             const zoomInButton: HTMLButtonElement = DomElement.createWithHTML( zooming, "button", "zoom-in", _configuration.text!.zoomInText! ) as HTMLButtonElement;
@@ -1051,6 +1052,7 @@ import { Convert } from "./ts/data/convert";
                 bindingOptions._currentView!.mapZoomIncrement = daySize / 10;
             }
 
+            ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
             ToolTip.add( zoomInButton, bindingOptions, _configuration.text!.zoomInToolTipText! );
             ToolTip.add( zoomOutButton, bindingOptions, _configuration.text!.zoomOutToolTipText! );
 
@@ -1075,6 +1077,13 @@ import { Convert } from "./ts/data/convert";
 
             bindingOptions._currentView!.mapContents.style.paddingRight = `${zooming.offsetWidth + spacing}px`;
             zoomOutButton.disabled = bindingOptions._currentView!.mapZoomLevel! === 0;
+
+            closeButton.onclick = () => {
+                bindingOptions.views!.map!.allowZooming = false;
+                bindingOptions._currentView!.mapContents.style.paddingRight = "0px";
+
+                zooming.parentNode!.removeChild( zooming );
+            };
 
             zoomInButton.onclick = () => {
                 daySize += bindingOptions._currentView!.mapZoomIncrement;

@@ -177,3 +177,39 @@ $minimum-width: 768px;
         background-color: transparent;
     }
 }
+
+@mixin close-button($float: right) {
+    $close-button-size: 16px;
+    $close-button-width: 3px;
+    float: $float;
+    width: $close-button-size;
+    height: $close-button-size;
+    position: relative;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        height: $close-button-size;
+        width: $close-button-width;
+        left: calc( ( $close-button-size / 2 ) - ( $close-button-width / 2 ) );
+        top: 0;
+        background-color: var(--heat-js-color-white);
+        border-radius: var(--heat-js-border-radius);
+        transition: var(--heat-js-transition);
+    }
+
+    &::before {
+        transform: rotate( 45deg );
+    }
+
+    &::after {
+        transform: rotate( -45deg );
+    }
+
+    &:hover::before,
+    &:hover::after {
+        background-color: var(--heat-js-color-gray);
+    }
+}
