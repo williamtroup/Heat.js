@@ -171,6 +171,7 @@ export type BindingOptionsCurrentView = {
     exportDialogExportFilenameInput: HTMLInputElement;
     exportDialogExportOnlyDataBeingViewedCheckBox: HTMLInputElement;
     mapZoomLevel: number;
+    mapZoomIncrement: number;
 };
 
 export type BindingOptionsViews = {

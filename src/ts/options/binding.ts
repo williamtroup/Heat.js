@@ -61,6 +61,7 @@ export namespace Binding {
             bindingOptions._currentView.yearsAvailable = [];
             bindingOptions._currentView.dayWidth = 0;
             bindingOptions._currentView.mapZoomLevel = Value.notFound;
+            bindingOptions._currentView.mapZoomIncrement = Value.notFound;
     
             if ( bindingOptions.views!.chart!.enabled ) {
                 bindingOptions._currentView.chartContents = null!;
