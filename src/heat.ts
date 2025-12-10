@@ -128,7 +128,7 @@ import { Convert } from "./ts/data/convert";
         Trigger.customEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView!.element );
     }
 
-    function renderControlContainer( bindingOptions: BindingOptions, isForDataRefresh: boolean = false, isForViewSwitch: boolean = false ) : void {
+    function renderControlContainer( bindingOptions: BindingOptions, isForDataRefresh: boolean = false, isForViewSwitch: boolean = false, isForZooming: boolean = false ) : void {
         if ( isForDataRefresh ) {
             storeDataInLocalStorage( bindingOptions );
         }
@@ -167,7 +167,7 @@ import { Convert } from "./ts/data/convert";
 
         ToolTip.renderControl( bindingOptions );
         renderControlTitleBar( bindingOptions );
-        renderControlMap( bindingOptions, isForViewSwitch );
+        renderControlMap( bindingOptions, isForViewSwitch, isForZooming );
 
         if ( bindingOptions.views!.chart!.enabled ) {
             renderControlChart( bindingOptions, isForViewSwitch );
@@ -852,7 +852,7 @@ import { Convert } from "./ts/data/convert";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlMap( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
+    function renderControlMap( bindingOptions: BindingOptions, isForViewSwitch: boolean = false, isForZooming: boolean ) : void {
         bindingOptions._currentView!.mapContentsContainer = DomElement.create( bindingOptions._currentView!.element, "div", "map-contents-container" );
         bindingOptions._currentView!.mapContents = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "map-contents" );
 
@@ -1027,7 +1027,7 @@ import { Convert } from "./ts/data/convert";
                 DomElement.reverseChildrenOrder( months );
             }
             
-            if ( bindingOptions.views!.map!.keepScrollPositions ) {
+            if ( bindingOptions.views!.map!.keepScrollPositions || isForZooming ) {
                 bindingOptions._currentView!.mapContents.scrollLeft = bindingOptions._currentView!.mapContentsScrollLeft;
             }
         }
@@ -1068,7 +1068,7 @@ import { Convert } from "./ts/data/convert";
                 zoomLevel.innerText = bindingOptions._currentView!.mapZoomLevel!.toString();
 
                 Trigger.customEvent( bindingOptions.events!.onMapZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.mapZoomLevel );
-                renderControlContainer( bindingOptions );
+                renderControlContainer( bindingOptions, false, false, true );
             };
 
             zoomOutButton.onclick = () => {
@@ -1082,7 +1082,7 @@ import { Convert } from "./ts/data/convert";
                     zoomLevel.innerText = bindingOptions._currentView!.mapZoomLevel!.toString();
 
                     Trigger.customEvent( bindingOptions.events!.onMapZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.mapZoomLevel );
-                    renderControlContainer( bindingOptions );
+                    renderControlContainer( bindingOptions, false, false, true );
                 }
             };
         }
