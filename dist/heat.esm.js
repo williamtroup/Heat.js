@@ -2052,7 +2052,6 @@ var Convert;
                 u += parseFloat((e.views.map.zoomLevel * t).toFixed(1));
                 e._currentView.mapZoomLevel = e.views.map.zoomLevel;
                 e._currentView.element.style.setProperty("--heat-js-day-size", `${u}${c}`);
-                i.disabled = false;
                 s.innerText = e._currentView.mapZoomLevel.toString();
             }
             if (e._currentView.mapZoomLevel === -1) {

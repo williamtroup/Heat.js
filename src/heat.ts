@@ -1061,8 +1061,7 @@ import { Convert } from "./ts/data/convert";
 
                 bindingOptions._currentView!.mapZoomLevel = bindingOptions.views!.map!.zoomLevel!;
                 bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
-
-                zoomOutButton.disabled = false;
+                
                 zoomLevel.innerText = bindingOptions._currentView!.mapZoomLevel!.toString();
             }
 
