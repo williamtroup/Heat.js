@@ -822,7 +822,7 @@ div.heat-js {
             position: absolute;
             display: flex;
             right: 0;
-            bottom: calc( var(--heat-js-spacing) + var(--heat-js-scroll-bar-size) );
+            bottom: calc( var(--heat-js-spacing) + ( var(--heat-js-scroll-bar-size) * 2 ) );
             white-space: nowrap;
             align-items: center;
 
