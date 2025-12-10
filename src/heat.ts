@@ -1045,6 +1045,11 @@ import { Convert } from "./ts/data/convert";
             ToolTip.add( zoomInButton, bindingOptions, _configuration.text!.zoomInToolTipText! );
             ToolTip.add( zoomOutButton, bindingOptions, _configuration.text!.zoomOutToolTipText! );
 
+            if ( bindingOptions.views!.map!.placeMonthNamesOnTheBottom ) {
+                zooming.style.top = "0";
+                zooming.style.bottom = "unset";
+            }
+
             bindingOptions._currentView!.mapContents.style.paddingRight = `${zooming.offsetWidth + spacing}px`;
 
             zoomOutButton.disabled = true;

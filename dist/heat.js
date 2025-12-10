@@ -101,14 +101,14 @@ var Is;
         return o;
     }
     e.holiday = u;
-    function d(e, t) {
+    function m(e, t) {
         return e.indexOf(t + 1) > -1;
     }
-    e.monthVisible = d;
-    function m(e, t) {
+    e.monthVisible = m;
+    function d(e, t) {
         return e.indexOf(t) > -1;
     }
-    e.dayVisible = m;
+    e.dayVisible = d;
     function f(e, t) {
         return e.yearsToHide.indexOf(t) === -1 && (e._currentView.yearsAvailable.length === 0 || e._currentView.yearsAvailable.indexOf(t) > -1);
     }
@@ -389,15 +389,15 @@ var DomElement;
         t.style.top = `${o}px`;
     }
     e.showElementAtMousePosition = u;
-    function d(e) {
+    function m(e) {
         const t = e.children;
         let n = t.length - 1;
         for (;n--; ) {
             e.appendChild(t[n]);
         }
     }
-    e.reverseChildrenOrder = d;
-    function m(e, t, i) {
+    e.reverseChildrenOrder = m;
+    function d(e, t, i) {
         const s = n(e, "div");
         const r = n(s, "label", "checkbox");
         const a = n(r, "input");
@@ -407,7 +407,7 @@ var DomElement;
         o(r, "span", "text", t);
         return a;
     }
-    e.createCheckBox = m;
+    e.createCheckBox = d;
     function f(t, n) {
         const o = e.getStyleValueByName(t, "background-color");
         const i = e.getStyleValueByName(n, "background-color");
@@ -553,8 +553,8 @@ var Binding;
             t.description = l(t);
             t.guide = c(t);
             t.tooltip = u(t);
-            t.views.map = d(t);
-            t.views.chart = m(t);
+            t.views.map = m(t);
+            t.views.chart = d(t);
             t.views.days = f(t);
             t.views.months = h(t);
             t.views.statistics = w(t);
@@ -670,7 +670,7 @@ var Binding;
             e.tooltip.delay = Default2.getNumber(e.tooltip.delay, 750);
             return e.tooltip;
         }
-        function d(e) {
+        function m(e) {
             e.views.map = Default2.getObject(e.views.map, {});
             e.views.map.showMonthDayGaps = Default2.getBoolean(e.views.map.showMonthDayGaps, true);
             e.views.map.showDayNames = Default2.getBoolean(e.views.map.showDayNames, true);
@@ -696,7 +696,7 @@ var Binding;
             }
             return e.views.map;
         }
-        function m(e) {
+        function d(e) {
             e.views.chart = Default2.getObject(e.views.chart, {});
             e.views.chart.enabled = Default2.getBoolean(e.views.chart.enabled, true);
             e.views.chart.showChartYLabels = Default2.getBoolean(e.views.chart.showChartYLabels, true);
@@ -1150,39 +1150,39 @@ var Export;
     })(t = e.File || (e.File = {}));
     let n;
     (e => {
-        function t(e, t, d) {
-            let m = null;
+        function t(e, t, m) {
+            let d = null;
             if (e === "csv") {
-                m = n(t, d);
+                d = n(t, m);
             } else if (e === "json") {
-                m = o(t);
+                d = o(t);
             } else if (e === "xml") {
-                m = i(t);
+                d = i(t);
             } else if (e === "txt") {
-                m = s(t);
+                d = s(t);
             } else if (e === "html") {
-                m = r(t, d);
+                d = r(t, m);
             } else if (e === "md") {
-                m = a(t);
+                d = a(t);
             } else if (e === "tsv") {
-                m = l(t);
+                d = l(t);
             } else if (e === "yaml") {
-                m = c(t, d);
+                d = c(t, m);
             } else if (e === "toml") {
-                m = u(t, d);
+                d = u(t, m);
             }
-            return m;
+            return d;
         }
         e.get = t;
         function n(e, t) {
             const n = [];
             for (const t in e) {
                 if (e.hasOwnProperty(t)) {
-                    n.push(m([ d(t), d(e[t].toString()) ]));
+                    n.push(d([ m(t), m(e[t].toString()) ]));
                 }
             }
             if (n.length > 0) {
-                n.unshift(m([ d(t.text.dateText), d(t.text.countText) ]));
+                n.unshift(d([ m(t.text.dateText), m(t.text.countText) ]));
             }
             return n.join("\n");
         }
@@ -1279,13 +1279,13 @@ var Export;
             }
             return n.join("\n");
         }
-        function d(e) {
+        function m(e) {
             let t = e.toString().replace(/(\r\n|\n|\r)/gm, "").replace(/(\s\s)/gm, " ");
             t = t.replace(/"/g, '""');
             t = `"${t}"`;
             return t;
         }
-        function m(e) {
+        function d(e) {
             return e.join(",");
         }
     })(n = e.Contents || (e.Contents = {}));
@@ -1460,7 +1460,7 @@ var Convert;
         DomElement.createWithHTML(r, "div", "side-container-title-text", `${n.text.visibleMonthsText}${":"}`);
         const a = DomElement.create(r, "div", "side-container");
         const l = DomElement.create(r, "div", "side-container");
-        i.onclick = () => m(e);
+        i.onclick = () => d(e);
         for (let t = 0; t < 7; t++) {
             e._currentView.configurationDialogDayCheckBoxes[t] = DomElement.createCheckBox(s, n.text.dayNames[t], t.toString());
         }
@@ -1479,7 +1479,7 @@ var Convert;
         }
         ToolTip.add(i, e, n.text.closeToolTipText);
     }
-    function d(e) {
+    function m(e) {
         Disabled.Background.show(e);
         if (Is.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "block") {
             e._currentView.configurationDialog.style.display = "block";
@@ -1494,7 +1494,7 @@ var Convert;
         }
         ToolTip.hide(e);
     }
-    function m(e) {
+    function d(e) {
         Disabled.Background.hide(e);
         if (Is.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "none") {
             e._currentView.configurationDialog.style.display = "none";
@@ -1690,7 +1690,7 @@ var Convert;
                 }
                 if (e.title.showConfigurationButton) {
                     let o = DomElement.create(t, "div", "configure");
-                    o.onclick = () => d(e);
+                    o.onclick = () => m(e);
                     if (e.title.showToolTips) {
                         ToolTip.add(o, e, n.text.configurationToolTipText);
                     }
@@ -1810,7 +1810,7 @@ var Convert;
             const l = new Date(e._currentView.year, e.startMonth, 1);
             const c = new Date(e._currentView.year + 1, e.startMonth, 1);
             const u = S(e, r, a, l, c);
-            me(s, e);
+            de(s, e);
             if (e.yearlyStatistics.showTotalToday) {
                 let a = i[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(t)];
                 const l = DomElement.create(s, "div", "statistics-box");
@@ -1818,13 +1818,13 @@ var Convert;
                 if (!Is.defined(a) || !Is.dayVisible(r, c)) {
                     a = 0;
                 }
-                const d = o ? Str.friendlyNumber(a) : n.text.unavailableText;
+                const m = o ? Str.friendlyNumber(a) : n.text.unavailableText;
                 DomElement.createWithHTML(l, "div", "statistics-box-title", `${n.text.todayText}${":"}`);
-                const m = DomElement.createWithHTML(l, "div", "statistics-box-count", d);
+                const d = DomElement.createWithHTML(l, "div", "statistics-box-count", m);
                 if (!o) {
-                    DomElement.addClass(m, "unavailable");
+                    DomElement.addClass(d, "unavailable");
                 }
-                b(e, m, u, a, o);
+                b(e, d, u, a, o);
             }
             if (e.yearlyStatistics.showTotalThisWeek) {
                 let t = 0;
@@ -1853,11 +1853,11 @@ var Convert;
                 const l = o ? Str.friendlyNumber(i) : n.text.unavailableText;
                 const c = DomElement.create(s, "div", "statistics-box");
                 DomElement.createWithHTML(c, "div", "statistics-box-title", `${n.text.thisMonthText}${":"}`);
-                const d = DomElement.createWithHTML(c, "div", "statistics-box-count", l);
+                const m = DomElement.createWithHTML(c, "div", "statistics-box-count", l);
                 if (!o) {
-                    DomElement.addClass(d, "unavailable");
+                    DomElement.addClass(m, "unavailable");
                 }
-                b(e, d, u, i, o);
+                b(e, m, u, i, o);
             }
             if (e.yearlyStatistics.showTotalThisYear) {
                 const e = DomElement.create(s, "div", "statistics-box");
@@ -1913,7 +1913,7 @@ var Convert;
             }
         } else {
             e._currentView.mapContents.style.minHeight = "unset";
-            me(e._currentView.mapContents, e);
+            de(e._currentView.mapContents, e);
             C(e);
             const o = DomElement.create(e._currentView.mapContents, "div", "map");
             const i = e._currentView.year;
@@ -1941,7 +1941,7 @@ var Convert;
                 }
             }
             const r = DomElement.create(o, "div", "months");
-            const a = de(e);
+            const a = me(e);
             for (let t = e.startMonth; t < 12 + e.startMonth; t++) {
                 let o = t;
                 let l = i;
@@ -1954,20 +1954,20 @@ var Convert;
                     const i = DomElement.create(t, "div", "day-columns");
                     let c = DateTime.getTotalDaysInMonth(l, o);
                     let u = DomElement.create(i, "div", "day-column");
-                    let d = false;
-                    const m = new Date(l, o, 1);
-                    const f = DateTime.getWeekdayNumber(m);
+                    let m = false;
+                    const d = new Date(l, o, 1);
+                    const f = DateTime.getWeekdayNumber(d);
                     let h = 1;
                     c += f;
                     for (let t = 0; t < c; t++) {
                         if (t >= f) {
-                            d = true;
+                            m = true;
                         } else {
                             if (Is.dayVisible(e.views.map.daysToShow, h)) {
                                 DomElement.create(u, "div", "day-disabled");
                             }
                         }
-                        if (d) {
+                        if (m) {
                             let n = null;
                             if (Is.dayVisible(e.views.map.daysToShow, h)) {
                                 n = _(e, u, t - f, o, l, a);
@@ -2039,6 +2039,10 @@ var Convert;
             const a = DomElement.getStyleValueByNameSizingMetic(document.documentElement, "--heat-js-day-size");
             ToolTip.add(s, e, n.text.zoomInToolTipText);
             ToolTip.add(o, e, n.text.zoomOutToolTipText);
+            if (e.views.map.placeMonthNamesOnTheBottom) {
+                t.style.top = "0";
+                t.style.bottom = "unset";
+            }
             e._currentView.mapContents.style.paddingRight = `${t.offsetWidth + r}px`;
             o.disabled = true;
             s.onclick = () => {
@@ -2066,30 +2070,30 @@ var Convert;
         const l = DomElement.create(t, "div", "day");
         const c = new Date(s, o, a);
         const u = Is.holiday(e, c);
-        let d = i[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(c)];
-        d = Default2.getNumber(d, 0);
+        let m = i[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(c)];
+        m = Default2.getNumber(m, 0);
         l.setAttribute(Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber(a)}-${Str.padNumber(o + 1)}-${s}`);
         if (e.views.map.showToolTips) {
-            Z(e, l, c, d, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, u.matched);
+            Z(e, l, c, m, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, u.matched);
         }
-        if (e.views.map.showDayNumbers && d > 0) {
-            l.innerHTML = Str.friendlyNumber(d);
+        if (e.views.map.showDayNumbers && m > 0) {
+            l.innerHTML = Str.friendlyNumber(m);
         } else if (e.views.map.showDayDateNumbers) {
             l.innerHTML = a.toString();
         }
         if (Is.definedFunction(e.events.onMapDayClick)) {
-            l.onclick = () => Trigger.customEvent(e.events.onMapDayClick, c, d, u.matched);
+            l.onclick = () => Trigger.customEvent(e.events.onMapDayClick, c, m, u.matched);
         } else if (Is.definedFunction(e.events.onMapDayDblClick)) {
-            l.ondblclick = () => Trigger.customEvent(e.events.onMapDayDblClick, c, d, u.matched);
+            l.ondblclick = () => Trigger.customEvent(e.events.onMapDayDblClick, c, m, u.matched);
         } else {
             DomElement.addClass(l, "no-hover");
         }
-        const m = ce(e, r, d, c);
-        if (Is.defined(m) && re(e, m.id)) {
-            if (Is.definedString(m.mapCssClassName)) {
-                DomElement.addClass(l, m.mapCssClassName);
+        const d = ce(e, r, m, c);
+        if (Is.defined(d) && re(e, d.id)) {
+            if (Is.definedString(d.mapCssClassName)) {
+                DomElement.addClass(l, d.mapCssClassName);
             } else {
-                DomElement.addClass(l, m.cssClassName);
+                DomElement.addClass(l, d.cssClassName);
             }
         }
         if (e.views.map.highlightCurrentDay && DateTime.isTodaysDate(c)) {
@@ -2117,13 +2121,13 @@ var Convert;
     }
     function M(e) {
         e._currentView.chartContents = DomElement.create(e._currentView.element, "div", "chart-contents");
-        me(e._currentView.chartContents, e);
+        de(e._currentView.chartContents, e);
     }
     function I(e, t) {
         const o = DomElement.create(e._currentView.chartContents, "div", "chart");
         let i = DomElement.create(o, "div", "y-labels");
         const s = DomElement.create(o, "div", "day-lines");
-        const r = de(e);
+        const r = me(e);
         const a = N(e);
         const l = e._currentView.year;
         let c = 0;
@@ -2164,16 +2168,16 @@ var Convert;
                 if (Is.monthVisible(e.views.chart.monthsToShow, a)) {
                     const n = DateTime.getTotalDaysInMonth(c, a);
                     let l = 1;
-                    let d = false;
+                    let m = false;
                     o++;
                     for (let o = 0; o < n; o++) {
                         const n = new Date(c, a, l);
-                        const m = DateTime.getWeekdayNumber(n) + 1;
-                        if (Is.dayVisible(e.views.chart.daysToShow, m)) {
+                        const d = DateTime.getWeekdayNumber(n) + 1;
+                        if (Is.dayVisible(e.views.chart.daysToShow, d)) {
                             const n = B(s, e, o + 1, a, c, r, t);
-                            if (!d) {
+                            if (!m) {
                                 u.push(n);
-                                d = true;
+                                m = true;
                             }
                         }
                         if ((o + 1) % 7 === 0) {
@@ -2247,9 +2251,9 @@ var Convert;
             DomElement.addClass(l, "day-line-number");
             l.innerHTML = n.toString();
         }
-        const d = u * r;
-        l.style.height = `${d}px`;
-        if (d <= 0) {
+        const m = u * r;
+        l.style.height = `${m}px`;
+        if (m <= 0) {
             l.style.visibility = "hidden";
         }
         if (Is.definedFunction(t.events.onChartDayClick)) {
@@ -2259,12 +2263,12 @@ var Convert;
         } else {
             DomElement.addClass(l, "no-hover");
         }
-        const m = ce(t, s, u, a);
-        if (Is.defined(m) && re(t, m.id)) {
-            if (Is.definedString(m.chartCssClassName)) {
-                DomElement.addClass(l, m.chartCssClassName);
+        const d = ce(t, s, u, a);
+        if (Is.defined(d) && re(t, d.id)) {
+            if (Is.definedString(d.chartCssClassName)) {
+                DomElement.addClass(l, d.chartCssClassName);
             } else {
-                DomElement.addClass(l, m.cssClassName);
+                DomElement.addClass(l, d.cssClassName);
             }
         }
         if (t.views.chart.highlightCurrentDay && DateTime.isTodaysDate(a)) {
@@ -2304,7 +2308,7 @@ var Convert;
     }
     function k(e) {
         e._currentView.daysContents = DomElement.create(e._currentView.element, "div", "days-contents");
-        me(e._currentView.daysContents, e);
+        de(e._currentView.daysContents, e);
     }
     function O(e, t) {
         const o = DomElement.create(e._currentView.daysContents, "div", "days");
@@ -2443,7 +2447,7 @@ var Convert;
     }
     function F(e) {
         e._currentView.monthsContents = DomElement.create(e._currentView.element, "div", "months-contents");
-        me(e._currentView.monthsContents, e);
+        de(e._currentView.monthsContents, e);
     }
     function H(e, t) {
         const o = DomElement.create(e._currentView.monthsContents, "div", "months");
@@ -2601,14 +2605,14 @@ var Convert;
     }
     function $(e) {
         e._currentView.statisticsContents = DomElement.create(e._currentView.element, "div", "statistics-contents");
-        me(e._currentView.statisticsContents, e);
+        de(e._currentView.statisticsContents, e);
     }
     function P(e, t) {
         const o = DomElement.create(e._currentView.statisticsContents, "div", "statistics");
         const i = DomElement.create(e._currentView.statisticsContents, "div", "statistics-ranges");
         let s = DomElement.create(o, "div", "y-labels");
         const r = DomElement.create(o, "div", "range-lines");
-        const a = de(e);
+        const a = me(e);
         const l = j(e, a);
         if (t) {
             DomElement.addClass(o, "view-switch");
@@ -2783,7 +2787,7 @@ var Convert;
                 }
             }
             const i = DomElement.create(o, "div", "days");
-            const s = de(e);
+            const s = me(e);
             const r = s.length;
             for (let t = 0; t < r; t++) {
                 z(e, i, s[t]);
@@ -3061,12 +3065,12 @@ var Convert;
         }
         return o;
     }
-    function de(e) {
+    function me(e) {
         return e.colorRanges.sort(function(e, t) {
             return e.minimum - t.minimum;
         });
     }
-    function me(e, t) {
+    function de(e, t) {
         if (t.allowFileImports && !t._currentView.isInFetchMode) {
             e.ondragover = DomElement.cancelBubble;
             e.ondragenter = DomElement.cancelBubble;
