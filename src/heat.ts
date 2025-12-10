@@ -1041,7 +1041,11 @@ import { Convert } from "./ts/data/convert";
             const zoomInButton: HTMLButtonElement = DomElement.createWithHTML( zooming, "button", "zoom-in", _configuration.text!.zoomInText! ) as HTMLButtonElement;
             const spacing: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-spacing", true );
             const sizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, "--heat-js-day-size" );
-            let daySize: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-day-size", true );
+            let daySize: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, "--heat-js-day-size", true );
+
+            if ( daySize === 0 ) {
+                daySize = DomElement.getStyleValueByName( document.documentElement, "--heat-js-day-size", true );
+            }
 
             ToolTip.add( zoomInButton, bindingOptions, _configuration.text!.zoomInToolTipText! );
             ToolTip.add( zoomOutButton, bindingOptions, _configuration.text!.zoomOutToolTipText! );
@@ -1052,8 +1056,7 @@ import { Convert } from "./ts/data/convert";
             }
 
             bindingOptions._currentView!.mapContents.style.paddingRight = `${zooming.offsetWidth + spacing}px`;
-
-            zoomOutButton.disabled = true;
+            zoomOutButton.disabled = bindingOptions._currentView!.mapZoomLevel! === 0;
 
             zoomInButton.onclick = () => {
                 daySize += 0.1;
