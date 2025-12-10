@@ -1060,6 +1060,7 @@ import { Convert } from "./ts/data/convert";
 
             zoomInButton.onclick = () => {
                 daySize += 0.1;
+                daySize = parseFloat( daySize.toFixed( 1 ) );
                 bindingOptions._currentView!.mapZoomLevel++;
 
                 bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
@@ -1072,6 +1073,7 @@ import { Convert } from "./ts/data/convert";
             zoomOutButton.onclick = () => {
                 if ( bindingOptions._currentView!.mapZoomLevel > 0 ) {
                     daySize -= 0.1;
+                    daySize = parseFloat( daySize.toFixed( 1 ) );
                     bindingOptions._currentView!.mapZoomLevel--;
 
                     bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );

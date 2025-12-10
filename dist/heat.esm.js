@@ -2050,6 +2050,7 @@ var Convert;
             o.disabled = e._currentView.mapZoomLevel === 0;
             s.onclick = () => {
                 l += .1;
+                l = parseFloat(l.toFixed(1));
                 e._currentView.mapZoomLevel++;
                 e._currentView.element.style.setProperty("--heat-js-day-size", `${l}${a}`);
                 o.disabled = false;
@@ -2059,6 +2060,7 @@ var Convert;
             o.onclick = () => {
                 if (e._currentView.mapZoomLevel > 0) {
                     l -= .1;
+                    l = parseFloat(l.toFixed(1));
                     e._currentView.mapZoomLevel--;
                     e._currentView.element.style.setProperty("--heat-js-day-size", `${l}${a}`);
                     o.disabled = e._currentView.mapZoomLevel === 0;
