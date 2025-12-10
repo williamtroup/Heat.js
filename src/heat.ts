@@ -747,7 +747,7 @@ import { Convert } from "./ts/data/convert";
 
                 const todayCountText: string = isCurrentYear ? Str.friendlyNumber( todaysCount ) : _configuration.text!.unavailableText!;
 
-                DomElement.createWithHTML( todaysBox, "div", "statistics-box-title", `${_configuration.text!.totalTodayText!}${Char.colon}` );
+                DomElement.createWithHTML( todaysBox, "div", "statistics-box-title", `${_configuration.text!.todayText!}${Char.colon}` );
                 const boxCount: HTMLElement = DomElement.createWithHTML( todaysBox, "div", "statistics-box-count", todayCountText );
 
                 if ( !isCurrentYear ) {
@@ -771,7 +771,7 @@ import { Convert } from "./ts/data/convert";
                 const weekCountText: string = isCurrentYear ? Str.friendlyNumber( weekCount ) : _configuration.text!.unavailableText!;
                 const weekBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
-                DomElement.createWithHTML( weekBox, "div", "statistics-box-title", `${_configuration.text!.totalThisWeekText!}${Char.colon}` );
+                DomElement.createWithHTML( weekBox, "div", "statistics-box-title", `${_configuration.text!.thisWeekText!}${Char.colon}` );
                 const boxCount: HTMLElement = DomElement.createWithHTML( weekBox, "div", "statistics-box-count", weekCountText );
 
                 if ( !isCurrentYear ) {
@@ -794,7 +794,7 @@ import { Convert } from "./ts/data/convert";
                 const monthCountText: string = isCurrentYear ? Str.friendlyNumber( monthCount ) : _configuration.text!.unavailableText!;
                 const monthBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
-                DomElement.createWithHTML( monthBox, "div", "statistics-box-title", `${_configuration.text!.totalThisMonthText!}${Char.colon}` );
+                DomElement.createWithHTML( monthBox, "div", "statistics-box-title", `${_configuration.text!.thisMonthText!}${Char.colon}` );
                 const boxCount: HTMLElement = DomElement.createWithHTML( monthBox, "div", "statistics-box-count", monthCountText );
 
                 if ( !isCurrentYear ) {
@@ -807,7 +807,7 @@ import { Convert } from "./ts/data/convert";
             if ( bindingOptions.yearlyStatistics!.showTotalThisYear ) {
                 const yearBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
-                DomElement.createWithHTML( yearBox, "div", "statistics-box-title", `${_configuration.text!.totalThisYearText!}${Char.colon}` );
+                DomElement.createWithHTML( yearBox, "div", "statistics-box-title", `${_configuration.text!.thisYearText!}${Char.colon}` );
                 DomElement.createWithHTML( yearBox, "div", "statistics-box-count", Str.friendlyNumber( yearCount ) );
             }
 

@@ -874,10 +874,10 @@ var Config;
             e.text.importButtonSymbolText = Default2.getAnyString(e.text.importButtonSymbolText, "↑");
             e.text.currentYearText = Default2.getAnyString(e.text.currentYearText, "Current Year");
             e.text.currentYearSymbolText = Default2.getAnyString(e.text.currentYearSymbolText, "⏎");
-            e.text.totalTodayText = Default2.getAnyString(e.text.totalTodayText, "Total Today");
-            e.text.totalThisWeekText = Default2.getAnyString(e.text.totalThisWeekText, "Total This Week");
-            e.text.totalThisMonthText = Default2.getAnyString(e.text.totalThisMonthText, "Total This Month");
-            e.text.totalThisYearText = Default2.getAnyString(e.text.totalThisYearText, "Total This Year");
+            e.text.todayText = Default2.getAnyString(e.text.todayText, "Today");
+            e.text.thisWeekText = Default2.getAnyString(e.text.thisWeekText, "This Week");
+            e.text.thisMonthText = Default2.getAnyString(e.text.thisMonthText, "This Month");
+            e.text.thisYearText = Default2.getAnyString(e.text.thisYearText, "This Year");
             e.text.unavailableText = Default2.getAnyString(e.text.unavailableText, "Unavailable");
             e.text.monthsText = Default2.getAnyString(e.text.monthsText, "Months");
             e.text.noMonthsDataMessage = Default2.getAnyString(e.text.noMonthsDataMessage, "There are currently no months to view.");
@@ -1804,7 +1804,7 @@ var Convert;
                     a = 0;
                 }
                 const d = o ? Str.friendlyNumber(a) : n.text.unavailableText;
-                DomElement.createWithHTML(l, "div", "statistics-box-title", `${n.text.totalTodayText}${":"}`);
+                DomElement.createWithHTML(l, "div", "statistics-box-title", `${n.text.todayText}${":"}`);
                 const m = DomElement.createWithHTML(l, "div", "statistics-box-count", d);
                 if (!o) {
                     DomElement.addClass(m, "unavailable");
@@ -1821,7 +1821,7 @@ var Convert;
                 }
                 const i = o ? Str.friendlyNumber(t) : n.text.unavailableText;
                 const l = DomElement.create(s, "div", "statistics-box");
-                DomElement.createWithHTML(l, "div", "statistics-box-title", `${n.text.totalThisWeekText}${":"}`);
+                DomElement.createWithHTML(l, "div", "statistics-box-title", `${n.text.thisWeekText}${":"}`);
                 const c = DomElement.createWithHTML(l, "div", "statistics-box-count", i);
                 if (!o) {
                     DomElement.addClass(c, "unavailable");
@@ -1837,7 +1837,7 @@ var Convert;
                 }
                 const l = o ? Str.friendlyNumber(i) : n.text.unavailableText;
                 const c = DomElement.create(s, "div", "statistics-box");
-                DomElement.createWithHTML(c, "div", "statistics-box-title", `${n.text.totalThisMonthText}${":"}`);
+                DomElement.createWithHTML(c, "div", "statistics-box-title", `${n.text.thisMonthText}${":"}`);
                 const d = DomElement.createWithHTML(c, "div", "statistics-box-count", l);
                 if (!o) {
                     DomElement.addClass(d, "unavailable");
@@ -1846,7 +1846,7 @@ var Convert;
             }
             if (e.yearlyStatistics.showTotalThisYear) {
                 const e = DomElement.create(s, "div", "statistics-box");
-                DomElement.createWithHTML(e, "div", "statistics-box-title", `${n.text.totalThisYearText}${":"}`);
+                DomElement.createWithHTML(e, "div", "statistics-box-title", `${n.text.thisYearText}${":"}`);
                 DomElement.createWithHTML(e, "div", "statistics-box-count", Str.friendlyNumber(u));
             }
             if (s.innerHTML === "") {

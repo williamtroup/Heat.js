@@ -96,10 +96,10 @@ export type ConfigurationText = {
     importButtonSymbolText?: string;
     currentYearText?: string;
     currentYearSymbolText?: string;
-    totalTodayText?: string;
-    totalThisWeekText?: string;
-    totalThisMonthText?: string;
-    totalThisYearText?: string;
+    todayText?: string;
+    thisWeekText?: string;
+    thisMonthText?: string;
+    thisYearText?: string;
     unavailableText?: string;
     monthsText?: string;
     noMonthsDataMessage?: string;

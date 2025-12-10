@@ -72,10 +72,10 @@ export namespace Config {
             configuration.text!.importButtonSymbolText = Default.getAnyString( configuration.text!.importButtonSymbolText, "↑" );
             configuration.text!.currentYearText = Default.getAnyString( configuration.text!.currentYearText, "Current Year" );
             configuration.text!.currentYearSymbolText = Default.getAnyString( configuration.text!.currentYearSymbolText, "⏎" );
-            configuration.text!.totalTodayText = Default.getAnyString( configuration.text!.totalTodayText, "Total Today" );
-            configuration.text!.totalThisWeekText = Default.getAnyString( configuration.text!.totalThisWeekText, "Total This Week" );
-            configuration.text!.totalThisMonthText = Default.getAnyString( configuration.text!.totalThisMonthText, "Total This Month" );
-            configuration.text!.totalThisYearText = Default.getAnyString( configuration.text!.totalThisYearText, "Total This Year" );
+            configuration.text!.todayText = Default.getAnyString( configuration.text!.todayText, "Today" );
+            configuration.text!.thisWeekText = Default.getAnyString( configuration.text!.thisWeekText, "This Week" );
+            configuration.text!.thisMonthText = Default.getAnyString( configuration.text!.thisMonthText, "This Month" );
+            configuration.text!.thisYearText = Default.getAnyString( configuration.text!.thisYearText, "This Year" );
             configuration.text!.unavailableText = Default.getAnyString( configuration.text!.unavailableText, "Unavailable" );
             configuration.text!.monthsText = Default.getAnyString( configuration.text!.monthsText, "Months" );
             configuration.text!.noMonthsDataMessage = Default.getAnyString( configuration.text!.noMonthsDataMessage, "There are currently no months to view." );
