@@ -753,9 +753,11 @@ div.heat-js div.map-contents-container {
 }
 div.heat-js div.map-contents-container div.zooming {
   position: absolute;
+  display: flex;
   right: 0;
   bottom: calc(var(--heat-js-spacing) + var(--heat-js-scroll-bar-size));
   white-space: nowrap;
+  align-items: center;
 }
 div.heat-js div.map-contents-container div.zooming button {
   background-color: var(--heat-js-button-background-color);

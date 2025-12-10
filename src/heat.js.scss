@@ -820,9 +820,11 @@ div.heat-js {
 
         div.zooming {
             position: absolute;
+            display: flex;
             right: 0;
             bottom: calc( var(--heat-js-spacing) + var(--heat-js-scroll-bar-size) );
             white-space: nowrap;
+            align-items: center;
 
             @include styles.buttons;
 
