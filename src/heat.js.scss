@@ -825,18 +825,25 @@ div.heat-js {
             bottom: calc( var(--heat-js-spacing) + ( var(--heat-js-scroll-bar-size) * 2 ) );
             white-space: nowrap;
             align-items: center;
+            padding: calc( var(--heat-js-spacing) / 2 );
+            border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+            border-radius: var(--heat-js-border-radius);
+            background-color: var(--heat-js-container-background-color);
 
             @include styles.buttons;
+
+            span.zoom-level {
+                margin-left: var(--heat-js-spacing);
+                margin-right: var(--heat-js-spacing);
+                color: var(--heat-js-color-white);
+            }
 
             button {
                 width: 35px;
                 height: 30px;
                 margin-right: calc( var(--heat-js-spacing) / 2 );
                 font-weight: var(--heat-js-title-bold-weight);
-
-                &:last-child {
-                    margin-right: 0;
-                }
+                margin-right: 0;
             }
         }
 

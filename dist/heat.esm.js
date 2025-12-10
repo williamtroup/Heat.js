@@ -2030,28 +2030,31 @@ var Convert;
     function C(e) {
         if (e.views.map.allowZooming) {
             const t = DomElement.create(e._currentView.mapContentsContainer, "div", "zooming");
-            const o = DomElement.createWithHTML(t, "button", "zoom-in", n.text.zoomInText);
-            const i = DomElement.createWithHTML(t, "button", "zoom-out", n.text.zoomOutText);
-            const s = DomElement.getStyleValueByName(document.documentElement, "--heat-js-spacing", true);
-            const r = DomElement.getStyleValueByNameSizingMetic(document.documentElement, "--heat-js-day-size");
-            ToolTip.add(o, e, n.text.zoomInToolTipText);
-            ToolTip.add(i, e, n.text.zoomOutToolTipText);
-            e._currentView.mapContents.style.paddingRight = `${t.offsetWidth + s}px`;
-            i.disabled = true;
-            o.onclick = () => {
+            const o = DomElement.createWithHTML(t, "button", "zoom-out", n.text.zoomOutText);
+            const i = DomElement.createWithHTML(t, "span", "zoom-level", e._currentView.mapZoomLevel.toString());
+            const s = DomElement.createWithHTML(t, "button", "zoom-in", n.text.zoomInText);
+            const r = DomElement.getStyleValueByName(document.documentElement, "--heat-js-spacing", true);
+            const a = DomElement.getStyleValueByNameSizingMetic(document.documentElement, "--heat-js-day-size");
+            ToolTip.add(s, e, n.text.zoomInToolTipText);
+            ToolTip.add(o, e, n.text.zoomOutToolTipText);
+            e._currentView.mapContents.style.paddingRight = `${t.offsetWidth + r}px`;
+            o.disabled = true;
+            s.onclick = () => {
                 let t = DomElement.getStyleValueByName(document.documentElement, "--heat-js-day-size", true);
                 t += .1;
                 e._currentView.mapZoomLevel++;
-                document.documentElement.style.setProperty("--heat-js-day-size", `${t}${r}`);
-                i.disabled = false;
+                document.documentElement.style.setProperty("--heat-js-day-size", `${t}${a}`);
+                o.disabled = false;
+                i.innerText = e._currentView.mapZoomLevel.toString();
             };
-            i.onclick = () => {
+            o.onclick = () => {
                 if (e._currentView.mapZoomLevel > 0) {
                     let t = DomElement.getStyleValueByName(document.documentElement, "--heat-js-day-size", true);
                     t -= .1;
                     e._currentView.mapZoomLevel--;
-                    document.documentElement.style.setProperty("--heat-js-day-size", `${t}${r}`);
-                    i.disabled = e._currentView.mapZoomLevel === 0;
+                    document.documentElement.style.setProperty("--heat-js-day-size", `${t}${a}`);
+                    o.disabled = e._currentView.mapZoomLevel === 0;
+                    i.innerText = e._currentView.mapZoomLevel.toString();
                 }
             };
         }

@@ -1036,8 +1036,9 @@ import { Convert } from "./ts/data/convert";
     function renderControlMapZooming( bindingOptions: BindingOptions ) : void {
         if ( bindingOptions.views!.map!.allowZooming ) {
             const zooming: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "zooming" );
-            const zoomInButton: HTMLButtonElement = DomElement.createWithHTML( zooming, "button", "zoom-in", _configuration.text!.zoomInText! ) as HTMLButtonElement;
             const zoomOutButton: HTMLButtonElement = DomElement.createWithHTML( zooming, "button", "zoom-out", _configuration.text!.zoomOutText! ) as HTMLButtonElement;
+            const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", bindingOptions._currentView!.mapZoomLevel!.toString() ) as HTMLSpanElement;
+            const zoomInButton: HTMLButtonElement = DomElement.createWithHTML( zooming, "button", "zoom-in", _configuration.text!.zoomInText! ) as HTMLButtonElement;
             const spacing: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-spacing", true );
             const sizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, "--heat-js-day-size" );
 
@@ -1055,6 +1056,7 @@ import { Convert } from "./ts/data/convert";
 
                 document.documentElement.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
                 zoomOutButton.disabled = false;
+                zoomLevel.innerText = bindingOptions._currentView!.mapZoomLevel!.toString();
             };
 
             zoomOutButton.onclick = () => {
@@ -1065,6 +1067,7 @@ import { Convert } from "./ts/data/convert";
 
                     document.documentElement.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
                     zoomOutButton.disabled = bindingOptions._currentView!.mapZoomLevel === 0;
+                    zoomLevel.innerText = bindingOptions._currentView!.mapZoomLevel!.toString();
                 }
             };
         }

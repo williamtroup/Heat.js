@@ -758,6 +758,10 @@ div.heat-js div.map-contents-container div.zooming {
   bottom: calc(var(--heat-js-spacing) + var(--heat-js-scroll-bar-size) * 2);
   white-space: nowrap;
   align-items: center;
+  padding: calc(var(--heat-js-spacing) / 2);
+  border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+  border-radius: var(--heat-js-border-radius);
+  background-color: var(--heat-js-container-background-color);
 }
 div.heat-js div.map-contents-container div.zooming button {
   background-color: var(--heat-js-button-background-color);
@@ -790,13 +794,16 @@ div.heat-js div.map-contents-container div.zooming button.active {
   transition: var(--heat-js-transition);
   font-weight: var(--heat-js-text-bold-weight-active);
 }
+div.heat-js div.map-contents-container div.zooming span.zoom-level {
+  margin-left: var(--heat-js-spacing);
+  margin-right: var(--heat-js-spacing);
+  color: var(--heat-js-color-white);
+}
 div.heat-js div.map-contents-container div.zooming button {
   width: 35px;
   height: 30px;
   margin-right: calc(var(--heat-js-spacing) / 2);
   font-weight: var(--heat-js-title-bold-weight);
-}
-div.heat-js div.map-contents-container div.zooming button:last-child {
   margin-right: 0;
 }
 div.heat-js div.map-contents-container div.map-contents {
