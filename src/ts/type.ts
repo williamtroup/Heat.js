@@ -343,6 +343,7 @@ export type BindingOptionsEvents = {
     onMonthDblClick?: ( monthNumber: number, count: number, year: number ) => void;
     onStatisticClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
     onStatisticDblClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
+    onMapZoomLevelChange?: ( element: HTMLElement, zoomLevel: number ) => void;
 };
 
 export type BindingOptionsColorRange = {

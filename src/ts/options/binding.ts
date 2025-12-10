@@ -435,6 +435,7 @@ export namespace Binding {
             options.events!.onMonthDblClick = Default.getFunction( options.events!.onMonthDblClick, null! );
             options.events!.onStatisticClick = Default.getFunction( options.events!.onStatisticClick, null! );
             options.events!.onStatisticDblClick = Default.getFunction( options.events!.onStatisticDblClick, null! );
+            options.events!.onMapZoomLevelChange = Default.getFunction( options.events!.onMapZoomLevelChange, null! );
 
             return options.events!;
         }

@@ -1062,6 +1062,8 @@ import { Convert } from "./ts/data/convert";
                 bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
                 zoomOutButton.disabled = false;
                 zoomLevel.innerText = bindingOptions._currentView!.mapZoomLevel!.toString();
+
+                Trigger.customEvent( bindingOptions.events!.onMapZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.mapZoomLevel );
             };
 
             zoomOutButton.onclick = () => {
@@ -1072,6 +1074,8 @@ import { Convert } from "./ts/data/convert";
                     bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
                     zoomOutButton.disabled = bindingOptions._currentView!.mapZoomLevel === 0;
                     zoomLevel.innerText = bindingOptions._currentView!.mapZoomLevel!.toString();
+
+                    Trigger.customEvent( bindingOptions.events!.onMapZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.mapZoomLevel );
                 }
             };
         }
