@@ -23,7 +23,7 @@ $minimum-width: 768px;
         transition: var(--heat-js-transition);
 
         &:disabled {
-            color: var(--heat-js-button-border-color);
+            color: var(--heat-js-button-color-disabled);
         }
 
         &:not(.active):not(:disabled):active {

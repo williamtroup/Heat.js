@@ -83,6 +83,7 @@
   --heat-js-button-background-color-hover: var(--heat-js-container-border-color);
   --heat-js-button-text-color-hover: var(--heat-js-color-snow-white);
   --heat-js-button-background-color-active: #616b79;
+  --heat-js-button-color-disabled: #6f7987;
   --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
   --heat-js-input-background-color: var(--heat-js-day-background-color);
   --heat-js-input-border-color: var(--heat-js-container-border-color);
@@ -309,7 +310,7 @@ div.heat-js div.disabled div.export div.dialog-contents button {
   transition: var(--heat-js-transition);
 }
 div.heat-js div.disabled div.export div.dialog-contents button:disabled {
-  color: var(--heat-js-button-border-color);
+  color: var(--heat-js-button-color-disabled);
 }
 div.heat-js div.disabled div.export div.dialog-contents button:not(.active):not(:disabled):active {
   background: var(--heat-js-button-background-color-active) !important;
@@ -367,7 +368,7 @@ div.heat-js div.title-bar button {
   transition: var(--heat-js-transition);
 }
 div.heat-js div.title-bar button:disabled {
-  color: var(--heat-js-button-border-color);
+  color: var(--heat-js-button-color-disabled);
 }
 div.heat-js div.title-bar button:not(.active):not(:disabled):active {
   background: var(--heat-js-button-background-color-active) !important;
@@ -769,7 +770,7 @@ div.heat-js div.map-contents-container div.zooming button {
   transition: var(--heat-js-transition);
 }
 div.heat-js div.map-contents-container div.zooming button:disabled {
-  color: var(--heat-js-button-border-color);
+  color: var(--heat-js-button-color-disabled);
 }
 div.heat-js div.map-contents-container div.zooming button:not(.active):not(:disabled):active {
   background: var(--heat-js-button-background-color-active) !important;
@@ -1535,7 +1536,7 @@ div.heat-js div.guide div.map-types button {
   transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-types button:disabled {
-  color: var(--heat-js-button-border-color);
+  color: var(--heat-js-button-color-disabled);
 }
 div.heat-js div.guide div.map-types button:not(.active):not(:disabled):active {
   background: var(--heat-js-button-background-color-active) !important;
