@@ -1041,6 +1041,7 @@ import { Convert } from "./ts/data/convert";
             const zoomInButton: HTMLButtonElement = DomElement.createWithHTML( zooming, "button", "zoom-in", _configuration.text!.zoomInText! ) as HTMLButtonElement;
             const spacing: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-spacing", true );
             const sizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, "--heat-js-day-size" );
+            let daySize: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-day-size", true );
 
             ToolTip.add( zoomInButton, bindingOptions, _configuration.text!.zoomInToolTipText! );
             ToolTip.add( zoomOutButton, bindingOptions, _configuration.text!.zoomOutToolTipText! );
@@ -1055,22 +1056,20 @@ import { Convert } from "./ts/data/convert";
             zoomOutButton.disabled = true;
 
             zoomInButton.onclick = () => {
-                let daySize: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-day-size", true );
                 daySize += 0.1;
                 bindingOptions._currentView!.mapZoomLevel++;
 
-                document.documentElement.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
+                bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
                 zoomOutButton.disabled = false;
                 zoomLevel.innerText = bindingOptions._currentView!.mapZoomLevel!.toString();
             };
 
             zoomOutButton.onclick = () => {
                 if ( bindingOptions._currentView!.mapZoomLevel > 0 ) {
-                    let daySize: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-day-size", true );
                     daySize -= 0.1;
                     bindingOptions._currentView!.mapZoomLevel--;
 
-                    document.documentElement.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
+                    bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
                     zoomOutButton.disabled = bindingOptions._currentView!.mapZoomLevel === 0;
                     zoomLevel.innerText = bindingOptions._currentView!.mapZoomLevel!.toString();
                 }
