@@ -1037,7 +1037,7 @@ import { Convert } from "./ts/data/convert";
         if ( bindingOptions.views!.map!.allowZooming ) {
             const zooming: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "zooming" );
             const zoomOutButton: HTMLButtonElement = DomElement.createWithHTML( zooming, "button", "zoom-out", _configuration.text!.zoomOutText! ) as HTMLButtonElement;
-            const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%` ) as HTMLSpanElement;
+            const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%` ) as HTMLSpanElement;
             const zoomInButton: HTMLButtonElement = DomElement.createWithHTML( zooming, "button", "zoom-in", _configuration.text!.zoomInText! ) as HTMLButtonElement;
             const spacing: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-spacing", true );
             const sizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, "--heat-js-day-size" );
@@ -1065,12 +1065,12 @@ import { Convert } from "./ts/data/convert";
                 bindingOptions._currentView!.mapZoomLevel = bindingOptions.views!.map!.zoomLevel!;
                 bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
                 
-                zoomLevel.innerText = `${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%`;
+                zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%`;
             }
 
             if ( bindingOptions._currentView!.mapZoomLevel! === Value.notFound ) {
                 bindingOptions._currentView!.mapZoomLevel = 0;
-                zoomLevel.innerText = `${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%`;
+                zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%`;
             }
 
             bindingOptions._currentView!.mapContents.style.paddingRight = `${zooming.offsetWidth + spacing}px`;
@@ -1084,7 +1084,7 @@ import { Convert } from "./ts/data/convert";
                 bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
 
                 zoomOutButton.disabled = false;
-                zoomLevel.innerText = `${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%`;
+                zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%`;
 
                 Trigger.customEvent( bindingOptions.events!.onMapZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.mapZoomLevel );
                 renderControlContainer( bindingOptions, false, false, true );
@@ -1099,7 +1099,7 @@ import { Convert } from "./ts/data/convert";
                     bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
                     
                     zoomOutButton.disabled = bindingOptions._currentView!.mapZoomLevel === 0;
-                    zoomLevel.innerText = `${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10) }%`;
+                    zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10) }%`;
 
                     Trigger.customEvent( bindingOptions.events!.onMapZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.mapZoomLevel );
                     renderControlContainer( bindingOptions, false, false, true );

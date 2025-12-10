@@ -2034,7 +2034,7 @@ var Convert;
         if (e.views.map.allowZooming) {
             const t = DomElement.create(e._currentView.mapContentsContainer, "div", "zooming");
             const o = DomElement.createWithHTML(t, "button", "zoom-out", n.text.zoomOutText);
-            const i = DomElement.createWithHTML(t, "span", "zoom-level", `${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`);
+            const i = DomElement.createWithHTML(t, "span", "zoom-level", `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`);
             const s = DomElement.createWithHTML(t, "button", "zoom-in", n.text.zoomInText);
             const r = DomElement.getStyleValueByName(document.documentElement, "--heat-js-spacing", true);
             const a = DomElement.getStyleValueByNameSizingMetic(document.documentElement, "--heat-js-day-size");
@@ -2055,11 +2055,11 @@ var Convert;
                 c += parseFloat((e.views.map.zoomLevel * e._currentView.mapZoomIncrement).toFixed(1));
                 e._currentView.mapZoomLevel = e.views.map.zoomLevel;
                 e._currentView.element.style.setProperty("--heat-js-day-size", `${c}${a}`);
-                i.innerText = `${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
+                i.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
             }
             if (e._currentView.mapZoomLevel === -1) {
                 e._currentView.mapZoomLevel = 0;
-                i.innerText = `${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
+                i.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
             }
             e._currentView.mapContents.style.paddingRight = `${t.offsetWidth + r}px`;
             o.disabled = e._currentView.mapZoomLevel === 0;
@@ -2069,7 +2069,7 @@ var Convert;
                 e._currentView.mapZoomLevel++;
                 e._currentView.element.style.setProperty("--heat-js-day-size", `${c}${a}`);
                 o.disabled = false;
-                i.innerText = `${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
+                i.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
                 Trigger.customEvent(e.events.onMapZoomLevelChange, e._currentView.element, e._currentView.mapZoomLevel);
                 l(e, false, false, true);
             };
@@ -2080,7 +2080,7 @@ var Convert;
                     e._currentView.mapZoomLevel--;
                     e._currentView.element.style.setProperty("--heat-js-day-size", `${c}${a}`);
                     o.disabled = e._currentView.mapZoomLevel === 0;
-                    i.innerText = `${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
+                    i.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
                     Trigger.customEvent(e.events.onMapZoomLevelChange, e._currentView.element, e._currentView.mapZoomLevel);
                     l(e, false, false, true);
                 }
