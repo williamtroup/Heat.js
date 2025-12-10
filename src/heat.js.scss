@@ -76,6 +76,10 @@
     --heat-js-view-opacity-hover: 0.7;
     --heat-js-view-opacity-active: 0.5;
 
+    // Guide
+    --heat-js-guide-day-size: 1.2rem;
+    --heat-js-guide-day-spacing: 6.3px;
+
     // View - Map / Chart - Day - Defaults
     --heat-js-day-background-color: #2d333b;
     --heat-js-day-border-color: var(--heat-js-container-border-color);
@@ -1538,9 +1542,9 @@ div.heat-js {
                     border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     display: inline-block;
                     border-radius: var(--heat-js-border-radius-day);
-                    min-width: var(--heat-js-day-size);
-                    height: var(--heat-js-day-size);
-                    margin-right: var(--heat-js-day-spacing);
+                    min-width: var(--heat-js-guide-day-size);
+                    height: var(--heat-js-guide-day-size);
+                    margin-right: var(--heat-js-guide-day-spacing);
                     transition: var(--heat-js-transition);
     
                     &:last-child {
