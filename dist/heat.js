@@ -784,10 +784,10 @@ var Binding;
         function g(e) {
             e.yearlyStatistics = Default2.getObject(e.yearlyStatistics, {});
             e.yearlyStatistics.enabled = Default2.getBoolean(e.yearlyStatistics.enabled, false);
-            e.yearlyStatistics.showTotalToday = Default2.getBoolean(e.yearlyStatistics.showTotalToday, true);
-            e.yearlyStatistics.showTotalThisWeek = Default2.getBoolean(e.yearlyStatistics.showTotalThisWeek, true);
-            e.yearlyStatistics.showTotalThisMonth = Default2.getBoolean(e.yearlyStatistics.showTotalThisMonth, true);
-            e.yearlyStatistics.showTotalThisYear = Default2.getBoolean(e.yearlyStatistics.showTotalThisYear, true);
+            e.yearlyStatistics.showToday = Default2.getBoolean(e.yearlyStatistics.showToday, true);
+            e.yearlyStatistics.showThisWeek = Default2.getBoolean(e.yearlyStatistics.showThisWeek, true);
+            e.yearlyStatistics.showThisMonth = Default2.getBoolean(e.yearlyStatistics.showThisMonth, true);
+            e.yearlyStatistics.showThisYear = Default2.getBoolean(e.yearlyStatistics.showThisYear, true);
             e.yearlyStatistics.showOnlyForCurrentYear = Default2.getBoolean(e.yearlyStatistics.showOnlyForCurrentYear, false);
             e.yearlyStatistics.showPercentages = Default2.getBoolean(e.yearlyStatistics.showPercentages, true);
             return e.yearlyStatistics;
@@ -1814,7 +1814,7 @@ var Convert;
             const c = new Date(e._currentView.year + 1, e.startMonth, 1);
             const u = S(e, r, a, l, c);
             de(s, e);
-            if (e.yearlyStatistics.showTotalToday) {
+            if (e.yearlyStatistics.showToday) {
                 let a = i[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(t)];
                 const l = DomElement.create(s, "div", "statistics-box");
                 const c = DateTime.getWeekdayNumber(t) + 1;
@@ -1829,7 +1829,7 @@ var Convert;
                 }
                 b(e, d, u, a, o);
             }
-            if (e.yearlyStatistics.showTotalThisWeek) {
+            if (e.yearlyStatistics.showThisWeek) {
                 let t = 0;
                 if (o) {
                     const n = DateTime.getDateForMondayOfCurrentWeek();
@@ -1846,7 +1846,7 @@ var Convert;
                 }
                 b(e, c, u, t, o);
             }
-            if (e.yearlyStatistics.showTotalThisMonth) {
+            if (e.yearlyStatistics.showThisMonth) {
                 let i = 0;
                 if (o) {
                     const n = new Date(t.getFullYear(), t.getMonth(), 1);
@@ -1862,7 +1862,7 @@ var Convert;
                 }
                 b(e, m, u, i, o);
             }
-            if (e.yearlyStatistics.showTotalThisYear) {
+            if (e.yearlyStatistics.showThisYear) {
                 const e = DomElement.create(s, "div", "statistics-box");
                 DomElement.createWithHTML(e, "div", "statistics-box-title", `${n.text.thisYearText}${":"}`);
                 DomElement.createWithHTML(e, "div", "statistics-box-count", Str.friendlyNumber(u));

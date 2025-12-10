@@ -736,7 +736,7 @@ import { Convert } from "./ts/data/convert";
 
             makeAreaDroppable( yearlyStatistics, bindingOptions );
 
-            if ( bindingOptions.yearlyStatistics!.showTotalToday ) {
+            if ( bindingOptions.yearlyStatistics!.showToday ) {
                 let todaysCount: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( today ) ];
                 const todaysBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
                 const weekdayNumber: number = DateTime.getWeekdayNumber( today ) + 1;
@@ -757,7 +757,7 @@ import { Convert } from "./ts/data/convert";
                 renderControlYearStatisticsPercentage( bindingOptions, boxCount, yearCount, todaysCount, isCurrentYear );
             }
 
-            if ( bindingOptions.yearlyStatistics!.showTotalThisWeek ) {
+            if ( bindingOptions.yearlyStatistics!.showThisWeek ) {
                 let weekCount: number = 0;
 
                 if ( isCurrentYear ) {
@@ -781,7 +781,7 @@ import { Convert } from "./ts/data/convert";
                 renderControlYearStatisticsPercentage( bindingOptions, boxCount, yearCount, weekCount, isCurrentYear );
             }
 
-            if ( bindingOptions.yearlyStatistics!.showTotalThisMonth ) {
+            if ( bindingOptions.yearlyStatistics!.showThisMonth ) {
                 let monthCount: number = 0;
 
                 if ( isCurrentYear ) {
@@ -804,7 +804,7 @@ import { Convert } from "./ts/data/convert";
                 renderControlYearStatisticsPercentage( bindingOptions, boxCount, yearCount, monthCount, isCurrentYear );
             }
 
-            if ( bindingOptions.yearlyStatistics!.showTotalThisYear ) {
+            if ( bindingOptions.yearlyStatistics!.showThisYear ) {
                 const yearBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
                 DomElement.createWithHTML( yearBox, "div", "statistics-box-title", `${_configuration.text!.thisYearText!}${Char.colon}` );

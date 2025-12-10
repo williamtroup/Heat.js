@@ -305,10 +305,10 @@ export type BindingOptionsTooltip = {
 
 export type BindingOptionsYearlyStatistics = {
     enabled?: boolean;
-    showTotalToday?: boolean;
-    showTotalThisWeek?: boolean;
-    showTotalThisMonth?: boolean;
-    showTotalThisYear?: boolean;
+    showToday?: boolean;
+    showThisWeek?: boolean;
+    showThisMonth?: boolean;
+    showThisYear?: boolean;
     showOnlyForCurrentYear?: boolean;
     showPercentages?: boolean;
 };
