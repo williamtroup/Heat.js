@@ -31,7 +31,7 @@ import {
     type BindingOptionsViewsMonths } from "../type";
 
 import { Default } from "../data/default";
-import { Char, ExportType, ViewId, ViewName } from "../data/enum";
+import { Char, ExportType, Value, ViewId, ViewName } from "../data/enum";
 import { Is } from "../data/is";
 
 
@@ -60,7 +60,7 @@ export namespace Binding {
             bindingOptions._currentView.isInFetchModeTimer = 0;
             bindingOptions._currentView.yearsAvailable = [];
             bindingOptions._currentView.dayWidth = 0;
-            bindingOptions._currentView.mapZoomLevel = 0;
+            bindingOptions._currentView.mapZoomLevel = Value.notFound;
     
             if ( bindingOptions.views!.chart!.enabled ) {
                 bindingOptions._currentView.chartContents = null!;
@@ -278,6 +278,7 @@ export namespace Binding {
             options.views!.map!.dayToolTipText = Default.getString( options.views!.map!.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
             options.views!.map!.showYearsInMonthNames = Default.getBoolean( options.views!.map!.showYearsInMonthNames, true );
             options.views!.map!.allowZooming = Default.getBoolean( options.views!.map!.allowZooming, true );
+            options.views!.map!.zoomLevel = Default.getNumber( options.views!.map!.zoomLevel, 0 );
 
             if ( Is.invalidOptionArray( options.views!.map!.monthsToShow ) ) {
                 options.views!.map!.monthsToShow = _default_MonthsToShow;

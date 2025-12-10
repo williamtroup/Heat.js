@@ -200,6 +200,7 @@ export type BindingOptionsViewsMap = {
     dayToolTipText?: string;
     showYearsInMonthNames?: boolean;
     allowZooming?: boolean;
+    zoomLevel?: number;
 };
 
 export type BindingOptionsViewsChart = {
