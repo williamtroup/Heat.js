@@ -1458,6 +1458,9 @@ div.heat-js {
         }
 
         div.map-types {
+            display: flex;
+            align-items: center;
+
             @media (min-width: styles.$minimum-width) { 
                 text-align: left;
                 width: unset;
