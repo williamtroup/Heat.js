@@ -107,7 +107,7 @@
   --heat-js-spacing-font-size: 0.85rem;
   --heat-js-spacing-day-font-size: 0.6rem;
   --heat-js-left-border: 8px;
-  --heat-js-default-width: 800px;
+  --heat-js-default-width: 700px;
   --heat-js-y-label-spacing: calc( var(--heat-js-spacing) * 2 );
   --heat-js-transition: all .3s;
   --heat-js-animation-length: 0.5s;
