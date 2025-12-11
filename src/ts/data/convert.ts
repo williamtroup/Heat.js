@@ -52,7 +52,7 @@ export namespace Convert {
     export function valuesToOpacitiesOrder( viewValues: LargestValueForView ) : void {
         const orderedValues: number[] = Object.values( viewValues.values ).sort( ( aValue: number, bValue: number ) => aValue - bValue );
         const orderedValuesLength: number = orderedValues.length;
-        const increment: number = 1 / 7;
+        const increment: number = 1 / orderedValuesLength;
 
         for ( let valueIndex: number = 0; valueIndex < orderedValuesLength; valueIndex++ ) {
             viewValues.valueOpacities[ orderedValues[ valueIndex ] ] = parseFloat( ( increment * ( valueIndex + 1 ) ).toFixed( 2 ) );

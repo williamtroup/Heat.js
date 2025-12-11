@@ -1326,7 +1326,7 @@ var Convert;
     function o(e) {
         const t = Object.values(e.values).sort((e, t) => e - t);
         const n = t.length;
-        const o = 1 / 7;
+        const o = 1 / n;
         for (let i = 0; i < n; i++) {
             e.valueOpacities[t[i]] = parseFloat((o * (i + 1)).toFixed(2));
         }
