@@ -822,6 +822,7 @@ div.heat-js {
                 
                 display: inline-block;
                 margin-right: var(--heat-js-spacing);
+                margin-left: calc( var(--heat-js-spacing) / 2 );
             }
         }
 
