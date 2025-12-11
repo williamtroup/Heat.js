@@ -80,9 +80,10 @@
     --heat-js-day-background-color: #2d333b;
     --heat-js-day-border-color: var(--heat-js-container-border-color);
     --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
-    --heat-js-day-spacing: 6.3px;
+    --heat-js-day-spacing: 5px;
     --heat-js-day-size: 20px;
     --heat-js-day-chart-width: 12px;
+    --heat-js-day-chart-spacing: 3px;
 
     // View - Map / Chart - Day - Colors
     --heat-js-day-color-1-background-color: rgba( 80, 200, 120, 0.25 );
@@ -1010,7 +1011,7 @@ div.heat-js {
                     border-bottom: none !important;
                     vertical-align: bottom;
                     min-width: var(--heat-js-day-chart-width);
-                    margin-right: 3px;
+                    margin-right: var(--heat-js-day-chart-spacing);
                     display: inline-flex;
                     transition: var(--heat-js-transition);
                     align-items: center;
