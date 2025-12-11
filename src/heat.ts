@@ -884,9 +884,6 @@ import { Convert } from "./ts/data/convert";
         } else {
             bindingOptions._currentView!.mapContents.style.minHeight = "unset";
 
-            makeAreaDroppable( bindingOptions._currentView!.mapContents, bindingOptions );
-            renderControlMapZooming( bindingOptions );
-
             const map: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContents, "div", "map" );
             const currentYear: number = bindingOptions._currentView!.year;
             let monthAdded: boolean = false;
@@ -1030,10 +1027,13 @@ import { Convert } from "./ts/data/convert";
             if ( bindingOptions.views!.map!.keepScrollPositions || isForZooming ) {
                 bindingOptions._currentView!.mapContents.scrollLeft = bindingOptions._currentView!.mapContentsScrollLeft;
             }
+
+            makeAreaDroppable( bindingOptions._currentView!.mapContents, bindingOptions );
+            renderControlMapZooming( bindingOptions, map );
         }
     }
 
-    function renderControlMapZooming( bindingOptions: BindingOptions ) : void {
+    function renderControlMapZooming( bindingOptions: BindingOptions, map: HTMLElement ) : void {
         if ( bindingOptions.views!.map!.allowZooming ) {
             const zooming: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "zooming" );
             const closeButton: HTMLElement = DomElement.create( zooming, "div", "zoom-close-button" ) as HTMLElement;
@@ -1056,10 +1056,7 @@ import { Convert } from "./ts/data/convert";
             ToolTip.add( zoomInButton, bindingOptions, _configuration.text!.zoomInToolTipText! );
             ToolTip.add( zoomOutButton, bindingOptions, _configuration.text!.zoomOutToolTipText! );
 
-            if ( bindingOptions.views!.map!.placeMonthNamesOnTheBottom ) {
-                zooming.style.top = "0";
-                zooming.style.bottom = "unset";
-            }
+            zooming.style.bottom = bindingOptions._currentView!.mapContentsContainer.offsetHeight - map.offsetHeight + "px";
 
             if ( bindingOptions.views!.map!.zoomLevel! > 0 && bindingOptions._currentView!.mapZoomLevel! === Value.notFound ) {
                 daySize += parseFloat( ( bindingOptions.views!.map!.zoomLevel! * bindingOptions._currentView!.mapZoomIncrement ).toFixed( 1 ) );

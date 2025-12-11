@@ -1429,7 +1429,7 @@ var Convert;
             e._currentView.chartContents.style.display = "none";
         }
         if (e.views.days.enabled) {
-            k(e, n);
+            O(e, n);
             e._currentView.daysContents.style.display = "none";
         }
         if (e.views.months.enabled) {
@@ -1910,7 +1910,7 @@ var Convert;
             I(e);
         }
         if (e.views.days.enabled) {
-            O(e);
+            k(e);
         }
         if (e.views.months.enabled) {
             F(e);
@@ -1926,8 +1926,6 @@ var Convert;
             }
         } else {
             e._currentView.mapContents.style.minHeight = "unset";
-            de(e._currentView.mapContents, e);
-            C(e);
             const i = DomElement.create(e._currentView.mapContents, "div", "map");
             const s = e._currentView.year;
             let r = false;
@@ -2040,66 +2038,65 @@ var Convert;
             if (e.views.map.keepScrollPositions || o) {
                 e._currentView.mapContents.scrollLeft = e._currentView.mapContentsScrollLeft;
             }
+            de(e._currentView.mapContents, e);
+            C(e, i);
         }
     }
-    function C(e) {
+    function C(e, t) {
         if (e.views.map.allowZooming) {
-            const t = DomElement.create(e._currentView.mapContentsContainer, "div", "zooming");
-            const o = DomElement.create(t, "div", "zoom-close-button");
-            const i = DomElement.createWithHTML(t, "button", "zoom-out", n.text.zoomOutText);
-            const s = DomElement.createWithHTML(t, "span", "zoom-level", `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`);
-            const r = DomElement.createWithHTML(t, "button", "zoom-in", n.text.zoomInText);
-            const a = DomElement.getStyleValueByName(document.documentElement, "--heat-js-spacing", true);
-            const c = DomElement.getStyleValueByNameSizingMetic(document.documentElement, "--heat-js-day-size");
-            let u = DomElement.getStyleValueByName(e._currentView.element, "--heat-js-day-size", true);
-            if (u === 0) {
-                u = DomElement.getStyleValueByName(document.documentElement, "--heat-js-day-size", true);
+            const o = DomElement.create(e._currentView.mapContentsContainer, "div", "zooming");
+            const i = DomElement.create(o, "div", "zoom-close-button");
+            const s = DomElement.createWithHTML(o, "button", "zoom-out", n.text.zoomOutText);
+            const r = DomElement.createWithHTML(o, "span", "zoom-level", `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`);
+            const a = DomElement.createWithHTML(o, "button", "zoom-in", n.text.zoomInText);
+            const c = DomElement.getStyleValueByName(document.documentElement, "--heat-js-spacing", true);
+            const u = DomElement.getStyleValueByNameSizingMetic(document.documentElement, "--heat-js-day-size");
+            let m = DomElement.getStyleValueByName(e._currentView.element, "--heat-js-day-size", true);
+            if (m === 0) {
+                m = DomElement.getStyleValueByName(document.documentElement, "--heat-js-day-size", true);
             }
             if (e._currentView.mapZoomIncrement === -1) {
-                e._currentView.mapZoomIncrement = u / 10;
+                e._currentView.mapZoomIncrement = m / 10;
             }
-            ToolTip.add(o, e, n.text.closeToolTipText);
-            ToolTip.add(r, e, n.text.zoomInToolTipText);
-            ToolTip.add(i, e, n.text.zoomOutToolTipText);
-            if (e.views.map.placeMonthNamesOnTheBottom) {
-                t.style.top = "0";
-                t.style.bottom = "unset";
-            }
+            ToolTip.add(i, e, n.text.closeToolTipText);
+            ToolTip.add(a, e, n.text.zoomInToolTipText);
+            ToolTip.add(s, e, n.text.zoomOutToolTipText);
+            o.style.bottom = e._currentView.mapContentsContainer.offsetHeight - t.offsetHeight + "px";
             if (e.views.map.zoomLevel > 0 && e._currentView.mapZoomLevel === -1) {
-                u += parseFloat((e.views.map.zoomLevel * e._currentView.mapZoomIncrement).toFixed(1));
+                m += parseFloat((e.views.map.zoomLevel * e._currentView.mapZoomIncrement).toFixed(1));
                 e._currentView.mapZoomLevel = e.views.map.zoomLevel;
-                e._currentView.element.style.setProperty("--heat-js-day-size", `${u}${c}`);
-                s.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
+                e._currentView.element.style.setProperty("--heat-js-day-size", `${m}${u}`);
+                r.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
             }
             if (e._currentView.mapZoomLevel === -1) {
                 e._currentView.mapZoomLevel = 0;
-                s.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
+                r.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
             }
-            e._currentView.mapContents.style.paddingRight = `${t.offsetWidth + a}px`;
-            i.disabled = e._currentView.mapZoomLevel === 0;
-            o.onclick = () => {
+            e._currentView.mapContents.style.paddingRight = `${o.offsetWidth + c}px`;
+            s.disabled = e._currentView.mapZoomLevel === 0;
+            i.onclick = () => {
                 e.views.map.allowZooming = false;
                 e._currentView.mapContents.style.paddingRight = "0px";
-                t.parentNode.removeChild(t);
+                o.parentNode.removeChild(o);
             };
-            r.onclick = () => {
-                u += e._currentView.mapZoomIncrement;
-                u = parseFloat(u.toFixed(1));
+            a.onclick = () => {
+                m += e._currentView.mapZoomIncrement;
+                m = parseFloat(m.toFixed(1));
                 e._currentView.mapZoomLevel++;
-                e._currentView.element.style.setProperty("--heat-js-day-size", `${u}${c}`);
-                i.disabled = false;
-                s.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
+                e._currentView.element.style.setProperty("--heat-js-day-size", `${m}${u}`);
+                s.disabled = false;
+                r.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
                 Trigger.customEvent(e.events.onMapZoomLevelChange, e._currentView.element, e._currentView.mapZoomLevel);
                 l(e, false, false, true);
             };
-            i.onclick = () => {
+            s.onclick = () => {
                 if (e._currentView.mapZoomLevel > 0) {
-                    u -= e._currentView.mapZoomIncrement;
-                    u = parseFloat(u.toFixed(1));
+                    m -= e._currentView.mapZoomIncrement;
+                    m = parseFloat(m.toFixed(1));
                     e._currentView.mapZoomLevel--;
-                    e._currentView.element.style.setProperty("--heat-js-day-size", `${u}${c}`);
-                    i.disabled = e._currentView.mapZoomLevel === 0;
-                    s.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
+                    e._currentView.element.style.setProperty("--heat-js-day-size", `${m}${u}`);
+                    s.disabled = e._currentView.mapZoomLevel === 0;
+                    r.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
                     Trigger.customEvent(e.events.onMapZoomLevelChange, e._currentView.element, e._currentView.mapZoomLevel);
                     l(e, false, false, true);
                 }
@@ -2347,11 +2344,11 @@ var Convert;
         }
         return t;
     }
-    function O(e) {
+    function k(e) {
         e._currentView.daysContents = DomElement.create(e._currentView.element, "div", "days-contents");
         de(e._currentView.daysContents, e);
     }
-    function k(e, t) {
+    function O(e, t) {
         const o = DomElement.create(e._currentView.daysContents, "div", "days");
         const i = DomElement.create(e._currentView.daysContents, "div", "day-names");
         let s = DomElement.create(o, "div", "y-labels");
