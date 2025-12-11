@@ -49,6 +49,19 @@ export namespace DomElement {
         const element: HTMLElement = create( container, type, className, beforeNode );
         element.innerHTML = html;
 
+        if ( type === "button" ) {
+            const buttonElement: HTMLButtonElement = element as HTMLButtonElement;
+            buttonElement.type = "button";
+        }
+
+        return element;
+    }
+
+    export function createButton( container: HTMLElement, type: string, className: string, html: string, beforeNode: HTMLElement = null! ) : HTMLButtonElement {
+        const element: HTMLButtonElement = create( container, type, className, beforeNode ) as HTMLButtonElement;
+        element.innerHTML = html;
+        element.type = "button";
+
         return element;
     }
 

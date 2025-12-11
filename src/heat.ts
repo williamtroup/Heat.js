@@ -391,7 +391,7 @@ import { Convert } from "./ts/data/convert";
         bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked = bindingOptions.exportOnlyDataBeingViewed!;
 
         const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-        const okButton: HTMLElement = DomElement.createWithHTML( buttons, "button", Char.empty, _configuration.text!.exportButtonText! );
+        const okButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configuration.text!.exportButtonText! );
 
         renderExportDialogOptions( bindingOptions );
 
@@ -508,7 +508,7 @@ import { Convert } from "./ts/data/convert";
             }
 
             if ( bindingOptions.title!.showImportButton && !bindingOptions._currentView!.isInFetchMode ) {
-                const importData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "import", _configuration.text!.importButtonSymbolText! );
+                const importData: HTMLButtonElement = DomElement.createButton( titleBar, "button", "import", _configuration.text!.importButtonSymbolText! );
                 importData.onclick = () => importFromFilesSelected( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
@@ -517,7 +517,7 @@ import { Convert } from "./ts/data/convert";
             }
 
             if ( bindingOptions.title!.showExportButton ) {
-                const exportData: HTMLElement = DomElement.createWithHTML( titleBar, "button", "export", _configuration.text!.exportButtonSymbolText! );
+                const exportData: HTMLButtonElement = DomElement.createButton( titleBar, "button", "export", _configuration.text!.exportButtonSymbolText! );
                 exportData.onclick = () => showExportDialog( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
@@ -526,7 +526,7 @@ import { Convert } from "./ts/data/convert";
             }
 
             if ( bindingOptions.title!.showRefreshButton ) {
-                const refresh: HTMLElement = DomElement.createWithHTML( titleBar, "button", "refresh", _configuration.text!.refreshButtonSymbolText! );
+                const refresh: HTMLButtonElement = DomElement.createButton( titleBar, "button", "refresh", _configuration.text!.refreshButtonSymbolText! );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( refresh, bindingOptions, _configuration.text!.refreshButtonText! );
@@ -539,7 +539,7 @@ import { Convert } from "./ts/data/convert";
             }
     
             if ( bindingOptions.title!.showYearSelector ) {
-                const back: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "back", _configuration.text!.backButtonSymbolText! ) as HTMLInputElement;
+                const back: HTMLButtonElement = DomElement.createButton( titleBar, "button", "back", _configuration.text!.backButtonSymbolText! );
                 back.onclick = () => moveToPreviousYear( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
@@ -574,7 +574,7 @@ import { Convert } from "./ts/data/convert";
                 }
 
                 if ( bindingOptions.title!.showCurrentYearButton ) {
-                    const current: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "current", _configuration.text!.currentYearSymbolText! ) as HTMLInputElement;
+                    const current: HTMLButtonElement = DomElement.createButton( titleBar, "button", "current", _configuration.text!.currentYearSymbolText! );
 
                     if ( bindingOptions.title!.showToolTips ) {
                         ToolTip.add( current, bindingOptions, _configuration.text!.currentYearText! );
@@ -588,7 +588,7 @@ import { Convert } from "./ts/data/convert";
                     };
                 }
 
-                const next: HTMLInputElement = DomElement.createWithHTML( titleBar, "button", "next", _configuration.text!.nextButtonSymbolText! ) as HTMLInputElement;
+                const next: HTMLButtonElement = DomElement.createButton( titleBar, "button", "next", _configuration.text!.nextButtonSymbolText! );
                 next.onclick = () => moveToNextYear( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
@@ -1037,9 +1037,9 @@ import { Convert } from "./ts/data/convert";
         if ( bindingOptions.views!.map!.allowZooming ) {
             const zooming: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "zooming" );
             const closeButton: HTMLElement = DomElement.create( zooming, "div", "zoom-close-button" ) as HTMLElement;
-            const zoomOutButton: HTMLButtonElement = DomElement.createWithHTML( zooming, "button", "zoom-out", _configuration.text!.zoomOutText! ) as HTMLButtonElement;
+            const zoomOutButton: HTMLButtonElement = DomElement.createButton( zooming, "button", "zoom-out", _configuration.text!.zoomOutText! );
             const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%` ) as HTMLSpanElement;
-            const zoomInButton: HTMLButtonElement = DomElement.createWithHTML( zooming, "button", "zoom-in", _configuration.text!.zoomInText! ) as HTMLButtonElement;
+            const zoomInButton: HTMLButtonElement = DomElement.createButton( zooming, "button", "zoom-in", _configuration.text!.zoomInText! );
             const spacing: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-spacing", true );
             const sizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, "--heat-js-day-size" );
             let daySize: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, "--heat-js-day-size", true );
@@ -2105,7 +2105,7 @@ import { Convert } from "./ts/data/convert";
     }
 
     function renderControlViewGuideTypeButton( bindingOptions: BindingOptions, mapTypes: HTMLElement, type: string ) : void {
-        const typeButton: HTMLElement = DomElement.createWithHTML( mapTypes, "button", "type", type );
+        const typeButton: HTMLButtonElement = DomElement.createButton( mapTypes, "button", "type", type );
 
         if ( bindingOptions._currentView!.type === type ) {
             DomElement.addClass( typeButton, "active" );
