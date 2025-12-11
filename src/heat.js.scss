@@ -1711,6 +1711,10 @@ div.heat-js-tooltip {
     font-size: var(--heat-js-spacing-font-size);
     font-weight: var(--heat-js-text-bold-weight);
     display: none;
+
+    b.tooltip-count {
+        margin-left: calc( var(--heat-js-spacing) / 2 );
+    }
 }
 
 

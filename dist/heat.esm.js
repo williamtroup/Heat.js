@@ -123,10 +123,10 @@ var Is;
         return e.startsWith("rgba") || e.startsWith("rgb");
     }
     e.rgbColor = g;
-    function y(e) {
+    function p(e) {
         return e.startsWith("#") && (e.length === 6 || e.length === 8);
     }
-    e.hexColor = y;
+    e.hexColor = p;
 })(Is || (Is = {}));
 
 var Default2;
@@ -558,7 +558,7 @@ var Binding;
             t.views.months = h(t);
             t.views.statistics = w(t);
             t.yearlyStatistics = g(t);
-            t.events = y(t);
+            t.events = p(t);
             if (t.startMonth > 0) {
                 t.yearsToHide = [];
             }
@@ -688,6 +688,7 @@ var Binding;
             e.views.map.showYearsInMonthNames = Default2.getBoolean(e.views.map.showYearsInMonthNames, true);
             e.views.map.allowZooming = Default2.getBoolean(e.views.map.allowZooming, true);
             e.views.map.zoomLevel = Default2.getNumber(e.views.map.zoomLevel, 0);
+            e.views.map.showCountsInTooltips = Default2.getBoolean(e.views.map.showCountsInTooltips, true);
             if (Is.invalidOptionArray(e.views.map.monthsToShow)) {
                 e.views.map.monthsToShow = t;
             }
@@ -710,6 +711,7 @@ var Binding;
             e.views.chart.highlightCurrentDay = Default2.getBoolean(e.views.chart.highlightCurrentDay, false);
             e.views.chart.dayToolTipText = Default2.getString(e.views.chart.dayToolTipText, "{d}{o} {mmmm} {yyyy}");
             e.views.chart.showYearsInMonthNames = Default2.getBoolean(e.views.chart.showYearsInMonthNames, true);
+            e.views.chart.showCountsInTooltips = Default2.getBoolean(e.views.chart.showCountsInTooltips, true);
             if (Is.invalidOptionArray(e.views.chart.monthsToShow)) {
                 e.views.chart.monthsToShow = t;
             }
@@ -790,7 +792,7 @@ var Binding;
             e.yearlyStatistics.showPercentages = Default2.getBoolean(e.yearlyStatistics.showPercentages, true);
             return e.yearlyStatistics;
         }
-        function y(e) {
+        function p(e) {
             e.events = Default2.getObject(e.events, {});
             e.events.onBackYear = Default2.getFunction(e.events.onBackYear, null);
             e.events.onNextYear = Default2.getFunction(e.events.onNextYear, null);
@@ -1410,10 +1412,10 @@ var Convert;
             f(e);
         }
         ToolTip.renderControl(e);
-        y(e);
+        p(e);
         V(e, n, o);
         if (e.views.chart.enabled) {
-            I(e, n);
+            M(e, n);
             e._currentView.chartContents.style.display = "none";
         }
         if (e.views.days.enabled) {
@@ -1611,7 +1613,7 @@ var Convert;
         }
         ToolTip.hide(e);
     }
-    function y(e) {
+    function p(e) {
         if (e.title.showText || e.title.showYearSelector || e.title.showRefreshButton || e.title.showExportButton || e.title.showImportButton) {
             const t = DomElement.create(e._currentView.element, "div", "title-bar");
             const o = DomElement.create(t, "div", "title");
@@ -1644,7 +1646,7 @@ var Convert;
                 }
             }
             if (i) {
-                p(e, o);
+                y(e, o);
             }
             if (e.title.showImportButton && !e._currentView.isInFetchMode) {
                 const o = DomElement.createWithHTML(t, "button", "import", n.text.importButtonSymbolText);
@@ -1672,7 +1674,7 @@ var Convert;
             }
             if (e.title.showYearSelector) {
                 const o = DomElement.createWithHTML(t, "button", "back", n.text.backButtonSymbolText);
-                o.onclick = () => ye(e);
+                o.onclick = () => pe(e);
                 if (e.title.showToolTips) {
                     ToolTip.add(o, e, n.text.backButtonText);
                 }
@@ -1703,12 +1705,12 @@ var Convert;
                     }
                     o.onclick = () => {
                         e._currentView.year = (new Date).getFullYear() - 1;
-                        pe(e, false);
+                        ye(e, false);
                         Trigger.customEvent(e.events.onSetYear, e._currentView.year);
                     };
                 }
                 const s = DomElement.createWithHTML(t, "button", "next", n.text.nextButtonSymbolText);
-                s.onclick = () => pe(e);
+                s.onclick = () => ye(e);
                 if (e.title.showToolTips) {
                     ToolTip.add(s, e, n.text.nextButtonText);
                 }
@@ -1718,7 +1720,7 @@ var Convert;
             }
         }
     }
-    function p(e, t) {
+    function y(e, t) {
         const o = DomElement.create(t, "div", "titles-menu-container");
         const i = DomElement.create(o, "div", "titles-menu");
         if (e.title.showTitleDropDownHeaders) {
@@ -1895,7 +1897,7 @@ var Convert;
         e._currentView.mapContentsContainer = DomElement.create(e._currentView.element, "div", "map-contents-container");
         e._currentView.mapContents = DomElement.create(e._currentView.mapContentsContainer, "div", "map-contents");
         if (e.views.chart.enabled) {
-            M(e);
+            I(e);
         }
         if (e.views.days.enabled) {
             k(e);
@@ -2103,7 +2105,7 @@ var Convert;
         m = Default2.getNumber(m, 0);
         l.setAttribute(Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber(a)}-${Str.padNumber(o + 1)}-${s}`);
         if (e.views.map.showToolTips) {
-            J(e, l, c, m, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, u.matched);
+            J(e, l, c, m, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, u.matched, e.views.map.showCountsInTooltips);
         }
         if (e.views.map.showDayCounts && m > 0) {
             l.innerHTML = Str.friendlyNumber(m);
@@ -2148,11 +2150,11 @@ var Convert;
         }
         return t;
     }
-    function M(e) {
+    function I(e) {
         e._currentView.chartContents = DomElement.create(e._currentView.element, "div", "chart-contents");
         de(e._currentView.chartContents, e);
     }
-    function I(e, t) {
+    function M(e, t) {
         const o = DomElement.create(e._currentView.chartContents, "div", "chart");
         let i = DomElement.create(o, "div", "y-labels");
         const s = DomElement.create(o, "div", "day-lines");
@@ -2271,7 +2273,7 @@ var Convert;
         u = Default2.getNumber(u, 0);
         l.setAttribute(Constant.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${Str.padNumber(n)}-${Str.padNumber(o + 1)}-${i}`);
         if (t.views.chart.showToolTips) {
-            J(t, l, a, u, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, c.matched);
+            J(t, l, a, u, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, c.matched, t.views.chart.showCountsInTooltips);
         }
         if (t.views.chart.showLineCounts && u > 0) {
             DomElement.addClass(l, "day-line-number");
@@ -2882,18 +2884,21 @@ var Convert;
             }
         }
     }
-    function J(e, t, o, i, s, r, a) {
+    function J(e, t, o, i, s, r, a, l) {
         if (Is.definedFunction(r)) {
             ToolTip.add(t, e, Trigger.customEvent(r, o, i, a));
         } else {
-            let i = DateTime.getCustomFormattedDateText(n, s, o);
+            let r = DateTime.getCustomFormattedDateText(n, s, o);
             if (e.showHolidaysInDayToolTips) {
                 let t = Is.holiday(e, o);
                 if (t.matched && Is.definedString(t.name)) {
-                    i += `${":"}${" "}${t.name}`;
+                    r += `${":"}${" "}${t.name}`;
                 }
             }
-            ToolTip.add(t, e, i);
+            if (l) {
+                r += `${":"}${" "}<b class="tooltip-count">${Str.friendlyNumber(i)}</b>`;
+            }
+            ToolTip.add(t, e, r);
         }
     }
     function X(e, t, n) {
@@ -3212,7 +3217,7 @@ var Convert;
         }
         return n;
     }
-    function ye(e, t = true) {
+    function pe(e, t = true) {
         let n = true;
         let o = e._currentView.year;
         o--;
@@ -3231,7 +3236,7 @@ var Convert;
             }
         }
     }
-    function pe(e, t = true) {
+    function ye(e, t = true) {
         let n = true;
         let o = e._currentView.year;
         o++;
@@ -3448,7 +3453,7 @@ var Convert;
                 const n = i[e].options;
                 n._currentView.year = t;
                 if (!Is.yearVisible(n, n._currentView.year)) {
-                    pe(n, false);
+                    ye(n, false);
                 } else {
                     l(n);
                 }
@@ -3469,7 +3474,7 @@ var Convert;
                 if (o > 0) {
                     t._currentView.year = o;
                     if (!Is.yearVisible(t, t._currentView.year)) {
-                        pe(t, false);
+                        ye(t, false);
                     } else {
                         l(t);
                     }
@@ -3491,7 +3496,7 @@ var Convert;
                 if (o < 9999) {
                     t._currentView.year = o;
                     if (!Is.yearVisible(t, t._currentView.year)) {
-                        ye(t, false);
+                        pe(t, false);
                     } else {
                         l(t);
                     }
@@ -3502,13 +3507,13 @@ var Convert;
         },
         moveToPreviousYear: function(e) {
             if (Is.definedString(e) && i.hasOwnProperty(e)) {
-                ye(i[e].options);
+                pe(i[e].options);
             }
             return Te;
         },
         moveToNextYear: function(e) {
             if (Is.definedString(e) && i.hasOwnProperty(e)) {
-                pe(i[e].options);
+                ye(i[e].options);
             }
             return Te;
         },
@@ -3517,7 +3522,7 @@ var Convert;
                 const t = i[e].options;
                 t._currentView.year = (new Date).getFullYear();
                 if (!Is.yearVisible(t, t._currentView.year)) {
-                    pe(t, false);
+                    ye(t, false);
                 } else {
                     l(t);
                 }

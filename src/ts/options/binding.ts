@@ -280,6 +280,7 @@ export namespace Binding {
             options.views!.map!.showYearsInMonthNames = Default.getBoolean( options.views!.map!.showYearsInMonthNames, true );
             options.views!.map!.allowZooming = Default.getBoolean( options.views!.map!.allowZooming, true );
             options.views!.map!.zoomLevel = Default.getNumber( options.views!.map!.zoomLevel, 0 );
+            options.views!.map!.showCountsInTooltips = Default.getBoolean( options.views!.map!.showCountsInTooltips, true );
 
             if ( Is.invalidOptionArray( options.views!.map!.monthsToShow ) ) {
                 options.views!.map!.monthsToShow = _default_MonthsToShow;
@@ -306,6 +307,7 @@ export namespace Binding {
             options.views!.chart!.highlightCurrentDay = Default.getBoolean( options.views!.chart!.highlightCurrentDay, false );
             options.views!.chart!.dayToolTipText = Default.getString( options.views!.chart!.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
             options.views!.chart!.showYearsInMonthNames = Default.getBoolean( options.views!.chart!.showYearsInMonthNames, true );
+            options.views!.chart!.showCountsInTooltips = Default.getBoolean( options.views!.chart!.showCountsInTooltips, true );
 
             if ( Is.invalidOptionArray( options.views!.chart!.monthsToShow ) ) {
                 options.views!.chart!.monthsToShow = _default_MonthsToShow;

@@ -1864,6 +1864,9 @@ div.heat-js-tooltip {
   font-weight: var(--heat-js-text-bold-weight);
   display: none;
 }
+div.heat-js-tooltip b.tooltip-count {
+  margin-left: calc(var(--heat-js-spacing) / 2);
+}
 
 /*
     -------------------------------------------------------------------------
