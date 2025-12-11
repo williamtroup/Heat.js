@@ -733,7 +733,7 @@ var Binding;
             e.views.days.showToolTips = Default2.getBoolean(e.views.days.showToolTips, true);
             e.views.days.useGradients = Default2.getBoolean(e.views.days.useGradients, false);
             e.views.days.useDifferentOpacities = Default2.getBoolean(e.views.days.useDifferentOpacities, false);
-            e.views.days.showDayNumberPercentages = Default2.getBoolean(e.views.days.showDayNumberPercentages, true);
+            e.views.days.showDayCountPercentages = Default2.getBoolean(e.views.days.showDayCountPercentages, true);
             if (Is.invalidOptionArray(e.views.days.monthsToShow)) {
                 e.views.days.monthsToShow = t;
             }
@@ -754,7 +754,7 @@ var Binding;
             e.views.months.useGradients = Default2.getBoolean(e.views.months.useGradients, false);
             e.views.months.useDifferentOpacities = Default2.getBoolean(e.views.months.useDifferentOpacities, false);
             e.views.months.highlightCurrentMonth = Default2.getBoolean(e.views.months.highlightCurrentMonth, false);
-            e.views.months.showMonthNumberPercentages = Default2.getBoolean(e.views.months.showMonthNumberPercentages, true);
+            e.views.months.showMonthCountPercentages = Default2.getBoolean(e.views.months.showMonthCountPercentages, true);
             if (Is.invalidOptionArray(e.views.months.monthsToShow)) {
                 e.views.months.monthsToShow = t;
             }
@@ -774,7 +774,7 @@ var Binding;
             e.views.statistics.keepScrollPositions = Default2.getBoolean(e.views.statistics.keepScrollPositions, false);
             e.views.statistics.showToolTips = Default2.getBoolean(e.views.statistics.showToolTips, true);
             e.views.statistics.useGradients = Default2.getBoolean(e.views.statistics.useGradients, false);
-            e.views.statistics.showRangeNumberPercentages = Default2.getBoolean(e.views.statistics.showRangeNumberPercentages, true);
+            e.views.statistics.showRangeCountPercentages = Default2.getBoolean(e.views.statistics.showRangeCountPercentages, true);
             e.views.statistics.showRangeNamesInToolTips = Default2.getBoolean(e.views.statistics.showRangeNamesInToolTips, true);
             if (Is.invalidOptionArray(e.views.statistics.monthsToShow)) {
                 e.views.statistics.monthsToShow = t;
@@ -2416,7 +2416,7 @@ var Convert;
         if (o.views.days.showDayCounts && n > 0) {
             DomElement.addClass(a, "day-line-number");
             const e = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
-            if (o.views.days.showDayNumberPercentages) {
+            if (o.views.days.showDayCountPercentages) {
                 DomElement.createWithHTML(e, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
             }
         }
@@ -2565,7 +2565,7 @@ var Convert;
         if (o.views.months.showMonthCounts && n > 0) {
             DomElement.addClass(a, "month-line-number");
             const e = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
-            if (o.views.months.showMonthNumberPercentages) {
+            if (o.views.months.showMonthCountPercentages) {
                 DomElement.createWithHTML(e, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
             }
         }
@@ -2721,7 +2721,7 @@ var Convert;
         if (o.views.statistics.showRangeCounts && n > 0) {
             DomElement.addClass(a, "range-line-number");
             const e = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
-            if (o.views.statistics.showRangeNumberPercentages) {
+            if (o.views.statistics.showRangeCountPercentages) {
                 DomElement.createWithHTML(e, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
             }
         }

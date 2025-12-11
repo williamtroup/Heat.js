@@ -331,7 +331,7 @@ export namespace Binding {
             options.views!.days!.showToolTips = Default.getBoolean( options.views!.days!.showToolTips, true );
             options.views!.days!.useGradients = Default.getBoolean( options.views!.days!.useGradients, false );
             options.views!.days!.useDifferentOpacities = Default.getBoolean( options.views!.days!.useDifferentOpacities, false );
-            options.views!.days!.showDayNumberPercentages = Default.getBoolean( options.views!.days!.showDayNumberPercentages, true );
+            options.views!.days!.showDayCountPercentages = Default.getBoolean( options.views!.days!.showDayCountPercentages, true );
     
             if ( Is.invalidOptionArray( options.views!.days!.monthsToShow ) ) {
                 options.views!.days!.monthsToShow = _default_MonthsToShow;
@@ -356,7 +356,7 @@ export namespace Binding {
             options.views!.months!.useGradients = Default.getBoolean( options.views!.months!.useGradients, false );
             options.views!.months!.useDifferentOpacities = Default.getBoolean( options.views!.months!.useDifferentOpacities, false );
             options.views!.months!.highlightCurrentMonth = Default.getBoolean( options.views!.months!.highlightCurrentMonth, false );
-            options.views!.months!.showMonthNumberPercentages = Default.getBoolean( options.views!.months!.showMonthNumberPercentages, true );
+            options.views!.months!.showMonthCountPercentages = Default.getBoolean( options.views!.months!.showMonthCountPercentages, true );
     
             if ( Is.invalidOptionArray( options.views!.months!.monthsToShow ) ) {
                 options.views!.months!.monthsToShow = _default_MonthsToShow;
@@ -380,7 +380,7 @@ export namespace Binding {
             options.views!.statistics!.keepScrollPositions = Default.getBoolean( options.views!.statistics!.keepScrollPositions, false );
             options.views!.statistics!.showToolTips = Default.getBoolean( options.views!.statistics!.showToolTips, true );
             options.views!.statistics!.useGradients = Default.getBoolean( options.views!.statistics!.useGradients, false );
-            options.views!.statistics!.showRangeNumberPercentages = Default.getBoolean( options.views!.statistics!.showRangeNumberPercentages, true );
+            options.views!.statistics!.showRangeCountPercentages = Default.getBoolean( options.views!.statistics!.showRangeCountPercentages, true );
             options.views!.statistics!.showRangeNamesInToolTips = Default.getBoolean( options.views!.statistics!.showRangeNamesInToolTips, true );
 
             if ( Is.invalidOptionArray( options.views!.statistics!.monthsToShow ) ) {

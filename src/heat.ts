@@ -1543,7 +1543,7 @@ import { Convert } from "./ts/data/convert";
             DomElement.addClass( dayLine, "day-line-number" );
             const count: HTMLElement = DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dayCount ) );
 
-            if ( bindingOptions.views!.days!.showDayNumberPercentages ) {
+            if ( bindingOptions.views!.days!.showDayCountPercentages ) {
                 DomElement.createWithHTML( count, "div", "percentage", `${( ( dayCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
             }
         }
@@ -1741,7 +1741,7 @@ import { Convert } from "./ts/data/convert";
             DomElement.addClass( monthLine, "month-line-number" );
             const count: HTMLElement = DomElement.createWithHTML( monthLine, "div", "count", Str.friendlyNumber( monthCount ) );
 
-            if ( bindingOptions.views!.months!.showMonthNumberPercentages ) {
+            if ( bindingOptions.views!.months!.showMonthCountPercentages ) {
                 DomElement.createWithHTML( count, "div", "percentage", `${( ( monthCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
             }
         }
@@ -1945,7 +1945,7 @@ import { Convert } from "./ts/data/convert";
             DomElement.addClass( rangeLine, "range-line-number" );
             const count: HTMLElement = DomElement.createWithHTML( rangeLine, "div", "count", Str.friendlyNumber( rangeCount ) );
 
-            if ( bindingOptions.views!.statistics!.showRangeNumberPercentages ) {
+            if ( bindingOptions.views!.statistics!.showRangeCountPercentages ) {
                 DomElement.createWithHTML( count, "div", "percentage", `${( ( rangeCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
             }
         }

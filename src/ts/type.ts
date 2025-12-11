@@ -235,7 +235,7 @@ export type BindingOptionsViewsDays = {
     showToolTips?: boolean;
     useGradients?: boolean;
     useDifferentOpacities?: boolean;
-    showDayNumberPercentages?: boolean;
+    showDayCountPercentages?: boolean;
 };
 
 export type BindingOptionsViewsMonths = {
@@ -251,7 +251,7 @@ export type BindingOptionsViewsMonths = {
     useGradients?: boolean;
     useDifferentOpacities?: boolean;
     highlightCurrentMonth?: boolean;
-    showMonthNumberPercentages?: boolean;
+    showMonthCountPercentages?: boolean;
 };
 
 export type BindingOptionsViewsStatistics = {
@@ -266,7 +266,7 @@ export type BindingOptionsViewsStatistics = {
     daysToShow?: number[];
     showToolTips?: boolean;
     useGradients?: boolean;
-    showRangeNumberPercentages?: boolean;
+    showRangeCountPercentages?: boolean;
     showRangeNamesInToolTips?: boolean;
 };
 
