@@ -330,7 +330,7 @@ export namespace Binding {
             options.views!.days!.keepScrollPositions = Default.getBoolean( options.views!.days!.keepScrollPositions, false );
             options.views!.days!.showToolTips = Default.getBoolean( options.views!.days!.showToolTips, true );
             options.views!.days!.useGradients = Default.getBoolean( options.views!.days!.useGradients, false );
-            options.views!.days!.useDifferentOpacities = Default.getBoolean( options.views!.days!.useDifferentOpacities, false );
+            options.views!.days!.useDifferentOpacities = Default.getBoolean( options.views!.days!.useDifferentOpacities, true );
             options.views!.days!.showDayCountPercentages = Default.getBoolean( options.views!.days!.showDayCountPercentages, true );
     
             if ( Is.invalidOptionArray( options.views!.days!.monthsToShow ) ) {
@@ -354,7 +354,7 @@ export namespace Binding {
             options.views!.months!.keepScrollPositions = Default.getBoolean( options.views!.months!.keepScrollPositions, false );
             options.views!.months!.showToolTips = Default.getBoolean( options.views!.months!.showToolTips, true );
             options.views!.months!.useGradients = Default.getBoolean( options.views!.months!.useGradients, false );
-            options.views!.months!.useDifferentOpacities = Default.getBoolean( options.views!.months!.useDifferentOpacities, false );
+            options.views!.months!.useDifferentOpacities = Default.getBoolean( options.views!.months!.useDifferentOpacities, true );
             options.views!.months!.highlightCurrentMonth = Default.getBoolean( options.views!.months!.highlightCurrentMonth, false );
             options.views!.months!.showMonthCountPercentages = Default.getBoolean( options.views!.months!.showMonthCountPercentages, true );
     

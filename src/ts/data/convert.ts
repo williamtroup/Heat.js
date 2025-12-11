@@ -11,6 +11,7 @@
  */
 
 
+import { type LargestValueForView } from "../type";
 import { Char, Value } from "./enum";
 
 
@@ -46,5 +47,15 @@ export namespace Convert {
         }
 
         return `rgba(${red}, ${green}, ${blue}, ${newAlpha})`;
+    }
+
+    export function valuesToOpacitiesOrder( viewValues: LargestValueForView ) : void {
+        const orderedValues: number[] = Object.values( viewValues.values ).sort( ( aValue: number, bValue: number ) => aValue - bValue );
+        const orderedValuesLength: number = orderedValues.length;
+        const increment: number = 1 / 7;
+
+        for ( let valueIndex: number = 0; valueIndex < orderedValuesLength; valueIndex++ ) {
+            viewValues.valueOpacities[ orderedValues[ valueIndex ] ] = parseFloat( ( increment * ( valueIndex + 1 ) ).toFixed( 2 ) );
+        }
     }
 }

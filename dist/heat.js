@@ -732,7 +732,7 @@ var Binding;
             e.views.days.keepScrollPositions = Default2.getBoolean(e.views.days.keepScrollPositions, false);
             e.views.days.showToolTips = Default2.getBoolean(e.views.days.showToolTips, true);
             e.views.days.useGradients = Default2.getBoolean(e.views.days.useGradients, false);
-            e.views.days.useDifferentOpacities = Default2.getBoolean(e.views.days.useDifferentOpacities, false);
+            e.views.days.useDifferentOpacities = Default2.getBoolean(e.views.days.useDifferentOpacities, true);
             e.views.days.showDayCountPercentages = Default2.getBoolean(e.views.days.showDayCountPercentages, true);
             if (Is.invalidOptionArray(e.views.days.monthsToShow)) {
                 e.views.days.monthsToShow = t;
@@ -752,7 +752,7 @@ var Binding;
             e.views.months.keepScrollPositions = Default2.getBoolean(e.views.months.keepScrollPositions, false);
             e.views.months.showToolTips = Default2.getBoolean(e.views.months.showToolTips, true);
             e.views.months.useGradients = Default2.getBoolean(e.views.months.useGradients, false);
-            e.views.months.useDifferentOpacities = Default2.getBoolean(e.views.months.useDifferentOpacities, false);
+            e.views.months.useDifferentOpacities = Default2.getBoolean(e.views.months.useDifferentOpacities, true);
             e.views.months.highlightCurrentMonth = Default2.getBoolean(e.views.months.highlightCurrentMonth, false);
             e.views.months.showMonthCountPercentages = Default2.getBoolean(e.views.months.showMonthCountPercentages, true);
             if (Is.invalidOptionArray(e.views.months.monthsToShow)) {
@@ -1323,6 +1323,15 @@ var Convert;
         return `rgba(${o}, ${i}, ${s}, ${n})`;
     }
     e.hexToRgba = n;
+    function o(e) {
+        const t = Object.values(e.values).sort((e, t) => e - t);
+        const n = t.length;
+        const o = 1 / 7;
+        for (let i = 0; i < n; i++) {
+            e.valueOpacities[t[i]] = parseFloat((o * (i + 1)).toFixed(2));
+        }
+    }
+    e.valuesToOpacitiesOrder = o;
 })(Convert || (Convert = {}));
 
 (() => {
@@ -1422,7 +1431,7 @@ var Convert;
             e._currentView.chartContents.style.display = "none";
         }
         if (e.views.days.enabled) {
-            L(e, n);
+            k(e, n);
             e._currentView.daysContents.style.display = "none";
         }
         if (e.views.months.enabled) {
@@ -1903,7 +1912,7 @@ var Convert;
             I(e);
         }
         if (e.views.days.enabled) {
-            k(e);
+            O(e);
         }
         if (e.views.months.enabled) {
             F(e);
@@ -2340,11 +2349,11 @@ var Convert;
         }
         return t;
     }
-    function k(e) {
+    function O(e) {
         e._currentView.daysContents = DomElement.create(e._currentView.element, "div", "days-contents");
         de(e._currentView.daysContents, e);
     }
-    function L(e, t) {
+    function k(e, t) {
         const o = DomElement.create(e._currentView.daysContents, "div", "days");
         const i = DomElement.create(e._currentView.daysContents, "div", "day-names");
         let s = DomElement.create(o, "div", "y-labels");
@@ -2375,16 +2384,14 @@ var Convert;
             }
         } else {
             const t = r.offsetHeight / a.largestValue;
-            const o = 1 / 7;
-            let s = o;
-            for (const l in a.values) {
-                if (a.values.hasOwnProperty(l) && Is.dayVisible(e.views.days.daysToShow, parseInt(l))) {
-                    O(r, parseInt(l), a.values[l], e, t, s, a.totalValue);
+            for (const o in a.values) {
+                if (a.values.hasOwnProperty(o) && Is.dayVisible(e.views.days.daysToShow, parseInt(o))) {
+                    const s = a.valueOpacities[a.values[o]];
+                    L(r, parseInt(o), a.values[o], e, t, s, a.totalValue);
                     if (e.views.days.showDayNames) {
-                        DomElement.createWithHTML(i, "div", "day-name", n.text.dayNames[parseInt(l) - 1]);
+                        DomElement.createWithHTML(i, "div", "day-name", n.text.dayNames[parseInt(o) - 1]);
                     }
                 }
-                s += o;
             }
             if (e.views.days.showInReverseOrder) {
                 DomElement.reverseChildrenOrder(r);
@@ -2395,7 +2402,7 @@ var Convert;
             }
         }
     }
-    function O(e, t, n, o, i, s, r) {
+    function L(e, t, n, o, i, s, r) {
         const a = DomElement.create(e, "div", "day-line");
         const l = n * i;
         a.style.height = `${l}px`;
@@ -2448,6 +2455,7 @@ var Convert;
                 6: 0,
                 7: 0
             },
+            valueOpacities: {},
             largestValue: 0,
             totalValue: 0
         };
@@ -2477,6 +2485,7 @@ var Convert;
                 }
             }
         }
+        Convert.valuesToOpacitiesOrder(t);
         return t;
     }
     function F(e) {
@@ -2514,21 +2523,19 @@ var Convert;
             }
         } else {
             const t = r.offsetHeight / a.largestValue;
-            const o = 1 / 12;
-            let s = o;
-            for (let l = e.startMonth; l < 12 + e.startMonth; l++) {
-                let c = l;
-                if (e.startMonth > 0 && l > 11) {
-                    c = l - 12;
+            for (let o = e.startMonth; o < 12 + e.startMonth; o++) {
+                let s = o;
+                if (e.startMonth > 0 && o > 11) {
+                    s = o - 12;
                 }
-                const u = c + 1;
-                if (a.values.hasOwnProperty(u) && Is.monthVisible(e.views.months.monthsToShow, c)) {
-                    W(r, u, a.values[u], e, t, s, a.totalValue);
+                const l = s + 1;
+                if (a.values.hasOwnProperty(l) && Is.monthVisible(e.views.months.monthsToShow, s)) {
+                    const o = a.valueOpacities[a.values[l]];
+                    W(r, l, a.values[l], e, t, o, a.totalValue);
                     if (e.views.months.showMonthNames) {
-                        DomElement.createWithHTML(i, "div", "month-name", n.text.monthNames[c]);
+                        DomElement.createWithHTML(i, "div", "month-name", n.text.monthNames[s]);
                     }
                 }
-                s += o;
             }
             if (e.views.months.showInReverseOrder) {
                 DomElement.reverseChildrenOrder(r);
@@ -2605,6 +2612,7 @@ var Convert;
                 11: 0,
                 12: 0
             },
+            valueOpacities: {},
             largestValue: 0,
             totalValue: 0
         };
@@ -2635,6 +2643,7 @@ var Convert;
                 }
             }
         }
+        Convert.valuesToOpacitiesOrder(t);
         return t;
     }
     function $(e) {

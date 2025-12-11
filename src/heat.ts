@@ -1490,19 +1490,17 @@ import { Convert } from "./ts/data/convert";
 
         } else {
             const pixelsPerNumbers: number = dayLines.offsetHeight / dayValuesForCurrentYear.largestValue;
-            const opacity: number = 1 / 7;
-            let opacityIncrease: number = opacity;
 
             for ( const day in dayValuesForCurrentYear.values ) {
                 if ( dayValuesForCurrentYear.values.hasOwnProperty( day ) && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
-                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ], bindingOptions, pixelsPerNumbers, opacityIncrease, dayValuesForCurrentYear.totalValue );
+                    const opacity: number = dayValuesForCurrentYear.valueOpacities[ dayValuesForCurrentYear.values[ day ] ];
+
+                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ], bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
                         DomElement.createWithHTML( dayNames, "div", "day-name", _configuration.text!.dayNames![ parseInt( day ) - 1 ] );
                     }
                 }
-
-                opacityIncrease += opacity;
             }
 
             if ( bindingOptions.views!.days!.showInReverseOrder ) {
@@ -1580,6 +1578,7 @@ import { Convert } from "./ts/data/convert";
                 6: 0,
                 7: 0,
             },
+            valueOpacities: {},
             largestValue: 0,
             totalValue: 0
         } as LargestValueForView;
@@ -1616,6 +1615,8 @@ import { Convert } from "./ts/data/convert";
                 }
             }
         }
+
+        Convert.valuesToOpacitiesOrder( result );
 
         return result;
     }
@@ -1673,8 +1674,6 @@ import { Convert } from "./ts/data/convert";
 
         } else {
             const pixelsPerNumbers: number = monthLines.offsetHeight / monthValuesForCurrentYear.largestValue;
-            const opacity: number = 1 / 12;
-            let opacityIncrease: number = opacity;
 
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
@@ -1686,14 +1685,14 @@ import { Convert } from "./ts/data/convert";
                 const monthToShow: number = actualMonthIndex + 1;
 
                 if ( monthValuesForCurrentYear.values.hasOwnProperty( monthToShow ) && Is.monthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
-                    renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ], bindingOptions, pixelsPerNumbers, opacityIncrease, monthValuesForCurrentYear.totalValue );
+                    const opacity: number = monthValuesForCurrentYear.valueOpacities[ monthValuesForCurrentYear.values[ monthToShow ] ];
+
+                    renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ], bindingOptions, pixelsPerNumbers, opacity, monthValuesForCurrentYear.totalValue );
 
                     if ( bindingOptions.views!.months!.showMonthNames ) {
                         DomElement.createWithHTML( monthNames, "div", "month-name", _configuration.text!.monthNames![ actualMonthIndex ] );
                     }
                 }
-
-                opacityIncrease += opacity;
             }
 
             if ( bindingOptions.views!.months!.showInReverseOrder ) {
@@ -1787,6 +1786,7 @@ import { Convert } from "./ts/data/convert";
                 11: 0,
                 12: 0,
             },
+            valueOpacities: {},
             largestValue: 0,
             totalValue: 0
         } as LargestValueForView;
@@ -1824,6 +1824,8 @@ import { Convert } from "./ts/data/convert";
                 }
             }
         }
+
+        Convert.valuesToOpacitiesOrder( result );
 
         return result;
     }

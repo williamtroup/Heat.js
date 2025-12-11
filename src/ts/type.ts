@@ -38,6 +38,7 @@ export type LargestValueForView = {
     values: Record<number, number>;
     largestValue: number;
     totalValue: number;
+    valueOpacities: Record<number, number>;
 };
 
 export type LargestValuesForEachRangeType = {
