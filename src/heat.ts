@@ -385,6 +385,7 @@ import { Convert } from "./ts/data/convert";
         bindingOptions._currentView!.exportDialogExportTypeSelect.name = crypto.randomUUID();
 
         bindingOptions._currentView!.exportDialogExportFilenameInput = DomElement.create( contents, "input", "input-box filename" ) as HTMLInputElement;
+        bindingOptions._currentView!.exportDialogExportFilenameInput.name = crypto.randomUUID();
         bindingOptions._currentView!.exportDialogExportFilenameInput.placeholder = _configuration.text!.filenamePlaceholderText!;
 
         bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox = DomElement.createCheckBox( contents, _configuration.text!.onlyDataBeingViewedText!, crypto.randomUUID() );

@@ -1584,6 +1584,7 @@ var Convert;
         e._currentView.exportDialogExportTypeSelect = DomElement.create(o, "select", "input-box");
         e._currentView.exportDialogExportTypeSelect.name = crypto.randomUUID();
         e._currentView.exportDialogExportFilenameInput = DomElement.create(o, "input", "input-box filename");
+        e._currentView.exportDialogExportFilenameInput.name = crypto.randomUUID();
         e._currentView.exportDialogExportFilenameInput.placeholder = n.text.filenamePlaceholderText;
         e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox = DomElement.createCheckBox(o, n.text.onlyDataBeingViewedText, crypto.randomUUID());
         e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked = e.exportOnlyDataBeingViewed;
