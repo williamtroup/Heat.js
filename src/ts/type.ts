@@ -202,7 +202,7 @@ export type BindingOptionsViewsMap = {
     showYearsInMonthNames?: boolean;
     allowZooming?: boolean;
     zoomLevel?: number;
-    showCountsInTooltips?: boolean;
+    showCountsInToolTips?: boolean;
 };
 
 export type BindingOptionsViewsChart = {
@@ -220,7 +220,7 @@ export type BindingOptionsViewsChart = {
     highlightCurrentDay?: boolean;
     dayToolTipText?: string;
     showYearsInMonthNames?: boolean;
-    showCountsInTooltips?: boolean;
+    showCountsInToolTips?: boolean;
 };
 
 export type BindingOptionsViewsDays = {

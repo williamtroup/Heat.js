@@ -688,7 +688,7 @@ var Binding;
             e.views.map.showYearsInMonthNames = Default2.getBoolean(e.views.map.showYearsInMonthNames, true);
             e.views.map.allowZooming = Default2.getBoolean(e.views.map.allowZooming, true);
             e.views.map.zoomLevel = Default2.getNumber(e.views.map.zoomLevel, 0);
-            e.views.map.showCountsInTooltips = Default2.getBoolean(e.views.map.showCountsInTooltips, true);
+            e.views.map.showCountsInToolTips = Default2.getBoolean(e.views.map.showCountsInToolTips, true);
             if (Is.invalidOptionArray(e.views.map.monthsToShow)) {
                 e.views.map.monthsToShow = t;
             }
@@ -711,7 +711,7 @@ var Binding;
             e.views.chart.highlightCurrentDay = Default2.getBoolean(e.views.chart.highlightCurrentDay, false);
             e.views.chart.dayToolTipText = Default2.getString(e.views.chart.dayToolTipText, "{d}{o} {mmmm} {yyyy}");
             e.views.chart.showYearsInMonthNames = Default2.getBoolean(e.views.chart.showYearsInMonthNames, true);
-            e.views.chart.showCountsInTooltips = Default2.getBoolean(e.views.chart.showCountsInTooltips, true);
+            e.views.chart.showCountsInToolTips = Default2.getBoolean(e.views.chart.showCountsInToolTips, true);
             if (Is.invalidOptionArray(e.views.chart.monthsToShow)) {
                 e.views.chart.monthsToShow = t;
             }
@@ -2105,7 +2105,7 @@ var Convert;
         m = Default2.getNumber(m, 0);
         l.setAttribute(Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber(a)}-${Str.padNumber(o + 1)}-${s}`);
         if (e.views.map.showToolTips) {
-            J(e, l, c, m, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, u.matched, e.views.map.showCountsInTooltips);
+            J(e, l, c, m, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, u.matched, e.views.map.showCountsInToolTips);
         }
         if (e.views.map.showDayCounts && m > 0) {
             l.innerHTML = Str.friendlyNumber(m);
@@ -2273,7 +2273,7 @@ var Convert;
         u = Default2.getNumber(u, 0);
         l.setAttribute(Constant.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${Str.padNumber(n)}-${Str.padNumber(o + 1)}-${i}`);
         if (t.views.chart.showToolTips) {
-            J(t, l, a, u, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, c.matched, t.views.chart.showCountsInTooltips);
+            J(t, l, a, u, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, c.matched, t.views.chart.showCountsInToolTips);
         }
         if (t.views.chart.showLineCounts && u > 0) {
             DomElement.addClass(l, "day-line-number");

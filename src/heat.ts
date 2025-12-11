@@ -1129,7 +1129,7 @@ import { Convert } from "./ts/data/convert";
         day.setAttribute( Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber(actualDay)}-${Str.padNumber(month + 1)}-${year}` );
 
         if ( bindingOptions.views!.map!.showToolTips ) {
-            renderDayToolTip( bindingOptions, day, date, dateCount, bindingOptions.views!.map!.dayToolTipText!, bindingOptions.events!.onMapDayToolTipRender!, holiday.matched, bindingOptions.views!.map!.showCountsInTooltips! );
+            renderDayToolTip( bindingOptions, day, date, dateCount, bindingOptions.views!.map!.dayToolTipText!, bindingOptions.events!.onMapDayToolTipRender!, holiday.matched, bindingOptions.views!.map!.showCountsInToolTips! );
         }
 
         if ( bindingOptions.views!.map!.showDayCounts && dateCount > 0 ) {
@@ -1353,7 +1353,7 @@ import { Convert } from "./ts/data/convert";
         dayLine.setAttribute( Constant.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${Str.padNumber(day)}-${Str.padNumber(month + 1)}-${year}` );
 
         if ( bindingOptions.views!.chart!.showToolTips ) {
-            renderDayToolTip( bindingOptions, dayLine, date, dateCount, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender!, holiday.matched, bindingOptions.views!.chart!.showCountsInTooltips! );
+            renderDayToolTip( bindingOptions, dayLine, date, dateCount, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender!, holiday.matched, bindingOptions.views!.chart!.showCountsInToolTips! );
         }
 
         if ( bindingOptions.views!.chart!.showLineCounts && dateCount > 0 ) {
