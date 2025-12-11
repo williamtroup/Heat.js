@@ -674,7 +674,7 @@ var Binding;
             e.views.map.showMonthDayGaps = Default2.getBoolean(e.views.map.showMonthDayGaps, true);
             e.views.map.showDayNames = Default2.getBoolean(e.views.map.showDayNames, true);
             e.views.map.placeMonthNamesOnTheBottom = Default2.getBoolean(e.views.map.placeMonthNamesOnTheBottom, false);
-            e.views.map.showDayNumbers = Default2.getBoolean(e.views.map.showDayNumbers, false);
+            e.views.map.showDayCounts = Default2.getBoolean(e.views.map.showDayCounts, false);
             e.views.map.showMonthNames = Default2.getBoolean(e.views.map.showMonthNames, true);
             e.views.map.showDaysInReverseOrder = Default2.getBoolean(e.views.map.showDaysInReverseOrder, false);
             e.views.map.showNoDataMessageWhenDataIsNotAvailable = Default2.getBoolean(e.views.map.showNoDataMessageWhenDataIsNotAvailable, false);
@@ -701,7 +701,7 @@ var Binding;
             e.views.chart.enabled = Default2.getBoolean(e.views.chart.enabled, true);
             e.views.chart.showChartYLabels = Default2.getBoolean(e.views.chart.showChartYLabels, true);
             e.views.chart.showMonthNames = Default2.getBoolean(e.views.chart.showMonthNames, true);
-            e.views.chart.showLineNumbers = Default2.getBoolean(e.views.chart.showLineNumbers, false);
+            e.views.chart.showLineCounts = Default2.getBoolean(e.views.chart.showLineCounts, false);
             e.views.chart.showInReverseOrder = Default2.getBoolean(e.views.chart.showInReverseOrder, false);
             e.views.chart.keepScrollPositions = Default2.getBoolean(e.views.chart.keepScrollPositions, false);
             e.views.chart.showLineDateNumbers = Default2.getBoolean(e.views.chart.showLineDateNumbers, false);
@@ -724,7 +724,7 @@ var Binding;
             e.views.days.showChartYLabels = Default2.getBoolean(e.views.days.showChartYLabels, true);
             e.views.days.showDayNames = Default2.getBoolean(e.views.days.showDayNames, true);
             e.views.days.showInReverseOrder = Default2.getBoolean(e.views.days.showInReverseOrder, false);
-            e.views.days.showDayNumbers = Default2.getBoolean(e.views.days.showDayNumbers, false);
+            e.views.days.showDayCounts = Default2.getBoolean(e.views.days.showDayCounts, false);
             e.views.days.keepScrollPositions = Default2.getBoolean(e.views.days.keepScrollPositions, false);
             e.views.days.showToolTips = Default2.getBoolean(e.views.days.showToolTips, true);
             e.views.days.useGradients = Default2.getBoolean(e.views.days.useGradients, false);
@@ -744,7 +744,7 @@ var Binding;
             e.views.months.showChartYLabels = Default2.getBoolean(e.views.months.showChartYLabels, true);
             e.views.months.showMonthNames = Default2.getBoolean(e.views.months.showMonthNames, true);
             e.views.months.showInReverseOrder = Default2.getBoolean(e.views.months.showInReverseOrder, false);
-            e.views.months.showMonthNumbers = Default2.getBoolean(e.views.months.showMonthNumbers, false);
+            e.views.months.showMonthCounts = Default2.getBoolean(e.views.months.showMonthCounts, false);
             e.views.months.keepScrollPositions = Default2.getBoolean(e.views.months.keepScrollPositions, false);
             e.views.months.showToolTips = Default2.getBoolean(e.views.months.showToolTips, true);
             e.views.months.useGradients = Default2.getBoolean(e.views.months.useGradients, false);
@@ -765,7 +765,7 @@ var Binding;
             e.views.statistics.showChartYLabels = Default2.getBoolean(e.views.statistics.showChartYLabels, true);
             e.views.statistics.showColorRangeLabels = Default2.getBoolean(e.views.statistics.showColorRangeLabels, true);
             e.views.statistics.useColorRangeNamesForLabels = Default2.getBoolean(e.views.statistics.useColorRangeNamesForLabels, false);
-            e.views.statistics.showRangeNumbers = Default2.getBoolean(e.views.statistics.showRangeNumbers, false);
+            e.views.statistics.showRangeCounts = Default2.getBoolean(e.views.statistics.showRangeCounts, false);
             e.views.statistics.showInReverseOrder = Default2.getBoolean(e.views.statistics.showInReverseOrder, false);
             e.views.statistics.keepScrollPositions = Default2.getBoolean(e.views.statistics.keepScrollPositions, false);
             e.views.statistics.showToolTips = Default2.getBoolean(e.views.statistics.showToolTips, true);
@@ -2105,7 +2105,7 @@ var Convert;
         if (e.views.map.showToolTips) {
             J(e, l, c, m, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, u.matched);
         }
-        if (e.views.map.showDayNumbers && m > 0) {
+        if (e.views.map.showDayCounts && m > 0) {
             l.innerHTML = Str.friendlyNumber(m);
         } else if (e.views.map.showDayDateNumbers) {
             l.innerHTML = a.toString();
@@ -2157,7 +2157,7 @@ var Convert;
         let i = DomElement.create(o, "div", "y-labels");
         const s = DomElement.create(o, "div", "day-lines");
         const r = me(e);
-        const a = B(e);
+        const a = N(e);
         const l = e._currentView.year;
         let c = 0;
         if (t) {
@@ -2203,7 +2203,7 @@ var Convert;
                         const n = new Date(c, a, l);
                         const d = DateTime.getWeekdayNumber(n) + 1;
                         if (Is.dayVisible(e.views.chart.daysToShow, d)) {
-                            const n = N(s, e, o + 1, a, c, r, t);
+                            const n = B(s, e, o + 1, a, c, r, t);
                             if (!m) {
                                 u.push(n);
                                 m = true;
@@ -2263,7 +2263,7 @@ var Convert;
             }
         }
     }
-    function N(e, t, n, o, i, s, r) {
+    function B(e, t, n, o, i, s, r) {
         const a = new Date(i, o, n);
         const l = DomElement.create(e, "div", "day-line");
         const c = Is.holiday(t, a);
@@ -2273,7 +2273,7 @@ var Convert;
         if (t.views.chart.showToolTips) {
             J(t, l, a, u, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, c.matched);
         }
-        if (t.views.chart.showLineNumbers && u > 0) {
+        if (t.views.chart.showLineCounts && u > 0) {
             DomElement.addClass(l, "day-line-number");
             l.innerHTML = Str.friendlyNumber(u);
         } else if (t.views.chart.showLineDateNumbers) {
@@ -2308,7 +2308,7 @@ var Convert;
         }
         return l;
     }
-    function B(e) {
+    function N(e) {
         let t = 0;
         const n = K(e);
         const o = e._currentView.year;
@@ -2408,7 +2408,7 @@ var Convert;
         } else {
             DomElement.addClass(a, "no-hover");
         }
-        if (o.views.days.showDayNumbers && n > 0) {
+        if (o.views.days.showDayCounts && n > 0) {
             DomElement.addClass(a, "day-line-number");
             const e = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
             if (o.views.days.showDayNumberPercentages) {
@@ -2557,7 +2557,7 @@ var Convert;
         } else {
             DomElement.addClass(a, "no-hover");
         }
-        if (o.views.months.showMonthNumbers && n > 0) {
+        if (o.views.months.showMonthCounts && n > 0) {
             DomElement.addClass(a, "month-line-number");
             const e = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
             if (o.views.months.showMonthNumberPercentages) {
@@ -2707,7 +2707,7 @@ var Convert;
         if (o.views.statistics.showToolTips) {
             ToolTip.add(a, o, Str.friendlyNumber(n));
         }
-        if (o.views.statistics.showRangeNumbers && n > 0) {
+        if (o.views.statistics.showRangeCounts && n > 0) {
             DomElement.addClass(a, "range-line-number");
             const e = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
             if (o.views.statistics.showRangeNumberPercentages) {

@@ -186,7 +186,7 @@ export type BindingOptionsViewsMap = {
     showMonthDayGaps?: boolean;
     showDayNames?: boolean;
     placeMonthNamesOnTheBottom?: boolean;
-    showDayNumbers?: boolean;
+    showDayCounts?: boolean;
     showMonthNames?: boolean;
     showDaysInReverseOrder?: boolean;
     showNoDataMessageWhenDataIsNotAvailable?: boolean;
@@ -208,7 +208,7 @@ export type BindingOptionsViewsChart = {
     enabled?: boolean;
     showChartYLabels?: boolean;
     showMonthNames?: boolean;
-    showLineNumbers?: boolean;
+    showLineCounts?: boolean;
     showInReverseOrder?: boolean;
     keepScrollPositions?: boolean;
     monthsToShow?: number[];
@@ -226,7 +226,7 @@ export type BindingOptionsViewsDays = {
     showChartYLabels?: boolean;
     showDayNames?: boolean;
     showInReverseOrder?: boolean;
-    showDayNumbers?: boolean;
+    showDayCounts?: boolean;
     keepScrollPositions?: boolean;
     monthsToShow?: number[];
     daysToShow?: number[];
@@ -241,7 +241,7 @@ export type BindingOptionsViewsMonths = {
     showChartYLabels?: boolean;
     showMonthNames?: boolean;
     showInReverseOrder?: boolean;
-    showMonthNumbers?: boolean;
+    showMonthCounts?: boolean;
     keepScrollPositions?: boolean;
     monthsToShow?: number[];
     daysToShow?: number[];
@@ -257,7 +257,7 @@ export type BindingOptionsViewsStatistics = {
     showChartYLabels?: boolean;
     showColorRangeLabels?: boolean;
     useColorRangeNamesForLabels?: boolean;
-    showRangeNumbers?: boolean;
+    showRangeCounts?: boolean;
     showInReverseOrder?: boolean;
     keepScrollPositions?: boolean;
     monthsToShow?: number[];

@@ -266,7 +266,7 @@ export namespace Binding {
             options.views!.map!.showMonthDayGaps = Default.getBoolean( options.views!.map!.showMonthDayGaps, true );
             options.views!.map!.showDayNames = Default.getBoolean( options.views!.map!.showDayNames, true );
             options.views!.map!.placeMonthNamesOnTheBottom = Default.getBoolean( options.views!.map!.placeMonthNamesOnTheBottom, false );
-            options.views!.map!.showDayNumbers = Default.getBoolean( options.views!.map!.showDayNumbers, false );
+            options.views!.map!.showDayCounts = Default.getBoolean( options.views!.map!.showDayCounts, false );
             options.views!.map!.showMonthNames = Default.getBoolean( options.views!.map!.showMonthNames, true );
             options.views!.map!.showDaysInReverseOrder = Default.getBoolean( options.views!.map!.showDaysInReverseOrder, false );
             options.views!.map!.showNoDataMessageWhenDataIsNotAvailable = Default.getBoolean( options.views!.map!.showNoDataMessageWhenDataIsNotAvailable, false );
@@ -297,7 +297,7 @@ export namespace Binding {
             options.views!.chart!.enabled = Default.getBoolean( options.views!.chart!.enabled, true );
             options.views!.chart!.showChartYLabels = Default.getBoolean( options.views!.chart!.showChartYLabels, true );
             options.views!.chart!.showMonthNames = Default.getBoolean( options.views!.chart!.showMonthNames, true );
-            options.views!.chart!.showLineNumbers = Default.getBoolean( options.views!.chart!.showLineNumbers, false );
+            options.views!.chart!.showLineCounts = Default.getBoolean( options.views!.chart!.showLineCounts, false );
             options.views!.chart!.showInReverseOrder = Default.getBoolean( options.views!.chart!.showInReverseOrder, false );
             options.views!.chart!.keepScrollPositions = Default.getBoolean( options.views!.chart!.keepScrollPositions, false );
             options.views!.chart!.showLineDateNumbers = Default.getBoolean( options.views!.chart!.showLineDateNumbers, false );
@@ -324,7 +324,7 @@ export namespace Binding {
             options.views!.days!.showChartYLabels = Default.getBoolean( options.views!.days!.showChartYLabels, true );
             options.views!.days!.showDayNames = Default.getBoolean( options.views!.days!.showDayNames, true );
             options.views!.days!.showInReverseOrder = Default.getBoolean( options.views!.days!.showInReverseOrder, false );
-            options.views!.days!.showDayNumbers = Default.getBoolean( options.views!.days!.showDayNumbers, false );
+            options.views!.days!.showDayCounts = Default.getBoolean( options.views!.days!.showDayCounts, false );
             options.views!.days!.keepScrollPositions = Default.getBoolean( options.views!.days!.keepScrollPositions, false );
             options.views!.days!.showToolTips = Default.getBoolean( options.views!.days!.showToolTips, true );
             options.views!.days!.useGradients = Default.getBoolean( options.views!.days!.useGradients, false );
@@ -348,7 +348,7 @@ export namespace Binding {
             options.views!.months!.showChartYLabels = Default.getBoolean( options.views!.months!.showChartYLabels, true );
             options.views!.months!.showMonthNames = Default.getBoolean( options.views!.months!.showMonthNames, true );
             options.views!.months!.showInReverseOrder = Default.getBoolean( options.views!.months!.showInReverseOrder, false );
-            options.views!.months!.showMonthNumbers = Default.getBoolean( options.views!.months!.showMonthNumbers, false );
+            options.views!.months!.showMonthCounts = Default.getBoolean( options.views!.months!.showMonthCounts, false );
             options.views!.months!.keepScrollPositions = Default.getBoolean( options.views!.months!.keepScrollPositions, false );
             options.views!.months!.showToolTips = Default.getBoolean( options.views!.months!.showToolTips, true );
             options.views!.months!.useGradients = Default.getBoolean( options.views!.months!.useGradients, false );
@@ -373,7 +373,7 @@ export namespace Binding {
             options.views!.statistics!.showChartYLabels = Default.getBoolean( options.views!.statistics!.showChartYLabels, true );
             options.views!.statistics!.showColorRangeLabels = Default.getBoolean( options.views!.statistics!.showColorRangeLabels, true );
             options.views!.statistics!.useColorRangeNamesForLabels = Default.getBoolean( options.views!.statistics!.useColorRangeNamesForLabels, false );
-            options.views!.statistics!.showRangeNumbers = Default.getBoolean( options.views!.statistics!.showRangeNumbers, false );
+            options.views!.statistics!.showRangeCounts = Default.getBoolean( options.views!.statistics!.showRangeCounts, false );
             options.views!.statistics!.showInReverseOrder = Default.getBoolean( options.views!.statistics!.showInReverseOrder, false );
             options.views!.statistics!.keepScrollPositions = Default.getBoolean( options.views!.statistics!.keepScrollPositions, false );
             options.views!.statistics!.showToolTips = Default.getBoolean( options.views!.statistics!.showToolTips, true );

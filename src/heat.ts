@@ -1132,7 +1132,7 @@ import { Convert } from "./ts/data/convert";
             renderDayToolTip( bindingOptions, day, date, dateCount, bindingOptions.views!.map!.dayToolTipText!, bindingOptions.events!.onMapDayToolTipRender!, holiday.matched );
         }
 
-        if ( bindingOptions.views!.map!.showDayNumbers && dateCount > 0 ) {
+        if ( bindingOptions.views!.map!.showDayCounts && dateCount > 0 ) {
             day.innerHTML = Str.friendlyNumber( dateCount );
         } else if ( bindingOptions.views!.map!.showDayDateNumbers ) {
             day.innerHTML = actualDay.toString();
@@ -1356,7 +1356,7 @@ import { Convert } from "./ts/data/convert";
             renderDayToolTip( bindingOptions, dayLine, date, dateCount, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender!, holiday.matched );
         }
 
-        if ( bindingOptions.views!.chart!.showLineNumbers && dateCount > 0 ) {
+        if ( bindingOptions.views!.chart!.showLineCounts && dateCount > 0 ) {
             DomElement.addClass( dayLine, "day-line-number" );
 
             dayLine.innerHTML = Str.friendlyNumber( dateCount );
@@ -1539,7 +1539,7 @@ import { Convert } from "./ts/data/convert";
             DomElement.addClass( dayLine, "no-hover" );
         }
 
-        if ( bindingOptions.views!.days!.showDayNumbers && dayCount > 0 ) {
+        if ( bindingOptions.views!.days!.showDayCounts && dayCount > 0 ) {
             DomElement.addClass( dayLine, "day-line-number" );
             const count: HTMLElement = DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dayCount ) );
 
@@ -1737,7 +1737,7 @@ import { Convert } from "./ts/data/convert";
             DomElement.addClass( monthLine, "no-hover" );
         }
 
-        if ( bindingOptions.views!.months!.showMonthNumbers && monthCount > 0 ) {
+        if ( bindingOptions.views!.months!.showMonthCounts && monthCount > 0 ) {
             DomElement.addClass( monthLine, "month-line-number" );
             const count: HTMLElement = DomElement.createWithHTML( monthLine, "div", "count", Str.friendlyNumber( monthCount ) );
 
@@ -1933,7 +1933,7 @@ import { Convert } from "./ts/data/convert";
             ToolTip.add( rangeLine, bindingOptions, Str.friendlyNumber( rangeCount ) );
         }
 
-        if ( bindingOptions.views!.statistics!.showRangeNumbers && rangeCount > 0 ) {
+        if ( bindingOptions.views!.statistics!.showRangeCounts && rangeCount > 0 ) {
             DomElement.addClass( rangeLine, "range-line-number" );
             const count: HTMLElement = DomElement.createWithHTML( rangeLine, "div", "count", Str.friendlyNumber( rangeCount ) );
 
