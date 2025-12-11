@@ -775,6 +775,7 @@ var Binding;
             e.views.statistics.showToolTips = Default2.getBoolean(e.views.statistics.showToolTips, true);
             e.views.statistics.useGradients = Default2.getBoolean(e.views.statistics.useGradients, false);
             e.views.statistics.showRangeNumberPercentages = Default2.getBoolean(e.views.statistics.showRangeNumberPercentages, true);
+            e.views.statistics.showRangeNamesInToolTips = Default2.getBoolean(e.views.statistics.showRangeNamesInToolTips, true);
             if (Is.invalidOptionArray(e.views.statistics.monthsToShow)) {
                 e.views.statistics.monthsToShow = t;
             }
@@ -2709,7 +2710,13 @@ var Convert;
             a.style.visibility = "hidden";
         }
         if (o.views.statistics.showToolTips) {
-            ToolTip.add(a, o, Str.friendlyNumber(n));
+            let e;
+            if (Is.defined(l) && Is.definedString(l.name) && o.views.statistics.showRangeNamesInToolTips) {
+                e = `${l.name}${":"}<b class="tooltip-count">${Str.friendlyNumber(n)}</b>`;
+            } else {
+                e = Str.friendlyNumber(n);
+            }
+            ToolTip.add(a, o, e);
         }
         if (o.views.statistics.showRangeCounts && n > 0) {
             DomElement.addClass(a, "range-line-number");

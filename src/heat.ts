@@ -1930,7 +1930,15 @@ import { Convert } from "./ts/data/convert";
         }
 
         if ( bindingOptions.views!.statistics!.showToolTips ) {
-            ToolTip.add( rangeLine, bindingOptions, Str.friendlyNumber( rangeCount ) );
+            let tooltip: string;
+
+            if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) && bindingOptions.views!.statistics!.showRangeNamesInToolTips ) {
+                tooltip = `${useColorRange.name}${Char.colon}<b class="tooltip-count">${Str.friendlyNumber( rangeCount )}</b>`;
+            } else {
+                tooltip = Str.friendlyNumber( rangeCount );
+            }
+
+            ToolTip.add( rangeLine, bindingOptions, tooltip );
         }
 
         if ( bindingOptions.views!.statistics!.showRangeCounts && rangeCount > 0 ) {

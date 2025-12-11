@@ -381,7 +381,8 @@ export namespace Binding {
             options.views!.statistics!.showToolTips = Default.getBoolean( options.views!.statistics!.showToolTips, true );
             options.views!.statistics!.useGradients = Default.getBoolean( options.views!.statistics!.useGradients, false );
             options.views!.statistics!.showRangeNumberPercentages = Default.getBoolean( options.views!.statistics!.showRangeNumberPercentages, true );
-    
+            options.views!.statistics!.showRangeNamesInToolTips = Default.getBoolean( options.views!.statistics!.showRangeNamesInToolTips, true );
+
             if ( Is.invalidOptionArray( options.views!.statistics!.monthsToShow ) ) {
                 options.views!.statistics!.monthsToShow = _default_MonthsToShow;
             }

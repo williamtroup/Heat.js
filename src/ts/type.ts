@@ -267,6 +267,7 @@ export type BindingOptionsViewsStatistics = {
     showToolTips?: boolean;
     useGradients?: boolean;
     showRangeNumberPercentages?: boolean;
+    showRangeNamesInToolTips?: boolean;
 };
 
 export type BindingOptionsTitle = {
