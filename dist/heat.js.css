@@ -954,6 +954,14 @@ div.heat-js div.map-contents-container div.map-contents div.map div.months div.m
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   transition: var(--heat-js-transition);
   transition-property: opacity, background-color, color, border-color;
+  flex-direction: column;
+}
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day div.count-date,
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day div.count {
+  display: block;
+}
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day div.count-date {
+  font-weight: var(--heat-js-sub-title-bold-weight);
 }
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:not(.no-hover):active {
   opacity: var(--heat-js-view-opacity-active) !important;
@@ -1061,6 +1069,14 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count {
   font-size: var(--heat-js-spacing-day-font-size);
   padding: calc(var(--heat-js-spacing) / 2);
   overflow: hidden;
+  flex-direction: column;
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.count-date,
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.count {
+  display: block;
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.count-date {
+  font-weight: var(--heat-js-sub-title-bold-weight);
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   border-top-left-radius: var(--heat-js-border-radius-day);

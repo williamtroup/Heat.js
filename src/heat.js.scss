@@ -938,6 +938,16 @@ div.heat-js {
                                     border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                                     transition: var(--heat-js-transition);
                                     transition-property: opacity, background-color, color, border-color;
+                                    flex-direction: column;
+
+                                    div.count-date,
+                                    div.count {
+                                        display: block;
+                                    }
+
+                                    div.count-date {
+                                        font-weight: var(--heat-js-sub-title-bold-weight);
+                                    }
 
                                     &:not(.no-hover):active {
                                         opacity: var(--heat-js-view-opacity-active) !important;
@@ -1002,6 +1012,16 @@ div.heat-js {
                     font-size: var(--heat-js-spacing-day-font-size);
                     padding: calc( var(--heat-js-spacing) / 2 );
                     overflow: hidden;
+                    flex-direction: column;
+
+                    div.count-date,
+                    div.count {
+                        display: block;
+                    }
+
+                    div.count-date {
+                        font-weight: var(--heat-js-sub-title-bold-weight);
+                    }
                 }
 
                 div.day-line {

@@ -1140,12 +1140,14 @@ import { Convert } from "./ts/data/convert";
         if ( bindingOptions.views!.map!.showToolTips ) {
             renderDayToolTip( bindingOptions, day, date, dateCount, bindingOptions.views!.map!.dayToolTipText!, bindingOptions.events!.onMapDayToolTipRender!, holiday.matched, bindingOptions.views!.map!.showCountsInToolTips! );
         }
+        
+        if ( bindingOptions.views!.map!.showDayDateNumbers ) {
+            DomElement.createWithHTML( day, "div", "count-date", `${actualDay.toString()}<sup>${DateTime.getDayOrdinal( _configurationOptions, actualDay )}</sup>` );
+        }
 
         if ( bindingOptions.views!.map!.showDayCounts && dateCount > 0 ) {
-            day.innerHTML = Str.friendlyNumber( dateCount );
-        } else if ( bindingOptions.views!.map!.showDayDateNumbers ) {
-            day.innerHTML = actualDay.toString();
-        }
+            DomElement.createWithHTML( day, "div", "count", Str.friendlyNumber( dateCount ) );
+        } 
 
         if ( Is.definedFunction( bindingOptions.events!.onMapDayClick ) ) {
             day.onclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayClick!, date, dateCount, holiday.matched );
@@ -1365,15 +1367,16 @@ import { Convert } from "./ts/data/convert";
             renderDayToolTip( bindingOptions, dayLine, date, dateCount, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender!, holiday.matched, bindingOptions.views!.chart!.showCountsInToolTips! );
         }
 
+        if ( bindingOptions.views!.chart!.showLineCounts || bindingOptions.views!.chart!.showLineDateNumbers ) {
+            DomElement.addClass( dayLine, "day-line-count" );
+        }
+
+        if ( bindingOptions.views!.chart!.showLineDateNumbers ) {
+            DomElement.createWithHTML( dayLine, "div", "count-date", `${day.toString()}<sup>${DateTime.getDayOrdinal( _configurationOptions, day )}</sup>` );
+        }
+
         if ( bindingOptions.views!.chart!.showLineCounts && dateCount > 0 ) {
-            DomElement.addClass( dayLine, "day-line-count" );
-
-            dayLine.innerHTML = Str.friendlyNumber( dateCount );
-            
-        } else if ( bindingOptions.views!.chart!.showLineDateNumbers ) {
-            DomElement.addClass( dayLine, "day-line-count" );
-
-            dayLine.innerHTML = day.toString();
+            DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dateCount ) );
         }
 
         const dayLineHeight: number = dateCount * pixelsPerNumbers;
