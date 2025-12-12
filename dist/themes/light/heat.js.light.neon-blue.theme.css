@@ -39,7 +39,7 @@
     /* View - Map / Chart - Day - Defaults */
     --heat-js-day-background-color: var(--heat-js-color-black);
     --heat-js-day-border-color: var(--heat-js-color-gray);
-    --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
+    --heat-js-day-background-color-hover: var(--heat-js-color-gray);
 
     /* View - Map / Chart - Day - Colors */
     --heat-js-day-color-1-background-color: rgba( 31, 81, 255, 0.25 );
