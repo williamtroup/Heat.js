@@ -1057,7 +1057,7 @@ div.heat-js div.chart-contents div.chart div.day-lines {
 div.heat-js div.chart-contents div.chart div.day-lines div.today {
   animation: highlight-effect 2s infinite;
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line-number {
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count {
   font-size: var(--heat-js-spacing-day-font-size);
   padding: calc(var(--heat-js-spacing) / 2);
   overflow: hidden;
@@ -1180,13 +1180,13 @@ div.heat-js div.days-contents div.days div.day-lines {
   height: 190px !important;
   overflow: hidden;
 }
-div.heat-js div.days-contents div.days div.day-lines div.day-line-number {
+div.heat-js div.days-contents div.days div.day-lines div.day-line-count {
   font-size: var(--heat-js-spacing-day-font-size);
   padding: calc(var(--heat-js-spacing) / 2);
   position: relative;
   overflow: hidden;
 }
-div.heat-js div.days-contents div.days div.day-lines div.day-line-number div.count {
+div.heat-js div.days-contents div.days div.day-lines div.day-line-count div.count {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1194,7 +1194,7 @@ div.heat-js div.days-contents div.days div.day-lines div.day-line-number div.cou
   color: var(--heat-js-view-days-text-color);
   text-align: center;
 }
-div.heat-js div.days-contents div.days div.day-lines div.day-line-number div.count div.percentage {
+div.heat-js div.days-contents div.days div.day-lines div.day-line-count div.count div.percentage {
   font-style: italic;
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line {
@@ -1315,13 +1315,13 @@ div.heat-js div.months-contents div.months div.month-lines {
 div.heat-js div.months-contents div.months div.month-lines div.today {
   animation: highlight-effect 2s infinite;
 }
-div.heat-js div.months-contents div.months div.month-lines div.month-line-number {
+div.heat-js div.months-contents div.months div.month-lines div.month-line-count {
   font-size: var(--heat-js-spacing-day-font-size);
   padding: calc(var(--heat-js-spacing) / 2);
   position: relative;
   overflow: hidden;
 }
-div.heat-js div.months-contents div.months div.month-lines div.month-line-number div.count {
+div.heat-js div.months-contents div.months div.month-lines div.month-line-count div.count {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1329,7 +1329,7 @@ div.heat-js div.months-contents div.months div.month-lines div.month-line-number
   color: var(--heat-js-view-months-text-color);
   text-align: center;
 }
-div.heat-js div.months-contents div.months div.month-lines div.month-line-number div.count div.percentage {
+div.heat-js div.months-contents div.months div.month-lines div.month-line-count div.count div.percentage {
   font-style: italic;
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line {
@@ -1447,20 +1447,20 @@ div.heat-js div.statistics-contents div.statistics div.range-lines {
   height: 190px !important;
   overflow: hidden;
 }
-div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line-number {
+div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line-count {
   font-size: var(--heat-js-spacing-day-font-size);
   padding: calc(var(--heat-js-spacing) / 2);
   position: relative;
   overflow: hidden;
 }
-div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line-number div.count {
+div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line-count div.count {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
 }
-div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line-number div.count div.percentage {
+div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line-count div.count div.percentage {
   font-style: italic;
 }
 div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line {

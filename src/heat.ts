@@ -1366,12 +1366,12 @@ import { Convert } from "./ts/data/convert";
         }
 
         if ( bindingOptions.views!.chart!.showLineCounts && dateCount > 0 ) {
-            DomElement.addClass( dayLine, "day-line-number" );
+            DomElement.addClass( dayLine, "day-line-count" );
 
             dayLine.innerHTML = Str.friendlyNumber( dateCount );
             
         } else if ( bindingOptions.views!.chart!.showLineDateNumbers ) {
-            DomElement.addClass( dayLine, "day-line-number" );
+            DomElement.addClass( dayLine, "day-line-count" );
 
             dayLine.innerHTML = day.toString();
         }
@@ -1547,7 +1547,7 @@ import { Convert } from "./ts/data/convert";
         }
 
         if ( bindingOptions.views!.days!.showDayCounts && dayCount > 0 ) {
-            DomElement.addClass( dayLine, "day-line-number" );
+            DomElement.addClass( dayLine, "day-line-count" );
             const count: HTMLElement = DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dayCount ) );
 
             if ( bindingOptions.views!.days!.showDayCountPercentages ) {
@@ -1746,7 +1746,7 @@ import { Convert } from "./ts/data/convert";
         }
 
         if ( bindingOptions.views!.months!.showMonthCounts && monthCount > 0 ) {
-            DomElement.addClass( monthLine, "month-line-number" );
+            DomElement.addClass( monthLine, "month-line-count" );
             const count: HTMLElement = DomElement.createWithHTML( monthLine, "div", "count", Str.friendlyNumber( monthCount ) );
 
             if ( bindingOptions.views!.months!.showMonthCountPercentages ) {
@@ -1953,7 +1953,7 @@ import { Convert } from "./ts/data/convert";
         }
 
         if ( bindingOptions.views!.statistics!.showRangeCounts && rangeCount > 0 ) {
-            DomElement.addClass( rangeLine, "range-line-number" );
+            DomElement.addClass( rangeLine, "range-line-count" );
             const count: HTMLElement = DomElement.createWithHTML( rangeLine, "div", "count", Str.friendlyNumber( rangeCount ) );
 
             if ( bindingOptions.views!.statistics!.showRangeCountPercentages ) {

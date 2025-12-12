@@ -2302,10 +2302,10 @@ var Convert;
             J(t, l, a, u, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, c.matched, t.views.chart.showCountsInToolTips);
         }
         if (t.views.chart.showLineCounts && u > 0) {
-            DomElement.addClass(l, "day-line-number");
+            DomElement.addClass(l, "day-line-count");
             l.innerHTML = Str.friendlyNumber(u);
         } else if (t.views.chart.showLineDateNumbers) {
-            DomElement.addClass(l, "day-line-number");
+            DomElement.addClass(l, "day-line-count");
             l.innerHTML = n.toString();
         }
         const m = u * r;
@@ -2435,7 +2435,7 @@ var Convert;
             DomElement.addClass(a, "no-hover");
         }
         if (o.views.days.showDayCounts && n > 0) {
-            DomElement.addClass(a, "day-line-number");
+            DomElement.addClass(a, "day-line-count");
             const e = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
             if (o.views.days.showDayCountPercentages) {
                 DomElement.createWithHTML(e, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
@@ -2584,7 +2584,7 @@ var Convert;
             DomElement.addClass(a, "no-hover");
         }
         if (o.views.months.showMonthCounts && n > 0) {
-            DomElement.addClass(a, "month-line-number");
+            DomElement.addClass(a, "month-line-count");
             const e = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
             if (o.views.months.showMonthCountPercentages) {
                 DomElement.createWithHTML(e, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
@@ -2742,7 +2742,7 @@ var Convert;
             ToolTip.add(a, o, e);
         }
         if (o.views.statistics.showRangeCounts && n > 0) {
-            DomElement.addClass(a, "range-line-number");
+            DomElement.addClass(a, "range-line-count");
             const e = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
             if (o.views.statistics.showRangeCountPercentages) {
                 DomElement.createWithHTML(e, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);

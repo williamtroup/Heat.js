@@ -998,7 +998,7 @@ div.heat-js {
                     animation: highlight-effect 2s infinite;
                 }
 
-                div.day-line-number {
+                div.day-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
                     padding: calc( var(--heat-js-spacing) / 2 );
                     overflow: hidden;
@@ -1095,7 +1095,7 @@ div.heat-js {
                 height: 190px !important;
                 overflow: hidden;
 
-                div.day-line-number {
+                div.day-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
                     padding: calc( var(--heat-js-spacing) / 2 );
                     position: relative;
@@ -1206,7 +1206,7 @@ div.heat-js {
                     animation: highlight-effect 2s infinite;
                 }
 
-                div.month-line-number {
+                div.month-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
                     padding: calc( var(--heat-js-spacing) / 2 );
                     position: relative;
@@ -1313,7 +1313,7 @@ div.heat-js {
                 height: 190px !important;
                 overflow: hidden;
 
-                div.range-line-number {
+                div.range-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
                     padding: calc( var(--heat-js-spacing) / 2 );
                     position: relative;
