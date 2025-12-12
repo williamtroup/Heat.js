@@ -1434,7 +1434,7 @@ var Convert;
         }
         ToolTip.renderControl(e);
         p(e);
-        V(e, n, o);
+        S(e, n, o);
         if (e.views.chart.enabled) {
             M(e, n);
             e._currentView.chartContents.style.display = "none";
@@ -1834,7 +1834,7 @@ var Convert;
             const a = Visible.months(e);
             const l = new Date(e._currentView.year, e.startMonth, 1);
             const c = new Date(e._currentView.year + 1, e.startMonth, 1);
-            const u = S(e, r, a, l, c);
+            const u = V(e, r, a, l, c);
             de(s, e);
             if (e.yearlyStatistics.showToday) {
                 let a = i[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(t)];
@@ -1857,7 +1857,7 @@ var Convert;
                     const n = DateTime.getDateForMondayOfCurrentWeek();
                     const o = new Date(n);
                     o.setDate(n.getDate() + 7);
-                    t = S(e, r, a, n, o);
+                    t = V(e, r, a, n, o);
                 }
                 const i = o ? Str.friendlyNumber(t) : n.text.unavailableText;
                 const l = DomElement.create(s, "div", "statistics-box");
@@ -1873,7 +1873,7 @@ var Convert;
                 if (o) {
                     const n = new Date(t.getFullYear(), t.getMonth(), 1);
                     const o = new Date(t.getFullYear(), t.getMonth(), DateTime.getTotalDaysInMonth(t.getFullYear(), t.getMonth()) + 1);
-                    i = S(e, r, a, n, o);
+                    i = V(e, r, a, n, o);
                 }
                 const l = o ? Str.friendlyNumber(i) : n.text.unavailableText;
                 const c = DomElement.create(s, "div", "statistics-box");
@@ -1902,7 +1902,7 @@ var Convert;
             DomElement.createWithHTML(t, "span", "percentage-bracket", ")");
         }
     }
-    function S(e, t, n, o, s) {
+    function V(e, t, n, o, s) {
         let r = 0;
         let a = new Date(o);
         while (a < s) {
@@ -1915,7 +1915,7 @@ var Convert;
         }
         return r;
     }
-    function V(e, t = false, o) {
+    function S(e, t = false, o) {
         e._currentView.mapContentsContainer = DomElement.create(e._currentView.element, "div", "map-contents-container");
         e._currentView.mapContents = DomElement.create(e._currentView.mapContentsContainer, "div", "map-contents");
         if (e.views.chart.enabled) {
@@ -2055,64 +2055,71 @@ var Convert;
         }
     }
     function C(e, t) {
+        const o = DomElement.getStyleValueByNameSizingMetic(document.documentElement, "--heat-js-day-size");
+        let i = DomElement.getStyleValueByName(document.documentElement, "--heat-js-day-size", true);
+        if (e._currentView.mapZoomIncrement === -1) {
+            e._currentView.mapZoomIncrement = i / 10;
+        }
         if (e.views.map.allowZooming) {
-            const o = DomElement.create(e._currentView.mapContentsContainer, "div", "zooming");
-            const i = DomElement.create(o, "div", "zoom-close-button");
-            const s = DomElement.createButton(o, "button", "zoom-out", n.text.zoomOutText);
-            const r = DomElement.createWithHTML(o, "span", "zoom-level", `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`);
-            const a = DomElement.createButton(o, "button", "zoom-in", n.text.zoomInText);
-            const c = DomElement.getStyleValueByName(document.documentElement, "--heat-js-spacing", true);
-            const u = DomElement.getStyleValueByNameSizingMetic(document.documentElement, "--heat-js-day-size");
-            let m = DomElement.getStyleValueByName(e._currentView.element, "--heat-js-day-size", true);
-            if (m === 0) {
-                m = DomElement.getStyleValueByName(document.documentElement, "--heat-js-day-size", true);
+            const s = DomElement.create(e._currentView.mapContentsContainer, "div", "zooming");
+            const r = DomElement.create(s, "div", "zoom-close-button");
+            const a = DomElement.createButton(s, "button", "zoom-out", n.text.zoomOutText);
+            const c = DomElement.createWithHTML(s, "span", "zoom-level", `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`);
+            const u = DomElement.createButton(s, "button", "zoom-in", n.text.zoomInText);
+            const m = DomElement.getStyleValueByName(document.documentElement, "--heat-js-spacing", true);
+            i = DomElement.getStyleValueByName(e._currentView.element, "--heat-js-day-size", true);
+            if (i === 0) {
+                i = DomElement.getStyleValueByName(document.documentElement, "--heat-js-day-size", true);
             }
-            if (e._currentView.mapZoomIncrement === -1) {
-                e._currentView.mapZoomIncrement = m / 10;
-            }
-            ToolTip.add(i, e, n.text.closeToolTipText);
-            ToolTip.add(a, e, n.text.zoomInToolTipText);
-            ToolTip.add(s, e, n.text.zoomOutToolTipText);
-            o.style.bottom = e._currentView.mapContentsContainer.offsetHeight - t.offsetHeight + "px";
+            ToolTip.add(r, e, n.text.closeToolTipText);
+            ToolTip.add(u, e, n.text.zoomInToolTipText);
+            ToolTip.add(a, e, n.text.zoomOutToolTipText);
+            s.style.bottom = e._currentView.mapContentsContainer.offsetHeight - t.offsetHeight + "px";
             if (e.views.map.zoomLevel > 0 && e._currentView.mapZoomLevel === -1) {
-                m += parseFloat((e.views.map.zoomLevel * e._currentView.mapZoomIncrement).toFixed(1));
+                i += parseFloat((e.views.map.zoomLevel * e._currentView.mapZoomIncrement).toFixed(1));
                 e._currentView.mapZoomLevel = e.views.map.zoomLevel;
-                e._currentView.element.style.setProperty("--heat-js-day-size", `${m}${u}`);
-                r.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
+                e._currentView.element.style.setProperty("--heat-js-day-size", `${i}${o}`);
+                c.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
             }
             if (e._currentView.mapZoomLevel === -1) {
                 e._currentView.mapZoomLevel = 0;
-                r.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
+                c.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
             }
-            e._currentView.mapContents.style.paddingRight = `${o.offsetWidth + c}px`;
-            s.disabled = e._currentView.mapZoomLevel === 0;
-            i.onclick = () => {
+            e._currentView.mapContents.style.paddingRight = `${s.offsetWidth + m}px`;
+            a.disabled = e._currentView.mapZoomLevel === 0;
+            r.onclick = () => {
                 e.views.map.allowZooming = false;
                 e._currentView.mapContents.style.paddingRight = "0px";
-                o.parentNode.removeChild(o);
+                s.parentNode.removeChild(s);
             };
-            a.onclick = () => {
-                m += e._currentView.mapZoomIncrement;
-                m = parseFloat(m.toFixed(1));
+            u.onclick = () => {
+                i += e._currentView.mapZoomIncrement;
+                i = parseFloat(i.toFixed(1));
                 e._currentView.mapZoomLevel++;
-                e._currentView.element.style.setProperty("--heat-js-day-size", `${m}${u}`);
-                s.disabled = false;
-                r.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
+                e._currentView.element.style.setProperty("--heat-js-day-size", `${i}${o}`);
+                a.disabled = false;
+                c.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
                 Trigger.customEvent(e.events.onMapZoomLevelChange, e._currentView.element, e._currentView.mapZoomLevel);
                 l(e, false, false, true);
             };
-            s.onclick = () => {
+            a.onclick = () => {
                 if (e._currentView.mapZoomLevel > 0) {
-                    m -= e._currentView.mapZoomIncrement;
-                    m = parseFloat(m.toFixed(1));
+                    i -= e._currentView.mapZoomIncrement;
+                    i = parseFloat(i.toFixed(1));
                     e._currentView.mapZoomLevel--;
-                    e._currentView.element.style.setProperty("--heat-js-day-size", `${m}${u}`);
-                    s.disabled = e._currentView.mapZoomLevel === 0;
-                    r.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
+                    e._currentView.element.style.setProperty("--heat-js-day-size", `${i}${o}`);
+                    a.disabled = e._currentView.mapZoomLevel === 0;
+                    c.innerText = `+${Str.friendlyNumber(e._currentView.mapZoomLevel * 10)}%`;
                     Trigger.customEvent(e.events.onMapZoomLevelChange, e._currentView.element, e._currentView.mapZoomLevel);
                     l(e, false, false, true);
                 }
             };
+        } else {
+            if (e.views.map.zoomLevel > 0 && e._currentView.mapZoomLevel === -1) {
+                i += parseFloat((e.views.map.zoomLevel * e._currentView.mapZoomIncrement).toFixed(1));
+                e._currentView.mapZoomLevel = e.views.map.zoomLevel;
+                e._currentView.element.style.setProperty("--heat-js-day-size", `${i}${o}`);
+            }
         }
     }
     function _(e, t, n, o, s, r) {

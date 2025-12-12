@@ -1035,6 +1035,13 @@ import { Convert } from "./ts/data/convert";
     }
 
     function renderControlMapZooming( bindingOptions: BindingOptions, map: HTMLElement ) : void {
+        const sizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, "--heat-js-day-size" );
+        let daySize: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-day-size", true );
+
+        if ( bindingOptions._currentView!.mapZoomIncrement === Value.notFound ) {
+            bindingOptions._currentView!.mapZoomIncrement = daySize / 10;
+        }
+
         if ( bindingOptions.views!.map!.allowZooming ) {
             const zooming: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "zooming" );
             const closeButton: HTMLElement = DomElement.create( zooming, "div", "zoom-close-button" ) as HTMLElement;
@@ -1042,15 +1049,11 @@ import { Convert } from "./ts/data/convert";
             const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%` ) as HTMLSpanElement;
             const zoomInButton: HTMLButtonElement = DomElement.createButton( zooming, "button", "zoom-in", _configuration.text!.zoomInText! );
             const spacing: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-spacing", true );
-            const sizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, "--heat-js-day-size" );
-            let daySize: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, "--heat-js-day-size", true );
+
+            daySize = DomElement.getStyleValueByName( bindingOptions._currentView!.element, "--heat-js-day-size", true );
 
             if ( daySize === 0 ) {
                 daySize = DomElement.getStyleValueByName( document.documentElement, "--heat-js-day-size", true );
-            }
-
-            if ( bindingOptions._currentView!.mapZoomIncrement === Value.notFound ) {
-                bindingOptions._currentView!.mapZoomIncrement = daySize / 10;
             }
 
             ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
@@ -1112,6 +1115,14 @@ import { Convert } from "./ts/data/convert";
                     renderControlContainer( bindingOptions, false, false, true );
                 }
             };
+
+        } else {
+            if ( bindingOptions.views!.map!.zoomLevel! > 0 && bindingOptions._currentView!.mapZoomLevel! === Value.notFound ) {
+                daySize += parseFloat( ( bindingOptions.views!.map!.zoomLevel! * bindingOptions._currentView!.mapZoomIncrement ).toFixed( 1 ) );
+
+                bindingOptions._currentView!.mapZoomLevel = bindingOptions.views!.map!.zoomLevel!;
+                bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
+            }
         }
     }
 
