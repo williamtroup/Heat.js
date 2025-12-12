@@ -174,26 +174,18 @@ import { Convert } from "./ts/data/convert";
 
         if ( bindingOptions.views!.chart!.enabled ) {
             renderControlChart( bindingOptions, isForViewSwitch );
-
-            bindingOptions._currentView!.chartContents.style.display = "none";
         }
 
         if ( bindingOptions.views!.days!.enabled ) {
             renderControlDays( bindingOptions, isForViewSwitch );
-
-            bindingOptions._currentView!.daysContents.style.display = "none";
         }
 
         if ( bindingOptions.views!.months!.enabled ) {
             renderControlMonths( bindingOptions, isForViewSwitch );
-
-            bindingOptions._currentView!.monthsContents.style.display = "none";
         }
 
         if ( bindingOptions.views!.statistics!.enabled ) {
             renderControlStatistics( bindingOptions, isForViewSwitch );
-
-            bindingOptions._currentView!.statisticsContents.style.display = "none";
         }
 
         bindingOptions._currentView!.mapContentsContainer.style.display = "none";
@@ -1354,6 +1346,8 @@ import { Convert } from "./ts/data/convert";
                 bindingOptions._currentView!.chartContents.scrollLeft = bindingOptions._currentView!.chartContentsScrollLeft;
             }
         }
+
+        bindingOptions._currentView!.chartContents.style.display = "none";
     }
 
     function renderControlChartDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number ) : HTMLElement {
@@ -1527,6 +1521,8 @@ import { Convert } from "./ts/data/convert";
                 bindingOptions._currentView!.daysContents.scrollLeft = bindingOptions._currentView!.daysContentsScrollLeft;
             }
         }
+
+        bindingOptions._currentView!.daysContents.style.display = "none";
     }
 
     function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number ) : void {
@@ -1719,6 +1715,8 @@ import { Convert } from "./ts/data/convert";
                 bindingOptions._currentView!.monthsContents.scrollLeft = bindingOptions._currentView!.monthsContentsScrollLeft;
             }
         }
+
+        bindingOptions._currentView!.monthsContents.style.display = "none";
     }
 
     function renderControlMonthsMonthLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number ) : void {
@@ -1929,6 +1927,8 @@ import { Convert } from "./ts/data/convert";
                 bindingOptions._currentView!.statisticsContents.scrollLeft = bindingOptions._currentView!.statisticsContentsScrollLeft;
             }
         }
+
+        bindingOptions._currentView!.statisticsContents.style.display = "none";
     }
 
     function renderControlStatisticsRangeLine( colorRangeMinimum: number, dayLines: HTMLElement, rangeCount: number, bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, totalValue: number ) : void {

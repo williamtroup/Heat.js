@@ -1441,19 +1441,15 @@ var Convert;
         S(e, n, o);
         if (e.views.chart.enabled) {
             M(e, n);
-            e._currentView.chartContents.style.display = "none";
         }
         if (e.views.days.enabled) {
             k(e, n);
-            e._currentView.daysContents.style.display = "none";
         }
         if (e.views.months.enabled) {
             $(e, n);
-            e._currentView.monthsContents.style.display = "none";
         }
         if (e.views.statistics.enabled) {
             P(e, n);
-            e._currentView.statisticsContents.style.display = "none";
         }
         e._currentView.mapContentsContainer.style.display = "none";
         if (e._currentView.view === 1) {
@@ -2295,6 +2291,7 @@ var Convert;
                 e._currentView.chartContents.scrollLeft = e._currentView.chartContentsScrollLeft;
             }
         }
+        e._currentView.chartContents.style.display = "none";
     }
     function B(e, t, o, i, s, r, a) {
         const l = new Date(s, i, o);
@@ -2422,6 +2419,7 @@ var Convert;
                 e._currentView.daysContents.scrollLeft = e._currentView.daysContentsScrollLeft;
             }
         }
+        e._currentView.daysContents.style.display = "none";
     }
     function L(e, t, n, o, i, s, r) {
         const a = DomElement.create(e, "div", "day-line");
@@ -2566,6 +2564,7 @@ var Convert;
                 e._currentView.monthsContents.scrollLeft = e._currentView.monthsContentsScrollLeft;
             }
         }
+        e._currentView.monthsContents.style.display = "none";
     }
     function H(e, t, n, o, i, s, r) {
         const a = DomElement.create(e, "div", "month-line");
@@ -2727,6 +2726,7 @@ var Convert;
                 e._currentView.statisticsContents.scrollLeft = e._currentView.statisticsContentsScrollLeft;
             }
         }
+        e._currentView.statisticsContents.style.display = "none";
     }
     function Y(e, t, n, o, i, s, r) {
         const a = DomElement.create(t, "div", "range-line");
