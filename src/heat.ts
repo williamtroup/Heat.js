@@ -1944,7 +1944,7 @@ import { Convert } from "./ts/data/convert";
             let tooltip: string;
 
             if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) && bindingOptions.views!.statistics!.showRangeNamesInToolTips ) {
-                tooltip = `${useColorRange.name}${Char.colon}<b class="tooltip-count">${Str.friendlyNumber( rangeCount )}</b>`;
+                tooltip = `${useColorRange.name}${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( rangeCount )}</b>`;
             } else {
                 tooltip = Str.friendlyNumber( rangeCount );
             }

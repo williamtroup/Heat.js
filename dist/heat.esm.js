@@ -2735,7 +2735,7 @@ var Convert;
         if (o.views.statistics.showToolTips) {
             let e;
             if (Is.defined(l) && Is.definedString(l.name) && o.views.statistics.showRangeNamesInToolTips) {
-                e = `${l.name}${":"}<b class="tooltip-count">${Str.friendlyNumber(n)}</b>`;
+                e = `${l.name}${":"}${" "}<b class="tooltip-count">${Str.friendlyNumber(n)}</b>`;
             } else {
                 e = Str.friendlyNumber(n);
             }
