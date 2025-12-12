@@ -47,14 +47,14 @@ export type LargestValuesForEachRangeType = {
     totalValue: number;
 };
 
-export type Configuration = {
+export type ConfigurationOptions = {
 	safeMode?: boolean;
 	domElementTypes?: string[] | string;
     observationMode?: boolean;
-    text?: ConfigurationText;
+    text?: ConfigurationOptionsText;
 };
 
-export type ConfigurationText = {
+export type ConfigurationOptionsText = {
     stText?: string;
     ndText?: string;
     rdText?: string;

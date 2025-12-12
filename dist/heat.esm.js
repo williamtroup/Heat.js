@@ -179,7 +179,7 @@ var Default2;
         return n;
     }
     Default.getStringOrArray = getStringOrArray;
-    function getObjectFromString(objectString, configuration) {
+    function getObjectFromString(objectString, configurationOptions) {
         const result = {
             parsed: true,
             object: null
@@ -195,8 +195,8 @@ var Default2;
                     result.object = result.object();
                 }
             } catch (e) {
-                if (!configuration.safeMode) {
-                    console.error(configuration.text.objectErrorText.replace("{{error_1}}", e1.message).replace("{{error_2}}", e.message));
+                if (!configurationOptions.safeMode) {
+                    console.error(configurationOptions.text.objectErrorText.replace("{{error_1}}", e1.message).replace("{{error_2}}", e.message));
                     result.parsed = false;
                 }
                 result.object = null;
@@ -1440,7 +1440,7 @@ var Convert;
             e._currentView.chartContents.style.display = "none";
         }
         if (e.views.days.enabled) {
-            O(e, n);
+            k(e, n);
             e._currentView.daysContents.style.display = "none";
         }
         if (e.views.months.enabled) {
@@ -1922,7 +1922,7 @@ var Convert;
             I(e);
         }
         if (e.views.days.enabled) {
-            k(e);
+            O(e);
         }
         if (e.views.months.enabled) {
             F(e);
@@ -2363,11 +2363,11 @@ var Convert;
         }
         return t;
     }
-    function k(e) {
+    function O(e) {
         e._currentView.daysContents = DomElement.create(e._currentView.element, "div", "days-contents");
         de(e._currentView.daysContents, e);
     }
-    function O(e, t) {
+    function k(e, t) {
         const o = DomElement.create(e._currentView.daysContents, "div", "days");
         const i = DomElement.create(e._currentView.daysContents, "div", "day-names");
         let s = DomElement.create(o, "div", "y-labels");

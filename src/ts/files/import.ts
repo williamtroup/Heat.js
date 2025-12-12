@@ -11,16 +11,16 @@
  */
 
 
-import { type Configuration, type InstanceTypeDateCount, type StringToJson } from "../type";
+import { type ConfigurationOptions, type InstanceTypeDateCount, type StringToJson } from "../type";
 import { Default } from "../data/default";
 import { Char, ImportType } from "../data/enum";
 import { Is } from "../data/is";
 
 
 export namespace Import {
-    export function file( inputFile: File, fileExtension: string, onLoadEndFunc: Function, configuration: Configuration ) : void {
+    export function file( inputFile: File, fileExtension: string, onLoadEndFunc: Function, configurationOptions: ConfigurationOptions ) : void {
         if ( fileExtension === ImportType.json ) {
-            json( inputFile, onLoadEndFunc, configuration );
+            json( inputFile, onLoadEndFunc, configurationOptions );
         } else if ( fileExtension === ImportType.txt ) {
             txt( inputFile, onLoadEndFunc );
         } else if ( fileExtension === ImportType.csv ) {
@@ -36,14 +36,14 @@ export namespace Import {
         }
     }
 
-    function json( file: File, onLoadEnd: Function, configuration: Configuration ) : void {
+    function json( file: File, onLoadEndFunc: Function, configurationOptions: ConfigurationOptions ) : void {
         const reader: FileReader = new FileReader();
         let readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        reader.onloadend = () => onLoadEnd( file.name, readingObject );
+        reader.onloadend = () => onLoadEndFunc( file.name, readingObject );
     
         reader.onload = ( ev: ProgressEvent<FileReader> ) => {
-            const json: StringToJson = Default.getObjectFromString( ev.target!.result, configuration );
+            const json: StringToJson = Default.getObjectFromString( ev.target!.result, configurationOptions );
 
             if ( json.parsed && Is.definedObject( json.object ) ) {
                 readingObject = json.object;
@@ -53,11 +53,11 @@ export namespace Import {
         reader.readAsText( file );
     }
 
-    function txt( file: File, onLoadEnd: Function ) : void {
+    function txt( file: File, onLoadEndFunc: Function ) : void {
         const reader: FileReader = new FileReader();
         const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        reader.onloadend = () => onLoadEnd( file.name, readingObject );
+        reader.onloadend = () => onLoadEndFunc( file.name, readingObject );
     
         reader.onload = ( ev: ProgressEvent<FileReader> ) => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
@@ -73,11 +73,11 @@ export namespace Import {
         reader.readAsText( file );
     }
 
-    function csv( file: File, onLoadEnd: Function ) : void {
+    function csv( file: File, onLoadEndFunc: Function ) : void {
         const reader: FileReader = new FileReader();
         const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        reader.onloadend = () => onLoadEnd( file.name, readingObject );
+        reader.onloadend = () => onLoadEndFunc( file.name, readingObject );
     
         reader.onload = ( ev: ProgressEvent<FileReader> ) => {
             const data: string = ev.target!.result!.toString().replace( new RegExp( "\"", "g" ), Char.empty );
@@ -97,11 +97,11 @@ export namespace Import {
         reader.readAsText( file );
     }
 
-    function tsv( file: File, onLoadEnd: Function ) : void {
+    function tsv( file: File, onLoadEndFunc: Function ) : void {
         const reader: FileReader = new FileReader();
         const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        reader.onloadend = () => onLoadEnd( file.name, readingObject );
+        reader.onloadend = () => onLoadEndFunc( file.name, readingObject );
     
         reader.onload = ( ev: ProgressEvent<FileReader> ) => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
@@ -117,11 +117,11 @@ export namespace Import {
         reader.readAsText( file );
     }
 
-    function md( file: File, onLoadEnd: Function ) : void {
+    function md( file: File, onLoadEndFunc: Function ) : void {
         const reader: FileReader = new FileReader();
         const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        reader.onloadend = () => onLoadEnd( file.name, readingObject );
+        reader.onloadend = () => onLoadEndFunc( file.name, readingObject );
     
         reader.onload = ( ev: ProgressEvent<FileReader> ) => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
@@ -139,11 +139,11 @@ export namespace Import {
         reader.readAsText( file );
     }
 
-    function yaml( file: File, onLoadEnd: Function ) : void {
+    function yaml( file: File, onLoadEndFunc: Function ) : void {
         const reader: FileReader = new FileReader();
         const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        reader.onloadend = () => onLoadEnd( file.name, readingObject );
+        reader.onloadend = () => onLoadEndFunc( file.name, readingObject );
     
         reader.onload = ( ev: ProgressEvent<FileReader> ) => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
@@ -159,11 +159,11 @@ export namespace Import {
         reader.readAsText( file );
     }
 
-    function toml( file: File, onLoadEnd: Function ) : void {
+    function toml( file: File, onLoadEndFunc: Function ) : void {
         const reader: FileReader = new FileReader();
         const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        reader.onloadend = () => onLoadEnd( file.name, readingObject );
+        reader.onloadend = () => onLoadEndFunc( file.name, readingObject );
     
         reader.onload = ( ev: ProgressEvent<FileReader> ) => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );

@@ -11,7 +11,7 @@
  */
 
 
-import { type Configuration } from "../type";
+import { type ConfigurationOptions } from "../type";
 import { Char } from "./enum";
 import { Str } from "./str";
 
@@ -25,31 +25,31 @@ export namespace DateTime {
         return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
     }
 
-    export function getDayOrdinal( configuration: Configuration, value: number ) : string {
-        let result: string = configuration.text!.thText!;
+    export function getDayOrdinal( configurationOptions: ConfigurationOptions, value: number ) : string {
+        let result: string = configurationOptions.text!.thText!;
 
         if ( value === 31 || value === 21 || value === 1 ) {
-            result = configuration.text!.stText!;
+            result = configurationOptions.text!.stText!;
         } else if ( value === 22 || value === 2 ) {
-            result = configuration.text!.ndText!;
+            result = configurationOptions.text!.ndText!;
         } else if ( value === 23 || value === 3 ) {
-            result = configuration.text!.rdText!;
+            result = configurationOptions.text!.rdText!;
         }
 
         return result;
     }
 
-    export function getCustomFormattedDateText( configuration: Configuration, dateFormat: string, date: Date ) : string {
+    export function getCustomFormattedDateText( configurationOptions: ConfigurationOptions, dateFormat: string, date: Date ) : string {
         let result: string = dateFormat;
         const weekDayNumber: number = getWeekdayNumber( date );
 
-        result = result.replace( "{dddd}", configuration.text!.dayNames![ weekDayNumber ] );
+        result = result.replace( "{dddd}", configurationOptions.text!.dayNames![ weekDayNumber ] );
         result = result.replace( "{dd}", Str.padNumber( date.getDate() ) );
         result = result.replace( "{d}", date.getDate().toString() );
 
-        result = result.replace( "{o}", getDayOrdinal( configuration, date.getDate() ) );
+        result = result.replace( "{o}", getDayOrdinal( configurationOptions, date.getDate() ) );
 
-        result = result.replace( "{mmmm}", configuration.text!.monthNames![ date.getMonth() ] );
+        result = result.replace( "{mmmm}", configurationOptions.text!.monthNames![ date.getMonth() ] );
         result = result.replace( "{mm}", Str.padNumber( date.getMonth() + 1 ) );
         result = result.replace( "{m}", ( date.getMonth() + 1 ).toString() );
 

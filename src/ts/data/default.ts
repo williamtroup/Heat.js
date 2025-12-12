@@ -11,7 +11,7 @@
  */
 
 
-import { type Configuration, type StringToJson } from "../type";
+import { type ConfigurationOptions, type StringToJson } from "../type";
 import { Char } from "./enum";
 import { Is } from "./is";
 
@@ -68,7 +68,7 @@ export namespace Default {
         return result;
     }
 
-    export function getObjectFromString( objectString: any, configuration: Configuration ) : StringToJson {
+    export function getObjectFromString( objectString: any, configurationOptions: ConfigurationOptions ) : StringToJson {
         const result: StringToJson = {
             parsed: true,
             object: null
@@ -88,8 +88,8 @@ export namespace Default {
                 }
                 
             } catch ( e2: any ) {
-                if ( !configuration.safeMode ) {
-                    console.error( configuration.text!.objectErrorText!.replace( "{{error_1}}",  e1.message ).replace( "{{error_2}}",  e2.message ) );
+                if ( !configurationOptions.safeMode ) {
+                    console.error( configurationOptions.text!.objectErrorText!.replace( "{{error_1}}",  e1.message ).replace( "{{error_2}}",  e2.message ) );
                     result.parsed = false;
                 }
                 

@@ -12,7 +12,7 @@
 
 
 import {
-    type Configuration,
+    type ConfigurationOptions,
     type BindingOptionsColorRange,
     type BindingOptions,
     type InstanceTypeDateCount,
@@ -45,7 +45,7 @@ import { Convert } from "./ts/data/convert";
     const _internal_Name_Holiday: string = "HOLIDAY";
     const _internal_Name_Local_Storage_Start_ID: string = "HJS_";
 
-    let _configuration: Configuration = {} as Configuration;
+    let _configurationOptions: ConfigurationOptions = {} as ConfigurationOptions;
     let _mutationObserver: MutationObserver = null! as MutationObserver;
     let _elements_InstanceData: InstanceData = {} as InstanceData;
 
@@ -57,7 +57,7 @@ import { Convert } from "./ts/data/convert";
      */
 
     function render() : void {
-        const tagTypes: string[] = _configuration.domElementTypes as string[];
+        const tagTypes: string[] = _configurationOptions.domElementTypes as string[];
         const tagTypesLength: number = tagTypes.length;
 
         for ( let tagTypeIndex: number = 0; tagTypeIndex < tagTypesLength; tagTypeIndex++ ) {
@@ -80,21 +80,21 @@ import { Convert } from "./ts/data/convert";
             const bindingOptionsData: string = element.getAttribute( Constant.HEAT_JS_ATTRIBUTE_NAME )!;
 
             if ( Is.definedString( bindingOptionsData ) ) {
-                const bindingOptions: StringToJson = Default.getObjectFromString( bindingOptionsData, _configuration );
+                const bindingOptions: StringToJson = Default.getObjectFromString( bindingOptionsData, _configurationOptions );
 
                 if ( bindingOptions.parsed && Is.definedObject( bindingOptions.object ) ) {
-                    renderControl( Binding.Options.getForNewInstance( _configuration, bindingOptions.object, element ) );
+                    renderControl( Binding.Options.getForNewInstance( _configurationOptions, bindingOptions.object, element ) );
 
                 } else {
-                    if ( !_configuration.safeMode ) {
-                        console.error( _configuration.text!.attributeNotValidErrorText!.replace( "{{attribute_name}}", Constant.HEAT_JS_ATTRIBUTE_NAME ) );
+                    if ( !_configurationOptions.safeMode ) {
+                        console.error( _configurationOptions.text!.attributeNotValidErrorText!.replace( "{{attribute_name}}", Constant.HEAT_JS_ATTRIBUTE_NAME ) );
                         result = false;
                     }
                 }
 
             } else {
-                if ( !_configuration.safeMode ) {
-                    console.error( _configuration.text!.attributeNotSetErrorText!.replace( "{{attribute_name}}", Constant.HEAT_JS_ATTRIBUTE_NAME ) );
+                if ( !_configurationOptions.safeMode ) {
+                    console.error( _configurationOptions.text!.attributeNotSetErrorText!.replace( "{{attribute_name}}", Constant.HEAT_JS_ATTRIBUTE_NAME ) );
                     result = false;
                 }
             }
@@ -242,9 +242,9 @@ import { Convert } from "./ts/data/convert";
         const daysContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
         const monthsContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
 
-        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.text!.configurationTitleText! );
-        DomElement.createWithHTML( daysContainer, "div", "side-container-title-text", `${_configuration.text!.visibleDaysText}${Char.colon}` );
-        DomElement.createWithHTML( monthsContainer, "div", "side-container-title-text", `${_configuration.text!.visibleMonthsText}${Char.colon}` );
+        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.configurationTitleText! );
+        DomElement.createWithHTML( daysContainer, "div", "side-container-title-text", `${_configurationOptions.text!.visibleDaysText}${Char.colon}` );
+        DomElement.createWithHTML( monthsContainer, "div", "side-container-title-text", `${_configurationOptions.text!.visibleMonthsText}${Char.colon}` );
 
         const months1Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
         const months2Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
@@ -252,7 +252,7 @@ import { Convert } from "./ts/data/convert";
         closeButton.onclick = () => hideConfigurationDialog( bindingOptions );
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
-            bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configuration.text!.dayNames![ dayIndex ], dayIndex.toString() );
+            bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configurationOptions.text!.dayNames![ dayIndex ], dayIndex.toString() );
         }
 
         let monthContainer: HTMLElement = months1Container;
@@ -265,7 +265,7 @@ import { Convert } from "./ts/data/convert";
                 actualMonthIndex = monthIndex - 12;
             }
 
-            bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ actualMonthIndex ] = DomElement.createCheckBox( monthContainer, _configuration.text!.monthNames![ actualMonthIndex ], actualMonthIndex.toString() );
+            bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ actualMonthIndex ] = DomElement.createCheckBox( monthContainer, _configurationOptions.text!.monthNames![ actualMonthIndex ], actualMonthIndex.toString() );
             monthContainerIndex++;
 
             if ( monthContainerIndex > 6 ) {
@@ -273,7 +273,7 @@ import { Convert } from "./ts/data/convert";
             }
         }
 
-        ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
+        ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeToolTipText! );
     }
 
     function showConfigurationDialog( bindingOptions: BindingOptions ) : void {
@@ -379,20 +379,20 @@ import { Convert } from "./ts/data/convert";
         const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.exportDialog, "div", "dialog-contents" );
         const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
 
-        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configuration.text!.selectTypeText! );
+        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.selectTypeText! );
 
         bindingOptions._currentView!.exportDialogExportTypeSelect = DomElement.create( contents, "select", "input-box" ) as HTMLSelectElement;
         bindingOptions._currentView!.exportDialogExportTypeSelect.name = crypto.randomUUID();
 
         bindingOptions._currentView!.exportDialogExportFilenameInput = DomElement.create( contents, "input", "input-box filename" ) as HTMLInputElement;
         bindingOptions._currentView!.exportDialogExportFilenameInput.name = crypto.randomUUID();
-        bindingOptions._currentView!.exportDialogExportFilenameInput.placeholder = _configuration.text!.filenamePlaceholderText!;
+        bindingOptions._currentView!.exportDialogExportFilenameInput.placeholder = _configurationOptions.text!.filenamePlaceholderText!;
 
-        bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox = DomElement.createCheckBox( contents, _configuration.text!.onlyDataBeingViewedText!, crypto.randomUUID() );
+        bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox = DomElement.createCheckBox( contents, _configurationOptions.text!.onlyDataBeingViewedText!, crypto.randomUUID() );
         bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked = bindingOptions.exportOnlyDataBeingViewed!;
 
         const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-        const okButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configuration.text!.exportButtonText! );
+        const okButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.exportButtonText! );
 
         renderExportDialogOptions( bindingOptions );
 
@@ -414,7 +414,7 @@ import { Convert } from "./ts/data/convert";
         okButton.onclick = () => exportDataFunc();
         closeButton.onclick = () => hideExportDialog( bindingOptions );
 
-        ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
+        ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeToolTipText! );
     }
 
     function renderExportDialogOptions( bindingOptions: BindingOptions ) : void {
@@ -487,17 +487,17 @@ import { Convert } from "./ts/data/convert";
                     DomElement.createWithHTML( title, "span", "section-text", "[" );
 
                     if ( bindingOptions._currentView!.view === ViewId.map ) {
-                        DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.mapText! );
+                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.mapText! );
                     } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-                        DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.chartText! );
+                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.chartText! );
                     } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
-                        DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.daysText! );
+                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.daysText! );
                     } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
-                        DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.monthsText! );
+                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.monthsText! );
                     } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-                        DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.colorRangesText! );
+                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.colorRangesText! );
                     } else {
-                        DomElement.createWithHTML( title, "span", "section-text-name", _configuration.text!.mapText! );
+                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.mapText! );
                     }
 
                     DomElement.createWithHTML( title, "span", "section-text", "]" );
@@ -509,28 +509,28 @@ import { Convert } from "./ts/data/convert";
             }
 
             if ( bindingOptions.title!.showImportButton && !bindingOptions._currentView!.isInFetchMode ) {
-                const importData: HTMLButtonElement = DomElement.createButton( titleBar, "button", "import", _configuration.text!.importButtonSymbolText! );
+                const importData: HTMLButtonElement = DomElement.createButton( titleBar, "button", "import", _configurationOptions.text!.importButtonSymbolText! );
                 importData.onclick = () => importFromFilesSelected( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
-                    ToolTip.add( importData, bindingOptions, _configuration.text!.importButtonText! );
+                    ToolTip.add( importData, bindingOptions, _configurationOptions.text!.importButtonText! );
                 }
             }
 
             if ( bindingOptions.title!.showExportButton ) {
-                const exportData: HTMLButtonElement = DomElement.createButton( titleBar, "button", "export", _configuration.text!.exportButtonSymbolText! );
+                const exportData: HTMLButtonElement = DomElement.createButton( titleBar, "button", "export", _configurationOptions.text!.exportButtonSymbolText! );
                 exportData.onclick = () => showExportDialog( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
-                    ToolTip.add( exportData, bindingOptions, _configuration.text!.exportButtonText! );
+                    ToolTip.add( exportData, bindingOptions, _configurationOptions.text!.exportButtonText! );
                 }
             }
 
             if ( bindingOptions.title!.showRefreshButton ) {
-                const refresh: HTMLButtonElement = DomElement.createButton( titleBar, "button", "refresh", _configuration.text!.refreshButtonSymbolText! );
+                const refresh: HTMLButtonElement = DomElement.createButton( titleBar, "button", "refresh", _configurationOptions.text!.refreshButtonSymbolText! );
 
                 if ( bindingOptions.title!.showToolTips ) {
-                    ToolTip.add( refresh, bindingOptions, _configuration.text!.refreshButtonText! );
+                    ToolTip.add( refresh, bindingOptions, _configurationOptions.text!.refreshButtonText! );
                 }
         
                 refresh.onclick = () => {
@@ -540,11 +540,11 @@ import { Convert } from "./ts/data/convert";
             }
     
             if ( bindingOptions.title!.showYearSelector ) {
-                const back: HTMLButtonElement = DomElement.createButton( titleBar, "button", "back", _configuration.text!.backButtonSymbolText! );
+                const back: HTMLButtonElement = DomElement.createButton( titleBar, "button", "back", _configurationOptions.text!.backButtonSymbolText! );
                 back.onclick = () => moveToPreviousYear( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
-                    ToolTip.add( back, bindingOptions, _configuration.text!.backButtonText! );
+                    ToolTip.add( back, bindingOptions, _configurationOptions.text!.backButtonText! );
                 }
 
                 if ( Is.firstVisibleYear( bindingOptions, bindingOptions._currentView!.year ) ) {
@@ -570,15 +570,15 @@ import { Convert } from "./ts/data/convert";
                     configureButton.onclick = () => showConfigurationDialog( bindingOptions );
 
                     if ( bindingOptions.title!.showToolTips ) {
-                        ToolTip.add( configureButton, bindingOptions, _configuration.text!.configurationToolTipText! );
+                        ToolTip.add( configureButton, bindingOptions, _configurationOptions.text!.configurationToolTipText! );
                     }
                 }
 
                 if ( bindingOptions.title!.showCurrentYearButton ) {
-                    const current: HTMLButtonElement = DomElement.createButton( titleBar, "button", "current", _configuration.text!.currentYearSymbolText! );
+                    const current: HTMLButtonElement = DomElement.createButton( titleBar, "button", "current", _configurationOptions.text!.currentYearSymbolText! );
 
                     if ( bindingOptions.title!.showToolTips ) {
-                        ToolTip.add( current, bindingOptions, _configuration.text!.currentYearText! );
+                        ToolTip.add( current, bindingOptions, _configurationOptions.text!.currentYearText! );
                     }
     
                     current.onclick = () => {
@@ -589,11 +589,11 @@ import { Convert } from "./ts/data/convert";
                     };
                 }
 
-                const next: HTMLButtonElement = DomElement.createButton( titleBar, "button", "next", _configuration.text!.nextButtonSymbolText! );
+                const next: HTMLButtonElement = DomElement.createButton( titleBar, "button", "next", _configurationOptions.text!.nextButtonSymbolText! );
                 next.onclick = () => moveToNextYear( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
-                    ToolTip.add( next, bindingOptions, _configuration.text!.nextButtonText! );
+                    ToolTip.add( next, bindingOptions, _configurationOptions.text!.nextButtonText! );
                 }
 
                 if ( Is.lastVisibleYear( bindingOptions, bindingOptions._currentView!.year ) ) {
@@ -608,15 +608,15 @@ import { Convert } from "./ts/data/convert";
         const titlesMenu: HTMLElement = DomElement.create( titlesMenuContainer, "div", "titles-menu" );
         
         if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-            DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configuration.text!.dataText}${Char.colon}` );
+            DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configurationOptions.text!.dataText}${Char.colon}` );
         }
 
-        const menuItemMap: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.mapText! );
+        const menuItemMap: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configurationOptions.text!.mapText! );
             
         renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, ViewId.map, ViewName.map );
 
         if ( bindingOptions.views!.chart!.enabled ) {
-            const menuItemChart = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.chartText! );
+            const menuItemChart = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configurationOptions.text!.chartText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, ViewId.chart, ViewName.chart );
         }
@@ -625,30 +625,30 @@ import { Convert } from "./ts/data/convert";
 
         if ( bindingOptions.views!.days!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-                yearsHeader = DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configuration.text!.yearText}${Char.colon}` );
+                yearsHeader = DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configurationOptions.text!.yearText}${Char.colon}` );
             }
 
-            const menuItemDays: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.daysText! );
+            const menuItemDays: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configurationOptions.text!.daysText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemDays, ViewId.days, ViewName.days );
         }
 
         if ( bindingOptions.views!.months!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders && !Is.defined( yearsHeader ) ) {
-                yearsHeader = DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configuration.text!.yearText}${Char.colon}` );
+                yearsHeader = DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configurationOptions.text!.yearText}${Char.colon}` );
             }
 
-            const menuItemMonths: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.monthsText! );
+            const menuItemMonths: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configurationOptions.text!.monthsText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMonths, ViewId.months, ViewName.months );
         }
 
         if ( bindingOptions.views!.statistics!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders ) {
-                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configuration.text!.statisticsText}${Char.colon}` );
+                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configurationOptions.text!.statisticsText}${Char.colon}` );
             }
 
-            const menuItemStatistics: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configuration.text!.colorRangesText! );
+            const menuItemStatistics: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configurationOptions.text!.colorRangesText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemStatistics, ViewId.statistics, ViewName.statistics );
         }
@@ -746,9 +746,9 @@ import { Convert } from "./ts/data/convert";
                     todaysCount = 0;
                 }
 
-                const todayCountText: string = isCurrentYear ? Str.friendlyNumber( todaysCount ) : _configuration.text!.unavailableText!;
+                const todayCountText: string = isCurrentYear ? Str.friendlyNumber( todaysCount ) : _configurationOptions.text!.unavailableText!;
 
-                DomElement.createWithHTML( todaysBox, "div", "statistics-box-title", `${_configuration.text!.todayText!}${Char.colon}` );
+                DomElement.createWithHTML( todaysBox, "div", "statistics-box-title", `${_configurationOptions.text!.todayText!}${Char.colon}` );
                 const boxCount: HTMLElement = DomElement.createWithHTML( todaysBox, "div", "statistics-box-count", todayCountText );
 
                 if ( !isCurrentYear ) {
@@ -769,10 +769,10 @@ import { Convert } from "./ts/data/convert";
                     weekCount = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfWeek, endOfWeek );
                 }
 
-                const weekCountText: string = isCurrentYear ? Str.friendlyNumber( weekCount ) : _configuration.text!.unavailableText!;
+                const weekCountText: string = isCurrentYear ? Str.friendlyNumber( weekCount ) : _configurationOptions.text!.unavailableText!;
                 const weekBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
-                DomElement.createWithHTML( weekBox, "div", "statistics-box-title", `${_configuration.text!.thisWeekText!}${Char.colon}` );
+                DomElement.createWithHTML( weekBox, "div", "statistics-box-title", `${_configurationOptions.text!.thisWeekText!}${Char.colon}` );
                 const boxCount: HTMLElement = DomElement.createWithHTML( weekBox, "div", "statistics-box-count", weekCountText );
 
                 if ( !isCurrentYear ) {
@@ -792,10 +792,10 @@ import { Convert } from "./ts/data/convert";
                     monthCount = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfMonth, endOfMonth );
                 }
 
-                const monthCountText: string = isCurrentYear ? Str.friendlyNumber( monthCount ) : _configuration.text!.unavailableText!;
+                const monthCountText: string = isCurrentYear ? Str.friendlyNumber( monthCount ) : _configurationOptions.text!.unavailableText!;
                 const monthBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
-                DomElement.createWithHTML( monthBox, "div", "statistics-box-title", `${_configuration.text!.thisMonthText!}${Char.colon}` );
+                DomElement.createWithHTML( monthBox, "div", "statistics-box-title", `${_configurationOptions.text!.thisMonthText!}${Char.colon}` );
                 const boxCount: HTMLElement = DomElement.createWithHTML( monthBox, "div", "statistics-box-count", monthCountText );
 
                 if ( !isCurrentYear ) {
@@ -808,7 +808,7 @@ import { Convert } from "./ts/data/convert";
             if ( bindingOptions.yearlyStatistics!.showThisYear ) {
                 const yearBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
 
-                DomElement.createWithHTML( yearBox, "div", "statistics-box-title", `${_configuration.text!.thisYearText!}${Char.colon}` );
+                DomElement.createWithHTML( yearBox, "div", "statistics-box-title", `${_configurationOptions.text!.thisYearText!}${Char.colon}` );
                 DomElement.createWithHTML( yearBox, "div", "statistics-box-count", Str.friendlyNumber( yearCount ) );
             }
 
@@ -876,7 +876,7 @@ import { Convert } from "./ts/data/convert";
         renderControlViewGuide( bindingOptions );
 
         if ( bindingOptions.views!.map!.showNoDataMessageWhenDataIsNotAvailable && !isDataAvailableForYear( bindingOptions ) ) {
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.mapContents, "div", "no-data-message", _configuration.text!.noMapDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.mapContents, "div", "no-data-message", _configurationOptions.text!.noMapDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
@@ -903,7 +903,7 @@ import { Convert } from "./ts/data/convert";
         
                 for ( let dayNameIndex: number = 0; dayNameIndex < 7; dayNameIndex++ ) {
                     if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, dayNameIndex + 1 ) ) {
-                        const dayNameText: string = !showMinimalDays || dayNameIndex % 3 === 0 ? _configuration.text!.dayNames![ dayNameIndex ] : Char.space;
+                        const dayNameText: string = !showMinimalDays || dayNameIndex % 3 === 0 ? _configurationOptions.text!.dayNames![ dayNameIndex ] : Char.space;
                         const dayName: HTMLElement = DomElement.createWithHTML( days, "div", "day-name", dayNameText );
 
                         if ( bindingOptions.views!.days!.enabled ) {
@@ -982,7 +982,7 @@ import { Convert } from "./ts/data/convert";
                         let monthName: HTMLElement;
                         const monthWidth: number = month.offsetWidth;
 
-                        let monthNameText: string = _configuration.text!.monthNames![ actualMonthIndex ];
+                        let monthNameText: string = _configurationOptions.text!.monthNames![ actualMonthIndex ];
 
                         if ( bindingOptions.startMonth! > 0 && bindingOptions.views!.map!.showYearsInMonthNames ) {
                             monthNameText += `${Char.space}${actualYear}`;
@@ -1045,9 +1045,9 @@ import { Convert } from "./ts/data/convert";
         if ( bindingOptions.views!.map!.allowZooming ) {
             const zooming: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "zooming" );
             const closeButton: HTMLElement = DomElement.create( zooming, "div", "zoom-close-button" ) as HTMLElement;
-            const zoomOutButton: HTMLButtonElement = DomElement.createButton( zooming, "button", "zoom-out", _configuration.text!.zoomOutText! );
+            const zoomOutButton: HTMLButtonElement = DomElement.createButton( zooming, "button", "zoom-out", _configurationOptions.text!.zoomOutText! );
             const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%` ) as HTMLSpanElement;
-            const zoomInButton: HTMLButtonElement = DomElement.createButton( zooming, "button", "zoom-in", _configuration.text!.zoomInText! );
+            const zoomInButton: HTMLButtonElement = DomElement.createButton( zooming, "button", "zoom-in", _configurationOptions.text!.zoomInText! );
             const spacing: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-spacing", true );
 
             daySize = DomElement.getStyleValueByName( bindingOptions._currentView!.element, "--heat-js-day-size", true );
@@ -1056,9 +1056,9 @@ import { Convert } from "./ts/data/convert";
                 daySize = DomElement.getStyleValueByName( document.documentElement, "--heat-js-day-size", true );
             }
 
-            ToolTip.add( closeButton, bindingOptions, _configuration.text!.closeToolTipText! );
-            ToolTip.add( zoomInButton, bindingOptions, _configuration.text!.zoomInToolTipText! );
-            ToolTip.add( zoomOutButton, bindingOptions, _configuration.text!.zoomOutToolTipText! );
+            ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeToolTipText! );
+            ToolTip.add( zoomInButton, bindingOptions, _configurationOptions.text!.zoomInToolTipText! );
+            ToolTip.add( zoomOutButton, bindingOptions, _configurationOptions.text!.zoomOutToolTipText! );
 
             zooming.style.bottom = bindingOptions._currentView!.mapContentsContainer.offsetHeight - map.offsetHeight + "px";
 
@@ -1240,7 +1240,7 @@ import { Convert } from "./ts/data/convert";
             bindingOptions._currentView!.chartContents.style.minHeight = `${bindingOptions._currentView!.mapContents.offsetHeight}px`;
             chart.parentNode!.removeChild( chart );
 
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.chartContents, "div", "no-data-message", _configuration.text!.noChartDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.chartContents, "div", "no-data-message", _configurationOptions.text!.noChartDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
@@ -1310,7 +1310,7 @@ import { Convert } from "./ts/data/convert";
                     }
 
                     if ( Is.monthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) ) {
-                        let monthNameText: string = _configuration.text!.monthNames![ actualMonthIndex ];
+                        let monthNameText: string = _configurationOptions.text!.monthNames![ actualMonthIndex ];
 
                         if ( bindingOptions.startMonth! > 0 && bindingOptions.views!.chart!.showYearsInMonthNames ) {
                             monthNameText += `${Char.space}${actualYear}`;
@@ -1491,7 +1491,7 @@ import { Convert } from "./ts/data/convert";
             days.parentNode!.removeChild( days );
             dayNames.parentNode!.removeChild( dayNames );
 
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.daysContents, "div", "no-days-message", _configuration.text!.noDaysDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.daysContents, "div", "no-days-message", _configurationOptions.text!.noDaysDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
@@ -1507,7 +1507,7 @@ import { Convert } from "./ts/data/convert";
                     renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ], bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
-                        DomElement.createWithHTML( dayNames, "div", "day-name", _configuration.text!.dayNames![ parseInt( day ) - 1 ] );
+                        DomElement.createWithHTML( dayNames, "div", "day-name", _configurationOptions.text!.dayNames![ parseInt( day ) - 1 ] );
                     }
                 }
             }
@@ -1675,7 +1675,7 @@ import { Convert } from "./ts/data/convert";
             months.parentNode!.removeChild( months );
             monthNames.parentNode!.removeChild( monthNames );
 
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.monthsContents, "div", "no-months-message", _configuration.text!.noMonthsDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.monthsContents, "div", "no-months-message", _configurationOptions.text!.noMonthsDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
@@ -1699,7 +1699,7 @@ import { Convert } from "./ts/data/convert";
                     renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ], bindingOptions, pixelsPerNumbers, opacity, monthValuesForCurrentYear.totalValue );
 
                     if ( bindingOptions.views!.months!.showMonthNames ) {
-                        DomElement.createWithHTML( monthNames, "div", "month-name", _configuration.text!.monthNames![ actualMonthIndex ] );
+                        DomElement.createWithHTML( monthNames, "div", "month-name", _configurationOptions.text!.monthNames![ actualMonthIndex ] );
                     }
                 }
             }
@@ -1885,7 +1885,7 @@ import { Convert } from "./ts/data/convert";
             statistics.parentNode!.removeChild( statistics );
             statisticsRanges.parentNode!.removeChild( statisticsRanges );
 
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.statisticsContents, "div", "no-statistics-message", _configuration.text!.noStatisticsDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.statisticsContents, "div", "no-statistics-message", _configurationOptions.text!.noStatisticsDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
@@ -2055,8 +2055,8 @@ import { Convert } from "./ts/data/convert";
         const mapTypes: HTMLElement = DomElement.create( guide, "div", "map-types" );
         let noneTypeCount: number = 0;
 
-        for ( const storageDate in _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configuration.text!.unknownTrendText! ] ) {
-            if ( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configuration.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
+        for ( const storageDate in _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configurationOptions.text!.unknownTrendText! ] ) {
+            if ( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configurationOptions.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
                 noneTypeCount++;
                 break;
             }
@@ -2070,8 +2070,8 @@ import { Convert } from "./ts/data/convert";
             }
 
             for ( const type in _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData ) {
-                if ( type !== _configuration.text!.unknownTrendText || noneTypeCount > 0 ) {
-                    if ( noneTypeCount === 0 && bindingOptions._currentView!.type === _configuration.text!.unknownTrendText ) {
+                if ( type !== _configurationOptions.text!.unknownTrendText || noneTypeCount > 0 ) {
+                    if ( noneTypeCount === 0 && bindingOptions._currentView!.type === _configurationOptions.text!.unknownTrendText ) {
                         bindingOptions._currentView!.type = type;
                     }
 
@@ -2087,7 +2087,7 @@ import { Convert } from "./ts/data/convert";
             const mapToggles: HTMLElement = DomElement.create( guide, "div", "map-toggles" );
 
             if ( bindingOptions.guide!.showLessAndMoreLabels ) {
-                let lessText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "less-text", _configuration.text!.lessText! );
+                let lessText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "less-text", _configurationOptions.text!.lessText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
                     lessText.onclick = () => updateColorRangeToggles( bindingOptions, false );
@@ -2105,7 +2105,7 @@ import { Convert } from "./ts/data/convert";
             }
 
             if ( bindingOptions.guide!.showLessAndMoreLabels ) {
-                const moreText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "more-text", _configuration.text!.moreText! );
+                const moreText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "more-text", _configurationOptions.text!.moreText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
                     moreText.onclick = () => updateColorRangeToggles( bindingOptions, true );
@@ -2191,7 +2191,7 @@ import { Convert } from "./ts/data/convert";
             ToolTip.add( day, bindingOptions, Trigger.customEvent( tooltipRenderFunc, date, dateCount, isHoliday ) );
         } else {
 
-            let tooltip: string = DateTime.getCustomFormattedDateText( _configuration, tooltipFormat, date );
+            let tooltip: string = DateTime.getCustomFormattedDateText( _configurationOptions, tooltipFormat, date );
 
             if ( bindingOptions.showHolidaysInDayToolTips ) {
                 let holiday: IsHoliday = Is.holiday( bindingOptions, date );
@@ -2230,7 +2230,7 @@ import { Convert } from "./ts/data/convert";
             totalTypes: 1,
         };
 
-        _elements_InstanceData[ elementId ].typeData[ _configuration.text!.unknownTrendText! ] = {} as InstanceTypeDateCount;
+        _elements_InstanceData[ elementId ].typeData[ _configurationOptions.text!.unknownTrendText! ] = {} as InstanceTypeDateCount;
 
         if ( storeLocalData && !bindingOptions._currentView!.isInFetchMode ) {
             loadDataFromLocalStorage( bindingOptions );
@@ -2282,7 +2282,7 @@ import { Convert } from "./ts/data/convert";
 
                 if ( Str.startsWithAnyCase( key, _internal_Name_Local_Storage_Start_ID ) ) {
                     const typesJson: string = window.localStorage.getItem( key )!;
-                    const typesObject: StringToJson = Default.getObjectFromString( typesJson, _configuration );
+                    const typesObject: StringToJson = Default.getObjectFromString( typesJson, _configurationOptions );
 
                     if ( typesObject.parsed ) {
                         _elements_InstanceData[ elementId ].typeData = typesObject.object;
@@ -2362,11 +2362,11 @@ import { Convert } from "./ts/data/convert";
 
             for ( const storageDate in typeDateCounts ) {
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    if ( !_elements_InstanceData[ elementId ].typeData[ _configuration.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
-                        _elements_InstanceData[ elementId ].typeData[ _configuration.text!.unknownTrendText! ][ storageDate ] = 0;
+                    if ( !_elements_InstanceData[ elementId ].typeData[ _configurationOptions.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
+                        _elements_InstanceData[ elementId ].typeData[ _configurationOptions.text!.unknownTrendText! ][ storageDate ] = 0;
                     }
             
-                    _elements_InstanceData[ elementId ].typeData[ _configuration.text!.unknownTrendText! ][ storageDate ] += typeDateCounts[ storageDate ];
+                    _elements_InstanceData[ elementId ].typeData[ _configurationOptions.text!.unknownTrendText! ][ storageDate ] += typeDateCounts[ storageDate ];
                 }
             }
         }
@@ -2386,7 +2386,7 @@ import { Convert } from "./ts/data/convert";
             }
         }
 
-        if ( _configuration.observationMode && Is.defined( _mutationObserver ) ) {
+        if ( _configurationOptions.observationMode && Is.defined( _mutationObserver ) ) {
             _mutationObserver.disconnect();
             _mutationObserver = null!;
         }
@@ -2567,7 +2567,7 @@ import { Convert } from "./ts/data/convert";
             const file: File = files[ fileIndex ];
             const fileExtension: string = file!.name!.split( "." )!.pop()!.toLowerCase();
 
-            Import.file( file, fileExtension, onLoadEndFunc, _configuration );
+            Import.file( file, fileExtension, onLoadEndFunc, _configurationOptions );
         }
     }
 
@@ -2582,14 +2582,14 @@ import { Convert } from "./ts/data/convert";
         const contentExportType: string = Default.getString( exportType, bindingOptions.exportType! ).toLowerCase();
         const contentsMimeType: string = Export.File.mimeType( contentExportType );
         const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, exportOnlyDataBeingViewed );
-        const contents: string = Export.Contents.get( contentExportType, typeDateCounts, _configuration );
+        const contents: string = Export.Contents.get( contentExportType, typeDateCounts, _configurationOptions );
 
         if ( Is.definedString( contents ) ) {
             const tempLink: HTMLElement = DomElement.create( document.body, "a" );
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
             tempLink.setAttribute( "href", `data:${contentsMimeType};charset=utf-8,${encodeURIComponent(contents)}` );
-            tempLink.setAttribute( "download", Export.File.filename( _configuration, bindingOptions, exportFilename, contentExportType ) );
+            tempLink.setAttribute( "download", Export.File.filename( _configurationOptions, bindingOptions, exportFilename, contentExportType ) );
             tempLink.click();
             
             document.body.removeChild( tempLink );
@@ -2740,7 +2740,7 @@ import { Convert } from "./ts/data/convert";
     }
 
     function setupObservationMode() : void {
-        if ( _configuration.observationMode ) {
+        if ( _configurationOptions.observationMode ) {
             if ( !Is.defined( _mutationObserver ) ) {
                 _mutationObserver = new MutationObserver( ( _1: any, _2: any ) => {
                     _public.renderAll();
@@ -2780,7 +2780,7 @@ import { Convert } from "./ts/data/convert";
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
-                    type = Default.getString( type, _configuration.text!.unknownTrendText! );
+                    type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
 
                     const datesLength: number = dates.length;
         
@@ -2802,7 +2802,7 @@ import { Convert } from "./ts/data/convert";
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
-                    type = Default.getString( type, _configuration.text!.unknownTrendText! );
+                    type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
 
                     const storageDate: string = DateTime.toStorageDate( date );
         
@@ -2836,7 +2836,7 @@ import { Convert } from "./ts/data/convert";
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {    
-                        type = Default.getString( type, _configuration.text!.unknownTrendText! );
+                        type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
 
                         _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ] = count;
         
@@ -2857,7 +2857,7 @@ import { Convert } from "./ts/data/convert";
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
-                    type = Default.getString( type, _configuration.text!.unknownTrendText! );
+                    type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
 
                     const datesLength: number = dates.length;
         
@@ -2882,7 +2882,7 @@ import { Convert } from "./ts/data/convert";
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) && _elements_InstanceData[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
-                        type = Default.getString( type, _configuration.text!.unknownTrendText! );
+                        type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
 
                         if ( _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ] > 0 ) {
                             _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ]--;
@@ -2908,7 +2908,7 @@ import { Convert } from "./ts/data/convert";
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( _elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) && _elements_InstanceData[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
-                        type = Default.getString( type, _configuration.text!.unknownTrendText! );
+                        type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
 
                         delete _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ];
         
@@ -2939,7 +2939,7 @@ import { Convert } from "./ts/data/convert";
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
-                    bindingOptions._currentView!.type = _configuration.text!.unknownTrendText!;
+                    bindingOptions._currentView!.type = _configurationOptions.text!.unknownTrendText!;
         
                     createInstanceDataForElement( elementId, bindingOptions, false );
                     Trigger.customEvent( bindingOptions.events!.onReset!, bindingOptions._currentView!.element );
@@ -3131,7 +3131,7 @@ import { Convert } from "./ts/data/convert";
 
         render: function ( element: HTMLElement, options: BindingOptions ) : PublicApi {
             if ( Is.definedObject( element ) && Is.definedObject( options ) ) {
-                renderControl( Binding.Options.getForNewInstance(_configuration, options, element ) );
+                renderControl( Binding.Options.getForNewInstance(_configurationOptions, options, element ) );
             }
     
             return _public;
@@ -3271,17 +3271,17 @@ import { Convert } from "./ts/data/convert";
         setConfiguration: function ( newConfiguration: any, triggerRefresh: boolean = true ) : PublicApi {
             if ( Is.definedObject( newConfiguration ) ) {
                 let configurationHasChanged: boolean = false;
-                const newInternalConfiguration: any = _configuration;
+                const newInternalConfiguration: any = _configurationOptions;
             
                 for ( const propertyName in newConfiguration ) {
-                    if ( newConfiguration.hasOwnProperty( propertyName ) && _configuration.hasOwnProperty( propertyName ) && newInternalConfiguration[ propertyName ] !== newConfiguration[ propertyName ] ) {
+                    if ( newConfiguration.hasOwnProperty( propertyName ) && _configurationOptions.hasOwnProperty( propertyName ) && newInternalConfiguration[ propertyName ] !== newConfiguration[ propertyName ] ) {
                         newInternalConfiguration[ propertyName ] = newConfiguration[ propertyName ];
                         configurationHasChanged = true;
                     }
                 }
         
                 if ( configurationHasChanged ) {
-                    _configuration = Config.Options.get( newInternalConfiguration );
+                    _configurationOptions = Config.Options.get( newInternalConfiguration );
 
                     setupObservationMode();
         
@@ -3326,7 +3326,7 @@ import { Convert } from "./ts/data/convert";
      */
 
     ( () => {
-        _configuration = Config.Options.get();
+        _configurationOptions = Config.Options.get();
 
         document.addEventListener( "DOMContentLoaded", () => {
             setupObservationMode();

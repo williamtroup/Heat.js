@@ -25,7 +25,7 @@ import {
     type BindingOptionsViewsStatistics,
     type BindingOptionsEvents, 
     type BindingOptionsCurrentView,
-    type Configuration, 
+    type ConfigurationOptions, 
     type BindingOptionsViews,
     type BindingOptionsYearlyStatistics,
     type BindingOptionsViewsMonths } from "../type";
@@ -40,7 +40,7 @@ export namespace Binding {
         const _default_MonthsToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
         const _default_DaysToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7 ];
 
-        export function getForNewInstance( configuration: Configuration, data: any, element: HTMLElement ) : BindingOptions {
+        export function getForNewInstance( configurationOptions: ConfigurationOptions, data: any, element: HTMLElement ) : BindingOptions {
             const bindingOptions: BindingOptions = get( data );
             const view: string = Default.getString( bindingOptions.view, Char.empty ).toLowerCase();
     
@@ -55,7 +55,7 @@ export namespace Binding {
             bindingOptions._currentView.mapContents = null!;
             bindingOptions._currentView.mapContentsScrollLeft = 0;
             bindingOptions._currentView.year = bindingOptions.year!;
-            bindingOptions._currentView.type = configuration.text!.unknownTrendText!;
+            bindingOptions._currentView.type = configurationOptions.text!.unknownTrendText!;
             bindingOptions._currentView.isInFetchMode = Is.definedFunction( bindingOptions.events!.onDataFetch );
             bindingOptions._currentView.isInFetchModeTimer = 0;
             bindingOptions._currentView.yearsAvailable = [];
@@ -93,52 +93,52 @@ export namespace Binding {
             return bindingOptions;
         }
 
-        export function get( newOptions: any ) : BindingOptions {
-            const options: BindingOptions = Default.getObject( newOptions, {} as BindingOptions );
-            options.views = Default.getObject( options.views, {} as BindingOptionsViews );
-            options.exportOnlyDataBeingViewed = Default.getBoolean( options.exportOnlyDataBeingViewed, true );
-            options.year = Default.getNumber( options.year, new Date().getFullYear() );
-            options.view = Default.getString( options.view, ViewName.map );
-            options.exportType = Default.getString( options.exportType, ExportType.json );
-            options.useLocalStorageForData = Default.getBoolean( options.useLocalStorageForData, false );
-            options.allowFileImports = Default.getBoolean( options.allowFileImports, true );
-            options.yearsToHide = Default.getArray( options.yearsToHide, [] );
-            options.dataFetchDelay = Default.getNumber( options.dataFetchDelay, 60000 );
-            options.showOnlyDataForYearsAvailable = Default.getBoolean( options.showOnlyDataForYearsAvailable, false );
-            options.showHolidaysInDayToolTips = Default.getBoolean( options.showHolidaysInDayToolTips, false );
-            options.resizable = Default.getBoolean( options.resizable, false );
-            options.startMonth = Default.getNumberInRange( options.startMonth, 0, 11, 0 );
-            options.allowMultipleFileImports = Default.getBoolean( options.allowMultipleFileImports, true );
-            options.percentageDecimalPoints = Default.getNumber( options.percentageDecimalPoints, 2 );
-            options.colorRanges = getColorRanges( options );
-            options.holidays = getHolidays( options );
-            options.title = getTitle( options );
-            options.description = getDescription( options );
-            options.guide = getGuide( options );
-            options.tooltip = getToolTip( options );
-            options.views!.map = getMapView( options );
-            options.views!.chart = getChartView( options );
-            options.views!.days = getDaysView( options );
-            options.views!.months = getMonthsView( options );
-            options.views!.statistics = getStatisticsView( options );
-            options.yearlyStatistics = getYearlyStatistics( options );
-            options.events = getCustomTriggers( options );
+        export function get( newBindingOptions: any ) : BindingOptions {
+            const bindingOptions: BindingOptions = Default.getObject( newBindingOptions, {} as BindingOptions );
+            bindingOptions.views = Default.getObject( bindingOptions.views, {} as BindingOptionsViews );
+            bindingOptions.exportOnlyDataBeingViewed = Default.getBoolean( bindingOptions.exportOnlyDataBeingViewed, true );
+            bindingOptions.year = Default.getNumber( bindingOptions.year, new Date().getFullYear() );
+            bindingOptions.view = Default.getString( bindingOptions.view, ViewName.map );
+            bindingOptions.exportType = Default.getString( bindingOptions.exportType, ExportType.json );
+            bindingOptions.useLocalStorageForData = Default.getBoolean( bindingOptions.useLocalStorageForData, false );
+            bindingOptions.allowFileImports = Default.getBoolean( bindingOptions.allowFileImports, true );
+            bindingOptions.yearsToHide = Default.getArray( bindingOptions.yearsToHide, [] );
+            bindingOptions.dataFetchDelay = Default.getNumber( bindingOptions.dataFetchDelay, 60000 );
+            bindingOptions.showOnlyDataForYearsAvailable = Default.getBoolean( bindingOptions.showOnlyDataForYearsAvailable, false );
+            bindingOptions.showHolidaysInDayToolTips = Default.getBoolean( bindingOptions.showHolidaysInDayToolTips, false );
+            bindingOptions.resizable = Default.getBoolean( bindingOptions.resizable, false );
+            bindingOptions.startMonth = Default.getNumberInRange( bindingOptions.startMonth, 0, 11, 0 );
+            bindingOptions.allowMultipleFileImports = Default.getBoolean( bindingOptions.allowMultipleFileImports, true );
+            bindingOptions.percentageDecimalPoints = Default.getNumber( bindingOptions.percentageDecimalPoints, 2 );
+            bindingOptions.colorRanges = getColorRanges( bindingOptions );
+            bindingOptions.holidays = getHolidays( bindingOptions );
+            bindingOptions.title = getTitle( bindingOptions );
+            bindingOptions.description = getDescription( bindingOptions );
+            bindingOptions.guide = getGuide( bindingOptions );
+            bindingOptions.tooltip = getToolTip( bindingOptions );
+            bindingOptions.views!.map = getMapView( bindingOptions );
+            bindingOptions.views!.chart = getChartView( bindingOptions );
+            bindingOptions.views!.days = getDaysView( bindingOptions );
+            bindingOptions.views!.months = getMonthsView( bindingOptions );
+            bindingOptions.views!.statistics = getStatisticsView( bindingOptions );
+            bindingOptions.yearlyStatistics = getYearlyStatistics( bindingOptions );
+            bindingOptions.events = getCustomTriggers( bindingOptions );
 
-            if ( options.startMonth > 0 ) {
-                options.yearsToHide = [];
+            if ( bindingOptions.startMonth > 0 ) {
+                bindingOptions.yearsToHide = [];
             }
             
-            return options;
+            return bindingOptions;
         }
     
-        function getColorRanges( options: BindingOptions ) : BindingOptionsColorRange[] {
+        function getColorRanges( bindingOptions: BindingOptions ) : BindingOptionsColorRange[] {
             let result: BindingOptionsColorRange[] = [];
 
-            if ( Is.definedArray( options.colorRanges ) ) {
-                const colorRangesLength: number = options.colorRanges!.length;
+            if ( Is.definedArray( bindingOptions.colorRanges ) ) {
+                const colorRangesLength: number = bindingOptions.colorRanges!.length;
     
                 for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
-                    const colorRange: BindingOptionsColorRange = options.colorRanges![ colorRangeIndex ];
+                    const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangeIndex ];
     
                     colorRange.id = Default.getString( colorRange.id, crypto.randomUUID() );
                     colorRange.name = Default.getString( colorRange.name, Char.empty );
@@ -193,14 +193,14 @@ export namespace Binding {
             return result;
         }
     
-        function getHolidays( options: BindingOptions ) : BindingOptionsHoliday[] {
+        function getHolidays( bindingOptions: BindingOptions ) : BindingOptionsHoliday[] {
             let result: BindingOptionsHoliday[] = [];
 
-            if ( Is.definedArray( options.holidays ) ) {
-                const holidaysLength: number = options.holidays!.length;
+            if ( Is.definedArray( bindingOptions.holidays ) ) {
+                const holidaysLength: number = bindingOptions.holidays!.length;
     
                 for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-                    const holiday: BindingOptionsHoliday = options.holidays![ holidayIndex ];
+                    const holiday: BindingOptionsHoliday = bindingOptions.holidays![ holidayIndex ];
                     
                     holiday.date = Default.getString( holiday.date, Char.empty );
                     holiday.name = Default.getString( holiday.name, Char.empty );
@@ -213,236 +213,236 @@ export namespace Binding {
             return result;
         }
     
-        function getTitle( options: BindingOptions ) : BindingOptionsTitle {
-            options.title = Default.getObject( options.title, {} as BindingOptionsTitle );
-            options.title!.text = Default.getString( options.title!.text, "Heat.js" );
-            options.title!.showText = Default.getBoolean( options.title!.showText, true );
-            options.title!.showYearSelector = Default.getBoolean( options.title!.showYearSelector, true );
-            options.title!.showRefreshButton = Default.getBoolean( options.title!.showRefreshButton, false );
-            options.title!.showExportButton = Default.getBoolean( options.title!.showExportButton, false );
-            options.title!.extraSelectionYears = Default.getNumber( options.title!.extraSelectionYears, 50 );
-            options.title!.showYearSelectionDropDown = Default.getBoolean( options.title!.showYearSelectionDropDown, true );
-            options.title!.showImportButton = Default.getBoolean( options.title!.showImportButton, false );
-            options.title!.showConfigurationButton = Default.getBoolean( options.title!.showConfigurationButton, true );
-            options.title!.showTitleDropDownButton = Default.getBoolean( options.title!.showTitleDropDownButton, true );
-            options.title!.showTitleDropDownHeaders = Default.getBoolean( options.title!.showTitleDropDownHeaders, true );
-            options.title!.showCurrentYearButton = Default.getBoolean( options.title!.showCurrentYearButton, true );
-            options.title!.showSectionText = Default.getBoolean( options.title!.showSectionText, true );
-            options.title!.showToolTips = Default.getBoolean( options.title!.showToolTips, true );
-            options.title!.showTitleDropDownMenu = Default.getBoolean( options.title!.showTitleDropDownMenu, true );
+        function getTitle( bindingOptions: BindingOptions ) : BindingOptionsTitle {
+            bindingOptions.title = Default.getObject( bindingOptions.title, {} as BindingOptionsTitle );
+            bindingOptions.title!.text = Default.getString( bindingOptions.title!.text, "Heat.js" );
+            bindingOptions.title!.showText = Default.getBoolean( bindingOptions.title!.showText, true );
+            bindingOptions.title!.showYearSelector = Default.getBoolean( bindingOptions.title!.showYearSelector, true );
+            bindingOptions.title!.showRefreshButton = Default.getBoolean( bindingOptions.title!.showRefreshButton, false );
+            bindingOptions.title!.showExportButton = Default.getBoolean( bindingOptions.title!.showExportButton, false );
+            bindingOptions.title!.extraSelectionYears = Default.getNumber( bindingOptions.title!.extraSelectionYears, 50 );
+            bindingOptions.title!.showYearSelectionDropDown = Default.getBoolean( bindingOptions.title!.showYearSelectionDropDown, true );
+            bindingOptions.title!.showImportButton = Default.getBoolean( bindingOptions.title!.showImportButton, false );
+            bindingOptions.title!.showConfigurationButton = Default.getBoolean( bindingOptions.title!.showConfigurationButton, true );
+            bindingOptions.title!.showTitleDropDownButton = Default.getBoolean( bindingOptions.title!.showTitleDropDownButton, true );
+            bindingOptions.title!.showTitleDropDownHeaders = Default.getBoolean( bindingOptions.title!.showTitleDropDownHeaders, true );
+            bindingOptions.title!.showCurrentYearButton = Default.getBoolean( bindingOptions.title!.showCurrentYearButton, true );
+            bindingOptions.title!.showSectionText = Default.getBoolean( bindingOptions.title!.showSectionText, true );
+            bindingOptions.title!.showToolTips = Default.getBoolean( bindingOptions.title!.showToolTips, true );
+            bindingOptions.title!.showTitleDropDownMenu = Default.getBoolean( bindingOptions.title!.showTitleDropDownMenu, true );
 
-            return options.title!;
+            return bindingOptions.title!;
         }
     
-        function getDescription( options: BindingOptions ) : BindingOptionsDescription {
-            options.description = Default.getObject( options.description, {} as BindingOptionsDescription );
-            options.description!.text = Default.getString( options.description!.text, Char.empty );
-            options.description!.url = Default.getString( options.description!.url, Char.empty );
-            options.description!.urlTarget = Default.getString( options.description!.urlTarget, "_blank" );
+        function getDescription( bindingOptions: BindingOptions ) : BindingOptionsDescription {
+            bindingOptions.description = Default.getObject( bindingOptions.description, {} as BindingOptionsDescription );
+            bindingOptions.description!.text = Default.getString( bindingOptions.description!.text, Char.empty );
+            bindingOptions.description!.url = Default.getString( bindingOptions.description!.url, Char.empty );
+            bindingOptions.description!.urlTarget = Default.getString( bindingOptions.description!.urlTarget, "_blank" );
     
-            return options.description!;
+            return bindingOptions.description!;
         }
     
-        function getGuide( options: BindingOptions ) : BindingOptionsGuide {
-            options.guide = Default.getObject( options.guide, {} as BindingOptionsGuide );
-            options.guide!.enabled = Default.getBoolean( options.guide!.enabled, true );
-            options.guide!.colorRangeTogglesEnabled = Default.getBoolean( options.guide!.colorRangeTogglesEnabled, true );
-            options.guide!.showLessAndMoreLabels = Default.getBoolean( options.guide!.showLessAndMoreLabels, true );
-            options.guide!.showNumbersInGuide = Default.getBoolean( options.guide!.showNumbersInGuide, false );
-            options.guide!.showToolTips = Default.getBoolean( options.guide!.showToolTips, true );
+        function getGuide( bindingOptions: BindingOptions ) : BindingOptionsGuide {
+            bindingOptions.guide = Default.getObject( bindingOptions.guide, {} as BindingOptionsGuide );
+            bindingOptions.guide!.enabled = Default.getBoolean( bindingOptions.guide!.enabled, true );
+            bindingOptions.guide!.colorRangeTogglesEnabled = Default.getBoolean( bindingOptions.guide!.colorRangeTogglesEnabled, true );
+            bindingOptions.guide!.showLessAndMoreLabels = Default.getBoolean( bindingOptions.guide!.showLessAndMoreLabels, true );
+            bindingOptions.guide!.showNumbersInGuide = Default.getBoolean( bindingOptions.guide!.showNumbersInGuide, false );
+            bindingOptions.guide!.showToolTips = Default.getBoolean( bindingOptions.guide!.showToolTips, true );
 
-            return options.guide!;
+            return bindingOptions.guide!;
         }
     
-        function getToolTip( options: BindingOptions ) : BindingOptionsTooltip {
-            options.tooltip = Default.getObject( options.tooltip, {} as BindingOptionsTooltip );
-            options.tooltip!.delay = Default.getNumber( options.tooltip!.delay, 750 );
+        function getToolTip( bindingOptions: BindingOptions ) : BindingOptionsTooltip {
+            bindingOptions.tooltip = Default.getObject( bindingOptions.tooltip, {} as BindingOptionsTooltip );
+            bindingOptions.tooltip!.delay = Default.getNumber( bindingOptions.tooltip!.delay, 750 );
     
-            return options.tooltip!;
+            return bindingOptions.tooltip!;
         }
     
-        function getMapView( options: BindingOptions ) : BindingOptionsViewsMap {
-            options.views!.map = Default.getObject( options.views!.map, {} as BindingOptionsViewsMap );
-            options.views!.map!.showMonthDayGaps = Default.getBoolean( options.views!.map!.showMonthDayGaps, true );
-            options.views!.map!.showDayNames = Default.getBoolean( options.views!.map!.showDayNames, true );
-            options.views!.map!.placeMonthNamesOnTheBottom = Default.getBoolean( options.views!.map!.placeMonthNamesOnTheBottom, false );
-            options.views!.map!.showDayCounts = Default.getBoolean( options.views!.map!.showDayCounts, false );
-            options.views!.map!.showMonthNames = Default.getBoolean( options.views!.map!.showMonthNames, true );
-            options.views!.map!.showDaysInReverseOrder = Default.getBoolean( options.views!.map!.showDaysInReverseOrder, false );
-            options.views!.map!.showNoDataMessageWhenDataIsNotAvailable = Default.getBoolean( options.views!.map!.showNoDataMessageWhenDataIsNotAvailable, false );
-            options.views!.map!.showMinimalDayNames = Default.getBoolean( options.views!.map!.showMinimalDayNames, false );
-            options.views!.map!.showMonthsInReverseOrder = Default.getBoolean( options.views!.map!.showMonthsInReverseOrder, false );
-            options.views!.map!.keepScrollPositions = Default.getBoolean( options.views!.map!.keepScrollPositions, false );
-            options.views!.map!.showDayDateNumbers = Default.getBoolean( options.views!.map!.showDayDateNumbers, false );
-            options.views!.map!.showToolTips = Default.getBoolean( options.views!.map!.showToolTips, true );
-            options.views!.map!.highlightCurrentDay = Default.getBoolean( options.views!.map!.highlightCurrentDay, false );
-            options.views!.map!.dayToolTipText = Default.getString( options.views!.map!.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
-            options.views!.map!.showYearsInMonthNames = Default.getBoolean( options.views!.map!.showYearsInMonthNames, true );
-            options.views!.map!.allowZooming = Default.getBoolean( options.views!.map!.allowZooming, true );
-            options.views!.map!.zoomLevel = Default.getNumber( options.views!.map!.zoomLevel, 0 );
-            options.views!.map!.showCountsInToolTips = Default.getBoolean( options.views!.map!.showCountsInToolTips, true );
+        function getMapView( bindingOptions: BindingOptions ) : BindingOptionsViewsMap {
+            bindingOptions.views!.map = Default.getObject( bindingOptions.views!.map, {} as BindingOptionsViewsMap );
+            bindingOptions.views!.map!.showMonthDayGaps = Default.getBoolean( bindingOptions.views!.map!.showMonthDayGaps, true );
+            bindingOptions.views!.map!.showDayNames = Default.getBoolean( bindingOptions.views!.map!.showDayNames, true );
+            bindingOptions.views!.map!.placeMonthNamesOnTheBottom = Default.getBoolean( bindingOptions.views!.map!.placeMonthNamesOnTheBottom, false );
+            bindingOptions.views!.map!.showDayCounts = Default.getBoolean( bindingOptions.views!.map!.showDayCounts, false );
+            bindingOptions.views!.map!.showMonthNames = Default.getBoolean( bindingOptions.views!.map!.showMonthNames, true );
+            bindingOptions.views!.map!.showDaysInReverseOrder = Default.getBoolean( bindingOptions.views!.map!.showDaysInReverseOrder, false );
+            bindingOptions.views!.map!.showNoDataMessageWhenDataIsNotAvailable = Default.getBoolean( bindingOptions.views!.map!.showNoDataMessageWhenDataIsNotAvailable, false );
+            bindingOptions.views!.map!.showMinimalDayNames = Default.getBoolean( bindingOptions.views!.map!.showMinimalDayNames, false );
+            bindingOptions.views!.map!.showMonthsInReverseOrder = Default.getBoolean( bindingOptions.views!.map!.showMonthsInReverseOrder, false );
+            bindingOptions.views!.map!.keepScrollPositions = Default.getBoolean( bindingOptions.views!.map!.keepScrollPositions, false );
+            bindingOptions.views!.map!.showDayDateNumbers = Default.getBoolean( bindingOptions.views!.map!.showDayDateNumbers, false );
+            bindingOptions.views!.map!.showToolTips = Default.getBoolean( bindingOptions.views!.map!.showToolTips, true );
+            bindingOptions.views!.map!.highlightCurrentDay = Default.getBoolean( bindingOptions.views!.map!.highlightCurrentDay, false );
+            bindingOptions.views!.map!.dayToolTipText = Default.getString( bindingOptions.views!.map!.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
+            bindingOptions.views!.map!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.map!.showYearsInMonthNames, true );
+            bindingOptions.views!.map!.allowZooming = Default.getBoolean( bindingOptions.views!.map!.allowZooming, true );
+            bindingOptions.views!.map!.zoomLevel = Default.getNumber( bindingOptions.views!.map!.zoomLevel, 0 );
+            bindingOptions.views!.map!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.map!.showCountsInToolTips, true );
 
-            if ( Is.invalidOptionArray( options.views!.map!.monthsToShow ) ) {
-                options.views!.map!.monthsToShow = _default_MonthsToShow;
+            if ( Is.invalidOptionArray( bindingOptions.views!.map!.monthsToShow ) ) {
+                bindingOptions.views!.map!.monthsToShow = _default_MonthsToShow;
             }
     
-            if ( Is.invalidOptionArray( options.views!.map!.daysToShow ) ) {
-                options.views!.map!.daysToShow = _default_DaysToShow;
+            if ( Is.invalidOptionArray( bindingOptions.views!.map!.daysToShow ) ) {
+                bindingOptions.views!.map!.daysToShow = _default_DaysToShow;
             }
     
-            return options.views!.map!;
+            return bindingOptions.views!.map!;
         }
     
-        function getChartView( options: BindingOptions ) : BindingOptionsViewsChart {
-            options.views!.chart = Default.getObject( options.views!.chart, {} as BindingOptionsViewsChart );
-            options.views!.chart!.enabled = Default.getBoolean( options.views!.chart!.enabled, true );
-            options.views!.chart!.showChartYLabels = Default.getBoolean( options.views!.chart!.showChartYLabels, true );
-            options.views!.chart!.showMonthNames = Default.getBoolean( options.views!.chart!.showMonthNames, true );
-            options.views!.chart!.showLineCounts = Default.getBoolean( options.views!.chart!.showLineCounts, false );
-            options.views!.chart!.showInReverseOrder = Default.getBoolean( options.views!.chart!.showInReverseOrder, false );
-            options.views!.chart!.keepScrollPositions = Default.getBoolean( options.views!.chart!.keepScrollPositions, false );
-            options.views!.chart!.showLineDateNumbers = Default.getBoolean( options.views!.chart!.showLineDateNumbers, false );
-            options.views!.chart!.showToolTips = Default.getBoolean( options.views!.chart!.showToolTips, true );
-            options.views!.chart!.useGradients = Default.getBoolean( options.views!.chart!.useGradients, false );
-            options.views!.chart!.highlightCurrentDay = Default.getBoolean( options.views!.chart!.highlightCurrentDay, false );
-            options.views!.chart!.dayToolTipText = Default.getString( options.views!.chart!.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
-            options.views!.chart!.showYearsInMonthNames = Default.getBoolean( options.views!.chart!.showYearsInMonthNames, true );
-            options.views!.chart!.showCountsInToolTips = Default.getBoolean( options.views!.chart!.showCountsInToolTips, true );
+        function getChartView( bindingOptions: BindingOptions ) : BindingOptionsViewsChart {
+            bindingOptions.views!.chart = Default.getObject( bindingOptions.views!.chart, {} as BindingOptionsViewsChart );
+            bindingOptions.views!.chart!.enabled = Default.getBoolean( bindingOptions.views!.chart!.enabled, true );
+            bindingOptions.views!.chart!.showChartYLabels = Default.getBoolean( bindingOptions.views!.chart!.showChartYLabels, true );
+            bindingOptions.views!.chart!.showMonthNames = Default.getBoolean( bindingOptions.views!.chart!.showMonthNames, true );
+            bindingOptions.views!.chart!.showLineCounts = Default.getBoolean( bindingOptions.views!.chart!.showLineCounts, false );
+            bindingOptions.views!.chart!.showInReverseOrder = Default.getBoolean( bindingOptions.views!.chart!.showInReverseOrder, false );
+            bindingOptions.views!.chart!.keepScrollPositions = Default.getBoolean( bindingOptions.views!.chart!.keepScrollPositions, false );
+            bindingOptions.views!.chart!.showLineDateNumbers = Default.getBoolean( bindingOptions.views!.chart!.showLineDateNumbers, false );
+            bindingOptions.views!.chart!.showToolTips = Default.getBoolean( bindingOptions.views!.chart!.showToolTips, true );
+            bindingOptions.views!.chart!.useGradients = Default.getBoolean( bindingOptions.views!.chart!.useGradients, false );
+            bindingOptions.views!.chart!.highlightCurrentDay = Default.getBoolean( bindingOptions.views!.chart!.highlightCurrentDay, false );
+            bindingOptions.views!.chart!.dayToolTipText = Default.getString( bindingOptions.views!.chart!.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
+            bindingOptions.views!.chart!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.chart!.showYearsInMonthNames, true );
+            bindingOptions.views!.chart!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.chart!.showCountsInToolTips, true );
 
-            if ( Is.invalidOptionArray( options.views!.chart!.monthsToShow ) ) {
-                options.views!.chart!.monthsToShow = _default_MonthsToShow;
+            if ( Is.invalidOptionArray( bindingOptions.views!.chart!.monthsToShow ) ) {
+                bindingOptions.views!.chart!.monthsToShow = _default_MonthsToShow;
             }
     
-            if ( Is.invalidOptionArray( options.views!.chart!.daysToShow ) ) {
-                options.views!.chart!.daysToShow = _default_DaysToShow;
+            if ( Is.invalidOptionArray( bindingOptions.views!.chart!.daysToShow ) ) {
+                bindingOptions.views!.chart!.daysToShow = _default_DaysToShow;
             }
     
-            return options.views!.chart!;
+            return bindingOptions.views!.chart!;
         }
     
-        function getDaysView( options: BindingOptions ) : BindingOptionsViewsDays {
-            options.views!.days = Default.getObject( options.views!.days, {} as BindingOptionsViewsDays );
-            options.views!.days!.enabled = Default.getBoolean( options.views!.days!.enabled, true );
-            options.views!.days!.showChartYLabels = Default.getBoolean( options.views!.days!.showChartYLabels, true );
-            options.views!.days!.showDayNames = Default.getBoolean( options.views!.days!.showDayNames, true );
-            options.views!.days!.showInReverseOrder = Default.getBoolean( options.views!.days!.showInReverseOrder, false );
-            options.views!.days!.showDayCounts = Default.getBoolean( options.views!.days!.showDayCounts, false );
-            options.views!.days!.keepScrollPositions = Default.getBoolean( options.views!.days!.keepScrollPositions, false );
-            options.views!.days!.showToolTips = Default.getBoolean( options.views!.days!.showToolTips, true );
-            options.views!.days!.useGradients = Default.getBoolean( options.views!.days!.useGradients, false );
-            options.views!.days!.useDifferentOpacities = Default.getBoolean( options.views!.days!.useDifferentOpacities, true );
-            options.views!.days!.showDayCountPercentages = Default.getBoolean( options.views!.days!.showDayCountPercentages, true );
+        function getDaysView( bindingOptions: BindingOptions ) : BindingOptionsViewsDays {
+            bindingOptions.views!.days = Default.getObject( bindingOptions.views!.days, {} as BindingOptionsViewsDays );
+            bindingOptions.views!.days!.enabled = Default.getBoolean( bindingOptions.views!.days!.enabled, true );
+            bindingOptions.views!.days!.showChartYLabels = Default.getBoolean( bindingOptions.views!.days!.showChartYLabels, true );
+            bindingOptions.views!.days!.showDayNames = Default.getBoolean( bindingOptions.views!.days!.showDayNames, true );
+            bindingOptions.views!.days!.showInReverseOrder = Default.getBoolean( bindingOptions.views!.days!.showInReverseOrder, false );
+            bindingOptions.views!.days!.showDayCounts = Default.getBoolean( bindingOptions.views!.days!.showDayCounts, false );
+            bindingOptions.views!.days!.keepScrollPositions = Default.getBoolean( bindingOptions.views!.days!.keepScrollPositions, false );
+            bindingOptions.views!.days!.showToolTips = Default.getBoolean( bindingOptions.views!.days!.showToolTips, true );
+            bindingOptions.views!.days!.useGradients = Default.getBoolean( bindingOptions.views!.days!.useGradients, false );
+            bindingOptions.views!.days!.useDifferentOpacities = Default.getBoolean( bindingOptions.views!.days!.useDifferentOpacities, true );
+            bindingOptions.views!.days!.showDayCountPercentages = Default.getBoolean( bindingOptions.views!.days!.showDayCountPercentages, true );
     
-            if ( Is.invalidOptionArray( options.views!.days!.monthsToShow ) ) {
-                options.views!.days!.monthsToShow = _default_MonthsToShow;
+            if ( Is.invalidOptionArray( bindingOptions.views!.days!.monthsToShow ) ) {
+                bindingOptions.views!.days!.monthsToShow = _default_MonthsToShow;
             }
     
-            if ( Is.invalidOptionArray( options.views!.days!.daysToShow ) ) {
-                options.views!.days!.daysToShow = _default_DaysToShow;
+            if ( Is.invalidOptionArray( bindingOptions.views!.days!.daysToShow ) ) {
+                bindingOptions.views!.days!.daysToShow = _default_DaysToShow;
             }
     
-            return options.views!.days!;
-        }
-
-        function getMonthsView( options: BindingOptions ) : BindingOptionsViewsMonths {
-            options.views!.months = Default.getObject( options.views!.months, {} as BindingOptionsViewsMonths );
-            options.views!.months!.enabled = Default.getBoolean( options.views!.months!.enabled, true );
-            options.views!.months!.showChartYLabels = Default.getBoolean( options.views!.months!.showChartYLabels, true );
-            options.views!.months!.showMonthNames = Default.getBoolean( options.views!.months!.showMonthNames, true );
-            options.views!.months!.showInReverseOrder = Default.getBoolean( options.views!.months!.showInReverseOrder, false );
-            options.views!.months!.showMonthCounts = Default.getBoolean( options.views!.months!.showMonthCounts, false );
-            options.views!.months!.keepScrollPositions = Default.getBoolean( options.views!.months!.keepScrollPositions, false );
-            options.views!.months!.showToolTips = Default.getBoolean( options.views!.months!.showToolTips, true );
-            options.views!.months!.useGradients = Default.getBoolean( options.views!.months!.useGradients, false );
-            options.views!.months!.useDifferentOpacities = Default.getBoolean( options.views!.months!.useDifferentOpacities, true );
-            options.views!.months!.highlightCurrentMonth = Default.getBoolean( options.views!.months!.highlightCurrentMonth, false );
-            options.views!.months!.showMonthCountPercentages = Default.getBoolean( options.views!.months!.showMonthCountPercentages, true );
-    
-            if ( Is.invalidOptionArray( options.views!.months!.monthsToShow ) ) {
-                options.views!.months!.monthsToShow = _default_MonthsToShow;
-            }
-    
-            if ( Is.invalidOptionArray( options.views!.months!.daysToShow ) ) {
-                options.views!.months!.daysToShow = _default_DaysToShow;
-            }
-    
-            return options.views!.months!;
-        }
-    
-        function getStatisticsView( options: BindingOptions ) : BindingOptionsViewsStatistics {
-            options.views!.statistics = Default.getObject( options.views!.statistics, {} as BindingOptionsViewsStatistics );
-            options.views!.statistics!.enabled = Default.getBoolean( options.views!.statistics!.enabled, true );
-            options.views!.statistics!.showChartYLabels = Default.getBoolean( options.views!.statistics!.showChartYLabels, true );
-            options.views!.statistics!.showColorRangeLabels = Default.getBoolean( options.views!.statistics!.showColorRangeLabels, true );
-            options.views!.statistics!.useColorRangeNamesForLabels = Default.getBoolean( options.views!.statistics!.useColorRangeNamesForLabels, false );
-            options.views!.statistics!.showRangeCounts = Default.getBoolean( options.views!.statistics!.showRangeCounts, false );
-            options.views!.statistics!.showInReverseOrder = Default.getBoolean( options.views!.statistics!.showInReverseOrder, false );
-            options.views!.statistics!.keepScrollPositions = Default.getBoolean( options.views!.statistics!.keepScrollPositions, false );
-            options.views!.statistics!.showToolTips = Default.getBoolean( options.views!.statistics!.showToolTips, true );
-            options.views!.statistics!.useGradients = Default.getBoolean( options.views!.statistics!.useGradients, false );
-            options.views!.statistics!.showRangeCountPercentages = Default.getBoolean( options.views!.statistics!.showRangeCountPercentages, true );
-            options.views!.statistics!.showRangeNamesInToolTips = Default.getBoolean( options.views!.statistics!.showRangeNamesInToolTips, true );
-
-            if ( Is.invalidOptionArray( options.views!.statistics!.monthsToShow ) ) {
-                options.views!.statistics!.monthsToShow = _default_MonthsToShow;
-            }
-    
-            if ( Is.invalidOptionArray( options.views!.statistics!.daysToShow ) ) {
-                options.views!.statistics!.daysToShow = _default_DaysToShow;
-            }
-    
-            return options.views!.statistics!;
+            return bindingOptions.views!.days!;
         }
 
-        function getYearlyStatistics( options: BindingOptions ) : BindingOptionsYearlyStatistics {
-            options.yearlyStatistics = Default.getObject( options.yearlyStatistics, {} as BindingOptionsYearlyStatistics );
-            options.yearlyStatistics!.enabled = Default.getBoolean( options.yearlyStatistics!.enabled, false );
-            options.yearlyStatistics!.showToday = Default.getBoolean( options.yearlyStatistics!.showToday, true );
-            options.yearlyStatistics!.showThisWeek = Default.getBoolean( options.yearlyStatistics!.showThisWeek, true );
-            options.yearlyStatistics!.showThisMonth = Default.getBoolean( options.yearlyStatistics!.showThisMonth, true );
-            options.yearlyStatistics!.showThisYear = Default.getBoolean( options.yearlyStatistics!.showThisYear, true );
-            options.yearlyStatistics!.showOnlyForCurrentYear = Default.getBoolean( options.yearlyStatistics!.showOnlyForCurrentYear, false );
-            options.yearlyStatistics!.showPercentages = Default.getBoolean( options.yearlyStatistics!.showPercentages, true );
-
-            return options.yearlyStatistics!;
+        function getMonthsView( bindingOptions: BindingOptions ) : BindingOptionsViewsMonths {
+            bindingOptions.views!.months = Default.getObject( bindingOptions.views!.months, {} as BindingOptionsViewsMonths );
+            bindingOptions.views!.months!.enabled = Default.getBoolean( bindingOptions.views!.months!.enabled, true );
+            bindingOptions.views!.months!.showChartYLabels = Default.getBoolean( bindingOptions.views!.months!.showChartYLabels, true );
+            bindingOptions.views!.months!.showMonthNames = Default.getBoolean( bindingOptions.views!.months!.showMonthNames, true );
+            bindingOptions.views!.months!.showInReverseOrder = Default.getBoolean( bindingOptions.views!.months!.showInReverseOrder, false );
+            bindingOptions.views!.months!.showMonthCounts = Default.getBoolean( bindingOptions.views!.months!.showMonthCounts, false );
+            bindingOptions.views!.months!.keepScrollPositions = Default.getBoolean( bindingOptions.views!.months!.keepScrollPositions, false );
+            bindingOptions.views!.months!.showToolTips = Default.getBoolean( bindingOptions.views!.months!.showToolTips, true );
+            bindingOptions.views!.months!.useGradients = Default.getBoolean( bindingOptions.views!.months!.useGradients, false );
+            bindingOptions.views!.months!.useDifferentOpacities = Default.getBoolean( bindingOptions.views!.months!.useDifferentOpacities, true );
+            bindingOptions.views!.months!.highlightCurrentMonth = Default.getBoolean( bindingOptions.views!.months!.highlightCurrentMonth, false );
+            bindingOptions.views!.months!.showMonthCountPercentages = Default.getBoolean( bindingOptions.views!.months!.showMonthCountPercentages, true );
+    
+            if ( Is.invalidOptionArray( bindingOptions.views!.months!.monthsToShow ) ) {
+                bindingOptions.views!.months!.monthsToShow = _default_MonthsToShow;
+            }
+    
+            if ( Is.invalidOptionArray( bindingOptions.views!.months!.daysToShow ) ) {
+                bindingOptions.views!.months!.daysToShow = _default_DaysToShow;
+            }
+    
+            return bindingOptions.views!.months!;
         }
     
-        function getCustomTriggers( options : BindingOptions ) : BindingOptionsEvents {
-            options.events = Default.getObject( options.events, {} as BindingOptionsEvents );
-            options.events!.onBackYear = Default.getFunction( options.events!.onBackYear, null! );
-            options.events!.onNextYear = Default.getFunction( options.events!.onNextYear, null! );
-            options.events!.onRefresh = Default.getFunction( options.events!.onRefresh, null! );
-            options.events!.onBeforeRender = Default.getFunction( options.events!.onBeforeRender, null! );
-            options.events!.onRenderComplete = Default.getFunction( options.events!.onRenderComplete, null! );
-            options.events!.onDestroy = Default.getFunction( options.events!.onDestroy, null! );
-            options.events!.onExport = Default.getFunction( options.events!.onExport, null! );
-            options.events!.onSetYear = Default.getFunction( options.events!.onSetYear, null! );
-            options.events!.onTypeSwitch = Default.getFunction( options.events!.onTypeSwitch, null! );
-            options.events!.onMapDayToolTipRender = Default.getFunction( options.events!.onMapDayToolTipRender, null! );
-            options.events!.onChartDayToolTipRender = Default.getFunction( options.events!.onChartDayToolTipRender, options.events!.onMapDayToolTipRender! );
-            options.events!.onAdd = Default.getFunction( options.events!.onAdd, null! );
-            options.events!.onRemove = Default.getFunction( options.events!.onRemove, null! );
-            options.events!.onReset = Default.getFunction( options.events!.onReset, null! );
-            options.events!.onViewSwitch = Default.getFunction( options.events!.onViewSwitch, null! );
-            options.events!.onColorRangeTypeToggle = Default.getFunction( options.events!.onColorRangeTypeToggle, null! );
-            options.events!.onImport = Default.getFunction( options.events!.onImport, null! );
-            options.events!.onDataFetch = Default.getFunction( options.events!.onDataFetch, null! );
-            options.events!.onClear = Default.getFunction( options.events!.onClear, null! );
-            options.events!.onUpdate = Default.getFunction( options.events!.onUpdate, null! );
-            options.events!.onOptionsUpdate = Default.getFunction( options.events!.onOptionsUpdate, null! );
-            options.events!.onMapDayClick = Default.getFunction( options.events!.onMapDayClick, null! );
-            options.events!.onMapDayDblClick = Default.getFunction( options.events!.onMapDayDblClick, null! );
-            options.events!.onChartDayClick = Default.getFunction( options.events!.onChartDayClick, options.events!.onMapDayClick! );
-            options.events!.onChartDayDblClick = Default.getFunction( options.events!.onChartDayDblClick, options.events!.onMapDayDblClick! );
-            options.events!.onWeekDayClick = Default.getFunction( options.events!.onWeekDayClick, null! );
-            options.events!.onWeekDayDblClick = Default.getFunction( options.events!.onWeekDayDblClick, null! );
-            options.events!.onMonthClick = Default.getFunction( options.events!.onMonthClick, null! );
-            options.events!.onMonthDblClick = Default.getFunction( options.events!.onMonthDblClick, null! );
-            options.events!.onStatisticClick = Default.getFunction( options.events!.onStatisticClick, null! );
-            options.events!.onStatisticDblClick = Default.getFunction( options.events!.onStatisticDblClick, null! );
-            options.events!.onMapZoomLevelChange = Default.getFunction( options.events!.onMapZoomLevelChange, null! );
+        function getStatisticsView( bindingOptions: BindingOptions ) : BindingOptionsViewsStatistics {
+            bindingOptions.views!.statistics = Default.getObject( bindingOptions.views!.statistics, {} as BindingOptionsViewsStatistics );
+            bindingOptions.views!.statistics!.enabled = Default.getBoolean( bindingOptions.views!.statistics!.enabled, true );
+            bindingOptions.views!.statistics!.showChartYLabels = Default.getBoolean( bindingOptions.views!.statistics!.showChartYLabels, true );
+            bindingOptions.views!.statistics!.showColorRangeLabels = Default.getBoolean( bindingOptions.views!.statistics!.showColorRangeLabels, true );
+            bindingOptions.views!.statistics!.useColorRangeNamesForLabels = Default.getBoolean( bindingOptions.views!.statistics!.useColorRangeNamesForLabels, false );
+            bindingOptions.views!.statistics!.showRangeCounts = Default.getBoolean( bindingOptions.views!.statistics!.showRangeCounts, false );
+            bindingOptions.views!.statistics!.showInReverseOrder = Default.getBoolean( bindingOptions.views!.statistics!.showInReverseOrder, false );
+            bindingOptions.views!.statistics!.keepScrollPositions = Default.getBoolean( bindingOptions.views!.statistics!.keepScrollPositions, false );
+            bindingOptions.views!.statistics!.showToolTips = Default.getBoolean( bindingOptions.views!.statistics!.showToolTips, true );
+            bindingOptions.views!.statistics!.useGradients = Default.getBoolean( bindingOptions.views!.statistics!.useGradients, false );
+            bindingOptions.views!.statistics!.showRangeCountPercentages = Default.getBoolean( bindingOptions.views!.statistics!.showRangeCountPercentages, true );
+            bindingOptions.views!.statistics!.showRangeNamesInToolTips = Default.getBoolean( bindingOptions.views!.statistics!.showRangeNamesInToolTips, true );
 
-            return options.events!;
+            if ( Is.invalidOptionArray( bindingOptions.views!.statistics!.monthsToShow ) ) {
+                bindingOptions.views!.statistics!.monthsToShow = _default_MonthsToShow;
+            }
+    
+            if ( Is.invalidOptionArray( bindingOptions.views!.statistics!.daysToShow ) ) {
+                bindingOptions.views!.statistics!.daysToShow = _default_DaysToShow;
+            }
+    
+            return bindingOptions.views!.statistics!;
+        }
+
+        function getYearlyStatistics( bindingOptions: BindingOptions ) : BindingOptionsYearlyStatistics {
+            bindingOptions.yearlyStatistics = Default.getObject( bindingOptions.yearlyStatistics, {} as BindingOptionsYearlyStatistics );
+            bindingOptions.yearlyStatistics!.enabled = Default.getBoolean( bindingOptions.yearlyStatistics!.enabled, false );
+            bindingOptions.yearlyStatistics!.showToday = Default.getBoolean( bindingOptions.yearlyStatistics!.showToday, true );
+            bindingOptions.yearlyStatistics!.showThisWeek = Default.getBoolean( bindingOptions.yearlyStatistics!.showThisWeek, true );
+            bindingOptions.yearlyStatistics!.showThisMonth = Default.getBoolean( bindingOptions.yearlyStatistics!.showThisMonth, true );
+            bindingOptions.yearlyStatistics!.showThisYear = Default.getBoolean( bindingOptions.yearlyStatistics!.showThisYear, true );
+            bindingOptions.yearlyStatistics!.showOnlyForCurrentYear = Default.getBoolean( bindingOptions.yearlyStatistics!.showOnlyForCurrentYear, false );
+            bindingOptions.yearlyStatistics!.showPercentages = Default.getBoolean( bindingOptions.yearlyStatistics!.showPercentages, true );
+
+            return bindingOptions.yearlyStatistics!;
+        }
+    
+        function getCustomTriggers( bindingOptions : BindingOptions ) : BindingOptionsEvents {
+            bindingOptions.events = Default.getObject( bindingOptions.events, {} as BindingOptionsEvents );
+            bindingOptions.events!.onBackYear = Default.getFunction( bindingOptions.events!.onBackYear, null! );
+            bindingOptions.events!.onNextYear = Default.getFunction( bindingOptions.events!.onNextYear, null! );
+            bindingOptions.events!.onRefresh = Default.getFunction( bindingOptions.events!.onRefresh, null! );
+            bindingOptions.events!.onBeforeRender = Default.getFunction( bindingOptions.events!.onBeforeRender, null! );
+            bindingOptions.events!.onRenderComplete = Default.getFunction( bindingOptions.events!.onRenderComplete, null! );
+            bindingOptions.events!.onDestroy = Default.getFunction( bindingOptions.events!.onDestroy, null! );
+            bindingOptions.events!.onExport = Default.getFunction( bindingOptions.events!.onExport, null! );
+            bindingOptions.events!.onSetYear = Default.getFunction( bindingOptions.events!.onSetYear, null! );
+            bindingOptions.events!.onTypeSwitch = Default.getFunction( bindingOptions.events!.onTypeSwitch, null! );
+            bindingOptions.events!.onMapDayToolTipRender = Default.getFunction( bindingOptions.events!.onMapDayToolTipRender, null! );
+            bindingOptions.events!.onChartDayToolTipRender = Default.getFunction( bindingOptions.events!.onChartDayToolTipRender, bindingOptions.events!.onMapDayToolTipRender! );
+            bindingOptions.events!.onAdd = Default.getFunction( bindingOptions.events!.onAdd, null! );
+            bindingOptions.events!.onRemove = Default.getFunction( bindingOptions.events!.onRemove, null! );
+            bindingOptions.events!.onReset = Default.getFunction( bindingOptions.events!.onReset, null! );
+            bindingOptions.events!.onViewSwitch = Default.getFunction( bindingOptions.events!.onViewSwitch, null! );
+            bindingOptions.events!.onColorRangeTypeToggle = Default.getFunction( bindingOptions.events!.onColorRangeTypeToggle, null! );
+            bindingOptions.events!.onImport = Default.getFunction( bindingOptions.events!.onImport, null! );
+            bindingOptions.events!.onDataFetch = Default.getFunction( bindingOptions.events!.onDataFetch, null! );
+            bindingOptions.events!.onClear = Default.getFunction( bindingOptions.events!.onClear, null! );
+            bindingOptions.events!.onUpdate = Default.getFunction( bindingOptions.events!.onUpdate, null! );
+            bindingOptions.events!.onOptionsUpdate = Default.getFunction( bindingOptions.events!.onOptionsUpdate, null! );
+            bindingOptions.events!.onMapDayClick = Default.getFunction( bindingOptions.events!.onMapDayClick, null! );
+            bindingOptions.events!.onMapDayDblClick = Default.getFunction( bindingOptions.events!.onMapDayDblClick, null! );
+            bindingOptions.events!.onChartDayClick = Default.getFunction( bindingOptions.events!.onChartDayClick, bindingOptions.events!.onMapDayClick! );
+            bindingOptions.events!.onChartDayDblClick = Default.getFunction( bindingOptions.events!.onChartDayDblClick, bindingOptions.events!.onMapDayDblClick! );
+            bindingOptions.events!.onWeekDayClick = Default.getFunction( bindingOptions.events!.onWeekDayClick, null! );
+            bindingOptions.events!.onWeekDayDblClick = Default.getFunction( bindingOptions.events!.onWeekDayDblClick, null! );
+            bindingOptions.events!.onMonthClick = Default.getFunction( bindingOptions.events!.onMonthClick, null! );
+            bindingOptions.events!.onMonthDblClick = Default.getFunction( bindingOptions.events!.onMonthDblClick, null! );
+            bindingOptions.events!.onStatisticClick = Default.getFunction( bindingOptions.events!.onStatisticClick, null! );
+            bindingOptions.events!.onStatisticDblClick = Default.getFunction( bindingOptions.events!.onStatisticDblClick, null! );
+            bindingOptions.events!.onMapZoomLevelChange = Default.getFunction( bindingOptions.events!.onMapZoomLevelChange, null! );
+
+            return bindingOptions.events!;
         }
     }
 }

@@ -11,15 +11,15 @@
  */
 
 
-import { type Configuration, type ConfigurationText } from "../type";
+import { type ConfigurationOptions, type ConfigurationOptionsText } from "../type";
 import { Default } from "../data/default";
 import { Is } from "../data/is";
 
 
 export namespace Config {
     export namespace Options {
-        export function get( newConfiguration: Configuration = null! ) : Configuration {
-            const configuration = Default.getObject( newConfiguration, {} as Configuration );
+        export function get( configurationOptions: ConfigurationOptions = null! ) : ConfigurationOptions {
+            const configuration = Default.getObject( configurationOptions, {} as ConfigurationOptions );
             configuration.safeMode = Default.getBoolean( configuration.safeMode, true );
             configuration.observationMode = Default.getBoolean( configuration.observationMode, true );
             configuration.domElementTypes = Default.getStringOrArray( configuration.domElementTypes, [ "*" ] );
@@ -30,69 +30,69 @@ export namespace Config {
             return configuration;
         }
     
-        function getText( configuration: Configuration ) : ConfigurationText {
-            configuration.text = Default.getObject( configuration.text, {} as ConfigurationText );
-            configuration.text!.stText = Default.getAnyString( configuration.text!.stText, "st" );
-            configuration.text!.ndText = Default.getAnyString( configuration.text!.ndText, "nd" );
-            configuration.text!.rdText = Default.getAnyString( configuration.text!.rdText, "rd" );
-            configuration.text!.thText = Default.getAnyString( configuration.text!.thText, "th" );
-            configuration.text!.backButtonText = Default.getAnyString( configuration.text!.backButtonText, "Back" );
-            configuration.text!.nextButtonText = Default.getAnyString( configuration.text!.nextButtonText, "Next" );
-            configuration.text!.refreshButtonText = Default.getAnyString( configuration.text!.refreshButtonText, "Refresh" );
-            configuration.text!.exportButtonText = Default.getAnyString( configuration.text!.exportButtonText, "Export" );
-            configuration.text!.lessText = Default.getAnyString( configuration.text!.lessText, "Less" );
-            configuration.text!.moreText = Default.getAnyString( configuration.text!.moreText, "More" );
-            configuration.text!.dateText = Default.getAnyString( configuration.text!.dateText, "Date" );
-            configuration.text!.countText = Default.getAnyString( configuration.text!.countText, "Count" );
-            configuration.text!.mapText = Default.getAnyString( configuration.text!.mapText, "Map" );
-            configuration.text!.chartText = Default.getAnyString( configuration.text!.chartText, "Chart" );
-            configuration.text!.noChartDataMessage = Default.getAnyString( configuration.text!.noChartDataMessage, "There is currently no data to view." );
-            configuration.text!.statisticsText = Default.getAnyString( configuration.text!.statisticsText, "Statistics" );
-            configuration.text!.noStatisticsDataMessage = Default.getAnyString( configuration.text!.noStatisticsDataMessage, "There are currently no statistics to view." );
-            configuration.text!.unknownTrendText = Default.getAnyString( configuration.text!.unknownTrendText, "Unknown" );
-            configuration.text!.importButtonText = Default.getAnyString( configuration.text!.importButtonText, "Import" );
-            configuration.text!.noMapDataMessage = Default.getAnyString( configuration.text!.noMapDataMessage, "There is currently no data to view." );
-            configuration.text!.objectErrorText = Default.getAnyString( configuration.text!.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}" );
-            configuration.text!.attributeNotValidErrorText = Default.getAnyString( configuration.text!.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object." );
-            configuration.text!.attributeNotSetErrorText = Default.getAnyString( configuration.text!.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly." );
-            configuration.text!.closeToolTipText = Default.getAnyString( configuration.text!.closeToolTipText, "Close" );
-            configuration.text!.configurationToolTipText = Default.getAnyString( configuration.text!.configurationToolTipText, "Configuration" );
-            configuration.text!.configurationTitleText = Default.getAnyString( configuration.text!.configurationTitleText, "Configuration" );
-            configuration.text!.visibleMonthsText = Default.getAnyString( configuration.text!.visibleMonthsText, "Visible Months" );
-            configuration.text!.visibleDaysText = Default.getAnyString( configuration.text!.visibleDaysText, "Visible Days" );
-            configuration.text!.dataText = Default.getAnyString( configuration.text!.dataText, "Data" );
-            configuration.text!.colorRangesText = Default.getAnyString( configuration.text!.colorRangesText, "Color Ranges" );
-            configuration.text!.yearText = Default.getAnyString( configuration.text!.yearText, "Year" );
-            configuration.text!.daysText = Default.getAnyString( configuration.text!.daysText, "Days" );
-            configuration.text!.noDaysDataMessage = Default.getAnyString( configuration.text!.noDaysDataMessage, "There are currently no days to view." );
-            configuration.text!.backButtonSymbolText = Default.getAnyString( configuration.text!.backButtonSymbolText, "←" );
-            configuration.text!.nextButtonSymbolText = Default.getAnyString( configuration.text!.nextButtonSymbolText, "→" );
-            configuration.text!.refreshButtonSymbolText = Default.getAnyString( configuration.text!.refreshButtonSymbolText, "↻" );
-            configuration.text!.exportButtonSymbolText = Default.getAnyString( configuration.text!.exportButtonSymbolText, "↓" );
-            configuration.text!.importButtonSymbolText = Default.getAnyString( configuration.text!.importButtonSymbolText, "↑" );
-            configuration.text!.currentYearText = Default.getAnyString( configuration.text!.currentYearText, "Current Year" );
-            configuration.text!.currentYearSymbolText = Default.getAnyString( configuration.text!.currentYearSymbolText, "⏎" );
-            configuration.text!.todayText = Default.getAnyString( configuration.text!.todayText, "Today" );
-            configuration.text!.thisWeekText = Default.getAnyString( configuration.text!.thisWeekText, "This Week" );
-            configuration.text!.thisMonthText = Default.getAnyString( configuration.text!.thisMonthText, "This Month" );
-            configuration.text!.thisYearText = Default.getAnyString( configuration.text!.thisYearText, "This Year" );
-            configuration.text!.unavailableText = Default.getAnyString( configuration.text!.unavailableText, "Unavailable" );
-            configuration.text!.monthsText = Default.getAnyString( configuration.text!.monthsText, "Months" );
-            configuration.text!.noMonthsDataMessage = Default.getAnyString( configuration.text!.noMonthsDataMessage, "There are currently no months to view." );
-            configuration.text!.selectTypeText = Default.getAnyString( configuration.text!.selectTypeText, "Select Type" );
-            configuration.text!.filenamePlaceholderText = Default.getAnyString( configuration.text!.filenamePlaceholderText, "Filename (optional)" );
-            configuration.text!.onlyDataBeingViewedText = Default.getAnyString( configuration.text!.onlyDataBeingViewedText, "Only data being viewed" );
-            configuration.text!.zoomInText = Default.getAnyString( configuration.text!.zoomInText, "+" );
-            configuration.text!.zoomOutText = Default.getAnyString( configuration.text!.zoomOutText, "−" );
-            configuration.text!.zoomInToolTipText = Default.getAnyString( configuration.text!.zoomInToolTipText, "Zoom In" );
-            configuration.text!.zoomOutToolTipText = Default.getAnyString( configuration.text!.zoomOutToolTipText, "Zoom Out" );
+        function getText( configurationOptions: ConfigurationOptions ) : ConfigurationOptionsText {
+            configurationOptions.text = Default.getObject( configurationOptions.text, {} as ConfigurationOptionsText );
+            configurationOptions.text!.stText = Default.getAnyString( configurationOptions.text!.stText, "st" );
+            configurationOptions.text!.ndText = Default.getAnyString( configurationOptions.text!.ndText, "nd" );
+            configurationOptions.text!.rdText = Default.getAnyString( configurationOptions.text!.rdText, "rd" );
+            configurationOptions.text!.thText = Default.getAnyString( configurationOptions.text!.thText, "th" );
+            configurationOptions.text!.backButtonText = Default.getAnyString( configurationOptions.text!.backButtonText, "Back" );
+            configurationOptions.text!.nextButtonText = Default.getAnyString( configurationOptions.text!.nextButtonText, "Next" );
+            configurationOptions.text!.refreshButtonText = Default.getAnyString( configurationOptions.text!.refreshButtonText, "Refresh" );
+            configurationOptions.text!.exportButtonText = Default.getAnyString( configurationOptions.text!.exportButtonText, "Export" );
+            configurationOptions.text!.lessText = Default.getAnyString( configurationOptions.text!.lessText, "Less" );
+            configurationOptions.text!.moreText = Default.getAnyString( configurationOptions.text!.moreText, "More" );
+            configurationOptions.text!.dateText = Default.getAnyString( configurationOptions.text!.dateText, "Date" );
+            configurationOptions.text!.countText = Default.getAnyString( configurationOptions.text!.countText, "Count" );
+            configurationOptions.text!.mapText = Default.getAnyString( configurationOptions.text!.mapText, "Map" );
+            configurationOptions.text!.chartText = Default.getAnyString( configurationOptions.text!.chartText, "Chart" );
+            configurationOptions.text!.noChartDataMessage = Default.getAnyString( configurationOptions.text!.noChartDataMessage, "There is currently no data to view." );
+            configurationOptions.text!.statisticsText = Default.getAnyString( configurationOptions.text!.statisticsText, "Statistics" );
+            configurationOptions.text!.noStatisticsDataMessage = Default.getAnyString( configurationOptions.text!.noStatisticsDataMessage, "There are currently no statistics to view." );
+            configurationOptions.text!.unknownTrendText = Default.getAnyString( configurationOptions.text!.unknownTrendText, "Unknown" );
+            configurationOptions.text!.importButtonText = Default.getAnyString( configurationOptions.text!.importButtonText, "Import" );
+            configurationOptions.text!.noMapDataMessage = Default.getAnyString( configurationOptions.text!.noMapDataMessage, "There is currently no data to view." );
+            configurationOptions.text!.objectErrorText = Default.getAnyString( configurationOptions.text!.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}" );
+            configurationOptions.text!.attributeNotValidErrorText = Default.getAnyString( configurationOptions.text!.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object." );
+            configurationOptions.text!.attributeNotSetErrorText = Default.getAnyString( configurationOptions.text!.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly." );
+            configurationOptions.text!.closeToolTipText = Default.getAnyString( configurationOptions.text!.closeToolTipText, "Close" );
+            configurationOptions.text!.configurationToolTipText = Default.getAnyString( configurationOptions.text!.configurationToolTipText, "Configuration" );
+            configurationOptions.text!.configurationTitleText = Default.getAnyString( configurationOptions.text!.configurationTitleText, "Configuration" );
+            configurationOptions.text!.visibleMonthsText = Default.getAnyString( configurationOptions.text!.visibleMonthsText, "Visible Months" );
+            configurationOptions.text!.visibleDaysText = Default.getAnyString( configurationOptions.text!.visibleDaysText, "Visible Days" );
+            configurationOptions.text!.dataText = Default.getAnyString( configurationOptions.text!.dataText, "Data" );
+            configurationOptions.text!.colorRangesText = Default.getAnyString( configurationOptions.text!.colorRangesText, "Color Ranges" );
+            configurationOptions.text!.yearText = Default.getAnyString( configurationOptions.text!.yearText, "Year" );
+            configurationOptions.text!.daysText = Default.getAnyString( configurationOptions.text!.daysText, "Days" );
+            configurationOptions.text!.noDaysDataMessage = Default.getAnyString( configurationOptions.text!.noDaysDataMessage, "There are currently no days to view." );
+            configurationOptions.text!.backButtonSymbolText = Default.getAnyString( configurationOptions.text!.backButtonSymbolText, "←" );
+            configurationOptions.text!.nextButtonSymbolText = Default.getAnyString( configurationOptions.text!.nextButtonSymbolText, "→" );
+            configurationOptions.text!.refreshButtonSymbolText = Default.getAnyString( configurationOptions.text!.refreshButtonSymbolText, "↻" );
+            configurationOptions.text!.exportButtonSymbolText = Default.getAnyString( configurationOptions.text!.exportButtonSymbolText, "↓" );
+            configurationOptions.text!.importButtonSymbolText = Default.getAnyString( configurationOptions.text!.importButtonSymbolText, "↑" );
+            configurationOptions.text!.currentYearText = Default.getAnyString( configurationOptions.text!.currentYearText, "Current Year" );
+            configurationOptions.text!.currentYearSymbolText = Default.getAnyString( configurationOptions.text!.currentYearSymbolText, "⏎" );
+            configurationOptions.text!.todayText = Default.getAnyString( configurationOptions.text!.todayText, "Today" );
+            configurationOptions.text!.thisWeekText = Default.getAnyString( configurationOptions.text!.thisWeekText, "This Week" );
+            configurationOptions.text!.thisMonthText = Default.getAnyString( configurationOptions.text!.thisMonthText, "This Month" );
+            configurationOptions.text!.thisYearText = Default.getAnyString( configurationOptions.text!.thisYearText, "This Year" );
+            configurationOptions.text!.unavailableText = Default.getAnyString( configurationOptions.text!.unavailableText, "Unavailable" );
+            configurationOptions.text!.monthsText = Default.getAnyString( configurationOptions.text!.monthsText, "Months" );
+            configurationOptions.text!.noMonthsDataMessage = Default.getAnyString( configurationOptions.text!.noMonthsDataMessage, "There are currently no months to view." );
+            configurationOptions.text!.selectTypeText = Default.getAnyString( configurationOptions.text!.selectTypeText, "Select Type" );
+            configurationOptions.text!.filenamePlaceholderText = Default.getAnyString( configurationOptions.text!.filenamePlaceholderText, "Filename (optional)" );
+            configurationOptions.text!.onlyDataBeingViewedText = Default.getAnyString( configurationOptions.text!.onlyDataBeingViewedText, "Only data being viewed" );
+            configurationOptions.text!.zoomInText = Default.getAnyString( configurationOptions.text!.zoomInText, "+" );
+            configurationOptions.text!.zoomOutText = Default.getAnyString( configurationOptions.text!.zoomOutText, "−" );
+            configurationOptions.text!.zoomInToolTipText = Default.getAnyString( configurationOptions.text!.zoomInToolTipText, "Zoom In" );
+            configurationOptions.text!.zoomOutToolTipText = Default.getAnyString( configurationOptions.text!.zoomOutToolTipText, "Zoom Out" );
 
-            return configuration.text!;
+            return configurationOptions.text!;
         }
     
-        function getTextArrays( configurationText: ConfigurationText ) : ConfigurationText {
-            if ( Is.invalidOptionArray( configurationText.monthNames, 12 ) ) {
-                configurationText.monthNames = [
+        function getTextArrays( configurationOptionsText: ConfigurationOptionsText ) : ConfigurationOptionsText {
+            if ( Is.invalidOptionArray( configurationOptionsText.monthNames, 12 ) ) {
+                configurationOptionsText.monthNames = [
                     "Jan",
                     "Feb",
                     "Mar",
@@ -108,8 +108,8 @@ export namespace Config {
                 ];
             }
     
-            if ( Is.invalidOptionArray( configurationText.dayNames, 7 ) ) {
-                configurationText.dayNames = [
+            if ( Is.invalidOptionArray( configurationOptionsText.dayNames, 7 ) ) {
+                configurationOptionsText.dayNames = [
                     "Mon",
                     "Tue",
                     "Wed",
@@ -120,7 +120,7 @@ export namespace Config {
                 ];
             }
 
-            return configurationText;
+            return configurationOptionsText;
         }
     }
 }

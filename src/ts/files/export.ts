@@ -11,7 +11,7 @@
  */
 
 
-import { type BindingOptions, type Configuration, type InstanceTypeDateCount } from "../type";
+import { type BindingOptions, type ConfigurationOptions, type InstanceTypeDateCount } from "../type";
 import { DateTime } from "../data/datetime";
 import { Char, ExportType } from "../data/enum";
 import { Is } from "../data/is";
@@ -46,7 +46,7 @@ export namespace Export {
             return result;
         }
 
-        export function filename( configuration: Configuration, bindingOptions: BindingOptions, exportFilename: string, contentExportType: string ) : string {
+        export function filename( configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions, exportFilename: string, contentExportType: string ) : string {
             let filename: string = null!;
 
             if ( Is.definedString( exportFilename ) ) {
@@ -58,7 +58,7 @@ export namespace Export {
                 const timePart: string = `${Str.padNumber( date.getHours() )}${Char.dash}${Str.padNumber( date.getMinutes() )}`;
                 let filenameStart: string = Char.empty;
 
-                if ( bindingOptions._currentView!.type !== configuration.text!.unknownTrendText ) {
+                if ( bindingOptions._currentView!.type !== configurationOptions.text!.unknownTrendText ) {
                     filenameStart = `${bindingOptions._currentView!.type.toLowerCase().replace( / /g, Char.underscore )}${Char.underscore}`;
                 }
 
@@ -70,11 +70,11 @@ export namespace Export {
     }
 
     export namespace Contents {
-        export function get( contentExportType: string, typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
+        export function get( contentExportType: string, typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions ) : string {
             let contents: string = null!;
 
             if ( contentExportType === ExportType.csv ) {
-                contents = csv( typeDateCounts, configuration );
+                contents = csv( typeDateCounts, configurationOptions );
             } else if ( contentExportType === ExportType.json ) {
                 contents = json( typeDateCounts );
             } else if ( contentExportType === ExportType.xml ) {
@@ -82,21 +82,21 @@ export namespace Export {
             } else if ( contentExportType === ExportType.txt ) {
                 contents = txt( typeDateCounts );
             } else if ( contentExportType === ExportType.html ) {
-                contents = html( typeDateCounts, configuration );
+                contents = html( typeDateCounts, configurationOptions );
             } else if ( contentExportType === ExportType.md ) {
                 contents = md( typeDateCounts );
             } else if ( contentExportType === ExportType.tsv ) {
                 contents = tsv( typeDateCounts );
             } else if ( contentExportType === ExportType.yaml ) {
-                contents = yaml( typeDateCounts, configuration );
+                contents = yaml( typeDateCounts, configurationOptions );
             } else if ( contentExportType === ExportType.toml ) {
-                contents = toml( typeDateCounts, configuration );
+                contents = toml( typeDateCounts, configurationOptions );
             }
 
             return contents;
         }
 
-        function csv( typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
+        function csv( typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions ) : string {
             const csvContents: string[] = [];
 
             for ( const storageDate in typeDateCounts ) {
@@ -106,7 +106,7 @@ export namespace Export {
             }
 
             if ( csvContents.length > 0 ) {
-                csvContents.unshift( getCsvValueLine( [ getCsvValue( configuration.text!.dateText! ), getCsvValue( configuration.text!.countText! ) ] ) );
+                csvContents.unshift( getCsvValueLine( [ getCsvValue( configurationOptions.text!.dateText! ), getCsvValue( configurationOptions.text!.countText! ) ] ) );
             }
             
             return csvContents.join( Char.newLine );
@@ -148,9 +148,9 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        function html( typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
+        function html( typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions ) : string {
             const contents: string[] = [];
-            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configuration, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date() );
+            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configurationOptions, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date() );
 
             contents.push( "<!DOCTYPE html>" );
             contents.push( "<html>" );
@@ -203,7 +203,7 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        function yaml( typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
+        function yaml( typeDateCounts: InstanceTypeDateCount, configuration: ConfigurationOptions ) : string {
             const contents: string[] = [];
             const exportedDateTime: string = DateTime.getCustomFormattedDateText( configuration, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date() );
 
@@ -218,7 +218,7 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        function toml( typeDateCounts: InstanceTypeDateCount, configuration: Configuration ) : string {
+        function toml( typeDateCounts: InstanceTypeDateCount, configuration: ConfigurationOptions ) : string {
             const contents: string[] = [];
             const exportedDateTime: string = DateTime.getCustomFormattedDateText( configuration, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date() );
 
