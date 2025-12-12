@@ -156,8 +156,11 @@ import { Convert } from "./ts/data/convert";
 
         startDataPullTimer( bindingOptions );
 
-        if ( bindingOptions.title!.showConfigurationButton ) {
+        if ( bindingOptions.title!.showConfigurationButton || bindingOptions.title!.showExportButton ) {
             Disabled.Background.render( bindingOptions );
+        }
+
+        if ( bindingOptions.title!.showConfigurationButton ) {
             renderConfigurationDialog( bindingOptions );
         }
 

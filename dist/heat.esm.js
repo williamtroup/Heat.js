@@ -1425,8 +1425,10 @@ var Convert;
         e._currentView.yearsAvailable = Q(e);
         ToolTip.hide(e);
         oe(e);
-        if (e.title.showConfigurationButton) {
+        if (e.title.showConfigurationButton || e.title.showExportButton) {
             Disabled.Background.render(e);
+        }
+        if (e.title.showConfigurationButton) {
             u(e);
         }
         if (e.title.showExportButton) {
