@@ -17,7 +17,7 @@ import { Is } from "../data/is";
 
 
 export namespace ToolTip {
-    export function renderControl( bindingOptions: BindingOptions ) : void {
+    export function render( bindingOptions: BindingOptions ) : void {
         if ( !Is.defined( bindingOptions._currentView!.tooltip ) ) {
             bindingOptions._currentView!.tooltip = DomElement.create( document.body, "div", "heat-js-tooltip" );
             bindingOptions._currentView!.tooltip.style.display = "none";

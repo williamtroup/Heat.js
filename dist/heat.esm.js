@@ -435,7 +435,7 @@ var ToolTip;
             n(e);
         }
     }
-    e.renderControl = t;
+    e.render = t;
     function n(e, t = true) {
         let n = t ? window.addEventListener : window.removeEventListener;
         let o = t ? document.addEventListener : document.removeEventListener;
@@ -1432,7 +1432,7 @@ var Convert;
         if (e.title.showExportButton) {
             f(e);
         }
-        ToolTip.renderControl(e);
+        ToolTip.render(e);
         p(e);
         S(e, n, o);
         if (e.views.chart.enabled) {

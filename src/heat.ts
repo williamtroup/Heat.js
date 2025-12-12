@@ -165,7 +165,7 @@ import { Convert } from "./ts/data/convert";
             renderExportDialog( bindingOptions );
         }
 
-        ToolTip.renderControl( bindingOptions );
+        ToolTip.render( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlMap( bindingOptions, isForViewSwitch, isForZooming );
 
