@@ -843,7 +843,7 @@ var Binding;
     })(t = e.Options || (e.Options = {}));
 })(Binding || (Binding = {}));
 
-var Config;
+var Configuration;
 
 (e => {
     let t;
@@ -926,7 +926,7 @@ var Config;
             return e;
         }
     })(t = e.Options || (e.Options = {}));
-})(Config || (Config = {}));
+})(Configuration || (Configuration = {}));
 
 var Disabled;
 
@@ -3606,19 +3606,19 @@ var Convert;
         },
         updateOptions: function(e, t) {
             if (Is.definedString(e) && Is.definedObject(t) && i.hasOwnProperty(e)) {
-                const n = i[e].options;
-                const o = Binding.Options.get(t);
-                let s = false;
-                for (const e in o) {
-                    if (o.hasOwnProperty(e) && n.hasOwnProperty(e) && n[e] !== o[e]) {
-                        n[e] = o[e];
-                        s = true;
+                const t = i[e].options;
+                const n = Binding.Options.get(t);
+                let o = false;
+                for (const e in n) {
+                    if (n.hasOwnProperty(e) && t.hasOwnProperty(e) && t[e] !== n[e]) {
+                        t[e] = n[e];
+                        o = true;
                     }
                 }
-                if (s) {
-                    l(n, true);
-                    Trigger.customEvent(n.events.onRefresh, n._currentView.element);
-                    Trigger.customEvent(n.events.onOptionsUpdate, n._currentView.element, n);
+                if (o) {
+                    l(t, true);
+                    Trigger.customEvent(t.events.onRefresh, t._currentView.element);
+                    Trigger.customEvent(t.events.onOptionsUpdate, t._currentView.element, t);
                 }
             }
             return De;
@@ -3670,7 +3670,7 @@ var Convert;
                     }
                 }
                 if (o) {
-                    n = Config.Options.get(i);
+                    n = Configuration.Options.get(i);
                     ye();
                     if (t) {
                         De.refreshAll();
@@ -3693,7 +3693,7 @@ var Convert;
         }
     };
     (() => {
-        n = Config.Options.get();
+        n = Configuration.Options.get();
         document.addEventListener("DOMContentLoaded", () => {
             ye();
             s();

@@ -3,7 +3,7 @@
  * 
  * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
  * 
- * @file        config.ts
+ * @file        configuration.ts
  * @version     v5.0.0
  * @author      Bunoon
  * @license     MIT License
@@ -16,7 +16,7 @@ import { Default } from "../data/default";
 import { Is } from "../data/is";
 
 
-export namespace Config {
+export namespace Configuration {
     export namespace Options {
         export function get( configurationOptions: ConfigurationOptions = null! ) : ConfigurationOptions {
             const configuration = Default.getObject( configurationOptions, {} as ConfigurationOptions );

@@ -329,11 +329,11 @@ export type PublicApi = {
      * @public
      * 
      * @param       {Object}    element                                     The element to convert to a heat map.
-     * @param       {Object}    options                                     The options to use (refer to "Binding Options" documentation for properties).
+     * @param       {Object}    bindingOptions                              The options to use (refer to "Binding Options" documentation for properties).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    render: ( element: HTMLElement, options: BindingOptions ) => PublicApi;
+    render: ( element: HTMLElement, bindingOptions: BindingOptions ) => PublicApi;
 
     /**
      * renderAll().
@@ -386,11 +386,11 @@ export type PublicApi = {
      * @fires       onOptionsUpdate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID.
-     * @param       {Object}    newOptions                                  The new options to want to apply to the element.
+     * @param       {Object}    bindingOptions                              The new options to want to apply to the element.
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    updateOptions: ( elementId: string, newOptions: BindingOptions ) => PublicApi;
+    updateOptions: ( elementId: string, bindingOptions: BindingOptions ) => PublicApi;
 
     /**
      * getActiveView().
@@ -453,12 +453,12 @@ export type PublicApi = {
      * @public
      * @fires       onRefresh
      * 
-     * @param       {Object}    newConfiguration                            All the configuration options that should be set (refer to "Configuration Options" documentation for properties).
+     * @param       {Object}    configurationOptions                        All the configuration options that should be set (refer to "Configuration Options" documentation for properties).
      * @param       {boolean}   [triggerRefresh]                            States if the UI for each element should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    setConfiguration: ( newConfiguration: any, triggerRefresh?: boolean ) => PublicApi;
+    setConfiguration: ( configurationOptions: any, triggerRefresh?: boolean ) => PublicApi;
 
 
     /*

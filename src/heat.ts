@@ -33,7 +33,7 @@ import { Str } from "./ts/data/str";
 import { ToolTip } from "./ts/area/tooltip";
 import { Trigger } from "./ts/area/trigger";
 import { Binding } from "./ts/options/binding";
-import { Config } from "./ts/options/config";
+import { Configuration } from "./ts/options/configuration";
 import { Disabled } from "./ts/area/disabled";
 import { Visible } from "./ts/data/visible";
 import { Import } from "./ts/files/import";
@@ -3116,9 +3116,9 @@ import { Convert } from "./ts/data/convert";
             return result;
         },
 
-        render: function ( element: HTMLElement, options: BindingOptions ) : PublicApi {
-            if ( Is.definedObject( element ) && Is.definedObject( options ) ) {
-                renderControl( Binding.Options.getForNewInstance(_configurationOptions, options, element ) );
+        render: function ( element: HTMLElement, bindingOptions: BindingOptions ) : PublicApi {
+            if ( Is.definedObject( element ) && Is.definedObject( bindingOptions ) ) {
+                renderControl( Binding.Options.getForNewInstance(_configurationOptions, bindingOptions, element ) );
             }
     
             return _public;
@@ -3172,10 +3172,10 @@ import { Convert } from "./ts/data/convert";
             return _public;
         },
 
-        updateOptions: function ( elementId: string, newOptions: BindingOptions ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedObject( newOptions ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+        updateOptions: function ( elementId: string, bindingOptions: BindingOptions ) : PublicApi {
+            if ( Is.definedString( elementId ) && Is.definedObject( bindingOptions ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: any = _elements_InstanceData[ elementId ].options;
-                const newBindingOptions: any = Binding.Options.get( newOptions );
+                const newBindingOptions: any = Binding.Options.get( bindingOptions );
                 let optionChanged: boolean = false;
     
                 for ( const propertyName in newBindingOptions ) {
@@ -3255,20 +3255,20 @@ import { Convert } from "./ts/data/convert";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        setConfiguration: function ( newConfiguration: any, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedObject( newConfiguration ) ) {
+        setConfiguration: function ( configurationOptions: any, triggerRefresh: boolean = true ) : PublicApi {
+            if ( Is.definedObject( configurationOptions ) ) {
                 let configurationHasChanged: boolean = false;
                 const newInternalConfiguration: any = _configurationOptions;
             
-                for ( const propertyName in newConfiguration ) {
-                    if ( newConfiguration.hasOwnProperty( propertyName ) && _configurationOptions.hasOwnProperty( propertyName ) && newInternalConfiguration[ propertyName ] !== newConfiguration[ propertyName ] ) {
-                        newInternalConfiguration[ propertyName ] = newConfiguration[ propertyName ];
+                for ( const propertyName in configurationOptions ) {
+                    if ( configurationOptions.hasOwnProperty( propertyName ) && _configurationOptions.hasOwnProperty( propertyName ) && newInternalConfiguration[ propertyName ] !== configurationOptions[ propertyName ] ) {
+                        newInternalConfiguration[ propertyName ] = configurationOptions[ propertyName ];
                         configurationHasChanged = true;
                     }
                 }
         
                 if ( configurationHasChanged ) {
-                    _configurationOptions = Config.Options.get( newInternalConfiguration );
+                    _configurationOptions = Configuration.Options.get( newInternalConfiguration );
 
                     setupObservationMode();
         
@@ -3313,7 +3313,7 @@ import { Convert } from "./ts/data/convert";
      */
 
     ( () => {
-        _configurationOptions = Config.Options.get();
+        _configurationOptions = Configuration.Options.get();
 
         document.addEventListener( "DOMContentLoaded", () => {
             setupObservationMode();
