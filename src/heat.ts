@@ -3255,20 +3255,21 @@ import { Convert } from "./ts/data/convert";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        setConfiguration: function ( configurationOptions: any, triggerRefresh: boolean = true ) : PublicApi {
+        setConfiguration: function ( configurationOptions: ConfigurationOptions, triggerRefresh: boolean = true ) : PublicApi {
             if ( Is.definedObject( configurationOptions ) ) {
-                let configurationHasChanged: boolean = false;
-                const newInternalConfiguration: any = _configurationOptions;
+                const newInternalConfigurationOptions: any = _configurationOptions;
+                const newConfigurationOptions: any = configurationOptions;
+                let configurationOptionsHaveChanged: boolean = false;
             
-                for ( const propertyName in configurationOptions ) {
-                    if ( configurationOptions.hasOwnProperty( propertyName ) && _configurationOptions.hasOwnProperty( propertyName ) && newInternalConfiguration[ propertyName ] !== configurationOptions[ propertyName ] ) {
-                        newInternalConfiguration[ propertyName ] = configurationOptions[ propertyName ];
-                        configurationHasChanged = true;
+                for ( const propertyName in newConfigurationOptions ) {
+                    if ( newConfigurationOptions.hasOwnProperty( propertyName ) && _configurationOptions.hasOwnProperty( propertyName ) && newInternalConfigurationOptions[ propertyName ] !== newConfigurationOptions[ propertyName ] ) {
+                        newInternalConfigurationOptions[ propertyName ] = newConfigurationOptions[ propertyName ];
+                        configurationOptionsHaveChanged = true;
                     }
                 }
         
-                if ( configurationHasChanged ) {
-                    _configurationOptions = Configuration.Options.get( newInternalConfiguration );
+                if ( configurationOptionsHaveChanged ) {
+                    _configurationOptions = Configuration.Options.get( newInternalConfigurationOptions );
 
                     setupObservationMode();
         

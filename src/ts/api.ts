@@ -11,7 +11,7 @@
  */
 
 
-import { type BindingOptions } from "./type";
+import { type ConfigurationOptions, type BindingOptions } from "./type";
 
     
 export type PublicApi = {
@@ -458,7 +458,7 @@ export type PublicApi = {
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    setConfiguration: ( configurationOptions: any, triggerRefresh?: boolean ) => PublicApi;
+    setConfiguration: ( configurationOptions: ConfigurationOptions, triggerRefresh?: boolean ) => PublicApi;
 
 
     /*

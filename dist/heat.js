@@ -3663,16 +3663,17 @@ var Convert;
         },
         setConfiguration: function(e, t = true) {
             if (Is.definedObject(e)) {
-                let o = false;
-                const i = n;
-                for (const t in e) {
-                    if (e.hasOwnProperty(t) && n.hasOwnProperty(t) && i[t] !== e[t]) {
-                        i[t] = e[t];
-                        o = true;
+                const o = n;
+                const i = e;
+                let s = false;
+                for (const e in i) {
+                    if (i.hasOwnProperty(e) && n.hasOwnProperty(e) && o[e] !== i[e]) {
+                        o[e] = i[e];
+                        s = true;
                     }
                 }
-                if (o) {
-                    n = Configuration.Options.get(i);
+                if (s) {
+                    n = Configuration.Options.get(o);
                     ye();
                     if (t) {
                         De.refreshAll();
