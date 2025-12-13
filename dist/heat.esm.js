@@ -2755,46 +2755,41 @@ var Convert;
     function R(e, t) {
         const n = X(e);
         const o = e._currentView.year;
-        const i = t.length;
-        const s = {
+        const i = {
             types: {},
             largestValue: 0,
             totalValue: 0
         };
-        s.types["0"] = 0;
-        for (let e = 0; e < i; e++) {
-            s.types[t[e].minimum.toString()] = 0;
-        }
-        for (let i = e.startMonth; i < 12 + e.startMonth; i++) {
-            let r = i;
+        for (let s = e.startMonth; s < 12 + e.startMonth; s++) {
+            let r = s;
             let a = o;
-            if (e.startMonth > 0 && i > 11) {
-                r = i - 12;
+            if (e.startMonth > 0 && s > 11) {
+                r = s - 12;
                 a++;
             }
             if (Is.monthVisible(e.views.statistics.monthsToShow, r)) {
                 const o = DateTime.getTotalDaysInMonth(a, r);
-                for (let i = 0; i < o; i++) {
-                    const o = DateTime.toStorageDate(new Date(a, r, i + 1));
+                for (let s = 0; s < o; s++) {
+                    const o = DateTime.toStorageDate(new Date(a, r, s + 1));
                     if (n.hasOwnProperty(o)) {
-                        const i = DateTime.getStorageDate(o);
-                        const r = new Date(parseInt(i[2]), parseInt(i[1]), parseInt(i[0]));
+                        const s = DateTime.getStorageDate(o);
+                        const r = new Date(parseInt(s[2]), parseInt(s[1]), parseInt(s[0]));
                         const a = DateTime.getWeekdayNumber(r) + 1;
                         if (!Is.holiday(e, r).matched && Is.dayVisible(e.views.statistics.daysToShow, a)) {
-                            const i = ae(e, t, n[o]);
-                            const r = Is.defined(i) ? i.minimum.toString() : "0";
-                            if (!s.types.hasOwnProperty(r)) {
-                                s.types[r] = 0;
+                            const s = ae(e, t, n[o]);
+                            const r = Is.defined(s) ? s.minimum.toString() : "0";
+                            if (!i.types.hasOwnProperty(r)) {
+                                i.types[r] = 0;
                             }
-                            s.types[r]++;
-                            s.totalValue++;
-                            s.largestValue = Math.max(s.largestValue, s.types[r]);
+                            i.types[r]++;
+                            i.totalValue++;
+                            i.largestValue = Math.max(i.largestValue, i.types[r]);
                         }
                     }
                 }
             }
         }
-        return s;
+        return i;
     }
     function W(e) {
         const t = DomElement.create(e._currentView.element, "div", "guide");
