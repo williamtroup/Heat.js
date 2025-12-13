@@ -28,6 +28,17 @@ div.header p {
 div.header h1 {
     margin-bottom: 8px;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+div.header h1 img {
+    height: 30px;
+    margin-right: 10px;
+    padding: 10px;
+    background-color: #22272e;
+    border-radius: 0.5rem;
+    box-sizing: content-box !important;
 }
 
 h2 {
