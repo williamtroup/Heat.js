@@ -155,6 +155,7 @@ import { Convert } from "./ts/data/convert";
         ToolTip.hide( bindingOptions );
 
         startDataPullTimer( bindingOptions );
+        setupTrendTypes( bindingOptions );
 
         if ( bindingOptions.title!.showConfigurationButton || bindingOptions.title!.showExportButton ) {
             Disabled.Background.render( bindingOptions );
@@ -170,6 +171,7 @@ import { Convert } from "./ts/data/convert";
 
         ToolTip.render( bindingOptions );
         renderControlTitleBar( bindingOptions );
+        renderControlYearStatistics( bindingOptions );
         renderControlMap( bindingOptions, isForViewSwitch, isForZooming );
 
         if ( bindingOptions.views!.chart!.enabled ) {
@@ -188,6 +190,8 @@ import { Convert } from "./ts/data/convert";
             renderControlStatistics( bindingOptions, isForViewSwitch );
         }
 
+        renderControlViewGuide( bindingOptions );
+
         bindingOptions._currentView!.mapContentsContainer.style.display = "none";
 
         if ( bindingOptions._currentView!.view === ViewId.map ) {
@@ -204,8 +208,6 @@ import { Convert } from "./ts/data/convert";
             bindingOptions._currentView!.view = ViewId.map;
             bindingOptions._currentView!.mapContentsContainer.style.display = "block";
         }
-
-        renderControlYearStatistics( bindingOptions );
     }
 
 
@@ -723,7 +725,7 @@ import { Convert } from "./ts/data/convert";
         const isCurrentYear: boolean = bindingOptions._currentView!.year === today.getFullYear();
 
         if ( bindingOptions.yearlyStatistics!.enabled && ( !bindingOptions.yearlyStatistics!.showOnlyForCurrentYear || isCurrentYear ) ) {
-            const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics", bindingOptions._currentView!.mapContentsContainer );
+            const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics" );
             const daysToShow: number[] = Visible.days( bindingOptions );
             const monthsToShow: number[] = Visible.months( bindingOptions );
             const startOfYear: Date = new Date( bindingOptions._currentView!.year, bindingOptions.startMonth!, 1 );
@@ -851,24 +853,6 @@ import { Convert } from "./ts/data/convert";
     function renderControlMap( bindingOptions: BindingOptions, isForViewSwitch: boolean = false, isForZooming: boolean ) : void {
         bindingOptions._currentView!.mapContentsContainer = DomElement.create( bindingOptions._currentView!.element, "div", "map-contents-container" );
         bindingOptions._currentView!.mapContents = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "map-contents" );
-
-        if ( bindingOptions.views!.chart!.enabled ) {
-            renderControlChartContents( bindingOptions );
-        }
-
-        if ( bindingOptions.views!.days!.enabled ) {
-            renderControlDaysContents( bindingOptions );
-        }
-
-        if ( bindingOptions.views!.months!.enabled ) {
-            renderControlMonthsContents( bindingOptions );
-        }
-        
-        if ( bindingOptions.views!.statistics!.enabled ) {
-            renderControlStatisticsContents( bindingOptions );
-        }
-
-        renderControlViewGuide( bindingOptions );
 
         if ( bindingOptions.views!.map!.showNoDataMessageWhenDataIsNotAvailable && !isDataAvailableForYear( bindingOptions ) ) {
             const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.mapContents, "div", "no-data-message", _configurationOptions.text!.noMapDataMessage! );
@@ -1198,13 +1182,9 @@ import { Convert } from "./ts/data/convert";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlChartContents( bindingOptions: BindingOptions ) : void {
+    function renderControlChart( bindingOptions: BindingOptions, isForViewSwitch: boolean) : void {
         bindingOptions._currentView!.chartContents = DomElement.create( bindingOptions._currentView!.element, "div", "chart-contents" );
 
-        makeAreaDroppable( bindingOptions._currentView!.chartContents, bindingOptions );
-    }
-
-    function renderControlChart( bindingOptions: BindingOptions, isForViewSwitch: boolean) : void {
         const chart: HTMLElement = DomElement.create( bindingOptions._currentView!.chartContents, "div", "chart" );
         let labels: HTMLElement = DomElement.create( chart, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( chart, "div", "day-lines" );
@@ -1216,6 +1196,8 @@ import { Convert } from "./ts/data/convert";
         if ( isForViewSwitch ) {
             DomElement.addClass( chart, "view-switch" );
         }
+
+        makeAreaDroppable( bindingOptions._currentView!.chartContents, bindingOptions );
 
         if ( largestValueForCurrentYear > 0 && bindingOptions.views!.chart!.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", largestValueForCurrentYear.toString() );
@@ -1453,18 +1435,16 @@ import { Convert } from "./ts/data/convert";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlDaysContents( bindingOptions: BindingOptions ) : void {
+    function renderControlDays( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
         bindingOptions._currentView!.daysContents = DomElement.create( bindingOptions._currentView!.element, "div", "days-contents" );
 
-        makeAreaDroppable( bindingOptions._currentView!.daysContents, bindingOptions );
-    }
-
-    function renderControlDays( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
         const days: HTMLElement = DomElement.create( bindingOptions._currentView!.daysContents, "div", "days" );
         const dayNames: HTMLElement = DomElement.create( bindingOptions._currentView!.daysContents, "div", "day-names" );
         let labels: HTMLElement = DomElement.create( days, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( days, "div", "day-lines" );
         const dayValuesForCurrentYear: LargestValueForView = getLargestValuesForEachDay( bindingOptions );
+
+        makeAreaDroppable( bindingOptions._currentView!.daysContents, bindingOptions );
 
         if ( isForViewSwitch ) {
             DomElement.addClass( days, "view-switch" );
@@ -1639,13 +1619,9 @@ import { Convert } from "./ts/data/convert";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlMonthsContents( bindingOptions: BindingOptions ) : void {
+    function renderControlMonths( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
         bindingOptions._currentView!.monthsContents = DomElement.create( bindingOptions._currentView!.element, "div", "months-contents" );
 
-        makeAreaDroppable( bindingOptions._currentView!.monthsContents, bindingOptions );
-    }
-
-    function renderControlMonths( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
         const months: HTMLElement = DomElement.create( bindingOptions._currentView!.monthsContents, "div", "months" );
         const monthNames: HTMLElement = DomElement.create( bindingOptions._currentView!.monthsContents, "div", "month-names" );
         let labels: HTMLElement = DomElement.create( months, "div", "y-labels" );
@@ -1655,6 +1631,8 @@ import { Convert } from "./ts/data/convert";
         if ( isForViewSwitch ) {
             DomElement.addClass( months, "view-switch" );
         }
+
+        makeAreaDroppable( bindingOptions._currentView!.monthsContents, bindingOptions );
 
         if ( monthValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.months!.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", monthValuesForCurrentYear.largestValue.toString() );
@@ -1850,13 +1828,9 @@ import { Convert } from "./ts/data/convert";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlStatisticsContents( bindingOptions: BindingOptions ) : void {
+    function renderControlStatistics( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
         bindingOptions._currentView!.statisticsContents = DomElement.create( bindingOptions._currentView!.element, "div", "statistics-contents" );
 
-        makeAreaDroppable( bindingOptions._currentView!.statisticsContents, bindingOptions );
-    }
-
-    function renderControlStatistics( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
         const statistics: HTMLElement = DomElement.create( bindingOptions._currentView!.statisticsContents, "div", "statistics" );
         const statisticsRanges: HTMLElement = DomElement.create( bindingOptions._currentView!.statisticsContents, "div", "statistics-ranges" );
         let labels: HTMLElement = DomElement.create( statistics, "div", "y-labels" );
@@ -1867,6 +1841,8 @@ import { Convert } from "./ts/data/convert";
         if ( isForViewSwitch ) {
             DomElement.addClass( statistics, "view-switch" );
         }
+
+        makeAreaDroppable( bindingOptions._currentView!.statisticsContents, bindingOptions );
 
         if ( colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.statistics!.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", colorRangeValuesForCurrentYear.largestValue.toString() );
@@ -2059,14 +2035,7 @@ import { Convert } from "./ts/data/convert";
     function renderControlViewGuide( bindingOptions: BindingOptions ) : void {
         const guide: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "guide" )
         const mapTypes: HTMLElement = DomElement.create( guide, "div", "map-types" );
-        let noneTypeCount: number = 0;
-
-        for ( const storageDate in _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configurationOptions.text!.unknownTrendText! ] ) {
-            if ( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configurationOptions.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
-                noneTypeCount++;
-                break;
-            }
-        }
+        const noneTypeCount: number = getUnknownTrendTypeCount( bindingOptions );
 
         if ( _elements_InstanceData[ bindingOptions._currentView!.element.id ].totalTypes > 1 ) {
             if ( Is.definedString( bindingOptions.description!.text ) ) {
@@ -2077,10 +2046,6 @@ import { Convert } from "./ts/data/convert";
 
             for ( const type in _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData ) {
                 if ( type !== _configurationOptions.text!.unknownTrendText || noneTypeCount > 0 ) {
-                    if ( noneTypeCount === 0 && bindingOptions._currentView!.type === _configurationOptions.text!.unknownTrendText ) {
-                        bindingOptions._currentView!.type = type;
-                    }
-
                     renderControlViewGuideTypeButton( bindingOptions, mapTypes, type );
                 }
             }
@@ -2228,6 +2193,33 @@ import { Convert } from "./ts/data/convert";
      * Data
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
+
+    function setupTrendTypes( bindingOptions: BindingOptions ) : void {
+        const noneTypeCount: number = getUnknownTrendTypeCount( bindingOptions );
+
+        if ( _elements_InstanceData[ bindingOptions._currentView!.element.id ].totalTypes > 1 ) {
+            for ( const type in _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData ) {
+                if ( type !== _configurationOptions.text!.unknownTrendText || noneTypeCount > 0 ) {
+                    if ( noneTypeCount === 0 && bindingOptions._currentView!.type === _configurationOptions.text!.unknownTrendText ) {
+                        bindingOptions._currentView!.type = type;
+                    }
+                }
+            }
+        }
+    }
+
+    function getUnknownTrendTypeCount( bindingOptions: BindingOptions ) : number {
+        let noneTypeCount: number = 0;
+
+        for ( const storageDate in _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configurationOptions.text!.unknownTrendText! ] ) {
+            if ( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configurationOptions.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
+                noneTypeCount++;
+                break;
+            }
+        }
+
+        return noneTypeCount;
+    }
 
     function createInstanceDataForElement( elementId: string, bindingOptions: BindingOptions, storeLocalData: boolean = true ) : void {
         _elements_InstanceData[ elementId ] = {
