@@ -2784,16 +2784,13 @@ var Convert;
                         const a = DateTime.getWeekdayNumber(r) + 1;
                         if (!Is.holiday(e, r).matched && Is.dayVisible(e.views.statistics.daysToShow, a)) {
                             const i = ae(e, t, n[o]);
-                            if (!Is.defined(i)) {
-                                s.types["0"]++;
-                            } else {
-                                if (!s.types.hasOwnProperty(i.minimum.toString())) {
-                                    s.types[i.minimum.toString()] = 0;
-                                }
-                                s.types[i.minimum]++;
-                                s.totalValue++;
-                                s.largestValue = Math.max(s.largestValue, s.types[i.minimum]);
+                            const r = Is.defined(i) ? i.minimum.toString() : "0";
+                            if (!s.types.hasOwnProperty(r)) {
+                                s.types[r] = 0;
                             }
+                            s.types[r]++;
+                            s.totalValue++;
+                            s.largestValue = Math.max(s.largestValue, s.types[r]);
                         }
                     }
                 }

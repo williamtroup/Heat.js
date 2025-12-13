@@ -2003,25 +2003,21 @@ import { Convert } from "./ts/data/convert";
 
                         if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.statistics!.daysToShow!, weekDayNumber ) ) {
                             const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, typeDateCounts[ storageDate ] );
+                            const colorRangeMinimum: string = Is.defined( useColorRange ) ? useColorRange.minimum!.toString() : Char.zero;
 
-                            if ( !Is.defined( useColorRange ) ) {
-                                result.types[ Char.zero ]++;
-        
-                            } else {
-                                if ( !result.types.hasOwnProperty( useColorRange.minimum!.toString() ) ) {
-                                    result.types[ useColorRange.minimum!.toString() ] = 0;
-                                }
-        
-                                result.types[ useColorRange.minimum! ]++;
-                                result.totalValue++;
-                                result.largestValue = Math.max( result.largestValue, result.types[ useColorRange.minimum! ] );
+                            if ( !result.types.hasOwnProperty( colorRangeMinimum ) ) {
+                                result.types[ colorRangeMinimum ] = 0;
                             }
+    
+                            result.types[ colorRangeMinimum ]++;
+                            result.totalValue++;
+                            result.largestValue = Math.max( result.largestValue, result.types[ colorRangeMinimum ] );
                         }
                     }
                 }
             }
         }
-
+        
         return result;
     }
 
