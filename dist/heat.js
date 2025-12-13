@@ -2361,10 +2361,10 @@ var Convert;
         let s = DomElement.create(o, "div", "y-labels");
         const r = DomElement.create(o, "div", "day-lines");
         const a = k(e);
-        ue(e._currentView.daysContents, e);
         if (t) {
             DomElement.addClass(o, "view-switch");
         }
+        ue(e._currentView.daysContents, e);
         if (a.largestValue > 0 && e.views.days.showChartYLabels) {
             const e = DomElement.createWithHTML(s, "div", "label-0", a.largestValue.toString());
             DomElement.createWithHTML(s, "div", "label-25", (Math.floor(a.largestValue / 4) * 3).toString());

@@ -1444,11 +1444,11 @@ import { Convert } from "./ts/data/convert";
         const dayLines: HTMLElement = DomElement.create( days, "div", "day-lines" );
         const dayValuesForCurrentYear: LargestValueForView = getLargestValuesForEachDay( bindingOptions );
 
-        makeAreaDroppable( bindingOptions._currentView!.daysContents, bindingOptions );
-
         if ( isForViewSwitch ) {
             DomElement.addClass( days, "view-switch" );
         }
+
+        makeAreaDroppable( bindingOptions._currentView!.daysContents, bindingOptions );
 
         if ( dayValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.days!.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", dayValuesForCurrentYear.largestValue.toString() );
