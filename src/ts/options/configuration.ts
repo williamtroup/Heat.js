@@ -65,11 +65,9 @@ export namespace Configuration {
             configurationOptions.text!.yearText = Default.getAnyString( configurationOptions.text!.yearText, "Year" );
             configurationOptions.text!.daysText = Default.getAnyString( configurationOptions.text!.daysText, "Days" );
             configurationOptions.text!.noDaysDataMessage = Default.getAnyString( configurationOptions.text!.noDaysDataMessage, "There are currently no days to view." );
-            configurationOptions.text!.refreshButtonSymbolText = Default.getAnyString( configurationOptions.text!.refreshButtonSymbolText, "↻" );
             configurationOptions.text!.exportButtonSymbolText = Default.getAnyString( configurationOptions.text!.exportButtonSymbolText, "↓" );
             configurationOptions.text!.importButtonSymbolText = Default.getAnyString( configurationOptions.text!.importButtonSymbolText, "↑" );
             configurationOptions.text!.currentYearText = Default.getAnyString( configurationOptions.text!.currentYearText, "Current Year" );
-            configurationOptions.text!.currentYearSymbolText = Default.getAnyString( configurationOptions.text!.currentYearSymbolText, "⏎" );
             configurationOptions.text!.todayText = Default.getAnyString( configurationOptions.text!.todayText, "Today" );
             configurationOptions.text!.thisWeekText = Default.getAnyString( configurationOptions.text!.thisWeekText, "This Week" );
             configurationOptions.text!.thisMonthText = Default.getAnyString( configurationOptions.text!.thisMonthText, "This Month" );
@@ -80,8 +78,6 @@ export namespace Configuration {
             configurationOptions.text!.selectTypeText = Default.getAnyString( configurationOptions.text!.selectTypeText, "Select Type" );
             configurationOptions.text!.filenamePlaceholderText = Default.getAnyString( configurationOptions.text!.filenamePlaceholderText, "Filename (optional)" );
             configurationOptions.text!.onlyDataBeingViewedText = Default.getAnyString( configurationOptions.text!.onlyDataBeingViewedText, "Only data being viewed" );
-            configurationOptions.text!.zoomInText = Default.getAnyString( configurationOptions.text!.zoomInText, "+" );
-            configurationOptions.text!.zoomOutText = Default.getAnyString( configurationOptions.text!.zoomOutText, "−" );
             configurationOptions.text!.zoomInToolTipText = Default.getAnyString( configurationOptions.text!.zoomInToolTipText, "Zoom In" );
             configurationOptions.text!.zoomOutToolTipText = Default.getAnyString( configurationOptions.text!.zoomOutToolTipText, "Zoom Out" );
             configurationOptions.text!.clearButtonSymbolText = Default.getAnyString( configurationOptions.text!.clearButtonSymbolText, "✕" );

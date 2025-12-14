@@ -898,11 +898,9 @@ var Configuration;
             e.text.yearText = Default2.getAnyString(e.text.yearText, "Year");
             e.text.daysText = Default2.getAnyString(e.text.daysText, "Days");
             e.text.noDaysDataMessage = Default2.getAnyString(e.text.noDaysDataMessage, "There are currently no days to view.");
-            e.text.refreshButtonSymbolText = Default2.getAnyString(e.text.refreshButtonSymbolText, "↻");
             e.text.exportButtonSymbolText = Default2.getAnyString(e.text.exportButtonSymbolText, "↓");
             e.text.importButtonSymbolText = Default2.getAnyString(e.text.importButtonSymbolText, "↑");
             e.text.currentYearText = Default2.getAnyString(e.text.currentYearText, "Current Year");
-            e.text.currentYearSymbolText = Default2.getAnyString(e.text.currentYearSymbolText, "⏎");
             e.text.todayText = Default2.getAnyString(e.text.todayText, "Today");
             e.text.thisWeekText = Default2.getAnyString(e.text.thisWeekText, "This Week");
             e.text.thisMonthText = Default2.getAnyString(e.text.thisMonthText, "This Month");
@@ -913,8 +911,6 @@ var Configuration;
             e.text.selectTypeText = Default2.getAnyString(e.text.selectTypeText, "Select Type");
             e.text.filenamePlaceholderText = Default2.getAnyString(e.text.filenamePlaceholderText, "Filename (optional)");
             e.text.onlyDataBeingViewedText = Default2.getAnyString(e.text.onlyDataBeingViewedText, "Only data being viewed");
-            e.text.zoomInText = Default2.getAnyString(e.text.zoomInText, "+");
-            e.text.zoomOutText = Default2.getAnyString(e.text.zoomOutText, "−");
             e.text.zoomInToolTipText = Default2.getAnyString(e.text.zoomInToolTipText, "Zoom In");
             e.text.zoomOutToolTipText = Default2.getAnyString(e.text.zoomOutToolTipText, "Zoom Out");
             e.text.clearButtonSymbolText = Default2.getAnyString(e.text.clearButtonSymbolText, "✕");
@@ -1402,7 +1398,7 @@ var Convert;
             DomElement.addClass(e._currentView.element, "resizable");
         }
         e._currentView.element.removeAttribute(Constant.HEAT_JS_ATTRIBUTE_NAME);
-        Z(e._currentView.element.id, e);
+        G(e._currentView.element.id, e);
         r(e);
         a(e);
         Trigger.customEvent(e.events.onRenderComplete, e._currentView.element);
@@ -1687,7 +1683,8 @@ var Convert;
                 }
             }
             if (t.title.showRefreshButton) {
-                const o = DomElement.createButton(n, "button", "refresh", e.text.refreshButtonSymbolText);
+                const o = DomElement.createButton(n, "button", "refresh");
+                DomElement.create(o, "i", "refresh");
                 if (t.title.showToolTips) {
                     ToolTip.add(o, t, e.text.refreshButtonText);
                 }
@@ -1734,7 +1731,8 @@ var Convert;
                     }
                 }
                 if (t.title.showCurrentYearButton) {
-                    const o = DomElement.createButton(n, "button", "current", e.text.currentYearSymbolText);
+                    const o = DomElement.createButton(n, "button", "current");
+                    DomElement.create(o, "i", "pin");
                     if (t.title.showToolTips) {
                         ToolTip.add(o, t, e.text.currentYearText);
                     }
@@ -1932,7 +1930,7 @@ var Convert;
     function b(t, n = false, o) {
         t._currentView.mapContentsContainer = DomElement.create(t._currentView.element, "div", "map-contents-container");
         t._currentView.mapContents = DomElement.create(t._currentView.mapContentsContainer, "div", "map-contents");
-        if (t.views.map.showNoDataMessageWhenDataIsNotAvailable && !V(t)) {
+        if (t.views.map.showNoDataMessageWhenDataIsNotAvailable && !S(t)) {
             const o = DomElement.createWithHTML(t._currentView.mapContents, "div", "no-data-message", e.text.noMapDataMessage);
             if (n) {
                 DomElement.addClass(o, "view-switch");
@@ -1994,7 +1992,7 @@ var Convert;
                         if (m) {
                             let n = null;
                             if (Is.dayVisible(t.views.map.daysToShow, w)) {
-                                n = S(t, u, e - f, o, i, l);
+                                n = V(t, u, e - f, o, i, l);
                             }
                             if ((e + 1) % 7 === 0) {
                                 if (t.views.map.showDaysInReverseOrder) {
@@ -2064,10 +2062,12 @@ var Convert;
         if (t.views.map.allowZooming) {
             const s = DomElement.create(t._currentView.mapContentsContainer, "div", "zooming");
             const a = DomElement.create(s, "div", "zoom-close-button");
-            const l = DomElement.createButton(s, "button", "zoom-out", e.text.zoomOutText);
+            const l = DomElement.createButton(s, "button", "zoom-out");
             const c = DomElement.createWithHTML(s, "span", "zoom-level", `+${Str.friendlyNumber(t._currentView.mapZoomLevel * 10)}%`);
-            const u = DomElement.createButton(s, "button", "zoom-in", e.text.zoomInText);
+            const u = DomElement.createButton(s, "button", "zoom-in");
             const m = DomElement.getStyleValueByName(document.documentElement, "--heat-js-spacing", true);
+            DomElement.create(u, "i", "plus");
+            DomElement.create(l, "i", "minus");
             i = DomElement.getStyleValueByName(t._currentView.element, "--heat-js-day-size", true);
             if (i === 0) {
                 i = DomElement.getStyleValueByName(document.documentElement, "--heat-js-day-size", true);
@@ -2123,7 +2123,7 @@ var Convert;
             }
         }
     }
-    function S(t, o, i, s, r, a) {
+    function V(t, o, i, s, r, a) {
         const l = i + 1;
         const c = DomElement.create(o, "div", "day");
         const u = new Date(r, s, l);
@@ -2160,9 +2160,9 @@ var Convert;
         }
         return c;
     }
-    function V(e) {
+    function S(e) {
         let t = false;
-        const n = G(e);
+        const n = z(e);
         const o = e._currentView.year.toString();
         const i = (e._currentView.year + 1).toString();
         for (const s in n) {
@@ -2296,7 +2296,7 @@ var Convert;
         const l = new Date(s, i, o);
         const c = DomElement.create(t, "div", "day-line");
         const u = Is.holiday(n, l);
-        let m = G(n)[DateTime.toStorageDate(l)];
+        let m = z(n)[DateTime.toStorageDate(l)];
         m = Default2.getNumber(m, 0);
         c.setAttribute(Constant.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${Str.padNumber(o)}-${Str.padNumber(i + 1)}-${s}`);
         if (n.views.chart.showToolTips) {
@@ -2341,7 +2341,7 @@ var Convert;
     }
     function I(e) {
         let t = 0;
-        const n = G(e);
+        const n = z(e);
         const o = e._currentView.year;
         for (let i = e.startMonth; i < 12 + e.startMonth; i++) {
             let s = i;
@@ -2482,7 +2482,7 @@ var Convert;
             largestValue: 0,
             totalValue: 0
         };
-        const n = G(e);
+        const n = z(e);
         const o = e._currentView.year;
         for (let i = e.startMonth; i < 12 + e.startMonth; i++) {
             let s = i;
@@ -2645,7 +2645,7 @@ var Convert;
             largestValue: 0,
             totalValue: 0
         };
-        const n = G(e);
+        const n = z(e);
         const o = e._currentView.year;
         for (let i = e.startMonth; i < 12 + e.startMonth; i++) {
             let s = i;
@@ -2781,7 +2781,7 @@ var Convert;
         }
     }
     function R(e, t) {
-        const n = G(e);
+        const n = z(e);
         const o = e._currentView.year;
         const i = {
             types: {},
@@ -2822,7 +2822,7 @@ var Convert;
     function $(t) {
         const o = DomElement.create(t._currentView.element, "div", "guide");
         const i = DomElement.create(o, "div", "map-types");
-        const s = z(t);
+        const s = Z(t);
         if (n[t._currentView.element.id].totalTypes > 1) {
             if (Is.definedString(t.description.text)) {
                 const e = DomElement.create(t._currentView.element, "div", "description", o);
@@ -2936,7 +2936,7 @@ var Convert;
         r(e, false, true);
     }
     function U(t) {
-        const o = z(t);
+        const o = Z(t);
         if (n[t._currentView.element.id].totalTypes > 1) {
             for (const i in n[t._currentView.element.id].typeData) {
                 if (i !== e.text.unknownTrendText || o > 0) {
@@ -2947,7 +2947,7 @@ var Convert;
             }
         }
     }
-    function z(t) {
+    function Z(t) {
         let o = 0;
         for (const i in n[t._currentView.element.id].typeData[e.text.unknownTrendText]) {
             if (n[t._currentView.element.id].typeData[e.text.unknownTrendText].hasOwnProperty(i)) {
@@ -2957,7 +2957,7 @@ var Convert;
         }
         return o;
     }
-    function Z(t, o, i = true) {
+    function G(t, o, i = true) {
         n[t] = {
             options: o,
             typeData: {},
@@ -2968,13 +2968,13 @@ var Convert;
             q(o);
         }
     }
-    function G(e) {
+    function z(e) {
         return n[e._currentView.element.id].typeData[e._currentView.type];
     }
     function J(e) {
         let t = [];
         if (e.showOnlyDataForYearsAvailable) {
-            let n = G(e);
+            let n = z(e);
             for (const e in n) {
                 if (n.hasOwnProperty(e)) {
                     let n = parseInt(DateTime.getStorageDateYear(e));
@@ -2990,7 +2990,7 @@ var Convert;
         return t;
     }
     function X(e) {
-        let t = G(e);
+        let t = z(e);
         for (const n in t) {
             if (t.hasOwnProperty(n)) {
                 let o = parseInt(DateTime.getStorageDateYear(n));
@@ -3063,7 +3063,7 @@ var Convert;
         const o = t._currentView.element.id;
         const i = Trigger.customEvent(t.events.onDataFetch, o);
         if (Is.definedObject(i)) {
-            Z(o, t, false);
+            G(o, t, false);
             for (const t in i) {
                 if (i.hasOwnProperty(t)) {
                     if (!n[o].typeData[e.text.unknownTrendText].hasOwnProperty(t)) {
@@ -3195,7 +3195,7 @@ var Convert;
     function me(t, n) {
         const o = t.length;
         const i = [];
-        const s = G(n);
+        const s = z(n);
         const a = (e, t) => {
             i.push(e);
             for (const e in t) {
@@ -3235,7 +3235,7 @@ var Convert;
     }
     function fe(e, t) {
         const n = {};
-        const o = G(e);
+        const o = z(e);
         if (t) {
             const t = e._currentView.year;
             const i = Visible.days(e);
@@ -3466,7 +3466,7 @@ var Convert;
                 const i = n[t].options;
                 if (!i._currentView.isInFetchMode) {
                     i._currentView.type = e.text.unknownTrendText;
-                    Z(t, i, false);
+                    G(t, i, false);
                     Trigger.customEvent(i.events.onReset, i._currentView.element);
                     if (o) {
                         r(i, true);
@@ -3526,7 +3526,7 @@ var Convert;
         setYearToHighest: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
                 const t = n[e].options;
-                const o = G(t);
+                const o = z(t);
                 let i = 0;
                 for (const e in o) {
                     if (o.hasOwnProperty(e)) {
@@ -3548,7 +3548,7 @@ var Convert;
         setYearToLowest: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
                 const t = n[e].options;
-                const o = G(t);
+                const o = z(t);
                 let i = 9999;
                 for (const e in o) {
                     if (o.hasOwnProperty(e)) {

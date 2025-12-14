@@ -1,0 +1,17 @@
+@use "button";
+
+@mixin button-icon {
+    i.minus {
+        @include button.button-no-before-after;
+
+        &::before {
+            @include button.button-after-before-setup;
+            @include button.top-center;
+            background-color: currentColor;
+            width: 100%;
+            height: button.$border-width;
+            border-radius: button.$border-radius;
+            left: 0;
+        }
+    }
+}

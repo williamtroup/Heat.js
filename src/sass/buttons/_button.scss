@@ -1,8 +1,7 @@
 $size: 12px;
 $border-width: calc( $size / 4 );
 $border-radius: $border-width;
-$button-color: var(--heat-js-button-text-color);
-$border: $border-width solid $button-color;
+$border: $border-width solid currentColor;
 
 @mixin button-size {
     width: $size;
@@ -13,15 +12,6 @@ $border: $border-width solid $button-color;
 
 @mixin button-no-before-after {
     @include button-size;
-    transition: all .3s;
-
-    &:not( .no-hover ):hover {
-        @include button-hover;
-    }
-
-    &:not( .no-active ):active {
-        @include button-active;
-    }
 }
 
 @mixin button {
@@ -36,16 +26,6 @@ $border: $border-width solid $button-color;
 @mixin button-after-before-setup {
     position: absolute;
     content: "";
-}
-
-@mixin button-hover {
-    cursor: pointer;
-    opacity: 0.7;
-}
-
-@mixin button-active {
-    cursor: pointer;
-    opacity: 0.5;
 }
 
 @mixin left-center {

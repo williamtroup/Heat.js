@@ -9,6 +9,10 @@
 @use "sass/styles";
 @use "sass/buttons/arrow-left";
 @use "sass/buttons/arrow-right";
+@use "sass/buttons/minus";
+@use "sass/buttons/plus";
+@use "sass/buttons/pin";
+@use "sass/buttons/refresh";
 
 :root {
     // Fonts
@@ -406,11 +410,19 @@ div.heat-js {
 
         button.back {
             margin-left: calc( var(--heat-js-spacing) * 2 ) !important;
-            @include arrow-left.button;
+            @include arrow-left.button-icon;
         }
 
         button.next {
-            @include arrow-right.button;
+            @include arrow-right.button-icon;
+        }
+
+        button.current {
+            @include pin.button-icon;
+        }
+
+        button.refresh {
+            @include refresh.button-icon;
         }
 
         button.export,
@@ -473,7 +485,7 @@ div.heat-js {
             display: none;
     
             @media (min-width: styles.$minimum-width) { 
-                display: inline-block;
+                display: inline-flex;
             }
         }
     }
@@ -821,11 +833,22 @@ div.heat-js {
             }
 
             button {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
                 width: 35px;
                 height: 30px;
                 margin-right: calc( var(--heat-js-spacing) / 2 );
                 font-weight: var(--heat-js-title-bold-weight);
                 margin-right: 0;
+            }
+
+            button.zoom-in {
+                @include plus.button-icon;
+            }
+
+            button.zoom-out {
+                @include minus.button-icon;
             }
 
             div.zoom-close-button {

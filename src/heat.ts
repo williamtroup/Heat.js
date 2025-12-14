@@ -521,7 +521,9 @@ import { Convert } from "./ts/data/convert";
             }
 
             if ( bindingOptions.title!.showRefreshButton ) {
-                const refresh: HTMLButtonElement = DomElement.createButton( titleBar, "button", "refresh", _configurationOptions.text!.refreshButtonSymbolText! );
+                const refresh: HTMLButtonElement = DomElement.createButton( titleBar, "button", "refresh" );
+
+                DomElement.create( refresh, "i", "refresh" );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( refresh, bindingOptions, _configurationOptions.text!.refreshButtonText! );
@@ -584,7 +586,9 @@ import { Convert } from "./ts/data/convert";
                 }
 
                 if ( bindingOptions.title!.showCurrentYearButton ) {
-                    const current: HTMLButtonElement = DomElement.createButton( titleBar, "button", "current", _configurationOptions.text!.currentYearSymbolText! );
+                    const current: HTMLButtonElement = DomElement.createButton( titleBar, "button", "current" );
+
+                    DomElement.create( current, "i", "pin" );
 
                     if ( bindingOptions.title!.showToolTips ) {
                         ToolTip.add( current, bindingOptions, _configurationOptions.text!.currentYearText! );
@@ -1038,10 +1042,13 @@ import { Convert } from "./ts/data/convert";
         if ( bindingOptions.views!.map!.allowZooming ) {
             const zooming: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "zooming" );
             const closeButton: HTMLElement = DomElement.create( zooming, "div", "zoom-close-button" ) as HTMLElement;
-            const zoomOutButton: HTMLButtonElement = DomElement.createButton( zooming, "button", "zoom-out", _configurationOptions.text!.zoomOutText! );
+            const zoomOutButton: HTMLButtonElement = DomElement.createButton( zooming, "button", "zoom-out" );
             const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%` ) as HTMLSpanElement;
-            const zoomInButton: HTMLButtonElement = DomElement.createButton( zooming, "button", "zoom-in", _configurationOptions.text!.zoomInText! );
+            const zoomInButton: HTMLButtonElement = DomElement.createButton( zooming, "button", "zoom-in" );
             const spacing: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-spacing", true );
+
+            DomElement.create( zoomInButton, "i", "plus" );
+            DomElement.create( zoomOutButton, "i", "minus" );
 
             daySize = DomElement.getStyleValueByName( bindingOptions._currentView!.element, "--heat-js-day-size", true );
 

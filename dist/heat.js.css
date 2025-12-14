@@ -406,44 +406,84 @@ div.heat-js div.title-bar button.back i.arrow-left {
   height: 12px;
   display: inline-block;
   position: relative;
-  transition: all 0.3s;
-}
-div.heat-js div.title-bar button.back i.arrow-left:not(.no-hover):hover {
-  cursor: pointer;
-  opacity: 0.7;
-}
-div.heat-js div.title-bar button.back i.arrow-left:not(.no-active):active {
-  cursor: pointer;
-  opacity: 0.5;
-}
-div.heat-js div.title-bar button.back i.arrow-left {
   width: 0;
   height: 0;
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-right: 12px solid var(--heat-js-button-text-color);
+  border-right: 12px solid currentColor;
 }
 div.heat-js div.title-bar button.next i.arrow-right {
   width: 12px;
   height: 12px;
   display: inline-block;
   position: relative;
-  transition: all 0.3s;
-}
-div.heat-js div.title-bar button.next i.arrow-right:not(.no-hover):hover {
-  cursor: pointer;
-  opacity: 0.7;
-}
-div.heat-js div.title-bar button.next i.arrow-right:not(.no-active):active {
-  cursor: pointer;
-  opacity: 0.5;
-}
-div.heat-js div.title-bar button.next i.arrow-right {
   width: 0;
   height: 0;
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-left: 12px solid var(--heat-js-button-text-color);
+  border-left: 12px solid currentColor;
+}
+div.heat-js div.title-bar button.current i.pin {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+}
+div.heat-js div.title-bar button.current i.pin::before, div.heat-js div.title-bar button.current i.pin::after {
+  position: absolute;
+  content: "";
+}
+div.heat-js div.title-bar button.current i.pin {
+  height: 9px;
+  border-top: 3px solid currentColor;
+  border-radius: 50%;
+}
+div.heat-js div.title-bar button.current i.pin::before {
+  left: 50%;
+  transform: translate(-50%);
+  background-color: currentColor;
+  width: 3px;
+  height: 3px;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  top: 0;
+}
+div.heat-js div.title-bar button.current i.pin::after {
+  left: 50%;
+  transform: translate(-50%);
+  background-color: currentColor;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  bottom: 0;
+}
+div.heat-js div.title-bar button.refresh i.refresh {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+}
+div.heat-js div.title-bar button.refresh i.refresh::before, div.heat-js div.title-bar button.refresh i.refresh::after {
+  position: absolute;
+  content: "";
+}
+div.heat-js div.title-bar button.refresh i.refresh::before {
+  border-top: 3px solid currentColor;
+  border-left: 3px solid currentColor;
+  border-radius: 3px;
+  width: 5px;
+  height: 12px;
+  left: 0;
+  top: 0;
+}
+div.heat-js div.title-bar button.refresh i.refresh::after {
+  border-bottom: 3px solid currentColor;
+  border-right: 3px solid currentColor;
+  border-radius: 3px;
+  width: 5px;
+  height: 12px;
+  right: 0;
+  top: 0;
 }
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.import,
@@ -501,7 +541,7 @@ div.heat-js div.title-bar button.clear {
   div.heat-js div.title-bar button.refresh,
   div.heat-js div.title-bar button.import,
   div.heat-js div.title-bar button.clear {
-    display: inline-block;
+    display: inline-flex;
   }
 }
 
@@ -851,11 +891,59 @@ div.heat-js div.map-contents-container div.zooming span.zoom-level {
   color: var(--heat-js-color-white);
 }
 div.heat-js div.map-contents-container div.zooming button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 35px;
   height: 30px;
   margin-right: calc(var(--heat-js-spacing) / 2);
   font-weight: var(--heat-js-title-bold-weight);
   margin-right: 0;
+}
+div.heat-js div.map-contents-container div.zooming button.zoom-in i.plus {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+}
+div.heat-js div.map-contents-container div.zooming button.zoom-in i.plus::before, div.heat-js div.map-contents-container div.zooming button.zoom-in i.plus::after {
+  position: absolute;
+  content: "";
+}
+div.heat-js div.map-contents-container div.zooming button.zoom-in i.plus::before {
+  left: 50%;
+  transform: translate(-50%);
+  background-color: currentColor;
+  width: 3px;
+  height: 100%;
+  border-radius: 3px;
+  top: 0;
+}
+div.heat-js div.map-contents-container div.zooming button.zoom-in i.plus::after {
+  top: 50%;
+  transform: translate(0, -50%);
+  background-color: currentColor;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  left: 0;
+}
+div.heat-js div.map-contents-container div.zooming button.zoom-out i.minus {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+}
+div.heat-js div.map-contents-container div.zooming button.zoom-out i.minus::before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  transform: translate(0, -50%);
+  background-color: currentColor;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  left: 0;
 }
 div.heat-js div.map-contents-container div.zooming div.zoom-close-button {
   float: unset;
