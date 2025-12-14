@@ -1982,7 +1982,7 @@ var Convert;
                         if (m) {
                             let n = null;
                             if (Is.dayVisible(t.views.map.daysToShow, w)) {
-                                n = C(t, u, e - f, o, i, l);
+                                n = S(t, u, e - f, o, i, l);
                             }
                             if ((e + 1) % 7 === 0) {
                                 if (t.views.map.showDaysInReverseOrder) {
@@ -2040,10 +2040,10 @@ var Convert;
                 t._currentView.mapContents.scrollLeft = t._currentView.mapContentsScrollLeft;
             }
             le(t._currentView.mapContents, t);
-            S(t, i);
+            C(t, i);
         }
     }
-    function S(t, n) {
+    function C(t, n) {
         const o = DomElement.getStyleValueByNameSizingMetic(document.documentElement, "--heat-js-day-size");
         let i = DomElement.getStyleValueByName(document.documentElement, "--heat-js-day-size", true);
         if (t._currentView.mapZoomIncrement === -1) {
@@ -2111,7 +2111,7 @@ var Convert;
             }
         }
     }
-    function C(t, o, i, s, r, a) {
+    function S(t, o, i, s, r, a) {
         const l = i + 1;
         const c = DomElement.create(o, "div", "day");
         const u = new Date(r, s, l);
@@ -2361,7 +2361,7 @@ var Convert;
         let s = DomElement.create(o, "div", "y-labels");
         const r = DomElement.create(o, "div", "day-lines");
         const a = O(t);
-        if (n) {
+        if (n && !t.views.days.useDifferentOpacities) {
             DomElement.addClass(o, "view-switch");
         }
         le(t._currentView.daysContents, t);
@@ -2409,6 +2409,7 @@ var Convert;
     function B(e, t, n, o, i, s, r) {
         const a = DomElement.create(e, "div", "day-line");
         const l = n * i;
+        let c = null;
         a.style.height = `${l}px`;
         a.setAttribute(Constant.HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME, t.toString());
         if (l <= 0) {
@@ -2426,16 +2427,22 @@ var Convert;
         }
         if (o.views.days.showDayCounts && n > 0) {
             DomElement.addClass(a, "day-line-count");
-            const e = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
+            c = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
             if (o.views.days.showDayCountPercentages) {
-                DomElement.createWithHTML(e, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
+                DomElement.createWithHTML(c, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
             }
         }
         if (o.views.days.useGradients) {
             DomElement.addGradientEffect(o._currentView.element, a);
+            if (Is.defined(c)) {
+                DomElement.addClass(c, "blend-colors");
+            }
         } else if (o.views.days.useDifferentOpacities) {
             const e = DomElement.getStyleValueByName(a, "background-color");
             const t = DomElement.getStyleValueByName(a, "border-color");
+            if (Is.defined(c)) {
+                DomElement.addClass(c, "blend-colors");
+            }
             if (Is.rgbColor(e)) {
                 a.style.backgroundColor = Convert.toRgbOpacityColor(e, s);
             } else if (Is.hexColor(e)) {
@@ -2499,7 +2506,7 @@ var Convert;
         let s = DomElement.create(o, "div", "y-labels");
         const r = DomElement.create(o, "div", "month-lines");
         const a = k(t);
-        if (n) {
+        if (n && !t.views.months.useDifferentOpacities) {
             DomElement.addClass(o, "view-switch");
         }
         le(t._currentView.monthsContents, t);
@@ -2553,6 +2560,7 @@ var Convert;
         const a = DomElement.create(e, "div", "month-line");
         const l = n * i;
         const c = new Date;
+        let u = null;
         a.style.height = `${l}px`;
         a.setAttribute(Constant.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, t.toString());
         if (l <= 0) {
@@ -2561,22 +2569,22 @@ var Convert;
         if (o.views.months.showToolTips) {
             ToolTip.add(a, o, Str.friendlyNumber(n));
         }
-        let u = o._currentView.year;
+        let m = o._currentView.year;
         if (o.startMonth > 0 && t - 1 < o.startMonth) {
-            u++;
+            m++;
         }
         if (Is.definedFunction(o.events.onMonthClick)) {
-            a.onclick = () => Trigger.customEvent(o.events.onMonthClick, t, n, u);
+            a.onclick = () => Trigger.customEvent(o.events.onMonthClick, t, n, m);
         } else if (Is.definedFunction(o.events.onMonthDblClick)) {
-            a.ondblclick = () => Trigger.customEvent(o.events.onMonthDblClick, t, n, u);
+            a.ondblclick = () => Trigger.customEvent(o.events.onMonthDblClick, t, n, m);
         } else {
             DomElement.addClass(a, "no-hover");
         }
         if (o.views.months.showMonthCounts && n > 0) {
             DomElement.addClass(a, "month-line-count");
-            const e = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
+            u = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
             if (o.views.months.showMonthCountPercentages) {
-                DomElement.createWithHTML(e, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
+                DomElement.createWithHTML(u, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
             }
         }
         if (o.views.months.highlightCurrentMonth && c.getMonth() === t - 1 && o._currentView.year === c.getFullYear()) {
@@ -2584,9 +2592,15 @@ var Convert;
         }
         if (o.views.months.useGradients) {
             DomElement.addGradientEffect(o._currentView.element, a);
+            if (Is.defined(u)) {
+                DomElement.addClass(u, "blend-colors");
+            }
         } else if (o.views.months.useDifferentOpacities) {
             const e = DomElement.getStyleValueByName(a, "background-color");
             const t = DomElement.getStyleValueByName(a, "border-color");
+            if (Is.defined(u)) {
+                DomElement.addClass(u, "blend-colors");
+            }
             if (Is.rgbColor(e)) {
                 a.style.backgroundColor = Convert.toRgbOpacityColor(e, s);
             } else if (Is.hexColor(e)) {

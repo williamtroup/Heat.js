@@ -1128,6 +1128,10 @@ div.heat-js {
                         transform: translate( -50%, -50% );
                         color: var(--heat-js-view-days-text-color);
                         text-align: center;
+                        
+                        &.blend-colors {
+                            mix-blend-mode: difference;
+                        }
 
                         div.percentage {
                             font-style: italic;
@@ -1239,6 +1243,10 @@ div.heat-js {
                         transform: translate( -50%, -50% );
                         color: var(--heat-js-view-months-text-color);
                         text-align: center;
+                        
+                        &.blend-colors {
+                            mix-blend-mode: difference;
+                        }
 
                         div.percentage {
                             font-style: italic;

@@ -1441,7 +1441,7 @@ import { Convert } from "./ts/data/convert";
         const dayLines: HTMLElement = DomElement.create( days, "div", "day-lines" );
         const dayValuesForCurrentYear: LargestValueForView = getLargestValuesForEachDay( bindingOptions );
 
-        if ( isForViewSwitch ) {
+        if ( isForViewSwitch && !bindingOptions.views!.days!.useDifferentOpacities ) {
             DomElement.addClass( days, "view-switch" );
         }
 
@@ -1505,6 +1505,7 @@ import { Convert } from "./ts/data/convert";
     function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number ) : void {
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
+        let count: HTMLElement = null!;
 
         dayLine.style.height = `${dayLineHeight}px`;
         dayLine.setAttribute( Constant.HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME, dayNumber.toString() );
@@ -1527,7 +1528,8 @@ import { Convert } from "./ts/data/convert";
 
         if ( bindingOptions.views!.days!.showDayCounts && dayCount > 0 ) {
             DomElement.addClass( dayLine, "day-line-count" );
-            const count: HTMLElement = DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dayCount ) );
+            
+            count = DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dayCount ) );
 
             if ( bindingOptions.views!.days!.showDayCountPercentages ) {
                 DomElement.createWithHTML( count, "div", "percentage", `${( ( dayCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
@@ -1537,9 +1539,17 @@ import { Convert } from "./ts/data/convert";
         if ( bindingOptions.views!.days!.useGradients ) {
             DomElement.addGradientEffect( bindingOptions._currentView!.element, dayLine );
 
+            if ( Is.defined( count ) ) {
+                DomElement.addClass( count, "blend-colors" );
+            }
+
         } else if ( bindingOptions.views!.days!.useDifferentOpacities ) {
             const backgroundColor: string = DomElement.getStyleValueByName( dayLine, "background-color" );
             const borderColor: string = DomElement.getStyleValueByName( dayLine, "border-color" );
+
+            if ( Is.defined( count ) ) {
+                DomElement.addClass( count, "blend-colors" );
+            }
 
             if ( Is.rgbColor( backgroundColor ) ) {
                 dayLine.style.backgroundColor = Convert.toRgbOpacityColor( backgroundColor, opacityIncrease );
@@ -1625,7 +1635,7 @@ import { Convert } from "./ts/data/convert";
         const monthLines: HTMLElement = DomElement.create( months, "div", "month-lines" );
         const monthValuesForCurrentYear: LargestValueForView = getLargestValuesForEachMonth( bindingOptions );
 
-        if ( isForViewSwitch ) {
+        if ( isForViewSwitch && !bindingOptions.views!.months!.useDifferentOpacities ) {
             DomElement.addClass( months, "view-switch" );
         }
 
@@ -1698,6 +1708,7 @@ import { Convert } from "./ts/data/convert";
         const monthLine: HTMLElement = DomElement.create( monthLines, "div", "month-line" );
         const monthLineHeight: number = monthCount * pixelsPerNumbers;
         const today: Date = new Date();
+        let count: HTMLElement = null!;
 
         monthLine.style.height = `${monthLineHeight}px`;
         monthLine.setAttribute( Constant.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, monthNumber.toString() );
@@ -1726,7 +1737,8 @@ import { Convert } from "./ts/data/convert";
 
         if ( bindingOptions.views!.months!.showMonthCounts && monthCount > 0 ) {
             DomElement.addClass( monthLine, "month-line-count" );
-            const count: HTMLElement = DomElement.createWithHTML( monthLine, "div", "count", Str.friendlyNumber( monthCount ) );
+
+            count = DomElement.createWithHTML( monthLine, "div", "count", Str.friendlyNumber( monthCount ) );
 
             if ( bindingOptions.views!.months!.showMonthCountPercentages ) {
                 DomElement.createWithHTML( count, "div", "percentage", `${( ( monthCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
@@ -1740,9 +1752,17 @@ import { Convert } from "./ts/data/convert";
         if ( bindingOptions.views!.months!.useGradients ) {
             DomElement.addGradientEffect( bindingOptions._currentView!.element, monthLine );
 
+            if ( Is.defined( count ) ) {
+                DomElement.addClass( count, "blend-colors" );
+            }
+
         } else if ( bindingOptions.views!.months!.useDifferentOpacities ) {
             const backgroundColor: string = DomElement.getStyleValueByName( monthLine, "background-color" );
             const borderColor: string = DomElement.getStyleValueByName( monthLine, "border-color" );
+
+            if ( Is.defined( count ) ) {
+                DomElement.addClass( count, "blend-colors" );
+            }
 
             if ( Is.rgbColor( backgroundColor ) ) {
                 monthLine.style.backgroundColor = Convert.toRgbOpacityColor( backgroundColor, opacityIncrease );

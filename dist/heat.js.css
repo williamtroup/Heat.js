@@ -1210,6 +1210,9 @@ div.heat-js div.days-contents div.days div.day-lines div.day-line-count div.coun
   color: var(--heat-js-view-days-text-color);
   text-align: center;
 }
+div.heat-js div.days-contents div.days div.day-lines div.day-line-count div.count.blend-colors {
+  mix-blend-mode: difference;
+}
 div.heat-js div.days-contents div.days div.day-lines div.day-line-count div.count div.percentage {
   font-style: italic;
 }
@@ -1344,6 +1347,9 @@ div.heat-js div.months-contents div.months div.month-lines div.month-line-count 
   transform: translate(-50%, -50%);
   color: var(--heat-js-view-months-text-color);
   text-align: center;
+}
+div.heat-js div.months-contents div.months div.month-lines div.month-line-count div.count.blend-colors {
+  mix-blend-mode: difference;
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line-count div.count div.percentage {
   font-style: italic;
