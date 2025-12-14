@@ -24,11 +24,11 @@ import {
     type BindingOptionsViewsDays,
     type BindingOptionsViewsStatistics,
     type BindingOptionsEvents, 
-    type BindingOptionsCurrentView,
-    type ConfigurationOptions, 
+    type BindingOptionsCurrentView, 
     type BindingOptionsViews,
     type BindingOptionsYearlyStatistics,
-    type BindingOptionsViewsMonths } from "../type";
+    type BindingOptionsViewsMonths,
+    type ConfigurationOptions } from "../type";
 
 import { Default } from "../data/default";
 import { Char, ExportType, Value, ViewId, ViewName } from "../data/enum";
