@@ -42,9 +42,6 @@ import { Convert } from "./ts/data/convert";
 
 
 ( () => {
-    const _internal_Name_Holiday: string = "HOLIDAY";
-    const _internal_Name_Local_Storage_Start_ID: string = "HJS_";
-
     let _configurationOptions: ConfigurationOptions = {} as ConfigurationOptions;
     let _mutationObserver: MutationObserver = null! as MutationObserver;
     let _elements_InstanceData: InstanceData = {} as InstanceData;
@@ -2267,7 +2264,7 @@ import { Convert } from "./ts/data/convert";
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
                 const key : string = window.localStorage.key( keyIndex )!;
 
-                if ( Str.startsWithAnyCase( key, _internal_Name_Local_Storage_Start_ID ) ) {
+                if ( Str.startsWithAnyCase( key, Constant.LOCAL_STORAGE_START_ID ) ) {
                     const typesJson: string = window.localStorage.getItem( key )!;
                     const typesObject: StringToJson = Default.getObjectFromString( typesJson, _configurationOptions );
 
@@ -2294,7 +2291,7 @@ import { Convert } from "./ts/data/convert";
 
             const jsonData: string = JSON.stringify( _elements_InstanceData[ elementId ].typeData );
 
-            window.localStorage.setItem( _internal_Name_Local_Storage_Start_ID + elementId, jsonData );
+            window.localStorage.setItem( `${Constant.LOCAL_STORAGE_START_ID}${elementId}`, jsonData );
         }
     }
 
@@ -2305,7 +2302,7 @@ import { Convert } from "./ts/data/convert";
             const elementId: string = bindingOptions._currentView!.element.id;
 
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
-                if ( Str.startsWithAnyCase( window.localStorage.key( keyIndex )!, _internal_Name_Local_Storage_Start_ID + elementId ) ) {
+                if ( Str.startsWithAnyCase( window.localStorage.key( keyIndex )!, `${Constant.LOCAL_STORAGE_START_ID}${elementId}` ) ) {
                     keysToRemove.push( window.localStorage.key( keyIndex )! );
                 }
             }
@@ -2389,7 +2386,7 @@ import { Convert } from "./ts/data/convert";
     function isColorRangeVisible( bindingOptions: BindingOptions, id: string ) : boolean {
         let result: boolean = false;
         
-        if ( id === _internal_Name_Holiday ) {
+        if ( id === Constant.COLOR_RANGE_HOLIDAY_ID ) {
             result = true;
 
         } else {
@@ -2442,7 +2439,7 @@ import { Convert } from "./ts/data/convert";
         if ( Is.defined( date ) && Is.holiday( bindingOptions, date ).matched ) {
             useColorRange = {
                 cssClassName: "holiday",
-                id: _internal_Name_Holiday,
+                id: Constant.COLOR_RANGE_HOLIDAY_ID,
                 visible: true,
                 minimum: 0,
             } as BindingOptionsColorRange;

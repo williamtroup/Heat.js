@@ -18,4 +18,6 @@ export namespace Constant {
     export const HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME: string = "data-heat-js-day-number";
     export const HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME: string = "data-heat-js-month-number";
     export const HEAT_JS_STATISTICS_COLOR_RANGE_NAME_ATTRIBUTE_NAME: string = "data-heat-js-statistics-color-range-name";
+    export const LOCAL_STORAGE_START_ID: string = "HJS_";
+    export const COLOR_RANGE_HOLIDAY_ID: string = "HOLIDAY";
 }
