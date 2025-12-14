@@ -90,8 +90,6 @@ export type ConfigurationOptionsText = {
     noDaysDataMessage?: string;
 	dayNames?: string[];
 	monthNames?: string[];
-    backButtonSymbolText?: string;
-    nextButtonSymbolText?: string;
     refreshButtonSymbolText?: string;
     exportButtonSymbolText?: string;
     importButtonSymbolText?: string;

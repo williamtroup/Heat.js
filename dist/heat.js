@@ -332,10 +332,12 @@ var DomElement;
         return r;
     }
     e.createWithHTML = o;
-    function i(e, t, o, i, s = null) {
+    function i(e, t, o, i = null, s = null) {
         const r = n(e, t, o, s);
-        r.innerHTML = i;
         r.type = "button";
+        if (Is.defined(i)) {
+            r.innerHTML = i;
+        }
         return r;
     }
     e.createButton = i;
@@ -898,8 +900,6 @@ var Configuration;
             e.text.yearText = Default2.getAnyString(e.text.yearText, "Year");
             e.text.daysText = Default2.getAnyString(e.text.daysText, "Days");
             e.text.noDaysDataMessage = Default2.getAnyString(e.text.noDaysDataMessage, "There are currently no days to view.");
-            e.text.backButtonSymbolText = Default2.getAnyString(e.text.backButtonSymbolText, "←");
-            e.text.nextButtonSymbolText = Default2.getAnyString(e.text.nextButtonSymbolText, "→");
             e.text.refreshButtonSymbolText = Default2.getAnyString(e.text.refreshButtonSymbolText, "↻");
             e.text.exportButtonSymbolText = Default2.getAnyString(e.text.exportButtonSymbolText, "↓");
             e.text.importButtonSymbolText = Default2.getAnyString(e.text.importButtonSymbolText, "↑");
@@ -1709,8 +1709,9 @@ var Convert;
                 };
             }
             if (t.title.showYearSelector) {
-                const o = DomElement.createButton(n, "button", "back", e.text.backButtonSymbolText);
+                const o = DomElement.createButton(n, "button", "back");
                 o.onclick = () => we(t);
+                DomElement.create(o, "i", "arrow-left");
                 if (t.title.showToolTips) {
                     ToolTip.add(o, t, e.text.backButtonText);
                 }
@@ -1745,8 +1746,9 @@ var Convert;
                         Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                     };
                 }
-                const s = DomElement.createButton(n, "button", "next", e.text.nextButtonSymbolText);
+                const s = DomElement.createButton(n, "button", "next");
                 s.onclick = () => he(t);
+                DomElement.create(s, "i", "arrow-right");
                 if (t.title.showToolTips) {
                     ToolTip.add(s, t, e.text.nextButtonText);
                 }

@@ -7,6 +7,8 @@
 
 
 @use "sass/styles";
+@use "sass/buttons/arrow-left";
+@use "sass/buttons/arrow-right";
 
 :root {
     // Fonts
@@ -404,6 +406,11 @@ div.heat-js {
 
         button.back {
             margin-left: calc( var(--heat-js-spacing) * 2 ) !important;
+            @include arrow-left.button;
+        }
+
+        button.next {
+            @include arrow-right.button;
         }
 
         button.export,

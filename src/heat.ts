@@ -547,8 +547,10 @@ import { Convert } from "./ts/data/convert";
             }
     
             if ( bindingOptions.title!.showYearSelector ) {
-                const back: HTMLButtonElement = DomElement.createButton( titleBar, "button", "back", _configurationOptions.text!.backButtonSymbolText! );
+                const back: HTMLButtonElement = DomElement.createButton( titleBar, "button", "back" );
                 back.onclick = () => moveToPreviousYear( bindingOptions );
+
+                DomElement.create( back, "i", "arrow-left" );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( back, bindingOptions, _configurationOptions.text!.backButtonText! );
@@ -596,8 +598,10 @@ import { Convert } from "./ts/data/convert";
                     };
                 }
 
-                const next: HTMLButtonElement = DomElement.createButton( titleBar, "button", "next", _configurationOptions.text!.nextButtonSymbolText! );
+                const next: HTMLButtonElement = DomElement.createButton( titleBar, "button", "next" );
                 next.onclick = () => moveToNextYear( bindingOptions );
+
+                DomElement.create( next, "i", "arrow-right" );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( next, bindingOptions, _configurationOptions.text!.nextButtonText! );

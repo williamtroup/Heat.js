@@ -1,0 +1,75 @@
+$size: 12px;
+$border-width: calc( $size / 4 );
+$border-radius: $border-width;
+$button-color: var(--heat-js-button-text-color);
+$border: $border-width solid $button-color;
+
+@mixin button-size {
+    width: $size;
+    height: $size;
+    display: inline-block;
+    position: relative;
+}
+
+@mixin button-no-before-after {
+    @include button-size;
+    transition: all .3s;
+
+    &:not( .no-hover ):hover {
+        @include button-hover;
+    }
+
+    &:not( .no-active ):active {
+        @include button-active;
+    }
+}
+
+@mixin button {
+    @include button-no-before-after;
+
+    &::before,
+    &::after {
+        @include button-after-before-setup;
+    }
+}
+
+@mixin button-after-before-setup {
+    position: absolute;
+    content: "";
+}
+
+@mixin button-hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+@mixin button-active {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+@mixin left-center {
+    left: 50%;
+    transform: translate( -50% );
+}
+
+@mixin left-center-minus( $minus-value ) {
+    left: calc( 50% - $minus-value );
+    transform: translate( -50% );
+}
+
+@mixin top-center {
+    top: 50%;
+    transform: translate( 0, -50% );
+}
+
+@mixin top-center-minus( $minus-value ) {
+    top: calc( 50% - $minus-value );
+    transform: translate( 0, -50% );
+}
+
+@mixin transform-rotate( $property ) {
+    -webkit-transform: rotate( $property );
+    -ms-transform: rotate( $property );
+    transform: rotate( $property );
+}

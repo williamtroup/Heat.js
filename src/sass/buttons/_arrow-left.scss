@@ -1,0 +1,12 @@
+@use "button";
+
+@mixin button {
+    i.arrow-left {
+        @include button.button-no-before-after;
+        width: 0; 
+        height: 0; 
+        border-top: calc( button.$size / 2 ) solid transparent;
+        border-bottom: calc( button.$size / 2 ) solid transparent;
+        border-right: button.$size solid button.$button-color;
+    }
+}

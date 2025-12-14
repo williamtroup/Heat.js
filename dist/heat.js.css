@@ -401,6 +401,50 @@ div.heat-js div.title-bar button {
 div.heat-js div.title-bar button.back {
   margin-left: calc(var(--heat-js-spacing) * 2) !important;
 }
+div.heat-js div.title-bar button.back i.arrow-left {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  transition: all 0.3s;
+}
+div.heat-js div.title-bar button.back i.arrow-left:not(.no-hover):hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+div.heat-js div.title-bar button.back i.arrow-left:not(.no-active):active {
+  cursor: pointer;
+  opacity: 0.5;
+}
+div.heat-js div.title-bar button.back i.arrow-left {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 12px solid var(--heat-js-button-text-color);
+}
+div.heat-js div.title-bar button.next i.arrow-right {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  transition: all 0.3s;
+}
+div.heat-js div.title-bar button.next i.arrow-right:not(.no-hover):hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+div.heat-js div.title-bar button.next i.arrow-right:not(.no-active):active {
+  cursor: pointer;
+  opacity: 0.5;
+}
+div.heat-js div.title-bar button.next i.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 12px solid var(--heat-js-button-text-color);
+}
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.import,
 div.heat-js div.title-bar button.current,

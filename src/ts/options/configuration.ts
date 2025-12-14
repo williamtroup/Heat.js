@@ -65,8 +65,6 @@ export namespace Configuration {
             configurationOptions.text!.yearText = Default.getAnyString( configurationOptions.text!.yearText, "Year" );
             configurationOptions.text!.daysText = Default.getAnyString( configurationOptions.text!.daysText, "Days" );
             configurationOptions.text!.noDaysDataMessage = Default.getAnyString( configurationOptions.text!.noDaysDataMessage, "There are currently no days to view." );
-            configurationOptions.text!.backButtonSymbolText = Default.getAnyString( configurationOptions.text!.backButtonSymbolText, "←" );
-            configurationOptions.text!.nextButtonSymbolText = Default.getAnyString( configurationOptions.text!.nextButtonSymbolText, "→" );
             configurationOptions.text!.refreshButtonSymbolText = Default.getAnyString( configurationOptions.text!.refreshButtonSymbolText, "↻" );
             configurationOptions.text!.exportButtonSymbolText = Default.getAnyString( configurationOptions.text!.exportButtonSymbolText, "↓" );
             configurationOptions.text!.importButtonSymbolText = Default.getAnyString( configurationOptions.text!.importButtonSymbolText, "↑" );

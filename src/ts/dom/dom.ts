@@ -57,10 +57,13 @@ export namespace DomElement {
         return element;
     }
 
-    export function createButton( container: HTMLElement, type: string, className: string, html: string, beforeNode: HTMLElement = null! ) : HTMLButtonElement {
+    export function createButton( container: HTMLElement, type: string, className: string, html: string = null!, beforeNode: HTMLElement = null! ) : HTMLButtonElement {
         const element: HTMLButtonElement = create( container, type, className, beforeNode ) as HTMLButtonElement;
-        element.innerHTML = html;
         element.type = "button";
+
+        if ( Is.defined( html ) ) {
+            element.innerHTML = html;
+        }
 
         return element;
     }
