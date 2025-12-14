@@ -86,6 +86,8 @@ export namespace Configuration {
             configurationOptions.text!.zoomOutText = Default.getAnyString( configurationOptions.text!.zoomOutText, "−" );
             configurationOptions.text!.zoomInToolTipText = Default.getAnyString( configurationOptions.text!.zoomInToolTipText, "Zoom In" );
             configurationOptions.text!.zoomOutToolTipText = Default.getAnyString( configurationOptions.text!.zoomOutToolTipText, "Zoom Out" );
+            configurationOptions.text!.clearButtonSymbolText = Default.getAnyString( configurationOptions.text!.clearButtonSymbolText, "✕" );
+            configurationOptions.text!.clearButtonText = Default.getAnyString( configurationOptions.text!.clearButtonText, "Clear" );
 
             return configurationOptions.text!;
         }

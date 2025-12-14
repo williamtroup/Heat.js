@@ -111,6 +111,8 @@ export type ConfigurationOptionsText = {
     zoomOutText?: string;
     zoomInToolTipText?: string;
     zoomOutToolTipText?: string;
+    clearButtonSymbolText?: string;
+    clearButtonText?: string;
 };
 
 export type BindingOptions = {
@@ -287,6 +289,7 @@ export type BindingOptionsTitle = {
     showSectionText?: boolean;
     showToolTips?: boolean;
     showTitleDropDownMenu?: boolean;
+    showClearButton?: boolean;
 };
 
 export type BindingOptionsDescription = {

@@ -403,7 +403,9 @@ div.heat-js div.title-bar button.back {
 }
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.import,
-div.heat-js div.title-bar button.current {
+div.heat-js div.title-bar button.current,
+div.heat-js div.title-bar button.refresh,
+div.heat-js div.title-bar button.clear {
   margin-right: calc(var(--heat-js-spacing) / 2) !important;
 }
 div.heat-js div.title-bar div.configure {
@@ -446,13 +448,15 @@ div.heat-js div.title-bar div.configure::after {
 }
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.refresh,
-div.heat-js div.title-bar button.import {
+div.heat-js div.title-bar button.import,
+div.heat-js div.title-bar button.clear {
   display: none;
 }
 @media (min-width: 768px) {
   div.heat-js div.title-bar button.export,
   div.heat-js div.title-bar button.refresh,
-  div.heat-js div.title-bar button.import {
+  div.heat-js div.title-bar button.import,
+  div.heat-js div.title-bar button.clear {
     display: inline-block;
   }
 }

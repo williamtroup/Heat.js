@@ -460,7 +460,7 @@ import { Convert } from "./ts/data/convert";
      */
 
     function renderControlTitleBar( bindingOptions: BindingOptions ) : void {
-        if ( bindingOptions.title!.showText || bindingOptions.title!.showYearSelector || bindingOptions.title!.showRefreshButton || bindingOptions.title!.showExportButton || bindingOptions.title!.showImportButton ) {
+        if ( bindingOptions.title!.showText || bindingOptions.title!.showYearSelector || bindingOptions.title!.showRefreshButton || bindingOptions.title!.showExportButton || bindingOptions.title!.showImportButton || bindingOptions.title!.showClearButton ) {
             const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "title-bar" );
             const title: HTMLElement = DomElement.create( titleBar, "div", "title" );
             const showTitleDropDownMenu: boolean = bindingOptions.title!.showTitleDropDownMenu! && ( bindingOptions.views!.chart!.enabled! || bindingOptions.views!.days!.enabled! || bindingOptions.views!.statistics!.enabled! );
@@ -530,6 +530,19 @@ import { Convert } from "./ts/data/convert";
                 refresh.onclick = () => {
                     renderControlContainer( bindingOptions );
                     Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView!.element );
+                };
+            }
+
+            if ( bindingOptions.title!.showClearButton ) {
+                const clear: HTMLButtonElement = DomElement.createButton( titleBar, "button", "clear", _configurationOptions.text!.clearButtonSymbolText! );
+
+                if ( bindingOptions.title!.showToolTips ) {
+                    ToolTip.add( clear, bindingOptions, _configurationOptions.text!.clearButtonText! );
+                }
+        
+                clear.onclick = () => {
+                    clearData( bindingOptions );
+                    renderControlContainer( bindingOptions );
                 };
             }
     
@@ -2267,6 +2280,20 @@ import { Convert } from "./ts/data/convert";
         } );
 
         return years;
+    }
+
+    function clearData( bindingOptions: BindingOptions ) : void {
+        let typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
+        
+        for ( const storageDate in typeDateCounts ) {
+            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                let year: number = parseInt( DateTime.getStorageDateYear( storageDate ) );
+                
+                if ( year === bindingOptions._currentView!.year ) {
+                    delete typeDateCounts[ storageDate ];
+                }
+            }
+        }
     }
 
 
