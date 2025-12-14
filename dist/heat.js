@@ -1051,9 +1051,8 @@ var Import;
         n.onload = e => {
             const t = e.target.result.toString().replace(new RegExp('"', "g"), "");
             const n = t.split("\n");
-            n.shift();
-            let i = n.length;
-            for (let e = 0; e < i; e++) {
+            const i = n.length;
+            for (let e = 1; e < i; e++) {
                 let t = n[e].split(",");
                 o[t[0].trim()] = parseInt(t[1].trim());
             }

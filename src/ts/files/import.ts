@@ -82,12 +82,9 @@ export namespace Import {
         reader.onload = ( ev: ProgressEvent<FileReader> ) => {
             const data: string = ev.target!.result!.toString().replace( new RegExp( "\"", "g" ), Char.empty );
             const lines: string[] = data.split( Char.newLine );
-            
-            lines.shift();
+            const linesLength: number = lines.length;
 
-            let linesLength: number = lines.length;
-
-            for ( let lineIndex: number = 0; lineIndex < linesLength; lineIndex++ ) {
+            for ( let lineIndex: number = 1; lineIndex < linesLength; lineIndex++ ) {
                 let line: string[] = lines[ lineIndex ].split( Char.comma );
 
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
