@@ -485,6 +485,56 @@ div.heat-js div.title-bar button.refresh i.refresh::after {
   right: 0;
   top: 0;
 }
+div.heat-js div.title-bar button.export i.arrow-down {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+  border-top: 12px solid currentColor;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+}
+div.heat-js div.title-bar button.import i.arrow-up {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 12px solid currentColor;
+}
+div.heat-js div.title-bar button.clear i.close {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+}
+div.heat-js div.title-bar button.clear i.close::before, div.heat-js div.title-bar button.clear i.close::after {
+  position: absolute;
+  content: "";
+}
+div.heat-js div.title-bar button.clear i.close::before, div.heat-js div.title-bar button.clear i.close::after {
+  width: 3px;
+  height: 13.5px;
+  background-color: currentColor;
+  border-radius: 3px;
+  left: 4.5px;
+  top: -0.75px;
+}
+div.heat-js div.title-bar button.clear i.close::before {
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+div.heat-js div.title-bar button.clear i.close::after {
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.import,
 div.heat-js div.title-bar button.current,

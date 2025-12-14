@@ -503,8 +503,10 @@ import { Convert } from "./ts/data/convert";
             }
 
             if ( bindingOptions.title!.showImportButton && !bindingOptions._currentView!.isInFetchMode ) {
-                const importData: HTMLButtonElement = DomElement.createButton( titleBar, "button", "import", _configurationOptions.text!.importButtonSymbolText! );
+                const importData: HTMLButtonElement = DomElement.createButton( titleBar, "button", "import" );
                 importData.onclick = () => importFromFilesSelected( bindingOptions );
+
+                DomElement.create( importData, "i", "arrow-up" );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( importData, bindingOptions, _configurationOptions.text!.importButtonText! );
@@ -512,8 +514,10 @@ import { Convert } from "./ts/data/convert";
             }
 
             if ( bindingOptions.title!.showExportButton ) {
-                const exportData: HTMLButtonElement = DomElement.createButton( titleBar, "button", "export", _configurationOptions.text!.exportButtonSymbolText! );
+                const exportData: HTMLButtonElement = DomElement.createButton( titleBar, "button", "export" );
                 exportData.onclick = () => showExportDialog( bindingOptions );
+
+                DomElement.create( exportData, "i", "arrow-down" );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( exportData, bindingOptions, _configurationOptions.text!.exportButtonText! );
@@ -536,7 +540,9 @@ import { Convert } from "./ts/data/convert";
             }
 
             if ( bindingOptions.title!.showClearButton ) {
-                const clear: HTMLButtonElement = DomElement.createButton( titleBar, "button", "clear", _configurationOptions.text!.clearButtonSymbolText! );
+                const clear: HTMLButtonElement = DomElement.createButton( titleBar, "button", "clear" );
+
+                DomElement.create( clear, "i", "close" );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( clear, bindingOptions, _configurationOptions.text!.clearButtonText! );

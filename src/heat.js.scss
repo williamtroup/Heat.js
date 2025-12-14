@@ -7,11 +7,14 @@
 
 
 @use "sass/styles";
+@use "sass/buttons/arrow-down";
 @use "sass/buttons/arrow-left";
 @use "sass/buttons/arrow-right";
+@use "sass/buttons/arrow-up";
+@use "sass/buttons/close";
 @use "sass/buttons/minus";
-@use "sass/buttons/plus";
 @use "sass/buttons/pin";
+@use "sass/buttons/plus";
 @use "sass/buttons/refresh";
 
 :root {
@@ -423,6 +426,18 @@ div.heat-js {
 
         button.refresh {
             @include refresh.button-icon;
+        }
+
+        button.export {
+            @include arrow-down.button-icon;
+        }
+
+        button.import {
+            @include arrow-up.button-icon;
+        }
+
+        button.clear {
+            @include close.button-icon;
         }
 
         button.export,

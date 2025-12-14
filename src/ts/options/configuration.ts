@@ -65,8 +65,6 @@ export namespace Configuration {
             configurationOptions.text!.yearText = Default.getAnyString( configurationOptions.text!.yearText, "Year" );
             configurationOptions.text!.daysText = Default.getAnyString( configurationOptions.text!.daysText, "Days" );
             configurationOptions.text!.noDaysDataMessage = Default.getAnyString( configurationOptions.text!.noDaysDataMessage, "There are currently no days to view." );
-            configurationOptions.text!.exportButtonSymbolText = Default.getAnyString( configurationOptions.text!.exportButtonSymbolText, "↓" );
-            configurationOptions.text!.importButtonSymbolText = Default.getAnyString( configurationOptions.text!.importButtonSymbolText, "↑" );
             configurationOptions.text!.currentYearText = Default.getAnyString( configurationOptions.text!.currentYearText, "Current Year" );
             configurationOptions.text!.todayText = Default.getAnyString( configurationOptions.text!.todayText, "Today" );
             configurationOptions.text!.thisWeekText = Default.getAnyString( configurationOptions.text!.thisWeekText, "This Week" );
@@ -80,7 +78,6 @@ export namespace Configuration {
             configurationOptions.text!.onlyDataBeingViewedText = Default.getAnyString( configurationOptions.text!.onlyDataBeingViewedText, "Only data being viewed" );
             configurationOptions.text!.zoomInToolTipText = Default.getAnyString( configurationOptions.text!.zoomInToolTipText, "Zoom In" );
             configurationOptions.text!.zoomOutToolTipText = Default.getAnyString( configurationOptions.text!.zoomOutToolTipText, "Zoom Out" );
-            configurationOptions.text!.clearButtonSymbolText = Default.getAnyString( configurationOptions.text!.clearButtonSymbolText, "✕" );
             configurationOptions.text!.clearButtonText = Default.getAnyString( configurationOptions.text!.clearButtonText, "Clear" );
 
             return configurationOptions.text!;

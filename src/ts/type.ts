@@ -90,8 +90,6 @@ export type ConfigurationOptionsText = {
     noDaysDataMessage?: string;
 	dayNames?: string[];
 	monthNames?: string[];
-    exportButtonSymbolText?: string;
-    importButtonSymbolText?: string;
     currentYearText?: string;
     todayText?: string;
     thisWeekText?: string;
@@ -105,7 +103,6 @@ export type ConfigurationOptionsText = {
     onlyDataBeingViewedText?: string;
     zoomInToolTipText?: string;
     zoomOutToolTipText?: string;
-    clearButtonSymbolText?: string;
     clearButtonText?: string;
 };
 

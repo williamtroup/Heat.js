@@ -900,8 +900,6 @@ var Configuration;
             e.text.yearText = Default2.getAnyString(e.text.yearText, "Year");
             e.text.daysText = Default2.getAnyString(e.text.daysText, "Days");
             e.text.noDaysDataMessage = Default2.getAnyString(e.text.noDaysDataMessage, "There are currently no days to view.");
-            e.text.exportButtonSymbolText = Default2.getAnyString(e.text.exportButtonSymbolText, "↓");
-            e.text.importButtonSymbolText = Default2.getAnyString(e.text.importButtonSymbolText, "↑");
             e.text.currentYearText = Default2.getAnyString(e.text.currentYearText, "Current Year");
             e.text.todayText = Default2.getAnyString(e.text.todayText, "Today");
             e.text.thisWeekText = Default2.getAnyString(e.text.thisWeekText, "This Week");
@@ -915,7 +913,6 @@ var Configuration;
             e.text.onlyDataBeingViewedText = Default2.getAnyString(e.text.onlyDataBeingViewedText, "Only data being viewed");
             e.text.zoomInToolTipText = Default2.getAnyString(e.text.zoomInToolTipText, "Zoom In");
             e.text.zoomOutToolTipText = Default2.getAnyString(e.text.zoomOutToolTipText, "Zoom Out");
-            e.text.clearButtonSymbolText = Default2.getAnyString(e.text.clearButtonSymbolText, "✕");
             e.text.clearButtonText = Default2.getAnyString(e.text.clearButtonText, "Clear");
             return e.text;
         }
@@ -1671,15 +1668,17 @@ var Convert;
                 g(t, o);
             }
             if (t.title.showImportButton && !t._currentView.isInFetchMode) {
-                const o = DomElement.createButton(n, "button", "import", e.text.importButtonSymbolText);
+                const o = DomElement.createButton(n, "button", "import");
                 o.onclick = () => ue(t);
+                DomElement.create(o, "i", "arrow-up");
                 if (t.title.showToolTips) {
                     ToolTip.add(o, t, e.text.importButtonText);
                 }
             }
             if (t.title.showExportButton) {
-                const o = DomElement.createButton(n, "button", "export", e.text.exportButtonSymbolText);
+                const o = DomElement.createButton(n, "button", "export");
                 o.onclick = () => f(t);
+                DomElement.create(o, "i", "arrow-down");
                 if (t.title.showToolTips) {
                     ToolTip.add(o, t, e.text.exportButtonText);
                 }
@@ -1696,7 +1695,8 @@ var Convert;
                 };
             }
             if (t.title.showClearButton) {
-                const o = DomElement.createButton(n, "button", "clear", e.text.clearButtonSymbolText);
+                const o = DomElement.createButton(n, "button", "clear");
+                DomElement.create(o, "i", "close");
                 if (t.title.showToolTips) {
                     ToolTip.add(o, t, e.text.clearButtonText);
                 }
