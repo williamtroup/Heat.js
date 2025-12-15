@@ -43,11 +43,6 @@ $border: $border-width solid currentColor;
     transform: translate( 0, -50% );
 }
 
-@mixin top-center-minus( $minus-value ) {
-    top: calc( 50% - $minus-value );
-    transform: translate( 0, -50% );
-}
-
 @mixin transform-rotate( $property ) {
     -webkit-transform: rotate( $property );
     -ms-transform: rotate( $property );
