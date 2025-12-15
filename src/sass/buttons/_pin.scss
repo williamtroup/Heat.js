@@ -11,7 +11,7 @@
             @include button.left-center;
             background-color: currentColor;
             width: button.$border-width;
-            height: calc( button.$size - ( ( button.$border-width * 2 ) + 3px ) );
+            height: calc( button.$size - ( ( button.$border-width * 2 ) + 2px ) );
             border-bottom-left-radius: 50%;
             border-bottom-right-radius: 50%;
             top: 0;

@@ -521,7 +521,7 @@ div.heat-js div.title-bar button.current i.pin::before {
   transform: translate(-50%);
   background-color: currentColor;
   width: 2.5px;
-  height: 2px;
+  height: 3px;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   top: 0;
