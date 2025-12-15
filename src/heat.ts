@@ -2284,14 +2284,26 @@ import { Convert } from "./ts/data/convert";
     }
 
     function clearData( bindingOptions: BindingOptions ) : void {
+        const currentYear: number = bindingOptions._currentView!.year;
         let typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
-        
-        for ( const storageDate in typeDateCounts ) {
-            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                let year: number = parseInt( DateTime.getStorageDateYear( storageDate ) );
+
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            let actualMonthIndex: number = monthIndex;
+            let actualYear: number = currentYear;
+
+            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                actualMonthIndex = monthIndex - 12;
+                actualYear++;
+            }
+
+            const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
+            
+            for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                const storageDate: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
+                const storageDateKey: string = DateTime.toStorageDate( storageDate );
                 
-                if ( year === bindingOptions._currentView!.year ) {
-                    delete typeDateCounts[ storageDate ];
+                if ( typeDateCounts.hasOwnProperty( storageDateKey ) ) {
+                    delete typeDateCounts[ storageDateKey ];
                 }
             }
         }

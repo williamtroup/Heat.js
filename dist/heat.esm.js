@@ -2988,12 +2988,21 @@ var Convert;
         return t;
     }
     function X(e) {
-        let t = z(e);
-        for (const n in t) {
-            if (t.hasOwnProperty(n)) {
-                let o = parseInt(DateTime.getStorageDateYear(n));
-                if (o === e._currentView.year) {
-                    delete t[n];
+        const t = e._currentView.year;
+        let n = z(e);
+        for (let o = e.startMonth; o < 12 + e.startMonth; o++) {
+            let i = o;
+            let s = t;
+            if (e.startMonth > 0 && o > 11) {
+                i = o - 12;
+                s++;
+            }
+            const r = DateTime.getTotalDaysInMonth(s, i);
+            for (let e = 0; e < r; e++) {
+                const t = new Date(s, i, e + 1);
+                const o = DateTime.toStorageDate(t);
+                if (n.hasOwnProperty(o)) {
+                    delete n[o];
                 }
             }
         }
