@@ -503,10 +503,8 @@ import { Convert } from "./ts/data/convert";
             }
 
             if ( bindingOptions.title!.showImportButton && !bindingOptions._currentView!.isInFetchMode ) {
-                const importData: HTMLButtonElement = DomElement.createButton( titleBar, "button", "import" );
+                const importData: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "import", "arrow-up" );
                 importData.onclick = () => importFromFilesSelected( bindingOptions );
-
-                DomElement.create( importData, "i", "arrow-up" );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( importData, bindingOptions, _configurationOptions.text!.importButtonText! );
@@ -514,10 +512,9 @@ import { Convert } from "./ts/data/convert";
             }
 
             if ( bindingOptions.title!.showExportButton ) {
-                const exportData: HTMLButtonElement = DomElement.createButton( titleBar, "button", "export" );
+                const exportData: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "export", "arrow-down" );
                 exportData.onclick = () => showExportDialog( bindingOptions );
 
-                DomElement.create( exportData, "i", "arrow-down" );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( exportData, bindingOptions, _configurationOptions.text!.exportButtonText! );
@@ -525,9 +522,7 @@ import { Convert } from "./ts/data/convert";
             }
 
             if ( bindingOptions.title!.showRefreshButton ) {
-                const refresh: HTMLButtonElement = DomElement.createButton( titleBar, "button", "refresh" );
-
-                DomElement.create( refresh, "i", "refresh" );
+                const refresh: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "refresh", "refresh" );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( refresh, bindingOptions, _configurationOptions.text!.refreshButtonText! );
@@ -540,9 +535,7 @@ import { Convert } from "./ts/data/convert";
             }
 
             if ( bindingOptions.title!.showClearButton ) {
-                const clear: HTMLButtonElement = DomElement.createButton( titleBar, "button", "clear" );
-
-                DomElement.create( clear, "i", "close" );
+                const clear: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "clear", "close" );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( clear, bindingOptions, _configurationOptions.text!.clearButtonText! );
@@ -555,10 +548,8 @@ import { Convert } from "./ts/data/convert";
             }
     
             if ( bindingOptions.title!.showYearSelector ) {
-                const back: HTMLButtonElement = DomElement.createButton( titleBar, "button", "back" );
+                const back: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "back", "arrow-left" );
                 back.onclick = () => moveToPreviousYear( bindingOptions );
-
-                DomElement.create( back, "i", "arrow-left" );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( back, bindingOptions, _configurationOptions.text!.backButtonText! );
@@ -592,9 +583,7 @@ import { Convert } from "./ts/data/convert";
                 }
 
                 if ( bindingOptions.title!.showCurrentYearButton ) {
-                    const current: HTMLButtonElement = DomElement.createButton( titleBar, "button", "current" );
-
-                    DomElement.create( current, "i", "pin" );
+                    const current: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "current", "pin" );
 
                     if ( bindingOptions.title!.showToolTips ) {
                         ToolTip.add( current, bindingOptions, _configurationOptions.text!.currentYearText! );
@@ -608,10 +597,8 @@ import { Convert } from "./ts/data/convert";
                     };
                 }
 
-                const next: HTMLButtonElement = DomElement.createButton( titleBar, "button", "next" );
+                const next: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "next", "arrow-right" );
                 next.onclick = () => moveToNextYear( bindingOptions );
-
-                DomElement.create( next, "i", "arrow-right" );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( next, bindingOptions, _configurationOptions.text!.nextButtonText! );
@@ -1048,13 +1035,10 @@ import { Convert } from "./ts/data/convert";
         if ( bindingOptions.views!.map!.allowZooming ) {
             const zooming: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "zooming" );
             const closeButton: HTMLElement = DomElement.create( zooming, "div", "zoom-close-button" ) as HTMLElement;
-            const zoomOutButton: HTMLButtonElement = DomElement.createButton( zooming, "button", "zoom-out" );
+            const zoomOutButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-out", "minus" );
             const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%` ) as HTMLSpanElement;
-            const zoomInButton: HTMLButtonElement = DomElement.createButton( zooming, "button", "zoom-in" );
+            const zoomInButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-in", "plus" );
             const spacing: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-spacing", true );
-
-            DomElement.create( zoomInButton, "i", "plus" );
-            DomElement.create( zoomOutButton, "i", "minus" );
 
             daySize = DomElement.getStyleValueByName( bindingOptions._currentView!.element, "--heat-js-day-size", true );
 

@@ -68,6 +68,15 @@ export namespace DomElement {
         return element;
     }
 
+    export function createIconButton( container: HTMLElement, type: string, className: string, iClassName: string, beforeNode: HTMLElement = null! ) : HTMLButtonElement {
+        const element: HTMLButtonElement = create( container, type, className, beforeNode ) as HTMLButtonElement;
+        element.type = "button";
+
+        DomElement.create( element, "i", iClassName );
+
+        return element;
+    }
+
     export function getStyleValueByName( element: any, stylePropertyName: string, toNumber: boolean = false ) : any {
         const styles: CSSStyleDeclaration = getComputedStyle( element );
         let style: any = styles.getPropertyValue( stylePropertyName );
