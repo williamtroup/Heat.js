@@ -3172,7 +3172,16 @@ var Convert;
             e.ondrop = e => {
                 DomElement.cancelBubble(e);
                 if (Is.defined(window.FileReader) && e.dataTransfer.files.length > 0) {
-                    de(e.dataTransfer.files, t);
+                    const n = new DataTransfer;
+                    if (t.allowFileImports) {
+                        n.items.add(e.dataTransfer.files[0]);
+                    } else {
+                        const t = e.dataTransfer.files.length;
+                        for (let o = 0; o < t; o++) {
+                            n.items.add(e.dataTransfer.files[o]);
+                        }
+                    }
+                    de(n.files, t);
                 }
             };
         }

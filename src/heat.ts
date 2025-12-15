@@ -2549,7 +2549,20 @@ import { Convert } from "./ts/data/convert";
                 DomElement.cancelBubble( ev );
     
                 if ( Is.defined( window.FileReader ) && ev.dataTransfer!.files.length > 0 ) {
-                    importFromFiles( ev.dataTransfer!.files, bindingOptions );
+                    const dataTransfer: DataTransfer = new DataTransfer();
+
+                    if ( bindingOptions.allowFileImports ) {
+                        dataTransfer.items.add( ev.dataTransfer!.files[ 0 ] );
+                    } else {
+
+                        const filesLength: number = ev.dataTransfer!.files.length;
+
+                        for ( let fileIndex: number = 0; fileIndex < filesLength; fileIndex++ ) {
+                            dataTransfer.items.add( ev.dataTransfer!.files[ fileIndex ] );
+                        }
+                    }
+
+                    importFromFiles( dataTransfer.files, bindingOptions );
                 }
             };
         }
