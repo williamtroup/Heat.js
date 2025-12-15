@@ -109,6 +109,7 @@ export type ConfigurationOptionsText = {
     addTypeText?: string;
     typePlaceholderText?: string;
     addButtonText?: string;
+    removeButtonText?: string;
 };
 
 export type BindingOptions = {

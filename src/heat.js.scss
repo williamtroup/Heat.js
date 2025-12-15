@@ -419,7 +419,27 @@ div.heat-js {
                     @include styles.scroll-bars;
 
                     div.filename {
-                        text-align: center;
+                        position: relative;
+                        text-align: left;
+                        padding-right: 21px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        width: 100%;
+                        padding-left: calc( var(--heat-js-spacing) * 2 );
+                        padding-right: calc( var(--heat-js-spacing) * 2 );
+                        margin-bottom: 3px;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        div.remove {
+                            position: absolute;
+                            right: 0;
+
+                            @include styles.close-button;
+                        }
                     }
                 }
 

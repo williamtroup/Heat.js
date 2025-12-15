@@ -655,10 +655,27 @@ import { Convert } from "./ts/data/convert";
 
             for ( let fileIndex: number = 0; fileIndex < filesLength; fileIndex++ ) {
                 const filename: string = fileList[ fileIndex ].name;
+                const filenameContainer: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.importDialogDragAndDrop, "div", "filename", `<b>${fileIndex + 1}</b>. ${filename}` );
+                const removeButton: HTMLElement = DomElement.create( filenameContainer, "div", "remove" );
 
-                DomElement.createWithHTML( bindingOptions._currentView!.importDialogDragAndDrop, "div", "filename", `${fileIndex + 1}. ${filename}` );
+                ToolTip.add( removeButton, bindingOptions, _configurationOptions.text!.removeButtonText! );
+
+                removeButton.onclick = () => updateImportFilenamesFromRemoval( bindingOptions, fileIndex );
             }
         }
+    }
+
+    function updateImportFilenamesFromRemoval( bindingOptions: BindingOptions, removeIndex: number ) : void {
+        const dataTransfer: DataTransfer = new DataTransfer();
+        const filesLength: number = bindingOptions._currentView!.importDialogFileList!.length;
+
+        for ( let fileIndex: number = 0; fileIndex < filesLength; fileIndex++ ) {
+            if ( fileIndex !== removeIndex ) {
+                dataTransfer.items.add( bindingOptions._currentView!.importDialogFileList[ fileIndex ] );
+            }
+        }
+
+        showImportFilenames( bindingOptions, dataTransfer.files! );
     }
 
     function importFromFiles( files: FileList, bindingOptions: BindingOptions ) : void {
