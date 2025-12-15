@@ -1793,7 +1793,7 @@ var Convert;
             const e = n.length;
             for (let o = 0; o < e; o++) {
                 const e = n[o].name;
-                DomElement.createWithHTML(t._currentView.importDialogDragAndDrop, "div", "filename", e);
+                DomElement.createWithHTML(t._currentView.importDialogDragAndDrop, "div", "filename", `${o + 1}. ${e}`);
             }
         }
     }

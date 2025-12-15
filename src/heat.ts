@@ -656,7 +656,7 @@ import { Convert } from "./ts/data/convert";
             for ( let fileIndex: number = 0; fileIndex < filesLength; fileIndex++ ) {
                 const filename: string = fileList[ fileIndex ].name;
 
-                DomElement.createWithHTML( bindingOptions._currentView!.importDialogDragAndDrop, "div", "filename", filename );
+                DomElement.createWithHTML( bindingOptions._currentView!.importDialogDragAndDrop, "div", "filename", `${fileIndex + 1}. ${filename}` );
             }
         }
     }
