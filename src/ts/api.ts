@@ -20,6 +20,22 @@ export type PublicApi = {
      * Public API Functions:  Manage Dates
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
+
+    /**
+     * addType().
+     * 
+     * Adds a new empty trend type.
+     * 
+     * @public
+     * @fires       onAdd
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
+     * @param       {string}    type                                        The trend type.
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    addType: ( elementId: string, type: string, triggerRefresh?: boolean ) => PublicApi;
     
     /**
      * addDates().

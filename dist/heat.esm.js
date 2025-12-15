@@ -3472,6 +3472,21 @@ var Convert;
         }
     }
     const _e = {
+        addType: function(e, t, o = true) {
+            if (Is.definedString(e) && Is.definedString(t) && n.hasOwnProperty(e)) {
+                const i = n[e].options;
+                if (!i._currentView.isInFetchMode && i.allowTypeAdding) {
+                    if (!n[e].typeData.hasOwnProperty(t)) {
+                        n[e].typeData[t] = {};
+                        n[e].totalTypes++;
+                    }
+                    if (o) {
+                        r(i, true);
+                    }
+                }
+            }
+            return _e;
+        },
         addDates: function(t, o, i = null, s = true) {
             if (Is.definedString(t) && Is.definedArray(o) && n.hasOwnProperty(t)) {
                 const a = n[t].options;

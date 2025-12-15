@@ -2975,6 +2975,25 @@ import { Convert } from "./ts/data/convert";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
+        addType: function ( elementId: string, type: string, triggerRefresh: boolean = true ) : PublicApi {
+            if ( Is.definedString( elementId ) && Is.definedString( type ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
+                
+                if ( !bindingOptions._currentView!.isInFetchMode && bindingOptions.allowTypeAdding ) {
+                    if ( !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
+                        _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
+                        _elements_InstanceData[ elementId ].totalTypes++;
+                    }
+        
+                    if ( triggerRefresh ) {
+                        renderControlContainer( bindingOptions, true );
+                    }
+                }
+            }
+    
+            return _public;
+        },
+
         addDates: function ( elementId: string, dates: Date[], type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedArray( dates ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
