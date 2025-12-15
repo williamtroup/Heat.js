@@ -357,7 +357,7 @@ div.heat-js div.disabled div.export div.dialog-contents div.buttons button {
     -------------------------------------------------------------------------
 */
 div.heat-js div.disabled div.import {
-  max-width: 250px;
+  max-width: 350px;
 }
 div.heat-js div.disabled div.import div.dialog-contents button {
   background-color: var(--heat-js-button-background-color);
@@ -391,9 +391,35 @@ div.heat-js div.disabled div.import div.dialog-contents button.active {
   font-weight: var(--heat-js-text-bold-weight-active);
 }
 div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--heat-js-border-radius);
   border: var(--heat-js-border-size) dashed var(--heat-js-dialog-border-color);
-  padding: calc(var(--heat-js-spacing) * 3);
+  text-align: center;
+  min-height: 120px;
+  overflow-y: auto;
+}
+div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files::-webkit-scrollbar {
+  width: var(--heat-js-scroll-bar-size);
+  height: var(--heat-js-scroll-bar-size);
+  border-radius: var(--heat-js-scroll-bar-border-radius);
+}
+div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files::-webkit-scrollbar-track {
+  border-radius: var(--heat-js-scroll-bar-border-radius);
+}
+div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files::-webkit-scrollbar-thumb {
+  background: var(--heat-js-scroll-bar-thumb-color);
+  border-radius: var(--heat-js-scroll-bar-border-radius);
+}
+div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files::-webkit-scrollbar-thumb:active {
+  background-color: var(--heat-js-color-light-gray);
+}
+div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files div.filename {
   text-align: center;
 }
 div.heat-js div.disabled div.import div.dialog-contents label.checkbox {

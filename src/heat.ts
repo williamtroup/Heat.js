@@ -552,19 +552,20 @@ import { Convert } from "./ts/data/convert";
 
         DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.selectFilesText! );
 
-        const dragAndDrop: HTMLElement = DomElement.createWithHTML( contents, "div", "drag-and-drop-files", _configurationOptions.text!.dragAndDropFilesText! );
-
+        bindingOptions._currentView!.importDialogDragAndDrop = DomElement.createWithHTML( contents, "div", "drag-and-drop-files", _configurationOptions.text!.dragAndDropFilesText! );
         bindingOptions._currentView!.importDialogClearExistingData = DomElement.createCheckBox( contents, _configurationOptions.text!.clearExistingDataText!, crypto.randomUUID() );
 
-        makeAreaDroppable( dragAndDrop, bindingOptions );
+        makeAreaDroppable( bindingOptions._currentView!.importDialogDragAndDrop, bindingOptions );
 
         const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
         const selectFilesButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, "..." );
-        const importButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.importButtonText! );
+
+        bindingOptions._currentView!.importDialogImportButton = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.importButtonText! );
+        bindingOptions._currentView!.importDialogImportButton.disabled = true;
 
         closeButton.onclick = () => hideImportDialog( bindingOptions );
-        selectFilesButton.onclick = () => hideImportDialog( bindingOptions );
-        importButton.onclick = () => hideImportDialog( bindingOptions );
+        selectFilesButton.onclick = () => importFromFilesSelected( bindingOptions );
+        bindingOptions._currentView!.importDialogImportButton.onclick = () => importFromFiles( bindingOptions._currentView!.importDialogFileList, bindingOptions );;
 
         ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
     }
@@ -583,6 +584,8 @@ import { Convert } from "./ts/data/convert";
         Disabled.Background.hide( bindingOptions );
 
         if ( Is.defined( bindingOptions._currentView!.importDialog ) && bindingOptions._currentView!.importDialog.style.display !== "none" ) {
+            bindingOptions._currentView!.importDialogFileList = null!;
+            bindingOptions._currentView!.importDialogImportButton.disabled = true;
             bindingOptions._currentView!.importDialog.style.display = "none";
         }
 
@@ -601,7 +604,7 @@ import { Convert } from "./ts/data/convert";
                 if ( Is.defined( window.FileReader ) && ev.dataTransfer!.files.length > 0 ) {
                     const dataTransfer: DataTransfer = new DataTransfer();
 
-                    if ( bindingOptions.allowFileImports ) {
+                    if ( !bindingOptions.allowFileImports ) {
                         dataTransfer.items.add( ev.dataTransfer!.files[ 0 ] );
                     } else {
 
@@ -612,7 +615,7 @@ import { Convert } from "./ts/data/convert";
                         }
                     }
 
-                    importFromFiles( dataTransfer.files, bindingOptions );
+                    showImportFilenames( bindingOptions, dataTransfer.files );
                 }
             };
         }
@@ -630,8 +633,28 @@ import { Convert } from "./ts/data/convert";
         input.type = "file";
         input.accept = importTypes.join( ", " );
         input.multiple = bindingOptions.allowMultipleFileImports!;
-        input.onchange = () => importFromFiles( input.files!, bindingOptions );
+        input.onchange = () => showImportFilenames( bindingOptions, input.files! );
         input.click();
+    }
+
+    function showImportFilenames( bindingOptions: BindingOptions, fileList: FileList ) : void {
+        if ( fileList.length <= 0 ) {
+            bindingOptions._currentView!.importDialogDragAndDrop.innerHTML = _configurationOptions.text!.dragAndDropFilesText!;
+            bindingOptions._currentView!.importDialogImportButton.disabled = true;
+        } else {
+
+            bindingOptions._currentView!.importDialogFileList = fileList;
+            bindingOptions._currentView!.importDialogDragAndDrop.innerHTML = Char.empty;
+            bindingOptions._currentView!.importDialogImportButton.disabled = false;
+
+            const filesLength: number = fileList.length;
+
+            for ( let fileIndex: number = 0; fileIndex < filesLength; fileIndex++ ) {
+                const filename: string = fileList[ fileIndex ].name;
+
+                DomElement.createWithHTML( bindingOptions._currentView!.importDialogDragAndDrop, "div", "filename", filename );
+            }
+        }
     }
 
     function importFromFiles( files: FileList, bindingOptions: BindingOptions ) : void {

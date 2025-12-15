@@ -170,7 +170,10 @@ export type BindingOptionsCurrentView = {
     mapZoomLevel: number;
     mapZoomIncrement: number;
     importDialog: HTMLElement;
+    importDialogDragAndDrop: HTMLElement;
     importDialogClearExistingData: HTMLInputElement;
+    importDialogFileList: FileList;
+    importDialogImportButton: HTMLButtonElement;
 };
 
 export type BindingOptionsViews = {
