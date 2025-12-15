@@ -19,6 +19,10 @@ $minimum-width: 768px;
         outline: none;
         transition: var(--heat-js-transition);
 
+        &.default {
+            font-weight: 700;
+        }
+
         @if $apply-padding {
             padding-top: 5px;
             padding-bottom: 5px;

@@ -311,6 +311,11 @@ div.heat-js div.disabled div.export div.dialog-contents button {
   border-radius: var(--heat-js-border-radius);
   outline: none;
   transition: var(--heat-js-transition);
+}
+div.heat-js div.disabled div.export div.dialog-contents button.default {
+  font-weight: 700;
+}
+div.heat-js div.disabled div.export div.dialog-contents button {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 9px;
@@ -366,6 +371,11 @@ div.heat-js div.disabled div.import div.dialog-contents button {
   border-radius: var(--heat-js-border-radius);
   outline: none;
   transition: var(--heat-js-transition);
+}
+div.heat-js div.disabled div.import div.dialog-contents button.default {
+  font-weight: 700;
+}
+div.heat-js div.disabled div.import div.dialog-contents button {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 9px;
@@ -454,6 +464,11 @@ div.heat-js div.disabled div.add-type div.dialog-contents button {
   border-radius: var(--heat-js-border-radius);
   outline: none;
   transition: var(--heat-js-transition);
+}
+div.heat-js div.disabled div.add-type div.dialog-contents button.default {
+  font-weight: 700;
+}
+div.heat-js div.disabled div.add-type div.dialog-contents button {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 9px;
@@ -509,6 +524,9 @@ div.heat-js div.title-bar button {
   border-radius: var(--heat-js-border-radius);
   outline: none;
   transition: var(--heat-js-transition);
+}
+div.heat-js div.title-bar button.default {
+  font-weight: 700;
 }
 div.heat-js div.title-bar button:disabled {
   color: var(--heat-js-button-color-disabled);
@@ -1054,6 +1072,9 @@ div.heat-js div.map-contents-container div.zooming button {
   border-radius: var(--heat-js-border-radius);
   outline: none;
   transition: var(--heat-js-transition);
+}
+div.heat-js div.map-contents-container div.zooming button.default {
+  font-weight: 700;
 }
 div.heat-js div.map-contents-container div.zooming button:disabled {
   color: var(--heat-js-button-color-disabled);
@@ -1921,6 +1942,11 @@ div.heat-js div.guide div.map-types button {
   border-radius: var(--heat-js-border-radius);
   outline: none;
   transition: var(--heat-js-transition);
+}
+div.heat-js div.guide div.map-types button.default {
+  font-weight: 700;
+}
+div.heat-js div.guide div.map-types button {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 9px;

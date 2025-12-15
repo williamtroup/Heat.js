@@ -1605,7 +1605,7 @@ var Convert;
         t._currentView.exportDialogExportOnlyDataBeingViewedCheckBox = DomElement.createCheckBox(o, e.text.onlyDataBeingViewedText, crypto.randomUUID());
         t._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked = t.exportOnlyDataBeingViewed;
         const s = DomElement.create(o, "div", "buttons");
-        const r = DomElement.createButton(s, "button", "", e.text.exportButtonText);
+        const r = DomElement.createButton(s, "button", "default", e.text.exportButtonText);
         m(t);
         const a = () => {
             const e = t._currentView.exportDialogExportTypeSelect.value;
@@ -1724,7 +1724,7 @@ var Convert;
         v(t._currentView.importDialogDragAndDrop, t);
         const s = DomElement.create(o, "div", "buttons");
         const r = DomElement.createButton(s, "button", "", "...");
-        t._currentView.importDialogImportButton = DomElement.createButton(s, "button", "", e.text.importButtonText);
+        t._currentView.importDialogImportButton = DomElement.createButton(s, "button", "default", e.text.importButtonText);
         t._currentView.importDialogImportButton.disabled = true;
         i.onclick = () => D(t);
         r.onclick = () => T(t);
@@ -1832,7 +1832,7 @@ var Convert;
         t._currentView.typeAddingDialogTypeInput.name = crypto.randomUUID();
         t._currentView.typeAddingDialogTypeInput.placeholder = e.text.typePlaceholderText;
         const a = DomElement.create(i, "div", "buttons");
-        const l = DomElement.createButton(a, "button", "", e.text.addButtonText);
+        const l = DomElement.createButton(a, "button", "default", e.text.addButtonText);
         const c = () => {
             const e = t._currentView.typeAddingDialogTypeInput.value.trim();
             if (Is.definedString(e)) {

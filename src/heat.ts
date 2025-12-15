@@ -394,7 +394,7 @@ import { Convert } from "./ts/data/convert";
         bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked = bindingOptions.exportOnlyDataBeingViewed!;
 
         const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-        const okButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.exportButtonText! );
+        const okButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.exportButtonText! );
 
         renderExportDialogOptions( bindingOptions );
 
@@ -564,7 +564,7 @@ import { Convert } from "./ts/data/convert";
         const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
         const selectFilesButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, "..." );
 
-        bindingOptions._currentView!.importDialogImportButton = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.importButtonText! );
+        bindingOptions._currentView!.importDialogImportButton = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.importButtonText! );
         bindingOptions._currentView!.importDialogImportButton.disabled = true;
 
         closeButton.onclick = () => hideImportDialog( bindingOptions );
@@ -714,7 +714,7 @@ import { Convert } from "./ts/data/convert";
         bindingOptions._currentView!.typeAddingDialogTypeInput.placeholder = _configurationOptions.text!.typePlaceholderText!;
 
         const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-        const addButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.addButtonText! );
+        const addButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.addButtonText! );
 
         const addTypeFunc: Function = () => {
             const type: string = bindingOptions._currentView!.typeAddingDialogTypeInput.value.trim();
