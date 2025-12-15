@@ -552,7 +552,7 @@ div.heat-js div.title-bar button {
   align-items: center;
   justify-content: center;
   font-weight: var(--heat-js-title-bold-weight);
-  width: 30px;
+  width: 32px;
   height: 30px;
 }
 div.heat-js div.title-bar button.back {
@@ -1102,7 +1102,7 @@ div.heat-js div.map-contents-container div.zooming button {
   margin-right: calc(var(--heat-js-spacing) / 2);
   font-weight: var(--heat-js-title-bold-weight);
   margin-right: 0;
-  width: 30px;
+  width: 32px;
   height: 30px;
 }
 div.heat-js div.map-contents-container div.zooming div.zoom-close-button {
