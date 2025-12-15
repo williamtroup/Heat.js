@@ -8,7 +8,7 @@
             border-top: button.$border;
             border-left: button.$border;
             border-radius: button.$border-radius;
-            width: button.$size - button.$border-width * 2;
+            width: (button.$size - button.$border-width) - 1px;
             height: button.$size;
             left: 0;
             top: 0;
@@ -18,7 +18,7 @@
             border-bottom: button.$border;
             border-right: button.$border;
             border-radius: button.$border-radius;
-            width: button.$size - button.$border-width * 2;
+            width: (button.$size - button.$border-width) - 1px;
             height: button.$size;
             right: 0;
             top: 0;

@@ -459,7 +459,7 @@ div.heat-js div.title-bar button.refresh i.refresh::before {
   border-top: 2.5px solid currentColor;
   border-left: 2.5px solid currentColor;
   border-radius: 2.5px;
-  width: 5px;
+  width: 6.5px;
   height: 10px;
   left: 0;
   top: 0;
@@ -468,7 +468,7 @@ div.heat-js div.title-bar button.refresh i.refresh::after {
   border-bottom: 2.5px solid currentColor;
   border-right: 2.5px solid currentColor;
   border-radius: 2.5px;
-  width: 5px;
+  width: 6.5px;
   height: 10px;
   right: 0;
   top: 0;
