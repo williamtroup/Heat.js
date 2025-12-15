@@ -396,7 +396,8 @@ div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files 
   align-items: center;
   justify-content: center;
   border-radius: var(--heat-js-border-radius);
-  border: var(--heat-js-border-size) solid var(--heat-js-dialog-border-color);
+  background-color: var(--heat-js-input-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-input-border-color);
   text-align: center;
   min-height: 120px;
   overflow-y: auto;
