@@ -402,52 +402,52 @@ div.heat-js div.title-bar button.back {
   margin-left: calc(var(--heat-js-spacing) * 2) !important;
 }
 div.heat-js div.title-bar button.back i.arrow-left {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   display: inline-block;
   position: relative;
   width: 0;
   height: 0;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  border-right: 12px solid currentColor;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 10px solid currentColor;
 }
 div.heat-js div.title-bar button.next i.arrow-right {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   display: inline-block;
   position: relative;
   width: 0;
   height: 0;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  border-left: 12px solid currentColor;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 10px solid currentColor;
 }
 div.heat-js div.title-bar button.import i.arrow-up {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   display: inline-block;
   position: relative;
   width: 0;
   height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-bottom: 12px solid currentColor;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid currentColor;
 }
 div.heat-js div.title-bar button.export i.arrow-down {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   display: inline-block;
   position: relative;
   width: 0;
   height: 0;
-  border-top: 12px solid currentColor;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
+  border-top: 10px solid currentColor;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
 }
 div.heat-js div.title-bar button.refresh i.refresh {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   display: inline-block;
   position: relative;
 }
@@ -456,26 +456,26 @@ div.heat-js div.title-bar button.refresh i.refresh::before, div.heat-js div.titl
   content: "";
 }
 div.heat-js div.title-bar button.refresh i.refresh::before {
-  border-top: 3px solid currentColor;
-  border-left: 3px solid currentColor;
-  border-radius: 3px;
-  width: 5px;
-  height: 12px;
+  border-top: 2.5px solid currentColor;
+  border-left: 2.5px solid currentColor;
+  border-radius: 2.5px;
+  width: 4.1666666667px;
+  height: 10px;
   left: 0;
   top: 0;
 }
 div.heat-js div.title-bar button.refresh i.refresh::after {
-  border-bottom: 3px solid currentColor;
-  border-right: 3px solid currentColor;
-  border-radius: 3px;
-  width: 5px;
-  height: 12px;
+  border-bottom: 2.5px solid currentColor;
+  border-right: 2.5px solid currentColor;
+  border-radius: 2.5px;
+  width: 4.1666666667px;
+  height: 10px;
   right: 0;
   top: 0;
 }
 div.heat-js div.title-bar button.clear i.close {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   display: inline-block;
   position: relative;
 }
@@ -484,12 +484,12 @@ div.heat-js div.title-bar button.clear i.close::before, div.heat-js div.title-ba
   content: "";
 }
 div.heat-js div.title-bar button.clear i.close::before, div.heat-js div.title-bar button.clear i.close::after {
-  width: 3px;
-  height: 13.5px;
+  width: 2.5px;
+  height: 11.25px;
   background-color: currentColor;
-  border-radius: 3px;
-  left: 4.5px;
-  top: -0.75px;
+  border-radius: 2.5px;
+  left: 3.75px;
+  top: -0.625px;
 }
 div.heat-js div.title-bar button.clear i.close::before {
   -webkit-transform: rotate(45deg);
@@ -502,8 +502,8 @@ div.heat-js div.title-bar button.clear i.close::after {
   transform: rotate(-45deg);
 }
 div.heat-js div.title-bar button.current i.pin {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   display: inline-block;
   position: relative;
 }
@@ -512,16 +512,16 @@ div.heat-js div.title-bar button.current i.pin::before, div.heat-js div.title-ba
   content: "";
 }
 div.heat-js div.title-bar button.current i.pin {
-  height: 9px;
-  border-top: 3px solid currentColor;
+  height: 7.5px;
+  border-top: 2.5px solid currentColor;
   border-radius: 50%;
 }
 div.heat-js div.title-bar button.current i.pin::before {
   left: 50%;
   transform: translate(-50%);
   background-color: currentColor;
-  width: 3px;
-  height: 3px;
+  width: 2.5px;
+  height: 2px;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   top: 0;
@@ -530,8 +530,8 @@ div.heat-js div.title-bar button.current i.pin::after {
   left: 50%;
   transform: translate(-50%);
   background-color: currentColor;
-  width: 2px;
-  height: 2px;
+  width: 1.5px;
+  height: 1.5px;
   border-radius: 50%;
   bottom: 0;
 }
@@ -977,8 +977,8 @@ div.heat-js div.map-contents-container div.zooming div.zoom-close-button {
   margin-left: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js div.map-contents-container div.zooming button.zoom-out i.minus {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   display: inline-block;
   position: relative;
 }
@@ -989,8 +989,8 @@ div.heat-js div.map-contents-container div.zooming button.zoom-out i.minus::befo
   transform: translate(0, -50%);
   background-color: currentColor;
   width: 100%;
-  height: 3px;
-  border-radius: 3px;
+  height: 2.5px;
+  border-radius: 2.5px;
   left: 0;
 }
 div.heat-js div.map-contents-container div.zooming span.zoom-level {
@@ -999,8 +999,8 @@ div.heat-js div.map-contents-container div.zooming span.zoom-level {
   color: var(--heat-js-color-white);
 }
 div.heat-js div.map-contents-container div.zooming button.zoom-in i.plus {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   display: inline-block;
   position: relative;
 }
@@ -1012,9 +1012,9 @@ div.heat-js div.map-contents-container div.zooming button.zoom-in i.plus::before
   left: 50%;
   transform: translate(-50%);
   background-color: currentColor;
-  width: 3px;
+  width: 2.5px;
   height: 100%;
-  border-radius: 3px;
+  border-radius: 2.5px;
   top: 0;
 }
 div.heat-js div.map-contents-container div.zooming button.zoom-in i.plus::after {
@@ -1022,8 +1022,8 @@ div.heat-js div.map-contents-container div.zooming button.zoom-in i.plus::after 
   transform: translate(0, -50%);
   background-color: currentColor;
   width: 100%;
-  height: 3px;
-  border-radius: 3px;
+  height: 2.5px;
+  border-radius: 2.5px;
   left: 0;
 }
 div.heat-js div.map-contents-container div.map-contents {
