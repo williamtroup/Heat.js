@@ -432,7 +432,7 @@ div.heat-js div.disabled div.import div.dialog-contents div.buttons button {
   padding-right: calc(var(--heat-js-spacing) + 5px);
   padding-top: var(--heat-js-spacing);
   padding-bottom: var(--heat-js-spacing);
-  margin-right: calc(var(--heat-js-spacing) / 2);
+  margin-right: var(--heat-js-spacing);
   min-width: 80px;
 }
 div.heat-js div.disabled div.import div.dialog-contents div.buttons button:last-child {
@@ -487,11 +487,7 @@ div.heat-js div.disabled div.add-type div.dialog-contents div.buttons button {
   padding-right: calc(var(--heat-js-spacing) + 5px);
   padding-top: var(--heat-js-spacing);
   padding-bottom: var(--heat-js-spacing);
-  margin-right: calc(var(--heat-js-spacing) / 2);
   min-width: 80px;
-}
-div.heat-js div.disabled div.add-type div.dialog-contents div.buttons button:last-child {
-  margin-right: 0;
 }
 
 /*
