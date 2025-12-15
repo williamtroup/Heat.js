@@ -717,11 +717,25 @@ import { Convert } from "./ts/data/convert";
         const addButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.addButtonText! );
 
         const addTypeFunc: Function = () => {
-            hideExportDialog( bindingOptions );
-            renderControlContainer( bindingOptions, true );
+            const type: string = bindingOptions._currentView!.typeAddingDialogTypeInput.value.trim();
+
+            if ( Is.definedString( type ) ) {
+                const elementId: string = bindingOptions._currentView!.element.id;
+
+                if ( !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
+                    _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
+                    _elements_InstanceData[ elementId ].totalTypes++;
+                }
+
+                hideExportDialog( bindingOptions );
+                renderControlContainer( bindingOptions, true );
+
+            } else {
+                hideExportDialog( bindingOptions );
+            }
         };
 
-        bindingOptions._currentView!.exportDialogExportFilenameInput.onkeydown = ( ev: KeyboardEvent ) => {
+        bindingOptions._currentView!.typeAddingDialogTypeInput.onkeydown = ( ev: KeyboardEvent ) => {
             if ( ev.key === KeyCode.enter ) {
                 addTypeFunc();
             }

@@ -1726,19 +1726,19 @@ var Convert;
         const r = DomElement.createButton(s, "button", "", "...");
         t._currentView.importDialogImportButton = DomElement.createButton(s, "button", "", e.text.importButtonText);
         t._currentView.importDialogImportButton.disabled = true;
-        i.onclick = () => y(t);
+        i.onclick = () => D(t);
         r.onclick = () => T(t);
         t._currentView.importDialogImportButton.onclick = () => b(t._currentView.importDialogFileList, t);
         ToolTip.add(i, t, e.text.closeButtonText);
     }
-    function D(e) {
+    function y(e) {
         Disabled.Background.show(e);
         if (Is.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "block") {
             e._currentView.importDialog.style.display = "block";
         }
         ToolTip.hide(e);
     }
-    function y(e) {
+    function D(e) {
         Disabled.Background.hide(e);
         if (Is.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "none") {
             e._currentView.importDialogFileList = null;
@@ -1824,27 +1824,37 @@ var Convert;
     }
     function V(t) {
         t._currentView.typeAddingDialog = DomElement.create(t._currentView.disabledBackground, "div", "dialog add-type");
-        const n = DomElement.create(t._currentView.typeAddingDialog, "div", "dialog-title-bar");
-        const o = DomElement.create(t._currentView.typeAddingDialog, "div", "dialog-contents");
-        const i = DomElement.create(n, "div", "dialog-close");
-        DomElement.createWithHTML(n, "span", "dialog-title-bar-text", e.text.addTypeText);
-        t._currentView.typeAddingDialogTypeInput = DomElement.create(o, "input", "input-box type");
+        const o = DomElement.create(t._currentView.typeAddingDialog, "div", "dialog-title-bar");
+        const i = DomElement.create(t._currentView.typeAddingDialog, "div", "dialog-contents");
+        const s = DomElement.create(o, "div", "dialog-close");
+        DomElement.createWithHTML(o, "span", "dialog-title-bar-text", e.text.addTypeText);
+        t._currentView.typeAddingDialogTypeInput = DomElement.create(i, "input", "input-box type");
         t._currentView.typeAddingDialogTypeInput.name = crypto.randomUUID();
         t._currentView.typeAddingDialogTypeInput.placeholder = e.text.typePlaceholderText;
-        const s = DomElement.create(o, "div", "buttons");
-        const a = DomElement.createButton(s, "button", "", e.text.addButtonText);
-        const l = () => {
-            w(t);
-            r(t, true);
-        };
-        t._currentView.exportDialogExportFilenameInput.onkeydown = e => {
-            if (e.key === "Enter") {
-                l();
+        const a = DomElement.create(i, "div", "buttons");
+        const l = DomElement.createButton(a, "button", "", e.text.addButtonText);
+        const c = () => {
+            const e = t._currentView.typeAddingDialogTypeInput.value.trim();
+            if (Is.definedString(e)) {
+                const o = t._currentView.element.id;
+                if (!n[o].typeData.hasOwnProperty(e)) {
+                    n[o].typeData[e] = {};
+                    n[o].totalTypes++;
+                }
+                w(t);
+                r(t, true);
+            } else {
+                w(t);
             }
         };
-        a.onclick = () => l();
-        i.onclick = () => C(t);
-        ToolTip.add(i, t, e.text.closeButtonText);
+        t._currentView.typeAddingDialogTypeInput.onkeydown = e => {
+            if (e.key === "Enter") {
+                c();
+            }
+        };
+        l.onclick = () => c();
+        s.onclick = () => C(t);
+        ToolTip.add(s, t, e.text.closeButtonText);
     }
     function _(e) {
         Disabled.Background.show(e);
@@ -1899,7 +1909,7 @@ var Convert;
             }
             if (t.title.showImportButton && !t._currentView.isInFetchMode) {
                 const o = DomElement.createIconButton(n, "button", "import", "arrow-up");
-                o.onclick = () => D(t);
+                o.onclick = () => y(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(o, t, e.text.importButtonText);
                 }
@@ -2368,7 +2378,7 @@ var Convert;
         } else {
             DomElement.addClass(c, "no-hover");
         }
-        const f = De(t, a, m, u);
+        const f = ye(t, a, m, u);
         if (Is.defined(f) && he(t, f.id)) {
             if (Is.definedString(f.mapCssClassName)) {
                 DomElement.addClass(c, f.mapCssClassName);
@@ -2543,7 +2553,7 @@ var Convert;
         } else {
             DomElement.addClass(c, "no-hover");
         }
-        const f = De(n, r, d, l);
+        const f = ye(n, r, d, l);
         if (Is.defined(f) && he(n, f.id)) {
             if (Is.definedString(f.chartCssClassName)) {
                 DomElement.addClass(c, f.chartCssClassName);
@@ -2932,7 +2942,7 @@ var Convert;
             for (const n in l.types) {
                 if (l.types.hasOwnProperty(n)) {
                     J(parseInt(n), r, l.types[n], t, a, e, l.totalValue);
-                    const o = ye(a, parseInt(n));
+                    const o = De(a, parseInt(n));
                     if (t.views.statistics.showColorRangeLabels) {
                         if (!t.views.statistics.useColorRangeNamesForLabels || !Is.defined(o) || !Is.definedString(o.name)) {
                             DomElement.createWithHTML(i, "div", "range-name", `${n}${"+"}`);
@@ -2954,7 +2964,7 @@ var Convert;
     }
     function J(e, t, n, o, i, s, r) {
         const a = DomElement.create(t, "div", "range-line");
-        const l = ye(i, e);
+        const l = De(i, e);
         const c = n * s;
         a.style.height = `${c}px`;
         if (Is.defined(l) && Is.definedString(l.name)) {
@@ -3021,7 +3031,7 @@ var Convert;
                         const r = new Date(parseInt(s[2]), parseInt(s[1]), parseInt(s[0]));
                         const a = DateTime.getWeekdayNumber(r) + 1;
                         if (!Is.holiday(e, r).matched && Is.dayVisible(e.views.statistics.daysToShow, a)) {
-                            const s = De(e, t, n[o]);
+                            const s = ye(e, t, n[o]);
                             const r = Is.defined(s) ? s.minimum.toString() : "0";
                             if (!i.types.hasOwnProperty(r)) {
                                 i.types[r] = 0;
@@ -3357,7 +3367,7 @@ var Convert;
             }
         }
     }
-    function De(e, t, n, o = null) {
+    function ye(e, t, n, o = null) {
         let i = null;
         if (Is.defined(o) && Is.holiday(e, o).matched) {
             i = {
@@ -3380,7 +3390,7 @@ var Convert;
         }
         return i;
     }
-    function ye(e, t) {
+    function De(e, t) {
         const n = e.length;
         let o = null;
         for (let i = 0; i < n; i++) {
