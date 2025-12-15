@@ -1433,7 +1433,7 @@ var Convert;
         ToolTip.hide(e);
         ce(e);
         ee(e);
-        if (e.title.showConfigurationButton || e.title.showExportButton) {
+        if (e.title.showConfigurationButton || e.title.showExportButton || e.title.showImportButton) {
             Disabled.Background.render(e);
         }
         if (e.title.showConfigurationButton) {

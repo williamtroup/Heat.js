@@ -154,7 +154,7 @@ import { Convert } from "./ts/data/convert";
         startDataPullTimer( bindingOptions );
         setupTrendTypes( bindingOptions );
 
-        if ( bindingOptions.title!.showConfigurationButton || bindingOptions.title!.showExportButton ) {
+        if ( bindingOptions.title!.showConfigurationButton || bindingOptions.title!.showExportButton || bindingOptions.title!.showImportButton ) {
             Disabled.Background.render( bindingOptions );
         }
 
