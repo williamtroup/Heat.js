@@ -1880,7 +1880,7 @@ var Convert;
                 }
                 o.onclick = () => {
                     se(t);
-                    r(t);
+                    r(t, true);
                 };
             }
             if (t.title.showYearSelector) {

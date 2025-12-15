@@ -780,7 +780,7 @@ import { Convert } from "./ts/data/convert";
         
                 clear.onclick = () => {
                     clearData( bindingOptions );
-                    renderControlContainer( bindingOptions );
+                    renderControlContainer( bindingOptions, true );
                 };
             }
     
