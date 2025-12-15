@@ -565,7 +565,7 @@ import { Convert } from "./ts/data/convert";
 
         closeButton.onclick = () => hideImportDialog( bindingOptions );
         selectFilesButton.onclick = () => importFromFilesSelected( bindingOptions );
-        bindingOptions._currentView!.importDialogImportButton.onclick = () => importFromFiles( bindingOptions._currentView!.importDialogFileList, bindingOptions );;
+        bindingOptions._currentView!.importDialogImportButton.onclick = () => importFromFiles( bindingOptions._currentView!.importDialogFileList, bindingOptions );
 
         ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
     }
