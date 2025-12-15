@@ -407,8 +407,7 @@ div.heat-js {
             align-items: center;
             justify-content: center;
             font-weight: var(--heat-js-title-bold-weight);
-            width: 35px;
-            height: 30px;
+            @include styles.icon-button-size;
         }
 
         button.back {
@@ -845,11 +844,10 @@ div.heat-js {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                width: 35px;
-                height: 30px;
                 margin-right: calc( var(--heat-js-spacing) / 2 );
                 font-weight: var(--heat-js-title-bold-weight);
                 margin-right: 0;
+                @include styles.icon-button-size;
             }
 
             div.zoom-close-button {

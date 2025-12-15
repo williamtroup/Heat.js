@@ -212,3 +212,8 @@ $minimum-width: 768px;
         background-color: var(--heat-js-color-gray);
     }
 }
+
+@mixin icon-button-size {
+    width: 30px;
+    height: 30px;
+}
