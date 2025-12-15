@@ -9,18 +9,21 @@ $minimum-width: 768px;
     cursor: default;
 }
 
-@mixin buttons {
+@mixin buttons($apply-padding: true) {
     button {
         background-color: var(--heat-js-button-background-color);
         border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
         color: var(--heat-js-button-text-color);
         border-radius: var(--heat-js-border-radius);
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 9px;
-        padding-right: 9px;
         outline: none;
         transition: var(--heat-js-transition);
+
+        @if $apply-padding {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 9px;
+            padding-right: 9px;
+        }
 
         &:disabled {
             color: var(--heat-js-button-color-disabled);

@@ -306,12 +306,12 @@ div.heat-js div.disabled div.export div.dialog-contents button {
   border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
   color: var(--heat-js-button-text-color);
   border-radius: var(--heat-js-border-radius);
+  outline: none;
+  transition: var(--heat-js-transition);
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 9px;
   padding-right: 9px;
-  outline: none;
-  transition: var(--heat-js-transition);
 }
 div.heat-js div.disabled div.export div.dialog-contents button:disabled {
   color: var(--heat-js-button-color-disabled);
@@ -364,10 +364,6 @@ div.heat-js div.title-bar button {
   border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
   color: var(--heat-js-button-text-color);
   border-radius: var(--heat-js-border-radius);
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 9px;
-  padding-right: 9px;
   outline: none;
   transition: var(--heat-js-transition);
 }
@@ -908,10 +904,6 @@ div.heat-js div.map-contents-container div.zooming button {
   border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
   color: var(--heat-js-button-text-color);
   border-radius: var(--heat-js-border-radius);
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 9px;
-  padding-right: 9px;
   outline: none;
   transition: var(--heat-js-transition);
 }
@@ -1779,12 +1771,12 @@ div.heat-js div.guide div.map-types button {
   border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
   color: var(--heat-js-button-text-color);
   border-radius: var(--heat-js-border-radius);
+  outline: none;
+  transition: var(--heat-js-transition);
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 9px;
   padding-right: 9px;
-  outline: none;
-  transition: var(--heat-js-transition);
 }
 div.heat-js div.guide div.map-types button:disabled {
   color: var(--heat-js-button-color-disabled);
