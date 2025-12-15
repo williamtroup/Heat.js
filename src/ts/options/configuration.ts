@@ -55,8 +55,8 @@ export namespace Configuration {
             configurationOptions.text!.objectErrorText = Default.getAnyString( configurationOptions.text!.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}" );
             configurationOptions.text!.attributeNotValidErrorText = Default.getAnyString( configurationOptions.text!.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object." );
             configurationOptions.text!.attributeNotSetErrorText = Default.getAnyString( configurationOptions.text!.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly." );
-            configurationOptions.text!.closeToolTipText = Default.getAnyString( configurationOptions.text!.closeToolTipText, "Close" );
-            configurationOptions.text!.configurationToolTipText = Default.getAnyString( configurationOptions.text!.configurationToolTipText, "Configuration" );
+            configurationOptions.text!.closeButtonText = Default.getAnyString( configurationOptions.text!.closeButtonText, "Close" );
+            configurationOptions.text!.configurationButtonText = Default.getAnyString( configurationOptions.text!.configurationButtonText, "Configuration" );
             configurationOptions.text!.configurationTitleText = Default.getAnyString( configurationOptions.text!.configurationTitleText, "Configuration" );
             configurationOptions.text!.visibleMonthsText = Default.getAnyString( configurationOptions.text!.visibleMonthsText, "Visible Months" );
             configurationOptions.text!.visibleDaysText = Default.getAnyString( configurationOptions.text!.visibleDaysText, "Visible Days" );
@@ -76,8 +76,8 @@ export namespace Configuration {
             configurationOptions.text!.selectTypeText = Default.getAnyString( configurationOptions.text!.selectTypeText, "Select Type" );
             configurationOptions.text!.filenamePlaceholderText = Default.getAnyString( configurationOptions.text!.filenamePlaceholderText, "Filename (optional)" );
             configurationOptions.text!.onlyDataBeingViewedText = Default.getAnyString( configurationOptions.text!.onlyDataBeingViewedText, "Only data being viewed" );
-            configurationOptions.text!.zoomInToolTipText = Default.getAnyString( configurationOptions.text!.zoomInToolTipText, "Zoom In" );
-            configurationOptions.text!.zoomOutToolTipText = Default.getAnyString( configurationOptions.text!.zoomOutToolTipText, "Zoom Out" );
+            configurationOptions.text!.zoomInText = Default.getAnyString( configurationOptions.text!.zoomInText, "Zoom In" );
+            configurationOptions.text!.zoomOutText = Default.getAnyString( configurationOptions.text!.zoomOutText, "Zoom Out" );
             configurationOptions.text!.clearButtonText = Default.getAnyString( configurationOptions.text!.clearButtonText, "Clear" );
 
             return configurationOptions.text!;

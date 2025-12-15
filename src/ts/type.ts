@@ -78,8 +78,8 @@ export type ConfigurationOptionsText = {
     objectErrorText?: string;
     attributeNotValidErrorText?: string;
     attributeNotSetErrorText?: string;
-    closeToolTipText?: string;
-    configurationToolTipText?: string;
+    closeButtonText?: string;
+    configurationButtonText?: string;
     configurationTitleText?: string;
     visibleMonthsText?: string;
     visibleDaysText?: string;
@@ -101,8 +101,8 @@ export type ConfigurationOptionsText = {
     selectTypeText?: string;
     filenamePlaceholderText?: string;
     onlyDataBeingViewedText?: string;
-    zoomInToolTipText?: string;
-    zoomOutToolTipText?: string;
+    zoomInText?: string;
+    zoomOutText?: string;
     clearButtonText?: string;
 };
 

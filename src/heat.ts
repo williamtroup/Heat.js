@@ -267,7 +267,7 @@ import { Convert } from "./ts/data/convert";
             }
         }
 
-        ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeToolTipText! );
+        ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
     }
 
     function showConfigurationDialog( bindingOptions: BindingOptions ) : void {
@@ -408,7 +408,7 @@ import { Convert } from "./ts/data/convert";
         okButton.onclick = () => exportDataFunc();
         closeButton.onclick = () => hideExportDialog( bindingOptions );
 
-        ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeToolTipText! );
+        ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
     }
 
     function renderExportDialogOptions( bindingOptions: BindingOptions ) : void {
@@ -578,7 +578,7 @@ import { Convert } from "./ts/data/convert";
                     configureButton.onclick = () => showConfigurationDialog( bindingOptions );
 
                     if ( bindingOptions.title!.showToolTips ) {
-                        ToolTip.add( configureButton, bindingOptions, _configurationOptions.text!.configurationToolTipText! );
+                        ToolTip.add( configureButton, bindingOptions, _configurationOptions.text!.configurationButtonText! );
                     }
                 }
 
@@ -1046,9 +1046,9 @@ import { Convert } from "./ts/data/convert";
                 daySize = DomElement.getStyleValueByName( document.documentElement, "--heat-js-day-size", true );
             }
 
-            ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeToolTipText! );
-            ToolTip.add( zoomInButton, bindingOptions, _configurationOptions.text!.zoomInToolTipText! );
-            ToolTip.add( zoomOutButton, bindingOptions, _configurationOptions.text!.zoomOutToolTipText! );
+            ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
+            ToolTip.add( zoomInButton, bindingOptions, _configurationOptions.text!.zoomInText! );
+            ToolTip.add( zoomOutButton, bindingOptions, _configurationOptions.text!.zoomOutText! );
 
             zooming.style.bottom = bindingOptions._currentView!.mapContentsContainer.offsetHeight - map.offsetHeight + "px";
 

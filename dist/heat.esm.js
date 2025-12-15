@@ -895,8 +895,8 @@ var Configuration;
             e.text.objectErrorText = Default2.getAnyString(e.text.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
             e.text.attributeNotValidErrorText = Default2.getAnyString(e.text.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object.");
             e.text.attributeNotSetErrorText = Default2.getAnyString(e.text.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly.");
-            e.text.closeToolTipText = Default2.getAnyString(e.text.closeToolTipText, "Close");
-            e.text.configurationToolTipText = Default2.getAnyString(e.text.configurationToolTipText, "Configuration");
+            e.text.closeButtonText = Default2.getAnyString(e.text.closeButtonText, "Close");
+            e.text.configurationButtonText = Default2.getAnyString(e.text.configurationButtonText, "Configuration");
             e.text.configurationTitleText = Default2.getAnyString(e.text.configurationTitleText, "Configuration");
             e.text.visibleMonthsText = Default2.getAnyString(e.text.visibleMonthsText, "Visible Months");
             e.text.visibleDaysText = Default2.getAnyString(e.text.visibleDaysText, "Visible Days");
@@ -916,8 +916,8 @@ var Configuration;
             e.text.selectTypeText = Default2.getAnyString(e.text.selectTypeText, "Select Type");
             e.text.filenamePlaceholderText = Default2.getAnyString(e.text.filenamePlaceholderText, "Filename (optional)");
             e.text.onlyDataBeingViewedText = Default2.getAnyString(e.text.onlyDataBeingViewedText, "Only data being viewed");
-            e.text.zoomInToolTipText = Default2.getAnyString(e.text.zoomInToolTipText, "Zoom In");
-            e.text.zoomOutToolTipText = Default2.getAnyString(e.text.zoomOutToolTipText, "Zoom Out");
+            e.text.zoomInText = Default2.getAnyString(e.text.zoomInText, "Zoom In");
+            e.text.zoomOutText = Default2.getAnyString(e.text.zoomOutText, "Zoom Out");
             e.text.clearButtonText = Default2.getAnyString(e.text.clearButtonText, "Clear");
             return e.text;
         }
@@ -1503,7 +1503,7 @@ var Convert;
                 c = l;
             }
         }
-        ToolTip.add(i, t, e.text.closeToolTipText);
+        ToolTip.add(i, t, e.text.closeButtonText);
     }
     function c(e) {
         Disabled.Background.show(e);
@@ -1607,7 +1607,7 @@ var Convert;
         };
         r.onclick = () => a();
         i.onclick = () => w(t);
-        ToolTip.add(i, t, e.text.closeToolTipText);
+        ToolTip.add(i, t, e.text.closeButtonText);
     }
     function m(e) {
         let t;
@@ -1729,7 +1729,7 @@ var Convert;
                     let o = DomElement.create(n, "div", "configure");
                     o.onclick = () => c(t);
                     if (t.title.showToolTips) {
-                        ToolTip.add(o, t, e.text.configurationToolTipText);
+                        ToolTip.add(o, t, e.text.configurationButtonText);
                     }
                 }
                 if (t.title.showCurrentYearButton) {
@@ -2070,9 +2070,9 @@ var Convert;
             if (i === 0) {
                 i = DomElement.getStyleValueByName(document.documentElement, "--heat-js-day-size", true);
             }
-            ToolTip.add(a, t, e.text.closeToolTipText);
-            ToolTip.add(u, t, e.text.zoomInToolTipText);
-            ToolTip.add(l, t, e.text.zoomOutToolTipText);
+            ToolTip.add(a, t, e.text.closeButtonText);
+            ToolTip.add(u, t, e.text.zoomInText);
+            ToolTip.add(l, t, e.text.zoomOutText);
             s.style.bottom = t._currentView.mapContentsContainer.offsetHeight - n.offsetHeight + "px";
             if (t.views.map.zoomLevel > 0 && t._currentView.mapZoomLevel === -1) {
                 i += parseFloat((t.views.map.zoomLevel * t._currentView.mapZoomIncrement).toFixed(1));
