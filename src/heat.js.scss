@@ -410,7 +410,7 @@ div.heat-js {
                     align-items: center;
                     justify-content: center;
                     border-radius: var(--heat-js-border-radius);
-                    border: var(--heat-js-border-size) dashed var(--heat-js-dialog-border-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-dialog-border-color);
                     text-align: center;
                     min-height: 120px;
                     overflow-y: auto;
