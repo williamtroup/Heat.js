@@ -1143,11 +1143,15 @@ import { Convert } from "./ts/data/convert";
 
     function renderControlYearStatisticsPercentage( bindingOptions: BindingOptions, boxCount: HTMLElement, yearCount: number, count: number, isCurrentYear: boolean ) : void {
         if ( isCurrentYear && bindingOptions.yearlyStatistics!.showPercentages ) {
-            const percentageText: string = `${( ( count / yearCount ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%`;
+            const percentage: number = ( count / yearCount ) * 100;
 
-            DomElement.createWithHTML( boxCount, "span", "percentage-bracket", "(" );
-            DomElement.createWithHTML( boxCount, "span", "percentage-text", percentageText );
-            DomElement.createWithHTML( boxCount, "span", "percentage-bracket", ")" );
+            if ( !isNaN( percentage ) ) {
+                const percentageText: string = `${percentage.toFixed( bindingOptions.percentageDecimalPoints! )}%`;
+
+                DomElement.createWithHTML( boxCount, "span", "percentage-bracket", "(" );
+                DomElement.createWithHTML( boxCount, "span", "percentage-text", percentageText );
+                DomElement.createWithHTML( boxCount, "span", "percentage-bracket", ")" );
+            }
         }
     }
 

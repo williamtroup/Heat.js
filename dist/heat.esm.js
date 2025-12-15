@@ -2140,10 +2140,13 @@ var Convert;
     }
     function L(e, t, n, o, i) {
         if (i && e.yearlyStatistics.showPercentages) {
-            const i = `${(o / n * 100).toFixed(e.percentageDecimalPoints)}%`;
-            DomElement.createWithHTML(t, "span", "percentage-bracket", "(");
-            DomElement.createWithHTML(t, "span", "percentage-text", i);
-            DomElement.createWithHTML(t, "span", "percentage-bracket", ")");
+            const i = o / n * 100;
+            if (!isNaN(i)) {
+                const n = `${i.toFixed(e.percentageDecimalPoints)}%`;
+                DomElement.createWithHTML(t, "span", "percentage-bracket", "(");
+                DomElement.createWithHTML(t, "span", "percentage-text", n);
+                DomElement.createWithHTML(t, "span", "percentage-bracket", ")");
+            }
         }
     }
     function k(e, t, o, i, s) {
