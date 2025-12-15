@@ -744,6 +744,10 @@ import { Convert } from "./ts/data/convert";
                     _elements_InstanceData[ elementId ].totalTypes++;
                 }
 
+                bindingOptions._currentView!.type = type;
+                
+                Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, type );
+
                 hideExportDialog( bindingOptions );
                 renderControlContainer( bindingOptions, true );
 

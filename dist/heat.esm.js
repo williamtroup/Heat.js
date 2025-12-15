@@ -1853,6 +1853,8 @@ var Convert;
                     n[o].typeData[e] = {};
                     n[o].totalTypes++;
                 }
+                t._currentView.type = e;
+                Trigger.customEvent(t.events.onTypeSwitch, e);
                 w(t);
                 r(t, true);
             } else {
