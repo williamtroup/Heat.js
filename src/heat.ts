@@ -452,6 +452,86 @@ import { Convert } from "./ts/data/convert";
         ToolTip.hide( bindingOptions );
     }
 
+    function exportAllData( bindingOptions: BindingOptions, exportType: string = null!, exportFilename: string = null!, exportOnlyDataBeingViewed: boolean = true ) : void {
+        const contentExportType: string = Default.getString( exportType, bindingOptions.exportType! ).toLowerCase();
+        const contentsMimeType: string = Export.File.mimeType( contentExportType );
+        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, exportOnlyDataBeingViewed );
+        const contents: string = Export.Contents.get( contentExportType, typeDateCounts, _configurationOptions );
+
+        if ( Is.definedString( contents ) ) {
+            const tempLink: HTMLElement = DomElement.create( document.body, "a" );
+            tempLink.style.display = "none";
+            tempLink.setAttribute( "target", "_blank" );
+            tempLink.setAttribute( "href", `data:${contentsMimeType};charset=utf-8,${encodeURIComponent(contents)}` );
+            tempLink.setAttribute( "download", Export.File.filename( _configurationOptions, bindingOptions, exportFilename, contentExportType ) );
+            tempLink.click();
+            
+            document.body.removeChild( tempLink );
+
+            Trigger.customEvent( bindingOptions.events!.onExport!, bindingOptions._currentView!.element );
+        }
+    }
+
+    function getExportData( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean ) : InstanceTypeDateCount {
+        const contents: InstanceTypeDateCount = {} as InstanceTypeDateCount;
+        const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
+
+        if ( onlyDataBeingViewed ) {
+            const currentYear: number = bindingOptions._currentView!.year;
+            const daysToShow: number[] = Visible.days( bindingOptions );
+            const monthsToShow: number[] = Visible.months( bindingOptions );
+
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+                let actualMonthIndex: number = monthIndex;
+                let actualYear: number = currentYear;
+
+                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                    actualMonthIndex = monthIndex - 12;
+                    actualYear++;
+                }
+
+                if ( Is.monthVisible( monthsToShow, actualMonthIndex ) ) {
+                    const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
+            
+                    for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                        const storageDate: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
+                        const storageDateKey: string = DateTime.toStorageDate( storageDate );
+                        const weekdayNumber: number = DateTime.getWeekdayNumber( storageDate ) + 1;
+
+                        if ( Is.dayVisible( daysToShow, weekdayNumber ) ) {
+                            if ( typeDateCounts.hasOwnProperty( storageDateKey ) ) {
+                                contents[ storageDateKey ] = typeDateCounts[ storageDateKey ];
+                            }
+                        }
+                    }
+                }
+            }
+
+        } else {
+            const storageDates: string[] = [];
+
+            for ( const storageDate1 in typeDateCounts ) {
+                if ( typeDateCounts.hasOwnProperty( storageDate1 ) ) {
+                    storageDates.push( storageDate1 );
+                }
+            }
+    
+            storageDates.sort();
+
+            const storageDatesLength: number = storageDates.length;
+
+            for ( let storageDateIndex: number = 0; storageDateIndex < storageDatesLength; storageDateIndex++ ) {
+                const storageDate2: string = storageDates[ storageDateIndex ];
+    
+                if ( typeDateCounts.hasOwnProperty( storageDate2 ) ) {
+                    contents[ storageDate2 ] = typeDateCounts[ storageDate2 ];
+                }
+            }
+        }
+
+        return contents;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2626,93 +2706,6 @@ import { Convert } from "./ts/data/convert";
 
             Import.file( file, fileExtension, onLoadEndFunc, _configurationOptions );
         }
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Export
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function exportAllData( bindingOptions: BindingOptions, exportType: string = null!, exportFilename: string = null!, exportOnlyDataBeingViewed: boolean = true ) : void {
-        const contentExportType: string = Default.getString( exportType, bindingOptions.exportType! ).toLowerCase();
-        const contentsMimeType: string = Export.File.mimeType( contentExportType );
-        const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, exportOnlyDataBeingViewed );
-        const contents: string = Export.Contents.get( contentExportType, typeDateCounts, _configurationOptions );
-
-        if ( Is.definedString( contents ) ) {
-            const tempLink: HTMLElement = DomElement.create( document.body, "a" );
-            tempLink.style.display = "none";
-            tempLink.setAttribute( "target", "_blank" );
-            tempLink.setAttribute( "href", `data:${contentsMimeType};charset=utf-8,${encodeURIComponent(contents)}` );
-            tempLink.setAttribute( "download", Export.File.filename( _configurationOptions, bindingOptions, exportFilename, contentExportType ) );
-            tempLink.click();
-            
-            document.body.removeChild( tempLink );
-
-            Trigger.customEvent( bindingOptions.events!.onExport!, bindingOptions._currentView!.element );
-        }
-    }
-
-    function getExportData( bindingOptions: BindingOptions, onlyDataBeingViewed: boolean ) : InstanceTypeDateCount {
-        const contents: InstanceTypeDateCount = {} as InstanceTypeDateCount;
-        const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
-
-        if ( onlyDataBeingViewed ) {
-            const currentYear: number = bindingOptions._currentView!.year;
-            const daysToShow: number[] = Visible.days( bindingOptions );
-            const monthsToShow: number[] = Visible.months( bindingOptions );
-
-            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
-                let actualMonthIndex: number = monthIndex;
-                let actualYear: number = currentYear;
-
-                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
-                    actualMonthIndex = monthIndex - 12;
-                    actualYear++;
-                }
-
-                if ( Is.monthVisible( monthsToShow, actualMonthIndex ) ) {
-                    const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
-            
-                    for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                        const storageDate: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
-                        const storageDateKey: string = DateTime.toStorageDate( storageDate );
-                        const weekdayNumber: number = DateTime.getWeekdayNumber( storageDate ) + 1;
-
-                        if ( Is.dayVisible( daysToShow, weekdayNumber ) ) {
-                            if ( typeDateCounts.hasOwnProperty( storageDateKey ) ) {
-                                contents[ storageDateKey ] = typeDateCounts[ storageDateKey ];
-                            }
-                        }
-                    }
-                }
-            }
-
-        } else {
-            const storageDates: string[] = [];
-
-            for ( const storageDate1 in typeDateCounts ) {
-                if ( typeDateCounts.hasOwnProperty( storageDate1 ) ) {
-                    storageDates.push( storageDate1 );
-                }
-            }
-    
-            storageDates.sort();
-
-            const storageDatesLength: number = storageDates.length;
-
-            for ( let storageDateIndex: number = 0; storageDateIndex < storageDatesLength; storageDateIndex++ ) {
-                const storageDate2: string = storageDates[ storageDateIndex ];
-    
-                if ( typeDateCounts.hasOwnProperty( storageDate2 ) ) {
-                    contents[ storageDate2 ] = typeDateCounts[ storageDate2 ];
-                }
-            }
-        }
-
-        return contents;
     }
 
 
