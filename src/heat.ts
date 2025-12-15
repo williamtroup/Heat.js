@@ -166,6 +166,10 @@ import { Convert } from "./ts/data/convert";
             renderExportDialog( bindingOptions );
         }
 
+        if ( bindingOptions.title!.showImportButton ) {
+            renderImportDialog( bindingOptions );
+        }
+
         ToolTip.render( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlYearStatistics( bindingOptions );
@@ -535,6 +539,136 @@ import { Convert } from "./ts/data/convert";
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Import Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderImportDialog( bindingOptions: BindingOptions ) : void {
+        bindingOptions._currentView!.importDialog = DomElement.create( bindingOptions._currentView!.disabledBackground, "div", "dialog import" );
+
+        const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.importDialog, "div", "dialog-title-bar" );
+        const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.importDialog, "div", "dialog-contents" );
+        const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
+
+        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.selectFilesText! );
+
+        const dragAndDrop: HTMLElement = DomElement.createWithHTML( contents, "div", "drag-and-drop-files", _configurationOptions.text!.dragAndDropFilesText! );
+
+        bindingOptions._currentView!.importDialogClearExistingData = DomElement.createCheckBox( contents, _configurationOptions.text!.clearExistingDataText!, crypto.randomUUID() );
+
+        makeAreaDroppable( dragAndDrop, bindingOptions );
+
+        const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
+        const selectFilesButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, "..." );
+        const importButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.importButtonText! );
+
+        closeButton.onclick = () => hideImportDialog( bindingOptions );
+        selectFilesButton.onclick = () => hideImportDialog( bindingOptions );
+        importButton.onclick = () => hideImportDialog( bindingOptions );
+
+        ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
+    }
+
+    function showImportDialog( bindingOptions: BindingOptions ) : void {
+        Disabled.Background.show( bindingOptions );
+
+        if ( Is.defined( bindingOptions._currentView!.importDialog ) && bindingOptions._currentView!.importDialog.style.display !== "block" ) {
+            bindingOptions._currentView!.importDialog.style.display = "block";
+        }
+
+        ToolTip.hide( bindingOptions );
+    }
+
+    function hideImportDialog( bindingOptions: BindingOptions ) : void {
+        Disabled.Background.hide( bindingOptions );
+
+        if ( Is.defined( bindingOptions._currentView!.importDialog ) && bindingOptions._currentView!.importDialog.style.display !== "none" ) {
+            bindingOptions._currentView!.importDialog.style.display = "none";
+        }
+
+        ToolTip.hide( bindingOptions );
+    }
+
+    function makeAreaDroppable( element: HTMLElement, bindingOptions: BindingOptions ) : void {
+        if ( bindingOptions.allowFileImports && !bindingOptions._currentView!.isInFetchMode ) {
+            element.ondragover = DomElement.cancelBubble;
+            element.ondragenter = DomElement.cancelBubble;
+            element.ondragleave = DomElement.cancelBubble;
+    
+            element.ondrop = ( ev: DragEvent ) => {
+                DomElement.cancelBubble( ev );
+    
+                if ( Is.defined( window.FileReader ) && ev.dataTransfer!.files.length > 0 ) {
+                    const dataTransfer: DataTransfer = new DataTransfer();
+
+                    if ( bindingOptions.allowFileImports ) {
+                        dataTransfer.items.add( ev.dataTransfer!.files[ 0 ] );
+                    } else {
+
+                        const filesLength: number = ev.dataTransfer!.files.length;
+
+                        for ( let fileIndex: number = 0; fileIndex < filesLength; fileIndex++ ) {
+                            dataTransfer.items.add( ev.dataTransfer!.files[ fileIndex ] );
+                        }
+                    }
+
+                    importFromFiles( dataTransfer.files, bindingOptions );
+                }
+            };
+        }
+    }
+
+    function importFromFilesSelected( bindingOptions: BindingOptions ) : void {
+        const importTypes: string[] = [];
+        let importType: keyof typeof ImportType;
+
+        for ( importType in ImportType ) {
+            importTypes.push( `.${importType}` );
+        }
+
+        const input: HTMLInputElement = DomElement.createWithNoContainer( "input" ) as HTMLInputElement;
+        input.type = "file";
+        input.accept = importTypes.join( ", " );
+        input.multiple = bindingOptions.allowMultipleFileImports!;
+        input.onchange = () => importFromFiles( input.files!, bindingOptions );
+        input.click();
+    }
+
+    function importFromFiles( files: FileList, bindingOptions: BindingOptions ) : void {
+        const filesLength: number = files.length;
+        const filesCompleted: string[] = [];
+        const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
+
+        const onLoadEndFunc: Function = ( filename: string, readingObject: InstanceTypeDateCount ) : void => {
+            filesCompleted.push( filename );
+
+            for ( const storageDate in readingObject ) {
+                if ( readingObject.hasOwnProperty( storageDate ) ) {
+                    if ( !typeDateCounts.hasOwnProperty( storageDate ) ) {
+                        typeDateCounts[ storageDate ] = 0;
+                    }
+
+                    typeDateCounts[ storageDate ] += readingObject[ storageDate ];
+                }
+            }
+            
+            if ( filesCompleted.length === filesLength ) {
+                Trigger.customEvent( bindingOptions.events!.onImport!, bindingOptions._currentView!.element );
+                renderControlContainer( bindingOptions );
+            }
+        };
+
+        for ( let fileIndex: number = 0; fileIndex < filesLength; fileIndex++ ) {
+            const file: File = files[ fileIndex ];
+            const fileExtension: string = file!.name!.split( "." )!.pop()!.toLowerCase();
+
+            Import.file( file, fileExtension, onLoadEndFunc, _configurationOptions );
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Render:  Title Bar
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -584,7 +718,7 @@ import { Convert } from "./ts/data/convert";
 
             if ( bindingOptions.title!.showImportButton && !bindingOptions._currentView!.isInFetchMode ) {
                 const importData: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "import", "arrow-up" );
-                importData.onclick = () => importFromFilesSelected( bindingOptions );
+                importData.onclick = () => showImportDialog( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( importData, bindingOptions, _configurationOptions.text!.importButtonText! );
@@ -822,8 +956,6 @@ import { Convert } from "./ts/data/convert";
             const startOfYear: Date = new Date( bindingOptions._currentView!.year, bindingOptions.startMonth!, 1 );
             const endOfYear: Date = new Date( bindingOptions._currentView!.year + 1, bindingOptions.startMonth!, 1 );
             const yearCount: number = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfYear, endOfYear );
-
-            makeAreaDroppable( yearlyStatistics, bindingOptions );
 
             if ( bindingOptions.yearlyStatistics!.showToday ) {
                 let todaysCount: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( today ) ];
@@ -1099,7 +1231,6 @@ import { Convert } from "./ts/data/convert";
                 bindingOptions._currentView!.mapContents.scrollLeft = bindingOptions._currentView!.mapContentsScrollLeft;
             }
 
-            makeAreaDroppable( bindingOptions._currentView!.mapContents, bindingOptions );
             renderControlMapZooming( bindingOptions, map );
         }
     }
@@ -1287,8 +1418,6 @@ import { Convert } from "./ts/data/convert";
         if ( isForViewSwitch ) {
             DomElement.addClass( chart, "view-switch" );
         }
-
-        makeAreaDroppable( bindingOptions._currentView!.chartContents, bindingOptions );
 
         if ( largestValueForCurrentYear > 0 && bindingOptions.views!.chart!.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", largestValueForCurrentYear.toString() );
@@ -1539,8 +1668,6 @@ import { Convert } from "./ts/data/convert";
             DomElement.addClass( days, "view-switch" );
         }
 
-        makeAreaDroppable( bindingOptions._currentView!.daysContents, bindingOptions );
-
         if ( dayValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.days!.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", dayValuesForCurrentYear.largestValue.toString() );
 
@@ -1732,8 +1859,6 @@ import { Convert } from "./ts/data/convert";
         if ( isForViewSwitch && ( !bindingOptions.views!.months!.useDifferentOpacities || !bindingOptions.views!.months!.showMonthCounts ) ) {
             DomElement.addClass( months, "view-switch" );
         }
-
-        makeAreaDroppable( bindingOptions._currentView!.monthsContents, bindingOptions );
 
         if ( monthValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.months!.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", monthValuesForCurrentYear.largestValue.toString() );
@@ -1952,8 +2077,6 @@ import { Convert } from "./ts/data/convert";
         if ( isForViewSwitch ) {
             DomElement.addClass( statistics, "view-switch" );
         }
-
-        makeAreaDroppable( bindingOptions._currentView!.statisticsContents, bindingOptions );
 
         if ( colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.statistics!.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-0", colorRangeValuesForCurrentYear.largestValue.toString() );
@@ -2622,90 +2745,6 @@ import { Convert } from "./ts/data/convert";
         return bindingOptions.colorRanges!.sort( function( a, b ) {
             return a.minimum! - b.minimum!;
         } );
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Import
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function makeAreaDroppable( element: HTMLElement, bindingOptions: BindingOptions ) : void {
-        if ( bindingOptions.allowFileImports && !bindingOptions._currentView!.isInFetchMode ) {
-            element.ondragover = DomElement.cancelBubble;
-            element.ondragenter = DomElement.cancelBubble;
-            element.ondragleave = DomElement.cancelBubble;
-    
-            element.ondrop = ( ev: DragEvent ) => {
-                DomElement.cancelBubble( ev );
-    
-                if ( Is.defined( window.FileReader ) && ev.dataTransfer!.files.length > 0 ) {
-                    const dataTransfer: DataTransfer = new DataTransfer();
-
-                    if ( bindingOptions.allowFileImports ) {
-                        dataTransfer.items.add( ev.dataTransfer!.files[ 0 ] );
-                    } else {
-
-                        const filesLength: number = ev.dataTransfer!.files.length;
-
-                        for ( let fileIndex: number = 0; fileIndex < filesLength; fileIndex++ ) {
-                            dataTransfer.items.add( ev.dataTransfer!.files[ fileIndex ] );
-                        }
-                    }
-
-                    importFromFiles( dataTransfer.files, bindingOptions );
-                }
-            };
-        }
-    }
-
-    function importFromFilesSelected( bindingOptions: BindingOptions ) : void {
-        const importTypes: string[] = [];
-        let importType: keyof typeof ImportType;
-
-        for ( importType in ImportType ) {
-            importTypes.push( `.${importType}` );
-        }
-
-        const input: HTMLInputElement = DomElement.createWithNoContainer( "input" ) as HTMLInputElement;
-        input.type = "file";
-        input.accept = importTypes.join( ", " );
-        input.multiple = bindingOptions.allowMultipleFileImports!;
-        input.onchange = () => importFromFiles( input.files!, bindingOptions );
-        input.click();
-    }
-
-    function importFromFiles( files: FileList, bindingOptions: BindingOptions ) : void {
-        const filesLength: number = files.length;
-        const filesCompleted: string[] = [];
-        const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
-
-        const onLoadEndFunc: Function = ( filename: string, readingObject: InstanceTypeDateCount ) : void => {
-            filesCompleted.push( filename );
-
-            for ( const storageDate in readingObject ) {
-                if ( readingObject.hasOwnProperty( storageDate ) ) {
-                    if ( !typeDateCounts.hasOwnProperty( storageDate ) ) {
-                        typeDateCounts[ storageDate ] = 0;
-                    }
-
-                    typeDateCounts[ storageDate ] += readingObject[ storageDate ];
-                }
-            }
-            
-            if ( filesCompleted.length === filesLength ) {
-                Trigger.customEvent( bindingOptions.events!.onImport!, bindingOptions._currentView!.element );
-                renderControlContainer( bindingOptions );
-            }
-        };
-
-        for ( let fileIndex: number = 0; fileIndex < filesLength; fileIndex++ ) {
-            const file: File = files[ fileIndex ];
-            const fileExtension: string = file!.name!.split( "." )!.pop()!.toLowerCase();
-
-            Import.file( file, fileExtension, onLoadEndFunc, _configurationOptions );
-        }
     }
 
 

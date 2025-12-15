@@ -104,6 +104,9 @@ export type ConfigurationOptionsText = {
     zoomInText?: string;
     zoomOutText?: string;
     clearButtonText?: string;
+    selectFilesText?: string;
+    dragAndDropFilesText?: string;
+    clearExistingDataText?: string;
 };
 
 export type BindingOptions = {
@@ -166,6 +169,8 @@ export type BindingOptionsCurrentView = {
     exportDialogExportOnlyDataBeingViewedCheckBox: HTMLInputElement;
     mapZoomLevel: number;
     mapZoomIncrement: number;
+    importDialog: HTMLElement;
+    importDialogClearExistingData: HTMLInputElement;
 };
 
 export type BindingOptionsViews = {

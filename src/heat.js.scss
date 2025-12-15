@@ -381,6 +381,55 @@ div.heat-js {
                         padding-right: calc( var(--heat-js-spacing) + 5px );
                         padding-top: var(--heat-js-spacing);
                         padding-bottom: var(--heat-js-spacing);
+                        min-width: 80px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Import Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.disabled {
+        div.import {
+            max-width: 250px;
+
+            div.dialog-contents {
+                @include styles.buttons;
+
+                div.drag-and-drop-files {
+                    border-radius: var(--heat-js-border-radius);
+                    border: var(--heat-js-border-size) dashed var(--heat-js-dialog-border-color);
+                    padding: calc( var(--heat-js-spacing) * 3 );
+                    text-align: center;
+                }
+
+                label.checkbox {
+                    margin-top: var(--heat-js-spacing);
+                }
+
+                div.buttons {
+                    text-align: right;
+                    margin-top: calc( var(--heat-js-spacing) * 2 );
+
+                    button {
+                        padding-left: calc( var(--heat-js-spacing) + 5px );
+                        padding-right: calc( var(--heat-js-spacing) + 5px );
+                        padding-top: var(--heat-js-spacing);
+                        padding-bottom: var(--heat-js-spacing);
+                        margin-right: calc( var(--heat-js-spacing) / 2 );
+                        min-width: 80px;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
                     }
                 }
             }
