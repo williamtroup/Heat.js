@@ -49,6 +49,7 @@
     --heat-js-button-background-color-hover: #6e7988;
     --heat-js-button-text-color-hover: var(--heat-js-color-snow-white);
     --heat-js-button-background-color-active: #616b79;
+    --heat-js-button-color-disabled: #7e7d7d;
     --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
 
     /* CheckBoxes */
