@@ -3058,7 +3058,10 @@ var Convert;
                 const e = DomElement.create(t._currentView.element, "div", "description", o);
                 ee(t, e);
             }
-            for (const o in n[t._currentView.element.id].typeData) {
+            const r = Object.keys(n[t._currentView.element.id].typeData).sort();
+            const a = r.length;
+            for (let n = 0; n < a; n++) {
+                const o = r[n];
                 if (o !== e.text.unknownTrendText || s > 0) {
                     K(t, i, o);
                 }

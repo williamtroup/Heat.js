@@ -2374,7 +2374,12 @@ import { Convert } from "./ts/data/convert";
                 renderDescription( bindingOptions, description );
             }
 
-            for ( const type in _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData ) {
+            const types: string[] = Object.keys( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData ).sort();
+            const typesLength: number = types.length;
+
+            for ( let typeIndex = 0; typeIndex < typesLength; typeIndex++ ) {
+                const type: string = types[ typeIndex ];
+
                 if ( type !== _configurationOptions.text!.unknownTrendText || noneTypeCount > 0 ) {
                     renderControlViewGuideTypeButton( bindingOptions, mapTypes, type );
                 }
