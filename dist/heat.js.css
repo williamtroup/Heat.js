@@ -1931,9 +1931,10 @@ div.heat-js div.guide div.map-toggles {
   }
 }
 div.heat-js div.guide div.map-types {
-  text-align: center;
-  flex-grow: unset;
-  margin-right: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 div.heat-js div.guide div.map-types button {
   background-color: var(--heat-js-button-background-color);
@@ -2025,17 +2026,12 @@ div.heat-js div.guide div.map-types button {
   margin-left: 0 !important;
   margin-right: calc(var(--heat-js-spacing) / 2) !important;
 }
-div.heat-js div.guide div.map-types {
-  display: flex;
-  align-items: center;
-}
 @media (min-width: 768px) {
   div.heat-js div.guide div.map-types {
-    text-align: left;
+    justify-content: left;
     width: unset;
     flex-grow: 1;
     margin-right: var(--heat-js-spacing);
-    text-align: left;
   }
 }
 div.heat-js div.guide div.map-toggles {

@@ -1603,9 +1603,10 @@ div.heat-js {
         }
 
         div.map-types {
-            text-align: center;
-            flex-grow: unset;
-            margin-right: 0;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
 
             @include styles.buttons;
             @include styles.description;
@@ -1620,18 +1621,12 @@ div.heat-js {
                 margin-left: 0 !important;
                 margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
             }
-        }
-
-        div.map-types {
-            display: flex;
-            align-items: center;
 
             @media (min-width: styles.$minimum-width) { 
-                text-align: left;
+                justify-content: left;
                 width: unset;
                 flex-grow: 1;
                 margin-right: var(--heat-js-spacing);
-                text-align: left;
             }
         }
 
