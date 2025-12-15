@@ -79,8 +79,8 @@ export namespace Configuration {
             configurationOptions.text!.zoomInText = Default.getAnyString( configurationOptions.text!.zoomInText, "Zoom In" );
             configurationOptions.text!.zoomOutText = Default.getAnyString( configurationOptions.text!.zoomOutText, "Zoom Out" );
             configurationOptions.text!.clearButtonText = Default.getAnyString( configurationOptions.text!.clearButtonText, "Clear" );
-            configurationOptions.text!.selectFilesText = Default.getAnyString( configurationOptions.text!.selectFilesText, "Select Files" );
-            configurationOptions.text!.dragAndDropFilesText = Default.getAnyString( configurationOptions.text!.dragAndDropFilesText, "Drag and drop your files here..." );
+            configurationOptions.text!.selectFilesText = Default.getAnyString( configurationOptions.text!.selectFilesText, "Select File(s)" );
+            configurationOptions.text!.dragAndDropFilesText = Default.getAnyString( configurationOptions.text!.dragAndDropFilesText, "Drag and drop your file(s) here..." );
 
             return configurationOptions.text!;
         }

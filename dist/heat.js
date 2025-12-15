@@ -921,8 +921,8 @@ var Configuration;
             e.text.zoomInText = Default2.getAnyString(e.text.zoomInText, "Zoom In");
             e.text.zoomOutText = Default2.getAnyString(e.text.zoomOutText, "Zoom Out");
             e.text.clearButtonText = Default2.getAnyString(e.text.clearButtonText, "Clear");
-            e.text.selectFilesText = Default2.getAnyString(e.text.selectFilesText, "Select Files");
-            e.text.dragAndDropFilesText = Default2.getAnyString(e.text.dragAndDropFilesText, "Drag and drop your files here...");
+            e.text.selectFilesText = Default2.getAnyString(e.text.selectFilesText, "Select File(s)");
+            e.text.dragAndDropFilesText = Default2.getAnyString(e.text.dragAndDropFilesText, "Drag and drop your file(s) here...");
             return e.text;
         }
         function o(e) {
