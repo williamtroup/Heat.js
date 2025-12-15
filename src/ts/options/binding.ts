@@ -110,6 +110,7 @@ export namespace Binding {
             bindingOptions.startMonth = Default.getNumberInRange( bindingOptions.startMonth, 0, 11, 0 );
             bindingOptions.allowMultipleFileImports = Default.getBoolean( bindingOptions.allowMultipleFileImports, true );
             bindingOptions.percentageDecimalPoints = Default.getNumber( bindingOptions.percentageDecimalPoints, 2 );
+            bindingOptions.allowTypeAdding = Default.getBoolean( bindingOptions.allowTypeAdding, false );
             bindingOptions.colorRanges = getColorRanges( bindingOptions );
             bindingOptions.holidays = getHolidays( bindingOptions );
             bindingOptions.title = getTitle( bindingOptions );

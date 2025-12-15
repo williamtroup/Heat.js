@@ -154,7 +154,7 @@ import { Convert } from "./ts/data/convert";
         startDataPullTimer( bindingOptions );
         setupTrendTypes( bindingOptions );
 
-        if ( bindingOptions.title!.showConfigurationButton || bindingOptions.title!.showExportButton || bindingOptions.title!.showImportButton ) {
+        if ( bindingOptions.title!.showConfigurationButton || bindingOptions.title!.showExportButton || bindingOptions.title!.showImportButton || bindingOptions.allowTypeAdding ) {
             Disabled.Background.render( bindingOptions );
         }
 
@@ -168,6 +168,10 @@ import { Convert } from "./ts/data/convert";
 
         if ( bindingOptions.title!.showImportButton ) {
             renderImportDialog( bindingOptions );
+        }
+
+        if ( bindingOptions.allowTypeAdding ) {
+            renderTypeAddingDialog( bindingOptions );
         }
 
         ToolTip.render( bindingOptions );
@@ -441,6 +445,7 @@ import { Convert } from "./ts/data/convert";
         if ( Is.defined( bindingOptions._currentView!.exportDialog ) && bindingOptions._currentView!.exportDialog.style.display !== "block" ) {
             bindingOptions._currentView!.exportDialogExportFilenameInput.value = Char.empty;
             bindingOptions._currentView!.exportDialog.style.display = "block";
+            bindingOptions._currentView!.exportDialogExportFilenameInput.focus();
         }
 
         ToolTip.hide( bindingOptions );
@@ -686,6 +691,68 @@ import { Convert } from "./ts/data/convert";
 
             Import.file( file, fileExtension, onLoadEndFunc, _configurationOptions );
         }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Type Adding Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderTypeAddingDialog( bindingOptions: BindingOptions ) : void {
+        bindingOptions._currentView!.typeAddingDialog = DomElement.create( bindingOptions._currentView!.disabledBackground, "div", "dialog add-type" );
+
+        const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.typeAddingDialog, "div", "dialog-title-bar" );
+        const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.typeAddingDialog, "div", "dialog-contents" );
+        const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
+
+        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.addTypeText! );
+
+        bindingOptions._currentView!.typeAddingDialogTypeInput = DomElement.create( contents, "input", "input-box type" ) as HTMLInputElement;
+        bindingOptions._currentView!.typeAddingDialogTypeInput.name = crypto.randomUUID();
+        bindingOptions._currentView!.typeAddingDialogTypeInput.placeholder = _configurationOptions.text!.typePlaceholderText!;
+
+        const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
+        const addButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.addButtonText! );
+
+        const addTypeFunc: Function = () => {
+            hideExportDialog( bindingOptions );
+            renderControlContainer( bindingOptions, true );
+        };
+
+        bindingOptions._currentView!.exportDialogExportFilenameInput.onkeydown = ( ev: KeyboardEvent ) => {
+            if ( ev.key === KeyCode.enter ) {
+                addTypeFunc();
+            }
+        };
+
+        addButton.onclick = () => addTypeFunc();
+        closeButton.onclick = () => hideTypeAddingDialog( bindingOptions );
+
+        ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
+    }
+
+    function showTypeAddingDialog( bindingOptions: BindingOptions ) : void {
+        Disabled.Background.show( bindingOptions );
+
+        if ( Is.defined( bindingOptions._currentView!.typeAddingDialog ) && bindingOptions._currentView!.typeAddingDialog.style.display !== "block" ) {
+            bindingOptions._currentView!.typeAddingDialogTypeInput.value = Char.empty;
+            bindingOptions._currentView!.typeAddingDialog.style.display = "block";
+            bindingOptions._currentView!.typeAddingDialogTypeInput.focus();
+        }
+
+        ToolTip.hide( bindingOptions );
+    }
+
+    function hideTypeAddingDialog( bindingOptions: BindingOptions ) : void {
+        Disabled.Background.hide( bindingOptions );
+
+        if ( Is.defined( bindingOptions._currentView!.typeAddingDialog ) && bindingOptions._currentView!.typeAddingDialog.style.display !== "none" ) {
+            bindingOptions._currentView!.typeAddingDialog.style.display = "none";
+        }
+
+        ToolTip.hide( bindingOptions );
     }
 
 
@@ -2293,6 +2360,14 @@ import { Convert } from "./ts/data/convert";
                 if ( type !== _configurationOptions.text!.unknownTrendText || noneTypeCount > 0 ) {
                     renderControlViewGuideTypeButton( bindingOptions, mapTypes, type );
                 }
+            }
+
+            if ( bindingOptions.allowTypeAdding ) {
+                const addTypeButton: HTMLButtonElement = DomElement.createIconButton( mapTypes, "button", "add", "plus" );
+
+                ToolTip.add( addTypeButton, bindingOptions, _configurationOptions.text!.addTypeText!! );
+                
+                addTypeButton.onclick = () => showTypeAddingDialog( bindingOptions );
             }
 
         } else {

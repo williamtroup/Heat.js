@@ -440,6 +440,61 @@ div.heat-js div.disabled div.import div.dialog-contents div.buttons button:last-
 
 /*
     -------------------------------------------------------------------------
+    Heat.js - Add Type Dialog
+    -------------------------------------------------------------------------
+*/
+div.heat-js div.disabled div.add-type {
+  max-width: 250px;
+}
+div.heat-js div.disabled div.add-type div.dialog-contents button {
+  background-color: var(--heat-js-button-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
+  color: var(--heat-js-button-text-color);
+  border-radius: var(--heat-js-border-radius);
+  outline: none;
+  transition: var(--heat-js-transition);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 9px;
+  padding-right: 9px;
+}
+div.heat-js div.disabled div.add-type div.dialog-contents button:disabled {
+  color: var(--heat-js-button-color-disabled);
+}
+div.heat-js div.disabled div.add-type div.dialog-contents button:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-background-color-active) !important;
+  color: var(--heat-js-button-text-color-active) !important;
+}
+div.heat-js div.disabled div.add-type div.dialog-contents button:not(.active):not(:disabled):hover {
+  cursor: pointer;
+  background: var(--heat-js-button-background-color-hover);
+  color: var(--heat-js-button-text-color-hover);
+}
+div.heat-js div.disabled div.add-type div.dialog-contents button.active {
+  cursor: default;
+  background: var(--heat-js-button-background-color-hover);
+  color: var(--heat-js-button-text-color-hover);
+  transition: var(--heat-js-transition);
+  font-weight: var(--heat-js-text-bold-weight-active);
+}
+div.heat-js div.disabled div.add-type div.dialog-contents div.buttons {
+  text-align: right;
+  margin-top: calc(var(--heat-js-spacing) * 2);
+}
+div.heat-js div.disabled div.add-type div.dialog-contents div.buttons button {
+  padding-left: calc(var(--heat-js-spacing) + 5px);
+  padding-right: calc(var(--heat-js-spacing) + 5px);
+  padding-top: var(--heat-js-spacing);
+  padding-bottom: var(--heat-js-spacing);
+  margin-right: calc(var(--heat-js-spacing) / 2);
+  min-width: 80px;
+}
+div.heat-js div.disabled div.add-type div.dialog-contents div.buttons button:last-child {
+  margin-right: 0;
+}
+
+/*
+    -------------------------------------------------------------------------
     Heat.js - Title Bar
     -------------------------------------------------------------------------
 */
@@ -1912,6 +1967,34 @@ div.heat-js div.guide div.map-types a.label:active {
 }
 div.heat-js div.guide div.map-types a.label:hover {
   border-bottom: 1px solid var(--heat-js-color-white);
+}
+div.heat-js div.guide div.map-types button.add i.plus {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  position: relative;
+}
+div.heat-js div.guide div.map-types button.add i.plus::before, div.heat-js div.guide div.map-types button.add i.plus::after {
+  position: absolute;
+  content: "";
+}
+div.heat-js div.guide div.map-types button.add i.plus::before {
+  left: 50%;
+  transform: translate(-50%);
+  background-color: currentColor;
+  width: 2.5px;
+  height: 100%;
+  border-radius: 2.5px;
+  top: 0;
+}
+div.heat-js div.guide div.map-types button.add i.plus::after {
+  top: 50%;
+  transform: translate(0, -50%);
+  background-color: currentColor;
+  width: 100%;
+  height: 2.5px;
+  border-radius: 2.5px;
+  left: 0;
 }
 div.heat-js div.guide div.map-types button {
   margin-top: calc(var(--heat-js-spacing) / 4) !important;

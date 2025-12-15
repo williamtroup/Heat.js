@@ -447,6 +447,43 @@ div.heat-js {
 
 /*
     -------------------------------------------------------------------------
+    Heat.js - Add Type Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.disabled {
+        div.add-type {
+            max-width: 250px;
+
+            div.dialog-contents {
+                @include styles.buttons;
+
+                div.buttons {
+                    text-align: right;
+                    margin-top: calc( var(--heat-js-spacing) * 2 );
+
+                    button {
+                        padding-left: calc( var(--heat-js-spacing) + 5px );
+                        padding-right: calc( var(--heat-js-spacing) + 5px );
+                        padding-top: var(--heat-js-spacing);
+                        padding-bottom: var(--heat-js-spacing);
+                        margin-right: calc( var(--heat-js-spacing) / 2 );
+                        min-width: 80px;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
     Heat.js - Title Bar
     -------------------------------------------------------------------------
 */
@@ -1576,6 +1613,10 @@ div.heat-js {
 
             @include styles.buttons;
             @include styles.description;
+
+            button.add {
+                @include plus.button-icon;
+            }
 
             button {
                 margin-top: calc( var(--heat-js-spacing) / 4 ) !important;

@@ -106,6 +106,9 @@ export type ConfigurationOptionsText = {
     clearButtonText?: string;
     selectFilesText?: string;
     dragAndDropFilesText?: string;
+    addTypeText?: string;
+    typePlaceholderText?: string;
+    addButtonText?: string;
 };
 
 export type BindingOptions = {
@@ -124,6 +127,7 @@ export type BindingOptions = {
     startMonth?: number;
     allowMultipleFileImports?: boolean;
     percentageDecimalPoints?: number;
+    allowTypeAdding?: boolean;
     colorRanges?: BindingOptionsColorRange[];
     holidays?: BindingOptionsHoliday[];
     title?: BindingOptionsTitle;
@@ -173,6 +177,8 @@ export type BindingOptionsCurrentView = {
     importDialogClearExistingData: HTMLInputElement;
     importDialogFileList: FileList;
     importDialogImportButton: HTMLButtonElement;
+    typeAddingDialog: HTMLElement;
+    typeAddingDialogTypeInput: HTMLInputElement;
 };
 
 export type BindingOptionsViews = {
