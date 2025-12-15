@@ -413,6 +413,7 @@ div.heat-js {
 
         button.back {
             margin-left: calc( var(--heat-js-spacing) * 2 ) !important;
+
             @include arrow-left.button-icon;
         }
 
@@ -420,32 +421,42 @@ div.heat-js {
             @include arrow-right.button-icon;
         }
 
-        button.current {
-            @include pin.button-icon;
-        }
-
-        button.refresh {
-            @include refresh.button-icon;
+        button.import {
+            @include arrow-up.button-icon;
         }
 
         button.export {
             @include arrow-down.button-icon;
         }
 
-        button.import {
-            @include arrow-up.button-icon;
+        button.refresh {
+            @include refresh.button-icon;
         }
 
         button.clear {
             @include close.button-icon;
         }
 
+        button.current {
+            @include pin.button-icon;
+        }
+
         button.export,
         button.import,
         button.current,
-        button.refresh,
-        button.clear {
+        button.refresh {
             margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
+        }
+
+        button.export,
+        button.refresh,
+        button.import,
+        button.clear {
+            display: none;
+    
+            @media (min-width: styles.$minimum-width) { 
+                display: inline-flex;
+            }
         }
 
         div.configure {
@@ -490,17 +501,6 @@ div.heat-js {
                 top: 0;
                 left: 0;
                 transition: var(--heat-js-transition);
-            }
-        }
-
-        button.export,
-        button.refresh,
-        button.import,
-        button.clear {
-            display: none;
-    
-            @media (min-width: styles.$minimum-width) { 
-                display: inline-flex;
             }
         }
     }
@@ -841,12 +841,6 @@ div.heat-js {
 
             @include styles.buttons;
 
-            span.zoom-level {
-                margin-left: var(--heat-js-spacing);
-                margin-right: var(--heat-js-spacing);
-                color: var(--heat-js-color-white);
-            }
-
             button {
                 display: inline-flex;
                 align-items: center;
@@ -858,20 +852,26 @@ div.heat-js {
                 margin-right: 0;
             }
 
-            button.zoom-in {
-                @include plus.button-icon;
-            }
-
-            button.zoom-out {
-                @include minus.button-icon;
-            }
-
             div.zoom-close-button {
                 @include styles.close-button(unset, 12px);
                 
                 display: inline-block;
                 margin-right: var(--heat-js-spacing);
                 margin-left: calc( var(--heat-js-spacing) / 2 );
+            }
+
+            button.zoom-out {
+                @include minus.button-icon;
+            }
+
+            span.zoom-level {
+                margin-left: var(--heat-js-spacing);
+                margin-right: var(--heat-js-spacing);
+                color: var(--heat-js-color-white);
+            }
+
+            button.zoom-in {
+                @include plus.button-icon;
             }
         }
 
