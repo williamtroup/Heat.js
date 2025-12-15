@@ -2371,7 +2371,7 @@ var Convert;
         let s = DomElement.create(o, "div", "y-labels");
         const r = DomElement.create(o, "div", "day-lines");
         const a = O(t);
-        if (n && !t.views.days.useDifferentOpacities) {
+        if (n && (!t.views.days.useDifferentOpacities || !t.views.days.showDayCounts)) {
             DomElement.addClass(o, "view-switch");
         }
         ce(t._currentView.daysContents, t);
@@ -2516,7 +2516,7 @@ var Convert;
         let s = DomElement.create(o, "div", "y-labels");
         const r = DomElement.create(o, "div", "month-lines");
         const a = k(t);
-        if (n && !t.views.months.useDifferentOpacities) {
+        if (n && (!t.views.months.useDifferentOpacities || !t.views.months.showMonthCounts)) {
             DomElement.addClass(o, "view-switch");
         }
         ce(t._currentView.monthsContents, t);

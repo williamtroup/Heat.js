@@ -1455,7 +1455,7 @@ import { Convert } from "./ts/data/convert";
         const dayLines: HTMLElement = DomElement.create( days, "div", "day-lines" );
         const dayValuesForCurrentYear: LargestValueForView = getLargestValuesForEachDay( bindingOptions );
 
-        if ( isForViewSwitch && !bindingOptions.views!.days!.useDifferentOpacities ) {
+        if ( isForViewSwitch && ( !bindingOptions.views!.days!.useDifferentOpacities || !bindingOptions.views!.days!.showDayCounts ) ) {
             DomElement.addClass( days, "view-switch" );
         }
 
@@ -1649,7 +1649,7 @@ import { Convert } from "./ts/data/convert";
         const monthLines: HTMLElement = DomElement.create( months, "div", "month-lines" );
         const monthValuesForCurrentYear: LargestValueForView = getLargestValuesForEachMonth( bindingOptions );
 
-        if ( isForViewSwitch && !bindingOptions.views!.months!.useDifferentOpacities ) {
+        if ( isForViewSwitch && ( !bindingOptions.views!.months!.useDifferentOpacities || !bindingOptions.views!.months!.showMonthCounts ) ) {
             DomElement.addClass( months, "view-switch" );
         }
 
