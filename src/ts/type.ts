@@ -106,7 +106,6 @@ export type ConfigurationOptionsText = {
     clearButtonText?: string;
     selectFilesText?: string;
     dragAndDropFilesText?: string;
-    clearExistingDataText?: string;
 };
 
 export type BindingOptions = {

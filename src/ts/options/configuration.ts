@@ -81,7 +81,6 @@ export namespace Configuration {
             configurationOptions.text!.clearButtonText = Default.getAnyString( configurationOptions.text!.clearButtonText, "Clear" );
             configurationOptions.text!.selectFilesText = Default.getAnyString( configurationOptions.text!.selectFilesText, "Select Files" );
             configurationOptions.text!.dragAndDropFilesText = Default.getAnyString( configurationOptions.text!.dragAndDropFilesText, "Drag and drop your files here..." );
-            configurationOptions.text!.clearExistingDataText = Default.getAnyString( configurationOptions.text!.clearExistingDataText, "Clear existing data" );
 
             return configurationOptions.text!;
         }

@@ -553,7 +553,6 @@ import { Convert } from "./ts/data/convert";
         DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.selectFilesText! );
 
         bindingOptions._currentView!.importDialogDragAndDrop = DomElement.createWithHTML( contents, "div", "drag-and-drop-files", _configurationOptions.text!.dragAndDropFilesText! );
-        bindingOptions._currentView!.importDialogClearExistingData = DomElement.createCheckBox( contents, _configurationOptions.text!.clearExistingDataText!, crypto.randomUUID() );
 
         makeAreaDroppable( bindingOptions._currentView!.importDialogDragAndDrop, bindingOptions );
 

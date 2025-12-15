@@ -923,7 +923,6 @@ var Configuration;
             e.text.clearButtonText = Default2.getAnyString(e.text.clearButtonText, "Clear");
             e.text.selectFilesText = Default2.getAnyString(e.text.selectFilesText, "Select Files");
             e.text.dragAndDropFilesText = Default2.getAnyString(e.text.dragAndDropFilesText, "Drag and drop your files here...");
-            e.text.clearExistingDataText = Default2.getAnyString(e.text.clearExistingDataText, "Clear existing data");
             return e.text;
         }
         function o(e) {
@@ -1714,7 +1713,6 @@ var Convert;
         const i = DomElement.create(n, "div", "dialog-close");
         DomElement.createWithHTML(n, "span", "dialog-title-bar-text", e.text.selectFilesText);
         t._currentView.importDialogDragAndDrop = DomElement.createWithHTML(o, "div", "drag-and-drop-files", e.text.dragAndDropFilesText);
-        t._currentView.importDialogClearExistingData = DomElement.createCheckBox(o, e.text.clearExistingDataText, crypto.randomUUID());
         v(t._currentView.importDialogDragAndDrop, t);
         const s = DomElement.create(o, "div", "buttons");
         const r = DomElement.createButton(s, "button", "", "...");

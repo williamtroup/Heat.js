@@ -422,9 +422,6 @@ div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files:
 div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files div.filename {
   text-align: center;
 }
-div.heat-js div.disabled div.import div.dialog-contents label.checkbox {
-  margin-top: var(--heat-js-spacing);
-}
 div.heat-js div.disabled div.import div.dialog-contents div.buttons {
   text-align: right;
   margin-top: calc(var(--heat-js-spacing) * 2);
