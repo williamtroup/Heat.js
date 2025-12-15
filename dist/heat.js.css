@@ -512,7 +512,7 @@ div.heat-js div.title-bar button.current i.pin::before, div.heat-js div.title-ba
   content: "";
 }
 div.heat-js div.title-bar button.current i.pin {
-  height: 7.5px;
+  height: 10px;
   border-top: 2.5px solid currentColor;
   border-radius: 50%;
 }
@@ -521,7 +521,7 @@ div.heat-js div.title-bar button.current i.pin::before {
   transform: translate(-50%);
   background-color: currentColor;
   width: 2.5px;
-  height: 3px;
+  height: 4.5px;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   top: 0;
@@ -530,8 +530,8 @@ div.heat-js div.title-bar button.current i.pin::after {
   left: 50%;
   transform: translate(-50%);
   background-color: currentColor;
-  width: 1.5px;
-  height: 1.5px;
+  width: 2.5px;
+  height: 2.5px;
   border-radius: 50%;
   bottom: 0;
 }

@@ -3,7 +3,7 @@
 @mixin button-icon {
     i.pin {
         @include button.button;
-        height: button.$size - button.$border-width;
+        height: button.$size;
         border-top: button.$border;
         border-radius: 50%;
 
@@ -11,7 +11,7 @@
             @include button.left-center;
             background-color: currentColor;
             width: button.$border-width;
-            height: calc( button.$size - ( ( button.$border-width * 2 ) + 2px ) );
+            height: calc( button.$size - ( button.$border-width ) - 3px );
             border-bottom-left-radius: 50%;
             border-bottom-right-radius: 50%;
             top: 0;
@@ -20,8 +20,8 @@
         &::after {
             @include button.left-center;
             background-color: currentColor;
-            width: button.$border-width - 1px;
-            height: button.$border-width - 1px;
+            width: button.$border-width;
+            height: button.$border-width;
             border-radius: 50%;
             bottom: 0;
         }
