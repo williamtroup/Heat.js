@@ -2159,9 +2159,10 @@ var Convert;
             const i = o / n * 100;
             if (!isNaN(i)) {
                 const n = `${i.toFixed(e.percentageDecimalPoints)}%`;
-                DomElement.createWithHTML(t, "span", "percentage-bracket", "(");
-                DomElement.createWithHTML(t, "span", "percentage-text", n);
-                DomElement.createWithHTML(t, "span", "percentage-bracket", ")");
+                const o = DomElement.create(t, "span", "percentage");
+                DomElement.createWithHTML(o, "span", "percentage-bracket", "(");
+                DomElement.createWithHTML(o, "span", "percentage-text", n);
+                DomElement.createWithHTML(o, "span", "percentage-bracket", ")");
             }
         }
     }

@@ -913,16 +913,24 @@ div.heat-js {
                     font-style: italic;
                 }
 
-                span.percentage-bracket {
-                    margin-left: calc( var(--heat-js-spacing) / 3 );
+                span.percentage {
+                    display: block;
 
-                    &:last-of-type {
-                        margin-left: 0;
+                    @media (min-width: styles.$minimum-width-smaller) { 
+                        display: inline;
                     }
-                }
 
-                span.percentage-text {
-                    font-style: italic;
+                    span.percentage-bracket {
+                        margin-left: calc( var(--heat-js-spacing) / 3 );
+
+                        &:last-of-type {
+                            margin-left: 0;
+                        }
+                    }
+
+                    span.percentage-text {
+                        font-style: italic;
+                    }
                 }
             }
 

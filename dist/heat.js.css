@@ -1074,13 +1074,21 @@ div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count {
 div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count.unavailable {
   font-style: italic;
 }
-div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count span.percentage-bracket {
+div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count span.percentage {
+  display: block;
+}
+@media (min-width: 450px) {
+  div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count span.percentage {
+    display: inline;
+  }
+}
+div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count span.percentage span.percentage-bracket {
   margin-left: calc(var(--heat-js-spacing) / 3);
 }
-div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count span.percentage-bracket:last-of-type {
+div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count span.percentage span.percentage-bracket:last-of-type {
   margin-left: 0;
 }
-div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count span.percentage-text {
+div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count span.percentage span.percentage-text {
   font-style: italic;
 }
 div.heat-js div.yearly-statistics div.statistics-box:last-child {

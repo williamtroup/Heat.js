@@ -1168,10 +1168,11 @@ import { Convert } from "./ts/data/convert";
 
             if ( !isNaN( percentage ) ) {
                 const percentageText: string = `${percentage.toFixed( bindingOptions.percentageDecimalPoints! )}%`;
+                const percentageElement: HTMLSpanElement = DomElement.create( boxCount, "span", "percentage" );
 
-                DomElement.createWithHTML( boxCount, "span", "percentage-bracket", "(" );
-                DomElement.createWithHTML( boxCount, "span", "percentage-text", percentageText );
-                DomElement.createWithHTML( boxCount, "span", "percentage-bracket", ")" );
+                DomElement.createWithHTML( percentageElement, "span", "percentage-bracket", "(" );
+                DomElement.createWithHTML( percentageElement, "span", "percentage-text", percentageText );
+                DomElement.createWithHTML( percentageElement, "span", "percentage-bracket", ")" );
             }
         }
     }
