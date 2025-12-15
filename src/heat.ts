@@ -677,7 +677,7 @@ import { Convert } from "./ts/data/convert";
             
             if ( filesCompleted.length === filesLength ) {
                 Trigger.customEvent( bindingOptions.events!.onImport!, bindingOptions._currentView!.element );
-                renderControlContainer( bindingOptions );
+                renderControlContainer( bindingOptions, true );
             }
         };
 

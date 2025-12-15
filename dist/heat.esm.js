@@ -1805,7 +1805,7 @@ var Convert;
             }
             if (i.length === o) {
                 Trigger.customEvent(n.events.onImport, n._currentView.element);
-                r(n);
+                r(n, true);
             }
         };
         for (let n = 0; n < o; n++) {
