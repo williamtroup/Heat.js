@@ -716,6 +716,14 @@ div.heat-js {
                         transition: var(--heat-js-transition);
                         font-size: var(--heat-js-spacing-font-size) !important;
 
+                        &.indented {
+                            padding-left: calc( var(--heat-js-spacing) * 4 );
+
+                            &:before {
+                                left: calc( var(--heat-js-spacing) * 2 ) !important;
+                            }
+                        }
+
                         &:not(.title-menu-item-active)::before {
                             content: "";
                             position: absolute;

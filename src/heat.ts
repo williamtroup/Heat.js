@@ -958,12 +958,12 @@ import { Css } from "./ts/css";
             DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configurationOptions.text!.dataText}${Char.colon}` );
         }
 
-        const menuItemMap: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configurationOptions.text!.mapText! );
+        const menuItemMap: HTMLElement = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.mapText! );
             
         renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, ViewId.map, ViewName.map );
 
         if ( bindingOptions.views!.chart!.enabled ) {
-            const menuItemChart = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configurationOptions.text!.chartText! );
+            const menuItemChart = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.chartText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, ViewId.chart, ViewName.chart );
         }
@@ -975,7 +975,7 @@ import { Css } from "./ts/css";
                 yearsHeader = DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configurationOptions.text!.yearText}${Char.colon}` );
             }
 
-            const menuItemDays: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configurationOptions.text!.daysText! );
+            const menuItemDays: HTMLElement = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.daysText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemDays, ViewId.days, ViewName.days );
         }
@@ -985,7 +985,7 @@ import { Css } from "./ts/css";
                 yearsHeader = DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configurationOptions.text!.yearText}${Char.colon}` );
             }
 
-            const menuItemMonths: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configurationOptions.text!.monthsText! );
+            const menuItemMonths: HTMLElement = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.monthsText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMonths, ViewId.months, ViewName.months );
         }
@@ -995,10 +995,20 @@ import { Css } from "./ts/css";
                 DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configurationOptions.text!.statisticsText}${Char.colon}` );
             }
 
-            const menuItemStatistics: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", _configurationOptions.text!.colorRangesText! );
+            const menuItemStatistics: HTMLElement = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.colorRangesText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemStatistics, ViewId.statistics, ViewName.statistics );
         }
+    }
+
+    function renderTitleDropDownMenuItem( bindingOptions: BindingOptions, titlesMenu: HTMLElement, text: string ) : HTMLElement {
+        const menuItemMonths: HTMLElement = DomElement.createWithHTML( titlesMenu, "div", "title-menu-item", text );
+
+        if ( bindingOptions.title!.showTitleDropDownHeaders ) {
+            DomElement.addClass( menuItemMonths, "indented" );
+        }
+
+        return menuItemMonths;
     }
 
     function renderTitleDropDownMenuItemClickEvent( bindingOptions: BindingOptions, option: HTMLElement, viewId: ViewId, viewName: string ) : void {
