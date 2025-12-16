@@ -1351,12 +1351,11 @@ import { Convert } from "./ts/data/convert";
             }
 
             renderControlMapMonthGaps( bindingOptions, months );
+            renderControlMapZooming( bindingOptions, map );
             
             if ( bindingOptions.views!.map!.keepScrollPositions || isForZooming ) {
                 bindingOptions._currentView!.mapContents.scrollLeft = bindingOptions._currentView!.mapContentsScrollLeft;
             }
-
-            renderControlMapZooming( bindingOptions, map );
         }
     }
 

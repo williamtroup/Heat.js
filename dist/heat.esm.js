@@ -2291,10 +2291,10 @@ var Convert;
                 DomElement.reverseChildrenOrder(a);
             }
             R(t, a);
+            H(t, i);
             if (t.views.map.keepScrollPositions || o) {
                 t._currentView.mapContents.scrollLeft = t._currentView.mapContentsScrollLeft;
             }
-            H(t, i);
         }
     }
     function F(e, t, n) {
