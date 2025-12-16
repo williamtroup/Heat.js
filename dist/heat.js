@@ -2225,31 +2225,31 @@ var Convert;
                 if (Is.monthVisible(t.views.map.monthsToShow, o)) {
                     const n = DomElement.create(r, "div", "month");
                     const s = DomElement.create(n, "div", "day-columns");
-                    let l = DateTime.getTotalDaysInMonth(i, o);
-                    let c = DomElement.create(s, "div", "day-column");
-                    let u = false;
-                    const d = new Date(i, o, 1);
-                    const m = DateTime.getWeekdayNumber(d);
+                    const l = new Date(i, o, 1);
+                    const c = DateTime.getWeekdayNumber(l);
+                    let u = DateTime.getTotalDaysInMonth(i, o);
+                    let d = DomElement.create(s, "div", "day-column");
+                    let m = false;
                     let f = 1;
-                    l += m;
-                    for (let e = 0; e < l; e++) {
-                        if (e >= m) {
-                            u = true;
+                    u += c;
+                    for (let e = 0; e < u; e++) {
+                        if (e >= c) {
+                            m = true;
                         } else {
                             if (Is.dayVisible(t.views.map.daysToShow, f)) {
-                                DomElement.create(c, "div", "day-disabled");
+                                DomElement.create(d, "div", "day-disabled");
                             }
                         }
-                        if (u) {
+                        if (m) {
                             let n = null;
                             if (Is.dayVisible(t.views.map.daysToShow, f)) {
-                                n = $(t, c, e - m, o, i, a);
+                                n = $(t, d, e - c, o, i, a);
                             }
                             if ((e + 1) % 7 === 0) {
                                 if (t.views.map.showDaysInReverseOrder) {
-                                    DomElement.reverseChildrenOrder(c);
+                                    DomElement.reverseChildrenOrder(d);
                                 }
-                                c = DomElement.create(s, "div", "day-column");
+                                d = DomElement.create(s, "div", "day-column");
                                 f = 0;
                                 if (t._currentView.dayWidth === 0 && Is.defined(n)) {
                                     let e = DomElement.getStyleValueByName(n, "margin-left", true);
@@ -2260,7 +2260,7 @@ var Convert;
                         }
                         f++;
                     }
-                    F(t, f, c);
+                    F(t, f, d);
                     if (t.views.map.showMonthNames) {
                         let r;
                         const a = n.offsetWidth;

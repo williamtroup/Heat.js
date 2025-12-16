@@ -1262,11 +1262,11 @@ import { Convert } from "./ts/data/convert";
                 if ( Is.monthVisible( bindingOptions.views!.map!.monthsToShow!, actualMonthIndex ) ) {
                     const month: HTMLElement = DomElement.create( months, "div", "month" );
                     const dayColumns: HTMLElement = DomElement.create( month, "div", "day-columns" );
+                    const firstDayInMonth: Date = new Date( actualYear, actualMonthIndex, 1 );
+                    const firstDayNumberInMonth: number = DateTime.getWeekdayNumber( firstDayInMonth );
                     let totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
                     let currentDayColumn: HTMLElement = DomElement.create( dayColumns, "div", "day-column" );
                     let startFillingDays: boolean = false;
-                    const firstDayInMonth: Date = new Date( actualYear, actualMonthIndex, 1 );
-                    const firstDayNumberInMonth: number = DateTime.getWeekdayNumber( firstDayInMonth );
                     let actualDay: number = 1;
         
                     totalDaysInMonth += firstDayNumberInMonth;
