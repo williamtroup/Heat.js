@@ -39,6 +39,7 @@ import { Visible } from "./ts/data/visible";
 import { Import } from "./ts/files/import";
 import { Export } from "./ts/files/export";
 import { Convert } from "./ts/data/convert";
+import { Css } from "./ts/css";
 
 
 ( () => {
@@ -1392,8 +1393,8 @@ import { Convert } from "./ts/data/convert";
     }
 
     function renderControlMapZooming( bindingOptions: BindingOptions, map: HTMLElement ) : void {
-        const sizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, "--heat-js-day-size" );
-        let daySize: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-day-size", true );
+        const sizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, Css.Variables.DaySize );
+        let daySize: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.DaySize, true );
 
         if ( bindingOptions._currentView!.mapZoomIncrement === Value.notFound ) {
             bindingOptions._currentView!.mapZoomIncrement = daySize / 10;
@@ -1405,12 +1406,12 @@ import { Convert } from "./ts/data/convert";
             const zoomOutButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-out", "minus" );
             const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%` ) as HTMLSpanElement;
             const zoomInButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-in", "plus" );
-            const spacing: number = DomElement.getStyleValueByName( document.documentElement, "--heat-js-spacing", true );
+            const spacing: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.Spacing, true );
 
-            daySize = DomElement.getStyleValueByName( bindingOptions._currentView!.element, "--heat-js-day-size", true );
+            daySize = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.DaySize, true );
 
             if ( daySize === 0 ) {
-                daySize = DomElement.getStyleValueByName( document.documentElement, "--heat-js-day-size", true );
+                daySize = DomElement.getStyleValueByName( document.documentElement, Css.Variables.DaySize, true );
             }
 
             ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
@@ -1423,7 +1424,7 @@ import { Convert } from "./ts/data/convert";
                 daySize += parseFloat( ( bindingOptions.views!.map!.zoomLevel! * bindingOptions._currentView!.mapZoomIncrement ).toFixed( 1 ) );
 
                 bindingOptions._currentView!.mapZoomLevel = bindingOptions.views!.map!.zoomLevel!;
-                bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
+                bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${sizingMetric}` );
                 
                 zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%`;
             }
@@ -1448,7 +1449,7 @@ import { Convert } from "./ts/data/convert";
                 daySize = parseFloat( daySize.toFixed( 1 ) );
 
                 bindingOptions._currentView!.mapZoomLevel++;
-                bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
+                bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${sizingMetric}` );
 
                 zoomOutButton.disabled = false;
                 zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%`;
@@ -1463,7 +1464,7 @@ import { Convert } from "./ts/data/convert";
                     daySize = parseFloat( daySize.toFixed( 1 ) );
 
                     bindingOptions._currentView!.mapZoomLevel--;
-                    bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
+                    bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${sizingMetric}` );
                     
                     zoomOutButton.disabled = bindingOptions._currentView!.mapZoomLevel === 0;
                     zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10) }%`;
@@ -1478,7 +1479,7 @@ import { Convert } from "./ts/data/convert";
                 daySize += parseFloat( ( bindingOptions.views!.map!.zoomLevel! * bindingOptions._currentView!.mapZoomIncrement ).toFixed( 1 ) );
 
                 bindingOptions._currentView!.mapZoomLevel = bindingOptions.views!.map!.zoomLevel!;
-                bindingOptions._currentView!.element.style.setProperty( "--heat-js-day-size", `${daySize}${sizingMetric}` );
+                bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${sizingMetric}` );
             }
         }
     }

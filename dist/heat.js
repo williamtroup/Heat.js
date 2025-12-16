@@ -1354,6 +1354,16 @@ var Convert;
     e.valuesToOpacitiesOrder = o;
 })(Convert || (Convert = {}));
 
+var Css;
+
+(e => {
+    let t;
+    (e => {
+        e.DaySize = "--heat-js-day-size";
+        e.Spacing = "--heat-js-spacing";
+    })(t = e.Variables || (e.Variables = {}));
+})(Css || (Css = {}));
+
 (() => {
     let e = {};
     let t = null;
@@ -1448,7 +1458,7 @@ var Convert;
             p(e);
         }
         if (e.allowTypeAdding) {
-            _(e);
+            C(e);
         }
         ToolTip.render(e);
         E(e);
@@ -1461,7 +1471,7 @@ var Convert;
             U(e, n);
         }
         if (e.views.months.enabled) {
-            z(e, n);
+            G(e, n);
         }
         if (e.views.statistics.enabled) {
             q(e, n);
@@ -1834,7 +1844,7 @@ var Convert;
             Import.file(o, i, a, e);
         }
     }
-    function _(t) {
+    function C(t) {
         t._currentView.typeAddingDialog = DomElement.create(t._currentView.disabledBackground, "div", "dialog add-type");
         const o = DomElement.create(t._currentView.typeAddingDialog, "div", "dialog-title-bar");
         const i = DomElement.create(t._currentView.typeAddingDialog, "div", "dialog-contents");
@@ -1870,7 +1880,7 @@ var Convert;
         s.onclick = () => S(t);
         ToolTip.add(s, t, e.text.closeButtonText);
     }
-    function C(e) {
+    function _(e) {
         Disabled.Background.show(e);
         if (Is.defined(e._currentView.typeAddingDialog) && e._currentView.typeAddingDialog.style.display !== "block") {
             e._currentView.typeAddingDialogTypeInput.value = "";
@@ -1988,12 +1998,12 @@ var Convert;
                     }
                     o.onclick = () => {
                         t._currentView.year = (new Date).getFullYear() - 1;
-                        _e(t, false);
+                        Ce(t, false);
                         Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                     };
                 }
                 const s = DomElement.createIconButton(n, "button", "next", "arrow-right");
-                s.onclick = () => _e(t);
+                s.onclick = () => Ce(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(s, t, e.text.nextButtonText);
                 }
@@ -2326,8 +2336,8 @@ var Convert;
         }
     }
     function H(t, n) {
-        const o = DomElement.getStyleValueByNameSizingMetic(document.documentElement, "--heat-js-day-size");
-        let i = DomElement.getStyleValueByName(document.documentElement, "--heat-js-day-size", true);
+        const o = DomElement.getStyleValueByNameSizingMetic(document.documentElement, Css.Variables.DaySize);
+        let i = DomElement.getStyleValueByName(document.documentElement, Css.Variables.DaySize, true);
         if (t._currentView.mapZoomIncrement === -1) {
             t._currentView.mapZoomIncrement = i / 10;
         }
@@ -2337,10 +2347,10 @@ var Convert;
             const l = DomElement.createIconButton(s, "button", "zoom-out", "minus");
             const c = DomElement.createWithHTML(s, "span", "zoom-level", `+${Str.friendlyNumber(t._currentView.mapZoomLevel * 10)}%`);
             const u = DomElement.createIconButton(s, "button", "zoom-in", "plus");
-            const d = DomElement.getStyleValueByName(document.documentElement, "--heat-js-spacing", true);
-            i = DomElement.getStyleValueByName(t._currentView.element, "--heat-js-day-size", true);
+            const d = DomElement.getStyleValueByName(document.documentElement, Css.Variables.Spacing, true);
+            i = DomElement.getStyleValueByName(t._currentView.element, Css.Variables.DaySize, true);
             if (i === 0) {
-                i = DomElement.getStyleValueByName(document.documentElement, "--heat-js-day-size", true);
+                i = DomElement.getStyleValueByName(document.documentElement, Css.Variables.DaySize, true);
             }
             ToolTip.add(a, t, e.text.closeButtonText);
             ToolTip.add(u, t, e.text.zoomInText);
@@ -2349,7 +2359,7 @@ var Convert;
             if (t.views.map.zoomLevel > 0 && t._currentView.mapZoomLevel === -1) {
                 i += parseFloat((t.views.map.zoomLevel * t._currentView.mapZoomIncrement).toFixed(1));
                 t._currentView.mapZoomLevel = t.views.map.zoomLevel;
-                t._currentView.element.style.setProperty("--heat-js-day-size", `${i}${o}`);
+                t._currentView.element.style.setProperty(Css.Variables.DaySize, `${i}${o}`);
                 c.innerText = `+${Str.friendlyNumber(t._currentView.mapZoomLevel * 10)}%`;
             }
             if (t._currentView.mapZoomLevel === -1) {
@@ -2367,7 +2377,7 @@ var Convert;
                 i += t._currentView.mapZoomIncrement;
                 i = parseFloat(i.toFixed(1));
                 t._currentView.mapZoomLevel++;
-                t._currentView.element.style.setProperty("--heat-js-day-size", `${i}${o}`);
+                t._currentView.element.style.setProperty(Css.Variables.DaySize, `${i}${o}`);
                 l.disabled = false;
                 c.innerText = `+${Str.friendlyNumber(t._currentView.mapZoomLevel * 10)}%`;
                 Trigger.customEvent(t.events.onMapZoomLevelChange, t._currentView.element, t._currentView.mapZoomLevel);
@@ -2378,7 +2388,7 @@ var Convert;
                     i -= t._currentView.mapZoomIncrement;
                     i = parseFloat(i.toFixed(1));
                     t._currentView.mapZoomLevel--;
-                    t._currentView.element.style.setProperty("--heat-js-day-size", `${i}${o}`);
+                    t._currentView.element.style.setProperty(Css.Variables.DaySize, `${i}${o}`);
                     l.disabled = t._currentView.mapZoomLevel === 0;
                     c.innerText = `+${Str.friendlyNumber(t._currentView.mapZoomLevel * 10)}%`;
                     Trigger.customEvent(t.events.onMapZoomLevelChange, t._currentView.element, t._currentView.mapZoomLevel);
@@ -2389,7 +2399,7 @@ var Convert;
             if (t.views.map.zoomLevel > 0 && t._currentView.mapZoomLevel === -1) {
                 i += parseFloat((t.views.map.zoomLevel * t._currentView.mapZoomIncrement).toFixed(1));
                 t._currentView.mapZoomLevel = t.views.map.zoomLevel;
-                t._currentView.element.style.setProperty("--heat-js-day-size", `${i}${o}`);
+                t._currentView.element.style.setProperty(Css.Variables.DaySize, `${i}${o}`);
             }
         }
     }
@@ -2641,7 +2651,7 @@ var Convert;
         const i = DomElement.create(t._currentView.daysContents, "div", "day-names");
         let s = DomElement.create(o, "div", "y-labels");
         const r = DomElement.create(o, "div", "day-lines");
-        const a = G(t);
+        const a = z(t);
         if (n && (!t.views.days.useDifferentOpacities || !t.views.days.showDayCounts)) {
             DomElement.addClass(o, "view-switch");
         }
@@ -2735,7 +2745,7 @@ var Convert;
             }
         }
     }
-    function G(e) {
+    function z(e) {
         const t = {
             values: {
                 1: 0,
@@ -2779,7 +2789,7 @@ var Convert;
         Convert.valuesToOpacitiesOrder(t);
         return t;
     }
-    function z(t, n) {
+    function G(t, n) {
         t._currentView.monthsContents = DomElement.create(t._currentView.element, "div", "months-contents");
         const o = DomElement.create(t._currentView.monthsContents, "div", "months");
         const i = DomElement.create(t._currentView.monthsContents, "div", "month-names");
@@ -3105,7 +3115,7 @@ var Convert;
             if (t.allowTypeAdding) {
                 const n = DomElement.createIconButton(i, "button", "add", "plus");
                 ToolTip.add(n, t, e.text.addTypeText);
-                n.onclick = () => C(t);
+                n.onclick = () => _(t);
             }
         } else {
             oe(t, i);
@@ -3464,7 +3474,7 @@ var Convert;
             }
         }
     }
-    function _e(e, t = true) {
+    function Ce(e, t = true) {
         let n = true;
         let o = e._currentView.year;
         o++;
@@ -3483,7 +3493,7 @@ var Convert;
             }
         }
     }
-    function Ce(e) {
+    function _e(e) {
         e._currentView.element.innerHTML = "";
         DomElement.removeClass(e._currentView.element, "heat-js");
         ToolTip.assignToEvents(e, false);
@@ -3696,7 +3706,7 @@ var Convert;
                 const o = n[e].options;
                 o._currentView.year = t;
                 if (!Is.yearVisible(o, o._currentView.year)) {
-                    _e(o, false);
+                    Ce(o, false);
                 } else {
                     r(o);
                 }
@@ -3717,7 +3727,7 @@ var Convert;
                 if (i > 0) {
                     t._currentView.year = i;
                     if (!Is.yearVisible(t, t._currentView.year)) {
-                        _e(t, false);
+                        Ce(t, false);
                     } else {
                         r(t);
                     }
@@ -3756,7 +3766,7 @@ var Convert;
         },
         moveToNextYear: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                _e(n[e].options);
+                Ce(n[e].options);
             }
             return Ee;
         },
@@ -3765,7 +3775,7 @@ var Convert;
                 const t = n[e].options;
                 t._currentView.year = (new Date).getFullYear();
                 if (!Is.yearVisible(t, t._currentView.year)) {
-                    _e(t, false);
+                    Ce(t, false);
                 } else {
                     r(t);
                 }
@@ -3866,7 +3876,7 @@ var Convert;
         destroyAll: function() {
             for (const e in n) {
                 if (n.hasOwnProperty(e)) {
-                    Ce(n[e].options);
+                    _e(n[e].options);
                 }
             }
             n = {};
@@ -3874,7 +3884,7 @@ var Convert;
         },
         destroy: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                Ce(n[e].options);
+                _e(n[e].options);
                 delete n[e];
             }
             return Ee;
