@@ -347,6 +347,7 @@ var DomElement;
         let i = o.getPropertyValue(t);
         if (n) {
             i = parseFloat(i);
+            i = isNaN(i) ? 0 : i;
         }
         return i;
     }
@@ -1474,7 +1475,7 @@ var Animate;
         }
         ToolTip.render(e);
         E(e);
-        k(e);
+        N(e);
         F(e, n, o);
         if (e.views.chart.enabled) {
             Y(e, n);
@@ -2115,7 +2116,7 @@ var Animate;
         }
         return i;
     }
-    function k(t) {
+    function N(t) {
         const o = new Date;
         const i = t._currentView.year === o.getFullYear();
         if (t.yearlyStatistics.enabled && (!t.yearlyStatistics.showOnlyForCurrentYear || i)) {
@@ -2124,7 +2125,7 @@ var Animate;
             const a = Visible.months(t);
             const l = new Date(t._currentView.year, t.startMonth, 1);
             const c = new Date(t._currentView.year + 1, t.startMonth, 1);
-            const u = N(t, r, a, l, c);
+            const u = L(t, r, a, l, c);
             if (t.yearlyStatistics.showToday) {
                 let a = n[t._currentView.element.id].typeData[t._currentView.type][DateTime.toStorageDate(o)];
                 const l = DomElement.create(s, "div", "statistics-box");
@@ -2138,7 +2139,7 @@ var Animate;
                 if (!i) {
                     DomElement.addClass(m, "unavailable");
                 }
-                L(t, m, u, a, i);
+                k(t, m, u, a, i);
             }
             if (t.yearlyStatistics.showThisWeek) {
                 let n = 0;
@@ -2146,7 +2147,7 @@ var Animate;
                     const e = DateTime.getDateForMondayOfCurrentWeek();
                     const o = new Date(e);
                     o.setDate(e.getDate() + 7);
-                    n = N(t, r, a, e, o);
+                    n = L(t, r, a, e, o);
                 }
                 const o = i ? Str.friendlyNumber(n) : e.text.unavailableText;
                 const l = DomElement.create(s, "div", "statistics-box");
@@ -2155,14 +2156,14 @@ var Animate;
                 if (!i) {
                     DomElement.addClass(c, "unavailable");
                 }
-                L(t, c, u, n, i);
+                k(t, c, u, n, i);
             }
             if (t.yearlyStatistics.showThisMonth) {
                 let n = 0;
                 if (i) {
                     const e = new Date(o.getFullYear(), o.getMonth(), 1);
                     const i = new Date(o.getFullYear(), o.getMonth(), DateTime.getTotalDaysInMonth(o.getFullYear(), o.getMonth()) + 1);
-                    n = N(t, r, a, e, i);
+                    n = L(t, r, a, e, i);
                 }
                 const l = i ? Str.friendlyNumber(n) : e.text.unavailableText;
                 const c = DomElement.create(s, "div", "statistics-box");
@@ -2171,7 +2172,7 @@ var Animate;
                 if (!i) {
                     DomElement.addClass(d, "unavailable");
                 }
-                L(t, d, u, n, i);
+                k(t, d, u, n, i);
             }
             if (t.yearlyStatistics.showThisYear) {
                 const t = DomElement.create(s, "div", "statistics-box");
@@ -2183,7 +2184,7 @@ var Animate;
             }
         }
     }
-    function L(e, t, n, o, i) {
+    function k(e, t, n, o, i) {
         if (i && e.yearlyStatistics.showPercentages) {
             const i = o / n * 100;
             if (!isNaN(i)) {
@@ -2195,7 +2196,7 @@ var Animate;
             }
         }
     }
-    function N(e, t, o, i, s) {
+    function L(e, t, o, i, s) {
         let r = 0;
         let a = new Date(i);
         while (a < s) {
@@ -2509,43 +2510,44 @@ var Animate;
                 DomElement.addClass(i, "view-switch");
             }
         } else {
-            const o = s.offsetHeight / a;
-            let i = 0;
+            const o = DomElement.getStyleValueByName(s, "border-bottom-width", true);
+            const i = (s.offsetHeight - o) / a;
             let u = 0;
-            let d = [];
+            let d = 0;
+            let m = [];
             for (let e = t.startMonth; e < 12 + t.startMonth; e++) {
-                let a = e;
-                let c = l;
+                let o = e;
+                let a = l;
                 if (t.startMonth > 0 && e > 11) {
-                    a = e - 12;
-                    c++;
+                    o = e - 12;
+                    a++;
                 }
-                if (Is.monthVisible(t.views.chart.monthsToShow, a)) {
-                    const e = DateTime.getTotalDaysInMonth(c, a);
+                if (Is.monthVisible(t.views.chart.monthsToShow, o)) {
+                    const e = DateTime.getTotalDaysInMonth(a, o);
                     let l = 1;
-                    let m = false;
-                    i++;
-                    for (let i = 0; i < e; i++) {
-                        const e = new Date(c, a, l);
+                    let c = false;
+                    u++;
+                    for (let u = 0; u < e; u++) {
+                        const e = new Date(a, o, l);
                         const f = DateTime.getWeekdayNumber(e) + 1;
                         if (Is.dayVisible(t.views.chart.daysToShow, f)) {
-                            const e = j(s, t, i + 1, a, c, r, o, n);
-                            if (!m) {
-                                d.push(e);
-                                m = true;
+                            const e = j(s, t, u + 1, o, a, r, i, n);
+                            if (!c) {
+                                m.push(e);
+                                c = true;
                             }
                         }
-                        if ((i + 1) % 7 === 0) {
+                        if ((u + 1) % 7 === 0) {
                             l = 0;
                         }
                         l++;
-                        u++;
+                        d++;
                     }
                 }
             }
             if (t.views.chart.showInReverseOrder) {
                 DomElement.reverseChildrenOrder(s);
-                d = d.reverse();
+                m = m.reverse();
             }
             if (t.views.chart.showMonthNames) {
                 const n = DomElement.create(t._currentView.chartContents, "div", "chart-months");
@@ -2563,7 +2565,7 @@ var Animate;
                             i += `${" "}${r}`;
                         }
                         let a = DomElement.createWithHTML(n, "div", "month-name", i);
-                        a.style.left = `${d[o].offsetLeft}px`;
+                        a.style.left = `${m[o].offsetLeft}px`;
                         if (t.views.months.enabled) {
                             a.ondblclick = () => re(t, 5, "months");
                         }
@@ -2696,13 +2698,14 @@ var Animate;
                 DomElement.addClass(s, "view-switch");
             }
         } else {
-            const o = r.offsetHeight / l.largestValue;
-            for (const s in l.values) {
-                if (l.values.hasOwnProperty(s) && Is.dayVisible(t.views.days.daysToShow, parseInt(s))) {
-                    const a = l.valueOpacities[l.values[s]];
-                    z(r, parseInt(s), l.values[s], t, o, a, l.totalValue, n);
+            const o = DomElement.getStyleValueByName(r, "border-bottom-width", true);
+            const s = (r.offsetHeight - o) / l.largestValue;
+            for (const o in l.values) {
+                if (l.values.hasOwnProperty(o) && Is.dayVisible(t.views.days.daysToShow, parseInt(o))) {
+                    const a = l.valueOpacities[l.values[o]];
+                    z(r, parseInt(o), l.values[o], t, s, a, l.totalValue, n);
                     if (t.views.days.showDayNames) {
-                        DomElement.createWithHTML(i, "div", "day-name", e.text.dayNames[parseInt(s) - 1]);
+                        DomElement.createWithHTML(i, "div", "day-name", e.text.dayNames[parseInt(o) - 1]);
                     }
                 }
             }
@@ -2844,16 +2847,17 @@ var Animate;
                 DomElement.addClass(s, "view-switch");
             }
         } else {
-            const o = r.offsetHeight / l.largestValue;
-            for (let s = t.startMonth; s < 12 + t.startMonth; s++) {
-                let a = s;
-                if (t.startMonth > 0 && s > 11) {
-                    a = s - 12;
+            const o = DomElement.getStyleValueByName(r, "border-bottom-width", true);
+            const s = (r.offsetHeight - o) / l.largestValue;
+            for (let o = t.startMonth; o < 12 + t.startMonth; o++) {
+                let a = o;
+                if (t.startMonth > 0 && o > 11) {
+                    a = o - 12;
                 }
                 const c = a + 1;
                 if (l.values.hasOwnProperty(c) && Is.monthVisible(t.views.months.monthsToShow, a)) {
-                    const s = l.valueOpacities[l.values[c]];
-                    X(r, c, l.values[c], t, o, s, l.totalValue, n);
+                    const o = l.valueOpacities[l.values[c]];
+                    X(r, c, l.values[c], t, s, o, l.totalValue, n);
                     if (t.views.months.showMonthNames) {
                         DomElement.createWithHTML(i, "div", "month-name", e.text.monthNames[a]);
                     }
@@ -3011,17 +3015,18 @@ var Animate;
                 DomElement.addClass(s, "view-switch");
             }
         } else {
-            const e = r.offsetHeight / l.largestValue;
+            const e = DomElement.getStyleValueByName(r, "border-bottom-width", true);
+            const o = (r.offsetHeight - e) / l.largestValue;
             if (!t.views.statistics.showColorRangeLabels) {
                 i.parentNode.removeChild(i);
             }
-            for (const o in l.types) {
-                if (l.types.hasOwnProperty(o)) {
-                    Q(parseInt(o), r, l.types[o], t, a, e, l.totalValue, n);
-                    const s = be(a, parseInt(o));
+            for (const e in l.types) {
+                if (l.types.hasOwnProperty(e)) {
+                    Q(parseInt(e), r, l.types[e], t, a, o, l.totalValue, n);
+                    const s = be(a, parseInt(e));
                     if (t.views.statistics.showColorRangeLabels) {
                         if (!t.views.statistics.useColorRangeNamesForLabels || !Is.defined(s) || !Is.definedString(s.name)) {
-                            DomElement.createWithHTML(i, "div", "range-name", `${o}${"+"}`);
+                            DomElement.createWithHTML(i, "div", "range-name", `${e}${"+"}`);
                         } else {
                             DomElement.createWithHTML(i, "div", "range-name", s.name);
                         }

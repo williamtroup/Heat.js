@@ -83,6 +83,7 @@ export namespace DomElement {
         
         if ( toNumber ) {
             style = parseFloat( style );
+            style = isNaN( style ) ? 0 : style;
         }
 
         return style;

@@ -1614,7 +1614,8 @@ import { Animate } from "./ts/dom/animate";
             }
 
         } else {
-            const pixelsPerNumbers: number = dayLines.offsetHeight / largestValueForCurrentYear;
+            const borderBottomWidth: number = DomElement.getStyleValueByName( dayLines, "border-bottom-width", true );
+            const pixelsPerNumbers: number = ( dayLines.offsetHeight - borderBottomWidth ) / largestValueForCurrentYear;
             let totalMonths: number = 0;
             let totalDays: number = 0;
             let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
@@ -1866,7 +1867,8 @@ import { Animate } from "./ts/dom/animate";
             }
 
         } else {
-            const pixelsPerNumbers: number = dayLines.offsetHeight / dayValuesForCurrentYear.largestValue;
+            const borderBottomWidth: number = DomElement.getStyleValueByName( dayLines, "border-bottom-width", true );
+            const pixelsPerNumbers: number = ( dayLines.offsetHeight - borderBottomWidth ) / dayValuesForCurrentYear.largestValue;
 
             for ( const day in dayValuesForCurrentYear.values ) {
                 if ( dayValuesForCurrentYear.values.hasOwnProperty( day ) && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
@@ -2064,7 +2066,8 @@ import { Animate } from "./ts/dom/animate";
             }
 
         } else {
-            const pixelsPerNumbers: number = monthLines.offsetHeight / monthValuesForCurrentYear.largestValue;
+            const borderBottomWidth: number = DomElement.getStyleValueByName( monthLines, "border-bottom-width", true );
+            const pixelsPerNumbers: number = ( monthLines.offsetHeight - borderBottomWidth ) / monthValuesForCurrentYear.largestValue;
 
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
@@ -2287,7 +2290,8 @@ import { Animate } from "./ts/dom/animate";
             }
 
         } else {
-            const pixelsPerNumbers: number = rangeLines.offsetHeight / colorRangeValuesForCurrentYear.largestValue;
+            const borderBottomWidth: number = DomElement.getStyleValueByName( rangeLines, "border-bottom-width", true );
+            const pixelsPerNumbers: number = ( rangeLines.offsetHeight - borderBottomWidth ) / colorRangeValuesForCurrentYear.largestValue;
 
             if ( !bindingOptions.views!.statistics!.showColorRangeLabels ) {
                 statisticsRanges.parentNode!.removeChild( statisticsRanges );
