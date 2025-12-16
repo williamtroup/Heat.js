@@ -1252,6 +1252,7 @@ import { Convert } from "./ts/data/convert";
             const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
     
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+                const isLastMonth: boolean = monthIndex + 1 === ( 12 + bindingOptions.startMonth! );
                 let actualMonthIndex: number = monthIndex;
                 let actualYear: number = currentYear;
 
@@ -1307,6 +1308,24 @@ import { Convert } from "./ts/data/convert";
                         }
     
                         actualDay++;
+                    }
+
+                    if ( bindingOptions.views!.map!.showMonthDayGaps || isLastMonth ) {
+                        const remainingDays: number = 7 - ( actualDay - 1 );
+
+                        if ( remainingDays > 0 ) {
+                            for ( let dayIndex: number = 0; dayIndex < remainingDays; dayIndex++ ) {
+                                if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
+                                    DomElement.create( currentDayColumn, "div", "day-disabled" );
+                                }
+
+                                actualDay++;
+                            }
+                        }
+
+                        if ( bindingOptions.views!.map!.showDaysInReverseOrder! ) {
+                            DomElement.reverseChildrenOrder( currentDayColumn );
+                        }
                     }
     
                     if ( bindingOptions.views!.map!.showMonthNames ) {
