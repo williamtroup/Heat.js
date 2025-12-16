@@ -65,10 +65,6 @@ export namespace DateTime {
         return date.getFullYear() + Char.dash + Str.padNumber( date.getMonth() + 1 ) + Char.dash + Str.padNumber( date.getDate() );
     }
 
-    export function getStorageDate( data: string ) : string[] {
-        return data.split( Char.dash );
-    }
-
     export function getStorageDateYear( data: string ) : string {
         return data.split( Char.dash )[ 0 ];
     }

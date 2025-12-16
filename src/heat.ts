@@ -1988,8 +1988,7 @@ import { Css } from "./ts/css";
                     const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
 
                     if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                        const storageDateParts: string[] = DateTime.getStorageDate( storageDate );
-                        const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
+                        const storageDateObject: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
                         const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
                         if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
@@ -2205,8 +2204,7 @@ import { Css } from "./ts/css";
                     const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
 
                     if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                        const storageDateParts: string[] = DateTime.getStorageDate( storageDate );
-                        const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
+                        const storageDateObject: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
                         const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
                         if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
@@ -2391,8 +2389,7 @@ import { Css } from "./ts/css";
                     const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
 
                     if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                        const storageDateParts: string[] = DateTime.getStorageDate( storageDate );
-                        const storageDateObject: Date = new Date( parseInt( storageDateParts[ 2 ] ), parseInt( storageDateParts[ 1 ] ), parseInt( storageDateParts[ 0 ] ) );
+                        const storageDateObject: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
                         const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
                         if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.statistics!.daysToShow!, weekDayNumber ) ) {

@@ -272,14 +272,10 @@ var DateTime;
     }
     e.toStorageDate = s;
     function r(e) {
-        return e.split("-");
-    }
-    e.getStorageDate = r;
-    function a(e) {
         return e.split("-")[0];
     }
-    e.getStorageDateYear = a;
-    function l() {
+    e.getStorageDateYear = r;
+    function a() {
         const e = new Date;
         const t = e.getDay();
         const n = (t === 0 ? -6 : 1) - t;
@@ -287,12 +283,12 @@ var DateTime;
         o.setDate(e.getDate() + n);
         return o;
     }
-    e.getDateForMondayOfCurrentWeek = l;
-    function c(e) {
+    e.getDateForMondayOfCurrentWeek = a;
+    function l(e) {
         const t = new Date;
         return e.getDate() === t.getDate() && e.getMonth() === t.getMonth() && e.getFullYear() === t.getFullYear();
     }
-    e.isTodaysDate = c;
+    e.isTodaysDate = l;
 })(DateTime || (DateTime = {}));
 
 var DomElement;
@@ -2779,13 +2775,12 @@ var Css;
                 for (let i = 0; i < o; i++) {
                     const o = DateTime.toStorageDate(new Date(r, s, i + 1));
                     if (n.hasOwnProperty(o)) {
-                        const i = DateTime.getStorageDate(o);
-                        const s = new Date(parseInt(i[2]), parseInt(i[1]), parseInt(i[0]));
-                        const r = DateTime.getWeekdayNumber(s) + 1;
-                        if (!Is.holiday(e, s).matched && Is.dayVisible(e.views.days.daysToShow, r)) {
-                            t.values[r] += n[o];
+                        const a = new Date(r, s, i + 1);
+                        const l = DateTime.getWeekdayNumber(a) + 1;
+                        if (!Is.holiday(e, a).matched && Is.dayVisible(e.views.days.daysToShow, l)) {
+                            t.values[l] += n[o];
                             t.totalValue += n[o];
-                            t.largestValue = Math.max(t.largestValue, t.values[r]);
+                            t.largestValue = Math.max(t.largestValue, t.values[l]);
                         }
                     }
                 }
@@ -2942,10 +2937,9 @@ var Css;
                 for (let a = 0; a < i; a++) {
                     const i = DateTime.toStorageDate(new Date(r, s, a + 1));
                     if (n.hasOwnProperty(i)) {
-                        const s = DateTime.getStorageDate(i);
-                        const r = new Date(parseInt(s[2]), parseInt(s[1]), parseInt(s[0]));
-                        const a = DateTime.getWeekdayNumber(r) + 1;
-                        if (!Is.holiday(e, r).matched && Is.dayVisible(e.views.days.daysToShow, a)) {
+                        const l = new Date(r, s, a + 1);
+                        const c = DateTime.getWeekdayNumber(l) + 1;
+                        if (!Is.holiday(e, l).matched && Is.dayVisible(e.views.days.daysToShow, c)) {
                             t.values[o] += n[i];
                             t.totalValue += n[i];
                             t.largestValue = Math.max(t.largestValue, t.values[o]);
@@ -3081,10 +3075,9 @@ var Css;
                 for (let s = 0; s < o; s++) {
                     const o = DateTime.toStorageDate(new Date(a, r, s + 1));
                     if (n.hasOwnProperty(o)) {
-                        const s = DateTime.getStorageDate(o);
-                        const r = new Date(parseInt(s[2]), parseInt(s[1]), parseInt(s[0]));
-                        const a = DateTime.getWeekdayNumber(r) + 1;
-                        if (!Is.holiday(e, r).matched && Is.dayVisible(e.views.statistics.daysToShow, a)) {
+                        const l = new Date(a, r, s + 1);
+                        const c = DateTime.getWeekdayNumber(l) + 1;
+                        if (!Is.holiday(e, l).matched && Is.dayVisible(e.views.statistics.daysToShow, c)) {
                             const s = xe(e, t, n[o]);
                             const r = Is.defined(s) ? s.minimum.toString() : "0";
                             if (!i.types.hasOwnProperty(r)) {
