@@ -1307,23 +1307,9 @@ import { Convert } from "./ts/data/convert";
                         }
     
                         actualDay++;
-                    }   
-
-                    const remainingDays: number = 7 - ( actualDay - 1 );
-
-                    if ( remainingDays > 0 && remainingDays < 7 ) {
-                        for ( let dayIndex: number = 0; dayIndex < remainingDays; dayIndex++ ) {
-                            if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
-                                DomElement.create( currentDayColumn, "div", "day-disabled" );
-                            }
-
-                            actualDay++;
-                        }
                     }
 
-                    if ( bindingOptions.views!.map!.showDaysInReverseOrder! ) {
-                        DomElement.reverseChildrenOrder( currentDayColumn );
-                    }
+                    renderControlMapRemainingDaysForMonth( bindingOptions, actualDay, currentDayColumn );
     
                     if ( bindingOptions.views!.map!.showMonthNames ) {
                         let monthName: HTMLElement;
@@ -1351,14 +1337,6 @@ import { Convert } from "./ts/data/convert";
                             monthName.ondblclick = () => switchView( bindingOptions, ViewId.months, ViewName.months );
                         }
                     }
-    
-                    if ( monthAdded && Is.defined( bindingOptions._currentView!.dayWidth ) ) {
-                        if ( firstDayNumberInMonth > 0 && !bindingOptions.views!.map!.showMonthDayGaps ) {
-                            month.style.marginLeft = `${-bindingOptions._currentView!.dayWidth}px`;
-                        } else if ( firstDayNumberInMonth === 0 && bindingOptions.views!.map!.showMonthDayGaps ) {
-                            month.style.marginLeft = `${bindingOptions._currentView!.dayWidth}px`;
-                        }
-                    }
 
                     if ( bindingOptions.views!.map!.showMonthsInReverseOrder ) {
                         DomElement.reverseChildrenOrder( dayColumns );
@@ -1371,12 +1349,49 @@ import { Convert } from "./ts/data/convert";
             if ( bindingOptions.views!.map!.showMonthsInReverseOrder ) {
                 DomElement.reverseChildrenOrder( months );
             }
+
+            renderControlMapMonthGaps( bindingOptions, months );
             
             if ( bindingOptions.views!.map!.keepScrollPositions || isForZooming ) {
                 bindingOptions._currentView!.mapContents.scrollLeft = bindingOptions._currentView!.mapContentsScrollLeft;
             }
 
             renderControlMapZooming( bindingOptions, map );
+        }
+    }
+
+    function renderControlMapRemainingDaysForMonth( bindingOptions: BindingOptions, actualDay: number, currentDayColumn: HTMLElement ) : void {
+        const remainingDays: number = 7 - currentDayColumn.children.length;
+
+        if ( remainingDays > 0 && remainingDays < 7 ) {
+            for ( let dayIndex: number = 0; dayIndex < remainingDays; dayIndex++ ) {
+                if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
+                    DomElement.create( currentDayColumn, "div", "day-disabled" );
+                }
+
+                actualDay++;
+            }
+        }
+
+        if ( bindingOptions.views!.map!.showDaysInReverseOrder! ) {
+            DomElement.reverseChildrenOrder( currentDayColumn );
+        }
+    }
+
+    function renderControlMapMonthGaps( bindingOptions: BindingOptions, months: HTMLElement ) : void {
+        const monthsAddedLength: number = months.children.length;
+
+        for ( let monthAddedIndex: number = 1; monthAddedIndex < monthsAddedLength; monthAddedIndex++ ) {
+            const monthElement: HTMLElement = months.children[ monthAddedIndex ] as HTMLElement;
+            const dayColumnsElements: HTMLCollectionOf<Element> = monthElement.getElementsByClassName( "day-column" );
+            const dayColumns: HTMLElement[] = [].slice.call( dayColumnsElements );
+            const disabledDaysElements: HTMLCollectionOf<Element> = dayColumns[ 0 ].getElementsByClassName( "day-disabled" );
+
+            if ( !bindingOptions.views!.map!.showMonthDayGaps && disabledDaysElements.length > 0 ) {
+                monthElement.style.marginLeft = `${-bindingOptions._currentView!.dayWidth}px`;
+            } else if ( bindingOptions.views!.map!.showMonthDayGaps && disabledDaysElements.length === 0 ) {
+                monthElement.style.marginLeft = `${bindingOptions._currentView!.dayWidth}px`;
+            }
         }
     }
 
