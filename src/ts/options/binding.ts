@@ -278,7 +278,7 @@ export namespace Binding {
             bindingOptions.views!.map!.showDayDateNumbers = Default.getBoolean( bindingOptions.views!.map!.showDayDateNumbers, false );
             bindingOptions.views!.map!.showToolTips = Default.getBoolean( bindingOptions.views!.map!.showToolTips, true );
             bindingOptions.views!.map!.highlightCurrentDay = Default.getBoolean( bindingOptions.views!.map!.highlightCurrentDay, false );
-            bindingOptions.views!.map!.dayToolTipText = Default.getString( bindingOptions.views!.map!.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
+            bindingOptions.views!.map!.dayToolTipText = Default.getString( bindingOptions.views!.map!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.views!.map!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.map!.showYearsInMonthNames, true );
             bindingOptions.views!.map!.allowZooming = Default.getBoolean( bindingOptions.views!.map!.allowZooming, true );
             bindingOptions.views!.map!.zoomLevel = Default.getNumber( bindingOptions.views!.map!.zoomLevel, 0 );
@@ -307,7 +307,7 @@ export namespace Binding {
             bindingOptions.views!.chart!.showToolTips = Default.getBoolean( bindingOptions.views!.chart!.showToolTips, true );
             bindingOptions.views!.chart!.useGradients = Default.getBoolean( bindingOptions.views!.chart!.useGradients, false );
             bindingOptions.views!.chart!.highlightCurrentDay = Default.getBoolean( bindingOptions.views!.chart!.highlightCurrentDay, false );
-            bindingOptions.views!.chart!.dayToolTipText = Default.getString( bindingOptions.views!.chart!.dayToolTipText, "{d}{o} {mmmm} {yyyy}" );
+            bindingOptions.views!.chart!.dayToolTipText = Default.getString( bindingOptions.views!.chart!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.views!.chart!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.chart!.showYearsInMonthNames, true );
             bindingOptions.views!.chart!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.chart!.showCountsInToolTips, true );
 

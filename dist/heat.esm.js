@@ -708,7 +708,7 @@ var Binding;
             e.views.map.showDayDateNumbers = Default2.getBoolean(e.views.map.showDayDateNumbers, false);
             e.views.map.showToolTips = Default2.getBoolean(e.views.map.showToolTips, true);
             e.views.map.highlightCurrentDay = Default2.getBoolean(e.views.map.highlightCurrentDay, false);
-            e.views.map.dayToolTipText = Default2.getString(e.views.map.dayToolTipText, "{d}{o} {mmmm} {yyyy}");
+            e.views.map.dayToolTipText = Default2.getString(e.views.map.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}");
             e.views.map.showYearsInMonthNames = Default2.getBoolean(e.views.map.showYearsInMonthNames, true);
             e.views.map.allowZooming = Default2.getBoolean(e.views.map.allowZooming, true);
             e.views.map.zoomLevel = Default2.getNumber(e.views.map.zoomLevel, 0);
@@ -733,7 +733,7 @@ var Binding;
             e.views.chart.showToolTips = Default2.getBoolean(e.views.chart.showToolTips, true);
             e.views.chart.useGradients = Default2.getBoolean(e.views.chart.useGradients, false);
             e.views.chart.highlightCurrentDay = Default2.getBoolean(e.views.chart.highlightCurrentDay, false);
-            e.views.chart.dayToolTipText = Default2.getString(e.views.chart.dayToolTipText, "{d}{o} {mmmm} {yyyy}");
+            e.views.chart.dayToolTipText = Default2.getString(e.views.chart.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}");
             e.views.chart.showYearsInMonthNames = Default2.getBoolean(e.views.chart.showYearsInMonthNames, true);
             e.views.chart.showCountsInToolTips = Default2.getBoolean(e.views.chart.showCountsInToolTips, true);
             if (Is.invalidOptionArray(e.views.chart.monthsToShow)) {
