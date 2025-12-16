@@ -981,7 +981,8 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
   background-color: var(--heat-js-years-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-years-border-color);
   color: var(--heat-js-years-text-color);
-  height: calc(var(--heat-js-years-menu-item-height) * var(--heat-js-years-menu-total-rows-in-view));
+  height: 100%;
+  max-height: calc(var(--heat-js-years-menu-item-height) * var(--heat-js-years-menu-total-rows-in-view));
   overflow-y: auto;
   scroll-snap-type: y mandatory;
 }
