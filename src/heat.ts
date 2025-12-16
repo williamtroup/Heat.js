@@ -1829,7 +1829,8 @@ import { Css } from "./ts/css";
         const dayNames: HTMLElement = DomElement.create( bindingOptions._currentView!.daysContents, "div", "day-names" );
         let labels: HTMLElement = DomElement.create( days, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( days, "div", "day-lines" );
-        const dayValuesForCurrentYear: LargestValueForView = getLargestValuesForEachDay( bindingOptions );
+        const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
+        const dayValuesForCurrentYear: LargestValueForView = getLargestValuesForEachDay( bindingOptions, colorRanges );
 
         if ( isForViewSwitch && ( !bindingOptions.views!.days!.useDifferentOpacities || !bindingOptions.views!.days!.showDayCounts ) ) {
             DomElement.addClass( days, "view-switch" );
@@ -1953,7 +1954,7 @@ import { Css } from "./ts/css";
         }
     }
 
-    function getLargestValuesForEachDay( bindingOptions: BindingOptions ) : LargestValueForView {
+    function getLargestValuesForEachDay( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValueForView {
         const result: LargestValueForView = {
             values: {
                 1: 0,
@@ -1992,9 +1993,14 @@ import { Css } from "./ts/css";
                         const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
                         if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
-                            result.values[ weekDayNumber ] += typeDateCounts[ storageDate ];
-                            result.totalValue += typeDateCounts[ storageDate ];
-                            result.largestValue = Math.max( result.largestValue, result.values[ weekDayNumber ] );
+                            const dayCount: number = typeDateCounts[ storageDate ];
+                            const colorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, dayCount );
+
+                            if ( !Is.defined( colorRange ) || colorRange.visible ) {
+                                result.values[ weekDayNumber ] += dayCount;
+                                result.totalValue += dayCount;
+                                result.largestValue = Math.max( result.largestValue, result.values[ weekDayNumber ] );
+                            }
                         }
                     }
                 }
@@ -2020,7 +2026,8 @@ import { Css } from "./ts/css";
         const monthNames: HTMLElement = DomElement.create( bindingOptions._currentView!.monthsContents, "div", "month-names" );
         let labels: HTMLElement = DomElement.create( months, "div", "y-labels" );
         const monthLines: HTMLElement = DomElement.create( months, "div", "month-lines" );
-        const monthValuesForCurrentYear: LargestValueForView = getLargestValuesForEachMonth( bindingOptions );
+        const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
+        const monthValuesForCurrentYear: LargestValueForView = getLargestValuesForEachMonth( bindingOptions, colorRanges );
 
         if ( isForViewSwitch && ( !bindingOptions.views!.months!.useDifferentOpacities || !bindingOptions.views!.months!.showMonthCounts ) ) {
             DomElement.addClass( months, "view-switch" );
@@ -2163,7 +2170,7 @@ import { Css } from "./ts/css";
         }
     }
 
-    function getLargestValuesForEachMonth( bindingOptions: BindingOptions ) : LargestValueForView {
+    function getLargestValuesForEachMonth( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValueForView {
         const result: LargestValueForView = {
             values: {
                 1: 0,
@@ -2208,9 +2215,14 @@ import { Css } from "./ts/css";
                         const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
                         if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
-                            result.values[ monthValue ] += typeDateCounts[ storageDate ];
-                            result.totalValue += typeDateCounts[ storageDate ];
-                            result.largestValue = Math.max( result.largestValue, result.values[ monthValue ] );
+                            const dayCount: number = typeDateCounts[ storageDate ];
+                            const colorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, dayCount );
+
+                            if ( !Is.defined( colorRange ) || colorRange.visible ) {
+                                result.values[ monthValue ] += dayCount;
+                                result.totalValue += dayCount;
+                                result.largestValue = Math.max( result.largestValue, result.values[ monthValue ] );
+                            }
                         }
                     }
                 }

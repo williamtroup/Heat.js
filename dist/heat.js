@@ -2654,15 +2654,16 @@ var Css;
         const i = DomElement.create(t._currentView.daysContents, "div", "day-names");
         let s = DomElement.create(o, "div", "y-labels");
         const r = DomElement.create(o, "div", "day-lines");
-        const a = G(t);
+        const a = Ve(t);
+        const l = G(t, a);
         if (n && (!t.views.days.useDifferentOpacities || !t.views.days.showDayCounts)) {
             DomElement.addClass(o, "view-switch");
         }
-        if (a.largestValue > 0 && t.views.days.showChartYLabels) {
-            const e = DomElement.createWithHTML(s, "div", "label-0", a.largestValue.toString());
-            DomElement.createWithHTML(s, "div", "label-25", (Math.floor(a.largestValue / 4) * 3).toString());
-            DomElement.createWithHTML(s, "div", "label-50", Math.floor(a.largestValue / 2).toString());
-            DomElement.createWithHTML(s, "div", "label-75", Math.floor(a.largestValue / 4).toString());
+        if (l.largestValue > 0 && t.views.days.showChartYLabels) {
+            const e = DomElement.createWithHTML(s, "div", "label-0", l.largestValue.toString());
+            DomElement.createWithHTML(s, "div", "label-25", (Math.floor(l.largestValue / 4) * 3).toString());
+            DomElement.createWithHTML(s, "div", "label-50", Math.floor(l.largestValue / 2).toString());
+            DomElement.createWithHTML(s, "div", "label-75", Math.floor(l.largestValue / 4).toString());
             DomElement.createWithHTML(s, "div", "label-100", "0");
             s.style.width = `${e.offsetWidth}px`;
             i.style.paddingLeft = `${s.offsetWidth + DomElement.getStyleValueByName(s, "margin-right", true)}px`;
@@ -2670,7 +2671,7 @@ var Css;
             s.parentNode.removeChild(s);
             s = null;
         }
-        if (a.largestValue === 0) {
+        if (l.largestValue === 0) {
             t._currentView.daysContents.style.minHeight = `${t._currentView.mapContents.offsetHeight}px`;
             o.parentNode.removeChild(o);
             i.parentNode.removeChild(i);
@@ -2679,11 +2680,11 @@ var Css;
                 DomElement.addClass(s, "view-switch");
             }
         } else {
-            const n = r.offsetHeight / a.largestValue;
-            for (const o in a.values) {
-                if (a.values.hasOwnProperty(o) && Is.dayVisible(t.views.days.daysToShow, parseInt(o))) {
-                    const s = a.valueOpacities[a.values[o]];
-                    z(r, parseInt(o), a.values[o], t, n, s, a.totalValue);
+            const n = r.offsetHeight / l.largestValue;
+            for (const o in l.values) {
+                if (l.values.hasOwnProperty(o) && Is.dayVisible(t.views.days.daysToShow, parseInt(o))) {
+                    const s = l.valueOpacities[l.values[o]];
+                    z(r, parseInt(o), l.values[o], t, n, s, l.totalValue);
                     if (t.views.days.showDayNames) {
                         DomElement.createWithHTML(i, "div", "day-name", e.text.dayNames[parseInt(o) - 1]);
                     }
@@ -2748,8 +2749,8 @@ var Css;
             }
         }
     }
-    function G(e) {
-        const t = {
+    function G(e, t) {
+        const n = {
             values: {
                 1: 0,
                 2: 0,
@@ -2763,33 +2764,37 @@ var Css;
             largestValue: 0,
             totalValue: 0
         };
-        const n = ue(e);
-        const o = e._currentView.year;
-        for (let i = e.startMonth; i < 12 + e.startMonth; i++) {
-            let s = i;
-            let r = o;
-            if (e.startMonth > 0 && i > 11) {
-                s = i - 12;
-                r++;
+        const o = ue(e);
+        const i = e._currentView.year;
+        for (let s = e.startMonth; s < 12 + e.startMonth; s++) {
+            let r = s;
+            let a = i;
+            if (e.startMonth > 0 && s > 11) {
+                r = s - 12;
+                a++;
             }
-            if (Is.monthVisible(e.views.days.monthsToShow, s)) {
-                const o = DateTime.getTotalDaysInMonth(r, s);
-                for (let i = 0; i < o; i++) {
-                    const o = DateTime.toStorageDate(new Date(r, s, i + 1));
-                    if (n.hasOwnProperty(o)) {
-                        const a = new Date(r, s, i + 1);
-                        const l = DateTime.getWeekdayNumber(a) + 1;
-                        if (!Is.holiday(e, a).matched && Is.dayVisible(e.views.days.daysToShow, l)) {
-                            t.values[l] += n[o];
-                            t.totalValue += n[o];
-                            t.largestValue = Math.max(t.largestValue, t.values[l]);
+            if (Is.monthVisible(e.views.days.monthsToShow, r)) {
+                const i = DateTime.getTotalDaysInMonth(a, r);
+                for (let s = 0; s < i; s++) {
+                    const i = DateTime.toStorageDate(new Date(a, r, s + 1));
+                    if (o.hasOwnProperty(i)) {
+                        const l = new Date(a, r, s + 1);
+                        const c = DateTime.getWeekdayNumber(l) + 1;
+                        if (!Is.holiday(e, l).matched && Is.dayVisible(e.views.days.daysToShow, c)) {
+                            const s = o[i];
+                            const r = xe(e, t, s);
+                            if (!Is.defined(r) || r.visible) {
+                                n.values[c] += s;
+                                n.totalValue += s;
+                                n.largestValue = Math.max(n.largestValue, n.values[c]);
+                            }
                         }
                     }
                 }
             }
         }
-        Convert.valuesToOpacitiesOrder(t);
-        return t;
+        Convert.valuesToOpacitiesOrder(n);
+        return n;
     }
     function J(t, n) {
         t._currentView.monthsContents = DomElement.create(t._currentView.element, "div", "months-contents");
@@ -2797,15 +2802,16 @@ var Css;
         const i = DomElement.create(t._currentView.monthsContents, "div", "month-names");
         let s = DomElement.create(o, "div", "y-labels");
         const r = DomElement.create(o, "div", "month-lines");
-        const a = q(t);
+        const a = Ve(t);
+        const l = q(t, a);
         if (n && (!t.views.months.useDifferentOpacities || !t.views.months.showMonthCounts)) {
             DomElement.addClass(o, "view-switch");
         }
-        if (a.largestValue > 0 && t.views.months.showChartYLabels) {
-            const e = DomElement.createWithHTML(s, "div", "label-0", a.largestValue.toString());
-            DomElement.createWithHTML(s, "div", "label-25", (Math.floor(a.largestValue / 4) * 3).toString());
-            DomElement.createWithHTML(s, "div", "label-50", Math.floor(a.largestValue / 2).toString());
-            DomElement.createWithHTML(s, "div", "label-75", Math.floor(a.largestValue / 4).toString());
+        if (l.largestValue > 0 && t.views.months.showChartYLabels) {
+            const e = DomElement.createWithHTML(s, "div", "label-0", l.largestValue.toString());
+            DomElement.createWithHTML(s, "div", "label-25", (Math.floor(l.largestValue / 4) * 3).toString());
+            DomElement.createWithHTML(s, "div", "label-50", Math.floor(l.largestValue / 2).toString());
+            DomElement.createWithHTML(s, "div", "label-75", Math.floor(l.largestValue / 4).toString());
             DomElement.createWithHTML(s, "div", "label-100", "0");
             s.style.width = `${e.offsetWidth}px`;
             i.style.paddingLeft = `${s.offsetWidth + DomElement.getStyleValueByName(s, "margin-right", true)}px`;
@@ -2813,7 +2819,7 @@ var Css;
             s.parentNode.removeChild(s);
             s = null;
         }
-        if (a.largestValue === 0) {
+        if (l.largestValue === 0) {
             t._currentView.monthsContents.style.minHeight = `${t._currentView.mapContents.offsetHeight}px`;
             o.parentNode.removeChild(o);
             i.parentNode.removeChild(i);
@@ -2822,16 +2828,16 @@ var Css;
                 DomElement.addClass(s, "view-switch");
             }
         } else {
-            const n = r.offsetHeight / a.largestValue;
+            const n = r.offsetHeight / l.largestValue;
             for (let o = t.startMonth; o < 12 + t.startMonth; o++) {
                 let s = o;
                 if (t.startMonth > 0 && o > 11) {
                     s = o - 12;
                 }
-                const l = s + 1;
-                if (a.values.hasOwnProperty(l) && Is.monthVisible(t.views.months.monthsToShow, s)) {
-                    const o = a.valueOpacities[a.values[l]];
-                    X(r, l, a.values[l], t, n, o, a.totalValue);
+                const a = s + 1;
+                if (l.values.hasOwnProperty(a) && Is.monthVisible(t.views.months.monthsToShow, s)) {
+                    const o = l.valueOpacities[l.values[a]];
+                    X(r, a, l.values[a], t, n, o, l.totalValue);
                     if (t.views.months.showMonthNames) {
                         DomElement.createWithHTML(i, "div", "month-name", e.text.monthNames[s]);
                     }
@@ -2904,8 +2910,8 @@ var Css;
             }
         }
     }
-    function q(e) {
-        const t = {
+    function q(e, t) {
+        const n = {
             values: {
                 1: 0,
                 2: 0,
@@ -2924,34 +2930,38 @@ var Css;
             largestValue: 0,
             totalValue: 0
         };
-        const n = ue(e);
-        const o = e._currentView.year;
-        for (let i = e.startMonth; i < 12 + e.startMonth; i++) {
-            let s = i;
-            let r = o;
-            if (e.startMonth > 0 && i > 11) {
-                s = i - 12;
-                r++;
+        const o = ue(e);
+        const i = e._currentView.year;
+        for (let s = e.startMonth; s < 12 + e.startMonth; s++) {
+            let r = s;
+            let a = i;
+            if (e.startMonth > 0 && s > 11) {
+                r = s - 12;
+                a++;
             }
-            if (Is.monthVisible(e.views.months.monthsToShow, s)) {
-                const o = s + 1;
-                const i = DateTime.getTotalDaysInMonth(r, s);
-                for (let a = 0; a < i; a++) {
-                    const i = DateTime.toStorageDate(new Date(r, s, a + 1));
-                    if (n.hasOwnProperty(i)) {
-                        const l = new Date(r, s, a + 1);
-                        const c = DateTime.getWeekdayNumber(l) + 1;
-                        if (!Is.holiday(e, l).matched && Is.dayVisible(e.views.days.daysToShow, c)) {
-                            t.values[o] += n[i];
-                            t.totalValue += n[i];
-                            t.largestValue = Math.max(t.largestValue, t.values[o]);
+            if (Is.monthVisible(e.views.months.monthsToShow, r)) {
+                const i = r + 1;
+                const s = DateTime.getTotalDaysInMonth(a, r);
+                for (let l = 0; l < s; l++) {
+                    const s = DateTime.toStorageDate(new Date(a, r, l + 1));
+                    if (o.hasOwnProperty(s)) {
+                        const c = new Date(a, r, l + 1);
+                        const u = DateTime.getWeekdayNumber(c) + 1;
+                        if (!Is.holiday(e, c).matched && Is.dayVisible(e.views.days.daysToShow, u)) {
+                            const r = o[s];
+                            const a = xe(e, t, r);
+                            if (!Is.defined(a) || a.visible) {
+                                n.values[i] += r;
+                                n.totalValue += r;
+                                n.largestValue = Math.max(n.largestValue, n.values[i]);
+                            }
                         }
                     }
                 }
             }
         }
-        Convert.valuesToOpacitiesOrder(t);
-        return t;
+        Convert.valuesToOpacitiesOrder(n);
+        return n;
     }
     function K(t, n) {
         t._currentView.statisticsContents = DomElement.create(t._currentView.element, "div", "statistics-contents");
