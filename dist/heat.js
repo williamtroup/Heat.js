@@ -2264,7 +2264,7 @@ var Convert;
                         }
                         h++;
                     }
-                    if (t.views.map.showMonthDayGaps || o) {
+                    if ((t.views.map.showMonthDayGaps || o) && t.views.map.showDaysInReverseOrder) {
                         const e = 7 - (h - 1);
                         if (e > 0) {
                             for (let n = 0; n < e; n++) {

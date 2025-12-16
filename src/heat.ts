@@ -1310,7 +1310,7 @@ import { Convert } from "./ts/data/convert";
                         actualDay++;
                     }
 
-                    if ( bindingOptions.views!.map!.showMonthDayGaps || isLastMonth ) {
+                    if ( ( bindingOptions.views!.map!.showMonthDayGaps || isLastMonth ) && bindingOptions.views!.map!.showDaysInReverseOrder ) {
                         const remainingDays: number = 7 - ( actualDay - 1 );
 
                         if ( remainingDays > 0 ) {
