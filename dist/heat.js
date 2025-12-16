@@ -2217,24 +2217,23 @@ var Convert;
             const a = DomElement.create(i, "div", "months");
             const l = Te(t);
             for (let n = t.startMonth; n < 12 + t.startMonth; n++) {
-                const o = n + 1 === 12 + t.startMonth;
-                let i = n;
-                let c = s;
+                let o = n;
+                let i = s;
                 if (t.startMonth > 0 && n > 11) {
-                    i = n - 12;
-                    c++;
+                    o = n - 12;
+                    i++;
                 }
-                if (Is.monthVisible(t.views.map.monthsToShow, i)) {
+                if (Is.monthVisible(t.views.map.monthsToShow, o)) {
                     const n = DomElement.create(a, "div", "month");
-                    const o = DomElement.create(n, "div", "day-columns");
-                    let s = DateTime.getTotalDaysInMonth(c, i);
-                    let u = DomElement.create(o, "div", "day-column");
+                    const s = DomElement.create(n, "div", "day-columns");
+                    let c = DateTime.getTotalDaysInMonth(i, o);
+                    let u = DomElement.create(s, "div", "day-column");
                     let d = false;
-                    const m = new Date(c, i, 1);
+                    const m = new Date(i, o, 1);
                     const f = DateTime.getWeekdayNumber(m);
                     let w = 1;
-                    s += f;
-                    for (let e = 0; e < s; e++) {
+                    c += f;
+                    for (let e = 0; e < c; e++) {
                         if (e >= f) {
                             d = true;
                         } else {
@@ -2245,13 +2244,13 @@ var Convert;
                         if (d) {
                             let n = null;
                             if (Is.dayVisible(t.views.map.daysToShow, w)) {
-                                n = R(t, u, e - f, i, c, l);
+                                n = R(t, u, e - f, o, i, l);
                             }
                             if ((e + 1) % 7 === 0) {
                                 if (t.views.map.showDaysInReverseOrder) {
                                     DomElement.reverseChildrenOrder(u);
                                 }
-                                u = DomElement.create(o, "div", "day-column");
+                                u = DomElement.create(s, "div", "day-column");
                                 w = 0;
                                 if (t._currentView.dayWidth === 0 && Is.defined(n)) {
                                     let e = DomElement.getStyleValueByName(n, "margin-left", true);
@@ -2275,24 +2274,24 @@ var Convert;
                         DomElement.reverseChildrenOrder(u);
                     }
                     if (t.views.map.showMonthNames) {
-                        let s;
-                        const r = n.offsetWidth;
-                        let a = e.text.monthNames[i];
+                        let r;
+                        const a = n.offsetWidth;
+                        let l = e.text.monthNames[o];
                         if (t.startMonth > 0 && t.views.map.showYearsInMonthNames) {
-                            a += `${" "}${c}`;
+                            l += `${" "}${i}`;
                         }
                         if (!t.views.map.placeMonthNamesOnTheBottom) {
-                            s = DomElement.createWithHTML(n, "div", "month-name", a, o);
+                            r = DomElement.createWithHTML(n, "div", "month-name", l, s);
                         } else {
-                            s = DomElement.createWithHTML(n, "div", "month-name-bottom", a);
+                            r = DomElement.createWithHTML(n, "div", "month-name-bottom", l);
                         }
                         if (t.views.map.showMonthDayGaps) {
-                            s.style.width = `${r}px`;
+                            r.style.width = `${a}px`;
                         } else {
-                            s.style.width = `${r - t._currentView.dayWidth}px`;
+                            r.style.width = `${a - t._currentView.dayWidth}px`;
                         }
                         if (t.views.months.enabled) {
-                            s.ondblclick = () => oe(t, 5, "months");
+                            r.ondblclick = () => oe(t, 5, "months");
                         }
                     }
                     if (r && Is.defined(t._currentView.dayWidth)) {
@@ -2303,7 +2302,7 @@ var Convert;
                         }
                     }
                     if (t.views.map.showMonthsInReverseOrder) {
-                        DomElement.reverseChildrenOrder(o);
+                        DomElement.reverseChildrenOrder(s);
                     }
                     r = true;
                 }

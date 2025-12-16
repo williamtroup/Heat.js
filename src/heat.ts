@@ -1252,7 +1252,6 @@ import { Convert } from "./ts/data/convert";
             const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
     
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
-                const isLastMonth: boolean = monthIndex + 1 === ( 12 + bindingOptions.startMonth! );
                 let actualMonthIndex: number = monthIndex;
                 let actualYear: number = currentYear;
 
