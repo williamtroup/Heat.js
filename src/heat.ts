@@ -2621,8 +2621,8 @@ import { Convert } from "./ts/data/convert";
             }
         }
 
-        years = years.sort( function( a, b ) {
-            return a - b;
+        years = years.sort( ( yearA: number, yearB: number ) => {
+            return yearA - yearB;
         } );
 
         return years;
@@ -2884,8 +2884,8 @@ import { Convert } from "./ts/data/convert";
     }
 
     function getSortedColorRanges( bindingOptions: BindingOptions ) : BindingOptionsColorRange[] {
-        return bindingOptions.colorRanges!.sort( function( a, b ) {
-            return a.minimum! - b.minimum!;
+        return bindingOptions.colorRanges!.sort( ( colorRangeA: BindingOptionsColorRange, colorRangeB: BindingOptionsColorRange ) => {
+            return colorRangeA.minimum! - colorRangeB.minimum!;
         } );
     }
 

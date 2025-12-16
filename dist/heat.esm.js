@@ -3237,9 +3237,7 @@ var Convert;
                 }
             }
         }
-        t = t.sort(function(e, t) {
-            return e - t;
-        });
+        t = t.sort((e, t) => e - t);
         return t;
     }
     function ce(e) {
@@ -3424,9 +3422,7 @@ var Convert;
         return o;
     }
     function Te(e) {
-        return e.colorRanges.sort(function(e, t) {
-            return e.minimum - t.minimum;
-        });
+        return e.colorRanges.sort((e, t) => e.minimum - t.minimum);
     }
     function xe(e, t = true) {
         let n = true;
