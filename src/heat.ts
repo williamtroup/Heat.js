@@ -1308,24 +1308,22 @@ import { Convert } from "./ts/data/convert";
                         }
     
                         actualDay++;
+                    }   
+
+                    const remainingDays: number = 7 - ( actualDay - 1 );
+
+                    if ( remainingDays > 0 && remainingDays < 7 ) {
+                        for ( let dayIndex: number = 0; dayIndex < remainingDays; dayIndex++ ) {
+                            if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
+                                DomElement.create( currentDayColumn, "div", "day-disabled" );
+                            }
+
+                            actualDay++;
+                        }
                     }
 
-                    if ( ( bindingOptions.views!.map!.showMonthDayGaps || isLastMonth ) && bindingOptions.views!.map!.showDaysInReverseOrder ) {
-                        const remainingDays: number = 7 - ( actualDay - 1 );
-
-                        if ( remainingDays > 0 ) {
-                            for ( let dayIndex: number = 0; dayIndex < remainingDays; dayIndex++ ) {
-                                if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
-                                    DomElement.create( currentDayColumn, "div", "day-disabled" );
-                                }
-
-                                actualDay++;
-                            }
-                        }
-
-                        if ( bindingOptions.views!.map!.showDaysInReverseOrder! ) {
-                            DomElement.reverseChildrenOrder( currentDayColumn );
-                        }
+                    if ( bindingOptions.views!.map!.showDaysInReverseOrder! ) {
+                        DomElement.reverseChildrenOrder( currentDayColumn );
                     }
     
                     if ( bindingOptions.views!.map!.showMonthNames ) {

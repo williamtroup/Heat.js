@@ -152,12 +152,10 @@ export namespace DomElement {
     }
 
     export function reverseChildrenOrder( parent: HTMLElement ) : void {
-        const children: HTMLCollection = parent.children;
-        let childrenLength: number = children.length - 1;
+        const elementsArray: Element[] = Array.from( parent.children );
 
-        for ( ; childrenLength--; ) {
-            parent.appendChild( children[ childrenLength ] );
-        }
+        elementsArray.reverse();
+        elementsArray.forEach( ( element: Element ) => parent.appendChild( element ) );
     }
 
     export function createCheckBox( container: HTMLElement, labelText: string, name: string ) : HTMLInputElement {
