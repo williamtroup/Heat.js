@@ -1114,6 +1114,7 @@ div.heat-js div.map-contents-container div.zooming {
   border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   border-radius: var(--heat-js-border-radius);
   background-color: var(--heat-js-container-background-color);
+  z-index: 10;
 }
 div.heat-js div.map-contents-container div.zooming button {
   background-color: var(--heat-js-button-background-color);
@@ -1345,12 +1346,14 @@ div.heat-js div.map-contents-container div.map-contents div.map div.months div.m
   margin-bottom: 0;
 }
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day {
+  position: relative;
   pointer-events: all;
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   transition: var(--heat-js-transition);
   transition-property: opacity, background-color, color, border-color;
   flex-direction: column;
+  z-index: 5;
 }
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day div.count-date,
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day div.count {

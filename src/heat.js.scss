@@ -963,6 +963,7 @@ div.heat-js {
             border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
             border-radius: var(--heat-js-border-radius);
             background-color: var(--heat-js-container-background-color);
+            z-index: 10;
 
             @include styles.buttons(false);
 
@@ -1105,12 +1106,14 @@ div.heat-js {
                                 }
             
                                 div.day {
+                                    position: relative;
                                     pointer-events: all;
                                     background-color: var(--heat-js-day-background-color);
                                     border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                                     transition: var(--heat-js-transition);
                                     transition-property: opacity, background-color, color, border-color;
                                     flex-direction: column;
+                                    z-index: 5;
 
                                     div.count-date,
                                     div.count {
