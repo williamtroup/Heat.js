@@ -1363,7 +1363,7 @@ var Css;
 var Animate;
 
 (e => {
-    function t(e, t, n, o) {
+    function t(e, t, n, o = true) {
         if (n > 0) {
             if (o && e.chartsAnimationDelay > 0) {
                 setTimeout(() => {
@@ -2698,14 +2698,14 @@ var Animate;
                 DomElement.addClass(s, "view-switch");
             }
         } else {
-            const o = DomElement.getStyleValueByName(r, "border-bottom-width", true);
-            const s = (r.offsetHeight - o) / l.largestValue;
-            for (const o in l.values) {
-                if (l.values.hasOwnProperty(o) && Is.dayVisible(t.views.days.daysToShow, parseInt(o))) {
-                    const a = l.valueOpacities[l.values[o]];
-                    z(r, parseInt(o), l.values[o], t, s, a, l.totalValue, n);
+            const n = DomElement.getStyleValueByName(r, "border-bottom-width", true);
+            const o = (r.offsetHeight - n) / l.largestValue;
+            for (const n in l.values) {
+                if (l.values.hasOwnProperty(n) && Is.dayVisible(t.views.days.daysToShow, parseInt(n))) {
+                    const s = l.valueOpacities[l.values[n]];
+                    z(r, parseInt(n), l.values[n], t, o, s, l.totalValue);
                     if (t.views.days.showDayNames) {
-                        DomElement.createWithHTML(i, "div", "day-name", e.text.dayNames[parseInt(o) - 1]);
+                        DomElement.createWithHTML(i, "div", "day-name", e.text.dayNames[parseInt(n) - 1]);
                     }
                 }
             }
@@ -2719,54 +2719,54 @@ var Animate;
         }
         t._currentView.daysContents.style.display = "none";
     }
-    function z(e, t, n, o, i, s, r, a) {
-        const l = DomElement.create(e, "div", "day-line");
-        const c = n * i;
-        let u = null;
-        l.setAttribute(Constant.HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME, t.toString());
-        if (c <= 0) {
-            l.style.visibility = "hidden";
+    function z(e, t, n, o, i, s, r) {
+        const a = DomElement.create(e, "div", "day-line");
+        const l = n * i;
+        let c = null;
+        a.setAttribute(Constant.HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME, t.toString());
+        if (l <= 0) {
+            a.style.visibility = "hidden";
         }
         if (o.views.days.showToolTips) {
-            ToolTip.add(l, o, Str.friendlyNumber(n));
+            ToolTip.add(a, o, Str.friendlyNumber(n));
         }
         if (Is.definedFunction(o.events.onWeekDayClick)) {
-            l.onclick = () => Trigger.customEvent(o.events.onWeekDayClick, t, n, o._currentView.year);
+            a.onclick = () => Trigger.customEvent(o.events.onWeekDayClick, t, n, o._currentView.year);
         } else if (Is.definedFunction(o.events.onWeekDayDblClick)) {
-            l.ondblclick = () => Trigger.customEvent(o.events.onWeekDayDblClick, t, n, o._currentView.year);
+            a.ondblclick = () => Trigger.customEvent(o.events.onWeekDayDblClick, t, n, o._currentView.year);
         } else {
-            DomElement.addClass(l, "no-hover");
+            DomElement.addClass(a, "no-hover");
         }
         if (o.views.days.showDayCounts && n > 0) {
-            DomElement.addClass(l, "day-line-count");
-            u = DomElement.createWithHTML(l, "div", "count", Str.friendlyNumber(n));
+            DomElement.addClass(a, "day-line-count");
+            c = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
             if (o.views.days.showDayCountPercentages) {
-                DomElement.createWithHTML(u, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
+                DomElement.createWithHTML(c, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
             }
         }
         if (o.views.days.useGradients) {
-            DomElement.addGradientEffect(o._currentView.element, l);
-            if (Is.defined(u)) {
-                DomElement.addClass(u, "blend-colors");
+            DomElement.addGradientEffect(o._currentView.element, a);
+            if (Is.defined(c)) {
+                DomElement.addClass(c, "blend-colors");
             }
         } else if (o.views.days.useDifferentOpacities) {
-            const e = DomElement.getStyleValueByName(l, "background-color");
-            const t = DomElement.getStyleValueByName(l, "border-color");
-            if (Is.defined(u)) {
-                DomElement.addClass(u, "blend-colors");
+            const e = DomElement.getStyleValueByName(a, "background-color");
+            const t = DomElement.getStyleValueByName(a, "border-color");
+            if (Is.defined(c)) {
+                DomElement.addClass(c, "blend-colors");
             }
             if (Is.rgbColor(e)) {
-                l.style.backgroundColor = Convert.toRgbOpacityColor(e, s);
+                a.style.backgroundColor = Convert.toRgbOpacityColor(e, s);
             } else if (Is.hexColor(e)) {
-                l.style.backgroundColor = Convert.toRgbOpacityColor(Convert.hexToRgba(e), s);
+                a.style.backgroundColor = Convert.toRgbOpacityColor(Convert.hexToRgba(e), s);
             }
             if (Is.rgbColor(t)) {
-                l.style.borderColor = Convert.toRgbOpacityColor(t, s);
+                a.style.borderColor = Convert.toRgbOpacityColor(t, s);
             } else if (Is.hexColor(t)) {
-                l.style.borderColor = Convert.toRgbOpacityColor(Convert.hexToRgba(t), s);
+                a.style.borderColor = Convert.toRgbOpacityColor(Convert.hexToRgba(t), s);
             }
         }
-        Animate.setHeight(o, l, c, a);
+        Animate.setHeight(o, a, l);
     }
     function G(e, t) {
         const n = {
@@ -2847,19 +2847,19 @@ var Animate;
                 DomElement.addClass(s, "view-switch");
             }
         } else {
-            const o = DomElement.getStyleValueByName(r, "border-bottom-width", true);
-            const s = (r.offsetHeight - o) / l.largestValue;
-            for (let o = t.startMonth; o < 12 + t.startMonth; o++) {
-                let a = o;
-                if (t.startMonth > 0 && o > 11) {
-                    a = o - 12;
+            const n = DomElement.getStyleValueByName(r, "border-bottom-width", true);
+            const o = (r.offsetHeight - n) / l.largestValue;
+            for (let n = t.startMonth; n < 12 + t.startMonth; n++) {
+                let s = n;
+                if (t.startMonth > 0 && n > 11) {
+                    s = n - 12;
                 }
-                const c = a + 1;
-                if (l.values.hasOwnProperty(c) && Is.monthVisible(t.views.months.monthsToShow, a)) {
-                    const o = l.valueOpacities[l.values[c]];
-                    X(r, c, l.values[c], t, s, o, l.totalValue, n);
+                const a = s + 1;
+                if (l.values.hasOwnProperty(a) && Is.monthVisible(t.views.months.monthsToShow, s)) {
+                    const n = l.valueOpacities[l.values[a]];
+                    X(r, a, l.values[a], t, o, n, l.totalValue);
                     if (t.views.months.showMonthNames) {
-                        DomElement.createWithHTML(i, "div", "month-name", e.text.monthNames[a]);
+                        DomElement.createWithHTML(i, "div", "month-name", e.text.monthNames[s]);
                     }
                 }
             }
@@ -2873,62 +2873,62 @@ var Animate;
         }
         t._currentView.monthsContents.style.display = "none";
     }
-    function X(e, t, n, o, i, s, r, a) {
-        const l = DomElement.create(e, "div", "month-line");
-        const c = n * i;
-        const u = new Date;
-        let d = null;
-        l.setAttribute(Constant.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, t.toString());
-        if (c <= 0) {
-            l.style.visibility = "hidden";
+    function X(e, t, n, o, i, s, r) {
+        const a = DomElement.create(e, "div", "month-line");
+        const l = n * i;
+        const c = new Date;
+        let u = null;
+        a.setAttribute(Constant.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, t.toString());
+        if (l <= 0) {
+            a.style.visibility = "hidden";
         }
         if (o.views.months.showToolTips) {
-            ToolTip.add(l, o, Str.friendlyNumber(n));
+            ToolTip.add(a, o, Str.friendlyNumber(n));
         }
-        let m = o._currentView.year;
+        let d = o._currentView.year;
         if (o.startMonth > 0 && t - 1 < o.startMonth) {
-            m++;
+            d++;
         }
         if (Is.definedFunction(o.events.onMonthClick)) {
-            l.onclick = () => Trigger.customEvent(o.events.onMonthClick, t, n, m);
+            a.onclick = () => Trigger.customEvent(o.events.onMonthClick, t, n, d);
         } else if (Is.definedFunction(o.events.onMonthDblClick)) {
-            l.ondblclick = () => Trigger.customEvent(o.events.onMonthDblClick, t, n, m);
+            a.ondblclick = () => Trigger.customEvent(o.events.onMonthDblClick, t, n, d);
         } else {
-            DomElement.addClass(l, "no-hover");
+            DomElement.addClass(a, "no-hover");
         }
         if (o.views.months.showMonthCounts && n > 0) {
-            DomElement.addClass(l, "month-line-count");
-            d = DomElement.createWithHTML(l, "div", "count", Str.friendlyNumber(n));
+            DomElement.addClass(a, "month-line-count");
+            u = DomElement.createWithHTML(a, "div", "count", Str.friendlyNumber(n));
             if (o.views.months.showMonthCountPercentages) {
-                DomElement.createWithHTML(d, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
+                DomElement.createWithHTML(u, "div", "percentage", `${(n / r * 100).toFixed(o.percentageDecimalPoints)}%`);
             }
         }
-        if (o.views.months.highlightCurrentMonth && u.getMonth() === t - 1 && o._currentView.year === u.getFullYear()) {
-            DomElement.addClass(l, "today");
+        if (o.views.months.highlightCurrentMonth && c.getMonth() === t - 1 && o._currentView.year === c.getFullYear()) {
+            DomElement.addClass(a, "today");
         }
         if (o.views.months.useGradients) {
-            DomElement.addGradientEffect(o._currentView.element, l);
-            if (Is.defined(d)) {
-                DomElement.addClass(d, "blend-colors");
+            DomElement.addGradientEffect(o._currentView.element, a);
+            if (Is.defined(u)) {
+                DomElement.addClass(u, "blend-colors");
             }
         } else if (o.views.months.useDifferentOpacities) {
-            const e = DomElement.getStyleValueByName(l, "background-color");
-            const t = DomElement.getStyleValueByName(l, "border-color");
-            if (Is.defined(d)) {
-                DomElement.addClass(d, "blend-colors");
+            const e = DomElement.getStyleValueByName(a, "background-color");
+            const t = DomElement.getStyleValueByName(a, "border-color");
+            if (Is.defined(u)) {
+                DomElement.addClass(u, "blend-colors");
             }
             if (Is.rgbColor(e)) {
-                l.style.backgroundColor = Convert.toRgbOpacityColor(e, s);
+                a.style.backgroundColor = Convert.toRgbOpacityColor(e, s);
             } else if (Is.hexColor(e)) {
-                l.style.backgroundColor = Convert.toRgbOpacityColor(Convert.hexToRgba(e), s);
+                a.style.backgroundColor = Convert.toRgbOpacityColor(Convert.hexToRgba(e), s);
             }
             if (Is.rgbColor(t)) {
-                l.style.borderColor = Convert.toRgbOpacityColor(t, s);
+                a.style.borderColor = Convert.toRgbOpacityColor(t, s);
             } else if (Is.hexColor(t)) {
-                l.style.borderColor = Convert.toRgbOpacityColor(Convert.hexToRgba(t), s);
+                a.style.borderColor = Convert.toRgbOpacityColor(Convert.hexToRgba(t), s);
             }
         }
-        Animate.setHeight(o, l, c, a);
+        Animate.setHeight(o, a, l);
     }
     function q(e, t) {
         const n = {

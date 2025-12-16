@@ -1874,7 +1874,7 @@ import { Animate } from "./ts/dom/animate";
                 if ( dayValuesForCurrentYear.values.hasOwnProperty( day ) && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
                     const opacity: number = dayValuesForCurrentYear.valueOpacities[ dayValuesForCurrentYear.values[ day ] ];
 
-                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ], bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue, isForViewSwitch );
+                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ], bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
                         DomElement.createWithHTML( dayNames, "div", "day-name", _configurationOptions.text!.dayNames![ parseInt( day ) - 1 ] );
@@ -1895,7 +1895,7 @@ import { Animate } from "./ts/dom/animate";
         bindingOptions._currentView!.daysContents.style.display = "none";
     }
 
-    function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number, isForViewSwitch: boolean ) : void {
+    function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number ) : void {
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
         let count: HTMLElement = null!;
@@ -1956,7 +1956,7 @@ import { Animate } from "./ts/dom/animate";
             }
         }
 
-        Animate.setHeight( bindingOptions, dayLine, dayLineHeight, isForViewSwitch );
+        Animate.setHeight( bindingOptions, dayLine, dayLineHeight );
     }
 
     function getLargestValuesForEachDay( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValueForView {
@@ -2081,7 +2081,7 @@ import { Animate } from "./ts/dom/animate";
                 if ( monthValuesForCurrentYear.values.hasOwnProperty( monthToShow ) && Is.monthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
                     const opacity: number = monthValuesForCurrentYear.valueOpacities[ monthValuesForCurrentYear.values[ monthToShow ] ];
 
-                    renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ], bindingOptions, pixelsPerNumbers, opacity, monthValuesForCurrentYear.totalValue, isForViewSwitch );
+                    renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ], bindingOptions, pixelsPerNumbers, opacity, monthValuesForCurrentYear.totalValue );
 
                     if ( bindingOptions.views!.months!.showMonthNames ) {
                         DomElement.createWithHTML( monthNames, "div", "month-name", _configurationOptions.text!.monthNames![ actualMonthIndex ] );
@@ -2102,7 +2102,7 @@ import { Animate } from "./ts/dom/animate";
         bindingOptions._currentView!.monthsContents.style.display = "none";
     }
 
-    function renderControlMonthsMonthLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number, isForViewSwitch: boolean ) : void {
+    function renderControlMonthsMonthLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number ) : void {
         const monthLine: HTMLElement = DomElement.create( monthLines, "div", "month-line" );
         const monthLineHeight: number = monthCount * pixelsPerNumbers;
         const today: Date = new Date();
@@ -2174,7 +2174,7 @@ import { Animate } from "./ts/dom/animate";
             }
         }
 
-        Animate.setHeight( bindingOptions, monthLine, monthLineHeight, isForViewSwitch );
+        Animate.setHeight( bindingOptions, monthLine, monthLineHeight );
     }
 
     function getLargestValuesForEachMonth( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValueForView {
