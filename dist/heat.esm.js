@@ -2189,7 +2189,6 @@ var Convert;
             t._currentView.mapContents.style.minHeight = "unset";
             const i = DomElement.create(t._currentView.mapContents, "div", "map");
             const s = t._currentView.year;
-            let r = false;
             if (n) {
                 DomElement.addClass(i, "view-switch");
             }
@@ -2212,8 +2211,8 @@ var Convert;
                     DomElement.reverseChildrenOrder(n);
                 }
             }
-            const a = DomElement.create(i, "div", "months");
-            const l = be(t);
+            const r = DomElement.create(i, "div", "months");
+            const a = be(t);
             for (let n = t.startMonth; n < 12 + t.startMonth; n++) {
                 let o = n;
                 let i = s;
@@ -2222,34 +2221,34 @@ var Convert;
                     i++;
                 }
                 if (Is.monthVisible(t.views.map.monthsToShow, o)) {
-                    const n = DomElement.create(a, "div", "month");
+                    const n = DomElement.create(r, "div", "month");
                     const s = DomElement.create(n, "div", "day-columns");
-                    let c = DateTime.getTotalDaysInMonth(i, o);
-                    let u = DomElement.create(s, "div", "day-column");
-                    let d = false;
-                    const m = new Date(i, o, 1);
-                    const f = DateTime.getWeekdayNumber(m);
-                    let w = 1;
-                    c += f;
-                    for (let e = 0; e < c; e++) {
-                        if (e >= f) {
-                            d = true;
+                    let l = DateTime.getTotalDaysInMonth(i, o);
+                    let c = DomElement.create(s, "div", "day-column");
+                    let u = false;
+                    const d = new Date(i, o, 1);
+                    const m = DateTime.getWeekdayNumber(d);
+                    let f = 1;
+                    l += m;
+                    for (let e = 0; e < l; e++) {
+                        if (e >= m) {
+                            u = true;
                         } else {
-                            if (Is.dayVisible(t.views.map.daysToShow, w)) {
-                                DomElement.create(u, "div", "day-disabled");
+                            if (Is.dayVisible(t.views.map.daysToShow, f)) {
+                                DomElement.create(c, "div", "day-disabled");
                             }
                         }
-                        if (d) {
+                        if (u) {
                             let n = null;
-                            if (Is.dayVisible(t.views.map.daysToShow, w)) {
-                                n = $(t, u, e - f, o, i, l);
+                            if (Is.dayVisible(t.views.map.daysToShow, f)) {
+                                n = $(t, c, e - m, o, i, a);
                             }
                             if ((e + 1) % 7 === 0) {
                                 if (t.views.map.showDaysInReverseOrder) {
-                                    DomElement.reverseChildrenOrder(u);
+                                    DomElement.reverseChildrenOrder(c);
                                 }
-                                u = DomElement.create(s, "div", "day-column");
-                                w = 0;
+                                c = DomElement.create(s, "div", "day-column");
+                                f = 0;
                                 if (t._currentView.dayWidth === 0 && Is.defined(n)) {
                                     let e = DomElement.getStyleValueByName(n, "margin-left", true);
                                     let o = DomElement.getStyleValueByName(n, "margin-right", true);
@@ -2257,9 +2256,9 @@ var Convert;
                                 }
                             }
                         }
-                        w++;
+                        f++;
                     }
-                    F(t, w, u);
+                    F(t, f, c);
                     if (t.views.map.showMonthNames) {
                         let r;
                         const a = n.offsetWidth;
@@ -2284,13 +2283,12 @@ var Convert;
                     if (t.views.map.showMonthsInReverseOrder) {
                         DomElement.reverseChildrenOrder(s);
                     }
-                    r = true;
                 }
             }
             if (t.views.map.showMonthsInReverseOrder) {
-                DomElement.reverseChildrenOrder(a);
+                DomElement.reverseChildrenOrder(r);
             }
-            R(t, a);
+            R(t, r);
             H(t, i);
             if (t.views.map.keepScrollPositions || o) {
                 t._currentView.mapContents.scrollLeft = t._currentView.mapContentsScrollLeft;

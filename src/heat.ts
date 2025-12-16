@@ -1218,7 +1218,6 @@ import { Convert } from "./ts/data/convert";
 
             const map: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContents, "div", "map" );
             const currentYear: number = bindingOptions._currentView!.year;
-            let monthAdded: boolean = false;
     
             if ( isForViewSwitch ) {
                 DomElement.addClass( map, "view-switch" );
@@ -1341,8 +1340,6 @@ import { Convert } from "./ts/data/convert";
                     if ( bindingOptions.views!.map!.showMonthsInReverseOrder ) {
                         DomElement.reverseChildrenOrder( dayColumns );
                     }
-    
-                    monthAdded = true;
                 }
             }
 
