@@ -963,7 +963,7 @@ div.heat-js {
             border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
             border-radius: var(--heat-js-border-radius);
             background-color: var(--heat-js-container-background-color);
-            z-index: 10;
+            z-index: 100;
 
             @include styles.buttons(false);
 
