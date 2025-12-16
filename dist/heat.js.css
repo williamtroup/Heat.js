@@ -1462,6 +1462,8 @@ div.heat-js div.chart-contents div.chart div.y-labels div.label-100 {
   bottom: 0;
 }
 div.heat-js div.chart-contents div.chart div.day-lines {
+  display: flex;
+  align-items: flex-end;
   flex: 1;
   border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   height: 173px !important;
@@ -1489,13 +1491,13 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   border-bottom: none !important;
-  vertical-align: bottom;
   min-width: var(--heat-js-day-chart-width);
   margin-right: var(--heat-js-day-chart-spacing);
   display: inline-flex;
   transition: var(--heat-js-transition);
   align-items: center;
   justify-content: center;
+  height: 0;
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line:first-child {
   margin-left: calc(var(--heat-js-spacing) / 2);
@@ -1594,7 +1596,7 @@ div.heat-js div.days-contents div.days div.y-labels div.label-100 {
 }
 div.heat-js div.days-contents div.days div.day-lines {
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
   flex: 1;
   border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   justify-content: space-between;
@@ -1627,11 +1629,11 @@ div.heat-js div.days-contents div.days div.day-lines div.day-line {
   background-color: var(--heat-js-view-days-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
   border-bottom: none !important;
-  vertical-align: bottom;
   flex: 1 100%;
   margin-right: var(--heat-js-spacing);
   display: inline-block;
   transition: var(--heat-js-transition);
+  height: 0;
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line:first-child {
   margin-left: calc(var(--heat-js-spacing) / 2);
@@ -1729,7 +1731,7 @@ div.heat-js div.months-contents div.months div.y-labels div.label-100 {
 }
 div.heat-js div.months-contents div.months div.month-lines {
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
   flex: 1;
   border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   justify-content: space-between;
@@ -1765,11 +1767,11 @@ div.heat-js div.months-contents div.months div.month-lines div.month-line {
   background-color: var(--heat-js-view-months-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-view-months-border-color);
   border-bottom: none !important;
-  vertical-align: bottom;
   flex: 1 100%;
   margin-right: var(--heat-js-spacing);
   display: inline-block;
   transition: var(--heat-js-transition);
+  height: 0;
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line:first-child {
   margin-left: calc(var(--heat-js-spacing) / 2);
@@ -1867,7 +1869,7 @@ div.heat-js div.statistics-contents div.statistics div.y-labels div.label-100 {
 }
 div.heat-js div.statistics-contents div.statistics div.range-lines {
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
   flex: 1;
   border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   justify-content: space-between;
@@ -1896,11 +1898,11 @@ div.heat-js div.statistics-contents div.statistics div.range-lines div.range-lin
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   border-bottom: none !important;
-  vertical-align: bottom;
   flex: 1 100%;
   margin-right: var(--heat-js-spacing);
   display: inline-block;
   transition: var(--heat-js-transition);
+  height: 0;
 }
 div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line:first-child {
   margin-left: calc(var(--heat-js-spacing) / 2);

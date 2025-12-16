@@ -40,6 +40,7 @@ import { Import } from "./ts/files/import";
 import { Export } from "./ts/files/export";
 import { Convert } from "./ts/data/convert";
 import { Css } from "./ts/css";
+import { Animate } from "./ts/dom/animate";
 
 
 ( () => {
@@ -1639,7 +1640,7 @@ import { Css } from "./ts/css";
                         const weekdayNumber: number = DateTime.getWeekdayNumber( actualDate ) + 1;
                         
                         if ( Is.dayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
-                            const dayLine: HTMLElement = renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, pixelsPerNumbers );
+                            const dayLine: HTMLElement = renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, pixelsPerNumbers, isForViewSwitch );
 
                             if ( !firstDayAdded ) {
                                 firstMonthDayLines.push( dayLine );
@@ -1719,7 +1720,7 @@ import { Css } from "./ts/css";
         bindingOptions._currentView!.chartContents.style.display = "none";
     }
 
-    function renderControlChartDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number ) : HTMLElement {
+    function renderControlChartDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, isForViewSwitch: boolean ) : HTMLElement {
         const date: Date = new Date( year, month, day );
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
@@ -1746,7 +1747,6 @@ import { Css } from "./ts/css";
         }
 
         const dayLineHeight: number = dateCount * pixelsPerNumbers;
-        dayLine.style.height = `${dayLineHeight}px`;
 
         if ( dayLineHeight <= 0 ) {
             dayLine.style.visibility = "hidden";
@@ -1777,6 +1777,8 @@ import { Css } from "./ts/css";
         if ( bindingOptions.views!.chart!.useGradients ) {
             DomElement.addGradientEffect( bindingOptions._currentView!.element, dayLine );
         }
+
+        Animate.setHeight( bindingOptions, dayLine, dayLineHeight, isForViewSwitch );
 
         return dayLine;
     }
@@ -1870,7 +1872,7 @@ import { Css } from "./ts/css";
                 if ( dayValuesForCurrentYear.values.hasOwnProperty( day ) && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
                     const opacity: number = dayValuesForCurrentYear.valueOpacities[ dayValuesForCurrentYear.values[ day ] ];
 
-                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ], bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue );
+                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ], bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue, isForViewSwitch );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
                         DomElement.createWithHTML( dayNames, "div", "day-name", _configurationOptions.text!.dayNames![ parseInt( day ) - 1 ] );
@@ -1891,12 +1893,11 @@ import { Css } from "./ts/css";
         bindingOptions._currentView!.daysContents.style.display = "none";
     }
 
-    function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number ) : void {
+    function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number, isForViewSwitch: boolean ) : void {
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
         let count: HTMLElement = null!;
 
-        dayLine.style.height = `${dayLineHeight}px`;
         dayLine.setAttribute( Constant.HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME, dayNumber.toString() );
 
         if ( dayLineHeight <= 0 ) {
@@ -1952,6 +1953,8 @@ import { Css } from "./ts/css";
                 dayLine.style.borderColor = Convert.toRgbOpacityColor( Convert.hexToRgba( borderColor ), opacityIncrease );
             }
         }
+
+        Animate.setHeight( bindingOptions, dayLine, dayLineHeight, isForViewSwitch );
     }
 
     function getLargestValuesForEachDay( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValueForView {
@@ -2075,7 +2078,7 @@ import { Css } from "./ts/css";
                 if ( monthValuesForCurrentYear.values.hasOwnProperty( monthToShow ) && Is.monthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
                     const opacity: number = monthValuesForCurrentYear.valueOpacities[ monthValuesForCurrentYear.values[ monthToShow ] ];
 
-                    renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ], bindingOptions, pixelsPerNumbers, opacity, monthValuesForCurrentYear.totalValue );
+                    renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ], bindingOptions, pixelsPerNumbers, opacity, monthValuesForCurrentYear.totalValue, isForViewSwitch );
 
                     if ( bindingOptions.views!.months!.showMonthNames ) {
                         DomElement.createWithHTML( monthNames, "div", "month-name", _configurationOptions.text!.monthNames![ actualMonthIndex ] );
@@ -2096,13 +2099,12 @@ import { Css } from "./ts/css";
         bindingOptions._currentView!.monthsContents.style.display = "none";
     }
 
-    function renderControlMonthsMonthLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number ) : void {
+    function renderControlMonthsMonthLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number, isForViewSwitch: boolean ) : void {
         const monthLine: HTMLElement = DomElement.create( monthLines, "div", "month-line" );
         const monthLineHeight: number = monthCount * pixelsPerNumbers;
         const today: Date = new Date();
         let count: HTMLElement = null!;
 
-        monthLine.style.height = `${monthLineHeight}px`;
         monthLine.setAttribute( Constant.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, monthNumber.toString() );
 
         if ( monthLineHeight <= 0 ) {
@@ -2168,6 +2170,8 @@ import { Css } from "./ts/css";
                 monthLine.style.borderColor = Convert.toRgbOpacityColor( Convert.hexToRgba( borderColor ), opacityIncrease );
             }
         }
+
+        Animate.setHeight( bindingOptions, monthLine, monthLineHeight, isForViewSwitch );
     }
 
     function getLargestValuesForEachMonth( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValueForView {
@@ -2291,7 +2295,7 @@ import { Css } from "./ts/css";
 
             for ( const type in colorRangeValuesForCurrentYear.types ) {
                 if ( colorRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
-                    renderControlStatisticsRangeLine( parseInt( type ), rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers, colorRangeValuesForCurrentYear.totalValue );
+                    renderControlStatisticsRangeLine( parseInt( type ), rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers, colorRangeValuesForCurrentYear.totalValue, isForViewSwitch );
 
                     const useColorRange: BindingOptionsColorRange = getColorRangeByMinimum( colorRanges, parseInt( type ) );
 
@@ -2318,12 +2322,10 @@ import { Css } from "./ts/css";
         bindingOptions._currentView!.statisticsContents.style.display = "none";
     }
 
-    function renderControlStatisticsRangeLine( colorRangeMinimum: number, dayLines: HTMLElement, rangeCount: number, bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, totalValue: number ) : void {
+    function renderControlStatisticsRangeLine( colorRangeMinimum: number, dayLines: HTMLElement, rangeCount: number, bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, totalValue: number, isForViewSwitch: boolean ) : void {
         const rangeLine: HTMLElement = DomElement.create( dayLines, "div", "range-line" );
         const useColorRange: BindingOptionsColorRange = getColorRangeByMinimum( colorRanges, colorRangeMinimum );
         const rangeLineHeight: number = rangeCount * pixelsPerNumbers;
-
-        rangeLine.style.height = `${rangeLineHeight}px`;
 
         if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) ) {
             rangeLine.setAttribute( Constant.HEAT_JS_STATISTICS_COLOR_RANGE_NAME_ATTRIBUTE_NAME, useColorRange.name! );
@@ -2373,6 +2375,8 @@ import { Css } from "./ts/css";
         if ( bindingOptions.views!.statistics!.useGradients ) {
             DomElement.addGradientEffect( bindingOptions._currentView!.element, rangeLine );
         }
+
+        Animate.setHeight( bindingOptions, rangeLine, rangeLineHeight, isForViewSwitch );
     }
 
     function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValuesForEachRangeType {

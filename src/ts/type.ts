@@ -129,6 +129,7 @@ export type BindingOptions = {
     allowMultipleFileImports?: boolean;
     percentageDecimalPoints?: number;
     allowTypeAdding?: boolean;
+    chartsAnimationDelay?: number;
     colorRanges?: BindingOptionsColorRange[];
     holidays?: BindingOptionsHoliday[];
     title?: BindingOptionsTitle;
