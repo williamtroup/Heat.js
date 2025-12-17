@@ -1281,7 +1281,7 @@ import { Animate } from "./ts/dom/animate";
                     let startFillingDays: boolean = false;
                     let actualDay: number = 1;
 
-                    month.setAttribute( Constant.HEAT_JS_MAP_MONTH_ATTRIBUTE_NAME, `${actualMonthIndex + 1}` );
+                    month.setAttribute( Constant.HEAT_JS_MAP_MONTH_NUMBER_ATTRIBUTE_NAME, `${actualMonthIndex + 1}` );
         
                     totalDaysInMonth += firstDayNumberInMonth;
         

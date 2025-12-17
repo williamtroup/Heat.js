@@ -14,7 +14,7 @@
 export namespace Constant {
     export const HEAT_JS_ATTRIBUTE_NAME: string = "data-heat-js";
     export const HEAT_JS_MAP_DATE_ATTRIBUTE_NAME: string = "data-heat-js-map-date";
-    export const HEAT_JS_MAP_MONTH_ATTRIBUTE_NAME: string = "data-heat-js-month";
+    export const HEAT_JS_MAP_MONTH_NUMBER_ATTRIBUTE_NAME: string = "data-heat-js-month-number";
     export const HEAT_JS_CHART_DATE_ATTRIBUTE_NAME: string = "data-heat-js-chart-date";
     export const HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME: string = "data-heat-js-day-number";
     export const HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME: string = "data-heat-js-month-number";

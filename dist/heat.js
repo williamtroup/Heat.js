@@ -5,7 +5,7 @@ var Constant;
 (e => {
     e.HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
     e.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME = "data-heat-js-map-date";
-    e.HEAT_JS_MAP_MONTH_ATTRIBUTE_NAME = "data-heat-js-month";
+    e.HEAT_JS_MAP_MONTH_NUMBER_ATTRIBUTE_NAME = "data-heat-js-month-number";
     e.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME = "data-heat-js-chart-date";
     e.HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME = "data-heat-js-day-number";
     e.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME = "data-heat-js-month-number";
@@ -1789,7 +1789,7 @@ var Animate;
                             n.items.add(e.dataTransfer.files[o]);
                         }
                     }
-                    x(t, n.files);
+                    b(t, n.files);
                 }
             };
         }
@@ -1804,10 +1804,10 @@ var Animate;
         o.type = "file";
         o.accept = t.join(", ");
         o.multiple = e.allowMultipleFileImports;
-        o.onchange = () => x(e, o.files);
+        o.onchange = () => b(e, o.files);
         o.click();
     }
-    function x(t, n) {
+    function b(t, n) {
         if (n.length <= 0) {
             t._currentView.importDialogDragAndDrop.innerHTML = e.text.dragAndDropFilesText;
             t._currentView.importDialogImportButton.disabled = true;
@@ -1821,11 +1821,11 @@ var Animate;
                 const s = DomElement.createWithHTML(t._currentView.importDialogDragAndDrop, "div", "filename", `<b>${i + 1}</b>. ${o}`);
                 const r = DomElement.create(s, "div", "remove");
                 ToolTip.add(r, t, e.text.removeButtonText);
-                r.onclick = () => b(t, i);
+                r.onclick = () => x(t, i);
             }
         }
     }
-    function b(e, t) {
+    function x(e, t) {
         const n = new DataTransfer;
         const o = e._currentView.importDialogFileList.length;
         for (let i = 0; i < o; i++) {
@@ -1833,7 +1833,7 @@ var Animate;
                 n.items.add(e._currentView.importDialogFileList[i]);
             }
         }
-        x(e, n.files);
+        b(e, n.files);
     }
     function V(t, n) {
         const o = t.length;
@@ -2264,7 +2264,7 @@ var Animate;
                     let d = DomElement.create(s, "div", "day-column");
                     let m = false;
                     let f = 1;
-                    n.setAttribute(Constant.HEAT_JS_MAP_MONTH_ATTRIBUTE_NAME, `${o + 1}`);
+                    n.setAttribute(Constant.HEAT_JS_MAP_MONTH_NUMBER_ATTRIBUTE_NAME, `${o + 1}`);
                     u += c;
                     for (let e = 0; e < u; e++) {
                         if (e >= c) {
@@ -2451,7 +2451,7 @@ var Animate;
         } else {
             DomElement.addClass(c, "no-hover");
         }
-        const f = xe(t, a, m, u);
+        const f = be(t, a, m, u);
         if (Is.defined(f) && De(t, f.id)) {
             if (Is.definedString(f.mapCssClassName)) {
                 DomElement.addClass(c, f.mapCssClassName);
@@ -2626,7 +2626,7 @@ var Animate;
         } else {
             DomElement.addClass(u, "no-hover");
         }
-        const w = xe(n, r, m, c);
+        const w = be(n, r, m, c);
         if (Is.defined(w) && De(n, w.id)) {
             if (Is.definedString(w.chartCssClassName)) {
                 DomElement.addClass(u, w.chartCssClassName);
@@ -2805,7 +2805,7 @@ var Animate;
                         const c = DateTime.getWeekdayNumber(l) + 1;
                         if (!Is.holiday(e, l).matched && Is.dayVisible(e.views.days.daysToShow, c)) {
                             const s = o[i];
-                            const r = xe(e, t, s);
+                            const r = be(e, t, s);
                             if (!Is.defined(r) || r.visible) {
                                 n.values[c] += s;
                                 n.totalValue += s;
@@ -2973,7 +2973,7 @@ var Animate;
                         const u = DateTime.getWeekdayNumber(c) + 1;
                         if (!Is.holiday(e, c).matched && Is.dayVisible(e.views.days.daysToShow, u)) {
                             const r = o[s];
-                            const a = xe(e, t, r);
+                            const a = be(e, t, r);
                             if (!Is.defined(a) || a.visible) {
                                 n.values[i] += r;
                                 n.totalValue += r;
@@ -3027,7 +3027,7 @@ var Animate;
             for (const e in l.types) {
                 if (l.types.hasOwnProperty(e)) {
                     Q(parseInt(e), r, l.types[e], t, a, o, l.totalValue, n);
-                    const s = be(a, parseInt(e));
+                    const s = xe(a, parseInt(e));
                     if (t.views.statistics.showColorRangeLabels) {
                         if (!t.views.statistics.useColorRangeNamesForLabels || !Is.defined(s) || !Is.definedString(s.name)) {
                             DomElement.createWithHTML(i, "div", "range-name", `${e}${"+"}`);
@@ -3049,7 +3049,7 @@ var Animate;
     }
     function Q(e, t, n, o, i, s, r, a) {
         const l = DomElement.create(t, "div", "range-line");
-        const c = be(i, e);
+        const c = xe(i, e);
         const u = n * s;
         if (Is.defined(c) && Is.definedString(c.name)) {
             l.setAttribute(Constant.HEAT_JS_STATISTICS_COLOR_RANGE_NAME_ATTRIBUTE_NAME, c.name);
@@ -3115,7 +3115,7 @@ var Animate;
                         const l = new Date(a, r, s + 1);
                         const c = DateTime.getWeekdayNumber(l) + 1;
                         if (!Is.holiday(e, l).matched && Is.dayVisible(e.views.statistics.daysToShow, c)) {
-                            const s = xe(e, t, n[o]);
+                            const s = be(e, t, n[o]);
                             const r = Is.defined(s) ? s.minimum.toString() : "0";
                             if (!i.types.hasOwnProperty(r)) {
                                 i.types[r] = 0;
@@ -3452,7 +3452,7 @@ var Animate;
             }
         }
     }
-    function xe(e, t, n, o = null) {
+    function be(e, t, n, o = null) {
         let i = null;
         if (Is.defined(o) && Is.holiday(e, o).matched) {
             i = {
@@ -3475,7 +3475,7 @@ var Animate;
         }
         return i;
     }
-    function be(e, t) {
+    function xe(e, t) {
         const n = e.length;
         let o = null;
         for (let i = 0; i < n; i++) {
