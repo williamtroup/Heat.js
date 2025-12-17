@@ -1463,6 +1463,7 @@ import { Animate } from "./ts/dom/animate";
 
                 bindingOptions._currentView!.mapZoomLevel++;
                 bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${sizingMetric}` );
+                bindingOptions._currentView!.dayWidth = 0;
 
                 zoomOutButton.disabled = false;
                 zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%`;
@@ -1478,6 +1479,7 @@ import { Animate } from "./ts/dom/animate";
 
                     bindingOptions._currentView!.mapZoomLevel--;
                     bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${sizingMetric}` );
+                    bindingOptions._currentView!.dayWidth = 0;
                     
                     zoomOutButton.disabled = bindingOptions._currentView!.mapZoomLevel === 0;
                     zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10) }%`;
