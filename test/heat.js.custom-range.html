@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="../dist/heat.js.css">
         <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
         <script src="../dist/heat.js"></script>
+        <script src="js/scripts.js"></script>
     </head>
 
     <body>
@@ -30,9 +31,6 @@
     </body>
 
     <script>
-        document.title += " - v" + $heat.getVersion();
-        document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
-
         function bindingOptions() {
             return {
                 "allowTypeAdding": true,
@@ -65,22 +63,6 @@
                     "enabled": true
                 }
             };
-        }
-
-        function onMapDayClick( date, count, isHoliday ) {
-            console.log( "Day clicked for: " + date.toString() + ", Count: " + count + ", Is Holiday: " + isHoliday.toString() );
-        }
-
-        function onStatisticClick( colorRange, count, year ) {
-            console.log( "Statistic clicked for: " + JSON.stringify( colorRange ) + ", Count: " + count + ", Year: " + year );
-        }
-
-        function onWeekDayClick( day, count, year ) {
-            console.log( "Week day clicked for: " + day + ", Count: " + count + ", Year: " + year );
-        }
-
-        function onMonthClick( day, count, year ) {
-            console.log( "Month clicked for: " + day + ", Count: " + count + ", Year: " + year );
         }
         
         document.addEventListener( "DOMContentLoaded", function() {

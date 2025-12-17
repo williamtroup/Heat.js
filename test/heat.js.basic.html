@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="../dist/heat.js.css">
         <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
         <script src="../dist/heat.js"></script>
+        <script src="js/scripts.js"></script>
     </head>
 
     <body>
@@ -25,13 +26,6 @@
     </body>
 
     <script>
-        document.title += " - v" + $heat.getVersion();
-        document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
-
-        function onMapDayClick( date, count, isHoliday ) {
-            console.log( "Day clicked for: " + date.toString() + ", Count: " + count + ", Is Holiday: " + isHoliday.toString() );
-        }
-
         document.addEventListener( "DOMContentLoaded", function() {
             let date = new Date( new Date().getFullYear(), 0, 1 );
 

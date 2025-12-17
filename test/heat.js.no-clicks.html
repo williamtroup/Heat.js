@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="../dist/heat.js.css">
         <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
         <script src="../dist/heat.js"></script>
+        <script src="js/scripts.js"></script>
     </head>
 
     <body>
@@ -25,9 +26,6 @@
     </body>
 
     <script>
-        document.title += " - v" + $heat.getVersion();
-        document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
-
         document.addEventListener( "DOMContentLoaded", function() {
             const date = new Date( new Date().getFullYear(), 0, 1 );
 
