@@ -1094,7 +1094,7 @@ import { Animate } from "./ts/dom/animate";
             const yearCount: number = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfYear, endOfYear );
 
             if ( bindingOptions.yearlyStatistics!.showToday ) {
-                let todaysCount: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( today ) ];
+                let todaysCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( today ) ];
                 const todaysBox: HTMLElement = DomElement.create( yearlyStatistics, "div", "statistics-box" );
                 const weekdayNumber: number = DateTime.getWeekdayNumber( today ) + 1;
 
@@ -1194,7 +1194,7 @@ import { Animate } from "./ts/dom/animate";
         let currentDate: Date = new Date( from );
 
         while ( currentDate < to ) {
-            const count: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( currentDate ) ];
+            const count: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( currentDate ) ];
             const weekdayNumber: number = DateTime.getWeekdayNumber( currentDate ) + 1;
 
             if ( Is.monthVisible( monthsToShow, currentDate.getMonth() ) && Is.dayVisible( daysToShow, weekdayNumber ) && Is.definedNumber( count ) ) {
@@ -1507,7 +1507,7 @@ import { Animate } from "./ts/dom/animate";
         const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day" );
         const date: Date = new Date( year, month, actualDay );
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
-        let dateCount: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ][ DateTime.toStorageDate( date ) ];
+        let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
 
         dateCount = Default.getNumber( dateCount, 0 );
 

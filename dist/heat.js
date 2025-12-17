@@ -271,7 +271,7 @@ var DateTime;
     }
     e.getCustomFormattedDateText = i;
     function s(e) {
-        return e.getFullYear() + "-" + Str.padNumber(e.getMonth() + 1) + "-" + Str.padNumber(e.getDate());
+        return `${e.getFullYear()}${"-"}${Str.padNumber(e.getMonth() + 1)}${"-"}${Str.padNumber(e.getDate())}`;
     }
     e.toStorageDate = s;
     function r(e) {
@@ -2121,70 +2121,70 @@ var Animate;
         return i;
     }
     function N(t) {
-        const o = new Date;
-        const i = t._currentView.year === o.getFullYear();
-        if (t.yearlyStatistics.enabled && (!t.yearlyStatistics.showOnlyForCurrentYear || i)) {
-            const s = DomElement.create(t._currentView.element, "div", "yearly-statistics");
-            const r = Visible.days(t);
-            const a = Visible.months(t);
-            const l = new Date(t._currentView.year, t.startMonth, 1);
-            const c = new Date(t._currentView.year + 1, t.startMonth, 1);
-            const u = L(t, r, a, l, c);
+        const n = new Date;
+        const o = t._currentView.year === n.getFullYear();
+        if (t.yearlyStatistics.enabled && (!t.yearlyStatistics.showOnlyForCurrentYear || o)) {
+            const i = DomElement.create(t._currentView.element, "div", "yearly-statistics");
+            const s = Visible.days(t);
+            const r = Visible.months(t);
+            const a = new Date(t._currentView.year, t.startMonth, 1);
+            const l = new Date(t._currentView.year + 1, t.startMonth, 1);
+            const c = L(t, s, r, a, l);
             if (t.yearlyStatistics.showToday) {
-                let a = n[t._currentView.element.id].typeData[t._currentView.type][DateTime.toStorageDate(o)];
-                const l = DomElement.create(s, "div", "statistics-box");
-                const c = DateTime.getWeekdayNumber(o) + 1;
-                if (!Is.defined(a) || !Is.dayVisible(r, c)) {
-                    a = 0;
+                let r = ue(t)[DateTime.toStorageDate(n)];
+                const a = DomElement.create(i, "div", "statistics-box");
+                const l = DateTime.getWeekdayNumber(n) + 1;
+                if (!Is.defined(r) || !Is.dayVisible(s, l)) {
+                    r = 0;
                 }
-                const d = i ? Str.friendlyNumber(a) : e.text.unavailableText;
-                DomElement.createWithHTML(l, "div", "statistics-box-title", `${e.text.todayText}${":"}`);
-                const m = DomElement.createWithHTML(l, "div", "statistics-box-count", d);
-                if (!i) {
-                    DomElement.addClass(m, "unavailable");
+                const u = o ? Str.friendlyNumber(r) : e.text.unavailableText;
+                DomElement.createWithHTML(a, "div", "statistics-box-title", `${e.text.todayText}${":"}`);
+                const d = DomElement.createWithHTML(a, "div", "statistics-box-count", u);
+                if (!o) {
+                    DomElement.addClass(d, "unavailable");
                 }
-                k(t, m, u, a, i);
+                k(t, d, c, r, o);
             }
             if (t.yearlyStatistics.showThisWeek) {
                 let n = 0;
-                if (i) {
+                if (o) {
                     const e = DateTime.getDateForMondayOfCurrentWeek();
                     const o = new Date(e);
                     o.setDate(e.getDate() + 7);
-                    n = L(t, r, a, e, o);
+                    n = L(t, s, r, e, o);
                 }
-                const o = i ? Str.friendlyNumber(n) : e.text.unavailableText;
-                const l = DomElement.create(s, "div", "statistics-box");
+                const a = o ? Str.friendlyNumber(n) : e.text.unavailableText;
+                const l = DomElement.create(i, "div", "statistics-box");
                 DomElement.createWithHTML(l, "div", "statistics-box-title", `${e.text.thisWeekText}${":"}`);
-                const c = DomElement.createWithHTML(l, "div", "statistics-box-count", o);
-                if (!i) {
-                    DomElement.addClass(c, "unavailable");
+                const u = DomElement.createWithHTML(l, "div", "statistics-box-count", a);
+                if (!o) {
+                    DomElement.addClass(u, "unavailable");
                 }
-                k(t, c, u, n, i);
+                k(t, u, c, n, o);
             }
             if (t.yearlyStatistics.showThisMonth) {
-                let n = 0;
-                if (i) {
-                    const e = new Date(o.getFullYear(), o.getMonth(), 1);
-                    const i = new Date(o.getFullYear(), o.getMonth(), DateTime.getTotalDaysInMonth(o.getFullYear(), o.getMonth()) + 1);
-                    n = L(t, r, a, e, i);
+                let a = 0;
+                if (o) {
+                    const e = new Date(n.getFullYear(), n.getMonth(), 1);
+                    const o = new Date(n.getFullYear(), n.getMonth(), DateTime.getTotalDaysInMonth(n.getFullYear(), n.getMonth()) + 1);
+                    a = L(t, s, r, e, o);
                 }
-                const l = i ? Str.friendlyNumber(n) : e.text.unavailableText;
-                const c = DomElement.create(s, "div", "statistics-box");
-                DomElement.createWithHTML(c, "div", "statistics-box-title", `${e.text.thisMonthText}${":"}`);
-                const d = DomElement.createWithHTML(c, "div", "statistics-box-count", l);
-                if (!i) {
+                const l = o ? Str.friendlyNumber(a) : e.text.unavailableText;
+                const u = DomElement.create(i, "div", "statistics-box");
+                DomElement.createWithHTML(u, "div", "statistics-box-title", `${e.text.thisMonthText}${":"}`);
+                const d = DomElement.createWithHTML(u, "div", "statistics-box-count", l);
+                if (!o) {
                     DomElement.addClass(d, "unavailable");
                 }
-                k(t, d, u, n, i);
+                k(t, d, c, a, o);
             }
             if (t.yearlyStatistics.showThisYear) {
-                const t = DomElement.create(s, "div", "statistics-box");
+                const t = DomElement.create(i, "div", "statistics-box");
                 DomElement.createWithHTML(t, "div", "statistics-box-title", `${e.text.thisYearText}${":"}`);
-                DomElement.createWithHTML(t, "div", "statistics-box-count", Str.friendlyNumber(u));
+                DomElement.createWithHTML(t, "div", "statistics-box-count", Str.friendlyNumber(c));
             }
-            if (s.innerHTML === "") {
-                s.parentNode.removeChild(s);
+            if (i.innerHTML === "") {
+                i.parentNode.removeChild(i);
             }
         }
     }
@@ -2200,18 +2200,18 @@ var Animate;
             }
         }
     }
-    function L(e, t, o, i, s) {
-        let r = 0;
-        let a = new Date(i);
-        while (a < s) {
-            const i = n[e._currentView.element.id].typeData[e._currentView.type][DateTime.toStorageDate(a)];
-            const s = DateTime.getWeekdayNumber(a) + 1;
-            if (Is.monthVisible(o, a.getMonth()) && Is.dayVisible(t, s) && Is.definedNumber(i)) {
-                r += i;
+    function L(e, t, n, o, i) {
+        let s = 0;
+        let r = new Date(o);
+        while (r < i) {
+            const o = ue(e)[DateTime.toStorageDate(r)];
+            const i = DateTime.getWeekdayNumber(r) + 1;
+            if (Is.monthVisible(n, r.getMonth()) && Is.dayVisible(t, i) && Is.definedNumber(o)) {
+                s += o;
             }
-            a.setDate(a.getDate() + 1);
+            r.setDate(r.getDate() + 1);
         }
-        return r;
+        return s;
     }
     function F(t, n = false, o) {
         t._currentView.mapContentsContainer = DomElement.create(t._currentView.element, "div", "map-contents-container");
@@ -2432,42 +2432,42 @@ var Animate;
             }
         }
     }
-    function W(t, o, i, s, r, a) {
-        const l = i + 1;
-        const c = DomElement.create(o, "div", "day");
-        const u = new Date(r, s, l);
-        const d = Is.holiday(t, u);
-        let m = n[t._currentView.element.id].typeData[t._currentView.type][DateTime.toStorageDate(u)];
-        m = Default2.getNumber(m, 0);
-        c.setAttribute(Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber(l)}-${Str.padNumber(s + 1)}-${r}`);
+    function W(t, n, o, i, s, r) {
+        const a = o + 1;
+        const l = DomElement.create(n, "div", "day");
+        const c = new Date(s, i, a);
+        const u = Is.holiday(t, c);
+        let d = ue(t)[DateTime.toStorageDate(c)];
+        d = Default2.getNumber(d, 0);
+        l.setAttribute(Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber(a)}-${Str.padNumber(i + 1)}-${s}`);
         if (t.views.map.showToolTips) {
-            se(t, c, u, m, t.views.map.dayToolTipText, t.events.onMapDayToolTipRender, d.matched, t.views.map.showCountsInToolTips);
+            se(t, l, c, d, t.views.map.dayToolTipText, t.events.onMapDayToolTipRender, u.matched, t.views.map.showCountsInToolTips);
         }
         if (t.views.map.showDayDateNumbers) {
-            DomElement.createWithHTML(c, "div", "count-date", `${l.toString()}<sup>${DateTime.getDayOrdinal(e, l)}</sup>`);
+            DomElement.createWithHTML(l, "div", "count-date", `${a.toString()}<sup>${DateTime.getDayOrdinal(e, a)}</sup>`);
         }
-        if (t.views.map.showDayCounts && m > 0) {
-            DomElement.createWithHTML(c, "div", "count", Str.friendlyNumber(m));
+        if (t.views.map.showDayCounts && d > 0) {
+            DomElement.createWithHTML(l, "div", "count", Str.friendlyNumber(d));
         }
         if (Is.definedFunction(t.events.onMapDayClick)) {
-            c.onclick = () => Trigger.customEvent(t.events.onMapDayClick, u, m, d.matched);
+            l.onclick = () => Trigger.customEvent(t.events.onMapDayClick, c, d, u.matched);
         } else if (Is.definedFunction(t.events.onMapDayDblClick)) {
-            c.ondblclick = () => Trigger.customEvent(t.events.onMapDayDblClick, u, m, d.matched);
+            l.ondblclick = () => Trigger.customEvent(t.events.onMapDayDblClick, c, d, u.matched);
         } else {
-            DomElement.addClass(c, "no-hover");
+            DomElement.addClass(l, "no-hover");
         }
-        const f = be(t, a, m, u);
-        if (Is.defined(f) && De(t, f.id)) {
-            if (Is.definedString(f.mapCssClassName)) {
-                DomElement.addClass(c, f.mapCssClassName);
+        const m = be(t, r, d, c);
+        if (Is.defined(m) && De(t, m.id)) {
+            if (Is.definedString(m.mapCssClassName)) {
+                DomElement.addClass(l, m.mapCssClassName);
             } else {
-                DomElement.addClass(c, f.cssClassName);
+                DomElement.addClass(l, m.cssClassName);
             }
         }
-        if (t.views.map.highlightCurrentDay && DateTime.isTodaysDate(u)) {
-            DomElement.addClass(c, "today");
+        if (t.views.map.highlightCurrentDay && DateTime.isTodaysDate(c)) {
+            DomElement.addClass(l, "today");
         }
-        return c;
+        return l;
     }
     function P(e) {
         let t = false;

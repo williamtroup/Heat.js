@@ -62,7 +62,7 @@ export namespace DateTime {
     }
 
     export function toStorageDate( date: Date ) : string {
-        return date.getFullYear() + Char.dash + Str.padNumber( date.getMonth() + 1 ) + Char.dash + Str.padNumber( date.getDate() );
+        return `${date.getFullYear()}${Char.dash}${Str.padNumber(date.getMonth() + 1)}${Char.dash}${Str.padNumber(date.getDate())}`;
     }
 
     export function getStorageDateYear( data: string ) : string {
