@@ -25,6 +25,7 @@ export enum Char {
     pipe = "|",
     hash = "#",
     equals = "=",
+    dot = ".",
 }
 
 export enum Value {

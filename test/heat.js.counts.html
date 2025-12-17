@@ -21,11 +21,44 @@
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-js="{ 'events': { 'onMapDayClick': onMapDayClick }, 'views': { 'map': { 'showDayDateNumbers': true, 'showDayCounts': true }, 'chart': { 'showLineDateNumbers': true, 'showLineCounts': true }, 'statistics': { 'showRangeCounts': true }, 'days': { 'showDayCounts': true }, 'months': { 'showMonthCounts': true } }, 'description': { 'text': 'A basic example of how to use Heat.js.' }, 'guide': { 'showNumbersInGuide': true } }"></div>
+            <div id="heat-map-1" data-heat-js="getBindingOptions();"></div>
         </div>
     </body>
 
     <script>
+        function getBindingOptions() {
+            return {
+                "events": {
+                    "onMapDayClick": onMapDayClick
+                },
+                "views": {
+                    "map": {
+                        "showDayDateNumbers": true,
+                        "showDayCounts": true
+                    },
+                    "chart": {
+                        "showLineDateNumbers": true,
+                        "showLineCounts": true
+                    },
+                    "statistics": {
+                        "showRangeCounts": true
+                    },
+                    "days": {
+                        "showDayCounts": true
+                    },
+                    "months": {
+                        "showMonthCounts": true
+                    }
+                },
+                "description": {
+                    "text": "A basic example of how to use Heat.js."
+                },
+                "guide": {
+                    "showNumbersInGuide": true
+                }
+            }
+        }
+
         addStartUpBasicData();
     </script>
 </html>

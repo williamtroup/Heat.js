@@ -21,11 +21,20 @@
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-js="{ 'events': { 'onMapDayClick': onMapDayClick, 'onDataFetch': onPullData } }"></div>
+            <div id="heat-map-1" data-heat-js="getBindingOptions()"></div>
         </div>
     </body>
 
     <script>
+        function getBindingOptions() {
+            return {
+                "events": {
+                    "onMapDayClick": onMapDayClick,
+                    "onDataFetch": onPullData
+                }
+            };
+        }
+
         function onPullData( elementId ) {
             let result = {};
             const date = new Date( new Date().getFullYear(), 0, 1 );

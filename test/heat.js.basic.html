@@ -21,11 +21,22 @@
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-js="{ 'events': { 'onMapDayClick': onMapDayClick }, 'description': { 'text': 'A basic example of how to use Heat.js.' } }"></div>
+            <div id="heat-map-1" data-heat-js="getBindingOptions()"></div>
         </div>
     </body>
 
     <script>
+        function getBindingOptions() {
+            return {
+                "events": {
+                    "onMapDayClick": onMapDayClick
+                },
+                "description": {
+                    "text": "A basic example of how to use Heat.js."
+                }
+            }
+        }
+
         addStartUpBasicData();
     </script>
 </html>

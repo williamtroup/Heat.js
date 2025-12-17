@@ -22,11 +22,19 @@
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-js="{ 'events': { 'onMapDayClick': onMapDayClick } }"></div>
+            <div id="heat-map-1" data-heat-js="getBindingOptions()"></div>
         </div>
     </body>
 
     <script>
+        function getBindingOptions() {
+            return {
+                "events": {
+                    "onMapDayClick": onMapDayClick
+                }
+            }
+        }
+
         addStartUpBasicData();
     </script>
 </html>

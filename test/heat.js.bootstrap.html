@@ -22,13 +22,13 @@
         </div>
 
         <div class="contents">
-            <div class="mt-5" id="heat-map-1" data-heat-js="{ 'resizable': false, 'holidays': [ { 'date': '25/12', 'name': 'Christmas Day', 'showInViews': true } ], 'events': { 'onMapDayClick': onMapDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick, 'onMonthClick': onMonthClick }, 'views': { 'map': { 'showMonthDayGaps': true } }, 'description': { 'text': 'A basic example of how to use Heat.js.', 'url': 'https://william-troup.com/heat-js/examples/basic.html' } }"></div>
+            <div class="mt-5" id="heat-map-1" data-heat-js="getBindingOptions1()"></div>
             <br>
             <br>
-            <div id="heat-map-2" data-heat-js="{ 'exportType': 'json', 'resizable': false, 'events': { 'onMapDayClick': onMapDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick, 'onMonthClick': onMonthClick, 'onMapDayToolTipRender': onMapDayToolTipRenderEvent }, 'views': { 'map': { 'showMonthDayGaps': false, 'placeMonthNamesOnTheBottom': true, 'showDayDateNumbers': false }, 'chart': { 'showLineDateNumbers': false } }, 'title': { 'showRefreshButton': true, 'showExportButton': true, 'showImportButton': true, 'showTitleDropDownMenu': true, 'showClearButton': true }, 'year': __CURRENT_YEAR + 1 }"></div>
+            <div id="heat-map-2" data-heat-js="getBindingOptions2()"></div>
             <br>
             <br>
-            <div id="heat-map-3" data-heat-js="{ 'resizable': false, 'events': { 'onMapDayClick': onMapDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick, 'onMonthClick': onMonthClick }, 'views': { 'map': { 'showMonthDayGaps': true } }, 'view': 'chart', 'yearsToHide': [ 2026 ], 'title': { 'showTitleDropDownHeaders': false, 'showSectionText': false } }"></div>
+            <div id="heat-map-3" data-heat-js="getBindingOptions3()"></div>
             <br>
             <br>
             <div id="heat-map-4"></div>
@@ -182,6 +182,89 @@
 
     <script>
         const __CURRENT_YEAR = new Date().getFullYear();
+
+        function getBindingOptions1() {
+            return {
+                "resizable": false,
+                "holidays": [
+                    {
+                    "date": "25/12",
+                    "name": "Christmas Day",
+                    "showInViews": true
+                    }
+                ],
+                "events": {
+                    "onMapDayClick": onMapDayClick,
+                    "onStatisticClick": onStatisticClick,
+                    "onWeekDayClick": onWeekDayClick,
+                    "onMonthClick": onMonthClick
+                },
+                "views": {
+                    "map": {
+                    "showMonthDayGaps": true
+                    }
+                },
+                "description": {
+                    "text": "A basic example of how to use Heat.js.",
+                    "url": "https://william-troup.com/heat-js/examples/basic.html"
+                }
+            }
+        }
+
+        function getBindingOptions2() {
+            return {
+                "exportType": "json",
+                "resizable": false,
+                "events": {
+                    "onMapDayClick": onMapDayClick,
+                    "onStatisticClick": onStatisticClick,
+                    "onWeekDayClick": onWeekDayClick,
+                    "onMonthClick": onMonthClick,
+                    "onMapDayToolTipRender": onMapDayToolTipRenderEvent
+                },
+                "views": {
+                    "map": {
+                    "showMonthDayGaps": false,
+                    "placeMonthNamesOnTheBottom": true,
+                    "showDayDateNumbers": false
+                    },
+                    "chart": {
+                    "showLineDateNumbers": false
+                    }
+                },
+                "title": {
+                    "showRefreshButton": true,
+                    "showExportButton": true,
+                    "showImportButton": true,
+                    "showTitleDropDownMenu": true,
+                    "showClearButton": true
+                },
+                "year": __CURRENT_YEAR + 1
+            }
+        }
+
+        function getBindingOptions3() {
+            return {
+                "resizable": false,
+                "events": {
+                    "onMapDayClick": onMapDayClick,
+                    "onStatisticClick": onStatisticClick,
+                    "onWeekDayClick": onWeekDayClick,
+                    "onMonthClick": onMonthClick
+                },
+                "views": {
+                    "map": {
+                    "showMonthDayGaps": true
+                    }
+                },
+                "view": "chart",
+                "yearsToHide": [ 2026 ],
+                "title": {
+                    "showTitleDropDownHeaders": false,
+                    "showSectionText": false
+                }
+            }
+        }
 
         function setupConfiguration() {
             $heat.setConfiguration( {
