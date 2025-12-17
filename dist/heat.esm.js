@@ -3,6 +3,7 @@ var Constant;
 (e => {
     e.HEAT_JS_ATTRIBUTE_NAME = "data-heat-js";
     e.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME = "data-heat-js-map-date";
+    e.HEAT_JS_MAP_MONTH_ATTRIBUTE_NAME = "data-heat-js-month";
     e.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME = "data-heat-js-chart-date";
     e.HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME = "data-heat-js-day-number";
     e.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME = "data-heat-js-month-number";
@@ -1471,7 +1472,7 @@ var Animate;
             p(e);
         }
         if (e.allowTypeAdding) {
-            C(e);
+            _(e);
         }
         ToolTip.render(e);
         E(e);
@@ -1857,7 +1858,7 @@ var Animate;
             Import.file(o, i, a, e);
         }
     }
-    function C(t) {
+    function _(t) {
         t._currentView.typeAddingDialog = DomElement.create(t._currentView.disabledBackground, "div", "dialog add-type");
         const o = DomElement.create(t._currentView.typeAddingDialog, "div", "dialog-title-bar");
         const i = DomElement.create(t._currentView.typeAddingDialog, "div", "dialog-contents");
@@ -1893,7 +1894,7 @@ var Animate;
         s.onclick = () => S(t);
         ToolTip.add(s, t, e.text.closeButtonText);
     }
-    function _(e) {
+    function C(e) {
         Disabled.Background.show(e);
         if (Is.defined(e._currentView.typeAddingDialog) && e._currentView.typeAddingDialog.style.display !== "block") {
             e._currentView.typeAddingDialogTypeInput.value = "";
@@ -1980,7 +1981,7 @@ var Animate;
             }
             if (t.title.showYearSelector) {
                 const o = DomElement.createIconButton(n, "button", "back", "arrow-left");
-                o.onclick = () => Ce(t);
+                o.onclick = () => _e(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(o, t, e.text.backButtonText);
                 }
@@ -2011,12 +2012,12 @@ var Animate;
                     }
                     o.onclick = () => {
                         t._currentView.year = (new Date).getFullYear() - 1;
-                        _e(t, false);
+                        Ce(t, false);
                         Trigger.customEvent(t.events.onSetYear, t._currentView.year);
                     };
                 }
                 const s = DomElement.createIconButton(n, "button", "next", "arrow-right");
-                s.onclick = () => _e(t);
+                s.onclick = () => Ce(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(s, t, e.text.nextButtonText);
                 }
@@ -2261,6 +2262,7 @@ var Animate;
                     let d = DomElement.create(s, "div", "day-column");
                     let m = false;
                     let f = 1;
+                    n.setAttribute(Constant.HEAT_JS_MAP_MONTH_ATTRIBUTE_NAME, `${o + 1}`);
                     u += c;
                     for (let e = 0; e < u; e++) {
                         if (e >= c) {
@@ -3146,7 +3148,7 @@ var Animate;
             if (t.allowTypeAdding) {
                 const n = DomElement.createIconButton(i, "button", "add", "plus");
                 ToolTip.add(n, t, e.text.addTypeText);
-                n.onclick = () => _(t);
+                n.onclick = () => C(t);
             }
         } else {
             ie(t, i);
@@ -3486,7 +3488,7 @@ var Animate;
     function Ve(e) {
         return e.colorRanges.sort((e, t) => e.minimum - t.minimum);
     }
-    function Ce(e, t = true) {
+    function _e(e, t = true) {
         let n = true;
         let o = e._currentView.year;
         o--;
@@ -3505,7 +3507,7 @@ var Animate;
             }
         }
     }
-    function _e(e, t = true) {
+    function Ce(e, t = true) {
         let n = true;
         let o = e._currentView.year;
         o++;
@@ -3737,7 +3739,7 @@ var Animate;
                 const o = n[e].options;
                 o._currentView.year = t;
                 if (!Is.yearVisible(o, o._currentView.year)) {
-                    _e(o, false);
+                    Ce(o, false);
                 } else {
                     r(o);
                 }
@@ -3758,7 +3760,7 @@ var Animate;
                 if (i > 0) {
                     t._currentView.year = i;
                     if (!Is.yearVisible(t, t._currentView.year)) {
-                        _e(t, false);
+                        Ce(t, false);
                     } else {
                         r(t);
                     }
@@ -3780,7 +3782,7 @@ var Animate;
                 if (i < 9999) {
                     t._currentView.year = i;
                     if (!Is.yearVisible(t, t._currentView.year)) {
-                        Ce(t, false);
+                        _e(t, false);
                     } else {
                         r(t);
                     }
@@ -3791,13 +3793,13 @@ var Animate;
         },
         moveToPreviousYear: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                Ce(n[e].options);
+                _e(n[e].options);
             }
             return Ie;
         },
         moveToNextYear: function(e) {
             if (Is.definedString(e) && n.hasOwnProperty(e)) {
-                _e(n[e].options);
+                Ce(n[e].options);
             }
             return Ie;
         },
@@ -3806,7 +3808,7 @@ var Animate;
                 const t = n[e].options;
                 t._currentView.year = (new Date).getFullYear();
                 if (!Is.yearVisible(t, t._currentView.year)) {
-                    _e(t, false);
+                    Ce(t, false);
                 } else {
                     r(t);
                 }
