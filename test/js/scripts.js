@@ -25,7 +25,7 @@ function addStartUpBasicData( dayIncrease = 500, totalDays = 8000 ) {
     document.addEventListener( "DOMContentLoaded", () => addBasicData( dayIncrease, totalDays ) );
 }
 
-function addBasicData( dayIncrease = 500, totalDays = 8000 ) {
+function addBasicData( dayIncrease = 500, totalDays = 8000, typeName = null, refresh = true ) {
     const date = new Date( new Date().getFullYear(), 0, 1 );
 
     for ( let dayNumber = 0; dayNumber < totalDays; dayNumber++ ) {
@@ -34,8 +34,10 @@ function addBasicData( dayIncrease = 500, totalDays = 8000 ) {
 
         newDate.setDate( newDate.getDate() + daysToIncrease );
 
-        $heat.addDate( "heat-map-1", newDate, null, false );
+        $heat.addDate( "heat-map-1", newDate, typeName, false );
     }
-
-    $heat.refreshAll();
+    
+    if ( refresh ) {
+        $heat.refreshAll();
+    }
 }
