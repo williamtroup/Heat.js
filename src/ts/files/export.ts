@@ -70,7 +70,7 @@ export namespace Export {
     }
 
     export namespace Contents {
-        export function get( contentExportType: string, typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions ) : string {
+        export function get( contentExportType: string, typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions ) : string {
             let contents: string = null!;
 
             if ( contentExportType === ExportType.csv ) {
@@ -82,15 +82,15 @@ export namespace Export {
             } else if ( contentExportType === ExportType.txt ) {
                 contents = txt( typeDateCounts );
             } else if ( contentExportType === ExportType.html ) {
-                contents = html( typeDateCounts, configurationOptions );
+                contents = html( typeDateCounts, configurationOptions, bindingOptions );
             } else if ( contentExportType === ExportType.md ) {
                 contents = md( typeDateCounts );
             } else if ( contentExportType === ExportType.tsv ) {
                 contents = tsv( typeDateCounts );
             } else if ( contentExportType === ExportType.yaml ) {
-                contents = yaml( typeDateCounts, configurationOptions );
+                contents = yaml( typeDateCounts, configurationOptions, bindingOptions );
             } else if ( contentExportType === ExportType.toml ) {
-                contents = toml( typeDateCounts, configurationOptions );
+                contents = toml( typeDateCounts, configurationOptions, bindingOptions );
             }
 
             return contents;
@@ -126,7 +126,7 @@ export namespace Export {
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                     contents.push( "<Date>" );
                     contents.push( `<FullDate>${storageDate}</FullDate>` );
-                    contents.push( `<Count>${typeDateCounts[storageDate].toString()}</Count>` );
+                    contents.push( `<Count>${typeDateCounts[ storageDate ].toString()}</Count>` );
                     contents.push( "</Date>" );
                 }
             }
@@ -148,9 +148,9 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        function html( typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions ) : string {
+        function html( typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions ) : string {
             const contents: string[] = [];
-            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configurationOptions, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date() );
+            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configurationOptions, bindingOptions.exportDateTimeFormat!, new Date() );
 
             contents.push( "<!DOCTYPE html>" );
             contents.push( "<html>" );
@@ -203,9 +203,9 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        function yaml( typeDateCounts: InstanceTypeDateCount, configuration: ConfigurationOptions ) : string {
+        function yaml( typeDateCounts: InstanceTypeDateCount, configuration: ConfigurationOptions, bindingOptions: BindingOptions ) : string {
             const contents: string[] = [];
-            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configuration, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date() );
+            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configuration, bindingOptions.exportDateTimeFormat!, new Date() );
 
             contents.push( `Last-Modified:${Char.space}${exportedDateTime}` );
 
@@ -218,9 +218,9 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        function toml( typeDateCounts: InstanceTypeDateCount, configuration: ConfigurationOptions ) : string {
+        function toml( typeDateCounts: InstanceTypeDateCount, configuration: ConfigurationOptions, bindingOptions: BindingOptions ) : string {
             const contents: string[] = [];
-            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configuration, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date() );
+            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configuration, bindingOptions.exportDateTimeFormat!, new Date() );
 
             contents.push( `last_modified = \"${exportedDateTime}\"` );
             contents.push( Char.empty );

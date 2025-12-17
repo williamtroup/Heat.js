@@ -130,6 +130,7 @@ export type BindingOptions = {
     percentageDecimalPoints?: number;
     allowTypeAdding?: boolean;
     chartsAnimationDelay?: number;
+    exportDateTimeFormat?: string;
     colorRanges?: BindingOptionsColorRange[];
     holidays?: BindingOptionsHoliday[];
     title?: BindingOptionsTitle;

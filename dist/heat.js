@@ -568,6 +568,7 @@ var Binding;
             t.percentageDecimalPoints = Default2.getNumber(t.percentageDecimalPoints, 2);
             t.allowTypeAdding = Default2.getBoolean(t.allowTypeAdding, false);
             t.chartsAnimationDelay = Default2.getNumber(t.chartsAnimationDelay, 50);
+            t.exportDateTimeFormat = Default2.getString(t.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}");
             t.colorRanges = s(t);
             t.holidays = r(t);
             t.title = a(t);
@@ -1176,28 +1177,28 @@ var Export;
     })(t = e.File || (e.File = {}));
     let n;
     (e => {
-        function t(e, t, d) {
-            let m = null;
+        function t(e, t, d, m) {
+            let f = null;
             if (e === "csv") {
-                m = n(t, d);
+                f = n(t, d);
             } else if (e === "json") {
-                m = o(t);
+                f = o(t);
             } else if (e === "xml") {
-                m = i(t);
+                f = i(t);
             } else if (e === "txt") {
-                m = s(t);
+                f = s(t);
             } else if (e === "html") {
-                m = r(t, d);
+                f = r(t, d, m);
             } else if (e === "md") {
-                m = a(t);
+                f = a(t);
             } else if (e === "tsv") {
-                m = l(t);
+                f = l(t);
             } else if (e === "yaml") {
-                m = c(t, d);
+                f = c(t, d, m);
             } else if (e === "toml") {
-                m = u(t, d);
+                f = u(t, d, m);
             }
-            return m;
+            return f;
         }
         e.get = t;
         function n(e, t) {
@@ -1239,26 +1240,26 @@ var Export;
             }
             return t.join("\n");
         }
-        function r(e, t) {
-            const n = [];
-            const o = DateTime.getCustomFormattedDateText(t, "{dddd}, {d}{0} {mmmm} {yyyy}", new Date);
-            n.push("<!DOCTYPE html>");
-            n.push("<html>");
-            n.push("<head>");
-            n.push('<meta charset="utf-8" />');
-            n.push(`<meta http-equiv="Last-Modified" content="${o} GMT" />`);
-            n.push("</head>");
-            n.push("<body>");
-            n.push("<ul>");
+        function r(e, t, n) {
+            const o = [];
+            const i = DateTime.getCustomFormattedDateText(t, n.exportDateTimeFormat, new Date);
+            o.push("<!DOCTYPE html>");
+            o.push("<html>");
+            o.push("<head>");
+            o.push('<meta charset="utf-8" />');
+            o.push(`<meta http-equiv="Last-Modified" content="${i} GMT" />`);
+            o.push("</head>");
+            o.push("<body>");
+            o.push("<ul>");
             for (const t in e) {
                 if (e.hasOwnProperty(t)) {
-                    n.push(`<li><b>${t}:</b> ${e[t].toString()}</li>`);
+                    o.push(`<li><b>${t}:</b> ${e[t].toString()}</li>`);
                 }
             }
-            n.push("</ul>");
-            n.push("</body>");
-            n.push("</html>");
-            return n.join("\n");
+            o.push("</ul>");
+            o.push("</body>");
+            o.push("</html>");
+            return o.join("\n");
         }
         function a(e) {
             const t = [];
@@ -1281,29 +1282,29 @@ var Export;
             }
             return t.join("\n");
         }
-        function c(e, t) {
-            const n = [];
-            const o = DateTime.getCustomFormattedDateText(t, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date);
-            n.push(`Last-Modified:${" "}${o}`);
+        function c(e, t, n) {
+            const o = [];
+            const i = DateTime.getCustomFormattedDateText(t, n.exportDateTimeFormat, new Date);
+            o.push(`Last-Modified:${" "}${i}`);
             for (const t in e) {
                 if (e.hasOwnProperty(t)) {
-                    n.push(`${t}${":"}${" "}${e[t].toString()}`);
+                    o.push(`${t}${":"}${" "}${e[t].toString()}`);
                 }
             }
-            return n.join("\n");
+            return o.join("\n");
         }
-        function u(e, t) {
-            const n = [];
-            const o = DateTime.getCustomFormattedDateText(t, "{dddd}, {d}{o} {mmmm} {yyyy}", new Date);
-            n.push(`last_modified = "${o}"`);
-            n.push("");
-            n.push("[dates]");
+        function u(e, t, n) {
+            const o = [];
+            const i = DateTime.getCustomFormattedDateText(t, n.exportDateTimeFormat, new Date);
+            o.push(`last_modified = "${i}"`);
+            o.push("");
+            o.push("[dates]");
             for (const t in e) {
                 if (e.hasOwnProperty(t)) {
-                    n.push(`${t} = ${e[t].toString()}`);
+                    o.push(`${t} = ${e[t].toString()}`);
                 }
             }
-            return n.join("\n");
+            return o.join("\n");
         }
         function d(e) {
             let t = e.toString().replace(/(\r\n|\n|\r)/gm, "").replace(/(\s\s)/gm, " ");
@@ -1682,7 +1683,7 @@ var Animate;
         const s = Default2.getString(n, t.exportType).toLowerCase();
         const r = Export.File.mimeType(s);
         const a = g(t, i);
-        const l = Export.Contents.get(s, a, e);
+        const l = Export.Contents.get(s, a, e, t);
         if (Is.definedString(l)) {
             const n = DomElement.create(document.body, "a");
             n.style.display = "none";
@@ -1752,19 +1753,19 @@ var Animate;
         const r = DomElement.createButton(s, "button", "", "...");
         t._currentView.importDialogImportButton = DomElement.createButton(s, "button", "default", e.text.importButtonText);
         t._currentView.importDialogImportButton.disabled = true;
-        i.onclick = () => D(t);
+        i.onclick = () => y(t);
         r.onclick = () => T(t);
         t._currentView.importDialogImportButton.onclick = () => V(t._currentView.importDialogFileList, t);
         ToolTip.add(i, t, e.text.closeButtonText);
     }
-    function y(e) {
+    function D(e) {
         Disabled.Background.show(e);
         if (Is.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "block") {
             e._currentView.importDialog.style.display = "block";
         }
         ToolTip.hide(e);
     }
-    function D(e) {
+    function y(e) {
         Disabled.Background.hide(e);
         if (Is.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "none") {
             e._currentView.importDialogFileList = null;
@@ -1790,7 +1791,7 @@ var Animate;
                             n.items.add(e.dataTransfer.files[o]);
                         }
                     }
-                    b(t, n.files);
+                    x(t, n.files);
                 }
             };
         }
@@ -1805,10 +1806,10 @@ var Animate;
         o.type = "file";
         o.accept = t.join(", ");
         o.multiple = e.allowMultipleFileImports;
-        o.onchange = () => b(e, o.files);
+        o.onchange = () => x(e, o.files);
         o.click();
     }
-    function b(t, n) {
+    function x(t, n) {
         if (n.length <= 0) {
             t._currentView.importDialogDragAndDrop.innerHTML = e.text.dragAndDropFilesText;
             t._currentView.importDialogImportButton.disabled = true;
@@ -1822,11 +1823,11 @@ var Animate;
                 const s = DomElement.createWithHTML(t._currentView.importDialogDragAndDrop, "div", "filename", `<b>${i + 1}</b>. ${o}`);
                 const r = DomElement.create(s, "div", "remove");
                 ToolTip.add(r, t, e.text.removeButtonText);
-                r.onclick = () => x(t, i);
+                r.onclick = () => b(t, i);
             }
         }
     }
-    function x(e, t) {
+    function b(e, t) {
         const n = new DataTransfer;
         const o = e._currentView.importDialogFileList.length;
         for (let i = 0; i < o; i++) {
@@ -1834,7 +1835,7 @@ var Animate;
                 n.items.add(e._currentView.importDialogFileList[i]);
             }
         }
-        b(e, n.files);
+        x(e, n.files);
     }
     function V(t, n) {
         const o = t.length;
@@ -1950,7 +1951,7 @@ var Animate;
             }
             if (t.title.showImportButton && !t._currentView.isInFetchMode) {
                 const o = DomElement.createIconButton(n, "button", "import", "arrow-up");
-                o.onclick = () => y(t);
+                o.onclick = () => D(t);
                 if (t.title.showToolTips) {
                     ToolTip.add(o, t, e.text.importButtonText);
                 }
@@ -2456,8 +2457,8 @@ var Animate;
         } else {
             DomElement.addClass(l, "no-hover");
         }
-        const m = be(t, r, d, c);
-        if (Is.defined(m) && De(t, m.id)) {
+        const m = xe(t, r, d, c);
+        if (Is.defined(m) && ye(t, m.id)) {
             if (Is.definedString(m.mapCssClassName)) {
                 DomElement.addClass(l, m.mapCssClassName);
             } else {
@@ -2636,8 +2637,8 @@ var Animate;
         } else {
             DomElement.addClass(u, "no-hover");
         }
-        const w = be(n, r, m, c);
-        if (Is.defined(w) && De(n, w.id)) {
+        const w = xe(n, r, m, c);
+        if (Is.defined(w) && ye(n, w.id)) {
             if (Is.definedString(w.chartCssClassName)) {
                 DomElement.addClass(u, w.chartCssClassName);
             } else {
@@ -2815,7 +2816,7 @@ var Animate;
                         const c = DateTime.getWeekdayNumber(l) + 1;
                         if (!Is.holiday(e, l).matched && Is.dayVisible(e.views.days.daysToShow, c)) {
                             const s = o[i];
-                            const r = be(e, t, s);
+                            const r = xe(e, t, s);
                             if (!Is.defined(r) || r.visible) {
                                 n.values[c] += s;
                                 n.totalValue += s;
@@ -2983,7 +2984,7 @@ var Animate;
                         const u = DateTime.getWeekdayNumber(c) + 1;
                         if (!Is.holiday(e, c).matched && Is.dayVisible(e.views.days.daysToShow, u)) {
                             const r = o[s];
-                            const a = be(e, t, r);
+                            const a = xe(e, t, r);
                             if (!Is.defined(a) || a.visible) {
                                 n.values[i] += r;
                                 n.totalValue += r;
@@ -3037,7 +3038,7 @@ var Animate;
             for (const e in l.types) {
                 if (l.types.hasOwnProperty(e)) {
                     Q(parseInt(e), r, l.types[e], t, a, o, l.totalValue, n);
-                    const s = xe(a, parseInt(e));
+                    const s = be(a, parseInt(e));
                     if (t.views.statistics.showColorRangeLabels) {
                         if (!t.views.statistics.useColorRangeNamesForLabels || !Is.defined(s) || !Is.definedString(s.name)) {
                             DomElement.createWithHTML(i, "div", "range-name", `${e}${"+"}`);
@@ -3059,7 +3060,7 @@ var Animate;
     }
     function Q(e, t, n, o, i, s, r, a) {
         const l = DomElement.create(t, "div", "range-line");
-        const c = xe(i, e);
+        const c = be(i, e);
         const u = n * s;
         if (Is.defined(c) && Is.definedString(c.name)) {
             l.setAttribute(Constant.HEAT_JS_STATISTICS_COLOR_RANGE_NAME_ATTRIBUTE_NAME, c.name);
@@ -3090,7 +3091,7 @@ var Animate;
         } else {
             DomElement.addClass(l, "no-hover");
         }
-        if (Is.defined(c) && De(o, c.id)) {
+        if (Is.defined(c) && ye(o, c.id)) {
             if (Is.definedString(c.statisticsCssClassName)) {
                 DomElement.addClass(l, c.statisticsCssClassName);
             } else {
@@ -3125,7 +3126,7 @@ var Animate;
                         const l = new Date(a, r, s + 1);
                         const c = DateTime.getWeekdayNumber(l) + 1;
                         if (!Is.holiday(e, l).matched && Is.dayVisible(e.views.statistics.daysToShow, c)) {
-                            const s = be(e, t, n[o]);
+                            const s = xe(e, t, n[o]);
                             const r = Is.defined(s) ? s.minimum.toString() : "0";
                             if (!i.types.hasOwnProperty(r)) {
                                 i.types[r] = 0;
@@ -3210,7 +3211,7 @@ var Animate;
         if (e.guide.showToolTips) {
             ToolTip.add(o, e, n.tooltipText);
         }
-        if (De(e, n.id)) {
+        if (ye(e, n.id)) {
             if (e._currentView.view === 1 && Is.definedString(n.mapCssClassName)) {
                 DomElement.addClass(o, n.mapCssClassName);
             } else if (e.views.chart.enabled && e._currentView.view === 2 && Is.definedString(n.chartCssClassName)) {
@@ -3410,7 +3411,7 @@ var Animate;
             }
         }
     }
-    function ye() {
+    function De() {
         for (const e in n) {
             if (n.hasOwnProperty(e)) {
                 const t = n[e].options;
@@ -3426,7 +3427,7 @@ var Animate;
             t = null;
         }
     }
-    function De(e, t) {
+    function ye(e, t) {
         let n = false;
         if (t === Constant.COLOR_RANGE_HOLIDAY_ID) {
             n = true;
@@ -3462,7 +3463,7 @@ var Animate;
             }
         }
     }
-    function be(e, t, n, o = null) {
+    function xe(e, t, n, o = null) {
         let i = null;
         if (Is.defined(o) && Is.holiday(e, o).matched) {
             i = {
@@ -3485,7 +3486,7 @@ var Animate;
         }
         return i;
     }
-    function xe(e, t) {
+    function be(e, t) {
         const n = e.length;
         let o = null;
         for (let i = 0; i < n; i++) {
@@ -3974,7 +3975,7 @@ var Animate;
             Ee();
             o();
         });
-        window.addEventListener("pagehide", () => ye());
+        window.addEventListener("pagehide", () => De());
         if (!Is.defined(window.$heat)) {
             window.$heat = Ie;
         }

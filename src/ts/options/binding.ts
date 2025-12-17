@@ -112,6 +112,7 @@ export namespace Binding {
             bindingOptions.percentageDecimalPoints = Default.getNumber( bindingOptions.percentageDecimalPoints, 2 );
             bindingOptions.allowTypeAdding = Default.getBoolean( bindingOptions.allowTypeAdding, false );
             bindingOptions.chartsAnimationDelay = Default.getNumber( bindingOptions.chartsAnimationDelay, 50 );
+            bindingOptions.exportDateTimeFormat = Default.getString( bindingOptions.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.colorRanges = getColorRanges( bindingOptions );
             bindingOptions.holidays = getHolidays( bindingOptions );
             bindingOptions.title = getTitle( bindingOptions );
