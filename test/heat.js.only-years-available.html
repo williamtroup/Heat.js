@@ -26,19 +26,6 @@
     </body>
 
     <script>
-        document.addEventListener( "DOMContentLoaded", function() {
-            const date = new Date( new Date().getFullYear(), 0, 1 );
-
-            for ( let dayNumber = 0; dayNumber < 20000; dayNumber++ ) {
-                const daysToIncrease = Math.floor( Math.random() * 1800 );
-                let newDate = new Date( date );
-
-                newDate.setDate( newDate.getDate() + daysToIncrease );
-
-                $heat.addDate( "heat-map-1", newDate, null, false );
-            }
-
-            $heat.refreshAll();
-        } );
+        addStartUpBasicData( 1800, 20000 );
     </script>
 </html>

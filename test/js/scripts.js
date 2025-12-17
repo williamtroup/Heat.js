@@ -20,3 +20,22 @@ function onWeekDayClick( day, count, year ) {
 function onMonthClick( day, count, year ) {
     console.log( `Month clicked for: ${day}, Count: ${count}, Year: ${year}` );
 }
+
+function addStartUpBasicData( dayIncrease = 500, totalDays = 8000 ) {
+    document.addEventListener( "DOMContentLoaded", () => addBasicData( dayIncrease, totalDays ) );
+}
+
+function addBasicData( dayIncrease = 500, totalDays = 8000 ) {
+    const date = new Date( new Date().getFullYear(), 0, 1 );
+
+    for ( let dayNumber = 0; dayNumber < totalDays; dayNumber++ ) {
+        const daysToIncrease = Math.floor( Math.random() * dayIncrease );
+        let newDate = new Date( date );
+
+        newDate.setDate( newDate.getDate() + daysToIncrease );
+
+        $heat.addDate( "heat-map-1", newDate, null, false );
+    }
+
+    $heat.refreshAll();
+}
