@@ -29,7 +29,7 @@ export type PublicApi = {
      * @public
      * @fires       onAdd
      * 
-     * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
+     * @param       {string}    elementId                                   The Heat.js element ID that should show the new trend type.
      * @param       {string}    type                                        The trend type.
      * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
      * 
