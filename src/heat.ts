@@ -1438,8 +1438,11 @@ import { Animate } from "./ts/dom/animate";
 
                 bindingOptions._currentView!.mapZoomLevel = bindingOptions.views!.map!.zoomLevel!;
                 bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${sizingMetric}` );
+                bindingOptions._currentView!.dayWidth = 0;
                 
                 zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%`;
+
+                renderControlContainer( bindingOptions, false, false, true );
             }
 
             if ( bindingOptions._currentView!.mapZoomLevel! === Value.notFound ) {

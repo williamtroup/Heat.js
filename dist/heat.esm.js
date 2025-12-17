@@ -2382,7 +2382,9 @@ var Animate;
                 i += parseFloat((t.views.map.zoomLevel * t._currentView.mapZoomIncrement).toFixed(1));
                 t._currentView.mapZoomLevel = t.views.map.zoomLevel;
                 t._currentView.element.style.setProperty(Css.Variables.DaySize, `${i}${o}`);
+                t._currentView.dayWidth = 0;
                 c.innerText = `+${Str.friendlyNumber(t._currentView.mapZoomLevel * 10)}%`;
+                r(t, false, false, true);
             }
             if (t._currentView.mapZoomLevel === -1) {
                 t._currentView.mapZoomLevel = 0;
