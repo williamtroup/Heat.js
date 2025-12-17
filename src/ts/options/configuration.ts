@@ -85,6 +85,7 @@ export namespace Configuration {
             configurationOptions.text!.typePlaceholderText = Default.getAnyString( configurationOptions.text!.typePlaceholderText, "Type" );
             configurationOptions.text!.addButtonText = Default.getAnyString( configurationOptions.text!.addButtonText, "Add" );
             configurationOptions.text!.removeButtonText = Default.getAnyString( configurationOptions.text!.removeButtonText, "Remove" );
+            configurationOptions.text!.invertText = Default.getAnyString( configurationOptions.text!.invertText, "Invert" );
 
             return configurationOptions.text!;
         }

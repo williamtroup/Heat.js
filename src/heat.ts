@@ -2491,6 +2491,16 @@ import { Animate } from "./ts/dom/animate";
         if ( bindingOptions.guide!.enabled ) {
             const mapToggles: HTMLElement = DomElement.create( guide, "div", "map-toggles" );
 
+            if ( bindingOptions.guide!.showInvertLabel ) {
+                const invertText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "invert-text", _configurationOptions.text!.invertText! );
+    
+                if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
+                    invertText.onclick = () => invertColorRangeToggles( bindingOptions );
+                } else {
+                    DomElement.addClass( invertText, "no-click" );
+                }
+            }
+
             if ( bindingOptions.guide!.showLessAndMoreLabels ) {
                 let lessText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "less-text", _configurationOptions.text!.lessText! );
     
@@ -2901,6 +2911,18 @@ import { Animate } from "./ts/dom/animate";
             bindingOptions.colorRanges![ colorRangesIndex ].visible = flag;
 
             Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions.colorRanges![ colorRangesIndex ].id, flag );
+        }
+
+        renderControlContainer( bindingOptions );
+    }
+
+    function invertColorRangeToggles( bindingOptions: BindingOptions ) : void {
+        const colorRangesLength: number = bindingOptions.colorRanges!.length;
+
+        for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+            bindingOptions.colorRanges![ colorRangesIndex ].visible = !bindingOptions.colorRanges![ colorRangesIndex ].visible;
+
+            Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions.colorRanges![ colorRangesIndex ].id, bindingOptions.colorRanges![ colorRangesIndex ].visible );
         }
 
         renderControlContainer( bindingOptions );

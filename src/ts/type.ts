@@ -110,6 +110,7 @@ export type ConfigurationOptionsText = {
     typePlaceholderText?: string;
     addButtonText?: string;
     removeButtonText?: string;
+    invertText?: string;
 };
 
 export type BindingOptions = {
@@ -312,6 +313,7 @@ export type BindingOptionsGuide = {
     showLessAndMoreLabels?: boolean;
     showNumbersInGuide?: boolean;
     showToolTips?: boolean;
+    showInvertLabel?: boolean;
 };
 
 export type BindingOptionsTooltip = {

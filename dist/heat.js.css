@@ -2116,22 +2116,26 @@ div.heat-js div.guide div.map-toggles {
   }
 }
 div.heat-js div.guide div.map-toggles div.less-text,
-div.heat-js div.guide div.map-toggles div.more-text {
+div.heat-js div.guide div.map-toggles div.more-text,
+div.heat-js div.guide div.map-toggles div.invert-text {
   display: inline-block;
   font-weight: var(--heat-js-text-bold-weight);
   transition: var(--heat-js-transition);
   border-bottom: 1px solid transparent;
 }
 div.heat-js div.guide div.map-toggles div.less-text:hover,
-div.heat-js div.guide div.map-toggles div.more-text:hover {
+div.heat-js div.guide div.map-toggles div.more-text:hover,
+div.heat-js div.guide div.map-toggles div.invert-text:hover {
   cursor: pointer;
   border-bottom: 1px solid var(--heat-js-color-white);
 }
 div.heat-js div.guide div.map-toggles div.less-text:active,
-div.heat-js div.guide div.map-toggles div.more-text:active {
+div.heat-js div.guide div.map-toggles div.more-text:active,
+div.heat-js div.guide div.map-toggles div.invert-text:active {
   color: var(--heat-js-color-gray);
 }
-div.heat-js div.guide div.map-toggles div.less-text {
+div.heat-js div.guide div.map-toggles div.less-text,
+div.heat-js div.guide div.map-toggles div.invert-text {
   margin-right: var(--heat-js-spacing);
 }
 div.heat-js div.guide div.map-toggles div.more-text {

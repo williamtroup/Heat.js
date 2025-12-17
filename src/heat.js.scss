@@ -1693,7 +1693,8 @@ div.heat-js {
             }
 
             div.less-text,
-            div.more-text {
+            div.more-text,
+            div.invert-text {
                 display: inline-block;
                 font-weight: var(--heat-js-text-bold-weight);
                 transition: var(--heat-js-transition);
@@ -1709,7 +1710,8 @@ div.heat-js {
                 }
             }
     
-            div.less-text {
+            div.less-text,
+            div.invert-text {
                 margin-right: var(--heat-js-spacing);
             }
     

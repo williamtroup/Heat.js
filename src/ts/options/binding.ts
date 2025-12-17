@@ -254,6 +254,7 @@ export namespace Binding {
             bindingOptions.guide!.showLessAndMoreLabels = Default.getBoolean( bindingOptions.guide!.showLessAndMoreLabels, true );
             bindingOptions.guide!.showNumbersInGuide = Default.getBoolean( bindingOptions.guide!.showNumbersInGuide, false );
             bindingOptions.guide!.showToolTips = Default.getBoolean( bindingOptions.guide!.showToolTips, true );
+            bindingOptions.guide!.showInvertLabel = Default.getBoolean( bindingOptions.guide!.showInvertLabel, false );
 
             return bindingOptions.guide!;
         }
