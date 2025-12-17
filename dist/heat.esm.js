@@ -733,6 +733,7 @@ var Binding;
             e.views.chart.dayToolTipText = Default2.getString(e.views.chart.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}");
             e.views.chart.showYearsInMonthNames = Default2.getBoolean(e.views.chart.showYearsInMonthNames, true);
             e.views.chart.showCountsInToolTips = Default2.getBoolean(e.views.chart.showCountsInToolTips, true);
+            e.views.chart.addMonthSpacing = Default2.getBoolean(e.views.chart.addMonthSpacing, false);
             if (Is.invalidOptionArray(e.views.chart.monthsToShow)) {
                 e.views.chart.monthsToShow = t;
             }
@@ -2521,6 +2522,7 @@ var Animate;
             let u = 0;
             let d = 0;
             let m = [];
+            let f = false;
             for (let e = t.startMonth; e < 12 + t.startMonth; e++) {
                 let o = e;
                 let a = l;
@@ -2535,9 +2537,12 @@ var Animate;
                     u++;
                     for (let u = 0; u < e; u++) {
                         const e = new Date(a, o, l);
-                        const f = DateTime.getWeekdayNumber(e) + 1;
-                        if (Is.dayVisible(t.views.chart.daysToShow, f)) {
+                        const w = DateTime.getWeekdayNumber(e) + 1;
+                        if (Is.dayVisible(t.views.chart.daysToShow, w)) {
                             const e = j(s, t, u + 1, o, a, r, i, n);
+                            if (!c && f && t.views.chart.addMonthSpacing) {
+                                DomElement.create(s, "div", "month-spacing", e);
+                            }
                             if (!c) {
                                 m.push(e);
                                 c = true;
@@ -2550,6 +2555,7 @@ var Animate;
                         d++;
                     }
                 }
+                f = true;
             }
             if (t.views.chart.showInReverseOrder) {
                 DomElement.reverseChildrenOrder(s);

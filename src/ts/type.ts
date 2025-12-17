@@ -230,6 +230,7 @@ export type BindingOptionsViewsChart = {
     dayToolTipText?: string;
     showYearsInMonthNames?: boolean;
     showCountsInToolTips?: boolean;
+    addMonthSpacing?: boolean;
 };
 
 export type BindingOptionsViewsDays = {

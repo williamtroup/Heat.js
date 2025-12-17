@@ -1626,6 +1626,7 @@ import { Animate } from "./ts/dom/animate";
             let totalMonths: number = 0;
             let totalDays: number = 0;
             let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
+            let firstMonthAdded: boolean = false;
 
             for ( let monthIndex1: number = bindingOptions.startMonth!; monthIndex1 < ( 12 + bindingOptions.startMonth! ); monthIndex1++ ) {
                 let actualMonthIndex: number = monthIndex1;
@@ -1650,6 +1651,10 @@ import { Animate } from "./ts/dom/animate";
                         if ( Is.dayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
                             const dayLine: HTMLElement = renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, pixelsPerNumbers, isForViewSwitch );
 
+                            if ( !firstDayAdded && firstMonthAdded && bindingOptions.views!.chart!.addMonthSpacing! ) {
+                                DomElement.create( dayLines, "div", "month-spacing", dayLine );
+                            }
+
                             if ( !firstDayAdded ) {
                                 firstMonthDayLines.push( dayLine );
                                 firstDayAdded = true;
@@ -1664,6 +1669,8 @@ import { Animate } from "./ts/dom/animate";
                         totalDays++;
                     }
                 }
+
+                firstMonthAdded = true;
             }
 
             if ( bindingOptions.views!.chart!.showInReverseOrder ) {

@@ -311,6 +311,7 @@ export namespace Binding {
             bindingOptions.views!.chart!.dayToolTipText = Default.getString( bindingOptions.views!.chart!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.views!.chart!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.chart!.showYearsInMonthNames, true );
             bindingOptions.views!.chart!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.chart!.showCountsInToolTips, true );
+            bindingOptions.views!.chart!.addMonthSpacing = Default.getBoolean( bindingOptions.views!.chart!.addMonthSpacing, false );
 
             if ( Is.invalidOptionArray( bindingOptions.views!.chart!.monthsToShow ) ) {
                 bindingOptions.views!.chart!.monthsToShow = _default_MonthsToShow;
