@@ -473,7 +473,7 @@ import { Animate } from "./ts/dom/animate";
             const tempLink: HTMLElement = DomElement.create( document.body, "a" );
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
-            tempLink.setAttribute( "href", `data:${contentsMimeType};charset=utf-8,${encodeURIComponent(contents)}` );
+            tempLink.setAttribute( "href", `data:${contentsMimeType};charset=utf-8,${encodeURIComponent( contents )}` );
             tempLink.setAttribute( "download", Export.File.filename( _configurationOptions, bindingOptions, exportFilename, contentExportType ) );
             tempLink.click();
             
@@ -1511,7 +1511,7 @@ import { Animate } from "./ts/dom/animate";
 
         dateCount = Default.getNumber( dateCount, 0 );
 
-        day.setAttribute( Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber(actualDay)}-${Str.padNumber(month + 1)}-${year}` );
+        day.setAttribute( Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber( actualDay )}-${Str.padNumber( month + 1 )}-${year}` );
 
         if ( bindingOptions.views!.map!.showToolTips ) {
             renderDayToolTip( bindingOptions, day, date, dateCount, bindingOptions.views!.map!.dayToolTipText!, bindingOptions.events!.onMapDayToolTipRender!, holiday.matched, bindingOptions.views!.map!.showCountsInToolTips! );
@@ -1743,7 +1743,7 @@ import { Animate } from "./ts/dom/animate";
 
         dateCount = Default.getNumber( dateCount, 0 );
 
-        dayLine.setAttribute( Constant.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${Str.padNumber(day)}-${Str.padNumber(month + 1)}-${year}` );
+        dayLine.setAttribute( Constant.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
 
         if ( bindingOptions.views!.chart!.showToolTips ) {
             renderDayToolTip( bindingOptions, dayLine, date, dateCount, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender!, holiday.matched, bindingOptions.views!.chart!.showCountsInToolTips! );
@@ -1862,7 +1862,7 @@ import { Animate } from "./ts/dom/animate";
             DomElement.createWithHTML( labels, "div", "label-100", Char.zero );
 
             labels.style.width = `${topLabel.offsetWidth}px`;
-            dayNames.style.paddingLeft = `${labels.offsetWidth + DomElement.getStyleValueByName(labels, "margin-right", true)}px`;
+            dayNames.style.paddingLeft = `${labels.offsetWidth + DomElement.getStyleValueByName( labels, "margin-right", true )}px`;
 
         } else {
             labels.parentNode!.removeChild( labels );
@@ -2061,7 +2061,7 @@ import { Animate } from "./ts/dom/animate";
             DomElement.createWithHTML( labels, "div", "label-100", Char.zero );
 
             labels.style.width = `${topLabel.offsetWidth}px`;
-            monthNames.style.paddingLeft = `${labels.offsetWidth + DomElement.getStyleValueByName(labels, "margin-right", true)}px`;
+            monthNames.style.paddingLeft = `${labels.offsetWidth + DomElement.getStyleValueByName( labels, "margin-right", true )}px`;
 
         } else {
             labels.parentNode!.removeChild( labels );
@@ -2285,7 +2285,7 @@ import { Animate } from "./ts/dom/animate";
             DomElement.createWithHTML( labels, "div", "label-100", Char.zero );
 
             labels.style.width = `${topLabel.offsetWidth}px`;
-            statisticsRanges.style.paddingLeft = `${labels.offsetWidth + DomElement.getStyleValueByName(labels, "margin-right", true)}px`;
+            statisticsRanges.style.paddingLeft = `${labels.offsetWidth + DomElement.getStyleValueByName( labels, "margin-right", true )}px`;
 
         } else {
             labels.parentNode!.removeChild( labels );
