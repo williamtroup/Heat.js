@@ -1484,7 +1484,7 @@ var Animate;
             Y(e, n);
         }
         if (e.views.days.enabled) {
-            Z(e, n);
+            G(e, n);
         }
         if (e.views.months.enabled) {
             J(e, n);
@@ -2679,14 +2679,14 @@ var Animate;
         }
         return t;
     }
-    function Z(t, n) {
+    function G(t, n) {
         t._currentView.daysContents = DomElement.create(t._currentView.element, "div", "days-contents");
         const o = DomElement.create(t._currentView.daysContents, "div", "days");
         const i = DomElement.create(t._currentView.daysContents, "div", "day-names");
         let s = DomElement.create(o, "div", "y-labels");
         const r = DomElement.create(o, "div", "day-lines");
         const a = Ve(t);
-        const l = G(t, a);
+        const l = z(t, a);
         if (n && (!t.views.days.useDifferentOpacities || !t.views.days.showDayCounts)) {
             DomElement.addClass(o, "view-switch");
         }
@@ -2716,7 +2716,7 @@ var Animate;
             for (const n in l.values) {
                 if (l.values.hasOwnProperty(n) && Is.dayVisible(t.views.days.daysToShow, parseInt(n))) {
                     const s = l.valueOpacities[l.values[n]];
-                    z(r, parseInt(n), l.values[n], t, o, s, l.totalValue);
+                    Z(r, parseInt(n), l.values[n], t, o, s, l.totalValue);
                     if (t.views.days.showDayNames) {
                         DomElement.createWithHTML(i, "div", "day-name", e.text.dayNames[parseInt(n) - 1]);
                     }
@@ -2732,7 +2732,7 @@ var Animate;
         }
         t._currentView.daysContents.style.display = "none";
     }
-    function z(e, t, n, o, i, s, r) {
+    function Z(e, t, n, o, i, s, r) {
         const a = DomElement.create(e, "div", "day-line");
         const l = n * i;
         let c = null;
@@ -2781,7 +2781,7 @@ var Animate;
         }
         Animate.setHeight(o, a, l);
     }
-    function G(e, t) {
+    function z(e, t) {
         const n = {
             values: {
                 1: 0,
@@ -3177,8 +3177,18 @@ var Animate;
             const i = DomElement.create(n, "div", "days");
             const s = Ve(t);
             const r = s.length;
+            const a = [];
+            let l = 0;
             for (let e = 0; e < r; e++) {
-                oe(t, i, s[e]);
+                const n = oe(t, i, s[e]);
+                l = Math.max(l, n.offsetWidth);
+                a.push(n);
+            }
+            if (t.guide.showNumbersInGuide) {
+                const e = a.length;
+                for (let t = 0; t < e; t++) {
+                    a[t].style.width = `${l}px`;
+                }
             }
             if (t.guide.showLessAndMoreLabels) {
                 const o = DomElement.createWithHTML(n, "div", "more-text", e.text.moreText);
@@ -3229,6 +3239,7 @@ var Animate;
         } else {
             DomElement.addClass(o, "no-hover");
         }
+        return o;
     }
     function ie(e, t) {
         if (Is.definedString(e.description.text)) {

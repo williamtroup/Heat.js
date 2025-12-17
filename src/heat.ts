@@ -2504,9 +2504,22 @@ import { Animate } from "./ts/dom/animate";
             const days: HTMLElement = DomElement.create( mapToggles, "div", "days" );
             const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
             const colorRangesLength: number = colorRanges.length;
+            const daysRendered: HTMLElement[] = [];
+            let maximumWidth: number = 0;
     
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-                renderControlGuideDay( bindingOptions, days, colorRanges[ colorRangesIndex ] );
+                const day: HTMLElement = renderControlGuideDay( bindingOptions, days, colorRanges[ colorRangesIndex ] );
+                
+                maximumWidth = Math.max( maximumWidth, day.offsetWidth );
+                daysRendered.push( day );
+            }
+
+            if ( bindingOptions.guide!.showNumbersInGuide ) {
+                const daysRenderedLength: number = daysRendered.length;
+
+                for ( let daysRenderedIndex: number = 0; daysRenderedIndex < daysRenderedLength; daysRenderedIndex++ ) {
+                    daysRendered[ daysRenderedIndex ].style.width = `${maximumWidth}px`;
+                }
             }
 
             if ( bindingOptions.guide!.showLessAndMoreLabels ) {
@@ -2538,7 +2551,7 @@ import { Animate } from "./ts/dom/animate";
         };
     }
 
-    function renderControlGuideDay( bindingOptions: BindingOptions, days: HTMLElement, colorRange: BindingOptionsColorRange ) : void {
+    function renderControlGuideDay( bindingOptions: BindingOptions, days: HTMLElement, colorRange: BindingOptionsColorRange ) : HTMLElement {
         const day: HTMLElement = DomElement.create( days, "div" );
         day.className = "day";
 
@@ -2569,6 +2582,8 @@ import { Animate } from "./ts/dom/animate";
         } else {
             DomElement.addClass( day, "no-hover" );
         }
+
+        return day;
     }
 
     function renderDescription( bindingOptions: BindingOptions, container: HTMLElement ) : void {

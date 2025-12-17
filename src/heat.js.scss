@@ -1741,7 +1741,7 @@ div.heat-js {
                     min-width: var(--heat-js-guide-day-size);
                     height: var(--heat-js-guide-day-size);
                     margin-right: var(--heat-js-guide-day-spacing);
-                    transition: var(--heat-js-transition);
+                    transition: color .3s, background-color .3s, border-color .3s, opacity .3s !important;
     
                     &:last-child {
                         margin-right: 0;

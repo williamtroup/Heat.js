@@ -2160,7 +2160,7 @@ div.heat-js div.guide div.map-toggles div.days div.day {
   min-width: var(--heat-js-guide-day-size);
   height: var(--heat-js-guide-day-size);
   margin-right: var(--heat-js-guide-day-spacing);
-  transition: var(--heat-js-transition);
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.3s !important;
 }
 div.heat-js div.guide div.map-toggles div.days div.day:last-child {
   margin-right: 0;
