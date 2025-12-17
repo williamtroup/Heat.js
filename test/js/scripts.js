@@ -10,7 +10,7 @@ function onMapDayClick( date, count, isHoliday ) {
 }
 
 function onStatisticClick( colorRange, count, year ) {
-    console.log( `Statistic clicked for: ${JSON.stringify(colorRange)}, Count: ${count}, Year: ${year}` );
+    console.log( `Statistic clicked for: ${JSON.stringify( colorRange )}, Count: ${count}, Year: ${year}` );
 }
 
 function onWeekDayClick( day, count, year ) {
