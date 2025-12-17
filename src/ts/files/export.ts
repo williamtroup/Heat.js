@@ -163,7 +163,7 @@ export namespace Export {
 
             for ( const storageDate in typeDateCounts ) {
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    contents.push( `<li><b>${storageDate}:</b> ${typeDateCounts[storageDate].toString()}</li>` );
+                    contents.push( `<li><b>${storageDate}:</b> ${typeDateCounts[ storageDate ].toString()}</li>` );
                 }
             }
 
@@ -182,7 +182,7 @@ export namespace Export {
 
             for ( const storageDate in typeDateCounts ) {
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    contents.push( `| ${storageDate} | ${typeDateCounts[storageDate].toString()} |` );
+                    contents.push( `| ${storageDate} | ${typeDateCounts[ storageDate ].toString()} |` );
                 }
             }
 
@@ -196,7 +196,7 @@ export namespace Export {
 
             for ( const storageDate in typeDateCounts ) {
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    contents.push( `${storageDate}${Char.tab}${typeDateCounts[storageDate].toString()}` );
+                    contents.push( `${storageDate}${Char.tab}${typeDateCounts[ storageDate ].toString()}` );
                 }
             }
 
@@ -211,7 +211,7 @@ export namespace Export {
 
             for ( const storageDate in typeDateCounts ) {
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    contents.push( `${storageDate}${Char.colon}${Char.space}${typeDateCounts[storageDate].toString()}` );
+                    contents.push( `${storageDate}${Char.colon}${Char.space}${typeDateCounts[ storageDate ].toString()}` );
                 }
             }
 
@@ -228,7 +228,7 @@ export namespace Export {
 
             for ( const storageDate in typeDateCounts ) {
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    contents.push( `${storageDate} = ${typeDateCounts[storageDate].toString()}` );
+                    contents.push( `${storageDate} = ${typeDateCounts[ storageDate ].toString()}` );
                 }
             }
 
