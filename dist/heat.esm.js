@@ -707,7 +707,7 @@ var Binding;
             e.views.map.highlightCurrentDay = Default2.getBoolean(e.views.map.highlightCurrentDay, false);
             e.views.map.dayToolTipText = Default2.getString(e.views.map.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}");
             e.views.map.showYearsInMonthNames = Default2.getBoolean(e.views.map.showYearsInMonthNames, true);
-            e.views.map.allowZooming = Default2.getBoolean(e.views.map.allowZooming, true);
+            e.views.map.allowZooming = Default2.getBoolean(e.views.map.allowZooming, false);
             e.views.map.zoomLevel = Default2.getNumber(e.views.map.zoomLevel, 0);
             e.views.map.showCountsInToolTips = Default2.getBoolean(e.views.map.showCountsInToolTips, true);
             if (Is.invalidOptionArray(e.views.map.monthsToShow)) {
