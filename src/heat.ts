@@ -197,7 +197,7 @@ import { Animate } from "./ts/dom/animate";
             renderControlStatistics( bindingOptions, isForViewSwitch );
         }
 
-        renderControlViewGuide( bindingOptions );
+        renderControlGuide( bindingOptions );
 
         bindingOptions._currentView!.mapContentsContainer.style.display = "none";
 
@@ -2453,7 +2453,7 @@ import { Animate } from "./ts/dom/animate";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlViewGuide( bindingOptions: BindingOptions ) : void {
+    function renderControlGuide( bindingOptions: BindingOptions ) : void {
         const guide: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "guide" )
         const mapTypes: HTMLElement = DomElement.create( guide, "div", "map-types" );
         const noneTypeCount: number = getUnknownTrendTypeCount( bindingOptions );
@@ -2472,7 +2472,7 @@ import { Animate } from "./ts/dom/animate";
                 const type: string = types[ typeIndex ];
 
                 if ( type !== _configurationOptions.text!.unknownTrendText || noneTypeCount > 0 ) {
-                    renderControlViewGuideTypeButton( bindingOptions, mapTypes, type );
+                    renderControlGuideTypeButton( bindingOptions, mapTypes, type );
                 }
             }
 
@@ -2506,7 +2506,7 @@ import { Animate } from "./ts/dom/animate";
             const colorRangesLength: number = colorRanges.length;
     
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-                renderControlViewGuideDay( bindingOptions, days, colorRanges[ colorRangesIndex ] );
+                renderControlGuideDay( bindingOptions, days, colorRanges[ colorRangesIndex ] );
             }
 
             if ( bindingOptions.guide!.showLessAndMoreLabels ) {
@@ -2521,7 +2521,7 @@ import { Animate } from "./ts/dom/animate";
         }
     }
 
-    function renderControlViewGuideTypeButton( bindingOptions: BindingOptions, mapTypes: HTMLElement, type: string ) : void {
+    function renderControlGuideTypeButton( bindingOptions: BindingOptions, mapTypes: HTMLElement, type: string ) : void {
         const typeButton: HTMLButtonElement = DomElement.createButton( mapTypes, "button", "type", type );
 
         if ( bindingOptions._currentView!.type === type ) {
@@ -2538,7 +2538,7 @@ import { Animate } from "./ts/dom/animate";
         };
     }
 
-    function renderControlViewGuideDay( bindingOptions: BindingOptions, days: HTMLElement, colorRange: BindingOptionsColorRange ) : void {
+    function renderControlGuideDay( bindingOptions: BindingOptions, days: HTMLElement, colorRange: BindingOptionsColorRange ) : void {
         const day: HTMLElement = DomElement.create( days, "div" );
         day.className = "day";
 
