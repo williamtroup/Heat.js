@@ -167,6 +167,7 @@ export type BindingOptionsCurrentView = {
     monthsContents: HTMLElement;
     monthsContentsScrollLeft: number;
     yearText: HTMLElement;
+    yearTextWidth: number;
     tooltip: HTMLElement;
     tooltipTimer: number;
     configurationDialog: HTMLElement;

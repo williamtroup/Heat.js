@@ -929,13 +929,7 @@ import { Animate } from "./ts/dom/animate";
                     back.disabled = true;
                 }
 
-                let yearText: string = bindingOptions._currentView!.year.toString();
-
-                if ( bindingOptions.startMonth! > 0 ) {
-                    yearText += ` / ${bindingOptions._currentView!.year + 1}`;
-                }
-
-                bindingOptions._currentView!.yearText = DomElement.createWithHTML( titleBar, "div", "year-text", yearText );
+                renderTitleBarYearText( bindingOptions, titleBar );
 
                 if ( bindingOptions.title!.showYearSelectionDropDown ) {
                     renderYearDropDownMenu( bindingOptions );
@@ -979,6 +973,22 @@ import { Animate } from "./ts/dom/animate";
                 }
             }
         }
+    }
+
+    function renderTitleBarYearText( bindingOptions: BindingOptions, titleBar: HTMLElement ) : void {
+        let yearText: string = bindingOptions._currentView!.year.toString();
+
+        if ( bindingOptions.startMonth! > 0 ) {
+            yearText += ` / ${bindingOptions._currentView!.year + 1}`;
+        }
+
+        bindingOptions._currentView!.yearText = DomElement.createWithHTML( titleBar, "div", "year-text", yearText );
+
+        if ( bindingOptions._currentView!.yearTextWidth === 0 ) {
+            bindingOptions._currentView!.yearTextWidth = Math.ceil( bindingOptions._currentView!.yearText.offsetWidth + 20 );
+        }
+
+        bindingOptions._currentView!.yearText.style.width = `${bindingOptions._currentView!.yearTextWidth}px`;
     }
 
     function renderTitleDropDownMenu( bindingOptions: BindingOptions, title: HTMLElement ) : void {

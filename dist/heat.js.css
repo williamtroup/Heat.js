@@ -951,6 +951,7 @@ div.heat-js div.title-bar div.year-text {
   padding-bottom: 5px;
   transition: var(--heat-js-transition);
   white-space: nowrap;
+  text-align: center;
   cursor: pointer;
 }
 div.heat-js div.title-bar div.year-text:hover {

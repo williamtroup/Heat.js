@@ -798,6 +798,7 @@ div.heat-js {
             padding-bottom: $year-margin;
             transition: var(--heat-js-transition);
             white-space: nowrap;
+            text-align: center;
             cursor: pointer;
 
             &:hover {
@@ -805,7 +806,7 @@ div.heat-js {
             }
 
             &:hover div.down-arrow {
-                border-top-color:  var(--heat-js-title-opener-text-color-hover);
+                border-top-color: var(--heat-js-title-opener-text-color-hover);
                 transform: rotate( -180deg );
             }
 
