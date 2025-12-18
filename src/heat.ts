@@ -1662,7 +1662,6 @@ import { Animate } from "./ts/dom/animate";
             const borderBottomWidth: number = DomElement.getStyleValueByName( dayLines, "border-bottom-width", true );
             const pixelsPerNumbers: number = ( dayLines.offsetHeight - borderBottomWidth ) / largestValueForCurrentYear;
             let totalMonths: number = 0;
-            let totalDays: number = 0;
             let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
             let firstMonthAdded: boolean = false;
 
@@ -1704,7 +1703,6 @@ import { Animate } from "./ts/dom/animate";
                         }
     
                         actualDay++;
-                        totalDays++;
                     }
                 }
 
@@ -1878,7 +1876,6 @@ import { Animate } from "./ts/dom/animate";
 
         } else {
             let totalMonths: number = 0;
-            let totalDays: number = 0;
             let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
 
             for ( let monthIndex1: number = bindingOptions.startMonth!; monthIndex1 < ( 12 + bindingOptions.startMonth! ); monthIndex1++ ) {
@@ -1915,7 +1912,6 @@ import { Animate } from "./ts/dom/animate";
                         }
     
                         actualDay++;
-                        totalDays++;
                     }
                 }
             }
