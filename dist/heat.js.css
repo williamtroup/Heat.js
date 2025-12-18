@@ -1549,6 +1549,8 @@ div.heat-js div.line-contents {
   white-space: nowrap;
   position: relative;
   padding-bottom: var(--heat-js-spacing);
+  border-top-left-radius: var(--heat-js-border-radius-day);
+  border-top-right-radius: var(--heat-js-border-radius-day);
 }
 div.heat-js div.line-contents::-webkit-scrollbar {
   width: var(--heat-js-scroll-bar-size);
@@ -1596,6 +1598,7 @@ div.heat-js div.line-contents div.line div.day-lines div.day-line {
   align-items: center;
   justify-content: center;
   height: 100%;
+  border: none !important;
 }
 div.heat-js div.line-contents div.line-months {
   position: relative;

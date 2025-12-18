@@ -1288,6 +1288,8 @@ div.heat-js {
         white-space: nowrap;
         position: relative;
         padding-bottom: var(--heat-js-spacing);
+        border-top-left-radius: var(--heat-js-border-radius-day);
+        border-top-right-radius: var(--heat-js-border-radius-day);
 
         @include styles.scroll-bars;
 
@@ -1316,6 +1318,7 @@ div.heat-js {
                     align-items: center;
                     justify-content: center;
                     height: 100%;
+                    border: none !important
                 }
             }
         }

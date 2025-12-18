@@ -87,6 +87,7 @@ export namespace Configuration {
             configurationOptions.text!.removeButtonText = Default.getAnyString( configurationOptions.text!.removeButtonText, "Remove" );
             configurationOptions.text!.invertText = Default.getAnyString( configurationOptions.text!.invertText, "Invert" );
             configurationOptions.text!.lineText = Default.getAnyString( configurationOptions.text!.lineText, "Line" );
+            configurationOptions.text!.noLineDataMessage = Default.getAnyString( configurationOptions.text!.noLineDataMessage, "There is currently no data to view." );
 
             return configurationOptions.text!;
         }

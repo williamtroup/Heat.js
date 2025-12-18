@@ -1881,7 +1881,156 @@ import { Animate } from "./ts/dom/animate";
         bindingOptions._currentView!.lineContents = DomElement.create( bindingOptions._currentView!.element, "div", "line-contents" );
         bindingOptions._currentView!.lineContents.onscroll = () => ToolTip.hide( bindingOptions );
 
+        const line: HTMLElement = DomElement.create( bindingOptions._currentView!.lineContents, "div", "line" );
+        const dayLines: HTMLElement = DomElement.create( line, "div", "day-lines" );
+        const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
+        const largestValueForCurrentYear: number = getLargestValueForChartYear( bindingOptions );
+        const currentYear: number = bindingOptions._currentView!.year;
+        let labelsWidth: number = 0;
+
+        if ( isForViewSwitch ) {
+            DomElement.addClass( line, "view-switch" );
+        }
+
+        if ( largestValueForCurrentYear === 0 ) {
+            bindingOptions._currentView!.lineContents.style.minHeight = `${bindingOptions._currentView!.mapContents.offsetHeight}px`;
+            line.parentNode!.removeChild( line );
+
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.lineContents, "div", "no-data-message", _configurationOptions.text!.noLineDataMessage! );
+
+            if ( isForViewSwitch ) {
+                DomElement.addClass( noDataMessage, "view-switch" );
+            }
+
+        } else {
+            let totalMonths: number = 0;
+            let totalDays: number = 0;
+            let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
+            let firstMonthAdded: boolean = false;
+
+            for ( let monthIndex1: number = bindingOptions.startMonth!; monthIndex1 < ( 12 + bindingOptions.startMonth! ); monthIndex1++ ) {
+                let actualMonthIndex: number = monthIndex1;
+                let actualYear: number = currentYear;
+
+                if ( bindingOptions.startMonth! > 0 && monthIndex1 > 11 ) {
+                    actualMonthIndex = monthIndex1 - 12;
+                    actualYear++;
+                }
+
+                if ( Is.monthVisible( bindingOptions.views!.line!.monthsToShow!, actualMonthIndex ) ) {
+                    const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
+                    let actualDay: number = 1;
+                    let firstDayAdded: boolean = false;
+                    
+                    totalMonths++;
+
+                    for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                        const actualDate: Date = new Date( actualYear, actualMonthIndex, actualDay );
+                        const weekdayNumber: number = DateTime.getWeekdayNumber( actualDate ) + 1;
+                        
+                        if ( Is.dayVisible( bindingOptions.views!.line!.daysToShow!, weekdayNumber ) ) {
+                            const dayLine: HTMLElement = renderControlLineDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges );
+
+                            if ( !firstDayAdded ) {
+                                firstMonthDayLines.push( dayLine );
+                                firstDayAdded = true;
+                            }
+                        }
+        
+                        if ( ( dayIndex + 1 ) % 7 === 0 ) {
+                            actualDay = 0;
+                        }
+    
+                        actualDay++;
+                        totalDays++;
+                    }
+                }
+
+                firstMonthAdded = true;
+            }
+
+            if ( bindingOptions.views!.line!.showInReverseOrder ) {
+                DomElement.reverseChildrenOrder( dayLines );
+                firstMonthDayLines = firstMonthDayLines.reverse();
+            }
+
+            if ( bindingOptions.views!.line!.showMonthNames ) {
+                const lineMonths: HTMLElement = DomElement.create( bindingOptions._currentView!.lineContents, "div", "line-months" );
+                let monthNameAddedIndex: number = 0;
+
+                const addMonthName: Function = ( addMonthNameIndex: number ) : void => {
+                    let actualMonthIndex: number = addMonthNameIndex + bindingOptions.startMonth!;
+                    let actualYear: number = currentYear;
+
+                    if ( bindingOptions.startMonth! > 0 && actualMonthIndex > 11 ) {
+                        actualMonthIndex -= 12;
+                        actualYear++;
+                    }
+
+                    if ( Is.monthVisible( bindingOptions.views!.line!.monthsToShow!, actualMonthIndex ) ) {
+                        let monthNameText: string = _configurationOptions.text!.monthNames![ actualMonthIndex ];
+
+                        if ( bindingOptions.startMonth! > 0 && bindingOptions.views!.line!.showYearsInMonthNames ) {
+                            monthNameText += `${Char.space}${actualYear}`;
+                        }
+
+                        let monthName: HTMLElement = DomElement.createWithHTML( lineMonths, "div", "month-name", monthNameText );
+                        monthName.style.left = `${firstMonthDayLines[ monthNameAddedIndex ].offsetLeft}px`;
+
+                        if ( bindingOptions.views!.months!.enabled ) {
+                            monthName.ondblclick = () => switchView( bindingOptions, ViewId.months, ViewName.months );
+                        }
+
+                        monthNameAddedIndex++;
+                    }
+                };
+
+                if ( bindingOptions.views!.line!.showInReverseOrder ) {
+                    for ( let monthIndex2: number = 12; monthIndex2--; ) {
+                        addMonthName( monthIndex2 );
+                    }
+                    
+                } else {
+                    for ( let monthIndex3: number = 0; monthIndex3 < 12; monthIndex3++ ) {
+                        addMonthName( monthIndex3 );
+                    }
+                }
+
+                lineMonths.style.width = `${dayLines.offsetWidth}px`;
+
+                const monthNameSpace: HTMLElement = DomElement.create( lineMonths, "div", "month-name-space" );
+                monthNameSpace.style.height = `${lineMonths.offsetHeight}px`;
+                monthNameSpace.style.width = `${labelsWidth}px`;
+            }
+    
+            if ( bindingOptions.views!.line!.keepScrollPositions ) {
+                bindingOptions._currentView!.lineContents.scrollLeft = bindingOptions._currentView!.lineContentsScrollLeft;
+            }
+        }
+
         bindingOptions._currentView!.lineContents.style.display = "none";
+    }
+
+    function renderControlLineDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[] ) : HTMLElement {
+        const date: Date = new Date( year, month, day );
+        const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line no-hover" );
+        let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
+
+        dateCount = Default.getNumber( dateCount, 0 );
+
+        dayLine.setAttribute( Constant.HEAT_JS_LINE_DATE_ATTRIBUTE_NAME, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
+
+        const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
+
+        if ( Is.defined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id! ) ) {
+            if ( Is.definedString( useColorRange.lineCssClassName ) ) {
+                DomElement.addClass( dayLine, useColorRange.lineCssClassName! );
+            } else {
+                DomElement.addClass( dayLine, useColorRange.cssClassName! );
+            }
+        }
+
+        return dayLine;
     }
 
 

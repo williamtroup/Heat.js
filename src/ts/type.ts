@@ -112,6 +112,7 @@ export type ConfigurationOptionsText = {
     removeButtonText?: string;
     invertText?: string;
     lineText?: string;
+    noLineDataMessage?: string;
 };
 
 export type BindingOptions = {
