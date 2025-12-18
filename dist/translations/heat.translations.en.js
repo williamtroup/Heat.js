@@ -54,6 +54,8 @@ $heat.setConfiguration( {
                 "addButtonText": "Add",
                 "removeButtonText": "Remove",
                 "invertText": "Invert",
+                "lineText": "Line",
+                "noLineDataMessage": "There is currently no data to view.",
                 "monthNames": [
                         "Jan",
                         "Feb",
