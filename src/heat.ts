@@ -1624,7 +1624,7 @@ import { Animate } from "./ts/dom/animate";
         let labels: HTMLElement = DomElement.create( chart, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( chart, "div", "day-lines" );
         const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
-        const largestValueForCurrentYear: number = getLargestValueForChartYear( bindingOptions );
+        const largestValueForCurrentYear: number = getLargestValueCurrentYear( bindingOptions );
         const currentYear: number = bindingOptions._currentView!.year;
         let labelsWidth: number = 0;
 
@@ -1836,40 +1836,6 @@ import { Animate } from "./ts/dom/animate";
         return dayLine;
     }
 
-    function getLargestValueForChartYear( bindingOptions: BindingOptions ) : number {
-        let result: number = 0;
-        const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
-        const currentYear: number = bindingOptions._currentView!.year;
-
-        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
-            let actualMonthIndex: number = monthIndex;
-            let actualYear: number = currentYear;
-
-            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
-                actualMonthIndex = monthIndex - 12;
-                actualYear++;
-            }
-
-            if ( Is.monthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) ) {
-                const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
-        
-                for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
-                    const date: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
-                    const storageDate: string = DateTime.toStorageDate( date );
-                    const weekdayNumber: number = DateTime.getWeekdayNumber( date ) + 1;
-
-                    if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                        if ( Is.dayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
-                            result = Math.max( result, typeDateCounts[ storageDate ] );
-                        }
-                    }
-                }
-            }
-        }
-
-        return result;
-    }
-
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1884,7 +1850,7 @@ import { Animate } from "./ts/dom/animate";
         const line: HTMLElement = DomElement.create( bindingOptions._currentView!.lineContents, "div", "line" );
         const dayLines: HTMLElement = DomElement.create( line, "div", "day-lines" );
         const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
-        const largestValueForCurrentYear: number = getLargestValueForChartYear( bindingOptions );
+        const largestValueForCurrentYear: number = getLargestValueCurrentYear( bindingOptions );
         const currentYear: number = bindingOptions._currentView!.year;
         let labelsWidth: number = 0;
 
@@ -1906,7 +1872,6 @@ import { Animate } from "./ts/dom/animate";
             let totalMonths: number = 0;
             let totalDays: number = 0;
             let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
-            let firstMonthAdded: boolean = false;
 
             for ( let monthIndex1: number = bindingOptions.startMonth!; monthIndex1 < ( 12 + bindingOptions.startMonth! ); monthIndex1++ ) {
                 let actualMonthIndex: number = monthIndex1;
@@ -1945,8 +1910,6 @@ import { Animate } from "./ts/dom/animate";
                         totalDays++;
                     }
                 }
-
-                firstMonthAdded = true;
             }
 
             if ( bindingOptions.views!.line!.showInReverseOrder ) {
@@ -2949,6 +2912,40 @@ import { Animate } from "./ts/dom/animate";
                 }
             }
         }
+    }
+
+    function getLargestValueCurrentYear( bindingOptions: BindingOptions ) : number {
+        let result: number = 0;
+        const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
+        const currentYear: number = bindingOptions._currentView!.year;
+
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            let actualMonthIndex: number = monthIndex;
+            let actualYear: number = currentYear;
+
+            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                actualMonthIndex = monthIndex - 12;
+                actualYear++;
+            }
+
+            if ( Is.monthVisible( bindingOptions.views!.chart!.monthsToShow!, actualMonthIndex ) ) {
+                const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
+        
+                for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
+                    const date: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
+                    const storageDate: string = DateTime.toStorageDate( date );
+                    const weekdayNumber: number = DateTime.getWeekdayNumber( date ) + 1;
+
+                    if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                        if ( Is.dayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
+                            result = Math.max( result, typeDateCounts[ storageDate ] );
+                        }
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 
 
