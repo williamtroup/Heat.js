@@ -248,6 +248,9 @@ export type BindingOptionsViewsLine = {
     monthsToShow?: number[];
     daysToShow?: number[];
     showYearsInMonthNames?: boolean;
+    dayToolTipText?: string;
+    showToolTips?: boolean;
+    showCountsInToolTips?: boolean;
 };
 
 export type BindingOptionsViewsDays = {
@@ -357,6 +360,7 @@ export type BindingOptionsEvents = {
     onTypeSwitch?: ( type: string ) => void;
     onMapDayToolTipRender?: ( date: Date, count: number, isHoliday: boolean ) => void;
     onChartDayToolTipRender?: ( date: Date, count: number, isHoliday: boolean ) => void;
+    onLineDayToolTipRender?: ( date: Date, count: number, isHoliday: boolean ) => void;
     onAdd?: ( element: HTMLElement ) => void;
     onRemove?: ( element: HTMLElement ) => void;
     onReset?: ( element: HTMLElement ) => void;

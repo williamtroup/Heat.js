@@ -336,6 +336,9 @@ export namespace Binding {
             bindingOptions.views!.line!.showInReverseOrder = Default.getBoolean( bindingOptions.views!.line!.showInReverseOrder, false );
             bindingOptions.views!.line!.keepScrollPositions = Default.getBoolean( bindingOptions.views!.line!.keepScrollPositions, false );
             bindingOptions.views!.line!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.line!.showYearsInMonthNames, true );
+            bindingOptions.views!.line!.showToolTips = Default.getBoolean( bindingOptions.views!.line!.showToolTips, true );
+            bindingOptions.views!.line!.dayToolTipText = Default.getString( bindingOptions.views!.line!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
+            bindingOptions.views!.line!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.line!.showCountsInToolTips, true );
 
             if ( Is.invalidOptionArray( bindingOptions.views!.line!.monthsToShow ) ) {
                 bindingOptions.views!.line!.monthsToShow = _default_MonthsToShow;
@@ -448,6 +451,7 @@ export namespace Binding {
             bindingOptions.events!.onTypeSwitch = Default.getFunction( bindingOptions.events!.onTypeSwitch, null! );
             bindingOptions.events!.onMapDayToolTipRender = Default.getFunction( bindingOptions.events!.onMapDayToolTipRender, null! );
             bindingOptions.events!.onChartDayToolTipRender = Default.getFunction( bindingOptions.events!.onChartDayToolTipRender, bindingOptions.events!.onMapDayToolTipRender! );
+            bindingOptions.events!.onLineDayToolTipRender = Default.getFunction( bindingOptions.events!.onLineDayToolTipRender, bindingOptions.events!.onMapDayToolTipRender! );
             bindingOptions.events!.onAdd = Default.getFunction( bindingOptions.events!.onAdd, null! );
             bindingOptions.events!.onRemove = Default.getFunction( bindingOptions.events!.onRemove, null! );
             bindingOptions.events!.onReset = Default.getFunction( bindingOptions.events!.onReset, null! );

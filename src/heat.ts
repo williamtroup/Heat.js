@@ -1980,11 +1980,16 @@ import { Animate } from "./ts/dom/animate";
     function renderControlLineDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[] ) : HTMLElement {
         const date: Date = new Date( year, month, day );
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line no-hover" );
+        const holiday: IsHoliday = Is.holiday( bindingOptions, date );
         let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
 
         dateCount = Default.getNumber( dateCount, 0 );
 
         dayLine.setAttribute( Constant.HEAT_JS_LINE_DATE_ATTRIBUTE_NAME, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
+
+        if ( bindingOptions.views!.line!.showToolTips ) {
+            renderDayToolTip( bindingOptions, dayLine, date, dateCount, bindingOptions.views!.line!.dayToolTipText!, bindingOptions.events!.onLineDayToolTipRender!, holiday.matched, bindingOptions.views!.line!.showCountsInToolTips! );
+        }
 
         const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
 

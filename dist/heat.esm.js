@@ -781,6 +781,9 @@ var d;
             e.views.line.showInReverseOrder = o.getBoolean(e.views.line.showInReverseOrder, false);
             e.views.line.keepScrollPositions = o.getBoolean(e.views.line.keepScrollPositions, false);
             e.views.line.showYearsInMonthNames = o.getBoolean(e.views.line.showYearsInMonthNames, true);
+            e.views.line.showToolTips = o.getBoolean(e.views.line.showToolTips, true);
+            e.views.line.dayToolTipText = o.getString(e.views.line.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}");
+            e.views.line.showCountsInToolTips = o.getBoolean(e.views.line.showCountsInToolTips, true);
             if (i.invalidOptionArray(e.views.line.monthsToShow)) {
                 e.views.line.monthsToShow = t;
             }
@@ -875,6 +878,7 @@ var d;
             e.events.onTypeSwitch = o.getFunction(e.events.onTypeSwitch, null);
             e.events.onMapDayToolTipRender = o.getFunction(e.events.onMapDayToolTipRender, null);
             e.events.onChartDayToolTipRender = o.getFunction(e.events.onChartDayToolTipRender, e.events.onMapDayToolTipRender);
+            e.events.onLineDayToolTipRender = o.getFunction(e.events.onLineDayToolTipRender, e.events.onMapDayToolTipRender);
             e.events.onAdd = o.getFunction(e.events.onAdd, null);
             e.events.onRemove = o.getFunction(e.events.onRemove, null);
             e.events.onReset = o.getFunction(e.events.onReset, null);
@@ -2840,15 +2844,19 @@ var y;
     function he(t, n, l, c, d, u) {
         const w = new Date(d, c, l);
         const h = a.create(t, "div", "day-line no-hover");
-        let f = Ae(n)[r.toStorageDate(w)];
-        f = o.getNumber(f, 0);
+        const f = i.holiday(n, w);
+        let g = Ae(n)[r.toStorageDate(w)];
+        g = o.getNumber(g, 0);
         h.setAttribute(e.HEAT_JS_LINE_DATE_ATTRIBUTE_NAME, `${s.padNumber(l)}-${s.padNumber(c + 1)}-${d}`);
-        const g = Ge(n, u, f, w);
-        if (i.defined(g) && Pe(n, g.id)) {
-            if (i.definedString(g.lineCssClassName)) {
-                a.addClass(h, g.lineCssClassName);
+        if (n.views.line.showToolTips) {
+            Se(n, h, w, g, n.views.line.dayToolTipText, n.events.onLineDayToolTipRender, f.matched, n.views.line.showCountsInToolTips);
+        }
+        const m = Ge(n, u, g, w);
+        if (i.defined(m) && Pe(n, m.id)) {
+            if (i.definedString(m.lineCssClassName)) {
+                a.addClass(h, m.lineCssClassName);
             } else {
-                a.addClass(h, g.cssClassName);
+                a.addClass(h, m.cssClassName);
             }
         }
         return h;
