@@ -1258,7 +1258,9 @@ import { Animate } from "./ts/dom/animate";
         bindingOptions._currentView!.mapContentsContainer = DomElement.create( bindingOptions._currentView!.element, "div", "map-contents-container" );
         bindingOptions._currentView!.mapContents = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "map-contents" );
 
-        if ( bindingOptions.views!.map!.showNoDataMessageWhenDataIsNotAvailable && !isDataAvailableForYear( bindingOptions ) ) {
+        if ( !isDataAvailableForYear( bindingOptions ) ) {
+            bindingOptions._currentView!.mapContents.style.minHeight = `${Constant.DEFAULT_HEIGHT}px`;
+
             const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.mapContents, "div", "no-data-message", _configurationOptions.text!.noMapDataMessage! );
 
             if ( isForViewSwitch ) {

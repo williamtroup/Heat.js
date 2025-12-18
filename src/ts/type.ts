@@ -208,7 +208,6 @@ export type BindingOptionsViewsMap = {
     showDayCounts?: boolean;
     showMonthNames?: boolean;
     showDaysInReverseOrder?: boolean;
-    showNoDataMessageWhenDataIsNotAvailable?: boolean;
     showMinimalDayNames?: boolean;
     showMonthsInReverseOrder?: boolean;
     keepScrollPositions?: boolean;

@@ -1249,7 +1249,6 @@ div.heat-js div.map-contents-container div.zooming button.zoom-in i.plus::after 
 div.heat-js div.map-contents-container div.map-contents {
   overflow-x: auto;
   overflow-y: hidden;
-  min-height: 191px;
   position: relative;
   padding-bottom: var(--heat-js-spacing);
 }

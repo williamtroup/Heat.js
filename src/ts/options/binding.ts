@@ -289,7 +289,6 @@ export namespace Binding {
             bindingOptions.views!.map!.showDayCounts = Default.getBoolean( bindingOptions.views!.map!.showDayCounts, false );
             bindingOptions.views!.map!.showMonthNames = Default.getBoolean( bindingOptions.views!.map!.showMonthNames, true );
             bindingOptions.views!.map!.showDaysInReverseOrder = Default.getBoolean( bindingOptions.views!.map!.showDaysInReverseOrder, false );
-            bindingOptions.views!.map!.showNoDataMessageWhenDataIsNotAvailable = Default.getBoolean( bindingOptions.views!.map!.showNoDataMessageWhenDataIsNotAvailable, false );
             bindingOptions.views!.map!.showMinimalDayNames = Default.getBoolean( bindingOptions.views!.map!.showMinimalDayNames, false );
             bindingOptions.views!.map!.showMonthsInReverseOrder = Default.getBoolean( bindingOptions.views!.map!.showMonthsInReverseOrder, false );
             bindingOptions.views!.map!.keepScrollPositions = Default.getBoolean( bindingOptions.views!.map!.keepScrollPositions, false );
