@@ -330,7 +330,7 @@ export namespace Binding {
         }
 
         function getLineView( bindingOptions: BindingOptions ) : BindingOptionsViewsLine {
-            bindingOptions.views!.line = Default.getObject( bindingOptions.views!.chart, {} as BindingOptionsViewsLine );
+            bindingOptions.views!.line = Default.getObject( bindingOptions.views!.line, {} as BindingOptionsViewsLine );
             bindingOptions.views!.line!.enabled = Default.getBoolean( bindingOptions.views!.line!.enabled, true );
             bindingOptions.views!.line!.showMonthNames = Default.getBoolean( bindingOptions.views!.line!.showMonthNames, true );
             bindingOptions.views!.line!.showInReverseOrder = Default.getBoolean( bindingOptions.views!.line!.showInReverseOrder, false );

@@ -775,7 +775,7 @@ var d;
             return e.views.chart;
         }
         function g(e) {
-            e.views.line = o.getObject(e.views.chart, {});
+            e.views.line = o.getObject(e.views.line, {});
             e.views.line.enabled = o.getBoolean(e.views.line.enabled, true);
             e.views.line.showMonthNames = o.getBoolean(e.views.line.showMonthNames, true);
             e.views.line.showInReverseOrder = o.getBoolean(e.views.line.showInReverseOrder, false);
