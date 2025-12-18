@@ -1861,7 +1861,6 @@ import { Animate } from "./ts/dom/animate";
         const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
         const largestValueForCurrentYear: number = getLargestValueCurrentYear( bindingOptions );
         const currentYear: number = bindingOptions._currentView!.year;
-        let labelsWidth: number = 0;
 
         if ( isForViewSwitch ) {
             DomElement.addClass( line, "view-switch" );

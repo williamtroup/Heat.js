@@ -2750,7 +2750,6 @@ var y;
         const s = ze(e);
         const c = Ie(e);
         const d = e._currentView.year;
-        let u = 0;
         if (t) {
             a.addClass(n, "view-switch");
         }
