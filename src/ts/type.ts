@@ -111,6 +111,7 @@ export type ConfigurationOptionsText = {
     addButtonText?: string;
     removeButtonText?: string;
     invertText?: string;
+    lineText?: string;
 };
 
 export type BindingOptions = {
@@ -156,6 +157,8 @@ export type BindingOptionsCurrentView = {
     mapContentsScrollLeft: number;
     chartContents: HTMLElement;
     chartContentsScrollLeft: number;
+    lineContents: HTMLElement;
+    lineContentsScrollLeft: number;
     statisticsContents: HTMLElement;
     statisticsContentsScrollLeft: number;
     daysContents: HTMLElement;
@@ -188,6 +191,7 @@ export type BindingOptionsCurrentView = {
 export type BindingOptionsViews = {
     map?: BindingOptionsViewsMap;
     chart?: BindingOptionsViewsChart;
+    line?: BindingOptionsViewsLine;
     days?: BindingOptionsViewsDays;
     months?: BindingOptionsViewsMonths;
     statistics?: BindingOptionsViewsStatistics;
@@ -233,6 +237,16 @@ export type BindingOptionsViewsChart = {
     showYearsInMonthNames?: boolean;
     showCountsInToolTips?: boolean;
     addMonthSpacing?: boolean;
+};
+
+export type BindingOptionsViewsLine = {
+    enabled?: boolean;
+    showMonthNames?: boolean;
+    showInReverseOrder?: boolean;
+    keepScrollPositions?: boolean;
+    monthsToShow?: number[];
+    daysToShow?: number[];
+    showYearsInMonthNames?: boolean;
 };
 
 export type BindingOptionsViewsDays = {
@@ -372,6 +386,7 @@ export type BindingOptionsColorRange = {
     cssClassName?: string;
     mapCssClassName?: string;
     chartCssClassName?: string;
+    lineCssClassName?: string;
     statisticsCssClassName?: string;
     tooltipText?: string;
     visible?: boolean;

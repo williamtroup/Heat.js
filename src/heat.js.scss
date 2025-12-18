@@ -89,7 +89,7 @@
     --heat-js-view-opacity-hover: 0.7;
     --heat-js-view-opacity-active: 0.5;
 
-    // View - Map / Chart - Day - Defaults
+    // View - Map / Chart / Line - Day - Defaults
     --heat-js-day-background-color: #2d333b;
     --heat-js-day-border-color: var(--heat-js-container-border-color);
     --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
@@ -97,6 +97,7 @@
     --heat-js-day-size: 20px;
     --heat-js-day-chart-width: 12px;
     --heat-js-day-chart-spacing: 3px;
+    --heat-js-day-line-width: 3px;
 
     // View - Map / Chart - Day - Colors
     --heat-js-day-color-1-background-color: rgba( 80, 200, 120, 0.25 );
@@ -1159,7 +1160,6 @@ div.heat-js {
 
 div.heat-js {
     div.chart-contents {
-        display: flex;
         overflow-x: auto;
         overflow-y: hidden;
         text-wrap: nowrap;
@@ -1276,13 +1276,81 @@ div.heat-js {
 
 /*
     -------------------------------------------------------------------------
+    Heat.js - View - Line
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.line-contents {
+        overflow-x: auto;
+        overflow-y: hidden;
+        text-wrap: nowrap;
+        white-space: nowrap;
+        position: relative;
+        padding-bottom: var(--heat-js-spacing);
+
+        @include styles.scroll-bars;
+
+        div.no-data-message {
+            @include styles.centered-label;
+        }
+
+        div.line {
+            display: inline-flex;
+            flex-direction: row;
+
+            div.day-lines {
+                display: flex;
+                align-items: flex-end;
+                flex: 1;
+                border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+                height: 173px !important;
+                overflow: hidden;
+
+                div.day-line {
+                    background-color: var(--heat-js-day-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+                    border-bottom: none !important;
+                    min-width: var(--heat-js-day-line-width);
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                }
+            }
+        }
+
+        div.line-months {
+            position: relative;
+            height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) );
+
+            div.month-name,
+            div.month-name-space {
+                font-weight: var(--heat-js-text-bold-weight);
+                text-align: left !important;
+                position: absolute;
+                bottom: 0;
+            }
+
+            div.month-name-space {
+                left: 0;
+                top: 0;
+                position: sticky;
+                background-color: var(--heat-js-container-background-color);
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
     Heat.js - View - Days
     -------------------------------------------------------------------------
 */
 
 div.heat-js {
     div.days-contents {
-        display: flex;
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
@@ -1393,7 +1461,6 @@ div.heat-js {
 
 div.heat-js {
     div.months-contents {
-        display: flex;
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
@@ -1508,7 +1575,6 @@ div.heat-js {
 
 div.heat-js {
     div.statistics-contents {
-        display: flex;
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;

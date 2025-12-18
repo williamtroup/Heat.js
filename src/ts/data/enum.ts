@@ -38,6 +38,7 @@ export enum ViewId {
     days = 3,
     statistics = 4,
     months = 5,
+    line = 6,
 }
 
 export enum ViewName {
@@ -46,6 +47,7 @@ export enum ViewName {
     days = "days",
     statistics = "statistics",
     months = "months",
+    line = "line",
 }
 
 export enum ImportType {

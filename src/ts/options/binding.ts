@@ -28,7 +28,8 @@ import {
     type BindingOptionsViews,
     type BindingOptionsYearlyStatistics,
     type BindingOptionsViewsMonths,
-    type ConfigurationOptions } from "../type";
+    type ConfigurationOptions, 
+    BindingOptionsViewsLine} from "../type";
 
 import { Default } from "../data/default";
 import { Char, ExportType, Value, ViewId, ViewName } from "../data/enum";
@@ -121,6 +122,7 @@ export namespace Binding {
             bindingOptions.tooltip = getToolTip( bindingOptions );
             bindingOptions.views!.map = getMapView( bindingOptions );
             bindingOptions.views!.chart = getChartView( bindingOptions );
+            bindingOptions.views!.line = getLineView( bindingOptions );
             bindingOptions.views!.days = getDaysView( bindingOptions );
             bindingOptions.views!.months = getMonthsView( bindingOptions );
             bindingOptions.views!.statistics = getStatisticsView( bindingOptions );
@@ -149,6 +151,7 @@ export namespace Binding {
                     colorRange.cssClassName = Default.getString( colorRange.cssClassName, Char.empty );
                     colorRange.mapCssClassName = Default.getString( colorRange.mapCssClassName, Char.empty );
                     colorRange.chartCssClassName = Default.getString( colorRange.chartCssClassName, Char.empty );
+                    colorRange.lineCssClassName = Default.getString( colorRange.lineCssClassName, Char.empty );
                     colorRange.statisticsCssClassName = Default.getString( colorRange.statisticsCssClassName, Char.empty );
                     colorRange.tooltipText = Default.getString( colorRange.tooltipText, Char.empty );
                     colorRange.visible = Default.getBoolean( colorRange.visible, true );
@@ -324,6 +327,25 @@ export namespace Binding {
             }
     
             return bindingOptions.views!.chart!;
+        }
+
+        function getLineView( bindingOptions: BindingOptions ) : BindingOptionsViewsLine {
+            bindingOptions.views!.line = Default.getObject( bindingOptions.views!.chart, {} as BindingOptionsViewsLine );
+            bindingOptions.views!.line!.enabled = Default.getBoolean( bindingOptions.views!.line!.enabled, true );
+            bindingOptions.views!.line!.showMonthNames = Default.getBoolean( bindingOptions.views!.line!.showMonthNames, true );
+            bindingOptions.views!.line!.showInReverseOrder = Default.getBoolean( bindingOptions.views!.line!.showInReverseOrder, false );
+            bindingOptions.views!.line!.keepScrollPositions = Default.getBoolean( bindingOptions.views!.line!.keepScrollPositions, false );
+            bindingOptions.views!.line!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.line!.showYearsInMonthNames, true );
+
+            if ( Is.invalidOptionArray( bindingOptions.views!.line!.monthsToShow ) ) {
+                bindingOptions.views!.line!.monthsToShow = _default_MonthsToShow;
+            }
+    
+            if ( Is.invalidOptionArray( bindingOptions.views!.line!.daysToShow ) ) {
+                bindingOptions.views!.line!.daysToShow = _default_DaysToShow;
+            }
+    
+            return bindingOptions.views!.line!;
         }
     
         function getDaysView( bindingOptions: BindingOptions ) : BindingOptionsViewsDays {
