@@ -132,24 +132,7 @@ import { Animate } from "./ts/dom/animate";
             storeDataInLocalStorage( bindingOptions );
         }
 
-        if ( Is.defined( bindingOptions._currentView!.mapContents ) ) {
-            bindingOptions._currentView!.mapContentsScrollLeft = bindingOptions._currentView!.mapContents.scrollLeft;
-        }
-
-        if ( bindingOptions.views!.chart!.enabled && Is.defined( bindingOptions._currentView!.chartContents ) ) {
-            bindingOptions._currentView!.chartContentsScrollLeft = bindingOptions._currentView!.chartContents.scrollLeft;
-        }
-
-        if ( bindingOptions.views!.days!.enabled && Is.defined( bindingOptions._currentView!.daysContents ) ) {
-            bindingOptions._currentView!.daysContentsScrollLeft = bindingOptions._currentView!.daysContents.scrollLeft;
-        }
-
-        if ( bindingOptions.views!.statistics!.enabled && Is.defined( bindingOptions._currentView!.statisticsContents ) ) {
-            bindingOptions._currentView!.statisticsContentsScrollLeft = bindingOptions._currentView!.statisticsContents.scrollLeft;
-        }
-        
-        bindingOptions._currentView!.element.innerHTML = Char.empty;
-        bindingOptions._currentView!.yearsAvailable = getYearsAvailableInData( bindingOptions );
+        renderControlStoreScrollPositionsAndSizes( bindingOptions );
         
         ToolTip.hide( bindingOptions );
 
@@ -198,7 +181,35 @@ import { Animate } from "./ts/dom/animate";
         }
 
         renderControlGuide( bindingOptions );
+        renderControlVisibleView( bindingOptions );
+    }
 
+    function renderControlStoreScrollPositionsAndSizes( bindingOptions: BindingOptions ) : void {
+        if ( Is.defined( bindingOptions._currentView!.mapContents ) ) {
+            bindingOptions._currentView!.mapContentsScrollLeft = bindingOptions._currentView!.mapContents.scrollLeft;
+        }
+
+        if ( bindingOptions.views!.chart!.enabled && Is.defined( bindingOptions._currentView!.chartContents ) ) {
+            bindingOptions._currentView!.chartContentsScrollLeft = bindingOptions._currentView!.chartContents.scrollLeft;
+        }
+
+        if ( bindingOptions.views!.days!.enabled && Is.defined( bindingOptions._currentView!.daysContents ) ) {
+            bindingOptions._currentView!.daysContentsScrollLeft = bindingOptions._currentView!.daysContents.scrollLeft;
+        }
+
+        if ( bindingOptions.views!.statistics!.enabled && Is.defined( bindingOptions._currentView!.statisticsContents ) ) {
+            bindingOptions._currentView!.statisticsContentsScrollLeft = bindingOptions._currentView!.statisticsContents.scrollLeft;
+        }
+
+        if ( bindingOptions._currentView!.element.innerHTML !== Char.empty ) {
+            bindingOptions._currentView!.element.style.height = `${bindingOptions._currentView!.element.offsetHeight}px`;
+        }
+        
+        bindingOptions._currentView!.element.innerHTML = Char.empty;
+        bindingOptions._currentView!.yearsAvailable = getYearsAvailableInData( bindingOptions );
+    }
+
+    function renderControlVisibleView( bindingOptions: BindingOptions ) : void {
         bindingOptions._currentView!.mapContentsContainer.style.display = "none";
 
         if ( bindingOptions._currentView!.view === ViewId.map ) {
@@ -215,6 +226,8 @@ import { Animate } from "./ts/dom/animate";
             bindingOptions._currentView!.view = ViewId.map;
             bindingOptions._currentView!.mapContentsContainer.style.display = "block";
         }
+
+        bindingOptions._currentView!.element.style.removeProperty( "height" );
     }
 
 
