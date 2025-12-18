@@ -2663,7 +2663,14 @@ var y;
                             i += `${" "}${r}`;
                         }
                         let o = a.createWithHTML(t, "div", "month-name", i);
-                        o.style.left = `${f[n].offsetLeft}px`;
+                        if (e.views.chart.showInReverseOrder) {
+                            let e = f[n].offsetLeft;
+                            e -= o.offsetWidth;
+                            e += f[n].offsetWidth;
+                            o.style.left = `${e}px`;
+                        } else {
+                            o.style.left = `${f[n].offsetLeft}px`;
+                        }
                         if (e.views.months.enabled) {
                             o.ondblclick = () => Me(e, 5, "months");
                         }
@@ -2810,7 +2817,14 @@ var y;
                             i += `${" "}${r}`;
                         }
                         let o = a.createWithHTML(t, "div", "month-name", i);
-                        o.style.left = `${l[n].offsetLeft}px`;
+                        if (e.views.chart.showInReverseOrder) {
+                            let e = l[n].offsetLeft;
+                            e -= o.offsetWidth;
+                            e += l[n].offsetWidth;
+                            o.style.left = `${e}px`;
+                        } else {
+                            o.style.left = `${l[n].offsetLeft}px`;
+                        }
                         if (e.views.months.enabled) {
                             o.ondblclick = () => Me(e, 5, "months");
                         }

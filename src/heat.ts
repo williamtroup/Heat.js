@@ -1737,7 +1737,16 @@ import { Animate } from "./ts/dom/animate";
                         }
 
                         let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", monthNameText );
-                        monthName.style.left = `${firstMonthDayLines[ monthNameAddedIndex ].offsetLeft}px`;
+
+                        if ( bindingOptions.views!.chart!.showInReverseOrder ) {
+                            let left: number = firstMonthDayLines[ monthNameAddedIndex ].offsetLeft;
+                            left -= monthName.offsetWidth;
+                            left += firstMonthDayLines[ monthNameAddedIndex ].offsetWidth;
+
+                            monthName.style.left = `${left}px`;
+                        } else {
+                            monthName.style.left = `${firstMonthDayLines[ monthNameAddedIndex ].offsetLeft}px`;
+                        }
 
                         if ( bindingOptions.views!.months!.enabled ) {
                             monthName.ondblclick = () => switchView( bindingOptions, ViewId.months, ViewName.months );
@@ -1938,7 +1947,16 @@ import { Animate } from "./ts/dom/animate";
                         }
 
                         let monthName: HTMLElement = DomElement.createWithHTML( lineMonths, "div", "month-name", monthNameText );
-                        monthName.style.left = `${firstMonthDayLines[ monthNameAddedIndex ].offsetLeft}px`;
+                        
+                        if ( bindingOptions.views!.chart!.showInReverseOrder ) {
+                            let left: number = firstMonthDayLines[ monthNameAddedIndex ].offsetLeft;
+                            left -= monthName.offsetWidth;
+                            left += firstMonthDayLines[ monthNameAddedIndex ].offsetWidth;
+
+                            monthName.style.left = `${left}px`;
+                        } else {
+                            monthName.style.left = `${firstMonthDayLines[ monthNameAddedIndex ].offsetLeft}px`;
+                        }
 
                         if ( bindingOptions.views!.months!.enabled ) {
                             monthName.ondblclick = () => switchView( bindingOptions, ViewId.months, ViewName.months );
