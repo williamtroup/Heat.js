@@ -2827,9 +2827,6 @@ var y;
                     }
                 }
                 t.style.width = `${o.offsetWidth}px`;
-                const r = a.create(t, "div", "month-name-space");
-                r.style.height = `${t.offsetHeight}px`;
-                r.style.width = `${u}px`;
             }
             if (e.views.line.keepScrollPositions) {
                 e._currentView.lineContents.scrollLeft = e._currentView.lineContentsScrollLeft;

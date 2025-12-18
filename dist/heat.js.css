@@ -1604,18 +1604,11 @@ div.heat-js div.line-contents div.line-months {
   position: relative;
   height: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing));
 }
-div.heat-js div.line-contents div.line-months div.month-name,
-div.heat-js div.line-contents div.line-months div.month-name-space {
+div.heat-js div.line-contents div.line-months div.month-name {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
   position: absolute;
   bottom: 0;
-}
-div.heat-js div.line-contents div.line-months div.month-name-space {
-  left: 0;
-  top: 0;
-  position: sticky;
-  background-color: var(--heat-js-container-background-color);
 }
 
 /*

@@ -1960,10 +1960,6 @@ import { Animate } from "./ts/dom/animate";
                 }
 
                 lineMonths.style.width = `${dayLines.offsetWidth}px`;
-
-                const monthNameSpace: HTMLElement = DomElement.create( lineMonths, "div", "month-name-space" );
-                monthNameSpace.style.height = `${lineMonths.offsetHeight}px`;
-                monthNameSpace.style.width = `${labelsWidth}px`;
             }
     
             if ( bindingOptions.views!.line!.keepScrollPositions ) {
