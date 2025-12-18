@@ -124,6 +124,7 @@ import { Animate } from "./ts/dom/animate";
         createInstanceDataForElement( bindingOptions._currentView!.element.id, bindingOptions );
         renderControlContainer( bindingOptions );
         renderWindowEvents( bindingOptions );
+        
         Trigger.customEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView!.element );
     }
 
