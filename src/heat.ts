@@ -359,8 +359,6 @@ import { Animate } from "./ts/dom/animate";
                 bindingOptions.views!.months!.daysToShow! = daysChecked;
             } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
                 bindingOptions.views!.statistics!.daysToShow = daysChecked;
-            } else {
-                bindingOptions.views!.map!.daysToShow = daysChecked;
             }
 
             render = true;
@@ -379,8 +377,6 @@ import { Animate } from "./ts/dom/animate";
                 bindingOptions.views!.months!.monthsToShow = monthsChecked;
             } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
                 bindingOptions.views!.statistics!.monthsToShow = monthsChecked;
-            } else {
-                bindingOptions.views!.map!.monthsToShow = monthsChecked;
             }
 
             render = true;
@@ -858,8 +854,6 @@ import { Animate } from "./ts/dom/animate";
                         DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.monthsText! );
                     } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
                         DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.colorRangesText! );
-                    } else {
-                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.mapText! );
                     }
 
                     DomElement.createWithHTML( title, "span", "section-text", "]" );

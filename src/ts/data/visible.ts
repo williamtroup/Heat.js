@@ -31,8 +31,6 @@ export namespace Visible {
             monthsToShow = bindingOptions.views!.months!.monthsToShow!;
         } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
             monthsToShow = bindingOptions.views!.statistics!.monthsToShow!;
-        } else {
-            monthsToShow = bindingOptions.views!.map!.monthsToShow!;
         }
 
         return monthsToShow;
@@ -53,8 +51,6 @@ export namespace Visible {
             daysToShow = bindingOptions.views!.months!.daysToShow!;
         } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
             daysToShow = bindingOptions.views!.statistics!.daysToShow!;
-        } else {
-            daysToShow = bindingOptions.views!.map!.daysToShow!;
         }
 
         return daysToShow;
