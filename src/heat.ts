@@ -124,7 +124,7 @@ import { Animate } from "./ts/dom/animate";
         createInstanceDataForElement( bindingOptions._currentView!.element.id, bindingOptions );
         renderControlContainer( bindingOptions );
         renderWindowEvents( bindingOptions );
-        
+
         Trigger.customEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView!.element );
     }
 
@@ -1241,6 +1241,7 @@ import { Animate } from "./ts/dom/animate";
 
         } else {
             bindingOptions._currentView!.mapContents.style.minHeight = "unset";
+            bindingOptions._currentView!.mapContents.onscroll = () => ToolTip.hide( bindingOptions );
 
             const map: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContents, "div", "map" );
             const currentYear: number = bindingOptions._currentView!.year;
@@ -1595,6 +1596,7 @@ import { Animate } from "./ts/dom/animate";
 
     function renderControlChart( bindingOptions: BindingOptions, isForViewSwitch: boolean) : void {
         bindingOptions._currentView!.chartContents = DomElement.create( bindingOptions._currentView!.element, "div", "chart-contents" );
+        bindingOptions._currentView!.chartContents.onscroll = () => ToolTip.hide( bindingOptions );
 
         const chart: HTMLElement = DomElement.create( bindingOptions._currentView!.chartContents, "div", "chart" );
         let labels: HTMLElement = DomElement.create( chart, "div", "y-labels" );

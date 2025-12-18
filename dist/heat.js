@@ -2263,8 +2263,9 @@ var y;
             }
         } else {
             t._currentView.mapContents.style.minHeight = "unset";
+            t._currentView.mapContents.onscroll = () => l.hide(t);
             const s = a.create(t._currentView.mapContents, "div", "map");
-            const l = t._currentView.year;
+            const c = t._currentView.year;
             if (n) {
                 a.addClass(s, "view-switch");
             }
@@ -2287,20 +2288,20 @@ var y;
                     a.reverseChildrenOrder(e);
                 }
             }
-            const c = a.create(s, "div", "months");
-            const d = Ge(t);
+            const d = a.create(s, "div", "months");
+            const u = Ge(t);
             for (let n = t.startMonth; n < 12 + t.startMonth; n++) {
                 let o = n;
-                let s = l;
+                let s = c;
                 if (t.startMonth > 0 && n > 11) {
                     o = n - 12;
                     s++;
                 }
                 if (i.monthVisible(t.views.map.monthsToShow, o)) {
-                    const n = a.create(c, "div", "month");
+                    const n = a.create(d, "div", "month");
                     const l = a.create(n, "div", "day-columns");
-                    const u = new Date(s, o, 1);
-                    const w = r.getWeekdayNumber(u);
+                    const c = new Date(s, o, 1);
+                    const w = r.getWeekdayNumber(c);
                     let h = r.getTotalDaysInMonth(s, o);
                     let f = a.create(l, "div", "day-column");
                     let g = false;
@@ -2318,7 +2319,7 @@ var y;
                         if (g) {
                             let n = null;
                             if (i.dayVisible(t.views.map.daysToShow, m)) {
-                                n = le(t, f, e - w, o, s, d);
+                                n = le(t, f, e - w, o, s, u);
                             }
                             if ((e + 1) % 7 === 0) {
                                 if (t.views.map.showDaysInReverseOrder) {
@@ -2363,9 +2364,9 @@ var y;
                 }
             }
             if (t.views.map.showMonthsInReverseOrder) {
-                a.reverseChildrenOrder(c);
+                a.reverseChildrenOrder(d);
             }
-            re(t, c);
+            re(t, d);
             ae(t, s);
             if (t.views.map.keepScrollPositions || o) {
                 t._currentView.mapContents.scrollLeft = t._currentView.mapContentsScrollLeft;
@@ -2529,29 +2530,30 @@ var y;
     }
     function de(e, t) {
         e._currentView.chartContents = a.create(e._currentView.element, "div", "chart-contents");
+        e._currentView.chartContents.onscroll = () => l.hide(e);
         const n = a.create(e._currentView.chartContents, "div", "chart");
         let o = a.create(n, "div", "y-labels");
         const s = a.create(n, "div", "day-lines");
-        const l = Ge(e);
-        const c = we(e);
-        const d = e._currentView.year;
-        let u = 0;
+        const c = Ge(e);
+        const d = we(e);
+        const u = e._currentView.year;
+        let w = 0;
         if (t) {
             a.addClass(n, "view-switch");
         }
-        if (c > 0 && e.views.chart.showChartYLabels) {
-            const e = a.createWithHTML(o, "div", "label-0", c.toString());
-            a.createWithHTML(o, "div", "label-25", (Math.floor(c / 4) * 3).toString());
-            a.createWithHTML(o, "div", "label-50", Math.floor(c / 2).toString());
-            a.createWithHTML(o, "div", "label-75", Math.floor(c / 4).toString());
+        if (d > 0 && e.views.chart.showChartYLabels) {
+            const e = a.createWithHTML(o, "div", "label-0", d.toString());
+            a.createWithHTML(o, "div", "label-25", (Math.floor(d / 4) * 3).toString());
+            a.createWithHTML(o, "div", "label-50", Math.floor(d / 2).toString());
+            a.createWithHTML(o, "div", "label-75", Math.floor(d / 4).toString());
             a.createWithHTML(o, "div", "label-100", "0");
             o.style.width = `${e.offsetWidth}px`;
-            u = o.offsetWidth + a.getStyleValueByName(o, "margin-right", true);
+            w = o.offsetWidth + a.getStyleValueByName(o, "margin-right", true);
         } else {
             o.parentNode.removeChild(o);
             o = null;
         }
-        if (c === 0) {
+        if (d === 0) {
             e._currentView.chartContents.style.minHeight = `${e._currentView.mapContents.offsetHeight}px`;
             n.parentNode.removeChild(n);
             const i = a.createWithHTML(e._currentView.chartContents, "div", "no-data-message", v.text.noChartDataMessage);
@@ -2560,28 +2562,28 @@ var y;
             }
         } else {
             const n = a.getStyleValueByName(s, "border-bottom-width", true);
-            const o = (s.offsetHeight - n) / c;
-            let w = 0;
+            const o = (s.offsetHeight - n) / d;
+            let l = 0;
             let h = 0;
             let f = [];
             let g = false;
             for (let n = e.startMonth; n < 12 + e.startMonth; n++) {
-                let c = n;
-                let u = d;
+                let d = n;
+                let w = u;
                 if (e.startMonth > 0 && n > 11) {
-                    c = n - 12;
-                    u++;
-                }
-                if (i.monthVisible(e.views.chart.monthsToShow, c)) {
-                    const n = r.getTotalDaysInMonth(u, c);
-                    let d = 1;
-                    let m = false;
+                    d = n - 12;
                     w++;
-                    for (let w = 0; w < n; w++) {
-                        const n = new Date(u, c, d);
+                }
+                if (i.monthVisible(e.views.chart.monthsToShow, d)) {
+                    const n = r.getTotalDaysInMonth(w, d);
+                    let u = 1;
+                    let m = false;
+                    l++;
+                    for (let l = 0; l < n; l++) {
+                        const n = new Date(w, d, u);
                         const p = r.getWeekdayNumber(n) + 1;
                         if (i.dayVisible(e.views.chart.daysToShow, p)) {
-                            const n = ue(s, e, w + 1, c, u, l, o, t);
+                            const n = ue(s, e, l + 1, d, w, c, o, t);
                             if (!m && g && e.views.chart.addMonthSpacing) {
                                 a.create(s, "div", "month-spacing", n);
                             }
@@ -2590,10 +2592,10 @@ var y;
                                 m = true;
                             }
                         }
-                        if ((w + 1) % 7 === 0) {
-                            d = 0;
+                        if ((l + 1) % 7 === 0) {
+                            u = 0;
                         }
-                        d++;
+                        u++;
                         h++;
                     }
                 }
@@ -2608,7 +2610,7 @@ var y;
                 let n = 0;
                 const o = o => {
                     let s = o + e.startMonth;
-                    let r = d;
+                    let r = u;
                     if (e.startMonth > 0 && s > 11) {
                         s -= 12;
                         r++;
@@ -2638,7 +2640,7 @@ var y;
                 t.style.width = `${s.offsetWidth}px`;
                 const r = a.create(t, "div", "month-name-space");
                 r.style.height = `${t.offsetHeight}px`;
-                r.style.width = `${u}px`;
+                r.style.width = `${w}px`;
             }
             if (e.views.chart.keepScrollPositions) {
                 e._currentView.chartContents.scrollLeft = e._currentView.chartContentsScrollLeft;
