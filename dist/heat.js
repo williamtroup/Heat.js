@@ -2605,9 +2605,8 @@ var y;
         } else {
             const n = a.getStyleValueByName(s, "border-bottom-width", true);
             const o = (s.offsetHeight - n) / d;
-            let l = 0;
-            let h = [];
-            let f = false;
+            let l = [];
+            let h = false;
             for (let n = e.startMonth; n < 12 + e.startMonth; n++) {
                 let d = n;
                 let w = u;
@@ -2618,32 +2617,31 @@ var y;
                 if (i.monthVisible(e.views.chart.monthsToShow, d)) {
                     const n = r.getTotalDaysInMonth(w, d);
                     let u = 1;
-                    let g = false;
-                    l++;
-                    for (let l = 0; l < n; l++) {
+                    let f = false;
+                    for (let g = 0; g < n; g++) {
                         const n = new Date(w, d, u);
                         const m = r.getWeekdayNumber(n) + 1;
                         if (i.dayVisible(e.views.chart.daysToShow, m)) {
-                            const n = ue(s, e, l + 1, d, w, c, o, t);
-                            if (!g && f && e.views.chart.addMonthSpacing) {
+                            const n = ue(s, e, g + 1, d, w, c, o, t);
+                            if (!f && h && e.views.chart.addMonthSpacing) {
                                 a.create(s, "div", "month-spacing", n);
                             }
-                            if (!g) {
-                                h.push(n);
-                                g = true;
+                            if (!f) {
+                                l.push(n);
+                                f = true;
                             }
                         }
-                        if ((l + 1) % 7 === 0) {
+                        if ((g + 1) % 7 === 0) {
                             u = 0;
                         }
                         u++;
                     }
                 }
-                f = true;
+                h = true;
             }
             if (e.views.chart.showInReverseOrder) {
                 a.reverseChildrenOrder(s);
-                h = h.reverse();
+                l = l.reverse();
             }
             if (e.views.chart.showMonthNames) {
                 const t = a.create(e._currentView.chartContents, "div", "chart-months");
@@ -2662,12 +2660,12 @@ var y;
                         }
                         let o = a.createWithHTML(t, "div", "month-name", i);
                         if (e.views.chart.showInReverseOrder) {
-                            let e = h[n].offsetLeft;
+                            let e = l[n].offsetLeft;
                             e -= o.offsetWidth;
-                            e += h[n].offsetWidth;
+                            e += l[n].offsetWidth;
                             o.style.left = `${e}px`;
                         } else {
-                            o.style.left = `${h[n].offsetLeft}px`;
+                            o.style.left = `${l[n].offsetLeft}px`;
                         }
                         if (e.views.months.enabled) {
                             o.ondblclick = () => Me(e, 5, "months");
@@ -2761,43 +2759,41 @@ var y;
                 a.addClass(i, "view-switch");
             }
         } else {
-            let t = 0;
-            let n = [];
-            for (let a = e.startMonth; a < 12 + e.startMonth; a++) {
-                let l = a;
-                let c = d;
-                if (e.startMonth > 0 && a > 11) {
-                    l = a - 12;
-                    c++;
+            let t = [];
+            for (let n = e.startMonth; n < 12 + e.startMonth; n++) {
+                let a = n;
+                let l = d;
+                if (e.startMonth > 0 && n > 11) {
+                    a = n - 12;
+                    l++;
                 }
-                if (i.monthVisible(e.views.line.monthsToShow, l)) {
-                    const a = r.getTotalDaysInMonth(c, l);
-                    let d = 1;
-                    let u = false;
-                    t++;
-                    for (let t = 0; t < a; t++) {
-                        const a = new Date(c, l, d);
-                        const w = r.getWeekdayNumber(a) + 1;
+                if (i.monthVisible(e.views.line.monthsToShow, a)) {
+                    const n = r.getTotalDaysInMonth(l, a);
+                    let c = 1;
+                    let d = false;
+                    for (let u = 0; u < n; u++) {
+                        const n = new Date(l, a, c);
+                        const w = r.getWeekdayNumber(n) + 1;
                         if (i.dayVisible(e.views.line.daysToShow, w)) {
-                            const i = he(o, e, t + 1, l, c, s);
-                            if (!u) {
-                                n.push(i);
-                                u = true;
+                            const n = he(o, e, u + 1, a, l, s);
+                            if (!d) {
+                                t.push(n);
+                                d = true;
                             }
                         }
-                        if ((t + 1) % 7 === 0) {
-                            d = 0;
+                        if ((u + 1) % 7 === 0) {
+                            c = 0;
                         }
-                        d++;
+                        c++;
                     }
                 }
             }
             if (e.views.line.showInReverseOrder) {
                 a.reverseChildrenOrder(o);
-                n = n.reverse();
+                t = t.reverse();
             }
             if (e.views.line.showMonthNames) {
-                const t = a.create(e._currentView.lineContents, "div", "line-months");
+                const n = a.create(e._currentView.lineContents, "div", "line-months");
                 let s = 0;
                 const r = o => {
                     let r = o + e.startMonth;
@@ -2811,14 +2807,14 @@ var y;
                         if (e.startMonth > 0 && e.views.line.showYearsInMonthNames) {
                             i += `${" "}${l}`;
                         }
-                        let o = a.createWithHTML(t, "div", "month-name", i);
+                        let o = a.createWithHTML(n, "div", "month-name", i);
                         if (e.views.chart.showInReverseOrder) {
-                            let e = n[s].offsetLeft;
+                            let e = t[s].offsetLeft;
                             e -= o.offsetWidth;
-                            e += n[s].offsetWidth;
+                            e += t[s].offsetWidth;
                             o.style.left = `${e}px`;
                         } else {
-                            o.style.left = `${n[s].offsetLeft}px`;
+                            o.style.left = `${t[s].offsetLeft}px`;
                         }
                         if (e.views.months.enabled) {
                             o.ondblclick = () => Me(e, 5, "months");
@@ -2835,7 +2831,7 @@ var y;
                         r(e);
                     }
                 }
-                t.style.width = `${o.offsetWidth}px`;
+                n.style.width = `${o.offsetWidth}px`;
             }
             if (e.views.line.keepScrollPositions) {
                 e._currentView.lineContents.scrollLeft = e._currentView.lineContentsScrollLeft;
