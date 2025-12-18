@@ -164,27 +164,27 @@ import { Animate } from "./ts/dom/animate";
         renderControlTitleBar( bindingOptions );
         renderControlYearStatistics( bindingOptions );
 
-        if ( bindingOptions.views!.map!.enabled ) {
+        if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
             renderControlMap( bindingOptions, isForViewSwitch, isForZooming );
         }
 
-        if ( bindingOptions.views!.chart!.enabled ) {
+        if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
             renderControlChart( bindingOptions, isForViewSwitch );
         }
 
-        if ( bindingOptions.views!.line!.enabled ) {
+        if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
             renderControlLine( bindingOptions, isForViewSwitch );
         }
 
-        if ( bindingOptions.views!.days!.enabled ) {
+        if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
             renderControlDays( bindingOptions, isForViewSwitch );
         }
 
-        if ( bindingOptions.views!.months!.enabled ) {
+        if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
             renderControlMonths( bindingOptions, isForViewSwitch );
         }
 
-        if ( bindingOptions.views!.statistics!.enabled ) {
+        if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
             renderControlStatistics( bindingOptions, isForViewSwitch );
         }
 

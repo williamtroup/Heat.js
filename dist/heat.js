@@ -1564,22 +1564,22 @@ var y;
         l.render(e);
         J(e);
         ne(e);
-        if (e.views.map.enabled) {
+        if (e.views.map.enabled && e._currentView.view === 1) {
             se(e, n, i);
         }
-        if (e.views.chart.enabled) {
+        if (e.views.chart.enabled && e._currentView.view === 2) {
             ue(e, n);
         }
-        if (e.views.line.enabled) {
+        if (e.views.line.enabled && e._currentView.view === 6) {
             he(e, n);
         }
-        if (e.views.days.enabled) {
+        if (e.views.days.enabled && e._currentView.view === 3) {
             ge(e, n);
         }
-        if (e.views.months.enabled) {
+        if (e.views.months.enabled && e._currentView.view === 5) {
             ye(e, n);
         }
-        if (e.views.statistics.enabled) {
+        if (e.views.statistics.enabled && e._currentView.view === 4) {
             xe(e, n);
         }
         _e(e);
