@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Heat.js - Only Line</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="../dist/heat.js.css">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+        <script src="../dist/heat.js"></script>
+        <script src="js/scripts.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1>
+                <img src="images/icon.png">
+                <span id="header">Heat.js - Only Line</span>
+            </h1>
+            <p>This is a basic example of how to use Heat.js to create a basic heatmap (with only the line view enabled).</p>
+        </div>
+
+        <div class="contents">
+            <div id="heat-map-1" data-heat-js="getBindingOptions()"></div>
+        </div>
+    </body>
+
+    <script>
+        function getBindingOptions() {
+            return {
+                "events": {
+                    "onMapDayClick": onMapDayClick
+                },
+                "views": {
+                    "map": {
+                        "enabled": false
+                    },
+                    "chart": {
+                        "enabled": false
+                    },
+                    "line": {
+                        "enabled": true
+                    },
+                    "statistics": {
+                        "enabled": false
+                    },
+                    "days": {
+                        "enabled": false
+                    },
+                    "months": {
+                        "enabled": false
+                    }
+                },
+                "description": {
+                    "text": "A basic example of how to use Heat.js."
+                }
+            }
+        }
+
+        addStartUpBasicData();
+    </script>
+</html>

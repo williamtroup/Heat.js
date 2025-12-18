@@ -163,7 +163,10 @@ import { Animate } from "./ts/dom/animate";
         ToolTip.render( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlYearStatistics( bindingOptions );
-        renderControlMap( bindingOptions, isForViewSwitch, isForZooming );
+
+        if ( bindingOptions.views!.map!.enabled ) {
+            renderControlMap( bindingOptions, isForViewSwitch, isForZooming );
+        }
 
         if ( bindingOptions.views!.chart!.enabled ) {
             renderControlChart( bindingOptions, isForViewSwitch );
@@ -190,7 +193,7 @@ import { Animate } from "./ts/dom/animate";
     }
 
     function renderControlStoreScrollPositionsAndSizes( bindingOptions: BindingOptions ) : void {
-        if ( Is.defined( bindingOptions._currentView!.mapContents ) ) {
+        if ( bindingOptions.views!.map!.enabled && Is.defined( bindingOptions._currentView!.mapContents ) ) {
             bindingOptions._currentView!.mapContentsScrollLeft = bindingOptions._currentView!.mapContents.scrollLeft;
         }
 
@@ -219,9 +222,7 @@ import { Animate } from "./ts/dom/animate";
     }
 
     function renderControlVisibleView( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView!.mapContentsContainer.style.display = "none";
-
-        if ( bindingOptions._currentView!.view === ViewId.map ) {
+        if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
             bindingOptions._currentView!.mapContentsContainer.style.display = "block";
         } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
             bindingOptions._currentView!.chartContents.style.display = "block";
@@ -233,9 +234,6 @@ import { Animate } from "./ts/dom/animate";
             bindingOptions._currentView!.monthsContents.style.display = "block";
         } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
             bindingOptions._currentView!.statisticsContents.style.display = "block";
-        } else {
-            bindingOptions._currentView!.view = ViewId.map;
-            bindingOptions._currentView!.mapContentsContainer.style.display = "block";
         }
 
         bindingOptions._currentView!.element.style.removeProperty( "height" );
@@ -349,7 +347,7 @@ import { Animate } from "./ts/dom/animate";
         }
 
         if ( daysChecked.length >= 1 ) {
-            if ( bindingOptions._currentView!.view === ViewId.map ) {
+            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
                 bindingOptions.views!.map!.daysToShow = daysChecked;
             } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
                 bindingOptions.views!.chart!.daysToShow = daysChecked;
@@ -369,7 +367,7 @@ import { Animate } from "./ts/dom/animate";
         }
 
         if ( monthsChecked.length >= 1 ) {
-            if ( bindingOptions._currentView!.view === ViewId.map ) {
+            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
                 bindingOptions.views!.map!.monthsToShow = monthsChecked;
             } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
                 bindingOptions.views!.chart!.monthsToShow = monthsChecked;
@@ -831,7 +829,7 @@ import { Animate } from "./ts/dom/animate";
         if ( bindingOptions.title!.showText || bindingOptions.title!.showYearSelector || bindingOptions.title!.showRefreshButton || bindingOptions.title!.showExportButton || bindingOptions.title!.showImportButton || bindingOptions.title!.showClearButton ) {
             const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "title-bar" );
             const title: HTMLElement = DomElement.create( titleBar, "div", "title" );
-            const showTitleDropDownMenu: boolean = bindingOptions.title!.showTitleDropDownMenu! && ( bindingOptions.views!.chart!.enabled! || bindingOptions.views!.days!.enabled! || bindingOptions.views!.statistics!.enabled! || bindingOptions.views!.months!.enabled! || bindingOptions.views!.line!.enabled! );
+            const showTitleDropDownMenu: boolean = bindingOptions.title!.showTitleDropDownMenu! && bindingOptions._currentView!.viewsEnabled > 1;
 
             if ( showTitleDropDownMenu ) {
                 if ( bindingOptions.title!.showTitleDropDownButton ) {
@@ -848,7 +846,7 @@ import { Animate } from "./ts/dom/animate";
                 if ( bindingOptions.title!.showSectionText ) {
                     DomElement.createWithHTML( title, "span", "section-text", "[" );
 
-                    if ( bindingOptions._currentView!.view === ViewId.map ) {
+                    if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
                         DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.mapText! );
                     } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
                         DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.chartText! );
@@ -999,9 +997,11 @@ import { Animate } from "./ts/dom/animate";
             DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configurationOptions.text!.dataText}${Char.colon}` );
         }
 
-        const menuItemMap: HTMLElement = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.mapText! );
-            
-        renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, ViewId.map, ViewName.map );
+        if ( bindingOptions.views!.map!.enabled ) {
+            const menuItemMap: HTMLElement = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.mapText! );
+                
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, ViewId.map, ViewName.map );
+        }
 
         if ( bindingOptions.views!.chart!.enabled ) {
             const menuItemChart = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.chartText! );
@@ -1415,6 +1415,8 @@ import { Animate } from "./ts/dom/animate";
                 bindingOptions._currentView!.mapContents.scrollLeft = bindingOptions._currentView!.mapContentsScrollLeft;
             }
         }
+
+        bindingOptions._currentView!.mapContentsContainer.style.display = "none";
     }
 
     function renderControlMapRemainingDaysForMonth( bindingOptions: BindingOptions, actualDay: number, currentDayColumn: HTMLElement ) : void {
@@ -1657,7 +1659,7 @@ import { Animate } from "./ts/dom/animate";
         }
 
         if ( largestValueForCurrentYear === 0 ) {
-            bindingOptions._currentView!.chartContents.style.minHeight = `${bindingOptions._currentView!.mapContents.offsetHeight}px`;
+            bindingOptions._currentView!.chartContents.style.minHeight = `${Constant.DEFAULT_HEIGHT}px`;
             chart.parentNode!.removeChild( chart );
 
             const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.chartContents, "div", "no-data-message", _configurationOptions.text!.noChartDataMessage! );
@@ -1870,7 +1872,7 @@ import { Animate } from "./ts/dom/animate";
         }
 
         if ( largestValueForCurrentYear === 0 ) {
-            bindingOptions._currentView!.lineContents.style.minHeight = `${bindingOptions._currentView!.mapContents.offsetHeight}px`;
+            bindingOptions._currentView!.lineContents.style.minHeight = `${Constant.DEFAULT_HEIGHT}px`;
             line.parentNode!.removeChild( line );
 
             const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.lineContents, "div", "no-data-message", _configurationOptions.text!.noLineDataMessage! );
@@ -2052,7 +2054,7 @@ import { Animate } from "./ts/dom/animate";
         }
 
         if ( dayValuesForCurrentYear.largestValue === 0 ) {
-            bindingOptions._currentView!.daysContents.style.minHeight = `${bindingOptions._currentView!.mapContents.offsetHeight}px`;
+            bindingOptions._currentView!.daysContents.style.minHeight = `${Constant.DEFAULT_HEIGHT}px`;
             days.parentNode!.removeChild( days );
             dayNames.parentNode!.removeChild( dayNames );
 
@@ -2251,7 +2253,7 @@ import { Animate } from "./ts/dom/animate";
         }
 
         if ( monthValuesForCurrentYear.largestValue === 0 ) {
-            bindingOptions._currentView!.monthsContents.style.minHeight = `${bindingOptions._currentView!.mapContents.offsetHeight}px`;
+            bindingOptions._currentView!.monthsContents.style.minHeight = `${Constant.DEFAULT_HEIGHT}px`;
             months.parentNode!.removeChild( months );
             monthNames.parentNode!.removeChild( monthNames );
 
@@ -2475,7 +2477,7 @@ import { Animate } from "./ts/dom/animate";
         }
 
         if ( colorRangeValuesForCurrentYear.largestValue === 0 ) {
-            bindingOptions._currentView!.statisticsContents.style.minHeight = `${bindingOptions._currentView!.mapContents.offsetHeight}px`;
+            bindingOptions._currentView!.statisticsContents.style.minHeight = `${Constant.DEFAULT_HEIGHT}px`;
             statistics.parentNode!.removeChild( statistics );
             statisticsRanges.parentNode!.removeChild( statisticsRanges );
 
@@ -2752,7 +2754,7 @@ import { Animate } from "./ts/dom/animate";
         }
 
         if ( isColorRangeVisible( bindingOptions, colorRange.id! ) ) {
-            if ( bindingOptions._currentView!.view === ViewId.map && Is.definedString( colorRange.mapCssClassName ) ) {
+            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map && Is.definedString( colorRange.mapCssClassName ) ) {
                 DomElement.addClass( day, colorRange.mapCssClassName! );
             } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart && Is.definedString( colorRange.chartCssClassName ) ) {
                 DomElement.addClass( day, colorRange.chartCssClassName! );

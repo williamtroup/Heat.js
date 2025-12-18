@@ -118,8 +118,8 @@ export type ConfigurationOptionsText = {
 export type BindingOptions = {
     _currentView?: BindingOptionsCurrentView,
     exportOnlyDataBeingViewed?: boolean;
-    year?: number;
-    view?: string;
+    defaultYear?: number;
+    defaultView?: string;
     exportType?: string;
     useLocalStorageForData?: boolean;
     allowFileImports?: boolean;
@@ -153,6 +153,7 @@ export type BindingOptionsCurrentView = {
     isInFetchModeTimer: number;
     yearsAvailable: number[];
     view: number;
+    viewsEnabled: number;
     mapContentsContainer: HTMLElement;
     mapContents: HTMLElement;
     mapContentsScrollLeft: number;
@@ -200,6 +201,7 @@ export type BindingOptionsViews = {
 };
 
 export type BindingOptionsViewsMap = {
+    enabled?: boolean;
     showMonthDayGaps?: boolean;
     showDayNames?: boolean;
     placeMonthNamesOnTheBottom?: boolean;

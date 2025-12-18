@@ -19,7 +19,7 @@ export namespace Visible {
     export function months( bindingOptions: BindingOptions ) : number[] {
         let monthsToShow: number[] = [];
 
-        if ( bindingOptions._currentView!.view === ViewId.map ) {
+        if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
             monthsToShow = bindingOptions.views!.map!.monthsToShow!;
         } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
             monthsToShow = bindingOptions.views!.chart!.monthsToShow!;
@@ -41,7 +41,7 @@ export namespace Visible {
     export function days( bindingOptions: BindingOptions ) : number[] {
         let daysToShow: number[] = [];
 
-        if ( bindingOptions._currentView!.view === ViewId.map ) {
+        if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
             daysToShow = bindingOptions.views!.map!.daysToShow!;
         } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
             daysToShow = bindingOptions.views!.chart!.daysToShow!;

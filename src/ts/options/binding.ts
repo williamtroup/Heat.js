@@ -43,7 +43,6 @@ export namespace Binding {
 
         export function getForNewInstance( configurationOptions: ConfigurationOptions, data: any, element: HTMLElement ) : BindingOptions {
             const bindingOptions: BindingOptions = get( data );
-            const view: string = Default.getString( bindingOptions.view, Char.empty ).toLowerCase();
     
             bindingOptions._currentView = {} as BindingOptionsCurrentView;
             bindingOptions._currentView.element = element;
@@ -53,9 +52,7 @@ export namespace Binding {
             bindingOptions._currentView.configurationDialogMonthCheckBoxes = [];
             bindingOptions._currentView.tooltip = null!;
             bindingOptions._currentView.tooltipTimer = 0;
-            bindingOptions._currentView.mapContents = null!;
-            bindingOptions._currentView.mapContentsScrollLeft = 0;
-            bindingOptions._currentView.year = bindingOptions.year!;
+            bindingOptions._currentView.year = bindingOptions.defaultYear!;
             bindingOptions._currentView.type = configurationOptions.text!.unknownTrendText!;
             bindingOptions._currentView.isInFetchMode = Is.definedFunction( bindingOptions.events!.onDataFetch );
             bindingOptions._currentView.isInFetchModeTimer = 0;
@@ -64,33 +61,46 @@ export namespace Binding {
             bindingOptions._currentView.mapZoomLevel = Value.notFound;
             bindingOptions._currentView.mapZoomIncrement = Value.notFound;
             bindingOptions._currentView.yearTextWidth = 0;
+            bindingOptions._currentView.view = 0;
+            bindingOptions._currentView.viewsEnabled = 0;
+
+            if ( bindingOptions.views!.map!.enabled ) {
+                bindingOptions._currentView.mapContents = null!;
+                bindingOptions._currentView.mapContentsScrollLeft = 0;
+                bindingOptions._currentView.viewsEnabled++;
+            }
     
             if ( bindingOptions.views!.chart!.enabled ) {
                 bindingOptions._currentView.chartContents = null!;
                 bindingOptions._currentView.chartContentsScrollLeft = 0;
+                bindingOptions._currentView.viewsEnabled++;
+            }
+
+            if ( bindingOptions.views!.line!.enabled ) {
+                bindingOptions._currentView.lineContents = null!;
+                bindingOptions._currentView.lineContentsScrollLeft = 0;
+                bindingOptions._currentView.viewsEnabled++;
             }
     
             if ( bindingOptions.views!.days!.enabled ) {
                 bindingOptions._currentView.daysContents = null!;
                 bindingOptions._currentView.daysContentsScrollLeft = 0;
+                bindingOptions._currentView.viewsEnabled++;
+            }
+
+            if ( bindingOptions.views!.months!.enabled ) {
+                bindingOptions._currentView.monthsContents = null!;
+                bindingOptions._currentView.monthsContentsScrollLeft = 0;
+                bindingOptions._currentView.viewsEnabled++;
             }
             
             if ( bindingOptions.views!.statistics!.enabled ) {
                 bindingOptions._currentView.statisticsContents = null!;
                 bindingOptions._currentView.statisticsContentsScrollLeft = 0;
+                bindingOptions._currentView.viewsEnabled++;
             }
     
-            if ( view === ViewName.map ) {
-                bindingOptions._currentView.view = ViewId.map;
-            } else if ( view === ViewName.chart ) {
-                bindingOptions._currentView.view = ViewId.chart;
-            } else if ( view === ViewName.days ) {
-                bindingOptions._currentView.view = ViewId.days;
-            } else if ( view === ViewName.statistics ) {
-                bindingOptions._currentView.view = ViewId.statistics;
-            } else {
-                bindingOptions._currentView.view = ViewId.map;
-            }
+            getDefaultView( bindingOptions );
     
             return bindingOptions;
         }
@@ -99,8 +109,8 @@ export namespace Binding {
             const bindingOptions: BindingOptions = Default.getObject( newBindingOptions, {} as BindingOptions );
             bindingOptions.views = Default.getObject( bindingOptions.views, {} as BindingOptionsViews );
             bindingOptions.exportOnlyDataBeingViewed = Default.getBoolean( bindingOptions.exportOnlyDataBeingViewed, true );
-            bindingOptions.year = Default.getNumber( bindingOptions.year, new Date().getFullYear() );
-            bindingOptions.view = Default.getString( bindingOptions.view, ViewName.map );
+            bindingOptions.defaultYear = Default.getNumber( bindingOptions.defaultYear, new Date().getFullYear() );
+            bindingOptions.defaultView = Default.getString( bindingOptions.defaultView, ViewName.map );
             bindingOptions.exportType = Default.getString( bindingOptions.exportType, ExportType.json );
             bindingOptions.useLocalStorageForData = Default.getBoolean( bindingOptions.useLocalStorageForData, false );
             bindingOptions.allowFileImports = Default.getBoolean( bindingOptions.allowFileImports, true );
@@ -272,6 +282,7 @@ export namespace Binding {
     
         function getMapView( bindingOptions: BindingOptions ) : BindingOptionsViewsMap {
             bindingOptions.views!.map = Default.getObject( bindingOptions.views!.map, {} as BindingOptionsViewsMap );
+            bindingOptions.views!.map!.enabled = Default.getBoolean( bindingOptions.views!.map!.enabled, true );
             bindingOptions.views!.map!.showMonthDayGaps = Default.getBoolean( bindingOptions.views!.map!.showMonthDayGaps, true );
             bindingOptions.views!.map!.showDayNames = Default.getBoolean( bindingOptions.views!.map!.showDayNames, true );
             bindingOptions.views!.map!.placeMonthNamesOnTheBottom = Default.getBoolean( bindingOptions.views!.map!.placeMonthNamesOnTheBottom, false );
@@ -476,6 +487,43 @@ export namespace Binding {
             bindingOptions.events!.onMapZoomLevelChange = Default.getFunction( bindingOptions.events!.onMapZoomLevelChange, null! );
 
             return bindingOptions.events!;
+        }
+
+        function getDefaultView( bindingOptions: BindingOptions ) : void {
+            if ( bindingOptions.views!.map!.enabled && bindingOptions.defaultView === ViewName.map ) {
+                bindingOptions._currentView!.view = ViewId.map;
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions.defaultView === ViewName.chart ) {
+                bindingOptions._currentView!.view = ViewId.chart;
+            } else if ( bindingOptions.views!.line!.enabled && bindingOptions.defaultView === ViewName.line ) {
+                bindingOptions._currentView!.view = ViewId.line;
+            } else if ( bindingOptions.views!.days!.enabled && bindingOptions.defaultView === ViewName.days ) {
+                bindingOptions._currentView!.view = ViewId.days;
+            } else if ( bindingOptions.views!.months!.enabled && bindingOptions.defaultView === ViewName.months ) {
+                bindingOptions._currentView!.view = ViewId.months;
+            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions.defaultView === ViewName.statistics ) {
+                bindingOptions._currentView!.view = ViewId.statistics;
+            }
+
+            if ( bindingOptions._currentView!.view === 0 ) {
+                if ( bindingOptions.views!.map!.enabled ) {
+                    bindingOptions._currentView!.view = ViewId.map;
+                } else if ( bindingOptions.views!.chart!.enabled ) {
+                    bindingOptions._currentView!.view = ViewId.chart;
+                } else if ( bindingOptions.views!.line!.enabled ) {
+                    bindingOptions._currentView!.view = ViewId.line;
+                } else if ( bindingOptions.views!.days!.enabled ) {
+                    bindingOptions._currentView!.view = ViewId.days;
+                } else if ( bindingOptions.views!.months!.enabled ) {
+                    bindingOptions._currentView!.view = ViewId.months;
+                } else if ( bindingOptions.views!.statistics!.enabled ) {
+                    bindingOptions._currentView!.view = ViewId.statistics;
+                }
+
+                if ( bindingOptions._currentView!.view === 0 ) {
+                    bindingOptions.views!.map!.enabled = true;
+                    bindingOptions._currentView!.view = ViewId.map;
+                }
+            }
         }
     }
 }
