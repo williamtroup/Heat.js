@@ -418,7 +418,7 @@ import { Animate } from "./ts/dom/animate";
         bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked = bindingOptions.exportOnlyDataBeingViewed!;
 
         const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-        const okButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.exportButtonText! );
+        const exportButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.exportButtonText! );
 
         renderExportDialogOptions( bindingOptions );
 
@@ -437,7 +437,7 @@ import { Animate } from "./ts/dom/animate";
             }
         };
 
-        okButton.onclick = () => exportDataFunc();
+        exportButton.onclick = () => exportDataFunc();
         closeButton.onclick = () => hideExportDialog( bindingOptions );
 
         ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
