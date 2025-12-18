@@ -1623,9 +1623,7 @@ import { Animate } from "./ts/dom/animate";
         const chart: HTMLElement = DomElement.create( bindingOptions._currentView!.chartContents, "div", "chart" );
         let labels: HTMLElement = DomElement.create( chart, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( chart, "div", "day-lines" );
-        const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
         const largestValueForCurrentYear: number = getLargestValueCurrentYear( bindingOptions );
-        const currentYear: number = bindingOptions._currentView!.year;
         let labelsWidth: number = 0;
 
         if ( isForViewSwitch ) {
@@ -1659,8 +1657,10 @@ import { Animate } from "./ts/dom/animate";
             }
 
         } else {
+            const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
             const borderBottomWidth: number = DomElement.getStyleValueByName( dayLines, "border-bottom-width", true );
             const pixelsPerNumbers: number = ( dayLines.offsetHeight - borderBottomWidth ) / largestValueForCurrentYear;
+            const currentYear: number = bindingOptions._currentView!.year;
             let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
             let firstMonthAdded: boolean = false;
 
@@ -1853,9 +1853,7 @@ import { Animate } from "./ts/dom/animate";
 
         const line: HTMLElement = DomElement.create( bindingOptions._currentView!.lineContents, "div", "line" );
         const dayLines: HTMLElement = DomElement.create( line, "div", "day-lines" );
-        const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
         const largestValueForCurrentYear: number = getLargestValueCurrentYear( bindingOptions );
-        const currentYear: number = bindingOptions._currentView!.year;
 
         if ( isForViewSwitch ) {
             DomElement.addClass( line, "view-switch" );
@@ -1872,6 +1870,8 @@ import { Animate } from "./ts/dom/animate";
             }
 
         } else {
+            const currentYear: number = bindingOptions._currentView!.year;
+            const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
             let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
 
             for ( let monthIndex1: number = bindingOptions.startMonth!; monthIndex1 < ( 12 + bindingOptions.startMonth! ); monthIndex1++ ) {
