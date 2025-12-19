@@ -172,12 +172,6 @@ import { Animate } from "./ts/dom/animate";
 
         renderControlGuide( bindingOptions );
         renderControlVisibleView( bindingOptions );
-
-        if ( bindingOptions._currentView!.forceReRenderForDefaultZoomLevel ) {
-            bindingOptions._currentView!.forceReRenderForDefaultZoomLevel = false;
-            
-            renderControlContainer( bindingOptions, false, false, true );
-        }
     }
 
     function renderControlStoreScrollPositionsAndSizes( bindingOptions: BindingOptions ) : void {
@@ -2782,7 +2776,6 @@ import { Animate } from "./ts/dom/animate";
             bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${daySizeSizingMetric}` );
             bindingOptions._currentView!.element.style.setProperty( Css.Variables.LineWidth, `${lineWidth}${lineWidthSizingMetric}` );
             bindingOptions._currentView!.dayWidth = 0;
-            bindingOptions._currentView!.forceReRenderForDefaultZoomLevel = true;
         }
     }
 

@@ -555,7 +555,6 @@ var d;
             o._currentView.yearTextWidth = 0;
             o._currentView.view = 0;
             o._currentView.viewsEnabled = 0;
-            o._currentView.forceReRenderForDefaultZoomLevel = false;
             if (o.views.map.enabled) {
                 o._currentView.mapContentsContainer = null;
                 o._currentView.mapContents = null;
@@ -1585,10 +1584,6 @@ var p;
         }
         Ve(e);
         S(e);
-        if (e._currentView.forceReRenderForDefaultZoomLevel) {
-            e._currentView.forceReRenderForDefaultZoomLevel = false;
-            C(e, false, false, true);
-        }
     }
     function D(e) {
         if (e.views.map.enabled && i.defined(e._currentView.mapContents)) {
@@ -3492,7 +3487,6 @@ var p;
             e._currentView.element.style.setProperty(y.Variables.DaySize, `${i}${t}`);
             e._currentView.element.style.setProperty(y.Variables.LineWidth, `${o}${n}`);
             e._currentView.dayWidth = 0;
-            e._currentView.forceReRenderForDefaultZoomLevel = true;
         }
     }
     function Be(e) {

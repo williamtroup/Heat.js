@@ -65,7 +65,6 @@ export namespace Binding {
             bindingOptions._currentView.yearTextWidth = 0;
             bindingOptions._currentView.view = 0;
             bindingOptions._currentView.viewsEnabled = 0;
-            bindingOptions._currentView.forceReRenderForDefaultZoomLevel = false;
 
             if ( bindingOptions.views!.map!.enabled ) {
                 bindingOptions._currentView.mapContentsContainer = null!;

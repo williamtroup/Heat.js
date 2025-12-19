@@ -192,7 +192,6 @@ export type BindingOptionsCurrentView = {
     importDialogImportButton: HTMLButtonElement;
     typeAddingDialog: HTMLElement;
     typeAddingDialogTypeInput: HTMLInputElement;
-    forceReRenderForDefaultZoomLevel: boolean;
 };
 
 export type BindingOptionsViews = {
