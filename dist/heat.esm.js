@@ -1550,6 +1550,7 @@ var p;
         Ie(t._currentView.element.id, t);
         C(t);
         M(t);
+        Me(t);
         c.customEvent(t.events.onRenderComplete, t._currentView.element);
     }
     function C(e, t = false, n = false, i = false) {
@@ -1558,7 +1559,6 @@ var p;
         }
         D(e);
         l.hide(e);
-        Me(e);
         Ye(e);
         Oe(e);
         l.render(e);
@@ -3486,7 +3486,6 @@ var p;
             e._currentView.zoomLevel = e.zooming.defaultLevel;
             e._currentView.element.style.setProperty(y.Variables.DaySize, `${i}${t}`);
             e._currentView.element.style.setProperty(y.Variables.LineWidth, `${o}${n}`);
-            e._currentView.dayWidth = 0;
         }
     }
     function Be(e) {

@@ -124,6 +124,7 @@ import { Animate } from "./ts/dom/animate";
         createInstanceDataForElement( bindingOptions._currentView!.element.id, bindingOptions );
         renderControlContainer( bindingOptions );
         renderWindowEvents( bindingOptions );
+        setupDefaultZoomLevel( bindingOptions );
 
         Trigger.customEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView!.element );
     }
@@ -137,7 +138,6 @@ import { Animate } from "./ts/dom/animate";
         
         ToolTip.hide( bindingOptions );
 
-        setupDefaultZoomLevel( bindingOptions );
         startDataPullTimer( bindingOptions );
         setupTrendTypes( bindingOptions );
 
@@ -2775,7 +2775,6 @@ import { Animate } from "./ts/dom/animate";
             bindingOptions._currentView!.zoomLevel = bindingOptions.zooming!.defaultLevel!;
             bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${daySizeSizingMetric}` );
             bindingOptions._currentView!.element.style.setProperty( Css.Variables.LineWidth, `${lineWidth}${lineWidthSizingMetric}` );
-            bindingOptions._currentView!.dayWidth = 0;
         }
     }
 
