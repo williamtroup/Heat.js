@@ -41,6 +41,7 @@ import { Export } from "./ts/files/export";
 import { Convert } from "./ts/data/convert";
 import { Css } from "./ts/css";
 import { Animate } from "./ts/dom/animate";
+import { LocalStorage } from "./ts/area/local-storage";
 
 
 ( () => {
@@ -131,7 +132,7 @@ import { Animate } from "./ts/dom/animate";
 
     function renderControlContainer( bindingOptions: BindingOptions, isForDataRefresh: boolean = false, isForViewSwitch: boolean = false, isForZooming: boolean = false ) : void {
         if ( isForDataRefresh ) {
-            storeDataInLocalStorage( bindingOptions );
+            LocalStorage.store( bindingOptions, _elements_InstanceData[ bindingOptions._currentView!.element.id ] );
         }
 
         renderControlStoreScrollPositionsAndSizes( bindingOptions );
@@ -2909,7 +2910,7 @@ import { Animate } from "./ts/dom/animate";
         _elements_InstanceData[ elementId ].typeData[ _configurationOptions.text!.unknownTrendText! ] = {} as InstanceTypeDateCount;
 
         if ( storeLocalData && !bindingOptions._currentView!.isInFetchMode ) {
-            loadDataFromLocalStorage( bindingOptions );
+            LocalStorage.load( _configurationOptions, bindingOptions, _elements_InstanceData[ elementId ] );
         }
     }
 
@@ -3003,72 +3004,6 @@ import { Animate } from "./ts/dom/animate";
         }
 
         return result;
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Local Storage
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function loadDataFromLocalStorage( bindingOptions: BindingOptions ) : void {
-        if ( bindingOptions.useLocalStorageForData && window.localStorage ) {
-            const keysLength: number = window.localStorage.length;
-            const elementId: string = bindingOptions._currentView!.element.id;
-
-            for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
-                const key : string = window.localStorage.key( keyIndex )!;
-
-                if ( Str.startsWithAnyCase( key, Constant.LOCAL_STORAGE_START_ID ) ) {
-                    const typesJson: string = window.localStorage.getItem( key )!;
-                    const typesObject: StringToJson = Default.getObjectFromString( typesJson, _configurationOptions );
-
-                    if ( typesObject.parsed ) {
-                        _elements_InstanceData[ elementId ].typeData = typesObject.object;
-                        _elements_InstanceData[ elementId ].totalTypes = 0;
-
-                        for ( const type in _elements_InstanceData[ elementId ].typeData ) {
-                            if ( _elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
-                                _elements_InstanceData[ elementId ].totalTypes++;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    function storeDataInLocalStorage( bindingOptions: BindingOptions ) : void {
-        if ( bindingOptions.useLocalStorageForData && window.localStorage ) {
-            const elementId: string = bindingOptions._currentView!.element.id;
-
-            clearLocalStorageObjects( bindingOptions );
-
-            const jsonData: string = JSON.stringify( _elements_InstanceData[ elementId ].typeData );
-
-            window.localStorage.setItem( `${Constant.LOCAL_STORAGE_START_ID}${elementId}`, jsonData );
-        }
-    }
-
-    function clearLocalStorageObjects( bindingOptions: BindingOptions ) : void {
-        if ( bindingOptions.useLocalStorageForData && window.localStorage ) {
-            const keysLength: number = window.localStorage.length;
-            const keysToRemove: string[] = [];
-            const elementId: string = bindingOptions._currentView!.element.id;
-
-            for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
-                if ( Str.startsWithAnyCase( window.localStorage.key( keyIndex )!, `${Constant.LOCAL_STORAGE_START_ID}${elementId}` ) ) {
-                    keysToRemove.push( window.localStorage.key( keyIndex )! );
-                }
-            }
-
-            const keysToRemoveLength: number = keysToRemove.length;
-
-            for ( let keyToRemoveIndex: number = 0; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++ ) {
-                window.localStorage.removeItem( keysToRemove[ keyToRemoveIndex ] );
-            }
-        }
     }
 
 

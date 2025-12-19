@@ -12,12 +12,13 @@
 
 
 export type InstanceTypeDateCount = Record<string, number>;
+export type InstanceData = Record<string, InstanceTypeData>;
 
-export type InstanceData = Record<string, {
+export type InstanceTypeData = {
     options: BindingOptions;
     totalTypes: number;
     typeData: Record<string, InstanceTypeDateCount>;
-}>;
+};
 
 export type StringToJson = {
     parsed: boolean;
