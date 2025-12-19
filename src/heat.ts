@@ -150,12 +150,12 @@ import { Animate } from "./ts/dom/animate";
             renderControlMap( bindingOptions, isForViewSwitch, isForZooming );
         }
 
-        if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-            renderControlChart( bindingOptions, isForViewSwitch );
-        }
-
         if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
             renderControlLine( bindingOptions, isForViewSwitch, isForZooming );
+        }
+
+        if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            renderControlChart( bindingOptions, isForViewSwitch );
         }
 
         if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
@@ -179,12 +179,12 @@ import { Animate } from "./ts/dom/animate";
             bindingOptions._currentView!.mapContentsScrollLeft = bindingOptions._currentView!.mapContents.scrollLeft;
         }
 
-        if ( bindingOptions.views!.chart!.enabled && Is.defined( bindingOptions._currentView!.chartContents ) ) {
-            bindingOptions._currentView!.chartContentsScrollLeft = bindingOptions._currentView!.chartContents.scrollLeft;
-        }
-
         if ( bindingOptions.views!.line!.enabled && Is.defined( bindingOptions._currentView!.lineContents ) ) {
             bindingOptions._currentView!.lineContentsScrollLeft = bindingOptions._currentView!.lineContents.scrollLeft;
+        }
+
+        if ( bindingOptions.views!.chart!.enabled && Is.defined( bindingOptions._currentView!.chartContents ) ) {
+            bindingOptions._currentView!.chartContentsScrollLeft = bindingOptions._currentView!.chartContents.scrollLeft;
         }
 
         if ( bindingOptions.views!.days!.enabled && Is.defined( bindingOptions._currentView!.daysContents ) ) {
@@ -206,10 +206,10 @@ import { Animate } from "./ts/dom/animate";
     function renderControlVisibleView( bindingOptions: BindingOptions ) : void {
         if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
             bindingOptions._currentView!.mapContentsContainer.style.display = "block";
-        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-            bindingOptions._currentView!.chartContents.style.display = "block";
         } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
             bindingOptions._currentView!.lineContentsContainer.style.display = "block";
+        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            bindingOptions._currentView!.chartContents.style.display = "block";
         } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
             bindingOptions._currentView!.daysContents.style.display = "block";
         } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
@@ -339,10 +339,10 @@ import { Animate } from "./ts/dom/animate";
         if ( updatedDaysToShow.length >= 1 && JSON.stringify( updatedDaysToShow ) !== JSON.stringify( daysToShow ) ) {
             if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
                 bindingOptions.views!.map!.daysToShow = updatedDaysToShow;
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-                bindingOptions.views!.chart!.daysToShow = updatedDaysToShow;
             } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
                 bindingOptions.views!.line!.daysToShow = updatedDaysToShow;
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+                bindingOptions.views!.chart!.daysToShow = updatedDaysToShow;
             } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
                 bindingOptions.views!.days!.daysToShow! = updatedDaysToShow;
             } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
@@ -357,10 +357,10 @@ import { Animate } from "./ts/dom/animate";
         if ( updatedMonthsToShow.length >= 1 && JSON.stringify( updatedMonthsToShow ) !== JSON.stringify( monthsToShow ) ) {
             if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
                 bindingOptions.views!.map!.monthsToShow = updatedMonthsToShow;
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-                bindingOptions.views!.chart!.monthsToShow = updatedMonthsToShow;
             } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
                 bindingOptions.views!.line!.monthsToShow = updatedMonthsToShow;
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+                bindingOptions.views!.chart!.monthsToShow = updatedMonthsToShow;
             } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
                 bindingOptions.views!.days!.monthsToShow = updatedMonthsToShow;
             } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
@@ -852,10 +852,10 @@ import { Animate } from "./ts/dom/animate";
 
                     if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
                         DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.mapText! );
-                    } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.chartText! );
                     } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
                         DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.lineText! );
+                    } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.chartText! );
                     } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
                         DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.daysText! );
                     } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
@@ -1005,16 +1005,16 @@ import { Animate } from "./ts/dom/animate";
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, ViewId.map, ViewName.map );
         }
 
-        if ( bindingOptions.views!.chart!.enabled ) {
-            const menuItemChart = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.chartText! );
-
-            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, ViewId.chart, ViewName.chart );
-        }
-
         if ( bindingOptions.views!.line!.enabled ) {
             const menuItemLine = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.lineText! );
 
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemLine, ViewId.line, ViewName.line );
+        }
+
+        if ( bindingOptions.views!.chart!.enabled ) {
+            const menuItemChart = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.chartText! );
+
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, ViewId.chart, ViewName.chart );
         }
 
         let yearsHeader: HTMLElement = null!;
@@ -2666,10 +2666,10 @@ import { Animate } from "./ts/dom/animate";
         if ( isColorRangeVisible( bindingOptions, colorRange.id! ) ) {
             if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map && Is.definedString( colorRange.mapCssClassName ) ) {
                 DomElement.addClass( day, colorRange.mapCssClassName! );
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart && Is.definedString( colorRange.chartCssClassName ) ) {
-                DomElement.addClass( day, colorRange.chartCssClassName! );
             } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line && Is.definedString( colorRange.lineCssClassName ) ) {
                 DomElement.addClass( day, colorRange.lineCssClassName! );
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart && Is.definedString( colorRange.chartCssClassName ) ) {
+                DomElement.addClass( day, colorRange.chartCssClassName! );
             } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics && Is.definedString( colorRange.statisticsCssClassName ) ) {
                 DomElement.addClass( day, colorRange.statisticsCssClassName! );
             } else {

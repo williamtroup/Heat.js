@@ -72,17 +72,17 @@ export namespace Binding {
                 bindingOptions._currentView.mapContentsScrollLeft = 0;
                 bindingOptions._currentView.viewsEnabled++;
             }
-    
-            if ( bindingOptions.views!.chart!.enabled ) {
-                bindingOptions._currentView.chartContents = null!;
-                bindingOptions._currentView.chartContentsScrollLeft = 0;
-                bindingOptions._currentView.viewsEnabled++;
-            }
 
             if ( bindingOptions.views!.line!.enabled ) {
                 bindingOptions._currentView.lineContentsContainer = null!;
                 bindingOptions._currentView.lineContents = null!;
                 bindingOptions._currentView.lineContentsScrollLeft = 0;
+                bindingOptions._currentView.viewsEnabled++;
+            }
+    
+            if ( bindingOptions.views!.chart!.enabled ) {
+                bindingOptions._currentView.chartContents = null!;
+                bindingOptions._currentView.chartContentsScrollLeft = 0;
                 bindingOptions._currentView.viewsEnabled++;
             }
     
@@ -136,8 +136,8 @@ export namespace Binding {
             bindingOptions.guide = getGuide( bindingOptions );
             bindingOptions.tooltip = getToolTip( bindingOptions );
             bindingOptions.views!.map = getMapView( bindingOptions );
-            bindingOptions.views!.chart = getChartView( bindingOptions );
             bindingOptions.views!.line = getLineView( bindingOptions );
+            bindingOptions.views!.chart = getChartView( bindingOptions );
             bindingOptions.views!.days = getDaysView( bindingOptions );
             bindingOptions.views!.months = getMonthsView( bindingOptions );
             bindingOptions.views!.statistics = getStatisticsView( bindingOptions );
@@ -314,6 +314,28 @@ export namespace Binding {
     
             return bindingOptions.views!.map!;
         }
+
+        function getLineView( bindingOptions: BindingOptions ) : BindingOptionsViewsLine {
+            bindingOptions.views!.line = Default.getObject( bindingOptions.views!.line, {} as BindingOptionsViewsLine );
+            bindingOptions.views!.line!.enabled = Default.getBoolean( bindingOptions.views!.line!.enabled, true );
+            bindingOptions.views!.line!.showMonthNames = Default.getBoolean( bindingOptions.views!.line!.showMonthNames, true );
+            bindingOptions.views!.line!.showInReverseOrder = Default.getBoolean( bindingOptions.views!.line!.showInReverseOrder, false );
+            bindingOptions.views!.line!.keepScrollPositions = Default.getBoolean( bindingOptions.views!.line!.keepScrollPositions, false );
+            bindingOptions.views!.line!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.line!.showYearsInMonthNames, true );
+            bindingOptions.views!.line!.showToolTips = Default.getBoolean( bindingOptions.views!.line!.showToolTips, true );
+            bindingOptions.views!.line!.dayToolTipText = Default.getString( bindingOptions.views!.line!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
+            bindingOptions.views!.line!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.line!.showCountsInToolTips, true );
+
+            if ( Is.invalidOptionArray( bindingOptions.views!.line!.monthsToShow ) ) {
+                bindingOptions.views!.line!.monthsToShow = _default_MonthsToShow;
+            }
+    
+            if ( Is.invalidOptionArray( bindingOptions.views!.line!.daysToShow ) ) {
+                bindingOptions.views!.line!.daysToShow = _default_DaysToShow;
+            }
+    
+            return bindingOptions.views!.line!;
+        }
     
         function getChartView( bindingOptions: BindingOptions ) : BindingOptionsViewsChart {
             bindingOptions.views!.chart = Default.getObject( bindingOptions.views!.chart, {} as BindingOptionsViewsChart );
@@ -341,28 +363,6 @@ export namespace Binding {
             }
     
             return bindingOptions.views!.chart!;
-        }
-
-        function getLineView( bindingOptions: BindingOptions ) : BindingOptionsViewsLine {
-            bindingOptions.views!.line = Default.getObject( bindingOptions.views!.line, {} as BindingOptionsViewsLine );
-            bindingOptions.views!.line!.enabled = Default.getBoolean( bindingOptions.views!.line!.enabled, true );
-            bindingOptions.views!.line!.showMonthNames = Default.getBoolean( bindingOptions.views!.line!.showMonthNames, true );
-            bindingOptions.views!.line!.showInReverseOrder = Default.getBoolean( bindingOptions.views!.line!.showInReverseOrder, false );
-            bindingOptions.views!.line!.keepScrollPositions = Default.getBoolean( bindingOptions.views!.line!.keepScrollPositions, false );
-            bindingOptions.views!.line!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.line!.showYearsInMonthNames, true );
-            bindingOptions.views!.line!.showToolTips = Default.getBoolean( bindingOptions.views!.line!.showToolTips, true );
-            bindingOptions.views!.line!.dayToolTipText = Default.getString( bindingOptions.views!.line!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
-            bindingOptions.views!.line!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.line!.showCountsInToolTips, true );
-
-            if ( Is.invalidOptionArray( bindingOptions.views!.line!.monthsToShow ) ) {
-                bindingOptions.views!.line!.monthsToShow = _default_MonthsToShow;
-            }
-    
-            if ( Is.invalidOptionArray( bindingOptions.views!.line!.daysToShow ) ) {
-                bindingOptions.views!.line!.daysToShow = _default_DaysToShow;
-            }
-    
-            return bindingOptions.views!.line!;
         }
     
         function getDaysView( bindingOptions: BindingOptions ) : BindingOptionsViewsDays {
@@ -503,10 +503,10 @@ export namespace Binding {
         function getDefaultView( bindingOptions: BindingOptions ) : void {
             if ( bindingOptions.views!.map!.enabled && bindingOptions.defaultView === ViewName.map ) {
                 bindingOptions._currentView!.view = ViewId.map;
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions.defaultView === ViewName.chart ) {
-                bindingOptions._currentView!.view = ViewId.chart;
             } else if ( bindingOptions.views!.line!.enabled && bindingOptions.defaultView === ViewName.line ) {
                 bindingOptions._currentView!.view = ViewId.line;
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions.defaultView === ViewName.chart ) {
+                bindingOptions._currentView!.view = ViewId.chart;
             } else if ( bindingOptions.views!.days!.enabled && bindingOptions.defaultView === ViewName.days ) {
                 bindingOptions._currentView!.view = ViewId.days;
             } else if ( bindingOptions.views!.months!.enabled && bindingOptions.defaultView === ViewName.months ) {
@@ -518,10 +518,10 @@ export namespace Binding {
             if ( bindingOptions._currentView!.view === 0 ) {
                 if ( bindingOptions.views!.map!.enabled ) {
                     bindingOptions._currentView!.view = ViewId.map;
-                } else if ( bindingOptions.views!.chart!.enabled ) {
-                    bindingOptions._currentView!.view = ViewId.chart;
                 } else if ( bindingOptions.views!.line!.enabled ) {
                     bindingOptions._currentView!.view = ViewId.line;
+                } else if ( bindingOptions.views!.chart!.enabled ) {
+                    bindingOptions._currentView!.view = ViewId.chart;
                 } else if ( bindingOptions.views!.days!.enabled ) {
                     bindingOptions._currentView!.view = ViewId.days;
                 } else if ( bindingOptions.views!.months!.enabled ) {

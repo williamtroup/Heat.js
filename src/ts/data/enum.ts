@@ -34,20 +34,20 @@ export enum Value {
 
 export enum ViewId {
     map = 1,
-    chart = 2,
-    days = 3,
-    statistics = 4,
+    line = 2,
+    chart = 3,
+    days = 4,
     months = 5,
-    line = 6,
+    statistics = 6, 
 }
 
 export enum ViewName {
     map = "map",
+    line = "line",
     chart = "chart",
     days = "days",
-    statistics = "statistics",
     months = "months",
-    line = "line",
+    statistics = "statistics",
 }
 
 export enum ImportType {
