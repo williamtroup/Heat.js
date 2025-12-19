@@ -1158,6 +1158,7 @@ div.heat-js {
                         justify-content: center;
                         height: 100%;
                         border: none !important;
+                        transition: var(--heat-js-transition);
 
                         &:not(.no-hover):active {
                             opacity: var(--heat-js-view-opacity-active) !important;
