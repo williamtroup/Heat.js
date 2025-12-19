@@ -3536,6 +3536,8 @@ var p;
                 e._currentView.zoomLevel = e.zooming.defaultLevel;
                 e._currentView.element.style.setProperty(y.Variables.DaySize, `${d}${o}`);
                 e._currentView.element.style.setProperty(y.Variables.LineWidth, `${u}${r}`);
+                e._currentView.dayWidth = 0;
+                e._currentView.forceReRenderForDefaultZoomLevel = true;
             }
         }
     }

@@ -2841,6 +2841,8 @@ import { Animate } from "./ts/dom/animate";
                 bindingOptions._currentView!.zoomLevel = bindingOptions.zooming!.defaultLevel!;
                 bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${daySizeSizingMetric}` );
                 bindingOptions._currentView!.element.style.setProperty( Css.Variables.LineWidth, `${lineWidth}${lineWidthSizingMetric}` );
+                bindingOptions._currentView!.dayWidth = 0;
+                bindingOptions._currentView!.forceReRenderForDefaultZoomLevel = true;
             }
         }
     }
