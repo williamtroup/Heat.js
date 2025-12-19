@@ -2105,7 +2105,7 @@ var p;
                     c.customEvent(e.events.onRefresh, e._currentView.element);
                 };
             }
-            if (e.title.showClearButton) {
+            if (e.title.showClearButton && $e(e) > 0) {
                 const n = a.createIconButton(t, "button", "clear", "close");
                 if (e.title.showToolTips) {
                     l.add(n, e, v.text.clearButtonText);

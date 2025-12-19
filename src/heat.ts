@@ -904,7 +904,7 @@ import { Animate } from "./ts/dom/animate";
                 };
             }
 
-            if ( bindingOptions.title!.showClearButton ) {
+            if ( bindingOptions.title!.showClearButton && getLargestValueCurrentYear( bindingOptions ) > 0 ) {
                 const clear: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "clear", "close" );
 
                 if ( bindingOptions.title!.showToolTips ) {
