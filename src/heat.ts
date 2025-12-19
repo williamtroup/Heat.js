@@ -3751,7 +3751,7 @@ import { Animate } from "./ts/dom/animate";
         switchView: function ( elementId: string, viewName: string ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedString( viewName ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-                let viewId: ViewId;
+                let viewId: ViewId = ViewId.unknown;
     
                 if ( viewName.toLowerCase() === ViewName.map ) {
                     viewId = ViewId.map;
@@ -3765,11 +3765,9 @@ import { Animate } from "./ts/dom/animate";
                     viewId = ViewId.months;
                 } else if ( viewName.toLowerCase() === ViewName.statistics ) {
                     viewId = ViewId.statistics;
-                } else {
-                    viewId = ViewId.map;
                 }
     
-                if ( Is.definedNumber( viewId ) ) {
+                if ( viewId !== ViewId.unknown && bindingOptions._currentView!.view !== viewId ) {
                     switchView( bindingOptions, viewId, viewName );
                 }
             }
@@ -3833,8 +3831,6 @@ import { Animate } from "./ts/dom/animate";
                     result = ViewName.months;
                 } else if ( bindingOptions._currentView!.view ===  ViewId.statistics ) {
                     result = ViewName.statistics;
-                } else {
-                    result = ViewName.map;
                 }
             }
     

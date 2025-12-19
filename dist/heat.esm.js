@@ -4165,24 +4165,22 @@ var p;
         switchView: function(e, t) {
             if (i.definedString(e) && i.definedString(t) && b.hasOwnProperty(e)) {
                 const n = b[e].options;
-                let o;
+                let i = 0;
                 if (t.toLowerCase() === "map") {
-                    o = 1;
+                    i = 1;
                 } else if (t.toLowerCase() === "line") {
-                    o = 2;
+                    i = 2;
                 } else if (t.toLowerCase() === "chart") {
-                    o = 3;
+                    i = 3;
                 } else if (t.toLowerCase() === "days") {
-                    o = 4;
+                    i = 4;
                 } else if (t.toLowerCase() === "months") {
-                    o = 5;
+                    i = 5;
                 } else if (t.toLowerCase() === "statistics") {
-                    o = 6;
-                } else {
-                    o = 1;
+                    i = 6;
                 }
-                if (i.definedNumber(o)) {
-                    Ae(n, o, t);
+                if (i !== 0 && n._currentView.view !== i) {
+                    Ae(n, i, t);
                 }
             }
             return it;
@@ -4233,8 +4231,6 @@ var p;
                     t = "months";
                 } else if (n._currentView.view === 6) {
                     t = "statistics";
-                } else {
-                    t = "map";
                 }
             }
             return t;

@@ -33,6 +33,7 @@ export enum Value {
 }
 
 export enum ViewId {
+    unknown = 0,
     map = 1,
     line = 2,
     chart = 3,
