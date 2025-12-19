@@ -19,7 +19,9 @@ import { DomElement } from "../dom/dom";
 export namespace Disabled {
     export namespace Background {
         export function render( bindingOptions: BindingOptions ) : void {
-            bindingOptions._currentView!.disabledBackground = DomElement.create( bindingOptions._currentView!.element, "div", "disabled" );
+            if ( !Is.definedParentElement( bindingOptions._currentView!.disabledBackground ) ) {
+                bindingOptions._currentView!.disabledBackground = DomElement.create( bindingOptions._currentView!.element, "div", "disabled" );
+            }
         }
     
         export function show( bindingOptions: BindingOptions ) : void {

@@ -140,27 +140,8 @@ import { Animate } from "./ts/dom/animate";
         startDataPullTimer( bindingOptions );
         setupTrendTypes( bindingOptions );
 
-        if ( bindingOptions.title!.showConfigurationButton || bindingOptions.title!.showExportButton || bindingOptions.title!.showImportButton || bindingOptions.allowTypeAdding ) {
-            Disabled.Background.render( bindingOptions );
-        }
-
-        if ( bindingOptions.title!.showConfigurationButton ) {
-            renderConfigurationDialog( bindingOptions );
-        }
-
-        if ( bindingOptions.title!.showExportButton ) {
-            renderExportDialog( bindingOptions );
-        }
-
-        if ( bindingOptions.title!.showImportButton ) {
-            renderImportDialog( bindingOptions );
-        }
-
-        if ( bindingOptions.allowTypeAdding ) {
-            renderTypeAddingDialog( bindingOptions );
-        }
-
         ToolTip.render( bindingOptions );
+
         renderControlTitleBar( bindingOptions );
         renderControlYearStatistics( bindingOptions );
 
@@ -260,49 +241,55 @@ import { Animate } from "./ts/dom/animate";
      */
 
     function renderConfigurationDialog( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView!.configurationDialog = DomElement.create( bindingOptions._currentView!.disabledBackground, "div", "dialog configuration" );
+        Disabled.Background.render( bindingOptions );
 
-        const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.configurationDialog, "div", "dialog-title-bar" );
-        const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.configurationDialog, "div", "dialog-contents" );
-        const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
-        const daysContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
-        const monthsContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
+        if ( !Is.definedParentElement( bindingOptions._currentView!.configurationDialog ) ) {
+            bindingOptions._currentView!.configurationDialog = DomElement.create( bindingOptions._currentView!.disabledBackground, "div", "dialog configuration" );
 
-        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.configurationTitleText! );
-        DomElement.createWithHTML( daysContainer, "div", "side-container-title-text", `${_configurationOptions.text!.visibleDaysText}${Char.colon}` );
-        DomElement.createWithHTML( monthsContainer, "div", "side-container-title-text", `${_configurationOptions.text!.visibleMonthsText}${Char.colon}` );
+            const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.configurationDialog, "div", "dialog-title-bar" );
+            const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.configurationDialog, "div", "dialog-contents" );
+            const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
+            const daysContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
+            const monthsContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
 
-        const months1Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
-        const months2Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
+            DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.configurationTitleText! );
+            DomElement.createWithHTML( daysContainer, "div", "side-container-title-text", `${_configurationOptions.text!.visibleDaysText}${Char.colon}` );
+            DomElement.createWithHTML( monthsContainer, "div", "side-container-title-text", `${_configurationOptions.text!.visibleMonthsText}${Char.colon}` );
 
-        closeButton.onclick = () => hideConfigurationDialog( bindingOptions );
+            const months1Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
+            const months2Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
 
-        for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
-            bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configurationOptions.text!.dayNames![ dayIndex ], dayIndex.toString() );
-        }
+            closeButton.onclick = () => hideConfigurationDialog( bindingOptions );
 
-        let monthContainer: HTMLElement = months1Container;
-        let monthContainerIndex: number = 0;
-
-        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
-            let actualMonthIndex: number = monthIndex;
-
-            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
-                actualMonthIndex = monthIndex - 12;
+            for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
+                bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configurationOptions.text!.dayNames![ dayIndex ], dayIndex.toString() );
             }
 
-            bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ actualMonthIndex ] = DomElement.createCheckBox( monthContainer, _configurationOptions.text!.monthNames![ actualMonthIndex ], actualMonthIndex.toString() );
-            monthContainerIndex++;
+            let monthContainer: HTMLElement = months1Container;
+            let monthContainerIndex: number = 0;
 
-            if ( monthContainerIndex > 6 ) {
-                monthContainer = months2Container;
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+                let actualMonthIndex: number = monthIndex;
+
+                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                    actualMonthIndex = monthIndex - 12;
+                }
+
+                bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ actualMonthIndex ] = DomElement.createCheckBox( monthContainer, _configurationOptions.text!.monthNames![ actualMonthIndex ], actualMonthIndex.toString() );
+                monthContainerIndex++;
+
+                if ( monthContainerIndex > 6 ) {
+                    monthContainer = months2Container;
+                }
             }
-        }
 
-        ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
+            ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
+        }
     }
 
     function showConfigurationDialog( bindingOptions: BindingOptions ) : void {
+        renderConfigurationDialog( bindingOptions );
+
         Disabled.Background.show( bindingOptions );
 
         if ( Is.defined( bindingOptions._currentView!.configurationDialog ) && bindingOptions._currentView!.configurationDialog.style.display !== "block" ) {
@@ -399,48 +386,52 @@ import { Animate } from "./ts/dom/animate";
      */
 
     function renderExportDialog( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView!.exportDialog = DomElement.create( bindingOptions._currentView!.disabledBackground, "div", "dialog export" );
+        Disabled.Background.render( bindingOptions );
 
-        const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.exportDialog, "div", "dialog-title-bar" );
-        const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.exportDialog, "div", "dialog-contents" );
-        const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
+        if ( !Is.definedParentElement( bindingOptions._currentView!.exportDialog ) ) {
+            bindingOptions._currentView!.exportDialog = DomElement.create( bindingOptions._currentView!.disabledBackground, "div", "dialog export" );
 
-        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.selectTypeText! );
+            const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.exportDialog, "div", "dialog-title-bar" );
+            const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.exportDialog, "div", "dialog-contents" );
+            const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
 
-        bindingOptions._currentView!.exportDialogExportTypeSelect = DomElement.create( contents, "select", "input-box" ) as HTMLSelectElement;
-        bindingOptions._currentView!.exportDialogExportTypeSelect.name = crypto.randomUUID();
+            DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.selectTypeText! );
 
-        bindingOptions._currentView!.exportDialogExportFilenameInput = DomElement.create( contents, "input", "input-box filename" ) as HTMLInputElement;
-        bindingOptions._currentView!.exportDialogExportFilenameInput.name = crypto.randomUUID();
-        bindingOptions._currentView!.exportDialogExportFilenameInput.placeholder = _configurationOptions.text!.filenamePlaceholderText!;
+            bindingOptions._currentView!.exportDialogExportTypeSelect = DomElement.create( contents, "select", "input-box" ) as HTMLSelectElement;
+            bindingOptions._currentView!.exportDialogExportTypeSelect.name = crypto.randomUUID();
 
-        bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox = DomElement.createCheckBox( contents, _configurationOptions.text!.onlyDataBeingViewedText!, crypto.randomUUID() );
-        bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked = bindingOptions.exportOnlyDataBeingViewed!;
+            bindingOptions._currentView!.exportDialogExportFilenameInput = DomElement.create( contents, "input", "input-box filename" ) as HTMLInputElement;
+            bindingOptions._currentView!.exportDialogExportFilenameInput.name = crypto.randomUUID();
+            bindingOptions._currentView!.exportDialogExportFilenameInput.placeholder = _configurationOptions.text!.filenamePlaceholderText!;
 
-        const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-        const exportButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.exportButtonText! );
+            bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox = DomElement.createCheckBox( contents, _configurationOptions.text!.onlyDataBeingViewedText!, crypto.randomUUID() );
+            bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked = bindingOptions.exportOnlyDataBeingViewed!;
 
-        renderExportDialogOptions( bindingOptions );
+            const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
+            const exportButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.exportButtonText! );
 
-        const exportDataFunc: Function = () => {
-            const selectedExportType: string = bindingOptions._currentView!.exportDialogExportTypeSelect.value;
-            const exportFilename: string = bindingOptions._currentView!.exportDialogExportFilenameInput.value;
-            const exportOnlyDataBeingViewed: boolean = bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
+            renderExportDialogOptions( bindingOptions );
 
-            hideExportDialog( bindingOptions );
-            exportAllData( bindingOptions, selectedExportType, exportFilename, exportOnlyDataBeingViewed );
-        };
+            const exportDataFunc: Function = () => {
+                const selectedExportType: string = bindingOptions._currentView!.exportDialogExportTypeSelect.value;
+                const exportFilename: string = bindingOptions._currentView!.exportDialogExportFilenameInput.value;
+                const exportOnlyDataBeingViewed: boolean = bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
 
-        bindingOptions._currentView!.exportDialogExportFilenameInput.onkeydown = ( ev: KeyboardEvent ) => {
-            if ( ev.key === KeyCode.enter ) {
-                exportDataFunc();
-            }
-        };
+                hideExportDialog( bindingOptions );
+                exportAllData( bindingOptions, selectedExportType, exportFilename, exportOnlyDataBeingViewed );
+            };
 
-        exportButton.onclick = () => exportDataFunc();
-        closeButton.onclick = () => hideExportDialog( bindingOptions );
+            bindingOptions._currentView!.exportDialogExportFilenameInput.onkeydown = ( ev: KeyboardEvent ) => {
+                if ( ev.key === KeyCode.enter ) {
+                    exportDataFunc();
+                }
+            };
 
-        ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
+            exportButton.onclick = () => exportDataFunc();
+            closeButton.onclick = () => hideExportDialog( bindingOptions );
+
+            ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
+        }
     }
 
     function renderExportDialogOptions( bindingOptions: BindingOptions ) : void {
@@ -464,6 +455,8 @@ import { Animate } from "./ts/dom/animate";
     }
 
     function showExportDialog( bindingOptions: BindingOptions ) : void {
+        renderExportDialog( bindingOptions );
+
         Disabled.Background.show( bindingOptions );
 
         if ( Is.defined( bindingOptions._currentView!.exportDialog ) && bindingOptions._currentView!.exportDialog.style.display !== "block" ) {
@@ -573,32 +566,38 @@ import { Animate } from "./ts/dom/animate";
      */
 
     function renderImportDialog( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView!.importDialog = DomElement.create( bindingOptions._currentView!.disabledBackground, "div", "dialog import" );
+        Disabled.Background.render( bindingOptions );
 
-        const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.importDialog, "div", "dialog-title-bar" );
-        const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.importDialog, "div", "dialog-contents" );
-        const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
+        if ( !Is.definedParentElement( bindingOptions._currentView!.importDialog ) ) {
+            bindingOptions._currentView!.importDialog = DomElement.create( bindingOptions._currentView!.disabledBackground, "div", "dialog import" );
 
-        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.selectFilesText! );
+            const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.importDialog, "div", "dialog-title-bar" );
+            const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.importDialog, "div", "dialog-contents" );
+            const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
 
-        bindingOptions._currentView!.importDialogDragAndDrop = DomElement.createWithHTML( contents, "div", "drag-and-drop-files", _configurationOptions.text!.dragAndDropFilesText! );
+            DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.selectFilesText! );
 
-        makeAreaDroppable( bindingOptions._currentView!.importDialogDragAndDrop, bindingOptions );
+            bindingOptions._currentView!.importDialogDragAndDrop = DomElement.createWithHTML( contents, "div", "drag-and-drop-files", _configurationOptions.text!.dragAndDropFilesText! );
 
-        const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-        const selectFilesButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, "..." );
+            makeAreaDroppable( bindingOptions._currentView!.importDialogDragAndDrop, bindingOptions );
 
-        bindingOptions._currentView!.importDialogImportButton = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.importButtonText! );
-        bindingOptions._currentView!.importDialogImportButton.disabled = true;
+            const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
+            const selectFilesButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, "..." );
 
-        closeButton.onclick = () => hideImportDialog( bindingOptions );
-        selectFilesButton.onclick = () => importFromFilesSelected( bindingOptions );
-        bindingOptions._currentView!.importDialogImportButton.onclick = () => importFromFiles( bindingOptions._currentView!.importDialogFileList, bindingOptions );
+            bindingOptions._currentView!.importDialogImportButton = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.importButtonText! );
+            bindingOptions._currentView!.importDialogImportButton.disabled = true;
 
-        ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
+            closeButton.onclick = () => hideImportDialog( bindingOptions );
+            selectFilesButton.onclick = () => importFromFilesSelected( bindingOptions );
+            bindingOptions._currentView!.importDialogImportButton.onclick = () => importFromFiles( bindingOptions._currentView!.importDialogFileList, bindingOptions );
+
+            ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
+        }
     }
 
     function showImportDialog( bindingOptions: BindingOptions ) : void {
+        renderImportDialog( bindingOptions );
+
         Disabled.Background.show( bindingOptions );
 
         if ( Is.defined( bindingOptions._currentView!.importDialog ) && bindingOptions._currentView!.importDialog.style.display !== "block" ) {
@@ -742,57 +741,63 @@ import { Animate } from "./ts/dom/animate";
      */
 
     function renderTypeAddingDialog( bindingOptions: BindingOptions ) : void {
-        bindingOptions._currentView!.typeAddingDialog = DomElement.create( bindingOptions._currentView!.disabledBackground, "div", "dialog add-type" );
+        Disabled.Background.render( bindingOptions );
 
-        const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.typeAddingDialog, "div", "dialog-title-bar" );
-        const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.typeAddingDialog, "div", "dialog-contents" );
-        const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
+        if ( !Is.definedParentElement( bindingOptions._currentView!.typeAddingDialog ) ) {
+            bindingOptions._currentView!.typeAddingDialog = DomElement.create( bindingOptions._currentView!.disabledBackground, "div", "dialog add-type" );
 
-        DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.addTypeText! );
+            const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.typeAddingDialog, "div", "dialog-title-bar" );
+            const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.typeAddingDialog, "div", "dialog-contents" );
+            const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
 
-        bindingOptions._currentView!.typeAddingDialogTypeInput = DomElement.create( contents, "input", "input-box type" ) as HTMLInputElement;
-        bindingOptions._currentView!.typeAddingDialogTypeInput.name = crypto.randomUUID();
-        bindingOptions._currentView!.typeAddingDialogTypeInput.placeholder = _configurationOptions.text!.typePlaceholderText!;
+            DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.addTypeText! );
 
-        const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-        const addButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.addButtonText! );
+            bindingOptions._currentView!.typeAddingDialogTypeInput = DomElement.create( contents, "input", "input-box type" ) as HTMLInputElement;
+            bindingOptions._currentView!.typeAddingDialogTypeInput.name = crypto.randomUUID();
+            bindingOptions._currentView!.typeAddingDialogTypeInput.placeholder = _configurationOptions.text!.typePlaceholderText!;
 
-        const addTypeFunc: Function = () => {
-            const type: string = bindingOptions._currentView!.typeAddingDialogTypeInput.value.trim();
+            const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
+            const addButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.addButtonText! );
 
-            if ( Is.definedString( type ) ) {
-                const elementId: string = bindingOptions._currentView!.element.id;
+            const addTypeFunc: Function = () => {
+                const type: string = bindingOptions._currentView!.typeAddingDialogTypeInput.value.trim();
 
-                if ( !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
-                    _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
-                    _elements_InstanceData[ elementId ].totalTypes++;
+                if ( Is.definedString( type ) ) {
+                    const elementId: string = bindingOptions._currentView!.element.id;
+
+                    if ( !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
+                        _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
+                        _elements_InstanceData[ elementId ].totalTypes++;
+                    }
+
+                    bindingOptions._currentView!.type = type;
+                    
+                    Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, type );
+
+                    hideExportDialog( bindingOptions );
+                    renderControlContainer( bindingOptions, true );
+
+                } else {
+                    hideExportDialog( bindingOptions );
                 }
+            };
 
-                bindingOptions._currentView!.type = type;
-                
-                Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, type );
+            bindingOptions._currentView!.typeAddingDialogTypeInput.onkeydown = ( ev: KeyboardEvent ) => {
+                if ( ev.key === KeyCode.enter ) {
+                    addTypeFunc();
+                }
+            };
 
-                hideExportDialog( bindingOptions );
-                renderControlContainer( bindingOptions, true );
+            addButton.onclick = () => addTypeFunc();
+            closeButton.onclick = () => hideTypeAddingDialog( bindingOptions );
 
-            } else {
-                hideExportDialog( bindingOptions );
-            }
-        };
-
-        bindingOptions._currentView!.typeAddingDialogTypeInput.onkeydown = ( ev: KeyboardEvent ) => {
-            if ( ev.key === KeyCode.enter ) {
-                addTypeFunc();
-            }
-        };
-
-        addButton.onclick = () => addTypeFunc();
-        closeButton.onclick = () => hideTypeAddingDialog( bindingOptions );
-
-        ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
+            ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
+        }
     }
 
     function showTypeAddingDialog( bindingOptions: BindingOptions ) : void {
+        renderTypeAddingDialog( bindingOptions );
+
         Disabled.Background.show( bindingOptions );
 
         if ( Is.defined( bindingOptions._currentView!.typeAddingDialog ) && bindingOptions._currentView!.typeAddingDialog.style.display !== "block" ) {

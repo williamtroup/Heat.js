@@ -77,7 +77,11 @@ var i;
         return !a(e) || e.length < t;
     }
     e.invalidOptionArray = c;
-    function d(t, n) {
+    function d(e) {
+        return t(e) && document.contains(e);
+    }
+    e.definedParentElement = d;
+    function u(t, n) {
         const i = {
             matched: false,
             name: null
@@ -103,35 +107,35 @@ var i;
         }
         return i;
     }
-    e.holiday = d;
-    function u(e, t) {
+    e.holiday = u;
+    function w(e, t) {
         return e.indexOf(t + 1) > -1;
     }
-    e.monthVisible = u;
-    function w(e, t) {
+    e.monthVisible = w;
+    function h(e, t) {
         return e.indexOf(t) > -1;
     }
-    e.dayVisible = w;
-    function h(e, t) {
+    e.dayVisible = h;
+    function f(e, t) {
         return e.yearsToHide.indexOf(t) === -1 && (e._currentView.yearsAvailable.length === 0 || e._currentView.yearsAvailable.indexOf(t) > -1);
     }
-    e.yearVisible = h;
-    function f(e, t) {
+    e.yearVisible = f;
+    function g(e, t) {
         return e._currentView.yearsAvailable.length > 0 && t <= e._currentView.yearsAvailable[0];
     }
-    e.firstVisibleYear = f;
-    function g(e, t) {
+    e.firstVisibleYear = g;
+    function m(e, t) {
         return e._currentView.yearsAvailable.length > 0 && t >= e._currentView.yearsAvailable[e._currentView.yearsAvailable.length - 1];
     }
-    e.lastVisibleYear = g;
-    function m(e) {
+    e.lastVisibleYear = m;
+    function p(e) {
         return e.startsWith("rgba") || e.startsWith("rgb");
     }
-    e.rgbColor = m;
-    function p(e) {
+    e.rgbColor = p;
+    function y(e) {
         return e.startsWith("#") && (e.length === 6 || e.length === 8);
     }
-    e.hexColor = p;
+    e.hexColor = y;
 })(i || (i = {}));
 
 var o;
@@ -1041,7 +1045,9 @@ var w;
     let t;
     (e => {
         function t(e) {
-            e._currentView.disabledBackground = a.create(e._currentView.element, "div", "disabled");
+            if (!i.definedParentElement(e._currentView.disabledBackground)) {
+                e._currentView.disabledBackground = a.create(e._currentView.element, "div", "disabled");
+            }
         }
         e.render = t;
         function n(e) {
@@ -1531,7 +1537,7 @@ var y;
             a.addClass(t._currentView.element, "resizable");
         }
         t._currentView.element.removeAttribute(e.HEAT_JS_ATTRIBUTE_NAME);
-        Ne(t._currentView.element.id, t);
+        Ae(t._currentView.element.id, t);
         D(t);
         M(t);
         c.customEvent(t.events.onRenderComplete, t._currentView.element);
@@ -1544,21 +1550,6 @@ var y;
         l.hide(e);
         $e(e);
         Le(e);
-        if (e.title.showConfigurationButton || e.title.showExportButton || e.title.showImportButton || e.allowTypeAdding) {
-            w.Background.render(e);
-        }
-        if (e.title.showConfigurationButton) {
-            B(e);
-        }
-        if (e.title.showExportButton) {
-            N(e);
-        }
-        if (e.title.showImportButton) {
-            R(e);
-        }
-        if (e.allowTypeAdding) {
-            G(e);
-        }
         l.render(e);
         J(e);
         ne(e);
@@ -1626,37 +1617,41 @@ var y;
         n("blur", () => l.hide(e));
     }
     function B(e) {
-        e._currentView.configurationDialog = a.create(e._currentView.disabledBackground, "div", "dialog configuration");
-        const t = a.create(e._currentView.configurationDialog, "div", "dialog-title-bar");
-        const n = a.create(e._currentView.configurationDialog, "div", "dialog-contents");
-        const i = a.create(t, "div", "dialog-close");
-        const o = a.create(n, "div", "side-container panel");
-        const s = a.create(n, "div", "side-container panel");
-        a.createWithHTML(t, "span", "dialog-title-bar-text", v.text.configurationTitleText);
-        a.createWithHTML(o, "div", "side-container-title-text", `${v.text.visibleDaysText}${":"}`);
-        a.createWithHTML(s, "div", "side-container-title-text", `${v.text.visibleMonthsText}${":"}`);
-        const r = a.create(s, "div", "side-container");
-        const c = a.create(s, "div", "side-container");
-        i.onclick = () => A(e);
-        for (let t = 0; t < 7; t++) {
-            e._currentView.configurationDialogDayCheckBoxes[t] = a.createCheckBox(o, v.text.dayNames[t], t.toString());
-        }
-        let d = r;
-        let u = 0;
-        for (let t = e.startMonth; t < 12 + e.startMonth; t++) {
-            let n = t;
-            if (e.startMonth > 0 && t > 11) {
-                n = t - 12;
+        w.Background.render(e);
+        if (!i.definedParentElement(e._currentView.configurationDialog)) {
+            e._currentView.configurationDialog = a.create(e._currentView.disabledBackground, "div", "dialog configuration");
+            const t = a.create(e._currentView.configurationDialog, "div", "dialog-title-bar");
+            const n = a.create(e._currentView.configurationDialog, "div", "dialog-contents");
+            const i = a.create(t, "div", "dialog-close");
+            const o = a.create(n, "div", "side-container panel");
+            const s = a.create(n, "div", "side-container panel");
+            a.createWithHTML(t, "span", "dialog-title-bar-text", v.text.configurationTitleText);
+            a.createWithHTML(o, "div", "side-container-title-text", `${v.text.visibleDaysText}${":"}`);
+            a.createWithHTML(s, "div", "side-container-title-text", `${v.text.visibleMonthsText}${":"}`);
+            const r = a.create(s, "div", "side-container");
+            const c = a.create(s, "div", "side-container");
+            i.onclick = () => N(e);
+            for (let t = 0; t < 7; t++) {
+                e._currentView.configurationDialogDayCheckBoxes[t] = a.createCheckBox(o, v.text.dayNames[t], t.toString());
             }
-            e._currentView.configurationDialogMonthCheckBoxes[n] = a.createCheckBox(d, v.text.monthNames[n], n.toString());
-            u++;
-            if (u > 6) {
-                d = c;
+            let d = r;
+            let u = 0;
+            for (let t = e.startMonth; t < 12 + e.startMonth; t++) {
+                let n = t;
+                if (e.startMonth > 0 && t > 11) {
+                    n = t - 12;
+                }
+                e._currentView.configurationDialogMonthCheckBoxes[n] = a.createCheckBox(d, v.text.monthNames[n], n.toString());
+                u++;
+                if (u > 6) {
+                    d = c;
+                }
             }
+            l.add(i, e, v.text.closeButtonText);
         }
-        l.add(i, e, v.text.closeButtonText);
     }
     function L(e) {
+        B(e);
         w.Background.show(e);
         if (i.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "block") {
             e._currentView.configurationDialog.style.display = "block";
@@ -1671,7 +1666,7 @@ var y;
         }
         l.hide(e);
     }
-    function A(e) {
+    function N(e) {
         w.Background.hide(e);
         if (i.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "none") {
             e._currentView.configurationDialog.style.display = "none";
@@ -1728,37 +1723,40 @@ var y;
             l.hide(e);
         }
     }
-    function N(e) {
-        e._currentView.exportDialog = a.create(e._currentView.disabledBackground, "div", "dialog export");
-        const t = a.create(e._currentView.exportDialog, "div", "dialog-title-bar");
-        const n = a.create(e._currentView.exportDialog, "div", "dialog-contents");
-        const i = a.create(t, "div", "dialog-close");
-        a.createWithHTML(t, "span", "dialog-title-bar-text", v.text.selectTypeText);
-        e._currentView.exportDialogExportTypeSelect = a.create(n, "select", "input-box");
-        e._currentView.exportDialogExportTypeSelect.name = crypto.randomUUID();
-        e._currentView.exportDialogExportFilenameInput = a.create(n, "input", "input-box filename");
-        e._currentView.exportDialogExportFilenameInput.name = crypto.randomUUID();
-        e._currentView.exportDialogExportFilenameInput.placeholder = v.text.filenamePlaceholderText;
-        e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox = a.createCheckBox(n, v.text.onlyDataBeingViewedText, crypto.randomUUID());
-        e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked = e.exportOnlyDataBeingViewed;
-        const o = a.create(n, "div", "buttons");
-        const s = a.createButton(o, "button", "default", v.text.exportButtonText);
-        O(e);
-        const r = () => {
-            const t = e._currentView.exportDialogExportTypeSelect.value;
-            const n = e._currentView.exportDialogExportFilenameInput.value;
-            const i = e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
-            I(e);
-            E(e, t, n, i);
-        };
-        e._currentView.exportDialogExportFilenameInput.onkeydown = e => {
-            if (e.key === "Enter") {
-                r();
-            }
-        };
-        s.onclick = () => r();
-        i.onclick = () => I(e);
-        l.add(i, e, v.text.closeButtonText);
+    function A(e) {
+        w.Background.render(e);
+        if (!i.definedParentElement(e._currentView.exportDialog)) {
+            e._currentView.exportDialog = a.create(e._currentView.disabledBackground, "div", "dialog export");
+            const t = a.create(e._currentView.exportDialog, "div", "dialog-title-bar");
+            const n = a.create(e._currentView.exportDialog, "div", "dialog-contents");
+            const i = a.create(t, "div", "dialog-close");
+            a.createWithHTML(t, "span", "dialog-title-bar-text", v.text.selectTypeText);
+            e._currentView.exportDialogExportTypeSelect = a.create(n, "select", "input-box");
+            e._currentView.exportDialogExportTypeSelect.name = crypto.randomUUID();
+            e._currentView.exportDialogExportFilenameInput = a.create(n, "input", "input-box filename");
+            e._currentView.exportDialogExportFilenameInput.name = crypto.randomUUID();
+            e._currentView.exportDialogExportFilenameInput.placeholder = v.text.filenamePlaceholderText;
+            e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox = a.createCheckBox(n, v.text.onlyDataBeingViewedText, crypto.randomUUID());
+            e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked = e.exportOnlyDataBeingViewed;
+            const o = a.create(n, "div", "buttons");
+            const s = a.createButton(o, "button", "default", v.text.exportButtonText);
+            O(e);
+            const r = () => {
+                const t = e._currentView.exportDialogExportTypeSelect.value;
+                const n = e._currentView.exportDialogExportFilenameInput.value;
+                const i = e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
+                I(e);
+                E(e, t, n, i);
+            };
+            e._currentView.exportDialogExportFilenameInput.onkeydown = e => {
+                if (e.key === "Enter") {
+                    r();
+                }
+            };
+            s.onclick = () => r();
+            i.onclick = () => I(e);
+            l.add(i, e, v.text.closeButtonText);
+        }
     }
     function O(e) {
         let t;
@@ -1774,6 +1772,7 @@ var y;
         i.forEach(t => e._currentView.exportDialogExportTypeSelect.add(t));
     }
     function k(e) {
+        A(e);
         w.Background.show(e);
         if (i.defined(e._currentView.exportDialog) && e._currentView.exportDialog.style.display !== "block") {
             e._currentView.exportDialogExportFilenameInput.value = "";
@@ -1852,23 +1851,27 @@ var y;
         return n;
     }
     function R(e) {
-        e._currentView.importDialog = a.create(e._currentView.disabledBackground, "div", "dialog import");
-        const t = a.create(e._currentView.importDialog, "div", "dialog-title-bar");
-        const n = a.create(e._currentView.importDialog, "div", "dialog-contents");
-        const i = a.create(t, "div", "dialog-close");
-        a.createWithHTML(t, "span", "dialog-title-bar-text", v.text.selectFilesText);
-        e._currentView.importDialogDragAndDrop = a.createWithHTML(n, "div", "drag-and-drop-files", v.text.dragAndDropFilesText);
-        W(e._currentView.importDialogDragAndDrop, e);
-        const o = a.create(n, "div", "buttons");
-        const s = a.createButton(o, "button", "", "...");
-        e._currentView.importDialogImportButton = a.createButton(o, "button", "default", v.text.importButtonText);
-        e._currentView.importDialogImportButton.disabled = true;
-        i.onclick = () => $(e);
-        s.onclick = () => P(e);
-        e._currentView.importDialogImportButton.onclick = () => U(e._currentView.importDialogFileList, e);
-        l.add(i, e, v.text.closeButtonText);
+        w.Background.render(e);
+        if (!i.definedParentElement(e._currentView.importDialog)) {
+            e._currentView.importDialog = a.create(e._currentView.disabledBackground, "div", "dialog import");
+            const t = a.create(e._currentView.importDialog, "div", "dialog-title-bar");
+            const n = a.create(e._currentView.importDialog, "div", "dialog-contents");
+            const i = a.create(t, "div", "dialog-close");
+            a.createWithHTML(t, "span", "dialog-title-bar-text", v.text.selectFilesText);
+            e._currentView.importDialogDragAndDrop = a.createWithHTML(n, "div", "drag-and-drop-files", v.text.dragAndDropFilesText);
+            W(e._currentView.importDialogDragAndDrop, e);
+            const o = a.create(n, "div", "buttons");
+            const s = a.createButton(o, "button", "", "...");
+            e._currentView.importDialogImportButton = a.createButton(o, "button", "default", v.text.importButtonText);
+            e._currentView.importDialogImportButton.disabled = true;
+            i.onclick = () => $(e);
+            s.onclick = () => P(e);
+            e._currentView.importDialogImportButton.onclick = () => U(e._currentView.importDialogFileList, e);
+            l.add(i, e, v.text.closeButtonText);
+        }
     }
     function H(e) {
+        R(e);
         w.Background.show(e);
         if (i.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "block") {
             e._currentView.importDialog.style.display = "block";
@@ -1973,42 +1976,46 @@ var y;
         }
     }
     function G(e) {
-        e._currentView.typeAddingDialog = a.create(e._currentView.disabledBackground, "div", "dialog add-type");
-        const t = a.create(e._currentView.typeAddingDialog, "div", "dialog-title-bar");
-        const n = a.create(e._currentView.typeAddingDialog, "div", "dialog-contents");
-        const o = a.create(t, "div", "dialog-close");
-        a.createWithHTML(t, "span", "dialog-title-bar-text", v.text.addTypeText);
-        e._currentView.typeAddingDialogTypeInput = a.create(n, "input", "input-box type");
-        e._currentView.typeAddingDialogTypeInput.name = crypto.randomUUID();
-        e._currentView.typeAddingDialogTypeInput.placeholder = v.text.typePlaceholderText;
-        const s = a.create(n, "div", "buttons");
-        const r = a.createButton(s, "button", "default", v.text.addButtonText);
-        const d = () => {
-            const t = e._currentView.typeAddingDialogTypeInput.value.trim();
-            if (i.definedString(t)) {
-                const n = e._currentView.element.id;
-                if (!x[n].typeData.hasOwnProperty(t)) {
-                    x[n].typeData[t] = {};
-                    x[n].totalTypes++;
+        w.Background.render(e);
+        if (!i.definedParentElement(e._currentView.typeAddingDialog)) {
+            e._currentView.typeAddingDialog = a.create(e._currentView.disabledBackground, "div", "dialog add-type");
+            const t = a.create(e._currentView.typeAddingDialog, "div", "dialog-title-bar");
+            const n = a.create(e._currentView.typeAddingDialog, "div", "dialog-contents");
+            const o = a.create(t, "div", "dialog-close");
+            a.createWithHTML(t, "span", "dialog-title-bar-text", v.text.addTypeText);
+            e._currentView.typeAddingDialogTypeInput = a.create(n, "input", "input-box type");
+            e._currentView.typeAddingDialogTypeInput.name = crypto.randomUUID();
+            e._currentView.typeAddingDialogTypeInput.placeholder = v.text.typePlaceholderText;
+            const s = a.create(n, "div", "buttons");
+            const r = a.createButton(s, "button", "default", v.text.addButtonText);
+            const d = () => {
+                const t = e._currentView.typeAddingDialogTypeInput.value.trim();
+                if (i.definedString(t)) {
+                    const n = e._currentView.element.id;
+                    if (!x[n].typeData.hasOwnProperty(t)) {
+                        x[n].typeData[t] = {};
+                        x[n].totalTypes++;
+                    }
+                    e._currentView.type = t;
+                    c.customEvent(e.events.onTypeSwitch, t);
+                    I(e);
+                    D(e, true);
+                } else {
+                    I(e);
                 }
-                e._currentView.type = t;
-                c.customEvent(e.events.onTypeSwitch, t);
-                I(e);
-                D(e, true);
-            } else {
-                I(e);
-            }
-        };
-        e._currentView.typeAddingDialogTypeInput.onkeydown = e => {
-            if (e.key === "Enter") {
-                d();
-            }
-        };
-        r.onclick = () => d();
-        o.onclick = () => z(e);
-        l.add(o, e, v.text.closeButtonText);
+            };
+            e._currentView.typeAddingDialogTypeInput.onkeydown = e => {
+                if (e.key === "Enter") {
+                    d();
+                }
+            };
+            r.onclick = () => d();
+            o.onclick = () => z(e);
+            l.add(o, e, v.text.closeButtonText);
+        }
     }
     function Z(e) {
+        G(e);
         w.Background.show(e);
         if (i.defined(e._currentView.typeAddingDialog) && e._currentView.typeAddingDialog.style.display !== "block") {
             e._currentView.typeAddingDialogTypeInput.value = "";
@@ -3366,7 +3373,7 @@ var y;
     function _e(e) {
         const t = a.create(e._currentView.element, "div", "guide");
         const n = a.create(t, "div", "map-types");
-        const o = Ae(e);
+        const o = Ne(e);
         if (x[e._currentView.element.id].totalTypes > 1) {
             if (i.definedString(e.description.text)) {
                 const n = a.create(e._currentView.element, "div", "description", t);
@@ -3509,7 +3516,7 @@ var y;
         D(e, false, true);
     }
     function Le(e) {
-        const t = Ae(e);
+        const t = Ne(e);
         if (x[e._currentView.element.id].totalTypes > 1) {
             for (const n in x[e._currentView.element.id].typeData) {
                 if (n !== v.text.unknownTrendText || t > 0) {
@@ -3520,7 +3527,7 @@ var y;
             }
         }
     }
-    function Ae(e) {
+    function Ne(e) {
         let t = 0;
         for (const n in x[e._currentView.element.id].typeData[v.text.unknownTrendText]) {
             if (x[e._currentView.element.id].typeData[v.text.unknownTrendText].hasOwnProperty(n)) {
@@ -3530,7 +3537,7 @@ var y;
         }
         return t;
     }
-    function Ne(e, t, n = true) {
+    function Ae(e, t, n = true) {
         x[e] = {
             options: t,
             typeData: {},
@@ -3670,7 +3677,7 @@ var y;
         const t = e._currentView.element.id;
         const n = c.customEvent(e.events.onDataFetch, t);
         if (i.definedObject(n)) {
-            Ne(t, e, false);
+            Ae(t, e, false);
             for (const e in n) {
                 if (n.hasOwnProperty(e)) {
                     if (!x[t].typeData[v.text.unknownTrendText].hasOwnProperty(e)) {
@@ -3981,7 +3988,7 @@ var y;
                 const n = x[e].options;
                 if (!n._currentView.isInFetchMode) {
                     n._currentView.type = v.text.unknownTrendText;
-                    Ne(e, n, false);
+                    Ae(e, n, false);
                     c.customEvent(n.events.onReset, n._currentView.element);
                     if (t) {
                         D(n, true);

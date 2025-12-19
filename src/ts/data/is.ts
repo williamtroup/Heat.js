@@ -52,6 +52,10 @@ export namespace Is {
         return !definedArray( array ) || array.length < minimumLength;
     }
 
+    export function definedParentElement( value: HTMLElement ) : boolean {
+        return defined( value ) && document.contains( value );
+    }
+
     export function holiday( bindingOptions: BindingOptions, date: Date ) : IsHoliday {
         const result: IsHoliday = {
             matched: false,
