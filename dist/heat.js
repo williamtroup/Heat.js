@@ -1552,16 +1552,16 @@ var p;
         }
         t._currentView.element.removeAttribute(e.HEAT_JS_ATTRIBUTE_NAME);
         Ie(t._currentView.element.id, t);
-        C(t);
+        D(t);
         M(t);
         Me(t);
         c.customEvent(t.events.onRenderComplete, t._currentView.element);
     }
-    function C(e, t = false, n = false, i = false) {
+    function D(e, t = false, n = false, i = false) {
         if (t) {
             Pe(e);
         }
-        D(e);
+        C(e);
         l.hide(e);
         je(e);
         Ae(e);
@@ -1589,7 +1589,7 @@ var p;
         Ve(e);
         S(e);
     }
-    function D(e) {
+    function C(e) {
         if (e.views.map.enabled && i.defined(e._currentView.mapContents)) {
             e._currentView.mapContentsScrollLeft = e._currentView.mapContents.scrollLeft;
         }
@@ -1734,7 +1734,7 @@ var p;
             r = true;
         }
         if (r) {
-            C(e);
+            D(e);
             c.customEvent(e.events.onOptionsUpdate, e._currentView.element, e);
         } else {
             l.hide(e);
@@ -1983,7 +1983,7 @@ var p;
             }
             if (i.length === n) {
                 c.customEvent(t.events.onImport, t._currentView.element);
-                C(t, true);
+                D(t, true);
             }
         };
         for (let t = 0; t < n; t++) {
@@ -2016,7 +2016,7 @@ var p;
                     e._currentView.type = t;
                     c.customEvent(e.events.onTypeSwitch, t);
                     I(e);
-                    C(e, true);
+                    D(e, true);
                 } else {
                     I(e);
                 }
@@ -2103,7 +2103,7 @@ var p;
                     l.add(n, e, v.text.refreshButtonText);
                 }
                 n.onclick = () => {
-                    C(e);
+                    D(e);
                     c.customEvent(e.events.onRefresh, e._currentView.element);
                 };
             }
@@ -2114,7 +2114,7 @@ var p;
                 }
                 n.onclick = () => {
                     He(e);
-                    C(e, true);
+                    D(e, true);
                 };
             }
             if (e.title.showYearSelector) {
@@ -2256,7 +2256,7 @@ var p;
         if (e._currentView.year !== n) {
             r.onclick = () => {
                 e._currentView.year = n;
-                C(e);
+                D(e);
                 c.customEvent(e.events.onSetYear, e._currentView.year);
             };
             if (n === i) {
@@ -3331,7 +3331,7 @@ var p;
         if (b[e._currentView.element.id].totalTypes > 1) {
             if (i.definedString(e.description.text)) {
                 const n = a.create(e._currentView.element, "div", "description", t);
-                De(e, n);
+                Ce(e, n);
             }
             const s = Object.keys(b[e._currentView.element.id].typeData).sort();
             const r = s.length;
@@ -3347,7 +3347,7 @@ var p;
                 t.onclick = () => G(e);
             }
         } else {
-            De(e, n);
+            Ce(e, n);
         }
         if (e.guide.enabled) {
             const n = a.create(t, "div", "map-toggles");
@@ -3373,7 +3373,7 @@ var p;
             const r = [];
             let l = 0;
             for (let t = 0; t < s; t++) {
-                const n = Ce(e, i, o[t]);
+                const n = De(e, i, o[t]);
                 l = Math.max(l, n.offsetWidth);
                 r.push(n);
             }
@@ -3402,11 +3402,11 @@ var p;
             if (e._currentView.type !== n) {
                 e._currentView.type = n;
                 c.customEvent(e.events.onTypeSwitch, n);
-                C(e);
+                D(e);
             }
         };
     }
-    function Ce(e, t, n) {
+    function De(e, t, n) {
         const o = a.create(t, "div");
         o.className = "day";
         if (e.guide.showToolTips) {
@@ -3436,7 +3436,7 @@ var p;
         }
         return o;
     }
-    function De(e, t) {
+    function Ce(e, t) {
         if (i.definedString(e.description.text)) {
             if (i.definedString(e.description.url)) {
                 const n = a.createWithHTML(t, "a", "label", e.description.text);
@@ -3465,9 +3465,6 @@ var p;
             }
             if (i.defined(e._currentView.mapContents)) {
                 e._currentView.mapContents.style.paddingRight = `${o.offsetWidth + w}px`;
-            }
-            if (i.defined(e._currentView.lineContents)) {
-                e._currentView.lineContents.style.paddingRight = `${o.offsetWidth + w}px`;
             }
             r.onclick = () => {
                 e.zooming.enabled = false;
@@ -3514,7 +3511,7 @@ var p;
             e._currentView.element.style.setProperty(y.Variables.LineWidth, `${o}${n}`);
             e._currentView.dayWidth = 0;
             c.customEvent(e.events.onZoomLevelChange, e._currentView.element, e._currentView.zoomLevel);
-            C(e, false, false, true);
+            D(e, false, false, true);
         }
     }
     function Le(e) {
@@ -3532,7 +3529,7 @@ var p;
             e._currentView.element.style.setProperty(y.Variables.LineWidth, `${o}${n}`);
             e._currentView.dayWidth = 0;
             c.customEvent(e.events.onZoomLevelChange, e._currentView.element, e._currentView.zoomLevel);
-            C(e, false, false, true);
+            D(e, false, false, true);
         }
     }
     function Ne(e, t, n, o, a, d, u, w) {
@@ -3555,7 +3552,7 @@ var p;
     function ke(e, t, n) {
         e._currentView.view = t;
         c.customEvent(e.events.onViewSwitch, n);
-        C(e, false, true);
+        D(e, false, true);
     }
     function Ae(e) {
         const t = Oe(e);
@@ -3713,7 +3710,7 @@ var p;
             if (e._currentView.isInFetchModeTimer === 0) {
                 e._currentView.isInFetchModeTimer = setInterval(() => {
                     ze(e);
-                    C(e);
+                    D(e);
                 }, e.dataFetchDelay);
             }
         }
@@ -3771,7 +3768,7 @@ var p;
             e.colorRanges[i].visible = t;
             c.customEvent(e.events.onColorRangeTypeToggle, e.colorRanges[i].id, t);
         }
-        C(e);
+        D(e);
     }
     function Ze(e) {
         const t = e.colorRanges.length;
@@ -3779,7 +3776,7 @@ var p;
             e.colorRanges[n].visible = !e.colorRanges[n].visible;
             c.customEvent(e.events.onColorRangeTypeToggle, e.colorRanges[n].id, e.colorRanges[n].visible);
         }
-        C(e);
+        D(e);
     }
     function Xe(e, t) {
         const n = e.colorRanges.length;
@@ -3788,7 +3785,7 @@ var p;
             if (n.id === t) {
                 n.visible = !o.getBoolean(n.visible, true);
                 c.customEvent(e.events.onColorRangeTypeToggle, n.id, n.visible);
-                C(e);
+                D(e);
                 break;
             }
         }
@@ -3844,7 +3841,7 @@ var p;
         }
         if (n) {
             e._currentView.year = o;
-            C(e);
+            D(e);
             if (t) {
                 c.customEvent(e.events.onBackYear, e._currentView.year);
             }
@@ -3863,7 +3860,7 @@ var p;
         }
         if (n) {
             e._currentView.year = o;
-            C(e);
+            D(e);
             if (t) {
                 c.customEvent(e.events.onNextYear, e._currentView.year);
             }
@@ -3907,7 +3904,7 @@ var p;
                         b[e].totalTypes++;
                     }
                     if (n) {
-                        C(i, true);
+                        D(i, true);
                     }
                 }
             }
@@ -3923,7 +3920,7 @@ var p;
                         ot.addDate(e, t[i], n, false);
                     }
                     if (s) {
-                        C(i, true);
+                        D(i, true);
                     }
                 }
             }
@@ -3945,7 +3942,7 @@ var p;
                     b[e].typeData[n][a]++;
                     c.customEvent(i.events.onAdd, i._currentView.element);
                     if (s) {
-                        C(i, true);
+                        D(i, true);
                     }
                 }
             }
@@ -3961,7 +3958,7 @@ var p;
                         b[e].typeData[s][l] = n;
                         c.customEvent(i.events.onUpdate, i._currentView.element);
                         if (a) {
-                            C(i, true);
+                            D(i, true);
                         }
                     }
                 }
@@ -3978,7 +3975,7 @@ var p;
                         ot.removeDate(e, t[i], n, false);
                     }
                     if (s) {
-                        C(i, true);
+                        D(i, true);
                     }
                 }
             }
@@ -3996,7 +3993,7 @@ var p;
                         }
                         c.customEvent(i.events.onRemove, i._currentView.element);
                         if (s) {
-                            C(i, true);
+                            D(i, true);
                         }
                     }
                 }
@@ -4013,7 +4010,7 @@ var p;
                         delete b[e].typeData[n][a];
                         c.customEvent(i.events.onClear, i._currentView.element);
                         if (s) {
-                            C(i, true);
+                            D(i, true);
                         }
                     }
                 }
@@ -4036,7 +4033,7 @@ var p;
                     Ie(e, n, false);
                     c.customEvent(n.events.onReset, n._currentView.element);
                     if (t) {
-                        C(n, true);
+                        D(n, true);
                     }
                 }
             }
@@ -4062,7 +4059,7 @@ var p;
         refresh: function(e) {
             if (i.definedString(e) && b.hasOwnProperty(e)) {
                 const t = b[e].options;
-                C(t, true);
+                D(t, true);
                 c.customEvent(t.events.onRefresh, t._currentView.element);
             }
             return ot;
@@ -4071,7 +4068,7 @@ var p;
             for (const e in b) {
                 if (b.hasOwnProperty(e)) {
                     const t = b[e].options;
-                    C(t, true);
+                    D(t, true);
                     c.customEvent(t.events.onRefresh, t._currentView.element);
                 }
             }
@@ -4084,7 +4081,7 @@ var p;
                 if (!i.yearVisible(n, n._currentView.year)) {
                     tt(n, false);
                 } else {
-                    C(n);
+                    D(n);
                 }
                 c.customEvent(n.events.onSetYear, n._currentView.year);
             }
@@ -4105,7 +4102,7 @@ var p;
                     if (!i.yearVisible(t, t._currentView.year)) {
                         tt(t, false);
                     } else {
-                        C(t);
+                        D(t);
                     }
                     c.customEvent(t.events.onSetYear, t._currentView.year);
                 }
@@ -4127,7 +4124,7 @@ var p;
                     if (!i.yearVisible(t, t._currentView.year)) {
                         et(t, false);
                     } else {
-                        C(t);
+                        D(t);
                     }
                     c.customEvent(t.events.onSetYear, t._currentView.year);
                 }
@@ -4153,7 +4150,7 @@ var p;
                 if (!i.yearVisible(t, t._currentView.year)) {
                     tt(t, false);
                 } else {
-                    C(t);
+                    D(t);
                 }
                 c.customEvent(t.events.onSetYear, t._currentView.year);
             }
@@ -4205,7 +4202,7 @@ var p;
                 if (n._currentView.type !== t) {
                     n._currentView.type = t;
                     c.customEvent(n.events.onTypeSwitch, t);
-                    C(n);
+                    D(n);
                 }
             }
             return ot;
@@ -4222,7 +4219,7 @@ var p;
                     }
                 }
                 if (i) {
-                    C(t, true);
+                    D(t, true);
                     c.customEvent(t.events.onRefresh, t._currentView.element);
                     c.customEvent(t.events.onOptionsUpdate, t._currentView.element, t);
                 }

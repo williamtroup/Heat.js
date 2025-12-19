@@ -2744,10 +2744,6 @@ import { Animate } from "./ts/dom/animate";
                 bindingOptions._currentView!.mapContents.style.paddingRight = `${zooming.offsetWidth + spacing}px`;
             }
 
-            if ( Is.defined( bindingOptions._currentView!.lineContents ) ) {
-                bindingOptions._currentView!.lineContents.style.paddingRight = `${zooming.offsetWidth + spacing}px`;
-            }
-
             closeButton.onclick = () => {
                 bindingOptions.zooming!.enabled = false;
                 bindingOptions._currentView!.mapContents.style.paddingRight = "0px";
