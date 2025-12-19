@@ -317,53 +317,55 @@ import { Animate } from "./ts/dom/animate";
             bindingOptions._currentView!.configurationDialog.style.display = "none";
         }
 
-        const daysChecked: number[] = [];
-        const monthsChecked: number[] = [];
+        const daysToShow: number[] = Visible.days( bindingOptions );
+        const monthsToShow: number[] = Visible.months( bindingOptions );
+        const updatedDaysToShow: number[] = [];
+        const updatedMonthsToShow: number[] = [];
         let render: boolean = false;
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
             if ( bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ].checked ) {
-                daysChecked.push( dayIndex + 1 );
+                updatedDaysToShow.push( dayIndex + 1 );
             }
         }
 
         for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
             if ( bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ monthIndex ].checked ) {
-                monthsChecked.push( monthIndex + 1 );
+                updatedMonthsToShow.push( monthIndex + 1 );
             }
         }
 
-        if ( daysChecked.length >= 1 ) {
+        if ( updatedDaysToShow.length >= 1 && JSON.stringify( updatedDaysToShow ) !== JSON.stringify( daysToShow ) ) {
             if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
-                bindingOptions.views!.map!.daysToShow = daysChecked;
+                bindingOptions.views!.map!.daysToShow = updatedDaysToShow;
             } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-                bindingOptions.views!.chart!.daysToShow = daysChecked;
+                bindingOptions.views!.chart!.daysToShow = updatedDaysToShow;
             } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
-                bindingOptions.views!.line!.daysToShow = daysChecked;
+                bindingOptions.views!.line!.daysToShow = updatedDaysToShow;
             } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
-                bindingOptions.views!.days!.daysToShow! = daysChecked;
+                bindingOptions.views!.days!.daysToShow! = updatedDaysToShow;
             } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
-                bindingOptions.views!.months!.daysToShow! = daysChecked;
+                bindingOptions.views!.months!.daysToShow! = updatedDaysToShow;
             } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-                bindingOptions.views!.statistics!.daysToShow = daysChecked;
+                bindingOptions.views!.statistics!.daysToShow = updatedDaysToShow;
             }
 
             render = true;
         }
 
-        if ( monthsChecked.length >= 1 ) {
+        if ( updatedMonthsToShow.length >= 1 && JSON.stringify( updatedMonthsToShow ) !== JSON.stringify( monthsToShow ) ) {
             if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
-                bindingOptions.views!.map!.monthsToShow = monthsChecked;
+                bindingOptions.views!.map!.monthsToShow = updatedMonthsToShow;
             } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-                bindingOptions.views!.chart!.monthsToShow = monthsChecked;
+                bindingOptions.views!.chart!.monthsToShow = updatedMonthsToShow;
             } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
-                bindingOptions.views!.line!.monthsToShow = monthsChecked;
+                bindingOptions.views!.line!.monthsToShow = updatedMonthsToShow;
             } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
-                bindingOptions.views!.days!.monthsToShow = monthsChecked;
+                bindingOptions.views!.days!.monthsToShow = updatedMonthsToShow;
             } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
-                bindingOptions.views!.months!.monthsToShow = monthsChecked;
+                bindingOptions.views!.months!.monthsToShow = updatedMonthsToShow;
             } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-                bindingOptions.views!.statistics!.monthsToShow = monthsChecked;
+                bindingOptions.views!.statistics!.monthsToShow = updatedMonthsToShow;
             }
 
             render = true;

@@ -1671,52 +1671,54 @@ var y;
         if (i.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "none") {
             e._currentView.configurationDialog.style.display = "none";
         }
-        const t = [];
-        const n = [];
-        let o = false;
-        for (let n = 0; n < 7; n++) {
-            if (e._currentView.configurationDialogDayCheckBoxes[n].checked) {
-                t.push(n + 1);
+        const t = h.days(e);
+        const n = h.months(e);
+        const o = [];
+        const s = [];
+        let r = false;
+        for (let t = 0; t < 7; t++) {
+            if (e._currentView.configurationDialogDayCheckBoxes[t].checked) {
+                o.push(t + 1);
             }
         }
         for (let t = 0; t < 12; t++) {
             if (e._currentView.configurationDialogMonthCheckBoxes[t].checked) {
-                n.push(t + 1);
+                s.push(t + 1);
             }
         }
-        if (t.length >= 1) {
+        if (o.length >= 1 && JSON.stringify(o) !== JSON.stringify(t)) {
             if (e.views.map.enabled && e._currentView.view === 1) {
-                e.views.map.daysToShow = t;
+                e.views.map.daysToShow = o;
             } else if (e.views.chart.enabled && e._currentView.view === 2) {
-                e.views.chart.daysToShow = t;
+                e.views.chart.daysToShow = o;
             } else if (e.views.line.enabled && e._currentView.view === 6) {
-                e.views.line.daysToShow = t;
+                e.views.line.daysToShow = o;
             } else if (e.views.days.enabled && e._currentView.view === 3) {
-                e.views.days.daysToShow = t;
+                e.views.days.daysToShow = o;
             } else if (e.views.months.enabled && e._currentView.view === 5) {
-                e.views.months.daysToShow = t;
+                e.views.months.daysToShow = o;
             } else if (e.views.statistics.enabled && e._currentView.view === 4) {
-                e.views.statistics.daysToShow = t;
+                e.views.statistics.daysToShow = o;
             }
-            o = true;
+            r = true;
         }
-        if (n.length >= 1) {
+        if (s.length >= 1 && JSON.stringify(s) !== JSON.stringify(n)) {
             if (e.views.map.enabled && e._currentView.view === 1) {
-                e.views.map.monthsToShow = n;
+                e.views.map.monthsToShow = s;
             } else if (e.views.chart.enabled && e._currentView.view === 2) {
-                e.views.chart.monthsToShow = n;
+                e.views.chart.monthsToShow = s;
             } else if (e.views.line.enabled && e._currentView.view === 6) {
-                e.views.line.monthsToShow = n;
+                e.views.line.monthsToShow = s;
             } else if (e.views.days.enabled && e._currentView.view === 3) {
-                e.views.days.monthsToShow = n;
+                e.views.days.monthsToShow = s;
             } else if (e.views.months.enabled && e._currentView.view === 5) {
-                e.views.months.monthsToShow = n;
+                e.views.months.monthsToShow = s;
             } else if (e.views.statistics.enabled && e._currentView.view === 4) {
-                e.views.statistics.monthsToShow = n;
+                e.views.statistics.monthsToShow = s;
             }
-            o = true;
+            r = true;
         }
-        if (o) {
+        if (r) {
             D(e);
             c.customEvent(e.events.onOptionsUpdate, e._currentView.element, e);
         } else {
