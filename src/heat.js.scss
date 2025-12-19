@@ -580,11 +580,11 @@ div.heat-js {
             position: relative;
             margin-right: var(--heat-js-spacing);
             transition: var(--heat-js-transition);
+            cursor: pointer;
             
             &:hover::before,
             &:hover::after {
                 border-color: var(--heat-js-title-opener-text-color-hover);
-                cursor: pointer;
             }
 
             &::before {
