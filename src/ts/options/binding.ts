@@ -487,6 +487,8 @@ export namespace Binding {
             bindingOptions.events!.onOptionsUpdate = Default.getFunction( bindingOptions.events!.onOptionsUpdate, null! );
             bindingOptions.events!.onMapDayClick = Default.getFunction( bindingOptions.events!.onMapDayClick, null! );
             bindingOptions.events!.onMapDayDblClick = Default.getFunction( bindingOptions.events!.onMapDayDblClick, null! );
+            bindingOptions.events!.onLineDayClick = Default.getFunction( bindingOptions.events!.onLineDayClick, bindingOptions.events!.onMapDayClick! );
+            bindingOptions.events!.onLineDayDblClick = Default.getFunction( bindingOptions.events!.onLineDayDblClick, bindingOptions.events!.onMapDayDblClick! );
             bindingOptions.events!.onChartDayClick = Default.getFunction( bindingOptions.events!.onChartDayClick, bindingOptions.events!.onMapDayClick! );
             bindingOptions.events!.onChartDayDblClick = Default.getFunction( bindingOptions.events!.onChartDayDblClick, bindingOptions.events!.onMapDayDblClick! );
             bindingOptions.events!.onWeekDayClick = Default.getFunction( bindingOptions.events!.onWeekDayClick, null! );

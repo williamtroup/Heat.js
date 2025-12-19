@@ -1901,7 +1901,7 @@ import { Animate } from "./ts/dom/animate";
 
     function renderControlLineDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[] ) : HTMLElement {
         const date: Date = new Date( year, month, day );
-        const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line no-hover" );
+        const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
         let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
 
@@ -1911,6 +1911,14 @@ import { Animate } from "./ts/dom/animate";
 
         if ( bindingOptions.views!.line!.showToolTips ) {
             renderDayToolTip( bindingOptions, dayLine, date, dateCount, bindingOptions.views!.line!.dayToolTipText!, bindingOptions.events!.onLineDayToolTipRender!, holiday.matched, bindingOptions.views!.line!.showCountsInToolTips! );
+        }
+
+        if ( Is.definedFunction( bindingOptions.events!.onLineDayClick ) ) {
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onLineDayClick!, date, dateCount, holiday.matched );
+        } else if ( Is.definedFunction( bindingOptions.events!.onLineDayDblClick ) ) {
+            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onLineDayDblClick!, date, dateCount, holiday.matched );
+        } else {
+            DomElement.addClass( dayLine, "no-hover" );
         }
 
         const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
