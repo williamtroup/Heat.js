@@ -3755,10 +3755,10 @@ import { Animate } from "./ts/dom/animate";
     
                 if ( viewName.toLowerCase() === ViewName.map ) {
                     viewId = ViewId.map;
-                } else if ( viewName.toLowerCase() === ViewName.chart ) {
-                    viewId = ViewId.chart;
                 } else if ( viewName.toLowerCase() === ViewName.line ) {
                     viewId = ViewId.line;
+                } else if ( viewName.toLowerCase() === ViewName.chart ) {
+                    viewId = ViewId.chart;
                 } else if ( viewName.toLowerCase() === ViewName.days ) {
                     viewId = ViewId.days;
                 } else if ( viewName.toLowerCase() === ViewName.months ) {
@@ -3823,10 +3823,10 @@ import { Animate } from "./ts/dom/animate";
     
                 if ( bindingOptions._currentView!.view ===  ViewId.map ) {
                     result = ViewName.map;
-                } else if ( bindingOptions._currentView!.view ===  ViewId.chart ) {
-                    result = ViewName.chart;
                 } else if ( bindingOptions._currentView!.view ===  ViewId.line ) {
                     result = ViewName.line;
+                } else if ( bindingOptions._currentView!.view ===  ViewId.chart ) {
+                    result = ViewName.chart;
                 } else if ( bindingOptions._currentView!.view ===  ViewId.days ) {
                     result = ViewName.days;
                 } else if ( bindingOptions._currentView!.view ===  ViewId.months ) {

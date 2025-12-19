@@ -4170,10 +4170,10 @@ var p;
                 let o;
                 if (t.toLowerCase() === "map") {
                     o = 1;
-                } else if (t.toLowerCase() === "chart") {
-                    o = 3;
                 } else if (t.toLowerCase() === "line") {
                     o = 2;
+                } else if (t.toLowerCase() === "chart") {
+                    o = 3;
                 } else if (t.toLowerCase() === "days") {
                     o = 4;
                 } else if (t.toLowerCase() === "months") {
@@ -4225,10 +4225,10 @@ var p;
                 const n = b[e].options;
                 if (n._currentView.view === 1) {
                     t = "map";
-                } else if (n._currentView.view === 3) {
-                    t = "chart";
                 } else if (n._currentView.view === 2) {
                     t = "line";
+                } else if (n._currentView.view === 3) {
+                    t = "chart";
                 } else if (n._currentView.view === 4) {
                     t = "days";
                 } else if (n._currentView.view === 5) {
