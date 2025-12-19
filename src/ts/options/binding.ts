@@ -65,7 +65,7 @@ export namespace Binding {
             bindingOptions._currentView.yearTextWidth = 0;
             bindingOptions._currentView.view = 0;
             bindingOptions._currentView.viewsEnabled = 0;
-            bindingOptions._currentView.forceReRenderForZooming = false;
+            bindingOptions._currentView.forceReRenderForDefaultZoomLevel = false;
 
             if ( bindingOptions.views!.map!.enabled ) {
                 bindingOptions._currentView.mapContentsContainer = null!;
@@ -444,6 +444,7 @@ export namespace Binding {
             bindingOptions.zooming = Default.getObject( bindingOptions.zooming, {} as BindingOptionsZooming );
             bindingOptions.zooming!.enabled = Default.getBoolean( bindingOptions.zooming!.enabled, false );
             bindingOptions.zooming!.defaultLevel = Default.getNumber( bindingOptions.zooming!.defaultLevel, 0 );
+            bindingOptions.zooming!.maximumLevel = Default.getNumber( bindingOptions.zooming!.maximumLevel, 0 );
     
             return bindingOptions.zooming!;
         }

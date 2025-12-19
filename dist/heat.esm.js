@@ -555,7 +555,7 @@ var d;
             o._currentView.yearTextWidth = 0;
             o._currentView.view = 0;
             o._currentView.viewsEnabled = 0;
-            o._currentView.forceReRenderForZooming = false;
+            o._currentView.forceReRenderForDefaultZoomLevel = false;
             if (o.views.map.enabled) {
                 o._currentView.mapContentsContainer = null;
                 o._currentView.mapContents = null;
@@ -874,6 +874,7 @@ var d;
             e.zooming = o.getObject(e.zooming, {});
             e.zooming.enabled = o.getBoolean(e.zooming.enabled, false);
             e.zooming.defaultLevel = o.getNumber(e.zooming.defaultLevel, 0);
+            e.zooming.maximumLevel = o.getNumber(e.zooming.maximumLevel, 0);
             return e.zooming;
         }
         function T(e) {
@@ -1583,8 +1584,8 @@ var p;
         }
         Ve(e);
         S(e);
-        if (e._currentView.forceReRenderForZooming) {
-            e._currentView.forceReRenderForZooming = false;
+        if (e._currentView.forceReRenderForDefaultZoomLevel) {
+            e._currentView.forceReRenderForDefaultZoomLevel = false;
             C(e, false, false, true);
         }
     }
@@ -3451,12 +3452,6 @@ var p;
             e._currentView.lineZoomIncrement = u / 10;
         }
         if (e.zooming.enabled) {
-            const w = a.create(t, "div", "zooming");
-            const f = a.create(w, "div", "zoom-close-button");
-            const h = a.createIconButton(w, "button", "zoom-out", "minus");
-            const g = a.createWithHTML(w, "span", "zoom-level", `+${s.friendlyNumber(e._currentView.zoomLevel * 10)}%`);
-            const m = a.createIconButton(w, "button", "zoom-in", "plus");
-            const p = a.getStyleValueByName(document.documentElement, y.Variables.Spacing, true);
             d = a.getStyleValueByName(e._currentView.element, y.Variables.DaySize, true);
             u = a.getStyleValueByName(e._currentView.element, y.Variables.LineWidth, true);
             if (d === 0) {
@@ -3465,10 +3460,6 @@ var p;
             if (u === 0) {
                 u = a.getStyleValueByName(document.documentElement, y.Variables.LineWidth, true);
             }
-            l.add(f, e, v.text.closeButtonText);
-            l.add(m, e, v.text.zoomInText);
-            l.add(h, e, v.text.zoomOutText);
-            w.style.bottom = t.offsetHeight - n.offsetHeight + "px";
             if (e.zooming.defaultLevel > 0 && e._currentView.zoomLevel === -1) {
                 d += parseFloat((e.zooming.defaultLevel * e._currentView.mapZoomIncrement).toFixed(1));
                 u += parseFloat((e.zooming.defaultLevel * e._currentView.lineZoomIncrement).toFixed(1));
@@ -3476,55 +3467,68 @@ var p;
                 e._currentView.element.style.setProperty(y.Variables.DaySize, `${d}${o}`);
                 e._currentView.element.style.setProperty(y.Variables.LineWidth, `${u}${r}`);
                 e._currentView.dayWidth = 0;
-                e._currentView.forceReRenderForZooming = true;
-                g.innerText = `+${s.friendlyNumber(e._currentView.zoomLevel * 10)}%`;
-            }
-            if (e._currentView.zoomLevel === -1) {
-                e._currentView.zoomLevel = 0;
-                g.innerText = `+${s.friendlyNumber(e._currentView.zoomLevel * 10)}%`;
-            }
-            if (i.defined(e._currentView.mapContents)) {
-                e._currentView.mapContents.style.paddingRight = `${w.offsetWidth + p}px`;
-            }
-            if (i.defined(e._currentView.lineContents)) {
-                e._currentView.lineContents.style.paddingRight = `${w.offsetWidth + p}px`;
-            }
-            h.disabled = e._currentView.zoomLevel === 0;
-            f.onclick = () => {
-                e.zooming.enabled = false;
-                e._currentView.mapContents.style.paddingRight = "0px";
-                w.parentNode.removeChild(w);
-            };
-            m.onclick = () => {
-                d += e._currentView.mapZoomIncrement;
-                d = parseFloat(d.toFixed(1));
-                u += e._currentView.lineZoomIncrement;
-                u = parseFloat(u.toFixed(1));
-                e._currentView.zoomLevel++;
-                e._currentView.element.style.setProperty(y.Variables.DaySize, `${d}${o}`);
-                e._currentView.element.style.setProperty(y.Variables.LineWidth, `${u}${r}`);
-                e._currentView.dayWidth = 0;
-                h.disabled = false;
-                g.innerText = `+${s.friendlyNumber(e._currentView.zoomLevel * 10)}%`;
-                c.customEvent(e.events.onZoomLevelChange, e._currentView.element, e._currentView.zoomLevel);
-                C(e, false, false, true);
-            };
-            h.onclick = () => {
-                if (e._currentView.zoomLevel > 0) {
-                    d -= e._currentView.mapZoomIncrement;
+                e._currentView.forceReRenderForDefaultZoomLevel = true;
+            } else {
+                const w = a.create(t, "div", "zooming");
+                const f = a.create(w, "div", "zoom-close-button");
+                const h = a.createIconButton(w, "button", "zoom-out", "minus");
+                const g = a.createWithHTML(w, "span", "zoom-level", `+${s.friendlyNumber(e._currentView.zoomLevel * 10)}%`);
+                const m = a.createIconButton(w, "button", "zoom-in", "plus");
+                const p = a.getStyleValueByName(document.documentElement, y.Variables.Spacing, true);
+                l.add(f, e, v.text.closeButtonText);
+                l.add(m, e, v.text.zoomInText);
+                l.add(h, e, v.text.zoomOutText);
+                w.style.bottom = t.offsetHeight - n.offsetHeight + "px";
+                if (e._currentView.zoomLevel === -1) {
+                    e._currentView.zoomLevel = 0;
+                    g.innerText = `+${s.friendlyNumber(e._currentView.zoomLevel * 10)}%`;
+                }
+                if (i.defined(e._currentView.mapContents)) {
+                    e._currentView.mapContents.style.paddingRight = `${w.offsetWidth + p}px`;
+                }
+                if (i.defined(e._currentView.lineContents)) {
+                    e._currentView.lineContents.style.paddingRight = `${w.offsetWidth + p}px`;
+                }
+                h.disabled = e._currentView.zoomLevel === 0;
+                m.disabled = e.zooming.maximumLevel > 0 && e._currentView.zoomLevel >= e.zooming.maximumLevel;
+                f.onclick = () => {
+                    e.zooming.enabled = false;
+                    e._currentView.mapContents.style.paddingRight = "0px";
+                    w.parentNode.removeChild(w);
+                };
+                h.onclick = () => {
+                    if (e._currentView.zoomLevel > 0) {
+                        d -= e._currentView.mapZoomIncrement;
+                        d = parseFloat(d.toFixed(1));
+                        u -= e._currentView.lineZoomIncrement;
+                        u = parseFloat(u.toFixed(1));
+                        e._currentView.zoomLevel--;
+                        e._currentView.element.style.setProperty(y.Variables.DaySize, `${d}${o}`);
+                        e._currentView.element.style.setProperty(y.Variables.LineWidth, `${u}${r}`);
+                        e._currentView.dayWidth = 0;
+                        h.disabled = e._currentView.zoomLevel === 0;
+                        m.disabled = false;
+                        g.innerText = `+${s.friendlyNumber(e._currentView.zoomLevel * 10)}%`;
+                        c.customEvent(e.events.onZoomLevelChange, e._currentView.element, e._currentView.zoomLevel);
+                        C(e, false, false, true);
+                    }
+                };
+                m.onclick = () => {
+                    d += e._currentView.mapZoomIncrement;
                     d = parseFloat(d.toFixed(1));
-                    u -= e._currentView.lineZoomIncrement;
+                    u += e._currentView.lineZoomIncrement;
                     u = parseFloat(u.toFixed(1));
-                    e._currentView.zoomLevel--;
+                    e._currentView.zoomLevel++;
                     e._currentView.element.style.setProperty(y.Variables.DaySize, `${d}${o}`);
                     e._currentView.element.style.setProperty(y.Variables.LineWidth, `${u}${r}`);
                     e._currentView.dayWidth = 0;
-                    h.disabled = e._currentView.zoomLevel === 0;
+                    h.disabled = false;
+                    m.disabled = e.zooming.maximumLevel > 0 && e._currentView.zoomLevel >= e.zooming.maximumLevel;
                     g.innerText = `+${s.friendlyNumber(e._currentView.zoomLevel * 10)}%`;
                     c.customEvent(e.events.onZoomLevelChange, e._currentView.element, e._currentView.zoomLevel);
                     C(e, false, false, true);
-                }
-            };
+                };
+            }
         } else {
             if (e.zooming.defaultLevel > 0 && e._currentView.zoomLevel === -1) {
                 d += parseFloat((e.zooming.defaultLevel * e._currentView.mapZoomIncrement).toFixed(1));
