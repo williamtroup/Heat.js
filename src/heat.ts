@@ -881,7 +881,7 @@ import { Animate } from "./ts/dom/animate";
                 }
             }
 
-            if ( bindingOptions.title!.showExportButton ) {
+            if ( bindingOptions.title!.showExportButton && isDataAvailable( bindingOptions ) ) {
                 const exportData: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "export", "arrow-down" );
                 exportData.onclick = () => showExportDialog( bindingOptions );
 
@@ -2919,6 +2919,10 @@ import { Animate } from "./ts/dom/animate";
 
     function getCurrentViewData( bindingOptions: BindingOptions ) : InstanceTypeDateCount {
         return _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ];
+    }
+
+    function isDataAvailable( bindingOptions: BindingOptions ) : boolean {
+        return Object.keys( getCurrentViewData( bindingOptions ) ).length > 0;
     }
 
     function getYearsAvailableInData( bindingOptions: BindingOptions ) : number[] {
