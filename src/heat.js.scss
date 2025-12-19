@@ -1108,6 +1108,85 @@ div.heat-js {
 
 /*
     -------------------------------------------------------------------------
+    Heat.js - View - Line
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.line-contents-container {
+        position: relative;
+
+        @include styles.zooming;
+
+        div.line-contents {
+            overflow-x: auto;
+            overflow-y: hidden;
+            text-wrap: nowrap;
+            white-space: nowrap;
+            position: relative;
+            padding-bottom: var(--heat-js-spacing);
+            border-top-left-radius: var(--heat-js-border-radius-day);
+            border-top-right-radius: var(--heat-js-border-radius-day);
+
+            @include styles.scroll-bars;
+
+            div.no-data-message {
+                @include styles.centered-label;
+            }
+
+            div.line {
+                display: inline-flex;
+                flex-direction: row;
+
+                div.day-lines {
+                    display: flex;
+                    align-items: flex-end;
+                    flex: 1;
+                    border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+                    height: 173px !important;
+                    overflow: hidden;
+
+                    div.day-line {
+                        background-color: var(--heat-js-day-background-color);
+                        border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+                        border-bottom: none !important;
+                        min-width: var(--heat-js-day-line-width);
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 100%;
+                        border: none !important;
+
+                        &:not(.no-hover):active {
+                            opacity: var(--heat-js-view-opacity-active) !important;
+                        }
+
+                        &:not(.no-hover):hover {
+                            cursor: pointer;
+                            background: var(--heat-js-day-background-color-hover);
+                        }
+                    }
+                }
+            }
+
+            div.line-months {
+                position: relative;
+                height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) );
+
+                div.month-name {
+                    font-weight: var(--heat-js-text-bold-weight);
+                    text-align: left !important;
+                    position: absolute;
+                    bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
     Heat.js - View - Chart
     -------------------------------------------------------------------------
 */
@@ -1222,76 +1301,6 @@ div.heat-js {
                 top: 0;
                 position: sticky;
                 background-color: var(--heat-js-container-background-color);
-            }
-        }
-    }
-}
-
-
-/*
-    -------------------------------------------------------------------------
-    Heat.js - View - Line
-    -------------------------------------------------------------------------
-*/
-
-div.heat-js {
-    div.line-contents-container {
-        position: relative;
-
-        @include styles.zooming;
-
-        div.line-contents {
-            overflow-x: auto;
-            overflow-y: hidden;
-            text-wrap: nowrap;
-            white-space: nowrap;
-            position: relative;
-            padding-bottom: var(--heat-js-spacing);
-            border-top-left-radius: var(--heat-js-border-radius-day);
-            border-top-right-radius: var(--heat-js-border-radius-day);
-
-            @include styles.scroll-bars;
-
-            div.no-data-message {
-                @include styles.centered-label;
-            }
-
-            div.line {
-                display: inline-flex;
-                flex-direction: row;
-
-                div.day-lines {
-                    display: flex;
-                    align-items: flex-end;
-                    flex: 1;
-                    border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-                    height: 173px !important;
-                    overflow: hidden;
-
-                    div.day-line {
-                        background-color: var(--heat-js-day-background-color);
-                        border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
-                        border-bottom: none !important;
-                        min-width: var(--heat-js-day-line-width);
-                        display: inline-flex;
-                        align-items: center;
-                        justify-content: center;
-                        height: 100%;
-                        border: none !important;
-                    }
-                }
-            }
-
-            div.line-months {
-                position: relative;
-                height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) );
-
-                div.month-name {
-                    font-weight: var(--heat-js-text-bold-weight);
-                    text-align: left !important;
-                    position: absolute;
-                    bottom: 0;
-                }
             }
         }
     }

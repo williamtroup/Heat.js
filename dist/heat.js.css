@@ -1379,166 +1379,6 @@ div.heat-js div.map-contents-container div.map-contents div.map div.months div.m
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - View - Chart
-    -------------------------------------------------------------------------
-*/
-div.heat-js div.chart-contents {
-  overflow-x: auto;
-  overflow-y: hidden;
-  text-wrap: nowrap;
-  white-space: nowrap;
-  position: relative;
-  padding-bottom: var(--heat-js-spacing);
-}
-div.heat-js div.chart-contents::-webkit-scrollbar {
-  width: var(--heat-js-scroll-bar-size);
-  height: var(--heat-js-scroll-bar-size);
-  border-radius: var(--heat-js-scroll-bar-border-radius);
-}
-div.heat-js div.chart-contents::-webkit-scrollbar-track {
-  border-radius: var(--heat-js-scroll-bar-border-radius);
-}
-div.heat-js div.chart-contents::-webkit-scrollbar-thumb {
-  background: var(--heat-js-scroll-bar-thumb-color);
-  border-radius: var(--heat-js-scroll-bar-border-radius);
-}
-div.heat-js div.chart-contents::-webkit-scrollbar-thumb:active {
-  background-color: var(--heat-js-color-light-gray);
-}
-div.heat-js div.chart-contents::-webkit-scrollbar-corner {
-  background-color: transparent;
-}
-div.heat-js div.chart-contents div.no-data-message {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-weight: var(--heat-js-text-bold-weight);
-}
-div.heat-js div.chart-contents div.chart {
-  display: inline-flex;
-  flex-direction: row;
-}
-div.heat-js div.chart-contents div.chart div.y-labels {
-  background-color: var(--heat-js-container-background-color);
-  padding-right: calc(var(--heat-js-spacing) * 3);
-  padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
-  position: sticky;
-  left: 0;
-  border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-  z-index: 50;
-}
-div.heat-js div.chart-contents div.chart div.y-labels div.label-0,
-div.heat-js div.chart-contents div.chart div.y-labels div.label-25,
-div.heat-js div.chart-contents div.chart div.y-labels div.label-50,
-div.heat-js div.chart-contents div.chart div.y-labels div.label-75,
-div.heat-js div.chart-contents div.chart div.y-labels div.label-100 {
-  font-weight: var(--heat-js-text-bold-weight);
-  text-align: left !important;
-  height: var(--heat-js-day-size);
-  display: inline-flex;
-  justify-content: center;
-  flex-direction: column;
-  position: absolute;
-  left: 0;
-  padding-right: var(--heat-js-y-label-spacing);
-}
-div.heat-js div.chart-contents div.chart div.y-labels div.label-0 {
-  top: 0;
-}
-div.heat-js div.chart-contents div.chart div.y-labels div.label-25 {
-  top: 25%;
-  transform: translateY(-25%);
-}
-div.heat-js div.chart-contents div.chart div.y-labels div.label-50 {
-  top: 50%;
-  transform: translateY(-50%);
-}
-div.heat-js div.chart-contents div.chart div.y-labels div.label-75 {
-  top: 75%;
-  transform: translateY(-75%);
-}
-div.heat-js div.chart-contents div.chart div.y-labels div.label-100 {
-  bottom: 0;
-}
-div.heat-js div.chart-contents div.chart div.day-lines {
-  display: flex;
-  align-items: flex-end;
-  flex: 1;
-  border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-  height: 173px !important;
-  overflow: hidden;
-}
-div.heat-js div.chart-contents div.chart div.day-lines div.today {
-  animation: highlight-effect 2s infinite;
-}
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count {
-  font-size: var(--heat-js-spacing-day-font-size);
-  padding: calc(var(--heat-js-spacing) / 2);
-  overflow: hidden;
-  flex-direction: column;
-}
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.count-date,
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.count {
-  display: block;
-}
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.count-date {
-  font-weight: var(--heat-js-sub-title-bold-weight);
-}
-div.heat-js div.chart-contents div.chart div.day-lines div.month-spacing {
-  height: 100%;
-  width: var(--heat-js-border-size);
-  background-color: var(--heat-js-container-border-color);
-  margin-left: var(--heat-js-spacing);
-  margin-right: var(--heat-js-spacing);
-}
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
-  border-top-left-radius: var(--heat-js-border-radius-day);
-  border-top-right-radius: var(--heat-js-border-radius-day);
-  background-color: var(--heat-js-day-background-color);
-  border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
-  border-bottom: none !important;
-  min-width: var(--heat-js-day-chart-width);
-  margin-right: var(--heat-js-day-chart-spacing);
-  display: inline-flex;
-  transition: var(--heat-js-transition);
-  align-items: center;
-  justify-content: center;
-  height: 0;
-}
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line:first-child {
-  margin-left: calc(var(--heat-js-spacing) / 2);
-}
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line:last-child {
-  margin-right: calc(var(--heat-js-spacing) / 2);
-}
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line:not(.no-hover):active {
-  opacity: var(--heat-js-view-opacity-active) !important;
-}
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line:not(.no-hover):hover {
-  cursor: pointer;
-  background: var(--heat-js-day-background-color-hover);
-}
-div.heat-js div.chart-contents div.chart-months {
-  position: relative;
-  height: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing));
-}
-div.heat-js div.chart-contents div.chart-months div.month-name,
-div.heat-js div.chart-contents div.chart-months div.month-name-space {
-  font-weight: var(--heat-js-text-bold-weight);
-  text-align: left !important;
-  position: absolute;
-  bottom: 0;
-}
-div.heat-js div.chart-contents div.chart-months div.month-name-space {
-  left: 0;
-  top: 0;
-  position: sticky;
-  background-color: var(--heat-js-container-background-color);
-}
-
-/*
-    -------------------------------------------------------------------------
     Heat.js - View - Line
     -------------------------------------------------------------------------
 */
@@ -1737,6 +1577,13 @@ div.heat-js div.line-contents-container div.line-contents div.line div.day-lines
   height: 100%;
   border: none !important;
 }
+div.heat-js div.line-contents-container div.line-contents div.line div.day-lines div.day-line:not(.no-hover):active {
+  opacity: var(--heat-js-view-opacity-active) !important;
+}
+div.heat-js div.line-contents-container div.line-contents div.line div.day-lines div.day-line:not(.no-hover):hover {
+  cursor: pointer;
+  background: var(--heat-js-day-background-color-hover);
+}
 div.heat-js div.line-contents-container div.line-contents div.line-months {
   position: relative;
   height: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing));
@@ -1746,6 +1593,166 @@ div.heat-js div.line-contents-container div.line-contents div.line-months div.mo
   text-align: left !important;
   position: absolute;
   bottom: 0;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - View - Chart
+    -------------------------------------------------------------------------
+*/
+div.heat-js div.chart-contents {
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-wrap: nowrap;
+  white-space: nowrap;
+  position: relative;
+  padding-bottom: var(--heat-js-spacing);
+}
+div.heat-js div.chart-contents::-webkit-scrollbar {
+  width: var(--heat-js-scroll-bar-size);
+  height: var(--heat-js-scroll-bar-size);
+  border-radius: var(--heat-js-scroll-bar-border-radius);
+}
+div.heat-js div.chart-contents::-webkit-scrollbar-track {
+  border-radius: var(--heat-js-scroll-bar-border-radius);
+}
+div.heat-js div.chart-contents::-webkit-scrollbar-thumb {
+  background: var(--heat-js-scroll-bar-thumb-color);
+  border-radius: var(--heat-js-scroll-bar-border-radius);
+}
+div.heat-js div.chart-contents::-webkit-scrollbar-thumb:active {
+  background-color: var(--heat-js-color-light-gray);
+}
+div.heat-js div.chart-contents::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+div.heat-js div.chart-contents div.no-data-message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: var(--heat-js-text-bold-weight);
+}
+div.heat-js div.chart-contents div.chart {
+  display: inline-flex;
+  flex-direction: row;
+}
+div.heat-js div.chart-contents div.chart div.y-labels {
+  background-color: var(--heat-js-container-background-color);
+  padding-right: calc(var(--heat-js-spacing) * 3);
+  padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
+  position: sticky;
+  left: 0;
+  border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+  z-index: 50;
+}
+div.heat-js div.chart-contents div.chart div.y-labels div.label-0,
+div.heat-js div.chart-contents div.chart div.y-labels div.label-25,
+div.heat-js div.chart-contents div.chart div.y-labels div.label-50,
+div.heat-js div.chart-contents div.chart div.y-labels div.label-75,
+div.heat-js div.chart-contents div.chart div.y-labels div.label-100 {
+  font-weight: var(--heat-js-text-bold-weight);
+  text-align: left !important;
+  height: var(--heat-js-day-size);
+  display: inline-flex;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  padding-right: var(--heat-js-y-label-spacing);
+}
+div.heat-js div.chart-contents div.chart div.y-labels div.label-0 {
+  top: 0;
+}
+div.heat-js div.chart-contents div.chart div.y-labels div.label-25 {
+  top: 25%;
+  transform: translateY(-25%);
+}
+div.heat-js div.chart-contents div.chart div.y-labels div.label-50 {
+  top: 50%;
+  transform: translateY(-50%);
+}
+div.heat-js div.chart-contents div.chart div.y-labels div.label-75 {
+  top: 75%;
+  transform: translateY(-75%);
+}
+div.heat-js div.chart-contents div.chart div.y-labels div.label-100 {
+  bottom: 0;
+}
+div.heat-js div.chart-contents div.chart div.day-lines {
+  display: flex;
+  align-items: flex-end;
+  flex: 1;
+  border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+  height: 173px !important;
+  overflow: hidden;
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.today {
+  animation: highlight-effect 2s infinite;
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count {
+  font-size: var(--heat-js-spacing-day-font-size);
+  padding: calc(var(--heat-js-spacing) / 2);
+  overflow: hidden;
+  flex-direction: column;
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.count-date,
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.count {
+  display: block;
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.count-date {
+  font-weight: var(--heat-js-sub-title-bold-weight);
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.month-spacing {
+  height: 100%;
+  width: var(--heat-js-border-size);
+  background-color: var(--heat-js-container-border-color);
+  margin-left: var(--heat-js-spacing);
+  margin-right: var(--heat-js-spacing);
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
+  border-top-left-radius: var(--heat-js-border-radius-day);
+  border-top-right-radius: var(--heat-js-border-radius-day);
+  background-color: var(--heat-js-day-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+  border-bottom: none !important;
+  min-width: var(--heat-js-day-chart-width);
+  margin-right: var(--heat-js-day-chart-spacing);
+  display: inline-flex;
+  transition: var(--heat-js-transition);
+  align-items: center;
+  justify-content: center;
+  height: 0;
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line:first-child {
+  margin-left: calc(var(--heat-js-spacing) / 2);
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line:last-child {
+  margin-right: calc(var(--heat-js-spacing) / 2);
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line:not(.no-hover):active {
+  opacity: var(--heat-js-view-opacity-active) !important;
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line:not(.no-hover):hover {
+  cursor: pointer;
+  background: var(--heat-js-day-background-color-hover);
+}
+div.heat-js div.chart-contents div.chart-months {
+  position: relative;
+  height: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing));
+}
+div.heat-js div.chart-contents div.chart-months div.month-name,
+div.heat-js div.chart-contents div.chart-months div.month-name-space {
+  font-weight: var(--heat-js-text-bold-weight);
+  text-align: left !important;
+  position: absolute;
+  bottom: 0;
+}
+div.heat-js div.chart-contents div.chart-months div.month-name-space {
+  left: 0;
+  top: 0;
+  position: sticky;
+  background-color: var(--heat-js-container-background-color);
 }
 
 /*
