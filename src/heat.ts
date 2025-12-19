@@ -947,7 +947,7 @@ import { Animate } from "./ts/dom/animate";
                 }
 
                 if ( bindingOptions.title!.showCurrentYearButton ) {
-                    const current: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "current", "pin" );
+                    const current: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "current-year", "pin" );
 
                     if ( bindingOptions.title!.showToolTips ) {
                         ToolTip.add( current, bindingOptions, _configurationOptions.text!.currentYearText! );

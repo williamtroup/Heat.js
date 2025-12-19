@@ -2138,7 +2138,7 @@ var p;
                     }
                 }
                 if (e.title.showCurrentYearButton) {
-                    const n = a.createIconButton(t, "button", "current", "pin");
+                    const n = a.createIconButton(t, "button", "current-year", "pin");
                     if (e.title.showToolTips) {
                         l.add(n, e, v.text.currentYearText);
                     }

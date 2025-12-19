@@ -548,15 +548,17 @@ div.heat-js {
             @include close.button-icon;
         }
 
-        button.current {
+        button.current-year {
             @include pin.button-icon;
+
+            margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
         }
 
         button.export,
         button.import,
-        button.current,
-        button.refresh {
-            margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
+        button.refresh,
+        button.clear {
+            margin-left: calc( var(--heat-js-spacing) / 2 ) !important;
         }
 
         button.export,

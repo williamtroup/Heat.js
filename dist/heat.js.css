@@ -700,22 +700,22 @@ div.heat-js div.title-bar button.clear i.close::after {
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
-div.heat-js div.title-bar button.current i.pin {
+div.heat-js div.title-bar button.current-year i.pin {
   width: 10px;
   height: 10px;
   display: inline-block;
   position: relative;
 }
-div.heat-js div.title-bar button.current i.pin::before, div.heat-js div.title-bar button.current i.pin::after {
+div.heat-js div.title-bar button.current-year i.pin::before, div.heat-js div.title-bar button.current-year i.pin::after {
   position: absolute;
   content: "";
 }
-div.heat-js div.title-bar button.current i.pin {
+div.heat-js div.title-bar button.current-year i.pin {
   height: 10px;
   border-top: 2.5px solid currentColor;
   border-radius: 50%;
 }
-div.heat-js div.title-bar button.current i.pin::before {
+div.heat-js div.title-bar button.current-year i.pin::before {
   left: 50%;
   transform: translate(-50%);
   background-color: currentColor;
@@ -725,7 +725,7 @@ div.heat-js div.title-bar button.current i.pin::before {
   border-bottom-right-radius: 50%;
   top: 0;
 }
-div.heat-js div.title-bar button.current i.pin::after {
+div.heat-js div.title-bar button.current-year i.pin::after {
   left: 50%;
   transform: translate(-50%);
   background-color: currentColor;
@@ -734,11 +734,14 @@ div.heat-js div.title-bar button.current i.pin::after {
   border-radius: 50%;
   bottom: 0;
 }
+div.heat-js div.title-bar button.current-year {
+  margin-right: calc(var(--heat-js-spacing) / 2) !important;
+}
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.import,
-div.heat-js div.title-bar button.current,
-div.heat-js div.title-bar button.refresh {
-  margin-right: calc(var(--heat-js-spacing) / 2) !important;
+div.heat-js div.title-bar button.refresh,
+div.heat-js div.title-bar button.clear {
+  margin-left: calc(var(--heat-js-spacing) / 2) !important;
 }
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.refresh,
