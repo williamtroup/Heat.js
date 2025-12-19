@@ -136,6 +136,7 @@ export type BindingOptions = {
     exportDateTimeFormat?: string;
     colorRanges?: BindingOptionsColorRange[];
     holidays?: BindingOptionsHoliday[];
+    zooming?: BindingOptionsZooming;
     title?: BindingOptionsTitle;
     yearlyStatistics?: BindingOptionsYearlyStatistics;
     description?: BindingOptionsDescription;
@@ -159,6 +160,7 @@ export type BindingOptionsCurrentView = {
     mapContentsScrollLeft: number;
     chartContents: HTMLElement;
     chartContentsScrollLeft: number;
+    lineContentsContainer: HTMLElement;
     lineContents: HTMLElement;
     lineContentsScrollLeft: number;
     statisticsContents: HTMLElement;
@@ -180,8 +182,9 @@ export type BindingOptionsCurrentView = {
     exportDialogExportTypeSelect: HTMLSelectElement;
     exportDialogExportFilenameInput: HTMLInputElement;
     exportDialogExportOnlyDataBeingViewedCheckBox: HTMLInputElement;
-    mapZoomLevel: number;
+    zoomLevel: number;
     mapZoomIncrement: number;
+    lineZoomIncrement: number;
     importDialog: HTMLElement;
     importDialogDragAndDrop: HTMLElement;
     importDialogClearExistingData: HTMLInputElement;
@@ -189,6 +192,7 @@ export type BindingOptionsCurrentView = {
     importDialogImportButton: HTMLButtonElement;
     typeAddingDialog: HTMLElement;
     typeAddingDialogTypeInput: HTMLInputElement;
+    forceReRenderForZooming: boolean;
 };
 
 export type BindingOptionsViews = {
@@ -218,8 +222,6 @@ export type BindingOptionsViewsMap = {
     highlightCurrentDay?: boolean;
     dayToolTipText?: string;
     showYearsInMonthNames?: boolean;
-    allowZooming?: boolean;
-    zoomLevel?: number;
     showCountsInToolTips?: boolean;
 };
 
@@ -300,6 +302,11 @@ export type BindingOptionsViewsStatistics = {
     useGradients?: boolean;
     showRangeCountPercentages?: boolean;
     showRangeNamesInToolTips?: boolean;
+};
+
+export type BindingOptionsZooming = {
+    enabled?: boolean;
+    defaultLevel?: number;
 };
 
 export type BindingOptionsTitle = {
@@ -383,7 +390,7 @@ export type BindingOptionsEvents = {
     onMonthDblClick?: ( monthNumber: number, count: number, year: number ) => void;
     onStatisticClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
     onStatisticDblClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
-    onMapZoomLevelChange?: ( element: HTMLElement, zoomLevel: number ) => void;
+    onZoomLevelChange?: ( element: HTMLElement, zoomLevel: number ) => void;
 };
 
 export type BindingOptionsColorRange = {

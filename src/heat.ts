@@ -154,7 +154,7 @@ import { Animate } from "./ts/dom/animate";
         }
 
         if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
-            renderControlLine( bindingOptions, isForViewSwitch );
+            renderControlLine( bindingOptions, isForViewSwitch, isForZooming );
         }
 
         if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
@@ -171,6 +171,12 @@ import { Animate } from "./ts/dom/animate";
 
         renderControlGuide( bindingOptions );
         renderControlVisibleView( bindingOptions );
+
+        if ( bindingOptions._currentView!.forceReRenderForZooming ) {
+            bindingOptions._currentView!.forceReRenderForZooming = false;
+            
+            renderControlContainer( bindingOptions, false, false, true );
+        }
     }
 
     function renderControlStoreScrollPositionsAndSizes( bindingOptions: BindingOptions ) : void {
@@ -208,7 +214,7 @@ import { Animate } from "./ts/dom/animate";
         } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
             bindingOptions._currentView!.chartContents.style.display = "block";
         } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
-            bindingOptions._currentView!.lineContents.style.display = "block";
+            bindingOptions._currentView!.lineContentsContainer.style.display = "block";
         } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
             bindingOptions._currentView!.daysContents.style.display = "block";
         } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
@@ -1412,7 +1418,7 @@ import { Animate } from "./ts/dom/animate";
             }
 
             renderControlMapMonthGaps( bindingOptions, months );
-            renderControlMapZooming( bindingOptions, map );
+            renderControlZooming( bindingOptions, bindingOptions._currentView!.mapContentsContainer, map );
             
             if ( bindingOptions.views!.map!.keepScrollPositions || isForZooming ) {
                 bindingOptions._currentView!.mapContents.scrollLeft = bindingOptions._currentView!.mapContentsScrollLeft;
@@ -1453,103 +1459,6 @@ import { Animate } from "./ts/dom/animate";
                 monthElement.style.marginLeft = `${-bindingOptions._currentView!.dayWidth}px`;
             } else if ( bindingOptions.views!.map!.showMonthDayGaps && disabledDaysElements.length === 0 ) {
                 monthElement.style.marginLeft = `${bindingOptions._currentView!.dayWidth}px`;
-            }
-        }
-    }
-
-    function renderControlMapZooming( bindingOptions: BindingOptions, map: HTMLElement ) : void {
-        const sizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, Css.Variables.DaySize );
-        let daySize: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.DaySize, true );
-
-        if ( bindingOptions._currentView!.mapZoomIncrement === Value.notFound ) {
-            bindingOptions._currentView!.mapZoomIncrement = daySize / 10;
-        }
-
-        if ( bindingOptions.views!.map!.allowZooming ) {
-            const zooming: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "zooming" );
-            const closeButton: HTMLElement = DomElement.create( zooming, "div", "zoom-close-button" ) as HTMLElement;
-            const zoomOutButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-out", "minus" );
-            const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%` ) as HTMLSpanElement;
-            const zoomInButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-in", "plus" );
-            const spacing: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.Spacing, true );
-
-            daySize = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.DaySize, true );
-
-            if ( daySize === 0 ) {
-                daySize = DomElement.getStyleValueByName( document.documentElement, Css.Variables.DaySize, true );
-            }
-
-            ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
-            ToolTip.add( zoomInButton, bindingOptions, _configurationOptions.text!.zoomInText! );
-            ToolTip.add( zoomOutButton, bindingOptions, _configurationOptions.text!.zoomOutText! );
-
-            zooming.style.bottom = bindingOptions._currentView!.mapContentsContainer.offsetHeight - map.offsetHeight + "px";
-
-            if ( bindingOptions.views!.map!.zoomLevel! > 0 && bindingOptions._currentView!.mapZoomLevel! === Value.notFound ) {
-                daySize += parseFloat( ( bindingOptions.views!.map!.zoomLevel! * bindingOptions._currentView!.mapZoomIncrement ).toFixed( 1 ) );
-
-                bindingOptions._currentView!.mapZoomLevel = bindingOptions.views!.map!.zoomLevel!;
-                bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${sizingMetric}` );
-                bindingOptions._currentView!.dayWidth = 0;
-                
-                zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%`;
-
-                renderControlContainer( bindingOptions, false, false, true );
-            }
-
-            if ( bindingOptions._currentView!.mapZoomLevel! === Value.notFound ) {
-                bindingOptions._currentView!.mapZoomLevel = 0;
-                zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%`;
-            }
-
-            bindingOptions._currentView!.mapContents.style.paddingRight = `${zooming.offsetWidth + spacing}px`;
-            zoomOutButton.disabled = bindingOptions._currentView!.mapZoomLevel! === 0;
-
-            closeButton.onclick = () => {
-                bindingOptions.views!.map!.allowZooming = false;
-                bindingOptions._currentView!.mapContents.style.paddingRight = "0px";
-
-                zooming.parentNode!.removeChild( zooming );
-            };
-
-            zoomInButton.onclick = () => {
-                daySize += bindingOptions._currentView!.mapZoomIncrement;
-                daySize = parseFloat( daySize.toFixed( 1 ) );
-
-                bindingOptions._currentView!.mapZoomLevel++;
-                bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${sizingMetric}` );
-                bindingOptions._currentView!.dayWidth = 0;
-
-                zoomOutButton.disabled = false;
-                zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10 )}%`;
-
-                Trigger.customEvent( bindingOptions.events!.onMapZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.mapZoomLevel );
-                renderControlContainer( bindingOptions, false, false, true );
-            };
-
-            zoomOutButton.onclick = () => {
-                if ( bindingOptions._currentView!.mapZoomLevel > 0 ) {
-                    daySize -= bindingOptions._currentView!.mapZoomIncrement;
-                    daySize = parseFloat( daySize.toFixed( 1 ) );
-
-                    bindingOptions._currentView!.mapZoomLevel--;
-                    bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${sizingMetric}` );
-                    bindingOptions._currentView!.dayWidth = 0;
-                    
-                    zoomOutButton.disabled = bindingOptions._currentView!.mapZoomLevel === 0;
-                    zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.mapZoomLevel * 10) }%`;
-
-                    Trigger.customEvent( bindingOptions.events!.onMapZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.mapZoomLevel );
-                    renderControlContainer( bindingOptions, false, false, true );
-                }
-            };
-
-        } else {
-            if ( bindingOptions.views!.map!.zoomLevel! > 0 && bindingOptions._currentView!.mapZoomLevel! === Value.notFound ) {
-                daySize += parseFloat( ( bindingOptions.views!.map!.zoomLevel! * bindingOptions._currentView!.mapZoomIncrement ).toFixed( 1 ) );
-
-                bindingOptions._currentView!.mapZoomLevel = bindingOptions.views!.map!.zoomLevel!;
-                bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${sizingMetric}` );
             }
         }
     }
@@ -1862,8 +1771,9 @@ import { Animate } from "./ts/dom/animate";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlLine( bindingOptions: BindingOptions, isForViewSwitch: boolean) : void {
-        bindingOptions._currentView!.lineContents = DomElement.create( bindingOptions._currentView!.element, "div", "line-contents" );
+    function renderControlLine( bindingOptions: BindingOptions, isForViewSwitch: boolean, isForZooming: boolean ) : void {
+        bindingOptions._currentView!.lineContentsContainer = DomElement.create( bindingOptions._currentView!.element, "div", "line-contents-container" );
+        bindingOptions._currentView!.lineContents = DomElement.create( bindingOptions._currentView!.lineContentsContainer, "div", "line-contents" );
         bindingOptions._currentView!.lineContents.onscroll = () => ToolTip.hide( bindingOptions );
 
         const line: HTMLElement = DomElement.create( bindingOptions._currentView!.lineContents, "div", "line" );
@@ -1983,13 +1893,15 @@ import { Animate } from "./ts/dom/animate";
 
                 lineMonths.style.width = `${dayLines.offsetWidth}px`;
             }
+
+            renderControlZooming( bindingOptions, bindingOptions._currentView!.lineContentsContainer, line );
     
-            if ( bindingOptions.views!.line!.keepScrollPositions ) {
+            if ( bindingOptions.views!.line!.keepScrollPositions || isForZooming ) {
                 bindingOptions._currentView!.lineContents.scrollLeft = bindingOptions._currentView!.lineContentsScrollLeft;
             }
         }
 
-        bindingOptions._currentView!.lineContents.style.display = "none";
+        bindingOptions._currentView!.lineContentsContainer.style.display = "none";
     }
 
     function renderControlLineDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[] ) : HTMLElement {
@@ -2794,6 +2706,139 @@ import { Animate } from "./ts/dom/animate";
 
             } else {
                 DomElement.createWithHTML( container, "span", "label", bindingOptions.description!.text! );
+            }
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Zooming
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderControlZooming( bindingOptions: BindingOptions, container: HTMLElement, contents: HTMLElement ) : void {
+        const daySizeSizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, Css.Variables.DaySize );
+        const lineWidthSizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, Css.Variables.LineWidth );
+        let daySize: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.DaySize, true );
+        let lineWidth: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.LineWidth, true );
+
+        if ( bindingOptions._currentView!.mapZoomIncrement === Value.notFound ) {
+            bindingOptions._currentView!.mapZoomIncrement = daySize / 10;
+        }
+
+        if ( bindingOptions._currentView!.lineZoomIncrement === Value.notFound ) {
+            bindingOptions._currentView!.lineZoomIncrement = lineWidth / 10;
+        }
+
+        if ( bindingOptions.zooming!.enabled ) {
+            const zooming: HTMLElement = DomElement.create( container, "div", "zooming" );
+            const closeButton: HTMLElement = DomElement.create( zooming, "div", "zoom-close-button" ) as HTMLElement;
+            const zoomOutButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-out", "minus" );
+            const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `+${Str.friendlyNumber( bindingOptions._currentView!.zoomLevel * 10 )}%` ) as HTMLSpanElement;
+            const zoomInButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-in", "plus" );
+            const spacing: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.Spacing, true );
+
+            daySize = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.DaySize, true );
+            lineWidth = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.LineWidth, true );
+
+            if ( daySize === 0 ) {
+                daySize = DomElement.getStyleValueByName( document.documentElement, Css.Variables.DaySize, true );
+            }
+
+            if ( lineWidth === 0 ) {
+                lineWidth = DomElement.getStyleValueByName( document.documentElement, Css.Variables.LineWidth, true );
+            }
+
+            ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
+            ToolTip.add( zoomInButton, bindingOptions, _configurationOptions.text!.zoomInText! );
+            ToolTip.add( zoomOutButton, bindingOptions, _configurationOptions.text!.zoomOutText! );
+
+            zooming.style.bottom = container.offsetHeight - contents.offsetHeight + "px";
+
+            if ( bindingOptions.zooming!.defaultLevel! > 0 && bindingOptions._currentView!.zoomLevel! === Value.notFound ) {
+                daySize += parseFloat( ( bindingOptions.zooming!.defaultLevel! * bindingOptions._currentView!.mapZoomIncrement ).toFixed( 1 ) );
+                lineWidth += parseFloat( ( bindingOptions.zooming!.defaultLevel! * bindingOptions._currentView!.lineZoomIncrement ).toFixed( 1 ) );
+
+                bindingOptions._currentView!.zoomLevel = bindingOptions.zooming!.defaultLevel!;
+                bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${daySizeSizingMetric}` );
+                bindingOptions._currentView!.element.style.setProperty( Css.Variables.LineWidth, `${lineWidth}${lineWidthSizingMetric}` );
+                bindingOptions._currentView!.dayWidth = 0;
+                bindingOptions._currentView!.forceReRenderForZooming = true;
+                
+                zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.zoomLevel * 10 )}%`;
+            }
+
+            if ( bindingOptions._currentView!.zoomLevel! === Value.notFound ) {
+                bindingOptions._currentView!.zoomLevel = 0;
+                zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.zoomLevel * 10 )}%`;
+            }
+
+            if ( Is.defined( bindingOptions._currentView!.mapContents ) ) {
+                bindingOptions._currentView!.mapContents.style.paddingRight = `${zooming.offsetWidth + spacing}px`;
+            }
+
+            if ( Is.defined( bindingOptions._currentView!.lineContents ) ) {
+                bindingOptions._currentView!.lineContents.style.paddingRight = `${zooming.offsetWidth + spacing}px`;
+            }
+
+            zoomOutButton.disabled = bindingOptions._currentView!.zoomLevel! === 0;
+
+            closeButton.onclick = () => {
+                bindingOptions.zooming!.enabled = false;
+                bindingOptions._currentView!.mapContents.style.paddingRight = "0px";
+
+                zooming.parentNode!.removeChild( zooming );
+            };
+
+            zoomInButton.onclick = () => {
+                daySize += bindingOptions._currentView!.mapZoomIncrement;
+                daySize = parseFloat( daySize.toFixed( 1 ) );
+
+                lineWidth += bindingOptions._currentView!.lineZoomIncrement;
+                lineWidth = parseFloat( lineWidth.toFixed( 1 ) );
+
+                bindingOptions._currentView!.zoomLevel++;
+                bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${daySizeSizingMetric}` );
+                bindingOptions._currentView!.element.style.setProperty( Css.Variables.LineWidth, `${lineWidth}${lineWidthSizingMetric}` );
+                bindingOptions._currentView!.dayWidth = 0;
+
+                zoomOutButton.disabled = false;
+                zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.zoomLevel * 10 )}%`;
+
+                Trigger.customEvent( bindingOptions.events!.onZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.zoomLevel );
+                renderControlContainer( bindingOptions, false, false, true );
+            };
+
+            zoomOutButton.onclick = () => {
+                if ( bindingOptions._currentView!.zoomLevel > 0 ) {
+                    daySize -= bindingOptions._currentView!.mapZoomIncrement;
+                    daySize = parseFloat( daySize.toFixed( 1 ) );
+
+                    lineWidth -= bindingOptions._currentView!.lineZoomIncrement;
+                    lineWidth = parseFloat( lineWidth.toFixed( 1 ) );
+
+                    bindingOptions._currentView!.zoomLevel--;
+                    bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${daySizeSizingMetric}` );
+                    bindingOptions._currentView!.element.style.setProperty( Css.Variables.LineWidth, `${lineWidth}${lineWidthSizingMetric}` );
+                    bindingOptions._currentView!.dayWidth = 0;
+                    
+                    zoomOutButton.disabled = bindingOptions._currentView!.zoomLevel === 0;
+                    zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.zoomLevel * 10) }%`;
+
+                    Trigger.customEvent( bindingOptions.events!.onZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.zoomLevel );
+                    renderControlContainer( bindingOptions, false, false, true );
+                }
+            };
+
+        } else {
+            if ( bindingOptions.zooming!.defaultLevel! > 0 && bindingOptions._currentView!.zoomLevel! === Value.notFound ) {
+                daySize += parseFloat( ( bindingOptions.zooming!.defaultLevel! * bindingOptions._currentView!.mapZoomIncrement ).toFixed( 1 ) );
+                lineWidth += parseFloat( ( bindingOptions.zooming!.defaultLevel! * bindingOptions._currentView!.lineZoomIncrement ).toFixed( 1 ) );
+
+                bindingOptions._currentView!.zoomLevel = bindingOptions.zooming!.defaultLevel!;
+                bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${daySizeSizingMetric}` );
+                bindingOptions._currentView!.element.style.setProperty( Css.Variables.LineWidth, `${lineWidth}${lineWidthSizingMetric}` );
             }
         }
     }

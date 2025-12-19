@@ -28,8 +28,9 @@ import {
     type BindingOptionsViews,
     type BindingOptionsYearlyStatistics,
     type BindingOptionsViewsMonths,
-    type ConfigurationOptions, 
-    BindingOptionsViewsLine} from "../type";
+    type BindingOptionsViewsLine,
+    type BindingOptionsZooming,
+    type ConfigurationOptions } from "../type";
 
 import { Default } from "../data/default";
 import { Char, ExportType, Value, ViewId, ViewName } from "../data/enum";
@@ -58,13 +59,16 @@ export namespace Binding {
             bindingOptions._currentView.isInFetchModeTimer = 0;
             bindingOptions._currentView.yearsAvailable = [];
             bindingOptions._currentView.dayWidth = 0;
-            bindingOptions._currentView.mapZoomLevel = Value.notFound;
+            bindingOptions._currentView.zoomLevel = Value.notFound;
             bindingOptions._currentView.mapZoomIncrement = Value.notFound;
+            bindingOptions._currentView.lineZoomIncrement = Value.notFound;
             bindingOptions._currentView.yearTextWidth = 0;
             bindingOptions._currentView.view = 0;
             bindingOptions._currentView.viewsEnabled = 0;
+            bindingOptions._currentView.forceReRenderForZooming = false;
 
             if ( bindingOptions.views!.map!.enabled ) {
+                bindingOptions._currentView.mapContentsContainer = null!;
                 bindingOptions._currentView.mapContents = null!;
                 bindingOptions._currentView.mapContentsScrollLeft = 0;
                 bindingOptions._currentView.viewsEnabled++;
@@ -77,6 +81,7 @@ export namespace Binding {
             }
 
             if ( bindingOptions.views!.line!.enabled ) {
+                bindingOptions._currentView.lineContentsContainer = null!;
                 bindingOptions._currentView.lineContents = null!;
                 bindingOptions._currentView.lineContentsScrollLeft = 0;
                 bindingOptions._currentView.viewsEnabled++;
@@ -138,6 +143,7 @@ export namespace Binding {
             bindingOptions.views!.months = getMonthsView( bindingOptions );
             bindingOptions.views!.statistics = getStatisticsView( bindingOptions );
             bindingOptions.yearlyStatistics = getYearlyStatistics( bindingOptions );
+            bindingOptions.zooming = getZooming( bindingOptions );
             bindingOptions.events = getCustomTriggers( bindingOptions );
 
             if ( bindingOptions.startMonth > 0 ) {
@@ -297,8 +303,6 @@ export namespace Binding {
             bindingOptions.views!.map!.highlightCurrentDay = Default.getBoolean( bindingOptions.views!.map!.highlightCurrentDay, false );
             bindingOptions.views!.map!.dayToolTipText = Default.getString( bindingOptions.views!.map!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.views!.map!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.map!.showYearsInMonthNames, true );
-            bindingOptions.views!.map!.allowZooming = Default.getBoolean( bindingOptions.views!.map!.allowZooming, false );
-            bindingOptions.views!.map!.zoomLevel = Default.getNumber( bindingOptions.views!.map!.zoomLevel, 0 );
             bindingOptions.views!.map!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.map!.showCountsInToolTips, true );
 
             if ( Is.invalidOptionArray( bindingOptions.views!.map!.monthsToShow ) ) {
@@ -436,6 +440,14 @@ export namespace Binding {
             return bindingOptions.views!.statistics!;
         }
 
+        function getZooming( bindingOptions: BindingOptions ) : BindingOptionsZooming {
+            bindingOptions.zooming = Default.getObject( bindingOptions.zooming, {} as BindingOptionsZooming );
+            bindingOptions.zooming!.enabled = Default.getBoolean( bindingOptions.zooming!.enabled, false );
+            bindingOptions.zooming!.defaultLevel = Default.getNumber( bindingOptions.zooming!.defaultLevel, 0 );
+    
+            return bindingOptions.zooming!;
+        }
+
         function getYearlyStatistics( bindingOptions: BindingOptions ) : BindingOptionsYearlyStatistics {
             bindingOptions.yearlyStatistics = Default.getObject( bindingOptions.yearlyStatistics, {} as BindingOptionsYearlyStatistics );
             bindingOptions.yearlyStatistics!.enabled = Default.getBoolean( bindingOptions.yearlyStatistics!.enabled, false );
@@ -483,7 +495,7 @@ export namespace Binding {
             bindingOptions.events!.onMonthDblClick = Default.getFunction( bindingOptions.events!.onMonthDblClick, null! );
             bindingOptions.events!.onStatisticClick = Default.getFunction( bindingOptions.events!.onStatisticClick, null! );
             bindingOptions.events!.onStatisticDblClick = Default.getFunction( bindingOptions.events!.onStatisticDblClick, null! );
-            bindingOptions.events!.onMapZoomLevelChange = Default.getFunction( bindingOptions.events!.onMapZoomLevelChange, null! );
+            bindingOptions.events!.onZoomLevelChange = Default.getFunction( bindingOptions.events!.onZoomLevelChange, null! );
 
             return bindingOptions.events!;
         }

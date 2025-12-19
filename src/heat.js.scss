@@ -12,7 +12,6 @@
 @use "sass/buttons/arrow-right";
 @use "sass/buttons/arrow-up";
 @use "sass/buttons/close";
-@use "sass/buttons/minus";
 @use "sass/buttons/pin";
 @use "sass/buttons/plus";
 @use "sass/buttons/refresh";
@@ -963,52 +962,7 @@ div.heat-js {
     div.map-contents-container {
         position: relative;
 
-        div.zooming {
-            position: absolute;
-            display: flex;
-            right: 0;
-            white-space: nowrap;
-            align-items: center;
-            padding: calc( var(--heat-js-spacing) / 2 );
-            border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-            border-radius: var(--heat-js-border-radius);
-            background-color: var(--heat-js-container-background-color);
-            z-index: 100;
-
-            @include styles.buttons(false);
-
-            button {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                margin-right: calc( var(--heat-js-spacing) / 2 );
-                font-weight: var(--heat-js-title-bold-weight);
-                margin-right: 0;
-                @include styles.icon-button-size;
-            }
-
-            div.zoom-close-button {
-                @include styles.close-button(unset, 12px);
-                
-                display: inline-block;
-                margin-right: var(--heat-js-spacing);
-                margin-left: calc( var(--heat-js-spacing) / 2 );
-            }
-
-            button.zoom-out {
-                @include minus.button-icon;
-            }
-
-            span.zoom-level {
-                margin-left: var(--heat-js-spacing);
-                margin-right: var(--heat-js-spacing);
-                color: var(--heat-js-color-white);
-            }
-
-            button.zoom-in {
-                @include plus.button-icon;
-            }
-        }
+        @include styles.zooming;    
 
         div.map-contents {
             overflow-x: auto;
@@ -1281,57 +1235,63 @@ div.heat-js {
 */
 
 div.heat-js {
-    div.line-contents {
-        overflow-x: auto;
-        overflow-y: hidden;
-        text-wrap: nowrap;
-        white-space: nowrap;
+    div.line-contents-container {
         position: relative;
-        padding-bottom: var(--heat-js-spacing);
-        border-top-left-radius: var(--heat-js-border-radius-day);
-        border-top-right-radius: var(--heat-js-border-radius-day);
 
-        @include styles.scroll-bars;
+        @include styles.zooming;
 
-        div.no-data-message {
-            @include styles.centered-label;
-        }
+        div.line-contents {
+            overflow-x: auto;
+            overflow-y: hidden;
+            text-wrap: nowrap;
+            white-space: nowrap;
+            position: relative;
+            padding-bottom: var(--heat-js-spacing);
+            border-top-left-radius: var(--heat-js-border-radius-day);
+            border-top-right-radius: var(--heat-js-border-radius-day);
 
-        div.line {
-            display: inline-flex;
-            flex-direction: row;
+            @include styles.scroll-bars;
 
-            div.day-lines {
-                display: flex;
-                align-items: flex-end;
-                flex: 1;
-                border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-                height: 173px !important;
-                overflow: hidden;
+            div.no-data-message {
+                @include styles.centered-label;
+            }
 
-                div.day-line {
-                    background-color: var(--heat-js-day-background-color);
-                    border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
-                    border-bottom: none !important;
-                    min-width: var(--heat-js-day-line-width);
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    height: 100%;
-                    border: none !important;
+            div.line {
+                display: inline-flex;
+                flex-direction: row;
+
+                div.day-lines {
+                    display: flex;
+                    align-items: flex-end;
+                    flex: 1;
+                    border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+                    height: 173px !important;
+                    overflow: hidden;
+
+                    div.day-line {
+                        background-color: var(--heat-js-day-background-color);
+                        border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+                        border-bottom: none !important;
+                        min-width: var(--heat-js-day-line-width);
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 100%;
+                        border: none !important;
+                    }
                 }
             }
-        }
 
-        div.line-months {
-            position: relative;
-            height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) );
+            div.line-months {
+                position: relative;
+                height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) );
 
-            div.month-name {
-                font-weight: var(--heat-js-text-bold-weight);
-                text-align: left !important;
-                position: absolute;
-                bottom: 0;
+                div.month-name {
+                    font-weight: var(--heat-js-text-bold-weight);
+                    text-align: left !important;
+                    position: absolute;
+                    bottom: 0;
+                }
             }
         }
     }

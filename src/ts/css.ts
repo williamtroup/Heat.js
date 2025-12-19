@@ -15,5 +15,6 @@ export namespace Css {
     export namespace Variables {
         export const DaySize: string = "--heat-js-day-size";
         export const Spacing: string = "--heat-js-spacing";
+        export const LineWidth: string = "--heat-js-day-line-width";
     }
 }

@@ -1,3 +1,6 @@
+@use "buttons/minus";
+@use "buttons/plus";
+
 $minimum-width: 768px;
 $minimum-width-smaller: 450px;
 
@@ -225,4 +228,53 @@ $minimum-width-smaller: 450px;
 @mixin icon-button-size {
     width: 32px;
     height: 30px;
+}
+
+@mixin zooming {
+    div.zooming {
+        position: absolute;
+        display: flex;
+        right: 0;
+        white-space: nowrap;
+        align-items: center;
+        padding: calc( var(--heat-js-spacing) / 2 );
+        border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+        border-radius: var(--heat-js-border-radius);
+        background-color: var(--heat-js-container-background-color);
+        z-index: 100;
+
+        @include buttons(false);
+
+        button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: calc( var(--heat-js-spacing) / 2 );
+            font-weight: var(--heat-js-title-bold-weight);
+            margin-right: 0;
+            @include icon-button-size;
+        }
+
+        div.zoom-close-button {
+            @include close-button(unset, 12px);
+            
+            display: inline-block;
+            margin-right: var(--heat-js-spacing);
+            margin-left: calc( var(--heat-js-spacing) / 2 );
+        }
+
+        button.zoom-out {
+            @include minus.button-icon;
+        }
+
+        span.zoom-level {
+            margin-left: var(--heat-js-spacing);
+            margin-right: var(--heat-js-spacing);
+            color: var(--heat-js-color-white);
+        }
+
+        button.zoom-in {
+            @include plus.button-icon;
+        }
+    }
 }
