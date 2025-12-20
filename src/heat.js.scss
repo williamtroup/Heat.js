@@ -416,6 +416,8 @@ div.heat-js {
                     text-align: center;
                     min-height: 120px;
                     overflow-y: auto;
+                    padding-top: calc( var(--heat-js-spacing) * 2 );
+                    padding-bottom: calc( var(--heat-js-spacing) * 2 );
 
                     @include styles.scroll-bars;
 
