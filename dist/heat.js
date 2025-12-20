@@ -2942,7 +2942,7 @@ var T;
                             t += `${" "}${c}`;
                         }
                         let i = a.createWithHTML(n, "div", "month-name", t);
-                        if (e.views.chart.showInReverseOrder) {
+                        if (e.views.line.showInReverseOrder) {
                             let e = l[o].offsetLeft;
                             e -= i.offsetWidth;
                             e += l[o].offsetWidth;

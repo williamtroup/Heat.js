@@ -1859,7 +1859,7 @@ import { ColorRange } from "./ts/area/color-range";
 
                         let monthName: HTMLElement = DomElement.createWithHTML( lineMonths, "div", "month-name", monthNameText );
                         
-                        if ( bindingOptions.views!.chart!.showInReverseOrder ) {
+                        if ( bindingOptions.views!.line!.showInReverseOrder ) {
                             let left: number = firstMonthDayLines[ monthNameAddedIndex ].offsetLeft;
                             left -= monthName.offsetWidth;
                             left += firstMonthDayLines[ monthNameAddedIndex ].offsetWidth;
