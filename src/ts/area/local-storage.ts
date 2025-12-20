@@ -48,6 +48,8 @@ export namespace LocalStorage {
                                 }
                             }
                         }
+
+                        break;
                     }
                 }
             }
