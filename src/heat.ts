@@ -2094,7 +2094,7 @@ import { LocalStorage } from "./ts/area/local-storage";
             },
             valueOpacities: {},
             largestValue: 0,
-            totalValue: 0
+            totalValue: 0,
         } as LargestValueForView;
 
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
@@ -2317,7 +2317,7 @@ import { LocalStorage } from "./ts/area/local-storage";
             },
             valueOpacities: {},
             largestValue: 0,
-            totalValue: 0
+            totalValue: 0,
         } as LargestValueForView;
 
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
@@ -2512,7 +2512,7 @@ import { LocalStorage } from "./ts/area/local-storage";
         const result: LargestValuesForEachRangeType = {
             types: {} as InstanceTypeDateCount,
             largestValue: 0,
-            totalValue: 0
+            totalValue: 0,
         } as LargestValuesForEachRangeType;
 
         for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
@@ -3280,7 +3280,7 @@ import { LocalStorage } from "./ts/area/local-storage";
                 const observeConfig: MutationObserverInit = {
                     attributes: true,
                     childList: true,
-                    subtree: true
+                    subtree: true,
                 } as MutationObserverInit;
 
                 _mutationObserver.observe( document.body, observeConfig );
