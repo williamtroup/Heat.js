@@ -152,6 +152,7 @@
 - The display is no longer re-rendered when the configuration dialog is closed, and nothing has changed.
 - Export text files now contain a header that states when the content was last modified.
 - Only one instance of the "heat-js-tooltip" tooltip element is now created.
+- Only a maximum of 5 files can be imported at the same time.
 
 #### **Library:**
 - Updated all the NPM packages to the latest versions.

@@ -36,6 +36,7 @@ var n;
     e.LOCAL_STORAGE_START_ID = "HJS_";
     e.COLOR_RANGE_HOLIDAY_ID = "HOLIDAY";
     e.DEFAULT_MINIMUM_HEIGHT = 213;
+    e.MAXIMUM_FILE_IMPORTS = 213;
 })(n || (n = {}));
 
 var i;
@@ -2080,13 +2081,13 @@ var T;
             e._currentView.importDialogFileList = t;
             e._currentView.importDialogDragAndDrop.innerHTML = "";
             e._currentView.importDialogImportButton.disabled = false;
-            const n = t.length;
-            for (let i = 0; i < n; i++) {
-                const n = t[i].name;
-                const o = a.createWithHTML(e._currentView.importDialogDragAndDrop, "div", "filename", `<b>${i + 1}</b>. ${n}`);
+            const i = Math.min(t.length, n.MAXIMUM_FILE_IMPORTS);
+            for (let n = 0; n < i; n++) {
+                const i = t[n].name;
+                const o = a.createWithHTML(e._currentView.importDialogDragAndDrop, "div", "filename", `<b>${n + 1}</b>. ${i}`);
                 const s = a.create(o, "div", "remove");
                 l.add(s, e, b.text.removeButtonText);
-                s.onclick = () => z(e, i);
+                s.onclick = () => z(e, n);
             }
         }
     }
@@ -2101,28 +2102,28 @@ var T;
         U(e, n.files);
     }
     function G(e, t) {
-        const n = e.length;
-        const i = [];
-        const o = Re(t);
-        const s = (e, s) => {
-            i.push(e);
-            for (const e in s) {
-                if (s.hasOwnProperty(e)) {
-                    if (!o.hasOwnProperty(e)) {
-                        o[e] = 0;
+        const i = Math.min(e.length, n.MAXIMUM_FILE_IMPORTS);
+        const o = [];
+        const s = Re(t);
+        const r = (e, n) => {
+            o.push(e);
+            for (const e in n) {
+                if (n.hasOwnProperty(e)) {
+                    if (!s.hasOwnProperty(e)) {
+                        s[e] = 0;
                     }
-                    o[e] += s[e];
+                    s[e] += n[e];
                 }
             }
-            if (i.length === n) {
+            if (o.length === i) {
                 c.customEvent(t.events.onImport, t._currentView.element);
                 S(t, true);
             }
         };
-        for (let t = 0; t < n; t++) {
+        for (let t = 0; t < i; t++) {
             const n = e[t];
             const i = n.name.split(".").pop().toLowerCase();
-            f.file(n, i, s, b);
+            f.file(n, i, r, b);
         }
     }
     function J(e) {

@@ -675,7 +675,7 @@ import { ColorRange } from "./ts/area/color-range";
             bindingOptions._currentView!.importDialogDragAndDrop.innerHTML = Char.empty;
             bindingOptions._currentView!.importDialogImportButton.disabled = false;
 
-            const filesLength: number = fileList.length;
+            const filesLength: number = Math.min( fileList.length, Constant.MAXIMUM_FILE_IMPORTS );
 
             for ( let fileIndex: number = 0; fileIndex < filesLength; fileIndex++ ) {
                 const filename: string = fileList[ fileIndex ].name;
@@ -702,8 +702,8 @@ import { ColorRange } from "./ts/area/color-range";
         showImportFilenames( bindingOptions, dataTransfer.files! );
     }
 
-    function importFromFiles( files: FileList, bindingOptions: BindingOptions ) : void {
-        const filesLength: number = files.length;
+    function importFromFiles( fileList: FileList, bindingOptions: BindingOptions ) : void {
+        const filesLength: number = Math.min( fileList.length, Constant.MAXIMUM_FILE_IMPORTS );
         const filesCompleted: string[] = [];
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
@@ -727,7 +727,7 @@ import { ColorRange } from "./ts/area/color-range";
         };
 
         for ( let fileIndex: number = 0; fileIndex < filesLength; fileIndex++ ) {
-            const file: File = files[ fileIndex ];
+            const file: File = fileList[ fileIndex ];
             const fileExtension: string = file!.name!.split( "." )!.pop()!.toLowerCase();
 
             Import.file( file, fileExtension, onLoadEndFunc, _configurationOptions );
