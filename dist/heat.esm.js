@@ -35,7 +35,7 @@ var n;
     e.HEAT_JS_STATISTICS_COLOR_RANGE_NAME_ATTRIBUTE_NAME = "data-heat-js-statistics-color-range-name";
     e.LOCAL_STORAGE_START_ID = "HJS_";
     e.COLOR_RANGE_HOLIDAY_ID = "HOLIDAY";
-    e.DEFAULT_HEIGHT = 213;
+    e.DEFAULT_MINIMUM_HEIGHT = 213;
 })(n || (n = {}));
 
 var i;
@@ -1763,7 +1763,7 @@ var T;
         const n = t ? window.addEventListener : window.removeEventListener;
         n("blur", () => l.hide(e));
     }
-    function A(e) {
+    function N(e) {
         w.Background.render(e);
         if (!i.definedParentElement(e._currentView.configurationDialog)) {
             e._currentView.configurationDialog = a.create(e._currentView.disabledBackground, "div", "dialog configuration");
@@ -1797,8 +1797,8 @@ var T;
             l.add(i, e, b.text.closeButtonText);
         }
     }
-    function N(e) {
-        A(e);
+    function A(e) {
+        N(e);
         w.Background.show(e);
         if (i.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "block") {
             e._currentView.configurationDialog.style.display = "block";
@@ -2054,7 +2054,7 @@ var T;
                             n.items.add(e.dataTransfer.files[i]);
                         }
                     }
-                    z(t, n.files);
+                    U(t, n.files);
                 }
             };
         }
@@ -2069,10 +2069,10 @@ var T;
         o.type = "file";
         o.accept = n.join(", ");
         o.multiple = t.allowMultipleFileImports;
-        o.onchange = () => z(t, o.files);
+        o.onchange = () => U(t, o.files);
         o.click();
     }
-    function z(e, t) {
+    function U(e, t) {
         if (t.length <= 0) {
             e._currentView.importDialogDragAndDrop.innerHTML = b.text.dragAndDropFilesText;
             e._currentView.importDialogImportButton.disabled = true;
@@ -2086,11 +2086,11 @@ var T;
                 const o = a.createWithHTML(e._currentView.importDialogDragAndDrop, "div", "filename", `<b>${i + 1}</b>. ${n}`);
                 const s = a.create(o, "div", "remove");
                 l.add(s, e, b.text.removeButtonText);
-                s.onclick = () => U(e, i);
+                s.onclick = () => z(e, i);
             }
         }
     }
-    function U(e, t) {
+    function z(e, t) {
         const n = new DataTransfer;
         const i = e._currentView.importDialogFileList.length;
         for (let o = 0; o < i; o++) {
@@ -2098,7 +2098,7 @@ var T;
                 n.items.add(e._currentView.importDialogFileList[o]);
             }
         }
-        z(e, n.files);
+        U(e, n.files);
     }
     function G(e, t) {
         const n = e.length;
@@ -2267,7 +2267,7 @@ var T;
                 }
                 if (e.title.showConfigurationButton) {
                     let n = a.create(t, "div", "configure");
-                    n.onclick = () => N(e);
+                    n.onclick = () => A(e);
                     if (e.title.showToolTips) {
                         l.add(n, e, b.text.configurationButtonText);
                     }
@@ -2498,7 +2498,7 @@ var T;
         e._currentView.mapContentsContainer = a.create(e._currentView.element, "div", "map-contents-container");
         e._currentView.mapContents = a.create(e._currentView.mapContentsContainer, "div", "map-contents");
         if (!ue(e)) {
-            e._currentView.mapContents.style.minHeight = `${n.DEFAULT_HEIGHT}px`;
+            e._currentView.mapContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
             const i = a.createWithHTML(e._currentView.mapContents, "div", "no-data-message", b.text.noMapDataMessage);
             if (t) {
                 a.addClass(i, "view-switch");
@@ -2724,7 +2724,7 @@ var T;
             s = null;
         }
         if (d === 0) {
-            e._currentView.chartContents.style.minHeight = `${n.DEFAULT_HEIGHT}px`;
+            e._currentView.chartContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
             o.parentNode.removeChild(o);
             const i = a.createWithHTML(e._currentView.chartContents, "div", "no-data-message", b.text.noChartDataMessage);
             if (t) {
@@ -2882,7 +2882,7 @@ var T;
             a.addClass(s, "view-switch");
         }
         if (d === 0) {
-            e._currentView.lineContents.style.minHeight = `${n.DEFAULT_HEIGHT}px`;
+            e._currentView.lineContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
             s.parentNode.removeChild(s);
             const i = a.createWithHTML(e._currentView.lineContents, "div", "no-data-message", b.text.noLineDataMessage);
             if (t) {
@@ -3023,7 +3023,7 @@ var T;
             r = null;
         }
         if (d.largestValue === 0) {
-            e._currentView.daysContents.style.minHeight = `${n.DEFAULT_HEIGHT}px`;
+            e._currentView.daysContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
             o.parentNode.removeChild(o);
             s.parentNode.removeChild(s);
             const i = a.createWithHTML(e._currentView.daysContents, "div", "no-days-message", b.text.noDaysDataMessage);
@@ -3172,7 +3172,7 @@ var T;
             r = null;
         }
         if (d.largestValue === 0) {
-            e._currentView.monthsContents.style.minHeight = `${n.DEFAULT_HEIGHT}px`;
+            e._currentView.monthsContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
             o.parentNode.removeChild(o);
             s.parentNode.removeChild(s);
             const i = a.createWithHTML(e._currentView.monthsContents, "div", "no-months-message", b.text.noMonthsDataMessage);
@@ -3340,7 +3340,7 @@ var T;
             r = null;
         }
         if (d.largestValue === 0) {
-            e._currentView.statisticsContents.style.minHeight = `${n.DEFAULT_HEIGHT}px`;
+            e._currentView.statisticsContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
             o.parentNode.removeChild(o);
             s.parentNode.removeChild(s);
             const i = a.createWithHTML(e._currentView.statisticsContents, "div", "no-statistics-message", b.text.noStatisticsDataMessage);
@@ -3497,7 +3497,7 @@ var T;
             if (e.guide.showLessAndMoreLabels) {
                 let t = a.createWithHTML(n, "div", "less-text", b.text.lessText);
                 if (e.guide.colorRangeTogglesEnabled) {
-                    t.onclick = () => Ue(e, false);
+                    t.onclick = () => ze(e, false);
                 } else {
                     a.addClass(t, "no-click");
                 }
@@ -3521,7 +3521,7 @@ var T;
             if (e.guide.showLessAndMoreLabels) {
                 const t = a.createWithHTML(n, "div", "more-text", b.text.moreText);
                 if (e.guide.colorRangeTogglesEnabled) {
-                    t.onclick = () => Ue(e, true);
+                    t.onclick = () => ze(e, true);
                 } else {
                     a.addClass(t, "no-click");
                 }
@@ -3607,9 +3607,9 @@ var T;
                 o.parentNode.removeChild(o);
             };
             c.disabled = e._currentView.zoomLevel === 0;
-            c.onclick = () => Ae(e);
+            c.onclick = () => Ne(e);
             u.disabled = e.zooming.maximumLevel > 0 && e._currentView.zoomLevel >= e.zooming.maximumLevel;
-            u.onclick = () => Ne(e);
+            u.onclick = () => Ae(e);
         }
     }
     function Le(e) {
@@ -3631,7 +3631,7 @@ var T;
             e._currentView.element.style.setProperty(y.Variables.LineWidth, `${o}${n}`);
         }
     }
-    function Ae(e) {
+    function Ne(e) {
         if (e._currentView.zoomLevel > 0) {
             const t = a.getStyleValueByNameSizingMetic(document.documentElement, y.Variables.DaySize);
             const n = a.getStyleValueByNameSizingMetic(document.documentElement, y.Variables.LineWidth);
@@ -3649,7 +3649,7 @@ var T;
             S(e, false, false, true);
         }
     }
-    function Ne(e) {
+    function Ae(e) {
         if (e.zooming.maximumLevel === 0 || e._currentView.zoomLevel < e.zooming.maximumLevel) {
             const t = a.getStyleValueByNameSizingMetic(document.documentElement, y.Variables.DaySize);
             const n = a.getStyleValueByNameSizingMetic(document.documentElement, y.Variables.LineWidth);
@@ -3819,7 +3819,7 @@ var T;
             }
         }
     }
-    function ze() {
+    function Ue() {
         for (const e in V) {
             if (V.hasOwnProperty(e)) {
                 const t = V[e].options;
@@ -3835,7 +3835,7 @@ var T;
             x = null;
         }
     }
-    function Ue(e, t) {
+    function ze(e, t) {
         const n = e.colorRanges.length;
         for (let i = 0; i < n; i++) {
             e.colorRanges[i].visible = t;
@@ -4336,7 +4336,7 @@ var T;
             Ke();
             _();
         });
-        window.addEventListener("pagehide", () => ze());
+        window.addEventListener("pagehide", () => Ue());
         if (!i.defined(window.$heat)) {
             window.$heat = Qe;
         }

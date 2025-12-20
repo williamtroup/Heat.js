@@ -1265,7 +1265,7 @@ import { ColorRange } from "./ts/area/color-range";
         bindingOptions._currentView!.mapContents = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "map-contents" );
 
         if ( !isDataAvailableForYear( bindingOptions ) ) {
-            bindingOptions._currentView!.mapContents.style.minHeight = `${Constant.DEFAULT_HEIGHT}px`;
+            bindingOptions._currentView!.mapContents.style.minHeight = `${Constant.DEFAULT_MINIMUM_HEIGHT}px`;
 
             const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.mapContents, "div", "no-data-message", _configurationOptions.text!.noMapDataMessage! );
 
@@ -1566,7 +1566,7 @@ import { ColorRange } from "./ts/area/color-range";
         }
 
         if ( largestValueForCurrentYear === 0 ) {
-            bindingOptions._currentView!.chartContents.style.minHeight = `${Constant.DEFAULT_HEIGHT}px`;
+            bindingOptions._currentView!.chartContents.style.minHeight = `${Constant.DEFAULT_MINIMUM_HEIGHT}px`;
             chart.parentNode!.removeChild( chart );
 
             const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.chartContents, "div", "no-data-message", _configurationOptions.text!.noChartDataMessage! );
@@ -1782,7 +1782,7 @@ import { ColorRange } from "./ts/area/color-range";
         }
 
         if ( largestValueForCurrentYear === 0 ) {
-            bindingOptions._currentView!.lineContents.style.minHeight = `${Constant.DEFAULT_HEIGHT}px`;
+            bindingOptions._currentView!.lineContents.style.minHeight = `${Constant.DEFAULT_MINIMUM_HEIGHT}px`;
             line.parentNode!.removeChild( line );
 
             const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.lineContents, "div", "no-data-message", _configurationOptions.text!.noLineDataMessage! );
@@ -1974,7 +1974,7 @@ import { ColorRange } from "./ts/area/color-range";
         }
 
         if ( dayValuesForCurrentYear.largestValue === 0 ) {
-            bindingOptions._currentView!.daysContents.style.minHeight = `${Constant.DEFAULT_HEIGHT}px`;
+            bindingOptions._currentView!.daysContents.style.minHeight = `${Constant.DEFAULT_MINIMUM_HEIGHT}px`;
             days.parentNode!.removeChild( days );
             dayNames.parentNode!.removeChild( dayNames );
 
@@ -2173,7 +2173,7 @@ import { ColorRange } from "./ts/area/color-range";
         }
 
         if ( monthValuesForCurrentYear.largestValue === 0 ) {
-            bindingOptions._currentView!.monthsContents.style.minHeight = `${Constant.DEFAULT_HEIGHT}px`;
+            bindingOptions._currentView!.monthsContents.style.minHeight = `${Constant.DEFAULT_MINIMUM_HEIGHT}px`;
             months.parentNode!.removeChild( months );
             monthNames.parentNode!.removeChild( monthNames );
 
@@ -2397,7 +2397,7 @@ import { ColorRange } from "./ts/area/color-range";
         }
 
         if ( colorRangeValuesForCurrentYear.largestValue === 0 ) {
-            bindingOptions._currentView!.statisticsContents.style.minHeight = `${Constant.DEFAULT_HEIGHT}px`;
+            bindingOptions._currentView!.statisticsContents.style.minHeight = `${Constant.DEFAULT_MINIMUM_HEIGHT}px`;
             statistics.parentNode!.removeChild( statistics );
             statisticsRanges.parentNode!.removeChild( statisticsRanges );
 
