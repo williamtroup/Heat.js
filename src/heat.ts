@@ -3260,13 +3260,12 @@ import { LocalStorage } from "./ts/area/local-storage";
     function destroyElement( bindingOptions: BindingOptions ) : void {
         bindingOptions._currentView!.element.innerHTML = Char.empty;
 
-        DomElement.removeClass( bindingOptions._currentView!.element, "heat-js" );
-        ToolTip.remove( bindingOptions );
-
         if ( bindingOptions._currentView!.isInFetchMode && Is.defined( bindingOptions._currentView!.isInFetchModeTimer ) ) {
             clearInterval( bindingOptions._currentView!.isInFetchModeTimer );
         }
 
+        DomElement.removeClass( bindingOptions._currentView!.element, "heat-js" );
+        ToolTip.remove( bindingOptions );
         Trigger.customEvent( bindingOptions.events!.onDestroy!, bindingOptions._currentView!.element );
     }
 

@@ -3898,11 +3898,11 @@ var v;
     }
     function et(e) {
         e._currentView.element.innerHTML = "";
-        a.removeClass(e._currentView.element, "heat-js");
-        l.remove(e);
         if (e._currentView.isInFetchMode && i.defined(e._currentView.isInFetchModeTimer)) {
             clearInterval(e._currentView.isInFetchModeTimer);
         }
+        a.removeClass(e._currentView.element, "heat-js");
+        l.remove(e);
         c.customEvent(e.events.onDestroy, e._currentView.element);
     }
     function tt() {
