@@ -110,11 +110,7 @@ import { LocalStorage } from "./ts/area/local-storage";
             bindingOptions._currentView!.element.id = crypto.randomUUID();
         }
 
-        if ( bindingOptions._currentView!.element.className.trim() === Char.empty ) {
-            bindingOptions._currentView!.element.className = "heat-js";
-        } else {
-            DomElement.addClass( bindingOptions._currentView!.element, "heat-js" );
-        }
+        DomElement.addClass( bindingOptions._currentView!.element, "heat-js" );
 
         if ( bindingOptions.resizable ) {
             DomElement.addClass( bindingOptions._currentView!.element, "resizable" );

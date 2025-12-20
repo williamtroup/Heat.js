@@ -1617,11 +1617,7 @@ var v;
         if (!i.definedString(e._currentView.element.id)) {
             e._currentView.element.id = crypto.randomUUID();
         }
-        if (e._currentView.element.className.trim() === "") {
-            e._currentView.element.className = "heat-js";
-        } else {
-            a.addClass(e._currentView.element, "heat-js");
-        }
+        a.addClass(e._currentView.element, "heat-js");
         if (e.resizable) {
             a.addClass(e._currentView.element, "resizable");
         }
