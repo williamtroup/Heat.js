@@ -2582,7 +2582,8 @@ var v;
             ke(t, f, g, y, t.views.map.dayToolTipText, t.events.onMapDayToolTipRender, m.matched, t.views.map.showCountsInToolTips);
         }
         if (t.views.map.showDayDateNumbers) {
-            a.createWithHTML(f, "div", "count-date", `${h.toString()}<sup>${r.getDayOrdinal(T, h)}</sup>`);
+            const e = a.createWithHTML(f, "div", "count-date", h.toString());
+            a.createWithHTML(e, "sup", "", r.getDayOrdinal(T, h));
         }
         if (t.views.map.showDayCounts && y > 0) {
             a.createWithHTML(f, "div", "count", s.friendlyNumber(y));
@@ -2762,7 +2763,8 @@ var v;
             a.addClass(m, "day-line-count");
         }
         if (n.views.chart.showLineDateNumbers) {
-            a.createWithHTML(m, "div", "count-date", `${l.toString()}<sup>${r.getDayOrdinal(T, l)}</sup>`);
+            const e = a.createWithHTML(m, "div", "count-date", l.toString());
+            a.createWithHTML(e, "sup", "", r.getDayOrdinal(T, l));
         }
         if (n.views.chart.showLineCounts && v > 0) {
             a.createWithHTML(m, "div", "count", s.friendlyNumber(v));

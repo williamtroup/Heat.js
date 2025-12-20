@@ -1475,7 +1475,9 @@ import { LocalStorage } from "./ts/area/local-storage";
         }
         
         if ( bindingOptions.views!.map!.showDayDateNumbers ) {
-            DomElement.createWithHTML( day, "div", "count-date", `${actualDay.toString()}<sup>${DateTime.getDayOrdinal( _configurationOptions, actualDay )}</sup>` );
+            const countDate: HTMLElement = DomElement.createWithHTML( day, "div", "count-date", actualDay.toString() );
+            
+            DomElement.createWithHTML( countDate, "sup", Char.empty, DateTime.getDayOrdinal( _configurationOptions, actualDay ) );
         }
 
         if ( bindingOptions.views!.map!.showDayCounts && dateCount > 0 ) {
@@ -1716,7 +1718,9 @@ import { LocalStorage } from "./ts/area/local-storage";
         }
 
         if ( bindingOptions.views!.chart!.showLineDateNumbers ) {
-            DomElement.createWithHTML( dayLine, "div", "count-date", `${day.toString()}<sup>${DateTime.getDayOrdinal( _configurationOptions, day )}</sup>` );
+            const countDate: HTMLElement = DomElement.createWithHTML( dayLine, "div", "count-date", day.toString() );
+
+            DomElement.createWithHTML( countDate, "sup", Char.empty, DateTime.getDayOrdinal( _configurationOptions, day ) );
         }
 
         if ( bindingOptions.views!.chart!.showLineCounts && dateCount > 0 ) {
