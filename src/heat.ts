@@ -23,8 +23,8 @@ import {
     type LargestValuesForEachRangeType } from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
-import { Constant } from "./ts/constant"
 import { ExportType, Char, Value, ViewId, ViewName, KeyCode, ImportType } from "./ts/data/enum";
+import { Constant } from "./ts/constant"
 import { Is } from "./ts/data/is"
 import { Default } from "./ts/data/default"
 import { DateTime } from "./ts/data/datetime"

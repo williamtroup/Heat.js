@@ -11,7 +11,11 @@
  */
 
 
-import { type BindingOptions, type BindingOptionsHoliday, type IsHoliday } from "../type";
+import { 
+    type BindingOptions,
+    type BindingOptionsHoliday,
+    type IsHoliday } from "../type";
+    
 import { Char, Value } from "./enum";
 
 

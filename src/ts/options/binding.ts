@@ -32,8 +32,8 @@ import {
     type BindingOptionsZooming,
     type ConfigurationOptions } from "../type";
 
-import { Default } from "../data/default";
 import { Char, ExportType, Value, ViewId, ViewName } from "../data/enum";
+import { Default } from "../data/default";
 import { Is } from "../data/is";
 
 

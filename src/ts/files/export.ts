@@ -11,9 +11,13 @@
  */
 
 
-import { type BindingOptions, type ConfigurationOptions, type InstanceTypeDateCount } from "../type";
-import { DateTime } from "../data/datetime";
+import {
+    type BindingOptions,
+    type ConfigurationOptions,
+    type InstanceTypeDateCount } from "../type";
+
 import { Char, ExportType } from "../data/enum";
+import { DateTime } from "../data/datetime";
 import { Is } from "../data/is";
 import { Str } from "../data/str";
 

@@ -11,9 +11,13 @@
  */
 
 
-import { type ConfigurationOptions, type InstanceTypeDateCount, type StringToJson } from "../type";
-import { Default } from "../data/default";
+import {
+    type ConfigurationOptions,
+    type InstanceTypeDateCount,
+    type StringToJson } from "../type";
+    
 import { Char, ImportType } from "../data/enum";
+import { Default } from "../data/default";
 import { Is } from "../data/is";
 
 
