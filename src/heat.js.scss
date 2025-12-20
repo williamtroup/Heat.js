@@ -1250,7 +1250,7 @@ div.heat-js {
                     width: var(--heat-js-border-size);
                     background-color: var(--heat-js-container-border-color);
                     margin-left: var(--heat-js-spacing);
-                    margin-right: var(--heat-js-spacing);
+                    margin-right: calc( var(--heat-js-spacing) + var(--heat-js-day-chart-spacing) );
                 }
 
                 div.day-line {

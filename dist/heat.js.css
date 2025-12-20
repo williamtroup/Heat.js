@@ -1712,7 +1712,7 @@ div.heat-js div.chart-contents div.chart div.day-lines div.month-spacing {
   width: var(--heat-js-border-size);
   background-color: var(--heat-js-container-border-color);
   margin-left: var(--heat-js-spacing);
-  margin-right: var(--heat-js-spacing);
+  margin-right: calc(var(--heat-js-spacing) + var(--heat-js-day-chart-spacing));
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   border-top-left-radius: var(--heat-js-border-radius-day);
