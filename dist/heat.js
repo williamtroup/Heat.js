@@ -1629,11 +1629,11 @@ var v;
         c.customEvent(e.events.onRenderComplete, e._currentView.element);
     }
     function C(e, t = false, n = false, i = false) {
+        l.hide(e);
         if (t) {
             v.store(e, x[e._currentView.element.id]);
         }
         S(e);
-        l.hide(e);
         Pe(e);
         Oe(e);
         l.render(e);

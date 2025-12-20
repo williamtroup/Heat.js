@@ -127,14 +127,13 @@ import { LocalStorage } from "./ts/area/local-storage";
     }
 
     function renderControlContainer( bindingOptions: BindingOptions, isForDataRefresh: boolean = false, isForViewSwitch: boolean = false, isForZooming: boolean = false ) : void {
+        ToolTip.hide( bindingOptions );
+
         if ( isForDataRefresh ) {
             LocalStorage.store( bindingOptions, _elements_InstanceData[ bindingOptions._currentView!.element.id ] );
         }
 
         renderControlStoreScrollPositionsAndSizes( bindingOptions );
-        
-        ToolTip.hide( bindingOptions );
-
         startDataPullTimer( bindingOptions );
         setupTrendTypes( bindingOptions );
 
