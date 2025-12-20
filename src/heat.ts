@@ -615,6 +615,7 @@ import { LocalStorage } from "./ts/area/local-storage";
         Disabled.Background.hide( bindingOptions );
 
         if ( Is.defined( bindingOptions._currentView!.importDialog ) && bindingOptions._currentView!.importDialog.style.display !== "none" ) {
+            bindingOptions._currentView!.importDialogDragAndDrop.innerHTML = _configurationOptions.text!.dragAndDropFilesText!;
             bindingOptions._currentView!.importDialogFileList = null!;
             bindingOptions._currentView!.importDialogImportButton.disabled = true;
             bindingOptions._currentView!.importDialog.style.display = "none";

@@ -1717,7 +1717,7 @@ var v;
             a.createWithHTML(s, "div", "side-container-title-text", `${T.text.visibleMonthsText}${":"}`);
             const r = a.create(s, "div", "side-container");
             const c = a.create(s, "div", "side-container");
-            i.onclick = () => k(e);
+            i.onclick = () => A(e);
             for (let t = 0; t < 7; t++) {
                 e._currentView.configurationDialogDayCheckBoxes[t] = a.createCheckBox(o, T.text.dayNames[t], t.toString());
             }
@@ -1753,7 +1753,7 @@ var v;
         }
         l.hide(e);
     }
-    function k(e) {
+    function A(e) {
         w.Background.hide(e);
         if (i.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "none") {
             e._currentView.configurationDialog.style.display = "none";
@@ -1812,7 +1812,7 @@ var v;
             l.hide(e);
         }
     }
-    function A(e) {
+    function k(e) {
         w.Background.render(e);
         if (!i.definedParentElement(e._currentView.exportDialog)) {
             e._currentView.exportDialog = a.create(e._currentView.disabledBackground, "div", "dialog export");
@@ -1861,7 +1861,7 @@ var v;
         i.forEach(t => e._currentView.exportDialogExportTypeSelect.add(t));
     }
     function I(e) {
-        A(e);
+        k(e);
         w.Background.show(e);
         if (i.defined(e._currentView.exportDialog) && e._currentView.exportDialog.style.display !== "block") {
             e._currentView.exportDialogExportFilenameInput.value = "";
@@ -1970,6 +1970,7 @@ var v;
     function W(e) {
         w.Background.hide(e);
         if (i.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "none") {
+            e._currentView.importDialogDragAndDrop.innerHTML = T.text.dragAndDropFilesText;
             e._currentView.importDialogFileList = null;
             e._currentView.importDialogImportButton.disabled = true;
             e._currentView.importDialog.style.display = "none";
@@ -2296,7 +2297,7 @@ var v;
         if (e._currentView.view === n) {
             a.addClass(t, "title-menu-item-active");
         } else {
-            t.onclick = () => Ae(e, n, i);
+            t.onclick = () => ke(e, n, i);
         }
     }
     function te(e) {
@@ -2461,7 +2462,7 @@ var v;
                         const i = !n || o % 3 === 0 ? T.text.dayNames[o] : " ";
                         const s = a.createWithHTML(e, "div", "day-name", i);
                         if (t.views.days.enabled) {
-                            s.ondblclick = () => Ae(t, 4, "days");
+                            s.ondblclick = () => ke(t, 4, "days");
                         }
                     }
                 }
@@ -2536,7 +2537,7 @@ var v;
                             e.style.width = `${i - t._currentView.dayWidth}px`;
                         }
                         if (t.views.months.enabled) {
-                            e.ondblclick = () => Ae(t, 5, "months");
+                            e.ondblclick = () => ke(t, 5, "months");
                         }
                     }
                     if (t.views.map.showMonthsInReverseOrder) {
@@ -2592,7 +2593,7 @@ var v;
         y = o.getNumber(y, 0);
         f.setAttribute(e.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${s.padNumber(h)}-${s.padNumber(d + 1)}-${u}`);
         if (t.views.map.showToolTips) {
-            ke(t, f, g, y, t.views.map.dayToolTipText, t.events.onMapDayToolTipRender, m.matched, t.views.map.showCountsInToolTips);
+            Ae(t, f, g, y, t.views.map.dayToolTipText, t.events.onMapDayToolTipRender, m.matched, t.views.map.showCountsInToolTips);
         }
         if (t.views.map.showDayDateNumbers) {
             const e = a.createWithHTML(f, "div", "count-date", h.toString());
@@ -2737,7 +2738,7 @@ var v;
                             o.style.left = `${w[n].offsetLeft}px`;
                         }
                         if (t.views.months.enabled) {
-                            o.ondblclick = () => Ae(t, 5, "months");
+                            o.ondblclick = () => ke(t, 5, "months");
                         }
                         n++;
                     }
@@ -2770,7 +2771,7 @@ var v;
         v = o.getNumber(v, 0);
         m.setAttribute(e.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${s.padNumber(l)}-${s.padNumber(d + 1)}-${u}`);
         if (n.views.chart.showToolTips) {
-            ke(n, m, g, v, n.views.chart.dayToolTipText, n.events.onChartDayToolTipRender, y.matched, n.views.chart.showCountsInToolTips);
+            Ae(n, m, g, v, n.views.chart.dayToolTipText, n.events.onChartDayToolTipRender, y.matched, n.views.chart.showCountsInToolTips);
         }
         if (n.views.chart.showLineCounts || n.views.chart.showLineDateNumbers) {
             a.addClass(m, "day-line-count");
@@ -2888,7 +2889,7 @@ var v;
                             i.style.left = `${l[o].offsetLeft}px`;
                         }
                         if (t.views.months.enabled) {
-                            i.ondblclick = () => Ae(t, 5, "months");
+                            i.ondblclick = () => ke(t, 5, "months");
                         }
                         o++;
                     }
@@ -2919,7 +2920,7 @@ var v;
         m = o.getNumber(m, 0);
         f.setAttribute(e.HEAT_JS_LINE_DATE_ATTRIBUTE_NAME, `${s.padNumber(l)}-${s.padNumber(d + 1)}-${u}`);
         if (n.views.line.showToolTips) {
-            ke(n, f, h, m, n.views.line.dayToolTipText, n.events.onLineDayToolTipRender, g.matched, n.views.line.showCountsInToolTips);
+            Ae(n, f, h, m, n.views.line.dayToolTipText, n.events.onLineDayToolTipRender, g.matched, n.views.line.showCountsInToolTips);
         }
         if (i.definedFunction(n.events.onLineDayClick)) {
             f.onclick = () => c.customEvent(n.events.onLineDayClick, h, m, g.matched);
@@ -3606,7 +3607,7 @@ var v;
             C(e, false, false, true);
         }
     }
-    function ke(e, t, n, o, a, d, u, w) {
+    function Ae(e, t, n, o, a, d, u, w) {
         if (i.definedFunction(d)) {
             l.add(t, e, c.customEvent(d, n, o, u));
         } else {
@@ -3623,7 +3624,7 @@ var v;
             l.add(t, e, c);
         }
     }
-    function Ae(e, t, n) {
+    function ke(e, t, n) {
         e._currentView.view = t;
         c.customEvent(e.events.onViewSwitch, n);
         C(e, false, true);
@@ -4218,7 +4219,7 @@ var v;
                     i = 6;
                 }
                 if (i !== 0 && n._currentView.view !== i) {
-                    Ae(n, i, t);
+                    ke(n, i, t);
                 }
             }
             return nt;
