@@ -42,6 +42,7 @@ import { Convert } from "./ts/data/convert";
 import { Css } from "./ts/css";
 import { Animate } from "./ts/dom/animate";
 import { LocalStorage } from "./ts/area/local-storage";
+import { ColorRange } from "./ts/area/color-range";
 
 
 ( () => {
@@ -1308,7 +1309,7 @@ import { LocalStorage } from "./ts/area/local-storage";
             }
     
             const months: HTMLElement = DomElement.create( map, "div", "months" );
-            const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
+            const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
     
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
@@ -1488,9 +1489,9 @@ import { LocalStorage } from "./ts/area/local-storage";
             DomElement.addClass( day, "no-hover" );
         }
 
-        const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
+        const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
 
-        if ( Is.defined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id! ) ) {
+        if ( Is.defined( useColorRange ) && ColorRange.isVisible( bindingOptions, useColorRange.id! ) ) {
             if ( Is.definedString( useColorRange.mapCssClassName ) ) {
                 DomElement.addClass( day, useColorRange.mapCssClassName! );
             } else {
@@ -1575,7 +1576,7 @@ import { LocalStorage } from "./ts/area/local-storage";
             }
 
         } else {
-            const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
+            const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
             const borderBottomWidth: number = DomElement.getStyleValueByName( dayLines, "border-bottom-width", true );
             const pixelsPerNumbers: number = ( dayLines.offsetHeight - borderBottomWidth ) / largestValueForCurrentYear;
             const currentYear: number = bindingOptions._currentView!.year;
@@ -1737,9 +1738,9 @@ import { LocalStorage } from "./ts/area/local-storage";
             DomElement.addClass( dayLine, "no-hover" );
         }
 
-        const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
+        const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
 
-        if ( Is.defined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id! ) ) {
+        if ( Is.defined( useColorRange ) && ColorRange.isVisible( bindingOptions, useColorRange.id! ) ) {
             if ( Is.definedString( useColorRange.chartCssClassName ) ) {
                 DomElement.addClass( dayLine, useColorRange.chartCssClassName! );
             } else {
@@ -1792,7 +1793,7 @@ import { LocalStorage } from "./ts/area/local-storage";
 
         } else {
             const currentYear: number = bindingOptions._currentView!.year;
-            const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
+            const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
             let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
 
             for ( let monthIndex1: number = bindingOptions.startMonth!; monthIndex1 < ( 12 + bindingOptions.startMonth! ); monthIndex1++ ) {
@@ -1922,9 +1923,9 @@ import { LocalStorage } from "./ts/area/local-storage";
             DomElement.addClass( dayLine, "no-hover" );
         }
 
-        const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, dateCount, date );
+        const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
 
-        if ( Is.defined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id! ) ) {
+        if ( Is.defined( useColorRange ) && ColorRange.isVisible( bindingOptions, useColorRange.id! ) ) {
             if ( Is.definedString( useColorRange.lineCssClassName ) ) {
                 DomElement.addClass( dayLine, useColorRange.lineCssClassName! );
             } else {
@@ -1949,7 +1950,7 @@ import { LocalStorage } from "./ts/area/local-storage";
         const dayNames: HTMLElement = DomElement.create( bindingOptions._currentView!.daysContents, "div", "day-names" );
         let labels: HTMLElement = DomElement.create( days, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( days, "div", "day-lines" );
-        const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
+        const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
         const dayValuesForCurrentYear: LargestValueForView = getLargestValuesForEachDay( bindingOptions, colorRanges );
 
         if ( isForViewSwitch && ( !bindingOptions.views!.days!.useDifferentOpacities || !bindingOptions.views!.days!.showDayCounts ) ) {
@@ -2116,7 +2117,7 @@ import { LocalStorage } from "./ts/area/local-storage";
 
                         if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
                             const dayCount: number = typeDateCounts[ storageDate ];
-                            const colorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, dayCount );
+                            const colorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dayCount );
 
                             if ( !Is.defined( colorRange ) || colorRange.visible ) {
                                 result.values[ weekDayNumber ] += dayCount;
@@ -2148,7 +2149,7 @@ import { LocalStorage } from "./ts/area/local-storage";
         const monthNames: HTMLElement = DomElement.create( bindingOptions._currentView!.monthsContents, "div", "month-names" );
         let labels: HTMLElement = DomElement.create( months, "div", "y-labels" );
         const monthLines: HTMLElement = DomElement.create( months, "div", "month-lines" );
-        const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
+        const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
         const monthValuesForCurrentYear: LargestValueForView = getLargestValuesForEachMonth( bindingOptions, colorRanges );
 
         if ( isForViewSwitch && ( !bindingOptions.views!.months!.useDifferentOpacities || !bindingOptions.views!.months!.showMonthCounts ) ) {
@@ -2340,7 +2341,7 @@ import { LocalStorage } from "./ts/area/local-storage";
 
                         if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, weekDayNumber ) ) {
                             const dayCount: number = typeDateCounts[ storageDate ];
-                            const colorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, dayCount );
+                            const colorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dayCount );
 
                             if ( !Is.defined( colorRange ) || colorRange.visible ) {
                                 result.values[ monthValue ] += dayCount;
@@ -2372,7 +2373,7 @@ import { LocalStorage } from "./ts/area/local-storage";
         const statisticsRanges: HTMLElement = DomElement.create( bindingOptions._currentView!.statisticsContents, "div", "statistics-ranges" );
         let labels: HTMLElement = DomElement.create( statistics, "div", "y-labels" );
         const rangeLines: HTMLElement = DomElement.create( statistics, "div", "range-lines" );
-        const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
+        const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
         const colorRangeValuesForCurrentYear: LargestValuesForEachRangeType = getLargestValuesForEachRangeType( bindingOptions, colorRanges );
 
         if ( isForViewSwitch ) {
@@ -2418,7 +2419,7 @@ import { LocalStorage } from "./ts/area/local-storage";
                 if ( colorRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
                     renderControlStatisticsRangeLine( parseInt( type ), rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers, colorRangeValuesForCurrentYear.totalValue, isForViewSwitch );
 
-                    const useColorRange: BindingOptionsColorRange = getColorRangeByMinimum( colorRanges, parseInt( type ) );
+                    const useColorRange: BindingOptionsColorRange = ColorRange.getByMinimum( colorRanges, parseInt( type ) );
 
                     if ( bindingOptions.views!.statistics!.showColorRangeLabels ) {
                         if ( !bindingOptions.views!.statistics!.useColorRangeNamesForLabels || !Is.defined( useColorRange ) || !Is.definedString( useColorRange.name ) ) {
@@ -2445,7 +2446,7 @@ import { LocalStorage } from "./ts/area/local-storage";
 
     function renderControlStatisticsRangeLine( colorRangeMinimum: number, dayLines: HTMLElement, rangeCount: number, bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, totalValue: number, isForViewSwitch: boolean ) : void {
         const rangeLine: HTMLElement = DomElement.create( dayLines, "div", "range-line" );
-        const useColorRange: BindingOptionsColorRange = getColorRangeByMinimum( colorRanges, colorRangeMinimum );
+        const useColorRange: BindingOptionsColorRange = ColorRange.getByMinimum( colorRanges, colorRangeMinimum );
         const rangeLineHeight: number = rangeCount * pixelsPerNumbers;
 
         if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) ) {
@@ -2485,7 +2486,7 @@ import { LocalStorage } from "./ts/area/local-storage";
             DomElement.addClass( rangeLine, "no-hover" );
         }
 
-        if ( Is.defined( useColorRange ) && isColorRangeVisible( bindingOptions, useColorRange.id! ) ) {
+        if ( Is.defined( useColorRange ) && ColorRange.isVisible( bindingOptions, useColorRange.id! ) ) {
             if ( Is.definedString( useColorRange.statisticsCssClassName ) ) {
                 DomElement.addClass( rangeLine, useColorRange.statisticsCssClassName! );
             } else {
@@ -2530,7 +2531,7 @@ import { LocalStorage } from "./ts/area/local-storage";
                         const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
                         if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.statistics!.daysToShow!, weekDayNumber ) ) {
-                            const useColorRange: BindingOptionsColorRange = getColorRange( bindingOptions, colorRanges, typeDateCounts[ storageDate ] );
+                            const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, typeDateCounts[ storageDate ] );
                             const colorRangeMinimum: string = Is.defined( useColorRange ) ? useColorRange.minimum!.toString() : Char.zero;
 
                             if ( !result.types.hasOwnProperty( colorRangeMinimum ) ) {
@@ -2615,7 +2616,7 @@ import { LocalStorage } from "./ts/area/local-storage";
             }
     
             const days: HTMLElement = DomElement.create( mapToggles, "div", "days" );
-            const colorRanges: BindingOptionsColorRange[] = getSortedColorRanges( bindingOptions );
+            const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
             const colorRangesLength: number = colorRanges.length;
             const daysRendered: HTMLElement[] = [];
             let maximumWidth: number = 0;
@@ -2672,7 +2673,7 @@ import { LocalStorage } from "./ts/area/local-storage";
             ToolTip.add( day, bindingOptions, colorRange.tooltipText! );
         }
 
-        if ( isColorRangeVisible( bindingOptions, colorRange.id! ) ) {
+        if ( ColorRange.isVisible( bindingOptions, colorRange.id! ) ) {
             if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map && Is.definedString( colorRange.mapCssClassName ) ) {
                 DomElement.addClass( day, colorRange.mapCssClassName! );
             } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line && Is.definedString( colorRange.lineCssClassName ) ) {
@@ -3074,28 +3075,6 @@ import { LocalStorage } from "./ts/area/local-storage";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function isColorRangeVisible( bindingOptions: BindingOptions, id: string ) : boolean {
-        let result: boolean = false;
-        
-        if ( id === Constant.COLOR_RANGE_HOLIDAY_ID ) {
-            result = true;
-
-        } else {
-            const colorRangesLength : number = bindingOptions.colorRanges!.length;
-
-            for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-                const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
-    
-                if ( colorRange.id === id && Default.getBoolean( colorRange.visible, true ) ) {
-                    result = true;
-                    break;
-                }
-            }
-        }
-
-        return result;
-    }
-
     function updateColorRangeToggles( bindingOptions: BindingOptions, flag: boolean ) : void {
         const colorRangesLength: number = bindingOptions.colorRanges!.length;
 
@@ -3134,57 +3113,6 @@ import { LocalStorage } from "./ts/area/local-storage";
                 break;
             }
         }
-    }
-
-    function getColorRange( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], dateCount: number, date: Date = null! ) : BindingOptionsColorRange {
-        let useColorRange: BindingOptionsColorRange = null!;
-
-        if ( Is.defined( date ) && Is.holiday( bindingOptions, date ).matched ) {
-            useColorRange = {
-                cssClassName: "holiday",
-                id: Constant.COLOR_RANGE_HOLIDAY_ID,
-                visible: true,
-                minimum: 0,
-            } as BindingOptionsColorRange;
-        }
-
-        if ( !Is.defined( useColorRange ) ) {
-            const colorRangesLength: number = colorRanges.length;
-
-            for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-                const colorRange: BindingOptionsColorRange = colorRanges[ colorRangesIndex ];
-    
-                if ( dateCount >= colorRange.minimum! ) {
-                    useColorRange = colorRange;
-                } else {
-                    break;
-                }
-            }
-        }
-
-        return useColorRange;
-    }
-
-    function getColorRangeByMinimum( colorRanges: BindingOptionsColorRange[], minimum: number ) : BindingOptionsColorRange {
-        const colorRangesLength: number = colorRanges.length;
-        let useColorRange: BindingOptionsColorRange = null!;
-
-        for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-            const colorRange: BindingOptionsColorRange = colorRanges[ colorRangesIndex ];
-
-            if ( minimum.toString() === colorRange.minimum!.toString() ) {
-                useColorRange = colorRange;
-                break;
-            }
-        }
-
-        return useColorRange;
-    }
-
-    function getSortedColorRanges( bindingOptions: BindingOptions ) : BindingOptionsColorRange[] {
-        return bindingOptions.colorRanges!.sort( ( colorRangeA: BindingOptionsColorRange, colorRangeB: BindingOptionsColorRange ) => {
-            return colorRangeA.minimum! - colorRangeB.minimum!;
-        } );
     }
 
 
