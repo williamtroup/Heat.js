@@ -3261,9 +3261,7 @@ import { LocalStorage } from "./ts/area/local-storage";
         bindingOptions._currentView!.element.innerHTML = Char.empty;
 
         DomElement.removeClass( bindingOptions._currentView!.element, "heat-js" );
-        ToolTip.assignToEvents( bindingOptions, false );
-
-        document.body.removeChild( bindingOptions._currentView!.tooltip );
+        ToolTip.remove( bindingOptions );
 
         if ( bindingOptions._currentView!.isInFetchMode && Is.defined( bindingOptions._currentView!.isInFetchModeTimer ) ) {
             clearInterval( bindingOptions._currentView!.isInFetchModeTimer );

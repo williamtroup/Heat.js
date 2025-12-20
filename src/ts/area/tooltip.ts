@@ -17,21 +17,24 @@ import { Is } from "../data/is";
 
 
 export namespace ToolTip {
+    let _TOOLTIP_TIMER_ID: number = 0;
+
     export function render( bindingOptions: BindingOptions ) : void {
         if ( !Is.defined( bindingOptions._currentView!.tooltip ) ) {
-            bindingOptions._currentView!.tooltip = DomElement.create( document.body, "div", "heat-js-tooltip" );
+            const tooltipElements: HTMLCollectionOf<Element> = document.getElementsByClassName( "heat-js-tooltip" );
+            const tooltips: HTMLElement[] = [].slice.call( tooltipElements );
+
+            if ( tooltips.length > 0 ) {
+                bindingOptions._currentView!.tooltip = tooltips[ 0 ];
+
+            } else {
+                bindingOptions._currentView!.tooltip = DomElement.create( document.body, "div", "heat-js-tooltip" );
+
+                assignToEvents( bindingOptions );
+            }
+
             bindingOptions._currentView!.tooltip.style.display = "none";
-    
-            assignToEvents( bindingOptions );
         }
-    }
-
-    export function assignToEvents( bindingOptions: BindingOptions, add: boolean = true ) : void {
-        let addEventListener_Window: Function = add ? window.addEventListener : window.removeEventListener;
-        let addEventListener_Document: Function = add ? document.addEventListener : document.removeEventListener;
-
-        addEventListener_Window( "mousemove", () => hide( bindingOptions ) );
-        addEventListener_Document( "scroll", () => hide( bindingOptions ) );
     }
 
     export function add( element: HTMLElement, bindingOptions: BindingOptions, text: string ) : void {
@@ -44,7 +47,7 @@ export namespace ToolTip {
         DomElement.cancelBubble( ev );
         hide( bindingOptions );
 
-        bindingOptions._currentView!.tooltipTimer = setTimeout( () => {
+        _TOOLTIP_TIMER_ID = setTimeout( () => {
             bindingOptions._currentView!.tooltip.innerHTML = text;
             bindingOptions._currentView!.tooltip.style.display = "block";
 
@@ -54,14 +57,33 @@ export namespace ToolTip {
 
     export function hide( bindingOptions: BindingOptions ) : void {
         if ( Is.defined( bindingOptions._currentView!.tooltip ) ) {
-            if ( bindingOptions._currentView!.tooltipTimer !== 0 ) {
-                clearTimeout( bindingOptions._currentView!.tooltipTimer );
-                bindingOptions._currentView!.tooltipTimer = 0;
+            if ( _TOOLTIP_TIMER_ID !== 0 ) {
+                clearTimeout( _TOOLTIP_TIMER_ID );
+                _TOOLTIP_TIMER_ID = 0;
             }
     
             if ( bindingOptions._currentView!.tooltip.style.display !== "none" ) {
                 bindingOptions._currentView!.tooltip.style.display = "none";
             }
         }
+    }
+
+    export function remove( bindingOptions: BindingOptions ) : void {
+        if ( Is.defined( bindingOptions._currentView!.tooltip ) ) {
+            const heatJsElements: HTMLCollectionOf<Element> = document.getElementsByClassName( "heat-js" );
+            const heatJsInstances: HTMLElement[] = [].slice.call( heatJsElements );
+
+            if ( heatJsInstances.length === 0 ) {
+                document.body.removeChild( bindingOptions._currentView!.tooltip );
+            }
+        }
+    }
+
+    function assignToEvents( bindingOptions: BindingOptions, add: boolean = true ) : void {
+        let addEventListener_Window: Function = add ? window.addEventListener : window.removeEventListener;
+        let addEventListener_Document: Function = add ? document.addEventListener : document.removeEventListener;
+
+        addEventListener_Window( "mousemove", () => hide( bindingOptions ) );
+        addEventListener_Document( "scroll", () => hide( bindingOptions ) );
     }
 }

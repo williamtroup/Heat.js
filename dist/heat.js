@@ -470,42 +470,42 @@ var a;
 var l;
 
 (e => {
-    function t(e) {
+    let t = 0;
+    function n(e) {
         if (!i.defined(e._currentView.tooltip)) {
-            e._currentView.tooltip = a.create(document.body, "div", "heat-js-tooltip");
+            const t = document.getElementsByClassName("heat-js-tooltip");
+            const n = [].slice.call(t);
+            if (n.length > 0) {
+                e._currentView.tooltip = n[0];
+            } else {
+                e._currentView.tooltip = a.create(document.body, "div", "heat-js-tooltip");
+                c(e);
+            }
             e._currentView.tooltip.style.display = "none";
-            n(e);
         }
     }
-    e.render = t;
-    function n(e, t = true) {
-        let n = t ? window.addEventListener : window.removeEventListener;
-        let i = t ? document.addEventListener : document.removeEventListener;
-        n("mousemove", () => r(e));
-        i("scroll", () => r(e));
-    }
-    e.assignToEvents = n;
+    e.render = n;
     function o(e, t, n) {
         if (e !== null) {
             e.onmousemove = e => s(e, t, n);
         }
     }
     e.add = o;
-    function s(e, t, n) {
+    function s(e, n, i) {
         a.cancelBubble(e);
-        r(t);
-        t._currentView.tooltipTimer = setTimeout(() => {
-            t._currentView.tooltip.innerHTML = n;
-            t._currentView.tooltip.style.display = "block";
-            a.showElementAtMousePosition(e, t._currentView.tooltip);
-        }, t.tooltip.delay);
+        r(n);
+        t = setTimeout(() => {
+            n._currentView.tooltip.innerHTML = i;
+            n._currentView.tooltip.style.display = "block";
+            a.showElementAtMousePosition(e, n._currentView.tooltip);
+        }, n.tooltip.delay);
     }
     e.show = s;
     function r(e) {
         if (i.defined(e._currentView.tooltip)) {
-            if (e._currentView.tooltipTimer !== 0) {
-                clearTimeout(e._currentView.tooltipTimer);
-                e._currentView.tooltipTimer = 0;
+            if (t !== 0) {
+                clearTimeout(t);
+                t = 0;
             }
             if (e._currentView.tooltip.style.display !== "none") {
                 e._currentView.tooltip.style.display = "none";
@@ -513,6 +513,22 @@ var l;
         }
     }
     e.hide = r;
+    function l(e) {
+        if (i.defined(e._currentView.tooltip)) {
+            const t = document.getElementsByClassName("heat-js");
+            const n = [].slice.call(t);
+            if (n.length === 0) {
+                document.body.removeChild(e._currentView.tooltip);
+            }
+        }
+    }
+    e.remove = l;
+    function c(e, t = true) {
+        let n = t ? window.addEventListener : window.removeEventListener;
+        let i = t ? document.addEventListener : document.removeEventListener;
+        n("mousemove", () => r(e));
+        i("scroll", () => r(e));
+    }
 })(l || (l = {}));
 
 var c;
@@ -544,7 +560,6 @@ var d;
             o._currentView.configurationDialogDayCheckBoxes = [];
             o._currentView.configurationDialogMonthCheckBoxes = [];
             o._currentView.tooltip = null;
-            o._currentView.tooltipTimer = 0;
             o._currentView.year = o.defaultYear;
             o._currentView.type = e.text.unknownTrendText;
             o._currentView.isInFetchMode = i.definedFunction(o.events.onDataFetch);
@@ -3884,8 +3899,7 @@ var v;
     function et(e) {
         e._currentView.element.innerHTML = "";
         a.removeClass(e._currentView.element, "heat-js");
-        l.assignToEvents(e, false);
-        document.body.removeChild(e._currentView.tooltip);
+        l.remove(e);
         if (e._currentView.isInFetchMode && i.defined(e._currentView.isInFetchModeTimer)) {
             clearInterval(e._currentView.isInFetchModeTimer);
         }

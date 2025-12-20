@@ -173,7 +173,6 @@ export type BindingOptionsCurrentView = {
     yearText: HTMLElement;
     yearTextWidth: number;
     tooltip: HTMLElement;
-    tooltipTimer: number;
     configurationDialog: HTMLElement;
     configurationDialogDayCheckBoxes: HTMLInputElement[];
     configurationDialogMonthCheckBoxes: HTMLInputElement[];
