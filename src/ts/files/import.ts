@@ -63,7 +63,7 @@ export namespace Import {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
             const linesLength: number = lines.length;
 
-            for ( let lineIndex: number = 0; lineIndex < linesLength; lineIndex++ ) {
+            for ( let lineIndex: number = 1; lineIndex < linesLength; lineIndex++ ) {
                 const line: string[] = lines[ lineIndex ].split( Char.colon );
 
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );

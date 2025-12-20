@@ -80,7 +80,7 @@ export namespace Export {
             } else if ( contentExportType === ExportType.xml ) {
                 contents = xml( typeDateCounts );
             } else if ( contentExportType === ExportType.txt ) {
-                contents = txt( typeDateCounts );
+                contents = txt( typeDateCounts, configurationOptions, bindingOptions );
             } else if ( contentExportType === ExportType.html ) {
                 contents = html( typeDateCounts, configurationOptions, bindingOptions );
             } else if ( contentExportType === ExportType.md ) {
@@ -136,8 +136,11 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        function txt( typeDateCounts: InstanceTypeDateCount ) : string {
+        function txt( typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions  ) : string {
+            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configurationOptions, bindingOptions.exportDateTimeFormat!, new Date() );
+
             const contents: string[] = [];
+            contents.push( `Last-Modified${Char.colon}${Char.space}${exportedDateTime}` );
 
             for ( const storageDate in typeDateCounts ) {
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {

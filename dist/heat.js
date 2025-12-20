@@ -1159,7 +1159,7 @@ var f;
         n.onload = e => {
             const t = e.target.result.toString().split("\n");
             const n = t.length;
-            for (let e = 0; e < n; e++) {
+            for (let e = 1; e < n; e++) {
                 const n = t[e].split(":");
                 i[n[0].trim()] = parseInt(n[1].trim());
             }
@@ -1299,7 +1299,7 @@ var g;
             } else if (e === "xml") {
                 h = o(t);
             } else if (e === "txt") {
-                h = s(t);
+                h = s(t, r, w);
             } else if (e === "html") {
                 h = a(t, r, w);
             } else if (e === "md") {
@@ -1344,14 +1344,16 @@ var g;
             t.push("</Dates>");
             return t.join("\n");
         }
-        function s(e) {
-            const t = [];
-            for (const n in e) {
-                if (e.hasOwnProperty(n)) {
-                    t.push(`${n}${":"}${" "}${e[n].toString()}`);
+        function s(e, t, n) {
+            const i = r.getCustomFormattedDateText(t, n.exportDateTimeFormat, new Date);
+            const o = [];
+            o.push(`Last-Modified${":"}${" "}${i}`);
+            for (const t in e) {
+                if (e.hasOwnProperty(t)) {
+                    o.push(`${t}${":"}${" "}${e[t].toString()}`);
                 }
             }
-            return t.join("\n");
+            return o.join("\n");
         }
         function a(e, t, n) {
             const i = [];

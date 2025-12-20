@@ -150,6 +150,7 @@
 - Each month shown in the Map view now has a new attribute called "data-heat-js-month-number", which stores the month number.
 - Views/Dialogs are now only rendered when they are active (helps performance when many views/dialogs are enabled).
 - The display is no longer re-rendered when the configuration dialog is closed, and nothing has changed.
+- Export text files now contain a header that states when the content was last modified.
 
 #### **Library:**
 - Updated all the NPM packages to the latest versions.
