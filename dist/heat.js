@@ -947,6 +947,7 @@ var d;
             e.events.onStatisticClick = o.getFunction(e.events.onStatisticClick, null);
             e.events.onStatisticDblClick = o.getFunction(e.events.onStatisticDblClick, null);
             e.events.onZoomLevelChange = o.getFunction(e.events.onZoomLevelChange, null);
+            e.events.onClearViewableData = o.getFunction(e.events.onClearViewableData, null);
             return e.events;
         }
         function x(e) {
@@ -3851,6 +3852,7 @@ var T;
                 }
             }
         }
+        c.customEvent(e.events.onClearViewableData, e._currentView.element);
     }
     function $e(e) {
         let t = 0;

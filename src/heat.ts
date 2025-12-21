@@ -825,7 +825,7 @@ import { ColorRange } from "./ts/area/color-range";
                 }
         
                 clear.onclick = () => {
-                    clearData( bindingOptions );
+                    clearViewableData( bindingOptions );
                     renderControlContainer( bindingOptions, true );
                 };
             }
@@ -2885,7 +2885,7 @@ import { ColorRange } from "./ts/area/color-range";
         return years;
     }
 
-    function clearData( bindingOptions: BindingOptions ) : void {
+    function clearViewableData( bindingOptions: BindingOptions ) : void {
         const currentYear: number = bindingOptions._currentView!.year;
         let typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
@@ -2909,6 +2909,8 @@ import { ColorRange } from "./ts/area/color-range";
                 }
             }
         }
+
+        Trigger.customEvent( bindingOptions.events!.onClearViewableData!, bindingOptions._currentView!.element );
     }
 
     function getLargestValueCurrentYear( bindingOptions: BindingOptions ) : number {

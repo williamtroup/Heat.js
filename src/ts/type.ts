@@ -393,6 +393,7 @@ export type BindingOptionsEvents = {
     onStatisticClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
     onStatisticDblClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
     onZoomLevelChange?: ( element: HTMLElement, zoomLevel: number ) => void;
+    onClearViewableData?: ( element: HTMLElement ) => void;
 };
 
 export type BindingOptionsColorRange = {

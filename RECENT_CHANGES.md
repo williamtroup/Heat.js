@@ -94,6 +94,7 @@
 - Added a new binding custom trigger called "events.onChartDayClick", which triggers when a day in the "Chart" view is clicked (defaults to "events.onMapDayClick").
 - Added a new binding custom trigger called "events.onChartDayDblClick", which triggers when a day in the "Chart" view is double-clicked (defaults to "events.onMapDayDblClick").
 - Added a new binding custom trigger called "events.onZoomLevelChange", which triggers when the zoom level in the "Map" view is changed.
+- Added a new binding custom trigger called "events.onClearViewableData", which triggers when the viewable data is cleared.
 - Added a new "isHoliday" parameter for the events "events.onMapDayToolTipRender", "events.onChartDayToolTipRender", and "events.onLineDayToolTipRender", which is now passed after the "count" parameter.
 
 #### **Configuration Options - Breaking Changes:**

@@ -497,6 +497,7 @@ export namespace Binding {
             bindingOptions.events!.onStatisticClick = Default.getFunction( bindingOptions.events!.onStatisticClick, null! );
             bindingOptions.events!.onStatisticDblClick = Default.getFunction( bindingOptions.events!.onStatisticDblClick, null! );
             bindingOptions.events!.onZoomLevelChange = Default.getFunction( bindingOptions.events!.onZoomLevelChange, null! );
+            bindingOptions.events!.onClearViewableData = Default.getFunction( bindingOptions.events!.onClearViewableData, null! );
 
             return bindingOptions.events!;
         }
