@@ -169,7 +169,7 @@ import { ColorRange } from "./ts/area/color-range";
 
         renderControlGuide( bindingOptions );
 
-        Visible.setView( bindingOptions );
+        Visible.View.set( bindingOptions );
     }
 
     function renderControlStoreScrollPositionsAndSizes( bindingOptions: BindingOptions ) : void {
@@ -277,8 +277,8 @@ import { ColorRange } from "./ts/area/color-range";
             bindingOptions._currentView!.configurationDialog.style.display = "block";
         }
 
-        const daysToShow: number[] = Visible.getDays( bindingOptions );
-        const monthsToShow: number[] = Visible.getMonths( bindingOptions );
+        const daysToShow: number[] = Visible.Days.get( bindingOptions );
+        const monthsToShow: number[] = Visible.Months.get( bindingOptions );
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
             bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ].checked = Is.dayVisible( daysToShow, dayIndex + 1 );
@@ -298,8 +298,8 @@ import { ColorRange } from "./ts/area/color-range";
             bindingOptions._currentView!.configurationDialog.style.display = "none";
         }
 
-        const daysToShow: number[] = Visible.getDays( bindingOptions );
-        const monthsToShow: number[] = Visible.getMonths( bindingOptions );
+        const daysToShow: number[] = Visible.Days.get( bindingOptions );
+        const monthsToShow: number[] = Visible.Months.get( bindingOptions );
         const updatedDaysToShow: number[] = [];
         const updatedMonthsToShow: number[] = [];
         let render: boolean = false;
@@ -317,12 +317,12 @@ import { ColorRange } from "./ts/area/color-range";
         }
 
         if ( updatedDaysToShow.length >= 1 && JSON.stringify( updatedDaysToShow ) !== JSON.stringify( daysToShow ) ) {
-            Visible.setDays( bindingOptions, updatedDaysToShow );
+            Visible.Days.set( bindingOptions, updatedDaysToShow );
             render = true;
         }
 
         if ( updatedMonthsToShow.length >= 1 && JSON.stringify( updatedMonthsToShow ) !== JSON.stringify( monthsToShow ) ) {
-            Visible.setMonths( bindingOptions, updatedMonthsToShow );
+            Visible.Months.set( bindingOptions, updatedMonthsToShow );
             render = true;
         }
 
@@ -461,8 +461,8 @@ import { ColorRange } from "./ts/area/color-range";
 
         if ( onlyDataBeingViewed ) {
             const currentYear: number = bindingOptions._currentView!.year;
-            const daysToShow: number[] = Visible.getDays( bindingOptions );
-            const monthsToShow: number[] = Visible.getMonths( bindingOptions );
+            const daysToShow: number[] = Visible.Days.get( bindingOptions );
+            const monthsToShow: number[] = Visible.Months.get( bindingOptions );
 
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
@@ -804,7 +804,7 @@ import { ColorRange } from "./ts/area/color-range";
 
                 if ( bindingOptions.title!.showSectionText ) {
                     DomElement.createWithHTML( title, "span", "section-text", "[" );
-                    DomElement.createWithHTML( title, "span", "section-text-name", Visible.getViewText( bindingOptions, _configurationOptions ) );
+                    DomElement.createWithHTML( title, "span", "section-text-name", Visible.View.getText( bindingOptions, _configurationOptions ) );
                     DomElement.createWithHTML( title, "span", "section-text", "]" );
                 }
             }
@@ -1076,8 +1076,8 @@ import { ColorRange } from "./ts/area/color-range";
 
         if ( bindingOptions.yearlyStatistics!.enabled && ( !bindingOptions.yearlyStatistics!.showOnlyForCurrentYear || isCurrentYear ) ) {
             const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics" );
-            const daysToShow: number[] = Visible.getDays( bindingOptions );
-            const monthsToShow: number[] = Visible.getMonths( bindingOptions );
+            const daysToShow: number[] = Visible.Days.get( bindingOptions );
+            const monthsToShow: number[] = Visible.Months.get( bindingOptions );
             const startOfYear: Date = new Date( bindingOptions._currentView!.year, bindingOptions.startMonth!, 1 );
             const endOfYear: Date = new Date( bindingOptions._currentView!.year + 1, bindingOptions.startMonth!, 1 );
             const yearCount: number = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfYear, endOfYear );
@@ -3585,7 +3585,7 @@ import { ColorRange } from "./ts/area/color-range";
         switchView: function ( elementId: string, viewName: string ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedString( viewName ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-                let viewId: ViewId = Visible.getView( viewName );
+                let viewId: ViewId = Visible.View.get( viewName );
     
                 if ( viewId !== ViewId.unknown && bindingOptions._currentView!.view !== viewId ) {
                     switchView( bindingOptions, viewId, viewName );
@@ -3637,7 +3637,7 @@ import { ColorRange } from "./ts/area/color-range";
             let result: string = Char.empty;
 
             if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
-                result = Visible.getViewName( _elements_InstanceData[ elementId ].options );
+                result = Visible.View.getName( _elements_InstanceData[ elementId ].options );
             }
     
             return result;

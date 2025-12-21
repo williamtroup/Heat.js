@@ -1100,145 +1100,154 @@ var w;
 var h;
 
 (e => {
-    function t(e) {
-        let t = [];
-        if (e.views.map.enabled && e._currentView.view === 1) {
-            t = e.views.map.monthsToShow;
-        } else if (e.views.line.enabled && e._currentView.view === 2) {
-            t = e.views.line.monthsToShow;
-        } else if (e.views.chart.enabled && e._currentView.view === 3) {
-            t = e.views.chart.monthsToShow;
-        } else if (e.views.days.enabled && e._currentView.view === 4) {
-            t = e.views.days.monthsToShow;
-        } else if (e.views.months.enabled && e._currentView.view === 5) {
-            t = e.views.months.monthsToShow;
-        } else if (e.views.statistics.enabled && e._currentView.view === 6) {
-            t = e.views.statistics.monthsToShow;
+    let t;
+    (e => {
+        function t(e) {
+            let t = [];
+            if (e.views.map.enabled && e._currentView.view === 1) {
+                t = e.views.map.monthsToShow;
+            } else if (e.views.line.enabled && e._currentView.view === 2) {
+                t = e.views.line.monthsToShow;
+            } else if (e.views.chart.enabled && e._currentView.view === 3) {
+                t = e.views.chart.monthsToShow;
+            } else if (e.views.days.enabled && e._currentView.view === 4) {
+                t = e.views.days.monthsToShow;
+            } else if (e.views.months.enabled && e._currentView.view === 5) {
+                t = e.views.months.monthsToShow;
+            } else if (e.views.statistics.enabled && e._currentView.view === 6) {
+                t = e.views.statistics.monthsToShow;
+            }
+            return t;
         }
-        return t;
-    }
-    e.getMonths = t;
-    function n(e) {
-        let t = [];
-        if (e.views.map.enabled && e._currentView.view === 1) {
-            t = e.views.map.daysToShow;
-        } else if (e.views.line.enabled && e._currentView.view === 2) {
-            t = e.views.line.daysToShow;
-        } else if (e.views.chart.enabled && e._currentView.view === 3) {
-            t = e.views.chart.daysToShow;
-        } else if (e.views.days.enabled && e._currentView.view === 4) {
-            t = e.views.days.daysToShow;
-        } else if (e.views.months.enabled && e._currentView.view === 5) {
-            t = e.views.months.daysToShow;
-        } else if (e.views.statistics.enabled && e._currentView.view === 6) {
-            t = e.views.statistics.daysToShow;
+        e.get = t;
+        function n(e, t) {
+            if (e.views.map.enabled && e._currentView.view === 1) {
+                e.views.map.monthsToShow = t;
+            } else if (e.views.line.enabled && e._currentView.view === 2) {
+                e.views.line.monthsToShow = t;
+            } else if (e.views.chart.enabled && e._currentView.view === 3) {
+                e.views.chart.monthsToShow = t;
+            } else if (e.views.days.enabled && e._currentView.view === 4) {
+                e.views.days.monthsToShow = t;
+            } else if (e.views.months.enabled && e._currentView.view === 5) {
+                e.views.months.monthsToShow = t;
+            } else if (e.views.statistics.enabled && e._currentView.view === 6) {
+                e.views.statistics.monthsToShow = t;
+            }
         }
-        return t;
-    }
-    e.getDays = n;
-    function i(e, t) {
-        if (e.views.map.enabled && e._currentView.view === 1) {
-            e.views.map.daysToShow = t;
-        } else if (e.views.line.enabled && e._currentView.view === 2) {
-            e.views.line.daysToShow = t;
-        } else if (e.views.chart.enabled && e._currentView.view === 3) {
-            e.views.chart.daysToShow = t;
-        } else if (e.views.days.enabled && e._currentView.view === 4) {
-            e.views.days.daysToShow = t;
-        } else if (e.views.months.enabled && e._currentView.view === 5) {
-            e.views.months.daysToShow = t;
-        } else if (e.views.statistics.enabled && e._currentView.view === 6) {
-            e.views.statistics.daysToShow = t;
+        e.set = n;
+    })(t = e.Months || (e.Months = {}));
+    let n;
+    (e => {
+        function t(e) {
+            let t = [];
+            if (e.views.map.enabled && e._currentView.view === 1) {
+                t = e.views.map.daysToShow;
+            } else if (e.views.line.enabled && e._currentView.view === 2) {
+                t = e.views.line.daysToShow;
+            } else if (e.views.chart.enabled && e._currentView.view === 3) {
+                t = e.views.chart.daysToShow;
+            } else if (e.views.days.enabled && e._currentView.view === 4) {
+                t = e.views.days.daysToShow;
+            } else if (e.views.months.enabled && e._currentView.view === 5) {
+                t = e.views.months.daysToShow;
+            } else if (e.views.statistics.enabled && e._currentView.view === 6) {
+                t = e.views.statistics.daysToShow;
+            }
+            return t;
         }
-    }
-    e.setDays = i;
-    function o(e, t) {
-        if (e.views.map.enabled && e._currentView.view === 1) {
-            e.views.map.monthsToShow = t;
-        } else if (e.views.line.enabled && e._currentView.view === 2) {
-            e.views.line.monthsToShow = t;
-        } else if (e.views.chart.enabled && e._currentView.view === 3) {
-            e.views.chart.monthsToShow = t;
-        } else if (e.views.days.enabled && e._currentView.view === 4) {
-            e.views.days.monthsToShow = t;
-        } else if (e.views.months.enabled && e._currentView.view === 5) {
-            e.views.months.monthsToShow = t;
-        } else if (e.views.statistics.enabled && e._currentView.view === 6) {
-            e.views.statistics.monthsToShow = t;
+        e.get = t;
+        function n(e, t) {
+            if (e.views.map.enabled && e._currentView.view === 1) {
+                e.views.map.daysToShow = t;
+            } else if (e.views.line.enabled && e._currentView.view === 2) {
+                e.views.line.daysToShow = t;
+            } else if (e.views.chart.enabled && e._currentView.view === 3) {
+                e.views.chart.daysToShow = t;
+            } else if (e.views.days.enabled && e._currentView.view === 4) {
+                e.views.days.daysToShow = t;
+            } else if (e.views.months.enabled && e._currentView.view === 5) {
+                e.views.months.daysToShow = t;
+            } else if (e.views.statistics.enabled && e._currentView.view === 6) {
+                e.views.statistics.daysToShow = t;
+            }
         }
-    }
-    e.setMonths = o;
-    function s(e) {
-        let t = 0;
-        if (e.toLowerCase() === "map") {
-            t = 1;
-        } else if (e.toLowerCase() === "line") {
-            t = 2;
-        } else if (e.toLowerCase() === "chart") {
-            t = 3;
-        } else if (e.toLowerCase() === "days") {
-            t = 4;
-        } else if (e.toLowerCase() === "months") {
-            t = 5;
-        } else if (e.toLowerCase() === "statistics") {
-            t = 6;
+        e.set = n;
+    })(n = e.Days || (e.Days = {}));
+    let i;
+    (e => {
+        function t(e) {
+            let t = 0;
+            if (e.toLowerCase() === "map") {
+                t = 1;
+            } else if (e.toLowerCase() === "line") {
+                t = 2;
+            } else if (e.toLowerCase() === "chart") {
+                t = 3;
+            } else if (e.toLowerCase() === "days") {
+                t = 4;
+            } else if (e.toLowerCase() === "months") {
+                t = 5;
+            } else if (e.toLowerCase() === "statistics") {
+                t = 6;
+            }
+            return t;
         }
-        return t;
-    }
-    e.getView = s;
-    function r(e) {
-        let t = "";
-        if (e._currentView.view === 1) {
-            t = "map";
-        } else if (e._currentView.view === 2) {
-            t = "line";
-        } else if (e._currentView.view === 3) {
-            t = "chart";
-        } else if (e._currentView.view === 4) {
-            t = "days";
-        } else if (e._currentView.view === 5) {
-            t = "months";
-        } else if (e._currentView.view === 6) {
-            t = "statistics";
+        e.get = t;
+        function n(e) {
+            let t = "";
+            if (e._currentView.view === 1) {
+                t = "map";
+            } else if (e._currentView.view === 2) {
+                t = "line";
+            } else if (e._currentView.view === 3) {
+                t = "chart";
+            } else if (e._currentView.view === 4) {
+                t = "days";
+            } else if (e._currentView.view === 5) {
+                t = "months";
+            } else if (e._currentView.view === 6) {
+                t = "statistics";
+            }
+            return t;
         }
-        return t;
-    }
-    e.getViewName = r;
-    function a(e, t) {
-        let n = "";
-        if (e.views.map.enabled && e._currentView.view === 1) {
-            n = t.text.mapText;
-        } else if (e.views.line.enabled && e._currentView.view === 2) {
-            n = t.text.lineText;
-        } else if (e.views.chart.enabled && e._currentView.view === 3) {
-            n = t.text.chartText;
-        } else if (e.views.days.enabled && e._currentView.view === 4) {
-            n = t.text.daysText;
-        } else if (e.views.months.enabled && e._currentView.view === 5) {
-            n = t.text.monthsText;
-        } else if (e.views.statistics.enabled && e._currentView.view === 6) {
-            n = t.text.colorRangesText;
+        e.getName = n;
+        function i(e, t) {
+            let n = "";
+            if (e.views.map.enabled && e._currentView.view === 1) {
+                n = t.text.mapText;
+            } else if (e.views.line.enabled && e._currentView.view === 2) {
+                n = t.text.lineText;
+            } else if (e.views.chart.enabled && e._currentView.view === 3) {
+                n = t.text.chartText;
+            } else if (e.views.days.enabled && e._currentView.view === 4) {
+                n = t.text.daysText;
+            } else if (e.views.months.enabled && e._currentView.view === 5) {
+                n = t.text.monthsText;
+            } else if (e.views.statistics.enabled && e._currentView.view === 6) {
+                n = t.text.colorRangesText;
+            }
+            return n;
         }
-        return n;
-    }
-    e.getViewText = a;
-    function l(e) {
-        if (e.views.map.enabled && e._currentView.view === 1) {
-            e._currentView.mapContentsContainer.style.display = "block";
-        } else if (e.views.line.enabled && e._currentView.view === 2) {
-            e._currentView.lineContentsContainer.style.display = "block";
-        } else if (e.views.chart.enabled && e._currentView.view === 3) {
-            e._currentView.chartContents.style.display = "block";
-        } else if (e.views.days.enabled && e._currentView.view === 4) {
-            e._currentView.daysContents.style.display = "block";
-        } else if (e.views.months.enabled && e._currentView.view === 5) {
-            e._currentView.monthsContents.style.display = "block";
-        } else if (e.views.statistics.enabled && e._currentView.view === 6) {
-            e._currentView.statisticsContents.style.display = "block";
+        e.getText = i;
+        function o(e) {
+            if (e.views.map.enabled && e._currentView.view === 1) {
+                e._currentView.mapContentsContainer.style.display = "block";
+            } else if (e.views.line.enabled && e._currentView.view === 2) {
+                e._currentView.lineContentsContainer.style.display = "block";
+            } else if (e.views.chart.enabled && e._currentView.view === 3) {
+                e._currentView.chartContents.style.display = "block";
+            } else if (e.views.days.enabled && e._currentView.view === 4) {
+                e._currentView.daysContents.style.display = "block";
+            } else if (e.views.months.enabled && e._currentView.view === 5) {
+                e._currentView.monthsContents.style.display = "block";
+            } else if (e.views.statistics.enabled && e._currentView.view === 6) {
+                e._currentView.statisticsContents.style.display = "block";
+            }
+            e._currentView.element.style.removeProperty("height");
         }
-        e._currentView.element.style.removeProperty("height");
-    }
-    e.setView = l;
+        e.set = o;
+    })(i = e.View || (e.View = {}));
 })(h || (h = {}));
 
 var f;
@@ -1828,7 +1837,7 @@ var T;
             be(e, n);
         }
         _e(e);
-        h.setView(e);
+        h.View.set(e);
     }
     function M(e) {
         if (e.views.map.enabled && i.defined(e._currentView.mapContents)) {
@@ -1896,8 +1905,8 @@ var T;
         if (i.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "block") {
             e._currentView.configurationDialog.style.display = "block";
         }
-        const t = h.getDays(e);
-        const n = h.getMonths(e);
+        const t = h.Days.get(e);
+        const n = h.Months.get(e);
         for (let n = 0; n < 7; n++) {
             e._currentView.configurationDialogDayCheckBoxes[n].checked = i.dayVisible(t, n + 1);
         }
@@ -1911,8 +1920,8 @@ var T;
         if (i.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "none") {
             e._currentView.configurationDialog.style.display = "none";
         }
-        const t = h.getDays(e);
-        const n = h.getMonths(e);
+        const t = h.Days.get(e);
+        const n = h.Months.get(e);
         const o = [];
         const s = [];
         let r = false;
@@ -1927,11 +1936,11 @@ var T;
             }
         }
         if (o.length >= 1 && JSON.stringify(o) !== JSON.stringify(t)) {
-            h.setDays(e, o);
+            h.Days.set(e, o);
             r = true;
         }
         if (s.length >= 1 && JSON.stringify(s) !== JSON.stringify(n)) {
-            h.setMonths(e, s);
+            h.Months.set(e, s);
             r = true;
         }
         if (r) {
@@ -2027,8 +2036,8 @@ var T;
         const o = Fe(e);
         if (t) {
             const t = e._currentView.year;
-            const s = h.getDays(e);
-            const a = h.getMonths(e);
+            const s = h.Days.get(e);
+            const a = h.Months.get(e);
             for (let l = e.startMonth; l < 12 + e.startMonth; l++) {
                 let c = l;
                 let d = t;
@@ -2266,7 +2275,7 @@ var T;
                 n.innerHTML += e.title.text;
                 if (e.title.showSectionText) {
                     a.createWithHTML(n, "span", "section-text", "[");
-                    a.createWithHTML(n, "span", "section-text-name", h.getViewText(e, b));
+                    a.createWithHTML(n, "span", "section-text-name", h.View.getText(e, b));
                     a.createWithHTML(n, "span", "section-text", "]");
                 }
             }
@@ -2463,8 +2472,8 @@ var T;
         const n = e._currentView.year === t.getFullYear();
         if (e.yearlyStatistics.enabled && (!e.yearlyStatistics.showOnlyForCurrentYear || n)) {
             const o = a.create(e._currentView.element, "div", "yearly-statistics");
-            const l = h.getDays(e);
-            const c = h.getMonths(e);
+            const l = h.Days.get(e);
+            const c = h.Months.get(e);
             const d = new Date(e._currentView.year, e.startMonth, 1);
             const u = new Date(e._currentView.year + 1, e.startMonth, 1);
             const w = se(e, l, c, d, u);
@@ -4286,7 +4295,7 @@ var T;
         switchView: function(e, t) {
             if (i.definedString(e) && i.definedString(t) && V.hasOwnProperty(e)) {
                 const n = V[e].options;
-                let i = h.getView(t);
+                let i = h.View.get(t);
                 if (i !== 0 && n._currentView.view !== i) {
                     ke(n, i, t);
                 }
@@ -4326,7 +4335,7 @@ var T;
         getActiveView: function(e) {
             let t = "";
             if (i.definedString(e) && V.hasOwnProperty(e)) {
-                t = h.getViewName(V[e].options);
+                t = h.View.getName(V[e].options);
             }
             return t;
         },
