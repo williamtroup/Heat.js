@@ -18,10 +18,9 @@
                           "Segoe UI Emoji",
                           "Segoe UI Symbol",
                           "Noto Color Emoji";
-  --heat-js-text-bold-weight: 400;
-  --heat-js-title-bold-weight: 900;
-  --heat-js-sub-title-bold-weight: 700;
-  --heat-js-text-bold-weight-active: 900;
+  --heat-js-text-font-weight-thin: 400;
+  --heat-js-text-font-weight-heavy: 900;
+  --heat-js-text-font-weight-medium: 700;
   --heat-js-color-black: #3b3a3a;
   --heat-js-color-white: #adbac7;
   --heat-js-color-snow-white: #F5F5F5;
@@ -232,7 +231,7 @@ div.heat-js div.disabled div.dialog div.dialog-title-bar {
   border-radius: var(--heat-js-border-radius);
 }
 div.heat-js div.disabled div.dialog div.dialog-title-bar span.dialog-title-bar-text {
-  font-weight: var(--heat-js-title-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-heavy);
 }
 div.heat-js div.disabled div.dialog div.dialog-title-bar div.dialog-close {
   float: right;
@@ -290,7 +289,7 @@ div.heat-js div.disabled div.configuration div.dialog-contents div.side-containe
 }
 div.heat-js div.disabled div.configuration div.dialog-contents div.side-container div.side-container-title-text {
   margin-bottom: var(--heat-js-spacing);
-  font-weight: var(--heat-js-sub-title-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-medium);
 }
 div.heat-js div.disabled div.configuration div.dialog-contents div.side-container label.checkbox {
   margin-left: var(--heat-js-spacing);
@@ -595,7 +594,7 @@ div.heat-js div.title-bar button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: var(--heat-js-title-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-heavy);
   width: 32px;
   height: 30px;
 }
@@ -807,7 +806,7 @@ div.heat-js div.title-bar {
   vertical-align: middle;
 }
 div.heat-js div.title-bar div.title {
-  font-weight: var(--heat-js-title-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-heavy);
   font-size: 1.3rem;
   padding-bottom: 3px;
   transition: var(--heat-js-transition);
@@ -873,7 +872,7 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu di
 }
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-header {
   color: var(--heat-js-color-white);
-  font-weight: var(--heat-js-title-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-heavy);
   padding: var(--heat-js-spacing);
   text-align: left;
   width: 100%;
@@ -886,7 +885,7 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu di
   justify-items: center;
   position: relative;
   color: var(--heat-js-color-white);
-  font-weight: var(--heat-js-text-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-thin);
   padding-left: calc(var(--heat-js-spacing) * 3);
   text-align: left;
   height: var(--heat-js-title-menu-item-height);
@@ -950,7 +949,7 @@ div.heat-js div.title-bar div.year-text {
   margin-left: var(--heat-js-spacing);
   margin-right: var(--heat-js-spacing);
   display: inline-block;
-  font-weight: var(--heat-js-title-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-heavy);
   position: relative;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -1022,7 +1021,7 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
   align-items: center;
   justify-items: center;
   color: var(--heat-js-color-white);
-  font-weight: var(--heat-js-text-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-thin);
   border-bottom: var(--heat-js-border-size) dashed var(--heat-js-container-border-color);
   text-align: center;
   width: 100%;
@@ -1078,7 +1077,7 @@ div.heat-js div.yearly-statistics div.statistics-box {
 }
 div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-title {
   text-align: center;
-  font-weight: 700;
+  font-weight: var(--heat-js-text-font-weight-medium);
   margin-bottom: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count {
@@ -1297,7 +1296,7 @@ div.heat-js div.map-contents-container div.map-contents div.map div.days-months-
 }
 div.heat-js div.map-contents-container div.map-contents div.map div.days div.day-name,
 div.heat-js div.map-contents-container div.map-contents div.map div.days-months-bottom div.day-name {
-  font-weight: var(--heat-js-text-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-thin);
   text-align: left !important;
   height: var(--heat-js-day-size);
   margin-bottom: var(--heat-js-day-spacing);
@@ -1321,7 +1320,7 @@ div.heat-js div.map-contents-container div.map-contents div.map div.months div.m
 }
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name,
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name-bottom {
-  font-weight: var(--heat-js-text-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-thin);
   text-align: left !important;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1329,7 +1328,7 @@ div.heat-js div.map-contents-container div.map-contents div.map div.months div.m
 }
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name.current,
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name-bottom.current {
-  font-weight: var(--heat-js-sub-title-bold-weight);
+  font-weight: var(--heat-js-text-bold-weight-active);
 }
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name {
   margin-bottom: var(--heat-js-spacing);
@@ -1376,7 +1375,7 @@ div.heat-js div.map-contents-container div.map-contents div.map div.months div.m
   display: block;
 }
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day div.count-date {
-  font-weight: var(--heat-js-sub-title-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-medium);
 }
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.day-columns div.day-column div.day:not(.no-hover):active {
   opacity: var(--heat-js-view-opacity-active) !important;
@@ -1599,13 +1598,13 @@ div.heat-js div.line-contents-container div.line-contents div.line-months {
   height: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing));
 }
 div.heat-js div.line-contents-container div.line-contents div.line-months div.month-name {
-  font-weight: var(--heat-js-text-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-thin);
   text-align: left !important;
   position: absolute;
   bottom: 0;
 }
 div.heat-js div.line-contents-container div.line-contents div.line-months div.month-name.current {
-  font-weight: var(--heat-js-sub-title-bold-weight);
+  font-weight: var(--heat-js-text-bold-weight-active);
 }
 
 /*
@@ -1714,7 +1713,7 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.co
   display: block;
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.count-date {
-  font-weight: var(--heat-js-sub-title-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-medium);
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.month-spacing {
   height: 100%;
@@ -1756,14 +1755,14 @@ div.heat-js div.chart-contents div.chart-months {
 }
 div.heat-js div.chart-contents div.chart-months div.month-name,
 div.heat-js div.chart-contents div.chart-months div.month-name-space {
-  font-weight: var(--heat-js-text-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-thin);
   text-align: left !important;
   position: absolute;
   bottom: 0;
 }
 div.heat-js div.chart-contents div.chart-months div.month-name.current,
 div.heat-js div.chart-contents div.chart-months div.month-name-space.current {
-  font-weight: var(--heat-js-sub-title-bold-weight);
+  font-weight: var(--heat-js-text-bold-weight-active);
 }
 div.heat-js div.chart-contents div.chart-months div.month-name-space {
   left: 0;
@@ -1901,7 +1900,7 @@ div.heat-js div.days-contents div.day-names {
 div.heat-js div.days-contents div.day-names div.day-name {
   flex: 1 100%;
   margin-top: var(--heat-js-spacing);
-  font-weight: var(--heat-js-text-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-thin);
   text-align: center !important;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2038,13 +2037,13 @@ div.heat-js div.months-contents div.month-names {
 div.heat-js div.months-contents div.month-names div.month-name {
   flex: 1 100%;
   margin-top: var(--heat-js-spacing);
-  font-weight: var(--heat-js-text-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-thin);
   text-align: center !important;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 div.heat-js div.months-contents div.month-names div.month-name.current {
-  font-weight: var(--heat-js-sub-title-bold-weight);
+  font-weight: var(--heat-js-text-bold-weight-active);
 }
 
 /*
@@ -2171,7 +2170,7 @@ div.heat-js div.statistics-contents div.statistics-ranges {
 div.heat-js div.statistics-contents div.statistics-ranges div.range-name {
   flex: 1 100%;
   margin-top: var(--heat-js-spacing);
-  font-weight: var(--heat-js-text-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-thin);
   text-align: center !important;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2355,7 +2354,7 @@ div.heat-js div.guide div.map-toggles div.less-text,
 div.heat-js div.guide div.map-toggles div.more-text,
 div.heat-js div.guide div.map-toggles div.invert-text {
   display: inline-block;
-  font-weight: var(--heat-js-text-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-thin);
   transition: var(--heat-js-transition);
   border-bottom: 1px solid transparent;
 }
@@ -2568,7 +2567,7 @@ div.heat-js-tooltip {
   max-width: 300px;
   padding: var(--heat-js-spacing);
   font-size: var(--heat-js-spacing-font-size);
-  font-weight: var(--heat-js-text-bold-weight);
+  font-weight: var(--heat-js-text-font-weight-thin);
   display: none;
 }
 div.heat-js-tooltip:has(b.tooltip-count) {
