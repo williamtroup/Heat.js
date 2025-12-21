@@ -34,7 +34,7 @@
                             "Noto Color Emoji";
                             
     // Font Weights
-    --heat-js-text-font-weight-thin: 400;
+    --heat-js-text-font-weight-thin: 300;
     --heat-js-text-font-weight-heavy: 900;
     --heat-js-text-font-weight-medium: 700;
 
@@ -922,7 +922,7 @@ div.heat-js {
 
             div.statistics-box-count {
                 text-align: center;
-                font-weight: 300;
+                font-weight: var(--heat-js-text-font-weight-thin);
 
                 &.unavailable {
                     font-style: italic;

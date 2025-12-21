@@ -18,7 +18,7 @@
                           "Segoe UI Emoji",
                           "Segoe UI Symbol",
                           "Noto Color Emoji";
-  --heat-js-text-font-weight-thin: 400;
+  --heat-js-text-font-weight-thin: 300;
   --heat-js-text-font-weight-heavy: 900;
   --heat-js-text-font-weight-medium: 700;
   --heat-js-color-black: #3b3a3a;
@@ -1082,7 +1082,7 @@ div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-title {
 }
 div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count {
   text-align: center;
-  font-weight: 300;
+  font-weight: var(--heat-js-text-font-weight-thin);
 }
 div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count.unavailable {
   font-style: italic;
