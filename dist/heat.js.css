@@ -149,6 +149,7 @@ div.heat-js {
   width: 100%;
   max-width: var(--heat-js-default-width);
   margin: 0 !important;
+  font-weight: var(--heat-js-text-font-weight-thin);
 }
 div.heat-js.resizable {
   resize: horizontal;
