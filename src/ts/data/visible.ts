@@ -11,7 +11,7 @@
  */
 
 
-import { ConfigurationOptions, type BindingOptions } from "../type";
+import { type ConfigurationOptions, type BindingOptions } from "../type";
 import { Char, ViewId, ViewName } from "./enum";
 
 
