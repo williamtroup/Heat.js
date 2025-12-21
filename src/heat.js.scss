@@ -1038,7 +1038,7 @@ div.heat-js {
                             white-space: nowrap;
 
                             &.current {
-                                font-weight: var(--heat-js-text-font-weight-medium);
+                                font-weight: var(--heat-js-text-font-weight-heavy);
                             }
                         }
         
@@ -1190,7 +1190,7 @@ div.heat-js {
                     bottom: 0;
 
                     &.current {
-                        font-weight: var(--heat-js-text-font-weight-medium);
+                        font-weight: var(--heat-js-text-font-weight-heavy);
                     }
                 }
             }
@@ -1310,7 +1310,7 @@ div.heat-js {
                 bottom: 0;
 
                 &.current {
-                    font-weight: var(--heat-js-text-font-weight-medium);
+                    font-weight: var(--heat-js-text-font-weight-heavy);
                 }
             }
 
@@ -1546,7 +1546,7 @@ div.heat-js {
                 text-overflow: ellipsis;
 
                 &.current {
-                    font-weight: var(--heat-js-text-font-weight-medium);
+                    font-weight: var(--heat-js-text-font-weight-heavy);
                 }
             }
         }
