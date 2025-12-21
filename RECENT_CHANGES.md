@@ -200,3 +200,4 @@
 - Fixed a fault that caused the current view to refresh when calling the public API function "switchView()" with the view that is active.
 - Fixed a fault that caused the "Export" button to appear in the title bar when no data is available (even when the binding option "title.showExportButton" is enabled).
 - Fixed a fault that would cause the data stored in local storage to be loaded for any Heat.js instance (no matter the element ID).
+- Fixed a fault that would caused the month name spacer to float under the month names in the "Chart" view (when specific settings are disabled).

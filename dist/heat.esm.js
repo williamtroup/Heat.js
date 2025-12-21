@@ -2918,7 +2918,10 @@ var T;
             if (e.views.chart.showMonthNames) {
                 const t = a.create(e._currentView.chartContents, "div", "chart-months");
                 let n = 0;
-                const o = o => {
+                const o = a.create(t, "div", "month-name-space");
+                o.style.height = `${t.offsetHeight}px`;
+                o.style.width = `${u}px`;
+                const s = o => {
                     let s = o + e.startMonth;
                     let c = l;
                     if (e.startMonth > 0 && s > 11) {
@@ -2951,17 +2954,14 @@ var T;
                 };
                 if (e.views.chart.showInReverseOrder) {
                     for (let e = 12; e--; ) {
-                        o(e);
+                        s(e);
                     }
                 } else {
                     for (let e = 0; e < 12; e++) {
-                        o(e);
+                        s(e);
                     }
                 }
                 t.style.width = `${c.offsetWidth}px`;
-                const s = a.create(t, "div", "month-name-space");
-                s.style.height = `${t.offsetHeight}px`;
-                s.style.width = `${u}px`;
             }
             if (e.views.chart.keepScrollPositions) {
                 e._currentView.chartContents.scrollLeft = e._currentView.chartContentsScrollLeft;

@@ -1770,6 +1770,7 @@ div.heat-js div.chart-contents div.chart-months div.month-name-space {
   top: 0;
   position: sticky;
   background-color: var(--heat-js-container-background-color);
+  z-index: 10;
 }
 
 /*

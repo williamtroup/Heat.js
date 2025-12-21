@@ -1819,6 +1819,10 @@ import { ColorRange } from "./ts/area/color-range";
                 const chartMonths: HTMLElement = DomElement.create( bindingOptions._currentView!.chartContents, "div", "chart-months" );
                 let monthNameAddedIndex: number = 0;
 
+                const monthNameSpace: HTMLElement = DomElement.create( chartMonths, "div", "month-name-space" );
+                monthNameSpace.style.height = `${chartMonths.offsetHeight}px`;
+                monthNameSpace.style.width = `${labelsWidth}px`;
+
                 const addMonthName: Function = ( addMonthNameIndex: number ) : void => {
                     let actualMonthIndex: number = addMonthNameIndex + bindingOptions.startMonth!;
                     let actualYear: number = currentYear;
@@ -1872,10 +1876,6 @@ import { ColorRange } from "./ts/area/color-range";
                 }
 
                 chartMonths.style.width = `${dayLines.offsetWidth}px`;
-
-                const monthNameSpace: HTMLElement = DomElement.create( chartMonths, "div", "month-name-space" );
-                monthNameSpace.style.height = `${chartMonths.offsetHeight}px`;
-                monthNameSpace.style.width = `${labelsWidth}px`;
             }
     
             if ( bindingOptions.views!.chart!.keepScrollPositions ) {

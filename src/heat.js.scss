@@ -1319,6 +1319,7 @@ div.heat-js {
                 top: 0;
                 position: sticky;
                 background-color: var(--heat-js-container-background-color);
+                z-index: 10;
             }
         }
     }
