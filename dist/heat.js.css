@@ -338,7 +338,7 @@ div.heat-js div.disabled div.export div.dialog-contents button.active {
   background: var(--heat-js-button-background-color-hover);
   color: var(--heat-js-button-text-color-hover);
   transition: var(--heat-js-transition);
-  font-weight: var(--heat-js-text-bold-weight-active);
+  font-weight: var(--heat-js-text-font-weight-medium);
 }
 div.heat-js div.disabled div.export div.dialog-contents input.filename,
 div.heat-js div.disabled div.export div.dialog-contents label.checkbox {
@@ -398,7 +398,7 @@ div.heat-js div.disabled div.import div.dialog-contents button.active {
   background: var(--heat-js-button-background-color-hover);
   color: var(--heat-js-button-text-color-hover);
   transition: var(--heat-js-transition);
-  font-weight: var(--heat-js-text-bold-weight-active);
+  font-weight: var(--heat-js-text-font-weight-medium);
 }
 div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files {
   display: flex;
@@ -534,7 +534,7 @@ div.heat-js div.disabled div.add-type div.dialog-contents button.active {
   background: var(--heat-js-button-background-color-hover);
   color: var(--heat-js-button-text-color-hover);
   transition: var(--heat-js-transition);
-  font-weight: var(--heat-js-text-bold-weight-active);
+  font-weight: var(--heat-js-text-font-weight-medium);
 }
 div.heat-js div.disabled div.add-type div.dialog-contents div.buttons {
   text-align: right;
@@ -588,7 +588,7 @@ div.heat-js div.title-bar button.active {
   background: var(--heat-js-button-background-color-hover);
   color: var(--heat-js-button-text-color-hover);
   transition: var(--heat-js-transition);
-  font-weight: var(--heat-js-text-bold-weight-active);
+  font-weight: var(--heat-js-text-font-weight-medium);
 }
 div.heat-js div.title-bar button {
   display: inline-flex;
@@ -925,7 +925,7 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu di
   position: relative;
   background-color: var(--heat-js-title-background-color-hover);
   color: var(--heat-js-title-text-color-hover);
-  font-weight: var(--heat-js-text-bold-weight-active);
+  font-weight: var(--heat-js-text-font-weight-heavy);
   cursor: default !important;
 }
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item-active::before {
@@ -1023,7 +1023,6 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
   color: var(--heat-js-color-white);
   font-weight: var(--heat-js-text-font-weight-thin);
   border-bottom: var(--heat-js-border-size) dashed var(--heat-js-container-border-color);
-  text-align: center;
   width: 100%;
   height: var(--heat-js-years-menu-item-height);
   transition: var(--heat-js-transition);
@@ -1046,12 +1045,12 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu div.year-menu-item-active {
   background-color: var(--heat-js-years-background-color-hover);
   color: var(--heat-js-years-text-color-hover);
-  font-weight: var(--heat-js-text-bold-weight-active);
+  font-weight: var(--heat-js-text-font-weight-heavy);
   cursor: default !important;
 }
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu div.year-menu-item-current {
   font-style: italic;
-  font-weight: var(--heat-js-text-bold-weight-active);
+  font-weight: var(--heat-js-text-font-weight-heavy);
   color: var(--heat-js-day-color-4-background-color);
 }
 
@@ -1156,7 +1155,7 @@ div.heat-js div.map-contents-container div.zooming button.active {
   background: var(--heat-js-button-background-color-hover);
   color: var(--heat-js-button-text-color-hover);
   transition: var(--heat-js-transition);
-  font-weight: var(--heat-js-text-bold-weight-active);
+  font-weight: var(--heat-js-text-font-weight-medium);
 }
 div.heat-js div.map-contents-container div.zooming button {
   display: inline-flex;
@@ -1328,7 +1327,7 @@ div.heat-js div.map-contents-container div.map-contents div.map div.months div.m
 }
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name.current,
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name-bottom.current {
-  font-weight: var(--heat-js-text-bold-weight-active);
+  font-weight: var(--heat-js-text-font-weight-medium);
 }
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name {
   margin-bottom: var(--heat-js-spacing);
@@ -1433,7 +1432,7 @@ div.heat-js div.line-contents-container div.zooming button.active {
   background: var(--heat-js-button-background-color-hover);
   color: var(--heat-js-button-text-color-hover);
   transition: var(--heat-js-transition);
-  font-weight: var(--heat-js-text-bold-weight-active);
+  font-weight: var(--heat-js-text-font-weight-medium);
 }
 div.heat-js div.line-contents-container div.zooming button {
   display: inline-flex;
@@ -1604,7 +1603,7 @@ div.heat-js div.line-contents-container div.line-contents div.line-months div.mo
   bottom: 0;
 }
 div.heat-js div.line-contents-container div.line-contents div.line-months div.month-name.current {
-  font-weight: var(--heat-js-text-bold-weight-active);
+  font-weight: var(--heat-js-text-font-weight-medium);
 }
 
 /*
@@ -1762,7 +1761,7 @@ div.heat-js div.chart-contents div.chart-months div.month-name-space {
 }
 div.heat-js div.chart-contents div.chart-months div.month-name.current,
 div.heat-js div.chart-contents div.chart-months div.month-name-space.current {
-  font-weight: var(--heat-js-text-bold-weight-active);
+  font-weight: var(--heat-js-text-font-weight-medium);
 }
 div.heat-js div.chart-contents div.chart-months div.month-name-space {
   left: 0;
@@ -2043,7 +2042,7 @@ div.heat-js div.months-contents div.month-names div.month-name {
   text-overflow: ellipsis;
 }
 div.heat-js div.months-contents div.month-names div.month-name.current {
-  font-weight: var(--heat-js-text-bold-weight-active);
+  font-weight: var(--heat-js-text-font-weight-medium);
 }
 
 /*
@@ -2273,7 +2272,7 @@ div.heat-js div.guide div.map-types button.active {
   background: var(--heat-js-button-background-color-hover);
   color: var(--heat-js-button-text-color-hover);
   transition: var(--heat-js-transition);
-  font-weight: var(--heat-js-text-bold-weight-active);
+  font-weight: var(--heat-js-text-font-weight-medium);
 }
 div.heat-js div.guide div.map-types {
   text-align: center;
