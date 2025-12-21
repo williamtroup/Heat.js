@@ -134,12 +134,13 @@ import { ColorRange } from "./ts/area/color-range";
             LocalStorage.store( bindingOptions, _elements_InstanceData[ bindingOptions._currentView!.element.id ] );
         }
 
-        renderControlStoreScrollPositionsAndSizes( bindingOptions );
-        startDataPullTimer( bindingOptions );
-        setupTrendTypes( bindingOptions );
+        bindingOptions._currentView!.yearsAvailable = getYearsAvailableInData( bindingOptions );
 
+        Visible.View.getScrollPositions( bindingOptions );
         ToolTip.render( bindingOptions );
 
+        startDataPullTimer( bindingOptions );
+        setupTrendTypes( bindingOptions );
         renderControlTitleBar( bindingOptions );
         renderControlYearStatistics( bindingOptions );
 
@@ -170,35 +171,6 @@ import { ColorRange } from "./ts/area/color-range";
         renderControlGuide( bindingOptions );
 
         Visible.View.set( bindingOptions );
-    }
-
-    function renderControlStoreScrollPositionsAndSizes( bindingOptions: BindingOptions ) : void {
-        if ( bindingOptions.views!.map!.enabled && Is.defined( bindingOptions._currentView!.mapContents ) ) {
-            bindingOptions._currentView!.mapContentsScrollLeft = bindingOptions._currentView!.mapContents.scrollLeft;
-        }
-
-        if ( bindingOptions.views!.line!.enabled && Is.defined( bindingOptions._currentView!.lineContents ) ) {
-            bindingOptions._currentView!.lineContentsScrollLeft = bindingOptions._currentView!.lineContents.scrollLeft;
-        }
-
-        if ( bindingOptions.views!.chart!.enabled && Is.defined( bindingOptions._currentView!.chartContents ) ) {
-            bindingOptions._currentView!.chartContentsScrollLeft = bindingOptions._currentView!.chartContents.scrollLeft;
-        }
-
-        if ( bindingOptions.views!.days!.enabled && Is.defined( bindingOptions._currentView!.daysContents ) ) {
-            bindingOptions._currentView!.daysContentsScrollLeft = bindingOptions._currentView!.daysContents.scrollLeft;
-        }
-
-        if ( bindingOptions.views!.statistics!.enabled && Is.defined( bindingOptions._currentView!.statisticsContents ) ) {
-            bindingOptions._currentView!.statisticsContentsScrollLeft = bindingOptions._currentView!.statisticsContents.scrollLeft;
-        }
-
-        if ( bindingOptions._currentView!.element.innerHTML !== Char.empty ) {
-            bindingOptions._currentView!.element.style.height = `${bindingOptions._currentView!.element.offsetHeight}px`;
-        }
-        
-        bindingOptions._currentView!.element.innerHTML = Char.empty;
-        bindingOptions._currentView!.yearsAvailable = getYearsAvailableInData( bindingOptions );
     }
 
 
