@@ -93,6 +93,8 @@
   --heat-js-button-color-disabled: #616060;
   --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
   --heat-js-button-icon-size: 12px;
+  --heat-js-button-icon-width: 32px;
+  --heat-js-button-height: 30px;
   --heat-js-input-background-color: var(--heat-js-day-background-color);
   --heat-js-input-border-color: var(--heat-js-container-border-color);
   --heat-js-input-text-color: var(--heat-js-color-white);
@@ -598,8 +600,8 @@ div.heat-js div.title-bar button {
   align-items: center;
   justify-content: center;
   font-weight: var(--heat-js-text-font-weight-heavy);
-  width: 32px;
-  height: 30px;
+  width: var(--heat-js-button-icon-width) !important;
+  height: var(--heat-js-button-height) !important;
 }
 div.heat-js div.title-bar button.back {
   margin-left: calc(var(--heat-js-spacing) * 2) !important;
@@ -1198,8 +1200,8 @@ div.heat-js div.map-contents-container div.zooming button {
   margin-right: calc(var(--heat-js-spacing) / 2);
   font-weight: var(--heat-js-title-bold-weight);
   margin-right: 0;
-  width: 32px;
-  height: 30px;
+  width: var(--heat-js-button-icon-width) !important;
+  height: var(--heat-js-button-height) !important;
 }
 div.heat-js div.map-contents-container div.zooming div.zoom-close-button {
   float: unset;
@@ -1475,8 +1477,8 @@ div.heat-js div.line-contents-container div.zooming button {
   margin-right: calc(var(--heat-js-spacing) / 2);
   font-weight: var(--heat-js-title-bold-weight);
   margin-right: 0;
-  width: 32px;
-  height: 30px;
+  width: var(--heat-js-button-icon-width) !important;
+  height: var(--heat-js-button-height) !important;
 }
 div.heat-js div.line-contents-container div.zooming div.zoom-close-button {
   float: unset;
@@ -2356,11 +2358,15 @@ div.heat-js div.guide div.map-types button.add i.plus::after {
   border-radius: calc(var(--heat-js-button-icon-size) / 4);
   left: 0;
 }
+div.heat-js div.guide div.map-types button.add {
+  width: var(--heat-js-button-icon-width) !important;
+  height: var(--heat-js-button-height) !important;
+}
 div.heat-js div.guide div.map-types button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 30px;
+  height: var(--heat-js-button-height);
   margin-top: calc(var(--heat-js-spacing) / 4) !important;
   margin-bottom: calc(var(--heat-js-spacing) / 4) !important;
   margin-left: 0 !important;

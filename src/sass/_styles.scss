@@ -227,8 +227,8 @@ $minimum-width-smaller: 450px;
 }
 
 @mixin icon-button-size {
-    width: 32px;
-    height: 30px;
+    width: var(--heat-js-button-icon-width) !important;
+    height: var(--heat-js-button-height) !important;
 }
 
 @mixin zooming {
