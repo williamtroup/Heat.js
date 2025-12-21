@@ -8,17 +8,17 @@
         &:before {
             width: 0; 
             height: 0; 
-            border-top: calc( button.$size / 2 ) solid transparent;
-            border-bottom: calc( button.$size / 2 ) solid transparent;
-            border-left: calc( button.$size / 2 ) solid currentColor;
+            border-top: calc( var(--heat-js-button-icon-size) / 2 ) solid transparent;
+            border-bottom: calc( var(--heat-js-button-icon-size) / 2 ) solid transparent;
+            border-left: calc( var(--heat-js-button-icon-size) / 2 ) solid currentColor;
             right: 0;
             top: 0;
         }
 
         &:after {
             @include button.top-center;
-            width: calc( button.$size / 2 );
-            height: calc( button.$size / 3 );
+            width: calc( var(--heat-js-button-icon-size) / 2 );
+            height: calc( var(--heat-js-button-icon-size) / 3 );
             background-color: currentColor;
             left: 0;
         }

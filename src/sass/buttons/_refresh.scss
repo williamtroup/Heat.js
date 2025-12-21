@@ -9,8 +9,8 @@
             border-top: button.$border;
             border-left: button.$border;
             border-radius: button.$border-radius;
-            width: (button.$size - button.$border-width) - 1px;
-            height: button.$size;
+            width: calc( ( var(--heat-js-button-icon-size) - button.$border-width - 1px ) );
+            height: var(--heat-js-button-icon-size);
             left: 0;
             top: 0;
         }
@@ -19,8 +19,8 @@
             border-bottom: button.$border;
             border-right: button.$border;
             border-radius: button.$border-radius;
-            width: (button.$size - button.$border-width) - 1px;
-            height: button.$size;
+            width: calc( ( var(--heat-js-button-icon-size) - button.$border-width - 1px ) );
+            height: var(--heat-js-button-icon-size);
             right: 0;
             top: 0;
         }

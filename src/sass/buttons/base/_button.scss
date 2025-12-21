@@ -1,12 +1,11 @@
-$size: 11px;
-$border-width: calc( $size / 4 );
+$border-width: calc( var(--heat-js-button-icon-size) / 4 );
 $border-radius: $border-width;
 $border: $border-width solid currentColor;
 
 
 @mixin button-size {
-    width: $size;
-    height: $size;
+    width: var(--heat-js-button-icon-size);
+    height: var(--heat-js-button-icon-size);
     display: inline-block;
     position: relative;
 }

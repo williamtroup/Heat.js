@@ -6,8 +6,8 @@
         @include button.button-no-before-after;
         width: 0; 
         height: 0;
-        border-top: button.$size solid currentColor;
-        border-left: calc( button.$size / 2 ) solid transparent;
-        border-right: calc( button.$size / 2 ) solid transparent;
+        border-top: var(--heat-js-button-icon-size) solid currentColor;
+        border-left: calc( var(--heat-js-button-icon-size) / 2 ) solid transparent;
+        border-right: calc( var(--heat-js-button-icon-size) / 2 ) solid transparent;
     }
 }

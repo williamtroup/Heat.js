@@ -92,6 +92,7 @@
   --heat-js-button-background-color-active: #616b79;
   --heat-js-button-color-disabled: #616060;
   --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
+  --heat-js-button-icon-size: 11px;
   --heat-js-input-background-color: var(--heat-js-day-background-color);
   --heat-js-input-border-color: var(--heat-js-container-border-color);
   --heat-js-input-text-color: var(--heat-js-color-white);
@@ -603,8 +604,8 @@ div.heat-js div.title-bar button.back {
   margin-left: calc(var(--heat-js-spacing) * 2) !important;
 }
 div.heat-js div.title-bar button.back .arrow-line-left {
-  width: 11px;
-  height: 11px;
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
   display: inline-block;
   position: relative;
 }
@@ -615,23 +616,23 @@ div.heat-js div.title-bar button.back .arrow-line-left::before, div.heat-js div.
 div.heat-js div.title-bar button.back .arrow-line-left:before {
   width: 0;
   height: 0;
-  border-top: 5.5px solid transparent;
-  border-bottom: 5.5px solid transparent;
-  border-right: 5.5px solid currentColor;
+  border-top: calc(var(--heat-js-button-icon-size) / 2) solid transparent;
+  border-bottom: calc(var(--heat-js-button-icon-size) / 2) solid transparent;
+  border-right: calc(var(--heat-js-button-icon-size) / 2) solid currentColor;
   left: 0;
   top: 0;
 }
 div.heat-js div.title-bar button.back .arrow-line-left:after {
   top: 50%;
   transform: translate(0, -50%);
-  width: 5.5px;
-  height: 3.6666666667px;
+  width: calc(var(--heat-js-button-icon-size) / 2);
+  height: calc(var(--heat-js-button-icon-size) / 3);
   background-color: currentColor;
   right: 0;
 }
 div.heat-js div.title-bar button.next .arrow-line-right {
-  width: 11px;
-  height: 11px;
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
   display: inline-block;
   position: relative;
 }
@@ -642,45 +643,45 @@ div.heat-js div.title-bar button.next .arrow-line-right::before, div.heat-js div
 div.heat-js div.title-bar button.next .arrow-line-right:before {
   width: 0;
   height: 0;
-  border-top: 5.5px solid transparent;
-  border-bottom: 5.5px solid transparent;
-  border-left: 5.5px solid currentColor;
+  border-top: calc(var(--heat-js-button-icon-size) / 2) solid transparent;
+  border-bottom: calc(var(--heat-js-button-icon-size) / 2) solid transparent;
+  border-left: calc(var(--heat-js-button-icon-size) / 2) solid currentColor;
   right: 0;
   top: 0;
 }
 div.heat-js div.title-bar button.next .arrow-line-right:after {
   top: 50%;
   transform: translate(0, -50%);
-  width: 5.5px;
-  height: 3.6666666667px;
+  width: calc(var(--heat-js-button-icon-size) / 2);
+  height: calc(var(--heat-js-button-icon-size) / 3);
   background-color: currentColor;
   left: 0;
 }
 div.heat-js div.title-bar button.import i.arrow-up {
-  width: 11px;
-  height: 11px;
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
   display: inline-block;
   position: relative;
   width: 0;
   height: 0;
-  border-left: 5.5px solid transparent;
-  border-right: 5.5px solid transparent;
-  border-bottom: 11px solid currentColor;
+  border-left: calc(var(--heat-js-button-icon-size) / 2) solid transparent;
+  border-right: calc(var(--heat-js-button-icon-size) / 2) solid transparent;
+  border-bottom: var(--heat-js-button-icon-size) solid currentColor;
 }
 div.heat-js div.title-bar button.export i.arrow-down {
-  width: 11px;
-  height: 11px;
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
   display: inline-block;
   position: relative;
   width: 0;
   height: 0;
-  border-top: 11px solid currentColor;
-  border-left: 5.5px solid transparent;
-  border-right: 5.5px solid transparent;
+  border-top: var(--heat-js-button-icon-size) solid currentColor;
+  border-left: calc(var(--heat-js-button-icon-size) / 2) solid transparent;
+  border-right: calc(var(--heat-js-button-icon-size) / 2) solid transparent;
 }
 div.heat-js div.title-bar button.refresh i.refresh {
-  width: 11px;
-  height: 11px;
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
   display: inline-block;
   position: relative;
 }
@@ -689,26 +690,26 @@ div.heat-js div.title-bar button.refresh i.refresh::before, div.heat-js div.titl
   content: "";
 }
 div.heat-js div.title-bar button.refresh i.refresh::before {
-  border-top: 2.75px solid currentColor;
-  border-left: 2.75px solid currentColor;
-  border-radius: 2.75px;
-  width: 7.25px;
-  height: 11px;
+  border-top: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+  border-left: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+  border-radius: calc(var(--heat-js-button-icon-size) / 4);
+  width: calc(var(--heat-js-button-icon-size) - var(--heat-js-button-icon-size) / 4 - 1px);
+  height: var(--heat-js-button-icon-size);
   left: 0;
   top: 0;
 }
 div.heat-js div.title-bar button.refresh i.refresh::after {
-  border-bottom: 2.75px solid currentColor;
-  border-right: 2.75px solid currentColor;
-  border-radius: 2.75px;
-  width: 7.25px;
-  height: 11px;
+  border-bottom: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+  border-right: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+  border-radius: calc(var(--heat-js-button-icon-size) / 4);
+  width: calc(var(--heat-js-button-icon-size) - var(--heat-js-button-icon-size) / 4 - 1px);
+  height: var(--heat-js-button-icon-size);
   right: 0;
   top: 0;
 }
 div.heat-js div.title-bar button.clear i.close {
-  width: 11px;
-  height: 11px;
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
   display: inline-block;
   position: relative;
 }
@@ -717,12 +718,12 @@ div.heat-js div.title-bar button.clear i.close::before, div.heat-js div.title-ba
   content: "";
 }
 div.heat-js div.title-bar button.clear i.close::before, div.heat-js div.title-bar button.clear i.close::after {
-  width: 2.75px;
-  height: 12.375px;
+  width: calc(var(--heat-js-button-icon-size) / 4);
+  height: calc(var(--heat-js-button-icon-size) + var(--heat-js-button-icon-size) / 4 / 2);
   background-color: currentColor;
-  border-radius: 2.75px;
-  left: 4.125px;
-  top: -0.6875px;
+  border-radius: calc(var(--heat-js-button-icon-size) / 4);
+  left: calc(var(--heat-js-button-icon-size) / 2 - var(--heat-js-button-icon-size) / 4 / 2);
+  top: -calc(calc(var(--heat-js-button-icon-size) / 4)/4);
 }
 div.heat-js div.title-bar button.clear i.close::before {
   -webkit-transform: rotate(45deg);
@@ -735,8 +736,8 @@ div.heat-js div.title-bar button.clear i.close::after {
   transform: rotate(-45deg);
 }
 div.heat-js div.title-bar button.current-year i.pin {
-  width: 11px;
-  height: 11px;
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
   display: inline-block;
   position: relative;
 }
@@ -745,16 +746,16 @@ div.heat-js div.title-bar button.current-year i.pin::before, div.heat-js div.tit
   content: "";
 }
 div.heat-js div.title-bar button.current-year i.pin {
-  height: 11px;
-  border-top: 2.75px solid currentColor;
+  height: var(--heat-js-button-icon-size);
+  border-top: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
   border-radius: 50%;
 }
 div.heat-js div.title-bar button.current-year i.pin::before {
   left: 50%;
   transform: translate(-50%);
   background-color: currentColor;
-  width: 2.75px;
-  height: 5.25px;
+  width: calc(var(--heat-js-button-icon-size) / 4);
+  height: calc(var(--heat-js-button-icon-size) - var(--heat-js-button-icon-size) / 4 - 3px);
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   top: 0;
@@ -763,8 +764,8 @@ div.heat-js div.title-bar button.current-year i.pin::after {
   left: 50%;
   transform: translate(-50%);
   background-color: currentColor;
-  width: 2.75px;
-  height: 2.75px;
+  width: calc(var(--heat-js-button-icon-size) / 4);
+  height: calc(var(--heat-js-button-icon-size) / 4);
   border-radius: 50%;
   bottom: 0;
 }
@@ -1231,8 +1232,8 @@ div.heat-js div.map-contents-container div.zooming div.zoom-close-button {
   margin-left: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js div.map-contents-container div.zooming button.zoom-out i.minus {
-  width: 11px;
-  height: 11px;
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
   display: inline-block;
   position: relative;
 }
@@ -1243,8 +1244,8 @@ div.heat-js div.map-contents-container div.zooming button.zoom-out i.minus::befo
   transform: translate(0, -50%);
   background-color: currentColor;
   width: 100%;
-  height: 2.75px;
-  border-radius: 2.75px;
+  height: calc(var(--heat-js-button-icon-size) / 4);
+  border-radius: calc(var(--heat-js-button-icon-size) / 4);
   left: 0;
 }
 div.heat-js div.map-contents-container div.zooming span.zoom-level {
@@ -1253,8 +1254,8 @@ div.heat-js div.map-contents-container div.zooming span.zoom-level {
   color: var(--heat-js-color-white);
 }
 div.heat-js div.map-contents-container div.zooming button.zoom-in i.plus {
-  width: 11px;
-  height: 11px;
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
   display: inline-block;
   position: relative;
 }
@@ -1266,9 +1267,9 @@ div.heat-js div.map-contents-container div.zooming button.zoom-in i.plus::before
   left: 50%;
   transform: translate(-50%);
   background-color: currentColor;
-  width: 2.75px;
+  width: calc(var(--heat-js-button-icon-size) / 4);
   height: 100%;
-  border-radius: 2.75px;
+  border-radius: calc(var(--heat-js-button-icon-size) / 4);
   top: 0;
 }
 div.heat-js div.map-contents-container div.zooming button.zoom-in i.plus::after {
@@ -1276,8 +1277,8 @@ div.heat-js div.map-contents-container div.zooming button.zoom-in i.plus::after 
   transform: translate(0, -50%);
   background-color: currentColor;
   width: 100%;
-  height: 2.75px;
-  border-radius: 2.75px;
+  height: calc(var(--heat-js-button-icon-size) / 4);
+  border-radius: calc(var(--heat-js-button-icon-size) / 4);
   left: 0;
 }
 div.heat-js div.map-contents-container div.map-contents {
@@ -1508,8 +1509,8 @@ div.heat-js div.line-contents-container div.zooming div.zoom-close-button {
   margin-left: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js div.line-contents-container div.zooming button.zoom-out i.minus {
-  width: 11px;
-  height: 11px;
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
   display: inline-block;
   position: relative;
 }
@@ -1520,8 +1521,8 @@ div.heat-js div.line-contents-container div.zooming button.zoom-out i.minus::bef
   transform: translate(0, -50%);
   background-color: currentColor;
   width: 100%;
-  height: 2.75px;
-  border-radius: 2.75px;
+  height: calc(var(--heat-js-button-icon-size) / 4);
+  border-radius: calc(var(--heat-js-button-icon-size) / 4);
   left: 0;
 }
 div.heat-js div.line-contents-container div.zooming span.zoom-level {
@@ -1530,8 +1531,8 @@ div.heat-js div.line-contents-container div.zooming span.zoom-level {
   color: var(--heat-js-color-white);
 }
 div.heat-js div.line-contents-container div.zooming button.zoom-in i.plus {
-  width: 11px;
-  height: 11px;
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
   display: inline-block;
   position: relative;
 }
@@ -1543,9 +1544,9 @@ div.heat-js div.line-contents-container div.zooming button.zoom-in i.plus::befor
   left: 50%;
   transform: translate(-50%);
   background-color: currentColor;
-  width: 2.75px;
+  width: calc(var(--heat-js-button-icon-size) / 4);
   height: 100%;
-  border-radius: 2.75px;
+  border-radius: calc(var(--heat-js-button-icon-size) / 4);
   top: 0;
 }
 div.heat-js div.line-contents-container div.zooming button.zoom-in i.plus::after {
@@ -1553,8 +1554,8 @@ div.heat-js div.line-contents-container div.zooming button.zoom-in i.plus::after
   transform: translate(0, -50%);
   background-color: currentColor;
   width: 100%;
-  height: 2.75px;
-  border-radius: 2.75px;
+  height: calc(var(--heat-js-button-icon-size) / 4);
+  border-radius: calc(var(--heat-js-button-icon-size) / 4);
   left: 0;
 }
 div.heat-js div.line-contents-container div.line-contents {
@@ -2326,8 +2327,8 @@ div.heat-js div.guide div.map-types a.label:hover {
   border-bottom: 1px solid var(--heat-js-color-white);
 }
 div.heat-js div.guide div.map-types button.add i.plus {
-  width: 11px;
-  height: 11px;
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
   display: inline-block;
   position: relative;
 }
@@ -2339,9 +2340,9 @@ div.heat-js div.guide div.map-types button.add i.plus::before {
   left: 50%;
   transform: translate(-50%);
   background-color: currentColor;
-  width: 2.75px;
+  width: calc(var(--heat-js-button-icon-size) / 4);
   height: 100%;
-  border-radius: 2.75px;
+  border-radius: calc(var(--heat-js-button-icon-size) / 4);
   top: 0;
 }
 div.heat-js div.guide div.map-types button.add i.plus::after {
@@ -2349,8 +2350,8 @@ div.heat-js div.guide div.map-types button.add i.plus::after {
   transform: translate(0, -50%);
   background-color: currentColor;
   width: 100%;
-  height: 2.75px;
-  border-radius: 2.75px;
+  height: calc(var(--heat-js-button-icon-size) / 4);
+  border-radius: calc(var(--heat-js-button-icon-size) / 4);
   left: 0;
 }
 div.heat-js div.guide div.map-types button {
