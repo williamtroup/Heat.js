@@ -92,7 +92,7 @@
   --heat-js-button-background-color-active: #616b79;
   --heat-js-button-color-disabled: #616060;
   --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
-  --heat-js-button-icon-size: 11px;
+  --heat-js-button-icon-size: 12px;
   --heat-js-input-background-color: var(--heat-js-day-background-color);
   --heat-js-input-border-color: var(--heat-js-container-border-color);
   --heat-js-input-text-color: var(--heat-js-color-white);
@@ -2355,6 +2355,10 @@ div.heat-js div.guide div.map-types button.add i.plus::after {
   left: 0;
 }
 div.heat-js div.guide div.map-types button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
   margin-top: calc(var(--heat-js-spacing) / 4) !important;
   margin-bottom: calc(var(--heat-js-spacing) / 4) !important;
   margin-left: 0 !important;

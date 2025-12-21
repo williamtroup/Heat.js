@@ -136,7 +136,7 @@
     --heat-js-button-background-color-active: #616b79;
     --heat-js-button-color-disabled: #616060;
     --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
-    --heat-js-button-icon-size: 11px;
+    --heat-js-button-icon-size: 12px;
 
     // Inputs/Selects
     --heat-js-input-background-color: var(--heat-js-day-background-color);
@@ -1718,6 +1718,10 @@ div.heat-js {
             }
 
             button {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                height: 30px;
                 margin-top: calc( var(--heat-js-spacing) / 4 ) !important;
                 margin-bottom: calc( var(--heat-js-spacing) / 4 ) !important;
                 margin-left: 0 !important;
