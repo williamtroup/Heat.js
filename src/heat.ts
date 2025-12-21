@@ -168,7 +168,8 @@ import { ColorRange } from "./ts/area/color-range";
         }
 
         renderControlGuide( bindingOptions );
-        renderControlVisibleView( bindingOptions );
+
+        Visible.setView( bindingOptions );
     }
 
     function renderControlStoreScrollPositionsAndSizes( bindingOptions: BindingOptions ) : void {
@@ -198,24 +199,6 @@ import { ColorRange } from "./ts/area/color-range";
         
         bindingOptions._currentView!.element.innerHTML = Char.empty;
         bindingOptions._currentView!.yearsAvailable = getYearsAvailableInData( bindingOptions );
-    }
-
-    function renderControlVisibleView( bindingOptions: BindingOptions ) : void {
-        if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
-            bindingOptions._currentView!.mapContentsContainer.style.display = "block";
-        } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
-            bindingOptions._currentView!.lineContentsContainer.style.display = "block";
-        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-            bindingOptions._currentView!.chartContents.style.display = "block";
-        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
-            bindingOptions._currentView!.daysContents.style.display = "block";
-        } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
-            bindingOptions._currentView!.monthsContents.style.display = "block";
-        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-            bindingOptions._currentView!.statisticsContents.style.display = "block";
-        }
-
-        bindingOptions._currentView!.element.style.removeProperty( "height" );
     }
 
 
@@ -294,8 +277,8 @@ import { ColorRange } from "./ts/area/color-range";
             bindingOptions._currentView!.configurationDialog.style.display = "block";
         }
 
-        const daysToShow: number[] = Visible.days( bindingOptions );
-        const monthsToShow: number[] = Visible.months( bindingOptions );
+        const daysToShow: number[] = Visible.getDays( bindingOptions );
+        const monthsToShow: number[] = Visible.getMonths( bindingOptions );
 
         for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
             bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ].checked = Is.dayVisible( daysToShow, dayIndex + 1 );
@@ -315,8 +298,8 @@ import { ColorRange } from "./ts/area/color-range";
             bindingOptions._currentView!.configurationDialog.style.display = "none";
         }
 
-        const daysToShow: number[] = Visible.days( bindingOptions );
-        const monthsToShow: number[] = Visible.months( bindingOptions );
+        const daysToShow: number[] = Visible.getDays( bindingOptions );
+        const monthsToShow: number[] = Visible.getMonths( bindingOptions );
         const updatedDaysToShow: number[] = [];
         const updatedMonthsToShow: number[] = [];
         let render: boolean = false;
@@ -478,8 +461,8 @@ import { ColorRange } from "./ts/area/color-range";
 
         if ( onlyDataBeingViewed ) {
             const currentYear: number = bindingOptions._currentView!.year;
-            const daysToShow: number[] = Visible.days( bindingOptions );
-            const monthsToShow: number[] = Visible.months( bindingOptions );
+            const daysToShow: number[] = Visible.getDays( bindingOptions );
+            const monthsToShow: number[] = Visible.getMonths( bindingOptions );
 
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
@@ -821,21 +804,7 @@ import { ColorRange } from "./ts/area/color-range";
 
                 if ( bindingOptions.title!.showSectionText ) {
                     DomElement.createWithHTML( title, "span", "section-text", "[" );
-
-                    if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
-                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.mapText! );
-                    } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
-                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.lineText! );
-                    } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.chartText! );
-                    } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
-                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.daysText! );
-                    } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
-                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.monthsText! );
-                    } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-                        DomElement.createWithHTML( title, "span", "section-text-name", _configurationOptions.text!.colorRangesText! );
-                    }
-
+                    DomElement.createWithHTML( title, "span", "section-text-name", Visible.getViewText( bindingOptions, _configurationOptions ) );
                     DomElement.createWithHTML( title, "span", "section-text", "]" );
                 }
             }
@@ -1107,8 +1076,8 @@ import { ColorRange } from "./ts/area/color-range";
 
         if ( bindingOptions.yearlyStatistics!.enabled && ( !bindingOptions.yearlyStatistics!.showOnlyForCurrentYear || isCurrentYear ) ) {
             const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics" );
-            const daysToShow: number[] = Visible.days( bindingOptions );
-            const monthsToShow: number[] = Visible.months( bindingOptions );
+            const daysToShow: number[] = Visible.getDays( bindingOptions );
+            const monthsToShow: number[] = Visible.getMonths( bindingOptions );
             const startOfYear: Date = new Date( bindingOptions._currentView!.year, bindingOptions.startMonth!, 1 );
             const endOfYear: Date = new Date( bindingOptions._currentView!.year + 1, bindingOptions.startMonth!, 1 );
             const yearCount: number = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfYear, endOfYear );
@@ -3616,21 +3585,7 @@ import { ColorRange } from "./ts/area/color-range";
         switchView: function ( elementId: string, viewName: string ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedString( viewName ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-                let viewId: ViewId = ViewId.unknown;
-    
-                if ( viewName.toLowerCase() === ViewName.map ) {
-                    viewId = ViewId.map;
-                } else if ( viewName.toLowerCase() === ViewName.line ) {
-                    viewId = ViewId.line;
-                } else if ( viewName.toLowerCase() === ViewName.chart ) {
-                    viewId = ViewId.chart;
-                } else if ( viewName.toLowerCase() === ViewName.days ) {
-                    viewId = ViewId.days;
-                } else if ( viewName.toLowerCase() === ViewName.months ) {
-                    viewId = ViewId.months;
-                } else if ( viewName.toLowerCase() === ViewName.statistics ) {
-                    viewId = ViewId.statistics;
-                }
+                let viewId: ViewId = Visible.getView( viewName );
     
                 if ( viewId !== ViewId.unknown && bindingOptions._currentView!.view !== viewId ) {
                     switchView( bindingOptions, viewId, viewName );
@@ -3682,21 +3637,7 @@ import { ColorRange } from "./ts/area/color-range";
             let result: string = Char.empty;
 
             if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
-                const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-    
-                if ( bindingOptions._currentView!.view ===  ViewId.map ) {
-                    result = ViewName.map;
-                } else if ( bindingOptions._currentView!.view ===  ViewId.line ) {
-                    result = ViewName.line;
-                } else if ( bindingOptions._currentView!.view ===  ViewId.chart ) {
-                    result = ViewName.chart;
-                } else if ( bindingOptions._currentView!.view ===  ViewId.days ) {
-                    result = ViewName.days;
-                } else if ( bindingOptions._currentView!.view ===  ViewId.months ) {
-                    result = ViewName.months;
-                } else if ( bindingOptions._currentView!.view ===  ViewId.statistics ) {
-                    result = ViewName.statistics;
-                }
+                result = Visible.getViewName( _elements_InstanceData[ elementId ].options );
             }
     
             return result;

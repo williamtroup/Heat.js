@@ -11,12 +11,12 @@
  */
 
 
-import { type BindingOptions } from "../type";
-import { ViewId } from "./enum";
+import { ConfigurationOptions, type BindingOptions } from "../type";
+import { Char, ViewId, ViewName } from "./enum";
 
 
 export namespace Visible {
-    export function months( bindingOptions: BindingOptions ) : number[] {
+    export function getMonths( bindingOptions: BindingOptions ) : number[] {
         let monthsToShow: number[] = [];
 
         if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
@@ -36,7 +36,7 @@ export namespace Visible {
         return monthsToShow;
     }
 
-    export function days( bindingOptions: BindingOptions ) : number[] {
+    export function getDays( bindingOptions: BindingOptions ) : number[] {
         let daysToShow: number[] = [];
 
         if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
@@ -86,5 +86,83 @@ export namespace Visible {
         } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
             bindingOptions.views!.statistics!.monthsToShow = months;
         }
+    }
+
+    export function getView( viewName: string ) : ViewId {
+        let viewId: ViewId = ViewId.unknown;
+
+        if ( viewName.toLowerCase() === ViewName.map ) {
+            viewId = ViewId.map;
+        } else if ( viewName.toLowerCase() === ViewName.line ) {
+            viewId = ViewId.line;
+        } else if ( viewName.toLowerCase() === ViewName.chart ) {
+            viewId = ViewId.chart;
+        } else if ( viewName.toLowerCase() === ViewName.days ) {
+            viewId = ViewId.days;
+        } else if ( viewName.toLowerCase() === ViewName.months ) {
+            viewId = ViewId.months;
+        } else if ( viewName.toLowerCase() === ViewName.statistics ) {
+            viewId = ViewId.statistics;
+        }
+
+        return viewId;
+    }
+
+    export function getViewName( bindingOptions: BindingOptions ) : string {
+        let result: string = Char.empty;
+        
+        if ( bindingOptions._currentView!.view ===  ViewId.map ) {
+            result = ViewName.map;
+        } else if ( bindingOptions._currentView!.view ===  ViewId.line ) {
+            result = ViewName.line;
+        } else if ( bindingOptions._currentView!.view ===  ViewId.chart ) {
+            result = ViewName.chart;
+        } else if ( bindingOptions._currentView!.view ===  ViewId.days ) {
+            result = ViewName.days;
+        } else if ( bindingOptions._currentView!.view ===  ViewId.months ) {
+            result = ViewName.months;
+        } else if ( bindingOptions._currentView!.view ===  ViewId.statistics ) {
+            result = ViewName.statistics;
+        }
+
+        return result;
+    }
+
+    export function getViewText( bindingOptions: BindingOptions, configurationOptions: ConfigurationOptions  ) : string {
+        let result: string = Char.empty;
+
+        if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
+            result = configurationOptions.text!.mapText!;
+        } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
+            result = configurationOptions.text!.lineText!;
+        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            result = configurationOptions.text!.chartText!;
+        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
+            result = configurationOptions.text!.daysText!;
+        } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+            result = configurationOptions.text!.monthsText!;
+        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
+            result = configurationOptions.text!.colorRangesText!;
+        }
+
+        return result;
+    }
+
+    export function setView( bindingOptions: BindingOptions ) : void {
+        if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
+            bindingOptions._currentView!.mapContentsContainer.style.display = "block";
+        } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
+            bindingOptions._currentView!.lineContentsContainer.style.display = "block";
+        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            bindingOptions._currentView!.chartContents.style.display = "block";
+        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
+            bindingOptions._currentView!.daysContents.style.display = "block";
+        } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+            bindingOptions._currentView!.monthsContents.style.display = "block";
+        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
+            bindingOptions._currentView!.statisticsContents.style.display = "block";
+        }
+
+        bindingOptions._currentView!.element.style.removeProperty( "height" );
     }
 }
