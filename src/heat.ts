@@ -334,38 +334,12 @@ import { ColorRange } from "./ts/area/color-range";
         }
 
         if ( updatedDaysToShow.length >= 1 && JSON.stringify( updatedDaysToShow ) !== JSON.stringify( daysToShow ) ) {
-            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
-                bindingOptions.views!.map!.daysToShow = updatedDaysToShow;
-            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
-                bindingOptions.views!.line!.daysToShow = updatedDaysToShow;
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-                bindingOptions.views!.chart!.daysToShow = updatedDaysToShow;
-            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
-                bindingOptions.views!.days!.daysToShow! = updatedDaysToShow;
-            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
-                bindingOptions.views!.months!.daysToShow! = updatedDaysToShow;
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-                bindingOptions.views!.statistics!.daysToShow = updatedDaysToShow;
-            }
-
+            Visible.setDays( bindingOptions, updatedDaysToShow );
             render = true;
         }
 
         if ( updatedMonthsToShow.length >= 1 && JSON.stringify( updatedMonthsToShow ) !== JSON.stringify( monthsToShow ) ) {
-            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
-                bindingOptions.views!.map!.monthsToShow = updatedMonthsToShow;
-            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
-                bindingOptions.views!.line!.monthsToShow = updatedMonthsToShow;
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-                bindingOptions.views!.chart!.monthsToShow = updatedMonthsToShow;
-            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
-                bindingOptions.views!.days!.monthsToShow = updatedMonthsToShow;
-            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
-                bindingOptions.views!.months!.monthsToShow = updatedMonthsToShow;
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-                bindingOptions.views!.statistics!.monthsToShow = updatedMonthsToShow;
-            }
-
+            Visible.setMonths( bindingOptions, updatedMonthsToShow );
             render = true;
         }
 

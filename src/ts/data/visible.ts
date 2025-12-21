@@ -55,4 +55,36 @@ export namespace Visible {
 
         return daysToShow;
     }
+
+    export function setDays( bindingOptions: BindingOptions, days: number[] ) : void {
+        if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
+            bindingOptions.views!.map!.daysToShow = days;
+        } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
+            bindingOptions.views!.line!.daysToShow = days;
+        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            bindingOptions.views!.chart!.daysToShow = days;
+        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
+            bindingOptions.views!.days!.daysToShow = days;
+        } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+            bindingOptions.views!.months!.daysToShow = days;
+        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
+            bindingOptions.views!.statistics!.daysToShow = days;
+        }
+    }
+
+    export function setMonths( bindingOptions: BindingOptions, months: number[] ) : void {
+        if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
+            bindingOptions.views!.map!.monthsToShow = months;
+        } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
+            bindingOptions.views!.line!.monthsToShow = months;
+        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            bindingOptions.views!.chart!.monthsToShow = months;
+        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
+            bindingOptions.views!.days!.monthsToShow = months;
+        } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+            bindingOptions.views!.months!.monthsToShow = months;
+        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
+            bindingOptions.views!.statistics!.monthsToShow = months;
+        }
+    }
 }
