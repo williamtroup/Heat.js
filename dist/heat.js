@@ -2321,7 +2321,7 @@ var T;
                 };
             }
             if (e.title.showYearSelector) {
-                const n = a.createIconButton(t, "button", "back", "arrow-left");
+                const n = a.createIconButton(t, "button", "back", "arrow-line-left");
                 n.onclick = () => Ge(e);
                 if (e.title.showToolTips) {
                     l.add(n, e, b.text.backButtonText);
@@ -2353,7 +2353,7 @@ var T;
                         c.customEvent(e.events.onSetYear, e._currentView.year);
                     };
                 }
-                const o = a.createIconButton(t, "button", "next", "arrow-right");
+                const o = a.createIconButton(t, "button", "next", "arrow-line-right");
                 o.onclick = () => Je(e);
                 if (e.title.showToolTips) {
                     l.add(o, e, b.text.nextButtonText);

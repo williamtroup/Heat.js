@@ -602,27 +602,59 @@ div.heat-js div.title-bar button {
 div.heat-js div.title-bar button.back {
   margin-left: calc(var(--heat-js-spacing) * 2) !important;
 }
-div.heat-js div.title-bar button.back i.arrow-left {
+div.heat-js div.title-bar button.back .arrow-line-left {
   width: 10px;
   height: 10px;
   display: inline-block;
   position: relative;
-  width: 0;
-  height: 0;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-right: 10px solid currentColor;
 }
-div.heat-js div.title-bar button.next i.arrow-right {
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-  position: relative;
+div.heat-js div.title-bar button.back .arrow-line-left::before, div.heat-js div.title-bar button.back .arrow-line-left::after {
+  position: absolute;
+  content: "";
+}
+div.heat-js div.title-bar button.back .arrow-line-left:before {
   width: 0;
   height: 0;
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
-  border-left: 10px solid currentColor;
+  border-right: 5px solid currentColor;
+  left: 0;
+  top: 0;
+}
+div.heat-js div.title-bar button.back .arrow-line-left:after {
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 5px;
+  height: 3.3333333333px;
+  background-color: currentColor;
+  right: 0;
+}
+div.heat-js div.title-bar button.next .arrow-line-right {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  position: relative;
+}
+div.heat-js div.title-bar button.next .arrow-line-right::before, div.heat-js div.title-bar button.next .arrow-line-right::after {
+  position: absolute;
+  content: "";
+}
+div.heat-js div.title-bar button.next .arrow-line-right:before {
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid currentColor;
+  right: 0;
+  top: 0;
+}
+div.heat-js div.title-bar button.next .arrow-line-right:after {
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 5px;
+  height: 3.3333333333px;
+  background-color: currentColor;
+  left: 0;
 }
 div.heat-js div.title-bar button.import i.arrow-up {
   width: 10px;

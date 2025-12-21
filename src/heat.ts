@@ -831,7 +831,7 @@ import { ColorRange } from "./ts/area/color-range";
             }
     
             if ( bindingOptions.title!.showYearSelector ) {
-                const back: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "back", "arrow-left" );
+                const back: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "back", "arrow-line-left" );
                 back.onclick = () => moveToPreviousYear( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
@@ -874,7 +874,7 @@ import { ColorRange } from "./ts/area/color-range";
                     };
                 }
 
-                const next: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "next", "arrow-right" );
+                const next: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "next", "arrow-line-right" );
                 next.onclick = () => moveToNextYear( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {

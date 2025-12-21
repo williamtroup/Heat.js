@@ -1,0 +1,26 @@
+@use "base/button";
+
+
+@mixin button-icon {
+    .arrow-line-right {
+        @include button.button;
+
+        &:before {
+            width: 0; 
+            height: 0; 
+            border-top: calc( button.$size / 2 ) solid transparent;
+            border-bottom: calc( button.$size / 2 ) solid transparent;
+            border-left: calc( button.$size / 2 ) solid currentColor;
+            right: 0;
+            top: 0;
+        }
+
+        &:after {
+            @include button.top-center;
+            width: calc( button.$size / 2 );
+            height: calc( button.$size / 3 );
+            background-color: currentColor;
+            left: 0;
+        }
+    }
+}
