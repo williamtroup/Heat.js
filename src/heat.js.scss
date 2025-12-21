@@ -1036,6 +1036,10 @@ div.heat-js {
                             overflow: hidden;
                             text-overflow: ellipsis;
                             white-space: nowrap;
+
+                            &.current {
+                                font-weight: var(--heat-js-sub-title-bold-weight);
+                            }
                         }
         
                         div.month-name {
@@ -1184,6 +1188,10 @@ div.heat-js {
                     text-align: left !important;
                     position: absolute;
                     bottom: 0;
+
+                    &.current {
+                        font-weight: var(--heat-js-sub-title-bold-weight);
+                    }
                 }
             }
         }
@@ -1300,6 +1308,10 @@ div.heat-js {
                 text-align: left !important;
                 position: absolute;
                 bottom: 0;
+
+                &.current {
+                    font-weight: var(--heat-js-sub-title-bold-weight);
+                }
             }
 
             div.month-name-space {
@@ -1531,6 +1543,10 @@ div.heat-js {
                 text-align: center !important;
                 overflow: hidden;
                 text-overflow: ellipsis;
+
+                &.current {
+                    font-weight: var(--heat-js-sub-title-bold-weight);
+                }
             }
         }
     }

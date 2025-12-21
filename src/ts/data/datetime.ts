@@ -80,9 +80,15 @@ export namespace DateTime {
         return monday;
     }
 
-    export function isTodaysDate( date: Date ) : boolean {
+    export function isToday( date: Date ) : boolean {
         const today: Date = new Date();
 
         return date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
+    }
+
+    export function isCurrentMonthAndYear( date: Date ) : boolean {
+        const today: Date = new Date();
+
+        return date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
     }
 }

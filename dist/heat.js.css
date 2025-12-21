@@ -1327,6 +1327,10 @@ div.heat-js div.map-contents-container div.map-contents div.map div.months div.m
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name.current,
+div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name-bottom.current {
+  font-weight: var(--heat-js-sub-title-bold-weight);
+}
 div.heat-js div.map-contents-container div.map-contents div.map div.months div.month div.month-name {
   margin-bottom: var(--heat-js-spacing);
 }
@@ -1600,6 +1604,9 @@ div.heat-js div.line-contents-container div.line-contents div.line-months div.mo
   position: absolute;
   bottom: 0;
 }
+div.heat-js div.line-contents-container div.line-contents div.line-months div.month-name.current {
+  font-weight: var(--heat-js-sub-title-bold-weight);
+}
 
 /*
     -------------------------------------------------------------------------
@@ -1753,6 +1760,10 @@ div.heat-js div.chart-contents div.chart-months div.month-name-space {
   text-align: left !important;
   position: absolute;
   bottom: 0;
+}
+div.heat-js div.chart-contents div.chart-months div.month-name.current,
+div.heat-js div.chart-contents div.chart-months div.month-name-space.current {
+  font-weight: var(--heat-js-sub-title-bold-weight);
 }
 div.heat-js div.chart-contents div.chart-months div.month-name-space {
   left: 0;
@@ -2030,6 +2041,9 @@ div.heat-js div.months-contents div.month-names div.month-name {
   text-align: center !important;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+div.heat-js div.months-contents div.month-names div.month-name.current {
+  font-weight: var(--heat-js-sub-title-bold-weight);
 }
 
 /*
