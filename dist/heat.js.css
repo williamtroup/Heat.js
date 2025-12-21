@@ -760,9 +760,10 @@ div.heat-js div.title-bar button.clear {
   }
 }
 div.heat-js div.title-bar div.configure {
+  margin-top: 1px;
   display: inline-block;
-  width: 8.5px;
-  height: 8.5px;
+  width: 9px;
+  height: 9px;
   position: relative;
   margin-right: var(--heat-js-spacing);
   transition: var(--heat-js-transition);
@@ -774,8 +775,8 @@ div.heat-js div.title-bar div.configure:hover::before, div.heat-js div.title-bar
 div.heat-js div.title-bar div.configure::before {
   content: "";
   position: absolute;
-  height: 8.5px;
-  width: 8.5px;
+  height: 9px;
+  width: 9px;
   border-color: var(--heat-js-color-white);
   border-width: 2px;
   border-style: solid;
@@ -787,8 +788,8 @@ div.heat-js div.title-bar div.configure::before {
 div.heat-js div.title-bar div.configure::after {
   content: "";
   position: absolute;
-  height: 8.5px;
-  width: 8.5px;
+  height: 9px;
+  width: 9px;
   border-color: var(--heat-js-color-white);
   border-width: 2px;
   border-style: solid;
@@ -803,9 +804,6 @@ div.heat-js div.title-bar div.configure::after {
     Heat.js - Title Bar - Title Drop-Down
     -------------------------------------------------------------------------
 */
-div.heat-js div.title-bar {
-  vertical-align: middle;
-}
 div.heat-js div.title-bar div.title {
   font-weight: var(--heat-js-text-font-weight-heavy);
   font-size: 1.3rem;

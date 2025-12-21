@@ -577,8 +577,8 @@ div.heat-js {
         }
 
         div.configure {
-            $button-size: 8.5px;
-
+            $button-size: 9px;
+            margin-top: 1px;
             display: inline-block;
             width: $button-size;
             height: $button-size;
@@ -632,8 +632,6 @@ div.heat-js {
 
 div.heat-js {
     div.title-bar {
-        vertical-align: middle;
-
         div.title {
             $title-margin: 3px;
 
