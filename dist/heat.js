@@ -38,7 +38,7 @@ var n;
     e.LOCAL_STORAGE_START_ID = "HJS_";
     e.COLOR_RANGE_HOLIDAY_ID = "HOLIDAY";
     e.DEFAULT_MINIMUM_HEIGHT = 213;
-    e.MAXIMUM_FILE_IMPORTS = 213;
+    e.MAXIMUM_FILE_IMPORTS = 5;
 })(n || (n = {}));
 
 var i;
