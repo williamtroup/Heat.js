@@ -147,7 +147,7 @@
 - The disabled background is now darker, as it was causing some color issues.
 - Improved the public API so that all expected types are used.
 - When the title bar headers are shown, the category sections are now slightly indented to make them a bit easier to see.
-- Each month shown in the Map view now has a new attribute called "data-heat-js-month-number", which stores the month number.
+- Each month shown in the Map view now has a new attribute called "data-heat-js-map-month-number", which stores the month number.
 - Views/Dialogs are now only rendered when they are active (helps performance when many views/dialogs are enabled).
 - The display is no longer re-rendered when the configuration dialog is closed, and nothing has changed.
 - Export text files now contain a header that states when the content was last modified.
