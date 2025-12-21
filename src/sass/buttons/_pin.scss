@@ -6,13 +6,14 @@
         @include button.button;
         height: var(--heat-js-button-icon-size);
         border-top: button.$border;
-        border-radius: 50%;
+        border-top-left-radius: 50%;
+        border-top-right-radius: 50%;
 
         &::before {
             @include button.left-center;
             background-color: currentColor;
             width: button.$border-width;
-            height: calc( var(--heat-js-button-icon-size) - ( button.$border-width ) - 3px );
+            height: calc( var(--heat-js-button-icon-size) - ( button.$border-width ) - 3.5px );
             border-bottom-left-radius: 50%;
             border-bottom-right-radius: 50%;
             top: 0;

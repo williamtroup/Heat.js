@@ -748,14 +748,15 @@ div.heat-js div.title-bar button.current-year i.pin::before, div.heat-js div.tit
 div.heat-js div.title-bar button.current-year i.pin {
   height: var(--heat-js-button-icon-size);
   border-top: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
-  border-radius: 50%;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
 }
 div.heat-js div.title-bar button.current-year i.pin::before {
   left: 50%;
   transform: translate(-50%);
   background-color: currentColor;
   width: calc(var(--heat-js-button-icon-size) / 4);
-  height: calc(var(--heat-js-button-icon-size) - var(--heat-js-button-icon-size) / 4 - 3px);
+  height: calc(var(--heat-js-button-icon-size) - var(--heat-js-button-icon-size) / 4 - 3.5px);
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   top: 0;
