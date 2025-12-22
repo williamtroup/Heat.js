@@ -798,7 +798,6 @@ import { ColorRange } from "./ts/area/color-range";
                 const exportData: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "export", "arrow-down" );
                 exportData.onclick = () => showExportDialog( bindingOptions );
 
-
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( exportData, bindingOptions, _configurationOptions.text!.exportButtonText! );
                 }
