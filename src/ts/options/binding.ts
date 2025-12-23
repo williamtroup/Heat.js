@@ -30,14 +30,13 @@ import {
     type BindingOptionsViewsMonths,
     type BindingOptionsViewsLine,
     type BindingOptionsZooming,
-    type ConfigurationOptions, 
-    BindingOptionsDynamicColorRange} from "../type";
+    type BindingOptionsDynamicColorRange,
+    type ConfigurationOptions } from "../type";
 
 import { Char, ExportType, Value, ViewId, ViewName } from "../data/enum";
 import { Default } from "../data/default";
 import { Is } from "../data/is";
-import { Convert } from "../data/convert";
-import { DomElement } from "../dom/dom";
+import { ColorRange } from "../area/color-range";
 
 
 export namespace Binding {
@@ -169,51 +168,7 @@ export namespace Binding {
             let result: BindingOptionsColorRange[] = [];
             
             if ( bindingOptions.dynamicColorRange!.enabled && Is.hexColor( bindingOptions.dynamicColorRange!.color! ) ) {
-                const rgbaValues: number[] = Convert.hexToRgbaValues( bindingOptions.dynamicColorRange!.color! );
-                const incrementColor: number = Math.floor( 256 / bindingOptions.dynamicColorRange!.totalColors! );
-                const incrementMinimum: number = Math.floor( bindingOptions.dynamicColorRange!.maximum! / bindingOptions.dynamicColorRange!.totalColors! );
-                const css: string[] = [];
-
-                let red: number = rgbaValues[ 0 ] % 256;
-                let green: number = rgbaValues[ 1 ] % 256;
-                let blue: number = rgbaValues[ 2 ] % 256;
-                let alpha: number = rgbaValues[ 3 ] % 256;
-                let currentValue = 0;
-
-                for ( let colorIndex: number = 0; colorIndex < bindingOptions.dynamicColorRange!.totalColors!; colorIndex++ ){
-                    red += incrementColor;
-                    green += incrementColor;
-                    blue += incrementColor;
-                    currentValue += incrementMinimum;
-
-                    if ( alpha > 0 ) {
-                        alpha += incrementColor;
-                    }
-
-                    const rgba: string = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-                    const cssName: string = `day-color-${crypto.randomUUID().replace(/-/g, Char.empty)}`;
-                    
-                    css.push( `div.${cssName}${Char.space}{` );
-                    css.push( `background-color:${Char.space}${rgba} !important;` );
-                    css.push( `border-color:${Char.space}${rgba} !important;` );
-                    css.push( `color:${Char.space}${rgba} !important;` );
-                    css.push( "}" );
-
-                    const colorRange: BindingOptionsColorRange = {
-                        id: cssName,
-                        name: `Day Color ${colorIndex + 1}`,
-                        minimum: currentValue,
-                        cssClassName: cssName,
-                        tooltipText: `Day Color ${colorIndex + 1}`,
-                        visible: true
-                    }
-
-                    result.push( colorRange );
-                }
-
-                const head: HTMLElement = document.getElementsByTagName( "head" )[ 0 ];
-                const style: HTMLStyleElement = DomElement.create( head, "style" ) as HTMLStyleElement;
-                style.appendChild( document.createTextNode( css.join( Char.newLine ) ) );
+                result = ColorRange.buildDynamics( bindingOptions );
 
             } else {
                 if ( Is.definedArray( bindingOptions.colorRanges ) ) {
@@ -244,7 +199,7 @@ export namespace Binding {
                             minimum: 10,
                             cssClassName: "day-color-1",
                             tooltipText: "Day Color 1",
-                            visible: true
+                            visible: true,
                         },
                         {
                             id: crypto.randomUUID(),
@@ -252,7 +207,7 @@ export namespace Binding {
                             minimum: 15,
                             cssClassName: "day-color-2",
                             tooltipText: "Day Color 2",
-                            visible: true
+                            visible: true,
                         },
                         {
                             id: crypto.randomUUID(),
@@ -260,7 +215,7 @@ export namespace Binding {
                             minimum: 20,
                             cssClassName: "day-color-3",
                             tooltipText: "Day Color 3",
-                            visible: true
+                            visible: true,
                         },
                         {
                             id: crypto.randomUUID(),
@@ -268,8 +223,8 @@ export namespace Binding {
                             minimum: 25,
                             cssClassName: "day-color-4",
                             tooltipText: "Day Color 4",
-                            visible: true
-                        }
+                            visible: true,
+                        },
                     ];
                 }
             }

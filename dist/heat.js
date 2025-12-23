@@ -599,6 +599,111 @@ var d;
 var u;
 
 (e => {
+    function t(e, t) {
+        let i = false;
+        if (t === n.COLOR_RANGE_HOLIDAY_ID) {
+            i = true;
+        } else {
+            const n = e.colorRanges.length;
+            for (let s = 0; s < n; s++) {
+                const n = e.colorRanges[s];
+                if (n.id === t && o.getBoolean(n.visible, true)) {
+                    i = true;
+                    break;
+                }
+            }
+        }
+        return i;
+    }
+    e.isVisible = t;
+    function s(e, t, o, s = null) {
+        let r = null;
+        if (i.defined(s) && i.holiday(e, s).matched) {
+            r = {
+                cssClassName: "holiday",
+                id: n.COLOR_RANGE_HOLIDAY_ID,
+                visible: true,
+                minimum: 0
+            };
+        }
+        if (!i.defined(r)) {
+            const e = t.length;
+            for (let n = 0; n < e; n++) {
+                const e = t[n];
+                if (o >= e.minimum) {
+                    r = e;
+                } else {
+                    break;
+                }
+            }
+        }
+        return r;
+    }
+    e.get = s;
+    function r(e, t) {
+        const n = e.length;
+        let i = null;
+        for (let o = 0; o < n; o++) {
+            const n = e[o];
+            if (t.toString() === n.minimum.toString()) {
+                i = n;
+                break;
+            }
+        }
+        return i;
+    }
+    e.getByMinimum = r;
+    function l(e) {
+        return e.colorRanges.sort((e, t) => e.minimum - t.minimum);
+    }
+    e.getAllSorted = l;
+    function c(e) {
+        let t = [];
+        const n = d.hexToRgbaValues(e.dynamicColorRange.color);
+        const i = Math.floor(256 / e.dynamicColorRange.totalColors);
+        const o = Math.floor(e.dynamicColorRange.maximum / e.dynamicColorRange.totalColors);
+        const s = [];
+        let r = n[0] % 256;
+        let l = n[1] % 256;
+        let c = n[2] % 256;
+        let u = n[3] % 256;
+        let w = 0;
+        for (let n = 0; n < e.dynamicColorRange.totalColors; n++) {
+            r += i;
+            l += i;
+            c += i;
+            w += o;
+            if (u > 0) {
+                u += i;
+            }
+            const e = `rgba(${r}, ${l}, ${c}, ${u})`;
+            const a = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
+            s.push(`div.${a}${" "}{`);
+            s.push(`background-color:${" "}${e} !important;`);
+            s.push(`border-color:${" "}${e} !important;`);
+            s.push(`color:${" "}${e} !important;`);
+            s.push("}");
+            const d = {
+                id: a,
+                name: `Day Color ${n + 1}`,
+                minimum: w,
+                cssClassName: a,
+                tooltipText: `Day Color ${n + 1}`,
+                visible: true
+            };
+            t.push(d);
+        }
+        const h = document.getElementsByTagName("head")[0];
+        const f = a.create(h, "style");
+        f.appendChild(document.createTextNode(s.join("\n")));
+        return t;
+    }
+    e.buildDynamics = c;
+})(u || (u = {}));
+
+var w;
+
+(e => {
     let t;
     (e => {
         const t = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
@@ -656,7 +761,7 @@ var u;
                 o._currentView.statisticsContentsScrollLeft = 0;
                 o._currentView.viewsEnabled++;
             }
-            C(o);
+            _(o);
             return o;
         }
         e.getForNewInstance = s;
@@ -680,29 +785,29 @@ var u;
             t.allowTypeAdding = o.getBoolean(t.allowTypeAdding, false);
             t.chartsAnimationDelay = o.getNumber(t.chartsAnimationDelay, 50);
             t.exportDateTimeFormat = o.getString(t.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}");
-            t.dynamicColorRange = l(t);
-            t.colorRanges = c(t);
-            t.holidays = u(t);
-            t.title = w(t);
-            t.description = h(t);
-            t.guide = f(t);
-            t.tooltip = g(t);
-            t.views.map = m(t);
-            t.views.line = y(t);
-            t.views.chart = p(t);
-            t.views.days = v(t);
-            t.views.months = T(t);
-            t.views.statistics = b(t);
-            t.yearlyStatistics = V(t);
-            t.zooming = x(t);
-            t.events = _(t);
+            t.dynamicColorRange = a(t);
+            t.colorRanges = l(t);
+            t.holidays = c(t);
+            t.title = d(t);
+            t.description = w(t);
+            t.guide = h(t);
+            t.tooltip = f(t);
+            t.views.map = g(t);
+            t.views.line = m(t);
+            t.views.chart = y(t);
+            t.views.days = p(t);
+            t.views.months = v(t);
+            t.views.statistics = T(t);
+            t.yearlyStatistics = x(t);
+            t.zooming = b(t);
+            t.events = V(t);
             if (t.startMonth > 0) {
                 t.yearsToHide = [];
             }
             return t;
         }
         e.get = r;
-        function l(e) {
+        function a(e) {
             e.dynamicColorRange = o.getObject(e.dynamicColorRange, {});
             e.dynamicColorRange.enabled = o.getBoolean(e.dynamicColorRange.enabled, false);
             e.dynamicColorRange.maximum = o.getNumber(e.dynamicColorRange.maximum, 25);
@@ -710,46 +815,10 @@ var u;
             e.dynamicColorRange.totalColors = o.getNumber(e.dynamicColorRange.totalColors, 7);
             return e.dynamicColorRange;
         }
-        function c(e) {
+        function l(e) {
             let t = [];
             if (e.dynamicColorRange.enabled && i.hexColor(e.dynamicColorRange.color)) {
-                const n = d.hexToRgbaValues(e.dynamicColorRange.color);
-                const i = Math.floor(256 / e.dynamicColorRange.totalColors);
-                const o = Math.floor(e.dynamicColorRange.maximum / e.dynamicColorRange.totalColors);
-                const s = [];
-                let r = n[0] % 256;
-                let l = n[1] % 256;
-                let c = n[2] % 256;
-                let u = n[3] % 256;
-                let w = 0;
-                for (let n = 0; n < e.dynamicColorRange.totalColors; n++) {
-                    r += i;
-                    l += i;
-                    c += i;
-                    w += o;
-                    if (u > 0) {
-                        u += i;
-                    }
-                    const e = `rgba(${r}, ${l}, ${c}, ${u})`;
-                    const a = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
-                    s.push(`div.${a}${" "}{`);
-                    s.push(`background-color:${" "}${e} !important;`);
-                    s.push(`border-color:${" "}${e} !important;`);
-                    s.push(`color:${" "}${e} !important;`);
-                    s.push("}");
-                    const d = {
-                        id: a,
-                        name: `Day Color ${n + 1}`,
-                        minimum: w,
-                        cssClassName: a,
-                        tooltipText: `Day Color ${n + 1}`,
-                        visible: true
-                    };
-                    t.push(d);
-                }
-                const h = document.getElementsByTagName("head")[0];
-                const f = a.create(h, "style");
-                f.appendChild(document.createTextNode(s.join("\n")));
+                t = u.buildDynamics(e);
             } else {
                 if (i.definedArray(e.colorRanges)) {
                     const n = e.colorRanges.length;
@@ -801,7 +870,7 @@ var u;
             }
             return t;
         }
-        function u(e) {
+        function c(e) {
             let t = [];
             if (i.definedArray(e.holidays)) {
                 const n = e.holidays.length;
@@ -815,7 +884,7 @@ var u;
             }
             return t;
         }
-        function w(e) {
+        function d(e) {
             e.title = o.getObject(e.title, {});
             e.title.text = o.getString(e.title.text, "Heat.js");
             e.title.showText = o.getBoolean(e.title.showText, true);
@@ -835,14 +904,14 @@ var u;
             e.title.showClearButton = o.getBoolean(e.title.showClearButton, false);
             return e.title;
         }
-        function h(e) {
+        function w(e) {
             e.description = o.getObject(e.description, {});
             e.description.text = o.getString(e.description.text, "");
             e.description.url = o.getString(e.description.url, "");
             e.description.urlTarget = o.getString(e.description.urlTarget, "_blank");
             return e.description;
         }
-        function f(e) {
+        function h(e) {
             e.guide = o.getObject(e.guide, {});
             e.guide.enabled = o.getBoolean(e.guide.enabled, true);
             e.guide.colorRangeTogglesEnabled = o.getBoolean(e.guide.colorRangeTogglesEnabled, true);
@@ -852,12 +921,12 @@ var u;
             e.guide.showInvertLabel = o.getBoolean(e.guide.showInvertLabel, false);
             return e.guide;
         }
-        function g(e) {
+        function f(e) {
             e.tooltip = o.getObject(e.tooltip, {});
             e.tooltip.delay = o.getNumber(e.tooltip.delay, 750);
             return e.tooltip;
         }
-        function m(e) {
+        function g(e) {
             e.views.map = o.getObject(e.views.map, {});
             e.views.map.enabled = o.getBoolean(e.views.map.enabled, true);
             e.views.map.showMonthDayGaps = o.getBoolean(e.views.map.showMonthDayGaps, true);
@@ -883,7 +952,7 @@ var u;
             }
             return e.views.map;
         }
-        function y(e) {
+        function m(e) {
             e.views.line = o.getObject(e.views.line, {});
             e.views.line.enabled = o.getBoolean(e.views.line.enabled, true);
             e.views.line.showMonthNames = o.getBoolean(e.views.line.showMonthNames, true);
@@ -901,7 +970,7 @@ var u;
             }
             return e.views.line;
         }
-        function p(e) {
+        function y(e) {
             e.views.chart = o.getObject(e.views.chart, {});
             e.views.chart.enabled = o.getBoolean(e.views.chart.enabled, true);
             e.views.chart.showChartYLabels = o.getBoolean(e.views.chart.showChartYLabels, true);
@@ -925,7 +994,7 @@ var u;
             }
             return e.views.chart;
         }
-        function v(e) {
+        function p(e) {
             e.views.days = o.getObject(e.views.days, {});
             e.views.days.enabled = o.getBoolean(e.views.days.enabled, true);
             e.views.days.showChartYLabels = o.getBoolean(e.views.days.showChartYLabels, true);
@@ -945,7 +1014,7 @@ var u;
             }
             return e.views.days;
         }
-        function T(e) {
+        function v(e) {
             e.views.months = o.getObject(e.views.months, {});
             e.views.months.enabled = o.getBoolean(e.views.months.enabled, true);
             e.views.months.showChartYLabels = o.getBoolean(e.views.months.showChartYLabels, true);
@@ -966,7 +1035,7 @@ var u;
             }
             return e.views.months;
         }
-        function b(e) {
+        function T(e) {
             e.views.statistics = o.getObject(e.views.statistics, {});
             e.views.statistics.enabled = o.getBoolean(e.views.statistics.enabled, true);
             e.views.statistics.showChartYLabels = o.getBoolean(e.views.statistics.showChartYLabels, true);
@@ -987,14 +1056,14 @@ var u;
             }
             return e.views.statistics;
         }
-        function x(e) {
+        function b(e) {
             e.zooming = o.getObject(e.zooming, {});
             e.zooming.enabled = o.getBoolean(e.zooming.enabled, false);
             e.zooming.defaultLevel = o.getNumber(e.zooming.defaultLevel, 0);
             e.zooming.maximumLevel = o.getNumber(e.zooming.maximumLevel, 0);
             return e.zooming;
         }
-        function V(e) {
+        function x(e) {
             e.yearlyStatistics = o.getObject(e.yearlyStatistics, {});
             e.yearlyStatistics.enabled = o.getBoolean(e.yearlyStatistics.enabled, false);
             e.yearlyStatistics.showToday = o.getBoolean(e.yearlyStatistics.showToday, true);
@@ -1005,7 +1074,7 @@ var u;
             e.yearlyStatistics.showPercentages = o.getBoolean(e.yearlyStatistics.showPercentages, true);
             return e.yearlyStatistics;
         }
-        function _(e) {
+        function V(e) {
             e.events = o.getObject(e.events, {});
             e.events.onBackYear = o.getFunction(e.events.onBackYear, null);
             e.events.onNextYear = o.getFunction(e.events.onNextYear, null);
@@ -1045,7 +1114,7 @@ var u;
             e.events.onClearViewableData = o.getFunction(e.events.onClearViewableData, null);
             return e.events;
         }
-        function C(e) {
+        function _(e) {
             if (e.views.map.enabled && e.defaultView === "map") {
                 e._currentView.view = 1;
             } else if (e.views.line.enabled && e.defaultView === "line") {
@@ -1080,9 +1149,9 @@ var u;
             }
         }
     })(t = e.Options || (e.Options = {}));
-})(u || (u = {}));
+})(w || (w = {}));
 
-var w;
+var h;
 
 (e => {
     let t;
@@ -1167,9 +1236,9 @@ var w;
             return e;
         }
     })(t = e.Options || (e.Options = {}));
-})(w || (w = {}));
+})(h || (h = {}));
 
-var h;
+var f;
 
 (e => {
     let t;
@@ -1193,9 +1262,9 @@ var h;
         }
         e.hide = o;
     })(t = e.Background || (e.Background = {}));
-})(h || (h = {}));
+})(f || (f = {}));
 
-var f;
+var g;
 
 (e => {
     let t;
@@ -1368,9 +1437,9 @@ var f;
         }
         e.set = r;
     })(o = e.View || (e.View = {}));
-})(f || (f = {}));
+})(g || (g = {}));
 
-var g;
+var m;
 
 (e => {
     function t(e, t, i, o) {
@@ -1490,9 +1559,9 @@ var g;
         };
         n.readAsText(e);
     }
-})(g || (g = {}));
+})(m || (m = {}));
 
-var m;
+var y;
 
 (e => {
     let t;
@@ -1682,9 +1751,9 @@ var m;
             return e.join(",");
         }
     })(n = e.Contents || (e.Contents = {}));
-})(m || (m = {}));
+})(y || (y = {}));
 
-var y;
+var p;
 
 (e => {
     let t;
@@ -1693,9 +1762,9 @@ var y;
         e.Spacing = "--heat-js-spacing";
         e.LineWidth = "--heat-js-day-line-width";
     })(t = e.Variables || (e.Variables = {}));
-})(y || (y = {}));
+})(p || (p = {}));
 
-var p;
+var v;
 
 (e => {
     function t(e, t, n, i = true) {
@@ -1710,9 +1779,9 @@ var p;
         }
     }
     e.setHeight = t;
-})(p || (p = {}));
+})(v || (v = {}));
 
-var v;
+var T;
 
 (e => {
     function t(e, t, i) {
@@ -1768,69 +1837,6 @@ var v;
         }
     }
     e.clear = r;
-})(v || (v = {}));
-
-var T;
-
-(e => {
-    function t(e, t) {
-        let i = false;
-        if (t === n.COLOR_RANGE_HOLIDAY_ID) {
-            i = true;
-        } else {
-            const n = e.colorRanges.length;
-            for (let s = 0; s < n; s++) {
-                const n = e.colorRanges[s];
-                if (n.id === t && o.getBoolean(n.visible, true)) {
-                    i = true;
-                    break;
-                }
-            }
-        }
-        return i;
-    }
-    e.isVisible = t;
-    function s(e, t, o, s = null) {
-        let r = null;
-        if (i.defined(s) && i.holiday(e, s).matched) {
-            r = {
-                cssClassName: "holiday",
-                id: n.COLOR_RANGE_HOLIDAY_ID,
-                visible: true,
-                minimum: 0
-            };
-        }
-        if (!i.defined(r)) {
-            const e = t.length;
-            for (let n = 0; n < e; n++) {
-                const e = t[n];
-                if (o >= e.minimum) {
-                    r = e;
-                } else {
-                    break;
-                }
-            }
-        }
-        return r;
-    }
-    e.get = s;
-    function r(e, t) {
-        const n = e.length;
-        let i = null;
-        for (let o = 0; o < n; o++) {
-            const n = e[o];
-            if (t.toString() === n.minimum.toString()) {
-                i = n;
-                break;
-            }
-        }
-        return i;
-    }
-    e.getByMinimum = r;
-    function a(e) {
-        return e.colorRanges.sort((e, t) => e.minimum - t.minimum);
-    }
-    e.getAllSorted = a;
 })(T || (T = {}));
 
 (() => {
@@ -1858,7 +1864,7 @@ var T;
             if (i.definedString(s)) {
                 const r = o.getObjectFromString(s, b);
                 if (r.parsed && i.definedObject(r.object)) {
-                    D(u.Options.getForNewInstance(b, r.object, e));
+                    D(w.Options.getForNewInstance(b, r.object, e));
                 } else {
                     if (!b.safeMode) {
                         console.error(b.text.attributeNotValidErrorText.replace("{{attribute_name}}", n.HEAT_JS_ATTRIBUTE_NAME));
@@ -1893,10 +1899,10 @@ var T;
     function S(e, t = false, n = false, i = false) {
         l.hide(e);
         if (t) {
-            v.store(e, V[e._currentView.element.id]);
+            T.store(e, V[e._currentView.element.id]);
         }
         e._currentView.yearsAvailable = Re(e);
-        f.View.getScrollPositions(e);
+        g.View.getScrollPositions(e);
         l.render(e);
         We(e);
         ke(e);
@@ -1921,14 +1927,14 @@ var T;
             Te(e, n);
         }
         Ve(e);
-        f.View.set(e);
+        g.View.set(e);
     }
     function M(e, t = true) {
         const n = t ? window.addEventListener : window.removeEventListener;
         n("blur", () => l.hide(e));
     }
     function B(e) {
-        h.Background.render(e);
+        f.Background.render(e);
         if (!i.definedParentElement(e._currentView.configurationDialog)) {
             e._currentView.configurationDialog = a.create(e._currentView.disabledBackground, "div", "dialog configuration");
             const t = a.create(e._currentView.configurationDialog, "div", "dialog-title-bar");
@@ -1963,12 +1969,12 @@ var T;
     }
     function L(e) {
         B(e);
-        h.Background.show(e);
+        f.Background.show(e);
         if (i.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "block") {
             e._currentView.configurationDialog.style.display = "block";
         }
-        const t = f.Days.get(e);
-        const n = f.Months.get(e);
+        const t = g.Days.get(e);
+        const n = g.Months.get(e);
         for (let n = 0; n < 7; n++) {
             e._currentView.configurationDialogDayCheckBoxes[n].checked = i.dayVisible(t, n + 1);
         }
@@ -1978,12 +1984,12 @@ var T;
         l.hide(e);
     }
     function N(e) {
-        h.Background.hide(e);
+        f.Background.hide(e);
         if (i.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "none") {
             e._currentView.configurationDialog.style.display = "none";
         }
-        const t = f.Days.get(e);
-        const n = f.Months.get(e);
+        const t = g.Days.get(e);
+        const n = g.Months.get(e);
         const o = [];
         const s = [];
         let r = false;
@@ -1998,11 +2004,11 @@ var T;
             }
         }
         if (o.length >= 1 && JSON.stringify(o) !== JSON.stringify(t)) {
-            f.Days.set(e, o);
+            g.Days.set(e, o);
             r = true;
         }
         if (s.length >= 1 && JSON.stringify(s) !== JSON.stringify(n)) {
-            f.Months.set(e, s);
+            g.Months.set(e, s);
             r = true;
         }
         if (r) {
@@ -2013,7 +2019,7 @@ var T;
         }
     }
     function A(e) {
-        h.Background.render(e);
+        f.Background.render(e);
         if (!i.definedParentElement(e._currentView.exportDialog)) {
             e._currentView.exportDialog = a.create(e._currentView.disabledBackground, "div", "dialog export");
             const t = a.create(e._currentView.exportDialog, "div", "dialog-title-bar");
@@ -2062,7 +2068,7 @@ var T;
     }
     function O(e) {
         A(e);
-        h.Background.show(e);
+        f.Background.show(e);
         if (i.defined(e._currentView.exportDialog) && e._currentView.exportDialog.style.display !== "block") {
             e._currentView.exportDialogExportFilenameInput.value = "";
             e._currentView.exportDialog.style.display = "block";
@@ -2071,7 +2077,7 @@ var T;
         l.hide(e);
     }
     function I(e) {
-        h.Background.hide(e);
+        f.Background.hide(e);
         if (i.defined(e._currentView.exportDialog) && e._currentView.exportDialog.style.display !== "none") {
             e._currentView.exportDialog.style.display = "none";
         }
@@ -2079,15 +2085,15 @@ var T;
     }
     function E(e, t = null, n = null, s = true) {
         const r = o.getString(t, e.exportType).toLowerCase();
-        const l = m.File.mimeType(r);
+        const l = y.File.mimeType(r);
         const d = F(e, s);
-        const u = m.Contents.get(r, d, b, e);
+        const u = y.Contents.get(r, d, b, e);
         if (i.definedString(u)) {
             const t = a.create(document.body, "a");
             t.style.display = "none";
             t.setAttribute("target", "_blank");
             t.setAttribute("href", `data:${l};charset=utf-8,${encodeURIComponent(u)}`);
-            t.setAttribute("download", m.File.filename(b, e, n, r));
+            t.setAttribute("download", y.File.filename(b, e, n, r));
             t.click();
             document.body.removeChild(t);
             c.customEvent(e.events.onExport, e._currentView.element);
@@ -2098,8 +2104,8 @@ var T;
         const o = Ee(e);
         if (t) {
             const t = e._currentView.year;
-            const s = f.Days.get(e);
-            const a = f.Months.get(e);
+            const s = g.Days.get(e);
+            const a = g.Months.get(e);
             for (let l = e.startMonth; l < 12 + e.startMonth; l++) {
                 let c = l;
                 let d = t;
@@ -2140,7 +2146,7 @@ var T;
         return n;
     }
     function R(e) {
-        h.Background.render(e);
+        f.Background.render(e);
         if (!i.definedParentElement(e._currentView.importDialog)) {
             e._currentView.importDialog = a.create(e._currentView.disabledBackground, "div", "dialog import");
             const t = a.create(e._currentView.importDialog, "div", "dialog-title-bar");
@@ -2161,14 +2167,14 @@ var T;
     }
     function $(e) {
         R(e);
-        h.Background.show(e);
+        f.Background.show(e);
         if (i.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "block") {
             e._currentView.importDialog.style.display = "block";
         }
         l.hide(e);
     }
     function H(e) {
-        h.Background.hide(e);
+        f.Background.hide(e);
         if (i.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "none") {
             e._currentView.importDialogDragAndDrop.innerHTML = b.text.dragAndDropFilesText;
             e._currentView.importDialogFileList = null;
@@ -2262,11 +2268,11 @@ var T;
         for (let t = 0; t < i; t++) {
             const n = e[t];
             const i = n.name.split(".").pop().toLowerCase();
-            g.file(n, i, r, b);
+            m.file(n, i, r, b);
         }
     }
     function z(e) {
-        h.Background.render(e);
+        f.Background.render(e);
         if (!i.definedParentElement(e._currentView.typeAddingDialog)) {
             e._currentView.typeAddingDialog = a.create(e._currentView.disabledBackground, "div", "dialog add-type");
             const t = a.create(e._currentView.typeAddingDialog, "div", "dialog-title-bar");
@@ -2306,7 +2312,7 @@ var T;
     }
     function G(e) {
         z(e);
-        h.Background.show(e);
+        f.Background.show(e);
         if (i.defined(e._currentView.typeAddingDialog) && e._currentView.typeAddingDialog.style.display !== "block") {
             e._currentView.typeAddingDialogTypeInput.value = "";
             e._currentView.typeAddingDialog.style.display = "block";
@@ -2315,7 +2321,7 @@ var T;
         l.hide(e);
     }
     function J(e) {
-        h.Background.hide(e);
+        f.Background.hide(e);
         if (i.defined(e._currentView.typeAddingDialog) && e._currentView.typeAddingDialog.style.display !== "none") {
             e._currentView.typeAddingDialog.style.display = "none";
         }
@@ -2337,7 +2343,7 @@ var T;
                 n.innerHTML += e.title.text;
                 if (e.title.showSectionText) {
                     a.createWithHTML(n, "span", "section-text", "[");
-                    a.createWithHTML(n, "span", "section-text-name", f.View.getText(e, b));
+                    a.createWithHTML(n, "span", "section-text-name", g.View.getText(e, b));
                     a.createWithHTML(n, "span", "section-text", "]");
                 }
             }
@@ -2534,8 +2540,8 @@ var T;
         const n = e._currentView.year === t.getFullYear();
         if (e.yearlyStatistics.enabled && (!e.yearlyStatistics.showOnlyForCurrentYear || n)) {
             const o = a.create(e._currentView.element, "div", "yearly-statistics");
-            const l = f.Days.get(e);
-            const c = f.Months.get(e);
+            const l = g.Days.get(e);
+            const c = g.Months.get(e);
             const d = new Date(e._currentView.year, e.startMonth, 1);
             const u = new Date(e._currentView.year + 1, e.startMonth, 1);
             const w = oe(e, l, c, d, u);
@@ -2659,7 +2665,7 @@ var T;
                 }
             }
             const d = a.create(s, "div", "months");
-            const u = T.getAllSorted(e);
+            const w = u.getAllSorted(e);
             for (let t = e.startMonth; t < 12 + e.startMonth; t++) {
                 let o = t;
                 let s = c;
@@ -2670,8 +2676,8 @@ var T;
                 if (i.monthVisible(e.views.map.monthsToShow, o)) {
                     const t = a.create(d, "div", "month");
                     const l = a.create(t, "div", "day-columns");
-                    const w = new Date(s, o, 1);
-                    const h = r.getWeekdayNumber(w);
+                    const u = new Date(s, o, 1);
+                    const h = r.getWeekdayNumber(u);
                     let f = r.getTotalDaysInMonth(s, o);
                     let g = a.create(l, "div", "day-column");
                     let m = false;
@@ -2689,7 +2695,7 @@ var T;
                         if (m) {
                             let n = null;
                             if (i.dayVisible(e.views.map.daysToShow, y)) {
-                                n = le(e, g, t - h, o, s, u);
+                                n = le(e, g, t - h, o, s, w);
                             }
                             if ((t + 1) % 7 === 0) {
                                 if (e.views.map.showDaysInReverseOrder) {
@@ -2776,43 +2782,43 @@ var T;
             }
         }
     }
-    function le(e, t, l, d, u, w) {
-        const h = l + 1;
-        const f = a.create(t, "div", "day");
-        const g = new Date(u, d, h);
-        const m = i.holiday(e, g);
-        let y = Ee(e)[r.toStorageDate(g)];
-        y = o.getNumber(y, 0);
-        f.setAttribute(n.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${s.padNumber(h)}-${s.padNumber(d + 1)}-${u}`);
+    function le(e, t, l, d, w, h) {
+        const f = l + 1;
+        const g = a.create(t, "div", "day");
+        const m = new Date(w, d, f);
+        const y = i.holiday(e, m);
+        let p = Ee(e)[r.toStorageDate(m)];
+        p = o.getNumber(p, 0);
+        g.setAttribute(n.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${s.padNumber(f)}-${s.padNumber(d + 1)}-${w}`);
         if (e.views.map.showToolTips) {
-            Ne(e, f, g, y, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, m.matched, e.views.map.showCountsInToolTips);
+            Ne(e, g, m, p, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, y.matched, e.views.map.showCountsInToolTips);
         }
         if (e.views.map.showDayDateNumbers) {
-            const e = a.createWithHTML(f, "div", "count-date", h.toString());
-            a.createWithHTML(e, "sup", "", r.getDayOrdinal(b, h));
+            const e = a.createWithHTML(g, "div", "count-date", f.toString());
+            a.createWithHTML(e, "sup", "", r.getDayOrdinal(b, f));
         }
-        if (e.views.map.showDayCounts && y > 0) {
-            a.createWithHTML(f, "div", "count", s.friendlyNumber(y));
+        if (e.views.map.showDayCounts && p > 0) {
+            a.createWithHTML(g, "div", "count", s.friendlyNumber(p));
         }
         if (i.definedFunction(e.events.onMapDayClick)) {
-            f.onclick = () => c.customEvent(e.events.onMapDayClick, g, y, m.matched);
+            g.onclick = () => c.customEvent(e.events.onMapDayClick, m, p, y.matched);
         } else if (i.definedFunction(e.events.onMapDayDblClick)) {
-            f.ondblclick = () => c.customEvent(e.events.onMapDayDblClick, g, y, m.matched);
+            g.ondblclick = () => c.customEvent(e.events.onMapDayDblClick, m, p, y.matched);
         } else {
-            a.addClass(f, "no-hover");
+            a.addClass(g, "no-hover");
         }
-        const p = T.get(e, w, y, g);
-        if (i.defined(p) && T.isVisible(e, p.id)) {
-            if (i.definedString(p.mapCssClassName)) {
-                a.addClass(f, p.mapCssClassName);
+        const v = u.get(e, h, p, m);
+        if (i.defined(v) && u.isVisible(e, v.id)) {
+            if (i.definedString(v.mapCssClassName)) {
+                a.addClass(g, v.mapCssClassName);
             } else {
-                a.addClass(f, p.cssClassName);
+                a.addClass(g, v.cssClassName);
             }
         }
-        if (e.views.map.highlightCurrentDay && r.isToday(g)) {
-            a.addClass(f, "today");
+        if (e.views.map.highlightCurrentDay && r.isToday(m)) {
+            a.addClass(g, "today");
         }
-        return f;
+        return g;
     }
     function ce(e) {
         let t = false;
@@ -2851,7 +2857,7 @@ var T;
             }
         } else {
             const t = e._currentView.year;
-            const n = T.getAllSorted(e);
+            const n = u.getAllSorted(e);
             let l = [];
             for (let o = e.startMonth; o < 12 + e.startMonth; o++) {
                 let s = o;
@@ -2937,32 +2943,32 @@ var T;
         }
         e._currentView.lineContentsContainer.style.display = "none";
     }
-    function ue(e, t, l, d, u, w) {
-        const h = new Date(u, d, l);
-        const f = a.create(e, "div", "day-line");
-        const g = i.holiday(t, h);
-        let m = Ee(t)[r.toStorageDate(h)];
-        m = o.getNumber(m, 0);
-        f.setAttribute(n.HEAT_JS_LINE_DATE_ATTRIBUTE_NAME, `${s.padNumber(l)}-${s.padNumber(d + 1)}-${u}`);
+    function ue(e, t, l, d, w, h) {
+        const f = new Date(w, d, l);
+        const g = a.create(e, "div", "day-line");
+        const m = i.holiday(t, f);
+        let y = Ee(t)[r.toStorageDate(f)];
+        y = o.getNumber(y, 0);
+        g.setAttribute(n.HEAT_JS_LINE_DATE_ATTRIBUTE_NAME, `${s.padNumber(l)}-${s.padNumber(d + 1)}-${w}`);
         if (t.views.line.showToolTips) {
-            Ne(t, f, h, m, t.views.line.dayToolTipText, t.events.onLineDayToolTipRender, g.matched, t.views.line.showCountsInToolTips);
+            Ne(t, g, f, y, t.views.line.dayToolTipText, t.events.onLineDayToolTipRender, m.matched, t.views.line.showCountsInToolTips);
         }
         if (i.definedFunction(t.events.onLineDayClick)) {
-            f.onclick = () => c.customEvent(t.events.onLineDayClick, h, m, g.matched);
+            g.onclick = () => c.customEvent(t.events.onLineDayClick, f, y, m.matched);
         } else if (i.definedFunction(t.events.onLineDayDblClick)) {
-            f.ondblclick = () => c.customEvent(t.events.onLineDayDblClick, h, m, g.matched);
+            g.ondblclick = () => c.customEvent(t.events.onLineDayDblClick, f, y, m.matched);
         } else {
-            a.addClass(f, "no-hover");
+            a.addClass(g, "no-hover");
         }
-        const y = T.get(t, w, m, h);
-        if (i.defined(y) && T.isVisible(t, y.id)) {
-            if (i.definedString(y.lineCssClassName)) {
-                a.addClass(f, y.lineCssClassName);
+        const p = u.get(t, h, y, f);
+        if (i.defined(p) && u.isVisible(t, p.id)) {
+            if (i.definedString(p.lineCssClassName)) {
+                a.addClass(g, p.lineCssClassName);
             } else {
-                a.addClass(f, y.cssClassName);
+                a.addClass(g, p.cssClassName);
             }
         }
-        return f;
+        return g;
     }
     function we(e, t) {
         e._currentView.chartContents = a.create(e._currentView.element, "div", "chart-contents");
@@ -2971,7 +2977,7 @@ var T;
         let s = a.create(o, "div", "y-labels");
         const c = a.create(o, "div", "day-lines");
         const d = He(e);
-        let u = 0;
+        let w = 0;
         if (t) {
             a.addClass(o, "view-switch");
         }
@@ -2982,7 +2988,7 @@ var T;
             a.createWithHTML(s, "div", "label-75", Math.floor(d / 4).toString());
             a.createWithHTML(s, "div", "label-100", "0");
             s.style.width = `${e.offsetWidth}px`;
-            u = s.offsetWidth + a.getStyleValueByName(s, "margin-right", true);
+            w = s.offsetWidth + a.getStyleValueByName(s, "margin-right", true);
         } else {
             s.parentNode.removeChild(s);
             s = null;
@@ -2995,12 +3001,12 @@ var T;
                 a.addClass(i, "view-switch");
             }
         } else {
-            const n = T.getAllSorted(e);
+            const n = u.getAllSorted(e);
             const o = a.getStyleValueByName(c, "border-bottom-width", true);
             const s = (c.offsetHeight - o) / d;
             const l = e._currentView.year;
-            let w = [];
-            let h = false;
+            let h = [];
+            let f = false;
             for (let o = e.startMonth; o < 12 + e.startMonth; o++) {
                 let d = o;
                 let u = l;
@@ -3011,18 +3017,18 @@ var T;
                 if (i.monthVisible(e.views.chart.monthsToShow, d)) {
                     const o = r.getTotalDaysInMonth(u, d);
                     let l = 1;
-                    let f = false;
+                    let w = false;
                     for (let g = 0; g < o; g++) {
                         const o = new Date(u, d, l);
                         const m = r.getWeekdayNumber(o) + 1;
                         if (i.dayVisible(e.views.chart.daysToShow, m)) {
                             const i = he(c, e, g + 1, d, u, n, s, t);
-                            if (!f && h && e.views.chart.addMonthSpacing) {
+                            if (!w && f && e.views.chart.addMonthSpacing) {
                                 a.create(c, "div", "month-spacing", i);
                             }
-                            if (!f) {
-                                w.push(i);
-                                f = true;
+                            if (!w) {
+                                h.push(i);
+                                w = true;
                             }
                         }
                         if ((g + 1) % 7 === 0) {
@@ -3031,18 +3037,18 @@ var T;
                         l++;
                     }
                 }
-                h = true;
+                f = true;
             }
             if (e.views.chart.showInReverseOrder) {
                 a.reverseChildrenOrder(c);
-                w = w.reverse();
+                h = h.reverse();
             }
             if (e.views.chart.showMonthNames) {
                 const t = a.create(e._currentView.chartContents, "div", "chart-months");
                 let n = 0;
                 const o = a.create(t, "div", "month-name-space");
                 o.style.height = `${t.offsetHeight}px`;
-                o.style.width = `${u}px`;
+                o.style.width = `${w}px`;
                 const s = o => {
                     let s = o + e.startMonth;
                     let c = l;
@@ -3058,12 +3064,12 @@ var T;
                         }
                         let d = a.createWithHTML(t, "div", "month-name", o);
                         if (e.views.chart.showInReverseOrder) {
-                            let e = w[n].offsetLeft;
+                            let e = h[n].offsetLeft;
                             e -= d.offsetWidth;
-                            e += w[n].offsetWidth;
+                            e += h[n].offsetWidth;
                             d.style.left = `${e}px`;
                         } else {
-                            d.style.left = `${w[n].offsetLeft}px`;
+                            d.style.left = `${h[n].offsetLeft}px`;
                         }
                         if (r.isCurrentMonthAndYear(i)) {
                             a.addClass(d, "current");
@@ -3091,53 +3097,53 @@ var T;
         }
         e._currentView.chartContents.style.display = "none";
     }
-    function he(e, t, l, d, u, w, h, f) {
-        const g = new Date(u, d, l);
-        const m = a.create(e, "div", "day-line");
-        const y = i.holiday(t, g);
-        let v = Ee(t)[r.toStorageDate(g)];
-        v = o.getNumber(v, 0);
-        m.setAttribute(n.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${s.padNumber(l)}-${s.padNumber(d + 1)}-${u}`);
+    function he(e, t, l, d, w, h, f, g) {
+        const m = new Date(w, d, l);
+        const y = a.create(e, "div", "day-line");
+        const p = i.holiday(t, m);
+        let T = Ee(t)[r.toStorageDate(m)];
+        T = o.getNumber(T, 0);
+        y.setAttribute(n.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${s.padNumber(l)}-${s.padNumber(d + 1)}-${w}`);
         if (t.views.chart.showToolTips) {
-            Ne(t, m, g, v, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, y.matched, t.views.chart.showCountsInToolTips);
+            Ne(t, y, m, T, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, p.matched, t.views.chart.showCountsInToolTips);
         }
         if (t.views.chart.showLineCounts || t.views.chart.showLineDateNumbers) {
-            a.addClass(m, "day-line-count");
+            a.addClass(y, "day-line-count");
         }
         if (t.views.chart.showLineDateNumbers) {
-            const e = a.createWithHTML(m, "div", "count-date", l.toString());
+            const e = a.createWithHTML(y, "div", "count-date", l.toString());
             a.createWithHTML(e, "sup", "", r.getDayOrdinal(b, l));
         }
-        if (t.views.chart.showLineCounts && v > 0) {
-            a.createWithHTML(m, "div", "count", s.friendlyNumber(v));
+        if (t.views.chart.showLineCounts && T > 0) {
+            a.createWithHTML(y, "div", "count", s.friendlyNumber(T));
         }
-        const x = v * h;
+        const x = T * f;
         if (x <= 0) {
-            m.style.visibility = "hidden";
+            y.style.visibility = "hidden";
         }
         if (i.definedFunction(t.events.onChartDayClick)) {
-            m.onclick = () => c.customEvent(t.events.onChartDayClick, g, v, y.matched);
+            y.onclick = () => c.customEvent(t.events.onChartDayClick, m, T, p.matched);
         } else if (i.definedFunction(t.events.onChartDayDblClick)) {
-            m.ondblclick = () => c.customEvent(t.events.onChartDayDblClick, g, v, y.matched);
+            y.ondblclick = () => c.customEvent(t.events.onChartDayDblClick, m, T, p.matched);
         } else {
-            a.addClass(m, "no-hover");
+            a.addClass(y, "no-hover");
         }
-        const V = T.get(t, w, v, g);
-        if (i.defined(V) && T.isVisible(t, V.id)) {
+        const V = u.get(t, h, T, m);
+        if (i.defined(V) && u.isVisible(t, V.id)) {
             if (i.definedString(V.chartCssClassName)) {
-                a.addClass(m, V.chartCssClassName);
+                a.addClass(y, V.chartCssClassName);
             } else {
-                a.addClass(m, V.cssClassName);
+                a.addClass(y, V.cssClassName);
             }
         }
-        if (t.views.chart.highlightCurrentDay && r.isToday(g)) {
-            a.addClass(m, "today");
+        if (t.views.chart.highlightCurrentDay && r.isToday(m)) {
+            a.addClass(y, "today");
         }
         if (t.views.chart.useGradients) {
-            a.addGradientEffect(t._currentView.element, m);
+            a.addGradientEffect(t._currentView.element, y);
         }
-        p.setHeight(t, m, x, f);
-        return m;
+        v.setHeight(t, y, x, g);
+        return y;
     }
     function fe(e, t) {
         e._currentView.daysContents = a.create(e._currentView.element, "div", "days-contents");
@@ -3145,7 +3151,7 @@ var T;
         const s = a.create(e._currentView.daysContents, "div", "day-names");
         let r = a.create(o, "div", "y-labels");
         const l = a.create(o, "div", "day-lines");
-        const c = T.getAllSorted(e);
+        const c = u.getAllSorted(e);
         const d = me(e, c);
         if (t && (!e.views.days.useDifferentOpacities || !e.views.days.showDayCounts)) {
             a.addClass(o, "view-switch");
@@ -3239,7 +3245,7 @@ var T;
                 f.style.borderColor = d.toRgbOpacityColor(d.hexToRgba(t), w);
             }
         }
-        p.setHeight(r, f, g);
+        v.setHeight(r, f, g);
     }
     function me(e, t) {
         const n = {
@@ -3271,14 +3277,14 @@ var T;
                     const s = r.toStorageDate(new Date(c, l, a + 1));
                     if (o.hasOwnProperty(s)) {
                         const d = new Date(c, l, a + 1);
-                        const u = r.getWeekdayNumber(d) + 1;
-                        if (!i.holiday(e, d).matched && i.dayVisible(e.views.days.daysToShow, u)) {
+                        const w = r.getWeekdayNumber(d) + 1;
+                        if (!i.holiday(e, d).matched && i.dayVisible(e.views.days.daysToShow, w)) {
                             const r = o[s];
-                            const a = T.get(e, t, r);
+                            const a = u.get(e, t, r);
                             if (!i.defined(a) || a.visible) {
-                                n.values[u] += r;
+                                n.values[w] += r;
                                 n.totalValue += r;
-                                n.largestValue = Math.max(n.largestValue, n.values[u]);
+                                n.largestValue = Math.max(n.largestValue, n.values[w]);
                             }
                         }
                     }
@@ -3294,16 +3300,16 @@ var T;
         const s = a.create(e._currentView.monthsContents, "div", "month-names");
         let l = a.create(o, "div", "y-labels");
         const c = a.create(o, "div", "month-lines");
-        const d = T.getAllSorted(e);
-        const u = ve(e, d);
+        const d = u.getAllSorted(e);
+        const w = ve(e, d);
         if (t && (!e.views.months.useDifferentOpacities || !e.views.months.showMonthCounts)) {
             a.addClass(o, "view-switch");
         }
-        if (u.largestValue > 0 && e.views.months.showChartYLabels) {
-            const e = a.createWithHTML(l, "div", "label-0", u.largestValue.toString());
-            a.createWithHTML(l, "div", "label-25", (Math.floor(u.largestValue / 4) * 3).toString());
-            a.createWithHTML(l, "div", "label-50", Math.floor(u.largestValue / 2).toString());
-            a.createWithHTML(l, "div", "label-75", Math.floor(u.largestValue / 4).toString());
+        if (w.largestValue > 0 && e.views.months.showChartYLabels) {
+            const e = a.createWithHTML(l, "div", "label-0", w.largestValue.toString());
+            a.createWithHTML(l, "div", "label-25", (Math.floor(w.largestValue / 4) * 3).toString());
+            a.createWithHTML(l, "div", "label-50", Math.floor(w.largestValue / 2).toString());
+            a.createWithHTML(l, "div", "label-75", Math.floor(w.largestValue / 4).toString());
             a.createWithHTML(l, "div", "label-100", "0");
             l.style.width = `${e.offsetWidth}px`;
             s.style.paddingLeft = `${l.offsetWidth + a.getStyleValueByName(l, "margin-right", true)}px`;
@@ -3311,7 +3317,7 @@ var T;
             l.parentNode.removeChild(l);
             l = null;
         }
-        if (u.largestValue === 0) {
+        if (w.largestValue === 0) {
             e._currentView.monthsContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
             o.parentNode.removeChild(o);
             s.parentNode.removeChild(s);
@@ -3321,7 +3327,7 @@ var T;
             }
         } else {
             const t = a.getStyleValueByName(c, "border-bottom-width", true);
-            const n = (c.offsetHeight - t) / u.largestValue;
+            const n = (c.offsetHeight - t) / w.largestValue;
             const o = e._currentView.year;
             for (let t = e.startMonth; t < 12 + e.startMonth; t++) {
                 let l = t;
@@ -3330,10 +3336,10 @@ var T;
                     l = t - 12;
                     d++;
                 }
-                const w = l + 1;
-                if (u.values.hasOwnProperty(w) && i.monthVisible(e.views.months.monthsToShow, l)) {
-                    const t = u.valueOpacities[u.values[w]];
-                    pe(c, w, u.values[w], e, n, t, u.totalValue);
+                const u = l + 1;
+                if (w.values.hasOwnProperty(u) && i.monthVisible(e.views.months.monthsToShow, l)) {
+                    const t = w.valueOpacities[w.values[u]];
+                    pe(c, u, w.values[u], e, n, t, w.totalValue);
                     if (e.views.months.showMonthNames) {
                         const e = a.createWithHTML(s, "div", "month-name", b.text.monthNames[l]);
                         const t = new Date(o, l, 1);
@@ -3365,14 +3371,14 @@ var T;
         if (r.views.months.showToolTips) {
             l.add(f, r, s.friendlyNumber(o));
         }
-        let v = r._currentView.year;
+        let p = r._currentView.year;
         if (r.startMonth > 0 && t - 1 < r.startMonth) {
-            v++;
+            p++;
         }
         if (i.definedFunction(r.events.onMonthClick)) {
-            f.onclick = () => c.customEvent(r.events.onMonthClick, t, o, v);
+            f.onclick = () => c.customEvent(r.events.onMonthClick, t, o, p);
         } else if (i.definedFunction(r.events.onMonthDblClick)) {
-            f.ondblclick = () => c.customEvent(r.events.onMonthDblClick, t, o, v);
+            f.ondblclick = () => c.customEvent(r.events.onMonthDblClick, t, o, p);
         } else {
             a.addClass(f, "no-hover");
         }
@@ -3408,7 +3414,7 @@ var T;
                 f.style.borderColor = d.toRgbOpacityColor(d.hexToRgba(t), w);
             }
         }
-        p.setHeight(r, f, g);
+        v.setHeight(r, f, g);
     }
     function ve(e, t) {
         const n = {
@@ -3445,11 +3451,11 @@ var T;
                 for (let d = 0; d < a; d++) {
                     const a = r.toStorageDate(new Date(c, l, d + 1));
                     if (o.hasOwnProperty(a)) {
-                        const u = new Date(c, l, d + 1);
-                        const w = r.getWeekdayNumber(u) + 1;
-                        if (!i.holiday(e, u).matched && i.dayVisible(e.views.days.daysToShow, w)) {
+                        const w = new Date(c, l, d + 1);
+                        const h = r.getWeekdayNumber(w) + 1;
+                        if (!i.holiday(e, w).matched && i.dayVisible(e.views.days.daysToShow, h)) {
                             const r = o[a];
-                            const l = T.get(e, t, r);
+                            const l = u.get(e, t, r);
                             if (!i.defined(l) || l.visible) {
                                 n.values[s] += r;
                                 n.totalValue += r;
@@ -3469,7 +3475,7 @@ var T;
         const s = a.create(e._currentView.statisticsContents, "div", "statistics-ranges");
         let r = a.create(o, "div", "y-labels");
         const l = a.create(o, "div", "range-lines");
-        const c = T.getAllSorted(e);
+        const c = u.getAllSorted(e);
         const d = xe(e, c);
         if (t) {
             a.addClass(o, "view-switch");
@@ -3503,7 +3509,7 @@ var T;
             for (const n in d.types) {
                 if (d.types.hasOwnProperty(n)) {
                     be(parseInt(n), l, d.types[n], e, c, o, d.totalValue, t);
-                    const r = T.getByMinimum(c, parseInt(n));
+                    const r = u.getByMinimum(c, parseInt(n));
                     if (e.views.statistics.showColorRangeLabels) {
                         if (!e.views.statistics.useColorRangeNamesForLabels || !i.defined(r) || !i.definedString(r.name)) {
                             a.createWithHTML(s, "div", "range-name", `${n}${"+"}`);
@@ -3523,50 +3529,50 @@ var T;
         }
         e._currentView.statisticsContents.style.display = "none";
     }
-    function be(e, t, o, r, d, u, w, h) {
-        const f = a.create(t, "div", "range-line");
-        const g = T.getByMinimum(d, e);
-        const m = o * u;
-        if (i.defined(g) && i.definedString(g.name)) {
-            f.setAttribute(n.HEAT_JS_STATISTICS_COLOR_RANGE_NAME_ATTRIBUTE_NAME, g.name);
+    function be(e, t, o, r, d, w, h, f) {
+        const g = a.create(t, "div", "range-line");
+        const m = u.getByMinimum(d, e);
+        const y = o * w;
+        if (i.defined(m) && i.definedString(m.name)) {
+            g.setAttribute(n.HEAT_JS_STATISTICS_COLOR_RANGE_NAME_ATTRIBUTE_NAME, m.name);
         }
-        if (m <= 0) {
-            f.style.visibility = "hidden";
+        if (y <= 0) {
+            g.style.visibility = "hidden";
         }
         if (r.views.statistics.showToolTips) {
             let e;
-            if (i.defined(g) && i.definedString(g.name) && r.views.statistics.showRangeNamesInToolTips) {
-                e = `${g.name}${":"}${" "}<b class="tooltip-count">${s.friendlyNumber(o)}</b>`;
+            if (i.defined(m) && i.definedString(m.name) && r.views.statistics.showRangeNamesInToolTips) {
+                e = `${m.name}${":"}${" "}<b class="tooltip-count">${s.friendlyNumber(o)}</b>`;
             } else {
                 e = s.friendlyNumber(o);
             }
-            l.add(f, r, e);
+            l.add(g, r, e);
         }
         if (r.views.statistics.showRangeCounts && o > 0) {
-            a.addClass(f, "range-line-count");
-            const e = a.createWithHTML(f, "div", "count", s.friendlyNumber(o));
+            a.addClass(g, "range-line-count");
+            const e = a.createWithHTML(g, "div", "count", s.friendlyNumber(o));
             if (r.views.statistics.showRangeCountPercentages) {
-                a.createWithHTML(e, "div", "percentage", `${(o / w * 100).toFixed(r.percentageDecimalPoints)}%`);
+                a.createWithHTML(e, "div", "percentage", `${(o / h * 100).toFixed(r.percentageDecimalPoints)}%`);
             }
         }
         if (i.definedFunction(r.events.onStatisticClick)) {
-            f.onclick = () => c.customEvent(r.events.onStatisticClick, g, o, r._currentView.year);
+            g.onclick = () => c.customEvent(r.events.onStatisticClick, m, o, r._currentView.year);
         } else if (i.definedFunction(r.events.onStatisticDblClick)) {
-            f.ondblclick = () => c.customEvent(r.events.onStatisticDblClick, g, o, r._currentView.year);
+            g.ondblclick = () => c.customEvent(r.events.onStatisticDblClick, m, o, r._currentView.year);
         } else {
-            a.addClass(f, "no-hover");
+            a.addClass(g, "no-hover");
         }
-        if (i.defined(g) && T.isVisible(r, g.id)) {
-            if (i.definedString(g.statisticsCssClassName)) {
-                a.addClass(f, g.statisticsCssClassName);
+        if (i.defined(m) && u.isVisible(r, m.id)) {
+            if (i.definedString(m.statisticsCssClassName)) {
+                a.addClass(g, m.statisticsCssClassName);
             } else {
-                a.addClass(f, g.cssClassName);
+                a.addClass(g, m.cssClassName);
             }
         }
         if (r.views.statistics.useGradients) {
-            a.addGradientEffect(r._currentView.element, f);
+            a.addGradientEffect(r._currentView.element, g);
         }
-        p.setHeight(r, f, m, h);
+        v.setHeight(r, g, y, f);
     }
     function xe(e, t) {
         const n = Ee(e);
@@ -3589,9 +3595,9 @@ var T;
                     const o = r.toStorageDate(new Date(c, l, a + 1));
                     if (n.hasOwnProperty(o)) {
                         const d = new Date(c, l, a + 1);
-                        const u = r.getWeekdayNumber(d) + 1;
-                        if (!i.holiday(e, d).matched && i.dayVisible(e.views.statistics.daysToShow, u)) {
-                            const r = T.get(e, t, n[o]);
+                        const w = r.getWeekdayNumber(d) + 1;
+                        if (!i.holiday(e, d).matched && i.dayVisible(e.views.statistics.daysToShow, w)) {
+                            const r = u.get(e, t, n[o]);
                             const a = i.defined(r) ? r.minimum.toString() : "0";
                             if (!s.types.hasOwnProperty(a)) {
                                 s.types[a] = 0;
@@ -3650,7 +3656,7 @@ var T;
                 }
             }
             const i = a.create(n, "div", "days");
-            const o = T.getAllSorted(e);
+            const o = u.getAllSorted(e);
             const s = o.length;
             const r = [];
             let l = 0;
@@ -3694,7 +3700,7 @@ var T;
         if (e.guide.showToolTips) {
             l.add(o, e, n.tooltipText);
         }
-        if (T.isVisible(e, n.id)) {
+        if (u.isVisible(e, n.id)) {
             if (e.views.map.enabled && e._currentView.view === 1 && i.definedString(n.mapCssClassName)) {
                 a.addClass(o, n.mapCssClassName);
             } else if (e.views.line.enabled && e._currentView.view === 2 && i.definedString(n.lineCssClassName)) {
@@ -3736,7 +3742,7 @@ var T;
             const c = a.createIconButton(o, "button", "zoom-out", "minus");
             const d = a.createWithHTML(o, "span", "zoom-level", `+${s.friendlyNumber(e._currentView.zoomLevel * 10)}%`);
             const u = a.createIconButton(o, "button", "zoom-in", "plus");
-            const w = a.getStyleValueByName(document.documentElement, y.Variables.Spacing, true);
+            const w = a.getStyleValueByName(document.documentElement, p.Variables.Spacing, true);
             l.add(r, e, b.text.closeButtonText);
             l.add(u, e, b.text.zoomInText);
             l.add(c, e, b.text.zoomOutText);
@@ -3760,10 +3766,10 @@ var T;
         }
     }
     function Me(e) {
-        const t = a.getStyleValueByNameSizingMetic(document.documentElement, y.Variables.DaySize);
-        const n = a.getStyleValueByNameSizingMetic(document.documentElement, y.Variables.LineWidth);
-        let i = a.getStyleValueByName(document.documentElement, y.Variables.DaySize, true);
-        let o = a.getStyleValueByName(document.documentElement, y.Variables.LineWidth, true);
+        const t = a.getStyleValueByNameSizingMetic(document.documentElement, p.Variables.DaySize);
+        const n = a.getStyleValueByNameSizingMetic(document.documentElement, p.Variables.LineWidth);
+        let i = a.getStyleValueByName(document.documentElement, p.Variables.DaySize, true);
+        let o = a.getStyleValueByName(document.documentElement, p.Variables.LineWidth, true);
         if (e._currentView.mapZoomIncrement === -1) {
             e._currentView.mapZoomIncrement = i / 10;
         }
@@ -3774,23 +3780,23 @@ var T;
             i += parseFloat((e.zooming.defaultLevel * e._currentView.mapZoomIncrement).toFixed(1));
             o += parseFloat((e.zooming.defaultLevel * e._currentView.lineZoomIncrement).toFixed(1));
             e._currentView.zoomLevel = e.zooming.defaultLevel;
-            e._currentView.element.style.setProperty(y.Variables.DaySize, `${i}${t}`);
-            e._currentView.element.style.setProperty(y.Variables.LineWidth, `${o}${n}`);
+            e._currentView.element.style.setProperty(p.Variables.DaySize, `${i}${t}`);
+            e._currentView.element.style.setProperty(p.Variables.LineWidth, `${o}${n}`);
         }
     }
     function Be(e) {
         if (e._currentView.zoomLevel > 0) {
-            const t = a.getStyleValueByNameSizingMetic(document.documentElement, y.Variables.DaySize);
-            const n = a.getStyleValueByNameSizingMetic(document.documentElement, y.Variables.LineWidth);
-            let i = a.getStyleValueByName(e._currentView.element, y.Variables.DaySize, true);
-            let o = a.getStyleValueByName(e._currentView.element, y.Variables.LineWidth, true);
+            const t = a.getStyleValueByNameSizingMetic(document.documentElement, p.Variables.DaySize);
+            const n = a.getStyleValueByNameSizingMetic(document.documentElement, p.Variables.LineWidth);
+            let i = a.getStyleValueByName(e._currentView.element, p.Variables.DaySize, true);
+            let o = a.getStyleValueByName(e._currentView.element, p.Variables.LineWidth, true);
             i -= e._currentView.mapZoomIncrement;
             i = parseFloat(i.toFixed(1));
             o -= e._currentView.lineZoomIncrement;
             o = parseFloat(o.toFixed(1));
             e._currentView.zoomLevel--;
-            e._currentView.element.style.setProperty(y.Variables.DaySize, `${i}${t}`);
-            e._currentView.element.style.setProperty(y.Variables.LineWidth, `${o}${n}`);
+            e._currentView.element.style.setProperty(p.Variables.DaySize, `${i}${t}`);
+            e._currentView.element.style.setProperty(p.Variables.LineWidth, `${o}${n}`);
             e._currentView.dayWidth = 0;
             c.customEvent(e.events.onZoomLevelChange, e._currentView.element, e._currentView.zoomLevel);
             S(e, false, false, true);
@@ -3798,17 +3804,17 @@ var T;
     }
     function Le(e) {
         if (e.zooming.maximumLevel === 0 || e._currentView.zoomLevel < e.zooming.maximumLevel) {
-            const t = a.getStyleValueByNameSizingMetic(document.documentElement, y.Variables.DaySize);
-            const n = a.getStyleValueByNameSizingMetic(document.documentElement, y.Variables.LineWidth);
-            let i = a.getStyleValueByName(e._currentView.element, y.Variables.DaySize, true);
-            let o = a.getStyleValueByName(e._currentView.element, y.Variables.LineWidth, true);
+            const t = a.getStyleValueByNameSizingMetic(document.documentElement, p.Variables.DaySize);
+            const n = a.getStyleValueByNameSizingMetic(document.documentElement, p.Variables.LineWidth);
+            let i = a.getStyleValueByName(e._currentView.element, p.Variables.DaySize, true);
+            let o = a.getStyleValueByName(e._currentView.element, p.Variables.LineWidth, true);
             i += e._currentView.mapZoomIncrement;
             i = parseFloat(i.toFixed(1));
             o += e._currentView.lineZoomIncrement;
             o = parseFloat(o.toFixed(1));
             e._currentView.zoomLevel++;
-            e._currentView.element.style.setProperty(y.Variables.DaySize, `${i}${t}`);
-            e._currentView.element.style.setProperty(y.Variables.LineWidth, `${o}${n}`);
+            e._currentView.element.style.setProperty(p.Variables.DaySize, `${i}${t}`);
+            e._currentView.element.style.setProperty(p.Variables.LineWidth, `${o}${n}`);
             e._currentView.dayWidth = 0;
             c.customEvent(e.events.onZoomLevelChange, e._currentView.element, e._currentView.zoomLevel);
             S(e, false, false, true);
@@ -3866,7 +3872,7 @@ var T;
         };
         V[e].typeData[b.text.unknownTrendText] = {};
         if (n && !t._currentView.isInFetchMode) {
-            v.load(b, t, V[e]);
+            T.load(b, t, V[e]);
         }
     }
     function Ee(e) {
@@ -4347,7 +4353,7 @@ var T;
         },
         render: function(e, t) {
             if (i.definedObject(e) && i.definedObject(t)) {
-                D(u.Options.getForNewInstance(b, t, e));
+                D(w.Options.getForNewInstance(b, t, e));
             }
             return qe;
         },
@@ -4358,7 +4364,7 @@ var T;
         switchView: function(e, t) {
             if (i.definedString(e) && i.definedString(t) && V.hasOwnProperty(e)) {
                 const n = V[e].options;
-                let i = f.View.get(t);
+                let i = g.View.get(t);
                 if (i !== 0 && n._currentView.view !== i) {
                     Ae(n, i, t);
                 }
@@ -4379,7 +4385,7 @@ var T;
         updateOptions: function(e, t) {
             if (i.definedString(e) && i.definedObject(t) && V.hasOwnProperty(e)) {
                 const t = V[e].options;
-                const n = u.Options.get(t);
+                const n = w.Options.get(t);
                 let i = false;
                 for (const e in n) {
                     if (n.hasOwnProperty(e) && t.hasOwnProperty(e) && t[e] !== n[e]) {
@@ -4398,7 +4404,7 @@ var T;
         getActiveView: function(e) {
             let t = "";
             if (i.definedString(e) && V.hasOwnProperty(e)) {
-                t = f.View.getName(V[e].options);
+                t = g.View.getName(V[e].options);
             }
             return t;
         },
@@ -4430,7 +4436,7 @@ var T;
                     }
                 }
                 if (o) {
-                    b = w.Options.get(n);
+                    b = h.Options.get(n);
                     Xe();
                     if (t) {
                         qe.refreshAll();
@@ -4453,7 +4459,7 @@ var T;
         }
     };
     (() => {
-        b = w.Options.get();
+        b = h.Options.get();
         document.addEventListener("DOMContentLoaded", () => {
             Xe();
             _();
