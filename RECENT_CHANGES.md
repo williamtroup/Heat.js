@@ -16,6 +16,7 @@
 - Added animation effects for all Bar Graph views.
 - Invert color range toggles support via the guide (off by default).
 - The "Map" view now behaves like all other views (it can be disabled, and shows no data messages by default).
+- Added dynamic colors support from a single hex color!
 
 #### **Exporting:**
 - Added support to export all data to YAML (.yaml).
@@ -78,6 +79,12 @@
 - Added a new binding option called "zooming.enabled", which states if map zooming in/out is enabled (defaults to false).
 - Added a new binding option called "zooming.defaultLevel", which states the default zoom level (defaults to 0).
 - Added a new binding option called "zooming.maximumLevel", which states the maximum zoom level (defaults to 0, which disables it).
+- Added a new binding area called "dynamicColorRange".
+- Added a new binding option called "dynamicColorRange.enabled", which states if dynamic colors are enabled (defaults to false).
+- Added a new binding option called "dynamicColorRange.maximumMinimum", which states the maximum minimum level to use (defaults to 25).
+- Added a new binding option called "dynamicColorRange.color", which states the hex color to start with (defaults to empty string).
+- Added a new binding option called "dynamicColorRange.totalColors", which states the total number of color ranges ot create (defaults to 7).
+- Added a new binding option called "dynamicColorRange.maximumRgbRange", which states the maximum RBG value to use for the colors (defaults to 256).
 
 #### **Binding Options - Custom Triggers - Breaking:**
 - BREAKING: Renamed "events.onDayClick" to "events.onMapDayClick".
