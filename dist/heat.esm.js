@@ -3183,30 +3183,30 @@ var T;
                 a.addClass(i, "view-switch");
             }
         } else {
-            const t = a.getStyleValueByName(l, "border-bottom-width", true);
-            const n = (l.offsetHeight - t) / d.largestValue;
-            for (const t in d.values) {
-                if (d.values.hasOwnProperty(t) && i.dayVisible(e.views.days.daysToShow, parseInt(t))) {
-                    const o = d.valueOpacities[d.values[t].total];
-                    const r = ge(l, parseInt(t), d.values[t].total, e, n, o, d.totalValue);
+            const n = a.getStyleValueByName(l, "border-bottom-width", true);
+            const o = (l.offsetHeight - n) / d.largestValue;
+            for (const n in d.values) {
+                if (d.values.hasOwnProperty(n) && i.dayVisible(e.views.days.daysToShow, parseInt(n))) {
+                    const r = d.valueOpacities[d.values[n].total];
+                    const w = ge(l, parseInt(n), d.values[n].total, e, o, r, d.totalValue, t);
                     if (e.views.days.showDayNames) {
-                        a.createWithHTML(s, "div", "day-name", b.text.dayNames[parseInt(t) - 1]);
+                        a.createWithHTML(s, "div", "day-name", b.text.dayNames[parseInt(n) - 1]);
                     }
                     if (e.views.days.showStackedColorRanges) {
-                        for (const e in d.values[t].typeTotals) {
-                            if (d.values[t].typeTotals.hasOwnProperty(e)) {
-                                const o = d.values[t].typeTotals[e];
-                                const s = o * n;
-                                const l = u.getByMinimum(c, parseInt(e));
+                        for (const e in d.values[n].typeTotals) {
+                            if (d.values[n].typeTotals.hasOwnProperty(e)) {
+                                const t = d.values[n].typeTotals[e];
+                                const s = t * o;
+                                const r = u.getByMinimum(c, parseInt(e));
                                 if (s > 0) {
-                                    const e = r.children.length > 0 ? r.children[0] : null;
-                                    const t = a.create(r, "div", "stacked-color-range", e);
+                                    const e = w.children.length > 0 ? w.children[0] : null;
+                                    const t = a.create(w, "div", "stacked-color-range", e);
                                     t.style.height = `${s}px`;
-                                    if (i.defined(l)) {
-                                        if (i.definedString(l.daysCssClassName)) {
-                                            a.addClass(t, l.daysCssClassName);
+                                    if (i.defined(r)) {
+                                        if (i.definedString(r.daysCssClassName)) {
+                                            a.addClass(t, r.daysCssClassName);
                                         } else {
-                                            a.addClass(t, l.cssClassName);
+                                            a.addClass(t, r.cssClassName);
                                         }
                                     }
                                 }
@@ -3225,60 +3225,60 @@ var T;
         }
         e._currentView.daysContents.style.display = "none";
     }
-    function ge(e, t, o, r, u, w, h) {
-        const f = a.create(e, "div", "day-line");
-        const g = o * u;
-        let m = null;
-        f.setAttribute(n.HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME, t.toString());
-        if (g <= 0) {
-            f.style.visibility = "hidden";
+    function ge(e, t, o, r, u, w, h, f) {
+        const g = a.create(e, "div", "day-line");
+        const m = o * u;
+        let y = null;
+        g.setAttribute(n.HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME, t.toString());
+        if (m <= 0) {
+            g.style.visibility = "hidden";
         }
         if (!r.views.days.showStackedColorRanges) {
-            a.addClass(f, "non-stacked");
+            a.addClass(g, "non-stacked");
         }
         if (r.views.days.showToolTips) {
-            l.add(f, r, s.friendlyNumber(o));
+            l.add(g, r, s.friendlyNumber(o));
         }
         if (i.definedFunction(r.events.onWeekDayClick)) {
-            f.onclick = () => c.customEvent(r.events.onWeekDayClick, t, o, r._currentView.year);
+            g.onclick = () => c.customEvent(r.events.onWeekDayClick, t, o, r._currentView.year);
         } else if (i.definedFunction(r.events.onWeekDayDblClick)) {
-            f.ondblclick = () => c.customEvent(r.events.onWeekDayDblClick, t, o, r._currentView.year);
+            g.ondblclick = () => c.customEvent(r.events.onWeekDayDblClick, t, o, r._currentView.year);
         } else {
-            a.addClass(f, "no-hover");
+            a.addClass(g, "no-hover");
         }
         if (r.views.days.showDayCounts && o > 0) {
-            a.addClass(f, "day-line-count");
-            m = a.createWithHTML(f, "div", "count", s.friendlyNumber(o));
+            a.addClass(g, "day-line-count");
+            y = a.createWithHTML(g, "div", "count", s.friendlyNumber(o));
             if (r.views.days.showDayCountPercentages) {
-                a.createWithHTML(m, "div", "percentage", `${(o / h * 100).toFixed(r.percentageDecimalPoints)}%`);
+                a.createWithHTML(y, "div", "percentage", `${(o / h * 100).toFixed(r.percentageDecimalPoints)}%`);
             }
         }
         if (!r.views.days.showStackedColorRanges) {
             if (r.views.days.useGradients) {
-                a.addGradientEffect(r._currentView.element, f);
-                if (i.defined(m)) {
-                    a.addClass(m, "blend-colors");
+                a.addGradientEffect(r._currentView.element, g);
+                if (i.defined(y)) {
+                    a.addClass(y, "blend-colors");
                 }
             } else if (r.views.days.useDifferentOpacities) {
-                const e = a.getStyleValueByName(f, "background-color");
-                const t = a.getStyleValueByName(f, "border-color");
-                if (i.defined(m)) {
-                    a.addClass(m, "blend-colors");
+                const e = a.getStyleValueByName(g, "background-color");
+                const t = a.getStyleValueByName(g, "border-color");
+                if (i.defined(y)) {
+                    a.addClass(y, "blend-colors");
                 }
                 if (i.rgbColor(e)) {
-                    f.style.backgroundColor = d.toRgbOpacityColor(e, w);
+                    g.style.backgroundColor = d.toRgbOpacityColor(e, w);
                 } else if (i.hexColor(e)) {
-                    f.style.backgroundColor = d.toRgbOpacityColor(d.hexToRgba(e), w);
+                    g.style.backgroundColor = d.toRgbOpacityColor(d.hexToRgba(e), w);
                 }
                 if (i.rgbColor(t)) {
-                    f.style.borderColor = d.toRgbOpacityColor(t, w);
+                    g.style.borderColor = d.toRgbOpacityColor(t, w);
                 } else if (i.hexColor(t)) {
-                    f.style.borderColor = d.toRgbOpacityColor(d.hexToRgba(t), w);
+                    g.style.borderColor = d.toRgbOpacityColor(d.hexToRgba(t), w);
                 }
             }
         }
-        v.setHeight(r, f, g);
-        return f;
+        v.setHeight(r, g, m, f);
+        return g;
     }
     function me(e, t) {
         const n = {
@@ -3385,37 +3385,37 @@ var T;
                 a.addClass(i, "view-switch");
             }
         } else {
-            const t = a.getStyleValueByName(c, "border-bottom-width", true);
-            const n = (c.offsetHeight - t) / w.largestValue;
-            const o = e._currentView.year;
-            for (let t = e.startMonth; t < 12 + e.startMonth; t++) {
-                let l = t;
-                let h = o;
-                if (e.startMonth > 0 && t > 11) {
-                    l = t - 12;
-                    h++;
+            const n = a.getStyleValueByName(c, "border-bottom-width", true);
+            const o = (c.offsetHeight - n) / w.largestValue;
+            const l = e._currentView.year;
+            for (let n = e.startMonth; n < 12 + e.startMonth; n++) {
+                let h = n;
+                let f = l;
+                if (e.startMonth > 0 && n > 11) {
+                    h = n - 12;
+                    f++;
                 }
-                const f = l + 1;
-                if (w.values.hasOwnProperty(f) && i.monthVisible(e.views.months.monthsToShow, l)) {
-                    const t = w.valueOpacities[w.values[f].total];
-                    const h = pe(c, f, w.values[f].total, e, n, t, w.totalValue);
+                const g = h + 1;
+                if (w.values.hasOwnProperty(g) && i.monthVisible(e.views.months.monthsToShow, h)) {
+                    const n = w.valueOpacities[w.values[g].total];
+                    const f = pe(c, g, w.values[g].total, e, o, n, w.totalValue, t);
                     if (e.views.months.showMonthNames) {
-                        const e = a.createWithHTML(s, "div", "month-name", b.text.monthNames[l]);
-                        const t = new Date(o, l, 1);
+                        const e = a.createWithHTML(s, "div", "month-name", b.text.monthNames[h]);
+                        const t = new Date(l, h, 1);
                         if (r.isCurrentMonthAndYear(t)) {
                             a.addClass(e, "current");
                         }
                     }
                     if (e.views.months.showStackedColorRanges) {
-                        for (const e in w.values[f].typeTotals) {
-                            if (w.values[f].typeTotals.hasOwnProperty(e)) {
-                                const t = w.values[f].typeTotals[e];
-                                const o = t * n;
+                        for (const e in w.values[g].typeTotals) {
+                            if (w.values[g].typeTotals.hasOwnProperty(e)) {
+                                const t = w.values[g].typeTotals[e];
+                                const n = t * o;
                                 const s = u.getByMinimum(d, parseInt(e));
-                                if (o > 0) {
-                                    const e = h.children.length > 0 ? h.children[0] : null;
-                                    const t = a.create(h, "div", "stacked-color-range", e);
-                                    t.style.height = `${o}px`;
+                                if (n > 0) {
+                                    const e = f.children.length > 0 ? f.children[0] : null;
+                                    const t = a.create(f, "div", "stacked-color-range", e);
+                                    t.style.height = `${n}px`;
                                     if (i.defined(s)) {
                                         if (i.definedString(s.monthsCssClassName)) {
                                             a.addClass(t, s.monthsCssClassName);
@@ -3439,68 +3439,68 @@ var T;
         }
         e._currentView.monthsContents.style.display = "none";
     }
-    function pe(e, t, o, r, u, w, h) {
-        const f = a.create(e, "div", "month-line");
-        const g = o * u;
-        const m = new Date;
-        let y = null;
-        f.setAttribute(n.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, t.toString());
+    function pe(e, t, o, r, u, w, h, f) {
+        const g = a.create(e, "div", "month-line");
+        const m = o * u;
+        const y = new Date;
+        let p = null;
+        g.setAttribute(n.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, t.toString());
         if (!r.views.months.showStackedColorRanges) {
-            a.addClass(f, "non-stacked");
+            a.addClass(g, "non-stacked");
         }
-        if (g <= 0) {
-            f.style.visibility = "hidden";
+        if (m <= 0) {
+            g.style.visibility = "hidden";
         }
         if (r.views.months.showToolTips) {
-            l.add(f, r, s.friendlyNumber(o));
+            l.add(g, r, s.friendlyNumber(o));
         }
-        let p = r._currentView.year;
+        let T = r._currentView.year;
         if (r.startMonth > 0 && t - 1 < r.startMonth) {
-            p++;
+            T++;
         }
         if (i.definedFunction(r.events.onMonthClick)) {
-            f.onclick = () => c.customEvent(r.events.onMonthClick, t, o, p);
+            g.onclick = () => c.customEvent(r.events.onMonthClick, t, o, T);
         } else if (i.definedFunction(r.events.onMonthDblClick)) {
-            f.ondblclick = () => c.customEvent(r.events.onMonthDblClick, t, o, p);
+            g.ondblclick = () => c.customEvent(r.events.onMonthDblClick, t, o, T);
         } else {
-            a.addClass(f, "no-hover");
+            a.addClass(g, "no-hover");
         }
         if (r.views.months.showMonthCounts && o > 0) {
-            a.addClass(f, "month-line-count");
-            y = a.createWithHTML(f, "div", "count", s.friendlyNumber(o));
+            a.addClass(g, "month-line-count");
+            p = a.createWithHTML(g, "div", "count", s.friendlyNumber(o));
             if (r.views.months.showMonthCountPercentages) {
-                a.createWithHTML(y, "div", "percentage", `${(o / h * 100).toFixed(r.percentageDecimalPoints)}%`);
+                a.createWithHTML(p, "div", "percentage", `${(o / h * 100).toFixed(r.percentageDecimalPoints)}%`);
             }
         }
-        if (r.views.months.highlightCurrentMonth && m.getMonth() === t - 1 && r._currentView.year === m.getFullYear()) {
-            a.addClass(f, "today");
+        if (r.views.months.highlightCurrentMonth && y.getMonth() === t - 1 && r._currentView.year === y.getFullYear()) {
+            a.addClass(g, "today");
         }
         if (!r.views.months.showStackedColorRanges) {
             if (r.views.months.useGradients) {
-                a.addGradientEffect(r._currentView.element, f);
-                if (i.defined(y)) {
-                    a.addClass(y, "blend-colors");
+                a.addGradientEffect(r._currentView.element, g);
+                if (i.defined(p)) {
+                    a.addClass(p, "blend-colors");
                 }
             } else if (r.views.months.useDifferentOpacities) {
-                const e = a.getStyleValueByName(f, "background-color");
-                const t = a.getStyleValueByName(f, "border-color");
-                if (i.defined(y)) {
-                    a.addClass(y, "blend-colors");
+                const e = a.getStyleValueByName(g, "background-color");
+                const t = a.getStyleValueByName(g, "border-color");
+                if (i.defined(p)) {
+                    a.addClass(p, "blend-colors");
                 }
                 if (i.rgbColor(e)) {
-                    f.style.backgroundColor = d.toRgbOpacityColor(e, w);
+                    g.style.backgroundColor = d.toRgbOpacityColor(e, w);
                 } else if (i.hexColor(e)) {
-                    f.style.backgroundColor = d.toRgbOpacityColor(d.hexToRgba(e), w);
+                    g.style.backgroundColor = d.toRgbOpacityColor(d.hexToRgba(e), w);
                 }
                 if (i.rgbColor(t)) {
-                    f.style.borderColor = d.toRgbOpacityColor(t, w);
+                    g.style.borderColor = d.toRgbOpacityColor(t, w);
                 } else if (i.hexColor(t)) {
-                    f.style.borderColor = d.toRgbOpacityColor(d.hexToRgba(t), w);
+                    g.style.borderColor = d.toRgbOpacityColor(d.hexToRgba(t), w);
                 }
             }
         }
-        v.setHeight(r, f, g);
-        return f;
+        v.setHeight(r, g, m, f);
+        return g;
     }
     function ve(e, t) {
         const n = {
