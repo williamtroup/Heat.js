@@ -98,13 +98,13 @@ export namespace ColorRange {
         let result: BindingOptionsColorRange[] = [];
 
         const rgbaValues: number[] = Convert.hexToRgbaValues( dynamicColorRange!.color! );
-        const incrementColor: number = Math.floor( 256 / dynamicColorRange!.totalColors! );
-        const incrementMinimum: number = Math.floor( dynamicColorRange!.maximum! / dynamicColorRange!.totalColors! );
+        const incrementColor: number = Math.floor( dynamicColorRange!.maximumRgbRange! / dynamicColorRange!.totalColors! );
+        const incrementMinimum: number = Math.floor( dynamicColorRange!.maximumMinimum! / dynamicColorRange!.totalColors! );
         const cssLines: string[] = [];
 
-        let red: number = rgbaValues[ 0 ] % 256;
-        let green: number = rgbaValues[ 1 ] % 256;
-        let blue: number = rgbaValues[ 2 ] % 256;
+        let red: number = rgbaValues[ 0 ] % dynamicColorRange!.maximumRgbRange!;
+        let green: number = rgbaValues[ 1 ] % dynamicColorRange!.maximumRgbRange!;
+        let blue: number = rgbaValues[ 2 ] % dynamicColorRange!.maximumRgbRange!;
         let currentValue: number = 0;
 
         for ( let colorIndex: number = 0; colorIndex < dynamicColorRange!.totalColors!; colorIndex++ ){

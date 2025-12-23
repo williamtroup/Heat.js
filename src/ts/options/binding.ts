@@ -157,9 +157,10 @@ export namespace Binding {
         function getDynamicColorRange( bindingOptions: BindingOptions ) : BindingOptionsDynamicColorRange {
             bindingOptions.dynamicColorRange = Default.getObject( bindingOptions.dynamicColorRange, {} as BindingOptionsDynamicColorRange );
             bindingOptions.dynamicColorRange!.enabled = Default.getBoolean( bindingOptions.dynamicColorRange!.enabled, false );
-            bindingOptions.dynamicColorRange!.maximum = Default.getNumber( bindingOptions.dynamicColorRange!.maximum, 25 );
+            bindingOptions.dynamicColorRange!.maximumMinimum = Default.getNumber( bindingOptions.dynamicColorRange!.maximumMinimum, 25 );
             bindingOptions.dynamicColorRange!.color = Default.getString( bindingOptions.dynamicColorRange!.color, Char.empty );
             bindingOptions.dynamicColorRange!.totalColors = Default.getNumber( bindingOptions.dynamicColorRange!.totalColors, 7 );
+            bindingOptions.dynamicColorRange!.maximumRgbRange = Default.getNumber( bindingOptions.dynamicColorRange!.maximumRgbRange, 256 );
     
             return bindingOptions.dynamicColorRange!;
         }

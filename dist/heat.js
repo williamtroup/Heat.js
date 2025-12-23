@@ -660,12 +660,12 @@ var u;
     function c(e) {
         let t = [];
         const n = d.hexToRgbaValues(e.color);
-        const i = Math.floor(256 / e.totalColors);
-        const o = Math.floor(e.maximum / e.totalColors);
+        const i = Math.floor(e.maximumRgbRange / e.totalColors);
+        const o = Math.floor(e.maximumMinimum / e.totalColors);
         const s = [];
-        let r = n[0] % 256;
-        let l = n[1] % 256;
-        let c = n[2] % 256;
+        let r = n[0] % e.maximumRgbRange;
+        let l = n[1] % e.maximumRgbRange;
+        let c = n[2] % e.maximumRgbRange;
         let u = 0;
         for (let n = 0; n < e.totalColors; n++) {
             r += i;
@@ -806,9 +806,10 @@ var w;
         function a(e) {
             e.dynamicColorRange = o.getObject(e.dynamicColorRange, {});
             e.dynamicColorRange.enabled = o.getBoolean(e.dynamicColorRange.enabled, false);
-            e.dynamicColorRange.maximum = o.getNumber(e.dynamicColorRange.maximum, 25);
+            e.dynamicColorRange.maximumMinimum = o.getNumber(e.dynamicColorRange.maximumMinimum, 25);
             e.dynamicColorRange.color = o.getString(e.dynamicColorRange.color, "");
             e.dynamicColorRange.totalColors = o.getNumber(e.dynamicColorRange.totalColors, 7);
+            e.dynamicColorRange.maximumRgbRange = o.getNumber(e.dynamicColorRange.maximumRgbRange, 256);
             return e.dynamicColorRange;
         }
         function l(e) {
@@ -1897,7 +1898,7 @@ var T;
         if (t) {
             T.store(e, V[e._currentView.element.id]);
         }
-        e._currentView.yearsAvailable = Re(e);
+        e._currentView.yearsAvailable = Fe(e);
         g.View.getScrollPositions(e);
         l.render(e);
         We(e);
@@ -2082,7 +2083,7 @@ var T;
     function E(e, t = null, n = null, s = true) {
         const r = o.getString(t, e.exportType).toLowerCase();
         const l = y.File.mimeType(r);
-        const d = F(e, s);
+        const d = R(e, s);
         const u = y.Contents.get(r, d, b, e);
         if (i.definedString(u)) {
             const t = a.create(document.body, "a");
@@ -2095,7 +2096,7 @@ var T;
             c.customEvent(e.events.onExport, e._currentView.element);
         }
     }
-    function F(e, t) {
+    function R(e, t) {
         const n = {};
         const o = Ee(e);
         if (t) {
@@ -2141,7 +2142,7 @@ var T;
         }
         return n;
     }
-    function R(e) {
+    function F(e) {
         f.Background.render(e);
         if (!i.definedParentElement(e._currentView.importDialog)) {
             e._currentView.importDialog = a.create(e._currentView.disabledBackground, "div", "dialog import");
@@ -2162,7 +2163,7 @@ var T;
         }
     }
     function $(e) {
-        R(e);
+        F(e);
         f.Background.show(e);
         if (i.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "block") {
             e._currentView.importDialog.style.display = "block";
@@ -2353,7 +2354,7 @@ var T;
                     l.add(n, e, b.text.importButtonText);
                 }
             }
-            if (e.title.showExportButton && Fe(e)) {
+            if (e.title.showExportButton && Re(e)) {
                 const n = a.createIconButton(t, "button", "export", "arrow-down");
                 n.onclick = () => O(e);
                 if (e.title.showToolTips) {
@@ -3874,10 +3875,10 @@ var T;
     function Ee(e) {
         return V[e._currentView.element.id].typeData[e._currentView.type];
     }
-    function Fe(e) {
+    function Re(e) {
         return Object.keys(Ee(e)).length > 0;
     }
-    function Re(e) {
+    function Fe(e) {
         let t = [];
         if (e.showOnlyDataForYearsAvailable) {
             let n = Ee(e);
