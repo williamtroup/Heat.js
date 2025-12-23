@@ -17,6 +17,7 @@
 - Invert color range toggles support via the guide (off by default).
 - The "Map" view now behaves like all other views (it can be disabled, and shows no data messages by default).
 - Added dynamic colors support from a single hex color!
+- The "Days" (and the new views "Line" and "Months") now have their own custom Color Range CSS class support.
 
 #### **Exporting:**
 - Added support to export all data to YAML (.yaml).
