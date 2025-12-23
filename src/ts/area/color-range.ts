@@ -114,7 +114,7 @@ export namespace ColorRange {
             currentValue += incrementMinimum;
 
             const rgba: string = `rgb(${red}, ${green}, ${blue})`;
-            const cssName: string = `day-color-${crypto.randomUUID().replace(/-/g, Char.empty)}`;
+            const cssName: string = `day-color-${crypto.randomUUID().replace( /-/g, Char.empty )}`;
             
             cssLines.push( `div.${cssName}${Char.space}{` );
             cssLines.push( `background-color:${Char.space}${rgba} !important;` );
