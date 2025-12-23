@@ -304,6 +304,7 @@ export type BindingOptionsViewsDays = {
     useGradients?: boolean;
     useDifferentOpacities?: boolean;
     showDayCountPercentages?: boolean;
+    showStackedColorRanges?: boolean;
 };
 
 export type BindingOptionsViewsMonths = {
@@ -320,6 +321,7 @@ export type BindingOptionsViewsMonths = {
     useDifferentOpacities?: boolean;
     highlightCurrentMonth?: boolean;
     showMonthCountPercentages?: boolean;
+    showStackedColorRanges?: boolean;
 };
 
 export type BindingOptionsViewsStatistics = {

@@ -1386,16 +1386,26 @@ div.heat-js {
                 }
 
                 div.day-line {
+                    display: inline-flex;
+                    flex-direction: column;
                     border-top-left-radius: var(--heat-js-border-radius-day);
                     border-top-right-radius: var(--heat-js-border-radius-day);
-                    background-color: var(--heat-js-view-days-background-color);
-                    border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
+                    background-color: var(--heat-js-day-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     border-bottom: none !important;
                     flex: 1 100%;
                     margin-right: var(--heat-js-spacing);
-                    display: inline-block;
                     transition: var(--heat-js-transition);
                     height: 0;
+
+                    div.stacked-color-range {
+                        border: none !important;
+                    }
+
+                    &.non-stacked {
+                        background-color: var(--heat-js-view-days-background-color);
+                        border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
+                    }
 
                     &:first-child {
                         margin-left: calc( var(--heat-js-spacing) / 2 );
@@ -1500,16 +1510,26 @@ div.heat-js {
                 }
 
                 div.month-line {
+                    display: inline-flex;
+                    flex-direction: column;
                     border-top-left-radius: var(--heat-js-border-radius-day);
                     border-top-right-radius: var(--heat-js-border-radius-day);
-                    background-color: var(--heat-js-view-months-background-color);
-                    border: var(--heat-js-border-size) solid var(--heat-js-view-months-border-color);
+                    background-color: var(--heat-js-day-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     border-bottom: none !important;
                     flex: 1 100%;
                     margin-right: var(--heat-js-spacing);
-                    display: inline-block;
                     transition: var(--heat-js-transition);
                     height: 0;
+
+                    div.stacked-color-range {
+                        border: none !important;
+                    }
+
+                    &.non-stacked {
+                        background-color: var(--heat-js-view-days-background-color);
+                        border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
+                    }
 
                     &:first-child {
                         margin-left: calc( var(--heat-js-spacing) / 2 );

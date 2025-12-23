@@ -1900,16 +1900,24 @@ div.heat-js div.days-contents div.days div.day-lines div.day-line-count div.coun
   font-style: italic;
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line {
+  display: inline-flex;
+  flex-direction: column;
   border-top-left-radius: var(--heat-js-border-radius-day);
   border-top-right-radius: var(--heat-js-border-radius-day);
-  background-color: var(--heat-js-view-days-background-color);
-  border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
+  background-color: var(--heat-js-day-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   border-bottom: none !important;
   flex: 1 100%;
   margin-right: var(--heat-js-spacing);
-  display: inline-block;
   transition: var(--heat-js-transition);
   height: 0;
+}
+div.heat-js div.days-contents div.days div.day-lines div.day-line div.stacked-color-range {
+  border: none !important;
+}
+div.heat-js div.days-contents div.days div.day-lines div.day-line.non-stacked {
+  background-color: var(--heat-js-view-days-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line:first-child {
   margin-left: calc(var(--heat-js-spacing) / 2);
@@ -2037,16 +2045,24 @@ div.heat-js div.months-contents div.months div.month-lines div.month-line-count 
   font-style: italic;
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line {
+  display: inline-flex;
+  flex-direction: column;
   border-top-left-radius: var(--heat-js-border-radius-day);
   border-top-right-radius: var(--heat-js-border-radius-day);
-  background-color: var(--heat-js-view-months-background-color);
-  border: var(--heat-js-border-size) solid var(--heat-js-view-months-border-color);
+  background-color: var(--heat-js-day-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   border-bottom: none !important;
   flex: 1 100%;
   margin-right: var(--heat-js-spacing);
-  display: inline-block;
   transition: var(--heat-js-transition);
   height: 0;
+}
+div.heat-js div.months-contents div.months div.month-lines div.month-line div.stacked-color-range {
+  border: none !important;
+}
+div.heat-js div.months-contents div.months div.month-lines div.month-line.non-stacked {
+  background-color: var(--heat-js-view-days-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line:first-child {
   margin-left: calc(var(--heat-js-spacing) / 2);

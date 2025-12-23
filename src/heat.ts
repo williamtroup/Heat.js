@@ -1921,11 +1921,13 @@ import { ColorRange } from "./ts/area/color-range";
             for ( const day in dayValuesForCurrentYear.values ) {
                 if ( dayValuesForCurrentYear.values.hasOwnProperty( day ) && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
                     const opacity: number = dayValuesForCurrentYear.valueOpacities[ dayValuesForCurrentYear.values[ day ].total ];
-
-                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ].total, bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue );
+                    const dayLine: HTMLElement = renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ].total, bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
                         DomElement.createWithHTML( dayNames, "div", "day-name", _configurationOptions.text!.dayNames![ parseInt( day ) - 1 ] );
+                    }
+
+                    if ( bindingOptions.views!.days!.showStackedColorRanges! ) {
                     }
                 }
             }
@@ -1943,7 +1945,7 @@ import { ColorRange } from "./ts/area/color-range";
         bindingOptions._currentView!.daysContents.style.display = "none";
     }
 
-    function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number ) : void {
+    function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number ) : HTMLElement {
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
         let count: HTMLElement = null!;
@@ -1952,6 +1954,10 @@ import { ColorRange } from "./ts/area/color-range";
 
         if ( dayLineHeight <= 0 ) {
             dayLine.style.visibility = "hidden";
+        }
+
+        if ( !bindingOptions.views!.days!.showStackedColorRanges ) {
+            DomElement.addClass( dayLine, "non-stacked" );
         }
 
         if ( bindingOptions.views!.days!.showToolTips ) {
@@ -2005,6 +2011,8 @@ import { ColorRange } from "./ts/area/color-range";
         }
 
         Animate.setHeight( bindingOptions, dayLine, dayLineHeight );
+
+        return dayLine;
     }
 
     function getLargestValuesForEachDay( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValueForView {
@@ -2152,8 +2160,7 @@ import { ColorRange } from "./ts/area/color-range";
 
                 if ( monthValuesForCurrentYear.values.hasOwnProperty( monthToShow ) && Is.monthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
                     const opacity: number = monthValuesForCurrentYear.valueOpacities[ monthValuesForCurrentYear.values[ monthToShow ].total ];
-
-                    renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ].total, bindingOptions, pixelsPerNumbers, opacity, monthValuesForCurrentYear.totalValue );
+                    const monthLine: HTMLElement = renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ].total, bindingOptions, pixelsPerNumbers, opacity, monthValuesForCurrentYear.totalValue );
 
                     if ( bindingOptions.views!.months!.showMonthNames ) {
                         const monthName: HTMLElement = DomElement.createWithHTML( monthNames, "div", "month-name", _configurationOptions.text!.monthNames![ actualMonthIndex ] );
@@ -2162,6 +2169,9 @@ import { ColorRange } from "./ts/area/color-range";
                         if ( DateTime.isCurrentMonthAndYear( date ) ) {
                             DomElement.addClass( monthName, "current" );
                         }
+                    }
+
+                    if ( bindingOptions.views!.months!.showStackedColorRanges! ) {
                     }
                 }
             }
@@ -2179,13 +2189,17 @@ import { ColorRange } from "./ts/area/color-range";
         bindingOptions._currentView!.monthsContents.style.display = "none";
     }
 
-    function renderControlMonthsMonthLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number ) : void {
+    function renderControlMonthsMonthLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number ) : HTMLElement {
         const monthLine: HTMLElement = DomElement.create( monthLines, "div", "month-line" );
         const monthLineHeight: number = monthCount * pixelsPerNumbers;
         const today: Date = new Date();
         let count: HTMLElement = null!;
 
         monthLine.setAttribute( Constant.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, monthNumber.toString() );
+
+        if ( !bindingOptions.views!.months!.showStackedColorRanges ) {
+            DomElement.addClass( monthLine, "non-stacked" );
+        }
 
         if ( monthLineHeight <= 0 ) {
             monthLine.style.visibility = "hidden";
@@ -2252,6 +2266,8 @@ import { ColorRange } from "./ts/area/color-range";
         }
 
         Animate.setHeight( bindingOptions, monthLine, monthLineHeight );
+
+        return monthLine;
     }
 
     function getLargestValuesForEachMonth( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValueForView {

@@ -1008,8 +1008,9 @@ var w;
             e.views.days.keepScrollPositions = o.getBoolean(e.views.days.keepScrollPositions, false);
             e.views.days.showToolTips = o.getBoolean(e.views.days.showToolTips, true);
             e.views.days.useGradients = o.getBoolean(e.views.days.useGradients, false);
-            e.views.days.useDifferentOpacities = o.getBoolean(e.views.days.useDifferentOpacities, true);
+            e.views.days.useDifferentOpacities = o.getBoolean(e.views.days.useDifferentOpacities, false);
             e.views.days.showDayCountPercentages = o.getBoolean(e.views.days.showDayCountPercentages, true);
+            e.views.days.showStackedColorRanges = o.getBoolean(e.views.days.showStackedColorRanges, true);
             if (i.invalidOptionArray(e.views.days.monthsToShow)) {
                 e.views.days.monthsToShow = t;
             }
@@ -1028,9 +1029,10 @@ var w;
             e.views.months.keepScrollPositions = o.getBoolean(e.views.months.keepScrollPositions, false);
             e.views.months.showToolTips = o.getBoolean(e.views.months.showToolTips, true);
             e.views.months.useGradients = o.getBoolean(e.views.months.useGradients, false);
-            e.views.months.useDifferentOpacities = o.getBoolean(e.views.months.useDifferentOpacities, true);
+            e.views.months.useDifferentOpacities = o.getBoolean(e.views.months.useDifferentOpacities, false);
             e.views.months.highlightCurrentMonth = o.getBoolean(e.views.months.highlightCurrentMonth, false);
             e.views.months.showMonthCountPercentages = o.getBoolean(e.views.months.showMonthCountPercentages, true);
+            e.views.months.showStackedColorRanges = o.getBoolean(e.views.months.showStackedColorRanges, true);
             if (i.invalidOptionArray(e.views.months.monthsToShow)) {
                 e.views.months.monthsToShow = t;
             }
@@ -3186,10 +3188,11 @@ var T;
             for (const t in d.values) {
                 if (d.values.hasOwnProperty(t) && i.dayVisible(e.views.days.daysToShow, parseInt(t))) {
                     const i = d.valueOpacities[d.values[t].total];
-                    ge(l, parseInt(t), d.values[t].total, e, n, i, d.totalValue);
+                    const o = ge(l, parseInt(t), d.values[t].total, e, n, i, d.totalValue);
                     if (e.views.days.showDayNames) {
                         a.createWithHTML(s, "div", "day-name", b.text.dayNames[parseInt(t) - 1]);
                     }
+                    if (e.views.days.showStackedColorRanges) {}
                 }
             }
             if (e.views.days.showInReverseOrder) {
@@ -3209,6 +3212,9 @@ var T;
         f.setAttribute(n.HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME, t.toString());
         if (g <= 0) {
             f.style.visibility = "hidden";
+        }
+        if (!r.views.days.showStackedColorRanges) {
+            a.addClass(f, "non-stacked");
         }
         if (r.views.days.showToolTips) {
             l.add(f, r, s.friendlyNumber(o));
@@ -3250,6 +3256,7 @@ var T;
             }
         }
         v.setHeight(r, f, g);
+        return f;
     }
     function me(e, t) {
         const n = {
@@ -3364,7 +3371,7 @@ var T;
                 const u = l + 1;
                 if (w.values.hasOwnProperty(u) && i.monthVisible(e.views.months.monthsToShow, l)) {
                     const t = w.valueOpacities[w.values[u].total];
-                    pe(c, u, w.values[u].total, e, n, t, w.totalValue);
+                    const i = pe(c, u, w.values[u].total, e, n, t, w.totalValue);
                     if (e.views.months.showMonthNames) {
                         const e = a.createWithHTML(s, "div", "month-name", b.text.monthNames[l]);
                         const t = new Date(o, l, 1);
@@ -3372,6 +3379,7 @@ var T;
                             a.addClass(e, "current");
                         }
                     }
+                    if (e.views.months.showStackedColorRanges) {}
                 }
             }
             if (e.views.months.showInReverseOrder) {
@@ -3390,6 +3398,9 @@ var T;
         const m = new Date;
         let y = null;
         f.setAttribute(n.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, t.toString());
+        if (!r.views.months.showStackedColorRanges) {
+            a.addClass(f, "non-stacked");
+        }
         if (g <= 0) {
             f.style.visibility = "hidden";
         }
@@ -3440,6 +3451,7 @@ var T;
             }
         }
         v.setHeight(r, f, g);
+        return f;
     }
     function ve(e, t) {
         const n = {
