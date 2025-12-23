@@ -168,7 +168,7 @@ export namespace Binding {
             let result: BindingOptionsColorRange[] = [];
             
             if ( bindingOptions.dynamicColorRange!.enabled && Is.hexColor( bindingOptions.dynamicColorRange!.color! ) ) {
-                result = ColorRange.buildDynamics( bindingOptions );
+                result = ColorRange.buildDynamics( bindingOptions.dynamicColorRange! );
 
             } else {
                 if ( Is.definedArray( bindingOptions.colorRanges ) ) {

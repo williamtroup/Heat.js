@@ -659,15 +659,15 @@ var u;
     e.getAllSorted = l;
     function c(e) {
         let t = [];
-        const n = d.hexToRgbaValues(e.dynamicColorRange.color);
-        const i = Math.floor(256 / e.dynamicColorRange.totalColors);
-        const o = Math.floor(e.dynamicColorRange.maximum / e.dynamicColorRange.totalColors);
+        const n = d.hexToRgbaValues(e.color);
+        const i = Math.floor(256 / e.totalColors);
+        const o = Math.floor(e.maximum / e.totalColors);
         const s = [];
         let r = n[0] % 256;
         let l = n[1] % 256;
         let c = n[2] % 256;
         let u = 0;
-        for (let n = 0; n < e.dynamicColorRange.totalColors; n++) {
+        for (let n = 0; n < e.totalColors; n++) {
             r += i;
             l += i;
             c += i;
@@ -814,7 +814,7 @@ var w;
         function l(e) {
             let t = [];
             if (e.dynamicColorRange.enabled && i.hexColor(e.dynamicColorRange.color)) {
-                t = u.buildDynamics(e);
+                t = u.buildDynamics(e.dynamicColorRange);
             } else {
                 if (i.definedArray(e.colorRanges)) {
                     const n = e.colorRanges.length;

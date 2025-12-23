@@ -11,7 +11,7 @@
  */
 
 
-import { type BindingOptions, type BindingOptionsColorRange } from "../type";
+import { BindingOptionsDynamicColorRange, type BindingOptions, type BindingOptionsColorRange } from "../type";
 import { Constant } from "../constant";
 import { Default } from "../data/default";
 import { Is } from "../data/is";
@@ -94,12 +94,12 @@ export namespace ColorRange {
         } );
     }
 
-    export function buildDynamics( bindingOptions: BindingOptions ) : BindingOptionsColorRange[] {
+    export function buildDynamics( dynamicColorRange: BindingOptionsDynamicColorRange ) : BindingOptionsColorRange[] {
         let result: BindingOptionsColorRange[] = [];
 
-        const rgbaValues: number[] = Convert.hexToRgbaValues( bindingOptions.dynamicColorRange!.color! );
-        const incrementColor: number = Math.floor( 256 / bindingOptions.dynamicColorRange!.totalColors! );
-        const incrementMinimum: number = Math.floor( bindingOptions.dynamicColorRange!.maximum! / bindingOptions.dynamicColorRange!.totalColors! );
+        const rgbaValues: number[] = Convert.hexToRgbaValues( dynamicColorRange!.color! );
+        const incrementColor: number = Math.floor( 256 / dynamicColorRange!.totalColors! );
+        const incrementMinimum: number = Math.floor( dynamicColorRange!.maximum! / dynamicColorRange!.totalColors! );
         const cssLines: string[] = [];
 
         let red: number = rgbaValues[ 0 ] % 256;
@@ -107,7 +107,7 @@ export namespace ColorRange {
         let blue: number = rgbaValues[ 2 ] % 256;
         let currentValue: number = 0;
 
-        for ( let colorIndex: number = 0; colorIndex < bindingOptions.dynamicColorRange!.totalColors!; colorIndex++ ){
+        for ( let colorIndex: number = 0; colorIndex < dynamicColorRange!.totalColors!; colorIndex++ ){
             red += incrementColor;
             green += incrementColor;
             blue += incrementColor;
