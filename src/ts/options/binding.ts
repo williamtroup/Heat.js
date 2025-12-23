@@ -30,11 +30,14 @@ import {
     type BindingOptionsViewsMonths,
     type BindingOptionsViewsLine,
     type BindingOptionsZooming,
-    type ConfigurationOptions } from "../type";
+    type ConfigurationOptions, 
+    BindingOptionsDynamicColorRange} from "../type";
 
 import { Char, ExportType, Value, ViewId, ViewName } from "../data/enum";
 import { Default } from "../data/default";
 import { Is } from "../data/is";
+import { Convert } from "../data/convert";
+import { DomElement } from "../dom/dom";
 
 
 export namespace Binding {
@@ -128,6 +131,7 @@ export namespace Binding {
             bindingOptions.allowTypeAdding = Default.getBoolean( bindingOptions.allowTypeAdding, false );
             bindingOptions.chartsAnimationDelay = Default.getNumber( bindingOptions.chartsAnimationDelay, 50 );
             bindingOptions.exportDateTimeFormat = Default.getString( bindingOptions.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}" );
+            bindingOptions.dynamicColorRange = getDynamicColorRange( bindingOptions );
             bindingOptions.colorRanges = getColorRanges( bindingOptions );
             bindingOptions.holidays = getHolidays( bindingOptions );
             bindingOptions.title = getTitle( bindingOptions );
@@ -150,65 +154,124 @@ export namespace Binding {
             
             return bindingOptions;
         }
+
+        function getDynamicColorRange( bindingOptions: BindingOptions ) : BindingOptionsDynamicColorRange {
+            bindingOptions.dynamicColorRange = Default.getObject( bindingOptions.dynamicColorRange, {} as BindingOptionsDynamicColorRange );
+            bindingOptions.dynamicColorRange!.enabled = Default.getBoolean( bindingOptions.dynamicColorRange!.enabled, false );
+            bindingOptions.dynamicColorRange!.maximum = Default.getNumber( bindingOptions.dynamicColorRange!.maximum, 25 );
+            bindingOptions.dynamicColorRange!.color = Default.getString( bindingOptions.dynamicColorRange!.color, Char.empty );
+            bindingOptions.dynamicColorRange!.totalColors = Default.getNumber( bindingOptions.dynamicColorRange!.totalColors, 7 );
+    
+            return bindingOptions.dynamicColorRange!;
+        }
     
         function getColorRanges( bindingOptions: BindingOptions ) : BindingOptionsColorRange[] {
             let result: BindingOptionsColorRange[] = [];
+            
+            if ( bindingOptions.dynamicColorRange!.enabled && Is.hexColor( bindingOptions.dynamicColorRange!.color! ) ) {
+                const rgbaValues: number[] = Convert.hexToRgbaValues( bindingOptions.dynamicColorRange!.color! );
+                const incrementColor: number = Math.floor( 256 / bindingOptions.dynamicColorRange!.totalColors! );
+                const incrementMinimum: number = Math.floor( bindingOptions.dynamicColorRange!.maximum! / bindingOptions.dynamicColorRange!.totalColors! );
+                const css: string[] = [];
 
-            if ( Is.definedArray( bindingOptions.colorRanges ) ) {
-                const colorRangesLength: number = bindingOptions.colorRanges!.length;
-    
-                for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
-                    const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangeIndex ];
-    
-                    colorRange.id = Default.getString( colorRange.id, crypto.randomUUID() );
-                    colorRange.name = Default.getString( colorRange.name, Char.empty );
-                    colorRange.minimum = Default.getNumber( colorRange.minimum, 0 );
-                    colorRange.cssClassName = Default.getString( colorRange.cssClassName, Char.empty );
-                    colorRange.mapCssClassName = Default.getString( colorRange.mapCssClassName, Char.empty );
-                    colorRange.chartCssClassName = Default.getString( colorRange.chartCssClassName, Char.empty );
-                    colorRange.lineCssClassName = Default.getString( colorRange.lineCssClassName, Char.empty );
-                    colorRange.statisticsCssClassName = Default.getString( colorRange.statisticsCssClassName, Char.empty );
-                    colorRange.tooltipText = Default.getString( colorRange.tooltipText, Char.empty );
-                    colorRange.visible = Default.getBoolean( colorRange.visible, true );
+                let red: number = rgbaValues[ 0 ] % 256;
+                let green: number = rgbaValues[ 1 ] % 256;
+                let blue: number = rgbaValues[ 2 ] % 256;
+                let alpha: number = rgbaValues[ 3 ] % 256;
+                let currentValue = 0;
+
+                for ( let colorIndex: number = 0; colorIndex < bindingOptions.dynamicColorRange!.totalColors!; colorIndex++ ){
+                    red += incrementColor;
+                    green += incrementColor;
+                    blue += incrementColor;
+                    currentValue += incrementMinimum;
+
+                    if ( alpha > 0 ) {
+                        alpha += incrementColor;
+                    }
+
+                    const rgba: string = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+                    const cssName: string = `day-color-${crypto.randomUUID().replace(/-/g, Char.empty)}`;
+                    
+                    css.push( `div.${cssName}${Char.space}{` );
+                    css.push( `background-color:${Char.space}${rgba} !important;` );
+                    css.push( `border-color:${Char.space}${rgba} !important;` );
+                    css.push( `color:${Char.space}${rgba} !important;` );
+                    css.push( "}" );
+
+                    const colorRange: BindingOptionsColorRange = {
+                        id: cssName,
+                        name: `Day Color ${colorIndex + 1}`,
+                        minimum: currentValue,
+                        cssClassName: cssName,
+                        tooltipText: `Day Color ${colorIndex + 1}`,
+                        visible: true
+                    }
 
                     result.push( colorRange );
                 }
-    
+
+                const head: HTMLElement = document.getElementsByTagName( "head" )[ 0 ];
+                const style: HTMLStyleElement = DomElement.create( head, "style" ) as HTMLStyleElement;
+                style.appendChild( document.createTextNode( css.join( Char.newLine ) ) );
+
             } else {
-                result = [
-                    {
-                        id: crypto.randomUUID(),
-                        name: "Day Color 1",
-                        minimum: 10,
-                        cssClassName: "day-color-1",
-                        tooltipText: "Day Color 1",
-                        visible: true
-                    },
-                    {
-                        id: crypto.randomUUID(),
-                        name: "Day Color 2",
-                        minimum: 15,
-                        cssClassName: "day-color-2",
-                        tooltipText: "Day Color 2",
-                        visible: true
-                    },
-                    {
-                        id: crypto.randomUUID(),
-                        name: "Day Color 3",
-                        minimum: 20,
-                        cssClassName: "day-color-3",
-                        tooltipText: "Day Color 3",
-                        visible: true
-                    },
-                    {
-                        id: crypto.randomUUID(),
-                        name: "Day Color 4",
-                        minimum: 25,
-                        cssClassName: "day-color-4",
-                        tooltipText: "Day Color 4",
-                        visible: true
+                if ( Is.definedArray( bindingOptions.colorRanges ) ) {
+                    const colorRangesLength: number = bindingOptions.colorRanges!.length;
+        
+                    for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
+                        const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangeIndex ];
+        
+                        colorRange.id = Default.getString( colorRange.id, crypto.randomUUID() );
+                        colorRange.name = Default.getString( colorRange.name, Char.empty );
+                        colorRange.minimum = Default.getNumber( colorRange.minimum, 0 );
+                        colorRange.cssClassName = Default.getString( colorRange.cssClassName, Char.empty );
+                        colorRange.mapCssClassName = Default.getString( colorRange.mapCssClassName, Char.empty );
+                        colorRange.chartCssClassName = Default.getString( colorRange.chartCssClassName, Char.empty );
+                        colorRange.lineCssClassName = Default.getString( colorRange.lineCssClassName, Char.empty );
+                        colorRange.statisticsCssClassName = Default.getString( colorRange.statisticsCssClassName, Char.empty );
+                        colorRange.tooltipText = Default.getString( colorRange.tooltipText, Char.empty );
+                        colorRange.visible = Default.getBoolean( colorRange.visible, true );
+
+                        result.push( colorRange );
                     }
-                ];
+        
+                } else {
+                    result = [
+                        {
+                            id: crypto.randomUUID(),
+                            name: "Day Color 1",
+                            minimum: 10,
+                            cssClassName: "day-color-1",
+                            tooltipText: "Day Color 1",
+                            visible: true
+                        },
+                        {
+                            id: crypto.randomUUID(),
+                            name: "Day Color 2",
+                            minimum: 15,
+                            cssClassName: "day-color-2",
+                            tooltipText: "Day Color 2",
+                            visible: true
+                        },
+                        {
+                            id: crypto.randomUUID(),
+                            name: "Day Color 3",
+                            minimum: 20,
+                            cssClassName: "day-color-3",
+                            tooltipText: "Day Color 3",
+                            visible: true
+                        },
+                        {
+                            id: crypto.randomUUID(),
+                            name: "Day Color 4",
+                            minimum: 25,
+                            cssClassName: "day-color-4",
+                            tooltipText: "Day Color 4",
+                            visible: true
+                        }
+                    ];
+                }
             }
     
             return result;

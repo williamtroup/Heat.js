@@ -118,6 +118,6 @@ export namespace Is {
     }
 
     export function hexColor( color: string ) : boolean {
-        return color.startsWith( "#" ) && ( color.length === 6 || color.length === 8 );
+        return color.startsWith( "#" ) && ( color.length === 7 || color.length === 9 );
     }
 }

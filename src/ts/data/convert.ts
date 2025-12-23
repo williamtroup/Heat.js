@@ -35,6 +35,16 @@ export namespace Convert {
     }
 
     export function hexToRgba( color: string ) : string {
+        const rgbaColor: number[] = hexToRgbaValues( color );
+        const red: number = rgbaColor[ 0 ];
+        const green: number = rgbaColor[ 1 ];
+        const blue: number = rgbaColor[ 2 ];
+        const alpha: number = rgbaColor[ 3 ];
+
+        return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+    }
+
+    export function hexToRgbaValues( color: string ) : number[] {
         const newColor: string = color.trim().replace( Char.hash, Char.empty );
         let newAlpha: number = 1;
 
@@ -46,7 +56,7 @@ export namespace Convert {
             newAlpha = parseInt( newColor.substring( 6, 8 ), 16 );
         }
 
-        return `rgba(${red}, ${green}, ${blue}, ${newAlpha})`;
+        return [red, green, blue, newAlpha];
     }
 
     export function valuesToOpacitiesOrder( viewValues: LargestValueForView ) : void {

@@ -135,6 +135,7 @@ export type BindingOptions = {
     allowTypeAdding?: boolean;
     chartsAnimationDelay?: number;
     exportDateTimeFormat?: string;
+    dynamicColorRange?: BindingOptionsDynamicColorRange;
     colorRanges?: BindingOptionsColorRange[];
     holidays?: BindingOptionsHoliday[];
     zooming?: BindingOptionsZooming;
@@ -407,6 +408,13 @@ export type BindingOptionsColorRange = {
     statisticsCssClassName?: string;
     tooltipText?: string;
     visible?: boolean;
+};
+
+export type BindingOptionsDynamicColorRange = {
+    enabled?: boolean;
+    maximum?: number;
+    color?: string;
+    totalColors?: number;
 };
 
 export type BindingOptionsHoliday = {
