@@ -664,32 +664,39 @@ var u;
         let r = n[0] % e.maximumRgbRange;
         let l = n[1] % e.maximumRgbRange;
         let c = n[2] % e.maximumRgbRange;
-        let u = 0;
+        let u = e.maximumRgbRange;
+        let w = e.maximumRgbRange;
+        let h = e.maximumRgbRange;
+        let f = 0;
         for (let n = 0; n < e.totalColors; n++) {
             r += i;
             l += i;
             c += i;
-            u += o;
+            u -= i;
+            w -= i;
+            h -= i;
+            f += o;
             const e = `rgb(${r}, ${l}, ${c})`;
-            const a = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
-            s.push(`div.${a}${" "}{`);
+            const a = `rgb(${u}, ${w}, ${h})`;
+            const d = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
+            s.push(`div.${d}${" "}{`);
             s.push(`background-color:${" "}${e} !important;`);
             s.push(`border-color:${" "}${e} !important;`);
-            s.push(`color:${" "}${e} !important;`);
+            s.push(`color:${" "}${a} !important;`);
             s.push("}");
-            const d = {
-                id: a,
+            const g = {
+                id: d,
                 name: `Day Color ${n + 1}`,
-                minimum: u,
-                cssClassName: a,
+                minimum: f,
+                cssClassName: d,
                 tooltipText: `Day Color ${n + 1}`,
                 visible: true
             };
-            t.push(d);
+            t.push(g);
         }
-        const w = document.getElementsByTagName("head")[0];
-        const h = a.create(w, "style");
-        h.appendChild(document.createTextNode(s.join("\n")));
+        const g = document.getElementsByTagName("head")[0];
+        const m = a.create(g, "style");
+        m.appendChild(document.createTextNode(s.join("\n")));
         return t;
     }
     e.buildDynamics = c;

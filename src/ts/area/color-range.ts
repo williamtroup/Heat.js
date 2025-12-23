@@ -109,27 +109,34 @@ export namespace ColorRange {
         let red: number = rgbaValues[ 0 ] % dynamicColorRange!.maximumRgbRange!;
         let green: number = rgbaValues[ 1 ] % dynamicColorRange!.maximumRgbRange!;
         let blue: number = rgbaValues[ 2 ] % dynamicColorRange!.maximumRgbRange!;
-        let currentValue: number = 0;
+        let colorRed: number = dynamicColorRange!.maximumRgbRange!;
+        let colorGreen: number = dynamicColorRange!.maximumRgbRange!;
+        let colorBlue: number = dynamicColorRange!.maximumRgbRange!;
+        let currentMinimum: number = 0;
 
         for ( let colorIndex: number = 0; colorIndex < dynamicColorRange!.totalColors!; colorIndex++ ){
             red += incrementColor;
             green += incrementColor;
             blue += incrementColor;
-            currentValue += incrementMinimum;
+            colorRed -= incrementColor;
+            colorGreen -= incrementColor;
+            colorBlue -= incrementColor;
+            currentMinimum += incrementMinimum;
 
-            const rgba: string = `rgb(${red}, ${green}, ${blue})`;
+            const rgb: string = `rgb(${red}, ${green}, ${blue})`;
+            const colorRgb: string = `rgb(${colorRed}, ${colorGreen}, ${colorBlue})`;
             const cssName: string = `day-color-${crypto.randomUUID().replace( /-/g, Char.empty )}`;
             
             cssLines.push( `div.${cssName}${Char.space}{` );
-            cssLines.push( `background-color:${Char.space}${rgba} !important;` );
-            cssLines.push( `border-color:${Char.space}${rgba} !important;` );
-            cssLines.push( `color:${Char.space}${rgba} !important;` );
+            cssLines.push( `background-color:${Char.space}${rgb} !important;` );
+            cssLines.push( `border-color:${Char.space}${rgb} !important;` );
+            cssLines.push( `color:${Char.space}${colorRgb} !important;` );
             cssLines.push( "}" );
 
             const colorRange: BindingOptionsColorRange = {
                 id: cssName,
                 name: `Day Color ${colorIndex + 1}`,
-                minimum: currentValue,
+                minimum: currentMinimum,
                 cssClassName: cssName,
                 tooltipText: `Day Color ${colorIndex + 1}`,
                 visible: true,
