@@ -2020,31 +2020,31 @@ import { ColorRange } from "./ts/area/color-range";
             values: {
                 1: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 2: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 3: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 4: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 5: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 6: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 7: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
             },
             valueOpacities: {},
@@ -2275,51 +2275,51 @@ import { ColorRange } from "./ts/area/color-range";
             values: {
                 1: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 2: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 3: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 4: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 5: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 6: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 7: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 8: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 9: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 10: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 11: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
                 12: {
                     total: 0,
-                    typeTotals: {} as LargestValueForViewValue
+                    typeTotals: {}
                 } as LargestValueForViewValue,
             },
             valueOpacities: {},

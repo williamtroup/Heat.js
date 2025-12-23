@@ -44,7 +44,7 @@ export type LargestValueForView = {
 
 export type LargestValueForViewValue = {
     total: number;
-    typeTotals: Record<number, number>;
+    typeTotals: Record<string, number>;
 };
 
 export type LargestValuesForEachRangeType = {
