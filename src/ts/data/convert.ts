@@ -11,7 +11,7 @@
  */
 
 
-import { type LargestValueForView } from "../type";
+import { type LargestValueForView, type LargestValueForViewValue } from "../type";
 import { Char, Value } from "./enum";
 
 
@@ -60,15 +60,15 @@ export namespace Convert {
     }
 
     export function valuesToOpacitiesOrder( viewValues: LargestValueForView ) : void {
-        const orderedValues: number[] = Object
+        const orderedValues: LargestValueForViewValue[] = Object
             .values( viewValues.values )
-            .sort( ( aValue: number, bValue: number ) => aValue - bValue );
-            
+            .sort( ( aValue: LargestValueForViewValue, bValue: LargestValueForViewValue ) => aValue.total - bValue.total );
+
         const orderedValuesLength: number = orderedValues.length;
         const increment: number = 1 / orderedValuesLength;
 
         for ( let valueIndex: number = 0; valueIndex < orderedValuesLength; valueIndex++ ) {
-            viewValues.valueOpacities[ orderedValues[ valueIndex ] ] = parseFloat( ( increment * ( valueIndex + 1 ) ).toFixed( 2 ) );
+            viewValues.valueOpacities[ orderedValues[ valueIndex ].total ] = parseFloat( ( increment * ( valueIndex + 1 ) ).toFixed( 2 ) );
         }
     }
 }

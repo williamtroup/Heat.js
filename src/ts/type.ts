@@ -36,10 +36,15 @@ export type IsHoliday = {
 };
 
 export type LargestValueForView = {
-    values: Record<number, number>;
+    values: Record<number, LargestValueForViewValue>;
     largestValue: number;
     totalValue: number;
     valueOpacities: Record<number, number>;
+};
+
+export type LargestValueForViewValue = {
+    total: number;
+    typeTotals: Record<number, number>;
 };
 
 export type LargestValuesForEachRangeType = {

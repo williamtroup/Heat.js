@@ -19,7 +19,8 @@ import {
     type InstanceData, 
     type StringToJson,
     type IsHoliday,
-    type LargestValueForView,
+    type LargestValueForView, 
+    type LargestValueForViewValue,
     type LargestValuesForEachRangeType } from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
@@ -1919,9 +1920,9 @@ import { ColorRange } from "./ts/area/color-range";
 
             for ( const day in dayValuesForCurrentYear.values ) {
                 if ( dayValuesForCurrentYear.values.hasOwnProperty( day ) && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
-                    const opacity: number = dayValuesForCurrentYear.valueOpacities[ dayValuesForCurrentYear.values[ day ] ];
+                    const opacity: number = dayValuesForCurrentYear.valueOpacities[ dayValuesForCurrentYear.values[ day ].total ];
 
-                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ], bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue );
+                    renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ].total, bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
                         DomElement.createWithHTML( dayNames, "div", "day-name", _configurationOptions.text!.dayNames![ parseInt( day ) - 1 ] );
@@ -2009,13 +2010,34 @@ import { ColorRange } from "./ts/area/color-range";
     function getLargestValuesForEachDay( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValueForView {
         const result: LargestValueForView = {
             values: {
-                1: 0,
-                2: 0,
-                3: 0,
-                4: 0,
-                5: 0,
-                6: 0,
-                7: 0,
+                1: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                2: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                3: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                4: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                5: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                6: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                7: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
             },
             valueOpacities: {},
             largestValue: 0,
@@ -2049,9 +2071,9 @@ import { ColorRange } from "./ts/area/color-range";
                             const colorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dayCount );
 
                             if ( !Is.defined( colorRange ) || colorRange.visible ) {
-                                result.values[ weekDayNumber ] += dayCount;
+                                result.values[ weekDayNumber ].total += dayCount;
                                 result.totalValue += dayCount;
-                                result.largestValue = Math.max( result.largestValue, result.values[ weekDayNumber ] );
+                                result.largestValue = Math.max( result.largestValue, result.values[ weekDayNumber ].total );
                             }
                         }
                     }
@@ -2129,9 +2151,9 @@ import { ColorRange } from "./ts/area/color-range";
                 const monthToShow: number = actualMonthIndex + 1;
 
                 if ( monthValuesForCurrentYear.values.hasOwnProperty( monthToShow ) && Is.monthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
-                    const opacity: number = monthValuesForCurrentYear.valueOpacities[ monthValuesForCurrentYear.values[ monthToShow ] ];
+                    const opacity: number = monthValuesForCurrentYear.valueOpacities[ monthValuesForCurrentYear.values[ monthToShow ].total ];
 
-                    renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ], bindingOptions, pixelsPerNumbers, opacity, monthValuesForCurrentYear.totalValue );
+                    renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ].total, bindingOptions, pixelsPerNumbers, opacity, monthValuesForCurrentYear.totalValue );
 
                     if ( bindingOptions.views!.months!.showMonthNames ) {
                         const monthName: HTMLElement = DomElement.createWithHTML( monthNames, "div", "month-name", _configurationOptions.text!.monthNames![ actualMonthIndex ] );
@@ -2235,18 +2257,54 @@ import { ColorRange } from "./ts/area/color-range";
     function getLargestValuesForEachMonth( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValueForView {
         const result: LargestValueForView = {
             values: {
-                1: 0,
-                2: 0,
-                3: 0,
-                4: 0,
-                5: 0,
-                6: 0,
-                7: 0,
-                8: 0,
-                9: 0,
-                10: 0,
-                11: 0,
-                12: 0,
+                1: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                2: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                3: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                4: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                5: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                6: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                7: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                8: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                9: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                10: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                11: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
+                12: {
+                    total: 0,
+                    typeTotals: {} as LargestValueForViewValue
+                } as LargestValueForViewValue,
             },
             valueOpacities: {},
             largestValue: 0,
@@ -2281,9 +2339,9 @@ import { ColorRange } from "./ts/area/color-range";
                             const colorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dayCount );
 
                             if ( !Is.defined( colorRange ) || colorRange.visible ) {
-                                result.values[ monthValue ] += dayCount;
+                                result.values[ monthValue ].total += dayCount;
                                 result.totalValue += dayCount;
-                                result.largestValue = Math.max( result.largestValue, result.values[ monthValue ] );
+                                result.largestValue = Math.max( result.largestValue, result.values[ monthValue ].total );
                             }
                         }
                     }

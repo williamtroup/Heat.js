@@ -586,11 +586,11 @@ var d;
     }
     e.hexToRgbaValues = i;
     function o(e) {
-        const t = Object.values(e.values).sort((e, t) => e - t);
+        const t = Object.values(e.values).sort((e, t) => e.total - t.total);
         const n = t.length;
         const i = 1 / n;
         for (let o = 0; o < n; o++) {
-            e.valueOpacities[t[o]] = parseFloat((i * (o + 1)).toFixed(2));
+            e.valueOpacities[t[o].total] = parseFloat((i * (o + 1)).toFixed(2));
         }
     }
     e.valuesToOpacitiesOrder = o;
@@ -3185,8 +3185,8 @@ var T;
             const n = (l.offsetHeight - t) / d.largestValue;
             for (const t in d.values) {
                 if (d.values.hasOwnProperty(t) && i.dayVisible(e.views.days.daysToShow, parseInt(t))) {
-                    const i = d.valueOpacities[d.values[t]];
-                    ge(l, parseInt(t), d.values[t], e, n, i, d.totalValue);
+                    const i = d.valueOpacities[d.values[t].total];
+                    ge(l, parseInt(t), d.values[t].total, e, n, i, d.totalValue);
                     if (e.views.days.showDayNames) {
                         a.createWithHTML(s, "div", "day-name", b.text.dayNames[parseInt(t) - 1]);
                     }
@@ -3254,13 +3254,34 @@ var T;
     function me(e, t) {
         const n = {
             values: {
-                1: 0,
-                2: 0,
-                3: 0,
-                4: 0,
-                5: 0,
-                6: 0,
-                7: 0
+                1: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                2: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                3: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                4: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                5: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                6: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                7: {
+                    total: 0,
+                    typeTotals: {}
+                }
             },
             valueOpacities: {},
             largestValue: 0,
@@ -3286,9 +3307,9 @@ var T;
                             const r = o[s];
                             const a = u.get(e, t, r);
                             if (!i.defined(a) || a.visible) {
-                                n.values[w] += r;
+                                n.values[w].total += r;
                                 n.totalValue += r;
-                                n.largestValue = Math.max(n.largestValue, n.values[w]);
+                                n.largestValue = Math.max(n.largestValue, n.values[w].total);
                             }
                         }
                     }
@@ -3342,8 +3363,8 @@ var T;
                 }
                 const u = l + 1;
                 if (w.values.hasOwnProperty(u) && i.monthVisible(e.views.months.monthsToShow, l)) {
-                    const t = w.valueOpacities[w.values[u]];
-                    pe(c, u, w.values[u], e, n, t, w.totalValue);
+                    const t = w.valueOpacities[w.values[u].total];
+                    pe(c, u, w.values[u].total, e, n, t, w.totalValue);
                     if (e.views.months.showMonthNames) {
                         const e = a.createWithHTML(s, "div", "month-name", b.text.monthNames[l]);
                         const t = new Date(o, l, 1);
@@ -3423,18 +3444,54 @@ var T;
     function ve(e, t) {
         const n = {
             values: {
-                1: 0,
-                2: 0,
-                3: 0,
-                4: 0,
-                5: 0,
-                6: 0,
-                7: 0,
-                8: 0,
-                9: 0,
-                10: 0,
-                11: 0,
-                12: 0
+                1: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                2: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                3: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                4: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                5: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                6: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                7: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                8: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                9: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                10: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                11: {
+                    total: 0,
+                    typeTotals: {}
+                },
+                12: {
+                    total: 0,
+                    typeTotals: {}
+                }
             },
             valueOpacities: {},
             largestValue: 0,
@@ -3461,9 +3518,9 @@ var T;
                             const r = o[a];
                             const l = u.get(e, t, r);
                             if (!i.defined(l) || l.visible) {
-                                n.values[s] += r;
+                                n.values[s].total += r;
                                 n.totalValue += r;
-                                n.largestValue = Math.max(n.largestValue, n.values[s]);
+                                n.largestValue = Math.max(n.largestValue, n.values[s].total);
                             }
                         }
                     }
