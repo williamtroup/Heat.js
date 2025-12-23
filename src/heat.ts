@@ -2577,12 +2577,19 @@ import { ColorRange } from "./ts/area/color-range";
     function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValuesForEachRangeType {
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
         const currentYear: number = bindingOptions._currentView!.year;
+        const colorRangesLength: number = colorRanges.length;
 
         const result: LargestValuesForEachRangeType = {
             types: {} as InstanceTypeDateCount,
             largestValue: 0,
             totalValue: 0,
         } as LargestValuesForEachRangeType;
+
+        result.types[ Char.zero ] = 0;
+
+        for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+            result.types[ colorRanges[ colorRangesIndex ].minimum!.toString() ] = 0;
+        }
 
         for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
             let actualMonthIndex: number = monthIndex;
@@ -2606,10 +2613,6 @@ import { ColorRange } from "./ts/area/color-range";
                         if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.statistics!.daysToShow!, weekDayNumber ) ) {
                             const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, typeDateCounts[ storageDate ] );
                             const colorRangeMinimum: string = Is.defined( useColorRange ) ? useColorRange.minimum!.toString() : Char.zero;
-
-                            if ( !result.types.hasOwnProperty( colorRangeMinimum ) ) {
-                                result.types[ colorRangeMinimum ] = 0;
-                            }
     
                             result.types[ colorRangeMinimum ]++;
                             result.totalValue++;

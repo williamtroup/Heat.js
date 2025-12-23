@@ -3706,40 +3706,42 @@ var T;
     function xe(e, t) {
         const n = Ee(e);
         const o = e._currentView.year;
-        const s = {
+        const s = t.length;
+        const a = {
             types: {},
             largestValue: 0,
             totalValue: 0
         };
-        for (let a = e.startMonth; a < 12 + e.startMonth; a++) {
-            let l = a;
+        a.types["0"] = 0;
+        for (let e = 0; e < s; e++) {
+            a.types[t[e].minimum.toString()] = 0;
+        }
+        for (let s = e.startMonth; s < 12 + e.startMonth; s++) {
+            let l = s;
             let c = o;
-            if (e.startMonth > 0 && a > 11) {
-                l = a - 12;
+            if (e.startMonth > 0 && s > 11) {
+                l = s - 12;
                 c++;
             }
             if (i.monthVisible(e.views.statistics.monthsToShow, l)) {
                 const o = r.getTotalDaysInMonth(c, l);
-                for (let a = 0; a < o; a++) {
-                    const o = r.toStorageDate(new Date(c, l, a + 1));
+                for (let s = 0; s < o; s++) {
+                    const o = r.toStorageDate(new Date(c, l, s + 1));
                     if (n.hasOwnProperty(o)) {
-                        const d = new Date(c, l, a + 1);
+                        const d = new Date(c, l, s + 1);
                         const w = r.getWeekdayNumber(d) + 1;
                         if (!i.holiday(e, d).matched && i.dayVisible(e.views.statistics.daysToShow, w)) {
-                            const r = u.get(e, t, n[o]);
-                            const a = i.defined(r) ? r.minimum.toString() : "0";
-                            if (!s.types.hasOwnProperty(a)) {
-                                s.types[a] = 0;
-                            }
-                            s.types[a]++;
-                            s.totalValue++;
-                            s.largestValue = Math.max(s.largestValue, s.types[a]);
+                            const s = u.get(e, t, n[o]);
+                            const r = i.defined(s) ? s.minimum.toString() : "0";
+                            a.types[r]++;
+                            a.totalValue++;
+                            a.largestValue = Math.max(a.largestValue, a.types[r]);
                         }
                     }
                 }
             }
         }
-        return s;
+        return a;
     }
     function Ve(e) {
         const t = a.create(e._currentView.element, "div", "guide");
