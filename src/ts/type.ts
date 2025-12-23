@@ -373,8 +373,8 @@ export type BindingOptionsColorRange = {
     mapCssClassName?: string;
     lineCssClassName?: string;
     chartCssClassName?: string;
-    dayCssClassName?: string;
-    monthCssClassName?: string;
+    daysCssClassName?: string;
+    monthsCssClassName?: string;
     statisticsCssClassName?: string;
     tooltipText?: string;
     visible?: boolean;

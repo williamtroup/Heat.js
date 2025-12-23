@@ -833,8 +833,8 @@ var w;
                         n.mapCssClassName = o.getString(n.mapCssClassName, "");
                         n.lineCssClassName = o.getString(n.lineCssClassName, "");
                         n.chartCssClassName = o.getString(n.chartCssClassName, "");
-                        n.dayCssClassName = o.getString(n.dayCssClassName, "");
-                        n.monthCssClassName = o.getString(n.monthCssClassName, "");
+                        n.daysCssClassName = o.getString(n.daysCssClassName, "");
+                        n.monthsCssClassName = o.getString(n.monthsCssClassName, "");
                         n.statisticsCssClassName = o.getString(n.statisticsCssClassName, "");
                         n.tooltipText = o.getString(n.tooltipText, "");
                         n.visible = o.getBoolean(n.visible, true);
@@ -3203,8 +3203,8 @@ var T;
                                     const t = a.create(r, "div", "stacked-color-range", e);
                                     t.style.height = `${s}px`;
                                     if (i.defined(l)) {
-                                        if (i.definedString(l.dayCssClassName)) {
-                                            a.addClass(t, l.dayCssClassName);
+                                        if (i.definedString(l.daysCssClassName)) {
+                                            a.addClass(t, l.daysCssClassName);
                                         } else {
                                             a.addClass(t, l.cssClassName);
                                         }
@@ -3417,8 +3417,8 @@ var T;
                                     const t = a.create(h, "div", "stacked-color-range", e);
                                     t.style.height = `${o}px`;
                                     if (i.defined(s)) {
-                                        if (i.definedString(s.monthCssClassName)) {
-                                            a.addClass(t, s.monthCssClassName);
+                                        if (i.definedString(s.monthsCssClassName)) {
+                                            a.addClass(t, s.monthsCssClassName);
                                         } else {
                                             a.addClass(t, s.cssClassName);
                                         }
@@ -3834,6 +3834,10 @@ var T;
                 a.addClass(o, n.lineCssClassName);
             } else if (e.views.chart.enabled && e._currentView.view === 3 && i.definedString(n.chartCssClassName)) {
                 a.addClass(o, n.chartCssClassName);
+            } else if (e.views.days.enabled && e._currentView.view === 4 && i.definedString(n.daysCssClassName)) {
+                a.addClass(o, n.daysCssClassName);
+            } else if (e.views.months.enabled && e._currentView.view === 5 && i.definedString(n.monthsCssClassName)) {
+                a.addClass(o, n.monthsCssClassName);
             } else if (e.views.statistics.enabled && e._currentView.view === 6 && i.definedString(n.statisticsCssClassName)) {
                 a.addClass(o, n.statisticsCssClassName);
             } else {

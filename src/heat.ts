@@ -1940,8 +1940,8 @@ import { ColorRange } from "./ts/area/color-range";
                                     stackedValue.style.height = `${stackedDayLineHeight}px`;
 
                                     if ( Is.defined( colorRange ) ) {
-                                        if ( Is.definedString( colorRange.dayCssClassName ) ) {
-                                            DomElement.addClass( stackedValue, colorRange.dayCssClassName! );
+                                        if ( Is.definedString( colorRange.daysCssClassName ) ) {
+                                            DomElement.addClass( stackedValue, colorRange.daysCssClassName! );
                                         } else {
                                             DomElement.addClass( stackedValue, colorRange.cssClassName! );
                                         }
@@ -2215,8 +2215,8 @@ import { ColorRange } from "./ts/area/color-range";
                                     stackedValue.style.height = `${stackedDayLineHeight}px`;
 
                                     if ( Is.defined( colorRange ) ) {
-                                        if ( Is.definedString( colorRange.monthCssClassName ) ) {
-                                            DomElement.addClass( stackedValue, colorRange.monthCssClassName! );
+                                        if ( Is.definedString( colorRange.monthsCssClassName ) ) {
+                                            DomElement.addClass( stackedValue, colorRange.monthsCssClassName! );
                                         } else {
                                             DomElement.addClass( stackedValue, colorRange.cssClassName! );
                                         }
@@ -2753,6 +2753,10 @@ import { ColorRange } from "./ts/area/color-range";
                 DomElement.addClass( day, colorRange.lineCssClassName! );
             } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart && Is.definedString( colorRange.chartCssClassName ) ) {
                 DomElement.addClass( day, colorRange.chartCssClassName! );
+            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days && Is.definedString( colorRange.daysCssClassName ) ) {
+                DomElement.addClass( day, colorRange.daysCssClassName! );
+            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months && Is.definedString( colorRange.monthsCssClassName ) ) {
+                DomElement.addClass( day, colorRange.monthsCssClassName! );
             } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics && Is.definedString( colorRange.statisticsCssClassName ) ) {
                 DomElement.addClass( day, colorRange.statisticsCssClassName! );
             } else {
