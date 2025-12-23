@@ -661,44 +661,49 @@ var u;
         let t = [];
         const n = d.hexToRgbaValues(e.color);
         const i = Math.floor(e.maximumRgbRange / e.totalColors);
-        const o = Math.floor(e.maximumMinimum / e.totalColors);
-        const s = [];
-        let r = n[0] % e.maximumRgbRange;
-        let l = n[1] % e.maximumRgbRange;
-        let c = n[2] % e.maximumRgbRange;
-        let u = e.maximumRgbRange;
-        let w = e.maximumRgbRange;
+        const o = 1 / e.totalColors;
+        const s = Math.floor(e.maximumMinimum / e.totalColors);
+        const r = [];
+        let l = n[0] % e.maximumRgbRange;
+        let c = n[1] % e.maximumRgbRange;
+        let u = n[2] % e.maximumRgbRange;
+        let w = n[3] % 1;
         let h = e.maximumRgbRange;
-        let f = 0;
+        let f = e.maximumRgbRange;
+        let g = e.maximumRgbRange;
+        let m = 1;
+        let y = 0;
         for (let n = 0; n < e.totalColors; n++) {
-            r += i;
             l += i;
             c += i;
-            u -= i;
-            w -= i;
+            u += i;
+            w += o;
             h -= i;
-            f += o;
-            const e = `rgb(${r}, ${l}, ${c})`;
-            const a = `rgb(${u}, ${w}, ${h})`;
+            f -= i;
+            g -= i;
+            m -= o;
+            y += s;
+            const e = `rgba(${l}, ${c}, ${u}, ${w.toFixed(2)})`;
+            const a = `rgba(${h}, ${f}, ${g}, ${m.toFixed(2)})`;
             const d = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
-            s.push(`div.${d}${" "}{`);
-            s.push(`background-color:${" "}${e} !important;`);
-            s.push(`border-color:${" "}${e} !important;`);
-            s.push(`color:${" "}${a} !important;`);
-            s.push("}");
-            const g = {
+            r.push(`div.${d}${" "}{`);
+            r.push(`background-color:${" "}${e} !important;`);
+            r.push(`border-color:${" "}${e} !important;`);
+            r.push(`color:${" "}${a} !important;`);
+            r.push("}");
+            const p = {
                 id: d,
                 name: `Day Color ${n + 1}`,
-                minimum: f,
+                minimum: y,
                 cssClassName: d,
                 tooltipText: `Day Color ${n + 1}`,
                 visible: true
             };
-            t.push(g);
+            t.push(p);
         }
-        const g = document.getElementsByTagName("head")[0];
-        const m = a.create(g, "style");
-        m.appendChild(document.createTextNode(s.join("\n")));
+        const p = document.getElementsByTagName("head")[0];
+        const v = a.create(p, "style");
+        v.appendChild(document.createTextNode(r.join("\n")));
         return t;
     }
     e.buildDynamics = c;
