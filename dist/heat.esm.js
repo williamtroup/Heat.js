@@ -664,17 +664,13 @@ var u;
         let r = n[0] % 256;
         let l = n[1] % 256;
         let c = n[2] % 256;
-        let u = n[3] % 256;
-        let w = 0;
+        let u = 0;
         for (let n = 0; n < e.dynamicColorRange.totalColors; n++) {
             r += i;
             l += i;
             c += i;
-            w += o;
-            if (u > 0) {
-                u += i;
-            }
-            const e = `rgba(${r}, ${l}, ${c}, ${u})`;
+            u += o;
+            const e = `rgb(${r}, ${l}, ${c})`;
             const a = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
             s.push(`div.${a}${" "}{`);
             s.push(`background-color:${" "}${e} !important;`);
@@ -684,16 +680,16 @@ var u;
             const d = {
                 id: a,
                 name: `Day Color ${n + 1}`,
-                minimum: w,
+                minimum: u,
                 cssClassName: a,
                 tooltipText: `Day Color ${n + 1}`,
                 visible: true
             };
             t.push(d);
         }
-        const h = document.getElementsByTagName("head")[0];
-        const f = a.create(h, "style");
-        f.appendChild(document.createTextNode(s.join("\n")));
+        const w = document.getElementsByTagName("head")[0];
+        const h = a.create(w, "style");
+        h.appendChild(document.createTextNode(s.join("\n")));
         return t;
     }
     e.buildDynamics = c;

@@ -100,12 +100,11 @@ export namespace ColorRange {
         const rgbaValues: number[] = Convert.hexToRgbaValues( bindingOptions.dynamicColorRange!.color! );
         const incrementColor: number = Math.floor( 256 / bindingOptions.dynamicColorRange!.totalColors! );
         const incrementMinimum: number = Math.floor( bindingOptions.dynamicColorRange!.maximum! / bindingOptions.dynamicColorRange!.totalColors! );
-        const css: string[] = [];
+        const cssLines: string[] = [];
 
         let red: number = rgbaValues[ 0 ] % 256;
         let green: number = rgbaValues[ 1 ] % 256;
         let blue: number = rgbaValues[ 2 ] % 256;
-        let alpha: number = rgbaValues[ 3 ] % 256;
         let currentValue: number = 0;
 
         for ( let colorIndex: number = 0; colorIndex < bindingOptions.dynamicColorRange!.totalColors!; colorIndex++ ){
@@ -114,18 +113,14 @@ export namespace ColorRange {
             blue += incrementColor;
             currentValue += incrementMinimum;
 
-            if ( alpha > 0 ) {
-                alpha += incrementColor;
-            }
-
-            const rgba: string = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+            const rgba: string = `rgb(${red}, ${green}, ${blue})`;
             const cssName: string = `day-color-${crypto.randomUUID().replace(/-/g, Char.empty)}`;
             
-            css.push( `div.${cssName}${Char.space}{` );
-            css.push( `background-color:${Char.space}${rgba} !important;` );
-            css.push( `border-color:${Char.space}${rgba} !important;` );
-            css.push( `color:${Char.space}${rgba} !important;` );
-            css.push( "}" );
+            cssLines.push( `div.${cssName}${Char.space}{` );
+            cssLines.push( `background-color:${Char.space}${rgba} !important;` );
+            cssLines.push( `border-color:${Char.space}${rgba} !important;` );
+            cssLines.push( `color:${Char.space}${rgba} !important;` );
+            cssLines.push( "}" );
 
             const colorRange: BindingOptionsColorRange = {
                 id: cssName,
@@ -134,14 +129,14 @@ export namespace ColorRange {
                 cssClassName: cssName,
                 tooltipText: `Day Color ${colorIndex + 1}`,
                 visible: true,
-            };
+            } as BindingOptionsColorRange;
 
             result.push( colorRange );
         }
 
         const head: HTMLElement = document.getElementsByTagName( "head" )[ 0 ];
         const style: HTMLStyleElement = DomElement.create( head, "style" ) as HTMLStyleElement;
-        style.appendChild( document.createTextNode( css.join( Char.newLine ) ) );
+        style.appendChild( document.createTextNode( cssLines.join( Char.newLine ) ) );
 
         return result;
     }
