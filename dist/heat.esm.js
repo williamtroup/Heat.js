@@ -3253,26 +3253,28 @@ var T;
                 a.createWithHTML(m, "div", "percentage", `${(o / h * 100).toFixed(r.percentageDecimalPoints)}%`);
             }
         }
-        if (r.views.days.useGradients) {
-            a.addGradientEffect(r._currentView.element, f);
-            if (i.defined(m)) {
-                a.addClass(m, "blend-colors");
-            }
-        } else if (r.views.days.useDifferentOpacities) {
-            const e = a.getStyleValueByName(f, "background-color");
-            const t = a.getStyleValueByName(f, "border-color");
-            if (i.defined(m)) {
-                a.addClass(m, "blend-colors");
-            }
-            if (i.rgbColor(e)) {
-                f.style.backgroundColor = d.toRgbOpacityColor(e, w);
-            } else if (i.hexColor(e)) {
-                f.style.backgroundColor = d.toRgbOpacityColor(d.hexToRgba(e), w);
-            }
-            if (i.rgbColor(t)) {
-                f.style.borderColor = d.toRgbOpacityColor(t, w);
-            } else if (i.hexColor(t)) {
-                f.style.borderColor = d.toRgbOpacityColor(d.hexToRgba(t), w);
+        if (!r.views.days.showStackedColorRanges) {
+            if (r.views.days.useGradients) {
+                a.addGradientEffect(r._currentView.element, f);
+                if (i.defined(m)) {
+                    a.addClass(m, "blend-colors");
+                }
+            } else if (r.views.days.useDifferentOpacities) {
+                const e = a.getStyleValueByName(f, "background-color");
+                const t = a.getStyleValueByName(f, "border-color");
+                if (i.defined(m)) {
+                    a.addClass(m, "blend-colors");
+                }
+                if (i.rgbColor(e)) {
+                    f.style.backgroundColor = d.toRgbOpacityColor(e, w);
+                } else if (i.hexColor(e)) {
+                    f.style.backgroundColor = d.toRgbOpacityColor(d.hexToRgba(e), w);
+                }
+                if (i.rgbColor(t)) {
+                    f.style.borderColor = d.toRgbOpacityColor(t, w);
+                } else if (i.hexColor(t)) {
+                    f.style.borderColor = d.toRgbOpacityColor(d.hexToRgba(t), w);
+                }
             }
         }
         v.setHeight(r, f, g);
@@ -3473,26 +3475,28 @@ var T;
         if (r.views.months.highlightCurrentMonth && m.getMonth() === t - 1 && r._currentView.year === m.getFullYear()) {
             a.addClass(f, "today");
         }
-        if (r.views.months.useGradients) {
-            a.addGradientEffect(r._currentView.element, f);
-            if (i.defined(y)) {
-                a.addClass(y, "blend-colors");
-            }
-        } else if (r.views.months.useDifferentOpacities) {
-            const e = a.getStyleValueByName(f, "background-color");
-            const t = a.getStyleValueByName(f, "border-color");
-            if (i.defined(y)) {
-                a.addClass(y, "blend-colors");
-            }
-            if (i.rgbColor(e)) {
-                f.style.backgroundColor = d.toRgbOpacityColor(e, w);
-            } else if (i.hexColor(e)) {
-                f.style.backgroundColor = d.toRgbOpacityColor(d.hexToRgba(e), w);
-            }
-            if (i.rgbColor(t)) {
-                f.style.borderColor = d.toRgbOpacityColor(t, w);
-            } else if (i.hexColor(t)) {
-                f.style.borderColor = d.toRgbOpacityColor(d.hexToRgba(t), w);
+        if (!r.views.months.showStackedColorRanges) {
+            if (r.views.months.useGradients) {
+                a.addGradientEffect(r._currentView.element, f);
+                if (i.defined(y)) {
+                    a.addClass(y, "blend-colors");
+                }
+            } else if (r.views.months.useDifferentOpacities) {
+                const e = a.getStyleValueByName(f, "background-color");
+                const t = a.getStyleValueByName(f, "border-color");
+                if (i.defined(y)) {
+                    a.addClass(y, "blend-colors");
+                }
+                if (i.rgbColor(e)) {
+                    f.style.backgroundColor = d.toRgbOpacityColor(e, w);
+                } else if (i.hexColor(e)) {
+                    f.style.backgroundColor = d.toRgbOpacityColor(d.hexToRgba(e), w);
+                }
+                if (i.rgbColor(t)) {
+                    f.style.borderColor = d.toRgbOpacityColor(t, w);
+                } else if (i.hexColor(t)) {
+                    f.style.borderColor = d.toRgbOpacityColor(d.hexToRgba(t), w);
+                }
             }
         }
         v.setHeight(r, f, g);

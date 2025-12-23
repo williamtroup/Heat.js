@@ -2003,31 +2003,33 @@ import { ColorRange } from "./ts/area/color-range";
             }
         }
 
-        if ( bindingOptions.views!.days!.useGradients ) {
-            DomElement.addGradientEffect( bindingOptions._currentView!.element, dayLine );
+        if ( !bindingOptions.views!.days!.showStackedColorRanges ) {
+            if ( bindingOptions.views!.days!.useGradients ) {
+                DomElement.addGradientEffect( bindingOptions._currentView!.element, dayLine );
 
-            if ( Is.defined( count ) ) {
-                DomElement.addClass( count, "blend-colors" );
-            }
+                if ( Is.defined( count ) ) {
+                    DomElement.addClass( count, "blend-colors" );
+                }
 
-        } else if ( bindingOptions.views!.days!.useDifferentOpacities ) {
-            const backgroundColor: string = DomElement.getStyleValueByName( dayLine, "background-color" );
-            const borderColor: string = DomElement.getStyleValueByName( dayLine, "border-color" );
+            } else if ( bindingOptions.views!.days!.useDifferentOpacities ) {
+                const backgroundColor: string = DomElement.getStyleValueByName( dayLine, "background-color" );
+                const borderColor: string = DomElement.getStyleValueByName( dayLine, "border-color" );
 
-            if ( Is.defined( count ) ) {
-                DomElement.addClass( count, "blend-colors" );
-            }
+                if ( Is.defined( count ) ) {
+                    DomElement.addClass( count, "blend-colors" );
+                }
 
-            if ( Is.rgbColor( backgroundColor ) ) {
-                dayLine.style.backgroundColor = Convert.toRgbOpacityColor( backgroundColor, opacityIncrease );
-            } else if ( Is.hexColor( backgroundColor ) ) {
-                dayLine.style.backgroundColor = Convert.toRgbOpacityColor( Convert.hexToRgba( backgroundColor ), opacityIncrease );
-            }
+                if ( Is.rgbColor( backgroundColor ) ) {
+                    dayLine.style.backgroundColor = Convert.toRgbOpacityColor( backgroundColor, opacityIncrease );
+                } else if ( Is.hexColor( backgroundColor ) ) {
+                    dayLine.style.backgroundColor = Convert.toRgbOpacityColor( Convert.hexToRgba( backgroundColor ), opacityIncrease );
+                }
 
-            if ( Is.rgbColor( borderColor ) ) {
-                dayLine.style.borderColor = Convert.toRgbOpacityColor( borderColor, opacityIncrease );
-            } else if ( Is.hexColor( borderColor ) ) {
-                dayLine.style.borderColor = Convert.toRgbOpacityColor( Convert.hexToRgba( borderColor ), opacityIncrease );
+                if ( Is.rgbColor( borderColor ) ) {
+                    dayLine.style.borderColor = Convert.toRgbOpacityColor( borderColor, opacityIncrease );
+                } else if ( Is.hexColor( borderColor ) ) {
+                    dayLine.style.borderColor = Convert.toRgbOpacityColor( Convert.hexToRgba( borderColor ), opacityIncrease );
+                }
             }
         }
 
@@ -2287,31 +2289,33 @@ import { ColorRange } from "./ts/area/color-range";
             DomElement.addClass( monthLine, "today" );
         }
 
-        if ( bindingOptions.views!.months!.useGradients ) {
-            DomElement.addGradientEffect( bindingOptions._currentView!.element, monthLine );
+        if ( !bindingOptions.views!.months!.showStackedColorRanges ) {
+            if ( bindingOptions.views!.months!.useGradients ) {
+                DomElement.addGradientEffect( bindingOptions._currentView!.element, monthLine );
 
-            if ( Is.defined( count ) ) {
-                DomElement.addClass( count, "blend-colors" );
-            }
+                if ( Is.defined( count ) ) {
+                    DomElement.addClass( count, "blend-colors" );
+                }
 
-        } else if ( bindingOptions.views!.months!.useDifferentOpacities ) {
-            const backgroundColor: string = DomElement.getStyleValueByName( monthLine, "background-color" );
-            const borderColor: string = DomElement.getStyleValueByName( monthLine, "border-color" );
+            } else if ( bindingOptions.views!.months!.useDifferentOpacities ) {
+                const backgroundColor: string = DomElement.getStyleValueByName( monthLine, "background-color" );
+                const borderColor: string = DomElement.getStyleValueByName( monthLine, "border-color" );
 
-            if ( Is.defined( count ) ) {
-                DomElement.addClass( count, "blend-colors" );
-            }
+                if ( Is.defined( count ) ) {
+                    DomElement.addClass( count, "blend-colors" );
+                }
 
-            if ( Is.rgbColor( backgroundColor ) ) {
-                monthLine.style.backgroundColor = Convert.toRgbOpacityColor( backgroundColor, opacityIncrease );
-            } else if ( Is.hexColor( backgroundColor ) ) {
-                monthLine.style.backgroundColor = Convert.toRgbOpacityColor( Convert.hexToRgba( backgroundColor ), opacityIncrease );
-            }
+                if ( Is.rgbColor( backgroundColor ) ) {
+                    monthLine.style.backgroundColor = Convert.toRgbOpacityColor( backgroundColor, opacityIncrease );
+                } else if ( Is.hexColor( backgroundColor ) ) {
+                    monthLine.style.backgroundColor = Convert.toRgbOpacityColor( Convert.hexToRgba( backgroundColor ), opacityIncrease );
+                }
 
-            if ( Is.rgbColor( borderColor ) ) {
-                monthLine.style.borderColor = Convert.toRgbOpacityColor( borderColor, opacityIncrease );
-            } else if ( Is.hexColor( borderColor ) ) {
-                monthLine.style.borderColor = Convert.toRgbOpacityColor( Convert.hexToRgba( borderColor ), opacityIncrease );
+                if ( Is.rgbColor( borderColor ) ) {
+                    monthLine.style.borderColor = Convert.toRgbOpacityColor( borderColor, opacityIncrease );
+                } else if ( Is.hexColor( borderColor ) ) {
+                    monthLine.style.borderColor = Convert.toRgbOpacityColor( Convert.hexToRgba( borderColor ), opacityIncrease );
+                }
             }
         }
 
