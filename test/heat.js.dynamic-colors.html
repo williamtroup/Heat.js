@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Heat.js - Dynamic Colors</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="../dist/heat.js.css">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+        <script src="../dist/heat.js"></script>
+        <script src="js/scripts.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1>
+                <img src="images/icon.png">
+                <span id="header">Heat.js - Dynamic Colors</span>
+            </h1>
+            <p>This is a basic example of how to use Heat.js to create a basic heatmap using dynamic colors.</p>
+        </div>
+
+        <div class="contents">
+            <div id="heat-map-1" data-heat-js="getBindingOptions()"></div>
+        </div>
+    </body>
+
+    <script>
+        function getBindingOptions() {
+            return {
+                "events": {
+                    "onMapDayClick": onMapDayClick,
+                },
+                "description": {
+                    "text": "A basic example of how to use Heat.js.",
+                },
+                "dynamicColorRange": {
+                    "enabled": true,
+                    "maximumMinimum": 25,
+                    "color": "#228b22",
+                    "totalColors": 7,
+                    "maximumRgbRange": 180,
+                },
+            }
+        }
+
+        addStartUpBasicData();
+    </script>
+</html>
