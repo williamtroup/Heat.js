@@ -11,7 +11,11 @@
  */
 
 
-import { BindingOptionsDynamicColorRange, type BindingOptions, type BindingOptionsColorRange } from "../type";
+import { 
+    type BindingOptionsDynamicColorRange,
+    type BindingOptions,
+    type BindingOptionsColorRange } from "../type";
+    
 import { Constant } from "../constant";
 import { Default } from "../data/default";
 import { Is } from "../data/is";
