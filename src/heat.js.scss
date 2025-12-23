@@ -1363,7 +1363,6 @@ div.heat-js {
 
                 div.day-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
-                    padding: calc( var(--heat-js-spacing) / 2 );
                     position: relative;
                     overflow: hidden;
 
@@ -1374,6 +1373,8 @@ div.heat-js {
                         transform: translate( -50%, -50% );
                         color: var(--heat-js-view-days-text-color);
                         text-align: center;
+                        padding-left: calc( var(--heat-js-spacing) / 2 );
+                        padding-right: calc( var(--heat-js-spacing) / 2 );
                         
                         &.blend-colors {
                             mix-blend-mode: difference;
@@ -1397,9 +1398,11 @@ div.heat-js {
                     margin-right: var(--heat-js-spacing);
                     transition: var(--heat-js-transition);
                     height: 0;
+                    overflow: hidden;
 
                     div.stacked-color-range {
                         border: none !important;
+                        pointer-events: none;
                     }
 
                     &.non-stacked {
@@ -1487,7 +1490,6 @@ div.heat-js {
 
                 div.month-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
-                    padding: calc( var(--heat-js-spacing) / 2 );
                     position: relative;
                     overflow: hidden;
 
@@ -1498,6 +1500,8 @@ div.heat-js {
                         transform: translate( -50%, -50% );
                         color: var(--heat-js-view-months-text-color);
                         text-align: center;
+                        padding-left: calc( var(--heat-js-spacing) / 2 );
+                        padding-right: calc( var(--heat-js-spacing) / 2 );
                         
                         &.blend-colors {
                             mix-blend-mode: difference;
@@ -1521,9 +1525,11 @@ div.heat-js {
                     margin-right: var(--heat-js-spacing);
                     transition: var(--heat-js-transition);
                     height: 0;
+                    overflow: hidden;
 
                     div.stacked-color-range {
                         border: none !important;
+                        pointer-events: none;
                     }
 
                     &.non-stacked {

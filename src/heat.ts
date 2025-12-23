@@ -1928,6 +1928,27 @@ import { ColorRange } from "./ts/area/color-range";
                     }
 
                     if ( bindingOptions.views!.days!.showStackedColorRanges! ) {
+                        for ( const type in dayValuesForCurrentYear.values[ day ].typeTotals ) {
+                            if ( dayValuesForCurrentYear.values[ day ].typeTotals.hasOwnProperty( type ) ) {
+                                const typeTotal: number = dayValuesForCurrentYear.values[ day ].typeTotals[ type ];
+                                const stackedDayLineHeight: number = typeTotal * pixelsPerNumbers;
+                                const colorRange: BindingOptionsColorRange = ColorRange.getByMinimum( colorRanges, parseInt( type ) );
+
+                                if ( stackedDayLineHeight > 0 ) {
+                                    const firstChild: HTMLElement = dayLine.children.length > 0 ? dayLine.children[ 0 ] as HTMLElement : null!;
+                                    const stackedValue: HTMLElement = DomElement.create( dayLine, "div", "stacked-color-range", firstChild );
+                                    stackedValue.style.height = `${stackedDayLineHeight}px`;
+
+                                    if ( Is.defined( colorRange ) ) {
+                                        if ( Is.definedString( colorRange.dayCssClassName ) ) {
+                                            DomElement.addClass( stackedValue, colorRange.dayCssClassName! );
+                                        } else {
+                                            DomElement.addClass( stackedValue, colorRange.cssClassName! );
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -2180,6 +2201,27 @@ import { ColorRange } from "./ts/area/color-range";
                     }
 
                     if ( bindingOptions.views!.months!.showStackedColorRanges! ) {
+                        for ( const type in monthValuesForCurrentYear.values[ monthToShow ].typeTotals ) {
+                            if ( monthValuesForCurrentYear.values[ monthToShow ].typeTotals.hasOwnProperty( type ) ) {
+                                const typeTotal: number = monthValuesForCurrentYear.values[ monthToShow ].typeTotals[ type ];
+                                const stackedDayLineHeight: number = typeTotal * pixelsPerNumbers;
+                                const colorRange: BindingOptionsColorRange = ColorRange.getByMinimum( colorRanges, parseInt( type ) );
+
+                                if ( stackedDayLineHeight > 0 ) {
+                                    const firstChild: HTMLElement = monthLine.children.length > 0 ? monthLine.children[ 0 ] as HTMLElement : null!;
+                                    const stackedValue: HTMLElement = DomElement.create( monthLine, "div", "stacked-color-range", firstChild );
+                                    stackedValue.style.height = `${stackedDayLineHeight}px`;
+
+                                    if ( Is.defined( colorRange ) ) {
+                                        if ( Is.definedString( colorRange.monthCssClassName ) ) {
+                                            DomElement.addClass( stackedValue, colorRange.monthCssClassName! );
+                                        } else {
+                                            DomElement.addClass( stackedValue, colorRange.cssClassName! );
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -2369,11 +2411,11 @@ import { ColorRange } from "./ts/area/color-range";
                                 result.totalValue += dayCount;
                                 result.largestValue = Math.max( result.largestValue, result.values[ monthValue ].total );
 
-                                if ( !result.values[ weekDayNumber ].typeTotals!.hasOwnProperty( colorRangeMinimum ) ) {
-                                    result.values[ weekDayNumber ].typeTotals![ colorRangeMinimum ] = 0;
+                                if ( !result.values[ monthValue ].typeTotals!.hasOwnProperty( colorRangeMinimum ) ) {
+                                    result.values[ monthValue ].typeTotals![ colorRangeMinimum ] = 0;
                                 }
 
-                                result.values[ weekDayNumber ].typeTotals![ colorRangeMinimum ] += dayCount;
+                                result.values[ monthValue ].typeTotals![ colorRangeMinimum ] += dayCount;
                             }
                         }
                     }

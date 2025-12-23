@@ -371,8 +371,10 @@ export type BindingOptionsColorRange = {
     minimum?: number;
     cssClassName?: string;
     mapCssClassName?: string;
-    chartCssClassName?: string;
     lineCssClassName?: string;
+    chartCssClassName?: string;
+    dayCssClassName?: string;
+    monthCssClassName?: string;
     statisticsCssClassName?: string;
     tooltipText?: string;
     visible?: boolean;

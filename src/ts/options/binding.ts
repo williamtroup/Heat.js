@@ -183,8 +183,10 @@ export namespace Binding {
                         colorRange.minimum = Default.getNumber( colorRange.minimum, 0 );
                         colorRange.cssClassName = Default.getString( colorRange.cssClassName, Char.empty );
                         colorRange.mapCssClassName = Default.getString( colorRange.mapCssClassName, Char.empty );
-                        colorRange.chartCssClassName = Default.getString( colorRange.chartCssClassName, Char.empty );
                         colorRange.lineCssClassName = Default.getString( colorRange.lineCssClassName, Char.empty );
+                        colorRange.chartCssClassName = Default.getString( colorRange.chartCssClassName, Char.empty );
+                        colorRange.dayCssClassName = Default.getString( colorRange.dayCssClassName, Char.empty );
+                        colorRange.monthCssClassName = Default.getString( colorRange.monthCssClassName, Char.empty );
                         colorRange.statisticsCssClassName = Default.getString( colorRange.statisticsCssClassName, Char.empty );
                         colorRange.tooltipText = Default.getString( colorRange.tooltipText, Char.empty );
                         colorRange.visible = Default.getBoolean( colorRange.visible, true );
