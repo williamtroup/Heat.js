@@ -2079,9 +2079,17 @@ import { ColorRange } from "./ts/area/color-range";
                             const colorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dayCount );
 
                             if ( !Is.defined( colorRange ) || colorRange.visible ) {
+                                const colorRangeMinimum: string = Is.defined( colorRange ) ? colorRange.minimum!.toString() : Char.zero;
+
                                 result.values[ weekDayNumber ].total += dayCount;
                                 result.totalValue += dayCount;
                                 result.largestValue = Math.max( result.largestValue, result.values[ weekDayNumber ].total );
+
+                                if ( !result.values[ weekDayNumber ].typeTotals!.hasOwnProperty( colorRangeMinimum ) ) {
+                                    result.values[ weekDayNumber ].typeTotals![ colorRangeMinimum ] = 0;
+                                }
+
+                                result.values[ weekDayNumber ].typeTotals![ colorRangeMinimum ] += dayCount;
                             }
                         }
                     }
@@ -2355,9 +2363,17 @@ import { ColorRange } from "./ts/area/color-range";
                             const colorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dayCount );
 
                             if ( !Is.defined( colorRange ) || colorRange.visible ) {
+                                const colorRangeMinimum: string = Is.defined( colorRange ) ? colorRange.minimum!.toString() : Char.zero;
+
                                 result.values[ monthValue ].total += dayCount;
                                 result.totalValue += dayCount;
                                 result.largestValue = Math.max( result.largestValue, result.values[ monthValue ].total );
+
+                                if ( !result.values[ weekDayNumber ].typeTotals!.hasOwnProperty( colorRangeMinimum ) ) {
+                                    result.values[ weekDayNumber ].typeTotals![ colorRangeMinimum ] = 0;
+                                }
+
+                                result.values[ weekDayNumber ].typeTotals![ colorRangeMinimum ] += dayCount;
                             }
                         }
                     }

@@ -3312,9 +3312,14 @@ var T;
                             const r = o[s];
                             const a = u.get(e, t, r);
                             if (!i.defined(a) || a.visible) {
+                                const e = i.defined(a) ? a.minimum.toString() : "0";
                                 n.values[w].total += r;
                                 n.totalValue += r;
                                 n.largestValue = Math.max(n.largestValue, n.values[w].total);
+                                if (!n.values[w].typeTotals.hasOwnProperty(e)) {
+                                    n.values[w].typeTotals[e] = 0;
+                                }
+                                n.values[w].typeTotals[e] += r;
                             }
                         }
                     }
@@ -3528,9 +3533,14 @@ var T;
                             const r = o[a];
                             const l = u.get(e, t, r);
                             if (!i.defined(l) || l.visible) {
+                                const e = i.defined(l) ? l.minimum.toString() : "0";
                                 n.values[s].total += r;
                                 n.totalValue += r;
                                 n.largestValue = Math.max(n.largestValue, n.values[s].total);
+                                if (!n.values[h].typeTotals.hasOwnProperty(e)) {
+                                    n.values[h].typeTotals[e] = 0;
+                                }
+                                n.values[h].typeTotals[e] += r;
                             }
                         }
                     }
