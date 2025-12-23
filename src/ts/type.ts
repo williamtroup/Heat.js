@@ -204,6 +204,35 @@ export type BindingOptionsViews = {
     statistics?: BindingOptionsViewsStatistics;
 };
 
+export type BindingOptionsTitle = {
+    text?: string;
+    showText?: boolean;
+    showYearSelector?: boolean;
+    showRefreshButton?: boolean;
+    showExportButton?: boolean;
+    extraSelectionYears?: number;
+    showYearSelectionDropDown?: boolean;
+    showImportButton?: boolean;
+    showConfigurationButton?: boolean;
+    showTitleDropDownButton?: boolean;
+    showTitleDropDownHeaders?: boolean;
+    showCurrentYearButton?: boolean;
+    showSectionText?: boolean;
+    showToolTips?: boolean;
+    showTitleDropDownMenu?: boolean;
+    showClearButton?: boolean;
+};
+
+export type BindingOptionsYearlyStatistics = {
+    enabled?: boolean;
+    showToday?: boolean;
+    showThisWeek?: boolean;
+    showThisMonth?: boolean;
+    showThisYear?: boolean;
+    showOnlyForCurrentYear?: boolean;
+    showPercentages?: boolean;
+};
+
 export type BindingOptionsViewsMap = {
     enabled?: boolean;
     showMonthDayGaps?: boolean;
@@ -225,6 +254,19 @@ export type BindingOptionsViewsMap = {
     showCountsInToolTips?: boolean;
 };
 
+export type BindingOptionsViewsLine = {
+    enabled?: boolean;
+    showMonthNames?: boolean;
+    showInReverseOrder?: boolean;
+    keepScrollPositions?: boolean;
+    monthsToShow?: number[];
+    daysToShow?: number[];
+    showYearsInMonthNames?: boolean;
+    dayToolTipText?: string;
+    showToolTips?: boolean;
+    showCountsInToolTips?: boolean;
+};
+
 export type BindingOptionsViewsChart = {
     enabled?: boolean;
     showChartYLabels?: boolean;
@@ -242,19 +284,6 @@ export type BindingOptionsViewsChart = {
     showYearsInMonthNames?: boolean;
     showCountsInToolTips?: boolean;
     addMonthSpacing?: boolean;
-};
-
-export type BindingOptionsViewsLine = {
-    enabled?: boolean;
-    showMonthNames?: boolean;
-    showInReverseOrder?: boolean;
-    keepScrollPositions?: boolean;
-    monthsToShow?: number[];
-    daysToShow?: number[];
-    showYearsInMonthNames?: boolean;
-    dayToolTipText?: string;
-    showToolTips?: boolean;
-    showCountsInToolTips?: boolean;
 };
 
 export type BindingOptionsViewsDays = {
@@ -304,31 +333,6 @@ export type BindingOptionsViewsStatistics = {
     showRangeNamesInToolTips?: boolean;
 };
 
-export type BindingOptionsZooming = {
-    enabled?: boolean;
-    defaultLevel?: number;
-    maximumLevel?: number;
-};
-
-export type BindingOptionsTitle = {
-    text?: string;
-    showText?: boolean;
-    showYearSelector?: boolean;
-    showRefreshButton?: boolean;
-    showExportButton?: boolean;
-    extraSelectionYears?: number;
-    showYearSelectionDropDown?: boolean;
-    showImportButton?: boolean;
-    showConfigurationButton?: boolean;
-    showTitleDropDownButton?: boolean;
-    showTitleDropDownHeaders?: boolean;
-    showCurrentYearButton?: boolean;
-    showSectionText?: boolean;
-    showToolTips?: boolean;
-    showTitleDropDownMenu?: boolean;
-    showClearButton?: boolean;
-};
-
 export type BindingOptionsDescription = {
     text?: string;
     url?: string;
@@ -344,18 +348,41 @@ export type BindingOptionsGuide = {
     showInvertLabel?: boolean;
 };
 
+export type BindingOptionsZooming = {
+    enabled?: boolean;
+    defaultLevel?: number;
+    maximumLevel?: number;
+};
+
 export type BindingOptionsTooltip = {
     delay?: number;
 };
 
-export type BindingOptionsYearlyStatistics = {
+export type BindingOptionsColorRange = {
+    id?: string;
+    name?: string;
+    minimum?: number;
+    cssClassName?: string;
+    mapCssClassName?: string;
+    chartCssClassName?: string;
+    lineCssClassName?: string;
+    statisticsCssClassName?: string;
+    tooltipText?: string;
+    visible?: boolean;
+};
+
+export type BindingOptionsDynamicColorRange = {
     enabled?: boolean;
-    showToday?: boolean;
-    showThisWeek?: boolean;
-    showThisMonth?: boolean;
-    showThisYear?: boolean;
-    showOnlyForCurrentYear?: boolean;
-    showPercentages?: boolean;
+    maximumMinimum?: number;
+    color?: string;
+    totalColors?: number;
+    maximumRgbRange?: number;
+};
+
+export type BindingOptionsHoliday = {
+    date?: string;
+    name?: string;
+    showInViews?: boolean;
 };
 
 export type BindingOptionsEvents = {
@@ -395,31 +422,4 @@ export type BindingOptionsEvents = {
     onStatisticDblClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
     onZoomLevelChange?: ( element: HTMLElement, zoomLevel: number ) => void;
     onClearViewableData?: ( element: HTMLElement ) => void;
-};
-
-export type BindingOptionsColorRange = {
-    id?: string;
-    name?: string;
-    minimum?: number;
-    cssClassName?: string;
-    mapCssClassName?: string;
-    chartCssClassName?: string;
-    lineCssClassName?: string;
-    statisticsCssClassName?: string;
-    tooltipText?: string;
-    visible?: boolean;
-};
-
-export type BindingOptionsDynamicColorRange = {
-    enabled?: boolean;
-    maximumMinimum?: number;
-    color?: string;
-    totalColors?: number;
-    maximumRgbRange?: number;
-};
-
-export type BindingOptionsHoliday = {
-    date?: string;
-    name?: string;
-    showInViews?: boolean;
 };
