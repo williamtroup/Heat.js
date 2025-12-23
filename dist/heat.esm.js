@@ -786,21 +786,21 @@ var w;
             t.allowTypeAdding = o.getBoolean(t.allowTypeAdding, false);
             t.chartsAnimationDelay = o.getNumber(t.chartsAnimationDelay, 50);
             t.exportDateTimeFormat = o.getString(t.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}");
-            t.dynamicColorRange = a(t);
-            t.colorRanges = l(t);
-            t.holidays = c(t);
-            t.title = d(t);
-            t.description = w(t);
-            t.guide = h(t);
-            t.tooltip = f(t);
-            t.views.map = g(t);
-            t.views.line = m(t);
-            t.views.chart = y(t);
-            t.views.days = p(t);
-            t.views.months = v(t);
-            t.views.statistics = T(t);
-            t.yearlyStatistics = x(t);
-            t.zooming = b(t);
+            t.title = a(t);
+            t.yearlyStatistics = l(t);
+            t.views.map = c(t);
+            t.views.line = d(t);
+            t.views.chart = w(t);
+            t.views.days = h(t);
+            t.views.months = f(t);
+            t.views.statistics = g(t);
+            t.description = m(t);
+            t.guide = y(t);
+            t.tooltip = p(t);
+            t.zooming = v(t);
+            t.dynamicColorRange = T(t);
+            t.colorRanges = b(t);
+            t.holidays = x(t);
             t.events = V(t);
             if (t.startMonth > 0) {
                 t.yearsToHide = [];
@@ -809,6 +809,198 @@ var w;
         }
         e.get = r;
         function a(e) {
+            e.title = o.getObject(e.title, {});
+            e.title.text = o.getString(e.title.text, "Heat.js");
+            e.title.showText = o.getBoolean(e.title.showText, true);
+            e.title.showYearSelector = o.getBoolean(e.title.showYearSelector, true);
+            e.title.showRefreshButton = o.getBoolean(e.title.showRefreshButton, false);
+            e.title.showExportButton = o.getBoolean(e.title.showExportButton, false);
+            e.title.extraSelectionYears = o.getNumber(e.title.extraSelectionYears, 50);
+            e.title.showYearSelectionDropDown = o.getBoolean(e.title.showYearSelectionDropDown, true);
+            e.title.showImportButton = o.getBoolean(e.title.showImportButton, false);
+            e.title.showConfigurationButton = o.getBoolean(e.title.showConfigurationButton, true);
+            e.title.showTitleDropDownButton = o.getBoolean(e.title.showTitleDropDownButton, true);
+            e.title.showTitleDropDownHeaders = o.getBoolean(e.title.showTitleDropDownHeaders, true);
+            e.title.showCurrentYearButton = o.getBoolean(e.title.showCurrentYearButton, true);
+            e.title.showSectionText = o.getBoolean(e.title.showSectionText, true);
+            e.title.showToolTips = o.getBoolean(e.title.showToolTips, true);
+            e.title.showTitleDropDownMenu = o.getBoolean(e.title.showTitleDropDownMenu, true);
+            e.title.showClearButton = o.getBoolean(e.title.showClearButton, false);
+            return e.title;
+        }
+        function l(e) {
+            e.yearlyStatistics = o.getObject(e.yearlyStatistics, {});
+            e.yearlyStatistics.enabled = o.getBoolean(e.yearlyStatistics.enabled, false);
+            e.yearlyStatistics.showToday = o.getBoolean(e.yearlyStatistics.showToday, true);
+            e.yearlyStatistics.showThisWeek = o.getBoolean(e.yearlyStatistics.showThisWeek, true);
+            e.yearlyStatistics.showThisMonth = o.getBoolean(e.yearlyStatistics.showThisMonth, true);
+            e.yearlyStatistics.showThisYear = o.getBoolean(e.yearlyStatistics.showThisYear, true);
+            e.yearlyStatistics.showOnlyForCurrentYear = o.getBoolean(e.yearlyStatistics.showOnlyForCurrentYear, false);
+            e.yearlyStatistics.showPercentages = o.getBoolean(e.yearlyStatistics.showPercentages, true);
+            return e.yearlyStatistics;
+        }
+        function c(e) {
+            e.views.map = o.getObject(e.views.map, {});
+            e.views.map.enabled = o.getBoolean(e.views.map.enabled, true);
+            e.views.map.showMonthDayGaps = o.getBoolean(e.views.map.showMonthDayGaps, true);
+            e.views.map.showDayNames = o.getBoolean(e.views.map.showDayNames, true);
+            e.views.map.placeMonthNamesOnTheBottom = o.getBoolean(e.views.map.placeMonthNamesOnTheBottom, false);
+            e.views.map.showDayCounts = o.getBoolean(e.views.map.showDayCounts, false);
+            e.views.map.showMonthNames = o.getBoolean(e.views.map.showMonthNames, true);
+            e.views.map.showDaysInReverseOrder = o.getBoolean(e.views.map.showDaysInReverseOrder, false);
+            e.views.map.showMinimalDayNames = o.getBoolean(e.views.map.showMinimalDayNames, false);
+            e.views.map.showMonthsInReverseOrder = o.getBoolean(e.views.map.showMonthsInReverseOrder, false);
+            e.views.map.keepScrollPositions = o.getBoolean(e.views.map.keepScrollPositions, false);
+            e.views.map.showDayDateNumbers = o.getBoolean(e.views.map.showDayDateNumbers, false);
+            e.views.map.showToolTips = o.getBoolean(e.views.map.showToolTips, true);
+            e.views.map.highlightCurrentDay = o.getBoolean(e.views.map.highlightCurrentDay, false);
+            e.views.map.dayToolTipText = o.getString(e.views.map.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}");
+            e.views.map.showYearsInMonthNames = o.getBoolean(e.views.map.showYearsInMonthNames, true);
+            e.views.map.showCountsInToolTips = o.getBoolean(e.views.map.showCountsInToolTips, true);
+            if (i.invalidOptionArray(e.views.map.monthsToShow)) {
+                e.views.map.monthsToShow = t;
+            }
+            if (i.invalidOptionArray(e.views.map.daysToShow)) {
+                e.views.map.daysToShow = n;
+            }
+            return e.views.map;
+        }
+        function d(e) {
+            e.views.line = o.getObject(e.views.line, {});
+            e.views.line.enabled = o.getBoolean(e.views.line.enabled, true);
+            e.views.line.showMonthNames = o.getBoolean(e.views.line.showMonthNames, true);
+            e.views.line.showInReverseOrder = o.getBoolean(e.views.line.showInReverseOrder, false);
+            e.views.line.keepScrollPositions = o.getBoolean(e.views.line.keepScrollPositions, false);
+            e.views.line.showYearsInMonthNames = o.getBoolean(e.views.line.showYearsInMonthNames, true);
+            e.views.line.showToolTips = o.getBoolean(e.views.line.showToolTips, true);
+            e.views.line.dayToolTipText = o.getString(e.views.line.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}");
+            e.views.line.showCountsInToolTips = o.getBoolean(e.views.line.showCountsInToolTips, true);
+            if (i.invalidOptionArray(e.views.line.monthsToShow)) {
+                e.views.line.monthsToShow = t;
+            }
+            if (i.invalidOptionArray(e.views.line.daysToShow)) {
+                e.views.line.daysToShow = n;
+            }
+            return e.views.line;
+        }
+        function w(e) {
+            e.views.chart = o.getObject(e.views.chart, {});
+            e.views.chart.enabled = o.getBoolean(e.views.chart.enabled, true);
+            e.views.chart.showChartYLabels = o.getBoolean(e.views.chart.showChartYLabels, true);
+            e.views.chart.showMonthNames = o.getBoolean(e.views.chart.showMonthNames, true);
+            e.views.chart.showLineCounts = o.getBoolean(e.views.chart.showLineCounts, false);
+            e.views.chart.showInReverseOrder = o.getBoolean(e.views.chart.showInReverseOrder, false);
+            e.views.chart.keepScrollPositions = o.getBoolean(e.views.chart.keepScrollPositions, false);
+            e.views.chart.showLineDateNumbers = o.getBoolean(e.views.chart.showLineDateNumbers, false);
+            e.views.chart.showToolTips = o.getBoolean(e.views.chart.showToolTips, true);
+            e.views.chart.useGradients = o.getBoolean(e.views.chart.useGradients, false);
+            e.views.chart.highlightCurrentDay = o.getBoolean(e.views.chart.highlightCurrentDay, false);
+            e.views.chart.dayToolTipText = o.getString(e.views.chart.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}");
+            e.views.chart.showYearsInMonthNames = o.getBoolean(e.views.chart.showYearsInMonthNames, true);
+            e.views.chart.showCountsInToolTips = o.getBoolean(e.views.chart.showCountsInToolTips, true);
+            e.views.chart.addMonthSpacing = o.getBoolean(e.views.chart.addMonthSpacing, false);
+            if (i.invalidOptionArray(e.views.chart.monthsToShow)) {
+                e.views.chart.monthsToShow = t;
+            }
+            if (i.invalidOptionArray(e.views.chart.daysToShow)) {
+                e.views.chart.daysToShow = n;
+            }
+            return e.views.chart;
+        }
+        function h(e) {
+            e.views.days = o.getObject(e.views.days, {});
+            e.views.days.enabled = o.getBoolean(e.views.days.enabled, true);
+            e.views.days.showChartYLabels = o.getBoolean(e.views.days.showChartYLabels, true);
+            e.views.days.showDayNames = o.getBoolean(e.views.days.showDayNames, true);
+            e.views.days.showInReverseOrder = o.getBoolean(e.views.days.showInReverseOrder, false);
+            e.views.days.showDayCounts = o.getBoolean(e.views.days.showDayCounts, false);
+            e.views.days.keepScrollPositions = o.getBoolean(e.views.days.keepScrollPositions, false);
+            e.views.days.showToolTips = o.getBoolean(e.views.days.showToolTips, true);
+            e.views.days.useGradients = o.getBoolean(e.views.days.useGradients, false);
+            e.views.days.useDifferentOpacities = o.getBoolean(e.views.days.useDifferentOpacities, false);
+            e.views.days.showDayCountPercentages = o.getBoolean(e.views.days.showDayCountPercentages, true);
+            e.views.days.showStackedColorRanges = o.getBoolean(e.views.days.showStackedColorRanges, true);
+            if (i.invalidOptionArray(e.views.days.monthsToShow)) {
+                e.views.days.monthsToShow = t;
+            }
+            if (i.invalidOptionArray(e.views.days.daysToShow)) {
+                e.views.days.daysToShow = n;
+            }
+            return e.views.days;
+        }
+        function f(e) {
+            e.views.months = o.getObject(e.views.months, {});
+            e.views.months.enabled = o.getBoolean(e.views.months.enabled, true);
+            e.views.months.showChartYLabels = o.getBoolean(e.views.months.showChartYLabels, true);
+            e.views.months.showMonthNames = o.getBoolean(e.views.months.showMonthNames, true);
+            e.views.months.showInReverseOrder = o.getBoolean(e.views.months.showInReverseOrder, false);
+            e.views.months.showMonthCounts = o.getBoolean(e.views.months.showMonthCounts, false);
+            e.views.months.keepScrollPositions = o.getBoolean(e.views.months.keepScrollPositions, false);
+            e.views.months.showToolTips = o.getBoolean(e.views.months.showToolTips, true);
+            e.views.months.useGradients = o.getBoolean(e.views.months.useGradients, false);
+            e.views.months.useDifferentOpacities = o.getBoolean(e.views.months.useDifferentOpacities, false);
+            e.views.months.highlightCurrentMonth = o.getBoolean(e.views.months.highlightCurrentMonth, false);
+            e.views.months.showMonthCountPercentages = o.getBoolean(e.views.months.showMonthCountPercentages, true);
+            e.views.months.showStackedColorRanges = o.getBoolean(e.views.months.showStackedColorRanges, true);
+            if (i.invalidOptionArray(e.views.months.monthsToShow)) {
+                e.views.months.monthsToShow = t;
+            }
+            if (i.invalidOptionArray(e.views.months.daysToShow)) {
+                e.views.months.daysToShow = n;
+            }
+            return e.views.months;
+        }
+        function g(e) {
+            e.views.statistics = o.getObject(e.views.statistics, {});
+            e.views.statistics.enabled = o.getBoolean(e.views.statistics.enabled, true);
+            e.views.statistics.showChartYLabels = o.getBoolean(e.views.statistics.showChartYLabels, true);
+            e.views.statistics.showColorRangeLabels = o.getBoolean(e.views.statistics.showColorRangeLabels, true);
+            e.views.statistics.useColorRangeNamesForLabels = o.getBoolean(e.views.statistics.useColorRangeNamesForLabels, false);
+            e.views.statistics.showRangeCounts = o.getBoolean(e.views.statistics.showRangeCounts, false);
+            e.views.statistics.showInReverseOrder = o.getBoolean(e.views.statistics.showInReverseOrder, false);
+            e.views.statistics.keepScrollPositions = o.getBoolean(e.views.statistics.keepScrollPositions, false);
+            e.views.statistics.showToolTips = o.getBoolean(e.views.statistics.showToolTips, true);
+            e.views.statistics.useGradients = o.getBoolean(e.views.statistics.useGradients, false);
+            e.views.statistics.showRangeCountPercentages = o.getBoolean(e.views.statistics.showRangeCountPercentages, true);
+            e.views.statistics.showRangeNamesInToolTips = o.getBoolean(e.views.statistics.showRangeNamesInToolTips, true);
+            if (i.invalidOptionArray(e.views.statistics.monthsToShow)) {
+                e.views.statistics.monthsToShow = t;
+            }
+            if (i.invalidOptionArray(e.views.statistics.daysToShow)) {
+                e.views.statistics.daysToShow = n;
+            }
+            return e.views.statistics;
+        }
+        function m(e) {
+            e.description = o.getObject(e.description, {});
+            e.description.text = o.getString(e.description.text, "");
+            e.description.url = o.getString(e.description.url, "");
+            e.description.urlTarget = o.getString(e.description.urlTarget, "_blank");
+            return e.description;
+        }
+        function y(e) {
+            e.guide = o.getObject(e.guide, {});
+            e.guide.enabled = o.getBoolean(e.guide.enabled, true);
+            e.guide.colorRangeTogglesEnabled = o.getBoolean(e.guide.colorRangeTogglesEnabled, true);
+            e.guide.showLessAndMoreLabels = o.getBoolean(e.guide.showLessAndMoreLabels, true);
+            e.guide.showNumbersInGuide = o.getBoolean(e.guide.showNumbersInGuide, false);
+            e.guide.showToolTips = o.getBoolean(e.guide.showToolTips, true);
+            e.guide.showInvertLabel = o.getBoolean(e.guide.showInvertLabel, false);
+            return e.guide;
+        }
+        function p(e) {
+            e.tooltip = o.getObject(e.tooltip, {});
+            e.tooltip.delay = o.getNumber(e.tooltip.delay, 750);
+            return e.tooltip;
+        }
+        function v(e) {
+            e.zooming = o.getObject(e.zooming, {});
+            e.zooming.enabled = o.getBoolean(e.zooming.enabled, false);
+            e.zooming.defaultLevel = o.getNumber(e.zooming.defaultLevel, 0);
+            e.zooming.maximumLevel = o.getNumber(e.zooming.maximumLevel, 0);
+            return e.zooming;
+        }
+        function T(e) {
             e.dynamicColorRange = o.getObject(e.dynamicColorRange, {});
             e.dynamicColorRange.enabled = o.getBoolean(e.dynamicColorRange.enabled, false);
             e.dynamicColorRange.maximumMinimum = o.getNumber(e.dynamicColorRange.maximumMinimum, 25);
@@ -817,7 +1009,7 @@ var w;
             e.dynamicColorRange.maximumRgbRange = o.getNumber(e.dynamicColorRange.maximumRgbRange, 256);
             return e.dynamicColorRange;
         }
-        function l(e) {
+        function b(e) {
             let t = [];
             if (e.dynamicColorRange.enabled && i.hexColor(e.dynamicColorRange.color)) {
                 t = u.buildDynamics(e.dynamicColorRange);
@@ -874,7 +1066,7 @@ var w;
             }
             return t;
         }
-        function c(e) {
+        function x(e) {
             let t = [];
             if (i.definedArray(e.holidays)) {
                 const n = e.holidays.length;
@@ -887,198 +1079,6 @@ var w;
                 }
             }
             return t;
-        }
-        function d(e) {
-            e.title = o.getObject(e.title, {});
-            e.title.text = o.getString(e.title.text, "Heat.js");
-            e.title.showText = o.getBoolean(e.title.showText, true);
-            e.title.showYearSelector = o.getBoolean(e.title.showYearSelector, true);
-            e.title.showRefreshButton = o.getBoolean(e.title.showRefreshButton, false);
-            e.title.showExportButton = o.getBoolean(e.title.showExportButton, false);
-            e.title.extraSelectionYears = o.getNumber(e.title.extraSelectionYears, 50);
-            e.title.showYearSelectionDropDown = o.getBoolean(e.title.showYearSelectionDropDown, true);
-            e.title.showImportButton = o.getBoolean(e.title.showImportButton, false);
-            e.title.showConfigurationButton = o.getBoolean(e.title.showConfigurationButton, true);
-            e.title.showTitleDropDownButton = o.getBoolean(e.title.showTitleDropDownButton, true);
-            e.title.showTitleDropDownHeaders = o.getBoolean(e.title.showTitleDropDownHeaders, true);
-            e.title.showCurrentYearButton = o.getBoolean(e.title.showCurrentYearButton, true);
-            e.title.showSectionText = o.getBoolean(e.title.showSectionText, true);
-            e.title.showToolTips = o.getBoolean(e.title.showToolTips, true);
-            e.title.showTitleDropDownMenu = o.getBoolean(e.title.showTitleDropDownMenu, true);
-            e.title.showClearButton = o.getBoolean(e.title.showClearButton, false);
-            return e.title;
-        }
-        function w(e) {
-            e.description = o.getObject(e.description, {});
-            e.description.text = o.getString(e.description.text, "");
-            e.description.url = o.getString(e.description.url, "");
-            e.description.urlTarget = o.getString(e.description.urlTarget, "_blank");
-            return e.description;
-        }
-        function h(e) {
-            e.guide = o.getObject(e.guide, {});
-            e.guide.enabled = o.getBoolean(e.guide.enabled, true);
-            e.guide.colorRangeTogglesEnabled = o.getBoolean(e.guide.colorRangeTogglesEnabled, true);
-            e.guide.showLessAndMoreLabels = o.getBoolean(e.guide.showLessAndMoreLabels, true);
-            e.guide.showNumbersInGuide = o.getBoolean(e.guide.showNumbersInGuide, false);
-            e.guide.showToolTips = o.getBoolean(e.guide.showToolTips, true);
-            e.guide.showInvertLabel = o.getBoolean(e.guide.showInvertLabel, false);
-            return e.guide;
-        }
-        function f(e) {
-            e.tooltip = o.getObject(e.tooltip, {});
-            e.tooltip.delay = o.getNumber(e.tooltip.delay, 750);
-            return e.tooltip;
-        }
-        function g(e) {
-            e.views.map = o.getObject(e.views.map, {});
-            e.views.map.enabled = o.getBoolean(e.views.map.enabled, true);
-            e.views.map.showMonthDayGaps = o.getBoolean(e.views.map.showMonthDayGaps, true);
-            e.views.map.showDayNames = o.getBoolean(e.views.map.showDayNames, true);
-            e.views.map.placeMonthNamesOnTheBottom = o.getBoolean(e.views.map.placeMonthNamesOnTheBottom, false);
-            e.views.map.showDayCounts = o.getBoolean(e.views.map.showDayCounts, false);
-            e.views.map.showMonthNames = o.getBoolean(e.views.map.showMonthNames, true);
-            e.views.map.showDaysInReverseOrder = o.getBoolean(e.views.map.showDaysInReverseOrder, false);
-            e.views.map.showMinimalDayNames = o.getBoolean(e.views.map.showMinimalDayNames, false);
-            e.views.map.showMonthsInReverseOrder = o.getBoolean(e.views.map.showMonthsInReverseOrder, false);
-            e.views.map.keepScrollPositions = o.getBoolean(e.views.map.keepScrollPositions, false);
-            e.views.map.showDayDateNumbers = o.getBoolean(e.views.map.showDayDateNumbers, false);
-            e.views.map.showToolTips = o.getBoolean(e.views.map.showToolTips, true);
-            e.views.map.highlightCurrentDay = o.getBoolean(e.views.map.highlightCurrentDay, false);
-            e.views.map.dayToolTipText = o.getString(e.views.map.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}");
-            e.views.map.showYearsInMonthNames = o.getBoolean(e.views.map.showYearsInMonthNames, true);
-            e.views.map.showCountsInToolTips = o.getBoolean(e.views.map.showCountsInToolTips, true);
-            if (i.invalidOptionArray(e.views.map.monthsToShow)) {
-                e.views.map.monthsToShow = t;
-            }
-            if (i.invalidOptionArray(e.views.map.daysToShow)) {
-                e.views.map.daysToShow = n;
-            }
-            return e.views.map;
-        }
-        function m(e) {
-            e.views.line = o.getObject(e.views.line, {});
-            e.views.line.enabled = o.getBoolean(e.views.line.enabled, true);
-            e.views.line.showMonthNames = o.getBoolean(e.views.line.showMonthNames, true);
-            e.views.line.showInReverseOrder = o.getBoolean(e.views.line.showInReverseOrder, false);
-            e.views.line.keepScrollPositions = o.getBoolean(e.views.line.keepScrollPositions, false);
-            e.views.line.showYearsInMonthNames = o.getBoolean(e.views.line.showYearsInMonthNames, true);
-            e.views.line.showToolTips = o.getBoolean(e.views.line.showToolTips, true);
-            e.views.line.dayToolTipText = o.getString(e.views.line.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}");
-            e.views.line.showCountsInToolTips = o.getBoolean(e.views.line.showCountsInToolTips, true);
-            if (i.invalidOptionArray(e.views.line.monthsToShow)) {
-                e.views.line.monthsToShow = t;
-            }
-            if (i.invalidOptionArray(e.views.line.daysToShow)) {
-                e.views.line.daysToShow = n;
-            }
-            return e.views.line;
-        }
-        function y(e) {
-            e.views.chart = o.getObject(e.views.chart, {});
-            e.views.chart.enabled = o.getBoolean(e.views.chart.enabled, true);
-            e.views.chart.showChartYLabels = o.getBoolean(e.views.chart.showChartYLabels, true);
-            e.views.chart.showMonthNames = o.getBoolean(e.views.chart.showMonthNames, true);
-            e.views.chart.showLineCounts = o.getBoolean(e.views.chart.showLineCounts, false);
-            e.views.chart.showInReverseOrder = o.getBoolean(e.views.chart.showInReverseOrder, false);
-            e.views.chart.keepScrollPositions = o.getBoolean(e.views.chart.keepScrollPositions, false);
-            e.views.chart.showLineDateNumbers = o.getBoolean(e.views.chart.showLineDateNumbers, false);
-            e.views.chart.showToolTips = o.getBoolean(e.views.chart.showToolTips, true);
-            e.views.chart.useGradients = o.getBoolean(e.views.chart.useGradients, false);
-            e.views.chart.highlightCurrentDay = o.getBoolean(e.views.chart.highlightCurrentDay, false);
-            e.views.chart.dayToolTipText = o.getString(e.views.chart.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}");
-            e.views.chart.showYearsInMonthNames = o.getBoolean(e.views.chart.showYearsInMonthNames, true);
-            e.views.chart.showCountsInToolTips = o.getBoolean(e.views.chart.showCountsInToolTips, true);
-            e.views.chart.addMonthSpacing = o.getBoolean(e.views.chart.addMonthSpacing, false);
-            if (i.invalidOptionArray(e.views.chart.monthsToShow)) {
-                e.views.chart.monthsToShow = t;
-            }
-            if (i.invalidOptionArray(e.views.chart.daysToShow)) {
-                e.views.chart.daysToShow = n;
-            }
-            return e.views.chart;
-        }
-        function p(e) {
-            e.views.days = o.getObject(e.views.days, {});
-            e.views.days.enabled = o.getBoolean(e.views.days.enabled, true);
-            e.views.days.showChartYLabels = o.getBoolean(e.views.days.showChartYLabels, true);
-            e.views.days.showDayNames = o.getBoolean(e.views.days.showDayNames, true);
-            e.views.days.showInReverseOrder = o.getBoolean(e.views.days.showInReverseOrder, false);
-            e.views.days.showDayCounts = o.getBoolean(e.views.days.showDayCounts, false);
-            e.views.days.keepScrollPositions = o.getBoolean(e.views.days.keepScrollPositions, false);
-            e.views.days.showToolTips = o.getBoolean(e.views.days.showToolTips, true);
-            e.views.days.useGradients = o.getBoolean(e.views.days.useGradients, false);
-            e.views.days.useDifferentOpacities = o.getBoolean(e.views.days.useDifferentOpacities, false);
-            e.views.days.showDayCountPercentages = o.getBoolean(e.views.days.showDayCountPercentages, true);
-            e.views.days.showStackedColorRanges = o.getBoolean(e.views.days.showStackedColorRanges, true);
-            if (i.invalidOptionArray(e.views.days.monthsToShow)) {
-                e.views.days.monthsToShow = t;
-            }
-            if (i.invalidOptionArray(e.views.days.daysToShow)) {
-                e.views.days.daysToShow = n;
-            }
-            return e.views.days;
-        }
-        function v(e) {
-            e.views.months = o.getObject(e.views.months, {});
-            e.views.months.enabled = o.getBoolean(e.views.months.enabled, true);
-            e.views.months.showChartYLabels = o.getBoolean(e.views.months.showChartYLabels, true);
-            e.views.months.showMonthNames = o.getBoolean(e.views.months.showMonthNames, true);
-            e.views.months.showInReverseOrder = o.getBoolean(e.views.months.showInReverseOrder, false);
-            e.views.months.showMonthCounts = o.getBoolean(e.views.months.showMonthCounts, false);
-            e.views.months.keepScrollPositions = o.getBoolean(e.views.months.keepScrollPositions, false);
-            e.views.months.showToolTips = o.getBoolean(e.views.months.showToolTips, true);
-            e.views.months.useGradients = o.getBoolean(e.views.months.useGradients, false);
-            e.views.months.useDifferentOpacities = o.getBoolean(e.views.months.useDifferentOpacities, false);
-            e.views.months.highlightCurrentMonth = o.getBoolean(e.views.months.highlightCurrentMonth, false);
-            e.views.months.showMonthCountPercentages = o.getBoolean(e.views.months.showMonthCountPercentages, true);
-            e.views.months.showStackedColorRanges = o.getBoolean(e.views.months.showStackedColorRanges, true);
-            if (i.invalidOptionArray(e.views.months.monthsToShow)) {
-                e.views.months.monthsToShow = t;
-            }
-            if (i.invalidOptionArray(e.views.months.daysToShow)) {
-                e.views.months.daysToShow = n;
-            }
-            return e.views.months;
-        }
-        function T(e) {
-            e.views.statistics = o.getObject(e.views.statistics, {});
-            e.views.statistics.enabled = o.getBoolean(e.views.statistics.enabled, true);
-            e.views.statistics.showChartYLabels = o.getBoolean(e.views.statistics.showChartYLabels, true);
-            e.views.statistics.showColorRangeLabels = o.getBoolean(e.views.statistics.showColorRangeLabels, true);
-            e.views.statistics.useColorRangeNamesForLabels = o.getBoolean(e.views.statistics.useColorRangeNamesForLabels, false);
-            e.views.statistics.showRangeCounts = o.getBoolean(e.views.statistics.showRangeCounts, false);
-            e.views.statistics.showInReverseOrder = o.getBoolean(e.views.statistics.showInReverseOrder, false);
-            e.views.statistics.keepScrollPositions = o.getBoolean(e.views.statistics.keepScrollPositions, false);
-            e.views.statistics.showToolTips = o.getBoolean(e.views.statistics.showToolTips, true);
-            e.views.statistics.useGradients = o.getBoolean(e.views.statistics.useGradients, false);
-            e.views.statistics.showRangeCountPercentages = o.getBoolean(e.views.statistics.showRangeCountPercentages, true);
-            e.views.statistics.showRangeNamesInToolTips = o.getBoolean(e.views.statistics.showRangeNamesInToolTips, true);
-            if (i.invalidOptionArray(e.views.statistics.monthsToShow)) {
-                e.views.statistics.monthsToShow = t;
-            }
-            if (i.invalidOptionArray(e.views.statistics.daysToShow)) {
-                e.views.statistics.daysToShow = n;
-            }
-            return e.views.statistics;
-        }
-        function b(e) {
-            e.zooming = o.getObject(e.zooming, {});
-            e.zooming.enabled = o.getBoolean(e.zooming.enabled, false);
-            e.zooming.defaultLevel = o.getNumber(e.zooming.defaultLevel, 0);
-            e.zooming.maximumLevel = o.getNumber(e.zooming.maximumLevel, 0);
-            return e.zooming;
-        }
-        function x(e) {
-            e.yearlyStatistics = o.getObject(e.yearlyStatistics, {});
-            e.yearlyStatistics.enabled = o.getBoolean(e.yearlyStatistics.enabled, false);
-            e.yearlyStatistics.showToday = o.getBoolean(e.yearlyStatistics.showToday, true);
-            e.yearlyStatistics.showThisWeek = o.getBoolean(e.yearlyStatistics.showThisWeek, true);
-            e.yearlyStatistics.showThisMonth = o.getBoolean(e.yearlyStatistics.showThisMonth, true);
-            e.yearlyStatistics.showThisYear = o.getBoolean(e.yearlyStatistics.showThisYear, true);
-            e.yearlyStatistics.showOnlyForCurrentYear = o.getBoolean(e.yearlyStatistics.showOnlyForCurrentYear, false);
-            e.yearlyStatistics.showPercentages = o.getBoolean(e.yearlyStatistics.showPercentages, true);
-            return e.yearlyStatistics;
         }
         function V(e) {
             e.events = o.getObject(e.events, {});

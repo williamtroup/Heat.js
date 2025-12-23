@@ -130,21 +130,21 @@ export namespace Binding {
             bindingOptions.allowTypeAdding = Default.getBoolean( bindingOptions.allowTypeAdding, false );
             bindingOptions.chartsAnimationDelay = Default.getNumber( bindingOptions.chartsAnimationDelay, 50 );
             bindingOptions.exportDateTimeFormat = Default.getString( bindingOptions.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}" );
-            bindingOptions.dynamicColorRange = getDynamicColorRange( bindingOptions );
-            bindingOptions.colorRanges = getColorRanges( bindingOptions );
-            bindingOptions.holidays = getHolidays( bindingOptions );
             bindingOptions.title = getTitle( bindingOptions );
-            bindingOptions.description = getDescription( bindingOptions );
-            bindingOptions.guide = getGuide( bindingOptions );
-            bindingOptions.tooltip = getToolTip( bindingOptions );
+            bindingOptions.yearlyStatistics = getYearlyStatistics( bindingOptions );
             bindingOptions.views!.map = getMapView( bindingOptions );
             bindingOptions.views!.line = getLineView( bindingOptions );
             bindingOptions.views!.chart = getChartView( bindingOptions );
             bindingOptions.views!.days = getDaysView( bindingOptions );
             bindingOptions.views!.months = getMonthsView( bindingOptions );
             bindingOptions.views!.statistics = getStatisticsView( bindingOptions );
-            bindingOptions.yearlyStatistics = getYearlyStatistics( bindingOptions );
+            bindingOptions.description = getDescription( bindingOptions );
+            bindingOptions.guide = getGuide( bindingOptions );
+            bindingOptions.tooltip = getToolTip( bindingOptions );
             bindingOptions.zooming = getZooming( bindingOptions );
+            bindingOptions.dynamicColorRange = getDynamicColorRange( bindingOptions );
+            bindingOptions.colorRanges = getColorRanges( bindingOptions );
+            bindingOptions.holidays = getHolidays( bindingOptions );
             bindingOptions.events = getCustomTriggers( bindingOptions );
 
             if ( bindingOptions.startMonth > 0 ) {
@@ -152,107 +152,6 @@ export namespace Binding {
             }
             
             return bindingOptions;
-        }
-
-        function getDynamicColorRange( bindingOptions: BindingOptions ) : BindingOptionsDynamicColorRange {
-            bindingOptions.dynamicColorRange = Default.getObject( bindingOptions.dynamicColorRange, {} as BindingOptionsDynamicColorRange );
-            bindingOptions.dynamicColorRange!.enabled = Default.getBoolean( bindingOptions.dynamicColorRange!.enabled, false );
-            bindingOptions.dynamicColorRange!.maximumMinimum = Default.getNumber( bindingOptions.dynamicColorRange!.maximumMinimum, 25 );
-            bindingOptions.dynamicColorRange!.color = Default.getString( bindingOptions.dynamicColorRange!.color, Char.empty );
-            bindingOptions.dynamicColorRange!.totalColors = Default.getNumber( bindingOptions.dynamicColorRange!.totalColors, 7 );
-            bindingOptions.dynamicColorRange!.maximumRgbRange = Default.getNumber( bindingOptions.dynamicColorRange!.maximumRgbRange, 256 );
-    
-            return bindingOptions.dynamicColorRange!;
-        }
-    
-        function getColorRanges( bindingOptions: BindingOptions ) : BindingOptionsColorRange[] {
-            let result: BindingOptionsColorRange[] = [];
-            
-            if ( bindingOptions.dynamicColorRange!.enabled && Is.hexColor( bindingOptions.dynamicColorRange!.color! ) ) {
-                result = ColorRange.buildDynamics( bindingOptions.dynamicColorRange! );
-
-            } else {
-                if ( Is.definedArray( bindingOptions.colorRanges ) ) {
-                    const colorRangesLength: number = bindingOptions.colorRanges!.length;
-        
-                    for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
-                        const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangeIndex ];
-        
-                        colorRange.id = Default.getString( colorRange.id, crypto.randomUUID() );
-                        colorRange.name = Default.getString( colorRange.name, Char.empty );
-                        colorRange.minimum = Default.getNumber( colorRange.minimum, 0 );
-                        colorRange.cssClassName = Default.getString( colorRange.cssClassName, Char.empty );
-                        colorRange.mapCssClassName = Default.getString( colorRange.mapCssClassName, Char.empty );
-                        colorRange.lineCssClassName = Default.getString( colorRange.lineCssClassName, Char.empty );
-                        colorRange.chartCssClassName = Default.getString( colorRange.chartCssClassName, Char.empty );
-                        colorRange.daysCssClassName = Default.getString( colorRange.daysCssClassName, Char.empty );
-                        colorRange.monthsCssClassName = Default.getString( colorRange.monthsCssClassName, Char.empty );
-                        colorRange.statisticsCssClassName = Default.getString( colorRange.statisticsCssClassName, Char.empty );
-                        colorRange.tooltipText = Default.getString( colorRange.tooltipText, Char.empty );
-                        colorRange.visible = Default.getBoolean( colorRange.visible, true );
-
-                        result.push( colorRange );
-                    }
-        
-                } else {
-                    result = [
-                        {
-                            id: crypto.randomUUID(),
-                            name: "Day Color 1",
-                            minimum: 10,
-                            cssClassName: "day-color-1",
-                            tooltipText: "Day Color 1",
-                            visible: true,
-                        },
-                        {
-                            id: crypto.randomUUID(),
-                            name: "Day Color 2",
-                            minimum: 15,
-                            cssClassName: "day-color-2",
-                            tooltipText: "Day Color 2",
-                            visible: true,
-                        },
-                        {
-                            id: crypto.randomUUID(),
-                            name: "Day Color 3",
-                            minimum: 20,
-                            cssClassName: "day-color-3",
-                            tooltipText: "Day Color 3",
-                            visible: true,
-                        },
-                        {
-                            id: crypto.randomUUID(),
-                            name: "Day Color 4",
-                            minimum: 25,
-                            cssClassName: "day-color-4",
-                            tooltipText: "Day Color 4",
-                            visible: true,
-                        },
-                    ];
-                }
-            }
-    
-            return result;
-        }
-    
-        function getHolidays( bindingOptions: BindingOptions ) : BindingOptionsHoliday[] {
-            let result: BindingOptionsHoliday[] = [];
-
-            if ( Is.definedArray( bindingOptions.holidays ) ) {
-                const holidaysLength: number = bindingOptions.holidays!.length;
-    
-                for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-                    const holiday: BindingOptionsHoliday = bindingOptions.holidays![ holidayIndex ];
-                    
-                    holiday.date = Default.getString( holiday.date, Char.empty );
-                    holiday.name = Default.getString( holiday.name, Char.empty );
-                    holiday.showInViews = Default.getBoolean( holiday.showInViews, true );
-
-                    result.push( holiday );
-                }
-            }
-    
-            return result;
         }
     
         function getTitle( bindingOptions: BindingOptions ) : BindingOptionsTitle {
@@ -276,33 +175,18 @@ export namespace Binding {
 
             return bindingOptions.title!;
         }
-    
-        function getDescription( bindingOptions: BindingOptions ) : BindingOptionsDescription {
-            bindingOptions.description = Default.getObject( bindingOptions.description, {} as BindingOptionsDescription );
-            bindingOptions.description!.text = Default.getString( bindingOptions.description!.text, Char.empty );
-            bindingOptions.description!.url = Default.getString( bindingOptions.description!.url, Char.empty );
-            bindingOptions.description!.urlTarget = Default.getString( bindingOptions.description!.urlTarget, "_blank" );
-    
-            return bindingOptions.description!;
-        }
-    
-        function getGuide( bindingOptions: BindingOptions ) : BindingOptionsGuide {
-            bindingOptions.guide = Default.getObject( bindingOptions.guide, {} as BindingOptionsGuide );
-            bindingOptions.guide!.enabled = Default.getBoolean( bindingOptions.guide!.enabled, true );
-            bindingOptions.guide!.colorRangeTogglesEnabled = Default.getBoolean( bindingOptions.guide!.colorRangeTogglesEnabled, true );
-            bindingOptions.guide!.showLessAndMoreLabels = Default.getBoolean( bindingOptions.guide!.showLessAndMoreLabels, true );
-            bindingOptions.guide!.showNumbersInGuide = Default.getBoolean( bindingOptions.guide!.showNumbersInGuide, false );
-            bindingOptions.guide!.showToolTips = Default.getBoolean( bindingOptions.guide!.showToolTips, true );
-            bindingOptions.guide!.showInvertLabel = Default.getBoolean( bindingOptions.guide!.showInvertLabel, false );
 
-            return bindingOptions.guide!;
-        }
-    
-        function getToolTip( bindingOptions: BindingOptions ) : BindingOptionsTooltip {
-            bindingOptions.tooltip = Default.getObject( bindingOptions.tooltip, {} as BindingOptionsTooltip );
-            bindingOptions.tooltip!.delay = Default.getNumber( bindingOptions.tooltip!.delay, 750 );
-    
-            return bindingOptions.tooltip!;
+        function getYearlyStatistics( bindingOptions: BindingOptions ) : BindingOptionsYearlyStatistics {
+            bindingOptions.yearlyStatistics = Default.getObject( bindingOptions.yearlyStatistics, {} as BindingOptionsYearlyStatistics );
+            bindingOptions.yearlyStatistics!.enabled = Default.getBoolean( bindingOptions.yearlyStatistics!.enabled, false );
+            bindingOptions.yearlyStatistics!.showToday = Default.getBoolean( bindingOptions.yearlyStatistics!.showToday, true );
+            bindingOptions.yearlyStatistics!.showThisWeek = Default.getBoolean( bindingOptions.yearlyStatistics!.showThisWeek, true );
+            bindingOptions.yearlyStatistics!.showThisMonth = Default.getBoolean( bindingOptions.yearlyStatistics!.showThisMonth, true );
+            bindingOptions.yearlyStatistics!.showThisYear = Default.getBoolean( bindingOptions.yearlyStatistics!.showThisYear, true );
+            bindingOptions.yearlyStatistics!.showOnlyForCurrentYear = Default.getBoolean( bindingOptions.yearlyStatistics!.showOnlyForCurrentYear, false );
+            bindingOptions.yearlyStatistics!.showPercentages = Default.getBoolean( bindingOptions.yearlyStatistics!.showPercentages, true );
+
+            return bindingOptions.yearlyStatistics!;
         }
     
         function getMapView( bindingOptions: BindingOptions ) : BindingOptionsViewsMap {
@@ -461,6 +345,34 @@ export namespace Binding {
             return bindingOptions.views!.statistics!;
         }
 
+        function getDescription( bindingOptions: BindingOptions ) : BindingOptionsDescription {
+            bindingOptions.description = Default.getObject( bindingOptions.description, {} as BindingOptionsDescription );
+            bindingOptions.description!.text = Default.getString( bindingOptions.description!.text, Char.empty );
+            bindingOptions.description!.url = Default.getString( bindingOptions.description!.url, Char.empty );
+            bindingOptions.description!.urlTarget = Default.getString( bindingOptions.description!.urlTarget, "_blank" );
+    
+            return bindingOptions.description!;
+        }
+    
+        function getGuide( bindingOptions: BindingOptions ) : BindingOptionsGuide {
+            bindingOptions.guide = Default.getObject( bindingOptions.guide, {} as BindingOptionsGuide );
+            bindingOptions.guide!.enabled = Default.getBoolean( bindingOptions.guide!.enabled, true );
+            bindingOptions.guide!.colorRangeTogglesEnabled = Default.getBoolean( bindingOptions.guide!.colorRangeTogglesEnabled, true );
+            bindingOptions.guide!.showLessAndMoreLabels = Default.getBoolean( bindingOptions.guide!.showLessAndMoreLabels, true );
+            bindingOptions.guide!.showNumbersInGuide = Default.getBoolean( bindingOptions.guide!.showNumbersInGuide, false );
+            bindingOptions.guide!.showToolTips = Default.getBoolean( bindingOptions.guide!.showToolTips, true );
+            bindingOptions.guide!.showInvertLabel = Default.getBoolean( bindingOptions.guide!.showInvertLabel, false );
+
+            return bindingOptions.guide!;
+        }
+    
+        function getToolTip( bindingOptions: BindingOptions ) : BindingOptionsTooltip {
+            bindingOptions.tooltip = Default.getObject( bindingOptions.tooltip, {} as BindingOptionsTooltip );
+            bindingOptions.tooltip!.delay = Default.getNumber( bindingOptions.tooltip!.delay, 750 );
+    
+            return bindingOptions.tooltip!;
+        }
+
         function getZooming( bindingOptions: BindingOptions ) : BindingOptionsZooming {
             bindingOptions.zooming = Default.getObject( bindingOptions.zooming, {} as BindingOptionsZooming );
             bindingOptions.zooming!.enabled = Default.getBoolean( bindingOptions.zooming!.enabled, false );
@@ -470,17 +382,105 @@ export namespace Binding {
             return bindingOptions.zooming!;
         }
 
-        function getYearlyStatistics( bindingOptions: BindingOptions ) : BindingOptionsYearlyStatistics {
-            bindingOptions.yearlyStatistics = Default.getObject( bindingOptions.yearlyStatistics, {} as BindingOptionsYearlyStatistics );
-            bindingOptions.yearlyStatistics!.enabled = Default.getBoolean( bindingOptions.yearlyStatistics!.enabled, false );
-            bindingOptions.yearlyStatistics!.showToday = Default.getBoolean( bindingOptions.yearlyStatistics!.showToday, true );
-            bindingOptions.yearlyStatistics!.showThisWeek = Default.getBoolean( bindingOptions.yearlyStatistics!.showThisWeek, true );
-            bindingOptions.yearlyStatistics!.showThisMonth = Default.getBoolean( bindingOptions.yearlyStatistics!.showThisMonth, true );
-            bindingOptions.yearlyStatistics!.showThisYear = Default.getBoolean( bindingOptions.yearlyStatistics!.showThisYear, true );
-            bindingOptions.yearlyStatistics!.showOnlyForCurrentYear = Default.getBoolean( bindingOptions.yearlyStatistics!.showOnlyForCurrentYear, false );
-            bindingOptions.yearlyStatistics!.showPercentages = Default.getBoolean( bindingOptions.yearlyStatistics!.showPercentages, true );
+        function getDynamicColorRange( bindingOptions: BindingOptions ) : BindingOptionsDynamicColorRange {
+            bindingOptions.dynamicColorRange = Default.getObject( bindingOptions.dynamicColorRange, {} as BindingOptionsDynamicColorRange );
+            bindingOptions.dynamicColorRange!.enabled = Default.getBoolean( bindingOptions.dynamicColorRange!.enabled, false );
+            bindingOptions.dynamicColorRange!.maximumMinimum = Default.getNumber( bindingOptions.dynamicColorRange!.maximumMinimum, 25 );
+            bindingOptions.dynamicColorRange!.color = Default.getString( bindingOptions.dynamicColorRange!.color, Char.empty );
+            bindingOptions.dynamicColorRange!.totalColors = Default.getNumber( bindingOptions.dynamicColorRange!.totalColors, 7 );
+            bindingOptions.dynamicColorRange!.maximumRgbRange = Default.getNumber( bindingOptions.dynamicColorRange!.maximumRgbRange, 256 );
+    
+            return bindingOptions.dynamicColorRange!;
+        }
+    
+        function getColorRanges( bindingOptions: BindingOptions ) : BindingOptionsColorRange[] {
+            let result: BindingOptionsColorRange[] = [];
+            
+            if ( bindingOptions.dynamicColorRange!.enabled && Is.hexColor( bindingOptions.dynamicColorRange!.color! ) ) {
+                result = ColorRange.buildDynamics( bindingOptions.dynamicColorRange! );
 
-            return bindingOptions.yearlyStatistics!;
+            } else {
+                if ( Is.definedArray( bindingOptions.colorRanges ) ) {
+                    const colorRangesLength: number = bindingOptions.colorRanges!.length;
+        
+                    for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
+                        const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangeIndex ];
+        
+                        colorRange.id = Default.getString( colorRange.id, crypto.randomUUID() );
+                        colorRange.name = Default.getString( colorRange.name, Char.empty );
+                        colorRange.minimum = Default.getNumber( colorRange.minimum, 0 );
+                        colorRange.cssClassName = Default.getString( colorRange.cssClassName, Char.empty );
+                        colorRange.mapCssClassName = Default.getString( colorRange.mapCssClassName, Char.empty );
+                        colorRange.lineCssClassName = Default.getString( colorRange.lineCssClassName, Char.empty );
+                        colorRange.chartCssClassName = Default.getString( colorRange.chartCssClassName, Char.empty );
+                        colorRange.daysCssClassName = Default.getString( colorRange.daysCssClassName, Char.empty );
+                        colorRange.monthsCssClassName = Default.getString( colorRange.monthsCssClassName, Char.empty );
+                        colorRange.statisticsCssClassName = Default.getString( colorRange.statisticsCssClassName, Char.empty );
+                        colorRange.tooltipText = Default.getString( colorRange.tooltipText, Char.empty );
+                        colorRange.visible = Default.getBoolean( colorRange.visible, true );
+
+                        result.push( colorRange );
+                    }
+        
+                } else {
+                    result = [
+                        {
+                            id: crypto.randomUUID(),
+                            name: "Day Color 1",
+                            minimum: 10,
+                            cssClassName: "day-color-1",
+                            tooltipText: "Day Color 1",
+                            visible: true,
+                        },
+                        {
+                            id: crypto.randomUUID(),
+                            name: "Day Color 2",
+                            minimum: 15,
+                            cssClassName: "day-color-2",
+                            tooltipText: "Day Color 2",
+                            visible: true,
+                        },
+                        {
+                            id: crypto.randomUUID(),
+                            name: "Day Color 3",
+                            minimum: 20,
+                            cssClassName: "day-color-3",
+                            tooltipText: "Day Color 3",
+                            visible: true,
+                        },
+                        {
+                            id: crypto.randomUUID(),
+                            name: "Day Color 4",
+                            minimum: 25,
+                            cssClassName: "day-color-4",
+                            tooltipText: "Day Color 4",
+                            visible: true,
+                        },
+                    ];
+                }
+            }
+    
+            return result;
+        }
+
+        function getHolidays( bindingOptions: BindingOptions ) : BindingOptionsHoliday[] {
+            let result: BindingOptionsHoliday[] = [];
+
+            if ( Is.definedArray( bindingOptions.holidays ) ) {
+                const holidaysLength: number = bindingOptions.holidays!.length;
+    
+                for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+                    const holiday: BindingOptionsHoliday = bindingOptions.holidays![ holidayIndex ];
+                    
+                    holiday.date = Default.getString( holiday.date, Char.empty );
+                    holiday.name = Default.getString( holiday.name, Char.empty );
+                    holiday.showInViews = Default.getBoolean( holiday.showInViews, true );
+
+                    result.push( holiday );
+                }
+            }
+    
+            return result;
         }
     
         function getCustomTriggers( bindingOptions : BindingOptions ) : BindingOptionsEvents {
