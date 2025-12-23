@@ -12,7 +12,7 @@
 - Added zooming support to the Map and Line views (off by default).
 - All title bar buttons are now rendered using pure CSS! No more settings, with complete universal device support.
 - Tooltips for the "Map" and "Chart" views now show the counts (can be turned off).
-- The "Days" (and "Months") view now takes the Color Range toggles into account when displaying the values.
+- The "Days" (and "Months") view now takes the Color Range toggles into account when displaying the values, and now show stacked values by default.
 - Added animation effects for all Bar Graph views.
 - Invert color range toggles support via the guide (off by default).
 - The "Map" view now behaves like all other views (it can be disabled, and shows no data messages by default).
@@ -57,6 +57,7 @@
 - Added a new binding option called "views.map.showCountsInToolTips", which states if the day counts should be included in the tooltips (defaults to true).
 - Added a new binding option called "views.chart.showCountsInToolTips", which states if the day counts should be included in the tooltips (defaults to true).
 - Added a new binding option called "views.days.showDayCountPercentages", which states if the count percentages should be shown (when count displays are enabled, defaults to true).
+- Added a new binding option called "views.days.showStackedColorRanges", which states if the bar should show the stacked color range levels (defaults to true).
 - Added a new binding option called "views.statistics.showRangeCountPercentages", which states if the count percentages should be shown (when count displays are enabled, defaults to true).
 - Added a new binding option called "views.map.enabled", which states if the map view is enabled (defaults to true).
 - Added a new binding option called "views.statistics.showRangeNamesInToolTips", which states if the range names should be shown in the tooltips (if available, defaults to true).
