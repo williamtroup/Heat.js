@@ -150,16 +150,17 @@ export namespace ColorRange {
                 cssLines.push( `:root${Char.space}{` );
                 cssLines.push( `${Css.Variables.CheckBoxCheckedColor}:${Char.space}${rgba};` );
                 cssLines.push( "}" );
+                
+            } else {
+                red = rgbaValues[ 0 ] + redPercentage;
+                green = rgbaValues[ 1 ] + greenPercentage;
+                blue = rgbaValues[ 2 ] + bluePercentage;
+                alpha += incrementAlpha;
+                colorRed = rgbaValues[ 0 ] - redPercentage;
+                colorGreen = rgbaValues[ 1 ] - greenPercentage;
+                colorBlue = rgbaValues[ 2 ] - bluePercentage;
+                currentMinimum += incrementMinimum;
             }
-
-            red = rgbaValues[ 0 ] + redPercentage;
-            green = rgbaValues[ 1 ] + greenPercentage;
-            blue = rgbaValues[ 2 ] + bluePercentage;
-            alpha += incrementAlpha;
-            colorRed = rgbaValues[ 0 ] - redPercentage;
-            colorGreen = rgbaValues[ 1 ] - greenPercentage;
-            colorBlue = rgbaValues[ 2 ] - bluePercentage;
-            currentMinimum += incrementMinimum;
 
             result.push( colorRange );
         }

@@ -711,15 +711,16 @@ var w;
                 r.push(`:root${" "}{`);
                 r.push(`${u.Variables.CheckBoxCheckedColor}:${" "}${p};`);
                 r.push("}");
+            } else {
+                l = n[0] + V;
+                c = n[1] + _;
+                w = n[2] + C;
+                h += o;
+                f = n[0] - V;
+                g = n[1] - _;
+                m = n[2] - C;
+                y += s;
             }
-            l = n[0] + V;
-            c = n[1] + _;
-            w = n[2] + C;
-            h += o;
-            f = n[0] - V;
-            g = n[1] - _;
-            m = n[2] - C;
-            y += s;
             t.push(x);
         }
         const p = document.getElementsByTagName("head")[0];
