@@ -125,6 +125,9 @@ export namespace ColorRange {
             cssLines.push( `border-color:${Char.space}${rgb} !important;` );
             cssLines.push( `color:${Char.space}${colorRgb} !important;` );
             cssLines.push( "}" );
+            cssLines.push( `div.${cssName}:hover${Char.space}{` );
+            cssLines.push( `opacity:${Char.space}0.7 !important;` );
+            cssLines.push( "}" );
 
             const colorRange: BindingOptionsColorRange = {
                 id: cssName,

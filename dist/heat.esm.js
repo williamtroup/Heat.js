@@ -678,6 +678,9 @@ var u;
             s.push(`border-color:${" "}${e} !important;`);
             s.push(`color:${" "}${d} !important;`);
             s.push("}");
+            s.push(`div.${m}:hover${" "}{`);
+            s.push(`opacity:${" "}0.7 !important;`);
+            s.push("}");
             const y = {
                 id: m,
                 name: `Day Color ${a + 1}`,
