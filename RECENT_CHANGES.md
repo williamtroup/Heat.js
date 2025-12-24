@@ -89,6 +89,7 @@
 - Added a new binding option called "dynamicColorRange.color", which states the hex color to start with (defaults to empty string).
 - Added a new binding option called "dynamicColorRange.totalColors", which states the total number of color ranges ot create (defaults to 7).
 - Added a new binding option called "dynamicColorRange.maximumRgbRange", which states the maximum RBG value to use for the colors (defaults to 256).
+- Added a new binding option called "dynamicColorRange.maximumRgbAlphaRange", which states the maximum RBG alpha value to use for the colors (defaults to 1.0).
 
 #### **Binding Options - Custom Triggers - Breaking:**
 - BREAKING: Renamed "events.onDayClick" to "events.onMapDayClick".
