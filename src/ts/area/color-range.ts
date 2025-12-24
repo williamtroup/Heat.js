@@ -22,6 +22,7 @@ import { Is } from "../data/is";
 import { Convert } from "../data/convert";
 import { Char } from "../data/enum";
 import { DomElement } from "../dom/dom";
+import { Css } from "../css";
 
 
 export namespace ColorRange {
@@ -144,6 +145,12 @@ export namespace ColorRange {
             const redPercentage = Math.round( rgbaValues[ 0 ] / 100 * ( ( colorIndex + 1 ) * incrementPercentage ) );
             const greenPercentage = Math.round( rgbaValues[ 1 ] / 100 * ( ( colorIndex + 1 ) * incrementPercentage ) );
             const bluePercentage = Math.round( rgbaValues[ 2 ] / 100 * ( ( colorIndex + 1 ) * incrementPercentage ) );
+
+            if ( colorIndex === dynamicColorRange!.totalColors! - 1 ) {
+                cssLines.push( `:root${Char.space}{` );
+                cssLines.push( `${Css.Variables.CheckBoxCheckedColor}:${Char.space}${rgba};` );
+                cssLines.push( "}" );
+            }
 
             red = rgbaValues[ 0 ] + redPercentage;
             green = rgbaValues[ 1 ] + greenPercentage;

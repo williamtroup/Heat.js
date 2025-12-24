@@ -16,5 +16,6 @@ export namespace Css {
         export const DaySize: string = "--heat-js-day-size";
         export const Spacing: string = "--heat-js-spacing";
         export const LineWidth: string = "--heat-js-day-line-width";
+        export const CheckBoxCheckedColor: string = "--heat-js-checkbox-background-color-checked";
     }
 }
