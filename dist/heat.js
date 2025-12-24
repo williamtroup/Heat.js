@@ -671,7 +671,7 @@ var u;
         let h = e.maximumRgbRange;
         let f = e.maximumRgbRange;
         let g = e.maximumRgbRange;
-        let m = 1;
+        let m = e.maximumRgbAlphaRange;
         let y = 0;
         for (let n = 0; n < e.totalColors; n++) {
             l += i;

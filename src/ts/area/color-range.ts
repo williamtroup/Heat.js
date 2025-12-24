@@ -114,7 +114,7 @@ export namespace ColorRange {
         let colorRed: number = dynamicColorRange!.maximumRgbRange!;
         let colorGreen: number = dynamicColorRange!.maximumRgbRange!;
         let colorBlue: number = dynamicColorRange!.maximumRgbRange!;
-        let colorAlpha: number = 1;
+        let colorAlpha: number = dynamicColorRange!.maximumRgbAlphaRange!;
         let currentMinimum: number = 0;
 
         for ( let colorIndex: number = 0; colorIndex < dynamicColorRange!.totalColors!; colorIndex++ ){
