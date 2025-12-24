@@ -659,49 +659,45 @@ var u;
         let t = [];
         const n = d.hexToRgbaValues(e.color);
         const i = Math.floor(e.maximumRgbRange / e.totalColors);
-        const o = e.maximumRgbAlphaRange / e.totalColors;
-        const s = Math.floor(e.maximumMinimum / e.totalColors);
-        const r = [];
-        let l = n[0] % e.maximumRgbRange;
-        let c = n[1] % e.maximumRgbRange;
-        let u = n[2] % e.maximumRgbRange;
-        let w = n[3] % e.maximumRgbAlphaRange;
+        const o = Math.floor(e.maximumMinimum / e.totalColors);
+        const s = [];
+        let r = n[0] % e.maximumRgbRange;
+        let l = n[1] % e.maximumRgbRange;
+        let c = n[2] % e.maximumRgbRange;
+        let u = n[3];
+        let w = e.maximumRgbRange;
         let h = e.maximumRgbRange;
         let f = e.maximumRgbRange;
-        let g = e.maximumRgbRange;
-        let m = e.maximumRgbAlphaRange;
-        let y = 0;
+        let g = 0;
         for (let n = 0; n < e.totalColors; n++) {
-            l += i;
-            c += i;
-            u += i;
-            w += o;
-            h -= i;
-            f -= i;
-            g -= i;
-            m -= o;
-            y += s;
-            const e = `rgba(${l}, ${c}, ${u}, ${w.toFixed(2)})`;
-            const a = `rgba(${h}, ${f}, ${g}, ${m.toFixed(2)})`;
+            const e = `rgba(${r}, ${l}, ${c}, ${u.toFixed(2)})`;
+            const a = `rgba(${w}, ${h}, ${f}, ${u.toFixed(2)})`;
             const d = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
-            r.push(`div.${d}${" "}{`);
-            r.push(`background-color:${" "}${e} !important;`);
-            r.push(`border-color:${" "}${e} !important;`);
-            r.push(`color:${" "}${a} !important;`);
-            r.push("}");
-            const p = {
+            s.push(`div.${d}${" "}{`);
+            s.push(`background-color:${" "}${e} !important;`);
+            s.push(`border-color:${" "}${e} !important;`);
+            s.push(`color:${" "}${a} !important;`);
+            s.push("}");
+            const m = {
                 id: d,
                 name: `Day Color ${n + 1}`,
-                minimum: y,
+                minimum: g,
                 cssClassName: d,
                 tooltipText: `Day Color ${n + 1}`,
                 visible: true
             };
-            t.push(p);
+            r += i;
+            l += i;
+            c += i;
+            w -= i;
+            h -= i;
+            f -= i;
+            g += o;
+            t.push(m);
         }
-        const p = document.getElementsByTagName("head")[0];
-        const v = a.create(p, "style");
-        v.appendChild(document.createTextNode(r.join("\n")));
+        const m = document.getElementsByTagName("head")[0];
+        const y = a.create(m, "style");
+        y.appendChild(document.createTextNode(s.join("\n")));
         return t;
     }
     e.buildDynamics = c;
@@ -1012,7 +1008,6 @@ var w;
             e.dynamicColorRange.color = o.getString(e.dynamicColorRange.color, "");
             e.dynamicColorRange.totalColors = o.getNumber(e.dynamicColorRange.totalColors, 7);
             e.dynamicColorRange.maximumRgbRange = o.getNumber(e.dynamicColorRange.maximumRgbRange, 256);
-            e.dynamicColorRange.maximumRgbAlphaRange = o.getNumber(e.dynamicColorRange.maximumRgbAlphaRange, 1);
             return e.dynamicColorRange;
         }
         function b(e) {
@@ -2053,7 +2048,7 @@ var T;
                 const n = e._currentView.exportDialogExportFilenameInput.value;
                 const i = e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
                 I(e);
-                R(e, t, n, i);
+                E(e, t, n, i);
             };
             e._currentView.exportDialogExportFilenameInput.onkeydown = e => {
                 if (e.key === "Enter") {
@@ -2095,10 +2090,10 @@ var T;
         }
         l.hide(e);
     }
-    function R(e, t = null, n = null, s = true) {
+    function E(e, t = null, n = null, s = true) {
         const r = o.getString(t, e.exportType).toLowerCase();
         const l = y.File.mimeType(r);
-        const d = E(e, s);
+        const d = R(e, s);
         const u = y.Contents.get(r, d, b, e);
         if (i.definedString(u)) {
             const t = a.create(document.body, "a");
@@ -2111,9 +2106,9 @@ var T;
             c.customEvent(e.events.onExport, e._currentView.element);
         }
     }
-    function E(e, t) {
+    function R(e, t) {
         const n = {};
-        const o = Re(e);
+        const o = Ee(e);
         if (t) {
             const t = e._currentView.year;
             const s = g.Days.get(e);
@@ -2261,7 +2256,7 @@ var T;
     function U(e, t) {
         const i = Math.min(e.length, n.MAXIMUM_FILE_IMPORTS);
         const o = [];
-        const s = Re(t);
+        const s = Ee(t);
         const r = (e, n) => {
             o.push(e);
             for (const e in n) {
@@ -2369,7 +2364,7 @@ var T;
                     l.add(n, e, b.text.importButtonText);
                 }
             }
-            if (e.title.showExportButton && Ee(e)) {
+            if (e.title.showExportButton && Re(e)) {
                 const n = a.createIconButton(t, "button", "export", "arrow-down");
                 n.onclick = () => O(e);
                 if (e.title.showToolTips) {
@@ -2558,7 +2553,7 @@ var T;
             const u = new Date(e._currentView.year + 1, e.startMonth, 1);
             const w = oe(e, l, c, d, u);
             if (e.yearlyStatistics.showToday) {
-                let c = Re(e)[r.toStorageDate(t)];
+                let c = Ee(e)[r.toStorageDate(t)];
                 const d = a.create(o, "div", "statistics-box");
                 const u = r.getWeekdayNumber(t) + 1;
                 if (!i.defined(c) || !i.dayVisible(l, u)) {
@@ -2631,7 +2626,7 @@ var T;
         let a = 0;
         let l = new Date(o);
         while (l < s) {
-            const o = Re(e)[r.toStorageDate(l)];
+            const o = Ee(e)[r.toStorageDate(l)];
             const s = r.getWeekdayNumber(l) + 1;
             if (i.monthVisible(n, l.getMonth()) && i.dayVisible(t, s) && i.definedNumber(o)) {
                 a += o;
@@ -2799,7 +2794,7 @@ var T;
         const g = a.create(t, "div", "day");
         const m = new Date(w, d, f);
         const y = i.holiday(e, m);
-        let p = Re(e)[r.toStorageDate(m)];
+        let p = Ee(e)[r.toStorageDate(m)];
         p = o.getNumber(p, 0);
         g.setAttribute(n.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${s.padNumber(f)}-${s.padNumber(d + 1)}-${w}`);
         if (e.views.map.showToolTips) {
@@ -2834,7 +2829,7 @@ var T;
     }
     function ce(e) {
         let t = false;
-        const n = Re(e);
+        const n = Ee(e);
         const i = e._currentView.year.toString();
         const o = (e._currentView.year + 1).toString();
         for (const s in n) {
@@ -2959,7 +2954,7 @@ var T;
         const f = new Date(w, d, l);
         const g = a.create(e, "div", "day-line");
         const m = i.holiday(t, f);
-        let y = Re(t)[r.toStorageDate(f)];
+        let y = Ee(t)[r.toStorageDate(f)];
         y = o.getNumber(y, 0);
         g.setAttribute(n.HEAT_JS_LINE_DATE_ATTRIBUTE_NAME, `${s.padNumber(l)}-${s.padNumber(d + 1)}-${w}`);
         if (t.views.line.showToolTips) {
@@ -3113,7 +3108,7 @@ var T;
         const m = new Date(w, d, l);
         const y = a.create(e, "div", "day-line");
         const p = i.holiday(t, m);
-        let T = Re(t)[r.toStorageDate(m)];
+        let T = Ee(t)[r.toStorageDate(m)];
         T = o.getNumber(T, 0);
         y.setAttribute(n.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${s.padNumber(l)}-${s.padNumber(d + 1)}-${w}`);
         if (t.views.chart.showToolTips) {
@@ -3322,7 +3317,7 @@ var T;
             largestValue: 0,
             totalValue: 0
         };
-        const o = Re(e);
+        const o = Ee(e);
         const s = e._currentView.year;
         for (let a = e.startMonth; a < 12 + e.startMonth; a++) {
             let l = a;
@@ -3564,7 +3559,7 @@ var T;
             largestValue: 0,
             totalValue: 0
         };
-        const o = Re(e);
+        const o = Ee(e);
         const s = e._currentView.year;
         for (let a = e.startMonth; a < 12 + e.startMonth; a++) {
             let l = a;
@@ -3708,7 +3703,7 @@ var T;
         v.setHeight(r, g, y, f);
     }
     function xe(e, t) {
-        const n = Re(e);
+        const n = Ee(e);
         const o = e._currentView.year;
         const s = t.length;
         const a = {
@@ -4014,16 +4009,16 @@ var T;
             T.load(b, t, V[e]);
         }
     }
-    function Re(e) {
+    function Ee(e) {
         return V[e._currentView.element.id].typeData[e._currentView.type];
     }
-    function Ee(e) {
-        return Object.keys(Re(e)).length > 0;
+    function Re(e) {
+        return Object.keys(Ee(e)).length > 0;
     }
     function Fe(e) {
         let t = [];
         if (e.showOnlyDataForYearsAvailable) {
-            let n = Re(e);
+            let n = Ee(e);
             for (const e in n) {
                 if (n.hasOwnProperty(e)) {
                     let n = parseInt(r.getStorageDateYear(e));
@@ -4038,7 +4033,7 @@ var T;
     }
     function $e(e) {
         const t = e._currentView.year;
-        let n = Re(e);
+        let n = Ee(e);
         for (let i = e.startMonth; i < 12 + e.startMonth; i++) {
             let o = i;
             let s = t;
@@ -4059,7 +4054,7 @@ var T;
     }
     function He(e) {
         let t = 0;
-        const n = Re(e);
+        const n = Ee(e);
         const o = e._currentView.year;
         for (let s = e.startMonth; s < 12 + e.startMonth; s++) {
             let a = s;
@@ -4379,7 +4374,7 @@ var T;
         export: function(e, t = null) {
             if (i.definedString(e) && V.hasOwnProperty(e)) {
                 const n = V[e].options;
-                R(n, t, null, n.exportOnlyDataBeingViewed);
+                E(n, t, null, n.exportOnlyDataBeingViewed);
             }
             return qe;
         },
@@ -4417,7 +4412,7 @@ var T;
         setYearToHighest: function(e) {
             if (i.definedString(e) && V.hasOwnProperty(e)) {
                 const t = V[e].options;
-                const n = Re(t);
+                const n = Ee(t);
                 let o = 0;
                 for (const e in n) {
                     if (n.hasOwnProperty(e)) {
@@ -4439,7 +4434,7 @@ var T;
         setYearToLowest: function(e) {
             if (i.definedString(e) && V.hasOwnProperty(e)) {
                 const t = V[e].options;
-                const n = Re(t);
+                const n = Ee(t);
                 let o = 9999;
                 for (const e in n) {
                     if (n.hasOwnProperty(e)) {
