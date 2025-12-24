@@ -128,7 +128,7 @@ import { ColorRange } from "./ts/area/color-range";
         Trigger.customEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView!.element );
     }
 
-    function renderControlContainer( bindingOptions: BindingOptions, isForDataRefresh: boolean = false, isForViewSwitch: boolean = false, isForZooming: boolean = false ) : void {
+    function renderControlContainer( bindingOptions: BindingOptions, isForDataRefresh: boolean = false, isForViewSwitch: boolean = false, isForViewChange: boolean = false ) : void {
         ToolTip.hide( bindingOptions );
 
         if ( isForDataRefresh ) {
@@ -146,15 +146,15 @@ import { ColorRange } from "./ts/area/color-range";
         renderControlYearStatistics( bindingOptions );
 
         if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
-            renderControlMap( bindingOptions, isForViewSwitch, isForZooming );
+            renderControlMap( bindingOptions, isForViewSwitch, isForViewChange );
         }
 
         if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
-            renderControlLine( bindingOptions, isForViewSwitch, isForZooming );
+            renderControlLine( bindingOptions, isForViewSwitch, isForViewChange );
         }
 
         if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
-            renderControlChart( bindingOptions, isForViewSwitch );
+            renderControlChart( bindingOptions, isForViewSwitch, isForViewChange );
         }
 
         if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
@@ -1175,7 +1175,7 @@ import { ColorRange } from "./ts/area/color-range";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlMap( bindingOptions: BindingOptions, isForViewSwitch: boolean = false, isForZooming: boolean ) : void {
+    function renderControlMap( bindingOptions: BindingOptions, isForViewSwitch: boolean = false, isForViewChange: boolean ) : void {
         bindingOptions._currentView!.mapContentsContainer = DomElement.create( bindingOptions._currentView!.element, "div", "map-contents-container" );
         bindingOptions._currentView!.mapContents = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "map-contents" );
 
@@ -1333,7 +1333,7 @@ import { ColorRange } from "./ts/area/color-range";
             renderControlMapMonthGaps( bindingOptions, months );
             renderControlZooming( bindingOptions, bindingOptions._currentView!.mapContentsContainer, map );
             
-            if ( bindingOptions.views!.map!.keepScrollPositions || isForZooming ) {
+            if ( bindingOptions.views!.map!.keepScrollPositions || isForViewChange ) {
                 bindingOptions._currentView!.mapContents.scrollLeft = bindingOptions._currentView!.mapContentsScrollLeft;
             }
         }
@@ -1455,7 +1455,7 @@ import { ColorRange } from "./ts/area/color-range";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlLine( bindingOptions: BindingOptions, isForViewSwitch: boolean, isForZooming: boolean ) : void {
+    function renderControlLine( bindingOptions: BindingOptions, isForViewSwitch: boolean, isForViewChange: boolean ) : void {
         bindingOptions._currentView!.lineContentsContainer = DomElement.create( bindingOptions._currentView!.element, "div", "line-contents-container" );
         bindingOptions._currentView!.lineContents = DomElement.create( bindingOptions._currentView!.lineContentsContainer, "div", "line-contents" );
         bindingOptions._currentView!.lineContents.onscroll = () => ToolTip.hide( bindingOptions );
@@ -1585,7 +1585,7 @@ import { ColorRange } from "./ts/area/color-range";
 
             renderControlZooming( bindingOptions, bindingOptions._currentView!.lineContentsContainer, line );
     
-            if ( bindingOptions.views!.line!.keepScrollPositions || isForZooming ) {
+            if ( bindingOptions.views!.line!.keepScrollPositions || isForViewChange ) {
                 bindingOptions._currentView!.lineContents.scrollLeft = bindingOptions._currentView!.lineContentsScrollLeft;
             }
         }
@@ -1635,7 +1635,7 @@ import { ColorRange } from "./ts/area/color-range";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlChart( bindingOptions: BindingOptions, isForViewSwitch: boolean) : void {
+    function renderControlChart( bindingOptions: BindingOptions, isForViewSwitch: boolean, isForViewChange: boolean ) : void {
         bindingOptions._currentView!.chartContents = DomElement.create( bindingOptions._currentView!.element, "div", "chart-contents" );
         bindingOptions._currentView!.chartContents.onscroll = () => ToolTip.hide( bindingOptions );
 
@@ -1793,7 +1793,7 @@ import { ColorRange } from "./ts/area/color-range";
                 chartMonths.style.width = `${dayLines.offsetWidth}px`;
             }
     
-            if ( bindingOptions.views!.chart!.keepScrollPositions ) {
+            if ( bindingOptions.views!.chart!.keepScrollPositions || isForViewChange ) {
                 bindingOptions._currentView!.chartContents.scrollLeft = bindingOptions._currentView!.chartContentsScrollLeft;
             }
         }
@@ -3191,7 +3191,7 @@ import { ColorRange } from "./ts/area/color-range";
                 colorRange.visible = !Default.getBoolean( colorRange.visible, true );
 
                 Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, colorRange.id, colorRange.visible );
-                renderControlContainer( bindingOptions );
+                renderControlContainer( bindingOptions, false, false, true );
                 break;
             }
         }

@@ -1927,7 +1927,7 @@ var T;
             de(e, n, i);
         }
         if (e.views.chart.enabled && e._currentView.view === 3) {
-            we(e, n);
+            we(e, n, i);
         }
         if (e.views.days.enabled && e._currentView.view === 4) {
             fe(e, n);
@@ -2982,106 +2982,106 @@ var T;
         }
         return g;
     }
-    function we(e, t) {
+    function we(e, t, o) {
         e._currentView.chartContents = a.create(e._currentView.element, "div", "chart-contents");
         e._currentView.chartContents.onscroll = () => l.hide(e);
-        const o = a.create(e._currentView.chartContents, "div", "chart");
-        let s = a.create(o, "div", "y-labels");
-        const c = a.create(o, "div", "day-lines");
-        const d = He(e);
-        let w = 0;
+        const s = a.create(e._currentView.chartContents, "div", "chart");
+        let c = a.create(s, "div", "y-labels");
+        const d = a.create(s, "div", "day-lines");
+        const w = He(e);
+        let h = 0;
         if (t) {
-            a.addClass(o, "view-switch");
+            a.addClass(s, "view-switch");
         }
-        if (d > 0 && e.views.chart.showChartYLabels) {
-            const e = a.createWithHTML(s, "div", "label-0", d.toString());
-            a.createWithHTML(s, "div", "label-25", (Math.floor(d / 4) * 3).toString());
-            a.createWithHTML(s, "div", "label-50", Math.floor(d / 2).toString());
-            a.createWithHTML(s, "div", "label-75", Math.floor(d / 4).toString());
-            a.createWithHTML(s, "div", "label-100", "0");
-            s.style.width = `${e.offsetWidth}px`;
-            w = s.offsetWidth + a.getStyleValueByName(s, "margin-right", true);
+        if (w > 0 && e.views.chart.showChartYLabels) {
+            const e = a.createWithHTML(c, "div", "label-0", w.toString());
+            a.createWithHTML(c, "div", "label-25", (Math.floor(w / 4) * 3).toString());
+            a.createWithHTML(c, "div", "label-50", Math.floor(w / 2).toString());
+            a.createWithHTML(c, "div", "label-75", Math.floor(w / 4).toString());
+            a.createWithHTML(c, "div", "label-100", "0");
+            c.style.width = `${e.offsetWidth}px`;
+            h = c.offsetWidth + a.getStyleValueByName(c, "margin-right", true);
         } else {
-            s.parentNode.removeChild(s);
-            s = null;
+            c.parentNode.removeChild(c);
+            c = null;
         }
-        if (d === 0) {
+        if (w === 0) {
             e._currentView.chartContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
-            o.parentNode.removeChild(o);
+            s.parentNode.removeChild(s);
             const i = a.createWithHTML(e._currentView.chartContents, "div", "no-data-message", b.text.noChartDataMessage);
             if (t) {
                 a.addClass(i, "view-switch");
             }
         } else {
             const n = u.getAllSorted(e);
-            const o = a.getStyleValueByName(c, "border-bottom-width", true);
-            const s = (c.offsetHeight - o) / d;
-            const l = e._currentView.year;
-            let h = [];
-            let f = false;
+            const s = a.getStyleValueByName(d, "border-bottom-width", true);
+            const l = (d.offsetHeight - s) / w;
+            const c = e._currentView.year;
+            let f = [];
+            let g = false;
             for (let o = e.startMonth; o < 12 + e.startMonth; o++) {
-                let d = o;
-                let u = l;
+                let s = o;
+                let u = c;
                 if (e.startMonth > 0 && o > 11) {
-                    d = o - 12;
+                    s = o - 12;
                     u++;
                 }
-                if (i.monthVisible(e.views.chart.monthsToShow, d)) {
-                    const o = r.getTotalDaysInMonth(u, d);
-                    let l = 1;
+                if (i.monthVisible(e.views.chart.monthsToShow, s)) {
+                    const o = r.getTotalDaysInMonth(u, s);
+                    let c = 1;
                     let w = false;
-                    for (let g = 0; g < o; g++) {
-                        const o = new Date(u, d, l);
+                    for (let h = 0; h < o; h++) {
+                        const o = new Date(u, s, c);
                         const m = r.getWeekdayNumber(o) + 1;
                         if (i.dayVisible(e.views.chart.daysToShow, m)) {
-                            const i = he(c, e, g + 1, d, u, n, s, t);
-                            if (!w && f && e.views.chart.addMonthSpacing) {
-                                a.create(c, "div", "month-spacing", i);
+                            const i = he(d, e, h + 1, s, u, n, l, t);
+                            if (!w && g && e.views.chart.addMonthSpacing) {
+                                a.create(d, "div", "month-spacing", i);
                             }
                             if (!w) {
-                                h.push(i);
+                                f.push(i);
                                 w = true;
                             }
                         }
-                        if ((g + 1) % 7 === 0) {
-                            l = 0;
+                        if ((h + 1) % 7 === 0) {
+                            c = 0;
                         }
-                        l++;
+                        c++;
                     }
                 }
-                f = true;
+                g = true;
             }
             if (e.views.chart.showInReverseOrder) {
-                a.reverseChildrenOrder(c);
-                h = h.reverse();
+                a.reverseChildrenOrder(d);
+                f = f.reverse();
             }
             if (e.views.chart.showMonthNames) {
                 const t = a.create(e._currentView.chartContents, "div", "chart-months");
                 let n = 0;
                 const o = a.create(t, "div", "month-name-space");
                 o.style.height = `${t.offsetHeight}px`;
-                o.style.width = `${w}px`;
+                o.style.width = `${h}px`;
                 const s = o => {
                     let s = o + e.startMonth;
-                    let c = l;
+                    let l = c;
                     if (e.startMonth > 0 && s > 11) {
                         s -= 12;
-                        c++;
+                        l++;
                     }
                     if (i.monthVisible(e.views.chart.monthsToShow, s)) {
-                        const i = new Date(l, s, 1);
+                        const i = new Date(c, s, 1);
                         let o = b.text.monthNames[s];
                         if (e.startMonth > 0 && e.views.chart.showYearsInMonthNames) {
-                            o += `${" "}${c}`;
+                            o += `${" "}${l}`;
                         }
                         let d = a.createWithHTML(t, "div", "month-name", o);
                         if (e.views.chart.showInReverseOrder) {
-                            let e = h[n].offsetLeft;
+                            let e = f[n].offsetLeft;
                             e -= d.offsetWidth;
-                            e += h[n].offsetWidth;
+                            e += f[n].offsetWidth;
                             d.style.left = `${e}px`;
                         } else {
-                            d.style.left = `${h[n].offsetLeft}px`;
+                            d.style.left = `${f[n].offsetLeft}px`;
                         }
                         if (r.isCurrentMonthAndYear(i)) {
                             a.addClass(d, "current");
@@ -3101,9 +3101,9 @@ var T;
                         s(e);
                     }
                 }
-                t.style.width = `${c.offsetWidth}px`;
+                t.style.width = `${d.offsetWidth}px`;
             }
-            if (e.views.chart.keepScrollPositions) {
+            if (e.views.chart.keepScrollPositions || o) {
                 e._currentView.chartContents.scrollLeft = e._currentView.chartContentsScrollLeft;
             }
         }
@@ -4151,7 +4151,7 @@ var T;
             if (n.id === t) {
                 n.visible = !o.getBoolean(n.visible, true);
                 c.customEvent(e.events.onColorRangeTypeToggle, n.id, n.visible);
-                S(e);
+                S(e, false, false, true);
                 break;
             }
         }

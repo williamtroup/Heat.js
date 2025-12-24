@@ -167,6 +167,7 @@
 - Only one instance of the "heat-js-tooltip" tooltip element is now created.
 - Only a maximum of 5 files can be imported at the same time.
 - The current month names are now bolder to make them standout (even when the highlight settings are disabled).
+- Changing the Color Range toggles will now maintain the scroll position of the current view (if available).
 
 #### **Library:**
 - Updated all the NPM packages to the latest versions.
