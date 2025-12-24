@@ -689,12 +689,12 @@ var w;
             const T = `rgb(${f}, ${g}, ${m})`;
             const b = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
             r.push(`div.${b}${" "}{`);
-            r.push(`background-color:${" "}${p} !important;`);
-            r.push(`border-color:${" "}${v} !important;`);
-            r.push(`color:${" "}${T} !important;`);
+            r.push(`${"\t"}background-color:${" "}${p} !important;`);
+            r.push(`${"\t"}border-color:${" "}${v} !important;`);
+            r.push(`${"\t"}color:${" "}${T} !important;`);
             r.push("}");
             r.push(`div.${b}:hover${" "}{`);
-            r.push(`opacity:${" "}0.7 !important;`);
+            r.push(`${"\t"}opacity:${" "}0.7 !important;`);
             r.push("}");
             const x = {
                 id: b,
@@ -709,7 +709,7 @@ var w;
             const C = Math.round(n[2] / 100 * ((a + 1) * i));
             if (a === e.totalColors - 1) {
                 r.push(`:root${" "}{`);
-                r.push(`${u.Variables.CheckBoxCheckedColor}:${" "}${p};`);
+                r.push(`${"\t"}${u.Variables.CheckBoxCheckedColor}:${" "}${p};`);
                 r.push("}");
             } else {
                 l = n[0] + V;
