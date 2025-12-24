@@ -671,37 +671,39 @@ var u;
         let g = n[2];
         let m = 0;
         for (let a = 0; a < e.totalColors; a++) {
-            const e = `rgba(${l}, ${c}, ${u}, ${w.toFixed(2)})`;
-            const d = `rgb(${h}, ${f}, ${g})`;
-            const y = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
-            r.push(`div.${y}${" "}{`);
-            r.push(`background-color:${" "}${e} !important;`);
-            r.push(`border-color:${" "}${e} !important;`);
-            r.push(`color:${" "}${d} !important;`);
+            const e = w + o > 1 ? 1 : w + o;
+            const d = `rgba(${l}, ${c}, ${u}, ${w.toFixed(2)})`;
+            const y = `rgba(${l}, ${c}, ${u}, ${e.toFixed(2)})`;
+            const p = `rgb(${h}, ${f}, ${g})`;
+            const v = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
+            r.push(`div.${v}${" "}{`);
+            r.push(`background-color:${" "}${d} !important;`);
+            r.push(`border-color:${" "}${y} !important;`);
+            r.push(`color:${" "}${p} !important;`);
             r.push("}");
-            r.push(`div.${y}:hover${" "}{`);
+            r.push(`div.${v}:hover${" "}{`);
             r.push(`opacity:${" "}0.7 !important;`);
             r.push("}");
-            const p = {
-                id: y,
+            const T = {
+                id: v,
                 name: `Day Color ${a + 1}`,
                 minimum: m,
-                cssClassName: y,
+                cssClassName: v,
                 tooltipText: `Day Color ${a + 1}`,
                 visible: true
             };
-            const v = Math.round(n[0] / 100 * ((a + 1) * i));
-            const T = Math.round(n[1] / 100 * ((a + 1) * i));
-            const b = Math.round(n[2] / 100 * ((a + 1) * i));
-            l = n[0] + v;
-            c = n[1] + T;
-            u = n[2] + b;
+            const b = Math.round(n[0] / 100 * ((a + 1) * i));
+            const x = Math.round(n[1] / 100 * ((a + 1) * i));
+            const V = Math.round(n[2] / 100 * ((a + 1) * i));
+            l = n[0] + b;
+            c = n[1] + x;
+            u = n[2] + V;
             w += o;
-            h = n[0] - v;
-            f = n[1] - T;
-            g = n[2] - b;
+            h = n[0] - b;
+            f = n[1] - x;
+            g = n[2] - V;
             m += s;
-            t.push(p);
+            t.push(T);
         }
         const y = document.getElementsByTagName("head")[0];
         const p = a.create(y, "style");
