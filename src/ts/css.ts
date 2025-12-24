@@ -17,5 +17,6 @@ export namespace Css {
         export const Spacing: string = "--heat-js-spacing";
         export const LineWidth: string = "--heat-js-day-line-width";
         export const CheckBoxCheckedColor: string = "--heat-js-checkbox-background-color-checked";
+        export const YearMenuCurrent: string = "--heat-js-years-current-color";
     }
 }

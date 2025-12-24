@@ -149,6 +149,7 @@ export namespace ColorRange {
             if ( colorIndex === dynamicColorRange!.totalColors! - 1 ) {
                 cssLines.push( `:root${Char.space}{` );
                 cssLines.push( `${Char.tab}${Css.Variables.CheckBoxCheckedColor}:${Char.space}${rgba};` );
+                cssLines.push( `${Char.tab}${Css.Variables.YearMenuCurrent}:${Char.space}${rgba};` );
                 cssLines.push( "}" );
 
             } else {

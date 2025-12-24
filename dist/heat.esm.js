@@ -603,6 +603,7 @@ var u;
         e.Spacing = "--heat-js-spacing";
         e.LineWidth = "--heat-js-day-line-width";
         e.CheckBoxCheckedColor = "--heat-js-checkbox-background-color-checked";
+        e.YearMenuCurrent = "--heat-js-years-current-color";
     })(t = e.Variables || (e.Variables = {}));
 })(u || (u = {}));
 
@@ -710,6 +711,7 @@ var w;
             if (a === e.totalColors - 1) {
                 r.push(`:root${" "}{`);
                 r.push(`${"\t"}${u.Variables.CheckBoxCheckedColor}:${" "}${p};`);
+                r.push(`${"\t"}${u.Variables.YearMenuCurrent}:${" "}${p};`);
                 r.push("}");
             } else {
                 l = n[0] + V;

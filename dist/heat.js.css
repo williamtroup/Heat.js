@@ -45,6 +45,7 @@
   --heat-js-years-text-color: var(--heat-js-color-white);
   --heat-js-years-background-color-hover: var(--heat-js-button-background-color-hover);
   --heat-js-years-text-color-hover: var(--heat-js-color-snow-white);
+  --heat-js-years-current-color: var(--heat-js-day-color-4-background-color);
   --heat-js-years-menu-item-height: 36px;
   --heat-js-years-menu-total-rows-in-view: 7;
   --heat-js-tooltip-background-color: var(--heat-js-color-black-dark);
@@ -1087,7 +1088,7 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu div.year-menu-item-current {
   font-style: italic;
   font-weight: var(--heat-js-text-font-weight-heavy);
-  color: var(--heat-js-day-color-4-background-color);
+  color: var(--heat-js-years-current-color);
 }
 
 /*
