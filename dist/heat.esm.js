@@ -658,52 +658,54 @@ var u;
     function c(e) {
         let t = [];
         const n = d.hexToRgbaValues(e.color);
-        const i = Math.floor(100 / e.totalColors);
-        const o = Math.floor(e.maximumMinimum / e.totalColors);
-        const s = [];
-        let r = n[0];
-        let l = n[1];
-        let c = n[2];
-        let u = n[3];
-        let w = n[0];
-        let h = n[1];
-        let f = n[2];
-        let g = 0;
+        const i = 100 / e.totalColors;
+        const o = 1 / e.totalColors;
+        const s = Math.floor(e.maximumMinimum / e.totalColors);
+        const r = [];
+        let l = n[0];
+        let c = n[1];
+        let u = n[2];
+        let w = o;
+        let h = n[0];
+        let f = n[1];
+        let g = n[2];
+        let m = 0;
         for (let a = 0; a < e.totalColors; a++) {
-            const e = `rgba(${r}, ${l}, ${c}, ${u.toFixed(2)})`;
-            const d = `rgba(${w}, ${h}, ${f}, ${u.toFixed(2)})`;
-            const m = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
-            s.push(`div.${m}${" "}{`);
-            s.push(`background-color:${" "}${e} !important;`);
-            s.push(`border-color:${" "}${e} !important;`);
-            s.push(`color:${" "}${d} !important;`);
-            s.push("}");
-            s.push(`div.${m}:hover${" "}{`);
-            s.push(`opacity:${" "}0.7 !important;`);
-            s.push("}");
-            const y = {
-                id: m,
+            const e = `rgba(${l}, ${c}, ${u}, ${w.toFixed(2)})`;
+            const d = `rgb(${h}, ${f}, ${g})`;
+            const y = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
+            r.push(`div.${y}${" "}{`);
+            r.push(`background-color:${" "}${e} !important;`);
+            r.push(`border-color:${" "}${e} !important;`);
+            r.push(`color:${" "}${d} !important;`);
+            r.push("}");
+            r.push(`div.${y}:hover${" "}{`);
+            r.push(`opacity:${" "}0.7 !important;`);
+            r.push("}");
+            const p = {
+                id: y,
                 name: `Day Color ${a + 1}`,
-                minimum: g,
-                cssClassName: m,
+                minimum: m,
+                cssClassName: y,
                 tooltipText: `Day Color ${a + 1}`,
                 visible: true
             };
-            const p = Math.round(n[0] / 100 * ((a + 1) * i));
-            const v = Math.round(n[1] / 100 * ((a + 1) * i));
-            const T = Math.round(n[2] / 100 * ((a + 1) * i));
-            r = n[0] + p;
-            l = n[1] + v;
-            c = n[2] + T;
-            w = n[0] - p;
-            h = n[1] - v;
-            f = n[2] - T;
-            g += o;
-            t.push(y);
+            const v = Math.round(n[0] / 100 * ((a + 1) * i));
+            const T = Math.round(n[1] / 100 * ((a + 1) * i));
+            const b = Math.round(n[2] / 100 * ((a + 1) * i));
+            l = n[0] + v;
+            c = n[1] + T;
+            u = n[2] + b;
+            w += o;
+            h = n[0] - v;
+            f = n[1] - T;
+            g = n[2] - b;
+            m += s;
+            t.push(p);
         }
-        const m = document.getElementsByTagName("head")[0];
-        const y = a.create(m, "style");
-        y.appendChild(document.createTextNode(s.join("\n")));
+        const y = document.getElementsByTagName("head")[0];
+        const p = a.create(y, "style");
+        p.appendChild(document.createTextNode(r.join("\n")));
         return t;
     }
     e.buildDynamics = c;

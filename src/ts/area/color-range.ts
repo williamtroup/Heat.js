@@ -102,14 +102,15 @@ export namespace ColorRange {
         let result: BindingOptionsColorRange[] = [];
 
         const rgbaValues: number[] = Convert.hexToRgbaValues( dynamicColorRange!.color! );
-        const incrementPercentage: number = Math.floor( 100 / dynamicColorRange!.totalColors! );
+        const incrementPercentage: number = 100 / dynamicColorRange!.totalColors!;
+        const incrementAlpha: number = 1.0 / dynamicColorRange!.totalColors!;
         const incrementMinimum: number = Math.floor( dynamicColorRange!.maximumMinimum! / dynamicColorRange!.totalColors! );
         const cssLines: string[] = [];
 
         let red: number = rgbaValues[ 0 ];
         let green: number = rgbaValues[ 1 ];
         let blue: number = rgbaValues[ 2 ];
-        let alpha: number = rgbaValues[ 3 ];
+        let alpha: number = incrementAlpha;
         let colorRed: number = rgbaValues[ 0 ];
         let colorGreen: number = rgbaValues[ 1 ];
         let colorBlue: number = rgbaValues[ 2 ];
@@ -117,7 +118,7 @@ export namespace ColorRange {
 
         for ( let colorIndex: number = 0; colorIndex < dynamicColorRange!.totalColors!; colorIndex++ ){
             const rgb: string = `rgba(${red}, ${green}, ${blue}, ${alpha.toFixed( 2 )})`;
-            const colorRgb: string = `rgba(${colorRed}, ${colorGreen}, ${colorBlue}, ${alpha.toFixed( 2 )})`;
+            const colorRgb: string = `rgb(${colorRed}, ${colorGreen}, ${colorBlue})`;
             const cssName: string = `day-color-${crypto.randomUUID().replace( /-/g, Char.empty )}`;
             
             cssLines.push( `div.${cssName}${Char.space}{` );
@@ -145,6 +146,7 @@ export namespace ColorRange {
             red = rgbaValues[ 0 ] + redPercentage;
             green = rgbaValues[ 1 ] + greenPercentage;
             blue = rgbaValues[ 2 ] + bluePercentage;
+            alpha += incrementAlpha;
             colorRed = rgbaValues[ 0 ] - redPercentage;
             colorGreen = rgbaValues[ 1 ] - greenPercentage;
             colorBlue = rgbaValues[ 2 ] - bluePercentage;
