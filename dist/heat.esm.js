@@ -1912,7 +1912,7 @@ var T;
         g.View.getScrollPositions(e);
         l.render(e);
         We(e);
-        ke(e);
+        Ae(e);
         Z(e);
         ne(e);
         if (e.views.map.enabled && e._currentView.view === 1) {
@@ -2025,7 +2025,7 @@ var T;
             l.hide(e);
         }
     }
-    function A(e) {
+    function k(e) {
         f.Background.render(e);
         if (!i.definedParentElement(e._currentView.exportDialog)) {
             e._currentView.exportDialog = a.create(e._currentView.disabledBackground, "div", "dialog export");
@@ -2042,7 +2042,7 @@ var T;
             e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked = e.exportOnlyDataBeingViewed;
             const o = a.create(n, "div", "buttons");
             const s = a.createButton(o, "button", "default", b.text.exportButtonText);
-            k(e);
+            A(e);
             const r = () => {
                 const t = e._currentView.exportDialogExportTypeSelect.value;
                 const n = e._currentView.exportDialogExportFilenameInput.value;
@@ -2060,7 +2060,7 @@ var T;
             l.add(i, e, b.text.closeButtonText);
         }
     }
-    function k(e) {
+    function A(e) {
         let n;
         let i = [];
         for (n in t) {
@@ -2074,7 +2074,7 @@ var T;
         i.forEach(t => e._currentView.exportDialogExportTypeSelect.add(t));
     }
     function O(e) {
-        A(e);
+        k(e);
         f.Background.show(e);
         if (i.defined(e._currentView.exportDialog) && e._currentView.exportDialog.style.display !== "block") {
             e._currentView.exportDialogExportFilenameInput.value = "";
@@ -2498,7 +2498,7 @@ var T;
         if (e._currentView.view === n) {
             a.addClass(t, "title-menu-item-active");
         } else {
-            t.onclick = () => Ae(e, n, i);
+            t.onclick = () => ke(e, n, i);
         }
     }
     function ee(e) {
@@ -2663,7 +2663,7 @@ var T;
                         const i = !n || o % 3 === 0 ? b.text.dayNames[o] : " ";
                         const s = a.createWithHTML(t, "div", "day-name", i);
                         if (e.views.days.enabled) {
-                            s.ondblclick = () => Ae(e, 4, "days");
+                            s.ondblclick = () => ke(e, 4, "days");
                         }
                     }
                 }
@@ -2742,7 +2742,7 @@ var T;
                             a.addClass(n, "current");
                         }
                         if (e.views.months.enabled) {
-                            n.ondblclick = () => Ae(e, 5, "months");
+                            n.ondblclick = () => ke(e, 5, "months");
                         }
                     }
                     if (e.views.map.showMonthsInReverseOrder) {
@@ -2927,7 +2927,7 @@ var T;
                             a.addClass(u, "current");
                         }
                         if (e.views.months.enabled) {
-                            u.ondblclick = () => Ae(e, 5, "months");
+                            u.ondblclick = () => ke(e, 5, "months");
                         }
                         o++;
                     }
@@ -3082,7 +3082,7 @@ var T;
                             a.addClass(d, "current");
                         }
                         if (e.views.months.enabled) {
-                            d.ondblclick = () => Ae(e, 5, "months");
+                            d.ondblclick = () => ke(e, 5, "months");
                         }
                         n++;
                     }
@@ -3236,6 +3236,8 @@ var T;
         }
         if (!r.views.days.showStackedColorRanges) {
             a.addClass(g, "non-stacked");
+        } else {
+            a.addClass(g, "stacked");
         }
         if (r.views.days.showToolTips) {
             l.add(g, r, s.friendlyNumber(o));
@@ -3448,6 +3450,8 @@ var T;
         g.setAttribute(n.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, t.toString());
         if (!r.views.months.showStackedColorRanges) {
             a.addClass(g, "non-stacked");
+        } else {
+            a.addClass(g, "stacked");
         }
         if (m <= 0) {
             g.style.visibility = "hidden";
@@ -3971,12 +3975,12 @@ var T;
             l.add(t, e, c);
         }
     }
-    function Ae(e, t, n) {
+    function ke(e, t, n) {
         e._currentView.view = t;
         c.customEvent(e.events.onViewSwitch, n);
         S(e, false, true);
     }
-    function ke(e) {
+    function Ae(e) {
         const t = Oe(e);
         if (V[e._currentView.element.id].totalTypes > 1) {
             for (const n in V[e._currentView.element.id].typeData) {
@@ -4500,7 +4504,7 @@ var T;
                 const n = V[e].options;
                 let i = g.View.get(t);
                 if (i !== 0 && n._currentView.view !== i) {
-                    Ae(n, i, t);
+                    ke(n, i, t);
                 }
             }
             return qe;

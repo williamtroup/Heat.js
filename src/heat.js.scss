@@ -1400,14 +1400,23 @@ div.heat-js {
                     height: 0;
                     overflow: hidden;
 
-                    div.stacked-color-range {
+                    &.stacked {
                         border: none !important;
-                        pointer-events: none;
                     }
 
                     &.non-stacked {
                         background-color: var(--heat-js-view-days-background-color);
                         border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
+                    }
+
+                    div.stacked-color-range {
+                        border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+                        pointer-events: none;
+                        border-bottom: none !important;
+
+                        &:not(:first-of-type) {
+                            border-top: none !important;
+                        }
                     }
 
                     &:first-child {
@@ -1527,14 +1536,23 @@ div.heat-js {
                     height: 0;
                     overflow: hidden;
 
-                    div.stacked-color-range {
+                    &.stacked {
                         border: none !important;
-                        pointer-events: none;
                     }
 
                     &.non-stacked {
-                        background-color: var(--heat-js-view-days-background-color);
-                        border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
+                        background-color: var(--heat-js-view-months-background-color);
+                        border: var(--heat-js-border-size) solid var(--heat-js-view-months-border-color);
+                    }
+
+                    div.stacked-color-range {
+                        border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+                        pointer-events: none;
+                        border-bottom: none !important;
+
+                        &:not(:first-of-type) {
+                            border-top: none !important;
+                        }
                     }
 
                     &:first-child {

@@ -1979,6 +1979,8 @@ import { ColorRange } from "./ts/area/color-range";
 
         if ( !bindingOptions.views!.days!.showStackedColorRanges ) {
             DomElement.addClass( dayLine, "non-stacked" );
+        } else {
+            DomElement.addClass( dayLine, "stacked" );
         }
 
         if ( bindingOptions.views!.days!.showToolTips ) {
@@ -2251,6 +2253,8 @@ import { ColorRange } from "./ts/area/color-range";
 
         if ( !bindingOptions.views!.months!.showStackedColorRanges ) {
             DomElement.addClass( monthLine, "non-stacked" );
+        } else {
+            DomElement.addClass( monthLine, "stacked" );
         }
 
         if ( monthLineHeight <= 0 ) {

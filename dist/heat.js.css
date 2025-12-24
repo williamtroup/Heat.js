@@ -1914,13 +1914,20 @@ div.heat-js div.days-contents div.days div.day-lines div.day-line {
   height: 0;
   overflow: hidden;
 }
-div.heat-js div.days-contents div.days div.day-lines div.day-line div.stacked-color-range {
+div.heat-js div.days-contents div.days div.day-lines div.day-line.stacked {
   border: none !important;
-  pointer-events: none;
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line.non-stacked {
   background-color: var(--heat-js-view-days-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
+}
+div.heat-js div.days-contents div.days div.day-lines div.day-line div.stacked-color-range {
+  border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+  pointer-events: none;
+  border-bottom: none !important;
+}
+div.heat-js div.days-contents div.days div.day-lines div.day-line div.stacked-color-range:not(:first-of-type) {
+  border-top: none !important;
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line:first-child {
   margin-left: calc(var(--heat-js-spacing) / 2);
@@ -2062,13 +2069,20 @@ div.heat-js div.months-contents div.months div.month-lines div.month-line {
   height: 0;
   overflow: hidden;
 }
-div.heat-js div.months-contents div.months div.month-lines div.month-line div.stacked-color-range {
+div.heat-js div.months-contents div.months div.month-lines div.month-line.stacked {
   border: none !important;
-  pointer-events: none;
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line.non-stacked {
-  background-color: var(--heat-js-view-days-background-color);
-  border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
+  background-color: var(--heat-js-view-months-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-view-months-border-color);
+}
+div.heat-js div.months-contents div.months div.month-lines div.month-line div.stacked-color-range {
+  border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+  pointer-events: none;
+  border-bottom: none !important;
+}
+div.heat-js div.months-contents div.months div.month-lines div.month-line div.stacked-color-range:not(:first-of-type) {
+  border-top: none !important;
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line:first-child {
   margin-left: calc(var(--heat-js-spacing) / 2);
