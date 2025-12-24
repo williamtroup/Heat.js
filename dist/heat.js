@@ -660,42 +660,45 @@ var u;
     function c(e) {
         let t = [];
         const n = d.hexToRgbaValues(e.color);
-        const i = Math.floor(e.maximumRgbRange / e.totalColors);
+        const i = Math.floor(100 / e.totalColors);
         const o = Math.floor(e.maximumMinimum / e.totalColors);
         const s = [];
-        let r = n[0] % e.maximumRgbRange;
-        let l = n[1] % e.maximumRgbRange;
-        let c = n[2] % e.maximumRgbRange;
+        let r = n[0];
+        let l = n[1];
+        let c = n[2];
         let u = n[3];
-        let w = e.maximumRgbRange;
-        let h = e.maximumRgbRange;
-        let f = e.maximumRgbRange;
+        let w = n[0];
+        let h = n[1];
+        let f = n[2];
         let g = 0;
-        for (let n = 0; n < e.totalColors; n++) {
+        for (let a = 0; a < e.totalColors; a++) {
             const e = `rgba(${r}, ${l}, ${c}, ${u.toFixed(2)})`;
-            const a = `rgba(${w}, ${h}, ${f}, ${u.toFixed(2)})`;
-            const d = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
-            s.push(`div.${d}${" "}{`);
+            const d = `rgba(${w}, ${h}, ${f}, ${u.toFixed(2)})`;
+            const m = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
+            s.push(`div.${m}${" "}{`);
             s.push(`background-color:${" "}${e} !important;`);
             s.push(`border-color:${" "}${e} !important;`);
-            s.push(`color:${" "}${a} !important;`);
+            s.push(`color:${" "}${d} !important;`);
             s.push("}");
-            const m = {
-                id: d,
-                name: `Day Color ${n + 1}`,
+            const y = {
+                id: m,
+                name: `Day Color ${a + 1}`,
                 minimum: g,
-                cssClassName: d,
-                tooltipText: `Day Color ${n + 1}`,
+                cssClassName: m,
+                tooltipText: `Day Color ${a + 1}`,
                 visible: true
             };
-            r += i;
-            l += i;
-            c += i;
-            w -= i;
-            h -= i;
-            f -= i;
+            const p = Math.round(n[0] / 100 * ((a + 1) * i));
+            const v = Math.round(n[1] / 100 * ((a + 1) * i));
+            const T = Math.round(n[2] / 100 * ((a + 1) * i));
+            r = n[0] + p;
+            l = n[1] + v;
+            c = n[2] + T;
+            w = n[0] - p;
+            h = n[1] - v;
+            f = n[2] - T;
             g += o;
-            t.push(m);
+            t.push(y);
         }
         const m = document.getElementsByTagName("head")[0];
         const y = a.create(m, "style");
@@ -1009,7 +1012,6 @@ var w;
             e.dynamicColorRange.maximumMinimum = o.getNumber(e.dynamicColorRange.maximumMinimum, 25);
             e.dynamicColorRange.color = o.getString(e.dynamicColorRange.color, "");
             e.dynamicColorRange.totalColors = o.getNumber(e.dynamicColorRange.totalColors, 7);
-            e.dynamicColorRange.maximumRgbRange = o.getNumber(e.dynamicColorRange.maximumRgbRange, 256);
             return e.dynamicColorRange;
         }
         function b(e) {
@@ -1910,7 +1912,7 @@ var T;
         if (t) {
             T.store(e, V[e._currentView.element.id]);
         }
-        e._currentView.yearsAvailable = Fe(e);
+        e._currentView.yearsAvailable = Re(e);
         g.View.getScrollPositions(e);
         l.render(e);
         We(e);
@@ -2095,7 +2097,7 @@ var T;
     function E(e, t = null, n = null, s = true) {
         const r = o.getString(t, e.exportType).toLowerCase();
         const l = y.File.mimeType(r);
-        const d = R(e, s);
+        const d = F(e, s);
         const u = y.Contents.get(r, d, b, e);
         if (i.definedString(u)) {
             const t = a.create(document.body, "a");
@@ -2108,7 +2110,7 @@ var T;
             c.customEvent(e.events.onExport, e._currentView.element);
         }
     }
-    function R(e, t) {
+    function F(e, t) {
         const n = {};
         const o = Ee(e);
         if (t) {
@@ -2154,7 +2156,7 @@ var T;
         }
         return n;
     }
-    function F(e) {
+    function R(e) {
         f.Background.render(e);
         if (!i.definedParentElement(e._currentView.importDialog)) {
             e._currentView.importDialog = a.create(e._currentView.disabledBackground, "div", "dialog import");
@@ -2175,7 +2177,7 @@ var T;
         }
     }
     function $(e) {
-        F(e);
+        R(e);
         f.Background.show(e);
         if (i.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "block") {
             e._currentView.importDialog.style.display = "block";
@@ -2366,7 +2368,7 @@ var T;
                     l.add(n, e, b.text.importButtonText);
                 }
             }
-            if (e.title.showExportButton && Re(e)) {
+            if (e.title.showExportButton && Fe(e)) {
                 const n = a.createIconButton(t, "button", "export", "arrow-down");
                 n.onclick = () => O(e);
                 if (e.title.showToolTips) {
@@ -4018,10 +4020,10 @@ var T;
     function Ee(e) {
         return V[e._currentView.element.id].typeData[e._currentView.type];
     }
-    function Re(e) {
+    function Fe(e) {
         return Object.keys(Ee(e)).length > 0;
     }
-    function Fe(e) {
+    function Re(e) {
         let t = [];
         if (e.showOnlyDataForYearsAvailable) {
             let n = Ee(e);

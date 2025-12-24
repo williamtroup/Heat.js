@@ -102,17 +102,17 @@ export namespace ColorRange {
         let result: BindingOptionsColorRange[] = [];
 
         const rgbaValues: number[] = Convert.hexToRgbaValues( dynamicColorRange!.color! );
-        const incrementColor: number = Math.floor( dynamicColorRange!.maximumRgbRange! / dynamicColorRange!.totalColors! );
+        const incrementPercentage: number = Math.floor( 100 / dynamicColorRange!.totalColors! );
         const incrementMinimum: number = Math.floor( dynamicColorRange!.maximumMinimum! / dynamicColorRange!.totalColors! );
         const cssLines: string[] = [];
 
-        let red: number = rgbaValues[ 0 ] % dynamicColorRange!.maximumRgbRange!;
-        let green: number = rgbaValues[ 1 ] % dynamicColorRange!.maximumRgbRange!;
-        let blue: number = rgbaValues[ 2 ] % dynamicColorRange!.maximumRgbRange!;
+        let red: number = rgbaValues[ 0 ];
+        let green: number = rgbaValues[ 1 ];
+        let blue: number = rgbaValues[ 2 ];
         let alpha: number = rgbaValues[ 3 ];
-        let colorRed: number = dynamicColorRange!.maximumRgbRange!;
-        let colorGreen: number = dynamicColorRange!.maximumRgbRange!;
-        let colorBlue: number = dynamicColorRange!.maximumRgbRange!;
+        let colorRed: number = rgbaValues[ 0 ];
+        let colorGreen: number = rgbaValues[ 1 ];
+        let colorBlue: number = rgbaValues[ 2 ];
         let currentMinimum: number = 0;
 
         for ( let colorIndex: number = 0; colorIndex < dynamicColorRange!.totalColors!; colorIndex++ ){
@@ -135,12 +135,16 @@ export namespace ColorRange {
                 visible: true,
             } as BindingOptionsColorRange;
 
-            red += incrementColor;
-            green += incrementColor;
-            blue += incrementColor;
-            colorRed -= incrementColor;
-            colorGreen -= incrementColor;
-            colorBlue -= incrementColor;
+            const redPercentage = Math.round( rgbaValues[ 0 ] / 100 * ( ( colorIndex + 1 ) * incrementPercentage ) );
+            const greenPercentage = Math.round( rgbaValues[ 1 ] / 100 * ( ( colorIndex + 1 ) * incrementPercentage ) );
+            const bluePercentage = Math.round( rgbaValues[ 2 ] / 100 * ( ( colorIndex + 1 ) * incrementPercentage ) );
+
+            red = rgbaValues[ 0 ] + redPercentage;
+            green = rgbaValues[ 1 ] + greenPercentage;
+            blue = rgbaValues[ 2 ] + bluePercentage;
+            colorRed = rgbaValues[ 0 ] - redPercentage;
+            colorGreen = rgbaValues[ 1 ] - greenPercentage;
+            colorBlue = rgbaValues[ 2 ] - bluePercentage;
             currentMinimum += incrementMinimum;
 
             result.push( colorRange );
