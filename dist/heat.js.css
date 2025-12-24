@@ -1926,9 +1926,13 @@ div.heat-js div.days-contents div.days div.day-lines div.day-line div.stacked-co
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   pointer-events: none;
   border-bottom: none !important;
+  border-top-left-radius: var(--heat-js-border-radius-day);
+  border-top-right-radius: var(--heat-js-border-radius-day);
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line div.stacked-color-range:not(:first-of-type) {
   border-top: none !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line:first-child {
   margin-left: calc(var(--heat-js-spacing) / 2);
@@ -2081,9 +2085,13 @@ div.heat-js div.months-contents div.months div.month-lines div.month-line div.st
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   pointer-events: none;
   border-bottom: none !important;
+  border-top-left-radius: var(--heat-js-border-radius-day);
+  border-top-right-radius: var(--heat-js-border-radius-day);
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line div.stacked-color-range:not(:first-of-type) {
   border-top: none !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line:first-child {
   margin-left: calc(var(--heat-js-spacing) / 2);

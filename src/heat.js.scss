@@ -1414,9 +1414,13 @@ div.heat-js {
                         border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                         pointer-events: none;
                         border-bottom: none !important;
+                        border-top-left-radius: var(--heat-js-border-radius-day);
+                        border-top-right-radius: var(--heat-js-border-radius-day);
 
                         &:not(:first-of-type) {
                             border-top: none !important;
+                            border-top-left-radius: 0 !important;
+                            border-top-right-radius: 0 !important;
                         }
                     }
 
@@ -1550,9 +1554,13 @@ div.heat-js {
                         border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                         pointer-events: none;
                         border-bottom: none !important;
+                        border-top-left-radius: var(--heat-js-border-radius-day);
+                        border-top-right-radius: var(--heat-js-border-radius-day);
 
                         &:not(:first-of-type) {
                             border-top: none !important;
+                            border-top-left-radius: 0 !important;
+                            border-top-right-radius: 0 !important;
                         }
                     }
 
