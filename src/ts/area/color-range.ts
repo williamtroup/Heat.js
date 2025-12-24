@@ -117,13 +117,13 @@ export namespace ColorRange {
         let currentMinimum: number = 0;
 
         for ( let colorIndex: number = 0; colorIndex < dynamicColorRange!.totalColors!; colorIndex++ ){
-            const rgb: string = `rgba(${red}, ${green}, ${blue}, ${alpha.toFixed( 2 )})`;
+            const rgba: string = `rgba(${red}, ${green}, ${blue}, ${alpha.toFixed( 2 )})`;
             const colorRgb: string = `rgb(${colorRed}, ${colorGreen}, ${colorBlue})`;
             const cssName: string = `day-color-${crypto.randomUUID().replace( /-/g, Char.empty )}`;
             
             cssLines.push( `div.${cssName}${Char.space}{` );
-            cssLines.push( `background-color:${Char.space}${rgb} !important;` );
-            cssLines.push( `border-color:${Char.space}${rgb} !important;` );
+            cssLines.push( `background-color:${Char.space}${rgba} !important;` );
+            cssLines.push( `border-color:${Char.space}${rgba} !important;` );
             cssLines.push( `color:${Char.space}${colorRgb} !important;` );
             cssLines.push( "}" );
             cssLines.push( `div.${cssName}:hover${Char.space}{` );
