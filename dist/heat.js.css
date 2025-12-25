@@ -816,7 +816,7 @@ div.heat-js div.title-bar div.configure::before {
   height: 9px;
   width: 9px;
   border-color: var(--heat-js-color-white);
-  border-width: 2px;
+  border-width: 2.5px;
   border-style: solid;
   transform: rotate(-45deg);
   top: 0;
@@ -829,7 +829,7 @@ div.heat-js div.title-bar div.configure::after {
   height: 9px;
   width: 9px;
   border-color: var(--heat-js-color-white);
-  border-width: 2px;
+  border-width: 2.5px;
   border-style: solid;
   transform: rotate(90deg);
   top: 0;
