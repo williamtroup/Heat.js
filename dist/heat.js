@@ -1019,6 +1019,7 @@ var h;
             e.guide.showNumbersInGuide = o.getBoolean(e.guide.showNumbersInGuide, false);
             e.guide.showToolTips = o.getBoolean(e.guide.showToolTips, true);
             e.guide.showInvertLabel = o.getBoolean(e.guide.showInvertLabel, false);
+            e.guide.useIncrementToggles = o.getBoolean(e.guide.useIncrementToggles, false);
             return e.guide;
         }
         function p(e) {
@@ -4086,10 +4087,32 @@ var b;
         }
     }
     function Ue(e, t) {
-        const n = e.colorRanges.length;
-        for (let i = 0; i < n; i++) {
-            e.colorRanges[i].visible = t;
-            c.customEvent(e.events.onColorRangeTypeToggle, e.colorRanges[i].id, t);
+        if (e.guide.useIncrementToggles) {
+            const n = w.getAllSorted(e);
+            const i = n.length;
+            if (t) {
+                for (let e = 0; e < i; e++) {
+                    const t = n[e];
+                    if (!t.visible) {
+                        t.visible = true;
+                        break;
+                    }
+                }
+            } else {
+                for (let e = i; e--; ) {
+                    const t = n[e];
+                    if (t.visible) {
+                        t.visible = false;
+                        break;
+                    }
+                }
+            }
+        } else {
+            const n = e.colorRanges.length;
+            for (let i = 0; i < n; i++) {
+                e.colorRanges[i].visible = t;
+                c.customEvent(e.events.onColorRangeTypeToggle, e.colorRanges[i].id, t);
+            }
         }
         M(e);
     }

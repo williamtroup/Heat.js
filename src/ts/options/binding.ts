@@ -362,6 +362,7 @@ export namespace Binding {
             bindingOptions.guide!.showNumbersInGuide = Default.getBoolean( bindingOptions.guide!.showNumbersInGuide, false );
             bindingOptions.guide!.showToolTips = Default.getBoolean( bindingOptions.guide!.showToolTips, true );
             bindingOptions.guide!.showInvertLabel = Default.getBoolean( bindingOptions.guide!.showInvertLabel, false );
+            bindingOptions.guide!.useIncrementToggles = Default.getBoolean( bindingOptions.guide!.useIncrementToggles, false );
 
             return bindingOptions.guide!;
         }

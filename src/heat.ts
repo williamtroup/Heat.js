@@ -3085,12 +3085,39 @@ import { Build } from "./ts/data/build";
      */
 
     function updateColorRangeToggles( bindingOptions: BindingOptions, flag: boolean ) : void {
-        const colorRangesLength: number = bindingOptions.colorRanges!.length;
+        if ( bindingOptions.guide!.useIncrementToggles ) {
+            const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
+            const colorRangesLength: number = colorRanges.length;
 
-        for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-            bindingOptions.colorRanges![ colorRangesIndex ].visible = flag;
+            if ( flag ) {
+                for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
+                    const colorRange: BindingOptionsColorRange = colorRanges[ colorRangeIndex ];
 
-            Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions.colorRanges![ colorRangesIndex ].id, flag );
+                    if ( !colorRange.visible ) {
+                        colorRange.visible = true;
+                        break;
+                    }
+                }
+
+            } else {
+                for ( let colorRangeIndex: number = colorRangesLength; colorRangeIndex--; ) {
+                    const colorRange: BindingOptionsColorRange = colorRanges[ colorRangeIndex ];
+
+                    if ( colorRange.visible ) {
+                        colorRange.visible = false;
+                        break;
+                    }
+                }
+            }
+
+        } else {
+            const colorRangesLength: number = bindingOptions.colorRanges!.length;
+
+            for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+                bindingOptions.colorRanges![ colorRangesIndex ].visible = flag;
+
+                Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions.colorRanges![ colorRangesIndex ].id, flag );
+            }
         }
 
         renderControlContainer( bindingOptions );

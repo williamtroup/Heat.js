@@ -353,6 +353,7 @@ export type BindingOptionsGuide = {
     showNumbersInGuide?: boolean;
     showToolTips?: boolean;
     showInvertLabel?: boolean;
+    useIncrementToggles?: boolean;
 };
 
 export type BindingOptionsZooming = {
