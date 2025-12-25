@@ -50,6 +50,8 @@
 - Added a new binding option called "title.showClearButton", which states if the "Clear" button should be shown (defaults to false).
 - Added a new binding option called "guide.showInvertLabel", which states if the "Invert" label should be shown (inverts the toggle selections, defaults to false).
 - Added a new binding option called "guide.useIncrementToggles", which states if clicking "Less" and "More" in the guide toggles the colors one by one (defaults to false).
+- Added a new binding option called "colorRanges.daysCssClassName", which states a CSS class name to use for items in the "Days" view (overrides the "cssClassName" property).
+- Added a new binding option called "colorRanges.monthsCssClassName", which states a CSS class name to use for items in the "Months" view (overrides the "cssClassName" property).
 - Added a new binding option called "views.map.dayToolTipText", which states the tooltip format to use for a day (defaults to "{dddd}, {d}{o} {mmmm} {yyyy}").
 - Added a new binding option called "views.chart.dayToolTipText", which states the tooltip format to use for a chart day (defaults to "{dddd}, {d}{o} {mmmm} {yyyy}").
 - Added a new binding option called "views.map.highlightCurrentDay", which states if the current day should be highlighted (defaults to false).
@@ -64,8 +66,6 @@
 - Added a new binding option called "views.map.enabled", which states if the map view is enabled (defaults to true).
 - Added a new binding option called "views.statistics.showRangeNamesInToolTips", which states if the range names should be shown in the tooltips (if available, defaults to true).
 - Added a new binding option called "views.chart.addMonthSpacing", which states if spacing and a divider line should be added between each month (defaults to false).
-- Added a new binding option called "colorRanges.daysCssClassName", which states a CSS class name to use for items in the "Days" view (overrides the "cssClassName" property).
-- Added a new binding option called "colorRanges.monthsCssClassName", which states a CSS class name to use for items in the "Months" view (overrides the "cssClassName" property).
 - The "view.map" binding options "showDayDateNumbers" and "showDayCounts" can now be used at the same time.
 - The "view.chart" binding options "showLineDateNumbers" and "showLineCounts" can now be used at the same time.
 
