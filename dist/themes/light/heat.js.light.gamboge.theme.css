@@ -13,7 +13,6 @@
 
     /* Title Bar / Drop Down Menu */
     --heat-js-title-opener-text-color-hover: rgb(109, 108, 108);
-    --heat-js-years-background-color: var(--heat-js-color-black-dark);
     --heat-js-title-border-color: var(--heat-js-container-border-color);
     --heat-js-title-text-color: var(--heat-js-color-black);
     --heat-js-title-background-color-hover: var(--heat-js-color-gray);
