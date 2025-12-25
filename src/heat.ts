@@ -3120,7 +3120,7 @@ import { Build } from "./ts/data/build";
             }
         }
 
-        renderControlContainer( bindingOptions );
+        renderControlContainer( bindingOptions, false, false, true );
     }
 
     function invertColorRangeToggles( bindingOptions: BindingOptions ) : void {

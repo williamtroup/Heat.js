@@ -4114,7 +4114,7 @@ var b;
                 c.customEvent(e.events.onColorRangeTypeToggle, e.colorRanges[i].id, t);
             }
         }
-        M(e);
+        M(e, false, false, true);
     }
     function ze(e) {
         const t = e.colorRanges.length;
