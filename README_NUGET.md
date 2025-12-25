@@ -17,7 +17,7 @@
 - 💻 Full API available via public functions.
 - 🎏 52 language translations available!
 - 📱 Fully styled in CSS/SASS, fully responsive, and compatible with the Bootstrap library!
-- 🌈 Full CSS theme support (using :root variables), with dark and light themes (25 available by default).
+- 🌈 Full CSS theme support (using :root variables), with dark and light themes (31 available by default).
 - 🔍 6 views supported: Map, Line, Chart, Days, Months, and Statistics!
 - 🔍 Yearly statistics (shows total for day, week, month, and year).
 - 📃 Auto spawning support (when HTML is added via 3rd party libraries).
