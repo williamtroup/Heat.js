@@ -149,7 +149,7 @@
 - All numbers shown in the display (and tooltips) are now formatted into a user-friendly display (1000 becomes 1,000).
 - Slightly increased the right padding of the titles drop-down menu.
 - The height of the main "heat-js" layout now more or less stays the same when switching views.
-- Added “:active” CSS styles for all view click areas.
+- Added ":active" CSS styles for all view click areas.
 - Double-clicking the Month/Day names in the Map and Chart views will now jump you to the Months/Days view (if enabled).
 - The title bar drop-down menu now uses an arrow for the active view (instead of the default circle).
 - Added a small top and bottom margin to the Type buttons in the footer, which will ensure that types on multiple lines are displayed nicely.
