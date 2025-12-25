@@ -218,3 +218,4 @@
 - Fixed a fault that would caused the month name spacer to float under the month names in the "Chart" view (when specific settings are disabled).
 - Fixed a fault that prevented the type buttons (in the guide) from using the correct font-size.
 - Fixed some missing CSS variables from the light themes.
+- Fixed the color range toggles not being responsive in the guide when a lot are used.

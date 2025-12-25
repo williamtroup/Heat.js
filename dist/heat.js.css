@@ -2430,6 +2430,9 @@ div.heat-js div.guide div.map-toggles {
   align-items: center;
   justify-content: center;
   text-align: center;
+  gap: var(--heat-js-spacing);
+  flex-wrap: wrap;
+  max-width: 320px;
 }
 @media (min-width: 768px) {
   div.heat-js div.guide div.map-toggles {
@@ -2457,17 +2460,17 @@ div.heat-js div.guide div.map-toggles div.more-text:active,
 div.heat-js div.guide div.map-toggles div.invert-text:active {
   color: var(--heat-js-color-gray);
 }
-div.heat-js div.guide div.map-toggles div.less-text,
-div.heat-js div.guide div.map-toggles div.invert-text {
-  margin-right: var(--heat-js-spacing);
-}
-div.heat-js div.guide div.map-toggles div.more-text {
-  margin-left: var(--heat-js-spacing);
-}
 div.heat-js div.guide div.map-toggles div.days {
   display: inline-flex;
   align-items: center;
-  justify-content: right;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: calc(var(--heat-js-spacing) / 2);
+}
+@media (min-width: 768px) {
+  div.heat-js div.guide div.map-toggles div.days {
+    justify-content: right;
+  }
 }
 div.heat-js div.guide div.map-toggles div.days div.day-number {
   display: inline-flex !important;
@@ -2486,11 +2489,7 @@ div.heat-js div.guide div.map-toggles div.days div.day {
   border-radius: var(--heat-js-border-radius-day);
   min-width: var(--heat-js-guide-day-size);
   height: var(--heat-js-guide-day-size);
-  margin-right: var(--heat-js-guide-day-spacing);
   transition: color 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.3s !important;
-}
-div.heat-js div.guide div.map-toggles div.days div.day:last-child {
-  margin-right: 0;
 }
 div.heat-js div.guide div.map-toggles div.days div.day:not(.no-hover):hover {
   cursor: pointer;

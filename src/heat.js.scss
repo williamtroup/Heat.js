@@ -1798,6 +1798,9 @@ div.heat-js {
             align-items: center;
             justify-content: center;
             text-align: center;
+            gap: var(--heat-js-spacing);
+            flex-wrap: wrap;
+            max-width: 320px;
 
             @media (min-width: styles.$minimum-width) { 
                 text-align: right;
@@ -1823,19 +1826,16 @@ div.heat-js {
                 }
             }
     
-            div.less-text,
-            div.invert-text {
-                margin-right: var(--heat-js-spacing);
-            }
-    
-            div.more-text {
-                margin-left: var(--heat-js-spacing);
-            }
-    
             div.days {
                 display: inline-flex;
                 align-items: center;
-                justify-content: right;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: calc( var(--heat-js-spacing) / 2 );
+
+                @media (min-width: styles.$minimum-width) { 
+                    justify-content: right;
+                }
 
                 div.day-number {
                     display: inline-flex !important;
@@ -1855,12 +1855,7 @@ div.heat-js {
                     border-radius: var(--heat-js-border-radius-day);
                     min-width: var(--heat-js-guide-day-size);
                     height: var(--heat-js-guide-day-size);
-                    margin-right: var(--heat-js-guide-day-spacing);
                     transition: color .3s, background-color .3s, border-color .3s, opacity .3s !important;
-    
-                    &:last-child {
-                        margin-right: 0;
-                    }
 
                     &:not(.no-hover):hover {
                         cursor: pointer;
