@@ -30,7 +30,25 @@
 - Added support to import data from a TOML file (.toml).
 
 #### **Themes:**
-- Added a new theme called "heat.js.light.theme.css", which uses the default day colors against a lighter theme.
+- Added a new theme called "light/heat.js.light.theme.css".
+- Added a new theme called "light-blue/heat.js.light-blue.bright-orange.theme.css".
+- Added a new theme called "light-blue/heat.js.light-blue.bright-purple.theme.css".
+- Added a new theme called "light-blue/heat.js.light-blue.gamboge.theme.css".
+- Added a new theme called "light-blue/heat.js.light-blue.red.theme.css".
+- Added a new theme called "light-blue/heat.js.light-blue.shamrock-green.theme.css".
+- Added a new theme called "light-blue/heat.js.light-blue.theme.css".
+- Added a new theme called "light-green/heat.js.light-green.bright-orange.theme.css".
+- Added a new theme called "light-green/heat.js.light-green.bright-purple.theme.css".
+- Added a new theme called "light-green/heat.js.light-green.gamboge.theme.css".
+- Added a new theme called "light-green/heat.js.light-green.neon-blue.theme.css".
+- Added a new theme called "light-green/heat.js.light-green.red.theme.css".
+- Added a new theme called "light-green/heat.js.light-green.theme.css".
+- Added a new theme called "light-red/heat.js.light-red.bright-orange.theme.css".
+- Added a new theme called "light-red/heat.js.light-red.bright-purple.theme.css".
+- Added a new theme called "light-red/heat.js.light-red.gamboge.theme.css".
+- Added a new theme called "light-red/heat.js.light-red.neon-blue.theme.css".
+- Added a new theme called "light-red/heat.js.light-red.shamrock-green.theme.css".
+- Added a new theme called "light-red/heat.js.light-red.theme.css".
 
 #### **Binding Options - Breaking Changes:**
 - BREAKING: The binding option "tooltip.dayText" has been removed.
