@@ -82,7 +82,7 @@ export namespace Export {
             } else if ( contentExportType === ExportType.json ) {
                 contents = json( typeDateCounts );
             } else if ( contentExportType === ExportType.xml ) {
-                contents = xml( typeDateCounts );
+                contents = xml( typeDateCounts, configurationOptions, bindingOptions );
             } else if ( contentExportType === ExportType.txt ) {
                 contents = txt( typeDateCounts, configurationOptions, bindingOptions );
             } else if ( contentExportType === ExportType.html ) {
@@ -120,10 +120,14 @@ export namespace Export {
             return JSON.stringify( typeDateCounts );
         }
 
-        function xml( typeDateCounts: InstanceTypeDateCount ) : string {
+        function xml( typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions ) : string {
+            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configurationOptions, bindingOptions.exportDateTimeFormat!, new Date() );
             const contents: string[] = [];
 
             contents.push( "<?xml version=\"1.0\" ?>" );
+            contents.push( "<LastModified>" );
+            contents.push( `<FullDate>${exportedDateTime}</FullDate>` );
+            contents.push( "</LastModified>" );
             contents.push( "<Dates>" );
 
             for ( const storageDate in typeDateCounts ) {

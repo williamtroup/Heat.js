@@ -1657,7 +1657,7 @@ var p;
             } else if (e === "json") {
                 h = i(t);
             } else if (e === "xml") {
-                h = o(t);
+                h = o(t, r, w);
             } else if (e === "txt") {
                 h = s(t, r, w);
             } else if (e === "html") {
@@ -1689,20 +1689,24 @@ var p;
         function i(e) {
             return JSON.stringify(e);
         }
-        function o(e) {
-            const t = [];
-            t.push('<?xml version="1.0" ?>');
-            t.push("<Dates>");
-            for (const n in e) {
-                if (e.hasOwnProperty(n)) {
-                    t.push("<Date>");
-                    t.push(`<FullDate>${n}</FullDate>`);
-                    t.push(`<Count>${e[n].toString()}</Count>`);
-                    t.push("</Date>");
+        function o(e, t, n) {
+            const i = r.getCustomFormattedDateText(t, n.exportDateTimeFormat, new Date);
+            const o = [];
+            o.push('<?xml version="1.0" ?>');
+            o.push("<LastModified>");
+            o.push(`<FullDate>${i}</FullDate>`);
+            o.push("</LastModified>");
+            o.push("<Dates>");
+            for (const t in e) {
+                if (e.hasOwnProperty(t)) {
+                    o.push("<Date>");
+                    o.push(`<FullDate>${t}</FullDate>`);
+                    o.push(`<Count>${e[t].toString()}</Count>`);
+                    o.push("</Date>");
                 }
             }
-            t.push("</Dates>");
-            return t.join("\n");
+            o.push("</Dates>");
+            return o.join("\n");
         }
         function s(e, t, n) {
             const i = r.getCustomFormattedDateText(t, n.exportDateTimeFormat, new Date);

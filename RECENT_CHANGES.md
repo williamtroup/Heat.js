@@ -164,7 +164,7 @@
 - Each month shown in the Map view now has a new attribute called "data-heat-js-map-month-number", which stores the month number.
 - Views/Dialogs are now only rendered when they are active (helps performance when many views/dialogs are enabled).
 - The display is no longer re-rendered when the configuration dialog is closed, and nothing has changed.
-- Export text files now contain a header that states when the content was last modified.
+- Export TXT and XML files now contain an entry that states when the content was last modified.
 - Only one instance of the "heat-js-tooltip" tooltip element is now created.
 - Only a maximum of 5 files can be imported at the same time.
 - The current month names are now bolder to make them standout (even when the highlight settings are disabled).
