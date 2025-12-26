@@ -119,6 +119,7 @@ export type ConfigurationOptionsText = {
     invertText?: string;
     lineText?: string;
     noLineDataMessage?: string;
+    removeTypeText?: string;
 };
 
 export type BindingOptions = {
@@ -137,7 +138,6 @@ export type BindingOptions = {
     startMonth?: number;
     allowMultipleFileImports?: boolean;
     percentageDecimalPoints?: number;
-    allowTypeAdding?: boolean;
     chartsAnimationDelay?: number;
     exportDateTimeFormat?: string;
     dynamicColorRange?: BindingOptionsDynamicColorRange;
@@ -355,6 +355,8 @@ export type BindingOptionsGuide = {
     showToolTips?: boolean;
     showInvertLabel?: boolean;
     useIncrementToggles?: boolean;
+    allowTypeAdding?: boolean;
+    allowTypeRemoving?: boolean;
 };
 
 export type BindingOptionsZooming = {
@@ -432,4 +434,6 @@ export type BindingOptionsEvents = {
     onStatisticDblClick?: ( colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
     onZoomLevelChange?: ( element: HTMLElement, zoomLevel: number ) => void;
     onClearViewableData?: ( element: HTMLElement ) => void;
+    onAddType?: ( element: HTMLElement, type: string ) => void;
+    onRemoveType?: ( element: HTMLElement, type: string ) => void;
 };

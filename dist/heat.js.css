@@ -2427,6 +2427,34 @@ div.heat-js div.guide div.map-types button {
   margin-left: 0 !important;
   margin-right: calc(var(--heat-js-spacing) / 2) !important;
 }
+div.heat-js div.guide div.map-types button span.clear {
+  margin-left: var(--heat-js-spacing);
+  float: right;
+  width: 12px;
+  height: 12px;
+  position: relative;
+  cursor: pointer;
+}
+div.heat-js div.guide div.map-types button span.clear::before, div.heat-js div.guide div.map-types button span.clear::after {
+  content: "";
+  position: absolute;
+  height: 12px;
+  width: 3px;
+  left: 4.5px;
+  top: 0;
+  background-color: currentColor;
+  border-radius: var(--heat-js-border-radius);
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.guide div.map-types button span.clear::before {
+  transform: rotate(45deg);
+}
+div.heat-js div.guide div.map-types button span.clear::after {
+  transform: rotate(-45deg);
+}
+div.heat-js div.guide div.map-types button span.clear:hover::before, div.heat-js div.guide div.map-types button span.clear:hover::after {
+  background-color: var(--heat-js-color-gray);
+}
 @media (min-width: 768px) {
   div.heat-js div.guide div.map-types {
     justify-content: left;

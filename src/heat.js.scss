@@ -1793,6 +1793,11 @@ div.heat-js {
                 margin-bottom: calc( var(--heat-js-spacing) / 4 ) !important;
                 margin-left: 0 !important;
                 margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
+
+                span.clear {
+                    margin-left: var(--heat-js-spacing);
+                    @include styles.close-button($close-button-size: 12px, $button-color: currentColor);
+                }
             }
 
             @media (min-width: styles.$minimum-width) { 

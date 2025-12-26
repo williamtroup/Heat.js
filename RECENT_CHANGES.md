@@ -44,13 +44,14 @@
 #### **Binding Options - New / Updates:**
 - Added a new binding option called "allowMultipleFileImports", which states if multiple file imports are enabled (defaults to true).
 - Added a new binding option called "percentageDecimalPoints", which states the number of decimal points to show for percentages (defaults to 2).
-- Added a new binding option called "allowTypeAdding", which states if trend types can be added manually (defaults to false).
 - Added a new binding option called "chartsAnimationDelay", which states the milliseconds to wait before applying a grow animation to each chart line (for all views, defaults to 50. Set to zero to turn off).
 - Added a new binding option called "exportDateTimeFormat", which states the format of the export date/time that is included in some of the formats (defaults to "{dddd}, {d}{o} {mmmm} {yyyy}").
 - Added a new binding option called "title.showTitleDropDownMenu", which states if the title drop-down menu should be shown (defaults to true).
 - Added a new binding option called "title.showClearButton", which states if the "Clear" button should be shown (defaults to false).
 - Added a new binding option called "guide.showInvertLabel", which states if the "Invert" label should be shown (inverts the toggle selections, defaults to false).
 - Added a new binding option called "guide.useIncrementToggles", which states if clicking "Less" and "More" in the guide toggles the colors one by one (defaults to false).
+- Added a new binding option called "guide.allowTypeAdding", which states if trend types can be added manually (defaults to false).
+- Added a new binding option called "guide.allowTypeRemoving", which states if trend types can be removed manually (defaults to false).
 - Added a new binding option called "colorRanges.daysCssClassName", which states a CSS class name to use for items in the "Days" view (overrides the "cssClassName" property).
 - Added a new binding option called "colorRanges.monthsCssClassName", which states a CSS class name to use for items in the "Months" view (overrides the "cssClassName" property).
 - Added a new binding option called "views.map.dayToolTipText", which states the tooltip format to use for a day (defaults to "{dddd}, {d}{o} {mmmm} {yyyy}").
@@ -108,6 +109,8 @@
 - Added a new binding custom trigger called "events.onChartDayDblClick", which triggers when a day in the "Chart" view is double-clicked (defaults to "events.onMapDayDblClick").
 - Added a new binding custom trigger called "events.onZoomLevelChange", which triggers when the zoom level in the "Map" view is changed.
 - Added a new binding custom trigger called "events.onClearViewableData", which triggers when the viewable data is cleared.
+- Added a new binding custom trigger called "events.onAddType", which triggers when a new trend type is added.
+- Added a new binding custom trigger called "events.onRemoveType", which triggers when a trend type is cleared.
 - Added a new "isHoliday" parameter for the events "events.onMapDayToolTipRender", "events.onChartDayToolTipRender", and "events.onLineDayToolTipRender", which is now passed after the "count" parameter.
 
 #### **Configuration Options - Breaking Changes:**
@@ -138,10 +141,12 @@
 - Added a new configuration text option called "text.invertText" (defaults to "Invert").
 - Added a new configuration text option called "text.lineText" (defaults to "Line").
 - Added a new configuration text option called "text.noLineDataMessage" (defaults to "There are currently no data to view.").
+- Added a new configuration text option called "text.clearTypeText" (defaults to "Clear Type").
 
 #### **Public Functions:**
 - Added a new public function called "getActiveView()", which returns the active view name for a specific element ID instance.
 - Added a new public function called "addType()", which adds a new trend type.
+- Added a new public function called "removeType()", which removed an existing trend type.
 
 #### **Security:**
 - All eval() references have been removed from the code base. When using a binding, if you are using custom events, you will need to pass the bindings via a function.

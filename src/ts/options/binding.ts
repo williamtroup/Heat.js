@@ -127,7 +127,6 @@ export namespace Binding {
             bindingOptions.startMonth = Default.getNumberInRange( bindingOptions.startMonth, 0, 11, 0 );
             bindingOptions.allowMultipleFileImports = Default.getBoolean( bindingOptions.allowMultipleFileImports, true );
             bindingOptions.percentageDecimalPoints = Default.getNumber( bindingOptions.percentageDecimalPoints, 2 );
-            bindingOptions.allowTypeAdding = Default.getBoolean( bindingOptions.allowTypeAdding, false );
             bindingOptions.chartsAnimationDelay = Default.getNumber( bindingOptions.chartsAnimationDelay, 50 );
             bindingOptions.exportDateTimeFormat = Default.getString( bindingOptions.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.title = getTitle( bindingOptions );
@@ -364,6 +363,8 @@ export namespace Binding {
             bindingOptions.guide!.showToolTips = Default.getBoolean( bindingOptions.guide!.showToolTips, true );
             bindingOptions.guide!.showInvertLabel = Default.getBoolean( bindingOptions.guide!.showInvertLabel, false );
             bindingOptions.guide!.useIncrementToggles = Default.getBoolean( bindingOptions.guide!.useIncrementToggles, false );
+            bindingOptions.guide!.allowTypeAdding = Default.getBoolean( bindingOptions.guide!.allowTypeAdding, false );
+            bindingOptions.guide!.allowTypeRemoving = Default.getBoolean( bindingOptions.guide!.allowTypeRemoving, false );
 
             return bindingOptions.guide!;
         }
@@ -522,6 +523,8 @@ export namespace Binding {
             bindingOptions.events!.onStatisticDblClick = Default.getFunction( bindingOptions.events!.onStatisticDblClick, null! );
             bindingOptions.events!.onZoomLevelChange = Default.getFunction( bindingOptions.events!.onZoomLevelChange, null! );
             bindingOptions.events!.onClearViewableData = Default.getFunction( bindingOptions.events!.onClearViewableData, null! );
+            bindingOptions.events!.onAddType = Default.getFunction( bindingOptions.events!.onAddType, null! );
+            bindingOptions.events!.onRemoveType = Default.getFunction( bindingOptions.events!.onRemoveType, null! );
 
             return bindingOptions.events!;
         }

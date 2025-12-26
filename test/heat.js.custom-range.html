@@ -33,7 +33,6 @@
     <script>
         function getBindingOptions() {
             return {
-                "allowTypeAdding": true,
                 "startMonth": 3,
                 "events": {
                     "onMapDayClick": onMapDayClick,
@@ -65,6 +64,10 @@
                     "enabled": true,
                     "defaultLevel": 0,
                     "maximumLevel": 0,
+                },
+                "guide": {
+                    "allowTypeAdding": true,
+                    "allowTypeRemoving": true,
                 },
             };
         }

@@ -88,6 +88,7 @@ export namespace Configuration {
             configurationOptions.text!.invertText = Default.getAnyString( configurationOptions.text!.invertText, "Invert" );
             configurationOptions.text!.lineText = Default.getAnyString( configurationOptions.text!.lineText, "Line" );
             configurationOptions.text!.noLineDataMessage = Default.getAnyString( configurationOptions.text!.noLineDataMessage, "There is currently no data to view." );
+            configurationOptions.text!.removeTypeText = Default.getAnyString( configurationOptions.text!.removeTypeText, "Remove Type" );
 
             return configurationOptions.text!;
         }

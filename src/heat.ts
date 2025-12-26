@@ -693,10 +693,9 @@ import { Build } from "./ts/data/build";
 
             const addTypeFunc: Function = () => {
                 const type: string = bindingOptions._currentView!.typeAddingDialogTypeInput.value.trim();
+                const elementId: string = bindingOptions._currentView!.element.id;
 
-                if ( Is.definedString( type ) ) {
-                    const elementId: string = bindingOptions._currentView!.element.id;
-
+                if ( Is.definedString( type ) && !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
                     if ( !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
                         _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
                         _elements_InstanceData[ elementId ].totalTypes++;
@@ -704,6 +703,7 @@ import { Build } from "./ts/data/build";
 
                     bindingOptions._currentView!.type = type;
                     
+                    Trigger.customEvent( bindingOptions.events!.onAddType!, bindingOptions._currentView!.element, type );
                     Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, type );
 
                     hideExportDialog( bindingOptions );
@@ -2599,10 +2599,10 @@ import { Build } from "./ts/data/build";
                 }
             }
 
-            if ( bindingOptions.allowTypeAdding ) {
+            if ( bindingOptions.guide!.allowTypeAdding ) {
                 const addTypeButton: HTMLButtonElement = DomElement.createIconButton( mapTypes, "button", "add", "plus" );
 
-                ToolTip.add( addTypeButton, bindingOptions, _configurationOptions.text!.addTypeText!! );
+                ToolTip.add( addTypeButton, bindingOptions, _configurationOptions.text!.addTypeText! );
                 
                 addTypeButton.onclick = () => showTypeAddingDialog( bindingOptions );
             }
@@ -2669,6 +2669,19 @@ import { Build } from "./ts/data/build";
 
     function renderControlGuideTypeButton( bindingOptions: BindingOptions, mapTypes: HTMLElement, type: string ) : void {
         const typeButton: HTMLButtonElement = DomElement.createButton( mapTypes, "button", "type", type );
+
+        if ( bindingOptions.guide!.allowTypeRemoving ) {
+            const clear: HTMLSpanElement = DomElement.create( typeButton, "span", "clear" );
+
+            ToolTip.add( clear, bindingOptions, _configurationOptions.text!.removeTypeText! );
+
+            clear.onclick = ( event: MouseEvent ) => {
+                DomElement.cancelBubble( event );
+
+                removeType( bindingOptions, type );
+                renderControlContainer( bindingOptions, true );
+            };
+        }
 
         if ( bindingOptions._currentView!.type === type ) {
             DomElement.addClass( typeButton, "active" );
@@ -2998,6 +3011,18 @@ import { Build } from "./ts/data/build";
         Trigger.customEvent( bindingOptions.events!.onClearViewableData!, bindingOptions._currentView!.element );
     }
 
+    function removeType( bindingOptions: BindingOptions, type: string ) : void {
+        delete _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ type ];
+
+        _elements_InstanceData[ bindingOptions._currentView!.element.id ].totalTypes--;
+
+        const types: string[] = Object.keys( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData ).sort();
+
+        bindingOptions._currentView!.type = types[ 0 ];
+
+        Trigger.customEvent( bindingOptions.events!.onRemoveType!, bindingOptions._currentView!.element, type );
+    }
+
     function getLargestValueCurrentYear( bindingOptions: BindingOptions ) : number {
         let result: number = 0;
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
@@ -3285,11 +3310,29 @@ import { Build } from "./ts/data/build";
             if ( Is.definedString( elementId ) && Is.definedString( type ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
-                if ( !bindingOptions._currentView!.isInFetchMode && bindingOptions.allowTypeAdding ) {
+                if ( !bindingOptions._currentView!.isInFetchMode && !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
                     if ( !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
                         _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
                         _elements_InstanceData[ elementId ].totalTypes++;
                     }
+
+                    Trigger.customEvent( bindingOptions.events!.onAddType!, bindingOptions._currentView!.element, type );
+        
+                    if ( triggerRefresh ) {
+                        renderControlContainer( bindingOptions, true );
+                    }
+                }
+            }
+    
+            return _public;
+        },
+
+        removeType: function ( elementId: string, type: string, triggerRefresh: boolean = true ) : PublicApi {
+            if ( Is.definedString( elementId ) && Is.definedString( type ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+                const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
+                
+                if ( !bindingOptions._currentView!.isInFetchMode && !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
+                    removeType( bindingOptions, type );
         
                     if ( triggerRefresh ) {
                         renderControlContainer( bindingOptions, true );

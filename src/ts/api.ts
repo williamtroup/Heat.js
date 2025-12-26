@@ -27,7 +27,7 @@ export type PublicApi = {
      * Adds a new empty trend type.
      * 
      * @public
-     * @fires       onAdd
+     * @fires       onAddType
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the new trend type.
      * @param       {string}    type                                        The trend type.
@@ -36,6 +36,22 @@ export type PublicApi = {
      * @returns     {Object}                                                The Heat.js class instance.
      */
     addType: ( elementId: string, type: string, triggerRefresh?: boolean ) => PublicApi;
+
+    /**
+     * removeType().
+     * 
+     * Removes an existing trend type.
+     * 
+     * @public
+     * @fires       onRemoveType
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should remove the existing trend type.
+     * @param       {string}    type                                        The trend type.
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    removeType: ( elementId: string, type: string, triggerRefresh?: boolean ) => PublicApi;
     
     /**
      * addDates().

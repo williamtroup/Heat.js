@@ -191,7 +191,7 @@ $minimum-width-smaller: 450px;
     }
 }
 
-@mixin close-button($float: right, $close-button-size: 16px) {
+@mixin close-button($float: right, $close-button-size: 16px, $button-color: var(--heat-js-color-white)) {
     $close-button-width: 3px;
     float: $float;
     width: $close-button-size;
@@ -207,7 +207,7 @@ $minimum-width-smaller: 450px;
         width: $close-button-width;
         left: calc( ( $close-button-size / 2 ) - ( $close-button-width / 2 ) );
         top: 0;
-        background-color: var(--heat-js-color-white);
+        background-color: $button-color;
         border-radius: var(--heat-js-border-radius);
         transition: var(--heat-js-transition);
     }
