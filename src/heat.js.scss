@@ -1005,6 +1005,10 @@ div.heat-js {
                         display: flex;
                         justify-content: center;
                         flex-direction: column;
+
+                        &.no-spacing {
+                            margin-bottom: 0 !important;
+                        }
                     }
                 }
 
@@ -1074,6 +1078,12 @@ div.heat-js {
                                     justify-content: center;
                                     align-items: center;
                                     overflow: hidden;
+
+                                    &.no-spacing {
+                                        border-radius: 0 !important;
+                                        margin-right: 0 !important;
+                                        margin-bottom: 0 !important;
+                                    }
             
                                     &:last-child {
                                         margin-bottom: 0;

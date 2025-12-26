@@ -1216,6 +1216,10 @@ import { Build } from "./ts/data/build";
                         if ( bindingOptions.views!.days!.enabled ) {
                             dayName.ondblclick = () => switchView( bindingOptions, ViewId.days, ViewName.days );
                         }
+
+                        if ( !bindingOptions.views!.map!.showSpacing ) {
+                            DomElement.addClass( dayName, "no-spacing" );
+                        }
                     }
                 }
     
@@ -1256,7 +1260,11 @@ import { Build } from "./ts/data/build";
         
                         } else {
                             if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
-                                DomElement.create( currentDayColumn, "div", "day-disabled" );
+                                const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day-disabled" );
+
+                                if ( !bindingOptions.views!.map!.showSpacing ) {
+                                    DomElement.addClass( day, "no-spacing" );
+                                }
                             }
                         }
         
@@ -1348,7 +1356,11 @@ import { Build } from "./ts/data/build";
         if ( remainingDays > 0 && remainingDays < 7 ) {
             for ( let dayIndex: number = 0; dayIndex < remainingDays; dayIndex++ ) {
                 if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
-                    DomElement.create( currentDayColumn, "div", "day-disabled" );
+                    const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day-disabled" );
+
+                    if ( !bindingOptions.views!.map!.showSpacing ) {
+                        DomElement.addClass( day, "no-spacing" );
+                    }
                 }
 
                 actualDay++;
@@ -1390,6 +1402,10 @@ import { Build } from "./ts/data/build";
 
         if ( bindingOptions.views!.map!.showToolTips ) {
             renderDayToolTip( bindingOptions, day, date, dateCount, bindingOptions.views!.map!.dayToolTipText!, bindingOptions.events!.onMapDayToolTipRender!, holiday.matched, bindingOptions.views!.map!.showCountsInToolTips! );
+        }
+
+        if ( !bindingOptions.views!.map!.showSpacing ) {
+            DomElement.addClass( day, "no-spacing" );
         }
         
         if ( bindingOptions.views!.map!.showDayDateNumbers ) {

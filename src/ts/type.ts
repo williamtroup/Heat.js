@@ -257,6 +257,7 @@ export type BindingOptionsViewsMap = {
     dayToolTipText?: string;
     showYearsInMonthNames?: boolean;
     showCountsInToolTips?: boolean;
+    showSpacing?: boolean;
 };
 
 export type BindingOptionsViewsLine = {

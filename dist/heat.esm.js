@@ -888,6 +888,7 @@ var h;
             e.views.map.dayToolTipText = o.getString(e.views.map.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}");
             e.views.map.showYearsInMonthNames = o.getBoolean(e.views.map.showYearsInMonthNames, true);
             e.views.map.showCountsInToolTips = o.getBoolean(e.views.map.showCountsInToolTips, true);
+            e.views.map.showSpacing = o.getBoolean(e.views.map.showSpacing, true);
             if (i.invalidOptionArray(e.views.map.monthsToShow)) {
                 e.views.map.monthsToShow = t;
             }
@@ -2700,6 +2701,9 @@ var b;
                         if (e.views.days.enabled) {
                             s.ondblclick = () => Ae(e, 4, "days");
                         }
+                        if (!e.views.map.showSpacing) {
+                            a.addClass(s, "no-spacing");
+                        }
                     }
                 }
                 if (e.views.map.showDaysInReverseOrder) {
@@ -2731,7 +2735,10 @@ var b;
                             m = true;
                         } else {
                             if (i.dayVisible(e.views.map.daysToShow, y)) {
-                                a.create(g, "div", "day-disabled");
+                                const t = a.create(g, "div", "day-disabled");
+                                if (!e.views.map.showSpacing) {
+                                    a.addClass(t, "no-spacing");
+                                }
                             }
                         }
                         if (m) {
@@ -2801,7 +2808,10 @@ var b;
         if (o > 0 && o < 7) {
             for (let s = 0; s < o; s++) {
                 if (i.dayVisible(e.views.map.daysToShow, t)) {
-                    a.create(n, "div", "day-disabled");
+                    const t = a.create(n, "div", "day-disabled");
+                    if (!e.views.map.showSpacing) {
+                        a.addClass(t, "no-spacing");
+                    }
                 }
                 t++;
             }
@@ -2834,6 +2844,9 @@ var b;
         g.setAttribute(n.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${s.padNumber(f)}-${s.padNumber(d + 1)}-${u}`);
         if (e.views.map.showToolTips) {
             ke(e, g, m, p, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, y.matched, e.views.map.showCountsInToolTips);
+        }
+        if (!e.views.map.showSpacing) {
+            a.addClass(g, "no-spacing");
         }
         if (e.views.map.showDayDateNumbers) {
             const e = a.createWithHTML(g, "div", "count-date", f.toString());

@@ -207,6 +207,7 @@ export namespace Binding {
             bindingOptions.views!.map!.dayToolTipText = Default.getString( bindingOptions.views!.map!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.views!.map!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.map!.showYearsInMonthNames, true );
             bindingOptions.views!.map!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.map!.showCountsInToolTips, true );
+            bindingOptions.views!.map!.showSpacing = Default.getBoolean( bindingOptions.views!.map!.showSpacing, true );
 
             if ( Is.invalidOptionArray( bindingOptions.views!.map!.monthsToShow ) ) {
                 bindingOptions.views!.map!.monthsToShow = _default_MonthsToShow;

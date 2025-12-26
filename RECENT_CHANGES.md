@@ -65,6 +65,7 @@
 - Added a new binding option called "views.days.showStackedColorRanges", which states if the bar should show the stacked color range levels (defaults to true).
 - Added a new binding option called "views.statistics.showRangeCountPercentages", which states if the count percentages should be shown (when count displays are enabled, defaults to true).
 - Added a new binding option called "views.map.enabled", which states if the map view is enabled (defaults to true).
+- Added a new binding option called "views.map.showSpacing", which states if the spacing between the days should be shown (defaults to true).
 - Added a new binding option called "views.statistics.showRangeNamesInToolTips", which states if the range names should be shown in the tooltips (if available, defaults to true).
 - Added a new binding option called "views.chart.addMonthSpacing", which states if spacing and a divider line should be added between each month (defaults to false).
 - The "view.map" binding options "showDayDateNumbers" and "showDayCounts" can now be used at the same time.
