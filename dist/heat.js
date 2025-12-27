@@ -3734,7 +3734,10 @@ var b;
                 const n = a.create(e._currentView.element, "div", "description", t);
                 Se(e, n);
             }
-            const s = Object.keys(_[e._currentView.element.id].typeData).sort();
+            const s = Object.keys(_[e._currentView.element.id].typeData).sort((e, t) => e.localeCompare(t, void 0, {
+                numeric: true,
+                sensitivity: "base"
+            }));
             const r = s.length;
             for (let t = 0; t < r; t++) {
                 const i = s[t];
@@ -4047,7 +4050,10 @@ var b;
     function We(e, t) {
         delete _[e._currentView.element.id].typeData[t];
         _[e._currentView.element.id].totalTypes--;
-        const n = Object.keys(_[e._currentView.element.id].typeData).sort();
+        const n = Object.keys(_[e._currentView.element.id].typeData).sort((e, t) => e.localeCompare(t, void 0, {
+            numeric: true,
+            sensitivity: "base"
+        }));
         e._currentView.type = n[0];
         c.customEvent(e.events.onRemoveType, e._currentView.element, t);
     }
