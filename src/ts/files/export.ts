@@ -117,7 +117,7 @@ export namespace Export {
         }
 
         function json( typeDateCounts: InstanceTypeDateCount ) : string {
-            return JSON.stringify( typeDateCounts );
+            return JSON.stringify( typeDateCounts, null, 2 );
         }
 
         function xml( typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions ) : string {

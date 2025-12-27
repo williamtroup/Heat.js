@@ -1691,7 +1691,7 @@ var p;
             return n.join("\n");
         }
         function i(e) {
-            return JSON.stringify(e);
+            return JSON.stringify(e, null, 2);
         }
         function o(e, t, n) {
             const i = r.getCustomFormattedDateText(t, n.exportDateTimeFormat, new Date);
