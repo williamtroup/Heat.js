@@ -1587,13 +1587,13 @@ import { Build } from "./ts/data/build";
                 };
 
                 if ( bindingOptions.views!.line!.showInReverseOrder ) {
-                    for ( let monthIndex2: number = 12; monthIndex2--; ) {
-                        addMonthName( monthIndex2 );
+                    for ( let monthIndex: number = 12; monthIndex--; ) {
+                        addMonthName( monthIndex );
                     }
                     
                 } else {
-                    for ( let monthIndex3: number = 0; monthIndex3 < 12; monthIndex3++ ) {
-                        addMonthName( monthIndex3 );
+                    for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
+                        addMonthName( monthIndex );
                     }
                 }
 
