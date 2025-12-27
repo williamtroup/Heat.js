@@ -2591,7 +2591,7 @@ import { Build } from "./ts/data/build";
             const types: string[] = Object.keys( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData ).sort( ( typeA: string, typeB: string ) => typeA.localeCompare( typeB, undefined, { numeric: true, sensitivity: "base" } ) );
             const typesLength: number = types.length;
 
-            for ( let typeIndex = 0; typeIndex < typesLength; typeIndex++ ) {
+            for ( let typeIndex: number = 0; typeIndex < typesLength; typeIndex++ ) {
                 const type: string = types[ typeIndex ];
 
                 if ( type !== _configurationOptions.text!.unknownTrendText || noneTypeCount > 0 ) {
