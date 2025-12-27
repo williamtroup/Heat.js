@@ -57,6 +57,7 @@ $heat.setConfiguration( {
                 "lineText": "Line",
                 "noLineDataMessage": "There is currently no data to view.",
                 "removeTypeText": "Remove Type",
+                "openNewTypeText": "Open new type",
                 "monthNames": [
                         "Jan",
                         "Feb",

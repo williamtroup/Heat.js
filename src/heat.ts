@@ -688,6 +688,9 @@ import { Build } from "./ts/data/build";
             bindingOptions._currentView!.typeAddingDialogTypeInput.name = crypto.randomUUID();
             bindingOptions._currentView!.typeAddingDialogTypeInput.placeholder = _configurationOptions.text!.typePlaceholderText!;
 
+            bindingOptions._currentView!.typeAddingOptionNewType = DomElement.createCheckBox( contents, _configurationOptions.text!.openNewTypeText!, crypto.randomUUID() );
+            bindingOptions._currentView!.typeAddingOptionNewType.checked = true;
+
             const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
             const addButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.addButtonText! );
 
@@ -701,16 +704,18 @@ import { Build } from "./ts/data/build";
                         _elements_InstanceData[ elementId ].totalTypes++;
                     }
 
-                    bindingOptions._currentView!.type = type;
+                    if ( bindingOptions._currentView!.typeAddingOptionNewType.checked ) {
+                        bindingOptions._currentView!.type = type;
+                    }
                     
                     Trigger.customEvent( bindingOptions.events!.onAddType!, bindingOptions._currentView!.element, type );
                     Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
 
-                    hideExportDialog( bindingOptions );
+                    hideTypeAddingDialog( bindingOptions );
                     renderControlContainer( bindingOptions, true );
 
                 } else {
-                    hideExportDialog( bindingOptions );
+                    hideTypeAddingDialog( bindingOptions );
                 }
             };
 

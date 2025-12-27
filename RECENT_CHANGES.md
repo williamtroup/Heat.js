@@ -161,6 +161,7 @@
 - Added a new configuration text option called "text.lineText" (defaults to "Line").
 - Added a new configuration text option called "text.noLineDataMessage" (defaults to "There are currently no data to view.").
 - Added a new configuration text option called "text.clearTypeText" (defaults to "Clear Type").
+- Added a new configuration text option called "text.openNewTypeText" (defaults to "Open new type").
 
 #### **Public Functions:**
 - Added a new public function called "getActiveView()", which returns the active view name for a specific element ID instance.

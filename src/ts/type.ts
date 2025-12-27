@@ -120,6 +120,7 @@ export type ConfigurationOptionsText = {
     lineText?: string;
     noLineDataMessage?: string;
     removeTypeText?: string;
+    openNewTypeText?: string;
 };
 
 export type BindingOptions = {
@@ -193,11 +194,11 @@ export type BindingOptionsCurrentView = {
     lineZoomIncrement: number;
     importDialog: HTMLElement;
     importDialogDragAndDrop: HTMLElement;
-    importDialogClearExistingData: HTMLInputElement;
     importDialogFileList: FileList;
     importDialogImportButton: HTMLButtonElement;
     typeAddingDialog: HTMLElement;
     typeAddingDialogTypeInput: HTMLInputElement;
+    typeAddingOptionNewType: HTMLInputElement;
 };
 
 export type BindingOptionsViews = {

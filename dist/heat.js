@@ -1286,6 +1286,7 @@ var f;
             e.text.lineText = o.getAnyString(e.text.lineText, "Line");
             e.text.noLineDataMessage = o.getAnyString(e.text.noLineDataMessage, "There is currently no data to view.");
             e.text.removeTypeText = o.getAnyString(e.text.removeTypeText, "Remove Type");
+            e.text.openNewTypeText = o.getAnyString(e.text.openNewTypeText, "Open new type");
             return e.text;
         }
         function s(e) {
@@ -2351,6 +2352,8 @@ var b;
             e._currentView.typeAddingDialogTypeInput = a.create(n, "input", "input-box type");
             e._currentView.typeAddingDialogTypeInput.name = crypto.randomUUID();
             e._currentView.typeAddingDialogTypeInput.placeholder = V.text.typePlaceholderText;
+            e._currentView.typeAddingOptionNewType = a.createCheckBox(n, V.text.openNewTypeText, crypto.randomUUID());
+            e._currentView.typeAddingOptionNewType.checked = true;
             const s = a.create(n, "div", "buttons");
             const r = a.createButton(s, "button", "default", V.text.addButtonText);
             const d = () => {
@@ -2361,13 +2364,15 @@ var b;
                         _[n].typeData[t] = {};
                         _[n].totalTypes++;
                     }
-                    e._currentView.type = t;
+                    if (e._currentView.typeAddingOptionNewType.checked) {
+                        e._currentView.type = t;
+                    }
                     c.customEvent(e.events.onAddType, e._currentView.element, t);
                     c.customEvent(e.events.onTypeSwitch, e._currentView.element, t);
-                    E(e);
+                    Z(e);
                     M(e, true);
                 } else {
-                    E(e);
+                    Z(e);
                 }
             };
             e._currentView.typeAddingDialogTypeInput.onkeydown = e => {

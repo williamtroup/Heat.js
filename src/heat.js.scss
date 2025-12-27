@@ -489,6 +489,10 @@ div.heat-js {
             div.dialog-contents {
                 @include styles.buttons;
 
+                label.checkbox {
+                    margin-top: var(--heat-js-spacing);
+                }
+
                 div.buttons {
                     text-align: right;
                     margin-top: calc( var(--heat-js-spacing) * 2 );

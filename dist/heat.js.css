@@ -542,6 +542,9 @@ div.heat-js div.disabled div.add-type div.dialog-contents button.active {
   transition: var(--heat-js-transition);
   font-weight: var(--heat-js-text-font-weight-medium);
 }
+div.heat-js div.disabled div.add-type div.dialog-contents label.checkbox {
+  margin-top: var(--heat-js-spacing);
+}
 div.heat-js div.disabled div.add-type div.dialog-contents div.buttons {
   text-align: right;
   margin-top: calc(var(--heat-js-spacing) * 2);
