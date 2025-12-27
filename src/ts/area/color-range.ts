@@ -168,6 +168,7 @@ export namespace ColorRange {
 
         const head: HTMLElement = document.getElementsByTagName( "head" )[ 0 ];
         const style: HTMLStyleElement = DomElement.create( head, "style" ) as HTMLStyleElement;
+        
         style.appendChild( document.createTextNode( cssLines.join( Char.newLine ) ) );
 
         return result;
