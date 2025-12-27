@@ -1825,22 +1825,19 @@ var T;
             const a = t._currentView.element.id;
             for (let t = 0; t < r; t++) {
                 const r = window.localStorage.key(t);
-                if (s.startsWithAnyCase(r, n.LOCAL_STORAGE_START_ID)) {
-                    const t = r.substring(n.LOCAL_STORAGE_START_ID.length);
-                    if (t === a) {
-                        const t = window.localStorage.getItem(r);
-                        const n = o.getObjectFromString(t, e);
-                        if (n.parsed) {
-                            i.typeData = n.object;
-                            i.totalTypes = 0;
-                            for (const e in i.typeData) {
-                                if (i.typeData.hasOwnProperty(e)) {
-                                    i.totalTypes++;
-                                }
+                if (s.startsWithAnyCase(r, `${n.LOCAL_STORAGE_START_ID}${a}`)) {
+                    const t = window.localStorage.getItem(r);
+                    const n = o.getObjectFromString(t, e);
+                    if (n.parsed) {
+                        i.typeData = n.object;
+                        i.totalTypes = 0;
+                        for (const e in i.typeData) {
+                            if (i.typeData.hasOwnProperty(e)) {
+                                i.totalTypes++;
                             }
                         }
-                        break;
                     }
+                    break;
                 }
             }
         }
@@ -1861,8 +1858,9 @@ var T;
             const i = [];
             const o = e._currentView.element.id;
             for (let e = 0; e < t; e++) {
-                if (s.startsWithAnyCase(window.localStorage.key(e), `${n.LOCAL_STORAGE_START_ID}${o}`)) {
-                    i.push(window.localStorage.key(e));
+                const t = window.localStorage.key(e);
+                if (s.startsWithAnyCase(t, `${n.LOCAL_STORAGE_START_ID}${o}`)) {
+                    i.push(t);
                 }
             }
             const r = i.length;
@@ -1952,7 +1950,7 @@ var b;
         if (t) {
             T.store(e, _[e._currentView.element.id]);
         }
-        e._currentView.yearsAvailable = $e(e);
+        e._currentView.yearsAvailable = Re(e);
         m.View.getScrollPositions(e);
         l.render(e);
         Ye(e);
@@ -1998,7 +1996,7 @@ var b;
             a.createWithHTML(s, "div", "side-container-title-text", `${x.text.visibleMonthsText}${":"}`);
             const r = a.create(s, "div", "side-container");
             const c = a.create(s, "div", "side-container");
-            i.onclick = () => k(e);
+            i.onclick = () => L(e);
             for (let t = 0; t < 7; t++) {
                 e._currentView.configurationDialogDayCheckBoxes[t] = a.createCheckBox(o, x.text.dayNames[t], t.toString());
             }
@@ -2018,7 +2016,7 @@ var b;
             l.add(i, e, x.text.closeButtonText);
         }
     }
-    function L(e) {
+    function k(e) {
         N(e);
         g.Background.show(e);
         if (i.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "block") {
@@ -2034,7 +2032,7 @@ var b;
         }
         l.hide(e);
     }
-    function k(e) {
+    function L(e) {
         g.Background.hide(e);
         if (i.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "none") {
             e._currentView.configurationDialog.style.display = "none";
@@ -2137,7 +2135,7 @@ var b;
     function F(e, t = null, n = null, s = true) {
         const r = o.getString(t, e.exportType).toLowerCase();
         const l = p.File.mimeType(r);
-        const d = R(e, s);
+        const d = $(e, s);
         const u = p.Contents.get(r, d, x, e);
         if (i.definedString(u)) {
             const t = a.create(document.body, "a");
@@ -2150,7 +2148,7 @@ var b;
             c.customEvent(e.events.onExport, e._currentView.element);
         }
     }
-    function R(e, t) {
+    function $(e, t) {
         const n = {};
         const o = Fe(e);
         if (t) {
@@ -2196,7 +2194,7 @@ var b;
         }
         return n;
     }
-    function $(e) {
+    function R(e) {
         g.Background.render(e);
         if (!i.definedParentElement(e._currentView.importDialog)) {
             e._currentView.importDialog = a.create(e._currentView.disabledBackground, "div", "dialog import");
@@ -2217,7 +2215,7 @@ var b;
         }
     }
     function H(e) {
-        $(e);
+        R(e);
         g.Background.show(e);
         if (i.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "block") {
             e._currentView.importDialog.style.display = "block";
@@ -2409,7 +2407,7 @@ var b;
                     l.add(n, e, x.text.importButtonText);
                 }
             }
-            if (e.title.showExportButton && Re(e)) {
+            if (e.title.showExportButton && $e(e)) {
                 const n = a.createIconButton(t, "button", "export", "arrow-down");
                 n.onclick = () => I(e);
                 if (e.title.showToolTips) {
@@ -2453,7 +2451,7 @@ var b;
                 }
                 if (e.title.showConfigurationButton) {
                     let n = a.create(t, "div", "configure");
-                    n.onclick = () => L(e);
+                    n.onclick = () => k(e);
                     if (e.title.showToolTips) {
                         l.add(n, e, x.text.configurationButtonText);
                     }
@@ -2852,7 +2850,7 @@ var b;
         p = o.getNumber(p, 0);
         g.setAttribute(n.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${s.padNumber(f)}-${s.padNumber(d + 1)}-${u}`);
         if (e.views.map.showToolTips) {
-            ke(e, g, m, p, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, y.matched, e.views.map.showCountsInToolTips);
+            Le(e, g, m, p, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, y.matched, e.views.map.showCountsInToolTips);
         }
         if (!e.views.map.showSpacing) {
             a.addClass(g, "no-spacing");
@@ -3015,7 +3013,7 @@ var b;
         y = o.getNumber(y, 0);
         g.setAttribute(n.HEAT_JS_LINE_DATE_ATTRIBUTE_NAME, `${s.padNumber(l)}-${s.padNumber(d + 1)}-${u}`);
         if (t.views.line.showToolTips) {
-            ke(t, g, f, y, t.views.line.dayToolTipText, t.events.onLineDayToolTipRender, m.matched, t.views.line.showCountsInToolTips);
+            Le(t, g, f, y, t.views.line.dayToolTipText, t.events.onLineDayToolTipRender, m.matched, t.views.line.showCountsInToolTips);
         }
         if (i.definedFunction(t.events.onLineDayClick)) {
             g.onclick = () => c.customEvent(t.events.onLineDayClick, f, y, m.matched);
@@ -3169,7 +3167,7 @@ var b;
         T = o.getNumber(T, 0);
         y.setAttribute(n.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${s.padNumber(l)}-${s.padNumber(d + 1)}-${u}`);
         if (t.views.chart.showToolTips) {
-            ke(t, y, m, T, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, p.matched, t.views.chart.showCountsInToolTips);
+            Le(t, y, m, T, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, p.matched, t.views.chart.showCountsInToolTips);
         }
         if (t.views.chart.showLineCounts || t.views.chart.showLineDateNumbers) {
             a.addClass(y, "day-line-count");
@@ -3888,7 +3886,7 @@ var b;
             c.disabled = e._currentView.zoomLevel === 0;
             c.onclick = () => Ne(e);
             w.disabled = e.zooming.maximumLevel > 0 && e._currentView.zoomLevel >= e.zooming.maximumLevel;
-            w.onclick = () => Le(e);
+            w.onclick = () => ke(e);
         }
     }
     function Be(e) {
@@ -3928,7 +3926,7 @@ var b;
             M(e, false, false, true);
         }
     }
-    function Le(e) {
+    function ke(e) {
         if (e.zooming.maximumLevel === 0 || e._currentView.zoomLevel < e.zooming.maximumLevel) {
             const t = a.getStyleValueByNameSizingMetic(document.documentElement, u.Variables.DaySize);
             const n = a.getStyleValueByNameSizingMetic(document.documentElement, u.Variables.LineWidth);
@@ -3946,7 +3944,7 @@ var b;
             M(e, false, false, true);
         }
     }
-    function ke(e, t, n, o, a, d, u, w) {
+    function Le(e, t, n, o, a, d, u, w) {
         if (i.definedFunction(d)) {
             l.add(t, e, c.customEvent(d, n, o, u));
         } else {
@@ -4004,10 +4002,10 @@ var b;
     function Fe(e) {
         return _[e._currentView.element.id].typeData[e._currentView.type];
     }
-    function Re(e) {
+    function $e(e) {
         return Object.keys(Fe(e)).length > 0;
     }
-    function $e(e) {
+    function Re(e) {
         let t = [];
         if (e.showOnlyDataForYearsAvailable) {
             let n = Fe(e);

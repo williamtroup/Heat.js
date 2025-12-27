@@ -31,26 +31,22 @@ export namespace LocalStorage {
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
                 const key : string = window.localStorage.key( keyIndex )!;
 
-                if ( Str.startsWithAnyCase( key, Constant.LOCAL_STORAGE_START_ID ) ) {
-                    const keyElementId: string = key.substring( Constant.LOCAL_STORAGE_START_ID.length );
+                if ( Str.startsWithAnyCase( key, `${Constant.LOCAL_STORAGE_START_ID}${elementId}` ) ) {
+                    const typesJson: string = window.localStorage.getItem( key )!;
+                    const typesObject: StringToJson = Default.getObjectFromString( typesJson, configurationOptions );
 
-                    if ( keyElementId === elementId ) {
-                        const typesJson: string = window.localStorage.getItem( key )!;
-                        const typesObject: StringToJson = Default.getObjectFromString( typesJson, configurationOptions );
+                    if ( typesObject.parsed ) {
+                        instanceTypeData.typeData = typesObject.object;
+                        instanceTypeData.totalTypes = 0;
 
-                        if ( typesObject.parsed ) {
-                            instanceTypeData.typeData = typesObject.object;
-                            instanceTypeData.totalTypes = 0;
-
-                            for ( const type in instanceTypeData.typeData ) {
-                                if ( instanceTypeData.typeData.hasOwnProperty( type ) ) {
-                                    instanceTypeData.totalTypes++;
-                                }
+                        for ( const type in instanceTypeData.typeData ) {
+                            if ( instanceTypeData.typeData.hasOwnProperty( type ) ) {
+                                instanceTypeData.totalTypes++;
                             }
                         }
-
-                        break;
                     }
+
+                    break;
                 }
             }
         }
@@ -75,8 +71,10 @@ export namespace LocalStorage {
             const elementId: string = bindingOptions._currentView!.element.id;
 
             for ( let keyIndex: number = 0; keyIndex < keysLength; keyIndex++ ) {
-                if ( Str.startsWithAnyCase( window.localStorage.key( keyIndex )!, `${Constant.LOCAL_STORAGE_START_ID}${elementId}` ) ) {
-                    keysToRemove.push( window.localStorage.key( keyIndex )! );
+                const key : string = window.localStorage.key( keyIndex )!;
+                
+                if ( Str.startsWithAnyCase( key, `${Constant.LOCAL_STORAGE_START_ID}${elementId}` ) ) {
+                    keysToRemove.push( key );
                 }
             }
 
