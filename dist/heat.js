@@ -1698,14 +1698,14 @@ var p;
             const o = [];
             o.push('<?xml version="1.0" ?>');
             o.push("<LastModified>");
-            o.push(`<FullDate>${i}</FullDate>`);
+            o.push(`${"  "}<FullDate>${i}</FullDate>`);
             o.push("</LastModified>");
             o.push("<Dates>");
             for (const t in e) {
                 if (e.hasOwnProperty(t)) {
                     o.push("<Date>");
-                    o.push(`<FullDate>${t}</FullDate>`);
-                    o.push(`<Count>${e[t].toString()}</Count>`);
+                    o.push(`${"  "}<FullDate>${t}</FullDate>`);
+                    o.push(`${"  "}<Count>${e[t].toString()}</Count>`);
                     o.push("</Date>");
                 }
             }

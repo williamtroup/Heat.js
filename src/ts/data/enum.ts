@@ -26,6 +26,7 @@ export enum Char {
     hash = "#",
     equals = "=",
     dot = ".",
+    doubleSpace = "  ",
 }
 
 export enum Value {

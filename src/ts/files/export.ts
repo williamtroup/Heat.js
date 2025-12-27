@@ -126,15 +126,15 @@ export namespace Export {
 
             contents.push( "<?xml version=\"1.0\" ?>" );
             contents.push( "<LastModified>" );
-            contents.push( `<FullDate>${exportedDateTime}</FullDate>` );
+            contents.push( `${Char.doubleSpace}<FullDate>${exportedDateTime}</FullDate>` );
             contents.push( "</LastModified>" );
             contents.push( "<Dates>" );
 
             for ( const storageDate in typeDateCounts ) {
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
                     contents.push( "<Date>" );
-                    contents.push( `<FullDate>${storageDate}</FullDate>` );
-                    contents.push( `<Count>${typeDateCounts[ storageDate ].toString()}</Count>` );
+                    contents.push( `${Char.doubleSpace}<FullDate>${storageDate}</FullDate>` );
+                    contents.push( `${Char.doubleSpace}<Count>${typeDateCounts[ storageDate ].toString()}</Count>` );
                     contents.push( "</Date>" );
                 }
             }

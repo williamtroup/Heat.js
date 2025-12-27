@@ -193,7 +193,8 @@
 - The current month names are now bolder to make them standout (even when the highlight settings are disabled).
 - Changing the Color Range toggles will now maintain the scroll position of the current view (if available).
 - Upgraded ECMAScript from ES2020 to ES2022.
-- Exported JSON data is now indented and formatted so it's more readable.
+- Exported JSON files are now indented and formatted so they are more readable.
+- Exported XML files are now indented correctly so they are more readable.
 
 #### **Library:**
 - Updated all the NPM packages to the latest versions.
