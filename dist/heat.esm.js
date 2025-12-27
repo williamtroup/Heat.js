@@ -3044,11 +3044,11 @@ var b;
             a.addClass(s, "view-switch");
         }
         if (u > 0 && e.views.chart.showChartYLabels) {
-            const e = a.createWithHTML(c, "div", "label-0", u.toString());
-            a.createWithHTML(c, "div", "label-25", (Math.floor(u / 4) * 3).toString());
+            const e = a.createWithHTML(c, "div", "label-100", u.toString());
+            a.createWithHTML(c, "div", "label-75", (Math.floor(u / 4) * 3).toString());
             a.createWithHTML(c, "div", "label-50", Math.floor(u / 2).toString());
-            a.createWithHTML(c, "div", "label-75", Math.floor(u / 4).toString());
-            a.createWithHTML(c, "div", "label-100", "0");
+            a.createWithHTML(c, "div", "label-25", Math.floor(u / 4).toString());
+            a.createWithHTML(c, "div", "label-0", "0");
             c.style.width = `${e.offsetWidth}px`;
             h = c.offsetWidth + a.getStyleValueByName(c, "margin-right", true);
         } else {
@@ -3219,11 +3219,11 @@ var b;
             a.addClass(o, "view-switch");
         }
         if (d.largestValue > 0 && e.views.days.showChartYLabels) {
-            const e = a.createWithHTML(r, "div", "label-0", d.largestValue.toString());
-            a.createWithHTML(r, "div", "label-25", (Math.floor(d.largestValue / 4) * 3).toString());
+            const e = a.createWithHTML(r, "div", "label-100", d.largestValue.toString());
+            a.createWithHTML(r, "div", "label-75", (Math.floor(d.largestValue / 4) * 3).toString());
             a.createWithHTML(r, "div", "label-50", Math.floor(d.largestValue / 2).toString());
-            a.createWithHTML(r, "div", "label-75", Math.floor(d.largestValue / 4).toString());
-            a.createWithHTML(r, "div", "label-100", "0");
+            a.createWithHTML(r, "div", "label-25", Math.floor(d.largestValue / 4).toString());
+            a.createWithHTML(r, "div", "label-0", "0");
             r.style.width = `${e.offsetWidth}px`;
             s.style.paddingLeft = `${r.offsetWidth + a.getStyleValueByName(r, "margin-right", true)}px`;
         } else {
@@ -3394,11 +3394,11 @@ var b;
             a.addClass(o, "view-switch");
         }
         if (u.largestValue > 0 && e.views.months.showChartYLabels) {
-            const e = a.createWithHTML(l, "div", "label-0", u.largestValue.toString());
-            a.createWithHTML(l, "div", "label-25", (Math.floor(u.largestValue / 4) * 3).toString());
+            const e = a.createWithHTML(l, "div", "label-100", u.largestValue.toString());
+            a.createWithHTML(l, "div", "label-75", (Math.floor(u.largestValue / 4) * 3).toString());
             a.createWithHTML(l, "div", "label-50", Math.floor(u.largestValue / 2).toString());
-            a.createWithHTML(l, "div", "label-75", Math.floor(u.largestValue / 4).toString());
-            a.createWithHTML(l, "div", "label-100", "0");
+            a.createWithHTML(l, "div", "label-25", Math.floor(u.largestValue / 4).toString());
+            a.createWithHTML(l, "div", "label-0", "0");
             l.style.width = `${e.offsetWidth}px`;
             s.style.paddingLeft = `${l.offsetWidth + a.getStyleValueByName(l, "margin-right", true)}px`;
         } else {
@@ -3590,11 +3590,11 @@ var b;
             a.addClass(o, "view-switch");
         }
         if (d.largestValue > 0 && e.views.statistics.showChartYLabels) {
-            const e = a.createWithHTML(r, "div", "label-0", d.largestValue.toString());
-            a.createWithHTML(r, "div", "label-25", (Math.floor(d.largestValue / 4) * 3).toString());
+            const e = a.createWithHTML(r, "div", "label-100", d.largestValue.toString());
+            a.createWithHTML(r, "div", "label-75", (Math.floor(d.largestValue / 4) * 3).toString());
             a.createWithHTML(r, "div", "label-50", Math.floor(d.largestValue / 2).toString());
-            a.createWithHTML(r, "div", "label-75", Math.floor(d.largestValue / 4).toString());
-            a.createWithHTML(r, "div", "label-100", "0");
+            a.createWithHTML(r, "div", "label-25", Math.floor(d.largestValue / 4).toString());
+            a.createWithHTML(r, "div", "label-0", "0");
             r.style.width = `${e.offsetWidth}px`;
             s.style.paddingLeft = `${r.offsetWidth + a.getStyleValueByName(r, "margin-right", true)}px`;
         } else {

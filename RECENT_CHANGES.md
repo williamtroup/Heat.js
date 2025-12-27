@@ -245,3 +245,4 @@
 - Fixed a fault that prevented the type buttons (in the guide) from using the correct font-size.
 - Fixed some missing CSS variables from the light themes.
 - Fixed the color range toggles not being responsive in the guide when a lot are used.
+- Fixed the order of the Y Label names in all Bar Chart views (label-0 is at the bottom, label-100 is at the top).

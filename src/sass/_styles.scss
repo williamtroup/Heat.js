@@ -88,11 +88,11 @@ $minimum-width-smaller: 450px;
     border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
     z-index: 50;
 
-    div.label-0,
-    div.label-25,
-    div.label-50,
+    div.label-100,
     div.label-75,
-    div.label-100 {
+    div.label-50,
+    div.label-25,
+    div.label-0 {
         font-weight: var(--heat-js-text-bold-weight);
         text-align: left !important;
         height: var(--heat-js-day-size);
@@ -104,11 +104,11 @@ $minimum-width-smaller: 450px;
         padding-right: var(--heat-js-y-label-spacing);
     }
 
-    div.label-0 {
+    div.label-100 {
         top: 0;
     }
 
-    div.label-25 {
+    div.label-75 {
         top: 25%;
         transform: translateY( -25% );
     }
@@ -118,12 +118,12 @@ $minimum-width-smaller: 450px;
         transform: translateY( -50% );
     }
 
-    div.label-75 {
+    div.label-25 {
         top: 75%;
         transform: translateY( -75% );
     }
 
-    div.label-100 {
+    div.label-0 {
         bottom: 0;
     }
 }
