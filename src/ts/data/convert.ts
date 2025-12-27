@@ -62,7 +62,7 @@ export namespace Convert {
     export function valuesToOpacitiesOrder( viewValues: LargestValueForView ) : void {
         const orderedValues: LargestValueForViewValue[] = Object
             .values( viewValues.values )
-            .sort( ( aValue: LargestValueForViewValue, bValue: LargestValueForViewValue ) => aValue.total - bValue.total );
+            .sort( ( valueA: LargestValueForViewValue, valueB: LargestValueForViewValue ) => valueA.total - valueB.total );
 
         const orderedValuesLength: number = orderedValues.length;
         const increment: number = 1 / orderedValuesLength;
