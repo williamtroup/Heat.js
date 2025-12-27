@@ -59,6 +59,7 @@ $heat.setConfiguration( {
                 "removeTypeText": "Remove Type",
                 "openNewTypeText": "Open new type",
                 "clearExistingDataText": "Clear existing data",
+                "browseButtonText": "Browse",
                 "monthNames": [
                         "Jan",
                         "Feb",

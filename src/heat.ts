@@ -514,7 +514,7 @@ import { Build } from "./ts/data/build";
             makeAreaDroppable( bindingOptions._currentView!.importDialogDragAndDrop, bindingOptions );
 
             const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-            const selectFilesButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, "..." );
+            const selectFilesButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.browseButtonText! );
 
             bindingOptions._currentView!.importDialogImportButton = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.importButtonText! );
             bindingOptions._currentView!.importDialogImportButton.disabled = true;

@@ -122,6 +122,7 @@ export type ConfigurationOptionsText = {
     removeTypeText?: string;
     openNewTypeText?: string;
     clearExistingDataText?: string;
+    browseButtonText?: string;
 };
 
 export type BindingOptions = {

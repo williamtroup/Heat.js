@@ -1288,6 +1288,7 @@ var f;
             e.text.removeTypeText = o.getAnyString(e.text.removeTypeText, "Remove Type");
             e.text.openNewTypeText = o.getAnyString(e.text.openNewTypeText, "Open new type");
             e.text.clearExistingDataText = o.getAnyString(e.text.clearExistingDataText, "Clear existing data");
+            e.text.browseButtonText = o.getAnyString(e.text.browseButtonText, "Browse");
             return e.text;
         }
         function s(e) {
@@ -2228,7 +2229,7 @@ var b;
             e._currentView.importDialogClearExistingData = a.createCheckBox(n, V.text.clearExistingDataText, crypto.randomUUID());
             P(e._currentView.importDialogDragAndDrop, e);
             const o = a.create(n, "div", "buttons");
-            const s = a.createButton(o, "button", "", "...");
+            const s = a.createButton(o, "button", "", V.text.browseButtonText);
             e._currentView.importDialogImportButton = a.createButton(o, "button", "default", V.text.importButtonText);
             e._currentView.importDialogImportButton.disabled = true;
             i.onclick = () => W(e);
