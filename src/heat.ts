@@ -1500,12 +1500,12 @@ import { Build } from "./ts/data/build";
             const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
             let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
 
-            for ( let monthIndex1: number = bindingOptions.startMonth!; monthIndex1 < ( 12 + bindingOptions.startMonth! ); monthIndex1++ ) {
-                let actualMonthIndex: number = monthIndex1;
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+                let actualMonthIndex: number = monthIndex;
                 let actualYear: number = currentYear;
 
-                if ( bindingOptions.startMonth! > 0 && monthIndex1 > 11 ) {
-                    actualMonthIndex = monthIndex1 - 12;
+                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                    actualMonthIndex = monthIndex - 12;
                     actualYear++;
                 }
 
