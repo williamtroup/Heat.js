@@ -2675,8 +2675,8 @@ import { Build } from "./ts/data/build";
 
             ToolTip.add( clear, bindingOptions, _configurationOptions.text!.removeTypeText! );
 
-            clear.onclick = ( event: MouseEvent ) => {
-                DomElement.cancelBubble( event );
+            clear.onclick = ( ev: MouseEvent ) => {
+                DomElement.cancelBubble( ev );
 
                 removeType( bindingOptions, type );
                 renderControlContainer( bindingOptions, true );
