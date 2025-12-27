@@ -1729,17 +1729,17 @@ var p;
             i.push("<!DOCTYPE html>");
             i.push("<html>");
             i.push("<head>");
-            i.push('<meta charset="utf-8" />');
-            i.push(`<meta http-equiv="Last-Modified" content="${o} GMT" />`);
+            i.push(`${"  "}<meta charset="utf-8" />`);
+            i.push(`${"  "}<meta http-equiv="Last-Modified" content="${o} GMT" />`);
             i.push("</head>");
             i.push("<body>");
-            i.push("<ul>");
+            i.push(`${"  "}<ul>`);
             for (const t in e) {
                 if (e.hasOwnProperty(t)) {
-                    i.push(`<li><b>${t}:</b> ${e[t].toString()}</li>`);
+                    i.push(`${"  "}${"  "}<li><b>${t}:</b> ${e[t].toString()}</li>`);
                 }
             }
-            i.push("</ul>");
+            i.push(`${"  "}</ul>`);
             i.push("</body>");
             i.push("</html>");
             return i.join("\n");

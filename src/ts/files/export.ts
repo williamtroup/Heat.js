@@ -166,19 +166,19 @@ export namespace Export {
             contents.push( "<!DOCTYPE html>" );
             contents.push( "<html>" );
             contents.push( "<head>" );
-            contents.push( "<meta charset=\"utf-8\" />" );
-            contents.push( `<meta http-equiv=\"Last-Modified\" content=\"${exportedDateTime} GMT\" />` );
+            contents.push( `${Char.doubleSpace}<meta charset=\"utf-8\" />` );
+            contents.push( `${Char.doubleSpace}<meta http-equiv=\"Last-Modified\" content=\"${exportedDateTime} GMT\" />` );
             contents.push( "</head>" );
             contents.push( "<body>" );
-            contents.push( "<ul>" );
+            contents.push( `${Char.doubleSpace}<ul>` );
 
             for ( const storageDate in typeDateCounts ) {
                 if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    contents.push( `<li><b>${storageDate}:</b> ${typeDateCounts[ storageDate ].toString()}</li>` );
+                    contents.push( `${Char.doubleSpace}${Char.doubleSpace}<li><b>${storageDate}:</b> ${typeDateCounts[ storageDate ].toString()}</li>` );
                 }
             }
 
-            contents.push( "</ul>" );
+            contents.push( `${Char.doubleSpace}</ul>` );
             contents.push( "</body>" );
             contents.push( "</html>" );
 

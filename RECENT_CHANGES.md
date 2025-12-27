@@ -194,7 +194,7 @@
 - Changing the Color Range toggles will now maintain the scroll position of the current view (if available).
 - Upgraded ECMAScript from ES2020 to ES2022.
 - Exported JSON files are now indented and formatted so they are more readable.
-- Exported XML files are now indented correctly so they are more readable.
+- Exported XML and HTML files are now indented correctly so they are more readable.
 
 #### **Library:**
 - Updated all the NPM packages to the latest versions.
