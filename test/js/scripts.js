@@ -5,19 +5,19 @@
     } );
 } )();
 
-function onMapDayClick( date, count, isHoliday ) {
+function onMapDayClick( _, date, count, isHoliday ) {
     console.log( `Day clicked for: ${date.toString()}, Count: ${count}, Is Holiday: ${isHoliday.toString()}` );
 }
 
-function onStatisticClick( colorRange, count, year ) {
+function onStatisticClick( _, colorRange, count, year ) {
     console.log( `Statistic clicked for: ${JSON.stringify( colorRange )}, Count: ${count}, Year: ${year}` );
 }
 
-function onWeekDayClick( day, count, year ) {
+function onWeekDayClick( _, day, count, year ) {
     console.log( `Week day clicked for: ${day}, Count: ${count}, Year: ${year}` );
 }
 
-function onMonthClick( day, count, year ) {
+function onMonthClick( _, day, count, year ) {
     console.log( `Month clicked for: ${day}, Count: ${count}, Year: ${year}` );
 }
 

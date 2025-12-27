@@ -704,7 +704,7 @@ import { Build } from "./ts/data/build";
                     bindingOptions._currentView!.type = type;
                     
                     Trigger.customEvent( bindingOptions.events!.onAddType!, bindingOptions._currentView!.element, type );
-                    Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, type );
+                    Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
 
                     hideExportDialog( bindingOptions );
                     renderControlContainer( bindingOptions, true );
@@ -871,7 +871,7 @@ import { Build } from "./ts/data/build";
                         bindingOptions._currentView!.year = new Date().getFullYear() - 1;
     
                         moveToNextYear( bindingOptions, false );
-                        Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.year );
+                        Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
                     };
                 }
 
@@ -1021,7 +1021,7 @@ import { Build } from "./ts/data/build";
                 bindingOptions._currentView!.year = currentYear;
     
                 renderControlContainer( bindingOptions );
-                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
             };
 
             if ( currentYear === actualYear ) {
@@ -1419,9 +1419,9 @@ import { Build } from "./ts/data/build";
         } 
 
         if ( Is.definedFunction( bindingOptions.events!.onMapDayClick ) ) {
-            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayClick!, date, dateCount, holiday.matched );
+            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayClick!, bindingOptions._currentView!.element, date, dateCount, holiday.matched );
         } else if ( Is.definedFunction( bindingOptions.events!.onMapDayDblClick ) ) {
-            day.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayDblClick!, date, dateCount, holiday.matched );
+            day.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayDblClick!, bindingOptions._currentView!.element, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( day, "no-hover" );
         }
@@ -1625,9 +1625,9 @@ import { Build } from "./ts/data/build";
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onLineDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onLineDayClick!, date, dateCount, holiday.matched );
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onLineDayClick!, bindingOptions._currentView!.element, date, dateCount, holiday.matched );
         } else if ( Is.definedFunction( bindingOptions.events!.onLineDayDblClick ) ) {
-            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onLineDayDblClick!, date, dateCount, holiday.matched );
+            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onLineDayDblClick!, bindingOptions._currentView!.element, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -1853,9 +1853,9 @@ import { Build } from "./ts/data/build";
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onChartDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onChartDayClick!, date, dateCount, holiday.matched );
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onChartDayClick!, bindingOptions._currentView!.element, date, dateCount, holiday.matched );
         } else if ( Is.definedFunction( bindingOptions.events!.onChartDayDblClick ) ) {
-            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onChartDayDblClick!, date, dateCount, holiday.matched );
+            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onChartDayDblClick!, bindingOptions._currentView!.element, date, dateCount, holiday.matched );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -2005,9 +2005,9 @@ import { Build } from "./ts/data/build";
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, dayNumber, dayCount, bindingOptions._currentView!.year );
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, bindingOptions._currentView!.element, dayNumber, dayCount, bindingOptions._currentView!.year );
         } else if ( Is.definedFunction( bindingOptions.events!.onWeekDayDblClick ) ) {
-            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayDblClick!, dayNumber, dayCount, bindingOptions._currentView!.year );
+            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayDblClick!, bindingOptions._currentView!.element, dayNumber, dayCount, bindingOptions._currentView!.year );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -2260,9 +2260,9 @@ import { Build } from "./ts/data/build";
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onMonthClick ) ) {
-            monthLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onMonthClick!, monthNumber, monthCount, currentYear );
+            monthLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onMonthClick!, bindingOptions._currentView!.element, monthNumber, monthCount, currentYear );
         } else if ( Is.definedFunction( bindingOptions.events!.onMonthDblClick ) ) {
-            monthLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onMonthDblClick!, monthNumber, monthCount, currentYear );
+            monthLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onMonthDblClick!, bindingOptions._currentView!.element, monthNumber, monthCount, currentYear );
         } else {
             DomElement.addClass( monthLine, "no-hover" );
         }
@@ -2495,7 +2495,7 @@ import { Build } from "./ts/data/build";
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onStatisticClick ) ) {
-            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticClick!, useColorRange, rangeCount, bindingOptions._currentView!.year );
+            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticClick!, bindingOptions._currentView!.element, useColorRange, rangeCount, bindingOptions._currentView!.year );
         } else if ( Is.definedFunction( bindingOptions.events!.onStatisticDblClick ) ) {
             rangeLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticDblClick!, useColorRange, rangeCount, bindingOptions._currentView!.year );
         } else {
@@ -2691,7 +2691,7 @@ import { Build } from "./ts/data/build";
             if ( bindingOptions._currentView!.type !== type ) {
                 bindingOptions._currentView!.type = type;
 
-                Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, type );
+                Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
                 renderControlContainer( bindingOptions );
             }
         };
@@ -2875,7 +2875,7 @@ import { Build } from "./ts/data/build";
 
     function renderDayToolTip( bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number, tooltipFormat: string, tooltipRenderFunc: Function, isHoliday: boolean, showCountsInTooltips: boolean ) : void {
         if ( Is.definedFunction( tooltipRenderFunc ) ) {
-            ToolTip.add( day, bindingOptions, Trigger.customEvent( tooltipRenderFunc, date, dateCount, isHoliday ) );
+            ToolTip.add( day, bindingOptions, Trigger.customEvent( tooltipRenderFunc, bindingOptions._currentView!.element, date, dateCount, isHoliday ) );
         } else {
 
             let tooltip: string = DateTime.getCustomFormattedDateText( _configurationOptions, tooltipFormat, date );
@@ -2899,7 +2899,7 @@ import { Build } from "./ts/data/build";
     function switchView( bindingOptions: BindingOptions, viewId: ViewId, viewName: string ) : void {
         bindingOptions._currentView!.view = viewId;
 
-        Trigger.customEvent( bindingOptions.events!.onViewSwitch!, viewName );
+        Trigger.customEvent( bindingOptions.events!.onViewSwitch!, bindingOptions._currentView!.element, viewName );
         renderControlContainer( bindingOptions, false, true );
     }
 
@@ -3081,7 +3081,7 @@ import { Build } from "./ts/data/build";
 
     function pullDataFromCustomTrigger( bindingOptions: BindingOptions ) : void {
         const elementId: string = bindingOptions._currentView!.element.id;
-        const typeDateCounts: InstanceTypeDateCount = Trigger.customEvent( bindingOptions.events!.onDataFetch!, elementId );
+        const typeDateCounts: InstanceTypeDateCount = Trigger.customEvent( bindingOptions.events!.onDataFetch!, bindingOptions._currentView!.element, elementId );
 
         if ( Is.definedObject( typeDateCounts ) ) {
             createInstanceDataForElement( elementId, bindingOptions, false );
@@ -3157,7 +3157,7 @@ import { Build } from "./ts/data/build";
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
                 bindingOptions.colorRanges![ colorRangesIndex ].visible = flag;
 
-                Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions.colorRanges![ colorRangesIndex ].id, flag );
+                Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, bindingOptions.colorRanges![ colorRangesIndex ].id, flag );
             }
         }
 
@@ -3170,7 +3170,7 @@ import { Build } from "./ts/data/build";
         for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
             bindingOptions.colorRanges![ colorRangesIndex ].visible = !bindingOptions.colorRanges![ colorRangesIndex ].visible;
 
-            Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions.colorRanges![ colorRangesIndex ].id, bindingOptions.colorRanges![ colorRangesIndex ].visible );
+            Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, bindingOptions.colorRanges![ colorRangesIndex ].id, bindingOptions.colorRanges![ colorRangesIndex ].visible );
         }
 
         renderControlContainer( bindingOptions );
@@ -3185,7 +3185,7 @@ import { Build } from "./ts/data/build";
             if ( colorRange.id === id ) {
                 colorRange.visible = !Default.getBoolean( colorRange.visible, true );
 
-                Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, colorRange.id, colorRange.visible );
+                Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, colorRange.visible );
                 renderControlContainer( bindingOptions, false, false, true );
                 break;
             }
@@ -3220,7 +3220,7 @@ import { Build } from "./ts/data/build";
             renderControlContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
-                Trigger.customEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView!.year );
+                Trigger.customEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
             }
         }
     }
@@ -3246,7 +3246,7 @@ import { Build } from "./ts/data/build";
             renderControlContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
-                Trigger.customEvent( bindingOptions.events!.onNextYear!, bindingOptions._currentView!.year );
+                Trigger.customEvent( bindingOptions.events!.onNextYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
             }
         }
     }
@@ -3592,7 +3592,7 @@ import { Build } from "./ts/data/build";
                     renderControlContainer( bindingOptions );
                 }
     
-                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
             }
     
             return _public;
@@ -3619,7 +3619,7 @@ import { Build } from "./ts/data/build";
                         renderControlContainer( bindingOptions );
                     }
     
-                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.year );
+                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
                 }
             }
     
@@ -3647,7 +3647,7 @@ import { Build } from "./ts/data/build";
                         renderControlContainer( bindingOptions );
                     }
     
-                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.year );
+                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
                 }
             }
     
@@ -3681,7 +3681,7 @@ import { Build } from "./ts/data/build";
                     renderControlContainer( bindingOptions );
                 }
     
-                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
             }
     
             return _public;
@@ -3731,7 +3731,7 @@ import { Build } from "./ts/data/build";
                 if ( bindingOptions._currentView!.type !== type ) {
                     bindingOptions._currentView!.type = type;
                 
-                    Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, type );
+                    Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
                     renderControlContainer( bindingOptions );
                 }
             }

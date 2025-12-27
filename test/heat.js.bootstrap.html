@@ -326,7 +326,7 @@
             }
         }
 
-        function onMapDayToolTipRenderEvent( date, count, isHoliday ) {
+        function onMapDayToolTipRenderEvent( _, date, count, isHoliday ) {
             return "This date '" + date.toString() + "' has " + count.toString() + " events in it.";
         }
 

@@ -115,6 +115,7 @@
 - BREAKING: Renamed "events.onDayClick" to "events.onMapDayClick".
 - BREAKING: Renamed "events.onDayDblClick" to "events.onMapDayDblClick".
 - BREAKING: Renamed "events.onDayToolTipRender" to "events.onMapDayToolTipRender".
+- BREAKING: Every custom trigger now except the DOM element used for the Heat.js instance as the first parameter.
 
 #### **Binding Options - Custom Triggers - New / Updates:**
 - Added a new binding custom trigger called "events.onLineDayToolTipRender", which states an event that should be called for custom rendering the tooltip for a specific line day (defaults to "events.onMapDayToolTipRender").
