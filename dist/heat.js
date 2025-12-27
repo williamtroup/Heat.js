@@ -733,6 +733,24 @@ var w;
         return t;
     }
     e.buildDynamics = c;
+    function w(e, t) {
+        let n = t.cssClassName;
+        if (e.views.map.enabled && e._currentView.view === 1 && i.definedString(t.mapCssClassName)) {
+            n = t.mapCssClassName;
+        } else if (e.views.line.enabled && e._currentView.view === 2 && i.definedString(t.lineCssClassName)) {
+            n = t.lineCssClassName;
+        } else if (e.views.chart.enabled && e._currentView.view === 3 && i.definedString(t.chartCssClassName)) {
+            n = t.chartCssClassName;
+        } else if (e.views.days.enabled && e._currentView.view === 4 && i.definedString(t.daysCssClassName)) {
+            n = t.daysCssClassName;
+        } else if (e.views.months.enabled && e._currentView.view === 5 && i.definedString(t.monthsCssClassName)) {
+            n = t.monthsCssClassName;
+        } else if (e.views.statistics.enabled && e._currentView.view === 6 && i.definedString(t.statisticsCssClassName)) {
+            n = t.statisticsCssClassName;
+        }
+        return n;
+    }
+    e.getGuideCssClassName = w;
 })(w || (w = {}));
 
 var h;
@@ -3820,38 +3838,24 @@ var b;
         };
     }
     function De(e, t, n) {
-        const o = a.create(t, "div");
-        o.className = "day";
+        const i = a.create(t, "div");
+        i.className = "day";
         if (e.guide.showToolTips) {
-            l.add(o, e, n.tooltipText);
+            l.add(i, e, n.tooltipText);
         }
         if (w.isVisible(e, n.id)) {
-            if (e.views.map.enabled && e._currentView.view === 1 && i.definedString(n.mapCssClassName)) {
-                a.addClass(o, n.mapCssClassName);
-            } else if (e.views.line.enabled && e._currentView.view === 2 && i.definedString(n.lineCssClassName)) {
-                a.addClass(o, n.lineCssClassName);
-            } else if (e.views.chart.enabled && e._currentView.view === 3 && i.definedString(n.chartCssClassName)) {
-                a.addClass(o, n.chartCssClassName);
-            } else if (e.views.days.enabled && e._currentView.view === 4 && i.definedString(n.daysCssClassName)) {
-                a.addClass(o, n.daysCssClassName);
-            } else if (e.views.months.enabled && e._currentView.view === 5 && i.definedString(n.monthsCssClassName)) {
-                a.addClass(o, n.monthsCssClassName);
-            } else if (e.views.statistics.enabled && e._currentView.view === 6 && i.definedString(n.statisticsCssClassName)) {
-                a.addClass(o, n.statisticsCssClassName);
-            } else {
-                a.addClass(o, n.cssClassName);
-            }
+            a.addClass(i, w.getGuideCssClassName(e, n));
         }
         if (e.guide.showNumbersInGuide) {
-            a.addClass(o, "day-number");
-            o.innerHTML = `${n.minimum}${"+"}`;
+            a.addClass(i, "day-number");
+            i.innerHTML = `${n.minimum}${"+"}`;
         }
         if (e.guide.colorRangeTogglesEnabled) {
-            o.onclick = () => Je(e, n.id);
+            i.onclick = () => Je(e, n.id);
         } else {
-            a.addClass(o, "no-hover");
+            a.addClass(i, "no-hover");
         }
-        return o;
+        return i;
     }
     function Se(e, t) {
         if (i.definedString(e.description.text)) {

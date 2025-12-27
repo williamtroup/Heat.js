@@ -2706,21 +2706,7 @@ import { Build } from "./ts/data/build";
         }
 
         if ( ColorRange.isVisible( bindingOptions, colorRange.id! ) ) {
-            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map && Is.definedString( colorRange.mapCssClassName ) ) {
-                DomElement.addClass( day, colorRange.mapCssClassName! );
-            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line && Is.definedString( colorRange.lineCssClassName ) ) {
-                DomElement.addClass( day, colorRange.lineCssClassName! );
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart && Is.definedString( colorRange.chartCssClassName ) ) {
-                DomElement.addClass( day, colorRange.chartCssClassName! );
-            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days && Is.definedString( colorRange.daysCssClassName ) ) {
-                DomElement.addClass( day, colorRange.daysCssClassName! );
-            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months && Is.definedString( colorRange.monthsCssClassName ) ) {
-                DomElement.addClass( day, colorRange.monthsCssClassName! );
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics && Is.definedString( colorRange.statisticsCssClassName ) ) {
-                DomElement.addClass( day, colorRange.statisticsCssClassName! );
-            } else {
-                DomElement.addClass( day, colorRange.cssClassName! );
-            }   
+            DomElement.addClass( day, ColorRange.getGuideCssClassName( bindingOptions, colorRange ) ); 
         }
 
         if ( bindingOptions.guide!.showNumbersInGuide ) {

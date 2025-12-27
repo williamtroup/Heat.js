@@ -20,7 +20,7 @@ import { Constant } from "../constant";
 import { Default } from "../data/default";
 import { Is } from "../data/is";
 import { Convert } from "../data/convert";
-import { Char } from "../data/enum";
+import { Char, ViewId } from "../data/enum";
 import { DomElement } from "../dom/dom";
 import { Css } from "../css";
 
@@ -170,6 +170,26 @@ export namespace ColorRange {
         const style: HTMLStyleElement = DomElement.create( head, "style" ) as HTMLStyleElement;
         
         style.appendChild( document.createTextNode( cssLines.join( Char.newLine ) ) );
+
+        return result;
+    }
+
+    export function getGuideCssClassName( bindingOptions: BindingOptions, colorRange: BindingOptionsColorRange ) : string {
+        let result: string = colorRange.cssClassName!;
+
+        if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map && Is.definedString( colorRange.mapCssClassName ) ) {
+            result = colorRange.mapCssClassName!;
+        } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line && Is.definedString( colorRange.lineCssClassName ) ) {
+            result = colorRange.lineCssClassName!;
+        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart && Is.definedString( colorRange.chartCssClassName ) ) {
+            result = colorRange.chartCssClassName!;
+        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days && Is.definedString( colorRange.daysCssClassName ) ) {
+            result = colorRange.daysCssClassName!;
+        } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months && Is.definedString( colorRange.monthsCssClassName ) ) {
+            result = colorRange.monthsCssClassName!;
+        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics && Is.definedString( colorRange.statisticsCssClassName ) ) {
+            result = colorRange.statisticsCssClassName!;
+        }
 
         return result;
     }
