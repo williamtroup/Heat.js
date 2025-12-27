@@ -509,6 +509,7 @@ import { Build } from "./ts/data/build";
             DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.selectFilesText! );
 
             bindingOptions._currentView!.importDialogDragAndDrop = DomElement.createWithHTML( contents, "div", "drag-and-drop-files", _configurationOptions.text!.dragAndDropFilesText! );
+            bindingOptions._currentView!.importDialogClearExistingData = DomElement.createCheckBox( contents, _configurationOptions.text!.clearExistingDataText!, crypto.randomUUID() );
 
             makeAreaDroppable( bindingOptions._currentView!.importDialogDragAndDrop, bindingOptions );
 
@@ -520,7 +521,7 @@ import { Build } from "./ts/data/build";
 
             closeButton.onclick = () => hideImportDialog( bindingOptions );
             selectFilesButton.onclick = () => importFromFilesSelected( bindingOptions );
-            bindingOptions._currentView!.importDialogImportButton.onclick = () => importFromFiles( bindingOptions._currentView!.importDialogFileList, bindingOptions );
+            bindingOptions._currentView!.importDialogImportButton.onclick = () => importFromFiles( bindingOptions._currentView!.importDialogFileList, bindingOptions, bindingOptions._currentView!.importDialogClearExistingData.checked );
 
             ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
         }
@@ -633,10 +634,16 @@ import { Build } from "./ts/data/build";
         showImportFilenames( bindingOptions, dataTransfer.files! );
     }
 
-    function importFromFiles( fileList: FileList, bindingOptions: BindingOptions ) : void {
+    function importFromFiles( fileList: FileList, bindingOptions: BindingOptions, clearExistingData: boolean = false ) : void {
         const filesLength: number = Math.min( fileList.length, Constant.MAXIMUM_FILE_IMPORTS );
         const filesCompleted: string[] = [];
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
+
+        if ( clearExistingData ) {
+            for ( const storageDate in typeDateCounts ) {
+                delete typeDateCounts[ storageDate ];
+            }
+        }
 
         const onLoadEndFunc: Function = ( filename: string, readingObject: InstanceTypeDateCount ) : void => {
             filesCompleted.push( filename );

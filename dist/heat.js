@@ -1287,6 +1287,7 @@ var f;
             e.text.noLineDataMessage = o.getAnyString(e.text.noLineDataMessage, "There is currently no data to view.");
             e.text.removeTypeText = o.getAnyString(e.text.removeTypeText, "Remove Type");
             e.text.openNewTypeText = o.getAnyString(e.text.openNewTypeText, "Open new type");
+            e.text.clearExistingDataText = o.getAnyString(e.text.clearExistingDataText, "Clear existing data");
             return e.text;
         }
         function s(e) {
@@ -2224,6 +2225,7 @@ var b;
             const i = a.create(t, "div", "dialog-close");
             a.createWithHTML(t, "span", "dialog-title-bar-text", V.text.selectFilesText);
             e._currentView.importDialogDragAndDrop = a.createWithHTML(n, "div", "drag-and-drop-files", V.text.dragAndDropFilesText);
+            e._currentView.importDialogClearExistingData = a.createCheckBox(n, V.text.clearExistingDataText, crypto.randomUUID());
             P(e._currentView.importDialogDragAndDrop, e);
             const o = a.create(n, "div", "buttons");
             const s = a.createButton(o, "button", "", "...");
@@ -2231,7 +2233,7 @@ var b;
             e._currentView.importDialogImportButton.disabled = true;
             i.onclick = () => W(e);
             s.onclick = () => Y(e);
-            e._currentView.importDialogImportButton.onclick = () => z(e._currentView.importDialogFileList, e);
+            e._currentView.importDialogImportButton.onclick = () => z(e._currentView.importDialogFileList, e, e._currentView.importDialogClearExistingData.checked);
             l.add(i, e, V.text.closeButtonText);
         }
     }
@@ -2316,29 +2318,34 @@ var b;
         }
         j(e, n.files);
     }
-    function z(e, t) {
-        const i = Math.min(e.length, n.MAXIMUM_FILE_IMPORTS);
-        const o = [];
-        const s = Fe(t);
-        const r = (e, n) => {
-            o.push(e);
+    function z(e, t, i = false) {
+        const o = Math.min(e.length, n.MAXIMUM_FILE_IMPORTS);
+        const s = [];
+        const r = Fe(t);
+        if (i) {
+            for (const e in r) {
+                delete r[e];
+            }
+        }
+        const a = (e, n) => {
+            s.push(e);
             for (const e in n) {
                 if (n.hasOwnProperty(e)) {
-                    if (!s.hasOwnProperty(e)) {
-                        s[e] = 0;
+                    if (!r.hasOwnProperty(e)) {
+                        r[e] = 0;
                     }
-                    s[e] += n[e];
+                    r[e] += n[e];
                 }
             }
-            if (o.length === i) {
+            if (s.length === o) {
                 c.customEvent(t.events.onImport, t._currentView.element);
                 M(t, true);
             }
         };
-        for (let t = 0; t < i; t++) {
+        for (let t = 0; t < o; t++) {
             const n = e[t];
             const i = n.name.split(".").pop().toLowerCase();
-            y.file(n, i, r, V);
+            y.file(n, i, a, V);
         }
     }
     function G(e) {

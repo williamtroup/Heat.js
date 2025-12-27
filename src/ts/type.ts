@@ -121,6 +121,7 @@ export type ConfigurationOptionsText = {
     noLineDataMessage?: string;
     removeTypeText?: string;
     openNewTypeText?: string;
+    clearExistingDataText?: string;
 };
 
 export type BindingOptions = {
@@ -196,6 +197,7 @@ export type BindingOptionsCurrentView = {
     importDialogDragAndDrop: HTMLElement;
     importDialogFileList: FileList;
     importDialogImportButton: HTMLButtonElement;
+    importDialogClearExistingData: HTMLInputElement;
     typeAddingDialog: HTMLElement;
     typeAddingDialogTypeInput: HTMLInputElement;
     typeAddingOptionNewType: HTMLInputElement;

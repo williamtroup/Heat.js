@@ -90,6 +90,7 @@ export namespace Configuration {
             configurationOptions.text!.noLineDataMessage = Default.getAnyString( configurationOptions.text!.noLineDataMessage, "There is currently no data to view." );
             configurationOptions.text!.removeTypeText = Default.getAnyString( configurationOptions.text!.removeTypeText, "Remove Type" );
             configurationOptions.text!.openNewTypeText = Default.getAnyString( configurationOptions.text!.openNewTypeText, "Open new type" );
+            configurationOptions.text!.clearExistingDataText = Default.getAnyString( configurationOptions.text!.clearExistingDataText, "Clear existing data" );
 
             return configurationOptions.text!;
         }

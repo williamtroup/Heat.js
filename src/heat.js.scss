@@ -411,6 +411,10 @@ div.heat-js {
             div.dialog-contents {
                 @include styles.buttons;
 
+                label.checkbox {
+                    margin-top: var(--heat-js-spacing);
+                }
+
                 div.drag-and-drop-files {
                     display: flex;
                     flex-direction: column;

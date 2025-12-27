@@ -406,6 +406,9 @@ div.heat-js div.disabled div.import div.dialog-contents button.active {
   transition: var(--heat-js-transition);
   font-weight: var(--heat-js-text-font-weight-medium);
 }
+div.heat-js div.disabled div.import div.dialog-contents label.checkbox {
+  margin-top: var(--heat-js-spacing);
+}
 div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files {
   display: flex;
   flex-direction: column;
