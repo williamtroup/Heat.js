@@ -845,14 +845,11 @@ import { Build } from "./ts/data/build";
     
             if ( bindingOptions.title!.showYearSelector ) {
                 const back: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "back", "arrow-line-left" );
+                back.disabled = Is.firstVisibleYear( bindingOptions, bindingOptions._currentView!.year );
                 back.onclick = () => moveToPreviousYear( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( back, bindingOptions, _configurationOptions.text!.backButtonText! );
-                }
-
-                if ( Is.firstVisibleYear( bindingOptions, bindingOptions._currentView!.year ) ) {
-                    back.disabled = true;
                 }
 
                 renderTitleBarYearText( bindingOptions, titleBar );
@@ -888,14 +885,11 @@ import { Build } from "./ts/data/build";
                 }
 
                 const next: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "next", "arrow-line-right" );
+                next.disabled = Is.lastVisibleYear( bindingOptions, bindingOptions._currentView!.year );
                 next.onclick = () => moveToNextYear( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( next, bindingOptions, _configurationOptions.text!.nextButtonText! );
-                }
-
-                if ( Is.lastVisibleYear( bindingOptions, bindingOptions._currentView!.year ) ) {
-                    next.disabled = true;
                 }
             }
         }

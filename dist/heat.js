@@ -2469,12 +2469,10 @@ var b;
             }
             if (e.title.showYearSelector) {
                 const n = a.createIconButton(t, "button", "back", "arrow-line-left");
+                n.disabled = i.firstVisibleYear(e, e._currentView.year);
                 n.onclick = () => Ze(e);
                 if (e.title.showToolTips) {
                     l.add(n, e, V.text.backButtonText);
-                }
-                if (i.firstVisibleYear(e, e._currentView.year)) {
-                    n.disabled = true;
                 }
                 q(e, t);
                 if (e.title.showYearSelectionDropDown) {
@@ -2501,12 +2499,10 @@ var b;
                     };
                 }
                 const o = a.createIconButton(t, "button", "next", "arrow-line-right");
+                o.disabled = i.lastVisibleYear(e, e._currentView.year);
                 o.onclick = () => Xe(e);
                 if (e.title.showToolTips) {
                     l.add(o, e, V.text.nextButtonText);
-                }
-                if (i.lastVisibleYear(e, e._currentView.year)) {
-                    o.disabled = true;
                 }
             }
         }
