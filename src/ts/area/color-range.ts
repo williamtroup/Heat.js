@@ -100,8 +100,7 @@ export namespace ColorRange {
     }
 
     export function buildDynamics( dynamicColorRange: BindingOptionsDynamicColorRange ) : BindingOptionsColorRange[] {
-        let result: BindingOptionsColorRange[] = [];
-
+        const result: BindingOptionsColorRange[] = [];
         const rgbaValues: number[] = Convert.hexToRgbaValues( dynamicColorRange!.color! );
         const incrementPercentage: number = 100 / dynamicColorRange!.totalColors!;
         const incrementAlpha: number = 1.0 / dynamicColorRange!.totalColors!;

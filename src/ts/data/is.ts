@@ -72,7 +72,7 @@ export namespace Is {
         const year: number = date.getFullYear();
         
         for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-            let holiday: BindingOptionsHoliday = bindingOptions.holidays![ holidayIndex ];
+            const holiday: BindingOptionsHoliday = bindingOptions.holidays![ holidayIndex ];
 
             if ( Is.definedString( holiday.date ) && holiday.showInViews ) {
                 const dateParts: string[] = holiday.date!.split( "/" );

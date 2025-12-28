@@ -89,7 +89,7 @@ export namespace Import {
             const linesLength: number = lines.length;
 
             for ( let lineIndex: number = 1; lineIndex < linesLength; lineIndex++ ) {
-                let line: string[] = lines[ lineIndex ].split( Char.comma );
+                const line: string[] = lines[ lineIndex ].split( Char.comma );
 
                 readingObject[ line[ 0 ].trim() ] = parseInt( line[ 1 ].trim() );
             }

@@ -40,7 +40,7 @@ export namespace LocalStorage {
                         instanceTypeData.totalTypes = 0;
 
                         for ( const type in instanceTypeData.typeData ) {
-                            if ( instanceTypeData.typeData.hasOwnProperty( type ) ) {
+                            if ( Object.prototype.hasOwnProperty.call( instanceTypeData.typeData, type ) ) {
                                 instanceTypeData.totalTypes++;
                             }
                         }

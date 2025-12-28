@@ -19,7 +19,7 @@ export namespace Convert {
     export function toRgbOpacityColor( color: string, opacity: number ) : string {
         const newColor: string = color.indexOf( ") " ) > Value.notFound ? `${color.split( ") " )[ 0 ]})` : color;
 
-        let colorParts: string[] = newColor
+        const colorParts: string[] = newColor
             .replace( "rgba(", Char.empty )
             .replace( "rgb(", Char.empty )
             .replace( ")", Char.empty )

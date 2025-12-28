@@ -20,16 +20,15 @@ import {
     type StringToJson,
     type IsHoliday,
     type LargestValueForView, 
-    type LargestValueForViewValue,
     type LargestValuesForEachRangeType } from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
 import { ExportType, Char, Value, ViewId, ViewName, KeyCode, ImportType } from "./ts/data/enum";
-import { Constant } from "./ts/constant"
-import { Is } from "./ts/data/is"
-import { Default } from "./ts/data/default"
-import { DateTime } from "./ts/data/datetime"
-import { DomElement } from "./ts/dom/dom"
+import { Constant } from "./ts/constant";
+import { Is } from "./ts/data/is";
+import { Default } from "./ts/data/default";
+import { DateTime } from "./ts/data/datetime";
+import { DomElement } from "./ts/dom/dom";
 import { Str } from "./ts/data/str";
 import { ToolTip } from "./ts/area/tooltip";
 import { Trigger } from "./ts/area/trigger";
@@ -367,7 +366,7 @@ import { Build } from "./ts/data/build";
 
     function renderExportDialogOptions( bindingOptions: BindingOptions ) : void {
         let exportType: keyof typeof ExportType;
-        let exportOptions: HTMLOptionElement[] = [];
+        const exportOptions: HTMLOptionElement[] = [];
 
         for ( exportType in ExportType ) {
             const exportOption: HTMLOptionElement = DomElement.createWithNoContainer( "option" ) as HTMLOptionElement;
@@ -456,7 +455,7 @@ import { Build } from "./ts/data/build";
                         const weekdayNumber: number = DateTime.getWeekdayNumber( storageDate ) + 1;
 
                         if ( Is.dayVisible( daysToShow, weekdayNumber ) ) {
-                            if ( typeDateCounts.hasOwnProperty( storageDateKey ) ) {
+                            if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDateKey ) ) {
                                 contents[ storageDateKey ] = typeDateCounts[ storageDateKey ];
                             }
                         }
@@ -468,7 +467,7 @@ import { Build } from "./ts/data/build";
             const storageDates: string[] = [];
 
             for ( const storageDate1 in typeDateCounts ) {
-                if ( typeDateCounts.hasOwnProperty( storageDate1 ) ) {
+                if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate1 ) ) {
                     storageDates.push( storageDate1 );
                 }
             }
@@ -480,7 +479,7 @@ import { Build } from "./ts/data/build";
             for ( let storageDateIndex: number = 0; storageDateIndex < storageDatesLength; storageDateIndex++ ) {
                 const storageDate2: string = storageDates[ storageDateIndex ];
     
-                if ( typeDateCounts.hasOwnProperty( storageDate2 ) ) {
+                if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate2 ) ) {
                     contents[ storageDate2 ] = typeDateCounts[ storageDate2 ];
                 }
             }
@@ -649,8 +648,8 @@ import { Build } from "./ts/data/build";
             filesCompleted.push( filename );
 
             for ( const storageDate in readingObject ) {
-                if ( readingObject.hasOwnProperty( storageDate ) ) {
-                    if ( !typeDateCounts.hasOwnProperty( storageDate ) ) {
+                if ( Object.prototype.hasOwnProperty.call( readingObject,  storageDate ) ) {
+                    if ( !Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                         typeDateCounts[ storageDate ] = 0;
                     }
 
@@ -705,8 +704,8 @@ import { Build } from "./ts/data/build";
                 const type: string = bindingOptions._currentView!.typeAddingDialogTypeInput.value.trim();
                 const elementId: string = bindingOptions._currentView!.element.id;
 
-                if ( Is.definedString( type ) && !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
-                    if ( !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
+                if ( Is.definedString( type ) && !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
+                    if ( !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
                         _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
                         _elements_InstanceData[ elementId ].totalTypes++;
                     }
@@ -861,7 +860,7 @@ import { Build } from "./ts/data/build";
                 }
 
                 if ( bindingOptions.title!.showConfigurationButton ) {
-                    let configureButton: HTMLElement = DomElement.create( titleBar, "div", "configure" );
+                    const configureButton: HTMLElement = DomElement.create( titleBar, "div", "configure" );
                     configureButton.onclick = () => showConfigurationDialog( bindingOptions );
 
                     if ( bindingOptions.title!.showToolTips ) {
@@ -1001,7 +1000,7 @@ import { Build } from "./ts/data/build";
 
         for ( let currentYear: number = thisYear - bindingOptions.title!.extraSelectionYears!; currentYear < thisYear + bindingOptions.title!.extraSelectionYears!; currentYear++ ) {
             if ( Is.yearVisible( bindingOptions, currentYear ) ) {
-                let yearMenuItem: HTMLElement = renderYearDropDownMenuItem( bindingOptions, yearsMenu, currentYear, thisYear );
+                const yearMenuItem: HTMLElement = renderYearDropDownMenuItem( bindingOptions, yearsMenu, currentYear, thisYear );
 
                 if ( !Is.defined( activeYearMenuItem ) ) {
                     activeYearMenuItem = yearMenuItem;
@@ -1159,7 +1158,7 @@ import { Build } from "./ts/data/build";
 
     function getCountForDateRange( bindingOptions: BindingOptions, daysToShow: number[], monthsToShow: number[], from: Date, to: Date ) : number {
         let result: number = 0;
-        let currentDate: Date = new Date( from );
+        const currentDate: Date = new Date( from );
 
         while ( currentDate < to ) {
             const count: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( currentDate ) ];
@@ -1290,8 +1289,8 @@ import { Build } from "./ts/data/build";
                                 actualDay = 0;
     
                                 if ( bindingOptions._currentView!.dayWidth === 0 && Is.defined( day ) ) {
-                                    let marginLeft: number = DomElement.getStyleValueByName( day, "margin-left", true );
-                                    let marginRight: number = DomElement.getStyleValueByName( day, "margin-right", true );
+                                    const marginLeft: number = DomElement.getStyleValueByName( day, "margin-left", true ) as number;
+                                    const marginRight: number = DomElement.getStyleValueByName( day, "margin-right", true ) as number;
                                     
                                     bindingOptions._currentView!.dayWidth = day.offsetWidth + marginLeft + marginRight;
                                 }
@@ -1456,7 +1455,7 @@ import { Build } from "./ts/data/build";
         const checkNextYear: string = ( bindingOptions._currentView!.year + 1 ).toString();
 
         for ( const storageDate in typeDateCounts ) {
-            if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+            if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                 if ( DateTime.getStorageDateYear( storageDate ) === checkYear ) {
                     result = true;
                     break;
@@ -1568,7 +1567,7 @@ import { Build } from "./ts/data/build";
                             monthNameText += `${Char.space}${actualYear}`;
                         }
 
-                        let monthName: HTMLElement = DomElement.createWithHTML( lineMonths, "div", "month-name", monthNameText );
+                        const monthName: HTMLElement = DomElement.createWithHTML( lineMonths, "div", "month-name", monthNameText );
                         
                         if ( bindingOptions.views!.line!.showInReverseOrder ) {
                             let left: number = firstMonthDayLines[ monthNameAddedIndex ].offsetLeft;
@@ -1674,6 +1673,7 @@ import { Build } from "./ts/data/build";
 
         if ( largestValueForCurrentYear > 0 && bindingOptions.views!.chart!.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-100", largestValueForCurrentYear.toString() );
+            const marginRight: number = DomElement.getStyleValueByName( labels, "margin-right", true ) as number;
 
             DomElement.createWithHTML( labels, "div", "label-75", ( Math.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
             DomElement.createWithHTML( labels, "div", "label-50", Math.floor( largestValueForCurrentYear / 2 ).toString() );
@@ -1681,7 +1681,7 @@ import { Build } from "./ts/data/build";
             DomElement.createWithHTML( labels, "div", "label-0", Char.zero );
 
             labels.style.width = `${topLabel.offsetWidth}px`;
-            labelsWidth = labels.offsetWidth + DomElement.getStyleValueByName( labels, "margin-right", true );
+            labelsWidth = labels.offsetWidth + marginRight;
 
         } else {
             labels.parentNode!.removeChild( labels );
@@ -1700,7 +1700,7 @@ import { Build } from "./ts/data/build";
 
         } else {
             const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
-            const borderBottomWidth: number = DomElement.getStyleValueByName( dayLines, "border-bottom-width", true );
+            const borderBottomWidth: number = DomElement.getStyleValueByName( dayLines, "border-bottom-width", true ) as number;
             const pixelsPerNumbers: number = ( dayLines.offsetHeight - borderBottomWidth ) / largestValueForCurrentYear;
             const currentYear: number = bindingOptions._currentView!.year;
             let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
@@ -1778,7 +1778,7 @@ import { Build } from "./ts/data/build";
                             monthNameText += `${Char.space}${actualYear}`;
                         }
 
-                        let monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", monthNameText );
+                        const monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", monthNameText );
 
                         if ( bindingOptions.views!.chart!.showInReverseOrder ) {
                             let left: number = firstMonthDayLines[ monthNameAddedIndex ].offsetLeft;
@@ -1912,6 +1912,7 @@ import { Build } from "./ts/data/build";
 
         if ( dayValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.days!.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-100", dayValuesForCurrentYear.largestValue.toString() );
+            const marginRight: number = DomElement.getStyleValueByName( labels, "margin-right", true ) as number;
 
             DomElement.createWithHTML( labels, "div", "label-75", ( Math.floor( dayValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
             DomElement.createWithHTML( labels, "div", "label-50", Math.floor( dayValuesForCurrentYear.largestValue / 2 ).toString() );
@@ -1919,7 +1920,7 @@ import { Build } from "./ts/data/build";
             DomElement.createWithHTML( labels, "div", "label-0", Char.zero );
 
             labels.style.width = `${topLabel.offsetWidth}px`;
-            dayNames.style.paddingLeft = `${labels.offsetWidth + DomElement.getStyleValueByName( labels, "margin-right", true )}px`;
+            dayNames.style.paddingLeft = `${labels.offsetWidth + marginRight}px`;
 
         } else {
             labels.parentNode!.removeChild( labels );
@@ -1938,11 +1939,11 @@ import { Build } from "./ts/data/build";
             }
 
         } else {
-            const borderBottomWidth: number = DomElement.getStyleValueByName( dayLines, "border-bottom-width", true );
+            const borderBottomWidth: number = DomElement.getStyleValueByName( dayLines, "border-bottom-width", true ) as number;
             const pixelsPerNumbers: number = ( dayLines.offsetHeight - borderBottomWidth ) / dayValuesForCurrentYear.largestValue;
 
             for ( const day in dayValuesForCurrentYear.values ) {
-                if ( dayValuesForCurrentYear.values.hasOwnProperty( day ) && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
+                if ( Object.prototype.hasOwnProperty.call( dayValuesForCurrentYear.values,  day ) && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
                     const opacity: number = dayValuesForCurrentYear.valueOpacities[ dayValuesForCurrentYear.values[ day ].total ];
                     const dayLine: HTMLElement = renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ].total, bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue, isForViewSwitch );
 
@@ -1952,7 +1953,7 @@ import { Build } from "./ts/data/build";
 
                     if ( bindingOptions.views!.days!.showStackedColorRanges! ) {
                         for ( const type in dayValuesForCurrentYear.values[ day ].typeTotals ) {
-                            if ( dayValuesForCurrentYear.values[ day ].typeTotals.hasOwnProperty( type ) ) {
+                            if ( Object.prototype.hasOwnProperty.call( dayValuesForCurrentYear.values[ day ].typeTotals,  type ) ) {
                                 const typeTotal: number = dayValuesForCurrentYear.values[ day ].typeTotals[ type ];
                                 const stackedDayLineHeight: number = typeTotal * pixelsPerNumbers;
                                 const colorRange: BindingOptionsColorRange = ColorRange.getByMinimum( colorRanges, parseInt( type ) );
@@ -2037,8 +2038,8 @@ import { Build } from "./ts/data/build";
                 }
 
             } else if ( bindingOptions.views!.days!.useDifferentOpacities ) {
-                const backgroundColor: string = DomElement.getStyleValueByName( dayLine, "background-color" );
-                const borderColor: string = DomElement.getStyleValueByName( dayLine, "border-color" );
+                const backgroundColor: string = DomElement.getStyleValueByName( dayLine, "background-color" ) as string;
+                const borderColor: string = DomElement.getStyleValueByName( dayLine, "border-color" ) as string;
 
                 if ( Is.defined( count ) ) {
                     DomElement.addClass( count, "blend-colors" );
@@ -2089,7 +2090,7 @@ import { Build } from "./ts/data/build";
                 for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                     const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
 
-                    if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                    if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                         const storageDateObject: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
                         const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
@@ -2104,7 +2105,7 @@ import { Build } from "./ts/data/build";
                                 result.totalValue += dayCount;
                                 result.largestValue = Math.max( result.largestValue, result.values[ weekDayNumber ].total );
 
-                                if ( !result.values[ weekDayNumber ].typeTotals!.hasOwnProperty( colorRangeMinimum ) ) {
+                                if ( !Object.prototype.hasOwnProperty.call( result.values[ weekDayNumber ].typeTotals!, colorRangeMinimum ) ) {
                                     result.values[ weekDayNumber ].typeTotals![ colorRangeMinimum ] = 0;
                                 }
 
@@ -2144,6 +2145,7 @@ import { Build } from "./ts/data/build";
 
         if ( monthValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.months!.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-100", monthValuesForCurrentYear.largestValue.toString() );
+            const marginRight: number = DomElement.getStyleValueByName( labels, "margin-right", true ) as number;
 
             DomElement.createWithHTML( labels, "div", "label-75", ( Math.floor( monthValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
             DomElement.createWithHTML( labels, "div", "label-50", Math.floor( monthValuesForCurrentYear.largestValue / 2 ).toString() );
@@ -2151,7 +2153,7 @@ import { Build } from "./ts/data/build";
             DomElement.createWithHTML( labels, "div", "label-0", Char.zero );
 
             labels.style.width = `${topLabel.offsetWidth}px`;
-            monthNames.style.paddingLeft = `${labels.offsetWidth + DomElement.getStyleValueByName( labels, "margin-right", true )}px`;
+            monthNames.style.paddingLeft = `${labels.offsetWidth + marginRight}px`;
 
         } else {
             labels.parentNode!.removeChild( labels );
@@ -2170,22 +2172,20 @@ import { Build } from "./ts/data/build";
             }
 
         } else {
-            const borderBottomWidth: number = DomElement.getStyleValueByName( monthLines, "border-bottom-width", true );
+            const borderBottomWidth: number = DomElement.getStyleValueByName( monthLines, "border-bottom-width", true ) as number;
             const pixelsPerNumbers: number = ( monthLines.offsetHeight - borderBottomWidth ) / monthValuesForCurrentYear.largestValue;
             const currentYear: number = bindingOptions._currentView!.year;
 
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
-                let actualYear: number = currentYear;
 
                 if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
                     actualMonthIndex = monthIndex - 12;
-                    actualYear++;
                 }
 
                 const monthToShow: number = actualMonthIndex + 1;
 
-                if ( monthValuesForCurrentYear.values.hasOwnProperty( monthToShow ) && Is.monthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
+                if ( Object.prototype.hasOwnProperty.call( monthValuesForCurrentYear.values, monthToShow ) && Is.monthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
                     const opacity: number = monthValuesForCurrentYear.valueOpacities[ monthValuesForCurrentYear.values[ monthToShow ].total ];
                     const monthLine: HTMLElement = renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ].total, bindingOptions, pixelsPerNumbers, opacity, monthValuesForCurrentYear.totalValue, isForViewSwitch );
 
@@ -2200,7 +2200,7 @@ import { Build } from "./ts/data/build";
 
                     if ( bindingOptions.views!.months!.showStackedColorRanges! ) {
                         for ( const type in monthValuesForCurrentYear.values[ monthToShow ].typeTotals ) {
-                            if ( monthValuesForCurrentYear.values[ monthToShow ].typeTotals.hasOwnProperty( type ) ) {
+                            if ( Object.prototype.hasOwnProperty.call( monthValuesForCurrentYear.values[ monthToShow ].typeTotals, type ) ) {
                                 const typeTotal: number = monthValuesForCurrentYear.values[ monthToShow ].typeTotals[ type ];
                                 const stackedDayLineHeight: number = typeTotal * pixelsPerNumbers;
                                 const colorRange: BindingOptionsColorRange = ColorRange.getByMinimum( colorRanges, parseInt( type ) );
@@ -2296,8 +2296,8 @@ import { Build } from "./ts/data/build";
                 }
 
             } else if ( bindingOptions.views!.months!.useDifferentOpacities ) {
-                const backgroundColor: string = DomElement.getStyleValueByName( monthLine, "background-color" );
-                const borderColor: string = DomElement.getStyleValueByName( monthLine, "border-color" );
+                const backgroundColor: string = DomElement.getStyleValueByName( monthLine, "background-color" ) as string;
+                const borderColor: string = DomElement.getStyleValueByName( monthLine, "border-color" ) as string;
 
                 if ( Is.defined( count ) ) {
                     DomElement.addClass( count, "blend-colors" );
@@ -2349,7 +2349,7 @@ import { Build } from "./ts/data/build";
                 for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                     const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
 
-                    if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                    if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                         const storageDateObject: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
                         const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
@@ -2364,7 +2364,7 @@ import { Build } from "./ts/data/build";
                                 result.totalValue += dayCount;
                                 result.largestValue = Math.max( result.largestValue, result.values[ monthValue ].total );
 
-                                if ( !result.values[ monthValue ].typeTotals!.hasOwnProperty( colorRangeMinimum ) ) {
+                                if ( !Object.prototype.hasOwnProperty.call( result.values[ monthValue ].typeTotals!, colorRangeMinimum ) ) {
                                     result.values[ monthValue ].typeTotals![ colorRangeMinimum ] = 0;
                                 }
 
@@ -2404,6 +2404,7 @@ import { Build } from "./ts/data/build";
 
         if ( colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.statistics!.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-100", colorRangeValuesForCurrentYear.largestValue.toString() );
+            const marginRight: number = DomElement.getStyleValueByName( labels, "margin-right", true ) as number;
 
             DomElement.createWithHTML( labels, "div", "label-75", ( Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
             DomElement.createWithHTML( labels, "div", "label-50", Math.floor( colorRangeValuesForCurrentYear.largestValue / 2 ).toString() );
@@ -2411,7 +2412,7 @@ import { Build } from "./ts/data/build";
             DomElement.createWithHTML( labels, "div", "label-0", Char.zero );
 
             labels.style.width = `${topLabel.offsetWidth}px`;
-            statisticsRanges.style.paddingLeft = `${labels.offsetWidth + DomElement.getStyleValueByName( labels, "margin-right", true )}px`;
+            statisticsRanges.style.paddingLeft = `${labels.offsetWidth + marginRight}px`;
 
         } else {
             labels.parentNode!.removeChild( labels );
@@ -2430,7 +2431,7 @@ import { Build } from "./ts/data/build";
             }
 
         } else {
-            const borderBottomWidth: number = DomElement.getStyleValueByName( rangeLines, "border-bottom-width", true );
+            const borderBottomWidth: number = DomElement.getStyleValueByName( rangeLines, "border-bottom-width", true ) as number;
             const pixelsPerNumbers: number = ( rangeLines.offsetHeight - borderBottomWidth ) / colorRangeValuesForCurrentYear.largestValue;
 
             if ( !bindingOptions.views!.statistics!.showColorRangeLabels ) {
@@ -2438,7 +2439,7 @@ import { Build } from "./ts/data/build";
             }
 
             for ( const type in colorRangeValuesForCurrentYear.types ) {
-                if ( colorRangeValuesForCurrentYear.types.hasOwnProperty( type ) ) {
+                if ( Object.prototype.hasOwnProperty.call( colorRangeValuesForCurrentYear.types, type ) ) {
                     renderControlStatisticsRangeLine( parseInt( type ), rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers, colorRangeValuesForCurrentYear.totalValue, isForViewSwitch );
 
                     const useColorRange: BindingOptionsColorRange = ColorRange.getByMinimum( colorRanges, parseInt( type ) );
@@ -2555,7 +2556,7 @@ import { Build } from "./ts/data/build";
                 for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
                     const storageDate: string = DateTime.toStorageDate( new Date( actualYear, actualMonthIndex, dayIndex + 1 ) );
 
-                    if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                    if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                         const storageDateObject: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
                         const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
@@ -2583,7 +2584,7 @@ import { Build } from "./ts/data/build";
      */
 
     function renderControlGuide( bindingOptions: BindingOptions ) : void {
-        const guide: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "guide" )
+        const guide: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "guide" );
         const mapTypes: HTMLElement = DomElement.create( guide, "div", "map-types" );
         const noneTypeCount: number = getUnknownTrendTypeCount( bindingOptions );
 
@@ -2631,7 +2632,7 @@ import { Build } from "./ts/data/build";
             }
 
             if ( bindingOptions.guide!.showLessAndMoreLabels ) {
-                let lessText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "less-text", _configurationOptions.text!.lessText! );
+                const lessText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "less-text", _configurationOptions.text!.lessText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
                     lessText.onclick = () => updateColorRangeToggles( bindingOptions, false );
@@ -2757,7 +2758,7 @@ import { Build } from "./ts/data/build";
             const zoomOutButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-out", "minus" );
             const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `+${Str.friendlyNumber( bindingOptions._currentView!.zoomLevel * 10 )}%` ) as HTMLSpanElement;
             const zoomInButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-in", "plus" );
-            const spacing: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.Spacing, true );
+            const spacing: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.Spacing, true ) as number;
 
             ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
             ToolTip.add( zoomInButton, bindingOptions, _configurationOptions.text!.zoomInText! );
@@ -2791,8 +2792,8 @@ import { Build } from "./ts/data/build";
     function setupDefaultZoomLevel( bindingOptions: BindingOptions ) : void {
         const daySizeSizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, Css.Variables.DaySize );
         const lineWidthSizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, Css.Variables.LineWidth );
-        let daySize: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.DaySize, true );
-        let lineWidth: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.LineWidth, true );
+        let daySize: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.DaySize, true ) as number;
+        let lineWidth: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.LineWidth, true ) as number;
 
         if ( bindingOptions._currentView!.mapZoomIncrement === Value.notFound ) {
             bindingOptions._currentView!.mapZoomIncrement = daySize / 10;
@@ -2816,8 +2817,8 @@ import { Build } from "./ts/data/build";
         if ( bindingOptions._currentView!.zoomLevel > 0 ) {
             const daySizeSizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, Css.Variables.DaySize );
             const lineWidthSizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, Css.Variables.LineWidth );
-            let daySize: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.DaySize, true );
-            let lineWidth: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.LineWidth, true );
+            let daySize: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.DaySize, true ) as number;
+            let lineWidth: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.LineWidth, true ) as number;
 
             daySize -= bindingOptions._currentView!.mapZoomIncrement;
             daySize = parseFloat( daySize.toFixed( 1 ) );
@@ -2839,8 +2840,8 @@ import { Build } from "./ts/data/build";
         if ( bindingOptions.zooming!.maximumLevel! === 0 || bindingOptions._currentView!.zoomLevel < bindingOptions.zooming!.maximumLevel! ) {
             const daySizeSizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, Css.Variables.DaySize );
             const lineWidthSizingMetric: string = DomElement.getStyleValueByNameSizingMetic( document.documentElement, Css.Variables.LineWidth );
-            let daySize: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.DaySize, true );
-            let lineWidth: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.LineWidth, true );
+            let daySize: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.DaySize, true ) as number;
+            let lineWidth: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.LineWidth, true ) as number;
 
             daySize += bindingOptions._currentView!.mapZoomIncrement;
             daySize = parseFloat( daySize.toFixed( 1 ) );
@@ -2873,7 +2874,7 @@ import { Build } from "./ts/data/build";
             let tooltip: string = DateTime.getCustomFormattedDateText( _configurationOptions, tooltipFormat, date );
 
             if ( bindingOptions.showHolidaysInDayToolTips ) {
-                let holiday: IsHoliday = Is.holiday( bindingOptions, date );
+                const holiday: IsHoliday = Is.holiday( bindingOptions, date );
 
                 if ( holiday.matched && Is.definedString( holiday.name ) ) {
                     tooltip += `${Char.colon}${Char.space}${holiday.name}`;
@@ -2920,7 +2921,7 @@ import { Build } from "./ts/data/build";
         let noneTypeCount: number = 0;
 
         for ( const storageDate in _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configurationOptions.text!.unknownTrendText! ] ) {
-            if ( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configurationOptions.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
+            if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configurationOptions.text!.unknownTrendText! ],  storageDate ) ) {
                 noneTypeCount++;
                 break;
             }
@@ -2955,11 +2956,11 @@ import { Build } from "./ts/data/build";
         let years: number[] = [];
 
         if ( bindingOptions.showOnlyDataForYearsAvailable ) {
-            let typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
+            const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
             for ( const storageDate in typeDateCounts ) {
-                if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    let year: number = parseInt( DateTime.getStorageDateYear( storageDate ) );
+                if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
+                    const year: number = parseInt( DateTime.getStorageDateYear( storageDate ) );
                     
                     if ( years.indexOf( year ) === Value.notFound ) {
                         years.push( year );
@@ -2977,7 +2978,7 @@ import { Build } from "./ts/data/build";
 
     function clearViewableData( bindingOptions: BindingOptions ) : void {
         const currentYear: number = bindingOptions._currentView!.year;
-        let typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
+        const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
         for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
             let actualMonthIndex: number = monthIndex;
@@ -2994,7 +2995,7 @@ import { Build } from "./ts/data/build";
                 const storageDate: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
                 const storageDateKey: string = DateTime.toStorageDate( storageDate );
                 
-                if ( typeDateCounts.hasOwnProperty( storageDateKey ) ) {
+                if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDateKey ) ) {
                     delete typeDateCounts[ storageDateKey ];
                 }
             }
@@ -3037,7 +3038,7 @@ import { Build } from "./ts/data/build";
                     const storageDate: string = DateTime.toStorageDate( date );
                     const weekdayNumber: number = DateTime.getWeekdayNumber( date ) + 1;
 
-                    if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                    if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                         if ( Is.dayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
                             result = Math.max( result, typeDateCounts[ storageDate ] );
                         }
@@ -3079,8 +3080,8 @@ import { Build } from "./ts/data/build";
             createInstanceDataForElement( elementId, bindingOptions, false );
 
             for ( const storageDate in typeDateCounts ) {
-                if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
-                    if ( !_elements_InstanceData[ elementId ].typeData[ _configurationOptions.text!.unknownTrendText! ].hasOwnProperty( storageDate ) ) {
+                if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
+                    if ( !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData[ _configurationOptions.text!.unknownTrendText! ], storageDate ) ) {
                         _elements_InstanceData[ elementId ].typeData[ _configurationOptions.text!.unknownTrendText! ][ storageDate ] = 0;
                     }
             
@@ -3092,7 +3093,7 @@ import { Build } from "./ts/data/build";
 
     function cancelAllPullDataTimersAndClearWindowEvents() : void {
         for ( const elementId in _elements_InstanceData ) {
-            if ( _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
 
                 renderWindowEvents( bindingOptions, false );
@@ -3265,7 +3266,7 @@ import { Build } from "./ts/data/build";
     function setupObservationMode() : void {
         if ( _configurationOptions.observationMode ) {
             if ( !Is.defined( _mutationObserver ) ) {
-                _mutationObserver = new MutationObserver( ( _1: any, _2: any ) => {
+                _mutationObserver = new MutationObserver( () => {
                     _public.renderAll();
                 } );
 
@@ -3299,11 +3300,11 @@ import { Build } from "./ts/data/build";
          */
 
         addType: function ( elementId: string, type: string, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedString( type ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
-                if ( !bindingOptions._currentView!.isInFetchMode && !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
-                    if ( !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
+                if ( !bindingOptions._currentView!.isInFetchMode && !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
+                    if ( !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
                         _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
                         _elements_InstanceData[ elementId ].totalTypes++;
                     }
@@ -3320,10 +3321,10 @@ import { Build } from "./ts/data/build";
         },
 
         removeType: function ( elementId: string, type: string, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedString( type ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
-                if ( !bindingOptions._currentView!.isInFetchMode && !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
+                if ( !bindingOptions._currentView!.isInFetchMode && !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData,  type ) ) {
                     removeType( bindingOptions, type );
         
                     if ( triggerRefresh ) {
@@ -3336,7 +3337,7 @@ import { Build } from "./ts/data/build";
         },
 
         addDates: function ( elementId: string, dates: Date[], type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedArray( dates ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedArray( dates ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
@@ -3358,7 +3359,7 @@ import { Build } from "./ts/data/build";
         },
 
         addDate: function ( elementId: string, date: Date, type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedDate( date ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
@@ -3366,12 +3367,12 @@ import { Build } from "./ts/data/build";
 
                     const storageDate: string = DateTime.toStorageDate( date );
         
-                    if ( !_elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
+                    if ( !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
                         _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
                         _elements_InstanceData[ elementId ].totalTypes++;
                     }
         
-                    if ( !_elements_InstanceData[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
+                    if ( !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData[ type ], storageDate ) ) {
                         _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ] = 0;
                     }
             
@@ -3389,13 +3390,13 @@ import { Build } from "./ts/data/build";
         },
 
         updateDate: function ( elementId: string, date: Date, count: number, type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedDate( date ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode && count > 0 ) {
                     const storageDate: string = DateTime.toStorageDate( date );
         
-                    if ( _elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {    
+                    if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {    
                         type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
 
                         _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ] = count;
@@ -3413,7 +3414,7 @@ import { Build } from "./ts/data/build";
         },
 
         removeDates: function ( elementId: string, dates: Date[], type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedArray( dates ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedArray( dates ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
@@ -3435,13 +3436,13 @@ import { Build } from "./ts/data/build";
         },
 
         removeDate: function ( elementId: string, date: Date, type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedDate( date ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
                     const storageDate: string = DateTime.toStorageDate( date );
         
-                    if ( _elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) && _elements_InstanceData[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
+                    if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData[ type ], storageDate ) ) {
                         type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
 
                         if ( _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ] > 0 ) {
@@ -3461,13 +3462,13 @@ import { Build } from "./ts/data/build";
         },
 
         clearDate: function ( elementId: string, date: Date, type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedDate( date ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
                     const storageDate: string = DateTime.toStorageDate( date );
         
-                    if ( _elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) && _elements_InstanceData[ elementId ].typeData[ type ].hasOwnProperty( storageDate ) ) {
+                    if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData[ type ], storageDate ) ) {
                         type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
 
                         delete _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ];
@@ -3486,7 +3487,7 @@ import { Build } from "./ts/data/build";
 
         resetAll: function ( triggerRefresh: boolean = true ) : PublicApi {
             for ( const elementId in _elements_InstanceData ) {
-                if ( _elements_InstanceData.hasOwnProperty( elementId ) ) {
+                if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                     _public.reset( elementId, triggerRefresh );
                 }
             }
@@ -3495,7 +3496,7 @@ import { Build } from "./ts/data/build";
         },
 
         reset: function ( elementId: string, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
@@ -3521,7 +3522,7 @@ import { Build } from "./ts/data/build";
          */
 
         import: function ( elementId: string, files: FileList = null! ) : PublicApi {
-            if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 if ( Is.definedArray( files ) ) {
                     importFromFiles( files, _elements_InstanceData[ elementId ].options );
                 } else {
@@ -3533,7 +3534,7 @@ import { Build } from "./ts/data/build";
         },
 
         export: function ( elementId: string, exportType: string = null! ) : PublicApi {
-            if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
 
                 exportAllData( bindingOptions, exportType, null!, bindingOptions.exportOnlyDataBeingViewed );
@@ -3550,7 +3551,7 @@ import { Build } from "./ts/data/build";
          */
 
         refresh: function ( elementId: string ) : PublicApi {
-            if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
     
                 renderControlContainer( bindingOptions, true );
@@ -3562,7 +3563,7 @@ import { Build } from "./ts/data/build";
 
         refreshAll: function () : PublicApi {
             for ( const elementId in _elements_InstanceData ) {
-                if ( _elements_InstanceData.hasOwnProperty( elementId ) ) {
+                if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                     const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
     
                     renderControlContainer( bindingOptions, true );
@@ -3574,7 +3575,7 @@ import { Build } from "./ts/data/build";
         },
 
         setYear: function ( elementId: string, year: number ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedNumber( year ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedNumber( year ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 bindingOptions._currentView!.year = year;
     
@@ -3591,13 +3592,13 @@ import { Build } from "./ts/data/build";
         },
 
         setYearToHighest: function ( elementId: string ) : PublicApi {
-            if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
                 let maximumYear: number = 0;
     
                 for ( const storageDate in typeDateCounts ) {
-                    if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                    if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                         maximumYear = Math.max( maximumYear, parseInt( DateTime.getStorageDateYear( storageDate ) ) );
                     }
                 }
@@ -3619,13 +3620,13 @@ import { Build } from "./ts/data/build";
         },
 
         setYearToLowest: function ( elementId: string ) : PublicApi {
-            if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
                 let minimumYear: number = 9999;
     
                 for ( const storageDate in typeDateCounts ) {
-                    if ( typeDateCounts.hasOwnProperty( storageDate ) ) {
+                    if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                         minimumYear = Math.min( minimumYear, parseInt( DateTime.getStorageDateYear( storageDate ) ) );
                     }
                 }
@@ -3647,7 +3648,7 @@ import { Build } from "./ts/data/build";
         },
 
         moveToPreviousYear: function ( elementId: string ) : PublicApi {
-            if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 moveToPreviousYear( _elements_InstanceData[ elementId ].options );
             }
     
@@ -3655,7 +3656,7 @@ import { Build } from "./ts/data/build";
         },
 
         moveToNextYear: function ( elementId: string ) : PublicApi {
-            if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 moveToNextYear( _elements_InstanceData[ elementId ].options );
             }
     
@@ -3663,7 +3664,7 @@ import { Build } from "./ts/data/build";
         },
 
         moveToCurrentYear: function ( elementId: string ) : PublicApi {
-            if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 bindingOptions._currentView!.year = new Date().getFullYear();
     
@@ -3682,7 +3683,7 @@ import { Build } from "./ts/data/build";
         getYear: function ( elementId: string ) : number {
             let result: number = Value.notFound;
 
-            if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 result = _elements_InstanceData[ elementId ].options._currentView!.year;
             }
     
@@ -3704,9 +3705,9 @@ import { Build } from "./ts/data/build";
         },
 
         switchView: function ( elementId: string, viewName: string ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedString( viewName ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedString( viewName ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-                let viewId: ViewId = Visible.View.get( viewName );
+                const viewId: ViewId = Visible.View.get( viewName );
     
                 if ( viewId !== ViewId.unknown && bindingOptions._currentView!.view !== viewId ) {
                     switchView( bindingOptions, viewId, viewName );
@@ -3717,7 +3718,7 @@ import { Build } from "./ts/data/build";
         },
 
         switchType: function ( elementId: string, type: string ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedString( type ) && _elements_InstanceData.hasOwnProperty( elementId ) && _elements_InstanceData[ elementId ].typeData.hasOwnProperty( type ) ) {
+            if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData,  type ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
     
                 if ( bindingOptions._currentView!.type !== type ) {
@@ -3732,13 +3733,13 @@ import { Build } from "./ts/data/build";
         },
 
         updateOptions: function ( elementId: string, bindingOptions: BindingOptions ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedObject( bindingOptions ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedObject( bindingOptions ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
                 const bindingOptions: any = _elements_InstanceData[ elementId ].options;
                 const newBindingOptions: any = Binding.Options.get( bindingOptions );
                 let optionChanged: boolean = false;
     
                 for ( const propertyName in newBindingOptions ) {
-                    if ( newBindingOptions.hasOwnProperty( propertyName ) && bindingOptions.hasOwnProperty( propertyName ) && bindingOptions[ propertyName ] !== newBindingOptions[ propertyName ] ) {
+                    if ( Object.prototype.hasOwnProperty.call( newBindingOptions,  propertyName ) && Object.prototype.hasOwnProperty.call( bindingOptions,  propertyName ) && bindingOptions[ propertyName ] !== newBindingOptions[ propertyName ] ) {
                         bindingOptions[ propertyName ] = newBindingOptions[ propertyName ];
                         optionChanged = true;
                     }
@@ -3757,7 +3758,7 @@ import { Build } from "./ts/data/build";
         getActiveView: function ( elementId: string ) : string {
             let result: string = Char.empty;
 
-            if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 result = Visible.View.getName( _elements_InstanceData[ elementId ].options );
             }
     
@@ -3773,7 +3774,7 @@ import { Build } from "./ts/data/build";
 
         destroyAll: function () : PublicApi {
             for ( const elementId in _elements_InstanceData ) {
-                if ( _elements_InstanceData.hasOwnProperty( elementId ) ) {
+                if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                     destroyElement( _elements_InstanceData[ elementId ].options );
                 }
             }
@@ -3784,7 +3785,7 @@ import { Build } from "./ts/data/build";
         },
 
         destroy: function ( elementId: string ) : PublicApi {
-            if ( Is.definedString( elementId ) && _elements_InstanceData.hasOwnProperty( elementId ) ) {
+            if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 destroyElement( _elements_InstanceData[ elementId ].options );
     
                 delete _elements_InstanceData[ elementId ];
@@ -3807,7 +3808,7 @@ import { Build } from "./ts/data/build";
                 let configurationOptionsHaveChanged: boolean = false;
             
                 for ( const propertyName in newConfigurationOptions ) {
-                    if ( newConfigurationOptions.hasOwnProperty( propertyName ) && _configurationOptions.hasOwnProperty( propertyName ) && newInternalConfigurationOptions[ propertyName ] !== newConfigurationOptions[ propertyName ] ) {
+                    if ( Object.prototype.hasOwnProperty.call( newConfigurationOptions, propertyName ) && Object.prototype.hasOwnProperty.call( _configurationOptions, propertyName ) && newInternalConfigurationOptions[ propertyName ] !== newConfigurationOptions[ propertyName ] ) {
                         newInternalConfigurationOptions[ propertyName ] = newConfigurationOptions[ propertyName ];
                         configurationOptionsHaveChanged = true;
                     }
@@ -3838,7 +3839,7 @@ import { Build } from "./ts/data/build";
             const result: string[] = [];
         
             for ( const elementId in _elements_InstanceData ) {
-                if ( _elements_InstanceData.hasOwnProperty( elementId ) ) {
+                if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                     result.push( elementId );
                 }
             }

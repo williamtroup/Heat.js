@@ -78,7 +78,7 @@ export namespace Default {
             if ( Is.definedString( objectString ) ) {
                 try {
                     result.object = JSON.parse( objectString );
-                } catch ( e1: any ) {
+                } catch {
                     result.object = JSON.parse( objectString.replace( /'/g, '"' ) );
                 }
             }
@@ -133,7 +133,7 @@ export namespace Default {
         }
 
         if ( contextFound && Is.definedFunction( context[ onlyFunctionName ] ) ) {
-            result = context[ onlyFunctionName ].apply( context, functionNameArguments );
+            result = context[ onlyFunctionName ].apply( context, ...functionNameArguments );
         }
 
         return result;

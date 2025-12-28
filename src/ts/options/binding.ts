@@ -466,7 +466,7 @@ export namespace Binding {
         }
 
         function getHolidays( bindingOptions: BindingOptions ) : BindingOptionsHoliday[] {
-            let result: BindingOptionsHoliday[] = [];
+            const result: BindingOptionsHoliday[] = [];
 
             if ( Is.definedArray( bindingOptions.holidays ) ) {
                 const holidaysLength: number = bindingOptions.holidays!.length;
