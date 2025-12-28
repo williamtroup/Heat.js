@@ -22,7 +22,7 @@ export type InstanceTypeData = {
 
 export type StringToJson = {
     parsed: boolean;
-    object: any;
+    object: unknown;
 };
 
 export type Position = {

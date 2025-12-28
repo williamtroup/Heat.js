@@ -12,7 +12,7 @@
     "sourceMap": true,
     "strict": true,
     "noImplicitReturns": true,
-    "noImplicitAny": true
+    "noImplicitAny": false
   },
   "include": [
     "src/**/*.ts"

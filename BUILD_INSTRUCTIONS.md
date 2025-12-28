@@ -13,22 +13,10 @@ Install the packages using the following NPM commands:
 npm install -g typescript
 ```
 
-### 2. Install tsup:
+### 2. Install packages:
 
 ```markdown
-npm i tsup -D
-```
-
-### 3. Install terser:
-
-```markdown
-npm install terser -D
-```
-
-### 4. Install swc/core (if ES5 is required):
-
-```markdown
-npm install @swc/core -D
+npm install
 ```
 
 
@@ -80,4 +68,13 @@ To build the TypeScript, run the following command:
 
 ```markdown
 npm run build-typescript-esm
+```
+
+
+## Step 3: Run ESLint:
+
+To verify the code follows all the pre-configured style rules, run the following command:
+
+```markdown
+npx eslint '**/*.ts'
 ```

@@ -44,7 +44,7 @@ export namespace Binding {
         const _default_MonthsToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
         const _default_DaysToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7 ];
 
-        export function getForNewInstance( configurationOptions: ConfigurationOptions, data: any, element: HTMLElement ) : BindingOptions {
+        export function getForNewInstance( configurationOptions: ConfigurationOptions, data: unknown, element: HTMLElement ) : BindingOptions {
             const bindingOptions: BindingOptions = get( data );
     
             bindingOptions._currentView = {} as BindingOptionsCurrentView;
@@ -110,7 +110,7 @@ export namespace Binding {
             return bindingOptions;
         }
 
-        export function get( newBindingOptions: any ) : BindingOptions {
+        export function get( newBindingOptions: unknown ) : BindingOptions {
             const bindingOptions: BindingOptions = Default.getObject( newBindingOptions, {} as BindingOptions );
             bindingOptions.views = Default.getObject( bindingOptions.views, {} as BindingOptionsViews );
             bindingOptions.exportOnlyDataBeingViewed = Default.getBoolean( bindingOptions.exportOnlyDataBeingViewed, true );
@@ -208,11 +208,11 @@ export namespace Binding {
             bindingOptions.views!.map!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.map!.showCountsInToolTips, true );
             bindingOptions.views!.map!.showSpacing = Default.getBoolean( bindingOptions.views!.map!.showSpacing, true );
 
-            if ( Is.invalidOptionArray( bindingOptions.views!.map!.monthsToShow ) ) {
+            if ( Is.invalidOptionArray( bindingOptions.views!.map!.monthsToShow! ) ) {
                 bindingOptions.views!.map!.monthsToShow = _default_MonthsToShow;
             }
     
-            if ( Is.invalidOptionArray( bindingOptions.views!.map!.daysToShow ) ) {
+            if ( Is.invalidOptionArray( bindingOptions.views!.map!.daysToShow! ) ) {
                 bindingOptions.views!.map!.daysToShow = _default_DaysToShow;
             }
     
@@ -230,11 +230,11 @@ export namespace Binding {
             bindingOptions.views!.line!.dayToolTipText = Default.getString( bindingOptions.views!.line!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.views!.line!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.line!.showCountsInToolTips, true );
 
-            if ( Is.invalidOptionArray( bindingOptions.views!.line!.monthsToShow ) ) {
+            if ( Is.invalidOptionArray( bindingOptions.views!.line!.monthsToShow! ) ) {
                 bindingOptions.views!.line!.monthsToShow = _default_MonthsToShow;
             }
     
-            if ( Is.invalidOptionArray( bindingOptions.views!.line!.daysToShow ) ) {
+            if ( Is.invalidOptionArray( bindingOptions.views!.line!.daysToShow! ) ) {
                 bindingOptions.views!.line!.daysToShow = _default_DaysToShow;
             }
     
@@ -258,11 +258,11 @@ export namespace Binding {
             bindingOptions.views!.chart!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.chart!.showCountsInToolTips, true );
             bindingOptions.views!.chart!.addMonthSpacing = Default.getBoolean( bindingOptions.views!.chart!.addMonthSpacing, false );
 
-            if ( Is.invalidOptionArray( bindingOptions.views!.chart!.monthsToShow ) ) {
+            if ( Is.invalidOptionArray( bindingOptions.views!.chart!.monthsToShow! ) ) {
                 bindingOptions.views!.chart!.monthsToShow = _default_MonthsToShow;
             }
     
-            if ( Is.invalidOptionArray( bindingOptions.views!.chart!.daysToShow ) ) {
+            if ( Is.invalidOptionArray( bindingOptions.views!.chart!.daysToShow! ) ) {
                 bindingOptions.views!.chart!.daysToShow = _default_DaysToShow;
             }
     
@@ -283,11 +283,11 @@ export namespace Binding {
             bindingOptions.views!.days!.showDayCountPercentages = Default.getBoolean( bindingOptions.views!.days!.showDayCountPercentages, true );
             bindingOptions.views!.days!.showStackedColorRanges = Default.getBoolean( bindingOptions.views!.days!.showStackedColorRanges, true );
     
-            if ( Is.invalidOptionArray( bindingOptions.views!.days!.monthsToShow ) ) {
+            if ( Is.invalidOptionArray( bindingOptions.views!.days!.monthsToShow! ) ) {
                 bindingOptions.views!.days!.monthsToShow = _default_MonthsToShow;
             }
     
-            if ( Is.invalidOptionArray( bindingOptions.views!.days!.daysToShow ) ) {
+            if ( Is.invalidOptionArray( bindingOptions.views!.days!.daysToShow! ) ) {
                 bindingOptions.views!.days!.daysToShow = _default_DaysToShow;
             }
     
@@ -309,11 +309,11 @@ export namespace Binding {
             bindingOptions.views!.months!.showMonthCountPercentages = Default.getBoolean( bindingOptions.views!.months!.showMonthCountPercentages, true );
             bindingOptions.views!.months!.showStackedColorRanges = Default.getBoolean( bindingOptions.views!.months!.showStackedColorRanges, true );
     
-            if ( Is.invalidOptionArray( bindingOptions.views!.months!.monthsToShow ) ) {
+            if ( Is.invalidOptionArray( bindingOptions.views!.months!.monthsToShow! ) ) {
                 bindingOptions.views!.months!.monthsToShow = _default_MonthsToShow;
             }
     
-            if ( Is.invalidOptionArray( bindingOptions.views!.months!.daysToShow ) ) {
+            if ( Is.invalidOptionArray( bindingOptions.views!.months!.daysToShow! ) ) {
                 bindingOptions.views!.months!.daysToShow = _default_DaysToShow;
             }
     
@@ -334,11 +334,11 @@ export namespace Binding {
             bindingOptions.views!.statistics!.showRangeCountPercentages = Default.getBoolean( bindingOptions.views!.statistics!.showRangeCountPercentages, true );
             bindingOptions.views!.statistics!.showRangeNamesInToolTips = Default.getBoolean( bindingOptions.views!.statistics!.showRangeNamesInToolTips, true );
 
-            if ( Is.invalidOptionArray( bindingOptions.views!.statistics!.monthsToShow ) ) {
+            if ( Is.invalidOptionArray( bindingOptions.views!.statistics!.monthsToShow! ) ) {
                 bindingOptions.views!.statistics!.monthsToShow = _default_MonthsToShow;
             }
     
-            if ( Is.invalidOptionArray( bindingOptions.views!.statistics!.daysToShow ) ) {
+            if ( Is.invalidOptionArray( bindingOptions.views!.statistics!.daysToShow! ) ) {
                 bindingOptions.views!.statistics!.daysToShow = _default_DaysToShow;
             }
     

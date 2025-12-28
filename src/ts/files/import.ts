@@ -50,7 +50,7 @@ export namespace Import {
             const json: StringToJson = Default.getObjectFromString( ev.target!.result, configurationOptions );
 
             if ( json.parsed && Is.definedObject( json.object ) ) {
-                readingObject = json.object;
+                readingObject = json.object as InstanceTypeDateCount;
             }
         };
 

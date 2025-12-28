@@ -208,6 +208,7 @@
 - Removed the "const" keyword from all enums in the "enum.ts" file.
 - The "Configuration" type has been renamed to "ConfigurationOptions".
 - All sort() usages are now correctly defined, and now use lambdas.
+- Added ESLint support (view the build instruction to learn how to run it).
 
 #### **Fixes:**
 - Fixed a fault that caused some of the export dates to have missing parts of the dates.

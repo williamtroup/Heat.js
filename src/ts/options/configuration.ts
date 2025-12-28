@@ -97,7 +97,7 @@ export namespace Configuration {
         }
     
         function getTextArrays( configurationOptionsText: ConfigurationOptionsText ) : ConfigurationOptionsText {
-            if ( Is.invalidOptionArray( configurationOptionsText.monthNames, 12 ) ) {
+            if ( Is.invalidOptionArray( configurationOptionsText.monthNames!, 12 ) ) {
                 configurationOptionsText.monthNames = [
                     "Jan",
                     "Feb",
@@ -114,7 +114,7 @@ export namespace Configuration {
                 ];
             }
     
-            if ( Is.invalidOptionArray( configurationOptionsText.dayNames, 7 ) ) {
+            if ( Is.invalidOptionArray( configurationOptionsText.dayNames!, 7 ) ) {
                 configurationOptionsText.dayNames = [
                     "Mon",
                     "Tue",

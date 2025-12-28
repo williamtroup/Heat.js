@@ -12,9 +12,10 @@
 
 
 import {
+    type InstanceTypeData,
+    type InstanceTypeDateCount,
     type BindingOptions,
     type ConfigurationOptions,
-    type InstanceTypeData,
     type StringToJson } from "../type";
 
 import { Constant } from "../constant";
@@ -36,7 +37,7 @@ export namespace LocalStorage {
                     const typesObject: StringToJson = Default.getObjectFromString( typesJson, configurationOptions );
 
                     if ( typesObject.parsed ) {
-                        instanceTypeData.typeData = typesObject.object;
+                        instanceTypeData.typeData = typesObject.object as Record<string, InstanceTypeDateCount>;
                         instanceTypeData.totalTypes = 0;
 
                         for ( const type in instanceTypeData.typeData ) {
