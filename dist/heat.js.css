@@ -2476,13 +2476,14 @@ div.heat-js div.guide div.map-toggles {
   text-align: center;
   gap: var(--heat-js-spacing);
   flex-wrap: wrap;
-  max-width: 320px;
+  max-width: none;
 }
 @media (min-width: 768px) {
   div.heat-js div.guide div.map-toggles {
     text-align: right;
     justify-content: right;
     width: auto;
+    max-width: 320px;
   }
 }
 div.heat-js div.guide div.map-toggles div.less-text,

@@ -1823,12 +1823,13 @@ div.heat-js {
             text-align: center;
             gap: var(--heat-js-spacing);
             flex-wrap: wrap;
-            max-width: 320px;
+            max-width: none;
 
             @media (min-width: styles.$minimum-width) { 
                 text-align: right;
                 justify-content: right;
                 width: auto;
+                max-width: 320px;
             }
 
             div.less-text,
