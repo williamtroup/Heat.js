@@ -133,7 +133,7 @@ export namespace Default {
         }
 
         if ( contextFound && Is.definedFunction( context[ onlyFunctionName ] ) ) {
-            result = context[ onlyFunctionName ].apply( context, ...functionNameArguments );
+            result = context[ onlyFunctionName ].apply( context, functionNameArguments );
         }
 
         return result;

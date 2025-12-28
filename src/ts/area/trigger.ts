@@ -19,7 +19,7 @@ export namespace Trigger {
         let result: any = null;
 
         if ( Is.definedFunction( triggerFunction ) ) {
-            result = triggerFunction.apply( null, ...[].slice.call( args, 0 ) );
+            result = triggerFunction.apply( null, [].slice.call( args, 0 ) );
         }
 
         return result;
