@@ -1742,12 +1742,12 @@ import { DocumentElement } from "./ts/area/document-element";
             let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
             let firstMonthAdded: boolean = false;
 
-            for ( let monthIndex1: number = bindingOptions.startMonth!; monthIndex1 < ( 12 + bindingOptions.startMonth! ); monthIndex1++ ) {
-                let actualMonthIndex: number = monthIndex1;
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+                let actualMonthIndex: number = monthIndex;
                 let actualYear: number = currentYear;
 
-                if ( bindingOptions.startMonth! > 0 && monthIndex1 > 11 ) {
-                    actualMonthIndex = monthIndex1 - 12;
+                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
+                    actualMonthIndex = monthIndex - 12;
                     actualYear++;
                 }
 
@@ -1839,13 +1839,13 @@ import { DocumentElement } from "./ts/area/document-element";
                 };
 
                 if ( bindingOptions.views!.chart!.showInReverseOrder ) {
-                    for ( let monthIndex2: number = 12; monthIndex2--; ) {
-                        addMonthName( monthIndex2 );
+                    for ( let monthIndex: number = 12; monthIndex--; ) {
+                        addMonthName( monthIndex );
                     }
                     
                 } else {
-                    for ( let monthIndex3: number = 0; monthIndex3 < 12; monthIndex3++ ) {
-                        addMonthName( monthIndex3 );
+                    for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
+                        addMonthName( monthIndex );
                     }
                 }
 
