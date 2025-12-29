@@ -332,27 +332,37 @@ div.heat-js {
                     padding: var(--heat-js-spacing);
                 }
 
-                div.side-container {
-                    vertical-align: top;
-                    display: inline-block;
-                    width: calc( 50% - var(--heat-js-spacing) );
-                    margin-right: var(--heat-js-spacing);
-                    text-align: left !important;
+                div.side-containers {
+                    div.side-container {
+                        vertical-align: top;
+                        display: inline-block;
+                        width: calc( 50% - var(--heat-js-spacing) );
+                        margin-right: var(--heat-js-spacing);
+                        text-align: left !important;
 
-                    &:last-child {
-                        margin-right: 0;
-                        width: calc( 50% );
-                    }
+                        &:last-child {
+                            margin-right: 0;
+                            width: calc( 50% );
+                        }
 
-                    div.side-container-title-text {
-                        margin-bottom: var(--heat-js-spacing);
-                        font-weight: var(--heat-js-text-font-weight-medium);
-                    }
+                        div.side-container-title-text {
+                            margin-bottom: var(--heat-js-spacing);
+                            font-weight: var(--heat-js-text-font-weight-medium);
+                        }
 
-                    label.checkbox {
-                        margin-left: var(--heat-js-spacing);
-                        margin-bottom: 6px;
+                        label.checkbox {
+                            margin-left: var(--heat-js-spacing);
+                            margin-bottom: 6px;
+                        }
                     }
+                }
+
+                div.buttons {
+                    text-align: right;
+                    margin-top: calc( var(--heat-js-spacing) * 2 );
+
+                    @include styles.buttons;
+                    @include styles.dialog-buttons;
                 }
             }
         }

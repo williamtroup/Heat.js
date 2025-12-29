@@ -92,6 +92,8 @@ export namespace Configuration {
             configurationOptions.text!.openNewTypeText = Default.getAnyString( configurationOptions.text!.openNewTypeText, "Open new type" );
             configurationOptions.text!.clearExistingDataText = Default.getAnyString( configurationOptions.text!.clearExistingDataText, "Clear existing data" );
             configurationOptions.text!.browseButtonText = Default.getAnyString( configurationOptions.text!.browseButtonText, "Browse" );
+            configurationOptions.text!.saveButtonText = Default.getAnyString( configurationOptions.text!.saveButtonText, "Save" );
+            configurationOptions.text!.resetButtonText = Default.getAnyString( configurationOptions.text!.resetButtonText, "Reset" );
 
             return configurationOptions.text!;
         }

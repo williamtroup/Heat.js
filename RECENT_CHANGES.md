@@ -165,6 +165,8 @@
 - Added a new configuration text option called "text.openNewTypeText" (defaults to "Open new type").
 - Added a new configuration text option called "text.clearExistingDataText" (defaults to "Clear existing data").
 - Added a new configuration text option called "text.browseButtonText" (defaults to "Browse").
+- Added a new configuration text option called "text.saveButtonText" (defaults to "Save").
+- Added a new configuration text option called "text.resetButtonText" (defaults to "Reset").
 
 #### **Public Functions:**
 - Added a new public function called "getActiveView()", which returns the active view name for a specific element ID instance.
@@ -200,6 +202,7 @@
 - Upgraded ECMAScript from ES2020 to ES2022.
 - Exported JSON files are now indented and formatted so they are more readable.
 - Exported XML and HTML files are now indented correctly so they are more readable.
+- Added a "Save" and "Reset" button to the "Configuration" dialog (pressing "Close" will not just close the dialog).
 
 #### **Library:**
 - Updated all the NPM packages to the latest versions.

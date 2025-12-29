@@ -60,6 +60,8 @@ $heat.setConfiguration( {
                 "openNewTypeText": "Open new type",
                 "clearExistingDataText": "Clear existing data",
                 "browseButtonText": "Browse",
+                "saveButtonText": "Save",
+                "resetButtonText": "Reset",
                 "monthNames": [
                         "Jan",
                         "Feb",

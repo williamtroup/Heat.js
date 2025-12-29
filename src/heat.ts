@@ -203,8 +203,9 @@ import { Build } from "./ts/data/build";
             const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.configurationDialog, "div", "dialog-title-bar" );
             const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.configurationDialog, "div", "dialog-contents" );
             const closeButton: HTMLElement = DomElement.create( titleBar, "div", "dialog-close" );
-            const daysContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
-            const monthsContainer: HTMLElement = DomElement.create( contents, "div", "side-container panel" );
+            const sideContainers: HTMLElement = DomElement.create( contents, "div", "side-containers" );
+            const daysContainer: HTMLElement = DomElement.create( sideContainers, "div", "side-container panel" );
+            const monthsContainer: HTMLElement = DomElement.create( sideContainers, "div", "side-container panel" );
 
             DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.configurationTitleText! );
             DomElement.createWithHTML( daysContainer, "div", "side-container-title-text", `${_configurationOptions.text!.visibleDaysText}${Char.colon}` );
@@ -213,7 +214,13 @@ import { Build } from "./ts/data/build";
             const months1Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
             const months2Container: HTMLElement = DomElement.create( monthsContainer, "div", "side-container" );
 
+            const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
+            const resetButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.resetButtonText! );
+            const saveButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.saveButtonText! );
+
             closeButton.onclick = () => hideConfigurationDialog( bindingOptions );
+            resetButton.onclick = () => resetConfigurationDialogCheckBoxes( bindingOptions );
+            saveButton.onclick = () => saveConfigurationDialogChanges( bindingOptions );
 
             for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
                 bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configurationOptions.text!.dayNames![ dayIndex ], dayIndex.toString() );
@@ -271,6 +278,16 @@ import { Build } from "./ts/data/build";
             bindingOptions._currentView!.configurationDialog.style.display = "none";
         }
 
+        ToolTip.hide( bindingOptions );
+    }
+
+    function saveConfigurationDialogChanges( bindingOptions: BindingOptions ) : void {
+        Disabled.Background.hide( bindingOptions );
+
+        if ( Is.defined( bindingOptions._currentView!.configurationDialog ) && bindingOptions._currentView!.configurationDialog.style.display !== "none" ) {
+            bindingOptions._currentView!.configurationDialog.style.display = "none";
+        }
+
         const daysToShow: number[] = Visible.Days.get( bindingOptions );
         const monthsToShow: number[] = Visible.Months.get( bindingOptions );
         const updatedDaysToShow: number[] = [];
@@ -305,6 +322,16 @@ import { Build } from "./ts/data/build";
             
         } else {
             ToolTip.hide( bindingOptions );
+        }
+    }
+
+    function resetConfigurationDialogCheckBoxes( bindingOptions: BindingOptions ) : void {
+        for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
+            bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ].checked = true;
+        }
+
+        for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
+            bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ monthIndex ].checked = true;
         }
     }
 

@@ -282,24 +282,75 @@ div.heat-js div.disabled div.configuration div.dialog-contents div.panel {
   border-radius: var(--heat-js-border-radius);
   padding: var(--heat-js-spacing);
 }
-div.heat-js div.disabled div.configuration div.dialog-contents div.side-container {
+div.heat-js div.disabled div.configuration div.dialog-contents div.side-containers div.side-container {
   vertical-align: top;
   display: inline-block;
   width: calc(50% - var(--heat-js-spacing));
   margin-right: var(--heat-js-spacing);
   text-align: left !important;
 }
-div.heat-js div.disabled div.configuration div.dialog-contents div.side-container:last-child {
+div.heat-js div.disabled div.configuration div.dialog-contents div.side-containers div.side-container:last-child {
   margin-right: 0;
   width: 50%;
 }
-div.heat-js div.disabled div.configuration div.dialog-contents div.side-container div.side-container-title-text {
+div.heat-js div.disabled div.configuration div.dialog-contents div.side-containers div.side-container div.side-container-title-text {
   margin-bottom: var(--heat-js-spacing);
   font-weight: var(--heat-js-text-font-weight-medium);
 }
-div.heat-js div.disabled div.configuration div.dialog-contents div.side-container label.checkbox {
+div.heat-js div.disabled div.configuration div.dialog-contents div.side-containers div.side-container label.checkbox {
   margin-left: var(--heat-js-spacing);
   margin-bottom: 6px;
+}
+div.heat-js div.disabled div.configuration div.dialog-contents div.buttons {
+  text-align: right;
+  margin-top: calc(var(--heat-js-spacing) * 2);
+}
+div.heat-js div.disabled div.configuration div.dialog-contents div.buttons button {
+  background-color: var(--heat-js-button-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
+  color: var(--heat-js-button-text-color);
+  border-radius: var(--heat-js-border-radius);
+  outline: none;
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.disabled div.configuration div.dialog-contents div.buttons button.default {
+  font-weight: 700;
+}
+div.heat-js div.disabled div.configuration div.dialog-contents div.buttons button {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 9px;
+  padding-right: 9px;
+}
+div.heat-js div.disabled div.configuration div.dialog-contents div.buttons button:disabled {
+  color: var(--heat-js-button-color-disabled);
+}
+div.heat-js div.disabled div.configuration div.dialog-contents div.buttons button:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-background-color-active) !important;
+  color: var(--heat-js-button-text-color-active) !important;
+}
+div.heat-js div.disabled div.configuration div.dialog-contents div.buttons button:not(.active):not(:disabled):hover {
+  cursor: pointer;
+  background: var(--heat-js-button-background-color-hover);
+  color: var(--heat-js-button-text-color-hover);
+}
+div.heat-js div.disabled div.configuration div.dialog-contents div.buttons button.active {
+  cursor: default;
+  background: var(--heat-js-button-background-color-hover);
+  color: var(--heat-js-button-text-color-hover);
+  transition: var(--heat-js-transition);
+  font-weight: var(--heat-js-text-font-weight-medium);
+}
+div.heat-js div.disabled div.configuration div.dialog-contents div.buttons button {
+  padding-left: calc(var(--heat-js-spacing) + 5px);
+  padding-right: calc(var(--heat-js-spacing) + 5px);
+  padding-top: var(--heat-js-spacing);
+  padding-bottom: var(--heat-js-spacing);
+  margin-right: var(--heat-js-spacing);
+  min-width: 80px;
+}
+div.heat-js div.disabled div.configuration div.dialog-contents div.buttons button:last-child {
+  margin-right: 0;
 }
 
 /*

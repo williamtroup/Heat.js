@@ -123,6 +123,8 @@ export type ConfigurationOptionsText = {
     openNewTypeText?: string;
     clearExistingDataText?: string;
     browseButtonText?: string;
+    saveButtonText?: string;
+    resetButtonText?: string;
 };
 
 export type BindingOptions = {
