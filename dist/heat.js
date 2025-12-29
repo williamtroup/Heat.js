@@ -687,46 +687,47 @@ var w;
         let p = n[2];
         let m = 0;
         for (let a = 0; a < e.totalColors; a++) {
-            const d = h + o > 1 ? 1 : h + o;
-            const y = `rgba(${l}, ${c}, ${w}, ${h.toFixed(2)})`;
-            const v = `rgba(${l}, ${c}, ${w}, ${d.toFixed(2)})`;
-            const T = `rgb(${f}, ${g}, ${p})`;
-            const b = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
-            r.push(`div.${b} {`);
-            r.push(`${"\t"}background-color: ${y} !important;`);
-            r.push(`${"\t"}border-color: ${v} !important;`);
-            r.push(`${"\t"}color: ${T} !important;`);
+            const d = a + 1;
+            const y = h + o > 1 ? 1 : h + o;
+            const v = `rgba(${l}, ${c}, ${w}, ${h.toFixed(2)})`;
+            const T = `rgba(${l}, ${c}, ${w}, ${y.toFixed(2)})`;
+            const b = `rgb(${f}, ${g}, ${p})`;
+            const x = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
+            r.push(`div.${x} {`);
+            r.push(`${"\t"}background-color: ${v} !important;`);
+            r.push(`${"\t"}border-color: ${T} !important;`);
+            r.push(`${"\t"}color: ${b} !important;`);
             r.push("}");
-            r.push(`div.${b}:not(.no-hover):hover {`);
+            r.push(`div.${x}:not(.no-hover):hover {`);
             r.push(`${"\t"}opacity: 0.7 !important;`);
             r.push("}");
-            const x = {
-                id: b,
-                name: `Day Color ${a + 1}`,
+            const V = {
+                id: x,
+                name: `Day Color ${d}`,
                 minimum: m,
-                cssClassName: b,
-                tooltipText: `Day Color ${a + 1}`,
+                cssClassName: x,
+                tooltipText: `Day Color ${d}`,
                 visible: true
             };
-            const V = Math.round(n[0] / 100 * ((a + 1) * i));
-            const _ = Math.round(n[1] / 100 * ((a + 1) * i));
-            const C = Math.round(n[2] / 100 * ((a + 1) * i));
+            const _ = Math.round(n[0] / 100 * (d * i));
+            const C = Math.round(n[1] / 100 * (d * i));
+            const D = Math.round(n[2] / 100 * (d * i));
             if (a === e.totalColors - 1) {
                 r.push(`:root {`);
-                r.push(`${"\t"}${u.Variables.CheckBoxCheckedColor}: ${y};`);
-                r.push(`${"\t"}${u.Variables.YearMenuCurrent}: ${y};`);
+                r.push(`${"\t"}${u.Variables.CheckBoxCheckedColor}: ${v};`);
+                r.push(`${"\t"}${u.Variables.YearMenuCurrent}: ${v};`);
                 r.push("}");
             } else {
-                l = n[0] + V;
-                c = n[1] + _;
-                w = n[2] + C;
+                l = n[0] + _;
+                c = n[1] + C;
+                w = n[2] + D;
                 h += o;
-                f = n[0] - V;
-                g = n[1] - _;
-                p = n[2] - C;
+                f = n[0] - _;
+                g = n[1] - C;
+                p = n[2] - D;
                 m += s;
             }
-            t.push(x);
+            t.push(V);
         }
         const y = document.getElementsByTagName("head")[0];
         const v = a.create(y, "style");

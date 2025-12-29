@@ -117,6 +117,7 @@ export namespace ColorRange {
         let currentMinimum: number = 0;
 
         for ( let colorIndex: number = 0; colorIndex < dynamicColorRange!.totalColors!; colorIndex++ ){
+            const actualColorIndex: number = colorIndex + 1;
             const borderAlpha: number = alpha + incrementAlpha > 1.0 ? 1.0 : alpha + incrementAlpha;
             const rgba: string = `rgba(${red}, ${green}, ${blue}, ${alpha.toFixed( 2 )})`;
             const rgbaBorder: string = `rgba(${red}, ${green}, ${blue}, ${borderAlpha.toFixed( 2 )})`;
@@ -134,16 +135,16 @@ export namespace ColorRange {
 
             const colorRange: BindingOptionsColorRange = {
                 id: cssName,
-                name: `Day Color ${colorIndex + 1}`,
+                name: `Day Color ${actualColorIndex}`,
                 minimum: currentMinimum,
                 cssClassName: cssName,
-                tooltipText: `Day Color ${colorIndex + 1}`,
+                tooltipText: `Day Color ${actualColorIndex}`,
                 visible: true,
             } as BindingOptionsColorRange;
 
-            const redPercentage = Math.round( rgbaValues[ 0 ] / 100 * ( ( colorIndex + 1 ) * incrementPercentage ) );
-            const greenPercentage = Math.round( rgbaValues[ 1 ] / 100 * ( ( colorIndex + 1 ) * incrementPercentage ) );
-            const bluePercentage = Math.round( rgbaValues[ 2 ] / 100 * ( ( colorIndex + 1 ) * incrementPercentage ) );
+            const redPercentage = Math.round( rgbaValues[ 0 ] / 100 * ( actualColorIndex * incrementPercentage ) );
+            const greenPercentage = Math.round( rgbaValues[ 1 ] / 100 * ( actualColorIndex * incrementPercentage ) );
+            const bluePercentage = Math.round( rgbaValues[ 2 ] / 100 * ( actualColorIndex * incrementPercentage ) );
 
             if ( colorIndex === dynamicColorRange!.totalColors! - 1 ) {
                 cssLines.push( `:root {` );
