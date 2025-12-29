@@ -1868,8 +1868,8 @@ var T;
     function i(e, t) {
         if (e.useLocalStorageForData && window.localStorage) {
             const i = e._currentView.element.id;
-            r(e);
             const o = JSON.stringify(t.typeData);
+            r(e);
             window.localStorage.setItem(`${n.LOCAL_STORAGE_START_ID}${i}`, o);
         }
     }

@@ -56,10 +56,9 @@ export namespace LocalStorage {
     export function store( bindingOptions: BindingOptions, instanceTypeData: InstanceTypeData ) : void {
         if ( bindingOptions.useLocalStorageForData && window.localStorage ) {
             const elementId: string = bindingOptions._currentView!.element.id;
+            const jsonData: string = JSON.stringify( instanceTypeData.typeData );
 
             clear( bindingOptions );
-
-            const jsonData: string = JSON.stringify( instanceTypeData.typeData );
 
             window.localStorage.setItem( `${Constant.LOCAL_STORAGE_START_ID}${elementId}`, jsonData );
         }
