@@ -123,13 +123,13 @@ export namespace ColorRange {
             const colorRgb: string = `rgb(${colorRed}, ${colorGreen}, ${colorBlue})`;
             const cssName: string = `day-color-${crypto.randomUUID().replace( /-/g, Char.empty )}`;
             
-            cssLines.push( `div.${cssName}${Char.space}{` );
-            cssLines.push( `${Char.tab}background-color:${Char.space}${rgba} !important;` );
-            cssLines.push( `${Char.tab}border-color:${Char.space}${rgbaBorder} !important;` );
-            cssLines.push( `${Char.tab}color:${Char.space}${colorRgb} !important;` );
+            cssLines.push( `div.${cssName} {` );
+            cssLines.push( `${Char.tab}background-color: ${rgba} !important;` );
+            cssLines.push( `${Char.tab}border-color: ${rgbaBorder} !important;` );
+            cssLines.push( `${Char.tab}color: ${colorRgb} !important;` );
             cssLines.push( "}" );
-            cssLines.push( `div.${cssName}:not(.no-hover):hover${Char.space}{` );
-            cssLines.push( `${Char.tab}opacity:${Char.space}0.7 !important;` );
+            cssLines.push( `div.${cssName}:not(.no-hover):hover {` );
+            cssLines.push( `${Char.tab}opacity: 0.7 !important;` );
             cssLines.push( "}" );
 
             const colorRange: BindingOptionsColorRange = {
@@ -146,9 +146,9 @@ export namespace ColorRange {
             const bluePercentage = Math.round( rgbaValues[ 2 ] / 100 * ( ( colorIndex + 1 ) * incrementPercentage ) );
 
             if ( colorIndex === dynamicColorRange!.totalColors! - 1 ) {
-                cssLines.push( `:root${Char.space}{` );
-                cssLines.push( `${Char.tab}${Css.Variables.CheckBoxCheckedColor}:${Char.space}${rgba};` );
-                cssLines.push( `${Char.tab}${Css.Variables.YearMenuCurrent}:${Char.space}${rgba};` );
+                cssLines.push( `:root {` );
+                cssLines.push( `${Char.tab}${Css.Variables.CheckBoxCheckedColor}: ${rgba};` );
+                cssLines.push( `${Char.tab}${Css.Variables.YearMenuCurrent}: ${rgba};` );
                 cssLines.push( "}" );
 
             } else {

@@ -690,13 +690,13 @@ var w;
             const v = `rgba(${l}, ${c}, ${w}, ${d.toFixed(2)})`;
             const T = `rgb(${f}, ${g}, ${p})`;
             const b = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
-            r.push(`div.${b}${" "}{`);
-            r.push(`${"\t"}background-color:${" "}${y} !important;`);
-            r.push(`${"\t"}border-color:${" "}${v} !important;`);
-            r.push(`${"\t"}color:${" "}${T} !important;`);
+            r.push(`div.${b} {`);
+            r.push(`${"\t"}background-color: ${y} !important;`);
+            r.push(`${"\t"}border-color: ${v} !important;`);
+            r.push(`${"\t"}color: ${T} !important;`);
             r.push("}");
-            r.push(`div.${b}:not(.no-hover):hover${" "}{`);
-            r.push(`${"\t"}opacity:${" "}0.7 !important;`);
+            r.push(`div.${b}:not(.no-hover):hover {`);
+            r.push(`${"\t"}opacity: 0.7 !important;`);
             r.push("}");
             const x = {
                 id: b,
@@ -710,9 +710,9 @@ var w;
             const _ = Math.round(n[1] / 100 * ((a + 1) * i));
             const C = Math.round(n[2] / 100 * ((a + 1) * i));
             if (a === e.totalColors - 1) {
-                r.push(`:root${" "}{`);
-                r.push(`${"\t"}${u.Variables.CheckBoxCheckedColor}:${" "}${y};`);
-                r.push(`${"\t"}${u.Variables.YearMenuCurrent}:${" "}${y};`);
+                r.push(`:root {`);
+                r.push(`${"\t"}${u.Variables.CheckBoxCheckedColor}: ${y};`);
+                r.push(`${"\t"}${u.Variables.YearMenuCurrent}: ${y};`);
                 r.push("}");
             } else {
                 l = n[0] + V;
@@ -1987,7 +1987,7 @@ var x;
             a.addClass(e._currentView.element, "resizable");
         }
         e._currentView.element.removeAttribute(n.HEAT_JS_ATTRIBUTE_NAME);
-        Re(e._currentView.element.id, e);
+        $e(e._currentView.element.id, e);
         O(e);
         B(e);
         Ne(e);
@@ -2160,7 +2160,7 @@ var x;
                 const t = e._currentView.exportDialogExportTypeSelect.value;
                 const n = e._currentView.exportDialogExportFilenameInput.value;
                 const i = e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
-                R(e);
+                $(e);
                 H(e, t, n, i);
             };
             e._currentView.exportDialogExportFilenameInput.onkeydown = e => {
@@ -2169,7 +2169,7 @@ var x;
                 }
             };
             s.onclick = () => r();
-            i.onclick = () => R(e);
+            i.onclick = () => $(e);
             l.add(i, e, V.text.closeButtonText);
         }
     }
@@ -2186,7 +2186,7 @@ var x;
         i.sort((e, t) => e.text.toLowerCase().localeCompare(t.text.toLowerCase()));
         i.forEach(t => e._currentView.exportDialogExportTypeSelect.add(t));
     }
-    function $(e) {
+    function R(e) {
         E(e);
         g.Background.show(e);
         if (i.defined(e._currentView.exportDialog) && e._currentView.exportDialog.style.display !== "block") {
@@ -2195,9 +2195,9 @@ var x;
             e._currentView.exportDialogExportFilenameInput.focus();
         }
         l.hide(e);
-        x.Dialog.bind(() => R(e));
+        x.Dialog.bind(() => $(e));
     }
-    function R(e) {
+    function $(e) {
         g.Background.hide(e);
         if (i.defined(e._currentView.exportDialog) && e._currentView.exportDialog.style.display !== "none") {
             e._currentView.exportDialog.style.display = "none";
@@ -2496,7 +2496,7 @@ var x;
             }
             if (e.title.showExportButton && je(e)) {
                 const n = a.createIconButton(t, "button", "export", "arrow-down");
-                n.onclick = () => $(e);
+                n.onclick = () => R(e);
                 if (e.title.showToolTips) {
                     l.add(n, e, V.text.exportButtonText);
                 }
@@ -3811,7 +3811,7 @@ var x;
     function Se(e) {
         const t = a.create(e._currentView.element, "div", "guide");
         const n = a.create(t, "div", "map-types");
-        const o = $e(e);
+        const o = Re(e);
         if (C[e._currentView.element.id].totalTypes > 1) {
             if (i.definedString(e.description.text)) {
                 const n = a.create(e._currentView.element, "div", "description", t);
@@ -4043,7 +4043,7 @@ var x;
         O(e, false, true);
     }
     function Fe(e) {
-        const t = $e(e);
+        const t = Re(e);
         if (C[e._currentView.element.id].totalTypes > 1) {
             for (const n in C[e._currentView.element.id].typeData) {
                 if (n !== V.text.unknownTrendText || t > 0) {
@@ -4054,7 +4054,7 @@ var x;
             }
         }
     }
-    function $e(e) {
+    function Re(e) {
         let t = 0;
         for (const n in C[e._currentView.element.id].typeData[V.text.unknownTrendText]) {
             if (Object.prototype.hasOwnProperty.call(C[e._currentView.element.id].typeData[V.text.unknownTrendText], n)) {
@@ -4064,7 +4064,7 @@ var x;
         }
         return t;
     }
-    function Re(e, t, n = true) {
+    function $e(e, t, n = true) {
         C[e] = {
             options: t,
             typeData: {},
@@ -4172,7 +4172,7 @@ var x;
         const t = e._currentView.element.id;
         const n = c.customEvent(e.events.onDataFetch, e._currentView.element, t);
         if (i.definedObject(n)) {
-            Re(t, e, false);
+            $e(t, e, false);
             for (const e in n) {
                 if (Object.prototype.hasOwnProperty.call(n, e)) {
                     if (!Object.prototype.hasOwnProperty.call(C[t].typeData[V.text.unknownTrendText], e)) {
@@ -4463,7 +4463,7 @@ var x;
                 const n = C[e].options;
                 if (!n._currentView.isInFetchMode) {
                     n._currentView.type = V.text.unknownTrendText;
-                    Re(e, n, false);
+                    $e(e, n, false);
                     c.customEvent(n.events.onReset, n._currentView.element);
                     if (t) {
                         O(n, true);
