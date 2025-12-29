@@ -4,7 +4,7 @@ import { defineConfig } from "tsup";
 export default defineConfig( [
   {
     entry: [
-      "src/heat.ts"
+      "src/heat.ts",
     ],
     outExtension() {
       return {
@@ -13,7 +13,7 @@ export default defineConfig( [
     },
     platform: "neutral",
     format: [
-      "cjs"
+      "cjs",
     ],
     outDir: "./dist",
     dts: false,
@@ -26,8 +26,8 @@ export default defineConfig( [
       sourceMap: false,
       format: {
         comments: false,
-        shorthand: true
-      }
-    }
-  }
+        shorthand: true,
+      },
+    },
+  },
 ] );
