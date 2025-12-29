@@ -44,6 +44,15 @@ div.header div.header-contents {
     align-items: center;
 }
 
+div.header div.header-contents img {
+    height: 60px;
+    margin-right: 15px;
+    padding: 10px;
+    background-color: #22272e;
+    border-radius: 0.5rem;
+    box-sizing: content-box !important;
+}
+
 div.header div.header-contents h1 {
     font-size: calc(1.375rem + 1.5vw);
     font-weight: 700;
@@ -53,15 +62,6 @@ div.header div.header-contents p {
     margin-top: 5px;
     font-weight: 400;
     font-size: 1rem !important;
-}
-
-div.header div.header-contents img {
-    height: 60px;
-    margin-right: 15px;
-    padding: 10px;
-    background-color: #22272e;
-    border-radius: 0.5rem;
-    box-sizing: content-box !important;
 }
 
 h2 {
