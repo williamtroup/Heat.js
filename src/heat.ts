@@ -270,7 +270,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.bindDialogKeyDown( () => hideConfigurationDialog( bindingOptions ) );
+        DocumentElement.Dialog.bind( () => hideConfigurationDialog( bindingOptions ) );
     }
 
     function hideConfigurationDialog( bindingOptions: BindingOptions ) : void {
@@ -281,7 +281,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.unbindDialogKeyDown();
+        DocumentElement.Dialog.unbind();
     }
 
     function saveConfigurationDialogChanges( bindingOptions: BindingOptions ) : void {
@@ -426,7 +426,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.bindDialogKeyDown( () => hideExportDialog( bindingOptions ) );
+        DocumentElement.Dialog.bind( () => hideExportDialog( bindingOptions ) );
     }
 
     function hideExportDialog( bindingOptions: BindingOptions ) : void {
@@ -437,7 +437,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.unbindDialogKeyDown();
+        DocumentElement.Dialog.unbind();
     }
 
     function exportAllData( bindingOptions: BindingOptions, exportType: string = null!, exportFilename: string = null!, exportOnlyDataBeingViewed: boolean = true ) : void {
@@ -568,7 +568,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.bindDialogKeyDown( () => hideImportDialog( bindingOptions ) );
+        DocumentElement.Dialog.bind( () => hideImportDialog( bindingOptions ) );
     }
 
     function hideImportDialog( bindingOptions: BindingOptions ) : void {
@@ -582,7 +582,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.unbindDialogKeyDown();
+        DocumentElement.Dialog.unbind();
     }
 
     function makeAreaDroppable( element: HTMLElement, bindingOptions: BindingOptions ) : void {
@@ -784,7 +784,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.bindDialogKeyDown( () => hideTypeAddingDialog( bindingOptions ) );
+        DocumentElement.Dialog.bind( () => hideTypeAddingDialog( bindingOptions ) );
     }
 
     function hideTypeAddingDialog( bindingOptions: BindingOptions ) : void {
@@ -795,7 +795,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.unbindDialogKeyDown();
+        DocumentElement.Dialog.unbind();
     }
 
 

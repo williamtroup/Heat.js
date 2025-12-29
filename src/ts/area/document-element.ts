@@ -15,21 +15,23 @@ import { KeyCode } from "../data/enum";
 
 
 export namespace DocumentElement {
-    let _BINDING_KEYDOWN_FUNC: Function = null!;
+    export namespace Dialog {
+        let _BINDING_KEYDOWN_FUNC: Function = null!;
 
-    export function bindDialogKeyDown( hideFunc: Function ) : void {
-        _BINDING_KEYDOWN_FUNC = hideFunc;
+        export function bind( hideFunc: Function ) : void {
+            _BINDING_KEYDOWN_FUNC = hideFunc;
 
-        document.addEventListener( "keydown", ( event: KeyboardEvent ) => onKeyDown( event ) );
-    }
+            document.addEventListener( "keydown", ( event: KeyboardEvent ) => onKeyDown( event ) );
+        }
 
-    export function unbindDialogKeyDown() : void {
-        document.removeEventListener( "keydown", onKeyDown );
-    }
+        export function unbind() : void {
+            document.removeEventListener( "keydown", onKeyDown );
+        }
 
-    function onKeyDown( event: KeyboardEvent ) : void {
-        if ( event.key === KeyCode.escape ) {
-            _BINDING_KEYDOWN_FUNC();
+        function onKeyDown( event: KeyboardEvent ) : void {
+            if ( event.key === KeyCode.escape ) {
+                _BINDING_KEYDOWN_FUNC();
+            }
         }
     }
 }

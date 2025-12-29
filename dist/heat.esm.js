@@ -1916,21 +1916,24 @@ var b;
 var x;
 
 (e => {
-    let t = null;
-    function n(e) {
-        t = e;
-        document.addEventListener("keydown", e => o(e));
-    }
-    e.bindDialogKeyDown = n;
-    function i() {
-        document.removeEventListener("keydown", o);
-    }
-    e.unbindDialogKeyDown = i;
-    function o(e) {
-        if (e.key === "Escape") {
-            t();
+    let t;
+    (e => {
+        let t = null;
+        function n(e) {
+            t = e;
+            document.addEventListener("keydown", e => o(e));
         }
-    }
+        e.bind = n;
+        function i() {
+            document.removeEventListener("keydown", o);
+        }
+        e.unbind = i;
+        function o(e) {
+            if (e.key === "Escape") {
+                t();
+            }
+        }
+    })(t = e.Dialog || (e.Dialog = {}));
 })(x || (x = {}));
 
 (() => {
@@ -2082,7 +2085,7 @@ var x;
             e._currentView.configurationDialogMonthCheckBoxes[t].checked = i.monthVisible(n, t);
         }
         l.hide(e);
-        x.bindDialogKeyDown(() => L(e));
+        x.Dialog.bind(() => L(e));
     }
     function L(e) {
         g.Background.hide(e);
@@ -2090,7 +2093,7 @@ var x;
             e._currentView.configurationDialog.style.display = "none";
         }
         l.hide(e);
-        x.unbindDialogKeyDown();
+        x.Dialog.unbind();
     }
     function A(e) {
         g.Background.hide(e);
@@ -2192,7 +2195,7 @@ var x;
             e._currentView.exportDialogExportFilenameInput.focus();
         }
         l.hide(e);
-        x.bindDialogKeyDown(() => R(e));
+        x.Dialog.bind(() => R(e));
     }
     function R(e) {
         g.Background.hide(e);
@@ -2200,7 +2203,7 @@ var x;
             e._currentView.exportDialog.style.display = "none";
         }
         l.hide(e);
-        x.unbindDialogKeyDown();
+        x.Dialog.unbind();
     }
     function H(e, t = null, n = null, s = true) {
         const r = o.getString(t, e.exportType).toLowerCase();
@@ -2292,7 +2295,7 @@ var x;
             e._currentView.importDialog.style.display = "block";
         }
         l.hide(e);
-        x.bindDialogKeyDown(() => Y(e));
+        x.Dialog.bind(() => Y(e));
     }
     function Y(e) {
         g.Background.hide(e);
@@ -2303,7 +2306,7 @@ var x;
             e._currentView.importDialog.style.display = "none";
         }
         l.hide(e);
-        x.unbindDialogKeyDown();
+        x.Dialog.unbind();
     }
     function U(e, t) {
         if (t.allowFileImports && !t._currentView.isInFetchMode) {
@@ -2398,7 +2401,7 @@ var x;
             m.file(n, i, a, V);
         }
     }
-    function K(e) {
+    function X(e) {
         g.Background.render(e);
         if (!i.definedParentElement(e._currentView.typeAddingDialog)) {
             e._currentView.typeAddingDialog = a.create(e._currentView.disabledBackground, "div", "dialog add-type");
@@ -2426,10 +2429,10 @@ var x;
                     }
                     c.customEvent(e.events.onAddType, e._currentView.element, t);
                     c.customEvent(e.events.onTypeSwitch, e._currentView.element, t);
-                    q(e);
+                    K(e);
                     O(e, true);
                 } else {
-                    q(e);
+                    K(e);
                 }
             };
             e._currentView.typeAddingDialogTypeInput.onkeydown = e => {
@@ -2438,12 +2441,12 @@ var x;
                 }
             };
             r.onclick = () => d();
-            o.onclick = () => q(e);
+            o.onclick = () => K(e);
             l.add(o, e, V.text.closeButtonText);
         }
     }
-    function X(e) {
-        K(e);
+    function q(e) {
+        X(e);
         g.Background.show(e);
         if (i.defined(e._currentView.typeAddingDialog) && e._currentView.typeAddingDialog.style.display !== "block") {
             e._currentView.typeAddingDialogTypeInput.value = "";
@@ -2451,15 +2454,15 @@ var x;
             e._currentView.typeAddingDialogTypeInput.focus();
         }
         l.hide(e);
-        x.bindDialogKeyDown(() => q(e));
+        x.Dialog.bind(() => K(e));
     }
-    function q(e) {
+    function K(e) {
         g.Background.hide(e);
         if (i.defined(e._currentView.typeAddingDialog) && e._currentView.typeAddingDialog.style.display !== "none") {
             e._currentView.typeAddingDialog.style.display = "none";
         }
         l.hide(e);
-        x.unbindDialogKeyDown();
+        x.Dialog.unbind();
     }
     function Q(e) {
         if (e.title.showText || e.title.showYearSelector || e.title.showRefreshButton || e.title.showExportButton || e.title.showImportButton || e.title.showClearButton) {
@@ -2521,7 +2524,7 @@ var x;
             if (e.title.showYearSelector) {
                 const n = a.createIconButton(t, "button", "back", "arrow-line-left");
                 n.disabled = i.firstVisibleYear(e, e._currentView.year);
-                n.onclick = () => qe(e);
+                n.onclick = () => Ke(e);
                 if (e.title.showToolTips) {
                     l.add(n, e, V.text.backButtonText);
                 }
@@ -3828,7 +3831,7 @@ var x;
             if (e.guide.allowTypeAdding) {
                 const t = a.createIconButton(n, "button", "add", "plus");
                 l.add(t, e, V.text.addTypeText);
-                t.onclick = () => X(e);
+                t.onclick = () => q(e);
             }
         } else {
             Be(e, n);
@@ -3838,7 +3841,7 @@ var x;
             if (e.guide.showInvertLabel) {
                 const t = a.createWithHTML(n, "div", "invert-text", V.text.invertText);
                 if (e.guide.colorRangeTogglesEnabled) {
-                    t.onclick = () => Ke(e);
+                    t.onclick = () => Xe(e);
                 } else {
                     a.addClass(t, "no-click");
                 }
@@ -3913,7 +3916,7 @@ var x;
             i.innerHTML = `${n.minimum}${"+"}`;
         }
         if (e.guide.colorRangeTogglesEnabled) {
-            i.onclick = () => Xe(e, n.id);
+            i.onclick = () => qe(e, n.id);
         } else {
             a.addClass(i, "no-hover");
         }
@@ -4226,7 +4229,7 @@ var x;
         }
         O(e, false, false, true);
     }
-    function Ke(e) {
+    function Xe(e) {
         const t = e.colorRanges.length;
         for (let n = 0; n < t; n++) {
             e.colorRanges[n].visible = !e.colorRanges[n].visible;
@@ -4234,7 +4237,7 @@ var x;
         }
         O(e);
     }
-    function Xe(e, t) {
+    function qe(e, t) {
         const n = e.colorRanges.length;
         for (let i = 0; i < n; i++) {
             const n = e.colorRanges[i];
@@ -4246,7 +4249,7 @@ var x;
             }
         }
     }
-    function qe(e, t = true) {
+    function Ke(e, t = true) {
         let n = true;
         let o = e._currentView.year;
         o--;
@@ -4552,7 +4555,7 @@ var x;
                 if (o < 9999) {
                     t._currentView.year = o;
                     if (!i.yearVisible(t, t._currentView.year)) {
-                        qe(t, false);
+                        Ke(t, false);
                     } else {
                         O(t);
                     }
@@ -4563,7 +4566,7 @@ var x;
         },
         moveToPreviousYear: function(e) {
             if (i.definedString(e) && Object.prototype.hasOwnProperty.call(C, e)) {
-                qe(C[e].options);
+                Ke(C[e].options);
             }
             return nt;
         },
