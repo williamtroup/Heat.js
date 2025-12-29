@@ -1051,6 +1051,7 @@ var h;
             e.zooming.enabled = o.getBoolean(e.zooming.enabled, false);
             e.zooming.defaultLevel = o.getNumber(e.zooming.defaultLevel, 0);
             e.zooming.maximumLevel = o.getNumber(e.zooming.maximumLevel, 0);
+            e.zooming.showCloseButton = o.getBoolean(e.zooming.showCloseButton, true);
             return e.zooming;
         }
         function T(e) {
@@ -3881,31 +3882,33 @@ var b;
     function Me(e, t, n) {
         if (e.zooming.enabled) {
             const o = a.create(t, "div", "zooming");
-            const r = a.create(o, "div", "zoom-close-button");
-            const c = a.createIconButton(o, "button", "zoom-out", "minus");
-            const d = a.createWithHTML(o, "span", "zoom-level", `+${s.friendlyNumber(e._currentView.zoomLevel * 10)}%`);
-            const w = a.createIconButton(o, "button", "zoom-in", "plus");
-            const h = a.getStyleValueByName(document.documentElement, u.Variables.Spacing, true);
-            l.add(r, e, V.text.closeButtonText);
-            l.add(w, e, V.text.zoomInText);
-            l.add(c, e, V.text.zoomOutText);
+            if (e.zooming.showCloseButton) {
+                const t = a.create(o, "div", "zoom-close-button");
+                l.add(t, e, V.text.closeButtonText);
+                t.onclick = () => {
+                    e.zooming.enabled = false;
+                    e._currentView.mapContents.style.paddingRight = "0px";
+                    o.parentNode.removeChild(o);
+                };
+            }
+            const r = a.createIconButton(o, "button", "zoom-out", "minus");
+            const c = a.createWithHTML(o, "span", "zoom-level", `+${s.friendlyNumber(e._currentView.zoomLevel * 10)}%`);
+            const d = a.createIconButton(o, "button", "zoom-in", "plus");
+            const w = a.getStyleValueByName(document.documentElement, u.Variables.Spacing, true);
+            l.add(d, e, V.text.zoomInText);
+            l.add(r, e, V.text.zoomOutText);
             o.style.bottom = t.offsetHeight - n.offsetHeight + "px";
             if (e._currentView.zoomLevel === -1) {
                 e._currentView.zoomLevel = 0;
-                d.innerText = `+${s.friendlyNumber(e._currentView.zoomLevel * 10)}%`;
+                c.innerText = `+${s.friendlyNumber(e._currentView.zoomLevel * 10)}%`;
             }
             if (i.defined(e._currentView.mapContents)) {
-                e._currentView.mapContents.style.paddingRight = `${o.offsetWidth + h}px`;
+                e._currentView.mapContents.style.paddingRight = `${o.offsetWidth + w}px`;
             }
-            r.onclick = () => {
-                e.zooming.enabled = false;
-                e._currentView.mapContents.style.paddingRight = "0px";
-                o.parentNode.removeChild(o);
-            };
-            c.disabled = e._currentView.zoomLevel === 0;
-            c.onclick = () => Be(e);
-            w.disabled = e.zooming.maximumLevel > 0 && e._currentView.zoomLevel >= e.zooming.maximumLevel;
-            w.onclick = () => Ne(e);
+            r.disabled = e._currentView.zoomLevel === 0;
+            r.onclick = () => Be(e);
+            d.disabled = e.zooming.maximumLevel > 0 && e._currentView.zoomLevel >= e.zooming.maximumLevel;
+            d.onclick = () => Ne(e);
         }
     }
     function Oe(e) {

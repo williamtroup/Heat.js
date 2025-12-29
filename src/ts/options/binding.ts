@@ -381,6 +381,7 @@ export namespace Binding {
             bindingOptions.zooming!.enabled = Default.getBoolean( bindingOptions.zooming!.enabled, false );
             bindingOptions.zooming!.defaultLevel = Default.getNumber( bindingOptions.zooming!.defaultLevel, 0 );
             bindingOptions.zooming!.maximumLevel = Default.getNumber( bindingOptions.zooming!.maximumLevel, 0 );
+            bindingOptions.zooming!.showCloseButton = Default.getBoolean( bindingOptions.zooming!.showCloseButton, true );
     
             return bindingOptions.zooming!;
         }

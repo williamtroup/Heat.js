@@ -2754,13 +2754,25 @@ import { Build } from "./ts/data/build";
     function renderControlZooming( bindingOptions: BindingOptions, container: HTMLElement, contents: HTMLElement ) : void {
         if ( bindingOptions.zooming!.enabled ) {
             const zooming: HTMLElement = DomElement.create( container, "div", "zooming" );
-            const closeButton: HTMLElement = DomElement.create( zooming, "div", "zoom-close-button" ) as HTMLElement;
+
+            if ( bindingOptions.zooming!.showCloseButton ) {
+                const closeButton: HTMLElement = DomElement.create( zooming, "div", "zoom-close-button" ) as HTMLElement;
+
+                ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
+
+                closeButton.onclick = () => {
+                    bindingOptions.zooming!.enabled = false;
+                    bindingOptions._currentView!.mapContents.style.paddingRight = "0px";
+
+                    zooming.parentNode!.removeChild( zooming );
+                };
+            }
+
             const zoomOutButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-out", "minus" );
             const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `+${Str.friendlyNumber( bindingOptions._currentView!.zoomLevel * 10 )}%` ) as HTMLSpanElement;
             const zoomInButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-in", "plus" );
             const spacing: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.Spacing, true ) as number;
-
-            ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
+            
             ToolTip.add( zoomInButton, bindingOptions, _configurationOptions.text!.zoomInText! );
             ToolTip.add( zoomOutButton, bindingOptions, _configurationOptions.text!.zoomOutText! );
 
@@ -2774,13 +2786,6 @@ import { Build } from "./ts/data/build";
             if ( Is.defined( bindingOptions._currentView!.mapContents ) ) {
                 bindingOptions._currentView!.mapContents.style.paddingRight = `${zooming.offsetWidth + spacing}px`;
             }
-
-            closeButton.onclick = () => {
-                bindingOptions.zooming!.enabled = false;
-                bindingOptions._currentView!.mapContents.style.paddingRight = "0px";
-
-                zooming.parentNode!.removeChild( zooming );
-            };
 
             zoomOutButton.disabled = bindingOptions._currentView!.zoomLevel! === 0;
             zoomOutButton.onclick = () => zoomOut( bindingOptions );

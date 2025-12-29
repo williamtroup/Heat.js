@@ -105,6 +105,7 @@
 - Added a new binding option called "zooming.enabled", which states if map zooming in/out is enabled (defaults to false).
 - Added a new binding option called "zooming.defaultLevel", which states the default zoom level (defaults to 0).
 - Added a new binding option called "zooming.maximumLevel", which states the maximum zoom level (defaults to 0, which disables it).
+- Added a new binding option called "zooming.showCloseButton", which states if the close button should be shown (defaults to true).
 - Added a new binding area called "dynamicColorRange".
 - Added a new binding option called "dynamicColorRange.enabled", which states if dynamic colors are enabled (defaults to false).
 - Added a new binding option called "dynamicColorRange.maximumMinimum", which states the maximum minimum level to use (defaults to 25).
