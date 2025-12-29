@@ -648,7 +648,7 @@ import { Build } from "./ts/data/build";
             filesCompleted.push( filename );
 
             for ( const storageDate in readingObject ) {
-                if ( Object.prototype.hasOwnProperty.call( readingObject,  storageDate ) ) {
+                if ( Object.prototype.hasOwnProperty.call( readingObject, storageDate ) ) {
                     if ( !Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                         typeDateCounts[ storageDate ] = 0;
                     }
@@ -1943,7 +1943,7 @@ import { Build } from "./ts/data/build";
             const pixelsPerNumbers: number = ( dayLines.offsetHeight - borderBottomWidth ) / dayValuesForCurrentYear.largestValue;
 
             for ( const day in dayValuesForCurrentYear.values ) {
-                if ( Object.prototype.hasOwnProperty.call( dayValuesForCurrentYear.values,  day ) && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
+                if ( Object.prototype.hasOwnProperty.call( dayValuesForCurrentYear.values, day ) && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
                     const opacity: number = dayValuesForCurrentYear.valueOpacities[ dayValuesForCurrentYear.values[ day ].total ];
                     const dayLine: HTMLElement = renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ].total, bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue, isForViewSwitch );
 
@@ -1953,7 +1953,7 @@ import { Build } from "./ts/data/build";
 
                     if ( bindingOptions.views!.days!.showStackedColorRanges! ) {
                         for ( const type in dayValuesForCurrentYear.values[ day ].typeTotals ) {
-                            if ( Object.prototype.hasOwnProperty.call( dayValuesForCurrentYear.values[ day ].typeTotals,  type ) ) {
+                            if ( Object.prototype.hasOwnProperty.call( dayValuesForCurrentYear.values[ day ].typeTotals, type ) ) {
                                 const typeTotal: number = dayValuesForCurrentYear.values[ day ].typeTotals[ type ];
                                 const stackedDayLineHeight: number = typeTotal * pixelsPerNumbers;
                                 const colorRange: BindingOptionsColorRange = ColorRange.getByMinimum( colorRanges, parseInt( type ) );
@@ -2921,7 +2921,7 @@ import { Build } from "./ts/data/build";
         let noneTypeCount: number = 0;
 
         for ( const storageDate in _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configurationOptions.text!.unknownTrendText! ] ) {
-            if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configurationOptions.text!.unknownTrendText! ],  storageDate ) ) {
+            if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ _configurationOptions.text!.unknownTrendText! ], storageDate ) ) {
                 noneTypeCount++;
                 break;
             }
@@ -3093,7 +3093,7 @@ import { Build } from "./ts/data/build";
 
     function cancelAllPullDataTimersAndClearWindowEvents() : void {
         for ( const elementId in _elements_InstanceData ) {
-            if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
+            if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
 
                 renderWindowEvents( bindingOptions, false );
@@ -3300,7 +3300,7 @@ import { Build } from "./ts/data/build";
          */
 
         addType: function ( elementId: string, type: string, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode && !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
@@ -3321,10 +3321,10 @@ import { Build } from "./ts/data/build";
         },
 
         removeType: function ( elementId: string, type: string, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
-                if ( !bindingOptions._currentView!.isInFetchMode && !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData,  type ) ) {
+                if ( !bindingOptions._currentView!.isInFetchMode && !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
                     removeType( bindingOptions, type );
         
                     if ( triggerRefresh ) {
@@ -3337,7 +3337,7 @@ import { Build } from "./ts/data/build";
         },
 
         addDates: function ( elementId: string, dates: Date[], type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedArray( dates ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedArray( dates ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
@@ -3359,7 +3359,7 @@ import { Build } from "./ts/data/build";
         },
 
         addDate: function ( elementId: string, date: Date, type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
@@ -3390,7 +3390,7 @@ import { Build } from "./ts/data/build";
         },
 
         updateDate: function ( elementId: string, date: Date, count: number, type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode && count > 0 ) {
@@ -3414,7 +3414,7 @@ import { Build } from "./ts/data/build";
         },
 
         removeDates: function ( elementId: string, dates: Date[], type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedArray( dates ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedArray( dates ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
@@ -3436,7 +3436,7 @@ import { Build } from "./ts/data/build";
         },
 
         removeDate: function ( elementId: string, date: Date, type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
@@ -3462,7 +3462,7 @@ import { Build } from "./ts/data/build";
         },
 
         clearDate: function ( elementId: string, date: Date, type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
@@ -3575,7 +3575,7 @@ import { Build } from "./ts/data/build";
         },
 
         setYear: function ( elementId: string, year: number ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedNumber( year ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedNumber( year ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 bindingOptions._currentView!.year = year;
     
@@ -3705,7 +3705,7 @@ import { Build } from "./ts/data/build";
         },
 
         switchView: function ( elementId: string, viewName: string ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedString( viewName ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedString( viewName ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 const viewId: ViewId = Visible.View.get( viewName );
     
@@ -3718,7 +3718,7 @@ import { Build } from "./ts/data/build";
         },
 
         switchType: function ( elementId: string, type: string ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData,  type ) ) {
+            if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
     
                 if ( bindingOptions._currentView!.type !== type ) {
@@ -3733,13 +3733,13 @@ import { Build } from "./ts/data/build";
         },
 
         updateOptions: function ( elementId: string, bindingOptions: BindingOptions ) : PublicApi {
-            if ( Is.definedString( elementId ) && Is.definedObject( bindingOptions ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData,  elementId ) ) {
+            if ( Is.definedString( elementId ) && Is.definedObject( bindingOptions ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: any = _elements_InstanceData[ elementId ].options;
                 const newBindingOptions: any = Binding.Options.get( bindingOptions );
                 let optionChanged: boolean = false;
     
                 for ( const propertyName in newBindingOptions ) {
-                    if ( Object.prototype.hasOwnProperty.call( newBindingOptions,  propertyName ) && Object.prototype.hasOwnProperty.call( bindingOptions,  propertyName ) && bindingOptions[ propertyName ] !== newBindingOptions[ propertyName ] ) {
+                    if ( Object.prototype.hasOwnProperty.call( newBindingOptions, propertyName ) && Object.prototype.hasOwnProperty.call( bindingOptions, propertyName ) && bindingOptions[ propertyName ] !== newBindingOptions[ propertyName ] ) {
                         bindingOptions[ propertyName ] = newBindingOptions[ propertyName ];
                         optionChanged = true;
                     }

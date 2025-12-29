@@ -104,7 +104,7 @@ export namespace Export {
             const csvContents: string[] = [];
 
             for ( const storageDate in typeDateCounts ) {
-                if ( Object.prototype.hasOwnProperty.call( typeDateCounts,  storageDate ) ) {
+                if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                     csvContents.push( getCsvValueLine( [ getCsvValue( storageDate ), getCsvValue( typeDateCounts[ storageDate ].toString() ) ] ) );
                 }
             }
@@ -131,7 +131,7 @@ export namespace Export {
             contents.push( "<Dates>" );
 
             for ( const storageDate in typeDateCounts ) {
-                if ( Object.prototype.hasOwnProperty.call( typeDateCounts,  storageDate ) ) {
+                if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                     contents.push( "<Date>" );
                     contents.push( `${Char.doubleSpace}<FullDate>${storageDate}</FullDate>` );
                     contents.push( `${Char.doubleSpace}<Count>${typeDateCounts[ storageDate ].toString()}</Count>` );
@@ -151,7 +151,7 @@ export namespace Export {
             contents.push( `Last-Modified${Char.colon}${Char.space}${exportedDateTime}` );
 
             for ( const storageDate in typeDateCounts ) {
-                if ( Object.prototype.hasOwnProperty.call( typeDateCounts,  storageDate ) ) {
+                if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                     contents.push( `${storageDate}${Char.colon}${Char.space}${typeDateCounts[ storageDate ].toString()}` );
                 }
             }
@@ -173,7 +173,7 @@ export namespace Export {
             contents.push( `${Char.doubleSpace}<ul>` );
 
             for ( const storageDate in typeDateCounts ) {
-                if ( Object.prototype.hasOwnProperty.call( typeDateCounts,  storageDate ) ) {
+                if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                     contents.push( `${Char.doubleSpace}${Char.doubleSpace}<li><b>${storageDate}:</b> ${typeDateCounts[ storageDate ].toString()}</li>` );
                 }
             }
@@ -192,7 +192,7 @@ export namespace Export {
             contents.push( "| --- | --- |" );
 
             for ( const storageDate in typeDateCounts ) {
-                if ( Object.prototype.hasOwnProperty.call( typeDateCounts,  storageDate ) ) {
+                if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                     contents.push( `| ${storageDate} | ${typeDateCounts[ storageDate ].toString()} |` );
                 }
             }
@@ -206,7 +206,7 @@ export namespace Export {
             contents.push( `Full Date${Char.tab}Count` );
 
             for ( const storageDate in typeDateCounts ) {
-                if ( Object.prototype.hasOwnProperty.call( typeDateCounts,  storageDate ) ) {
+                if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                     contents.push( `${storageDate}${Char.tab}${typeDateCounts[ storageDate ].toString()}` );
                 }
             }
@@ -221,7 +221,7 @@ export namespace Export {
             contents.push( `Last-Modified:${Char.space}${exportedDateTime}` );
 
             for ( const storageDate in typeDateCounts ) {
-                if ( Object.prototype.hasOwnProperty.call( typeDateCounts,  storageDate ) ) {
+                if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                     contents.push( `${storageDate}${Char.colon}${Char.space}${typeDateCounts[ storageDate ].toString()}` );
                 }
             }
@@ -238,7 +238,7 @@ export namespace Export {
             contents.push( "[dates]" );
 
             for ( const storageDate in typeDateCounts ) {
-                if ( Object.prototype.hasOwnProperty.call( typeDateCounts,  storageDate ) ) {
+                if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
                     contents.push( `${storageDate} = ${typeDateCounts[ storageDate ].toString()}` );
                 }
             }
