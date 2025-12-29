@@ -372,8 +372,6 @@ div.heat-js {
             max-width: 250px;
 
             div.dialog-contents {
-                @include styles.buttons;
-
                 input.filename,
                 label.checkbox {
                     margin-top: var(--heat-js-spacing);
@@ -383,13 +381,8 @@ div.heat-js {
                     text-align: right;
                     margin-top: calc( var(--heat-js-spacing) * 2 );
 
-                    button {
-                        padding-left: calc( var(--heat-js-spacing) + 5px );
-                        padding-right: calc( var(--heat-js-spacing) + 5px );
-                        padding-top: var(--heat-js-spacing);
-                        padding-bottom: var(--heat-js-spacing);
-                        min-width: 80px;
-                    }
+                    @include styles.buttons;
+                    @include styles.dialog-buttons;
                 }
             }
         }
@@ -409,8 +402,6 @@ div.heat-js {
             max-width: 350px;
 
             div.dialog-contents {
-                @include styles.buttons;
-
                 label.checkbox {
                     margin-top: var(--heat-js-spacing);
                 }
@@ -460,18 +451,8 @@ div.heat-js {
                     text-align: right;
                     margin-top: calc( var(--heat-js-spacing) * 2 );
 
-                    button {
-                        padding-left: calc( var(--heat-js-spacing) + 5px );
-                        padding-right: calc( var(--heat-js-spacing) + 5px );
-                        padding-top: var(--heat-js-spacing);
-                        padding-bottom: var(--heat-js-spacing);
-                        margin-right: var(--heat-js-spacing);
-                        min-width: 80px;
-
-                        &:last-child {
-                            margin-right: 0;
-                        }
-                    }
+                    @include styles.buttons;
+                    @include styles.dialog-buttons;
                 }
             }
         }
@@ -491,8 +472,6 @@ div.heat-js {
             max-width: 250px;
 
             div.dialog-contents {
-                @include styles.buttons;
-
                 label.checkbox {
                     margin-top: var(--heat-js-spacing);
                 }
@@ -501,13 +480,8 @@ div.heat-js {
                     text-align: right;
                     margin-top: calc( var(--heat-js-spacing) * 2 );
 
-                    button {
-                        padding-left: calc( var(--heat-js-spacing) + 5px );
-                        padding-right: calc( var(--heat-js-spacing) + 5px );
-                        padding-top: var(--heat-js-spacing);
-                        padding-bottom: var(--heat-js-spacing);
-                        min-width: 80px;
-                    }
+                    @include styles.buttons;
+                    @include styles.dialog-buttons;
                 }
             }
         }

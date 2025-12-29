@@ -60,6 +60,21 @@ $minimum-width-smaller: 450px;
     }
 }
 
+@mixin dialog-buttons {
+    button {
+        padding-left: calc( var(--heat-js-spacing) + 5px );
+        padding-right: calc( var(--heat-js-spacing) + 5px );
+        padding-top: var(--heat-js-spacing);
+        padding-bottom: var(--heat-js-spacing);
+        margin-right: var(--heat-js-spacing);
+        min-width: 80px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
 @mixin down-arrow($left-right-border-size: 8px, $border-top-size: 14px, $left: true, $margin-size: var(--heat-js-spacing)) {
     div.down-arrow {
         display: inline-block;
