@@ -1,7 +1,7 @@
 ( () => {
     document.addEventListener( "DOMContentLoaded", () => {
         document.title += ` - v${$heat.getVersion()}`;
-        document.getElementById( "header" ).innerText += ` - v${$heat.getVersion()}`;
+        document.getElementById( "header" ).innerText = document.title;
     } );
 } )();
 
