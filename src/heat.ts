@@ -44,6 +44,7 @@ import { Animate } from "./ts/dom/animate";
 import { LocalStorage } from "./ts/area/local-storage";
 import { ColorRange } from "./ts/area/color-range";
 import { Build } from "./ts/data/build";
+import { DocumentElement } from "./ts/area/document-element";
 
 
 ( () => {
@@ -269,6 +270,7 @@ import { Build } from "./ts/data/build";
         }
 
         ToolTip.hide( bindingOptions );
+        DocumentElement.bindDialogKeyDown( () => hideConfigurationDialog( bindingOptions ) );
     }
 
     function hideConfigurationDialog( bindingOptions: BindingOptions ) : void {
@@ -279,6 +281,7 @@ import { Build } from "./ts/data/build";
         }
 
         ToolTip.hide( bindingOptions );
+        DocumentElement.unbindDialogKeyDown();
     }
 
     function saveConfigurationDialogChanges( bindingOptions: BindingOptions ) : void {
@@ -423,6 +426,7 @@ import { Build } from "./ts/data/build";
         }
 
         ToolTip.hide( bindingOptions );
+        DocumentElement.bindDialogKeyDown( () => hideExportDialog( bindingOptions ) );
     }
 
     function hideExportDialog( bindingOptions: BindingOptions ) : void {
@@ -433,6 +437,7 @@ import { Build } from "./ts/data/build";
         }
 
         ToolTip.hide( bindingOptions );
+        DocumentElement.unbindDialogKeyDown();
     }
 
     function exportAllData( bindingOptions: BindingOptions, exportType: string = null!, exportFilename: string = null!, exportOnlyDataBeingViewed: boolean = true ) : void {
@@ -563,6 +568,7 @@ import { Build } from "./ts/data/build";
         }
 
         ToolTip.hide( bindingOptions );
+        DocumentElement.bindDialogKeyDown( () => hideImportDialog( bindingOptions ) );
     }
 
     function hideImportDialog( bindingOptions: BindingOptions ) : void {
@@ -576,6 +582,7 @@ import { Build } from "./ts/data/build";
         }
 
         ToolTip.hide( bindingOptions );
+        DocumentElement.unbindDialogKeyDown();
     }
 
     function makeAreaDroppable( element: HTMLElement, bindingOptions: BindingOptions ) : void {
@@ -777,6 +784,7 @@ import { Build } from "./ts/data/build";
         }
 
         ToolTip.hide( bindingOptions );
+        DocumentElement.bindDialogKeyDown( () => hideTypeAddingDialog( bindingOptions ) );
     }
 
     function hideTypeAddingDialog( bindingOptions: BindingOptions ) : void {
@@ -787,6 +795,7 @@ import { Build } from "./ts/data/build";
         }
 
         ToolTip.hide( bindingOptions );
+        DocumentElement.unbindDialogKeyDown();
     }
 
 

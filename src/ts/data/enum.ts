@@ -76,4 +76,5 @@ export enum ExportType {
 
 export enum KeyCode {
     enter = "Enter",
+    escape = "Escape",
 }

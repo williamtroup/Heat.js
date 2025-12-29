@@ -203,6 +203,7 @@
 - Exported JSON files are now indented and formatted so they are more readable.
 - Exported XML and HTML files are now indented correctly so they are more readable.
 - Added a "Save" and "Reset" button to the "Configuration" dialog (pressing "Close" will not just close the dialog).
+- Pressing "Escape" when any dialog is open will now close it.
 
 #### **Library:**
 - Updated all the NPM packages to the latest versions.
