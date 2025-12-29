@@ -310,6 +310,14 @@ div.heat-js {
             div.dialog-contents {
                 padding: var(--heat-js-spacing);
                 overflow: hidden;
+
+                div.buttons {
+                    text-align: right;
+                    margin-top: calc( var(--heat-js-spacing) * 2 );
+
+                    @include styles.buttons;
+                    @include styles.dialog-buttons;
+                }
             }
         }
     }
@@ -356,14 +364,6 @@ div.heat-js {
                         }
                     }
                 }
-
-                div.buttons {
-                    text-align: right;
-                    margin-top: calc( var(--heat-js-spacing) * 2 );
-
-                    @include styles.buttons;
-                    @include styles.dialog-buttons;
-                }
             }
         }
     }
@@ -385,14 +385,6 @@ div.heat-js {
                 input.filename,
                 label.checkbox {
                     margin-top: var(--heat-js-spacing);
-                }
-
-                div.buttons {
-                    text-align: right;
-                    margin-top: calc( var(--heat-js-spacing) * 2 );
-
-                    @include styles.buttons;
-                    @include styles.dialog-buttons;
                 }
             }
         }
@@ -456,14 +448,6 @@ div.heat-js {
                         }
                     }
                 }
-
-                div.buttons {
-                    text-align: right;
-                    margin-top: calc( var(--heat-js-spacing) * 2 );
-
-                    @include styles.buttons;
-                    @include styles.dialog-buttons;
-                }
             }
         }
     }
@@ -484,14 +468,6 @@ div.heat-js {
             div.dialog-contents {
                 label.checkbox {
                     margin-top: var(--heat-js-spacing);
-                }
-
-                div.buttons {
-                    text-align: right;
-                    margin-top: calc( var(--heat-js-spacing) * 2 );
-
-                    @include styles.buttons;
-                    @include styles.dialog-buttons;
                 }
             }
         }
