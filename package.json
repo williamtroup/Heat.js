@@ -28,7 +28,8 @@
     "trends",
     "statistics",
     "bar",
-    "themes"
+    "themes",
+    "line"
   ],
   "bugs": {
     "url": "https://github.com/williamtroup/Heat.js/issues"
