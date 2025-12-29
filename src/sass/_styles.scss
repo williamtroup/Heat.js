@@ -134,6 +134,7 @@ $minimum-width-smaller: 450px;
     top: 50%;
     transform: translate( -50%, -50% );
     font-weight: var(--heat-js-text-bold-weight);
+    font-style: italic;
 }
 
 @mixin description {

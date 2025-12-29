@@ -1322,6 +1322,7 @@ div.heat-js div.map-contents-container div.map-contents div.no-data-message {
   top: 50%;
   transform: translate(-50%, -50%);
   font-weight: var(--heat-js-text-bold-weight);
+  font-style: italic;
 }
 div.heat-js div.map-contents-container div.map-contents div.map {
   display: inline-flex;
@@ -1613,6 +1614,7 @@ div.heat-js div.line-contents-container div.line-contents div.no-data-message {
   top: 50%;
   transform: translate(-50%, -50%);
   font-weight: var(--heat-js-text-bold-weight);
+  font-style: italic;
 }
 div.heat-js div.line-contents-container div.line-contents div.line {
   display: inline-flex;
@@ -1696,6 +1698,7 @@ div.heat-js div.chart-contents div.no-data-message {
   top: 50%;
   transform: translate(-50%, -50%);
   font-weight: var(--heat-js-text-bold-weight);
+  font-style: italic;
 }
 div.heat-js div.chart-contents div.chart {
   display: inline-flex;
@@ -1840,6 +1843,7 @@ div.heat-js div.days-contents div.no-days-message {
   top: 50%;
   transform: translate(-50%, -50%);
   font-weight: var(--heat-js-text-bold-weight);
+  font-style: italic;
 }
 div.heat-js div.days-contents div.days {
   display: flex;
@@ -1996,6 +2000,7 @@ div.heat-js div.months-contents div.no-months-message {
   top: 50%;
   transform: translate(-50%, -50%);
   font-weight: var(--heat-js-text-bold-weight);
+  font-style: italic;
 }
 div.heat-js div.months-contents div.months {
   display: flex;
@@ -2158,6 +2163,7 @@ div.heat-js div.statistics-contents div.no-statistics-message {
   top: 50%;
   transform: translate(-50%, -50%);
   font-weight: var(--heat-js-text-bold-weight);
+  font-style: italic;
 }
 div.heat-js div.statistics-contents div.statistics {
   display: flex;
