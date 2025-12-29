@@ -128,7 +128,7 @@ export namespace ColorRange {
             cssLines.push( `${Char.tab}border-color:${Char.space}${rgbaBorder} !important;` );
             cssLines.push( `${Char.tab}color:${Char.space}${colorRgb} !important;` );
             cssLines.push( "}" );
-            cssLines.push( `div.${cssName}:hover${Char.space}{` );
+            cssLines.push( `div.${cssName}:not(.no-hover):hover${Char.space}{` );
             cssLines.push( `${Char.tab}opacity:${Char.space}0.7 !important;` );
             cssLines.push( "}" );
 

@@ -697,7 +697,7 @@ var w;
             r.push(`${"\t"}border-color:${" "}${v} !important;`);
             r.push(`${"\t"}color:${" "}${T} !important;`);
             r.push("}");
-            r.push(`div.${b}:hover${" "}{`);
+            r.push(`div.${b}:not(.no-hover):hover${" "}{`);
             r.push(`${"\t"}opacity:${" "}0.7 !important;`);
             r.push("}");
             const x = {
