@@ -425,29 +425,29 @@ var a;
         return t;
     }
     e.getScrollPosition = w;
-    function h(e, t) {
-        let n = e.pageX;
-        let i = e.pageY;
-        const o = w();
-        t.style.display = "block";
-        if (n + t.offsetWidth > window.innerWidth) {
-            n -= t.offsetWidth;
-        } else {
-            n++;
-        }
-        if (i + t.offsetHeight > window.innerHeight) {
-            i -= t.offsetHeight;
+    function h(e, t, n = "block") {
+        let i = e.pageX;
+        let o = e.pageY;
+        const s = w();
+        t.style.display = n;
+        if (i + t.offsetWidth > window.innerWidth) {
+            i -= t.offsetWidth;
         } else {
             i++;
         }
-        if (n < o.left) {
-            n = e.pageX + 1;
+        if (o + t.offsetHeight > window.innerHeight) {
+            o -= t.offsetHeight;
+        } else {
+            o++;
         }
-        if (i < o.top) {
-            i = e.pageY + 1;
+        if (i < s.left) {
+            i = e.pageX + 1;
         }
-        t.style.left = `${n}px`;
-        t.style.top = `${i}px`;
+        if (o < s.top) {
+            o = e.pageY + 1;
+        }
+        t.style.left = `${i}px`;
+        t.style.top = `${o}px`;
     }
     e.showElementAtMousePosition = h;
     function f(e) {
@@ -504,8 +504,7 @@ var l;
         r(n);
         t = setTimeout(() => {
             n._currentView.tooltip.innerHTML = i;
-            n._currentView.tooltip.style.display = "block";
-            a.showElementAtMousePosition(e, n._currentView.tooltip);
+            a.showElementAtMousePosition(e, n._currentView.tooltip, "flex");
         }, n.tooltip.delay);
     }
     e.show = s;

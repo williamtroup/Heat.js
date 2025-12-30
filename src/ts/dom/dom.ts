@@ -117,12 +117,12 @@ export namespace DomElement {
         return result;
     }
 
-    export function showElementAtMousePosition( ev: MouseEvent, element: HTMLElement ) : void {
+    export function showElementAtMousePosition( ev: MouseEvent, element: HTMLElement, displayStyle: string = "block" ) : void {
         let left: number = ev.pageX;
         let top: number = ev.pageY;
         const scrollPosition: Position = getScrollPosition();
 
-        element.style.display = "block";
+        element.style.display = displayStyle;
 
         if ( left + element.offsetWidth > window.innerWidth ) {
             left -= element.offsetWidth;

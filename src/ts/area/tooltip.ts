@@ -49,9 +49,8 @@ export namespace ToolTip {
 
         _TOOLTIP_TIMER_ID = setTimeout( () => {
             bindingOptions._currentView!.tooltip.innerHTML = text;
-            bindingOptions._currentView!.tooltip.style.display = "block";
 
-            DomElement.showElementAtMousePosition( ev, bindingOptions._currentView!.tooltip );
+            DomElement.showElementAtMousePosition( ev, bindingOptions._currentView!.tooltip, "flex" );
         }, bindingOptions.tooltip!.delay );
     }
 
