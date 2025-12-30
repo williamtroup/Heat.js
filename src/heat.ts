@@ -368,6 +368,7 @@ import { DocumentElement } from "./ts/area/document-element";
             bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked = bindingOptions.exportOnlyDataBeingViewed!;
 
             const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
+            const copyButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.copyButtonText! );
             const exportButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.exportButtonText! );
 
             renderExportDialogOptions( bindingOptions );
@@ -378,8 +379,9 @@ import { DocumentElement } from "./ts/area/document-element";
                 }
             };
 
-            exportButton.onclick = () => exportDataFromExportDialog( bindingOptions );
             closeButton.onclick = () => hideExportDialog( bindingOptions );
+            copyButton.onclick = () => exportDataFromExportDialog( bindingOptions, true );
+            exportButton.onclick = () => exportDataFromExportDialog( bindingOptions );
 
             ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
         }
@@ -431,30 +433,36 @@ import { DocumentElement } from "./ts/area/document-element";
         DocumentElement.Dialog.unbind();
     }
 
-    function exportDataFromExportDialog( bindingOptions: BindingOptions) : void {
+    function exportDataFromExportDialog( bindingOptions: BindingOptions, copyToClipboard: boolean = false ) : void {
         const selectedExportType: string = bindingOptions._currentView!.exportDialogExportTypeSelect.value;
         const exportFilename: string = bindingOptions._currentView!.exportDialogExportFilenameInput.value;
         const exportOnlyDataBeingViewed: boolean = bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
 
         hideExportDialog( bindingOptions );
-        exportAllData( bindingOptions, selectedExportType, exportFilename, exportOnlyDataBeingViewed );
+        exportAllData( bindingOptions, selectedExportType, exportFilename, exportOnlyDataBeingViewed, copyToClipboard );
     }
 
-    function exportAllData( bindingOptions: BindingOptions, exportType: string = null!, exportFilename: string = null!, exportOnlyDataBeingViewed: boolean = true ) : void {
+    function exportAllData( bindingOptions: BindingOptions, exportType: string = null!, exportFilename: string = null!, exportOnlyDataBeingViewed: boolean = true, copyToClipboard: boolean = false ) : void {
         const contentExportType: string = Default.getString( exportType, bindingOptions.exportType! ).toLowerCase();
-        const contentsMimeType: string = Export.File.mimeType( contentExportType );
         const typeDateCounts: InstanceTypeDateCount = getExportData( bindingOptions, exportOnlyDataBeingViewed );
         const contents: string = Export.Contents.get( contentExportType, typeDateCounts, _configurationOptions, bindingOptions );
 
         if ( Is.definedString( contents ) ) {
-            const tempLink: HTMLElement = DomElement.create( document.body, "a" );
-            tempLink.style.display = "none";
-            tempLink.setAttribute( "target", "_blank" );
-            tempLink.setAttribute( "href", `data:${contentsMimeType};charset=utf-8,${encodeURIComponent( contents )}` );
-            tempLink.setAttribute( "download", Export.File.filename( _configurationOptions, bindingOptions, exportFilename, contentExportType ) );
-            tempLink.click();
-            
-            document.body.removeChild( tempLink );
+            if ( copyToClipboard ) {
+                navigator.clipboard.writeText( contents );
+
+            } else {
+                const contentsMimeType: string = Export.File.mimeType( contentExportType );
+                const tempLink: HTMLElement = DomElement.create( document.body, "a" );
+
+                tempLink.style.display = "none";
+                tempLink.setAttribute( "target", "_blank" );
+                tempLink.setAttribute( "href", `data:${contentsMimeType};charset=utf-8,${encodeURIComponent( contents )}` );
+                tempLink.setAttribute( "download", Export.File.filename( _configurationOptions, bindingOptions, exportFilename, contentExportType ) );
+                tempLink.click();
+                
+                document.body.removeChild( tempLink );
+            }
 
             Trigger.customEvent( bindingOptions.events!.onExport!, bindingOptions._currentView!.element );
         }
@@ -740,8 +748,8 @@ import { DocumentElement } from "./ts/area/document-element";
                 }
             };
 
-            addButton.onclick = () => addNewTypeFromAddTypeDialog( bindingOptions );
             closeButton.onclick = () => hideTypeAddingDialog( bindingOptions );
+            addButton.onclick = () => addNewTypeFromAddTypeDialog( bindingOptions );
 
             ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
         }

@@ -62,6 +62,7 @@ $heat.setConfiguration( {
                 "browseButtonText": "Browse",
                 "saveButtonText": "Save",
                 "resetButtonText": "Reset",
+                "copyButtonText": "Copy",
                 "monthNames": [
                         "Jan",
                         "Feb",

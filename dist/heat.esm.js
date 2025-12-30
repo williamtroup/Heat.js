@@ -1295,6 +1295,7 @@ var f;
             e.text.browseButtonText = o.getAnyString(e.text.browseButtonText, "Browse");
             e.text.saveButtonText = o.getAnyString(e.text.saveButtonText, "Save");
             e.text.resetButtonText = o.getAnyString(e.text.resetButtonText, "Reset");
+            e.text.copyButtonText = o.getAnyString(e.text.copyButtonText, "Copy");
             return e.text;
         }
         function s(e) {
@@ -2159,15 +2160,17 @@ var x;
             e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox = a.createCheckBox(n, V.text.onlyDataBeingViewedText, crypto.randomUUID());
             e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked = e.exportOnlyDataBeingViewed;
             const o = a.create(n, "div", "buttons");
-            const s = a.createButton(o, "button", "default", V.text.exportButtonText);
+            const s = a.createButton(o, "button", "", V.text.copyButtonText);
+            const r = a.createButton(o, "button", "default", V.text.exportButtonText);
             F(e);
             e._currentView.exportDialogExportFilenameInput.onkeydown = t => {
                 if (t.key === "Enter") {
                     H(e);
                 }
             };
-            s.onclick = () => H(e);
             i.onclick = () => $(e);
+            s.onclick = () => H(e, true);
+            r.onclick = () => H(e);
             l.add(i, e, V.text.closeButtonText);
         }
     }
@@ -2203,26 +2206,30 @@ var x;
         l.hide(e);
         x.Dialog.unbind();
     }
-    function H(e) {
-        const t = e._currentView.exportDialogExportTypeSelect.value;
-        const n = e._currentView.exportDialogExportFilenameInput.value;
-        const i = e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
+    function H(e, t = false) {
+        const n = e._currentView.exportDialogExportTypeSelect.value;
+        const i = e._currentView.exportDialogExportFilenameInput.value;
+        const o = e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
         $(e);
-        j(e, t, n, i);
+        j(e, n, i, o, t);
     }
-    function j(e, t = null, n = null, s = true) {
-        const r = o.getString(t, e.exportType).toLowerCase();
-        const l = y.File.mimeType(r);
+    function j(e, t = null, n = null, s = true, r = false) {
+        const l = o.getString(t, e.exportType).toLowerCase();
         const d = W(e, s);
-        const u = y.Contents.get(r, d, V, e);
+        const u = y.Contents.get(l, d, V, e);
         if (i.definedString(u)) {
-            const t = a.create(document.body, "a");
-            t.style.display = "none";
-            t.setAttribute("target", "_blank");
-            t.setAttribute("href", `data:${l};charset=utf-8,${encodeURIComponent(u)}`);
-            t.setAttribute("download", y.File.filename(V, e, n, r));
-            t.click();
-            document.body.removeChild(t);
+            if (r) {
+                navigator.clipboard.writeText(u);
+            } else {
+                const t = y.File.mimeType(l);
+                const i = a.create(document.body, "a");
+                i.style.display = "none";
+                i.setAttribute("target", "_blank");
+                i.setAttribute("href", `data:${t};charset=utf-8,${encodeURIComponent(u)}`);
+                i.setAttribute("download", y.File.filename(V, e, n, l));
+                i.click();
+                document.body.removeChild(i);
+            }
             c.customEvent(e.events.onExport, e._currentView.element);
         }
     }
@@ -2426,8 +2433,8 @@ var x;
                     ee(e);
                 }
             };
-            s.onclick = () => ee(e);
             i.onclick = () => Q(e);
+            s.onclick = () => ee(e);
             l.add(i, e, V.text.closeButtonText);
         }
     }

@@ -125,6 +125,7 @@ export type ConfigurationOptionsText = {
     browseButtonText?: string;
     saveButtonText?: string;
     resetButtonText?: string;
+    copyButtonText?: string;
 };
 
 export type BindingOptions = {

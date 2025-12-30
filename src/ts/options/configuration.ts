@@ -94,6 +94,7 @@ export namespace Configuration {
             configurationOptions.text!.browseButtonText = Default.getAnyString( configurationOptions.text!.browseButtonText, "Browse" );
             configurationOptions.text!.saveButtonText = Default.getAnyString( configurationOptions.text!.saveButtonText, "Save" );
             configurationOptions.text!.resetButtonText = Default.getAnyString( configurationOptions.text!.resetButtonText, "Reset" );
+            configurationOptions.text!.copyButtonText = Default.getAnyString( configurationOptions.text!.copyButtonText, "Copy" );
 
             return configurationOptions.text!;
         }

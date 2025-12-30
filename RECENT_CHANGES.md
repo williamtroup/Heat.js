@@ -167,6 +167,7 @@
 - Added a new configuration text option called "text.browseButtonText" (defaults to "Browse").
 - Added a new configuration text option called "text.saveButtonText" (defaults to "Save").
 - Added a new configuration text option called "text.resetButtonText" (defaults to "Reset").
+- Added a new configuration text option called "text.copyButtonText" (defaults to "Copy").
 
 #### **Public Functions:**
 - Added a new public function called "getActiveView()", which returns the active view name for a specific element ID instance.
