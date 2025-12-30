@@ -1833,12 +1833,13 @@ var v;
 (e => {
     function t(e, t, n, i = true, o = false) {
         if (n > 0) {
+            const s = o ? `${n}%` : `${n}px`;
             if (i && e.chartsAnimationDelay > 0) {
                 setTimeout(() => {
-                    t.style.height = o ? `${n}%` : `${n}px`;
+                    t.style.height = s;
                 }, e.chartsAnimationDelay);
             } else {
-                t.style.height = o ? `${n}%` : `${n}px`;
+                t.style.height = s;
             }
         }
     }
