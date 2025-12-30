@@ -372,22 +372,13 @@ import { DocumentElement } from "./ts/area/document-element";
 
             renderExportDialogOptions( bindingOptions );
 
-            const exportDataFunc: Function = () => {
-                const selectedExportType: string = bindingOptions._currentView!.exportDialogExportTypeSelect.value;
-                const exportFilename: string = bindingOptions._currentView!.exportDialogExportFilenameInput.value;
-                const exportOnlyDataBeingViewed: boolean = bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
-
-                hideExportDialog( bindingOptions );
-                exportAllData( bindingOptions, selectedExportType, exportFilename, exportOnlyDataBeingViewed );
-            };
-
             bindingOptions._currentView!.exportDialogExportFilenameInput.onkeydown = ( ev: KeyboardEvent ) => {
                 if ( ev.key === KeyCode.enter ) {
-                    exportDataFunc();
+                    exportDataFromExportDialog( bindingOptions );
                 }
             };
 
-            exportButton.onclick = () => exportDataFunc();
+            exportButton.onclick = () => exportDataFromExportDialog( bindingOptions );
             closeButton.onclick = () => hideExportDialog( bindingOptions );
 
             ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
@@ -438,6 +429,15 @@ import { DocumentElement } from "./ts/area/document-element";
 
         ToolTip.hide( bindingOptions );
         DocumentElement.Dialog.unbind();
+    }
+
+    function exportDataFromExportDialog( bindingOptions: BindingOptions) : void {
+        const selectedExportType: string = bindingOptions._currentView!.exportDialogExportTypeSelect.value;
+        const exportFilename: string = bindingOptions._currentView!.exportDialogExportFilenameInput.value;
+        const exportOnlyDataBeingViewed: boolean = bindingOptions._currentView!.exportDialogExportOnlyDataBeingViewedCheckBox.checked;
+
+        hideExportDialog( bindingOptions );
+        exportAllData( bindingOptions, selectedExportType, exportFilename, exportOnlyDataBeingViewed );
     }
 
     function exportAllData( bindingOptions: BindingOptions, exportType: string = null!, exportFilename: string = null!, exportOnlyDataBeingViewed: boolean = true ) : void {
