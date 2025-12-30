@@ -1539,7 +1539,7 @@ import { DocumentElement } from "./ts/area/document-element";
         } else {
             const currentYear: number = bindingOptions._currentView!.year;
             const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
-            let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
+            let firstMonthDayLines: HTMLElement[] = [];
 
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
@@ -1741,7 +1741,7 @@ import { DocumentElement } from "./ts/area/document-element";
             const borderBottomWidth: number = DomElement.getStyleValueByName( dayLines, "border-bottom-width", true ) as number;
             const pixelsPerNumbers: number = ( dayLines.offsetHeight - borderBottomWidth ) / largestValueForCurrentYear;
             const currentYear: number = bindingOptions._currentView!.year;
-            let firstMonthDayLines: HTMLElement[] = [] as HTMLElement[];
+            let firstMonthDayLines: HTMLElement[] = [];
             let firstMonthAdded: boolean = false;
 
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
