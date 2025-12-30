@@ -15,15 +15,15 @@ import { type BindingOptions } from "../type";
 
 
 export namespace Animate {
-    export function setHeight( bindingOptions: BindingOptions, element: HTMLElement, height: number, allow: boolean = true ) : void {
+    export function setHeight( bindingOptions: BindingOptions, element: HTMLElement, height: number, allow: boolean = true, usePercentage: boolean = false ) : void {
         if ( height > 0 ) {
             if ( allow && bindingOptions.chartsAnimationDelay! > 0 ) {
                 setTimeout( () => {
-                    element.style.height = `${height}px`;
+                    element.style.height = usePercentage ? `${height}%` : `${height}px`;
                 }, bindingOptions.chartsAnimationDelay );
 
             } else {
-                element.style.height = `${height}px`;
+                element.style.height = usePercentage ? `${height}%` : `${height}px`;
             }
         }
     }

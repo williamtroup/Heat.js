@@ -1560,7 +1560,7 @@ import { DocumentElement } from "./ts/area/document-element";
                         const weekdayNumber: number = DateTime.getWeekdayNumber( actualDate ) + 1;
                         
                         if ( Is.dayVisible( bindingOptions.views!.line!.daysToShow!, weekdayNumber ) ) {
-                            const dayLine: HTMLElement = renderControlLineDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges );
+                            const dayLine: HTMLElement = renderControlLineDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, isForViewSwitch );
 
                             if ( !firstDayAdded ) {
                                 firstMonthDayLines.push( dayLine );
@@ -1651,7 +1651,7 @@ import { DocumentElement } from "./ts/area/document-element";
         bindingOptions._currentView!.lineContentsContainer.style.display = "none";
     }
 
-    function renderControlLineDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[] ) : HTMLElement {
+    function renderControlLineDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], isForViewSwitch ) : HTMLElement {
         const date: Date = new Date( year, month, day );
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
@@ -1682,6 +1682,8 @@ import { DocumentElement } from "./ts/area/document-element";
                 DomElement.addClass( dayLine, useColorRange.cssClassName! );
             }
         }
+
+        Animate.setHeight( bindingOptions, dayLine, 100, isForViewSwitch, true );
 
         return dayLine;
     }

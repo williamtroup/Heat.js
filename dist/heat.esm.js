@@ -1831,14 +1831,14 @@ var y;
 var v;
 
 (e => {
-    function t(e, t, n, i = true) {
+    function t(e, t, n, i = true, o = false) {
         if (n > 0) {
             if (i && e.chartsAnimationDelay > 0) {
                 setTimeout(() => {
-                    t.style.height = `${n}px`;
+                    t.style.height = o ? `${n}%` : `${n}px`;
                 }, e.chartsAnimationDelay);
             } else {
-                t.style.height = `${n}px`;
+                t.style.height = o ? `${n}%` : `${n}px`;
             }
         }
     }
@@ -3005,31 +3005,31 @@ var x;
                 a.addClass(i, "view-switch");
             }
         } else {
-            const t = e._currentView.year;
-            const n = w.getAllSorted(e);
-            let l = [];
+            const n = e._currentView.year;
+            const l = w.getAllSorted(e);
+            let d = [];
             for (let o = e.startMonth; o < 12 + e.startMonth; o++) {
                 let s = o;
-                let a = t;
+                let a = n;
                 if (e.startMonth > 0 && o > 11) {
                     s = o - 12;
                     a++;
                 }
                 if (i.monthVisible(e.views.line.monthsToShow, s)) {
-                    const t = r.getTotalDaysInMonth(a, s);
+                    const n = r.getTotalDaysInMonth(a, s);
                     let o = 1;
-                    let d = false;
-                    for (let u = 0; u < t; u++) {
-                        const t = new Date(a, s, o);
-                        const w = r.getWeekdayNumber(t) + 1;
-                        if (i.dayVisible(e.views.line.daysToShow, w)) {
-                            const t = ge(c, e, u + 1, s, a, n);
-                            if (!d) {
-                                l.push(t);
-                                d = true;
+                    let u = false;
+                    for (let w = 0; w < n; w++) {
+                        const n = new Date(a, s, o);
+                        const h = r.getWeekdayNumber(n) + 1;
+                        if (i.dayVisible(e.views.line.daysToShow, h)) {
+                            const n = ge(c, e, w + 1, s, a, l, t);
+                            if (!u) {
+                                d.push(n);
+                                u = true;
                             }
                         }
-                        if ((u + 1) % 7 === 0) {
+                        if ((w + 1) % 7 === 0) {
                             o = 0;
                         }
                         o++;
@@ -3038,32 +3038,32 @@ var x;
             }
             if (e.views.line.showInReverseOrder) {
                 a.reverseChildrenOrder(c);
-                l = l.reverse();
+                d = d.reverse();
             }
             if (e.views.line.showMonthNames) {
-                const n = a.create(e._currentView.lineContents, "div", "line-months");
+                const t = a.create(e._currentView.lineContents, "div", "line-months");
                 let o = 0;
                 const s = s => {
-                    let c = s + e.startMonth;
-                    let d = t;
-                    if (e.startMonth > 0 && c > 11) {
-                        c -= 12;
-                        d++;
+                    let l = s + e.startMonth;
+                    let c = n;
+                    if (e.startMonth > 0 && l > 11) {
+                        l -= 12;
+                        c++;
                     }
-                    if (i.monthVisible(e.views.line.monthsToShow, c)) {
-                        const i = new Date(t, c, 1);
-                        let s = V.text.monthNames[c];
+                    if (i.monthVisible(e.views.line.monthsToShow, l)) {
+                        const i = new Date(n, l, 1);
+                        let s = V.text.monthNames[l];
                         if (e.startMonth > 0 && e.views.line.showYearsInMonthNames) {
-                            s += `${" "}${d}`;
+                            s += `${" "}${c}`;
                         }
-                        const u = a.createWithHTML(n, "div", "month-name", s);
+                        const u = a.createWithHTML(t, "div", "month-name", s);
                         if (e.views.line.showInReverseOrder) {
-                            let e = l[o].offsetLeft;
+                            let e = d[o].offsetLeft;
                             e -= u.offsetWidth;
-                            e += l[o].offsetWidth;
+                            e += d[o].offsetWidth;
                             u.style.left = `${e}px`;
                         } else {
-                            u.style.left = `${l[o].offsetLeft}px`;
+                            u.style.left = `${d[o].offsetLeft}px`;
                         }
                         if (r.isCurrentMonthAndYear(i)) {
                             a.addClass(u, "current");
@@ -3083,7 +3083,7 @@ var x;
                         s(e);
                     }
                 }
-                n.style.width = `${c.offsetWidth}px`;
+                t.style.width = `${c.offsetWidth}px`;
             }
             ke(e, e._currentView.lineContentsContainer, s);
             if (e.views.line.keepScrollPositions || o) {
@@ -3092,32 +3092,33 @@ var x;
         }
         e._currentView.lineContentsContainer.style.display = "none";
     }
-    function ge(e, t, l, d, u, h) {
-        const f = new Date(u, d, l);
-        const g = a.create(e, "div", "day-line");
-        const p = i.holiday(t, f);
-        let m = He(t)[r.toStorageDate(f)];
-        m = o.getNumber(m, 0);
-        g.setAttribute(n.HEAT_JS_LINE_DATE_ATTRIBUTE_NAME, `${s.padNumber(l)}-${s.padNumber(d + 1)}-${u}`);
+    function ge(e, t, l, d, u, h, f) {
+        const g = new Date(u, d, l);
+        const p = a.create(e, "div", "day-line");
+        const m = i.holiday(t, g);
+        let y = He(t)[r.toStorageDate(g)];
+        y = o.getNumber(y, 0);
+        p.setAttribute(n.HEAT_JS_LINE_DATE_ATTRIBUTE_NAME, `${s.padNumber(l)}-${s.padNumber(d + 1)}-${u}`);
         if (t.views.line.showToolTips) {
-            Ie(t, g, f, m, t.views.line.dayToolTipText, t.events.onLineDayToolTipRender, p.matched, t.views.line.showCountsInToolTips);
+            Ie(t, p, g, y, t.views.line.dayToolTipText, t.events.onLineDayToolTipRender, m.matched, t.views.line.showCountsInToolTips);
         }
         if (i.definedFunction(t.events.onLineDayClick)) {
-            g.onclick = () => c.customEvent(t.events.onLineDayClick, t._currentView.element, f, m, p.matched);
+            p.onclick = () => c.customEvent(t.events.onLineDayClick, t._currentView.element, g, y, m.matched);
         } else if (i.definedFunction(t.events.onLineDayDblClick)) {
-            g.ondblclick = () => c.customEvent(t.events.onLineDayDblClick, t._currentView.element, f, m, p.matched);
+            p.ondblclick = () => c.customEvent(t.events.onLineDayDblClick, t._currentView.element, g, y, m.matched);
         } else {
-            a.addClass(g, "no-hover");
+            a.addClass(p, "no-hover");
         }
-        const y = w.get(t, h, m, f);
-        if (i.defined(y) && w.isVisible(t, y.id)) {
-            if (i.definedString(y.lineCssClassName)) {
-                a.addClass(g, y.lineCssClassName);
+        const T = w.get(t, h, y, g);
+        if (i.defined(T) && w.isVisible(t, T.id)) {
+            if (i.definedString(T.lineCssClassName)) {
+                a.addClass(p, T.lineCssClassName);
             } else {
-                a.addClass(g, y.cssClassName);
+                a.addClass(p, T.cssClassName);
             }
         }
-        return g;
+        v.setHeight(t, p, 100, f, true);
+        return p;
     }
     function pe(e, t, o) {
         e._currentView.chartContents = a.create(e._currentView.element, "div", "chart-contents");
