@@ -734,38 +734,13 @@ import { DocumentElement } from "./ts/area/document-element";
             const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
             const addButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.addButtonText! );
 
-            const addTypeFunc: Function = () => {
-                const type: string = bindingOptions._currentView!.typeAddingDialogTypeInput.value.trim();
-                const elementId: string = bindingOptions._currentView!.element.id;
-
-                if ( Is.definedString( type ) && !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
-                    if ( !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
-                        _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
-                        _elements_InstanceData[ elementId ].totalTypes++;
-                    }
-
-                    if ( bindingOptions._currentView!.typeAddingOptionNewType.checked ) {
-                        bindingOptions._currentView!.type = type;
-                    }
-                    
-                    Trigger.customEvent( bindingOptions.events!.onAddType!, bindingOptions._currentView!.element, type );
-                    Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
-
-                    hideTypeAddingDialog( bindingOptions );
-                    renderControlContainer( bindingOptions, true );
-
-                } else {
-                    hideTypeAddingDialog( bindingOptions );
-                }
-            };
-
             bindingOptions._currentView!.typeAddingDialogTypeInput.onkeydown = ( ev: KeyboardEvent ) => {
                 if ( ev.key === KeyCode.enter ) {
-                    addTypeFunc();
+                    addNewTypeFromAddTypeDialog( bindingOptions );
                 }
             };
 
-            addButton.onclick = () => addTypeFunc();
+            addButton.onclick = () => addNewTypeFromAddTypeDialog( bindingOptions );
             closeButton.onclick = () => hideTypeAddingDialog( bindingOptions );
 
             ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
@@ -796,6 +771,31 @@ import { DocumentElement } from "./ts/area/document-element";
 
         ToolTip.hide( bindingOptions );
         DocumentElement.Dialog.unbind();
+    }
+
+    function addNewTypeFromAddTypeDialog( bindingOptions: BindingOptions ) : void {
+        const type: string = bindingOptions._currentView!.typeAddingDialogTypeInput.value.trim();
+        const elementId: string = bindingOptions._currentView!.element.id;
+
+        if ( Is.definedString( type ) && !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
+            if ( !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
+                _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
+                _elements_InstanceData[ elementId ].totalTypes++;
+            }
+
+            if ( bindingOptions._currentView!.typeAddingOptionNewType.checked ) {
+                bindingOptions._currentView!.type = type;
+            }
+            
+            Trigger.customEvent( bindingOptions.events!.onAddType!, bindingOptions._currentView!.element, type );
+            Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
+
+            hideTypeAddingDialog( bindingOptions );
+            renderControlContainer( bindingOptions, true );
+
+        } else {
+            hideTypeAddingDialog( bindingOptions );
+        }
     }
 
 
