@@ -196,7 +196,7 @@ div.heat-js div.disabled {
   display: none;
   z-index: 1000;
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   top: 0;
   left: 0;
   height: 100%;
