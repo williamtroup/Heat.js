@@ -390,6 +390,7 @@ div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files 
   overflow-y: auto;
   padding-top: calc(var(--heat-js-spacing) * 2);
   padding-bottom: calc(var(--heat-js-spacing) * 2);
+  font-style: italic;
 }
 div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files::-webkit-scrollbar {
   width: var(--heat-js-scroll-bar-size);
@@ -420,6 +421,7 @@ div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files 
   padding-left: calc(var(--heat-js-spacing) * 2);
   padding-right: calc(var(--heat-js-spacing) * 2);
   margin-bottom: 3px;
+  font-style: normal;
 }
 div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files div.filename:last-child {
   margin-bottom: 0;

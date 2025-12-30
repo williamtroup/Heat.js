@@ -421,6 +421,7 @@ div.heat-js {
                     overflow-y: auto;
                     padding-top: calc( var(--heat-js-spacing) * 2 );
                     padding-bottom: calc( var(--heat-js-spacing) * 2 );
+                    font-style: italic;
 
                     @include styles.scroll-bars;
 
@@ -435,6 +436,7 @@ div.heat-js {
                         padding-left: calc( var(--heat-js-spacing) * 2 );
                         padding-right: calc( var(--heat-js-spacing) * 2 );
                         margin-bottom: 3px;
+                        font-style: normal;
 
                         &:last-child {
                             margin-bottom: 0;
