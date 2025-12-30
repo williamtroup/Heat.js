@@ -2462,9 +2462,9 @@ var x;
             }
             if (e._currentView.typeAddingOptionNewType.checked) {
                 e._currentView.type = t;
+                c.customEvent(e.events.onTypeSwitch, e._currentView.element, t);
             }
             c.customEvent(e.events.onAddType, e._currentView.element, t);
-            c.customEvent(e.events.onTypeSwitch, e._currentView.element, t);
             Q(e);
             O(e, true);
         } else {

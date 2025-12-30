@@ -785,10 +785,11 @@ import { DocumentElement } from "./ts/area/document-element";
 
             if ( bindingOptions._currentView!.typeAddingOptionNewType.checked ) {
                 bindingOptions._currentView!.type = type;
+
+                Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
             }
             
             Trigger.customEvent( bindingOptions.events!.onAddType!, bindingOptions._currentView!.element, type );
-            Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
 
             hideTypeAddingDialog( bindingOptions );
             renderControlContainer( bindingOptions, true );
