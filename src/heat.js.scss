@@ -1750,6 +1750,7 @@ div.heat-js {
             align-items: center;
             flex-wrap: wrap;
             justify-content: center;
+            gap: calc( var(--heat-js-spacing) / 2 );
 
             @include styles.buttons;
             @include styles.description;
@@ -1764,10 +1765,6 @@ div.heat-js {
                 align-items: center;
                 justify-content: center;
                 height: var(--heat-js-button-height);
-                margin-top: calc( var(--heat-js-spacing) / 4 ) !important;
-                margin-bottom: calc( var(--heat-js-spacing) / 4 ) !important;
-                margin-left: 0 !important;
-                margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
 
                 span.clear {
                     margin-left: var(--heat-js-spacing);
@@ -1797,6 +1794,7 @@ div.heat-js {
                 justify-content: right;
                 width: auto;
                 max-width: 320px;
+                min-width: 200px;
             }
 
             div.less-text,

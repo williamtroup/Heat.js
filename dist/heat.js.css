@@ -2252,6 +2252,7 @@ div.heat-js div.guide div.map-types {
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
+  gap: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js div.guide div.map-types button {
   background-color: var(--heat-js-button-background-color);
@@ -2346,10 +2347,6 @@ div.heat-js div.guide div.map-types button {
   align-items: center;
   justify-content: center;
   height: var(--heat-js-button-height);
-  margin-top: calc(var(--heat-js-spacing) / 4) !important;
-  margin-bottom: calc(var(--heat-js-spacing) / 4) !important;
-  margin-left: 0 !important;
-  margin-right: calc(var(--heat-js-spacing) / 2) !important;
 }
 div.heat-js div.guide div.map-types button span.clear {
   margin-left: var(--heat-js-spacing);
@@ -2402,6 +2399,7 @@ div.heat-js div.guide div.map-toggles {
     justify-content: right;
     width: auto;
     max-width: 320px;
+    min-width: 200px;
   }
 }
 div.heat-js div.guide div.map-toggles div.less-text,
