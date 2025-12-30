@@ -204,6 +204,7 @@
 - Exported XML and HTML files are now indented correctly so they are more readable.
 - Added a "Save" and "Reset" button to the "Configuration" dialog (pressing "Close" will not just close the dialog).
 - Pressing "Escape" when any dialog is open will now close it.
+- All dates shown in tooltips will now format the ordinal of a date correctly (they will be shown in sup elements).
 
 #### **Library:**
 - Updated all the NPM packages to the latest versions.

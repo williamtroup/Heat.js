@@ -39,7 +39,7 @@ export namespace DateTime {
         return result;
     }
 
-    export function getCustomFormattedDateText( configurationOptions: ConfigurationOptions, dateFormat: string, date: Date ) : string {
+    export function getCustomFormattedDateText( configurationOptions: ConfigurationOptions, dateFormat: string, date: Date, allowHtml: boolean = false ) : string {
         let result: string = dateFormat;
         const weekDayNumber: number = getWeekdayNumber( date );
 
@@ -47,7 +47,11 @@ export namespace DateTime {
         result = result.replace( "{dd}", Str.padNumber( date.getDate() ) );
         result = result.replace( "{d}", date.getDate().toString() );
 
-        result = result.replace( "{o}", getDayOrdinal( configurationOptions, date.getDate() ) );
+        if ( allowHtml ) {
+            result = result.replace( "{o}", `<sup>${getDayOrdinal( configurationOptions, date.getDate() )}</sup>` );
+        } else {
+            result = result.replace( "{o}", getDayOrdinal( configurationOptions, date.getDate() ) );
+        }
 
         result = result.replace( "{mmmm}", configurationOptions.text!.monthNames![ date.getMonth() ] );
         result = result.replace( "{mm}", Str.padNumber( date.getMonth() + 1 ) );

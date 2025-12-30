@@ -285,21 +285,25 @@ var r;
         return n;
     }
     e.getDayOrdinal = i;
-    function o(e, t, o) {
-        let r = t;
-        const a = n(o);
-        r = r.replace("{dddd}", e.text.dayNames[a]);
-        r = r.replace("{dd}", s.padNumber(o.getDate()));
-        r = r.replace("{d}", o.getDate().toString());
-        r = r.replace("{o}", i(e, o.getDate()));
-        r = r.replace("{mmmm}", e.text.monthNames[o.getMonth()]);
-        r = r.replace("{mm}", s.padNumber(o.getMonth() + 1));
-        r = r.replace("{m}", (o.getMonth() + 1).toString());
-        r = r.replace("{yyyy}", o.getFullYear().toString());
-        r = r.replace("{yyy}", o.getFullYear().toString().substring(1));
-        r = r.replace("{yy}", o.getFullYear().toString().substring(2));
-        r = r.replace("{y}", parseInt(o.getFullYear().toString().substring(2)).toString());
-        return r;
+    function o(e, t, o, r = false) {
+        let a = t;
+        const l = n(o);
+        a = a.replace("{dddd}", e.text.dayNames[l]);
+        a = a.replace("{dd}", s.padNumber(o.getDate()));
+        a = a.replace("{d}", o.getDate().toString());
+        if (r) {
+            a = a.replace("{o}", `<sup>${i(e, o.getDate())}</sup>`);
+        } else {
+            a = a.replace("{o}", i(e, o.getDate()));
+        }
+        a = a.replace("{mmmm}", e.text.monthNames[o.getMonth()]);
+        a = a.replace("{mm}", s.padNumber(o.getMonth() + 1));
+        a = a.replace("{m}", (o.getMonth() + 1).toString());
+        a = a.replace("{yyyy}", o.getFullYear().toString());
+        a = a.replace("{yyy}", o.getFullYear().toString().substring(1));
+        a = a.replace("{yy}", o.getFullYear().toString().substring(2));
+        a = a.replace("{y}", parseInt(o.getFullYear().toString().substring(2)).toString());
+        return a;
     }
     e.getCustomFormattedDateText = o;
     function r(e) {
@@ -4025,7 +4029,7 @@ var x;
         if (i.definedFunction(d)) {
             l.add(t, e, c.customEvent(d, e._currentView.element, n, o, u));
         } else {
-            let c = r.getCustomFormattedDateText(V, a, n);
+            let c = r.getCustomFormattedDateText(V, a, n, true);
             if (e.showHolidaysInDayToolTips) {
                 const t = i.holiday(e, n);
                 if (t.matched && i.definedString(t.name)) {

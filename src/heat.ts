@@ -2912,7 +2912,7 @@ import { DocumentElement } from "./ts/area/document-element";
             ToolTip.add( day, bindingOptions, Trigger.customEvent( tooltipRenderFunc, bindingOptions._currentView!.element, date, dateCount, isHoliday ) );
         } else {
 
-            let tooltip: string = DateTime.getCustomFormattedDateText( _configurationOptions, tooltipFormat, date );
+            let tooltip: string = DateTime.getCustomFormattedDateText( _configurationOptions, tooltipFormat, date, true );
 
             if ( bindingOptions.showHolidaysInDayToolTips ) {
                 const holiday: IsHoliday = Is.holiday( bindingOptions, date );
