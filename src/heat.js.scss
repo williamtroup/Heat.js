@@ -656,13 +656,17 @@ div.heat-js {
                 z-index: 1000;
 
                 div.titles-menu {
-                    $section-icon-size: 8px;
+                    $section-icon-size: 9px;
 
                     border-radius: var(--heat-js-border-radius);
                     background-color: var(--heat-js-title-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-title-border-color);
                     color: var(--heat-js-title-text-color);
                     overflow: hidden;
+
+                    &:has(> div.indented) {
+                        padding-bottom: calc( var(--heat-js-spacing) / 2 );
+                    }
 
                     div.title-menu-header,
                     div.title-menu-item {
@@ -694,10 +698,13 @@ div.heat-js {
                         font-size: var(--heat-js-spacing-font-size) !important;
 
                         &.indented {
-                            padding-left: calc( var(--heat-js-spacing) * 4 );
+                            margin-left: var(--heat-js-spacing);
+                            border-top-left-radius: var(--heat-js-border-radius);
+                            border-bottom-left-radius: var(--heat-js-border-radius);
+                            margin-bottom: calc( var(--heat-js-spacing) / 2 );
 
                             &:before {
-                                left: calc( var(--heat-js-spacing) * 2 ) !important;
+                                left: var(--heat-js-spacing) !important;
                             }
                         }
 

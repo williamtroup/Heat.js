@@ -815,6 +815,9 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu {
   color: var(--heat-js-title-text-color);
   overflow: hidden;
 }
+div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu:has(> div.indented) {
+  padding-bottom: calc(var(--heat-js-spacing) / 2);
+}
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-header,
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item {
   padding-right: calc(var(--heat-js-spacing) * 4) !important;
@@ -843,10 +846,13 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu di
   font-size: var(--heat-js-spacing-font-size) !important;
 }
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item.indented {
-  padding-left: calc(var(--heat-js-spacing) * 4);
+  margin-left: var(--heat-js-spacing);
+  border-top-left-radius: var(--heat-js-border-radius);
+  border-bottom-left-radius: var(--heat-js-border-radius);
+  margin-bottom: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item.indented:before {
-  left: calc(var(--heat-js-spacing) * 2) !important;
+  left: var(--heat-js-spacing) !important;
 }
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item:not(.title-menu-item-active)::before {
   content: "";
@@ -855,8 +861,8 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu di
   top: 50%;
   transform: translate(0, -50%);
   border-radius: 50%;
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   background-color: var(--heat-js-color-white);
 }
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item:not(.title-menu-item-active):active {
@@ -880,9 +886,9 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu di
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item-active::before {
   content: "";
   position: absolute;
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  border-left: 8px solid var(--heat-js-title-text-color-hover);
+  border-top: 4.5px solid transparent;
+  border-bottom: 4.5px solid transparent;
+  border-left: 9px solid var(--heat-js-title-text-color-hover);
   left: var(--heat-js-spacing);
   top: 50%;
   transform: translate(0, -50%);
