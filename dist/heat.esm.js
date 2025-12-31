@@ -3132,7 +3132,7 @@ var x;
         e._currentView.chartContents = a.create(e._currentView.element, "div", "chart-contents");
         e._currentView.chartContents.onscroll = () => l.hide(e);
         const s = a.create(e._currentView.chartContents, "div", "chart");
-        let c = a.create(s, "div", "y-labels");
+        const c = a.create(s, "div", "y-labels");
         const d = a.create(s, "div", "day-lines");
         const u = Ge(e);
         let h = 0;
@@ -3150,7 +3150,6 @@ var x;
             h = c.offsetWidth + t;
         } else {
             c.parentNode.removeChild(c);
-            c = null;
         }
         if (u === 0) {
             e._currentView.chartContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
@@ -3308,7 +3307,7 @@ var x;
         e._currentView.daysContents = a.create(e._currentView.element, "div", "days-contents");
         const o = a.create(e._currentView.daysContents, "div", "days");
         const s = a.create(e._currentView.daysContents, "div", "day-names");
-        let r = a.create(o, "div", "y-labels");
+        const r = a.create(o, "div", "y-labels");
         const l = a.create(o, "div", "day-lines");
         const c = w.getAllSorted(e);
         const d = xe(e, c);
@@ -3326,7 +3325,6 @@ var x;
             s.style.paddingLeft = `${r.offsetWidth + t}px`;
         } else {
             r.parentNode.removeChild(r);
-            r = null;
         }
         if (d.largestValue === 0) {
             e._currentView.daysContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
@@ -3484,7 +3482,7 @@ var x;
         e._currentView.monthsContents = a.create(e._currentView.element, "div", "months-contents");
         const o = a.create(e._currentView.monthsContents, "div", "months");
         const s = a.create(e._currentView.monthsContents, "div", "month-names");
-        let l = a.create(o, "div", "y-labels");
+        const l = a.create(o, "div", "y-labels");
         const c = a.create(o, "div", "month-lines");
         const d = w.getAllSorted(e);
         const u = Ce(e, d);
@@ -3502,7 +3500,6 @@ var x;
             s.style.paddingLeft = `${l.offsetWidth + t}px`;
         } else {
             l.parentNode.removeChild(l);
-            l = null;
         }
         if (u.largestValue === 0) {
             e._currentView.monthsContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
@@ -3679,7 +3676,7 @@ var x;
         e._currentView.statisticsContents = a.create(e._currentView.element, "div", "statistics-contents");
         const o = a.create(e._currentView.statisticsContents, "div", "statistics");
         const s = a.create(e._currentView.statisticsContents, "div", "statistics-ranges");
-        let r = a.create(o, "div", "y-labels");
+        const r = a.create(o, "div", "y-labels");
         const l = a.create(o, "div", "range-lines");
         const c = w.getAllSorted(e);
         const d = Me(e, c);
@@ -3697,7 +3694,6 @@ var x;
             s.style.paddingLeft = `${r.offsetWidth + t}px`;
         } else {
             r.parentNode.removeChild(r);
-            r = null;
         }
         if (d.largestValue === 0) {
             e._currentView.statisticsContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;

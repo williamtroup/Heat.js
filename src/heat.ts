@@ -1709,7 +1709,7 @@ import { DocumentElement } from "./ts/area/document-element";
         bindingOptions._currentView!.chartContents.onscroll = () => ToolTip.hide( bindingOptions );
 
         const chart: HTMLElement = DomElement.create( bindingOptions._currentView!.chartContents, "div", "chart" );
-        let labels: HTMLElement = DomElement.create( chart, "div", "y-labels" );
+        const labels: HTMLElement = DomElement.create( chart, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( chart, "div", "day-lines" );
         const largestValueForCurrentYear: number = getLargestValueCurrentYear( bindingOptions );
         let labelsWidth: number = 0;
@@ -1732,7 +1732,6 @@ import { DocumentElement } from "./ts/area/document-element";
 
         } else {
             labels.parentNode!.removeChild( labels );
-            labels = null!;
         }
 
         if ( largestValueForCurrentYear === 0 ) {
@@ -1948,7 +1947,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
         const days: HTMLElement = DomElement.create( bindingOptions._currentView!.daysContents, "div", "days" );
         const dayNames: HTMLElement = DomElement.create( bindingOptions._currentView!.daysContents, "div", "day-names" );
-        let labels: HTMLElement = DomElement.create( days, "div", "y-labels" );
+        const labels: HTMLElement = DomElement.create( days, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( days, "div", "day-lines" );
         const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
         const dayValuesForCurrentYear: LargestValueForView = getLargestValuesForEachDay( bindingOptions, colorRanges );
@@ -1971,7 +1970,6 @@ import { DocumentElement } from "./ts/area/document-element";
 
         } else {
             labels.parentNode!.removeChild( labels );
-            labels = null!;
         }
 
         if ( dayValuesForCurrentYear.largestValue === 0 ) {
@@ -2181,7 +2179,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
         const months: HTMLElement = DomElement.create( bindingOptions._currentView!.monthsContents, "div", "months" );
         const monthNames: HTMLElement = DomElement.create( bindingOptions._currentView!.monthsContents, "div", "month-names" );
-        let labels: HTMLElement = DomElement.create( months, "div", "y-labels" );
+        const labels: HTMLElement = DomElement.create( months, "div", "y-labels" );
         const monthLines: HTMLElement = DomElement.create( months, "div", "month-lines" );
         const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
         const monthValuesForCurrentYear: LargestValueForView = getLargestValuesForEachMonth( bindingOptions, colorRanges );
@@ -2204,7 +2202,6 @@ import { DocumentElement } from "./ts/area/document-element";
 
         } else {
             labels.parentNode!.removeChild( labels );
-            labels = null!;
         }
 
         if ( monthValuesForCurrentYear.largestValue === 0 ) {
@@ -2440,7 +2437,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
         const statistics: HTMLElement = DomElement.create( bindingOptions._currentView!.statisticsContents, "div", "statistics" );
         const statisticsRanges: HTMLElement = DomElement.create( bindingOptions._currentView!.statisticsContents, "div", "statistics-ranges" );
-        let labels: HTMLElement = DomElement.create( statistics, "div", "y-labels" );
+        const labels: HTMLElement = DomElement.create( statistics, "div", "y-labels" );
         const rangeLines: HTMLElement = DomElement.create( statistics, "div", "range-lines" );
         const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
         const colorRangeValuesForCurrentYear: LargestValuesForEachRangeType = getLargestValuesForEachRangeType( bindingOptions, colorRanges );
@@ -2463,7 +2460,6 @@ import { DocumentElement } from "./ts/area/document-element";
 
         } else {
             labels.parentNode!.removeChild( labels );
-            labels = null!;
         }
 
         if ( colorRangeValuesForCurrentYear.largestValue === 0 ) {
