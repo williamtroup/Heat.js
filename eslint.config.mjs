@@ -37,6 +37,7 @@ export default defineConfig( [ {
         "@typescript-eslint/no-namespace": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-unsafe-function-type": "off",
+        "no-debugger": "off",
         "prefer-spread": "off",
     },
 } ] );
