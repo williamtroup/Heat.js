@@ -726,13 +726,13 @@ var w;
             const u = a + 1;
             const y = h + o > 1 ? 1 : h + o;
             const v = `rgba(${l}, ${c}, ${w}, ${h.toFixed(2)})`;
-            const b = `rgba(${l}, ${c}, ${w}, ${y.toFixed(2)})`;
-            const T = `rgb(${f}, ${g}, ${m})`;
+            const T = `rgba(${l}, ${c}, ${w}, ${y.toFixed(2)})`;
+            const b = `rgb(${f}, ${g}, ${m})`;
             const V = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
             r.push(`div.${V} {`);
             r.push(`${"\t"}background-color: ${v} !important;`);
-            r.push(`${"\t"}border-color: ${b} !important;`);
-            r.push(`${"\t"}color: ${T} !important;`);
+            r.push(`${"\t"}border-color: ${T} !important;`);
+            r.push(`${"\t"}color: ${b} !important;`);
             r.push("}");
             r.push(`div.${V}:not(.no-hover):hover {`);
             r.push(`${"\t"}opacity: 0.7 !important;`);
@@ -886,8 +886,8 @@ var h;
             t.guide = p(t);
             t.tooltip = y(t);
             t.zooming = v(t);
-            t.dynamicColorRange = b(t);
-            t.colorRanges = T(t);
+            t.dynamicColorRange = T(t);
+            t.colorRanges = b(t);
             t.holidays = V(t);
             t.events = x(t);
             if (t.startMonth > 0) {
@@ -1093,7 +1093,7 @@ var h;
             e.zooming.showCloseButton = o.getBoolean(e.zooming.showCloseButton, true);
             return e.zooming;
         }
-        function b(e) {
+        function T(e) {
             e.dynamicColorRange = o.getObject(e.dynamicColorRange, {});
             e.dynamicColorRange.enabled = o.getBoolean(e.dynamicColorRange.enabled, false);
             e.dynamicColorRange.maximumMinimum = o.getNumber(e.dynamicColorRange.maximumMinimum, 25);
@@ -1101,7 +1101,7 @@ var h;
             e.dynamicColorRange.totalColors = o.getNumber(e.dynamicColorRange.totalColors, 7);
             return e.dynamicColorRange;
         }
-        function T(e) {
+        function b(e) {
             let t = [];
             if (e.dynamicColorRange.enabled && i.hexColor(e.dynamicColorRange.color)) {
                 t = w.buildDynamics(e.dynamicColorRange);
@@ -1882,7 +1882,7 @@ var v;
     e.setHeight = t;
 })(v || (v = {}));
 
-var b;
+var T;
 
 (e => {
     function t(e, t, i) {
@@ -1936,9 +1936,9 @@ var b;
         }
     }
     e.clear = r;
-})(b || (b = {}));
+})(T || (T = {}));
 
-var T;
+var b;
 
 (e => {
     function t(e) {
@@ -1952,7 +1952,7 @@ var T;
         return t;
     }
     e.largestValueForViewValues = t;
-})(T || (T = {}));
+})(b || (b = {}));
 
 var V;
 
@@ -2037,7 +2037,7 @@ var V;
     function O(e, t = false, n = false, i = false) {
         l.hide(e);
         if (t) {
-            b.store(e, _[e._currentView.element.id]);
+            T.store(e, _[e._currentView.element.id]);
         }
         e._currentView.yearsAvailable = Ye(e);
         m.View.getScrollPositions(e);
@@ -2056,7 +2056,7 @@ var V;
             ye(e, n, i);
         }
         if (e.views.days.enabled && e._currentView.view === 4) {
-            be(e, n);
+            Te(e, n);
         }
         if (e.views.months.enabled && e._currentView.view === 5) {
             xe(e, n);
@@ -3143,11 +3143,11 @@ var V;
         const m = a.create(e, "div", "day-line");
         const p = i.holiday(t, g);
         let y = We(t)[r.toStorageDate(g)];
-        const b = w.get(t, h, y, g);
+        const T = w.get(t, h, y, g);
         y = o.getNumber(y, 0);
         m.setAttribute(n.Attribute.View.Line.HEAT_JS_DATE, `${s.padNumber(l)}-${s.padNumber(u + 1)}-${d}`);
-        if (i.defined(b)) {
-            m.setAttribute(n.Attribute.View.Line.HEAT_JS_MINIMUM, b.minimum.toString());
+        if (i.defined(T)) {
+            m.setAttribute(n.Attribute.View.Line.HEAT_JS_MINIMUM, T.minimum.toString());
         }
         if (t.views.line.showToolTips) {
             Fe(t, m, g, y, t.views.line.dayToolTipText, t.events.onLineDayToolTipRender, p.matched, t.views.line.showCountsInToolTips);
@@ -3159,11 +3159,11 @@ var V;
         } else {
             a.addClass(m, "no-hover");
         }
-        if (i.defined(b) && w.isVisible(t, b.id)) {
-            if (i.definedString(b.lineCssClassName)) {
-                a.addClass(m, b.lineCssClassName);
+        if (i.defined(T) && w.isVisible(t, T.id)) {
+            if (i.definedString(T.lineCssClassName)) {
+                a.addClass(m, T.lineCssClassName);
             } else {
-                a.addClass(m, b.cssClassName);
+                a.addClass(m, T.cssClassName);
             }
         }
         v.setHeight(t, m, 100, f, true);
@@ -3300,15 +3300,15 @@ var V;
         const m = new Date(d, u, l);
         const p = a.create(e, "div", "day-line");
         const y = i.holiday(t, m);
-        let b = We(t)[r.toStorageDate(m)];
-        const T = w.get(t, h, b, m);
-        b = o.getNumber(b, 0);
+        let T = We(t)[r.toStorageDate(m)];
+        const b = w.get(t, h, T, m);
+        T = o.getNumber(T, 0);
         p.setAttribute(n.Attribute.View.Chart.HEAT_JS_DATE, `${s.padNumber(l)}-${s.padNumber(u + 1)}-${d}`);
-        if (i.defined(T)) {
-            p.setAttribute(n.Attribute.View.Chart.HEAT_JS_MINIMUM, T.minimum.toString());
+        if (i.defined(b)) {
+            p.setAttribute(n.Attribute.View.Chart.HEAT_JS_MINIMUM, b.minimum.toString());
         }
         if (t.views.chart.showToolTips) {
-            Fe(t, p, m, b, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, y.matched, t.views.chart.showCountsInToolTips);
+            Fe(t, p, m, T, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, y.matched, t.views.chart.showCountsInToolTips);
         }
         if (t.views.chart.showLineCounts || t.views.chart.showLineDateNumbers) {
             a.addClass(p, "day-line-count");
@@ -3317,25 +3317,25 @@ var V;
             const e = a.createWithHTML(p, "div", "count-date", l.toString());
             a.createWithHTML(e, "sup", "", r.getDayOrdinal(x, l));
         }
-        if (t.views.chart.showLineCounts && b > 0) {
-            a.createWithHTML(p, "div", "count", s.friendlyNumber(b));
+        if (t.views.chart.showLineCounts && T > 0) {
+            a.createWithHTML(p, "div", "count", s.friendlyNumber(T));
         }
-        const V = b * f;
+        const V = T * f;
         if (V <= 0) {
             p.style.visibility = "hidden";
         }
         if (i.definedFunction(t.events.onChartDayClick)) {
-            p.onclick = () => c.customEvent(t.events.onChartDayClick, t._currentView.element, m, b, y.matched);
+            p.onclick = () => c.customEvent(t.events.onChartDayClick, t._currentView.element, m, T, y.matched);
         } else if (i.definedFunction(t.events.onChartDayDblClick)) {
-            p.ondblclick = () => c.customEvent(t.events.onChartDayDblClick, t._currentView.element, m, b, y.matched);
+            p.ondblclick = () => c.customEvent(t.events.onChartDayDblClick, t._currentView.element, m, T, y.matched);
         } else {
             a.addClass(p, "no-hover");
         }
-        if (i.defined(T) && w.isVisible(t, T.id)) {
-            if (i.definedString(T.chartCssClassName)) {
-                a.addClass(p, T.chartCssClassName);
+        if (i.defined(b) && w.isVisible(t, b.id)) {
+            if (i.definedString(b.chartCssClassName)) {
+                a.addClass(p, b.chartCssClassName);
             } else {
-                a.addClass(p, T.cssClassName);
+                a.addClass(p, b.cssClassName);
             }
         }
         if (t.views.chart.highlightCurrentDay && r.isToday(m)) {
@@ -3347,7 +3347,7 @@ var V;
         v.setHeight(t, p, V, g);
         return p;
     }
-    function be(e, t) {
+    function Te(e, t) {
         e._currentView.daysContents = a.create(e._currentView.element, "div", "days-contents");
         const o = a.create(e._currentView.daysContents, "div", "days");
         const s = a.create(e._currentView.daysContents, "div", "day-names");
@@ -3384,7 +3384,7 @@ var V;
             for (const n in u.values) {
                 if (Object.prototype.hasOwnProperty.call(u.values, n) && i.dayVisible(e.views.days.daysToShow, parseInt(n))) {
                     const r = u.valueOpacities[u.values[n].total];
-                    const d = Te(l, parseInt(n), u.values[n].total, e, o, r, u.totalValue, t);
+                    const d = be(l, parseInt(n), u.values[n].total, e, o, r, u.totalValue, t);
                     if (e.views.days.showDayNames) {
                         a.createWithHTML(s, "div", "day-name", x.text.dayNames[parseInt(n) - 1]);
                     }
@@ -3421,7 +3421,7 @@ var V;
         }
         e._currentView.daysContents.style.display = "none";
     }
-    function Te(e, t, o, r, d, w, h, f) {
+    function be(e, t, o, r, d, w, h, f) {
         const g = a.create(e, "div", "day-line");
         const m = o * d;
         let p = null;
@@ -3480,7 +3480,7 @@ var V;
     }
     function Ve(e, t) {
         const n = {
-            values: T.largestValueForViewValues(7),
+            values: b.largestValueForViewValues(7),
             valueOpacities: {},
             largestValue: 0,
             totalValue: 0
@@ -3623,14 +3623,14 @@ var V;
         if (r.views.months.showToolTips) {
             l.add(g, r, s.friendlyNumber(o));
         }
-        let b = r._currentView.year;
+        let T = r._currentView.year;
         if (r.startMonth > 0 && t - 1 < r.startMonth) {
-            b++;
+            T++;
         }
         if (i.definedFunction(r.events.onMonthClick)) {
-            g.onclick = () => c.customEvent(r.events.onMonthClick, r._currentView.element, t, o, b);
+            g.onclick = () => c.customEvent(r.events.onMonthClick, r._currentView.element, t, o, T);
         } else if (i.definedFunction(r.events.onMonthDblClick)) {
-            g.ondblclick = () => c.customEvent(r.events.onMonthDblClick, r._currentView.element, t, o, b);
+            g.ondblclick = () => c.customEvent(r.events.onMonthDblClick, r._currentView.element, t, o, T);
         } else {
             a.addClass(g, "no-hover");
         }
@@ -3673,7 +3673,7 @@ var V;
     }
     function _e(e, t) {
         const n = {
-            values: T.largestValueForViewValues(12),
+            values: b.largestValueForViewValues(12),
             valueOpacities: {},
             largestValue: 0,
             totalValue: 0
@@ -4127,7 +4127,7 @@ var V;
         };
         _[e].typeData[x.text.unknownTrendText] = {};
         if (n && !t._currentView.isInFetchMode) {
-            b.load(x, t, _[e]);
+            T.load(x, t, _[e]);
         }
     }
     function We(e) {
@@ -4260,20 +4260,22 @@ var V;
             const i = w.getAllSorted(e);
             const o = i.length;
             if (t) {
-                for (let t = 0; t < o; t++) {
-                    const o = i[t];
+                for (let s = 0; s < o; s++) {
+                    const o = i[s];
                     if (!o.visible) {
                         n = et(e, o);
                         o.visible = true;
+                        c.customEvent(e.events.onColorRangeTypeToggle, e._currentView.element, o.id, t);
                         break;
                     }
                 }
             } else {
-                for (let t = o; t--; ) {
-                    const o = i[t];
+                for (let s = o; s--; ) {
+                    const o = i[s];
                     if (o.visible) {
                         n = et(e, o);
                         o.visible = false;
+                        c.customEvent(e.events.onColorRangeTypeToggle, e._currentView.element, o.id, t);
                         break;
                     }
                 }

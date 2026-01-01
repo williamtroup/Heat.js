@@ -3189,6 +3189,8 @@ import { DocumentElement } from "./ts/area/document-element";
                     if ( !colorRange.visible ) {
                         renderControl = toggleColorRangeForView( bindingOptions, colorRange );
                         colorRange.visible = true;
+
+                        Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
                         break;
                     }
                 }
@@ -3200,6 +3202,8 @@ import { DocumentElement } from "./ts/area/document-element";
                     if ( colorRange.visible ) {
                         renderControl = toggleColorRangeForView( bindingOptions, colorRange );
                         colorRange.visible = false;
+
+                        Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
                         break;
                     }
                 }
