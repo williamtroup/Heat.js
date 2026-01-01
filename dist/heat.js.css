@@ -2423,7 +2423,7 @@ div.heat-js div.guide div.map-toggles div.more-text:active,
 div.heat-js div.guide div.map-toggles div.invert-text:active {
   color: var(--heat-js-color-gray);
 }
-div.heat-js div.guide div.map-toggles div.days {
+div.heat-js div.guide div.map-toggles div.toggles {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2431,11 +2431,11 @@ div.heat-js div.guide div.map-toggles div.days {
   gap: calc(var(--heat-js-spacing) / 2);
 }
 @media (min-width: 768px) {
-  div.heat-js div.guide div.map-toggles div.days {
+  div.heat-js div.guide div.map-toggles div.toggles {
     justify-content: right;
   }
 }
-div.heat-js div.guide div.map-toggles div.days div.day-number {
+div.heat-js div.guide div.map-toggles div.toggles div.toggle-number {
   display: inline-flex !important;
   justify-content: center;
   align-items: center;
@@ -2445,7 +2445,7 @@ div.heat-js div.guide div.map-toggles div.days div.day-number {
   padding-left: calc(var(--heat-js-spacing) / 2);
   padding-right: calc(var(--heat-js-spacing) / 2);
 }
-div.heat-js div.guide div.map-toggles div.days div.day {
+div.heat-js div.guide div.map-toggles div.toggles div.toggle {
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   display: inline-block;
@@ -2454,7 +2454,7 @@ div.heat-js div.guide div.map-toggles div.days div.day {
   height: var(--heat-js-guide-day-size);
   transition: color 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.3s !important;
 }
-div.heat-js div.guide div.map-toggles div.days div.day:not(.no-hover):hover {
+div.heat-js div.guide div.map-toggles div.toggles div.toggle:not(.no-hover):hover {
   cursor: pointer;
   background: var(--heat-js-day-background-color-hover);
 }

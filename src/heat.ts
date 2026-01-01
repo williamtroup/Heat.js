@@ -1445,10 +1445,15 @@ import { DocumentElement } from "./ts/area/document-element";
         const date: Date = new Date( year, month, actualDay );
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
         let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
+        const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
 
         dateCount = Default.getNumber( dateCount, 0 );
 
         day.setAttribute( Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber( actualDay )}-${Str.padNumber( month + 1 )}-${year}` );
+
+        if ( Is.defined( useColorRange ) ) {
+            day.setAttribute( Constant.HEAT_JS_MAP_MINIMUM_ATTRIBUTE_NAME, useColorRange.minimum!.toString() );
+        }
 
         if ( bindingOptions.views!.map!.showToolTips ) {
             renderDayToolTip( bindingOptions, day, date, dateCount, bindingOptions.views!.map!.dayToolTipText!, bindingOptions.events!.onMapDayToolTipRender!, holiday.matched, bindingOptions.views!.map!.showCountsInToolTips! );
@@ -1475,8 +1480,6 @@ import { DocumentElement } from "./ts/area/document-element";
         } else {
             DomElement.addClass( day, "no-hover" );
         }
-
-        const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
 
         if ( Is.defined( useColorRange ) && ColorRange.isVisible( bindingOptions, useColorRange.id! ) ) {
             if ( Is.definedString( useColorRange.mapCssClassName ) ) {
@@ -1665,10 +1668,15 @@ import { DocumentElement } from "./ts/area/document-element";
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
         let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
+        const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
 
         dateCount = Default.getNumber( dateCount, 0 );
 
         dayLine.setAttribute( Constant.HEAT_JS_LINE_DATE_ATTRIBUTE_NAME, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
+
+        if ( Is.defined( useColorRange ) ) {
+            dayLine.setAttribute( Constant.HEAT_JS_LINE_MINIMUM_ATTRIBUTE_NAME, useColorRange.minimum!.toString() );
+        }
 
         if ( bindingOptions.views!.line!.showToolTips ) {
             renderDayToolTip( bindingOptions, dayLine, date, dateCount, bindingOptions.views!.line!.dayToolTipText!, bindingOptions.events!.onLineDayToolTipRender!, holiday.matched, bindingOptions.views!.line!.showCountsInToolTips! );
@@ -1681,8 +1689,6 @@ import { DocumentElement } from "./ts/area/document-element";
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
-
-        const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
 
         if ( Is.defined( useColorRange ) && ColorRange.isVisible( bindingOptions, useColorRange.id! ) ) {
             if ( Is.definedString( useColorRange.lineCssClassName ) ) {
@@ -1875,10 +1881,15 @@ import { DocumentElement } from "./ts/area/document-element";
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
         let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
+        const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
 
         dateCount = Default.getNumber( dateCount, 0 );
 
         dayLine.setAttribute( Constant.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
+
+        if ( Is.defined( useColorRange ) ) {
+            dayLine.setAttribute( Constant.HEAT_JS_CHART_MINIMUM_ATTRIBUTE_NAME, useColorRange.minimum!.toString() );
+        }
 
         if ( bindingOptions.views!.chart!.showToolTips ) {
             renderDayToolTip( bindingOptions, dayLine, date, dateCount, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender!, holiday.matched, bindingOptions.views!.chart!.showCountsInToolTips! );
@@ -1911,8 +1922,6 @@ import { DocumentElement } from "./ts/area/document-element";
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
-
-        const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
 
         if ( Is.defined( useColorRange ) && ColorRange.isVisible( bindingOptions, useColorRange.id! ) ) {
             if ( Is.definedString( useColorRange.chartCssClassName ) ) {
@@ -2517,6 +2526,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
         if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) ) {
             rangeLine.setAttribute( Constant.HEAT_JS_STATISTICS_COLOR_RANGE_NAME_ATTRIBUTE_NAME, useColorRange.name! );
+            rangeLine.setAttribute( Constant.HEAT_JS_STATISTICS_MINIMUM_ATTRIBUTE_NAME, useColorRange.minimum!.toString() );
         }
 
         if ( rangeLineHeight <= 0 ) {
@@ -2684,24 +2694,23 @@ import { DocumentElement } from "./ts/area/document-element";
                 }
             }
     
-            const days: HTMLElement = DomElement.create( mapToggles, "div", "days" );
+            const toggles: HTMLElement = DomElement.create( mapToggles, "div", "toggles" );
             const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
             const colorRangesLength: number = colorRanges.length;
-            const daysRendered: HTMLElement[] = [];
+            const togglesRendered: HTMLElement[] = [];
             let maximumWidth: number = 0;
     
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-                const day: HTMLElement = renderControlGuideDay( bindingOptions, days, colorRanges[ colorRangesIndex ] );
+                const toggle: HTMLElement = renderControlGuideToggle( bindingOptions, toggles, colorRanges[ colorRangesIndex ] );
                 
-                maximumWidth = Math.max( maximumWidth, day.offsetWidth );
-                daysRendered.push( day );
+                maximumWidth = Math.max( maximumWidth, toggle.offsetWidth );
+                togglesRendered.push( toggle );
             }
 
             if ( bindingOptions.guide!.showNumbersInGuide ) {
-                const daysRenderedLength: number = daysRendered.length;
-
-                for ( let daysRenderedIndex: number = 0; daysRenderedIndex < daysRenderedLength; daysRenderedIndex++ ) {
-                    daysRendered[ daysRenderedIndex ].style.width = `${maximumWidth}px`;
+                const togglesRenderedLength: number = togglesRendered.length;
+                for ( let togglesRenderedIndex: number = 0; togglesRenderedIndex < togglesRenderedLength; togglesRenderedIndex++ ) {
+                    togglesRendered[ togglesRenderedIndex ].style.width = `${maximumWidth}px`;
                 }
             }
 
@@ -2747,31 +2756,30 @@ import { DocumentElement } from "./ts/area/document-element";
         };
     }
 
-    function renderControlGuideDay( bindingOptions: BindingOptions, days: HTMLElement, colorRange: BindingOptionsColorRange ) : HTMLElement {
-        const day: HTMLElement = DomElement.create( days, "div" );
-        day.className = "day";
+    function renderControlGuideToggle( bindingOptions: BindingOptions, toggles: HTMLElement, colorRange: BindingOptionsColorRange ) : HTMLElement {
+        const toggle: HTMLElement = DomElement.create( toggles, "div" );
+        toggle.className = "toggle";
 
         if ( bindingOptions.guide!.showToolTips ) {
-            ToolTip.add( day, bindingOptions, colorRange.tooltipText! );
+            ToolTip.add( toggle, bindingOptions, colorRange.tooltipText! );
         }
 
         if ( ColorRange.isVisible( bindingOptions, colorRange.id! ) ) {
-            DomElement.addClass( day, ColorRange.getGuideCssClassName( bindingOptions, colorRange ) ); 
+            DomElement.addClass( toggle, ColorRange.getGuideCssClassName( bindingOptions, colorRange ) ); 
         }
 
         if ( bindingOptions.guide!.showNumbersInGuide ) {
-            DomElement.addClass( day, "day-number" );
-
-            day.innerHTML = `${colorRange.minimum}${Char.plus}`;
+            DomElement.addClass( toggle, "toggle-number" );
+            toggle.innerHTML = `${colorRange.minimum}${Char.plus}`;
         }
 
         if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
-            day.onclick = () => toggleColorRangeVisibleState( bindingOptions, colorRange.id! );
+            toggle.onclick = () => toggleColorRangeVisibleState( toggle, bindingOptions, colorRange.id! );
         } else {
-            DomElement.addClass( day, "no-hover" );
+            DomElement.addClass( toggle, "no-hover" );
         }
 
-        return day;
+        return toggle;
     }
 
     function renderDescription( bindingOptions: BindingOptions, container: HTMLElement ) : void {
@@ -3217,7 +3225,7 @@ import { DocumentElement } from "./ts/area/document-element";
         renderControlContainer( bindingOptions );
     }
 
-    function toggleColorRangeVisibleState( bindingOptions: BindingOptions, id: string ) : void {
+    function toggleColorRangeVisibleState( guideDayElement: HTMLElement, bindingOptions: BindingOptions, id: string ) : void {
         const colorRangesLength: number = bindingOptions.colorRanges!.length;
 
         for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
@@ -3226,10 +3234,54 @@ import { DocumentElement } from "./ts/area/document-element";
             if ( colorRange.id === id ) {
                 colorRange.visible = !Default.getBoolean( colorRange.visible, true );
 
+                if ( bindingOptions._currentView!.view === ViewId.map ) {
+                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.mapCssClassName!, Constant.HEAT_JS_MAP_MINIMUM_ATTRIBUTE_NAME );
+                } else if ( bindingOptions._currentView!.view === ViewId.line ) {
+                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.lineCssClassName!, Constant.HEAT_JS_LINE_MINIMUM_ATTRIBUTE_NAME );
+                } else if ( bindingOptions._currentView!.view === ViewId.chart ) {
+                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.chartCssClassName!, Constant.HEAT_JS_CHART_MINIMUM_ATTRIBUTE_NAME );
+                } else if ( bindingOptions._currentView!.view === ViewId.statistics ) {
+                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.statisticsCssClassName!, Constant.HEAT_JS_STATISTICS_MINIMUM_ATTRIBUTE_NAME );
+                } else {
+                    renderControlContainer( bindingOptions, false, false, true );
+                }
+
                 Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, colorRange.visible );
-                renderControlContainer( bindingOptions, false, false, true );
                 break;
             }
+        }
+    }
+
+    function toggleColorRangeCssClasses( guideDayElement: HTMLElement, bindingOptions: BindingOptions, colorRange: BindingOptionsColorRange, colorRangeCssClassName: string, attributeName: string ) : void {
+        let cssName: string;
+
+        if ( Is.definedString( colorRangeCssClassName ) ) {
+            cssName = colorRangeCssClassName!;
+        } else {
+            cssName = colorRange.cssClassName!;
+        }
+
+        const dayElements: HTMLCollectionOf<Element> = bindingOptions._currentView!.element!.getElementsByTagName( "div" );
+        const days: HTMLElement[] = [].slice.call( dayElements );
+        const daysLength: number = days.length;
+
+        for ( let daysIndex: number = 0; daysIndex < daysLength; daysIndex++ ) {
+            const element: HTMLElement = days[ daysIndex ];
+            const attributeValue: string = element.getAttribute( attributeName )!;
+            
+            if ( Is.definedString( attributeValue ) && attributeValue === colorRange.minimum!.toString() ) {
+                if ( colorRange.visible ) {
+                    DomElement.addClass( element, cssName );
+                } else {
+                    DomElement.removeClass( element, cssName );
+                }
+            }
+        }
+
+        if ( colorRange.visible ) {
+            DomElement.addClass( guideDayElement, cssName );
+        } else {
+            DomElement.removeClass( guideDayElement, cssName );
         }
     }
 

@@ -1817,7 +1817,7 @@ div.heat-js {
                 }
             }
     
-            div.days {
+            div.toggles {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
@@ -1828,7 +1828,7 @@ div.heat-js {
                     justify-content: right;
                 }
 
-                div.day-number {
+                div.toggle-number {
                     display: inline-flex !important;
                     justify-content: center;
                     align-items: center;
@@ -1839,7 +1839,7 @@ div.heat-js {
                     padding-right: calc( var(--heat-js-spacing) / 2 );
                 }
 
-                div.day {
+                div.toggle {
                     background-color: var(--heat-js-day-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     display: inline-block;
