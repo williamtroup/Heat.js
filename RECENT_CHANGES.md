@@ -59,6 +59,7 @@
 - BREAKING: Renamed "views.chart.showLineNumbers" to "views.chart.showLineCounts".
 - BREAKING: Renamed "views.days.showDayNumbers" to "views.days.showDayCounts".
 - BREAKING: Renamed "views.colorRanges.showRangeNumbers" to "views.colorRanges.showRangeCounts".
+- BREAKING: Renamed "colorRanges.statisticsCssClassName" to "colorRanges.colorRangeCssClassName".
 
 #### **Binding Options - New / Updates:**
 - Added a new binding option called "allowMultipleFileImports", which states if multiple file imports are enabled (defaults to true).
@@ -141,6 +142,7 @@
 - BREAKING: Remove all symbol-based text configuration options.
 - BREAKING: Renamed "text.closeToolTipText" to "text.closeButtonText".
 - BREAKING: Renamed "text.configurationToolTipText" to "text.configurationButtonText".
+- BREAKING: Renamed "text.noStatisticsDataMessage" to "text.noColorRangesDataMessage".
 
 #### **Configuration Options:**
 - Added a new configuration text option called "text.todayText" (defaults to "Today").
