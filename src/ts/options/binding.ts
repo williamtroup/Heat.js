@@ -52,7 +52,7 @@ export namespace Binding {
             bindingOptions._currentView.element = element;
             bindingOptions._currentView.activeYear = bindingOptions.defaultYear!;
             bindingOptions._currentView.activeType = configurationOptions.text!.unknownTrendText!;
-            bindingOptions._currentView.activeView = ViewId.map;
+            bindingOptions._currentView.activeView = ViewId.unknown;
             bindingOptions._currentView.configurationDialogDayCheckBoxes = [];
             bindingOptions._currentView.configurationDialogMonthCheckBoxes = [];
             bindingOptions._currentView.isInFetchMode = Is.definedFunction( bindingOptions.events!.onDataFetch );

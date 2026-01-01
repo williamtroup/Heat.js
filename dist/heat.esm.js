@@ -808,7 +808,7 @@ var g;
             i._currentView.element = n;
             i._currentView.activeYear = i.defaultYear;
             i._currentView.activeType = e.text.unknownTrendText;
-            i._currentView.activeView = 1;
+            i._currentView.activeView = 0;
             i._currentView.configurationDialogDayCheckBoxes = [];
             i._currentView.configurationDialogMonthCheckBoxes = [];
             i._currentView.isInFetchMode = o.definedFunction(i.events.onDataFetch);
