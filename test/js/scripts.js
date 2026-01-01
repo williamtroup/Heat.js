@@ -5,12 +5,8 @@
     } );
 } )();
 
-function onMapDayClick( _, date, count, isHoliday ) {
-    console.log( `Day clicked for: ${date.toString()}, Count: ${count}, Is Holiday: ${isHoliday.toString()}` );
-}
-
-function onColorRangeClick( _, colorRange, count, year ) {
-    console.log( `Color Range clicked for: ${JSON.stringify( colorRange )}, Count: ${count}, Year: ${year}` );
+function onMapDayClick( _, date, count, year, isHoliday ) {
+    console.log( `Day clicked for: ${date.toString()}, Count: ${count}, Year: ${year}, Is Holiday: ${isHoliday.toString()}` );
 }
 
 function onWeekDayClick( _, day, count, year ) {
@@ -19,6 +15,10 @@ function onWeekDayClick( _, day, count, year ) {
 
 function onMonthClick( _, day, count, year ) {
     console.log( `Month clicked for: ${day}, Count: ${count}, Year: ${year}` );
+}
+
+function onColorRangeClick( _, colorRange, count, year ) {
+    console.log( `Color Range clicked for: ${JSON.stringify( colorRange )}, Count: ${count}, Year: ${year}` );
 }
 
 function onViewSwitch( _, newView ) {

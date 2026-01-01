@@ -137,6 +137,9 @@
 - Added a new binding custom trigger called "events.onAddType", which triggers when a new trend type is added.
 - Added a new binding custom trigger called "events.onRemoveType", which triggers when a trend type is cleared.
 - Added a new "isHoliday" parameter for the events "events.onMapDayToolTipRender", "events.onChartDayToolTipRender", and "events.onLineDayToolTipRender", which is now passed after the "count" parameter.
+- Added a new "year" parameter for the event "onMapDayClick" and "onMapDayDblClick", which is now passed after the "count" parameter.
+- Added a new "year" parameter for the event "onLineDayClick" and "onLineDayDblClick", which is now passed after the "count" parameter.
+- Added a new "year" parameter for the event "onChartDayClick" and "onChartDayDblClick", which is now passed after the "count" parameter.
 
 #### **Configuration Options - Breaking Changes:**
 - BREAKING: Remove all symbol-based text configuration options.

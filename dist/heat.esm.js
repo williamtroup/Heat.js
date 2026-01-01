@@ -3002,9 +3002,9 @@ var V;
             a.createWithHTML(f, "div", "count", r.friendlyNumber(y));
         }
         if (o.definedFunction(e.events.onMapDayClick)) {
-            f.onclick = () => c.customEvent(e.events.onMapDayClick, e._currentView.element, m, y, p.matched);
+            f.onclick = () => c.customEvent(e.events.onMapDayClick, e._currentView.element, m, y, e._currentView.year, p.matched);
         } else if (o.definedFunction(e.events.onMapDayDblClick)) {
-            f.ondblclick = () => c.customEvent(e.events.onMapDayDblClick, e._currentView.element, m, y, p.matched);
+            f.ondblclick = () => c.customEvent(e.events.onMapDayDblClick, e._currentView.element, m, y, e._currentView.year, p.matched);
         } else {
             a.addClass(f, "no-hover");
         }
@@ -3158,9 +3158,9 @@ var V;
             Ee(t, m, f, y, t.views.line.dayToolTipText, t.events.onLineDayToolTipRender, p.matched, t.views.line.showCountsInToolTips);
         }
         if (o.definedFunction(t.events.onLineDayClick)) {
-            m.onclick = () => c.customEvent(t.events.onLineDayClick, t._currentView.element, f, y, p.matched);
+            m.onclick = () => c.customEvent(t.events.onLineDayClick, t._currentView.element, f, y, t._currentView.year, p.matched);
         } else if (o.definedFunction(t.events.onLineDayDblClick)) {
-            m.ondblclick = () => c.customEvent(t.events.onLineDayDblClick, t._currentView.element, f, y, p.matched);
+            m.ondblclick = () => c.customEvent(t.events.onLineDayDblClick, t._currentView.element, f, y, t._currentView.year, p.matched);
         } else {
             a.addClass(m, "no-hover");
         }
@@ -3330,9 +3330,9 @@ var V;
             p.style.visibility = "hidden";
         }
         if (o.definedFunction(t.events.onChartDayClick)) {
-            p.onclick = () => c.customEvent(t.events.onChartDayClick, t._currentView.element, m, b, y.matched);
+            p.onclick = () => c.customEvent(t.events.onChartDayClick, t._currentView.element, m, b, t._currentView.year, y.matched);
         } else if (o.definedFunction(t.events.onChartDayDblClick)) {
-            p.ondblclick = () => c.customEvent(t.events.onChartDayDblClick, t._currentView.element, m, b, y.matched);
+            p.ondblclick = () => c.customEvent(t.events.onChartDayDblClick, t._currentView.element, m, b, t._currentView.year, y.matched);
         } else {
             a.addClass(p, "no-hover");
         }
