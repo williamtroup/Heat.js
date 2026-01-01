@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Hiện tại không có dữ liệu để xem.",
                 "noMapDataMessage": "Hiện tại không có dữ liệu để xem.",
                 "statisticsText": "Thống kê",
-                "noStatisticsDataMessage": "Hiện tại không có số liệu thống kê để xem.",
+                "noColorRangesDataMessage": "Hiện tại không có số liệu thống kê để xem.",
                 "unknownTrendText": "Không xác định",
                 "importButtonText": "Nhập khẩu",
                 "objectErrorText": "Lỗi về đối tượng: {{error_1}}, {{error_2}}",

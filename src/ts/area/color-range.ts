@@ -193,8 +193,8 @@ export namespace ColorRange {
             result = colorRange.daysCssClassName!;
         } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months && Is.definedString( colorRange.monthsCssClassName ) ) {
             result = colorRange.monthsCssClassName!;
-        } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics && Is.definedString( colorRange.statisticsCssClassName ) ) {
-            result = colorRange.statisticsCssClassName!;
+        } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges && Is.definedString( colorRange.colorRangeCssClassName ) ) {
+            result = colorRange.colorRangeCssClassName!;
         }
 
         return result;

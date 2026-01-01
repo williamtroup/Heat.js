@@ -19,6 +19,7 @@
 - The "Map" view now behaves like all other views (it can be disabled, and shows no data messages by default).
 - Added dynamic colors support from a single hex color!
 - The "Days" (and the new views "Line" and "Months") now have their own custom Color Range CSS class support.
+- The "Statistics" view has been renamed to "Color Ranges" (include internal names and parameter names).
 
 #### **Exporting:**
 - Added support to export all data to YAML (.yaml).
@@ -57,7 +58,7 @@
 - BREAKING: Renamed "views.map.showDayNumbers" to "views.map.showDayCounts".
 - BREAKING: Renamed "views.chart.showLineNumbers" to "views.chart.showLineCounts".
 - BREAKING: Renamed "views.days.showDayNumbers" to "views.days.showDayCounts".
-- BREAKING: Renamed "views.statistics.showRangeNumbers" to "views.statistics.showRangeCounts".
+- BREAKING: Renamed "views.colorRanges.showRangeNumbers" to "views.colorRanges.showRangeCounts".
 
 #### **Binding Options - New / Updates:**
 - Added a new binding option called "allowMultipleFileImports", which states if multiple file imports are enabled (defaults to true).
@@ -82,10 +83,10 @@
 - Added a new binding option called "views.chart.showCountsInToolTips", which states if the day counts should be included in the tooltips (defaults to true).
 - Added a new binding option called "views.days.showDayCountPercentages", which states if the count percentages should be shown (when count displays are enabled, defaults to true).
 - Added a new binding option called "views.days.showStackedColorRanges", which states if the bar should show the stacked color range levels (defaults to true).
-- Added a new binding option called "views.statistics.showRangeCountPercentages", which states if the count percentages should be shown (when count displays are enabled, defaults to true).
+- Added a new binding option called "views.colorRanges.showRangeCountPercentages", which states if the count percentages should be shown (when count displays are enabled, defaults to true).
 - Added a new binding option called "views.map.enabled", which states if the map view is enabled (defaults to true).
 - Added a new binding option called "views.map.showSpacing", which states if the spacing between the days should be shown (defaults to true).
-- Added a new binding option called "views.statistics.showRangeNamesInToolTips", which states if the range names should be shown in the tooltips (if available, defaults to true).
+- Added a new binding option called "views.colorRanges.showRangeNamesInToolTips", which states if the range names should be shown in the tooltips (if available, defaults to true).
 - Added a new binding option called "views.chart.addMonthSpacing", which states if spacing and a divider line should be added between each month (defaults to false).
 - The "view.map" binding options "showDayDateNumbers" and "showDayCounts" can now be used at the same time.
 - The "view.chart" binding options "showLineDateNumbers" and "showLineCounts" can now be used at the same time.
@@ -117,6 +118,8 @@
 - BREAKING: Renamed "events.onDayClick" to "events.onMapDayClick".
 - BREAKING: Renamed "events.onDayDblClick" to "events.onMapDayDblClick".
 - BREAKING: Renamed "events.onDayToolTipRender" to "events.onMapDayToolTipRender".
+- BREAKING: Renamed "events.onStatisticClick" to "events.onColorRangeClick".
+- BREAKING: Renamed "events.onStatisticDblClick" to "events.onColorRangeDblClick".
 - BREAKING: Every custom trigger now except the DOM element used for the Heat.js instance as the first parameter.
 
 #### **Binding Options - Custom Triggers - New / Updates:**
@@ -223,12 +226,12 @@
 #### **Fixes:**
 - Fixed a fault that caused some of the export dates to have missing parts of the dates.
 - Fixed a fault that caused no data to show for some views when the binding option "startMonth" is set.
-- Fixed the events "onMapDayDblClick" (renamed from "onDayDblClick"), "onWeekDayDblClick", and "onStatisticDblClick" not being set against the right event handler.
+- Fixed the events "onMapDayDblClick" (renamed from "onDayDblClick"), "onWeekDayDblClick", and "onColorRangeDblClick" not being set against the right event handler.
 - Fixed a fault that caused the public API function "export()" to use the wrong file extension when using a type other than the default.
 - Fixed a fault that caused the public API function "export()" to use the wrong mime type when exporting to a format other than the default.
 - Fixed a fault that would cause the tooltips to remain visible when switching to another window / tab.
 - Fixed a fault that would cause the chart view to show a very small area when using larger numbers.
-- Fixed a fault that caused some of the color ranges not to appear in the "Statistics" view when only larger numbers are used.
+- Fixed a fault that caused some of the color ranges not to appear in the "Color Ranges" view when only larger numbers are used.
 - Fixed various spelling mistakes throughout the code.
 - Fixed a fault that allowed invalid numbers to be used for the binding option "startMonth", which caused some weird display issues.
 - Fixed a fault that caused the disabled background to appear over the rounded border corners.
@@ -236,7 +239,7 @@
 - Fixed a fault that caused buttons that are disabled to use a text color that cannot be seen (mostly in light themes).
 - Fixed all the buttons that did not have the "type" attribute.
 - Fixed the days shown in light themes (that have no color assigned) using a darker color, making counts hard to see.
-- Fixed a fault that would cause the "Statistics" view to show the wrong largest value when no day ranges have been matched.
+- Fixed a fault that would cause the "Color Ranges" view to show the wrong largest value when no day ranges have been matched.
 - Fixed a fault that would cause the content of the title bar buttons to be misaligned when switching between device sizes.
 - Fixed a fault that caused the years-dropdown menu to use an inconsistent height across different devices.
 - Fixed a fault that caused the imported data not to be saved into local storage (when enabled).
@@ -244,7 +247,7 @@
 - Fixed a fault that caused the days in the "Map" view to align incorrectly (for the last day column in a month) when the binding option "views.maps.showDaysInReverseOrder" is enabled.
 - Fixed a fault that prevented some of the click events and active/hover CSS classes from being used for the days in the "Map" view when the binding option "views.maps.showMonthDayGaps" is disabled.
 - Fixed a fault that caused the gaps to not be removed in the "Map" view when the binding option "views.map.showMonthsInReverseOrder" is enabled and the binding option "views.maps.showMonthDayGaps" is disabled.
-- Fixed a fault that caused the "Days" and "Statistics" views to sometimes show the wrong values.
+- Fixed a fault that caused the "Days" and "Color Ranges" views to sometimes show the wrong values.
 - Fixed a fault that would cause the bar graph lines (in all views) to sometimes be misaligned.
 - Fixed a fault that would cause the bar graph lines to overlap their top containers by 0.5px.
 - Fixed a fault that caused the guide toggle buttons to appear with different widths when numbers are enabled.

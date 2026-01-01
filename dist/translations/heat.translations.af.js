@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Daar is tans geen data om te bekyk nie.",
                 "noMapDataMessage": "Daar is tans geen data om te bekyk nie.",
                 "statisticsText": "Statistiek",
-                "noStatisticsDataMessage": "Daar is tans geen statistiek om te sien nie.",
+                "noColorRangesDataMessage": "Daar is tans geen statistiek om te sien nie.",
                 "unknownTrendText": "Onbekend",
                 "importButtonText": "Invoer",
                 "objectErrorText": "Foute in voorwerp: {{error_1}}, {{error_2}}",

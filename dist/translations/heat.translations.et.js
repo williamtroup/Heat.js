@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Praegu pole andmeid, mida vaadata.",
                 "noMapDataMessage": "Praegu pole andmeid, mida vaadata.",
                 "statisticsText": "Statistika",
-                "noStatisticsDataMessage": "Praegu pole statistikat vaadata.",
+                "noColorRangesDataMessage": "Praegu pole statistikat vaadata.",
                 "unknownTrendText": "Tundmatu",
                 "importButtonText": "Import",
                 "objectErrorText": "Vead objektil: {{error_1}}, {{error_2}}",

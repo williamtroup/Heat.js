@@ -166,8 +166,8 @@ import { DocumentElement } from "./ts/area/document-element";
             renderControlMonths( bindingOptions, isForViewSwitch );
         }
 
-        if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-            renderControlStatistics( bindingOptions, isForViewSwitch );
+        if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges ) {
+            renderControlColorRanges( bindingOptions, isForViewSwitch );
         }
 
         renderControlGuide( bindingOptions );
@@ -1003,14 +1003,14 @@ import { DocumentElement } from "./ts/area/document-element";
             renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMonths, ViewId.months, ViewName.months );
         }
 
-        if ( bindingOptions.views!.statistics!.enabled ) {
+        if ( bindingOptions.views!.colorRanges!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders ) {
                 DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configurationOptions.text!.statisticsText}${Char.colon}` );
             }
 
-            const menuItemStatistics: HTMLElement = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.colorRangesText! );
+            const menuItemColorRanges: HTMLElement = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.colorRangesText! );
 
-            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemStatistics, ViewId.statistics, ViewName.statistics );
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemColorRanges, ViewId.colorRanges, ViewName.colorRanges );
         }
     }
 
@@ -2437,25 +2437,25 @@ import { DocumentElement } from "./ts/area/document-element";
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Render:  View:  Statistics
+     * Render:  View:  Color Ranges
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlStatistics( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
-        bindingOptions._currentView!.statisticsContents = DomElement.create( bindingOptions._currentView!.element, "div", "statistics-contents" );
+    function renderControlColorRanges( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
+        bindingOptions._currentView!.colorRangesContents = DomElement.create( bindingOptions._currentView!.element, "div", "color-ranges-contents" );
 
-        const statistics: HTMLElement = DomElement.create( bindingOptions._currentView!.statisticsContents, "div", "statistics" );
-        const statisticsRanges: HTMLElement = DomElement.create( bindingOptions._currentView!.statisticsContents, "div", "statistics-ranges" );
-        const labels: HTMLElement = DomElement.create( statistics, "div", "y-labels" );
-        const rangeLines: HTMLElement = DomElement.create( statistics, "div", "range-lines" );
-        const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
-        const colorRangeValuesForCurrentYear: LargestValuesForEachRangeType = getLargestValuesForEachRangeType( bindingOptions, colorRanges );
+        const colorRanges: HTMLElement = DomElement.create( bindingOptions._currentView!.colorRangesContents, "div", "color-ranges" );
+        const colorRangeNames: HTMLElement = DomElement.create( bindingOptions._currentView!.colorRangesContents, "div", "color-range-names" );
+        const labels: HTMLElement = DomElement.create( colorRanges, "div", "y-labels" );
+        const colorRangeLines: HTMLElement = DomElement.create( colorRanges, "div", "color-range-lines" );
+        const sortedColorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
+        const colorRangeValuesForCurrentYear: LargestValuesForEachRangeType = getLargestValuesForEachColorRange( bindingOptions, sortedColorRanges );
 
         if ( isForViewSwitch ) {
-            DomElement.addClass( statistics, "view-switch" );
+            DomElement.addClass( colorRanges, "view-switch" );
         }
 
-        if ( colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.statistics!.showChartYLabels ) {
+        if ( colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.colorRanges!.showChartYLabels ) {
             const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-100", colorRangeValuesForCurrentYear.largestValue.toString() );
             const marginRight: number = DomElement.getStyleValueByName( labels, "margin-right", true ) as number;
 
@@ -2465,119 +2465,119 @@ import { DocumentElement } from "./ts/area/document-element";
             DomElement.createWithHTML( labels, "div", "label-0", Char.zero );
 
             labels.style.width = `${topLabel.offsetWidth}px`;
-            statisticsRanges.style.paddingLeft = `${labels.offsetWidth + marginRight}px`;
+            colorRangeNames.style.paddingLeft = `${labels.offsetWidth + marginRight}px`;
 
         } else {
             labels.parentNode!.removeChild( labels );
         }
 
         if ( colorRangeValuesForCurrentYear.largestValue === 0 ) {
-            bindingOptions._currentView!.statisticsContents.style.minHeight = `${Constant.DEFAULT_MINIMUM_HEIGHT}px`;
-            statistics.parentNode!.removeChild( statistics );
-            statisticsRanges.parentNode!.removeChild( statisticsRanges );
+            bindingOptions._currentView!.colorRangesContents.style.minHeight = `${Constant.DEFAULT_MINIMUM_HEIGHT}px`;
+            colorRanges.parentNode!.removeChild( colorRanges );
+            colorRangeNames.parentNode!.removeChild( colorRangeNames );
 
-            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.statisticsContents, "div", "no-statistics-message", _configurationOptions.text!.noStatisticsDataMessage! );
+            const noDataMessage: HTMLElement = DomElement.createWithHTML( bindingOptions._currentView!.colorRangesContents, "div", "no-color-ranges-message", _configurationOptions.text!.noColorRangesDataMessage! );
 
             if ( isForViewSwitch ) {
                 DomElement.addClass( noDataMessage, "view-switch" );
             }
 
         } else {
-            const borderBottomWidth: number = DomElement.getStyleValueByName( rangeLines, "border-bottom-width", true ) as number;
-            const pixelsPerNumbers: number = ( rangeLines.offsetHeight - borderBottomWidth ) / colorRangeValuesForCurrentYear.largestValue;
+            const borderBottomWidth: number = DomElement.getStyleValueByName( colorRangeLines, "border-bottom-width", true ) as number;
+            const pixelsPerNumbers: number = ( colorRangeLines.offsetHeight - borderBottomWidth ) / colorRangeValuesForCurrentYear.largestValue;
 
-            if ( !bindingOptions.views!.statistics!.showColorRangeLabels ) {
-                statisticsRanges.parentNode!.removeChild( statisticsRanges );
+            if ( !bindingOptions.views!.colorRanges!.showColorRangeLabels ) {
+                colorRangeNames.parentNode!.removeChild( colorRangeNames );
             }
 
             for ( const type in colorRangeValuesForCurrentYear.types ) {
                 if ( Object.prototype.hasOwnProperty.call( colorRangeValuesForCurrentYear.types, type ) ) {
-                    renderControlStatisticsRangeLine( parseInt( type ), rangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, colorRanges, pixelsPerNumbers, colorRangeValuesForCurrentYear.totalValue, isForViewSwitch );
+                    renderControlColorRangesLine( parseInt( type ), colorRangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, sortedColorRanges, pixelsPerNumbers, colorRangeValuesForCurrentYear.totalValue, isForViewSwitch );
 
-                    const useColorRange: BindingOptionsColorRange = ColorRange.getByMinimum( colorRanges, parseInt( type ) );
+                    const useColorRange: BindingOptionsColorRange = ColorRange.getByMinimum( sortedColorRanges, parseInt( type ) );
 
-                    if ( bindingOptions.views!.statistics!.showColorRangeLabels ) {
-                        if ( !bindingOptions.views!.statistics!.useColorRangeNamesForLabels || !Is.defined( useColorRange ) || !Is.definedString( useColorRange.name ) ) {
-                            DomElement.createWithHTML( statisticsRanges, "div", "range-name", `${type}${Char.plus}` );
+                    if ( bindingOptions.views!.colorRanges!.showColorRangeLabels ) {
+                        if ( !bindingOptions.views!.colorRanges!.useColorRangeNamesForLabels || !Is.defined( useColorRange ) || !Is.definedString( useColorRange.name ) ) {
+                            DomElement.createWithHTML( colorRangeNames, "div", "color-range-name", `${type}${Char.plus}` );
                         } else {
-                            DomElement.createWithHTML( statisticsRanges, "div", "range-name", useColorRange.name! );
+                            DomElement.createWithHTML( colorRangeNames, "div", "color-range-name", useColorRange.name! );
                         }
                     }
                 }
             }
 
-            if ( bindingOptions.views!.statistics!.showInReverseOrder ) {
-                DomElement.reverseChildrenOrder( rangeLines );
-                DomElement.reverseChildrenOrder( statisticsRanges );
+            if ( bindingOptions.views!.colorRanges!.showInReverseOrder ) {
+                DomElement.reverseChildrenOrder( colorRangeLines );
+                DomElement.reverseChildrenOrder( colorRangeNames );
             }
     
-            if ( bindingOptions.views!.statistics!.keepScrollPositions ) {
-                bindingOptions._currentView!.statisticsContents.scrollLeft = bindingOptions._currentView!.statisticsContentsScrollLeft;
+            if ( bindingOptions.views!.colorRanges!.keepScrollPositions ) {
+                bindingOptions._currentView!.colorRangesContents.scrollLeft = bindingOptions._currentView!.colorRangesContentsScrollLeft;
             }
         }
 
-        bindingOptions._currentView!.statisticsContents.style.display = "none";
+        bindingOptions._currentView!.colorRangesContents.style.display = "none";
     }
 
-    function renderControlStatisticsRangeLine( colorRangeMinimum: number, dayLines: HTMLElement, rangeCount: number, bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, totalValue: number, isForViewSwitch: boolean ) : void {
-        const rangeLine: HTMLElement = DomElement.create( dayLines, "div", "range-line" );
+    function renderControlColorRangesLine( colorRangeMinimum: number, colorRangeLines: HTMLElement, rangeCount: number, bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, totalValue: number, isForViewSwitch: boolean ) : void {
+        const colorRangeLine: HTMLElement = DomElement.create( colorRangeLines, "div", "color-range-line" );
+        const colorRangeLineHeight: number = rangeCount * pixelsPerNumbers;
         const useColorRange: BindingOptionsColorRange = ColorRange.getByMinimum( colorRanges, colorRangeMinimum );
-        const rangeLineHeight: number = rangeCount * pixelsPerNumbers;
 
         if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) ) {
-            rangeLine.setAttribute( Constant.Attribute.View.Statistics.HEAT_JS_COLOR_RANGE_NAME, useColorRange.name! );
-            rangeLine.setAttribute( Constant.Attribute.View.Statistics.HEAT_JS_MINIMUM, useColorRange.minimum!.toString() );
+            colorRangeLine.setAttribute( Constant.Attribute.View.ColorRanges.HEAT_JS_COLOR_RANGE_NAME, useColorRange.name! );
+            colorRangeLine.setAttribute( Constant.Attribute.View.ColorRanges.HEAT_JS_MINIMUM, useColorRange.minimum!.toString() );
         }
 
-        if ( rangeLineHeight <= 0 ) {
-            rangeLine.style.visibility = "hidden";
+        if ( colorRangeLineHeight <= 0 ) {
+            colorRangeLine.style.visibility = "hidden";
         }
 
-        if ( bindingOptions.views!.statistics!.showToolTips ) {
+        if ( bindingOptions.views!.colorRanges!.showToolTips ) {
             let tooltip: string;
 
-            if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) && bindingOptions.views!.statistics!.showRangeNamesInToolTips ) {
+            if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) && bindingOptions.views!.colorRanges!.showRangeNamesInToolTips ) {
                 tooltip = `${useColorRange.name}${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( rangeCount )}</b>`;
             } else {
                 tooltip = Str.friendlyNumber( rangeCount );
             }
 
-            ToolTip.add( rangeLine, bindingOptions, tooltip );
+            ToolTip.add( colorRangeLine, bindingOptions, tooltip );
         }
 
-        if ( bindingOptions.views!.statistics!.showRangeCounts && rangeCount > 0 ) {
-            DomElement.addClass( rangeLine, "range-line-count" );
-            const count: HTMLElement = DomElement.createWithHTML( rangeLine, "div", "count", Str.friendlyNumber( rangeCount ) );
+        if ( bindingOptions.views!.colorRanges!.showRangeCounts && rangeCount > 0 ) {
+            DomElement.addClass( colorRangeLine, "color-range-line-count" );
+            const count: HTMLElement = DomElement.createWithHTML( colorRangeLine, "div", "count", Str.friendlyNumber( rangeCount ) );
 
-            if ( bindingOptions.views!.statistics!.showRangeCountPercentages ) {
+            if ( bindingOptions.views!.colorRanges!.showRangeCountPercentages ) {
                 DomElement.createWithHTML( count, "div", "percentage", `${( ( rangeCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
             }
         }
 
-        if ( Is.definedFunction( bindingOptions.events!.onStatisticClick ) ) {
-            rangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticClick!, bindingOptions._currentView!.element, useColorRange, rangeCount, bindingOptions._currentView!.year );
-        } else if ( Is.definedFunction( bindingOptions.events!.onStatisticDblClick ) ) {
-            rangeLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onStatisticDblClick!, useColorRange, rangeCount, bindingOptions._currentView!.year );
+        if ( Is.definedFunction( bindingOptions.events!.onColorRangeClick ) ) {
+            colorRangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onColorRangeClick!, bindingOptions._currentView!.element, useColorRange, rangeCount, bindingOptions._currentView!.year );
+        } else if ( Is.definedFunction( bindingOptions.events!.onColorRangeDblClick ) ) {
+            colorRangeLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onColorRangeDblClick!, useColorRange, rangeCount, bindingOptions._currentView!.year );
         } else {
-            DomElement.addClass( rangeLine, "no-hover" );
+            DomElement.addClass( colorRangeLine, "no-hover" );
         }
 
         if ( Is.defined( useColorRange ) && ColorRange.isVisible( bindingOptions, useColorRange.id! ) ) {
-            if ( Is.definedString( useColorRange.statisticsCssClassName ) ) {
-                DomElement.addClass( rangeLine, useColorRange.statisticsCssClassName! );
+            if ( Is.definedString( useColorRange.colorRangeCssClassName ) ) {
+                DomElement.addClass( colorRangeLine, useColorRange.colorRangeCssClassName! );
             } else {
-                DomElement.addClass( rangeLine, useColorRange.cssClassName! );
+                DomElement.addClass( colorRangeLine, useColorRange.cssClassName! );
             }
         }
 
-        if ( bindingOptions.views!.statistics!.useGradients ) {
-            DomElement.addGradientEffect( bindingOptions._currentView!.element, rangeLine );
+        if ( bindingOptions.views!.colorRanges!.useGradients ) {
+            DomElement.addGradientEffect( bindingOptions._currentView!.element, colorRangeLine );
         }
 
-        Animate.setHeight( bindingOptions, rangeLine, rangeLineHeight, isForViewSwitch );
+        Animate.setHeight( bindingOptions, colorRangeLine, colorRangeLineHeight, isForViewSwitch );
     }
 
-    function getLargestValuesForEachRangeType( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValuesForEachRangeType {
+    function getLargestValuesForEachColorRange( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValuesForEachRangeType {
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
         const currentYear: number = bindingOptions._currentView!.year;
         const colorRangesLength: number = colorRanges.length;
@@ -2603,7 +2603,7 @@ import { DocumentElement } from "./ts/area/document-element";
                 actualYear++;
             }
 
-            if ( Is.monthVisible( bindingOptions.views!.statistics!.monthsToShow!, actualMonthIndex ) ) {
+            if ( Is.monthVisible( bindingOptions.views!.colorRanges!.monthsToShow!, actualMonthIndex ) ) {
                 const totalDaysInMonth: number = DateTime.getTotalDaysInMonth( actualYear, actualMonthIndex );
         
                 for ( let dayIndex: number = 0; dayIndex < totalDaysInMonth; dayIndex++ ) {
@@ -2613,7 +2613,7 @@ import { DocumentElement } from "./ts/area/document-element";
                         const storageDateObject: Date = new Date( actualYear, actualMonthIndex, dayIndex + 1 );
                         const weekDayNumber: number = DateTime.getWeekdayNumber( storageDateObject ) + 1;
 
-                        if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.statistics!.daysToShow!, weekDayNumber ) ) {
+                        if ( !Is.holiday( bindingOptions, storageDateObject ).matched && Is.dayVisible( bindingOptions.views!.colorRanges!.daysToShow!, weekDayNumber ) ) {
                             const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, typeDateCounts[ storageDate ] );
                             const colorRangeMinimum: string = Is.defined( useColorRange ) ? useColorRange.minimum!.toString() : Char.zero;
     
@@ -2709,7 +2709,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
             if ( bindingOptions.guide!.showNumbersInGuide ) {
                 const togglesRenderedLength: number = togglesRendered.length;
-                
+
                 for ( let togglesRenderedIndex: number = 0; togglesRenderedIndex < togglesRenderedLength; togglesRenderedIndex++ ) {
                     togglesRendered[ togglesRenderedIndex ].style.width = `${maximumWidth}px`;
                 }
@@ -3274,8 +3274,8 @@ import { DocumentElement } from "./ts/area/document-element";
             toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.lineCssClassName!, Constant.Attribute.View.Line.HEAT_JS_MINIMUM );
         } else if ( bindingOptions._currentView!.view === ViewId.chart ) {
             toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.chartCssClassName!, Constant.Attribute.View.Chart.HEAT_JS_MINIMUM );
-        } else if ( bindingOptions._currentView!.view === ViewId.statistics ) {
-            toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.statisticsCssClassName!, Constant.Attribute.View.Statistics.HEAT_JS_MINIMUM );
+        } else if ( bindingOptions._currentView!.view === ViewId.colorRanges ) {
+            toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.colorRangeCssClassName!, Constant.Attribute.View.ColorRanges.HEAT_JS_MINIMUM );
         } else {
             result = true;
         }

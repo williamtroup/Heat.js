@@ -143,10 +143,10 @@
             <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-3', 'months' );">Switch View - Months (3)</button>
             <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-4', 'months' );">Switch View - Months (4)</button>
             <br />
-            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-1', 'statistics' );">Switch View - Statistics (1)</button>
-            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-2', 'statistics' );">Switch View - Statistics (2)</button>
-            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-3', 'statistics' );">Switch View - Statistics (3)</button>
-            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-4', 'statistics' );">Switch View - Statistics (4)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-1', 'color-ranges' );">Switch View - Color Ranges (1)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-2', 'color-ranges' );">Switch View - Color Ranges (2)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-3', 'color-ranges' );">Switch View - Color Ranges (3)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-4', 'color-ranges' );">Switch View - Color Ranges (4)</button>
             <br />
             <button class="btn btn-primary" onclick="$heat.switchType( 'heat-map-1', 'Type 1' );">Switch Type - Type 1 (1)</button>
             <button class="btn btn-primary" onclick="$heat.switchType( 'heat-map-2', 'Type 1' );">Switch Type - Type 1 (2)</button>
@@ -202,7 +202,7 @@
                 ],
                 "events": {
                     "onMapDayClick": onMapDayClick,
-                    "onStatisticClick": onStatisticClick,
+                    "onColorRangeClick": onColorRangeClick,
                     "onWeekDayClick": onWeekDayClick,
                     "onMonthClick": onMonthClick,
                 },
@@ -224,7 +224,7 @@
                 "resizable": false,
                 "events": {
                     "onMapDayClick": onMapDayClick,
-                    "onStatisticClick": onStatisticClick,
+                    "onColorRangeClick": onColorRangeClick,
                     "onWeekDayClick": onWeekDayClick,
                     "onMonthClick": onMonthClick,
                     "onMapDayToolTipRender": onMapDayToolTipRenderEvent
@@ -255,7 +255,7 @@
                 "resizable": false,
                 "events": {
                     "onMapDayClick": onMapDayClick,
-                    "onStatisticClick": onStatisticClick,
+                    "onColorRangeClick": onColorRangeClick,
                     "onWeekDayClick": onWeekDayClick,
                     "onMonthClick": onMonthClick,
                 },

@@ -84,7 +84,7 @@ export type ConfigurationOptionsText = {
     chartText?: string;
     noChartDataMessage?: string;
     statisticsText?: string;
-    noStatisticsDataMessage?: string;
+    noColorRangesDataMessage?: string;
     unknownTrendText?: string;
     importButtonText?: string;
     noMapDataMessage?: string;
@@ -183,8 +183,8 @@ export type BindingOptionsCurrentView = {
     lineContentsContainer: HTMLElement;
     lineContents: HTMLElement;
     lineContentsScrollLeft: number;
-    statisticsContents: HTMLElement;
-    statisticsContentsScrollLeft: number;
+    colorRangesContents: HTMLElement;
+    colorRangesContentsScrollLeft: number;
     daysContents: HTMLElement;
     daysContentsScrollLeft: number;
     monthsContents: HTMLElement;
@@ -220,7 +220,7 @@ export type BindingOptionsViews = {
     line?: BindingOptionsViewsLine;
     days?: BindingOptionsViewsDays;
     months?: BindingOptionsViewsMonths;
-    statistics?: BindingOptionsViewsStatistics;
+    colorRanges?: BindingOptionsViewsStatistics;
 };
 
 export type BindingOptionsTitle = {
@@ -394,7 +394,7 @@ export type BindingOptionsColorRange = {
     chartCssClassName?: string;
     daysCssClassName?: string;
     monthsCssClassName?: string;
-    statisticsCssClassName?: string;
+    colorRangeCssClassName?: string;
     tooltipText?: string;
     visible?: boolean;
 };
@@ -446,8 +446,8 @@ export type BindingOptionsEvents = {
     onWeekDayDblClick?: ( element: HTMLElement, dayNumber: number, count: number, year: number ) => void;
     onMonthClick?: ( element: HTMLElement, monthNumber: number, count: number, year: number ) => void;
     onMonthDblClick?: ( element: HTMLElement, monthNumber: number, count: number, year: number ) => void;
-    onStatisticClick?: ( element: HTMLElement, colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
-    onStatisticDblClick?: ( element: HTMLElement, colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
+    onColorRangeClick?: ( element: HTMLElement, colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
+    onColorRangeDblClick?: ( element: HTMLElement, colorRange: BindingOptionsColorRange, rangeCount: number, year: number ) => void;
     onZoomLevelChange?: ( element: HTMLElement, zoomLevel: number ) => void;
     onClearViewableData?: ( element: HTMLElement ) => void;
     onAddType?: ( element: HTMLElement, type: string ) => void;

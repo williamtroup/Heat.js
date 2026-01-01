@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Դիտելու համար տվյալներ չկան:",
                 "noMapDataMessage": "Դիտելու համար տվյալներ չկան:",
                 "statisticsText": "Վիճակագրություն",
-                "noStatisticsDataMessage": "Ներկայումս դիտելու վիճակագրություն չկա:",
+                "noColorRangesDataMessage": "Ներկայումս դիտելու վիճակագրություն չկա:",
                 "unknownTrendText": "Անհայտ",
                 "importButtonText": "Ներմուծում",
                 "objectErrorText": "Սխալներ օբյեկտում. {{error_1}}, {{error_2}}",

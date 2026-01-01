@@ -40,7 +40,7 @@ export enum ViewId {
     chart = 3,
     days = 4,
     months = 5,
-    statistics = 6, 
+    colorRanges = 6, 
 }
 
 export enum ViewName {
@@ -49,7 +49,7 @@ export enum ViewName {
     chart = "chart",
     days = "days",
     months = "months",
-    statistics = "statistics",
+    colorRanges = "color-ranges",
 }
 
 export enum ImportType {

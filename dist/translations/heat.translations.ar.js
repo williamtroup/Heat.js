@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "لا يوجد حاليا أي بيانات لعرضها.",
                 "noMapDataMessage": "لا يوجد حاليا أي بيانات لعرضها.",
                 "statisticsText": "إحصائيات",
-                "noStatisticsDataMessage": "لا يوجد حاليا أي إحصائيات لعرضها.",
+                "noColorRangesDataMessage": "لا يوجد حاليا أي إحصائيات لعرضها.",
                 "unknownTrendText": "مجهول",
                 "importButtonText": "يستورد",
                 "objectErrorText": "أخطاء في الكائن: {{error_1}}, {{error_2}}",

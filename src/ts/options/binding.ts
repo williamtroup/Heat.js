@@ -100,9 +100,9 @@ export namespace Binding {
                 bindingOptions._currentView.viewsEnabled++;
             }
             
-            if ( bindingOptions.views!.statistics!.enabled ) {
-                bindingOptions._currentView.statisticsContents = null!;
-                bindingOptions._currentView.statisticsContentsScrollLeft = 0;
+            if ( bindingOptions.views!.colorRanges!.enabled ) {
+                bindingOptions._currentView.colorRangesContents = null!;
+                bindingOptions._currentView.colorRangesContentsScrollLeft = 0;
                 bindingOptions._currentView.viewsEnabled++;
             }
     
@@ -137,7 +137,7 @@ export namespace Binding {
             bindingOptions.views!.chart = getChartView( bindingOptions );
             bindingOptions.views!.days = getDaysView( bindingOptions );
             bindingOptions.views!.months = getMonthsView( bindingOptions );
-            bindingOptions.views!.statistics = getStatisticsView( bindingOptions );
+            bindingOptions.views!.colorRanges = getColorRangesView( bindingOptions );
             bindingOptions.description = getDescription( bindingOptions );
             bindingOptions.guide = getGuide( bindingOptions );
             bindingOptions.tooltip = getToolTip( bindingOptions );
@@ -321,29 +321,29 @@ export namespace Binding {
             return bindingOptions.views!.months!;
         }
     
-        function getStatisticsView( bindingOptions: BindingOptions ) : BindingOptionsViewsStatistics {
-            bindingOptions.views!.statistics = Default.getObject( bindingOptions.views!.statistics, {} as BindingOptionsViewsStatistics );
-            bindingOptions.views!.statistics!.enabled = Default.getBoolean( bindingOptions.views!.statistics!.enabled, true );
-            bindingOptions.views!.statistics!.showChartYLabels = Default.getBoolean( bindingOptions.views!.statistics!.showChartYLabels, true );
-            bindingOptions.views!.statistics!.showColorRangeLabels = Default.getBoolean( bindingOptions.views!.statistics!.showColorRangeLabels, true );
-            bindingOptions.views!.statistics!.useColorRangeNamesForLabels = Default.getBoolean( bindingOptions.views!.statistics!.useColorRangeNamesForLabels, false );
-            bindingOptions.views!.statistics!.showRangeCounts = Default.getBoolean( bindingOptions.views!.statistics!.showRangeCounts, false );
-            bindingOptions.views!.statistics!.showInReverseOrder = Default.getBoolean( bindingOptions.views!.statistics!.showInReverseOrder, false );
-            bindingOptions.views!.statistics!.keepScrollPositions = Default.getBoolean( bindingOptions.views!.statistics!.keepScrollPositions, false );
-            bindingOptions.views!.statistics!.showToolTips = Default.getBoolean( bindingOptions.views!.statistics!.showToolTips, true );
-            bindingOptions.views!.statistics!.useGradients = Default.getBoolean( bindingOptions.views!.statistics!.useGradients, false );
-            bindingOptions.views!.statistics!.showRangeCountPercentages = Default.getBoolean( bindingOptions.views!.statistics!.showRangeCountPercentages, true );
-            bindingOptions.views!.statistics!.showRangeNamesInToolTips = Default.getBoolean( bindingOptions.views!.statistics!.showRangeNamesInToolTips, true );
+        function getColorRangesView( bindingOptions: BindingOptions ) : BindingOptionsViewsStatistics {
+            bindingOptions.views!.colorRanges = Default.getObject( bindingOptions.views!.colorRanges, {} as BindingOptionsViewsStatistics );
+            bindingOptions.views!.colorRanges!.enabled = Default.getBoolean( bindingOptions.views!.colorRanges!.enabled, true );
+            bindingOptions.views!.colorRanges!.showChartYLabels = Default.getBoolean( bindingOptions.views!.colorRanges!.showChartYLabels, true );
+            bindingOptions.views!.colorRanges!.showColorRangeLabels = Default.getBoolean( bindingOptions.views!.colorRanges!.showColorRangeLabels, true );
+            bindingOptions.views!.colorRanges!.useColorRangeNamesForLabels = Default.getBoolean( bindingOptions.views!.colorRanges!.useColorRangeNamesForLabels, false );
+            bindingOptions.views!.colorRanges!.showRangeCounts = Default.getBoolean( bindingOptions.views!.colorRanges!.showRangeCounts, false );
+            bindingOptions.views!.colorRanges!.showInReverseOrder = Default.getBoolean( bindingOptions.views!.colorRanges!.showInReverseOrder, false );
+            bindingOptions.views!.colorRanges!.keepScrollPositions = Default.getBoolean( bindingOptions.views!.colorRanges!.keepScrollPositions, false );
+            bindingOptions.views!.colorRanges!.showToolTips = Default.getBoolean( bindingOptions.views!.colorRanges!.showToolTips, true );
+            bindingOptions.views!.colorRanges!.useGradients = Default.getBoolean( bindingOptions.views!.colorRanges!.useGradients, false );
+            bindingOptions.views!.colorRanges!.showRangeCountPercentages = Default.getBoolean( bindingOptions.views!.colorRanges!.showRangeCountPercentages, true );
+            bindingOptions.views!.colorRanges!.showRangeNamesInToolTips = Default.getBoolean( bindingOptions.views!.colorRanges!.showRangeNamesInToolTips, true );
 
-            if ( Is.invalidOptionArray( bindingOptions.views!.statistics!.monthsToShow! ) ) {
-                bindingOptions.views!.statistics!.monthsToShow = _default_MonthsToShow;
+            if ( Is.invalidOptionArray( bindingOptions.views!.colorRanges!.monthsToShow! ) ) {
+                bindingOptions.views!.colorRanges!.monthsToShow = _default_MonthsToShow;
             }
     
-            if ( Is.invalidOptionArray( bindingOptions.views!.statistics!.daysToShow! ) ) {
-                bindingOptions.views!.statistics!.daysToShow = _default_DaysToShow;
+            if ( Is.invalidOptionArray( bindingOptions.views!.colorRanges!.daysToShow! ) ) {
+                bindingOptions.views!.colorRanges!.daysToShow = _default_DaysToShow;
             }
     
-            return bindingOptions.views!.statistics!;
+            return bindingOptions.views!.colorRanges!;
         }
 
         function getDescription( bindingOptions: BindingOptions ) : BindingOptionsDescription {
@@ -420,7 +420,7 @@ export namespace Binding {
                         colorRange.chartCssClassName = Default.getString( colorRange.chartCssClassName, Char.empty );
                         colorRange.daysCssClassName = Default.getString( colorRange.daysCssClassName, Char.empty );
                         colorRange.monthsCssClassName = Default.getString( colorRange.monthsCssClassName, Char.empty );
-                        colorRange.statisticsCssClassName = Default.getString( colorRange.statisticsCssClassName, Char.empty );
+                        colorRange.colorRangeCssClassName = Default.getString( colorRange.colorRangeCssClassName, Char.empty );
                         colorRange.tooltipText = Default.getString( colorRange.tooltipText, Char.empty );
                         colorRange.visible = Default.getBoolean( colorRange.visible, true );
 
@@ -522,8 +522,8 @@ export namespace Binding {
             bindingOptions.events!.onWeekDayDblClick = Default.getFunction( bindingOptions.events!.onWeekDayDblClick, null! );
             bindingOptions.events!.onMonthClick = Default.getFunction( bindingOptions.events!.onMonthClick, null! );
             bindingOptions.events!.onMonthDblClick = Default.getFunction( bindingOptions.events!.onMonthDblClick, null! );
-            bindingOptions.events!.onStatisticClick = Default.getFunction( bindingOptions.events!.onStatisticClick, null! );
-            bindingOptions.events!.onStatisticDblClick = Default.getFunction( bindingOptions.events!.onStatisticDblClick, null! );
+            bindingOptions.events!.onColorRangeClick = Default.getFunction( bindingOptions.events!.onColorRangeClick, null! );
+            bindingOptions.events!.onColorRangeDblClick = Default.getFunction( bindingOptions.events!.onColorRangeDblClick, null! );
             bindingOptions.events!.onZoomLevelChange = Default.getFunction( bindingOptions.events!.onZoomLevelChange, null! );
             bindingOptions.events!.onClearViewableData = Default.getFunction( bindingOptions.events!.onClearViewableData, null! );
             bindingOptions.events!.onAddType = Default.getFunction( bindingOptions.events!.onAddType, null! );
@@ -543,8 +543,8 @@ export namespace Binding {
                 bindingOptions._currentView!.view = ViewId.days;
             } else if ( bindingOptions.views!.months!.enabled && bindingOptions.defaultView === ViewName.months ) {
                 bindingOptions._currentView!.view = ViewId.months;
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions.defaultView === ViewName.statistics ) {
-                bindingOptions._currentView!.view = ViewId.statistics;
+            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions.defaultView === ViewName.colorRanges ) {
+                bindingOptions._currentView!.view = ViewId.colorRanges;
             }
 
             if ( bindingOptions._currentView!.view === 0 ) {
@@ -558,8 +558,8 @@ export namespace Binding {
                     bindingOptions._currentView!.view = ViewId.days;
                 } else if ( bindingOptions.views!.months!.enabled ) {
                     bindingOptions._currentView!.view = ViewId.months;
-                } else if ( bindingOptions.views!.statistics!.enabled ) {
-                    bindingOptions._currentView!.view = ViewId.statistics;
+                } else if ( bindingOptions.views!.colorRanges!.enabled ) {
+                    bindingOptions._currentView!.view = ViewId.colorRanges;
                 }
 
                 if ( bindingOptions._currentView!.view === 0 ) {

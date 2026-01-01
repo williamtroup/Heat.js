@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Αυτήν τη στιγμή δεν υπάρχουν δεδομένα για προβολή.",
                 "noMapDataMessage": "Αυτήν τη στιγμή δεν υπάρχουν δεδομένα για προβολή.",
                 "statisticsText": "Στατιστική",
-                "noStatisticsDataMessage": "Αυτήν τη στιγμή δεν υπάρχουν στατιστικά στοιχεία για προβολή.",
+                "noColorRangesDataMessage": "Αυτήν τη στιγμή δεν υπάρχουν στατιστικά στοιχεία για προβολή.",
                 "unknownTrendText": "Αγνωστος",
                 "importButtonText": "Εισαγωγή",
                 "objectErrorText": "Σφάλματα στο αντικείμενο: {{error_1}}, {{error_2}}",

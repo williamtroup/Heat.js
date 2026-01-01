@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Momentálne nie sú k dispozícii žiadne údaje na zobrazenie.",
                 "noMapDataMessage": "Momentálne nie sú k dispozícii žiadne údaje na zobrazenie.",
                 "statisticsText": "Štatistiky",
-                "noStatisticsDataMessage": "Momentálne nie sú k dispozícii žiadne štatistiky na zobrazenie.",
+                "noColorRangesDataMessage": "Momentálne nie sú k dispozícii žiadne štatistiky na zobrazenie.",
                 "unknownTrendText": "Neznámy",
                 "importButtonText": "Importovať",
                 "objectErrorText": "Chyby v objekte: {{error_1}}, {{error_2}}",

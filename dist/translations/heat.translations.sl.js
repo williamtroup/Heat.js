@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Trenutno ni podatkov za ogled.",
                 "noMapDataMessage": "Trenutno ni podatkov za ogled.",
                 "statisticsText": "Statistika",
-                "noStatisticsDataMessage": "Trenutno ni statistike za ogled.",
+                "noColorRangesDataMessage": "Trenutno ni statistike za ogled.",
                 "unknownTrendText": "Neznano",
                 "importButtonText": "Uvozi",
                 "objectErrorText": "Napake v objektu: {{error_1}}, {{error_2}}",

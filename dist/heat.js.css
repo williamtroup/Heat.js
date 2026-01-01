@@ -2063,15 +2063,15 @@ div.heat-js div.months-contents div.month-names div.month-name.current {
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - View - Statistics
+    Heat.js - View - Color Ranges
     -------------------------------------------------------------------------
 */
-div.heat-js div.statistics-contents {
+div.heat-js div.color-ranges-contents {
   text-wrap: nowrap;
   white-space: nowrap;
   position: relative;
 }
-div.heat-js div.statistics-contents div.no-statistics-message {
+div.heat-js div.color-ranges-contents div.no-color-ranges-message {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -2079,11 +2079,11 @@ div.heat-js div.statistics-contents div.no-statistics-message {
   font-weight: var(--heat-js-text-bold-weight);
   font-style: italic;
 }
-div.heat-js div.statistics-contents div.statistics {
+div.heat-js div.color-ranges-contents div.color-ranges {
   display: flex;
   flex-direction: row;
 }
-div.heat-js div.statistics-contents div.statistics div.y-labels {
+div.heat-js div.color-ranges-contents div.color-ranges div.y-labels {
   background-color: var(--heat-js-container-background-color);
   padding-right: calc(var(--heat-js-spacing) * 3);
   padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
@@ -2092,11 +2092,11 @@ div.heat-js div.statistics-contents div.statistics div.y-labels {
   border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   z-index: 50;
 }
-div.heat-js div.statistics-contents div.statistics div.y-labels div.label-100,
-div.heat-js div.statistics-contents div.statistics div.y-labels div.label-75,
-div.heat-js div.statistics-contents div.statistics div.y-labels div.label-50,
-div.heat-js div.statistics-contents div.statistics div.y-labels div.label-25,
-div.heat-js div.statistics-contents div.statistics div.y-labels div.label-0 {
+div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-100,
+div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-75,
+div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-50,
+div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-25,
+div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-0 {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
   height: var(--heat-js-day-size);
@@ -2107,25 +2107,25 @@ div.heat-js div.statistics-contents div.statistics div.y-labels div.label-0 {
   left: 0;
   padding-right: var(--heat-js-y-label-spacing);
 }
-div.heat-js div.statistics-contents div.statistics div.y-labels div.label-100 {
+div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-100 {
   top: 0;
 }
-div.heat-js div.statistics-contents div.statistics div.y-labels div.label-75 {
+div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-75 {
   top: 25%;
   transform: translateY(-25%);
 }
-div.heat-js div.statistics-contents div.statistics div.y-labels div.label-50 {
+div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-50 {
   top: 50%;
   transform: translateY(-50%);
 }
-div.heat-js div.statistics-contents div.statistics div.y-labels div.label-25 {
+div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-25 {
   top: 75%;
   transform: translateY(-75%);
 }
-div.heat-js div.statistics-contents div.statistics div.y-labels div.label-0 {
+div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-0 {
   bottom: 0;
 }
-div.heat-js div.statistics-contents div.statistics div.range-lines {
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines {
   display: flex;
   align-items: flex-end;
   flex: 1;
@@ -2134,23 +2134,23 @@ div.heat-js div.statistics-contents div.statistics div.range-lines {
   height: 187px !important;
   overflow: hidden;
 }
-div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line-count {
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line-count {
   font-size: var(--heat-js-spacing-day-font-size);
   padding: calc(var(--heat-js-spacing) / 2);
   position: relative;
   overflow: hidden;
 }
-div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line-count div.count {
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line-count div.count {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
 }
-div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line-count div.count div.percentage {
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line-count div.count div.percentage {
   font-style: italic;
 }
-div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line {
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line {
   border-top-left-radius: var(--heat-js-border-radius-day);
   border-top-right-radius: var(--heat-js-border-radius-day);
   background-color: var(--heat-js-day-background-color);
@@ -2162,20 +2162,20 @@ div.heat-js div.statistics-contents div.statistics div.range-lines div.range-lin
   transition: var(--heat-js-transition);
   height: 0;
 }
-div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line:first-child {
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line:first-child {
   margin-left: calc(var(--heat-js-spacing) / 2);
 }
-div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line:last-child {
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line:last-child {
   margin-right: calc(var(--heat-js-spacing) / 2);
 }
-div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line:not(.no-hover):active {
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line:not(.no-hover):active {
   opacity: var(--heat-js-view-opacity-active) !important;
 }
-div.heat-js div.statistics-contents div.statistics div.range-lines div.range-line:not(.no-hover):hover {
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line:not(.no-hover):hover {
   cursor: pointer;
   background: var(--heat-js-day-background-color-hover);
 }
-div.heat-js div.statistics-contents div.statistics-ranges {
+div.heat-js div.color-ranges-contents div.color-range-names {
   display: flex;
   flex: 1;
   position: relative;
@@ -2183,7 +2183,7 @@ div.heat-js div.statistics-contents div.statistics-ranges {
   align-items: baseline;
   height: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 3px);
 }
-div.heat-js div.statistics-contents div.statistics-ranges div.range-name {
+div.heat-js div.color-ranges-contents div.color-range-names div.color-range-name {
   flex: 1 100%;
   margin-top: var(--heat-js-spacing);
   font-weight: var(--heat-js-text-font-weight-thin);

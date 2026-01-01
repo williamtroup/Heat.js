@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "බැලීම සඳහා දැනට දත්ත නොමැත.",
                 "noMapDataMessage": "බැලීම සඳහා දැනට දත්ත නොමැත.",
                 "statisticsText": "සංඛ්යා ලේඛන",
-                "noStatisticsDataMessage": "බැලීමට දැනට සංඛ්‍යාලේඛන නොමැත.",
+                "noColorRangesDataMessage": "බැලීමට දැනට සංඛ්‍යාලේඛන නොමැත.",
                 "unknownTrendText": "නොදන්නා",
                 "importButtonText": "ආනයන",
                 "objectErrorText": "වස්තුවේ දෝෂ: {{error_1}}, {{error_2}}",

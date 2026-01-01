@@ -381,13 +381,13 @@ export type PublicApi = {
     /**
      * switchView().
      * 
-     * Switches the view on an element to either Map, Chart, or Statistics.
+     * Switches the active view on an element.
      * 
      * @public
      * @fires       onViewSwitch
      * 
      * @param       {string}    elementId                                   The Heat.js element ID.
-     * @param       {string}    viewName                                    The name of the view to switch to (either "map", "chart", "days", "months", or "statistics").
+     * @param       {string}    viewName                                    The name of the view to switch to (either "map", "line", "chart", "days", "months", or "color-ranges").
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */

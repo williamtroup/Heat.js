@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "వీక్షించడానికి ప్రస్తుతం డేటా లేదు.",
                 "noMapDataMessage": "వీక్షించడానికి ప్రస్తుతం డేటా లేదు.",
                 "statisticsText": "గణాంకాలు",
-                "noStatisticsDataMessage": "వీక్షించడానికి ప్రస్తుతం గణాంకాలు లేవు.",
+                "noColorRangesDataMessage": "వీక్షించడానికి ప్రస్తుతం గణాంకాలు లేవు.",
                 "unknownTrendText": "తెలియదు",
                 "importButtonText": "దిగుమతి",
                 "objectErrorText": "వస్తువులో లోపాలు: {{error_1}}, {{error_2}}",

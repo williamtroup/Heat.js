@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Šiuo metu nėra duomenų, kuriuos būtų galima peržiūrėti.",
                 "noMapDataMessage": "Šiuo metu nėra duomenų, kuriuos būtų galima peržiūrėti.",
                 "statisticsText": "Statistika",
-                "noStatisticsDataMessage": "Šiuo metu nėra statistikos, kurią būtų galima peržiūrėti.",
+                "noColorRangesDataMessage": "Šiuo metu nėra statistikos, kurią būtų galima peržiūrėti.",
                 "unknownTrendText": "Nežinoma",
                 "importButtonText": "Importuoti",
                 "objectErrorText": "Klaidos objekte: {{error_1}}, {{error_2}}",

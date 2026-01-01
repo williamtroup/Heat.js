@@ -9,8 +9,8 @@ function onMapDayClick( _, date, count, isHoliday ) {
     console.log( `Day clicked for: ${date.toString()}, Count: ${count}, Is Holiday: ${isHoliday.toString()}` );
 }
 
-function onStatisticClick( _, colorRange, count, year ) {
-    console.log( `Statistic clicked for: ${JSON.stringify( colorRange )}, Count: ${count}, Year: ${year}` );
+function onColorRangeClick( _, colorRange, count, year ) {
+    console.log( `Color Range clicked for: ${JSON.stringify( colorRange )}, Count: ${count}, Year: ${year}` );
 }
 
 function onWeekDayClick( _, day, count, year ) {

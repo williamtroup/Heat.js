@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Pašlaik nav datu, ko skatīt.",
                 "noMapDataMessage": "Pašlaik nav datu, ko skatīt.",
                 "statisticsText": "Statistika",
-                "noStatisticsDataMessage": "Pašlaik nav apskatāmas statistikas.",
+                "noColorRangesDataMessage": "Pašlaik nav apskatāmas statistikas.",
                 "unknownTrendText": "Nezināms",
                 "importButtonText": "Importēt",
                 "objectErrorText": "Kļūdas objektā: {{error_1}}, {{error_2}}",

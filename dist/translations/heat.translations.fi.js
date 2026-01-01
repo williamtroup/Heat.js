@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Tällä hetkellä ei ole tarkasteltavaa dataa.",
                 "noMapDataMessage": "Tällä hetkellä ei ole tarkasteltavaa dataa.",
                 "statisticsText": "Tilastot",
-                "noStatisticsDataMessage": "Tällä hetkellä ei ole tilastoja nähtäväksi.",
+                "noColorRangesDataMessage": "Tällä hetkellä ei ole tilastoja nähtäväksi.",
                 "unknownTrendText": "Tuntematon",
                 "importButtonText": "Tuonti",
                 "objectErrorText": "Virheet objektissa: {{error_1}}, {{error_2}}",

@@ -48,7 +48,7 @@ export namespace Configuration {
             configurationOptions.text!.chartText = Default.getAnyString( configurationOptions.text!.chartText, "Chart" );
             configurationOptions.text!.noChartDataMessage = Default.getAnyString( configurationOptions.text!.noChartDataMessage, "There is currently no data to view." );
             configurationOptions.text!.statisticsText = Default.getAnyString( configurationOptions.text!.statisticsText, "Statistics" );
-            configurationOptions.text!.noStatisticsDataMessage = Default.getAnyString( configurationOptions.text!.noStatisticsDataMessage, "There are currently no statistics to view." );
+            configurationOptions.text!.noColorRangesDataMessage = Default.getAnyString( configurationOptions.text!.noColorRangesDataMessage, "There are currently no color ranges to view." );
             configurationOptions.text!.unknownTrendText = Default.getAnyString( configurationOptions.text!.unknownTrendText, "Unknown" );
             configurationOptions.text!.importButtonText = Default.getAnyString( configurationOptions.text!.importButtonText, "Import" );
             configurationOptions.text!.noMapDataMessage = Default.getAnyString( configurationOptions.text!.noMapDataMessage, "There is currently no data to view." );

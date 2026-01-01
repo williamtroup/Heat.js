@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "D'r binne op it stuit gjin gegevens te besjen.",
                 "noMapDataMessage": "D'r binne op it stuit gjin gegevens te besjen.",
                 "statisticsText": "Statistyk",
-                "noStatisticsDataMessage": "D'r binne op it stuit gjin statistiken te besjen.",
+                "noColorRangesDataMessage": "D'r binne op it stuit gjin statistiken te besjen.",
                 "unknownTrendText": "Ûnbekend",
                 "importButtonText": "Ymport",
                 "objectErrorText": "Flaters yn objekt: {{error_1}}, {{error_2}}",

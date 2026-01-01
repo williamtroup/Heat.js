@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "În prezent, nu există date de vizualizat.",
                 "noMapDataMessage": "În prezent, nu există date de vizualizat.",
                 "statisticsText": "Statistici",
-                "noStatisticsDataMessage": "În prezent, nu există statistici de vizualizat.",
+                "noColorRangesDataMessage": "În prezent, nu există statistici de vizualizat.",
                 "unknownTrendText": "Necunoscut",
                 "importButtonText": "Import",
                 "objectErrorText": "Erori la obiect: {{error_1}}, {{error_2}}",

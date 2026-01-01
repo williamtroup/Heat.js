@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Al momento non ci sono dati da visualizzare.",
                 "noMapDataMessage": "Al momento non ci sono dati da visualizzare.",
                 "statisticsText": "Statistiche",
-                "noStatisticsDataMessage": "Al momento non ci sono statistiche da visualizzare.",
+                "noColorRangesDataMessage": "Al momento non ci sono statistiche da visualizzare.",
                 "unknownTrendText": "Sconosciuto",
                 "importButtonText": "Importare",
                 "objectErrorText": "Errori nell'oggetto: {{error_1}}, {{error_2}}",

@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Зараз немає даних для перегляду.",
                 "noMapDataMessage": "Зараз немає даних для перегляду.",
                 "statisticsText": "Статистика",
-                "noStatisticsDataMessage": "Наразі немає статистики для перегляду.",
+                "noColorRangesDataMessage": "Наразі немає статистики для перегляду.",
                 "unknownTrendText": "Невідомий",
                 "importButtonText": "Імпорт",
                 "objectErrorText": "Помилки в об'єкті: {{error_1}}, {{error_2}}",

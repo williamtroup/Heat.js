@@ -31,8 +31,8 @@ export namespace Visible {
                 monthsToShow = bindingOptions.views!.days!.monthsToShow!;
             } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
                 monthsToShow = bindingOptions.views!.months!.monthsToShow!;
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-                monthsToShow = bindingOptions.views!.statistics!.monthsToShow!;
+            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges ) {
+                monthsToShow = bindingOptions.views!.colorRanges!.monthsToShow!;
             }
 
             return monthsToShow;
@@ -49,8 +49,8 @@ export namespace Visible {
                 bindingOptions.views!.days!.monthsToShow = months;
             } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
                 bindingOptions.views!.months!.monthsToShow = months;
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-                bindingOptions.views!.statistics!.monthsToShow = months;
+            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges ) {
+                bindingOptions.views!.colorRanges!.monthsToShow = months;
             }
         }
     }
@@ -69,8 +69,8 @@ export namespace Visible {
                 daysToShow = bindingOptions.views!.days!.daysToShow!;
             } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
                 daysToShow = bindingOptions.views!.months!.daysToShow!;
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-                daysToShow = bindingOptions.views!.statistics!.daysToShow!;
+            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges ) {
+                daysToShow = bindingOptions.views!.colorRanges!.daysToShow!;
             }
 
             return daysToShow;
@@ -87,8 +87,8 @@ export namespace Visible {
                 bindingOptions.views!.days!.daysToShow = days;
             } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
                 bindingOptions.views!.months!.daysToShow = days;
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-                bindingOptions.views!.statistics!.daysToShow = days;
+            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges ) {
+                bindingOptions.views!.colorRanges!.daysToShow = days;
             }
         }
     }
@@ -111,8 +111,8 @@ export namespace Visible {
                 bindingOptions._currentView!.daysContentsScrollLeft = bindingOptions._currentView!.daysContents.scrollLeft;
             }
 
-            if ( bindingOptions.views!.statistics!.enabled && Is.defined( bindingOptions._currentView!.statisticsContents ) ) {
-                bindingOptions._currentView!.statisticsContentsScrollLeft = bindingOptions._currentView!.statisticsContents.scrollLeft;
+            if ( bindingOptions.views!.colorRanges!.enabled && Is.defined( bindingOptions._currentView!.colorRangesContents ) ) {
+                bindingOptions._currentView!.colorRangesContentsScrollLeft = bindingOptions._currentView!.colorRangesContents.scrollLeft;
             }
 
             if ( bindingOptions._currentView!.element.innerHTML !== Char.empty ) {
@@ -135,8 +135,8 @@ export namespace Visible {
                 viewId = ViewId.days;
             } else if ( viewName.toLowerCase() === ViewName.months ) {
                 viewId = ViewId.months;
-            } else if ( viewName.toLowerCase() === ViewName.statistics ) {
-                viewId = ViewId.statistics;
+            } else if ( viewName.toLowerCase() === ViewName.colorRanges ) {
+                viewId = ViewId.colorRanges;
             }
 
             return viewId;
@@ -155,8 +155,8 @@ export namespace Visible {
                 result = ViewName.days;
             } else if ( bindingOptions._currentView!.view ===  ViewId.months ) {
                 result = ViewName.months;
-            } else if ( bindingOptions._currentView!.view ===  ViewId.statistics ) {
-                result = ViewName.statistics;
+            } else if ( bindingOptions._currentView!.view ===  ViewId.colorRanges ) {
+                result = ViewName.colorRanges;
             }
 
             return result;
@@ -175,7 +175,7 @@ export namespace Visible {
                 result = configurationOptions.text!.daysText!;
             } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
                 result = configurationOptions.text!.monthsText!;
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
+            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges ) {
                 result = configurationOptions.text!.colorRangesText!;
             }
 
@@ -193,8 +193,8 @@ export namespace Visible {
                 bindingOptions._currentView!.daysContents.style.display = "block";
             } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
                 bindingOptions._currentView!.monthsContents.style.display = "block";
-            } else if ( bindingOptions.views!.statistics!.enabled && bindingOptions._currentView!.view === ViewId.statistics ) {
-                bindingOptions._currentView!.statisticsContents.style.display = "block";
+            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges ) {
+                bindingOptions._currentView!.colorRangesContents.style.display = "block";
             }
 
             bindingOptions._currentView!.element.style.removeProperty( "height" );

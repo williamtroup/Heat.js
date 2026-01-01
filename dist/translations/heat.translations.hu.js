@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Jelenleg nincsenek megtekinthető adatok.",
                 "noMapDataMessage": "Jelenleg nincsenek megtekinthető adatok.",
                 "statisticsText": "Statisztika",
-                "noStatisticsDataMessage": "Jelenleg nincs megtekinthető statisztika.",
+                "noColorRangesDataMessage": "Jelenleg nincs megtekinthető statisztika.",
                 "unknownTrendText": "Ismeretlen",
                 "importButtonText": "Importálás",
                 "objectErrorText": "Hibák az objektumban: {{error_1}}, {{error_2}}",

@@ -45,15 +45,15 @@ export namespace Constant {
                 export const HEAT_JS_NUMBER: string = "data-heat-js-month-number";
             }
 
-            export namespace Statistics {
-                export const HEAT_JS_COLOR_RANGE_NAME: string = "data-heat-js-statistics-color-range-name";
-                export const HEAT_JS_MINIMUM: string = "data-heat-js-statistics-minimum";
+            export namespace ColorRanges {
+                export const HEAT_JS_COLOR_RANGE_NAME: string = "data-heat-js-color-range-name";
+                export const HEAT_JS_MINIMUM: string = "data-heat-js-color-range-minimum";
             }
         }
 
         export namespace Area {
             export namespace ColorRangeToggle {
-                export const HEAT_JS_MINIMUM: string = "data-heat-js-color-range-minimum";
+                export const HEAT_JS_MINIMUM: string = "data-heat-js-color-range-toggle-minimum";
             }
         }
     }

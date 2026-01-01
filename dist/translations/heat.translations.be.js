@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Зараз няма даных для прагляду.",
                 "noMapDataMessage": "Зараз няма даных для прагляду.",
                 "statisticsText": "Статыстыка",
-                "noStatisticsDataMessage": "Зараз няма статыстыкі для прагляду.",
+                "noColorRangesDataMessage": "Зараз няма статыстыкі для прагляду.",
                 "unknownTrendText": "Невядомы",
                 "importButtonText": "Імпарт",
                 "objectErrorText": "Памылкі ў аб'екце: {{error_1}}, {{error_2}}",

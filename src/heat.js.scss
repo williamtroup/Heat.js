@@ -1598,21 +1598,21 @@ div.heat-js {
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - View - Statistics
+    Heat.js - View - Color Ranges
     -------------------------------------------------------------------------
 */
 
 div.heat-js {
-    div.statistics-contents {
+    div.color-ranges-contents {
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
 
-        div.no-statistics-message {
+        div.no-color-ranges-message {
             @include styles.centered-label;
         }
 
-        div.statistics {
+        div.color-ranges {
             display: flex;
             flex-direction: row;
 
@@ -1620,7 +1620,7 @@ div.heat-js {
                 @include styles.labels;
             }
 
-            div.range-lines {
+            div.color-range-lines {
                 display: flex;
                 align-items: flex-end;
                 flex: 1;
@@ -1629,7 +1629,7 @@ div.heat-js {
                 height: 187px !important;
                 overflow: hidden;
 
-                div.range-line-count {
+                div.color-range-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
                     padding: calc( var(--heat-js-spacing) / 2 );
                     position: relative;
@@ -1648,7 +1648,7 @@ div.heat-js {
                     }
                 }
 
-                div.range-line {
+                div.color-range-line {
                     border-top-left-radius: var(--heat-js-border-radius-day);
                     border-top-right-radius: var(--heat-js-border-radius-day);
                     background-color: var(--heat-js-day-background-color);
@@ -1680,7 +1680,7 @@ div.heat-js {
             }
         }
 
-        div.statistics-ranges {
+        div.color-range-names {
             display: flex;
             flex: 1;
             position: relative;
@@ -1688,7 +1688,7 @@ div.heat-js {
             align-items: baseline;
             height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 3px );
 
-            div.range-name {
+            div.color-range-name {
                 flex: 1 100%;
                 margin-top: var(--heat-js-spacing);
                 font-weight: var(--heat-js-text-font-weight-thin);

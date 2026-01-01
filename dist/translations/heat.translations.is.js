@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Það eru engin gögn til að skoða eins og er.",
                 "noMapDataMessage": "Það eru engin gögn til að skoða eins og er.",
                 "statisticsText": "Tölfræði",
-                "noStatisticsDataMessage": "Það er engin tölfræði til að skoða eins og er.",
+                "noColorRangesDataMessage": "Það er engin tölfræði til að skoða eins og er.",
                 "unknownTrendText": "Óþekktur",
                 "importButtonText": "Flytja inn",
                 "objectErrorText": "Villur í hlut: {{error_1}}, {{error_2}}",

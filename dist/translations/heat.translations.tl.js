@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Kasalukuyang walang data na titingnan.",
                 "noMapDataMessage": "Kasalukuyang walang data na titingnan.",
                 "statisticsText": "Mga istatistika",
-                "noStatisticsDataMessage": "Kasalukuyang walang mga istatistika na titingnan.",
+                "noColorRangesDataMessage": "Kasalukuyang walang mga istatistika na titingnan.",
                 "unknownTrendText": "Hindi alam",
                 "importButtonText": "Angkat",
                 "objectErrorText": "Mga error sa object: {{error_1}}, {{error_2}}",

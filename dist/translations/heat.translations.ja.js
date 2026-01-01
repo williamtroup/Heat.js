@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "現在、表示できるデータはありません。",
                 "noMapDataMessage": "現在、表示できるデータはありません。",
                 "statisticsText": "統計",
-                "noStatisticsDataMessage": "現在、表示できる統計はありません。",
+                "noColorRangesDataMessage": "現在、表示できる統計はありません。",
                 "unknownTrendText": "未知",
                 "importButtonText": "輸入",
                 "objectErrorText": "オブジェクト内のエラー: {{error_1}}、 {{error_2}}",

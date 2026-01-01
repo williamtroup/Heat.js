@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "현재 조회할 데이터가 없습니다.",
                 "noMapDataMessage": "현재 조회할 데이터가 없습니다.",
                 "statisticsText": "통계",
-                "noStatisticsDataMessage": "현재 볼 수 있는 통계가 없습니다.",
+                "noColorRangesDataMessage": "현재 볼 수 있는 통계가 없습니다.",
                 "unknownTrendText": "알려지지 않은",
                 "importButtonText": "수입",
                 "objectErrorText": "개체 오류: {{error_1}}, {{error_2}}",

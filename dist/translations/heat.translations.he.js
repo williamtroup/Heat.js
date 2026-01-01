@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "כרגע אין נתונים לצפייה.",
                 "noMapDataMessage": "כרגע אין נתונים לצפייה.",
                 "statisticsText": "סטָטִיסטִיקָה",
-                "noStatisticsDataMessage": "כרגע אין נתונים סטטיסטיים לצפייה.",
+                "noColorRangesDataMessage": "כרגע אין נתונים סטטיסטיים לצפייה.",
                 "unknownTrendText": "לא ידוע",
                 "importButtonText": "יְבוּא",
                 "objectErrorText": "שגיאות באובייקט: {{error_1}}, {{error_2}}",

@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "Şu anda görüntülenecek veri yok.",
                 "noMapDataMessage": "Şu anda görüntülenecek veri yok.",
                 "statisticsText": "İstatistik",
-                "noStatisticsDataMessage": "Şu anda görüntülenecek istatistik yok.",
+                "noColorRangesDataMessage": "Şu anda görüntülenecek istatistik yok.",
                 "unknownTrendText": "Bilinmeyen",
                 "importButtonText": "İçe aktarmak",
                 "objectErrorText": "Nesnedeki hatalar: {{error_1}}, {{error_2}}",

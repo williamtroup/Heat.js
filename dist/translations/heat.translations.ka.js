@@ -18,7 +18,7 @@ $heat.setConfiguration( {
                 "noChartDataMessage": "ამჟამად სანახავი მონაცემები არ არის.",
                 "noMapDataMessage": "ამჟამად სანახავი მონაცემები არ არის.",
                 "statisticsText": "სტატისტიკა",
-                "noStatisticsDataMessage": "ამჟამად არ არის სანახავი სტატისტიკა.",
+                "noColorRangesDataMessage": "ამჟამად არ არის სანახავი სტატისტიკა.",
                 "unknownTrendText": "უცნობი",
                 "importButtonText": "იმპორტი",
                 "objectErrorText": "შეცდომები ობიექტში: {{error_1}}, {{error_2}}",
