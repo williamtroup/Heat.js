@@ -167,7 +167,7 @@
 - Added a new configuration text option called "text.invertText" (defaults to "Invert").
 - Added a new configuration text option called "text.lineText" (defaults to "Line").
 - Added a new configuration text option called "text.noLineDataMessage" (defaults to "There are currently no data to view.").
-- Added a new configuration text option called "text.clearTypeText" (defaults to "Clear Type").
+- Added a new configuration text option called "text.removeTypeText" (defaults to "Remove Type").
 - Added a new configuration text option called "text.openNewTypeText" (defaults to "Open new type").
 - Added a new configuration text option called "text.clearExistingDataText" (defaults to "Clear existing data").
 - Added a new configuration text option called "text.browseButtonText" (defaults to "Browse").
