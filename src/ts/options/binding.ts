@@ -50,11 +50,8 @@ export namespace Binding {
     
             bindingOptions._currentView = {} as BindingOptionsCurrentView;
             bindingOptions._currentView.element = element;
-            bindingOptions._currentView.disabledBackground = null!;
-            bindingOptions._currentView.configurationDialog = null!;
             bindingOptions._currentView.configurationDialogDayCheckBoxes = [];
             bindingOptions._currentView.configurationDialogMonthCheckBoxes = [];
-            bindingOptions._currentView.tooltip = null!;
             bindingOptions._currentView.activeYear = bindingOptions.defaultYear!;
             bindingOptions._currentView.activeType = configurationOptions.text!.unknownTrendText!;
             bindingOptions._currentView.isInFetchMode = Is.definedFunction( bindingOptions.events!.onDataFetch );
