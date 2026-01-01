@@ -2775,7 +2775,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
-            toggle.onclick = () => toggleColorRangeVisibleState( toggle, bindingOptions, colorRange.id! );
+            toggle.onclick = () => toggleColorRangeVisibleState( bindingOptions, colorRange.id! );
         } else {
             DomElement.addClass( toggle, "no-hover" );
         }
@@ -3176,6 +3176,8 @@ import { DocumentElement } from "./ts/area/document-element";
      */
 
     function updateColorRangeToggles( bindingOptions: BindingOptions, flag: boolean ) : void {
+        let renderControl: boolean = false;
+
         if ( bindingOptions.guide!.useIncrementToggles ) {
             const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
             const colorRangesLength: number = colorRanges.length;
@@ -3185,6 +3187,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     const colorRange: BindingOptionsColorRange = colorRanges[ colorRangeIndex ];
 
                     if ( !colorRange.visible ) {
+                        renderControl = toggleColorRangeForView( bindingOptions, colorRange );
                         colorRange.visible = true;
                         break;
                     }
@@ -3195,6 +3198,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     const colorRange: BindingOptionsColorRange = colorRanges[ colorRangeIndex ];
 
                     if ( colorRange.visible ) {
+                        renderControl = toggleColorRangeForView( bindingOptions, colorRange );
                         colorRange.visible = false;
                         break;
                     }
@@ -3205,28 +3209,39 @@ import { DocumentElement } from "./ts/area/document-element";
             const colorRangesLength: number = bindingOptions.colorRanges!.length;
 
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-                bindingOptions.colorRanges![ colorRangesIndex ].visible = flag;
+                const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
+                colorRange.visible = flag;
+
+                renderControl = toggleColorRangeForView( bindingOptions, colorRange );
 
                 Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, bindingOptions.colorRanges![ colorRangesIndex ].id, flag );
             }
         }
 
-        renderControlContainer( bindingOptions, false, false, true );
+        if ( renderControl ) {
+            renderControlContainer( bindingOptions, false, false, true );
+        }
     }
 
     function invertColorRangeToggles( bindingOptions: BindingOptions ) : void {
         const colorRangesLength: number = bindingOptions.colorRanges!.length;
+        let renderControl: boolean = false;
 
         for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-            bindingOptions.colorRanges![ colorRangesIndex ].visible = !bindingOptions.colorRanges![ colorRangesIndex ].visible;
+            const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
+            colorRange.visible = !colorRange.visible;
+
+            renderControl = toggleColorRangeForView( bindingOptions, colorRange );
 
             Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, bindingOptions.colorRanges![ colorRangesIndex ].id, bindingOptions.colorRanges![ colorRangesIndex ].visible );
         }
 
-        renderControlContainer( bindingOptions );
+        if ( renderControl ) {
+            renderControlContainer( bindingOptions );
+        }
     }
 
-    function toggleColorRangeVisibleState( guideDayElement: HTMLElement, bindingOptions: BindingOptions, id: string ) : void {
+    function toggleColorRangeVisibleState( bindingOptions: BindingOptions, id: string ) : void {
         const colorRangesLength: number = bindingOptions.colorRanges!.length;
 
         for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
@@ -3235,15 +3250,7 @@ import { DocumentElement } from "./ts/area/document-element";
             if ( colorRange.id === id ) {
                 colorRange.visible = !Default.getBoolean( colorRange.visible, true );
 
-                if ( bindingOptions._currentView!.view === ViewId.map ) {
-                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.mapCssClassName!, Constant.Attribute.HEAT_JS_MAP_MINIMUM );
-                } else if ( bindingOptions._currentView!.view === ViewId.line ) {
-                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.lineCssClassName!, Constant.Attribute.HEAT_JS_LINE_MINIMUM );
-                } else if ( bindingOptions._currentView!.view === ViewId.chart ) {
-                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.chartCssClassName!, Constant.Attribute.HEAT_JS_CHART_MINIMUM );
-                } else if ( bindingOptions._currentView!.view === ViewId.statistics ) {
-                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.statisticsCssClassName!, Constant.Attribute.HEAT_JS_STATISTICS_MINIMUM );
-                } else {
+                if ( !toggleColorRangeForView( bindingOptions, colorRange ) ) {
                     renderControlContainer( bindingOptions, false, false, true );
                 }
 
@@ -3253,7 +3260,25 @@ import { DocumentElement } from "./ts/area/document-element";
         }
     }
 
-    function toggleColorRangeCssClasses( guideDayElement: HTMLElement, bindingOptions: BindingOptions, colorRange: BindingOptionsColorRange, colorRangeCssClassName: string, attributeName: string ) : void {
+    function toggleColorRangeForView( bindingOptions: BindingOptions, colorRange: BindingOptionsColorRange ) : boolean {
+        let result: boolean = false;
+
+        if ( bindingOptions._currentView!.view === ViewId.map ) {
+            toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.mapCssClassName!, Constant.Attribute.HEAT_JS_MAP_MINIMUM );
+        } else if ( bindingOptions._currentView!.view === ViewId.line ) {
+            toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.lineCssClassName!, Constant.Attribute.HEAT_JS_LINE_MINIMUM );
+        } else if ( bindingOptions._currentView!.view === ViewId.chart ) {
+            toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.chartCssClassName!, Constant.Attribute.HEAT_JS_CHART_MINIMUM );
+        } else if ( bindingOptions._currentView!.view === ViewId.statistics ) {
+            toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.statisticsCssClassName!, Constant.Attribute.HEAT_JS_STATISTICS_MINIMUM );
+        } else {
+            result = true;
+        }
+
+        return result;
+    }
+
+    function toggleColorRangeCssClasses( bindingOptions: BindingOptions, colorRange: BindingOptionsColorRange, colorRangeCssClassName: string, attributeName: string ) : void {
         let cssName: string;
 
         if ( Is.definedString( colorRangeCssClassName ) ) {
@@ -3269,20 +3294,20 @@ import { DocumentElement } from "./ts/area/document-element";
         for ( let daysIndex: number = 0; daysIndex < daysLength; daysIndex++ ) {
             const element: HTMLElement = days[ daysIndex ];
             const attributeValue: string = element.getAttribute( attributeName )!;
+            const colorRangeAttributeValue: string = element.getAttribute( Constant.Attribute.HEAT_JS_COLOR_RANGE_MINIMUM )!;
+            let updateCssClass: boolean = false;
             
             if ( Is.definedString( attributeValue ) && attributeValue === colorRange.minimum!.toString() ) {
+                updateCssClass = true;
+            }
+
+            if ( updateCssClass || colorRangeAttributeValue === colorRange.minimum!.toString() ) {
                 if ( colorRange.visible ) {
                     DomElement.addClass( element, cssName );
                 } else {
                     DomElement.removeClass( element, cssName );
                 }
             }
-        }
-
-        if ( colorRange.visible ) {
-            DomElement.addClass( guideDayElement, cssName );
-        } else {
-            DomElement.removeClass( guideDayElement, cssName );
         }
     }
 
