@@ -50,10 +50,11 @@ export namespace Binding {
     
             bindingOptions._currentView = {} as BindingOptionsCurrentView;
             bindingOptions._currentView.element = element;
-            bindingOptions._currentView.configurationDialogDayCheckBoxes = [];
-            bindingOptions._currentView.configurationDialogMonthCheckBoxes = [];
             bindingOptions._currentView.activeYear = bindingOptions.defaultYear!;
             bindingOptions._currentView.activeType = configurationOptions.text!.unknownTrendText!;
+            bindingOptions._currentView.activeView = ViewId.map;
+            bindingOptions._currentView.configurationDialogDayCheckBoxes = [];
+            bindingOptions._currentView.configurationDialogMonthCheckBoxes = [];
             bindingOptions._currentView.isInFetchMode = Is.definedFunction( bindingOptions.events!.onDataFetch );
             bindingOptions._currentView.isInFetchModeTimer = 0;
             bindingOptions._currentView.yearsAvailable = [];
@@ -62,7 +63,6 @@ export namespace Binding {
             bindingOptions._currentView.mapZoomIncrement = Value.notFound;
             bindingOptions._currentView.lineZoomIncrement = Value.notFound;
             bindingOptions._currentView.yearTextWidth = 0;
-            bindingOptions._currentView.activeView = ViewId.map;
             bindingOptions._currentView.viewsEnabled = 0;
 
             if ( bindingOptions.views!.map!.enabled ) {
