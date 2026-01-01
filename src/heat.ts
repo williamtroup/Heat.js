@@ -79,8 +79,8 @@ import { DocumentElement } from "./ts/area/document-element";
     function renderElement( element: HTMLElement ) : boolean {
         let result: boolean = true;
 
-        if ( Is.defined( element ) && element.hasAttribute( Constant.HEAT_JS_ATTRIBUTE_NAME ) ) {
-            const bindingOptionsData: string = element.getAttribute( Constant.HEAT_JS_ATTRIBUTE_NAME )!;
+        if ( Is.defined( element ) && element.hasAttribute( Constant.Attribute.HEAT_JS ) ) {
+            const bindingOptionsData: string = element.getAttribute( Constant.Attribute.HEAT_JS )!;
 
             if ( Is.definedString( bindingOptionsData ) ) {
                 const bindingOptions: StringToJson = Default.getObjectFromString( bindingOptionsData, _configurationOptions );
@@ -90,14 +90,14 @@ import { DocumentElement } from "./ts/area/document-element";
 
                 } else {
                     if ( !_configurationOptions.safeMode ) {
-                        console.error( _configurationOptions.text!.attributeNotValidErrorText!.replace( "{{attribute_name}}", Constant.HEAT_JS_ATTRIBUTE_NAME ) );
+                        console.error( _configurationOptions.text!.attributeNotValidErrorText!.replace( "{{attribute_name}}", Constant.Attribute.HEAT_JS ) );
                         result = false;
                     }
                 }
 
             } else {
                 if ( !_configurationOptions.safeMode ) {
-                    console.error( _configurationOptions.text!.attributeNotSetErrorText!.replace( "{{attribute_name}}", Constant.HEAT_JS_ATTRIBUTE_NAME ) );
+                    console.error( _configurationOptions.text!.attributeNotSetErrorText!.replace( "{{attribute_name}}", Constant.Attribute.HEAT_JS ) );
                     result = false;
                 }
             }
@@ -119,7 +119,7 @@ import { DocumentElement } from "./ts/area/document-element";
             DomElement.addClass( bindingOptions._currentView!.element, "resizable" );
         }
 
-        bindingOptions._currentView!.element.removeAttribute( Constant.HEAT_JS_ATTRIBUTE_NAME );
+        bindingOptions._currentView!.element.removeAttribute( Constant.Attribute.HEAT_JS );
 
         createInstanceDataForElement( bindingOptions._currentView!.element.id, bindingOptions );
         renderControlContainer( bindingOptions );
@@ -1300,7 +1300,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     let startFillingDays: boolean = false;
                     let actualDay: number = 1;
 
-                    month.setAttribute( Constant.HEAT_JS_MAP_MONTH_NUMBER_ATTRIBUTE_NAME, `${actualMonthIndex + 1}` );
+                    month.setAttribute( Constant.Attribute.HEAT_JS_MAP_MONTH_NUMBER, `${actualMonthIndex + 1}` );
         
                     totalDaysInMonth += firstDayNumberInMonth;
         
@@ -1449,10 +1449,10 @@ import { DocumentElement } from "./ts/area/document-element";
 
         dateCount = Default.getNumber( dateCount, 0 );
 
-        day.setAttribute( Constant.HEAT_JS_MAP_DATE_ATTRIBUTE_NAME, `${Str.padNumber( actualDay )}-${Str.padNumber( month + 1 )}-${year}` );
+        day.setAttribute( Constant.Attribute.HEAT_JS_MAP_DATE, `${Str.padNumber( actualDay )}-${Str.padNumber( month + 1 )}-${year}` );
 
         if ( Is.defined( useColorRange ) ) {
-            day.setAttribute( Constant.HEAT_JS_MAP_MINIMUM_ATTRIBUTE_NAME, useColorRange.minimum!.toString() );
+            day.setAttribute( Constant.Attribute.HEAT_JS_MAP_MINIMUM, useColorRange.minimum!.toString() );
         }
 
         if ( bindingOptions.views!.map!.showToolTips ) {
@@ -1672,10 +1672,10 @@ import { DocumentElement } from "./ts/area/document-element";
 
         dateCount = Default.getNumber( dateCount, 0 );
 
-        dayLine.setAttribute( Constant.HEAT_JS_LINE_DATE_ATTRIBUTE_NAME, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
+        dayLine.setAttribute( Constant.Attribute.HEAT_JS_LINE_DATE, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
 
         if ( Is.defined( useColorRange ) ) {
-            dayLine.setAttribute( Constant.HEAT_JS_LINE_MINIMUM_ATTRIBUTE_NAME, useColorRange.minimum!.toString() );
+            dayLine.setAttribute( Constant.Attribute.HEAT_JS_LINE_MINIMUM, useColorRange.minimum!.toString() );
         }
 
         if ( bindingOptions.views!.line!.showToolTips ) {
@@ -1885,10 +1885,10 @@ import { DocumentElement } from "./ts/area/document-element";
 
         dateCount = Default.getNumber( dateCount, 0 );
 
-        dayLine.setAttribute( Constant.HEAT_JS_CHART_DATE_ATTRIBUTE_NAME, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
+        dayLine.setAttribute( Constant.Attribute.HEAT_JS_CHART_DATE, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
 
         if ( Is.defined( useColorRange ) ) {
-            dayLine.setAttribute( Constant.HEAT_JS_CHART_MINIMUM_ATTRIBUTE_NAME, useColorRange.minimum!.toString() );
+            dayLine.setAttribute( Constant.Attribute.HEAT_JS_CHART_MINIMUM, useColorRange.minimum!.toString() );
         }
 
         if ( bindingOptions.views!.chart!.showToolTips ) {
@@ -2049,7 +2049,7 @@ import { DocumentElement } from "./ts/area/document-element";
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
         let count: HTMLElement = null!;
 
-        dayLine.setAttribute( Constant.HEAT_JS_DAY_NUMBER_ATTRIBUTE_NAME, dayNumber.toString() );
+        dayLine.setAttribute( Constant.Attribute.HEAT_JS_DAY_NUMBER, dayNumber.toString() );
 
         if ( dayLineHeight <= 0 ) {
             dayLine.style.visibility = "hidden";
@@ -2296,7 +2296,7 @@ import { DocumentElement } from "./ts/area/document-element";
         const today: Date = new Date();
         let count: HTMLElement = null!;
 
-        monthLine.setAttribute( Constant.HEAT_JS_MONTH_NUMBER_ATTRIBUTE_NAME, monthNumber.toString() );
+        monthLine.setAttribute( Constant.Attribute.HEAT_JS_MONTH_NUMBER, monthNumber.toString() );
 
         if ( !bindingOptions.views!.months!.showStackedColorRanges ) {
             DomElement.addClass( monthLine, "non-stacked" );
@@ -2525,8 +2525,8 @@ import { DocumentElement } from "./ts/area/document-element";
         const rangeLineHeight: number = rangeCount * pixelsPerNumbers;
 
         if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) ) {
-            rangeLine.setAttribute( Constant.HEAT_JS_STATISTICS_COLOR_RANGE_NAME_ATTRIBUTE_NAME, useColorRange.name! );
-            rangeLine.setAttribute( Constant.HEAT_JS_STATISTICS_MINIMUM_ATTRIBUTE_NAME, useColorRange.minimum!.toString() );
+            rangeLine.setAttribute( Constant.Attribute.HEAT_JS_STATISTICS_COLOR_RANGE_NAME, useColorRange.name! );
+            rangeLine.setAttribute( Constant.Attribute.HEAT_JS_STATISTICS_MINIMUM, useColorRange.minimum!.toString() );
         }
 
         if ( rangeLineHeight <= 0 ) {
@@ -2759,6 +2759,7 @@ import { DocumentElement } from "./ts/area/document-element";
     function renderControlGuideToggle( bindingOptions: BindingOptions, toggles: HTMLElement, colorRange: BindingOptionsColorRange ) : HTMLElement {
         const toggle: HTMLElement = DomElement.create( toggles, "div" );
         toggle.className = "toggle";
+        toggle.setAttribute( Constant.Attribute.HEAT_JS_COLOR_RANGE_MINIMUM, colorRange.minimum!.toString() );
 
         if ( bindingOptions.guide!.showToolTips ) {
             ToolTip.add( toggle, bindingOptions, colorRange.tooltipText! );
@@ -3235,13 +3236,13 @@ import { DocumentElement } from "./ts/area/document-element";
                 colorRange.visible = !Default.getBoolean( colorRange.visible, true );
 
                 if ( bindingOptions._currentView!.view === ViewId.map ) {
-                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.mapCssClassName!, Constant.HEAT_JS_MAP_MINIMUM_ATTRIBUTE_NAME );
+                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.mapCssClassName!, Constant.Attribute.HEAT_JS_MAP_MINIMUM );
                 } else if ( bindingOptions._currentView!.view === ViewId.line ) {
-                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.lineCssClassName!, Constant.HEAT_JS_LINE_MINIMUM_ATTRIBUTE_NAME );
+                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.lineCssClassName!, Constant.Attribute.HEAT_JS_LINE_MINIMUM );
                 } else if ( bindingOptions._currentView!.view === ViewId.chart ) {
-                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.chartCssClassName!, Constant.HEAT_JS_CHART_MINIMUM_ATTRIBUTE_NAME );
+                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.chartCssClassName!, Constant.Attribute.HEAT_JS_CHART_MINIMUM );
                 } else if ( bindingOptions._currentView!.view === ViewId.statistics ) {
-                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.statisticsCssClassName!, Constant.HEAT_JS_STATISTICS_MINIMUM_ATTRIBUTE_NAME );
+                    toggleColorRangeCssClasses( guideDayElement, bindingOptions, colorRange, colorRange.statisticsCssClassName!, Constant.Attribute.HEAT_JS_STATISTICS_MINIMUM );
                 } else {
                     renderControlContainer( bindingOptions, false, false, true );
                 }
