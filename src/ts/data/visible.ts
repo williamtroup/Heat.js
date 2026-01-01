@@ -21,17 +21,17 @@ export namespace Visible {
         export function get( bindingOptions: BindingOptions ) : number[] {
             let monthsToShow: number[] = [];
 
-            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
+            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.activeView === ViewId.map ) {
                 monthsToShow = bindingOptions.views!.map!.monthsToShow!;
-            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
+            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.activeView === ViewId.line ) {
                 monthsToShow = bindingOptions.views!.line!.monthsToShow!;
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.activeView === ViewId.chart ) {
                 monthsToShow = bindingOptions.views!.chart!.monthsToShow!;
-            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
+            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.activeView === ViewId.days ) {
                 monthsToShow = bindingOptions.views!.days!.monthsToShow!;
-            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.activeView === ViewId.months ) {
                 monthsToShow = bindingOptions.views!.months!.monthsToShow!;
-            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges ) {
+            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.activeView === ViewId.colorRanges ) {
                 monthsToShow = bindingOptions.views!.colorRanges!.monthsToShow!;
             }
 
@@ -39,17 +39,17 @@ export namespace Visible {
         }
 
         export function set( bindingOptions: BindingOptions, months: number[] ) : void {
-            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
+            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.activeView === ViewId.map ) {
                 bindingOptions.views!.map!.monthsToShow = months;
-            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
+            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.activeView === ViewId.line ) {
                 bindingOptions.views!.line!.monthsToShow = months;
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.activeView === ViewId.chart ) {
                 bindingOptions.views!.chart!.monthsToShow = months;
-            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
+            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.activeView === ViewId.days ) {
                 bindingOptions.views!.days!.monthsToShow = months;
-            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.activeView === ViewId.months ) {
                 bindingOptions.views!.months!.monthsToShow = months;
-            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges ) {
+            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.activeView === ViewId.colorRanges ) {
                 bindingOptions.views!.colorRanges!.monthsToShow = months;
             }
         }
@@ -59,17 +59,17 @@ export namespace Visible {
         export function get( bindingOptions: BindingOptions ) : number[] {
             let daysToShow: number[] = [];
 
-            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
+            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.activeView === ViewId.map ) {
                 daysToShow = bindingOptions.views!.map!.daysToShow!;
-            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
+            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.activeView === ViewId.line ) {
                 daysToShow = bindingOptions.views!.line!.daysToShow!;
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.activeView === ViewId.chart ) {
                 daysToShow = bindingOptions.views!.chart!.daysToShow!;
-            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
+            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.activeView === ViewId.days ) {
                 daysToShow = bindingOptions.views!.days!.daysToShow!;
-            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.activeView === ViewId.months ) {
                 daysToShow = bindingOptions.views!.months!.daysToShow!;
-            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges ) {
+            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.activeView === ViewId.colorRanges ) {
                 daysToShow = bindingOptions.views!.colorRanges!.daysToShow!;
             }
 
@@ -77,17 +77,17 @@ export namespace Visible {
         }
 
         export function set( bindingOptions: BindingOptions, days: number[] ) : void {
-            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
+            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.activeView === ViewId.map ) {
                 bindingOptions.views!.map!.daysToShow = days;
-            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
+            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.activeView === ViewId.line ) {
                 bindingOptions.views!.line!.daysToShow = days;
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.activeView === ViewId.chart ) {
                 bindingOptions.views!.chart!.daysToShow = days;
-            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
+            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.activeView === ViewId.days ) {
                 bindingOptions.views!.days!.daysToShow = days;
-            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.activeView === ViewId.months ) {
                 bindingOptions.views!.months!.daysToShow = days;
-            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges ) {
+            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.activeView === ViewId.colorRanges ) {
                 bindingOptions.views!.colorRanges!.daysToShow = days;
             }
         }
@@ -145,17 +145,17 @@ export namespace Visible {
         export function getName( bindingOptions: BindingOptions ) : string {
             let result: string = Char.empty;
             
-            if ( bindingOptions._currentView!.view ===  ViewId.map ) {
+            if ( bindingOptions._currentView!.activeView ===  ViewId.map ) {
                 result = ViewName.map;
-            } else if ( bindingOptions._currentView!.view ===  ViewId.line ) {
+            } else if ( bindingOptions._currentView!.activeView ===  ViewId.line ) {
                 result = ViewName.line;
-            } else if ( bindingOptions._currentView!.view ===  ViewId.chart ) {
+            } else if ( bindingOptions._currentView!.activeView ===  ViewId.chart ) {
                 result = ViewName.chart;
-            } else if ( bindingOptions._currentView!.view ===  ViewId.days ) {
+            } else if ( bindingOptions._currentView!.activeView ===  ViewId.days ) {
                 result = ViewName.days;
-            } else if ( bindingOptions._currentView!.view ===  ViewId.months ) {
+            } else if ( bindingOptions._currentView!.activeView ===  ViewId.months ) {
                 result = ViewName.months;
-            } else if ( bindingOptions._currentView!.view ===  ViewId.colorRanges ) {
+            } else if ( bindingOptions._currentView!.activeView ===  ViewId.colorRanges ) {
                 result = ViewName.colorRanges;
             }
 
@@ -165,17 +165,17 @@ export namespace Visible {
         export function getText( bindingOptions: BindingOptions, configurationOptions: ConfigurationOptions  ) : string {
             let result: string = Char.empty;
 
-            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
+            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.activeView === ViewId.map ) {
                 result = configurationOptions.text!.mapText!;
-            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
+            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.activeView === ViewId.line ) {
                 result = configurationOptions.text!.lineText!;
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.activeView === ViewId.chart ) {
                 result = configurationOptions.text!.chartText!;
-            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
+            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.activeView === ViewId.days ) {
                 result = configurationOptions.text!.daysText!;
-            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.activeView === ViewId.months ) {
                 result = configurationOptions.text!.monthsText!;
-            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges ) {
+            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.activeView === ViewId.colorRanges ) {
                 result = configurationOptions.text!.colorRangesText!;
             }
 
@@ -183,17 +183,17 @@ export namespace Visible {
         }
 
         export function set( bindingOptions: BindingOptions ) : void {
-            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
+            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.activeView === ViewId.map ) {
                 bindingOptions._currentView!.mapContentsContainer.style.display = "block";
-            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
+            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.activeView === ViewId.line ) {
                 bindingOptions._currentView!.lineContentsContainer.style.display = "block";
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.activeView === ViewId.chart ) {
                 bindingOptions._currentView!.chartContents.style.display = "block";
-            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
+            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.activeView === ViewId.days ) {
                 bindingOptions._currentView!.daysContents.style.display = "block";
-            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.activeView === ViewId.months ) {
                 bindingOptions._currentView!.monthsContents.style.display = "block";
-            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges ) {
+            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.activeView === ViewId.colorRanges ) {
                 bindingOptions._currentView!.colorRangesContents.style.display = "block";
             }
 

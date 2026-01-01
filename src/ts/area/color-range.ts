@@ -183,17 +183,17 @@ export namespace ColorRange {
     export function getGuideCssClassName( bindingOptions: BindingOptions, colorRange: BindingOptionsColorRange ) : string {
         let result: string = colorRange.cssClassName!;
 
-        if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map && Is.definedString( colorRange.mapCssClassName ) ) {
+        if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.activeView === ViewId.map && Is.definedString( colorRange.mapCssClassName ) ) {
             result = colorRange.mapCssClassName!;
-        } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line && Is.definedString( colorRange.lineCssClassName ) ) {
+        } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.activeView === ViewId.line && Is.definedString( colorRange.lineCssClassName ) ) {
             result = colorRange.lineCssClassName!;
-        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart && Is.definedString( colorRange.chartCssClassName ) ) {
+        } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.activeView === ViewId.chart && Is.definedString( colorRange.chartCssClassName ) ) {
             result = colorRange.chartCssClassName!;
-        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days && Is.definedString( colorRange.daysCssClassName ) ) {
+        } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.activeView === ViewId.days && Is.definedString( colorRange.daysCssClassName ) ) {
             result = colorRange.daysCssClassName!;
-        } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months && Is.definedString( colorRange.monthsCssClassName ) ) {
+        } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.activeView === ViewId.months && Is.definedString( colorRange.monthsCssClassName ) ) {
             result = colorRange.monthsCssClassName!;
-        } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges && Is.definedString( colorRange.colorRangeCssClassName ) ) {
+        } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.activeView === ViewId.colorRanges && Is.definedString( colorRange.colorRangeCssClassName ) ) {
             result = colorRange.colorRangeCssClassName!;
         }
 

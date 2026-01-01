@@ -146,27 +146,27 @@ import { DocumentElement } from "./ts/area/document-element";
         renderControlTitleBar( bindingOptions );
         renderControlYearStatistics( bindingOptions );
 
-        if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.view === ViewId.map ) {
+        if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.activeView === ViewId.map ) {
             renderControlMap( bindingOptions, isForViewSwitch, isForViewChange );
         }
 
-        if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.view === ViewId.line ) {
+        if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.activeView === ViewId.line ) {
             renderControlLine( bindingOptions, isForViewSwitch, isForViewChange );
         }
 
-        if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.view === ViewId.chart ) {
+        if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.activeView === ViewId.chart ) {
             renderControlChart( bindingOptions, isForViewSwitch, isForViewChange );
         }
 
-        if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.view === ViewId.days ) {
+        if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.activeView === ViewId.days ) {
             renderControlDays( bindingOptions, isForViewSwitch );
         }
 
-        if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.view === ViewId.months ) {
+        if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.activeView === ViewId.months ) {
             renderControlMonths( bindingOptions, isForViewSwitch );
         }
 
-        if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.view === ViewId.colorRanges ) {
+        if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.activeView === ViewId.colorRanges ) {
             renderControlColorRanges( bindingOptions, isForViewSwitch );
         }
 
@@ -473,7 +473,7 @@ import { DocumentElement } from "./ts/area/document-element";
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
         if ( onlyDataBeingViewed ) {
-            const currentYear: number = bindingOptions._currentView!.year;
+            const currentYear: number = bindingOptions._currentView!.activeYear;
             const daysToShow: number[] = Visible.Days.get( bindingOptions );
             const monthsToShow: number[] = Visible.Months.get( bindingOptions );
 
@@ -792,7 +792,7 @@ import { DocumentElement } from "./ts/area/document-element";
             }
 
             if ( bindingOptions._currentView!.typeAddingOptionNewType.checked ) {
-                bindingOptions._currentView!.type = type;
+                bindingOptions._currentView!.activeType = type;
 
                 Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
             }
@@ -889,7 +889,7 @@ import { DocumentElement } from "./ts/area/document-element";
     
             if ( bindingOptions.title!.showYearSelector ) {
                 const back: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "back", "arrow-line-left" );
-                back.disabled = Is.firstVisibleYear( bindingOptions, bindingOptions._currentView!.year );
+                back.disabled = Is.firstVisibleYear( bindingOptions, bindingOptions._currentView!.activeYear );
                 back.onclick = () => moveToPreviousYear( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
@@ -921,15 +921,15 @@ import { DocumentElement } from "./ts/area/document-element";
                     }
     
                     current.onclick = () => {
-                        bindingOptions._currentView!.year = new Date().getFullYear() - 1;
+                        bindingOptions._currentView!.activeYear = new Date().getFullYear() - 1;
     
                         moveToNextYear( bindingOptions, false );
-                        Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
+                        Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
                     };
                 }
 
                 const next: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "next", "arrow-line-right" );
-                next.disabled = Is.lastVisibleYear( bindingOptions, bindingOptions._currentView!.year );
+                next.disabled = Is.lastVisibleYear( bindingOptions, bindingOptions._currentView!.activeYear );
                 next.onclick = () => moveToNextYear( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
@@ -940,10 +940,10 @@ import { DocumentElement } from "./ts/area/document-element";
     }
 
     function renderTitleBarYearText( bindingOptions: BindingOptions, titleBar: HTMLElement ) : void {
-        let yearText: string = bindingOptions._currentView!.year.toString();
+        let yearText: string = bindingOptions._currentView!.activeYear.toString();
 
         if ( bindingOptions.startMonth! > 0 ) {
-            yearText += ` / ${bindingOptions._currentView!.year + 1}`;
+            yearText += ` / ${bindingOptions._currentView!.activeYear + 1}`;
         }
 
         bindingOptions._currentView!.yearText = DomElement.createWithHTML( titleBar, "div", "year-text", yearText );
@@ -1025,7 +1025,7 @@ import { DocumentElement } from "./ts/area/document-element";
     }
 
     function renderTitleDropDownMenuItemClickEvent( bindingOptions: BindingOptions, option: HTMLElement, viewId: ViewId, viewName: string ) : void {
-        if ( bindingOptions._currentView!.view === viewId ) {
+        if ( bindingOptions._currentView!.activeView === viewId ) {
             DomElement.addClass( option, "title-menu-item-active" );
         } else {
             option.onclick = () => switchView( bindingOptions, viewId, viewName );
@@ -1066,12 +1066,12 @@ import { DocumentElement } from "./ts/area/document-element";
         const currentYearText: string = bindingOptions.startMonth === 0 ? currentYear.toString() : `${currentYear} / ${currentYear + 1}`;
         const year: HTMLElement = DomElement.createWithHTML( years, "div", "year-menu-item", currentYearText );
 
-        if ( bindingOptions._currentView!.year !== currentYear ) {
+        if ( bindingOptions._currentView!.activeYear !== currentYear ) {
             year.onclick = () => {
-                bindingOptions._currentView!.year = currentYear;
+                bindingOptions._currentView!.activeYear = currentYear;
     
                 renderControlContainer( bindingOptions );
-                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
             };
 
             if ( currentYear === actualYear ) {
@@ -1095,14 +1095,14 @@ import { DocumentElement } from "./ts/area/document-element";
 
     function renderControlYearStatistics( bindingOptions: BindingOptions ) : void {
         const today: Date = new Date();
-        const isCurrentYear: boolean = bindingOptions._currentView!.year === today.getFullYear();
+        const isCurrentYear: boolean = bindingOptions._currentView!.activeYear === today.getFullYear();
 
         if ( bindingOptions.yearlyStatistics!.enabled && ( !bindingOptions.yearlyStatistics!.showOnlyForCurrentYear || isCurrentYear ) ) {
             const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics" );
             const daysToShow: number[] = Visible.Days.get( bindingOptions );
             const monthsToShow: number[] = Visible.Months.get( bindingOptions );
-            const startOfYear: Date = new Date( bindingOptions._currentView!.year, bindingOptions.startMonth!, 1 );
-            const endOfYear: Date = new Date( bindingOptions._currentView!.year + 1, bindingOptions.startMonth!, 1 );
+            const startOfYear: Date = new Date( bindingOptions._currentView!.activeYear, bindingOptions.startMonth!, 1 );
+            const endOfYear: Date = new Date( bindingOptions._currentView!.activeYear + 1, bindingOptions.startMonth!, 1 );
             const yearCount: number = getCountForDateRange( bindingOptions, daysToShow, monthsToShow, startOfYear, endOfYear );
 
             if ( bindingOptions.yearlyStatistics!.showToday ) {
@@ -1244,7 +1244,7 @@ import { DocumentElement } from "./ts/area/document-element";
             bindingOptions._currentView!.mapContents.onscroll = () => ToolTip.hide( bindingOptions );
 
             const map: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContents, "div", "map" );
-            const currentYear: number = bindingOptions._currentView!.year;
+            const currentYear: number = bindingOptions._currentView!.activeYear;
     
             if ( isForViewSwitch ) {
                 DomElement.addClass( map, "view-switch" );
@@ -1474,9 +1474,9 @@ import { DocumentElement } from "./ts/area/document-element";
         } 
 
         if ( Is.definedFunction( bindingOptions.events!.onMapDayClick ) ) {
-            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.year, holiday.matched );
+            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
         } else if ( Is.definedFunction( bindingOptions.events!.onMapDayDblClick ) ) {
-            day.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayDblClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.year, holiday.matched );
+            day.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayDblClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
         } else {
             DomElement.addClass( day, "no-hover" );
         }
@@ -1499,8 +1499,8 @@ import { DocumentElement } from "./ts/area/document-element";
     function isDataAvailableForYear( bindingOptions: BindingOptions ) : boolean {
         let result: boolean = false;
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
-        const checkYear: string = bindingOptions._currentView!.year.toString();
-        const checkNextYear: string = ( bindingOptions._currentView!.year + 1 ).toString();
+        const checkYear: string = bindingOptions._currentView!.activeYear.toString();
+        const checkNextYear: string = ( bindingOptions._currentView!.activeYear + 1 ).toString();
 
         for ( const storageDate in typeDateCounts ) {
             if ( Object.prototype.hasOwnProperty.call( typeDateCounts, storageDate ) ) {
@@ -1549,7 +1549,7 @@ import { DocumentElement } from "./ts/area/document-element";
             }
 
         } else {
-            const currentYear: number = bindingOptions._currentView!.year;
+            const currentYear: number = bindingOptions._currentView!.activeYear;
             const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
             let firstMonthDayLines: HTMLElement[] = [];
 
@@ -1683,9 +1683,9 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onLineDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onLineDayClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.year, holiday.matched );
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onLineDayClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
         } else if ( Is.definedFunction( bindingOptions.events!.onLineDayDblClick ) ) {
-            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onLineDayDblClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.year, holiday.matched );
+            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onLineDayDblClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -1754,7 +1754,7 @@ import { DocumentElement } from "./ts/area/document-element";
             const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
             const borderBottomWidth: number = DomElement.getStyleValueByName( dayLines, "border-bottom-width", true ) as number;
             const pixelsPerNumbers: number = ( dayLines.offsetHeight - borderBottomWidth ) / largestValueForCurrentYear;
-            const currentYear: number = bindingOptions._currentView!.year;
+            const currentYear: number = bindingOptions._currentView!.activeYear;
             let firstMonthDayLines: HTMLElement[] = [];
             let firstMonthAdded: boolean = false;
 
@@ -1916,9 +1916,9 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onChartDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onChartDayClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.year, holiday.matched );
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onChartDayClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
         } else if ( Is.definedFunction( bindingOptions.events!.onChartDayDblClick ) ) {
-            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onChartDayDblClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.year, holiday.matched );
+            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onChartDayDblClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -2066,9 +2066,9 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, bindingOptions._currentView!.element, dayNumber, dayCount, bindingOptions._currentView!.year );
+            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, bindingOptions._currentView!.element, dayNumber, dayCount, bindingOptions._currentView!.activeYear );
         } else if ( Is.definedFunction( bindingOptions.events!.onWeekDayDblClick ) ) {
-            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayDblClick!, bindingOptions._currentView!.element, dayNumber, dayCount, bindingOptions._currentView!.year );
+            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayDblClick!, bindingOptions._currentView!.element, dayNumber, dayCount, bindingOptions._currentView!.activeYear );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -2127,7 +2127,7 @@ import { DocumentElement } from "./ts/area/document-element";
         } as LargestValueForView;
 
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
-        const currentYear: number = bindingOptions._currentView!.year;
+        const currentYear: number = bindingOptions._currentView!.activeYear;
 
         for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
             let actualMonthIndex: number = monthIndex;
@@ -2227,7 +2227,7 @@ import { DocumentElement } from "./ts/area/document-element";
         } else {
             const borderBottomWidth: number = DomElement.getStyleValueByName( monthLines, "border-bottom-width", true ) as number;
             const pixelsPerNumbers: number = ( monthLines.offsetHeight - borderBottomWidth ) / monthValuesForCurrentYear.largestValue;
-            const currentYear: number = bindingOptions._currentView!.year;
+            const currentYear: number = bindingOptions._currentView!.activeYear;
 
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
@@ -2312,7 +2312,7 @@ import { DocumentElement } from "./ts/area/document-element";
             ToolTip.add( monthLine, bindingOptions, Str.friendlyNumber( monthCount ) );
         }
 
-        let currentYear: number = bindingOptions._currentView!.year;
+        let currentYear: number = bindingOptions._currentView!.activeYear;
 
         if ( bindingOptions.startMonth! > 0 && monthNumber - 1 < bindingOptions.startMonth! ) {
             currentYear++;
@@ -2336,7 +2336,7 @@ import { DocumentElement } from "./ts/area/document-element";
             }
         }
 
-        if ( bindingOptions.views!.months!.highlightCurrentMonth && today.getMonth() === ( monthNumber - 1 ) && bindingOptions._currentView!.year === today.getFullYear() ) {
+        if ( bindingOptions.views!.months!.highlightCurrentMonth && today.getMonth() === ( monthNumber - 1 ) && bindingOptions._currentView!.activeYear === today.getFullYear() ) {
             DomElement.addClass( monthLine, "today" );
         }
 
@@ -2384,7 +2384,7 @@ import { DocumentElement } from "./ts/area/document-element";
         } as LargestValueForView;
 
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
-        const currentYear: number = bindingOptions._currentView!.year;
+        const currentYear: number = bindingOptions._currentView!.activeYear;
 
         for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
             let actualMonthIndex: number = monthIndex;
@@ -2555,9 +2555,9 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onColorRangeClick ) ) {
-            colorRangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onColorRangeClick!, bindingOptions._currentView!.element, useColorRange, colorRangeCount, bindingOptions._currentView!.year );
+            colorRangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onColorRangeClick!, bindingOptions._currentView!.element, useColorRange, colorRangeCount, bindingOptions._currentView!.activeYear );
         } else if ( Is.definedFunction( bindingOptions.events!.onColorRangeDblClick ) ) {
-            colorRangeLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onColorRangeDblClick!, useColorRange, colorRangeCount, bindingOptions._currentView!.year );
+            colorRangeLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onColorRangeDblClick!, useColorRange, colorRangeCount, bindingOptions._currentView!.activeYear );
         } else {
             DomElement.addClass( colorRangeLine, "no-hover" );
         }
@@ -2579,7 +2579,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
     function getLargestValuesForEachColorRange( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[] ) : LargestValuesForEachRangeType {
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
-        const currentYear: number = bindingOptions._currentView!.year;
+        const currentYear: number = bindingOptions._currentView!.activeYear;
         const colorRangesLength: number = colorRanges.length;
 
         const result: LargestValuesForEachRangeType = {
@@ -2743,13 +2743,13 @@ import { DocumentElement } from "./ts/area/document-element";
             };
         }
 
-        if ( bindingOptions._currentView!.type === type ) {
+        if ( bindingOptions._currentView!.activeType === type ) {
             DomElement.addClass( typeButton, "active" );
         }
 
         typeButton.onclick = () => {
-            if ( bindingOptions._currentView!.type !== type ) {
-                bindingOptions._currentView!.type = type;
+            if ( bindingOptions._currentView!.activeType !== type ) {
+                bindingOptions._currentView!.activeType = type;
 
                 Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
                 renderControlContainer( bindingOptions );
@@ -2948,7 +2948,7 @@ import { DocumentElement } from "./ts/area/document-element";
     }
 
     function switchView( bindingOptions: BindingOptions, viewId: ViewId, viewName: string ) : void {
-        bindingOptions._currentView!.view = viewId;
+        bindingOptions._currentView!.activeView = viewId;
 
         Trigger.customEvent( bindingOptions.events!.onViewSwitch!, bindingOptions._currentView!.element, viewName );
         renderControlContainer( bindingOptions, false, true );
@@ -2967,8 +2967,8 @@ import { DocumentElement } from "./ts/area/document-element";
         if ( _elements_InstanceData[ bindingOptions._currentView!.element.id ].totalTypes > 1 ) {
             for ( const type in _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData ) {
                 if ( type !== _configurationOptions.text!.unknownTrendText || noneTypeCount > 0 ) {
-                    if ( noneTypeCount === 0 && bindingOptions._currentView!.type === _configurationOptions.text!.unknownTrendText ) {
-                        bindingOptions._currentView!.type = type;
+                    if ( noneTypeCount === 0 && bindingOptions._currentView!.activeType === _configurationOptions.text!.unknownTrendText ) {
+                        bindingOptions._currentView!.activeType = type;
                     }
                 }
             }
@@ -3003,7 +3003,7 @@ import { DocumentElement } from "./ts/area/document-element";
     }
 
     function getCurrentViewData( bindingOptions: BindingOptions ) : InstanceTypeDateCount {
-        return _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.type ];
+        return _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData[ bindingOptions._currentView!.activeType ];
     }
 
     function isDataAvailable( bindingOptions: BindingOptions ) : boolean {
@@ -3035,7 +3035,7 @@ import { DocumentElement } from "./ts/area/document-element";
     }
 
     function clearViewableData( bindingOptions: BindingOptions ) : void {
-        const currentYear: number = bindingOptions._currentView!.year;
+        const currentYear: number = bindingOptions._currentView!.activeYear;
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
         for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
@@ -3069,7 +3069,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
         const types: string[] = Object.keys( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData ).sort( ( typeA: string, typeB: string ) => typeA.localeCompare( typeB, undefined, { numeric: true, sensitivity: "base" } ) );
 
-        bindingOptions._currentView!.type = types[ 0 ];
+        bindingOptions._currentView!.activeType = types[ 0 ];
 
         Trigger.customEvent( bindingOptions.events!.onRemoveType!, bindingOptions._currentView!.element, type );
     }
@@ -3077,7 +3077,7 @@ import { DocumentElement } from "./ts/area/document-element";
     function getLargestValueCurrentYear( bindingOptions: BindingOptions ) : number {
         let result: number = 0;
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
-        const currentYear: number = bindingOptions._currentView!.year;
+        const currentYear: number = bindingOptions._currentView!.activeYear;
 
         for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
             let actualMonthIndex: number = monthIndex;
@@ -3268,13 +3268,13 @@ import { DocumentElement } from "./ts/area/document-element";
     function toggleColorRangeForView( bindingOptions: BindingOptions, colorRange: BindingOptionsColorRange ) : boolean {
         let result: boolean = false;
 
-        if ( bindingOptions._currentView!.view === ViewId.map ) {
+        if ( bindingOptions._currentView!.activeView === ViewId.map ) {
             toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.mapCssClassName!, Constant.Attribute.View.Map.HEAT_JS_MINIMUM );
-        } else if ( bindingOptions._currentView!.view === ViewId.line ) {
+        } else if ( bindingOptions._currentView!.activeView === ViewId.line ) {
             toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.lineCssClassName!, Constant.Attribute.View.Line.HEAT_JS_MINIMUM );
-        } else if ( bindingOptions._currentView!.view === ViewId.chart ) {
+        } else if ( bindingOptions._currentView!.activeView === ViewId.chart ) {
             toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.chartCssClassName!, Constant.Attribute.View.Chart.HEAT_JS_MINIMUM );
-        } else if ( bindingOptions._currentView!.view === ViewId.colorRanges ) {
+        } else if ( bindingOptions._currentView!.activeView === ViewId.colorRanges ) {
             toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.colorRangeCssClassName!, Constant.Attribute.View.ColorRanges.HEAT_JS_MINIMUM );
         } else {
             result = true;
@@ -3314,7 +3314,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
     function moveToPreviousYear( bindingOptions: BindingOptions, callCustomTrigger: boolean = true ) : void {
         let render: boolean = true;
-        let year: number = bindingOptions._currentView!.year;
+        let year: number = bindingOptions._currentView!.activeYear;
             
         year--;
 
@@ -3328,19 +3328,19 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( render ) {
-            bindingOptions._currentView!.year = year;
+            bindingOptions._currentView!.activeYear = year;
 
             renderControlContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
-                Trigger.customEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
+                Trigger.customEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
             }
         }
     }
 
     function moveToNextYear( bindingOptions: BindingOptions, callCustomTrigger: boolean = true ) : void {
         let render: boolean = true;
-        let year: number = bindingOptions._currentView!.year;
+        let year: number = bindingOptions._currentView!.activeYear;
 
         year++;
 
@@ -3354,12 +3354,12 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( render ) {
-            bindingOptions._currentView!.year = year;
+            bindingOptions._currentView!.activeYear = year;
 
             renderControlContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
-                Trigger.customEvent( bindingOptions.events!.onNextYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
+                Trigger.customEvent( bindingOptions.events!.onNextYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
             }
         }
     }
@@ -3620,7 +3620,7 @@ import { DocumentElement } from "./ts/area/document-element";
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
-                    bindingOptions._currentView!.type = _configurationOptions.text!.unknownTrendText!;
+                    bindingOptions._currentView!.activeType = _configurationOptions.text!.unknownTrendText!;
         
                     createInstanceDataForElement( elementId, bindingOptions, false );
                     Trigger.customEvent( bindingOptions.events!.onReset!, bindingOptions._currentView!.element );
@@ -3697,15 +3697,15 @@ import { DocumentElement } from "./ts/area/document-element";
         setYear: function ( elementId: string, year: number ) : PublicApi {
             if ( Is.definedString( elementId ) && Is.definedNumber( year ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-                bindingOptions._currentView!.year = year;
+                bindingOptions._currentView!.activeYear = year;
     
-                if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
+                if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.activeYear ) ) {
                     moveToNextYear( bindingOptions, false );
                 } else {
                     renderControlContainer( bindingOptions );
                 }
     
-                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
             }
     
             return _public;
@@ -3724,15 +3724,15 @@ import { DocumentElement } from "./ts/area/document-element";
                 }
     
                 if ( maximumYear > 0 ) {
-                    bindingOptions._currentView!.year = maximumYear;
+                    bindingOptions._currentView!.activeYear = maximumYear;
     
-                    if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
+                    if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.activeYear ) ) {
                         moveToNextYear( bindingOptions, false );
                     } else {
                         renderControlContainer( bindingOptions );
                     }
     
-                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
+                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
                 }
             }
     
@@ -3752,15 +3752,15 @@ import { DocumentElement } from "./ts/area/document-element";
                 }
     
                 if ( minimumYear < 9999 ) {
-                    bindingOptions._currentView!.year = minimumYear;
+                    bindingOptions._currentView!.activeYear = minimumYear;
     
-                    if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
+                    if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.activeYear ) ) {
                         moveToPreviousYear( bindingOptions, false );
                     } else {
                         renderControlContainer( bindingOptions );
                     }
     
-                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
+                    Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
                 }
             }
     
@@ -3786,15 +3786,15 @@ import { DocumentElement } from "./ts/area/document-element";
         moveToCurrentYear: function ( elementId: string ) : PublicApi {
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-                bindingOptions._currentView!.year = new Date().getFullYear();
+                bindingOptions._currentView!.activeYear = new Date().getFullYear();
     
-                if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.year ) ) {
+                if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.activeYear ) ) {
                     moveToNextYear( bindingOptions, false );
                 } else {
                     renderControlContainer( bindingOptions );
                 }
     
-                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.year );
+                Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
             }
     
             return _public;
@@ -3804,7 +3804,7 @@ import { DocumentElement } from "./ts/area/document-element";
             let result: number = Value.notFound;
 
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
-                result = _elements_InstanceData[ elementId ].options._currentView!.year;
+                result = _elements_InstanceData[ elementId ].options._currentView!.activeYear;
             }
     
             return result;
@@ -3829,7 +3829,7 @@ import { DocumentElement } from "./ts/area/document-element";
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 const viewId: ViewId = Visible.View.get( viewName );
     
-                if ( viewId !== ViewId.unknown && bindingOptions._currentView!.view !== viewId ) {
+                if ( viewId !== ViewId.unknown && bindingOptions._currentView!.activeView !== viewId ) {
                     switchView( bindingOptions, viewId, viewName );
                 }
             }
@@ -3841,8 +3841,8 @@ import { DocumentElement } from "./ts/area/document-element";
             if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
     
-                if ( bindingOptions._currentView!.type !== type ) {
-                    bindingOptions._currentView!.type = type;
+                if ( bindingOptions._currentView!.activeType !== type ) {
+                    bindingOptions._currentView!.activeType = type;
                 
                     Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
                     renderControlContainer( bindingOptions );

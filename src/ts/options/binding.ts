@@ -55,8 +55,8 @@ export namespace Binding {
             bindingOptions._currentView.configurationDialogDayCheckBoxes = [];
             bindingOptions._currentView.configurationDialogMonthCheckBoxes = [];
             bindingOptions._currentView.tooltip = null!;
-            bindingOptions._currentView.year = bindingOptions.defaultYear!;
-            bindingOptions._currentView.type = configurationOptions.text!.unknownTrendText!;
+            bindingOptions._currentView.activeYear = bindingOptions.defaultYear!;
+            bindingOptions._currentView.activeType = configurationOptions.text!.unknownTrendText!;
             bindingOptions._currentView.isInFetchMode = Is.definedFunction( bindingOptions.events!.onDataFetch );
             bindingOptions._currentView.isInFetchModeTimer = 0;
             bindingOptions._currentView.yearsAvailable = [];
@@ -65,7 +65,7 @@ export namespace Binding {
             bindingOptions._currentView.mapZoomIncrement = Value.notFound;
             bindingOptions._currentView.lineZoomIncrement = Value.notFound;
             bindingOptions._currentView.yearTextWidth = 0;
-            bindingOptions._currentView.view = 0;
+            bindingOptions._currentView.activeView = ViewId.map;
             bindingOptions._currentView.viewsEnabled = 0;
 
             if ( bindingOptions.views!.map!.enabled ) {
@@ -534,37 +534,37 @@ export namespace Binding {
 
         function getDefaultView( bindingOptions: BindingOptions ) : void {
             if ( bindingOptions.views!.map!.enabled && bindingOptions.defaultView === ViewName.map ) {
-                bindingOptions._currentView!.view = ViewId.map;
+                bindingOptions._currentView!.activeView = ViewId.map;
             } else if ( bindingOptions.views!.line!.enabled && bindingOptions.defaultView === ViewName.line ) {
-                bindingOptions._currentView!.view = ViewId.line;
+                bindingOptions._currentView!.activeView = ViewId.line;
             } else if ( bindingOptions.views!.chart!.enabled && bindingOptions.defaultView === ViewName.chart ) {
-                bindingOptions._currentView!.view = ViewId.chart;
+                bindingOptions._currentView!.activeView = ViewId.chart;
             } else if ( bindingOptions.views!.days!.enabled && bindingOptions.defaultView === ViewName.days ) {
-                bindingOptions._currentView!.view = ViewId.days;
+                bindingOptions._currentView!.activeView = ViewId.days;
             } else if ( bindingOptions.views!.months!.enabled && bindingOptions.defaultView === ViewName.months ) {
-                bindingOptions._currentView!.view = ViewId.months;
+                bindingOptions._currentView!.activeView = ViewId.months;
             } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions.defaultView === ViewName.colorRanges ) {
-                bindingOptions._currentView!.view = ViewId.colorRanges;
+                bindingOptions._currentView!.activeView = ViewId.colorRanges;
             }
 
-            if ( bindingOptions._currentView!.view === 0 ) {
+            if ( bindingOptions._currentView!.activeView === 0 ) {
                 if ( bindingOptions.views!.map!.enabled ) {
-                    bindingOptions._currentView!.view = ViewId.map;
+                    bindingOptions._currentView!.activeView = ViewId.map;
                 } else if ( bindingOptions.views!.line!.enabled ) {
-                    bindingOptions._currentView!.view = ViewId.line;
+                    bindingOptions._currentView!.activeView = ViewId.line;
                 } else if ( bindingOptions.views!.chart!.enabled ) {
-                    bindingOptions._currentView!.view = ViewId.chart;
+                    bindingOptions._currentView!.activeView = ViewId.chart;
                 } else if ( bindingOptions.views!.days!.enabled ) {
-                    bindingOptions._currentView!.view = ViewId.days;
+                    bindingOptions._currentView!.activeView = ViewId.days;
                 } else if ( bindingOptions.views!.months!.enabled ) {
-                    bindingOptions._currentView!.view = ViewId.months;
+                    bindingOptions._currentView!.activeView = ViewId.months;
                 } else if ( bindingOptions.views!.colorRanges!.enabled ) {
-                    bindingOptions._currentView!.view = ViewId.colorRanges;
+                    bindingOptions._currentView!.activeView = ViewId.colorRanges;
                 }
 
-                if ( bindingOptions._currentView!.view === 0 ) {
+                if ( bindingOptions._currentView!.activeView === 0 ) {
                     bindingOptions.views!.map!.enabled = true;
-                    bindingOptions._currentView!.view = ViewId.map;
+                    bindingOptions._currentView!.activeView = ViewId.map;
                 }
             }
         }

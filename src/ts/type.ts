@@ -11,6 +11,9 @@
  */
 
 
+import { ViewId } from "./data/enum";
+
+
 export type InstanceTypeDateCount = Record<string, number>;
 export type InstanceData = Record<string, InstanceTypeData>;
 
@@ -168,12 +171,12 @@ export type BindingOptions = {
 
 export type BindingOptionsCurrentView = {
     element: HTMLElement;
-    year: number;
-    type: string;
+    activeYear: number;
+    activeType: string;
+    activeView: ViewId;
     isInFetchMode: boolean;
     isInFetchModeTimer: number;
     yearsAvailable: number[];
-    view: number;
     viewsEnabled: number;
     mapContentsContainer: HTMLElement;
     mapContents: HTMLElement;

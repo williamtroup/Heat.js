@@ -62,8 +62,8 @@ export namespace Export {
                 const timePart: string = `${Str.padNumber( date.getHours() )}${Char.dash}${Str.padNumber( date.getMinutes() )}`;
                 let filenameStart: string = Char.empty;
 
-                if ( bindingOptions._currentView!.type !== configurationOptions.text!.unknownTrendText ) {
-                    filenameStart = `${bindingOptions._currentView!.type.toLowerCase().replace( / /g, Char.underscore )}${Char.underscore}`;
+                if ( bindingOptions._currentView!.activeType !== configurationOptions.text!.unknownTrendText ) {
+                    filenameStart = `${bindingOptions._currentView!.activeType.toLowerCase().replace( / /g, Char.underscore )}${Char.underscore}`;
                 }
 
                 filename = `${filenameStart}${datePart}${Char.underscore}${timePart}.${contentExportType.toLowerCase()}`;
