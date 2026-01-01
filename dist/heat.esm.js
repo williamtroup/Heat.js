@@ -4263,8 +4263,8 @@ var V;
                 for (let s = 0; s < o; s++) {
                     const o = i[s];
                     if (!o.visible) {
-                        n = et(e, o);
                         o.visible = true;
+                        n = et(e, o);
                         c.customEvent(e.events.onColorRangeTypeToggle, e._currentView.element, o.id, t);
                         break;
                     }
@@ -4273,8 +4273,8 @@ var V;
                 for (let s = o; s--; ) {
                     const o = i[s];
                     if (o.visible) {
-                        n = et(e, o);
                         o.visible = false;
+                        n = et(e, o);
                         c.customEvent(e.events.onColorRangeTypeToggle, e._currentView.element, o.id, t);
                         break;
                     }
