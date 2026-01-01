@@ -66,39 +66,31 @@ export namespace Binding {
             bindingOptions._currentView.viewsEnabled = 0;
 
             if ( bindingOptions.views!.map!.enabled ) {
-                bindingOptions._currentView.mapContentsContainer = null!;
-                bindingOptions._currentView.mapContents = null!;
                 bindingOptions._currentView.mapContentsScrollLeft = 0;
                 bindingOptions._currentView.viewsEnabled++;
             }
 
             if ( bindingOptions.views!.line!.enabled ) {
-                bindingOptions._currentView.lineContentsContainer = null!;
-                bindingOptions._currentView.lineContents = null!;
                 bindingOptions._currentView.lineContentsScrollLeft = 0;
                 bindingOptions._currentView.viewsEnabled++;
             }
     
             if ( bindingOptions.views!.chart!.enabled ) {
-                bindingOptions._currentView.chartContents = null!;
                 bindingOptions._currentView.chartContentsScrollLeft = 0;
                 bindingOptions._currentView.viewsEnabled++;
             }
     
             if ( bindingOptions.views!.days!.enabled ) {
-                bindingOptions._currentView.daysContents = null!;
                 bindingOptions._currentView.daysContentsScrollLeft = 0;
                 bindingOptions._currentView.viewsEnabled++;
             }
 
             if ( bindingOptions.views!.months!.enabled ) {
-                bindingOptions._currentView.monthsContents = null!;
                 bindingOptions._currentView.monthsContentsScrollLeft = 0;
                 bindingOptions._currentView.viewsEnabled++;
             }
             
             if ( bindingOptions.views!.colorRanges!.enabled ) {
-                bindingOptions._currentView.colorRangesContents = null!;
                 bindingOptions._currentView.colorRangesContentsScrollLeft = 0;
                 bindingOptions._currentView.viewsEnabled++;
             }

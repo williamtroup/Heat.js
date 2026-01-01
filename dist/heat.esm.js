@@ -821,34 +821,26 @@ var g;
             i._currentView.yearTextWidth = 0;
             i._currentView.viewsEnabled = 0;
             if (i.views.map.enabled) {
-                i._currentView.mapContentsContainer = null;
-                i._currentView.mapContents = null;
                 i._currentView.mapContentsScrollLeft = 0;
                 i._currentView.viewsEnabled++;
             }
             if (i.views.line.enabled) {
-                i._currentView.lineContentsContainer = null;
-                i._currentView.lineContents = null;
                 i._currentView.lineContentsScrollLeft = 0;
                 i._currentView.viewsEnabled++;
             }
             if (i.views.chart.enabled) {
-                i._currentView.chartContents = null;
                 i._currentView.chartContentsScrollLeft = 0;
                 i._currentView.viewsEnabled++;
             }
             if (i.views.days.enabled) {
-                i._currentView.daysContents = null;
                 i._currentView.daysContentsScrollLeft = 0;
                 i._currentView.viewsEnabled++;
             }
             if (i.views.months.enabled) {
-                i._currentView.monthsContents = null;
                 i._currentView.monthsContentsScrollLeft = 0;
                 i._currentView.viewsEnabled++;
             }
             if (i.views.colorRanges.enabled) {
-                i._currentView.colorRangesContents = null;
                 i._currentView.colorRangesContentsScrollLeft = 0;
                 i._currentView.viewsEnabled++;
             }
