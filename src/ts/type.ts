@@ -53,6 +53,13 @@ export type LargestValuesForEachRangeType = {
     totalValue: number;
 };
 
+export type RgbaColor = {
+    red: number;
+    green: number;
+    blue: number;
+    alpha: number;
+};
+
 export type ConfigurationOptions = {
 	safeMode?: boolean;
 	domElementTypes?: string[] | string;

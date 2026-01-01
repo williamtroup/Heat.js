@@ -11,7 +11,11 @@
  */
 
 
-import { type LargestValueForView, type LargestValueForViewValue } from "../type";
+import {
+    type RgbaColor,
+    type LargestValueForView,
+    type LargestValueForViewValue } from "../type";
+    
 import { Char, Value } from "./enum";
 
 
@@ -35,28 +39,28 @@ export namespace Convert {
     }
 
     export function hexToRgba( color: string ) : string {
-        const rgbaColor: number[] = hexToRgbaValues( color );
-        const red: number = rgbaColor[ 0 ];
-        const green: number = rgbaColor[ 1 ];
-        const blue: number = rgbaColor[ 2 ];
-        const alpha: number = rgbaColor[ 3 ];
+        const rgbaColor: RgbaColor = hexToRgbaValues( color );
 
-        return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+        return `rgba(${rgbaColor.red}, ${rgbaColor.green}, ${rgbaColor.blue}, ${rgbaColor.alpha})`;
     }
 
-    export function hexToRgbaValues( color: string ) : number[] {
+    export function hexToRgbaValues( color: string ) : RgbaColor {
         const newColor: string = color.trim().replace( Char.hash, Char.empty );
-        let newAlpha: number = 1;
-
         const red: number = parseInt( newColor.substring( 0, 2 ), 16 );
         const green: number = parseInt( newColor.substring( 2, 4 ), 16 );
         const blue: number = parseInt( newColor.substring( 4, 6 ), 16 );
+        let alpha: number = 1;
 
         if ( color.length === 8 ) {
-            newAlpha = parseInt( newColor.substring( 6, 8 ), 16 );
+            alpha = parseInt( newColor.substring( 6, 8 ), 16 );
         }
 
-        return [red, green, blue, newAlpha];
+        return {
+            red: red,
+            green: green,
+            blue: blue,
+            alpha: alpha,
+        } as RgbaColor;
     }
 
     export function valuesToOpacitiesOrder( viewValues: LargestValueForView ) : void {

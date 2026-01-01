@@ -605,23 +605,24 @@ var u;
     e.toRgbOpacityColor = t;
     function n(e) {
         const t = i(e);
-        const n = t[0];
-        const o = t[1];
-        const s = t[2];
-        const r = t[3];
-        return `rgba(${n}, ${o}, ${s}, ${r})`;
+        return `rgba(${t.red}, ${t.green}, ${t.blue}, ${t.alpha})`;
     }
     e.hexToRgba = n;
     function i(e) {
         const t = e.trim().replace("#", "");
-        let n = 1;
-        const i = parseInt(t.substring(0, 2), 16);
-        const o = parseInt(t.substring(2, 4), 16);
-        const s = parseInt(t.substring(4, 6), 16);
+        const n = parseInt(t.substring(0, 2), 16);
+        const i = parseInt(t.substring(2, 4), 16);
+        const o = parseInt(t.substring(4, 6), 16);
+        let s = 1;
         if (e.length === 8) {
-            n = parseInt(t.substring(6, 8), 16);
+            s = parseInt(t.substring(6, 8), 16);
         }
-        return [ i, o, s, n ];
+        return {
+            red: n,
+            green: i,
+            blue: o,
+            alpha: s
+        };
     }
     e.hexToRgbaValues = i;
     function o(e) {
@@ -716,25 +717,25 @@ var w;
         const o = 1 / e.totalColors;
         const s = (e.maximumMinimum - e.startMinimum) / (e.totalColors - 1);
         const r = [];
-        let l = n[0];
-        let c = n[1];
-        let w = n[2];
+        let l = n.red;
+        let c = n.green;
+        let w = n.blue;
         let h = o;
-        let f = n[0];
-        let g = n[1];
-        let m = n[2];
+        let f = n.red;
+        let g = n.green;
+        let m = n.blue;
         let p = e.startMinimum;
         for (let a = 0; a < e.totalColors; a++) {
             const u = a + 1;
             const y = h + o > 1 ? 1 : h + o;
             const v = `rgba(${l}, ${c}, ${w}, ${h.toFixed(2)})`;
-            const T = `rgba(${l}, ${c}, ${w}, ${y.toFixed(2)})`;
-            const b = `rgb(${f}, ${g}, ${m})`;
+            const b = `rgba(${l}, ${c}, ${w}, ${y.toFixed(2)})`;
+            const T = `rgb(${f}, ${g}, ${m})`;
             const V = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
             r.push(`div.${V} {`);
             r.push(`${"\t"}background-color: ${v} !important;`);
-            r.push(`${"\t"}border-color: ${T} !important;`);
-            r.push(`${"\t"}color: ${b} !important;`);
+            r.push(`${"\t"}border-color: ${b} !important;`);
+            r.push(`${"\t"}color: ${T} !important;`);
             r.push("}");
             r.push(`div.${V}:not(.no-hover):hover {`);
             r.push(`${"\t"}opacity: 0.7 !important;`);
@@ -747,22 +748,22 @@ var w;
                 tooltipText: `Day Color ${u}`,
                 visible: true
             };
-            const C = Math.round(n[0] / 100 * (u * i));
-            const _ = Math.round(n[1] / 100 * (u * i));
-            const D = Math.round(n[2] / 100 * (u * i));
+            const C = Math.round(n.red / 100 * (u * i));
+            const _ = Math.round(n.green / 100 * (u * i));
+            const D = Math.round(n.blue / 100 * (u * i));
             if (a === e.totalColors - 1) {
                 r.push(`:root {`);
                 r.push(`${"\t"}${d.Variables.CheckBoxCheckedColor}: ${v};`);
                 r.push(`${"\t"}${d.Variables.YearMenuCurrent}: ${v};`);
                 r.push("}");
             } else {
-                l = n[0] + C;
-                c = n[1] + _;
-                w = n[2] + D;
+                l = n.red + C;
+                c = n.green + _;
+                w = n.blue + D;
                 h += o;
-                f = n[0] - C;
-                g = n[1] - _;
-                m = n[2] - D;
+                f = n.red - C;
+                g = n.green - _;
+                m = n.blue - D;
                 p += s;
                 if (p > e.maximumMinimum) {
                     p = e.maximumMinimum;
@@ -891,8 +892,8 @@ var h;
             t.guide = p(t);
             t.tooltip = y(t);
             t.zooming = v(t);
-            t.dynamicColorRange = T(t);
-            t.colorRanges = b(t);
+            t.dynamicColorRange = b(t);
+            t.colorRanges = T(t);
             t.holidays = V(t);
             t.events = x(t);
             if (t.startMonth > 0) {
@@ -1098,7 +1099,7 @@ var h;
             e.zooming.showCloseButton = o.getBoolean(e.zooming.showCloseButton, true);
             return e.zooming;
         }
-        function T(e) {
+        function b(e) {
             e.dynamicColorRange = o.getObject(e.dynamicColorRange, {});
             e.dynamicColorRange.enabled = o.getBoolean(e.dynamicColorRange.enabled, false);
             e.dynamicColorRange.maximumMinimum = o.getNumber(e.dynamicColorRange.maximumMinimum, 25);
@@ -1107,7 +1108,7 @@ var h;
             e.dynamicColorRange.startMinimum = o.getNumber(e.dynamicColorRange.startMinimum, 10);
             return e.dynamicColorRange;
         }
-        function b(e) {
+        function T(e) {
             let t = [];
             if (e.dynamicColorRange.enabled && i.hexColor(e.dynamicColorRange.color)) {
                 t = w.buildDynamics(e.dynamicColorRange);
@@ -1888,7 +1889,7 @@ var v;
     e.setHeight = t;
 })(v || (v = {}));
 
-var T;
+var b;
 
 (e => {
     function t(e, t, i) {
@@ -1942,9 +1943,9 @@ var T;
         }
     }
     e.clear = r;
-})(T || (T = {}));
+})(b || (b = {}));
 
-var b;
+var T;
 
 (e => {
     function t(e) {
@@ -1958,7 +1959,7 @@ var b;
         return t;
     }
     e.largestValueForViewValues = t;
-})(b || (b = {}));
+})(T || (T = {}));
 
 var V;
 
@@ -2043,7 +2044,7 @@ var V;
     function O(e, t = false, n = false, i = false) {
         l.hide(e);
         if (t) {
-            T.store(e, _[e._currentView.element.id]);
+            b.store(e, _[e._currentView.element.id]);
         }
         e._currentView.yearsAvailable = Ye(e);
         m.View.getScrollPositions(e);
@@ -2062,7 +2063,7 @@ var V;
             ye(e, n, i);
         }
         if (e.views.days.enabled && e._currentView.view === 4) {
-            Te(e, n);
+            be(e, n);
         }
         if (e.views.months.enabled && e._currentView.view === 5) {
             xe(e, n);
@@ -3149,11 +3150,11 @@ var V;
         const m = a.create(e, "div", "day-line");
         const p = i.holiday(t, g);
         let y = We(t)[r.toStorageDate(g)];
-        const T = w.get(t, h, y, g);
+        const b = w.get(t, h, y, g);
         y = o.getNumber(y, 0);
         m.setAttribute(n.Attribute.View.Line.HEAT_JS_DATE, `${s.padNumber(l)}-${s.padNumber(u + 1)}-${d}`);
-        if (i.defined(T)) {
-            m.setAttribute(n.Attribute.View.Line.HEAT_JS_MINIMUM, T.minimum.toString());
+        if (i.defined(b)) {
+            m.setAttribute(n.Attribute.View.Line.HEAT_JS_MINIMUM, b.minimum.toString());
         }
         if (t.views.line.showToolTips) {
             Fe(t, m, g, y, t.views.line.dayToolTipText, t.events.onLineDayToolTipRender, p.matched, t.views.line.showCountsInToolTips);
@@ -3165,11 +3166,11 @@ var V;
         } else {
             a.addClass(m, "no-hover");
         }
-        if (i.defined(T) && w.isVisible(t, T.id)) {
-            if (i.definedString(T.lineCssClassName)) {
-                a.addClass(m, T.lineCssClassName);
+        if (i.defined(b) && w.isVisible(t, b.id)) {
+            if (i.definedString(b.lineCssClassName)) {
+                a.addClass(m, b.lineCssClassName);
             } else {
-                a.addClass(m, T.cssClassName);
+                a.addClass(m, b.cssClassName);
             }
         }
         v.setHeight(t, m, 100, f, true);
@@ -3306,15 +3307,15 @@ var V;
         const m = new Date(d, u, l);
         const p = a.create(e, "div", "day-line");
         const y = i.holiday(t, m);
-        let T = We(t)[r.toStorageDate(m)];
-        const b = w.get(t, h, T, m);
-        T = o.getNumber(T, 0);
+        let b = We(t)[r.toStorageDate(m)];
+        const T = w.get(t, h, b, m);
+        b = o.getNumber(b, 0);
         p.setAttribute(n.Attribute.View.Chart.HEAT_JS_DATE, `${s.padNumber(l)}-${s.padNumber(u + 1)}-${d}`);
-        if (i.defined(b)) {
-            p.setAttribute(n.Attribute.View.Chart.HEAT_JS_MINIMUM, b.minimum.toString());
+        if (i.defined(T)) {
+            p.setAttribute(n.Attribute.View.Chart.HEAT_JS_MINIMUM, T.minimum.toString());
         }
         if (t.views.chart.showToolTips) {
-            Fe(t, p, m, T, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, y.matched, t.views.chart.showCountsInToolTips);
+            Fe(t, p, m, b, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, y.matched, t.views.chart.showCountsInToolTips);
         }
         if (t.views.chart.showLineCounts || t.views.chart.showLineDateNumbers) {
             a.addClass(p, "day-line-count");
@@ -3323,25 +3324,25 @@ var V;
             const e = a.createWithHTML(p, "div", "count-date", l.toString());
             a.createWithHTML(e, "sup", "", r.getDayOrdinal(x, l));
         }
-        if (t.views.chart.showLineCounts && T > 0) {
-            a.createWithHTML(p, "div", "count", s.friendlyNumber(T));
+        if (t.views.chart.showLineCounts && b > 0) {
+            a.createWithHTML(p, "div", "count", s.friendlyNumber(b));
         }
-        const V = T * f;
+        const V = b * f;
         if (V <= 0) {
             p.style.visibility = "hidden";
         }
         if (i.definedFunction(t.events.onChartDayClick)) {
-            p.onclick = () => c.customEvent(t.events.onChartDayClick, t._currentView.element, m, T, y.matched);
+            p.onclick = () => c.customEvent(t.events.onChartDayClick, t._currentView.element, m, b, y.matched);
         } else if (i.definedFunction(t.events.onChartDayDblClick)) {
-            p.ondblclick = () => c.customEvent(t.events.onChartDayDblClick, t._currentView.element, m, T, y.matched);
+            p.ondblclick = () => c.customEvent(t.events.onChartDayDblClick, t._currentView.element, m, b, y.matched);
         } else {
             a.addClass(p, "no-hover");
         }
-        if (i.defined(b) && w.isVisible(t, b.id)) {
-            if (i.definedString(b.chartCssClassName)) {
-                a.addClass(p, b.chartCssClassName);
+        if (i.defined(T) && w.isVisible(t, T.id)) {
+            if (i.definedString(T.chartCssClassName)) {
+                a.addClass(p, T.chartCssClassName);
             } else {
-                a.addClass(p, b.cssClassName);
+                a.addClass(p, T.cssClassName);
             }
         }
         if (t.views.chart.highlightCurrentDay && r.isToday(m)) {
@@ -3353,7 +3354,7 @@ var V;
         v.setHeight(t, p, V, g);
         return p;
     }
-    function Te(e, t) {
+    function be(e, t) {
         e._currentView.daysContents = a.create(e._currentView.element, "div", "days-contents");
         const o = a.create(e._currentView.daysContents, "div", "days");
         const s = a.create(e._currentView.daysContents, "div", "day-names");
@@ -3390,7 +3391,7 @@ var V;
             for (const n in u.values) {
                 if (Object.prototype.hasOwnProperty.call(u.values, n) && i.dayVisible(e.views.days.daysToShow, parseInt(n))) {
                     const r = u.valueOpacities[u.values[n].total];
-                    const d = be(l, parseInt(n), u.values[n].total, e, o, r, u.totalValue, t);
+                    const d = Te(l, parseInt(n), u.values[n].total, e, o, r, u.totalValue, t);
                     if (e.views.days.showDayNames) {
                         a.createWithHTML(s, "div", "day-name", x.text.dayNames[parseInt(n) - 1]);
                     }
@@ -3427,7 +3428,7 @@ var V;
         }
         e._currentView.daysContents.style.display = "none";
     }
-    function be(e, t, o, r, d, w, h, f) {
+    function Te(e, t, o, r, d, w, h, f) {
         const g = a.create(e, "div", "day-line");
         const m = o * d;
         let p = null;
@@ -3486,7 +3487,7 @@ var V;
     }
     function Ve(e, t) {
         const n = {
-            values: b.largestValueForViewValues(7),
+            values: T.largestValueForViewValues(7),
             valueOpacities: {},
             largestValue: 0,
             totalValue: 0
@@ -3629,14 +3630,14 @@ var V;
         if (r.views.months.showToolTips) {
             l.add(g, r, s.friendlyNumber(o));
         }
-        let T = r._currentView.year;
+        let b = r._currentView.year;
         if (r.startMonth > 0 && t - 1 < r.startMonth) {
-            T++;
+            b++;
         }
         if (i.definedFunction(r.events.onMonthClick)) {
-            g.onclick = () => c.customEvent(r.events.onMonthClick, r._currentView.element, t, o, T);
+            g.onclick = () => c.customEvent(r.events.onMonthClick, r._currentView.element, t, o, b);
         } else if (i.definedFunction(r.events.onMonthDblClick)) {
-            g.ondblclick = () => c.customEvent(r.events.onMonthDblClick, r._currentView.element, t, o, T);
+            g.ondblclick = () => c.customEvent(r.events.onMonthDblClick, r._currentView.element, t, o, b);
         } else {
             a.addClass(g, "no-hover");
         }
@@ -3679,7 +3680,7 @@ var V;
     }
     function _e(e, t) {
         const n = {
-            values: b.largestValueForViewValues(12),
+            values: T.largestValueForViewValues(12),
             valueOpacities: {},
             largestValue: 0,
             totalValue: 0
@@ -4133,7 +4134,7 @@ var V;
         };
         _[e].typeData[x.text.unknownTrendText] = {};
         if (n && !t._currentView.isInFetchMode) {
-            T.load(x, t, _[e]);
+            b.load(x, t, _[e]);
         }
     }
     function We(e) {

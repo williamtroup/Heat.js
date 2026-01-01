@@ -14,7 +14,8 @@
 import { 
     type BindingOptionsDynamicColorRange,
     type BindingOptions,
-    type BindingOptionsColorRange } from "../type";
+    type BindingOptionsColorRange, 
+    type RgbaColor } from "../type";
     
 import { Constant } from "../constant";
 import { Default } from "../data/default";
@@ -101,19 +102,19 @@ export namespace ColorRange {
 
     export function buildDynamics( dynamicColorRange: BindingOptionsDynamicColorRange ) : BindingOptionsColorRange[] {
         const result: BindingOptionsColorRange[] = [];
-        const rgbaValues: number[] = Convert.hexToRgbaValues( dynamicColorRange!.color! );
+        const rgbaColor: RgbaColor = Convert.hexToRgbaValues( dynamicColorRange!.color! );
         const incrementPercentage: number = 100 / dynamicColorRange!.totalColors!;
         const incrementAlpha: number = 1.0 / dynamicColorRange!.totalColors!;
         const incrementMinimum: number = ( dynamicColorRange!.maximumMinimum! - dynamicColorRange!.startMinimum! ) / ( dynamicColorRange!.totalColors! - 1 );
         const cssLines: string[] = [];
 
-        let red: number = rgbaValues[ 0 ];
-        let green: number = rgbaValues[ 1 ];
-        let blue: number = rgbaValues[ 2 ];
+        let red: number = rgbaColor.red;
+        let green: number = rgbaColor.green;
+        let blue: number = rgbaColor.blue;
         let alpha: number = incrementAlpha;
-        let colorRed: number = rgbaValues[ 0 ];
-        let colorGreen: number = rgbaValues[ 1 ];
-        let colorBlue: number = rgbaValues[ 2 ];
+        let colorRed: number = rgbaColor.red;
+        let colorGreen: number = rgbaColor.green;
+        let colorBlue: number = rgbaColor.blue;
         let currentMinimum: number = dynamicColorRange!.startMinimum!;
 
         for ( let colorIndex: number = 0; colorIndex < dynamicColorRange!.totalColors!; colorIndex++ ){
@@ -142,9 +143,9 @@ export namespace ColorRange {
                 visible: true,
             } as BindingOptionsColorRange;
 
-            const redPercentage = Math.round( rgbaValues[ 0 ] / 100 * ( actualColorIndex * incrementPercentage ) );
-            const greenPercentage = Math.round( rgbaValues[ 1 ] / 100 * ( actualColorIndex * incrementPercentage ) );
-            const bluePercentage = Math.round( rgbaValues[ 2 ] / 100 * ( actualColorIndex * incrementPercentage ) );
+            const redPercentage = Math.round( rgbaColor.red / 100 * ( actualColorIndex * incrementPercentage ) );
+            const greenPercentage = Math.round( rgbaColor.green / 100 * ( actualColorIndex * incrementPercentage ) );
+            const bluePercentage = Math.round( rgbaColor.blue / 100 * ( actualColorIndex * incrementPercentage ) );
 
             if ( colorIndex === dynamicColorRange!.totalColors! - 1 ) {
                 cssLines.push( `:root {` );
@@ -153,13 +154,13 @@ export namespace ColorRange {
                 cssLines.push( "}" );
 
             } else {
-                red = rgbaValues[ 0 ] + redPercentage;
-                green = rgbaValues[ 1 ] + greenPercentage;
-                blue = rgbaValues[ 2 ] + bluePercentage;
+                red = rgbaColor.red + redPercentage;
+                green = rgbaColor.green + greenPercentage;
+                blue = rgbaColor.blue + bluePercentage;
                 alpha += incrementAlpha;
-                colorRed = rgbaValues[ 0 ] - redPercentage;
-                colorGreen = rgbaValues[ 1 ] - greenPercentage;
-                colorBlue = rgbaValues[ 2 ] - bluePercentage;
+                colorRed = rgbaColor.red - redPercentage;
+                colorGreen = rgbaColor.green - greenPercentage;
+                colorBlue = rgbaColor.blue - bluePercentage;
                 currentMinimum += incrementMinimum;
 
                 if ( currentMinimum > dynamicColorRange!.maximumMinimum! ) {
