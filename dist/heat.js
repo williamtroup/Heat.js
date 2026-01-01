@@ -714,7 +714,7 @@ var w;
         const n = u.hexToRgbaValues(e.color);
         const i = 100 / e.totalColors;
         const o = 1 / e.totalColors;
-        const s = Math.ceil((e.maximumMinimum - e.startMinimum) / (e.totalColors - 1));
+        const s = (e.maximumMinimum - e.startMinimum) / (e.totalColors - 1);
         const r = [];
         let l = n[0];
         let c = n[1];
@@ -742,7 +742,7 @@ var w;
             const x = {
                 id: V,
                 name: `Day Color ${u}`,
-                minimum: p,
+                minimum: Math.round(p),
                 cssClassName: V,
                 tooltipText: `Day Color ${u}`,
                 visible: true

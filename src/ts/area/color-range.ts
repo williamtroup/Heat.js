@@ -104,7 +104,7 @@ export namespace ColorRange {
         const rgbaValues: number[] = Convert.hexToRgbaValues( dynamicColorRange!.color! );
         const incrementPercentage: number = 100 / dynamicColorRange!.totalColors!;
         const incrementAlpha: number = 1.0 / dynamicColorRange!.totalColors!;
-        const incrementMinimum: number = Math.ceil( ( dynamicColorRange!.maximumMinimum! - dynamicColorRange!.startMinimum! ) / ( dynamicColorRange!.totalColors! - 1 ) );
+        const incrementMinimum: number = ( dynamicColorRange!.maximumMinimum! - dynamicColorRange!.startMinimum! ) / ( dynamicColorRange!.totalColors! - 1 );
         const cssLines: string[] = [];
 
         let red: number = rgbaValues[ 0 ];
@@ -136,7 +136,7 @@ export namespace ColorRange {
             const colorRange: BindingOptionsColorRange = {
                 id: cssName,
                 name: `Day Color ${actualColorIndex}`,
-                minimum: currentMinimum,
+                minimum: Math.round( currentMinimum ),
                 cssClassName: cssName,
                 tooltipText: `Day Color ${actualColorIndex}`,
                 visible: true,
