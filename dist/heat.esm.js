@@ -712,7 +712,7 @@ var w;
         const n = u.hexToRgbaValues(e.color);
         const i = 100 / e.totalColors;
         const o = 1 / e.totalColors;
-        const s = Math.floor((e.maximumMinimum - e.startMinimum) / e.totalColors);
+        const s = Math.ceil((e.maximumMinimum - e.startMinimum) / (e.totalColors - 1));
         const r = [];
         let l = n[0];
         let c = n[1];
@@ -762,6 +762,9 @@ var w;
                 g = n[1] - _;
                 m = n[2] - D;
                 p += s;
+                if (p > e.maximumMinimum) {
+                    p = e.maximumMinimum;
+                }
             }
             t.push(x);
         }
