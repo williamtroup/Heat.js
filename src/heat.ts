@@ -1715,7 +1715,7 @@ import { DocumentElement } from "./ts/area/document-element";
         bindingOptions._currentView!.chartContents.onscroll = () => ToolTip.hide( bindingOptions );
 
         const chart: HTMLElement = DomElement.create( bindingOptions._currentView!.chartContents, "div", "chart" );
-        const labels: HTMLElement = DomElement.create( chart, "div", "y-labels" );
+        const yAxisLabels: HTMLElement = DomElement.create( chart, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( chart, "div", "day-lines" );
         const largestValueForCurrentYear: number = getLargestValueCurrentYear( bindingOptions );
         let labelsWidth: number = 0;
@@ -1725,19 +1725,19 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( largestValueForCurrentYear > 0 && bindingOptions.views!.chart!.showChartYLabels ) {
-            const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-100", largestValueForCurrentYear.toString() );
-            const marginRight: number = DomElement.getStyleValueByName( labels, "margin-right", true ) as number;
+            const topLabel: HTMLElement = DomElement.createWithHTML( yAxisLabels, "div", "label-100", largestValueForCurrentYear.toString() );
+            const marginRight: number = DomElement.getStyleValueByName( yAxisLabels, "margin-right", true ) as number;
 
-            DomElement.createWithHTML( labels, "div", "label-75", ( Math.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-50", Math.floor( largestValueForCurrentYear / 2 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-25", Math.floor( largestValueForCurrentYear / 4 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-0", Char.zero );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-75", ( Math.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-50", Math.floor( largestValueForCurrentYear / 2 ).toString() );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-25", Math.floor( largestValueForCurrentYear / 4 ).toString() );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-0", Char.zero );
 
-            labels.style.width = `${topLabel.offsetWidth}px`;
-            labelsWidth = labels.offsetWidth + marginRight;
+            yAxisLabels.style.width = `${topLabel.offsetWidth}px`;
+            labelsWidth = yAxisLabels.offsetWidth + marginRight;
 
         } else {
-            labels.parentNode!.removeChild( labels );
+            yAxisLabels.parentNode!.removeChild( yAxisLabels );
         }
 
         if ( largestValueForCurrentYear === 0 ) {
@@ -1956,7 +1956,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
         const days: HTMLElement = DomElement.create( bindingOptions._currentView!.daysContents, "div", "days" );
         const dayNames: HTMLElement = DomElement.create( bindingOptions._currentView!.daysContents, "div", "day-names" );
-        const labels: HTMLElement = DomElement.create( days, "div", "y-labels" );
+        const yAxisLabels: HTMLElement = DomElement.create( days, "div", "y-labels" );
         const dayLines: HTMLElement = DomElement.create( days, "div", "day-lines" );
         const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
         const dayValuesForCurrentYear: LargestValueForView = getLargestValuesForEachDay( bindingOptions, colorRanges );
@@ -1966,19 +1966,19 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( dayValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.days!.showChartYLabels ) {
-            const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-100", dayValuesForCurrentYear.largestValue.toString() );
-            const marginRight: number = DomElement.getStyleValueByName( labels, "margin-right", true ) as number;
+            const topLabel: HTMLElement = DomElement.createWithHTML( yAxisLabels, "div", "label-100", dayValuesForCurrentYear.largestValue.toString() );
+            const marginRight: number = DomElement.getStyleValueByName( yAxisLabels, "margin-right", true ) as number;
 
-            DomElement.createWithHTML( labels, "div", "label-75", ( Math.floor( dayValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-50", Math.floor( dayValuesForCurrentYear.largestValue / 2 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-25", Math.floor( dayValuesForCurrentYear.largestValue / 4 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-0", Char.zero );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-75", ( Math.floor( dayValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-50", Math.floor( dayValuesForCurrentYear.largestValue / 2 ).toString() );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-25", Math.floor( dayValuesForCurrentYear.largestValue / 4 ).toString() );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-0", Char.zero );
 
-            labels.style.width = `${topLabel.offsetWidth}px`;
-            dayNames.style.paddingLeft = `${labels.offsetWidth + marginRight}px`;
+            yAxisLabels.style.width = `${topLabel.offsetWidth}px`;
+            dayNames.style.paddingLeft = `${yAxisLabels.offsetWidth + marginRight}px`;
 
         } else {
-            labels.parentNode!.removeChild( labels );
+            yAxisLabels.parentNode!.removeChild( yAxisLabels );
         }
 
         if ( dayValuesForCurrentYear.largestValue === 0 ) {
@@ -2188,7 +2188,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
         const months: HTMLElement = DomElement.create( bindingOptions._currentView!.monthsContents, "div", "months" );
         const monthNames: HTMLElement = DomElement.create( bindingOptions._currentView!.monthsContents, "div", "month-names" );
-        const labels: HTMLElement = DomElement.create( months, "div", "y-labels" );
+        const yAxisLabels: HTMLElement = DomElement.create( months, "div", "y-labels" );
         const monthLines: HTMLElement = DomElement.create( months, "div", "month-lines" );
         const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
         const monthValuesForCurrentYear: LargestValueForView = getLargestValuesForEachMonth( bindingOptions, colorRanges );
@@ -2198,19 +2198,19 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( monthValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.months!.showChartYLabels ) {
-            const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-100", monthValuesForCurrentYear.largestValue.toString() );
-            const marginRight: number = DomElement.getStyleValueByName( labels, "margin-right", true ) as number;
+            const topLabel: HTMLElement = DomElement.createWithHTML( yAxisLabels, "div", "label-100", monthValuesForCurrentYear.largestValue.toString() );
+            const marginRight: number = DomElement.getStyleValueByName( yAxisLabels, "margin-right", true ) as number;
 
-            DomElement.createWithHTML( labels, "div", "label-75", ( Math.floor( monthValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-50", Math.floor( monthValuesForCurrentYear.largestValue / 2 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-25", Math.floor( monthValuesForCurrentYear.largestValue / 4 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-0", Char.zero );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-75", ( Math.floor( monthValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-50", Math.floor( monthValuesForCurrentYear.largestValue / 2 ).toString() );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-25", Math.floor( monthValuesForCurrentYear.largestValue / 4 ).toString() );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-0", Char.zero );
 
-            labels.style.width = `${topLabel.offsetWidth}px`;
-            monthNames.style.paddingLeft = `${labels.offsetWidth + marginRight}px`;
+            yAxisLabels.style.width = `${topLabel.offsetWidth}px`;
+            monthNames.style.paddingLeft = `${yAxisLabels.offsetWidth + marginRight}px`;
 
         } else {
-            labels.parentNode!.removeChild( labels );
+            yAxisLabels.parentNode!.removeChild( yAxisLabels );
         }
 
         if ( monthValuesForCurrentYear.largestValue === 0 ) {
@@ -2446,7 +2446,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
         const colorRanges: HTMLElement = DomElement.create( bindingOptions._currentView!.colorRangesContents, "div", "color-ranges" );
         const colorRangeNames: HTMLElement = DomElement.create( bindingOptions._currentView!.colorRangesContents, "div", "color-range-names" );
-        const labels: HTMLElement = DomElement.create( colorRanges, "div", "y-labels" );
+        const yAxisLabels: HTMLElement = DomElement.create( colorRanges, "div", "y-labels" );
         const colorRangeLines: HTMLElement = DomElement.create( colorRanges, "div", "color-range-lines" );
         const sortedColorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
         const colorRangeValuesForCurrentYear: LargestValuesForEachRangeType = getLargestValuesForEachColorRange( bindingOptions, sortedColorRanges );
@@ -2456,19 +2456,19 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.colorRanges!.showChartYLabels ) {
-            const topLabel: HTMLElement = DomElement.createWithHTML( labels, "div", "label-100", colorRangeValuesForCurrentYear.largestValue.toString() );
-            const marginRight: number = DomElement.getStyleValueByName( labels, "margin-right", true ) as number;
+            const topLabel: HTMLElement = DomElement.createWithHTML( yAxisLabels, "div", "label-100", colorRangeValuesForCurrentYear.largestValue.toString() );
+            const marginRight: number = DomElement.getStyleValueByName( yAxisLabels, "margin-right", true ) as number;
 
-            DomElement.createWithHTML( labels, "div", "label-75", ( Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-50", Math.floor( colorRangeValuesForCurrentYear.largestValue / 2 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-25", Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ).toString() );
-            DomElement.createWithHTML( labels, "div", "label-0", Char.zero );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-75", ( Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-50", Math.floor( colorRangeValuesForCurrentYear.largestValue / 2 ).toString() );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-25", Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ).toString() );
+            DomElement.createWithHTML( yAxisLabels, "div", "label-0", Char.zero );
 
-            labels.style.width = `${topLabel.offsetWidth}px`;
-            colorRangeNames.style.paddingLeft = `${labels.offsetWidth + marginRight}px`;
+            yAxisLabels.style.width = `${topLabel.offsetWidth}px`;
+            colorRangeNames.style.paddingLeft = `${yAxisLabels.offsetWidth + marginRight}px`;
 
         } else {
-            labels.parentNode!.removeChild( labels );
+            yAxisLabels.parentNode!.removeChild( yAxisLabels );
         }
 
         if ( colorRangeValuesForCurrentYear.largestValue === 0 ) {
