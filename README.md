@@ -31,8 +31,8 @@ Heat.js
 - ☑️ Configuration dialog support per view.
 - ⭐ Fully configurable per DOM element via binding options.
 - 🎥 Toggling colors on/off support.
-- 🔨 Export all data to CSV, JSON, XML, TXT, HTML, MD, TSV, YAML, and TOML.
-- 🔨 Import data from JSON, TXT, CSV, TSV, MD, YAML, and TOML.
+- 🔨 9 export formats supported.
+- 🔨 7 import formats supported.
 - 💁 Trend types allows data to be split up and viewed separately.
 - ❓ Customizable tooltips.
 - 💧 Data pulling (does not support trend types).
@@ -110,6 +110,34 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `tr` Turkish
 - `uk` Ukrainian
 - `vi` Vietnamese
+<br>
+<br>
+
+
+<h1>What export formats are supported?</h1>
+
+- `csv` Comma-Separated Values
+- `json` JavaScript Object Notation
+- `xml` Extensible Markup Language
+- `txt` Text
+- `html` Hypertext Markup Language
+- `md` Markdown
+- `tsv` Tab-Separated Values
+- `yaml` YAML Ain't Markup Language
+- `toml` Tom's Obvious Minimal Language
+<br>
+<br>
+
+
+<h1>What import formats are supported?</h1>
+
+- `csv` Comma-Separated Values
+- `json` JavaScript Object Notation
+- `txt` Text
+- `md` Markdown
+- `tsv` Tab-Separated Values
+- `yaml` YAML Ain't Markup Language
+- `toml` Tom's Obvious Minimal Language
 <br>
 <br>
 
