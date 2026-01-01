@@ -4288,7 +4288,7 @@ var V;
                 const i = e.colorRanges[o];
                 i.visible = t;
                 n = et(e, i);
-                c.customEvent(e.events.onColorRangeTypeToggle, e._currentView.element, e.colorRanges[o].id, t);
+                c.customEvent(e.events.onColorRangeTypeToggle, e._currentView.element, i.id, t);
             }
         }
         if (n) {

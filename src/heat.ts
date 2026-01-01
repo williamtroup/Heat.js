@@ -3218,7 +3218,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
                 renderControl = toggleColorRangeForView( bindingOptions, colorRange );
 
-                Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, bindingOptions.colorRanges![ colorRangesIndex ].id, flag );
+                Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
             }
         }
 
