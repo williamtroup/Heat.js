@@ -1300,7 +1300,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     let startFillingDays: boolean = false;
                     let actualDay: number = 1;
 
-                    month.setAttribute( Constant.Attribute.HEAT_JS_MAP_MONTH_NUMBER, `${actualMonthIndex + 1}` );
+                    month.setAttribute( Constant.Attribute.View.Map.HEAT_JS_MONTH_NUMBER, `${actualMonthIndex + 1}` );
         
                     totalDaysInMonth += firstDayNumberInMonth;
         
@@ -1449,10 +1449,10 @@ import { DocumentElement } from "./ts/area/document-element";
 
         dateCount = Default.getNumber( dateCount, 0 );
 
-        day.setAttribute( Constant.Attribute.HEAT_JS_MAP_DATE, `${Str.padNumber( actualDay )}-${Str.padNumber( month + 1 )}-${year}` );
+        day.setAttribute( Constant.Attribute.View.Map.HEAT_JS_DATE, `${Str.padNumber( actualDay )}-${Str.padNumber( month + 1 )}-${year}` );
 
         if ( Is.defined( useColorRange ) ) {
-            day.setAttribute( Constant.Attribute.HEAT_JS_MAP_MINIMUM, useColorRange.minimum!.toString() );
+            day.setAttribute( Constant.Attribute.View.Map.HEAT_JS_MINIMUM, useColorRange.minimum!.toString() );
         }
 
         if ( bindingOptions.views!.map!.showToolTips ) {
@@ -1672,10 +1672,10 @@ import { DocumentElement } from "./ts/area/document-element";
 
         dateCount = Default.getNumber( dateCount, 0 );
 
-        dayLine.setAttribute( Constant.Attribute.HEAT_JS_LINE_DATE, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
+        dayLine.setAttribute( Constant.Attribute.View.Line.HEAT_JS_DATE, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
 
         if ( Is.defined( useColorRange ) ) {
-            dayLine.setAttribute( Constant.Attribute.HEAT_JS_LINE_MINIMUM, useColorRange.minimum!.toString() );
+            dayLine.setAttribute( Constant.Attribute.View.Line.HEAT_JS_MINIMUM, useColorRange.minimum!.toString() );
         }
 
         if ( bindingOptions.views!.line!.showToolTips ) {
@@ -1885,10 +1885,10 @@ import { DocumentElement } from "./ts/area/document-element";
 
         dateCount = Default.getNumber( dateCount, 0 );
 
-        dayLine.setAttribute( Constant.Attribute.HEAT_JS_CHART_DATE, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
+        dayLine.setAttribute( Constant.Attribute.View.Chart.HEAT_JS_DATE, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
 
         if ( Is.defined( useColorRange ) ) {
-            dayLine.setAttribute( Constant.Attribute.HEAT_JS_CHART_MINIMUM, useColorRange.minimum!.toString() );
+            dayLine.setAttribute( Constant.Attribute.View.Chart.HEAT_JS_MINIMUM, useColorRange.minimum!.toString() );
         }
 
         if ( bindingOptions.views!.chart!.showToolTips ) {
@@ -2049,7 +2049,7 @@ import { DocumentElement } from "./ts/area/document-element";
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
         let count: HTMLElement = null!;
 
-        dayLine.setAttribute( Constant.Attribute.HEAT_JS_DAY_NUMBER, dayNumber.toString() );
+        dayLine.setAttribute( Constant.Attribute.View.Days.HEAT_JS_NUMBER, dayNumber.toString() );
 
         if ( dayLineHeight <= 0 ) {
             dayLine.style.visibility = "hidden";
@@ -2296,7 +2296,7 @@ import { DocumentElement } from "./ts/area/document-element";
         const today: Date = new Date();
         let count: HTMLElement = null!;
 
-        monthLine.setAttribute( Constant.Attribute.HEAT_JS_MONTH_NUMBER, monthNumber.toString() );
+        monthLine.setAttribute( Constant.Attribute.View.Month.HEAT_JS_NUMBER, monthNumber.toString() );
 
         if ( !bindingOptions.views!.months!.showStackedColorRanges ) {
             DomElement.addClass( monthLine, "non-stacked" );
@@ -2525,8 +2525,8 @@ import { DocumentElement } from "./ts/area/document-element";
         const rangeLineHeight: number = rangeCount * pixelsPerNumbers;
 
         if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) ) {
-            rangeLine.setAttribute( Constant.Attribute.HEAT_JS_STATISTICS_COLOR_RANGE_NAME, useColorRange.name! );
-            rangeLine.setAttribute( Constant.Attribute.HEAT_JS_STATISTICS_MINIMUM, useColorRange.minimum!.toString() );
+            rangeLine.setAttribute( Constant.Attribute.View.Statistics.HEAT_JS_COLOR_RANGE_NAME, useColorRange.name! );
+            rangeLine.setAttribute( Constant.Attribute.View.Statistics.HEAT_JS_MINIMUM, useColorRange.minimum!.toString() );
         }
 
         if ( rangeLineHeight <= 0 ) {
@@ -2759,7 +2759,7 @@ import { DocumentElement } from "./ts/area/document-element";
     function renderControlGuideToggle( bindingOptions: BindingOptions, toggles: HTMLElement, colorRange: BindingOptionsColorRange ) : HTMLElement {
         const toggle: HTMLElement = DomElement.create( toggles, "div" );
         toggle.className = "toggle";
-        toggle.setAttribute( Constant.Attribute.HEAT_JS_COLOR_RANGE_MINIMUM, colorRange.minimum!.toString() );
+        toggle.setAttribute( Constant.Attribute.Area.ColorRangeToggle.HEAT_JS_MINIMUM, colorRange.minimum!.toString() );
 
         if ( bindingOptions.guide!.showToolTips ) {
             ToolTip.add( toggle, bindingOptions, colorRange.tooltipText! );
@@ -3264,13 +3264,13 @@ import { DocumentElement } from "./ts/area/document-element";
         let result: boolean = false;
 
         if ( bindingOptions._currentView!.view === ViewId.map ) {
-            toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.mapCssClassName!, Constant.Attribute.HEAT_JS_MAP_MINIMUM );
+            toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.mapCssClassName!, Constant.Attribute.View.Map.HEAT_JS_MINIMUM );
         } else if ( bindingOptions._currentView!.view === ViewId.line ) {
-            toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.lineCssClassName!, Constant.Attribute.HEAT_JS_LINE_MINIMUM );
+            toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.lineCssClassName!, Constant.Attribute.View.Line.HEAT_JS_MINIMUM );
         } else if ( bindingOptions._currentView!.view === ViewId.chart ) {
-            toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.chartCssClassName!, Constant.Attribute.HEAT_JS_CHART_MINIMUM );
+            toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.chartCssClassName!, Constant.Attribute.View.Chart.HEAT_JS_MINIMUM );
         } else if ( bindingOptions._currentView!.view === ViewId.statistics ) {
-            toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.statisticsCssClassName!, Constant.Attribute.HEAT_JS_STATISTICS_MINIMUM );
+            toggleColorRangeCssClasses( bindingOptions, colorRange, colorRange.statisticsCssClassName!, Constant.Attribute.View.Statistics.HEAT_JS_MINIMUM );
         } else {
             result = true;
         }
@@ -3294,7 +3294,7 @@ import { DocumentElement } from "./ts/area/document-element";
         for ( let daysIndex: number = 0; daysIndex < daysLength; daysIndex++ ) {
             const element: HTMLElement = days[ daysIndex ];
             const attributeValue: string = element.getAttribute( attributeName )!;
-            const colorRangeAttributeValue: string = element.getAttribute( Constant.Attribute.HEAT_JS_COLOR_RANGE_MINIMUM )!;
+            const colorRangeAttributeValue: string = element.getAttribute( Constant.Attribute.Area.ColorRangeToggle.HEAT_JS_MINIMUM )!;
             let updateCssClass: boolean = false;
             
             if ( Is.definedString( attributeValue ) && attributeValue === colorRange.minimum!.toString() ) {
