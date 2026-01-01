@@ -2519,9 +2519,9 @@ import { DocumentElement } from "./ts/area/document-element";
         bindingOptions._currentView!.colorRangesContents.style.display = "none";
     }
 
-    function renderControlColorRangesLine( colorRangeMinimum: number, colorRangeLines: HTMLElement, rangeCount: number, bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, totalValue: number, isForViewSwitch: boolean ) : void {
+    function renderControlColorRangesLine( colorRangeMinimum: number, colorRangeLines: HTMLElement, colorRangeCount: number, bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, totalValue: number, isForViewSwitch: boolean ) : void {
         const colorRangeLine: HTMLElement = DomElement.create( colorRangeLines, "div", "color-range-line" );
-        const colorRangeLineHeight: number = rangeCount * pixelsPerNumbers;
+        const colorRangeLineHeight: number = colorRangeCount * pixelsPerNumbers;
         const useColorRange: BindingOptionsColorRange = ColorRange.getByMinimum( colorRanges, colorRangeMinimum );
 
         if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) ) {
@@ -2537,27 +2537,27 @@ import { DocumentElement } from "./ts/area/document-element";
             let tooltip: string;
 
             if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) && bindingOptions.views!.colorRanges!.showRangeNamesInToolTips ) {
-                tooltip = `${useColorRange.name}${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( rangeCount )}</b>`;
+                tooltip = `${useColorRange.name}${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( colorRangeCount )}</b>`;
             } else {
-                tooltip = Str.friendlyNumber( rangeCount );
+                tooltip = Str.friendlyNumber( colorRangeCount );
             }
 
             ToolTip.add( colorRangeLine, bindingOptions, tooltip );
         }
 
-        if ( bindingOptions.views!.colorRanges!.showRangeCounts && rangeCount > 0 ) {
+        if ( bindingOptions.views!.colorRanges!.showRangeCounts && colorRangeCount > 0 ) {
             DomElement.addClass( colorRangeLine, "color-range-line-count" );
-            const count: HTMLElement = DomElement.createWithHTML( colorRangeLine, "div", "count", Str.friendlyNumber( rangeCount ) );
+            const count: HTMLElement = DomElement.createWithHTML( colorRangeLine, "div", "count", Str.friendlyNumber( colorRangeCount ) );
 
             if ( bindingOptions.views!.colorRanges!.showRangeCountPercentages ) {
-                DomElement.createWithHTML( count, "div", "percentage", `${( ( rangeCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
+                DomElement.createWithHTML( count, "div", "percentage", `${( ( colorRangeCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
             }
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onColorRangeClick ) ) {
-            colorRangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onColorRangeClick!, bindingOptions._currentView!.element, useColorRange, rangeCount, bindingOptions._currentView!.year );
+            colorRangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onColorRangeClick!, bindingOptions._currentView!.element, useColorRange, colorRangeCount, bindingOptions._currentView!.year );
         } else if ( Is.definedFunction( bindingOptions.events!.onColorRangeDblClick ) ) {
-            colorRangeLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onColorRangeDblClick!, useColorRange, rangeCount, bindingOptions._currentView!.year );
+            colorRangeLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onColorRangeDblClick!, useColorRange, colorRangeCount, bindingOptions._currentView!.year );
         } else {
             DomElement.addClass( colorRangeLine, "no-hover" );
         }
