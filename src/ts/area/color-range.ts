@@ -104,7 +104,7 @@ export namespace ColorRange {
         const rgbaValues: number[] = Convert.hexToRgbaValues( dynamicColorRange!.color! );
         const incrementPercentage: number = 100 / dynamicColorRange!.totalColors!;
         const incrementAlpha: number = 1.0 / dynamicColorRange!.totalColors!;
-        const incrementMinimum: number = Math.floor( dynamicColorRange!.maximumMinimum! / dynamicColorRange!.totalColors! );
+        const incrementMinimum: number = Math.floor( ( dynamicColorRange!.maximumMinimum! - dynamicColorRange!.startMinimum! ) / dynamicColorRange!.totalColors! );
         const cssLines: string[] = [];
 
         let red: number = rgbaValues[ 0 ];
@@ -114,7 +114,7 @@ export namespace ColorRange {
         let colorRed: number = rgbaValues[ 0 ];
         let colorGreen: number = rgbaValues[ 1 ];
         let colorBlue: number = rgbaValues[ 2 ];
-        let currentMinimum: number = 0;
+        let currentMinimum: number = dynamicColorRange!.startMinimum!;
 
         for ( let colorIndex: number = 0; colorIndex < dynamicColorRange!.totalColors!; colorIndex++ ){
             const actualColorIndex: number = colorIndex + 1;

@@ -110,7 +110,8 @@
 - Added a new binding option called "dynamicColorRange.enabled", which states if dynamic colors are enabled (defaults to false).
 - Added a new binding option called "dynamicColorRange.maximumMinimum", which states the maximum minimum level to use (defaults to 25).
 - Added a new binding option called "dynamicColorRange.color", which states the hex color to start with (defaults to empty string).
-- Added a new binding option called "dynamicColorRange.totalColors", which states the total number of color ranges ot create (defaults to 7).
+- Added a new binding option called "dynamicColorRange.totalColors", which states the total number of color ranges to create (defaults to 7).
+- Added a new binding option called "dynamicColorRange.startMinimum", which states where the first color range minimum should start (defaults to 10).
 
 #### **Binding Options - Custom Triggers - Breaking:**
 - BREAKING: Renamed "events.onDayClick" to "events.onMapDayClick".

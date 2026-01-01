@@ -392,6 +392,7 @@ export namespace Binding {
             bindingOptions.dynamicColorRange!.maximumMinimum = Default.getNumber( bindingOptions.dynamicColorRange!.maximumMinimum, 25 );
             bindingOptions.dynamicColorRange!.color = Default.getString( bindingOptions.dynamicColorRange!.color, Char.empty );
             bindingOptions.dynamicColorRange!.totalColors = Default.getNumber( bindingOptions.dynamicColorRange!.totalColors, 7 );
+            bindingOptions.dynamicColorRange!.startMinimum = Default.getNumber( bindingOptions.dynamicColorRange!.startMinimum, 10 );
     
             return bindingOptions.dynamicColorRange!;
         }

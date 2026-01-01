@@ -714,7 +714,7 @@ var w;
         const n = u.hexToRgbaValues(e.color);
         const i = 100 / e.totalColors;
         const o = 1 / e.totalColors;
-        const s = Math.floor(e.maximumMinimum / e.totalColors);
+        const s = Math.floor((e.maximumMinimum - e.startMinimum) / e.totalColors);
         const r = [];
         let l = n[0];
         let c = n[1];
@@ -723,7 +723,7 @@ var w;
         let f = n[0];
         let g = n[1];
         let m = n[2];
-        let p = 0;
+        let p = e.startMinimum;
         for (let a = 0; a < e.totalColors; a++) {
             const u = a + 1;
             const y = h + o > 1 ? 1 : h + o;
@@ -1101,6 +1101,7 @@ var h;
             e.dynamicColorRange.maximumMinimum = o.getNumber(e.dynamicColorRange.maximumMinimum, 25);
             e.dynamicColorRange.color = o.getString(e.dynamicColorRange.color, "");
             e.dynamicColorRange.totalColors = o.getNumber(e.dynamicColorRange.totalColors, 7);
+            e.dynamicColorRange.startMinimum = o.getNumber(e.dynamicColorRange.startMinimum, 10);
             return e.dynamicColorRange;
         }
         function b(e) {
