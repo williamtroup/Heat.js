@@ -208,6 +208,7 @@
 - Pressing "Escape" when any dialog is open will now close it.
 - All dates shown in tooltips will now format the ordinal of a date correctly (they will be shown in sup elements).
 - The guide toggles no longer force a re-render when the Map, Line, or Chart views are visible.
+- The default Ids used for the Color Ranges (when not configured) are now padded numbers, so they always remain the same.
 
 #### **Library:**
 - Updated all the NPM packages to the latest versions.

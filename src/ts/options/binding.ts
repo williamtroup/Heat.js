@@ -37,6 +37,7 @@ import { Char, ExportType, Value, ViewId, ViewName } from "../data/enum";
 import { Default } from "../data/default";
 import { Is } from "../data/is";
 import { ColorRange } from "../area/color-range";
+import { Str } from "../data/str";
 
 
 export namespace Binding {
@@ -429,7 +430,7 @@ export namespace Binding {
                 } else {
                     result = [
                         {
-                            id: crypto.randomUUID(),
+                            id: Str.padNumber( 1 ),
                             name: "Day Color 1",
                             minimum: 10,
                             cssClassName: "day-color-1",
@@ -437,7 +438,7 @@ export namespace Binding {
                             visible: true,
                         },
                         {
-                            id: crypto.randomUUID(),
+                            id: Str.padNumber( 2 ),
                             name: "Day Color 2",
                             minimum: 15,
                             cssClassName: "day-color-2",
@@ -445,7 +446,7 @@ export namespace Binding {
                             visible: true,
                         },
                         {
-                            id: crypto.randomUUID(),
+                            id: Str.padNumber( 3 ),
                             name: "Day Color 3",
                             minimum: 20,
                             cssClassName: "day-color-3",
@@ -453,7 +454,7 @@ export namespace Binding {
                             visible: true,
                         },
                         {
-                            id: crypto.randomUUID(),
+                            id: Str.padNumber( 4 ),
                             name: "Day Color 4",
                             minimum: 25,
                             cssClassName: "day-color-4",

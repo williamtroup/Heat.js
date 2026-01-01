@@ -669,7 +669,7 @@ var w;
         return i;
     }
     e.isVisible = t;
-    function s(e, t, o, s = null) {
+    function r(e, t, o, s = null) {
         let r = null;
         if (i.defined(s) && i.holiday(e, s).matched) {
             r = {
@@ -692,8 +692,8 @@ var w;
         }
         return r;
     }
-    e.get = s;
-    function r(e, t) {
+    e.get = r;
+    function l(e, t) {
         const n = e.length;
         let i = null;
         for (let o = 0; o < n; o++) {
@@ -705,79 +705,79 @@ var w;
         }
         return i;
     }
-    e.getByMinimum = r;
-    function l(e) {
+    e.getByMinimum = l;
+    function c(e) {
         return e.colorRanges.sort((e, t) => e.minimum - t.minimum);
     }
-    e.getAllSorted = l;
-    function c(e) {
+    e.getAllSorted = c;
+    function w(e) {
         const t = [];
         const n = u.hexToRgbaValues(e.color);
         const i = 100 / e.totalColors;
         const o = 1 / e.totalColors;
-        const s = (e.maximumMinimum - e.startMinimum) / (e.totalColors - 1);
-        const r = [];
-        let l = n.red;
-        let c = n.green;
-        let w = n.blue;
-        let h = o;
-        let f = n.red;
-        let g = n.green;
-        let m = n.blue;
-        let p = e.startMinimum;
+        const r = (e.maximumMinimum - e.startMinimum) / (e.totalColors - 1);
+        const l = [];
+        let c = n.red;
+        let w = n.green;
+        let h = n.blue;
+        let f = o;
+        let g = n.red;
+        let m = n.green;
+        let p = n.blue;
+        let y = e.startMinimum;
         for (let a = 0; a < e.totalColors; a++) {
             const u = a + 1;
-            const y = h + o > 1 ? 1 : h + o;
-            const v = `rgba(${l}, ${c}, ${w}, ${h.toFixed(2)})`;
-            const b = `rgba(${l}, ${c}, ${w}, ${y.toFixed(2)})`;
-            const T = `rgb(${f}, ${g}, ${m})`;
-            const V = `day-color-${crypto.randomUUID().replace(/-/g, "")}`;
-            r.push(`div.${V} {`);
-            r.push(`${"\t"}background-color: ${v} !important;`);
-            r.push(`${"\t"}border-color: ${b} !important;`);
-            r.push(`${"\t"}color: ${T} !important;`);
-            r.push("}");
-            r.push(`div.${V}:not(.no-hover):hover {`);
-            r.push(`${"\t"}opacity: 0.7 !important;`);
-            r.push("}");
-            const x = {
-                id: V,
+            const v = f + o > 1 ? 1 : f + o;
+            const b = `rgba(${c}, ${w}, ${h}, ${f.toFixed(2)})`;
+            const T = `rgba(${c}, ${w}, ${h}, ${v.toFixed(2)})`;
+            const V = `rgb(${g}, ${m}, ${p})`;
+            const x = `day-color-${s.padNumber(u)}`;
+            l.push(`div.${x} {`);
+            l.push(`${"\t"}background-color: ${b} !important;`);
+            l.push(`${"\t"}border-color: ${T} !important;`);
+            l.push(`${"\t"}color: ${V} !important;`);
+            l.push("}");
+            l.push(`div.${x}:not(.no-hover):hover {`);
+            l.push(`${"\t"}opacity: 0.7 !important;`);
+            l.push("}");
+            const C = {
+                id: s.padNumber(u),
                 name: `Day Color ${u}`,
-                minimum: Math.round(p),
-                cssClassName: V,
+                minimum: Math.round(y),
+                cssClassName: x,
                 tooltipText: `Day Color ${u}`,
                 visible: true
             };
-            const C = Math.round(n.red / 100 * (u * i));
-            const _ = Math.round(n.green / 100 * (u * i));
-            const D = Math.round(n.blue / 100 * (u * i));
+            const _ = Math.round(n.red / 100 * (u * i));
+            const D = Math.round(n.green / 100 * (u * i));
+            const S = Math.round(n.blue / 100 * (u * i));
             if (a === e.totalColors - 1) {
-                r.push(`:root {`);
-                r.push(`${"\t"}${d.Variables.CheckBoxCheckedColor}: ${v};`);
-                r.push(`${"\t"}${d.Variables.YearMenuCurrent}: ${v};`);
-                r.push("}");
+                l.push(`:root {`);
+                l.push(`${"\t"}${d.Variables.CheckBoxCheckedColor}: ${b};`);
+                l.push(`${"\t"}${d.Variables.YearMenuCurrent}: ${b};`);
+                l.push("}");
             } else {
-                l = n.red + C;
-                c = n.green + _;
-                w = n.blue + D;
-                h += o;
-                f = n.red - C;
-                g = n.green - _;
-                m = n.blue - D;
-                p += s;
-                if (p > e.maximumMinimum) {
-                    p = e.maximumMinimum;
+                c = n.red + _;
+                w = n.green + D;
+                h = n.blue + S;
+                f += o;
+                g = n.red - _;
+                m = n.green - D;
+                p = n.blue - S;
+                y += r;
+                if (y > e.maximumMinimum) {
+                    y = e.maximumMinimum;
                 }
             }
-            t.push(x);
+            t.push(C);
         }
-        const y = document.getElementsByTagName("head")[0];
-        const v = a.create(y, "style");
-        v.appendChild(document.createTextNode(r.join("\n")));
+        const v = document.getElementsByTagName("head")[0];
+        const b = a.create(v, "style");
+        b.appendChild(document.createTextNode(l.join("\n")));
         return t;
     }
-    e.buildDynamics = c;
-    function w(e, t) {
+    e.buildDynamics = w;
+    function h(e, t) {
         let n = t.cssClassName;
         if (e.views.map.enabled && e._currentView.view === 1 && i.definedString(t.mapCssClassName)) {
             n = t.mapCssClassName;
@@ -794,7 +794,7 @@ var w;
         }
         return n;
     }
-    e.getGuideCssClassName = w;
+    e.getGuideCssClassName = h;
 })(w || (w = {}));
 
 var h;
@@ -804,8 +804,8 @@ var h;
     (e => {
         const t = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
         const n = [ 1, 2, 3, 4, 5, 6, 7 ];
-        function s(e, t, n) {
-            const o = r(t);
+        function r(e, t, n) {
+            const o = a(t);
             o._currentView = {};
             o._currentView.element = n;
             o._currentView.disabledBackground = null;
@@ -857,11 +857,11 @@ var h;
                 o._currentView.statisticsContentsScrollLeft = 0;
                 o._currentView.viewsEnabled++;
             }
-            C(o);
+            _(o);
             return o;
         }
-        e.getForNewInstance = s;
-        function r(e) {
+        e.getForNewInstance = r;
+        function a(e) {
             const t = o.getObject(e, {});
             t.views = o.getObject(t.views, {});
             t.exportOnlyDataBeingViewed = o.getBoolean(t.exportOnlyDataBeingViewed, true);
@@ -880,29 +880,29 @@ var h;
             t.percentageDecimalPoints = o.getNumber(t.percentageDecimalPoints, 2);
             t.chartsAnimationDelay = o.getNumber(t.chartsAnimationDelay, 50);
             t.exportDateTimeFormat = o.getString(t.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}");
-            t.title = a(t);
-            t.yearlyStatistics = l(t);
-            t.views.map = c(t);
-            t.views.line = u(t);
-            t.views.chart = d(t);
-            t.views.days = h(t);
-            t.views.months = f(t);
-            t.views.statistics = g(t);
-            t.description = m(t);
-            t.guide = p(t);
-            t.tooltip = y(t);
-            t.zooming = v(t);
-            t.dynamicColorRange = b(t);
-            t.colorRanges = T(t);
-            t.holidays = V(t);
-            t.events = x(t);
+            t.title = l(t);
+            t.yearlyStatistics = c(t);
+            t.views.map = u(t);
+            t.views.line = d(t);
+            t.views.chart = h(t);
+            t.views.days = f(t);
+            t.views.months = g(t);
+            t.views.statistics = m(t);
+            t.description = p(t);
+            t.guide = y(t);
+            t.tooltip = v(t);
+            t.zooming = b(t);
+            t.dynamicColorRange = T(t);
+            t.colorRanges = V(t);
+            t.holidays = x(t);
+            t.events = C(t);
             if (t.startMonth > 0) {
                 t.yearsToHide = [];
             }
             return t;
         }
-        e.get = r;
-        function a(e) {
+        e.get = a;
+        function l(e) {
             e.title = o.getObject(e.title, {});
             e.title.text = o.getString(e.title.text, "Heat.js");
             e.title.showText = o.getBoolean(e.title.showText, true);
@@ -922,7 +922,7 @@ var h;
             e.title.showClearButton = o.getBoolean(e.title.showClearButton, false);
             return e.title;
         }
-        function l(e) {
+        function c(e) {
             e.yearlyStatistics = o.getObject(e.yearlyStatistics, {});
             e.yearlyStatistics.enabled = o.getBoolean(e.yearlyStatistics.enabled, false);
             e.yearlyStatistics.showToday = o.getBoolean(e.yearlyStatistics.showToday, true);
@@ -933,7 +933,7 @@ var h;
             e.yearlyStatistics.showPercentages = o.getBoolean(e.yearlyStatistics.showPercentages, true);
             return e.yearlyStatistics;
         }
-        function c(e) {
+        function u(e) {
             e.views.map = o.getObject(e.views.map, {});
             e.views.map.enabled = o.getBoolean(e.views.map.enabled, true);
             e.views.map.showMonthDayGaps = o.getBoolean(e.views.map.showMonthDayGaps, true);
@@ -960,7 +960,7 @@ var h;
             }
             return e.views.map;
         }
-        function u(e) {
+        function d(e) {
             e.views.line = o.getObject(e.views.line, {});
             e.views.line.enabled = o.getBoolean(e.views.line.enabled, true);
             e.views.line.showMonthNames = o.getBoolean(e.views.line.showMonthNames, true);
@@ -978,7 +978,7 @@ var h;
             }
             return e.views.line;
         }
-        function d(e) {
+        function h(e) {
             e.views.chart = o.getObject(e.views.chart, {});
             e.views.chart.enabled = o.getBoolean(e.views.chart.enabled, true);
             e.views.chart.showChartYLabels = o.getBoolean(e.views.chart.showChartYLabels, true);
@@ -1002,7 +1002,7 @@ var h;
             }
             return e.views.chart;
         }
-        function h(e) {
+        function f(e) {
             e.views.days = o.getObject(e.views.days, {});
             e.views.days.enabled = o.getBoolean(e.views.days.enabled, true);
             e.views.days.showChartYLabels = o.getBoolean(e.views.days.showChartYLabels, true);
@@ -1023,7 +1023,7 @@ var h;
             }
             return e.views.days;
         }
-        function f(e) {
+        function g(e) {
             e.views.months = o.getObject(e.views.months, {});
             e.views.months.enabled = o.getBoolean(e.views.months.enabled, true);
             e.views.months.showChartYLabels = o.getBoolean(e.views.months.showChartYLabels, true);
@@ -1045,7 +1045,7 @@ var h;
             }
             return e.views.months;
         }
-        function g(e) {
+        function m(e) {
             e.views.statistics = o.getObject(e.views.statistics, {});
             e.views.statistics.enabled = o.getBoolean(e.views.statistics.enabled, true);
             e.views.statistics.showChartYLabels = o.getBoolean(e.views.statistics.showChartYLabels, true);
@@ -1066,14 +1066,14 @@ var h;
             }
             return e.views.statistics;
         }
-        function m(e) {
+        function p(e) {
             e.description = o.getObject(e.description, {});
             e.description.text = o.getString(e.description.text, "");
             e.description.url = o.getString(e.description.url, "");
             e.description.urlTarget = o.getString(e.description.urlTarget, "_blank");
             return e.description;
         }
-        function p(e) {
+        function y(e) {
             e.guide = o.getObject(e.guide, {});
             e.guide.enabled = o.getBoolean(e.guide.enabled, true);
             e.guide.colorRangeTogglesEnabled = o.getBoolean(e.guide.colorRangeTogglesEnabled, true);
@@ -1086,12 +1086,12 @@ var h;
             e.guide.allowTypeRemoving = o.getBoolean(e.guide.allowTypeRemoving, false);
             return e.guide;
         }
-        function y(e) {
+        function v(e) {
             e.tooltip = o.getObject(e.tooltip, {});
             e.tooltip.delay = o.getNumber(e.tooltip.delay, 750);
             return e.tooltip;
         }
-        function v(e) {
+        function b(e) {
             e.zooming = o.getObject(e.zooming, {});
             e.zooming.enabled = o.getBoolean(e.zooming.enabled, false);
             e.zooming.defaultLevel = o.getNumber(e.zooming.defaultLevel, 0);
@@ -1099,7 +1099,7 @@ var h;
             e.zooming.showCloseButton = o.getBoolean(e.zooming.showCloseButton, true);
             return e.zooming;
         }
-        function b(e) {
+        function T(e) {
             e.dynamicColorRange = o.getObject(e.dynamicColorRange, {});
             e.dynamicColorRange.enabled = o.getBoolean(e.dynamicColorRange.enabled, false);
             e.dynamicColorRange.maximumMinimum = o.getNumber(e.dynamicColorRange.maximumMinimum, 25);
@@ -1108,7 +1108,7 @@ var h;
             e.dynamicColorRange.startMinimum = o.getNumber(e.dynamicColorRange.startMinimum, 10);
             return e.dynamicColorRange;
         }
-        function T(e) {
+        function V(e) {
             let t = [];
             if (e.dynamicColorRange.enabled && i.hexColor(e.dynamicColorRange.color)) {
                 t = w.buildDynamics(e.dynamicColorRange);
@@ -1133,28 +1133,28 @@ var h;
                     }
                 } else {
                     t = [ {
-                        id: crypto.randomUUID(),
+                        id: s.padNumber(1),
                         name: "Day Color 1",
                         minimum: 10,
                         cssClassName: "day-color-1",
                         tooltipText: "Day Color 1",
                         visible: true
                     }, {
-                        id: crypto.randomUUID(),
+                        id: s.padNumber(2),
                         name: "Day Color 2",
                         minimum: 15,
                         cssClassName: "day-color-2",
                         tooltipText: "Day Color 2",
                         visible: true
                     }, {
-                        id: crypto.randomUUID(),
+                        id: s.padNumber(3),
                         name: "Day Color 3",
                         minimum: 20,
                         cssClassName: "day-color-3",
                         tooltipText: "Day Color 3",
                         visible: true
                     }, {
-                        id: crypto.randomUUID(),
+                        id: s.padNumber(4),
                         name: "Day Color 4",
                         minimum: 25,
                         cssClassName: "day-color-4",
@@ -1165,7 +1165,7 @@ var h;
             }
             return t;
         }
-        function V(e) {
+        function x(e) {
             const t = [];
             if (i.definedArray(e.holidays)) {
                 const n = e.holidays.length;
@@ -1179,7 +1179,7 @@ var h;
             }
             return t;
         }
-        function x(e) {
+        function C(e) {
             e.events = o.getObject(e.events, {});
             e.events.onBackYear = o.getFunction(e.events.onBackYear, null);
             e.events.onNextYear = o.getFunction(e.events.onNextYear, null);
@@ -1221,7 +1221,7 @@ var h;
             e.events.onRemoveType = o.getFunction(e.events.onRemoveType, null);
             return e.events;
         }
-        function C(e) {
+        function _(e) {
             if (e.views.map.enabled && e.defaultView === "map") {
                 e._currentView.view = 1;
             } else if (e.views.line.enabled && e.defaultView === "line") {
@@ -2078,7 +2078,7 @@ var V;
         const n = t ? window.addEventListener : window.removeEventListener;
         n("blur", () => l.hide(e));
     }
-    function k(e) {
+    function N(e) {
         g.Background.render(e);
         if (!i.definedParentElement(e._currentView.configurationDialog)) {
             e._currentView.configurationDialog = a.create(e._currentView.disabledBackground, "div", "dialog configuration");
@@ -2118,8 +2118,8 @@ var V;
             l.add(i, e, x.text.closeButtonText);
         }
     }
-    function N(e) {
-        k(e);
+    function k(e) {
+        N(e);
         g.Background.show(e);
         if (i.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "block") {
             e._currentView.configurationDialog.style.display = "block";
@@ -2331,12 +2331,12 @@ var V;
             a.createWithHTML(t, "span", "dialog-title-bar-text", x.text.selectFilesText);
             e._currentView.importDialogDragAndDrop = a.createWithHTML(n, "div", "drag-and-drop-files", x.text.dragAndDropFilesText);
             e._currentView.importDialogClearExistingData = a.createCheckBox(n, x.text.clearExistingDataText, crypto.randomUUID());
-            z(e._currentView.importDialogDragAndDrop, e);
+            U(e._currentView.importDialogDragAndDrop, e);
             const o = a.create(n, "div", "buttons");
             const s = a.createButton(o, "button", "", x.text.browseButtonText);
             e._currentView.importDialogImportButton = a.createButton(o, "button", "default", x.text.importButtonText);
             e._currentView.importDialogImportButton.disabled = true;
-            i.onclick = () => U(e);
+            i.onclick = () => z(e);
             s.onclick = () => J(e);
             e._currentView.importDialogImportButton.onclick = () => X(e._currentView.importDialogFileList, e, e._currentView.importDialogClearExistingData.checked);
             l.add(i, e, x.text.closeButtonText);
@@ -2349,9 +2349,9 @@ var V;
             e._currentView.importDialog.style.display = "block";
         }
         l.hide(e);
-        V.Dialog.bind(() => U(e));
+        V.Dialog.bind(() => z(e));
     }
-    function U(e) {
+    function z(e) {
         g.Background.hide(e);
         if (i.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "none") {
             e._currentView.importDialogDragAndDrop.innerHTML = x.text.dragAndDropFilesText;
@@ -2362,7 +2362,7 @@ var V;
         l.hide(e);
         V.Dialog.unbind();
     }
-    function z(e, t) {
+    function U(e, t) {
         if (t.allowFileImports && !t._currentView.isInFetchMode) {
             e.ondragover = a.cancelBubble;
             e.ondragenter = a.cancelBubble;
@@ -2571,7 +2571,7 @@ var V;
                     l.add(n, e, x.text.clearButtonText);
                 }
                 n.onclick = () => {
-                    Ue(e);
+                    ze(e);
                     O(e, true);
                 };
             }
@@ -2590,7 +2590,7 @@ var V;
                 }
                 if (e.title.showConfigurationButton) {
                     const n = a.create(t, "div", "configure");
-                    n.onclick = () => N(e);
+                    n.onclick = () => k(e);
                     if (e.title.showToolTips) {
                         l.add(n, e, x.text.configurationButtonText);
                     }
@@ -3876,7 +3876,7 @@ var V;
         if (_[e._currentView.element.id].totalTypes > 1) {
             if (i.definedString(e.description.text)) {
                 const n = a.create(e._currentView.element, "div", "description", t);
-                Ne(e, n);
+                ke(e, n);
             }
             const s = Object.keys(_[e._currentView.element.id].typeData).sort((e, t) => e.localeCompare(t, void 0, {
                 numeric: true,
@@ -3895,7 +3895,7 @@ var V;
                 t.onclick = () => K(e);
             }
         } else {
-            Ne(e, n);
+            ke(e, n);
         }
         if (e.guide.enabled) {
             const n = a.create(t, "div", "map-toggles");
@@ -3921,7 +3921,7 @@ var V;
             const r = [];
             let l = 0;
             for (let t = 0; t < s; t++) {
-                const n = ke(e, i, o[t]);
+                const n = Ne(e, i, o[t]);
                 l = Math.max(l, n.offsetWidth);
                 r.push(n);
             }
@@ -3948,7 +3948,7 @@ var V;
             l.add(t, e, x.text.removeTypeText);
             t.onclick = t => {
                 a.cancelBubble(t);
-                ze(e, n);
+                Ue(e, n);
                 O(e, true);
             };
         }
@@ -3963,7 +3963,7 @@ var V;
             }
         };
     }
-    function ke(e, t, i) {
+    function Ne(e, t, i) {
         const o = a.create(t, "div");
         o.className = "toggle";
         o.setAttribute(n.Attribute.Area.ColorRangeToggle.HEAT_JS_MINIMUM, i.minimum.toString());
@@ -3984,7 +3984,7 @@ var V;
         }
         return o;
     }
-    function Ne(e, t) {
+    function ke(e, t) {
         if (i.definedString(e.description.text)) {
             if (i.definedString(e.description.url)) {
                 const n = a.createWithHTML(t, "a", "label", e.description.text);
@@ -4159,7 +4159,7 @@ var V;
         t = t.sort((e, t) => e - t);
         return t;
     }
-    function Ue(e) {
+    function ze(e) {
         const t = e._currentView.year;
         const n = We(e);
         for (let i = e.startMonth; i < 12 + e.startMonth; i++) {
@@ -4180,7 +4180,7 @@ var V;
         }
         c.customEvent(e.events.onClearViewableData, e._currentView.element);
     }
-    function ze(e, t) {
+    function Ue(e, t) {
         delete _[e._currentView.element.id].typeData[t];
         _[e._currentView.element.id].totalTypes--;
         const n = Object.keys(_[e._currentView.element.id].typeData).sort((e, t) => e.localeCompare(t, void 0, {
@@ -4447,7 +4447,7 @@ var V;
             if (i.definedString(e) && i.definedString(t) && Object.prototype.hasOwnProperty.call(_, e)) {
                 const i = _[e].options;
                 if (!i._currentView.isInFetchMode && !Object.prototype.hasOwnProperty.call(_[e].typeData, t)) {
-                    ze(i, t);
+                    Ue(i, t);
                     if (n) {
                         O(i, true);
                     }

@@ -24,6 +24,7 @@ import { Convert } from "../data/convert";
 import { Char, ViewId } from "../data/enum";
 import { DomElement } from "../dom/dom";
 import { Css } from "../css";
+import { Str } from "../data/str";
 
 
 export namespace ColorRange {
@@ -123,7 +124,7 @@ export namespace ColorRange {
             const rgba: string = `rgba(${red}, ${green}, ${blue}, ${alpha.toFixed( 2 )})`;
             const rgbaBorder: string = `rgba(${red}, ${green}, ${blue}, ${borderAlpha.toFixed( 2 )})`;
             const colorRgb: string = `rgb(${colorRed}, ${colorGreen}, ${colorBlue})`;
-            const cssName: string = `day-color-${crypto.randomUUID().replace( /-/g, Char.empty )}`;
+            const cssName: string = `day-color-${Str.padNumber( actualColorIndex )}`;
             
             cssLines.push( `div.${cssName} {` );
             cssLines.push( `${Char.tab}background-color: ${rgba} !important;` );
@@ -135,7 +136,7 @@ export namespace ColorRange {
             cssLines.push( "}" );
 
             const colorRange: BindingOptionsColorRange = {
-                id: cssName,
+                id: Str.padNumber( actualColorIndex ),
                 name: `Day Color ${actualColorIndex}`,
                 minimum: Math.round( currentMinimum ),
                 cssClassName: cssName,
