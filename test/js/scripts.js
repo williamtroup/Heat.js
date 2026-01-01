@@ -21,6 +21,10 @@ function onMonthClick( _, day, count, year ) {
     console.log( `Month clicked for: ${day}, Count: ${count}, Year: ${year}` );
 }
 
+function onViewSwitch( _, newView ) {
+    console.log( `View switched to: ${newView}` );
+}
+
 function addStartUpBasicData( dayIncrease = 500, totalDays = 8000 ) {
     document.addEventListener( "DOMContentLoaded", () => addBasicData( dayIncrease, totalDays ) );
 }
