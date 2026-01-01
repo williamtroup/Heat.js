@@ -3279,14 +3279,7 @@ import { DocumentElement } from "./ts/area/document-element";
     }
 
     function toggleColorRangeCssClasses( bindingOptions: BindingOptions, colorRange: BindingOptionsColorRange, colorRangeCssClassName: string, attributeName: string ) : void {
-        let cssName: string;
-
-        if ( Is.definedString( colorRangeCssClassName ) ) {
-            cssName = colorRangeCssClassName!;
-        } else {
-            cssName = colorRange.cssClassName!;
-        }
-
+        const cssName: string = Is.definedString( colorRangeCssClassName ) ? colorRangeCssClassName! : colorRange.cssClassName!;
         const dayElements: HTMLCollectionOf<Element> = bindingOptions._currentView!.element!.getElementsByTagName( "div" );
         const days: HTMLElement[] = [].slice.call( dayElements );
         const daysLength: number = days.length;
@@ -3295,11 +3288,7 @@ import { DocumentElement } from "./ts/area/document-element";
             const element: HTMLElement = days[ daysIndex ];
             const attributeValue: string = element.getAttribute( attributeName )!;
             const colorRangeAttributeValue: string = element.getAttribute( Constant.Attribute.Area.ColorRangeToggle.HEAT_JS_MINIMUM )!;
-            let updateCssClass: boolean = false;
-            
-            if ( Is.definedString( attributeValue ) && attributeValue === colorRange.minimum!.toString() ) {
-                updateCssClass = true;
-            }
+            const updateCssClass: boolean = Is.definedString( attributeValue ) && attributeValue === colorRange.minimum!.toString();
 
             if ( updateCssClass || colorRangeAttributeValue === colorRange.minimum!.toString() ) {
                 if ( colorRange.visible ) {

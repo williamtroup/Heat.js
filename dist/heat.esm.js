@@ -4334,12 +4334,7 @@ var V;
         return i;
     }
     function tt(e, t, o, s) {
-        let r;
-        if (i.definedString(o)) {
-            r = o;
-        } else {
-            r = t.cssClassName;
-        }
+        const r = i.definedString(o) ? o : t.cssClassName;
         const l = e._currentView.element.getElementsByTagName("div");
         const c = [].slice.call(l);
         const u = c.length;
@@ -4347,10 +4342,7 @@ var V;
             const o = c[e];
             const l = o.getAttribute(s);
             const u = o.getAttribute(n.Attribute.Area.ColorRangeToggle.HEAT_JS_MINIMUM);
-            let d = false;
-            if (i.definedString(l) && l === t.minimum.toString()) {
-                d = true;
-            }
+            const d = i.definedString(l) && l === t.minimum.toString();
             if (d || u === t.minimum.toString()) {
                 if (t.visible) {
                     a.addClass(o, r);
