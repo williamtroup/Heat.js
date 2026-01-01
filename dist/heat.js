@@ -4285,7 +4285,7 @@ var x;
             const n = e.colorRanges[i];
             if (n.id === t) {
                 n.visible = !o.getBoolean(n.visible, true);
-                if (!et(e, n)) {
+                if (et(e, n)) {
                     O(e, false, false, true);
                 }
                 c.customEvent(e.events.onColorRangeTypeToggle, e._currentView.element, n.id, n.visible);

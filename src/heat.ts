@@ -3250,7 +3250,7 @@ import { DocumentElement } from "./ts/area/document-element";
             if ( colorRange.id === id ) {
                 colorRange.visible = !Default.getBoolean( colorRange.visible, true );
 
-                if ( !toggleColorRangeForView( bindingOptions, colorRange ) ) {
+                if ( toggleColorRangeForView( bindingOptions, colorRange ) ) {
                     renderControlContainer( bindingOptions, false, false, true );
                 }
 
