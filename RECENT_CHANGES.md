@@ -13,7 +13,7 @@
 - Added zooming support to the Map and Line views (off by default).
 - All title bar buttons are now rendered using pure CSS! No more settings, with complete universal device support.
 - Tooltips for the "Map" and "Chart" views now show the counts (can be turned off).
-- The "Days" (and "Months") view now takes the Color Range toggles into account when displaying the values, and now show stacked values by default.
+- The "Days" (and "Months") view now takes the Color Range toggles into account when displaying the values, and now shows stacked values by default.
 - Added animation effects for all Bar Graph views.
 - Invert color range toggles support via the guide (off by default).
 - The "Map" view now behaves like all other views (it can be disabled, and shows no data messages by default).
@@ -63,7 +63,7 @@
 #### **Binding Options - New / Updates:**
 - Added a new binding option called "allowMultipleFileImports", which states if multiple file imports are enabled (defaults to true).
 - Added a new binding option called "percentageDecimalPoints", which states the number of decimal points to show for percentages (defaults to 2).
-- Added a new binding option called "chartsAnimationDelay", which states the milliseconds to wait before applying a grow animation to each chart line (for all views, defaults to 50. Set to zero to turn off).
+- Added a new binding option called "chartsAnimationDelay", which states the milliseconds to wait before applying a grow animation to each chart line (for all views, defaults to 50. Set to zero to turn it off).
 - Added a new binding option called "exportDateTimeFormat", which states the format of the export date/time that is included in some of the formats (defaults to "{dddd}, {d}{o} {mmmm} {yyyy}").
 - Added a new binding option called "title.showTitleDropDownMenu", which states if the title drop-down menu should be shown (defaults to true).
 - Added a new binding option called "title.showClearButton", which states if the "Clear" button should be shown (defaults to false).
@@ -110,7 +110,7 @@
 - Added a new binding area called "dynamicColorRange".
 - Added a new binding option called "dynamicColorRange.enabled", which states if dynamic colors are enabled (defaults to false).
 - Added a new binding option called "dynamicColorRange.maximumMinimum", which states the maximum minimum level to use (defaults to 25).
-- Added a new binding option called "dynamicColorRange.color", which states the hex color to start with (defaults to empty string).
+- Added a new binding option called "dynamicColorRange.color", which states the hex color to start with (defaults to an empty string).
 - Added a new binding option called "dynamicColorRange.totalColors", which states the total number of color ranges to create (defaults to 7).
 - Added a new binding option called "dynamicColorRange.startMinimum", which states where the first color range minimum should start (defaults to 10).
 
@@ -202,15 +202,15 @@
 - Export TXT and XML files now contain an entry that states when the content was last modified.
 - Only one instance of the "heat-js-tooltip" tooltip element is now created.
 - Only a maximum of 5 files can be imported at the same time.
-- The current month names are now bolder to make them standout (even when the highlight settings are disabled).
+- The current month names are now bolder to make them stand out (even when the highlight settings are disabled).
 - Changing the Color Range toggles will now maintain the scroll position of the current view (if available).
 - Upgraded ECMAScript from ES2020 to ES2022.
 - Exported JSON files are now indented and formatted so they are more readable.
-- Exported XML and HTML files are now indented correctly so they are more readable.
+- Exported XML and HTML files are now indented correctly, so they are more readable.
 - Added a "Save" and "Reset" button to the "Configuration" dialog (pressing "Close" will not just close the dialog).
 - Pressing "Escape" when any dialog is open will now close it.
 - All dates shown in tooltips will now format the ordinal of a date correctly (they will be shown in sup elements).
-- The guide toggles no longer force a re-render when the Map, Line, or Chart views are visible.
+- The guide color range toggle buttons no longer force a re-render when the Map, Line, or Chart views are visible.
 - The default Ids used for the Color Ranges (when not configured) are now padded numbers, so they always remain the same.
 
 #### **Library:**
@@ -221,7 +221,7 @@
 - Removed the "const" keyword from all enums in the "enum.ts" file.
 - The "Configuration" type has been renamed to "ConfigurationOptions".
 - All sort() usages are now correctly defined, and now use lambdas.
-- Added ESLint support (view the build instruction to learn how to run it).
+- Added ESLint support (view the build instructions to learn how to run it).
 
 #### **Fixes:**
 - Fixed a fault that caused some of the export dates to have missing parts of the dates.
@@ -259,8 +259,8 @@
 - Fixed a fault that caused the current view to refresh when calling the public API function "switchView()" with the view that is active.
 - Fixed a fault that caused the "Export" button to appear in the title bar when no data is available (even when the binding option "title.showExportButton" is enabled).
 - Fixed a fault that would cause the data stored in local storage to be loaded for any Heat.js instance (no matter the element ID).
-- Fixed a fault that would caused the month name spacer to float under the month names in the "Chart" view (when specific settings are disabled).
-- Fixed a fault that prevented the type buttons (in the guide) from using the correct font-size.
+- Fixed a fault that would cause the month name spacer to float under the month names in the "Chart" view (when specific settings are disabled).
+- Fixed a fault that prevented the type buttons (in the guide) from using the correct font size.
 - Fixed some missing CSS variables from the light themes.
 - Fixed the color range toggles not being responsive in the guide when a lot are used.
 - Fixed the order of the Y Label names in all Bar Chart views (label-0 is at the bottom, label-100 is at the top).
