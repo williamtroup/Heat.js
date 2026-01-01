@@ -2709,6 +2709,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
             if ( bindingOptions.guide!.showNumbersInGuide ) {
                 const togglesRenderedLength: number = togglesRendered.length;
+                
                 for ( let togglesRenderedIndex: number = 0; togglesRenderedIndex < togglesRenderedLength; togglesRenderedIndex++ ) {
                     togglesRendered[ togglesRenderedIndex ].style.width = `${maximumWidth}px`;
                 }
