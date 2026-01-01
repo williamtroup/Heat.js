@@ -2970,9 +2970,8 @@ var V;
         const f = a.create(t, "div", "day");
         const m = new Date(d, u, h);
         const p = o.holiday(e, m);
-        let y = je(e)[s.toStorageDate(m)];
+        const y = i.getNumber(je(e)[s.toStorageDate(m)], 0);
         const v = w.get(e, g, y, m);
-        y = i.getNumber(y, 0);
         f.setAttribute(n.Attribute.View.Map.HEAT_JS_DATE, `${r.padNumber(h)}-${r.padNumber(u + 1)}-${d}`);
         if (o.defined(v)) {
             f.setAttribute(n.Attribute.View.Map.HEAT_JS_MINIMUM, v.minimum.toString());
@@ -3136,9 +3135,8 @@ var V;
         const f = new Date(d, u, l);
         const m = a.create(e, "div", "day-line");
         const p = o.holiday(t, f);
-        let y = je(t)[s.toStorageDate(f)];
+        const y = i.getNumber(je(t)[s.toStorageDate(f)], 0);
         const T = w.get(t, g, y, f);
-        y = i.getNumber(y, 0);
         m.setAttribute(n.Attribute.View.Line.HEAT_JS_DATE, `${r.padNumber(l)}-${r.padNumber(u + 1)}-${d}`);
         if (o.defined(T)) {
             m.setAttribute(n.Attribute.View.Line.HEAT_JS_MINIMUM, T.minimum.toString());
@@ -3294,9 +3292,8 @@ var V;
         const m = new Date(d, u, l);
         const p = a.create(e, "div", "day-line");
         const y = o.holiday(t, m);
-        let T = je(t)[s.toStorageDate(m)];
+        const T = i.getNumber(je(t)[s.toStorageDate(m)], 0);
         const b = w.get(t, g, T, m);
-        T = i.getNumber(T, 0);
         p.setAttribute(n.Attribute.View.Chart.HEAT_JS_DATE, `${r.padNumber(l)}-${r.padNumber(u + 1)}-${d}`);
         if (o.defined(b)) {
             p.setAttribute(n.Attribute.View.Chart.HEAT_JS_MINIMUM, b.minimum.toString());

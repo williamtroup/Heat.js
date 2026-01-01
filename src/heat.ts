@@ -1444,10 +1444,8 @@ import { DocumentElement } from "./ts/area/document-element";
         const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day" );
         const date: Date = new Date( year, month, actualDay );
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
-        let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
+        const dateCount: number = Default.getNumber( getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ], 0 );
         const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
-
-        dateCount = Default.getNumber( dateCount, 0 );
 
         day.setAttribute( Constant.Attribute.View.Map.HEAT_JS_DATE, `${Str.padNumber( actualDay )}-${Str.padNumber( month + 1 )}-${year}` );
 
@@ -1667,10 +1665,8 @@ import { DocumentElement } from "./ts/area/document-element";
         const date: Date = new Date( year, month, day );
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
-        let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
+        const dateCount: number = Default.getNumber( getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ], 0 );
         const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
-
-        dateCount = Default.getNumber( dateCount, 0 );
 
         dayLine.setAttribute( Constant.Attribute.View.Line.HEAT_JS_DATE, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
 
@@ -1880,10 +1876,8 @@ import { DocumentElement } from "./ts/area/document-element";
         const date: Date = new Date( year, month, day );
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
-        let dateCount: number = getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ];
+        const dateCount: number = Default.getNumber( getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ] , 0 );
         const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
-
-        dateCount = Default.getNumber( dateCount, 0 );
 
         dayLine.setAttribute( Constant.Attribute.View.Chart.HEAT_JS_DATE, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
 
