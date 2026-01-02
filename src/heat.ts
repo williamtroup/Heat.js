@@ -1472,25 +1472,10 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( bindingOptions.views!.map!.showDifferences && dateCount > 0 ) {
-            const previousYearDate: Date = new Date( date );
-            previousYearDate.setFullYear( previousYearDate.getFullYear() - 1 );
+            const percentageText: string = getPercentageDifferenceWithLastYearsCount( bindingOptions, date, dateCount );
 
-            const previousDateCount: number = Default.getNumber( getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( previousYearDate ) ], 0 );
-
-            if ( previousDateCount > 0 ) {
-                const percentageDifference: number = ( Math.abs( dateCount - previousDateCount)  / ( ( dateCount + previousDateCount ) / 2 ) ) * 100;
-
-                if ( percentageDifference > 0.0 ) {
-                    let percentageText: string = `${percentageDifference.toFixed( bindingOptions.percentageDecimalPoints! )}%`;
-
-                    if ( dateCount > previousDateCount ) {
-                        percentageText = `+${percentageText}`;
-                    } else {
-                        percentageText = `-${percentageText}`;
-                    }
-
-                    DomElement.createWithHTML( day, "div", "difference", percentageText );
-                }
+            if ( Is.definedString( percentageText ) ) {
+                DomElement.createWithHTML( day, "div", "difference", percentageText );
             }
         } 
 
@@ -1927,25 +1912,10 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( bindingOptions.views!.chart!.showDifferences && dateCount > 0 ) {
-            const previousYearDate: Date = new Date( date );
-            previousYearDate.setFullYear( previousYearDate.getFullYear() - 1 );
+            const percentageText: string = getPercentageDifferenceWithLastYearsCount( bindingOptions, date, dateCount );
 
-            const previousDateCount: number = Default.getNumber( getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( previousYearDate ) ], 0 );
-
-            if ( previousDateCount > 0 ) {
-                const percentageDifference: number = ( Math.abs( dateCount - previousDateCount)  / ( ( dateCount + previousDateCount ) / 2 ) ) * 100;
-
-                if ( percentageDifference > 0.0 ) {
-                    let percentageText: string = `${percentageDifference.toFixed( bindingOptions.percentageDecimalPoints! )}%`;
-
-                    if ( dateCount > previousDateCount ) {
-                        percentageText = `+${percentageText}`;
-                    } else {
-                        percentageText = `-${percentageText}`;
-                    }
-
-                    DomElement.createWithHTML( dayLine, "div", "difference", percentageText );
-                }
+            if ( Is.definedString( percentageText ) ) {
+                DomElement.createWithHTML( dayLine, "div", "difference", percentageText );
             }
         } 
 
@@ -3141,6 +3111,31 @@ import { DocumentElement } from "./ts/area/document-element";
                             result = Math.max( result, typeDateCounts[ storageDate ] );
                         }
                     }
+                }
+            }
+        }
+
+        return result;
+    }
+
+    function getPercentageDifferenceWithLastYearsCount( bindingOptions: BindingOptions, date: Date, dateCount: number ) : string {
+        let result: string = null!;
+
+        const previousYearDate: Date = new Date( date );
+        previousYearDate.setFullYear( previousYearDate.getFullYear() - 1 );
+
+        const previousDateCount: number = Default.getNumber( getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( previousYearDate ) ], 0 );
+
+        if ( previousDateCount > 0 ) {
+            const percentageDifference: number = ( Math.abs( dateCount - previousDateCount)  / ( ( dateCount + previousDateCount ) / 2 ) ) * 100;
+
+            if ( percentageDifference > 0.0 ) {
+                result = `${percentageDifference.toFixed( bindingOptions.percentageDecimalPoints! )}%`;
+
+                if ( dateCount > previousDateCount ) {
+                    result = `+${result}`;
+                } else {
+                    result = `-${result}`;
                 }
             }
         }
