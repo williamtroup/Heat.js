@@ -29,7 +29,16 @@
     "statistics",
     "bar",
     "themes",
-    "line"
+    "line",
+    "engagement",
+    "interaction",
+    "focus",
+    "hotspots",
+    "conversion",
+    "attention",
+    "frequency",
+    "visualize",
+    "intensity"
   ],
   "bugs": {
     "url": "https://github.com/williamtroup/Heat.js/issues"
