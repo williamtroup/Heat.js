@@ -2643,6 +2643,7 @@ div.heat-js-tooltip:has(b.tooltip-difference) {
   padding-right: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js-tooltip sup {
+  top: 0;
   padding-bottom: 8px;
   margin-right: calc(var(--heat-js-spacing) / 2);
 }
