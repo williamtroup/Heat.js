@@ -28,6 +28,7 @@
   --heat-js-color-light-gray: #BBBBBB;
   --heat-js-color-highlight: 245, 245, 245;
   --heat-js-color-black-dark: #11161e;
+  --heat-js-color-default-dynamic: #4169e1;
   --heat-js-container-background-color: #22272e;
   --heat-js-container-border-color: #454c56;
   --heat-js-dialog-background-color: var(--heat-js-container-background-color);

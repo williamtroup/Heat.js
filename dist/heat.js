@@ -646,6 +646,7 @@ var d;
         e.LineWidth = "--heat-js-day-line-width";
         e.CheckBoxCheckedColor = "--heat-js-checkbox-background-color-checked";
         e.YearMenuCurrent = "--heat-js-years-current-color";
+        e.DefaultDynamicColor = "--heat-js-color-default-dynamic";
     })(t = e.Variables || (e.Variables = {}));
 })(d || (d = {}));
 
@@ -805,7 +806,7 @@ var f;
         const t = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
         const n = [ 1, 2, 3, 4, 5, 6, 7 ];
         function s(e, t, n) {
-            const i = a(t);
+            const i = l(t);
             i._currentView = {};
             i._currentView.element = n;
             i._currentView.activeYear = i.defaultYear;
@@ -846,11 +847,11 @@ var f;
                 i._currentView.colorRangesContentsScrollLeft = 0;
                 i._currentView.viewsEnabled++;
             }
-            _(i);
+            S(i);
             return i;
         }
         e.getForNewInstance = s;
-        function a(e) {
+        function l(e) {
             const t = i.getObject(e, {});
             t.views = i.getObject(t.views, {});
             t.exportOnlyDataBeingViewed = i.getBoolean(t.exportOnlyDataBeingViewed, true);
@@ -869,29 +870,29 @@ var f;
             t.percentageDecimalPoints = i.getNumber(t.percentageDecimalPoints, 2);
             t.chartsAnimationDelay = i.getNumber(t.chartsAnimationDelay, 50);
             t.exportDateTimeFormat = i.getString(t.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}");
-            t.title = l(t);
-            t.yearlyStatistics = c(t);
-            t.views.map = u(t);
-            t.views.line = d(t);
-            t.views.chart = f(t);
-            t.views.days = g(t);
-            t.views.months = h(t);
-            t.views.colorRanges = m(t);
-            t.description = p(t);
-            t.guide = y(t);
-            t.tooltip = v(t);
-            t.zooming = T(t);
-            t.dynamicColorRange = b(t);
-            t.colorRanges = V(t);
-            t.holidays = x(t);
-            t.events = C(t);
+            t.title = c(t);
+            t.yearlyStatistics = u(t);
+            t.views.map = f(t);
+            t.views.line = g(t);
+            t.views.chart = h(t);
+            t.views.days = m(t);
+            t.views.months = p(t);
+            t.views.colorRanges = y(t);
+            t.description = v(t);
+            t.guide = T(t);
+            t.tooltip = b(t);
+            t.zooming = V(t);
+            t.dynamicColorRange = x(t);
+            t.colorRanges = C(t);
+            t.holidays = _(t);
+            t.events = D(t);
             if (t.startMonth > 0) {
                 t.yearsToHide = [];
             }
             return t;
         }
-        e.get = a;
-        function l(e) {
+        e.get = l;
+        function c(e) {
             e.title = i.getObject(e.title, {});
             e.title.text = i.getString(e.title.text, "Heat.js");
             e.title.showText = i.getBoolean(e.title.showText, true);
@@ -911,7 +912,7 @@ var f;
             e.title.showClearButton = i.getBoolean(e.title.showClearButton, false);
             return e.title;
         }
-        function c(e) {
+        function u(e) {
             e.yearlyStatistics = i.getObject(e.yearlyStatistics, {});
             e.yearlyStatistics.enabled = i.getBoolean(e.yearlyStatistics.enabled, false);
             e.yearlyStatistics.showToday = i.getBoolean(e.yearlyStatistics.showToday, true);
@@ -922,7 +923,7 @@ var f;
             e.yearlyStatistics.showPercentages = i.getBoolean(e.yearlyStatistics.showPercentages, true);
             return e.yearlyStatistics;
         }
-        function u(e) {
+        function f(e) {
             e.views.map = i.getObject(e.views.map, {});
             e.views.map.enabled = i.getBoolean(e.views.map.enabled, true);
             e.views.map.showMonthDayGaps = i.getBoolean(e.views.map.showMonthDayGaps, true);
@@ -951,7 +952,7 @@ var f;
             }
             return e.views.map;
         }
-        function d(e) {
+        function g(e) {
             e.views.line = i.getObject(e.views.line, {});
             e.views.line.enabled = i.getBoolean(e.views.line.enabled, true);
             e.views.line.showMonthNames = i.getBoolean(e.views.line.showMonthNames, true);
@@ -970,7 +971,7 @@ var f;
             }
             return e.views.line;
         }
-        function f(e) {
+        function h(e) {
             e.views.chart = i.getObject(e.views.chart, {});
             e.views.chart.enabled = i.getBoolean(e.views.chart.enabled, true);
             e.views.chart.showChartYLabels = i.getBoolean(e.views.chart.showChartYLabels, true);
@@ -996,7 +997,7 @@ var f;
             }
             return e.views.chart;
         }
-        function g(e) {
+        function m(e) {
             e.views.days = i.getObject(e.views.days, {});
             e.views.days.enabled = i.getBoolean(e.views.days.enabled, true);
             e.views.days.showChartYLabels = i.getBoolean(e.views.days.showChartYLabels, true);
@@ -1017,7 +1018,7 @@ var f;
             }
             return e.views.days;
         }
-        function h(e) {
+        function p(e) {
             e.views.months = i.getObject(e.views.months, {});
             e.views.months.enabled = i.getBoolean(e.views.months.enabled, true);
             e.views.months.showChartYLabels = i.getBoolean(e.views.months.showChartYLabels, true);
@@ -1039,7 +1040,7 @@ var f;
             }
             return e.views.months;
         }
-        function m(e) {
+        function y(e) {
             e.views.colorRanges = i.getObject(e.views.colorRanges, {});
             e.views.colorRanges.enabled = i.getBoolean(e.views.colorRanges.enabled, true);
             e.views.colorRanges.showChartYLabels = i.getBoolean(e.views.colorRanges.showChartYLabels, true);
@@ -1060,14 +1061,14 @@ var f;
             }
             return e.views.colorRanges;
         }
-        function p(e) {
+        function v(e) {
             e.description = i.getObject(e.description, {});
             e.description.text = i.getString(e.description.text, "");
             e.description.url = i.getString(e.description.url, "");
             e.description.urlTarget = i.getString(e.description.urlTarget, "_blank");
             return e.description;
         }
-        function y(e) {
+        function T(e) {
             e.guide = i.getObject(e.guide, {});
             e.guide.enabled = i.getBoolean(e.guide.enabled, true);
             e.guide.colorRangeTogglesEnabled = i.getBoolean(e.guide.colorRangeTogglesEnabled, true);
@@ -1080,12 +1081,12 @@ var f;
             e.guide.allowTypeRemoving = i.getBoolean(e.guide.allowTypeRemoving, false);
             return e.guide;
         }
-        function v(e) {
+        function b(e) {
             e.tooltip = i.getObject(e.tooltip, {});
             e.tooltip.delay = i.getNumber(e.tooltip.delay, 750);
             return e.tooltip;
         }
-        function T(e) {
+        function V(e) {
             e.zooming = i.getObject(e.zooming, {});
             e.zooming.enabled = i.getBoolean(e.zooming.enabled, false);
             e.zooming.defaultLevel = i.getNumber(e.zooming.defaultLevel, 0);
@@ -1093,16 +1094,16 @@ var f;
             e.zooming.showCloseButton = i.getBoolean(e.zooming.showCloseButton, true);
             return e.zooming;
         }
-        function b(e) {
+        function x(e) {
             e.dynamicColorRange = i.getObject(e.dynamicColorRange, {});
             e.dynamicColorRange.enabled = i.getBoolean(e.dynamicColorRange.enabled, false);
             e.dynamicColorRange.maximumMinimum = i.getNumber(e.dynamicColorRange.maximumMinimum, 25);
-            e.dynamicColorRange.color = i.getString(e.dynamicColorRange.color, "");
+            e.dynamicColorRange.color = i.getString(e.dynamicColorRange.color, a.getStyleValueByName(document.documentElement, d.Variables.DefaultDynamicColor));
             e.dynamicColorRange.totalColors = i.getNumber(e.dynamicColorRange.totalColors, 7);
             e.dynamicColorRange.startMinimum = i.getNumber(e.dynamicColorRange.startMinimum, 10);
             return e.dynamicColorRange;
         }
-        function V(e) {
+        function C(e) {
             let t = [];
             if (e.dynamicColorRange.enabled && o.hexColor(e.dynamicColorRange.color)) {
                 t = w.buildDynamics(e.dynamicColorRange);
@@ -1159,7 +1160,7 @@ var f;
             }
             return t;
         }
-        function x(e) {
+        function _(e) {
             const t = [];
             if (o.definedArray(e.holidays)) {
                 const n = e.holidays.length;
@@ -1173,7 +1174,7 @@ var f;
             }
             return t;
         }
-        function C(e) {
+        function D(e) {
             e.events = i.getObject(e.events, {});
             e.events.onBackYear = i.getFunction(e.events.onBackYear, null);
             e.events.onNextYear = i.getFunction(e.events.onNextYear, null);
@@ -1215,7 +1216,7 @@ var f;
             e.events.onRemoveType = i.getFunction(e.events.onRemoveType, null);
             return e.events;
         }
-        function _(e) {
+        function S(e) {
             if (e.views.map.enabled && e.defaultView === "map") {
                 e._currentView.activeView = 1;
             } else if (e.views.line.enabled && e.defaultView === "line") {
