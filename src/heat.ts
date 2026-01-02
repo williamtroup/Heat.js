@@ -1446,6 +1446,7 @@ import { DocumentElement } from "./ts/area/document-element";
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
         const dateCount: number = Default.getNumber( getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ], 0 );
         const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
+        const percentageText: string = getPercentageDifferenceWithLastYearsCount( bindingOptions, date, dateCount );
 
         day.setAttribute( Constant.Attribute.View.Map.HEAT_JS_DATE, `${Str.padNumber( actualDay )}-${Str.padNumber( month + 1 )}-${year}` );
 
@@ -1454,7 +1455,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( bindingOptions.views!.map!.showToolTips ) {
-            renderDayToolTip( bindingOptions, day, date, dateCount, bindingOptions.views!.map!.dayToolTipText!, bindingOptions.events!.onMapDayToolTipRender!, holiday.matched, bindingOptions.views!.map!.showCountsInToolTips! );
+            renderDayToolTip( bindingOptions, day, date, dateCount, percentageText, bindingOptions.views!.map!.dayToolTipText!, bindingOptions.events!.onMapDayToolTipRender!, holiday.matched, bindingOptions.views!.map!.showCountsInToolTips!, bindingOptions.views!.map!.showDifferencesInToolTips! );
         }
 
         if ( !bindingOptions.views!.map!.showSpacing ) {
@@ -1471,12 +1472,8 @@ import { DocumentElement } from "./ts/area/document-element";
             DomElement.createWithHTML( day, "div", "count", Str.friendlyNumber( dateCount ) );
         }
 
-        if ( bindingOptions.views!.map!.showDifferences && dateCount > 0 ) {
-            const percentageText: string = getPercentageDifferenceWithLastYearsCount( bindingOptions, date, dateCount );
-
-            if ( Is.definedString( percentageText ) ) {
-                DomElement.createWithHTML( day, "div", "difference", percentageText );
-            }
+        if ( bindingOptions.views!.map!.showDifferences && Is.definedString( percentageText ) ) {
+            DomElement.createWithHTML( day, "div", "difference", percentageText );
         } 
 
         if ( Is.definedFunction( bindingOptions.events!.onMapDayClick ) ) {
@@ -1675,6 +1672,7 @@ import { DocumentElement } from "./ts/area/document-element";
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
         const dateCount: number = Default.getNumber( getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ], 0 );
         const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
+        const percentageText: string = getPercentageDifferenceWithLastYearsCount( bindingOptions, date, dateCount );
 
         dayLine.setAttribute( Constant.Attribute.View.Line.HEAT_JS_DATE, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
 
@@ -1683,7 +1681,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( bindingOptions.views!.line!.showToolTips ) {
-            renderDayToolTip( bindingOptions, dayLine, date, dateCount, bindingOptions.views!.line!.dayToolTipText!, bindingOptions.events!.onLineDayToolTipRender!, holiday.matched, bindingOptions.views!.line!.showCountsInToolTips! );
+            renderDayToolTip( bindingOptions, dayLine, date, dateCount, percentageText, bindingOptions.views!.line!.dayToolTipText!, bindingOptions.events!.onLineDayToolTipRender!, holiday.matched, bindingOptions.views!.line!.showCountsInToolTips!, bindingOptions.views!.line!.showDifferencesInToolTips! );
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onLineDayClick ) ) {
@@ -1886,6 +1884,7 @@ import { DocumentElement } from "./ts/area/document-element";
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
         const dateCount: number = Default.getNumber( getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ] , 0 );
         const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
+        const percentageText: string = getPercentageDifferenceWithLastYearsCount( bindingOptions, date, dateCount );
 
         dayLine.setAttribute( Constant.Attribute.View.Chart.HEAT_JS_DATE, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
 
@@ -1894,7 +1893,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( bindingOptions.views!.chart!.showToolTips ) {
-            renderDayToolTip( bindingOptions, dayLine, date, dateCount, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender!, holiday.matched, bindingOptions.views!.chart!.showCountsInToolTips! );
+            renderDayToolTip( bindingOptions, dayLine, date, dateCount, percentageText, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender!, holiday.matched, bindingOptions.views!.chart!.showCountsInToolTips!, bindingOptions.views!.chart!.showDifferencesInToolTips! );
         }
 
         if ( bindingOptions.views!.chart!.showLineCounts || bindingOptions.views!.chart!.showLineDateNumbers ) {
@@ -1911,12 +1910,8 @@ import { DocumentElement } from "./ts/area/document-element";
             DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dateCount ) );
         }
 
-        if ( bindingOptions.views!.chart!.showDifferences && dateCount > 0 ) {
-            const percentageText: string = getPercentageDifferenceWithLastYearsCount( bindingOptions, date, dateCount );
-
-            if ( Is.definedString( percentageText ) ) {
-                DomElement.createWithHTML( dayLine, "div", "difference", percentageText );
-            }
+        if ( bindingOptions.views!.chart!.showDifferences && Is.definedString( percentageText ) ) {
+            DomElement.createWithHTML( dayLine, "div", "difference", percentageText );
         } 
 
         const dayLineHeight: number = dateCount * pixelsPerNumbers;
@@ -2934,7 +2929,7 @@ import { DocumentElement } from "./ts/area/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderDayToolTip( bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number, tooltipFormat: string, tooltipRenderFunc: Function, isHoliday: boolean, showCountsInTooltips: boolean ) : void {
+    function renderDayToolTip( bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number, percentageDifferenceText: string, tooltipFormat: string, tooltipRenderFunc: Function, isHoliday: boolean, showCountsInTooltips: boolean, showDifferencesInToolTips: boolean ) : void {
         if ( Is.definedFunction( tooltipRenderFunc ) ) {
             ToolTip.add( day, bindingOptions, Trigger.customEvent( tooltipRenderFunc, bindingOptions._currentView!.element, date, dateCount, isHoliday ) );
         } else {
@@ -2949,8 +2944,16 @@ import { DocumentElement } from "./ts/area/document-element";
                 }
             }
 
+            if ( showCountsInTooltips || ( showDifferencesInToolTips && Is.definedString( percentageDifferenceText ) ) ) {
+                tooltip += `${Char.colon}${Char.space}`;
+            }
+
             if ( showCountsInTooltips ) {
-                tooltip += `${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( dateCount )}</b>`;
+                tooltip += `<b class="tooltip-count">${Str.friendlyNumber( dateCount )}</b>`;
+            }
+
+            if ( showDifferencesInToolTips && Is.definedString( percentageDifferenceText ) ) {
+                tooltip += `<b class="tooltip-difference">${percentageDifferenceText}</b>`;
             }
 
             ToolTip.add( day, bindingOptions, tooltip );
@@ -3121,21 +3124,23 @@ import { DocumentElement } from "./ts/area/document-element";
     function getPercentageDifferenceWithLastYearsCount( bindingOptions: BindingOptions, date: Date, dateCount: number ) : string {
         let result: string = null!;
 
-        const previousYearDate: Date = new Date( date );
-        previousYearDate.setFullYear( previousYearDate.getFullYear() - 1 );
+        if ( dateCount > 0 ) {
+            const previousYearDate: Date = new Date( date );
+            previousYearDate.setFullYear( previousYearDate.getFullYear() - 1 );
 
-        const previousDateCount: number = Default.getNumber( getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( previousYearDate ) ], 0 );
+            const previousDateCount: number = Default.getNumber( getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( previousYearDate ) ], 0 );
 
-        if ( previousDateCount > 0 ) {
-            const percentageDifference: number = ( Math.abs( dateCount - previousDateCount)  / ( ( dateCount + previousDateCount ) / 2 ) ) * 100;
+            if ( previousDateCount > 0 ) {
+                const percentageDifference: number = ( Math.abs( dateCount - previousDateCount)  / ( ( dateCount + previousDateCount ) / 2 ) ) * 100;
 
-            if ( percentageDifference > 0.0 ) {
-                result = `${percentageDifference.toFixed( bindingOptions.percentageDecimalPoints! )}%`;
+                if ( percentageDifference > 0.0 ) {
+                    result = `${percentageDifference.toFixed( bindingOptions.percentageDecimalPoints! )}%`;
 
-                if ( dateCount > previousDateCount ) {
-                    result = `+${result}`;
-                } else {
-                    result = `-${result}`;
+                    if ( dateCount > previousDateCount ) {
+                        result = `+${result}`;
+                    } else {
+                        result = `-${result}`;
+                    }
                 }
             }
         }

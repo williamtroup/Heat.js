@@ -198,6 +198,7 @@ export namespace Binding {
             bindingOptions.views!.map!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.map!.showCountsInToolTips, true );
             bindingOptions.views!.map!.showSpacing = Default.getBoolean( bindingOptions.views!.map!.showSpacing, true );
             bindingOptions.views!.map!.showDifferences = Default.getBoolean( bindingOptions.views!.map!.showDifferences, false );
+            bindingOptions.views!.map!.showDifferencesInToolTips = Default.getBoolean( bindingOptions.views!.map!.showDifferencesInToolTips, true );
 
             if ( Is.invalidOptionArray( bindingOptions.views!.map!.monthsToShow! ) ) {
                 bindingOptions.views!.map!.monthsToShow = _default_MonthsToShow;
@@ -220,6 +221,7 @@ export namespace Binding {
             bindingOptions.views!.line!.showToolTips = Default.getBoolean( bindingOptions.views!.line!.showToolTips, true );
             bindingOptions.views!.line!.dayToolTipText = Default.getString( bindingOptions.views!.line!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.views!.line!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.line!.showCountsInToolTips, true );
+            bindingOptions.views!.line!.showDifferencesInToolTips = Default.getBoolean( bindingOptions.views!.line!.showDifferencesInToolTips, true );
 
             if ( Is.invalidOptionArray( bindingOptions.views!.line!.monthsToShow! ) ) {
                 bindingOptions.views!.line!.monthsToShow = _default_MonthsToShow;
@@ -249,6 +251,7 @@ export namespace Binding {
             bindingOptions.views!.chart!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.chart!.showCountsInToolTips, true );
             bindingOptions.views!.chart!.addMonthSpacing = Default.getBoolean( bindingOptions.views!.chart!.addMonthSpacing, false );
             bindingOptions.views!.chart!.showDifferences = Default.getBoolean( bindingOptions.views!.chart!.showDifferences, false );
+            bindingOptions.views!.chart!.showDifferencesInToolTips = Default.getBoolean( bindingOptions.views!.chart!.showDifferencesInToolTips, true );
 
             if ( Is.invalidOptionArray( bindingOptions.views!.chart!.monthsToShow! ) ) {
                 bindingOptions.views!.chart!.monthsToShow = _default_MonthsToShow;

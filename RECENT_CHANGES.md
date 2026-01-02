@@ -12,7 +12,7 @@
 - Added 19 new light themes.
 - Added zooming support to the Map and Line views (off by default).
 - All title bar buttons are now rendered using pure CSS! No more settings, with complete universal device support.
-- Tooltips for the "Map" and "Chart" views now show the counts (can be turned off).
+- Tooltips for the "Map" and "Chart" views now show the counts and percentage differences (can be turned off).
 - The "Days" (and "Months") view now takes the Color Range toggles into account when displaying the values, and now shows stacked values by default.
 - Added animation effects for all Bar Graph views.
 - Invert color range toggles support via the guide (off by default).
@@ -82,6 +82,8 @@
 - Added a new binding option called "views.chart.showYearsInMonthNames", which states if the year should be shown in the month name (when "startMonth" is set, defaults to true).
 - Added a new binding option called "views.map.showCountsInToolTips", which states if the day counts should be included in the tooltips (defaults to true).
 - Added a new binding option called "views.chart.showCountsInToolTips", which states if the day counts should be included in the tooltips (defaults to true).
+- Added a new binding option called "views.map.showDifferencesInToolTips", which states if the difference percentage with the previous years count should be shown in the tooltips (defaults to true).
+- Added a new binding option called "views.chart.showDifferencesInToolTips", which states if the difference percentage with the previous years count should be shown in the tooltips (defaults to true).
 - Added a new binding option called "views.map.showDifferences", which states if the difference percentage with the previous years count should be shown (defaults to false).
 - Added a new binding option called "views.chart.showDifferences", which states if the difference percentage with the previous years count should be shown (defaults to false).
 - Added a new binding option called "views.days.showDayCountPercentages", which states if the count percentages should be shown (when count displays are enabled, defaults to true).

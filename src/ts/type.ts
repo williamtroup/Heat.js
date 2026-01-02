@@ -276,6 +276,7 @@ export type BindingOptionsViewsMap = {
     showCountsInToolTips?: boolean;
     showSpacing?: boolean;
     showDifferences?: boolean;
+    showDifferencesInToolTips?: boolean;
 };
 
 export type BindingOptionsViewsLine = {
@@ -289,6 +290,7 @@ export type BindingOptionsViewsLine = {
     dayToolTipText?: string;
     showToolTips?: boolean;
     showCountsInToolTips?: boolean;
+    showDifferencesInToolTips?: boolean;
 };
 
 export type BindingOptionsViewsChart = {
@@ -309,6 +311,7 @@ export type BindingOptionsViewsChart = {
     showCountsInToolTips?: boolean;
     addMonthSpacing?: boolean;
     showDifferences?: boolean;
+    showDifferencesInToolTips?: boolean;
 };
 
 export type BindingOptionsViewsDays = {
