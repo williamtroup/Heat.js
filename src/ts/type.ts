@@ -275,6 +275,7 @@ export type BindingOptionsViewsMap = {
     showYearsInMonthNames?: boolean;
     showCountsInToolTips?: boolean;
     showSpacing?: boolean;
+    showDifferences?: boolean;
 };
 
 export type BindingOptionsViewsLine = {
@@ -307,6 +308,7 @@ export type BindingOptionsViewsChart = {
     showYearsInMonthNames?: boolean;
     showCountsInToolTips?: boolean;
     addMonthSpacing?: boolean;
+    showDifferences?: boolean;
 };
 
 export type BindingOptionsViewsDays = {

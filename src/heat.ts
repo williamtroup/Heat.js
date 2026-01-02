@@ -1469,6 +1469,29 @@ import { DocumentElement } from "./ts/area/document-element";
 
         if ( bindingOptions.views!.map!.showDayCounts && dateCount > 0 ) {
             DomElement.createWithHTML( day, "div", "count", Str.friendlyNumber( dateCount ) );
+        }
+
+        if ( bindingOptions.views!.map!.showDifferences && dateCount > 0 ) {
+            const previousYearDate: Date = new Date( date );
+            previousYearDate.setFullYear( previousYearDate.getFullYear() - 1 );
+
+            const previousDateCount: number = Default.getNumber( getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( previousYearDate ) ], 0 );
+
+            if ( previousDateCount > 0 ) {
+                const percentageDifference: number = ( Math.abs( dateCount - previousDateCount)  / ( ( dateCount + previousDateCount ) / 2 ) ) * 100;
+
+                if ( percentageDifference > 0.0 ) {
+                    let percentageText: string = `${percentageDifference.toFixed( bindingOptions.percentageDecimalPoints! )}%`;
+
+                    if ( dateCount > previousDateCount ) {
+                        percentageText = `+${percentageText}`;
+                    } else {
+                        percentageText = `-${percentageText}`;
+                    }
+
+                    DomElement.createWithHTML( day, "div", "difference", percentageText );
+                }
+            }
         } 
 
         if ( Is.definedFunction( bindingOptions.events!.onMapDayClick ) ) {
@@ -1902,6 +1925,29 @@ import { DocumentElement } from "./ts/area/document-element";
         if ( bindingOptions.views!.chart!.showLineCounts && dateCount > 0 ) {
             DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dateCount ) );
         }
+
+        if ( bindingOptions.views!.chart!.showDifferences && dateCount > 0 ) {
+            const previousYearDate: Date = new Date( date );
+            previousYearDate.setFullYear( previousYearDate.getFullYear() - 1 );
+
+            const previousDateCount: number = Default.getNumber( getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( previousYearDate ) ], 0 );
+
+            if ( previousDateCount > 0 ) {
+                const percentageDifference: number = ( Math.abs( dateCount - previousDateCount)  / ( ( dateCount + previousDateCount ) / 2 ) ) * 100;
+
+                if ( percentageDifference > 0.0 ) {
+                    let percentageText: string = `${percentageDifference.toFixed( bindingOptions.percentageDecimalPoints! )}%`;
+
+                    if ( dateCount > previousDateCount ) {
+                        percentageText = `+${percentageText}`;
+                    } else {
+                        percentageText = `-${percentageText}`;
+                    }
+
+                    DomElement.createWithHTML( dayLine, "div", "difference", percentageText );
+                }
+            }
+        } 
 
         const dayLineHeight: number = dateCount * pixelsPerNumbers;
 

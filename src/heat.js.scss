@@ -176,6 +176,7 @@
     --heat-js-left-border: 8px;
     --heat-js-default-width: 700px;
     --heat-js-y-label-spacing: calc( var(--heat-js-spacing) * 2 );
+    --heat-js-count-gap: 3px;
 
     // Transitions
     --heat-js-transition: all .3s;
@@ -1055,6 +1056,7 @@ div.heat-js {
                                     justify-content: center;
                                     align-items: center;
                                     overflow: hidden;
+                                    gap: var(--heat-js-count-gap);
 
                                     &.no-spacing {
                                         border-radius: 0 !important;
@@ -1078,8 +1080,13 @@ div.heat-js {
                                     z-index: 5;
 
                                     div.count-date,
-                                    div.count {
+                                    div.count,
+                                    div.difference {
                                         display: block;
+                                    }
+
+                                    div.difference {
+                                        font-style: italic;
                                     }
 
                                     div.count-date {
@@ -1235,10 +1242,16 @@ div.heat-js {
                     padding: calc( var(--heat-js-spacing) / 2 );
                     overflow: hidden;
                     flex-direction: column;
+                    gap: var(--heat-js-count-gap);
 
                     div.count-date,
-                    div.count {
+                    div.count,
+                    div.difference {
                         display: block;
+                    }
+
+                    div.difference {
+                        font-style: italic;
                     }
 
                     div.count-date {
@@ -1369,6 +1382,7 @@ div.heat-js {
                         }
 
                         div.percentage {
+                            margin-top: var(--heat-js-count-gap);
                             font-style: italic;
                         }
                     }
@@ -1509,6 +1523,7 @@ div.heat-js {
                         }
 
                         div.percentage {
+                            margin-top: var(--heat-js-count-gap);
                             font-style: italic;
                         }
                     }
@@ -1643,6 +1658,7 @@ div.heat-js {
                         text-align: center;
 
                         div.percentage {
+                            margin-top: var(--heat-js-count-gap);
                             font-style: italic;
                         }
                     }

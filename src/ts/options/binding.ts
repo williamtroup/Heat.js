@@ -197,6 +197,7 @@ export namespace Binding {
             bindingOptions.views!.map!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.map!.showYearsInMonthNames, true );
             bindingOptions.views!.map!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.map!.showCountsInToolTips, true );
             bindingOptions.views!.map!.showSpacing = Default.getBoolean( bindingOptions.views!.map!.showSpacing, true );
+            bindingOptions.views!.map!.showDifferences = Default.getBoolean( bindingOptions.views!.map!.showDifferences, false );
 
             if ( Is.invalidOptionArray( bindingOptions.views!.map!.monthsToShow! ) ) {
                 bindingOptions.views!.map!.monthsToShow = _default_MonthsToShow;
@@ -247,6 +248,7 @@ export namespace Binding {
             bindingOptions.views!.chart!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.chart!.showYearsInMonthNames, true );
             bindingOptions.views!.chart!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.chart!.showCountsInToolTips, true );
             bindingOptions.views!.chart!.addMonthSpacing = Default.getBoolean( bindingOptions.views!.chart!.addMonthSpacing, false );
+            bindingOptions.views!.chart!.showDifferences = Default.getBoolean( bindingOptions.views!.chart!.showDifferences, false );
 
             if ( Is.invalidOptionArray( bindingOptions.views!.chart!.monthsToShow! ) ) {
                 bindingOptions.views!.chart!.monthsToShow = _default_MonthsToShow;

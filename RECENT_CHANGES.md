@@ -82,6 +82,8 @@
 - Added a new binding option called "views.chart.showYearsInMonthNames", which states if the year should be shown in the month name (when "startMonth" is set, defaults to true).
 - Added a new binding option called "views.map.showCountsInToolTips", which states if the day counts should be included in the tooltips (defaults to true).
 - Added a new binding option called "views.chart.showCountsInToolTips", which states if the day counts should be included in the tooltips (defaults to true).
+- Added a new binding option called "views.map.showDifferences", which states if the difference percentage with the previous years count should be shown (defaults to false).
+- Added a new binding option called "views.chart.showDifferences", which states if the difference percentage with the previous years count should be shown (defaults to false).
 - Added a new binding option called "views.days.showDayCountPercentages", which states if the count percentages should be shown (when count displays are enabled, defaults to true).
 - Added a new binding option called "views.days.showStackedColorRanges", which states if the bar should show the stacked color range levels (defaults to true).
 - Added a new binding option called "views.colorRanges.showRangeCountPercentages", which states if the count percentages should be shown (when count displays are enabled, defaults to true).
