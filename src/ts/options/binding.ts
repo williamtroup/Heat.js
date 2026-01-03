@@ -279,6 +279,7 @@ export namespace Binding {
             bindingOptions.views!.days!.useDifferentOpacities = Default.getBoolean( bindingOptions.views!.days!.useDifferentOpacities, false );
             bindingOptions.views!.days!.showDayCountPercentages = Default.getBoolean( bindingOptions.views!.days!.showDayCountPercentages, true );
             bindingOptions.views!.days!.showStackedColorRanges = Default.getBoolean( bindingOptions.views!.days!.showStackedColorRanges, true );
+            bindingOptions.views!.days!.dayToolTipText = Default.getString( bindingOptions.views!.days!.dayToolTipText, "{dddd} {yyyy}" );
     
             if ( Is.invalidOptionArray( bindingOptions.views!.days!.monthsToShow! ) ) {
                 bindingOptions.views!.days!.monthsToShow = _default_MonthsToShow;
@@ -305,6 +306,7 @@ export namespace Binding {
             bindingOptions.views!.months!.highlightCurrentMonth = Default.getBoolean( bindingOptions.views!.months!.highlightCurrentMonth, false );
             bindingOptions.views!.months!.showMonthCountPercentages = Default.getBoolean( bindingOptions.views!.months!.showMonthCountPercentages, true );
             bindingOptions.views!.months!.showStackedColorRanges = Default.getBoolean( bindingOptions.views!.months!.showStackedColorRanges, true );
+            bindingOptions.views!.months!.monthToolTipText = Default.getString( bindingOptions.views!.months!.monthToolTipText, "{mmmm} {yyyy}" );
     
             if ( Is.invalidOptionArray( bindingOptions.views!.months!.monthsToShow! ) ) {
                 bindingOptions.views!.months!.monthsToShow = _default_MonthsToShow;

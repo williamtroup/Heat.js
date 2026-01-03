@@ -328,7 +328,8 @@ export type BindingOptionsViewsDays = {
     useDifferentOpacities?: boolean;
     showDayCountPercentages?: boolean;
     showStackedColorRanges?: boolean;
-};
+    dayToolTipText?: string;
+}
 
 export type BindingOptionsViewsMonths = {
     enabled?: boolean;
@@ -345,6 +346,7 @@ export type BindingOptionsViewsMonths = {
     highlightCurrentMonth?: boolean;
     showMonthCountPercentages?: boolean;
     showStackedColorRanges?: boolean;
+    monthToolTipText?: string;
 };
 
 export type BindingOptionsViewsStatistics = {

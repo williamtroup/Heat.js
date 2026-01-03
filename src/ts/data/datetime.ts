@@ -13,6 +13,7 @@
 
 import { type ConfigurationOptions } from "../type";
 import { Char } from "./enum";
+import { Is } from "./is";
 import { Str } from "./str";
 
 
@@ -39,9 +40,9 @@ export namespace DateTime {
         return result;
     }
 
-    export function getCustomFormattedDateText( configurationOptions: ConfigurationOptions, dateFormat: string, date: Date, allowHtml: boolean = false ) : string {
+    export function getCustomFormattedDateText( configurationOptions: ConfigurationOptions, dateFormat: string, date: Date, allowHtml: boolean = false, weekNumberOverride: number = null! ) : string {
         let result: string = dateFormat;
-        const weekDayNumber: number = getWeekdayNumber( date );
+        const weekDayNumber: number = Is.definedNumber( weekNumberOverride ) ? weekNumberOverride : getWeekdayNumber( date );
 
         result = result.replace( "{dddd}", configurationOptions.text!.dayNames![ weekDayNumber ] );
         result = result.replace( "{dd}", Str.padNumber( date.getDate() ) );

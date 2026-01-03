@@ -93,6 +93,7 @@
 - Added a new binding option called "views.map.showSpacing", which states if the spacing between the days should be shown (defaults to true).
 - Added a new binding option called "views.colorRanges.showRangeNamesInToolTips", which states if the range names should be shown in the tooltips (if available, defaults to true).
 - Added a new binding option called "views.chart.addMonthSpacing", which states if spacing and a divider line should be added between each month (defaults to false).
+- Added a new binding option called "views.days.dayToolTipText", which states the tooltip format to use for a Days day (defaults to "{dddd} {yyyy}").
 - The "view.map" binding options "showDayDateNumbers" and "showDayCounts" can now be used at the same time.
 - The "view.chart" binding options "showLineDateNumbers" and "showLineCounts" can now be used at the same time.
 

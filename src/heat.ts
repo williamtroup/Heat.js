@@ -2067,7 +2067,10 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( bindingOptions.views!.days!.showToolTips ) {
-            ToolTip.add( dayLine, bindingOptions, Str.friendlyNumber( dayCount ) );
+            let tooltip: string = DateTime.getCustomFormattedDateText( _configurationOptions, bindingOptions.views!.days!.dayToolTipText!, new Date( bindingOptions._currentView!.activeYear, 0, 1 ), false, dayNumber - 1 );
+            tooltip += `${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( dayCount )}</b>`;
+
+            ToolTip.add( dayLine, bindingOptions, tooltip );
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
@@ -2314,7 +2317,10 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( bindingOptions.views!.months!.showToolTips ) {
-            ToolTip.add( monthLine, bindingOptions, Str.friendlyNumber( monthCount ) );
+            let tooltip: string = DateTime.getCustomFormattedDateText( _configurationOptions, bindingOptions.views!.months!.monthToolTipText!, new Date( bindingOptions._currentView!.activeYear, monthNumber - 1, 1 ) );
+            tooltip += `${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( monthCount )}</b>`;
+
+            ToolTip.add( monthLine, bindingOptions, tooltip );
         }
 
         let currentYear: number = bindingOptions._currentView!.activeYear;
