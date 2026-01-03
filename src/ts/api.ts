@@ -59,7 +59,7 @@ export type PublicApi = {
      * Adds an array of dates for a specific element ID, and refreshes the UI (if specified). If the dates already exist, their values are increased by one.
      * 
      * @public
-     * @fires       onAdd
+     * @fires       onAddDate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
      * @param       {Date[]}    dates                                       The dates to add.
@@ -76,7 +76,7 @@ export type PublicApi = {
      * Adds a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is increased by one.
      * 
      * @public
-     * @fires       onAdd
+     * @fires       onAddDate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
      * @param       {Date}      date                                        The date to add.
@@ -93,7 +93,7 @@ export type PublicApi = {
      * Updates a date for a specific element ID, and refreshes the UI (if specified).
      * 
      * @public
-     * @fires       onUpdate
+     * @fires       onUpdateDate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date}      date                                        The date to update.
@@ -111,7 +111,7 @@ export type PublicApi = {
      * Removes an array of dates for a specific element ID, and refreshes the UI (if specified). If the dates already exist, their values are decreased by one.
      * 
      * @public
-     * @fires       onRemove
+     * @fires       onRemoveDate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date[]}    dates                                       The dates to removed.
@@ -128,7 +128,7 @@ export type PublicApi = {
      * Removes a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is decreased by one.
      * 
      * @public
-     * @fires       onRemove
+     * @fires       onRemoveDate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date}      date                                        The date to removed.
@@ -145,7 +145,7 @@ export type PublicApi = {
      * Clears a date for a specific element ID, and refreshes the UI (if specified).
      * 
      * @public
-     * @fires       onClear
+     * @fires       onClearDate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date}      date                                        The date to clear.

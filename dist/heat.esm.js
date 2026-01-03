@@ -1188,15 +1188,15 @@ var f;
             e.events.onMapDayToolTipRender = i.getFunction(e.events.onMapDayToolTipRender, null);
             e.events.onChartDayToolTipRender = i.getFunction(e.events.onChartDayToolTipRender, e.events.onMapDayToolTipRender);
             e.events.onLineDayToolTipRender = i.getFunction(e.events.onLineDayToolTipRender, e.events.onMapDayToolTipRender);
-            e.events.onAdd = i.getFunction(e.events.onAdd, null);
-            e.events.onRemove = i.getFunction(e.events.onRemove, null);
+            e.events.onAddDate = i.getFunction(e.events.onAddDate, null);
+            e.events.onRemoveDate = i.getFunction(e.events.onRemoveDate, null);
             e.events.onReset = i.getFunction(e.events.onReset, null);
             e.events.onViewSwitch = i.getFunction(e.events.onViewSwitch, null);
             e.events.onColorRangeTypeToggle = i.getFunction(e.events.onColorRangeTypeToggle, null);
             e.events.onImport = i.getFunction(e.events.onImport, null);
             e.events.onDataFetch = i.getFunction(e.events.onDataFetch, null);
-            e.events.onClear = i.getFunction(e.events.onClear, null);
-            e.events.onUpdate = i.getFunction(e.events.onUpdate, null);
+            e.events.onClearDate = i.getFunction(e.events.onClearDate, null);
+            e.events.onUpdateDate = i.getFunction(e.events.onUpdateDate, null);
             e.events.onOptionsUpdate = i.getFunction(e.events.onOptionsUpdate, null);
             e.events.onMapDayClick = i.getFunction(e.events.onMapDayClick, null);
             e.events.onMapDayDblClick = i.getFunction(e.events.onMapDayDblClick, null);
@@ -4516,7 +4516,7 @@ var V;
                         _[e].typeData[n][a] = 0;
                     }
                     _[e].typeData[n][a]++;
-                    c.customEvent(o.events.onAdd, o._currentView.element);
+                    c.customEvent(o.events.onAddDate, o._currentView.element);
                     if (r) {
                         O(o, true);
                     }
@@ -4532,7 +4532,7 @@ var V;
                     if (Object.prototype.hasOwnProperty.call(_[e].typeData, r)) {
                         r = i.getString(r, x.text.unknownTrendText);
                         _[e].typeData[r][l] = n;
-                        c.customEvent(o.events.onUpdate, o._currentView.element);
+                        c.customEvent(o.events.onUpdateDate, o._currentView.element);
                         if (a) {
                             O(o, true);
                         }
@@ -4567,7 +4567,7 @@ var V;
                         if (_[e].typeData[n][a] > 0) {
                             _[e].typeData[n][a]--;
                         }
-                        c.customEvent(o.events.onRemove, o._currentView.element);
+                        c.customEvent(o.events.onRemoveDate, o._currentView.element);
                         if (r) {
                             O(o, true);
                         }
@@ -4584,7 +4584,7 @@ var V;
                     if (Object.prototype.hasOwnProperty.call(_[e].typeData, n) && Object.prototype.hasOwnProperty.call(_[e].typeData[n], a)) {
                         n = i.getString(n, x.text.unknownTrendText);
                         delete _[e].typeData[n][a];
-                        c.customEvent(o.events.onClear, o._currentView.element);
+                        c.customEvent(o.events.onClearDate, o._currentView.element);
                         if (r) {
                             O(o, true);
                         }

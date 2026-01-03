@@ -126,6 +126,10 @@
 - BREAKING: Renamed "events.onDayToolTipRender" to "events.onMapDayToolTipRender".
 - BREAKING: Renamed "events.onStatisticClick" to "events.onColorRangeClick".
 - BREAKING: Renamed "events.onStatisticDblClick" to "events.onColorRangeDblClick".
+- BREAKING: Renamed "events.onAdd" to "events.onAddDate".
+- BREAKING: Renamed "events.onRemove" to "events.onRemoveDate".
+- BREAKING: Renamed "events.onUpdate" to "events.onUpdateDate".
+- BREAKING: Renamed "events.onClear" to "events.onClearDate".
 - BREAKING: Every custom trigger now except the DOM element used for the Heat.js instance as the first parameter.
 
 #### **Binding Options - Custom Triggers - New / Updates:**
