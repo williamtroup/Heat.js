@@ -17,11 +17,11 @@ import {
     type BindingOptionsColorRange, 
     type RgbaColor } from "../type";
     
+import { Char, ViewId } from "../data/enum";
 import { Constant } from "../constant";
 import { Default } from "../data/default";
 import { Is } from "../data/is";
 import { Convert } from "../data/convert";
-import { Char, ViewId } from "../data/enum";
 import { DomElement } from "../dom/dom";
 import { Css } from "../css";
 import { Str } from "../data/str";
