@@ -2659,7 +2659,10 @@ import { DocumentElement } from "./ts/area/document-element";
                 renderDescription( bindingOptions, description );
             }
 
-            const types: string[] = Object.keys( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData ).sort( ( typeA: string, typeB: string ) => typeA.localeCompare( typeB, undefined, { numeric: true, sensitivity: "base" } ) );
+            const types: string[] = Object
+                .keys( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData )
+                .sort( ( typeA: string, typeB: string ) => typeA.localeCompare( typeB, undefined, { numeric: true, sensitivity: "base" } ) );
+                
             const typesLength: number = types.length;
 
             for ( let typeIndex: number = 0; typeIndex < typesLength; typeIndex++ ) {
@@ -3086,7 +3089,9 @@ import { DocumentElement } from "./ts/area/document-element";
 
         _elements_InstanceData[ bindingOptions._currentView!.element.id ].totalTypes--;
 
-        const types: string[] = Object.keys( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData ).sort( ( typeA: string, typeB: string ) => typeA.localeCompare( typeB, undefined, { numeric: true, sensitivity: "base" } ) );
+        const types: string[] = Object
+            .keys( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData )
+            .sort( ( typeA: string, typeB: string ) => typeA.localeCompare( typeB, undefined, { numeric: true, sensitivity: "base" } ) );
 
         bindingOptions._currentView!.activeType = types[ 0 ];
 
