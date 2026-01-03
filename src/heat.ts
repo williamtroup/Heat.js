@@ -3465,7 +3465,7 @@ import { DocumentElement } from "./ts/area/document-element";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        addType: function ( elementId: string, type: string, triggerRefresh: boolean = true ) : PublicApi {
+        addType: ( elementId: string, type: string, triggerRefresh: boolean = true ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
@@ -3486,7 +3486,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        removeType: function ( elementId: string, type: string, triggerRefresh: boolean = true ) : PublicApi {
+        removeType: ( elementId: string, type: string, triggerRefresh: boolean = true ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
@@ -3502,7 +3502,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        addDates: function ( elementId: string, dates: Date[], type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
+        addDates: ( elementId: string, dates: Date[], type: string = null!, triggerRefresh: boolean = true ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedArray( dates ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
@@ -3524,7 +3524,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        addDate: function ( elementId: string, date: Date, type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
+        addDate: ( elementId: string, date: Date, type: string = null!, triggerRefresh: boolean = true ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
@@ -3555,7 +3555,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        updateDate: function ( elementId: string, date: Date, count: number, type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
+        updateDate: ( elementId: string, date: Date, count: number, type: string = null!, triggerRefresh: boolean = true ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
@@ -3579,7 +3579,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        removeDates: function ( elementId: string, dates: Date[], type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
+        removeDates: ( elementId: string, dates: Date[], type: string = null!, triggerRefresh: boolean = true ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedArray( dates ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
@@ -3601,7 +3601,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        removeDate: function ( elementId: string, date: Date, type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
+        removeDate: ( elementId: string, date: Date, type: string = null!, triggerRefresh: boolean = true ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
@@ -3627,7 +3627,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        clearDate: function ( elementId: string, date: Date, type: string = null!, triggerRefresh: boolean = true ) : PublicApi {
+        clearDate: ( elementId: string, date: Date, type: string = null!, triggerRefresh: boolean = true ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedDate( date ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
@@ -3651,7 +3651,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        resetAll: function ( triggerRefresh: boolean = true ) : PublicApi {
+        resetAll: ( triggerRefresh: boolean = true ) : PublicApi => {
             for ( const elementId in _elements_InstanceData ) {
                 if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                     _public.reset( elementId, triggerRefresh );
@@ -3661,7 +3661,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        reset: function ( elementId: string, triggerRefresh: boolean = true ) : PublicApi {
+        reset: ( elementId: string, triggerRefresh: boolean = true ) : PublicApi => {
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
@@ -3687,7 +3687,7 @@ import { DocumentElement } from "./ts/area/document-element";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        import: function ( elementId: string, files: FileList = null! ) : PublicApi {
+        import: ( elementId: string, files: FileList = null! ) : PublicApi => {
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 if ( Is.definedArray( files ) ) {
                     importFromFiles( files, _elements_InstanceData[ elementId ].options );
@@ -3699,7 +3699,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        export: function ( elementId: string, exportType: string = null! ) : PublicApi {
+        export: ( elementId: string, exportType: string = null! ) : PublicApi => {
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
 
@@ -3716,7 +3716,7 @@ import { DocumentElement } from "./ts/area/document-element";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        refresh: function ( elementId: string ) : PublicApi {
+        refresh: ( elementId: string ) : PublicApi => {
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
     
@@ -3727,7 +3727,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        refreshAll: function () : PublicApi {
+        refreshAll: () : PublicApi => {
             for ( const elementId in _elements_InstanceData ) {
                 if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                     const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
@@ -3740,7 +3740,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        setYear: function ( elementId: string, year: number ) : PublicApi {
+        setYear: ( elementId: string, year: number ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedNumber( year ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 bindingOptions._currentView!.activeYear = year;
@@ -3757,7 +3757,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        setYearToHighest: function ( elementId: string ) : PublicApi {
+        setYearToHighest: ( elementId: string ) : PublicApi => {
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
@@ -3785,7 +3785,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        setYearToLowest: function ( elementId: string ) : PublicApi {
+        setYearToLowest: ( elementId: string ) : PublicApi => {
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
@@ -3813,7 +3813,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        moveToPreviousYear: function ( elementId: string ) : PublicApi {
+        moveToPreviousYear: ( elementId: string ) : PublicApi => {
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 moveToPreviousYear( _elements_InstanceData[ elementId ].options );
             }
@@ -3821,7 +3821,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        moveToNextYear: function ( elementId: string ) : PublicApi {
+        moveToNextYear: ( elementId: string ) : PublicApi => {
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 moveToNextYear( _elements_InstanceData[ elementId ].options );
             }
@@ -3829,7 +3829,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        moveToCurrentYear: function ( elementId: string ) : PublicApi {
+        moveToCurrentYear: ( elementId: string ) : PublicApi => {
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 bindingOptions._currentView!.activeYear = new Date().getFullYear();
@@ -3846,7 +3846,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        getYear: function ( elementId: string ) : number {
+        getYear: ( elementId: string ) : number => {
             let result: number = Value.notFound;
 
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
@@ -3856,7 +3856,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return result;
         },
 
-        render: function ( element: HTMLElement, bindingOptions: BindingOptions ) : PublicApi {
+        render: ( element: HTMLElement, bindingOptions: BindingOptions ) : PublicApi => {
             if ( Is.definedObject( element ) && Is.definedObject( bindingOptions ) ) {
                 renderControl( Binding.Options.getForNewInstance(_configurationOptions, bindingOptions, element ) );
             }
@@ -3864,13 +3864,13 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        renderAll: function () : PublicApi {
+        renderAll: () : PublicApi => {
             render();
 
             return _public;
         },
 
-        switchView: function ( elementId: string, viewName: string ) : PublicApi {
+        switchView: ( elementId: string, viewName: string ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedString( viewName ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 const viewId: ViewId = Visible.View.get( viewName );
@@ -3883,7 +3883,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        switchType: function ( elementId: string, type: string ) : PublicApi {
+        switchType: ( elementId: string, type: string ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
     
@@ -3898,7 +3898,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        updateOptions: function ( elementId: string, bindingOptions: BindingOptions ) : PublicApi {
+        updateOptions: ( elementId: string, bindingOptions: BindingOptions ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedObject( bindingOptions ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: any = _elements_InstanceData[ elementId ].options;
                 const newBindingOptions: any = Binding.Options.get( bindingOptions );
@@ -3921,7 +3921,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        getActiveView: function ( elementId: string ) : string {
+        getActiveView: ( elementId: string ) : string => {
             let result: string = Char.empty;
 
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
@@ -3938,7 +3938,7 @@ import { DocumentElement } from "./ts/area/document-element";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        destroyAll: function () : PublicApi {
+        destroyAll: () : PublicApi => {
             for ( const elementId in _elements_InstanceData ) {
                 if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                     destroyElement( _elements_InstanceData[ elementId ].options );
@@ -3950,7 +3950,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        destroy: function ( elementId: string ) : PublicApi {
+        destroy: ( elementId: string ) : PublicApi => {
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 destroyElement( _elements_InstanceData[ elementId ].options );
     
@@ -3967,7 +3967,7 @@ import { DocumentElement } from "./ts/area/document-element";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        setConfiguration: function ( configurationOptions: ConfigurationOptions, triggerRefresh: boolean = true ) : PublicApi {
+        setConfiguration: ( configurationOptions: ConfigurationOptions, triggerRefresh: boolean = true ) : PublicApi => {
             if ( Is.definedObject( configurationOptions ) ) {
                 const newInternalConfigurationOptions: any = _configurationOptions;
                 const newConfigurationOptions: any = configurationOptions;
@@ -4001,7 +4001,7 @@ import { DocumentElement } from "./ts/area/document-element";
          * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
          */
 
-        getIds: function () : string[] {
+        getIds: () : string[] => {
             const result: string[] = [];
         
             for ( const elementId in _elements_InstanceData ) {
@@ -4013,7 +4013,7 @@ import { DocumentElement } from "./ts/area/document-element";
             return result;
         },
 
-        getVersion: function () : string {
+        getVersion: () : string => {
             return "5.0.0";
         }
     };
