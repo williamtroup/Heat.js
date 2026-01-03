@@ -452,13 +452,13 @@ import { DocumentElement } from "./ts/area/document-element";
                 navigator.clipboard.writeText( contents );
 
             } else {
-                const contentsMimeType: string = Export.File.mimeType( contentExportType );
+                const contentsMimeType: string = Export.File.getMimeType( contentExportType );
                 const tempLink: HTMLElement = DomElement.create( document.body, "a" );
 
                 tempLink.style.display = "none";
                 tempLink.setAttribute( "target", "_blank" );
                 tempLink.setAttribute( "href", `data:${contentsMimeType};charset=utf-8,${encodeURIComponent( contents )}` );
-                tempLink.setAttribute( "download", Export.File.filename( _configurationOptions, bindingOptions, exportFilename, contentExportType ) );
+                tempLink.setAttribute( "download", Export.File.getFilename( _configurationOptions, bindingOptions, exportFilename, contentExportType ) );
                 tempLink.click();
                 
                 document.body.removeChild( tempLink );

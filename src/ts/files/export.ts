@@ -24,7 +24,7 @@ import { Str } from "../data/str";
 
 export namespace Export {
     export namespace File {
-        export function mimeType( exportType: string ) : string {
+        export function getMimeType( exportType: string ) : string {
             let result: string = null!;
 
             if ( exportType.toLowerCase() === ExportType.csv ) {
@@ -50,7 +50,7 @@ export namespace Export {
             return result;
         }
 
-        export function filename( configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions, exportFilename: string, contentExportType: string ) : string {
+        export function getFilename( configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions, exportFilename: string, contentExportType: string ) : string {
             let filename: string = null!;
 
             if ( Is.definedString( exportFilename ) ) {

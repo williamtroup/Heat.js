@@ -1700,7 +1700,7 @@ var y;
             }
             return t;
         }
-        e.mimeType = t;
+        e.getMimeType = t;
         function n(e, t, n, i) {
             let s = null;
             if (o.definedString(n)) {
@@ -1717,7 +1717,7 @@ var y;
             }
             return s;
         }
-        e.filename = n;
+        e.getFilename = n;
     })(t = e.File || (e.File = {}));
     let n;
     (e => {
@@ -2260,12 +2260,12 @@ var V;
             if (s) {
                 navigator.clipboard.writeText(u);
             } else {
-                const t = y.File.mimeType(l);
+                const t = y.File.getMimeType(l);
                 const o = a.create(document.body, "a");
                 o.style.display = "none";
                 o.setAttribute("target", "_blank");
                 o.setAttribute("href", `data:${t};charset=utf-8,${encodeURIComponent(u)}`);
-                o.setAttribute("download", y.File.filename(x, e, n, l));
+                o.setAttribute("download", y.File.getFilename(x, e, n, l));
                 o.click();
                 document.body.removeChild(o);
             }
