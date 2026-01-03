@@ -3969,19 +3969,19 @@ import { DocumentElement } from "./ts/area/document-element";
 
         setConfiguration: ( configurationOptions: ConfigurationOptions, triggerRefresh: boolean = true ) : PublicApi => {
             if ( Is.definedObject( configurationOptions ) ) {
-                const newInternalConfigurationOptions: any = _configurationOptions;
+                const existingConfigurationOptions: any = _configurationOptions;
                 const newConfigurationOptions: any = configurationOptions;
                 let configurationOptionsHaveChanged: boolean = false;
             
                 for ( const propertyName in newConfigurationOptions ) {
-                    if ( Object.prototype.hasOwnProperty.call( newConfigurationOptions, propertyName ) && Object.prototype.hasOwnProperty.call( _configurationOptions, propertyName ) && newInternalConfigurationOptions[ propertyName ] !== newConfigurationOptions[ propertyName ] ) {
-                        newInternalConfigurationOptions[ propertyName ] = newConfigurationOptions[ propertyName ];
+                    if ( Object.prototype.hasOwnProperty.call( newConfigurationOptions, propertyName ) && Object.prototype.hasOwnProperty.call( _configurationOptions, propertyName ) && existingConfigurationOptions[ propertyName ] !== newConfigurationOptions[ propertyName ] ) {
+                        existingConfigurationOptions[ propertyName ] = newConfigurationOptions[ propertyName ];
                         configurationOptionsHaveChanged = true;
                     }
                 }
         
                 if ( configurationOptionsHaveChanged ) {
-                    _configurationOptions = Configuration.Options.get( newInternalConfigurationOptions );
+                    _configurationOptions = Configuration.Options.get( existingConfigurationOptions );
 
                     setupObservationMode();
         
