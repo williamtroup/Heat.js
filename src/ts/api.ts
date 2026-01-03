@@ -409,7 +409,7 @@ export type PublicApi = {
     switchType: ( elementId: string, type: string ) => PublicApi;
 
     /**
-     * updateOptions().
+     * updateBindingOptions().
      * 
      * Updates the original binding options for an element and refreshes it.
      * 
@@ -422,7 +422,7 @@ export type PublicApi = {
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    updateOptions: ( elementId: string, bindingOptions: BindingOptions ) => PublicApi;
+    updateBindingOptions: ( elementId: string, bindingOptions: BindingOptions ) => PublicApi;
 
     /**
      * getActiveView().

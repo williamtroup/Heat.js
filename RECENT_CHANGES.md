@@ -187,6 +187,9 @@
 - Added a new configuration text option called "text.resetButtonText" (defaults to "Reset").
 - Added a new configuration text option called "text.copyButtonText" (defaults to "Copy").
 
+#### **Public Functions - Breaking Changes:**
+- BREAKING: Renamed "updateOptions()" to "updateBindingOptions()".
+
 #### **Public Functions:**
 - Added a new public function called "getActiveView()", which returns the active view name for a specific element ID instance.
 - Added a new public function called "addType()", which adds a new trend type.

@@ -3858,7 +3858,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
         render: ( element: HTMLElement, bindingOptions: BindingOptions ) : PublicApi => {
             if ( Is.definedObject( element ) && Is.definedObject( bindingOptions ) ) {
-                renderControl( Binding.Options.getForNewInstance(_configurationOptions, bindingOptions, element ) );
+                renderControl( Binding.Options.getForNewInstance( _configurationOptions, bindingOptions, element ) );
             }
     
             return _public;
@@ -3898,23 +3898,23 @@ import { DocumentElement } from "./ts/area/document-element";
             return _public;
         },
 
-        updateOptions: ( elementId: string, bindingOptions: BindingOptions ) : PublicApi => {
+        updateBindingOptions: ( elementId: string, bindingOptions: BindingOptions ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedObject( bindingOptions ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
-                const bindingOptions: any = _elements_InstanceData[ elementId ].options;
+                const existingBindingOptions: any = _elements_InstanceData[ elementId ].options;
                 const newBindingOptions: any = Binding.Options.get( bindingOptions );
                 let optionChanged: boolean = false;
     
                 for ( const propertyName in newBindingOptions ) {
-                    if ( Object.prototype.hasOwnProperty.call( newBindingOptions, propertyName ) && Object.prototype.hasOwnProperty.call( bindingOptions, propertyName ) && bindingOptions[ propertyName ] !== newBindingOptions[ propertyName ] ) {
-                        bindingOptions[ propertyName ] = newBindingOptions[ propertyName ];
+                    if ( Object.prototype.hasOwnProperty.call( newBindingOptions, propertyName ) && Object.prototype.hasOwnProperty.call( existingBindingOptions, propertyName ) && existingBindingOptions[ propertyName ] !== newBindingOptions[ propertyName ] ) {
+                        existingBindingOptions[ propertyName ] = newBindingOptions[ propertyName ];
                         optionChanged = true;
                     }
                 }
     
                 if ( optionChanged ) {
-                    renderControlContainer( bindingOptions, true );
-                    Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView!.element );
-                    Trigger.customEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView!.element, bindingOptions );
+                    renderControlContainer( existingBindingOptions, true );
+                    Trigger.customEvent( existingBindingOptions.events!.onRefresh!, existingBindingOptions._currentView!.element );
+                    Trigger.customEvent( existingBindingOptions.events!.onOptionsUpdate!, existingBindingOptions._currentView!.element, existingBindingOptions );
                 }
             }
     

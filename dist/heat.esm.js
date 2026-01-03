@@ -4770,21 +4770,21 @@ var V;
             }
             return at;
         },
-        updateOptions: (e, t) => {
+        updateBindingOptions: (e, t) => {
             if (o.definedString(e) && o.definedObject(t) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const t = _[e].options;
-                const n = g.Options.get(t);
-                let o = false;
-                for (const e in n) {
-                    if (Object.prototype.hasOwnProperty.call(n, e) && Object.prototype.hasOwnProperty.call(t, e) && t[e] !== n[e]) {
-                        t[e] = n[e];
-                        o = true;
+                const n = _[e].options;
+                const o = g.Options.get(t);
+                let i = false;
+                for (const e in o) {
+                    if (Object.prototype.hasOwnProperty.call(o, e) && Object.prototype.hasOwnProperty.call(n, e) && n[e] !== o[e]) {
+                        n[e] = o[e];
+                        i = true;
                     }
                 }
-                if (o) {
-                    O(t, true);
-                    c.customEvent(t.events.onRefresh, t._currentView.element);
-                    c.customEvent(t.events.onOptionsUpdate, t._currentView.element, t);
+                if (i) {
+                    O(n, true);
+                    c.customEvent(n.events.onRefresh, n._currentView.element);
+                    c.customEvent(n.events.onOptionsUpdate, n._currentView.element, n);
                 }
             }
             return at;
