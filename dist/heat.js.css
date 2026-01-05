@@ -1167,6 +1167,38 @@ div.heat-js div.map-contents-container div.zooming div.zoom-close-button {
   margin-right: var(--heat-js-spacing);
   margin-left: calc(var(--heat-js-spacing) / 2);
 }
+div.heat-js div.map-contents-container div.zooming button.reset i.exclamation-mark {
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
+  display: inline-block;
+  position: relative;
+}
+div.heat-js div.map-contents-container div.zooming button.reset i.exclamation-mark::before, div.heat-js div.map-contents-container div.zooming button.reset i.exclamation-mark::after {
+  position: absolute;
+  content: "";
+}
+div.heat-js div.map-contents-container div.zooming button.reset i.exclamation-mark:before {
+  left: 50%;
+  transform: translate(-50%);
+  background-color: currentColor;
+  width: calc(var(--heat-js-button-icon-size) / 4);
+  height: calc(100% - var(--heat-js-button-icon-size) / 4 - var(--heat-js-button-icon-size) / 4 / 3);
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  top: 0;
+}
+div.heat-js div.map-contents-container div.zooming button.reset i.exclamation-mark:after {
+  left: 50%;
+  transform: translate(-50%);
+  background-color: currentColor;
+  width: calc(var(--heat-js-button-icon-size) / 4);
+  height: calc(var(--heat-js-button-icon-size) / 4);
+  border-radius: 50%;
+  bottom: 0;
+}
+div.heat-js div.map-contents-container div.zooming button.reset {
+  margin-right: calc(var(--heat-js-spacing) / 2);
+}
 div.heat-js div.map-contents-container div.zooming button.zoom-out i.minus {
   width: var(--heat-js-button-icon-size);
   height: var(--heat-js-button-icon-size);
@@ -1459,6 +1491,38 @@ div.heat-js div.line-contents-container div.zooming div.zoom-close-button {
   display: inline-block;
   margin-right: var(--heat-js-spacing);
   margin-left: calc(var(--heat-js-spacing) / 2);
+}
+div.heat-js div.line-contents-container div.zooming button.reset i.exclamation-mark {
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
+  display: inline-block;
+  position: relative;
+}
+div.heat-js div.line-contents-container div.zooming button.reset i.exclamation-mark::before, div.heat-js div.line-contents-container div.zooming button.reset i.exclamation-mark::after {
+  position: absolute;
+  content: "";
+}
+div.heat-js div.line-contents-container div.zooming button.reset i.exclamation-mark:before {
+  left: 50%;
+  transform: translate(-50%);
+  background-color: currentColor;
+  width: calc(var(--heat-js-button-icon-size) / 4);
+  height: calc(100% - var(--heat-js-button-icon-size) / 4 - var(--heat-js-button-icon-size) / 4 / 3);
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  top: 0;
+}
+div.heat-js div.line-contents-container div.zooming button.reset i.exclamation-mark:after {
+  left: 50%;
+  transform: translate(-50%);
+  background-color: currentColor;
+  width: calc(var(--heat-js-button-icon-size) / 4);
+  height: calc(var(--heat-js-button-icon-size) / 4);
+  border-radius: 50%;
+  bottom: 0;
+}
+div.heat-js div.line-contents-container div.zooming button.reset {
+  margin-right: calc(var(--heat-js-spacing) / 2);
 }
 div.heat-js div.line-contents-container div.zooming button.zoom-out i.minus {
   width: var(--heat-js-button-icon-size);

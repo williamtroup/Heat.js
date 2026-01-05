@@ -2879,6 +2879,7 @@ import { DocumentElement } from "./ts/area/document-element";
     function renderControlZooming( bindingOptions: BindingOptions, container: HTMLElement, contents: HTMLElement ) : void {
         if ( bindingOptions.zooming!.enabled ) {
             const zooming: HTMLElement = DomElement.create( container, "div", "zooming" );
+            let resetButton: HTMLButtonElement = null!;
 
             if ( bindingOptions.zooming!.showCloseButton ) {
                 const closeButton: HTMLElement = DomElement.create( zooming, "div", "zoom-close-button" ) as HTMLElement;
@@ -2891,6 +2892,14 @@ import { DocumentElement } from "./ts/area/document-element";
 
                     zooming.parentNode!.removeChild( zooming );
                 };
+            }
+
+            if ( bindingOptions.zooming!.showResetButton ) {
+                resetButton = DomElement.createIconButton( zooming, "button", "reset", "exclamation-mark" );
+
+                ToolTip.add( resetButton, bindingOptions, _configurationOptions.text!.resetButtonText! );
+
+                resetButton.onclick = () => zoomReset( bindingOptions );
             }
 
             const zoomOutButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-out", "minus" );
@@ -2912,6 +2921,10 @@ import { DocumentElement } from "./ts/area/document-element";
                 bindingOptions._currentView!.mapContents.style.paddingRight = `${zooming.offsetWidth + spacing}px`;
             }
 
+            if ( bindingOptions.zooming!.showResetButton ) {
+                resetButton.disabled = bindingOptions._currentView!.zoomLevel! === 0;
+            }
+            
             zoomOutButton.disabled = bindingOptions._currentView!.zoomLevel! === 0;
             zoomOutButton.onclick = () => zoomOut( bindingOptions );
             zoomInButton.disabled = bindingOptions.zooming!.maximumLevel! > 0 && bindingOptions._currentView!.zoomLevel! >= bindingOptions.zooming!.maximumLevel!;
@@ -2940,6 +2953,19 @@ import { DocumentElement } from "./ts/area/document-element";
             bindingOptions._currentView!.zoomLevel = bindingOptions.zooming!.defaultLevel!;
             bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${daySizeSizingMetric}` );
             bindingOptions._currentView!.element.style.setProperty( Css.Variables.LineWidth, `${lineWidth}${lineWidthSizingMetric}` );
+        }
+    }
+
+    function zoomReset( bindingOptions: BindingOptions ) : void {
+        if ( bindingOptions._currentView!.zoomLevel > 0 ) {
+            bindingOptions._currentView!.element.style.removeProperty( Css.Variables.DaySize );
+            bindingOptions._currentView!.element.style.removeProperty( Css.Variables.LineWidth );
+
+            bindingOptions._currentView!.zoomLevel = 0;
+            bindingOptions._currentView!.dayWidth = 0;
+
+            Trigger.customEvent( bindingOptions.events!.onZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.zoomLevel );
+            renderControlContainer( bindingOptions, false, false, true );
         }
     }
 

@@ -396,6 +396,7 @@ export type BindingOptionsZooming = {
     defaultLevel?: number;
     maximumLevel?: number;
     showCloseButton?: boolean;
+    showResetButton?: boolean;
 };
 
 export type BindingOptionsTooltip = {
