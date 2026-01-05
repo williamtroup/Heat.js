@@ -2808,7 +2808,7 @@ import { DocumentElement } from "./ts/area/document-element";
             clear.onclick = ( ev: MouseEvent ) => {
                 DomElement.cancelBubble( ev );
 
-                showConfirmationDialog( bindingOptions, _configurationOptions.text!.clearDataConfirmText!, () => {
+                showConfirmationDialog( bindingOptions, _configurationOptions.text!.removeTypeConfirmText!, () => {
                     removeType( bindingOptions, type );
                     renderControlContainer( bindingOptions, true );
                 } );
