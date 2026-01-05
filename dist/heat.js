@@ -3402,26 +3402,28 @@ var V;
         e._currentView.daysContents = a.create(e._currentView.element, "div", "days-contents");
         const i = a.create(e._currentView.daysContents, "div", "days");
         const r = a.create(e._currentView.daysContents, "div", "day-names");
-        const s = a.create(i, "div", "y-labels");
-        const l = a.create(i, "div", "day-lines");
-        const c = w.getAllSorted(e);
-        const d = _e(e, c);
+        const l = a.create(i, "div", "y-labels");
+        const c = a.create(i, "div", "day-lines");
+        const d = w.getAllSorted(e);
+        const u = _e(e, d);
+        const g = new Date;
+        const f = s.getWeekdayNumber(g) + 1;
         if (t && (!e.views.days.useDifferentOpacities || !e.views.days.showDayCounts)) {
             a.addClass(i, "view-switch");
         }
-        if (d.largestValue > 0 && e.views.days.showChartYLabels) {
-            const e = a.createWithHTML(s, "div", "label-100", d.largestValue.toString());
-            const t = a.getStyleValueByName(s, "margin-right", true);
-            a.createWithHTML(s, "div", "label-75", (Math.floor(d.largestValue / 4) * 3).toString());
-            a.createWithHTML(s, "div", "label-50", Math.floor(d.largestValue / 2).toString());
-            a.createWithHTML(s, "div", "label-25", Math.floor(d.largestValue / 4).toString());
-            a.createWithHTML(s, "div", "label-0", "0");
-            s.style.width = `${e.offsetWidth}px`;
-            r.style.paddingLeft = `${s.offsetWidth + t}px`;
+        if (u.largestValue > 0 && e.views.days.showChartYLabels) {
+            const e = a.createWithHTML(l, "div", "label-100", u.largestValue.toString());
+            const t = a.getStyleValueByName(l, "margin-right", true);
+            a.createWithHTML(l, "div", "label-75", (Math.floor(u.largestValue / 4) * 3).toString());
+            a.createWithHTML(l, "div", "label-50", Math.floor(u.largestValue / 2).toString());
+            a.createWithHTML(l, "div", "label-25", Math.floor(u.largestValue / 4).toString());
+            a.createWithHTML(l, "div", "label-0", "0");
+            l.style.width = `${e.offsetWidth}px`;
+            r.style.paddingLeft = `${l.offsetWidth + t}px`;
         } else {
-            s.parentNode.removeChild(s);
+            l.parentNode.removeChild(l);
         }
-        if (d.largestValue === 0) {
+        if (u.largestValue === 0) {
             e._currentView.daysContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
             i.parentNode.removeChild(i);
             r.parentNode.removeChild(r);
@@ -3430,24 +3432,27 @@ var V;
                 a.addClass(o, "view-switch");
             }
         } else {
-            const n = a.getStyleValueByName(l, "border-bottom-width", true);
-            const i = (l.offsetHeight - n) / d.largestValue;
-            for (const n in d.values) {
-                if (Object.prototype.hasOwnProperty.call(d.values, n) && o.dayVisible(e.views.days.daysToShow, parseInt(n))) {
-                    const s = d.valueOpacities[d.values[n].total];
-                    const u = Ce(l, parseInt(n), d.values[n].total, e, i, s, d.totalValue, t);
+            const n = a.getStyleValueByName(c, "border-bottom-width", true);
+            const i = (c.offsetHeight - n) / u.largestValue;
+            for (const n in u.values) {
+                if (Object.prototype.hasOwnProperty.call(u.values, n) && o.dayVisible(e.views.days.daysToShow, parseInt(n))) {
+                    const s = u.valueOpacities[u.values[n].total];
+                    const l = Ce(c, parseInt(n), u.values[n].total, e, i, s, u.totalValue, t);
                     if (e.views.days.showDayNames) {
-                        a.createWithHTML(r, "div", "day-name", x.text.dayNames[parseInt(n) - 1]);
+                        const t = a.createWithHTML(r, "div", "day-name", x.text.dayNames[parseInt(n) - 1]);
+                        if (g.getFullYear() === e._currentView.activeYear && f === parseInt(n)) {
+                            a.addClass(t, "current");
+                        }
                     }
                     if (e.views.days.showStackedColorRanges) {
-                        for (const e in d.values[n].typeTotals) {
-                            if (Object.prototype.hasOwnProperty.call(d.values[n].typeTotals, e)) {
-                                const t = d.values[n].typeTotals[e];
+                        for (const e in u.values[n].typeTotals) {
+                            if (Object.prototype.hasOwnProperty.call(u.values[n].typeTotals, e)) {
+                                const t = u.values[n].typeTotals[e];
                                 const r = t * i;
-                                const s = w.getByMinimum(c, parseInt(e));
+                                const s = w.getByMinimum(d, parseInt(e));
                                 if (r > 0) {
-                                    const e = u.children.length > 0 ? u.children[0] : null;
-                                    const t = a.create(u, "div", "stacked-color-range", e);
+                                    const e = l.children.length > 0 ? l.children[0] : null;
+                                    const t = a.create(l, "div", "stacked-color-range", e);
                                     t.style.height = `${r}px`;
                                     if (o.defined(s)) {
                                         if (o.definedString(s.daysCssClassName)) {
@@ -3463,7 +3468,7 @@ var V;
                 }
             }
             if (e.views.days.showInReverseOrder) {
-                a.reverseChildrenOrder(l);
+                a.reverseChildrenOrder(c);
                 a.reverseChildrenOrder(r);
             }
             if (e.views.days.keepScrollPositions) {

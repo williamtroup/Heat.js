@@ -1983,6 +1983,9 @@ div.heat-js div.days-contents div.day-names div.day-name {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+div.heat-js div.days-contents div.day-names div.day-name.current {
+  font-weight: var(--heat-js-text-font-weight-heavy);
+}
 
 /*
     -------------------------------------------------------------------------

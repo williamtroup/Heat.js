@@ -1476,6 +1476,10 @@ div.heat-js {
                 text-align: center !important;
                 overflow: hidden;
                 text-overflow: ellipsis;
+
+                &.current {
+                    font-weight: var(--heat-js-text-font-weight-heavy);
+                }
             }
         }
     }

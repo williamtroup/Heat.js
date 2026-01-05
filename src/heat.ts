@@ -2021,6 +2021,8 @@ import { DocumentElement } from "./ts/area/document-element";
         const dayLines: HTMLElement = DomElement.create( days, "div", "day-lines" );
         const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
         const dayValuesForCurrentYear: LargestValueForView = getLargestValuesForEachDay( bindingOptions, colorRanges );
+        const today: Date = new Date();
+        const weekdayNumber: number = DateTime.getWeekdayNumber( today ) + 1;
 
         if ( isForViewSwitch && ( !bindingOptions.views!.days!.useDifferentOpacities || !bindingOptions.views!.days!.showDayCounts ) ) {
             DomElement.addClass( days, "view-switch" );
@@ -2063,7 +2065,11 @@ import { DocumentElement } from "./ts/area/document-element";
                     const dayLine: HTMLElement = renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ].total, bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue, isForViewSwitch );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
-                        DomElement.createWithHTML( dayNames, "div", "day-name", _configurationOptions.text!.dayNames![ parseInt( day ) - 1 ] );
+                        const dayName: HTMLElement = DomElement.createWithHTML( dayNames, "div", "day-name", _configurationOptions.text!.dayNames![ parseInt( day ) - 1 ] );
+                        
+                        if ( today.getFullYear() === bindingOptions._currentView!.activeYear && weekdayNumber === parseInt( day ) ) {
+                            DomElement.addClass( dayName, "current" );
+                        }
                     }
 
                     if ( bindingOptions.views!.days!.showStackedColorRanges! ) {
