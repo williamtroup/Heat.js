@@ -136,6 +136,11 @@ export type ConfigurationOptionsText = {
     saveButtonText?: string;
     resetButtonText?: string;
     copyButtonText?: string;
+    yesButtonText?: string;
+    noButtonText?: string;
+    confirmText?: string;
+    clearDataConfirmText?: string;
+    removeTypeConfirmText?: string;
 };
 
 export type BindingOptions = {
@@ -215,6 +220,9 @@ export type BindingOptionsCurrentView = {
     typeAddingDialog: HTMLElement;
     typeAddingDialogTypeInput: HTMLInputElement;
     typeAddingOptionNewType: HTMLInputElement;
+    confirmationDialog: HTMLElement;
+    confirmationDialogMessage: HTMLElement;
+    confirmationDialogYesButton: HTMLButtonElement;
 };
 
 export type BindingOptionsViews = {

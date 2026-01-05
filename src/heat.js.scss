@@ -381,7 +381,7 @@ div.heat-js {
 div.heat-js {
     div.disabled {
         div.export {
-            max-width: 250px;
+            max-width: 270px;
 
             div.dialog-contents {
                 input.filename,
@@ -474,6 +474,21 @@ div.heat-js {
                     margin-top: var(--heat-js-spacing);
                 }
             }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Confirmation Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.disabled {
+        div.confirmation {
+            max-width: 300px;
         }
     }
 }

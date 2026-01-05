@@ -63,6 +63,11 @@ $heat.setConfiguration( {
                 "saveButtonText": "Save",
                 "resetButtonText": "Reset",
                 "copyButtonText": "Copy",
+                "yesButtonText": "Yes",
+                "noButtonText": "No",
+                "confirmText": "Confirm",
+                "clearDataConfirmText": "Are you sure you want to clear the data?",
+                "removeTypeConfirmText": "Are you sure you want to remove this type?",
                 "monthNames": [
                         "Jan",
                         "Feb",

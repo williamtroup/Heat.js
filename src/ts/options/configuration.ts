@@ -95,6 +95,11 @@ export namespace Configuration {
             configurationOptions.text!.saveButtonText = Default.getAnyString( configurationOptions.text!.saveButtonText, "Save" );
             configurationOptions.text!.resetButtonText = Default.getAnyString( configurationOptions.text!.resetButtonText, "Reset" );
             configurationOptions.text!.copyButtonText = Default.getAnyString( configurationOptions.text!.copyButtonText, "Copy" );
+            configurationOptions.text!.yesButtonText = Default.getAnyString( configurationOptions.text!.yesButtonText, "Yes" );
+            configurationOptions.text!.noButtonText = Default.getAnyString( configurationOptions.text!.noButtonText, "No" );
+            configurationOptions.text!.confirmText = Default.getAnyString( configurationOptions.text!.confirmText, "Confirm" );
+            configurationOptions.text!.clearDataConfirmText = Default.getAnyString( configurationOptions.text!.clearDataConfirmText, "Are you sure you want to clear the data?" );
+            configurationOptions.text!.removeTypeConfirmText = Default.getAnyString( configurationOptions.text!.removeTypeConfirmText, "Are you sure you want to remove this type?" );
 
             return configurationOptions.text!;
         }

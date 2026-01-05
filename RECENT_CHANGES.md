@@ -186,6 +186,11 @@
 - Added a new configuration text option called "text.saveButtonText" (defaults to "Save").
 - Added a new configuration text option called "text.resetButtonText" (defaults to "Reset").
 - Added a new configuration text option called "text.copyButtonText" (defaults to "Copy").
+- Added a new configuration text option called "text.yesButtonText" (defaults to "Yes").
+- Added a new configuration text option called "text.noButtonText" (defaults to "No").
+- Added a new configuration text option called "text.confirmText" (defaults to "Confirm").
+- Added a new configuration text option called "text.clearDataConfirmText" (defaults to "Are you sure you want to clear the data?").
+- Added a new configuration text option called "text.removeTypeConfirmText" (defaults to "Are you sure you want to remove this type?").
 
 #### **Public Functions - Breaking Changes:**
 - BREAKING: Renamed "updateOptions()" to "updateBindingOptions()".

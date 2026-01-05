@@ -810,6 +810,60 @@ import { DocumentElement } from "./ts/area/document-element";
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Type Adding Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderConfirmationDialog( bindingOptions: BindingOptions ) : void {
+        Disabled.Background.render( bindingOptions );
+
+        if ( !Is.definedParentElement( bindingOptions._currentView!.confirmationDialog ) ) {
+            bindingOptions._currentView!.confirmationDialog = DomElement.create( bindingOptions._currentView!.disabledBackground, "div", "dialog confirmation" );
+
+            const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.confirmationDialog, "div", "dialog-title-bar" );
+            const contents: HTMLElement = DomElement.create( bindingOptions._currentView!.confirmationDialog, "div", "dialog-contents" );
+
+            DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.confirmText! );
+
+            bindingOptions._currentView!.confirmationDialogMessage = DomElement.create( contents, "div", "message" );
+
+            const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
+            const noButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.noButtonText! );
+            bindingOptions._currentView!.confirmationDialogYesButton = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.yesButtonText! );
+
+            noButton.onclick = () => hideConfirmationDialog( bindingOptions );
+        }
+    }
+
+    function showConfirmationDialog( bindingOptions: BindingOptions, message: string, yesClickFunc: Function ) : void {
+        renderConfirmationDialog( bindingOptions );
+
+        Disabled.Background.show( bindingOptions );
+
+        if ( Is.defined( bindingOptions._currentView!.confirmationDialog ) && bindingOptions._currentView!.confirmationDialog.style.display !== "block" ) {
+            bindingOptions._currentView!.confirmationDialog.style.display = "block";
+            bindingOptions._currentView!.confirmationDialogMessage.innerHTML = message;
+            bindingOptions._currentView!.confirmationDialogYesButton.onclick = () => yesClickFunc();
+        }
+
+        ToolTip.hide( bindingOptions );
+        DocumentElement.Dialog.bind( () => hideConfirmationDialog( bindingOptions ) );
+    }
+
+    function hideConfirmationDialog( bindingOptions: BindingOptions ) : void {
+        Disabled.Background.hide( bindingOptions );
+
+        if ( Is.defined( bindingOptions._currentView!.confirmationDialog ) && bindingOptions._currentView!.confirmationDialog.style.display !== "none" ) {
+            bindingOptions._currentView!.confirmationDialog.style.display = "none";
+        }
+
+        ToolTip.hide( bindingOptions );
+        DocumentElement.Dialog.unbind();
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Render:  Title Bar
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -882,8 +936,10 @@ import { DocumentElement } from "./ts/area/document-element";
                 }
         
                 clear.onclick = () => {
-                    clearViewableData( bindingOptions );
-                    renderControlContainer( bindingOptions, true );
+                    showConfirmationDialog( bindingOptions, _configurationOptions.text!.clearDataConfirmText!, () => {
+                        clearViewableData( bindingOptions );
+                        renderControlContainer( bindingOptions, true );
+                    } );
                 };
             }
     
@@ -2662,7 +2718,7 @@ import { DocumentElement } from "./ts/area/document-element";
             const types: string[] = Object
                 .keys( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData )
                 .sort( ( typeA: string, typeB: string ) => typeA.localeCompare( typeB, undefined, { numeric: true, sensitivity: "base" } ) );
-                
+
             const typesLength: number = types.length;
 
             for ( let typeIndex: number = 0; typeIndex < typesLength; typeIndex++ ) {
@@ -2752,8 +2808,10 @@ import { DocumentElement } from "./ts/area/document-element";
             clear.onclick = ( ev: MouseEvent ) => {
                 DomElement.cancelBubble( ev );
 
-                removeType( bindingOptions, type );
-                renderControlContainer( bindingOptions, true );
+                showConfirmationDialog( bindingOptions, _configurationOptions.text!.clearDataConfirmText!, () => {
+                    removeType( bindingOptions, type );
+                    renderControlContainer( bindingOptions, true );
+                } );
             };
         }
 

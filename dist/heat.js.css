@@ -361,7 +361,7 @@ div.heat-js div.disabled div.configuration div.dialog-contents div.side-containe
     -------------------------------------------------------------------------
 */
 div.heat-js div.disabled div.export {
-  max-width: 250px;
+  max-width: 270px;
 }
 div.heat-js div.disabled div.export div.dialog-contents input.filename,
 div.heat-js div.disabled div.export div.dialog-contents label.checkbox {
@@ -468,6 +468,15 @@ div.heat-js div.disabled div.add-type {
 }
 div.heat-js div.disabled div.add-type div.dialog-contents label.checkbox {
   margin-top: var(--heat-js-spacing);
+}
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Confirmation Dialog
+    -------------------------------------------------------------------------
+*/
+div.heat-js div.disabled div.confirmation {
+  max-width: 300px;
 }
 
 /*
