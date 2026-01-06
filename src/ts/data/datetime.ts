@@ -40,13 +40,17 @@ export namespace DateTime {
         return result;
     }
 
-    export function getCustomFormattedDateText( configurationOptions: ConfigurationOptions, dateFormat: string, date: Date, allowHtml: boolean = false, weekNumberOverride: number = null! ) : string {
+    export function getCustomFormattedDateText( configurationOptions: ConfigurationOptions, dateFormat: string, date: Date, allowHtml: boolean = false, weekDayNumberOverride: number = null! ) : string {
         let result: string = dateFormat;
-        const weekDayNumber: number = Is.definedNumber( weekNumberOverride ) ? weekNumberOverride : getWeekdayNumber( date );
+        const weekDayNumber: number = Is.definedNumber( weekDayNumberOverride ) ? weekDayNumberOverride : getWeekdayNumber( date );
+        const weekNumber: number = getWeekNumber( date );
 
         result = result.replace( "{dddd}", configurationOptions.text!.dayNames![ weekDayNumber ] );
         result = result.replace( "{dd}", Str.padNumber( date.getDate() ) );
         result = result.replace( "{d}", date.getDate().toString() );
+
+        result = result.replace( "{ww}", Str.padNumber( weekNumber ) );
+        result = result.replace( "{w}", weekNumber.toString() );
 
         if ( allowHtml ) {
             result = result.replace( "{o}", `<sup>${getDayOrdinal( configurationOptions, date.getDate() )}</sup>` );
@@ -95,5 +99,17 @@ export namespace DateTime {
         const today: Date = new Date();
 
         return date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
+    }
+
+    export function getWeekNumber( date: Date ) : number {
+        const newDate: Date = new Date( date.getFullYear(), date.getMonth(), date.getDate() );
+        const dayNumber: number = newDate.getDay() || 7;
+        
+        newDate.setDate( newDate.getDate() + 4 - dayNumber );
+
+        const yearStart: Date = new Date( newDate.getFullYear(), 0, 1 );
+        const weekNumber: number = Math.ceil( ( ( ( newDate.getTime() - yearStart.getTime() ) / 86400000) + 1 ) / 7 );
+
+        return weekNumber;
     }
 }
