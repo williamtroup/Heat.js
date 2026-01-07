@@ -6,16 +6,16 @@
     --heat-js-holiday-text-color: var(--heat-js-color-white);
 
     /* View - Map / Chart - Day - Colors */
-    --heat-js-day-color-1-background-color: rgba( 65, 105, 225, 0.14 );
-    --heat-js-day-color-1-border-color: rgba( 65, 105, 225, 0.29 );
+    --heat-js-day-color-1-background-color: rgba( 0, 191, 255, 0.14 );
+    --heat-js-day-color-1-border-color: rgba( 0, 191, 255, 0.29 );
     --heat-js-day-color-1-text-color: var(--heat-js-color-white);
-    --heat-js-day-color-2-background-color: rgba( 84, 135, 289, 0.43 );
-    --heat-js-day-color-2-border-color: rgba( 84, 135, 289, 0.57 );
+    --heat-js-day-color-2-background-color: rgba( 0, 191, 255, 0.43 );
+    --heat-js-day-color-2-border-color: rgba( 0, 191, 255, 0.57 );
     --heat-js-day-color-2-text-color: var(--heat-js-color-white);
-    --heat-js-day-color-3-background-color: rgba( 102, 165, 354, 0.71 );
-    --heat-js-day-color-3-border-color: rgba( 102, 165, 354, 0.86 );
+    --heat-js-day-color-3-background-color: rgba( 0, 191, 255, 0.71 );
+    --heat-js-day-color-3-border-color: rgba( 0, 191, 255, 0.86 );
     --heat-js-day-color-3-text-color: var(--heat-js-color-black);
-    --heat-js-day-color-4-background-color: rgba( 121, 195, 418, 1 );
-    --heat-js-day-color-4-border-color: rgba( 121, 195, 418, 1 );
+    --heat-js-day-color-4-background-color: rgba( 0, 191, 255, 1 );
+    --heat-js-day-color-4-border-color: rgba( 0, 191, 255, 1 );
     --heat-js-day-color-4-text-color: var(--heat-js-color-black);
 }
