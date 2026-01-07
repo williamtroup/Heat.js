@@ -546,7 +546,7 @@ export namespace Binding {
                 bindingOptions._currentView!.activeView = ViewId.colorRanges;
             }
 
-            if ( bindingOptions._currentView!.activeView === 0 ) {
+            if ( bindingOptions._currentView!.activeView === ViewId.unknown ) {
                 if ( bindingOptions.views!.map!.enabled ) {
                     bindingOptions._currentView!.activeView = ViewId.map;
                 } else if ( bindingOptions.views!.line!.enabled ) {
@@ -561,7 +561,7 @@ export namespace Binding {
                     bindingOptions._currentView!.activeView = ViewId.colorRanges;
                 }
 
-                if ( bindingOptions._currentView!.activeView === 0 ) {
+                if ( bindingOptions._currentView!.activeView === ViewId.unknown ) {
                     bindingOptions.views!.map!.enabled = true;
                     bindingOptions._currentView!.activeView = ViewId.map;
                 }
