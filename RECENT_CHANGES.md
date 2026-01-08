@@ -8,7 +8,7 @@
 - Added a brand new Import dialog, which is shown (when pressing the Import button) instead of the select files dialog.
 - Added a brand new Add Type dialog, which allows new trend types to be added manually (off by default).
 - More Export and Import options.
-- Added translation support for Vietnamese (vi).
+- Added language support for Vietnamese (vi).
 - Added 19 new light themes.
 - Added zooming support to the Map and Line views (off by default).
 - All title bar buttons are now rendered using pure CSS! No more settings, with complete universal device support.
@@ -236,6 +236,7 @@
 - The guide color range toggle buttons no longer force a re-render when the Map, Line, or Chart views are visible.
 - The default Ids used for the Color Ranges (when not configured) are now padded numbers, so they always remain the same.
 - Added week number support to all date formatter binding options.
+- Translations have been renamed to languages, and the "dist/translations" folder has been renamed to "lang" (with JS file renames).
 
 #### **Library:**
 - Updated all the NPM packages to the latest versions.
