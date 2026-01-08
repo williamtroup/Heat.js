@@ -4928,8 +4928,8 @@ var V;
     (() => {
         x = f.Options.get();
         document.addEventListener("DOMContentLoaded", () => {
-            ut();
             D();
+            ut();
         });
         window.addEventListener("pagehide", () => tt());
         if (!o.defined(window.$heat)) {

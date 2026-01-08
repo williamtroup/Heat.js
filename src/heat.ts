@@ -4124,8 +4124,8 @@ import { DocumentElement } from "./ts/area/document-element";
         _configurationOptions = Configuration.Options.get();
 
         document.addEventListener( "DOMContentLoaded", () => {
-            setupObservationMode();
             renderAll();
+            setupObservationMode();
         } );
 
         window.addEventListener( "pagehide", () => cancelAllPullDataTimersAndClearWindowEvents() );

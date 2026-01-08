@@ -4926,8 +4926,8 @@ var V;
     (() => {
         x = f.Options.get();
         document.addEventListener("DOMContentLoaded", () => {
-            dt();
             D();
+            dt();
         });
         window.addEventListener("pagehide", () => tt());
         if (!o.defined(window.$heat)) {
