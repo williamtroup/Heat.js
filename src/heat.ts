@@ -59,7 +59,7 @@ import { DocumentElement } from "./ts/area/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function render() : void {
+    function renderAll() : void {
         const tagTypes: string[] = _configurationOptions.domElementTypes as string[];
         const tagTypesLength: number = tagTypes.length;
 
@@ -86,7 +86,7 @@ import { DocumentElement } from "./ts/area/document-element";
                 const bindingOptions: StringToJson = Default.getObjectFromString( bindingOptionsData, _configurationOptions );
 
                 if ( bindingOptions.parsed && Is.definedObject( bindingOptions.object ) ) {
-                    renderControl( Binding.Options.getForNewInstance( _configurationOptions, bindingOptions.object, element ) );
+                    render( Binding.Options.getForNewInstance( _configurationOptions, bindingOptions.object, element ) );
 
                 } else {
                     if ( !_configurationOptions.safeMode ) {
@@ -106,7 +106,7 @@ import { DocumentElement } from "./ts/area/document-element";
         return result;
     }
 
-    function renderControl( bindingOptions: BindingOptions ) : void {
+    function render( bindingOptions: BindingOptions ) : void {
         Trigger.customEvent( bindingOptions.events!.onBeforeRender!, bindingOptions._currentView!.element );
 
         if ( !Is.definedString( bindingOptions._currentView!.element.id ) ) {
@@ -122,14 +122,14 @@ import { DocumentElement } from "./ts/area/document-element";
         bindingOptions._currentView!.element.removeAttribute( Constant.Attribute.HEAT_JS );
 
         createInstanceDataForElement( bindingOptions._currentView!.element.id, bindingOptions );
-        renderControlContainer( bindingOptions );
-        renderWindowEvents( bindingOptions );
+        renderContainer( bindingOptions );
+        createOrRemoveWindowEvents( bindingOptions );
         setupDefaultZoomLevel( bindingOptions );
 
         Trigger.customEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView!.element );
     }
 
-    function renderControlContainer( bindingOptions: BindingOptions, isForDataRefresh: boolean = false, isForViewSwitch: boolean = false, isForViewChange: boolean = false ) : void {
+    function renderContainer( bindingOptions: BindingOptions, isForDataRefresh: boolean = false, isForViewSwitch: boolean = false, isForViewChange: boolean = false ) : void {
         ToolTip.hide( bindingOptions );
 
         if ( isForDataRefresh ) {
@@ -143,34 +143,34 @@ import { DocumentElement } from "./ts/area/document-element";
 
         startDataPullTimer( bindingOptions );
         setupTrendTypes( bindingOptions );
-        renderControlTitleBar( bindingOptions );
-        renderControlYearStatistics( bindingOptions );
+        renderTitleBar( bindingOptions );
+        renderYearStatistics( bindingOptions );
 
         if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.activeView === ViewId.map ) {
-            renderControlMap( bindingOptions, isForViewSwitch, isForViewChange );
+            renderMapView( bindingOptions, isForViewSwitch, isForViewChange );
         }
 
         if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.activeView === ViewId.line ) {
-            renderControlLine( bindingOptions, isForViewSwitch, isForViewChange );
+            renderLineView( bindingOptions, isForViewSwitch, isForViewChange );
         }
 
         if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.activeView === ViewId.chart ) {
-            renderControlChart( bindingOptions, isForViewSwitch, isForViewChange );
+            renderChartView( bindingOptions, isForViewSwitch, isForViewChange );
         }
 
         if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.activeView === ViewId.days ) {
-            renderControlDays( bindingOptions, isForViewSwitch );
+            renderDaysView( bindingOptions, isForViewSwitch );
         }
 
         if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.activeView === ViewId.months ) {
-            renderControlMonths( bindingOptions, isForViewSwitch );
+            renderMonthsView( bindingOptions, isForViewSwitch );
         }
 
         if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.activeView === ViewId.colorRanges ) {
-            renderControlColorRanges( bindingOptions, isForViewSwitch );
+            renderColorRangesView( bindingOptions, isForViewSwitch );
         }
 
-        renderControlGuide( bindingOptions );
+        renderGuide( bindingOptions );
 
         Visible.View.set( bindingOptions );
     }
@@ -182,7 +182,7 @@ import { DocumentElement } from "./ts/area/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderWindowEvents( bindingOptions: BindingOptions, addEvents: boolean = true ) : void {
+    function createOrRemoveWindowEvents( bindingOptions: BindingOptions, addEvents: boolean = true ) : void {
         const windowFunc: Function = addEvents ? window.addEventListener : window.removeEventListener;
 
         windowFunc( "blur", () => ToolTip.hide( bindingOptions ) );
@@ -320,7 +320,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         if ( render ) {
-            renderControlContainer( bindingOptions );
+            renderContainer( bindingOptions );
             Trigger.customEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView!.element, bindingOptions );
             
         } else {
@@ -701,7 +701,7 @@ import { DocumentElement } from "./ts/area/document-element";
             
             if ( filesCompleted.length === filesLength ) {
                 Trigger.customEvent( bindingOptions.events!.onImport!, bindingOptions._currentView!.element );
-                renderControlContainer( bindingOptions, true );
+                renderContainer( bindingOptions, true );
             }
         };
 
@@ -800,7 +800,7 @@ import { DocumentElement } from "./ts/area/document-element";
             Trigger.customEvent( bindingOptions.events!.onAddType!, bindingOptions._currentView!.element, type );
 
             hideTypeAddingDialog( bindingOptions );
-            renderControlContainer( bindingOptions, true );
+            renderContainer( bindingOptions, true );
 
         } else {
             hideTypeAddingDialog( bindingOptions );
@@ -868,7 +868,7 @@ import { DocumentElement } from "./ts/area/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlTitleBar( bindingOptions: BindingOptions ) : void {
+    function renderTitleBar( bindingOptions: BindingOptions ) : void {
         if ( bindingOptions.title!.showText || bindingOptions.title!.showYearSelector || bindingOptions.title!.showRefreshButton || bindingOptions.title!.showExportButton || bindingOptions.title!.showImportButton || bindingOptions.title!.showClearButton ) {
             const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "title-bar" );
             const title: HTMLElement = DomElement.create( titleBar, "div", "title" );
@@ -923,7 +923,7 @@ import { DocumentElement } from "./ts/area/document-element";
                 }
         
                 refresh.onclick = () => {
-                    renderControlContainer( bindingOptions );
+                    renderContainer( bindingOptions );
                     Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView!.element );
                 };
             }
@@ -938,7 +938,7 @@ import { DocumentElement } from "./ts/area/document-element";
                 clear.onclick = () => {
                     showConfirmationDialog( bindingOptions, _configurationOptions.text!.clearDataConfirmText!, () => {
                         clearViewableData( bindingOptions );
-                        renderControlContainer( bindingOptions, true );
+                        renderContainer( bindingOptions, true );
                     } );
                 };
             }
@@ -1126,7 +1126,7 @@ import { DocumentElement } from "./ts/area/document-element";
             year.onclick = () => {
                 bindingOptions._currentView!.activeYear = currentYear;
     
-                renderControlContainer( bindingOptions );
+                renderContainer( bindingOptions );
                 Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
             };
 
@@ -1149,7 +1149,7 @@ import { DocumentElement } from "./ts/area/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlYearStatistics( bindingOptions: BindingOptions ) : void {
+    function renderYearStatistics( bindingOptions: BindingOptions ) : void {
         const today: Date = new Date();
         const isCurrentYear: boolean = bindingOptions._currentView!.activeYear === today.getFullYear();
 
@@ -1179,7 +1179,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     DomElement.addClass( boxCount, "unavailable" );
                 }
 
-                renderControlYearStatisticsPercentage( bindingOptions, boxCount, yearCount, todaysCount, isCurrentYear );
+                renderYearStatisticsPercentage( bindingOptions, boxCount, yearCount, todaysCount, isCurrentYear );
             }
 
             if ( bindingOptions.yearlyStatistics!.showThisWeek ) {
@@ -1203,7 +1203,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     DomElement.addClass( boxCount, "unavailable" );
                 }
 
-                renderControlYearStatisticsPercentage( bindingOptions, boxCount, yearCount, weekCount, isCurrentYear );
+                renderYearStatisticsPercentage( bindingOptions, boxCount, yearCount, weekCount, isCurrentYear );
             }
 
             if ( bindingOptions.yearlyStatistics!.showThisMonth ) {
@@ -1226,7 +1226,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     DomElement.addClass( boxCount, "unavailable" );
                 }
 
-                renderControlYearStatisticsPercentage( bindingOptions, boxCount, yearCount, monthCount, isCurrentYear );
+                renderYearStatisticsPercentage( bindingOptions, boxCount, yearCount, monthCount, isCurrentYear );
             }
 
             if ( bindingOptions.yearlyStatistics!.showThisYear ) {
@@ -1242,7 +1242,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
     }
 
-    function renderControlYearStatisticsPercentage( bindingOptions: BindingOptions, boxCount: HTMLElement, yearCount: number, count: number, isCurrentYear: boolean ) : void {
+    function renderYearStatisticsPercentage( bindingOptions: BindingOptions, boxCount: HTMLElement, yearCount: number, count: number, isCurrentYear: boolean ) : void {
         if ( isCurrentYear && bindingOptions.yearlyStatistics!.showPercentages ) {
             const percentage: number = ( count / yearCount ) * 100;
 
@@ -1282,7 +1282,7 @@ import { DocumentElement } from "./ts/area/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlMap( bindingOptions: BindingOptions, isForViewSwitch: boolean = false, isForViewChange: boolean ) : void {
+    function renderMapView( bindingOptions: BindingOptions, isForViewSwitch: boolean = false, isForViewChange: boolean ) : void {
         bindingOptions._currentView!.mapContentsContainer = DomElement.create( bindingOptions._currentView!.element, "div", "map-contents-container" );
         bindingOptions._currentView!.mapContents = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "map-contents" );
 
@@ -1378,7 +1378,7 @@ import { DocumentElement } from "./ts/area/document-element";
                             let day: HTMLElement = null!;
     
                             if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
-                                day = renderControlMapMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, actualMonthIndex, actualYear, colorRanges );
+                                day = renderMapViewMonthDay( bindingOptions, currentDayColumn, dayIndex - firstDayNumberInMonth, actualMonthIndex, actualYear, colorRanges );
                             }
             
                             if ( ( dayIndex + 1 ) % 7 === 0 ) {
@@ -1401,7 +1401,7 @@ import { DocumentElement } from "./ts/area/document-element";
                         actualDay++;
                     }
 
-                    renderControlMapRemainingDaysForMonth( bindingOptions, actualDay, currentDayColumn );
+                    renderMapViewRemainingDaysForMonth( bindingOptions, actualDay, currentDayColumn );
     
                     if ( bindingOptions.views!.map!.showMonthNames ) {
                         let monthName: HTMLElement;
@@ -1445,8 +1445,8 @@ import { DocumentElement } from "./ts/area/document-element";
                 DomElement.reverseChildrenOrder( months );
             }
 
-            renderControlMapMonthGaps( bindingOptions, months );
-            renderControlZooming( bindingOptions, bindingOptions._currentView!.mapContentsContainer, map );
+            renderMapViewMonthGaps( bindingOptions, months );
+            renderZooming( bindingOptions, bindingOptions._currentView!.mapContentsContainer, map );
             
             if ( bindingOptions.views!.map!.keepScrollPositions || isForViewChange ) {
                 bindingOptions._currentView!.mapContents.scrollLeft = bindingOptions._currentView!.mapContentsScrollLeft;
@@ -1456,7 +1456,7 @@ import { DocumentElement } from "./ts/area/document-element";
         bindingOptions._currentView!.mapContentsContainer.style.display = "none";
     }
 
-    function renderControlMapRemainingDaysForMonth( bindingOptions: BindingOptions, actualDay: number, currentDayColumn: HTMLElement ) : void {
+    function renderMapViewRemainingDaysForMonth( bindingOptions: BindingOptions, actualDay: number, currentDayColumn: HTMLElement ) : void {
         const remainingDays: number = 7 - currentDayColumn.children.length;
 
         if ( remainingDays > 0 && remainingDays < 7 ) {
@@ -1478,7 +1478,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
     }
 
-    function renderControlMapMonthGaps( bindingOptions: BindingOptions, months: HTMLElement ) : void {
+    function renderMapViewMonthGaps( bindingOptions: BindingOptions, months: HTMLElement ) : void {
         const monthsAddedLength: number = months.children.length;
 
         for ( let monthAddedIndex: number = 1; monthAddedIndex < monthsAddedLength; monthAddedIndex++ ) {
@@ -1495,7 +1495,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
     }
 
-    function renderControlMapMonthDay( bindingOptions: BindingOptions, currentDayColumn: HTMLElement, dayNumber: number, month: number, year: number, colorRanges: BindingOptionsColorRange[] ) : HTMLElement {
+    function renderMapViewMonthDay( bindingOptions: BindingOptions, currentDayColumn: HTMLElement, dayNumber: number, month: number, year: number, colorRanges: BindingOptionsColorRange[] ) : HTMLElement {
         const actualDay: number = dayNumber + 1;
         const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day" );
         const date: Date = new Date( year, month, actualDay );
@@ -1584,7 +1584,7 @@ import { DocumentElement } from "./ts/area/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlLine( bindingOptions: BindingOptions, isForViewSwitch: boolean, isForViewChange: boolean ) : void {
+    function renderLineView( bindingOptions: BindingOptions, isForViewSwitch: boolean, isForViewChange: boolean ) : void {
         bindingOptions._currentView!.lineContentsContainer = DomElement.create( bindingOptions._currentView!.element, "div", "line-contents-container" );
         bindingOptions._currentView!.lineContents = DomElement.create( bindingOptions._currentView!.lineContentsContainer, "div", "line-contents" );
         bindingOptions._currentView!.lineContents.onscroll = () => ToolTip.hide( bindingOptions );
@@ -1631,7 +1631,7 @@ import { DocumentElement } from "./ts/area/document-element";
                         const weekdayNumber: number = DateTime.getWeekdayNumber( actualDate ) + 1;
                         
                         if ( Is.dayVisible( bindingOptions.views!.line!.daysToShow!, weekdayNumber ) ) {
-                            const dayLine: HTMLElement = renderControlLineDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, isForViewSwitch );
+                            const dayLine: HTMLElement = renderLineViewDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, isForViewSwitch );
 
                             if ( !firstDayAdded ) {
                                 firstMonthDayLines.push( dayLine );
@@ -1712,7 +1712,7 @@ import { DocumentElement } from "./ts/area/document-element";
                 lineMonths.style.width = `${dayLines.offsetWidth}px`;
             }
 
-            renderControlZooming( bindingOptions, bindingOptions._currentView!.lineContentsContainer, line );
+            renderZooming( bindingOptions, bindingOptions._currentView!.lineContentsContainer, line );
     
             if ( bindingOptions.views!.line!.keepScrollPositions || isForViewChange ) {
                 bindingOptions._currentView!.lineContents.scrollLeft = bindingOptions._currentView!.lineContentsScrollLeft;
@@ -1722,7 +1722,7 @@ import { DocumentElement } from "./ts/area/document-element";
         bindingOptions._currentView!.lineContentsContainer.style.display = "none";
     }
 
-    function renderControlLineDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], isForViewSwitch ) : HTMLElement {
+    function renderLineViewDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], isForViewSwitch ) : HTMLElement {
         const date: Date = new Date( year, month, day );
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
@@ -1768,7 +1768,7 @@ import { DocumentElement } from "./ts/area/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlChart( bindingOptions: BindingOptions, isForViewSwitch: boolean, isForViewChange: boolean ) : void {
+    function renderChartView( bindingOptions: BindingOptions, isForViewSwitch: boolean, isForViewChange: boolean ) : void {
         bindingOptions._currentView!.chartContents = DomElement.create( bindingOptions._currentView!.element, "div", "chart-contents" );
         bindingOptions._currentView!.chartContents.onscroll = () => ToolTip.hide( bindingOptions );
 
@@ -1835,7 +1835,7 @@ import { DocumentElement } from "./ts/area/document-element";
                         const weekdayNumber: number = DateTime.getWeekdayNumber( actualDate ) + 1;
                         
                         if ( Is.dayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
-                            const dayLine: HTMLElement = renderControlChartDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, pixelsPerNumbers, isForViewSwitch );
+                            const dayLine: HTMLElement = renderChartViewDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, pixelsPerNumbers, isForViewSwitch );
 
                             if ( !firstDayAdded && firstMonthAdded && bindingOptions.views!.chart!.addMonthSpacing! ) {
                                 DomElement.create( dayLines, "div", "month-spacing", dayLine );
@@ -1934,7 +1934,7 @@ import { DocumentElement } from "./ts/area/document-element";
         bindingOptions._currentView!.chartContents.style.display = "none";
     }
 
-    function renderControlChartDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, isForViewSwitch: boolean ) : HTMLElement {
+    function renderChartViewDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, isForViewSwitch: boolean ) : HTMLElement {
         const date: Date = new Date( year, month, day );
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const holiday: IsHoliday = Is.holiday( bindingOptions, date );
@@ -2012,7 +2012,7 @@ import { DocumentElement } from "./ts/area/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlDays( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
+    function renderDaysView( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
         bindingOptions._currentView!.daysContents = DomElement.create( bindingOptions._currentView!.element, "div", "days-contents" );
 
         const days: HTMLElement = DomElement.create( bindingOptions._currentView!.daysContents, "div", "days" );
@@ -2062,7 +2062,7 @@ import { DocumentElement } from "./ts/area/document-element";
             for ( const day in dayValuesForCurrentYear.values ) {
                 if ( Object.prototype.hasOwnProperty.call( dayValuesForCurrentYear.values, day ) && Is.dayVisible( bindingOptions.views!.days!.daysToShow!, parseInt( day ) ) ) {
                     const opacity: number = dayValuesForCurrentYear.valueOpacities[ dayValuesForCurrentYear.values[ day ].total ];
-                    const dayLine: HTMLElement = renderControlDaysDayLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ].total, bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue, isForViewSwitch );
+                    const dayLine: HTMLElement = renderDaysViewLine( dayLines, parseInt( day ), dayValuesForCurrentYear.values[ day ].total, bindingOptions, pixelsPerNumbers, opacity, dayValuesForCurrentYear.totalValue, isForViewSwitch );
 
                     if ( bindingOptions.views!.days!.showDayNames ) {
                         const dayName: HTMLElement = DomElement.createWithHTML( dayNames, "div", "day-name", _configurationOptions.text!.dayNames![ parseInt( day ) - 1 ] );
@@ -2111,7 +2111,7 @@ import { DocumentElement } from "./ts/area/document-element";
         bindingOptions._currentView!.daysContents.style.display = "none";
     }
 
-    function renderControlDaysDayLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number, isForViewSwitch: boolean ) : HTMLElement {
+    function renderDaysViewLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number, isForViewSwitch: boolean ) : HTMLElement {
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
         let count: HTMLElement = null!;
@@ -2253,7 +2253,7 @@ import { DocumentElement } from "./ts/area/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlMonths( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
+    function renderMonthsView( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
         bindingOptions._currentView!.monthsContents = DomElement.create( bindingOptions._currentView!.element, "div", "months-contents" );
 
         const months: HTMLElement = DomElement.create( bindingOptions._currentView!.monthsContents, "div", "months" );
@@ -2310,7 +2310,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
                 if ( Object.prototype.hasOwnProperty.call( monthValuesForCurrentYear.values, monthToShow ) && Is.monthVisible( bindingOptions.views!.months!.monthsToShow!, actualMonthIndex ) ) {
                     const opacity: number = monthValuesForCurrentYear.valueOpacities[ monthValuesForCurrentYear.values[ monthToShow ].total ];
-                    const monthLine: HTMLElement = renderControlMonthsMonthLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ].total, bindingOptions, pixelsPerNumbers, opacity, monthValuesForCurrentYear.totalValue, isForViewSwitch );
+                    const monthLine: HTMLElement = renderMonthsViewLine( monthLines, monthToShow, monthValuesForCurrentYear.values[ monthToShow ].total, bindingOptions, pixelsPerNumbers, opacity, monthValuesForCurrentYear.totalValue, isForViewSwitch );
 
                     if ( bindingOptions.views!.months!.showMonthNames ) {
                         const monthName: HTMLElement = DomElement.createWithHTML( monthNames, "div", "month-name", _configurationOptions.text!.monthNames![ actualMonthIndex ] );
@@ -2360,7 +2360,7 @@ import { DocumentElement } from "./ts/area/document-element";
         bindingOptions._currentView!.monthsContents.style.display = "none";
     }
 
-    function renderControlMonthsMonthLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number, isForViewSwitch: boolean ) : HTMLElement {
+    function renderMonthsViewLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number, isForViewSwitch: boolean ) : HTMLElement {
         const monthLine: HTMLElement = DomElement.create( monthLines, "div", "month-line" );
         const monthLineHeight: number = monthCount * pixelsPerNumbers;
         const today: Date = new Date();
@@ -2514,7 +2514,7 @@ import { DocumentElement } from "./ts/area/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlColorRanges( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
+    function renderColorRangesView( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
         bindingOptions._currentView!.colorRangesContents = DomElement.create( bindingOptions._currentView!.element, "div", "color-ranges-contents" );
 
         const colorRanges: HTMLElement = DomElement.create( bindingOptions._currentView!.colorRangesContents, "div", "color-ranges" );
@@ -2565,7 +2565,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
             for ( const type in colorRangeValuesForCurrentYear.types ) {
                 if ( Object.prototype.hasOwnProperty.call( colorRangeValuesForCurrentYear.types, type ) ) {
-                    renderControlColorRangesLine( parseInt( type ), colorRangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, sortedColorRanges, pixelsPerNumbers, colorRangeValuesForCurrentYear.totalValue, isForViewSwitch );
+                    renderColorRangesViewLine( parseInt( type ), colorRangeLines, colorRangeValuesForCurrentYear.types[ type ], bindingOptions, sortedColorRanges, pixelsPerNumbers, colorRangeValuesForCurrentYear.totalValue, isForViewSwitch );
 
                     const useColorRange: BindingOptionsColorRange = ColorRange.getByMinimum( sortedColorRanges, parseInt( type ) );
 
@@ -2592,7 +2592,7 @@ import { DocumentElement } from "./ts/area/document-element";
         bindingOptions._currentView!.colorRangesContents.style.display = "none";
     }
 
-    function renderControlColorRangesLine( colorRangeMinimum: number, colorRangeLines: HTMLElement, colorRangeCount: number, bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, totalValue: number, isForViewSwitch: boolean ) : void {
+    function renderColorRangesViewLine( colorRangeMinimum: number, colorRangeLines: HTMLElement, colorRangeCount: number, bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, totalValue: number, isForViewSwitch: boolean ) : void {
         const colorRangeLine: HTMLElement = DomElement.create( colorRangeLines, "div", "color-range-line" );
         const colorRangeLineHeight: number = colorRangeCount * pixelsPerNumbers;
         const useColorRange: BindingOptionsColorRange = ColorRange.getByMinimum( colorRanges, colorRangeMinimum );
@@ -2709,7 +2709,7 @@ import { DocumentElement } from "./ts/area/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlGuide( bindingOptions: BindingOptions ) : void {
+    function renderGuide( bindingOptions: BindingOptions ) : void {
         const guide: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "guide" );
         const mapTypes: HTMLElement = DomElement.create( guide, "div", "map-types" );
         const noneTypeCount: number = getUnknownTrendTypeCount( bindingOptions );
@@ -2718,7 +2718,7 @@ import { DocumentElement } from "./ts/area/document-element";
             if ( Is.definedString( bindingOptions.description!.text ) ) {
                 const description: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "description", guide );
     
-                renderDescription( bindingOptions, description );
+                renderGuideDescription( bindingOptions, description );
             }
 
             const types: string[] = Object
@@ -2731,7 +2731,7 @@ import { DocumentElement } from "./ts/area/document-element";
                 const type: string = types[ typeIndex ];
 
                 if ( type !== _configurationOptions.text!.unknownTrendText || noneTypeCount > 0 ) {
-                    renderControlGuideTypeButton( bindingOptions, mapTypes, type );
+                    renderGuideTypeButton( bindingOptions, mapTypes, type );
                 }
             }
 
@@ -2744,7 +2744,7 @@ import { DocumentElement } from "./ts/area/document-element";
             }
 
         } else {
-            renderDescription( bindingOptions, mapTypes );
+            renderGuideDescription( bindingOptions, mapTypes );
         }
 
         if ( bindingOptions.guide!.enabled ) {
@@ -2777,7 +2777,7 @@ import { DocumentElement } from "./ts/area/document-element";
             let maximumWidth: number = 0;
     
             for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-                const toggle: HTMLElement = renderControlGuideToggle( bindingOptions, toggles, colorRanges[ colorRangesIndex ] );
+                const toggle: HTMLElement = renderGuideColorRangeToggle( bindingOptions, toggles, colorRanges[ colorRangesIndex ] );
                 
                 maximumWidth = Math.max( maximumWidth, toggle.offsetWidth );
                 togglesRendered.push( toggle );
@@ -2803,7 +2803,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
     }
 
-    function renderControlGuideTypeButton( bindingOptions: BindingOptions, mapTypes: HTMLElement, type: string ) : void {
+    function renderGuideTypeButton( bindingOptions: BindingOptions, mapTypes: HTMLElement, type: string ) : void {
         const typeButton: HTMLButtonElement = DomElement.createButton( mapTypes, "button", "type", type );
 
         if ( bindingOptions.guide!.allowTypeRemoving ) {
@@ -2816,7 +2816,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
                 showConfirmationDialog( bindingOptions, _configurationOptions.text!.removeTypeConfirmText!, () => {
                     removeType( bindingOptions, type );
-                    renderControlContainer( bindingOptions, true );
+                    renderContainer( bindingOptions, true );
                 } );
             };
         }
@@ -2830,12 +2830,12 @@ import { DocumentElement } from "./ts/area/document-element";
                 bindingOptions._currentView!.activeType = type;
 
                 Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
-                renderControlContainer( bindingOptions );
+                renderContainer( bindingOptions );
             }
         };
     }
 
-    function renderControlGuideToggle( bindingOptions: BindingOptions, toggles: HTMLElement, colorRange: BindingOptionsColorRange ) : HTMLElement {
+    function renderGuideColorRangeToggle( bindingOptions: BindingOptions, toggles: HTMLElement, colorRange: BindingOptionsColorRange ) : HTMLElement {
         const toggle: HTMLElement = DomElement.create( toggles, "div" );
         toggle.className = "toggle";
         toggle.setAttribute( Constant.Attribute.Area.ColorRangeToggle.HEAT_JS_MINIMUM, colorRange.minimum!.toString() );
@@ -2862,7 +2862,7 @@ import { DocumentElement } from "./ts/area/document-element";
         return toggle;
     }
 
-    function renderDescription( bindingOptions: BindingOptions, container: HTMLElement ) : void {
+    function renderGuideDescription( bindingOptions: BindingOptions, container: HTMLElement ) : void {
         if ( Is.definedString( bindingOptions.description!.text ) ) {
             if ( Is.definedString( bindingOptions.description!.url ) ) {
                 const link: HTMLAnchorElement = DomElement.createWithHTML( container, "a", "label", bindingOptions.description!.text! ) as HTMLAnchorElement;
@@ -2882,7 +2882,7 @@ import { DocumentElement } from "./ts/area/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function renderControlZooming( bindingOptions: BindingOptions, container: HTMLElement, contents: HTMLElement ) : void {
+    function renderZooming( bindingOptions: BindingOptions, container: HTMLElement, contents: HTMLElement ) : void {
         if ( bindingOptions.zooming!.enabled ) {
             const zooming: HTMLElement = DomElement.create( container, "div", "zooming" );
             let resetButton: HTMLButtonElement = null!;
@@ -2971,7 +2971,7 @@ import { DocumentElement } from "./ts/area/document-element";
             bindingOptions._currentView!.dayWidth = 0;
 
             Trigger.customEvent( bindingOptions.events!.onZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.zoomLevel );
-            renderControlContainer( bindingOptions, false, false, true );
+            renderContainer( bindingOptions, false, false, true );
         }
     }
 
@@ -2994,7 +2994,7 @@ import { DocumentElement } from "./ts/area/document-element";
             bindingOptions._currentView!.dayWidth = 0;
 
             Trigger.customEvent( bindingOptions.events!.onZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.zoomLevel );
-            renderControlContainer( bindingOptions, false, false, true );
+            renderContainer( bindingOptions, false, false, true );
         }
     }
 
@@ -3017,7 +3017,7 @@ import { DocumentElement } from "./ts/area/document-element";
             bindingOptions._currentView!.dayWidth = 0;
 
             Trigger.customEvent( bindingOptions.events!.onZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.zoomLevel );
-            renderControlContainer( bindingOptions, false, false, true );
+            renderContainer( bindingOptions, false, false, true );
         }
     }
 
@@ -3063,7 +3063,7 @@ import { DocumentElement } from "./ts/area/document-element";
         bindingOptions._currentView!.activeView = viewId;
 
         Trigger.customEvent( bindingOptions.events!.onViewSwitch!, bindingOptions._currentView!.element, viewName );
-        renderControlContainer( bindingOptions, false, true );
+        renderContainer( bindingOptions, false, true );
     }
 
 
@@ -3265,7 +3265,7 @@ import { DocumentElement } from "./ts/area/document-element";
             if ( bindingOptions._currentView!.isInFetchModeTimer === 0 ) {
                 bindingOptions._currentView!.isInFetchModeTimer = setInterval( () => {
                     pullDataFromCustomTrigger( bindingOptions );
-                    renderControlContainer( bindingOptions );
+                    renderContainer( bindingOptions );
                 }, bindingOptions.dataFetchDelay );
             }
         }
@@ -3295,7 +3295,7 @@ import { DocumentElement } from "./ts/area/document-element";
             if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
 
-                renderWindowEvents( bindingOptions, false );
+                createOrRemoveWindowEvents( bindingOptions, false );
 
                 if ( Is.defined( bindingOptions._currentView!.isInFetchModeTimer ) ) {
                     clearInterval( bindingOptions._currentView!.isInFetchModeTimer );
@@ -3318,7 +3318,7 @@ import { DocumentElement } from "./ts/area/document-element";
      */
 
     function updateColorRangeToggles( bindingOptions: BindingOptions, flag: boolean ) : void {
-        let renderControl: boolean = false;
+        let renderAgain: boolean = false;
 
         if ( bindingOptions.guide!.useIncrementToggles ) {
             const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
@@ -3330,7 +3330,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
                     if ( !colorRange.visible ) {
                         colorRange.visible = true;
-                        renderControl = toggleColorRangeForView( bindingOptions, colorRange );
+                        renderAgain = toggleColorRangeForView( bindingOptions, colorRange );
 
                         Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
                         break;
@@ -3343,7 +3343,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
                     if ( colorRange.visible ) {
                         colorRange.visible = false;
-                        renderControl = toggleColorRangeForView( bindingOptions, colorRange );
+                        renderAgain = toggleColorRangeForView( bindingOptions, colorRange );
 
                         Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
                         break;
@@ -3358,32 +3358,32 @@ import { DocumentElement } from "./ts/area/document-element";
                 const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
                 colorRange.visible = flag;
 
-                renderControl = toggleColorRangeForView( bindingOptions, colorRange );
+                renderAgain = toggleColorRangeForView( bindingOptions, colorRange );
 
                 Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
             }
         }
 
-        if ( renderControl ) {
-            renderControlContainer( bindingOptions, false, false, true );
+        if ( renderAgain ) {
+            renderContainer( bindingOptions, false, false, true );
         }
     }
 
     function invertColorRangeToggles( bindingOptions: BindingOptions ) : void {
         const colorRangesLength: number = bindingOptions.colorRanges!.length;
-        let renderControl: boolean = false;
+        let renderAgain: boolean = false;
 
         for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
             const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
             colorRange.visible = !colorRange.visible;
 
-            renderControl = toggleColorRangeForView( bindingOptions, colorRange );
+            renderAgain = toggleColorRangeForView( bindingOptions, colorRange );
 
             Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, bindingOptions.colorRanges![ colorRangesIndex ].id, bindingOptions.colorRanges![ colorRangesIndex ].visible );
         }
 
-        if ( renderControl ) {
-            renderControlContainer( bindingOptions );
+        if ( renderAgain ) {
+            renderContainer( bindingOptions );
         }
     }
 
@@ -3397,7 +3397,7 @@ import { DocumentElement } from "./ts/area/document-element";
                 colorRange.visible = !Default.getBoolean( colorRange.visible, true );
 
                 if ( toggleColorRangeForView( bindingOptions, colorRange ) ) {
-                    renderControlContainer( bindingOptions, false, false, true );
+                    renderContainer( bindingOptions, false, false, true );
                 }
 
                 Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, colorRange.visible );
@@ -3471,7 +3471,7 @@ import { DocumentElement } from "./ts/area/document-element";
         if ( render ) {
             bindingOptions._currentView!.activeYear = year;
 
-            renderControlContainer( bindingOptions );
+            renderContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
                 Trigger.customEvent( bindingOptions.events!.onBackYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
@@ -3497,7 +3497,7 @@ import { DocumentElement } from "./ts/area/document-element";
         if ( render ) {
             bindingOptions._currentView!.activeYear = year;
 
-            renderControlContainer( bindingOptions );
+            renderContainer( bindingOptions );
 
             if ( callCustomTrigger ) {
                 Trigger.customEvent( bindingOptions.events!.onNextYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
@@ -3573,7 +3573,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     Trigger.customEvent( bindingOptions.events!.onAddType!, bindingOptions._currentView!.element, type );
         
                     if ( triggerRefresh ) {
-                        renderControlContainer( bindingOptions, true );
+                        renderContainer( bindingOptions, true );
                     }
                 }
             }
@@ -3589,7 +3589,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     removeType( bindingOptions, type );
         
                     if ( triggerRefresh ) {
-                        renderControlContainer( bindingOptions, true );
+                        renderContainer( bindingOptions, true );
                     }
                 }
             }
@@ -3611,7 +3611,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     }
         
                     if ( triggerRefresh ) {
-                        renderControlContainer( bindingOptions, true );
+                        renderContainer( bindingOptions, true );
                     }
                 }
             }
@@ -3642,7 +3642,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     Trigger.customEvent( bindingOptions.events!.onAddDate!, bindingOptions._currentView!.element );
         
                     if ( triggerRefresh ) {
-                        renderControlContainer( bindingOptions, true );
+                        renderContainer( bindingOptions, true );
                     }
                 }
             }
@@ -3665,7 +3665,7 @@ import { DocumentElement } from "./ts/area/document-element";
                         Trigger.customEvent( bindingOptions.events!.onUpdateDate!, bindingOptions._currentView!.element );
         
                         if ( triggerRefresh ) {
-                            renderControlContainer( bindingOptions, true );
+                            renderContainer( bindingOptions, true );
                         }
                     }
                 }
@@ -3688,7 +3688,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     }
         
                     if ( triggerRefresh ) {
-                        renderControlContainer( bindingOptions, true );
+                        renderContainer( bindingOptions, true );
                     }
                 }
             }
@@ -3713,7 +3713,7 @@ import { DocumentElement } from "./ts/area/document-element";
                         Trigger.customEvent( bindingOptions.events!.onRemoveDate!, bindingOptions._currentView!.element );
         
                         if ( triggerRefresh ) {
-                            renderControlContainer( bindingOptions, true );
+                            renderContainer( bindingOptions, true );
                         }
                     }
                 }
@@ -3737,7 +3737,7 @@ import { DocumentElement } from "./ts/area/document-element";
                         Trigger.customEvent( bindingOptions.events!.onClearDate!, bindingOptions._currentView!.element );
         
                         if ( triggerRefresh ) {
-                            renderControlContainer( bindingOptions, true );
+                            renderContainer( bindingOptions, true );
                         }
                     }
                 }
@@ -3767,7 +3767,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     Trigger.customEvent( bindingOptions.events!.onReset!, bindingOptions._currentView!.element );
         
                     if ( triggerRefresh ) {
-                        renderControlContainer( bindingOptions, true );
+                        renderContainer( bindingOptions, true );
                     }
                 }
             }
@@ -3815,7 +3815,7 @@ import { DocumentElement } from "./ts/area/document-element";
             if ( Is.definedString( elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
     
-                renderControlContainer( bindingOptions, true );
+                renderContainer( bindingOptions, true );
                 Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView!.element );
             }
     
@@ -3827,7 +3827,7 @@ import { DocumentElement } from "./ts/area/document-element";
                 if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                     const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
     
-                    renderControlContainer( bindingOptions, true );
+                    renderContainer( bindingOptions, true );
                     Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView!.element );
                 }
             }
@@ -3843,7 +3843,7 @@ import { DocumentElement } from "./ts/area/document-element";
                 if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.activeYear ) ) {
                     moveToNextYear( bindingOptions, false );
                 } else {
-                    renderControlContainer( bindingOptions );
+                    renderContainer( bindingOptions );
                 }
     
                 Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
@@ -3870,7 +3870,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.activeYear ) ) {
                         moveToNextYear( bindingOptions, false );
                     } else {
-                        renderControlContainer( bindingOptions );
+                        renderContainer( bindingOptions );
                     }
     
                     Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
@@ -3898,7 +3898,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.activeYear ) ) {
                         moveToPreviousYear( bindingOptions, false );
                     } else {
-                        renderControlContainer( bindingOptions );
+                        renderContainer( bindingOptions );
                     }
     
                     Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
@@ -3932,7 +3932,7 @@ import { DocumentElement } from "./ts/area/document-element";
                 if ( !Is.yearVisible( bindingOptions, bindingOptions._currentView!.activeYear ) ) {
                     moveToNextYear( bindingOptions, false );
                 } else {
-                    renderControlContainer( bindingOptions );
+                    renderContainer( bindingOptions );
                 }
     
                 Trigger.customEvent( bindingOptions.events!.onSetYear!, bindingOptions._currentView!.element, bindingOptions._currentView!.activeYear );
@@ -3953,14 +3953,14 @@ import { DocumentElement } from "./ts/area/document-element";
 
         render: ( element: HTMLElement, bindingOptions: BindingOptions ) : PublicApi => {
             if ( Is.definedObject( element ) && Is.definedObject( bindingOptions ) ) {
-                renderControl( Binding.Options.getForNewInstance( _configurationOptions, bindingOptions, element ) );
+                render( Binding.Options.getForNewInstance( _configurationOptions, bindingOptions, element ) );
             }
     
             return _public;
         },
 
         renderAll: () : PublicApi => {
-            render();
+            renderAll();
 
             return _public;
         },
@@ -3986,7 +3986,7 @@ import { DocumentElement } from "./ts/area/document-element";
                     bindingOptions._currentView!.activeType = type;
                 
                     Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
-                    renderControlContainer( bindingOptions );
+                    renderContainer( bindingOptions );
                 }
             }
     
@@ -4007,7 +4007,7 @@ import { DocumentElement } from "./ts/area/document-element";
                 }
     
                 if ( optionChanged ) {
-                    renderControlContainer( existingBindingOptions, true );
+                    renderContainer( existingBindingOptions, true );
                     Trigger.customEvent( existingBindingOptions.events!.onRefresh!, existingBindingOptions._currentView!.element );
                     Trigger.customEvent( existingBindingOptions.events!.onOptionsUpdate!, existingBindingOptions._currentView!.element, existingBindingOptions );
                 }
@@ -4125,7 +4125,7 @@ import { DocumentElement } from "./ts/area/document-element";
 
         document.addEventListener( "DOMContentLoaded", () => {
             setupObservationMode();
-            render();
+            renderAll();
         } );
 
         window.addEventListener( "pagehide", () => cancelAllPullDataTimersAndClearWindowEvents() );
