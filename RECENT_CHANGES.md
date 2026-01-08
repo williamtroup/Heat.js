@@ -236,7 +236,7 @@
 - The guide color range toggle buttons no longer force a re-render when the Map, Line, or Chart views are visible.
 - The default Ids used for the Color Ranges (when not configured) are now padded numbers, so they always remain the same.
 - Added week number support to all date formatter binding options.
-- Translations have been renamed to languages, and the "dist/translations" folder has been renamed to "lang" (with JS file renames).
+- Translations have been renamed to languages, and the "dist/translations" folder has been renamed to "locale" (with JS file renames).
 
 #### **Library:**
 - Updated all the NPM packages to the latest versions.
