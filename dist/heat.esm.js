@@ -4943,10 +4943,15 @@ var V;
     };
     (() => {
         _ = f.Options.get();
-        document.addEventListener("DOMContentLoaded", () => {
+        const e = () => {
             x();
             dt();
-        });
+        };
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", () => e());
+        } else {
+            e();
+        }
         window.addEventListener("pagehide", () => tt());
         if (!o.defined(window.$heat)) {
             window.$heat = ut;

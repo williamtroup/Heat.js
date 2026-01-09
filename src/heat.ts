@@ -4142,10 +4142,16 @@ import { DocumentElement } from "./ts/dom/document-element";
     ( () => {
         _configurationOptions = Configuration.Options.get();
 
-        document.addEventListener( "DOMContentLoaded", () => {
+        const onLoadFunc: Function = () : void => {
             renderAll();
             setupObservationMode();
-        } );
+        };
+
+        if ( document.readyState === "loading" ) {
+            document.addEventListener( "DOMContentLoaded", () => onLoadFunc() );
+        } else {
+            onLoadFunc();
+        }
 
         window.addEventListener( "pagehide", () => cancelAllPullDataTimersAndClearWindowEvents() );
 

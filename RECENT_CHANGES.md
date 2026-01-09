@@ -290,3 +290,4 @@
 - Fixed some missing CSS variables from the light themes.
 - Fixed the color range toggles not being responsive in the guide when a lot are used.
 - Fixed the order of the Y Label names in all Bar Chart views (label-0 is at the bottom, label-100 is at the top).
+- Fixed a fault rendering failures to occur when the DOM has already loaded (and bindings have been used).
