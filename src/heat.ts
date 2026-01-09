@@ -45,7 +45,7 @@ import { Animate } from "./ts/dom/animate";
 import { LocalStorage } from "./ts/area/local-storage";
 import { ColorRange } from "./ts/area/color-range";
 import { Build } from "./ts/data/build";
-import { DocumentElement } from "./ts/area/document-element";
+import { DocumentElement } from "./ts/dom/document-element";
 
 
 ( () => {
@@ -271,7 +271,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.bind( () => hideConfigurationDialog( bindingOptions ) );
+        DocumentElement.Dialog.bindEvents( () => hideConfigurationDialog( bindingOptions ) );
     }
 
     function hideConfigurationDialog( bindingOptions: BindingOptions ) : void {
@@ -282,7 +282,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.unbind();
+        DocumentElement.Dialog.unbindEvents();
     }
 
     function saveConfigurationDialogChanges( bindingOptions: BindingOptions ) : void {
@@ -420,7 +420,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.bind( () => hideExportDialog( bindingOptions ) );
+        DocumentElement.Dialog.bindEvents( () => hideExportDialog( bindingOptions ) );
     }
 
     function hideExportDialog( bindingOptions: BindingOptions ) : void {
@@ -431,7 +431,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.unbind();
+        DocumentElement.Dialog.unbindEvents();
     }
 
     function exportDataFromExportDialog( bindingOptions: BindingOptions, copyToClipboard: boolean = false ) : void {
@@ -579,7 +579,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.bind( () => hideImportDialog( bindingOptions ) );
+        DocumentElement.Dialog.bindEvents( () => hideImportDialog( bindingOptions ) );
     }
 
     function hideImportDialog( bindingOptions: BindingOptions ) : void {
@@ -595,7 +595,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.unbind();
+        DocumentElement.Dialog.unbindEvents();
     }
 
     function makeAreaDroppable( element: HTMLElement, bindingOptions: BindingOptions ) : void {
@@ -774,7 +774,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.bind( () => hideTypeAddingDialog( bindingOptions ) );
+        DocumentElement.Dialog.bindEvents( () => hideTypeAddingDialog( bindingOptions ) );
     }
 
     function hideTypeAddingDialog( bindingOptions: BindingOptions ) : void {
@@ -785,7 +785,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.unbind();
+        DocumentElement.Dialog.unbindEvents();
     }
 
     function addNewTypeFromAddTypeDialog( bindingOptions: BindingOptions ) : void {
@@ -854,7 +854,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.bind( () => hideConfirmationDialog( bindingOptions ) );
+        DocumentElement.Dialog.bindEvents( () => hideConfirmationDialog( bindingOptions ) );
     }
 
     function hideConfirmationDialog( bindingOptions: BindingOptions ) : void {
@@ -865,7 +865,7 @@ import { DocumentElement } from "./ts/area/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.unbind();
+        DocumentElement.Dialog.unbindEvents();
     }
 
 

@@ -18,13 +18,13 @@ export namespace DocumentElement {
     export namespace Dialog {
         let _BINDING_KEYDOWN_FUNC: Function = null!;
 
-        export function bind( hideFunc: Function ) : void {
+        export function bindEvents( hideFunc: Function ) : void {
             _BINDING_KEYDOWN_FUNC = hideFunc;
 
             document.addEventListener( "keydown", ( event: KeyboardEvent ) => onKeyDown( event ) );
         }
 
-        export function unbind() : void {
+        export function unbindEvents() : void {
             document.removeEventListener( "keydown", onKeyDown );
         }
 
