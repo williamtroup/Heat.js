@@ -15,7 +15,7 @@
 - 😏 Zero-dependencies and extremely lightweight!
 - 🦾 100% TypeScript, allowing greater support for React, Angular, and other libraries!
 - 💻 Full API available via public functions.
-- 🎏 52 language translations available!
+- 🎏 52 languages available!
 - 📱 Fully styled in CSS/SASS, fully responsive, and compatible with the Bootstrap library!
 - 🌈 Full CSS theme support (using :root variables), with dark and light themes (31 available by default).
 - 🔍 6 views supported: Map, Line, Chart, Days, Months, and Color Ranges!
