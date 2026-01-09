@@ -324,15 +324,20 @@ var a;
         let c = t;
         const d = o.definedNumber(l) ? l : n(a);
         const u = w(a);
+        const g = i(e, a.getDate());
         c = c.replace("{dddd}", e.text.dayNames[d]);
         c = c.replace("{dd}", r.padNumber(a.getDate()));
         c = c.replace("{d}", a.getDate().toString());
         c = c.replace("{ww}", r.padNumber(u));
         c = c.replace("{w}", u.toString());
         if (s) {
-            c = c.replace("{o}", `<sup>${i(e, a.getDate())}</sup>`);
+            if (o.definedString(g)) {
+                c = c.replace("{o}", `<sup>${g}</sup>`);
+            } else {
+                c = c.replace("{o}", "");
+            }
         } else {
-            c = c.replace("{o}", i(e, a.getDate()));
+            c = c.replace("{o}", g);
         }
         c = c.replace("{mmmm}", e.text.monthNames[a.getMonth()]);
         c = c.replace("{mm}", r.padNumber(a.getMonth() + 1));

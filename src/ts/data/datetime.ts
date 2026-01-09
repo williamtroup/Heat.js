@@ -44,6 +44,7 @@ export namespace DateTime {
         let result: string = dateFormat;
         const weekDayNumber: number = Is.definedNumber( weekDayNumberOverride ) ? weekDayNumberOverride : getWeekdayNumber( date );
         const weekNumber: number = getWeekNumber( date );
+        const dayOrdinal: string = getDayOrdinal( configurationOptions, date.getDate() );
 
         result = result.replace( "{dddd}", configurationOptions.text!.dayNames![ weekDayNumber ] );
         result = result.replace( "{dd}", Str.padNumber( date.getDate() ) );
@@ -51,11 +52,16 @@ export namespace DateTime {
 
         result = result.replace( "{ww}", Str.padNumber( weekNumber ) );
         result = result.replace( "{w}", weekNumber.toString() );
-
+        
         if ( allowHtml ) {
-            result = result.replace( "{o}", `<sup>${getDayOrdinal( configurationOptions, date.getDate() )}</sup>` );
+            if ( Is.definedString( dayOrdinal ) ) {
+                result = result.replace( "{o}", `<sup>${dayOrdinal}</sup>` );
+            } else {
+                result = result.replace( "{o}", Char.empty );
+            }
+            
         } else {
-            result = result.replace( "{o}", getDayOrdinal( configurationOptions, date.getDate() ) );
+            result = result.replace( "{o}", dayOrdinal );
         }
 
         result = result.replace( "{mmmm}", configurationOptions.text!.monthNames![ date.getMonth() ] );
