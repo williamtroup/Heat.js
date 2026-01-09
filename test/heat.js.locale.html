@@ -33,8 +33,41 @@
     <script>
         function getBindingOptions() {
             return {
+                "holidays": [
+                    {
+                        "date": "25/12",
+                        "name": "Christmas Day",
+                        "showInViews": true,
+                    }
+                ],
                 "events": {
                     "onMapDayClick": onMapDayClick,
+                },
+                "description": {
+                    "text": "A basic example of how to use Heat.js.",
+                },
+                "views": {
+                    "map": {
+                        "showDayCounts": true,
+                    }
+                },
+                "title": {
+                    "showRefreshButton": true,
+                    "showExportButton": true,
+                    "showImportButton": true,
+                    "showClearButton": true,
+                },
+                "yearlyStatistics": {
+                    "enabled": true,
+                },
+                "zooming": {
+                    "enabled": true,
+                    "defaultLevel": 0,
+                    "maximumLevel": 0,
+                },
+                "guide": {
+                    "allowTypeAdding": true,
+                    "allowTypeRemoving": true,
                 },
             }
         }
