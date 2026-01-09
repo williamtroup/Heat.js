@@ -548,8 +548,10 @@ import { DocumentElement } from "./ts/area/document-element";
 
             DomElement.createWithHTML( titleBar, "span", "dialog-title-bar-text", _configurationOptions.text!.selectFilesText! );
 
-            bindingOptions._currentView!.importDialogDragAndDrop = DomElement.createWithHTML( contents, "div", "drag-and-drop-files", _configurationOptions.text!.dragAndDropFilesText! );
+            bindingOptions._currentView!.importDialogDragAndDrop = DomElement.create( contents, "div", "drag-and-drop-files" );
             bindingOptions._currentView!.importDialogClearExistingData = DomElement.createCheckBox( contents, _configurationOptions.text!.clearExistingDataText!, crypto.randomUUID() );
+
+            DomElement.createWithHTML( bindingOptions._currentView!.importDialogDragAndDrop, "div", "no-files", _configurationOptions.text!.dragAndDropFilesText! );
 
             makeAreaDroppable( bindingOptions._currentView!.importDialogDragAndDrop, bindingOptions );
 
@@ -584,10 +586,12 @@ import { DocumentElement } from "./ts/area/document-element";
         Disabled.Background.hide( bindingOptions );
 
         if ( Is.defined( bindingOptions._currentView!.importDialog ) && bindingOptions._currentView!.importDialog.style.display !== "none" ) {
-            bindingOptions._currentView!.importDialogDragAndDrop.innerHTML = _configurationOptions.text!.dragAndDropFilesText!;
+            bindingOptions._currentView!.importDialogDragAndDrop.innerHTML = Char.empty;
             bindingOptions._currentView!.importDialogFileList = null!;
             bindingOptions._currentView!.importDialogImportButton.disabled = true;
             bindingOptions._currentView!.importDialog.style.display = "none";
+
+            DomElement.createWithHTML( bindingOptions._currentView!.importDialogDragAndDrop, "div", "no-files", _configurationOptions.text!.dragAndDropFilesText! );
         }
 
         ToolTip.hide( bindingOptions );
@@ -641,8 +645,10 @@ import { DocumentElement } from "./ts/area/document-element";
 
     function showImportFilenames( bindingOptions: BindingOptions, fileList: FileList ) : void {
         if ( fileList.length <= 0 ) {
-            bindingOptions._currentView!.importDialogDragAndDrop.innerHTML = _configurationOptions.text!.dragAndDropFilesText!;
+            bindingOptions._currentView!.importDialogDragAndDrop.innerHTML = Char.empty;
             bindingOptions._currentView!.importDialogImportButton.disabled = true;
+
+            DomElement.createWithHTML( bindingOptions._currentView!.importDialogDragAndDrop, "div", "no-files", _configurationOptions.text!.dragAndDropFilesText! );
         } else {
 
             bindingOptions._currentView!.importDialogFileList = fileList;
