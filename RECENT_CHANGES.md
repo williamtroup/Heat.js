@@ -200,6 +200,7 @@
 - Added a new public function called "getActiveView()", which returns the active view name for a specific element ID instance.
 - Added a new public function called "addType()", which adds a new trend type.
 - Added a new public function called "removeType()", which removed an existing trend type.
+- Added a new public function called "setLocale()", which allows you to set the current language options without effecting any other configuration options.
 
 #### **Security:**
 - All eval() references have been removed from the code base. When using a binding, if you are using custom events, you will need to pass the bindings via a function.

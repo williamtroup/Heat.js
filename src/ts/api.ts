@@ -11,7 +11,10 @@
  */
 
 
-import { type ConfigurationOptions, type BindingOptions } from "./type";
+import {
+    type ConfigurationOptions,
+    type ConfigurationOptionsText,
+    type BindingOptions } from "./type";
 
     
 export type PublicApi = {
@@ -491,6 +494,21 @@ export type PublicApi = {
      * @returns     {Object}                                                The Heat.js class instance.
      */
     setConfiguration: ( configurationOptions: ConfigurationOptions, triggerRefresh?: boolean ) => PublicApi;
+
+    /**
+     * setLocale().
+     * 
+     * Sets the locale configuration options that should be used.
+     * 
+     * @public
+     * @fires       onRefresh
+     * 
+     * @param       {Object}    configurationOptionsText                    All the locale configuration text options that should be set (refer to "Configuration Options" documentation for properties).
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for each element should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    setLocale: ( configurationOptionsText: ConfigurationOptionsText, triggerRefresh?: boolean ) => PublicApi;
 
 
     /*

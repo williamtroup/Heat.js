@@ -744,25 +744,25 @@ var w;
             const T = `rgba(${c}, ${w}, ${g}, ${f.toFixed(2)})`;
             const b = `rgba(${c}, ${w}, ${g}, ${v.toFixed(2)})`;
             const V = `rgb(${h}, ${m}, ${p})`;
-            const x = `day-color-${r.padNumber(u)}`;
-            l.push(`div.${x} {`);
+            const C = `day-color-${r.padNumber(u)}`;
+            l.push(`div.${C} {`);
             l.push(`${"\t"}background-color: ${T} !important;`);
             l.push(`${"\t"}border-color: ${b} !important;`);
             l.push(`${"\t"}color: ${V} !important;`);
             l.push("}");
-            l.push(`div.${x}:not(.no-hover):hover {`);
+            l.push(`div.${C}:not(.no-hover):hover {`);
             l.push(`${"\t"}opacity: 0.7 !important;`);
             l.push("}");
-            const C = {
+            const _ = {
                 id: r.padNumber(u),
                 name: `Day Color ${u}`,
                 minimum: Math.round(y),
-                cssClassName: x,
+                cssClassName: C,
                 tooltipText: `Day Color ${u}`,
                 visible: true
             };
-            const _ = Math.round(n.red / 100 * (u * o));
-            const D = Math.round(n.green / 100 * (u * o));
+            const D = Math.round(n.red / 100 * (u * o));
+            const x = Math.round(n.green / 100 * (u * o));
             const S = Math.round(n.blue / 100 * (u * o));
             if (s === e.totalColors - 1) {
                 l.push(`:root {`);
@@ -770,19 +770,19 @@ var w;
                 l.push(`${"\t"}${d.Variables.YearMenuCurrent}: ${T};`);
                 l.push("}");
             } else {
-                c = n.red + _;
-                w = n.green + D;
+                c = n.red + D;
+                w = n.green + x;
                 g = n.blue + S;
                 f += i;
-                h = n.red - _;
-                m = n.green - D;
+                h = n.red - D;
+                m = n.green - x;
                 p = n.blue - S;
                 y += a;
                 if (y > e.maximumMinimum) {
                     y = e.maximumMinimum;
                 }
             }
-            t.push(C);
+            t.push(_);
         }
         const v = document.getElementsByTagName("head")[0];
         const T = s.create(v, "style");
@@ -894,10 +894,10 @@ var g;
             t.guide = T(t);
             t.tooltip = b(t);
             t.zooming = V(t);
-            t.dynamicColorRange = x(t);
-            t.colorRanges = C(t);
-            t.holidays = _(t);
-            t.events = D(t);
+            t.dynamicColorRange = C(t);
+            t.colorRanges = _(t);
+            t.holidays = D(t);
+            t.events = x(t);
             if (t.startMonth > 0) {
                 t.yearsToHide = [];
             }
@@ -1109,7 +1109,7 @@ var g;
             e.zooming.showResetButton = i.getBoolean(e.zooming.showResetButton, false);
             return e.zooming;
         }
-        function x(e) {
+        function C(e) {
             e.dynamicColorRange = i.getObject(e.dynamicColorRange, {});
             e.dynamicColorRange.enabled = i.getBoolean(e.dynamicColorRange.enabled, false);
             e.dynamicColorRange.maximumMinimum = i.getNumber(e.dynamicColorRange.maximumMinimum, 25);
@@ -1118,7 +1118,7 @@ var g;
             e.dynamicColorRange.startMinimum = i.getNumber(e.dynamicColorRange.startMinimum, 10);
             return e.dynamicColorRange;
         }
-        function C(e) {
+        function _(e) {
             let t = [];
             if (e.dynamicColorRange.enabled && o.hexColor(e.dynamicColorRange.color)) {
                 t = w.buildDynamics(e.dynamicColorRange);
@@ -1175,7 +1175,7 @@ var g;
             }
             return t;
         }
-        function _(e) {
+        function D(e) {
             const t = [];
             if (o.definedArray(e.holidays)) {
                 const n = e.holidays.length;
@@ -1189,7 +1189,7 @@ var g;
             }
             return t;
         }
-        function D(e) {
+        function x(e) {
             e.events = i.getObject(e.events, {});
             e.events.onBackYear = i.getFunction(e.events.onBackYear, null);
             e.events.onNextYear = i.getFunction(e.events.onNextYear, null);
@@ -1278,83 +1278,84 @@ var f;
             t.safeMode = i.getBoolean(t.safeMode, true);
             t.observationMode = i.getBoolean(t.observationMode, true);
             t.domElementTypes = i.getStringOrArray(t.domElementTypes, [ "*" ]);
-            t.text = n(t);
-            t.text = r(t.text);
+            t.text = n(t.text);
             return t;
         }
         e.get = t;
         function n(e) {
-            e.text = i.getObject(e.text, {});
-            e.text.stText = i.getAnyString(e.text.stText, "st");
-            e.text.ndText = i.getAnyString(e.text.ndText, "nd");
-            e.text.rdText = i.getAnyString(e.text.rdText, "rd");
-            e.text.thText = i.getAnyString(e.text.thText, "th");
-            e.text.backButtonText = i.getAnyString(e.text.backButtonText, "Back");
-            e.text.nextButtonText = i.getAnyString(e.text.nextButtonText, "Next");
-            e.text.refreshButtonText = i.getAnyString(e.text.refreshButtonText, "Refresh");
-            e.text.exportButtonText = i.getAnyString(e.text.exportButtonText, "Export");
-            e.text.lessText = i.getAnyString(e.text.lessText, "Less");
-            e.text.moreText = i.getAnyString(e.text.moreText, "More");
-            e.text.dateText = i.getAnyString(e.text.dateText, "Date");
-            e.text.countText = i.getAnyString(e.text.countText, "Count");
-            e.text.mapText = i.getAnyString(e.text.mapText, "Map");
-            e.text.chartText = i.getAnyString(e.text.chartText, "Chart");
-            e.text.noChartDataMessage = i.getAnyString(e.text.noChartDataMessage, "There is currently no data to view.");
-            e.text.statisticsText = i.getAnyString(e.text.statisticsText, "Statistics");
-            e.text.noColorRangesDataMessage = i.getAnyString(e.text.noColorRangesDataMessage, "There are currently no color ranges to view.");
-            e.text.unknownTrendText = i.getAnyString(e.text.unknownTrendText, "Unknown");
-            e.text.importButtonText = i.getAnyString(e.text.importButtonText, "Import");
-            e.text.noMapDataMessage = i.getAnyString(e.text.noMapDataMessage, "There is currently no data to view.");
-            e.text.objectErrorText = i.getAnyString(e.text.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
-            e.text.attributeNotValidErrorText = i.getAnyString(e.text.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object.");
-            e.text.attributeNotSetErrorText = i.getAnyString(e.text.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly.");
-            e.text.closeButtonText = i.getAnyString(e.text.closeButtonText, "Close");
-            e.text.configurationButtonText = i.getAnyString(e.text.configurationButtonText, "Configuration");
-            e.text.configurationTitleText = i.getAnyString(e.text.configurationTitleText, "Configuration");
-            e.text.visibleMonthsText = i.getAnyString(e.text.visibleMonthsText, "Visible Months");
-            e.text.visibleDaysText = i.getAnyString(e.text.visibleDaysText, "Visible Days");
-            e.text.dataText = i.getAnyString(e.text.dataText, "Data");
-            e.text.colorRangesText = i.getAnyString(e.text.colorRangesText, "Color Ranges");
-            e.text.yearText = i.getAnyString(e.text.yearText, "Year");
-            e.text.daysText = i.getAnyString(e.text.daysText, "Days");
-            e.text.noDaysDataMessage = i.getAnyString(e.text.noDaysDataMessage, "There are currently no days to view.");
-            e.text.currentYearText = i.getAnyString(e.text.currentYearText, "Current Year");
-            e.text.todayText = i.getAnyString(e.text.todayText, "Today");
-            e.text.thisWeekText = i.getAnyString(e.text.thisWeekText, "This Week");
-            e.text.thisMonthText = i.getAnyString(e.text.thisMonthText, "This Month");
-            e.text.thisYearText = i.getAnyString(e.text.thisYearText, "This Year");
-            e.text.unavailableText = i.getAnyString(e.text.unavailableText, "Unavailable");
-            e.text.monthsText = i.getAnyString(e.text.monthsText, "Months");
-            e.text.noMonthsDataMessage = i.getAnyString(e.text.noMonthsDataMessage, "There are currently no months to view.");
-            e.text.selectTypeText = i.getAnyString(e.text.selectTypeText, "Select Type");
-            e.text.filenamePlaceholderText = i.getAnyString(e.text.filenamePlaceholderText, "Filename (optional)");
-            e.text.onlyDataBeingViewedText = i.getAnyString(e.text.onlyDataBeingViewedText, "Only data being viewed");
-            e.text.zoomInText = i.getAnyString(e.text.zoomInText, "Zoom In");
-            e.text.zoomOutText = i.getAnyString(e.text.zoomOutText, "Zoom Out");
-            e.text.clearButtonText = i.getAnyString(e.text.clearButtonText, "Clear");
-            e.text.selectFilesText = i.getAnyString(e.text.selectFilesText, "Select File(s)");
-            e.text.dragAndDropFilesText = i.getAnyString(e.text.dragAndDropFilesText, "Drag and drop your file(s) here ...");
-            e.text.addTypeText = i.getAnyString(e.text.addTypeText, "Add Type");
-            e.text.typePlaceholderText = i.getAnyString(e.text.typePlaceholderText, "Type");
-            e.text.addButtonText = i.getAnyString(e.text.addButtonText, "Add");
-            e.text.removeButtonText = i.getAnyString(e.text.removeButtonText, "Remove");
-            e.text.invertText = i.getAnyString(e.text.invertText, "Invert");
-            e.text.lineText = i.getAnyString(e.text.lineText, "Line");
-            e.text.noLineDataMessage = i.getAnyString(e.text.noLineDataMessage, "There is currently no data to view.");
-            e.text.removeTypeText = i.getAnyString(e.text.removeTypeText, "Remove Type");
-            e.text.openNewTypeText = i.getAnyString(e.text.openNewTypeText, "Open new type");
-            e.text.clearExistingDataText = i.getAnyString(e.text.clearExistingDataText, "Clear existing data");
-            e.text.browseButtonText = i.getAnyString(e.text.browseButtonText, "Browse");
-            e.text.saveButtonText = i.getAnyString(e.text.saveButtonText, "Save");
-            e.text.resetButtonText = i.getAnyString(e.text.resetButtonText, "Reset");
-            e.text.copyButtonText = i.getAnyString(e.text.copyButtonText, "Copy");
-            e.text.yesButtonText = i.getAnyString(e.text.yesButtonText, "Yes");
-            e.text.noButtonText = i.getAnyString(e.text.noButtonText, "No");
-            e.text.confirmText = i.getAnyString(e.text.confirmText, "Confirm");
-            e.text.clearDataConfirmText = i.getAnyString(e.text.clearDataConfirmText, "Are you sure you want to clear the data?");
-            e.text.removeTypeConfirmText = i.getAnyString(e.text.removeTypeConfirmText, "Are you sure you want to remove this type?");
-            return e.text;
+            e = i.getObject(e, {});
+            e.stText = i.getAnyString(e.stText, "st");
+            e.ndText = i.getAnyString(e.ndText, "nd");
+            e.rdText = i.getAnyString(e.rdText, "rd");
+            e.thText = i.getAnyString(e.thText, "th");
+            e.backButtonText = i.getAnyString(e.backButtonText, "Back");
+            e.nextButtonText = i.getAnyString(e.nextButtonText, "Next");
+            e.refreshButtonText = i.getAnyString(e.refreshButtonText, "Refresh");
+            e.exportButtonText = i.getAnyString(e.exportButtonText, "Export");
+            e.lessText = i.getAnyString(e.lessText, "Less");
+            e.moreText = i.getAnyString(e.moreText, "More");
+            e.dateText = i.getAnyString(e.dateText, "Date");
+            e.countText = i.getAnyString(e.countText, "Count");
+            e.mapText = i.getAnyString(e.mapText, "Map");
+            e.chartText = i.getAnyString(e.chartText, "Chart");
+            e.noChartDataMessage = i.getAnyString(e.noChartDataMessage, "There is currently no data to view.");
+            e.statisticsText = i.getAnyString(e.statisticsText, "Statistics");
+            e.noColorRangesDataMessage = i.getAnyString(e.noColorRangesDataMessage, "There are currently no color ranges to view.");
+            e.unknownTrendText = i.getAnyString(e.unknownTrendText, "Unknown");
+            e.importButtonText = i.getAnyString(e.importButtonText, "Import");
+            e.noMapDataMessage = i.getAnyString(e.noMapDataMessage, "There is currently no data to view.");
+            e.objectErrorText = i.getAnyString(e.objectErrorText, "Errors in object: {{error_1}}, {{error_2}}");
+            e.attributeNotValidErrorText = i.getAnyString(e.attributeNotValidErrorText, "The attribute '{{attribute_name}}' is not a valid object.");
+            e.attributeNotSetErrorText = i.getAnyString(e.attributeNotSetErrorText, "The attribute '{{attribute_name}}' has not been set correctly.");
+            e.closeButtonText = i.getAnyString(e.closeButtonText, "Close");
+            e.configurationButtonText = i.getAnyString(e.configurationButtonText, "Configuration");
+            e.configurationTitleText = i.getAnyString(e.configurationTitleText, "Configuration");
+            e.visibleMonthsText = i.getAnyString(e.visibleMonthsText, "Visible Months");
+            e.visibleDaysText = i.getAnyString(e.visibleDaysText, "Visible Days");
+            e.dataText = i.getAnyString(e.dataText, "Data");
+            e.colorRangesText = i.getAnyString(e.colorRangesText, "Color Ranges");
+            e.yearText = i.getAnyString(e.yearText, "Year");
+            e.daysText = i.getAnyString(e.daysText, "Days");
+            e.noDaysDataMessage = i.getAnyString(e.noDaysDataMessage, "There are currently no days to view.");
+            e.currentYearText = i.getAnyString(e.currentYearText, "Current Year");
+            e.todayText = i.getAnyString(e.todayText, "Today");
+            e.thisWeekText = i.getAnyString(e.thisWeekText, "This Week");
+            e.thisMonthText = i.getAnyString(e.thisMonthText, "This Month");
+            e.thisYearText = i.getAnyString(e.thisYearText, "This Year");
+            e.unavailableText = i.getAnyString(e.unavailableText, "Unavailable");
+            e.monthsText = i.getAnyString(e.monthsText, "Months");
+            e.noMonthsDataMessage = i.getAnyString(e.noMonthsDataMessage, "There are currently no months to view.");
+            e.selectTypeText = i.getAnyString(e.selectTypeText, "Select Type");
+            e.filenamePlaceholderText = i.getAnyString(e.filenamePlaceholderText, "Filename (optional)");
+            e.onlyDataBeingViewedText = i.getAnyString(e.onlyDataBeingViewedText, "Only data being viewed");
+            e.zoomInText = i.getAnyString(e.zoomInText, "Zoom In");
+            e.zoomOutText = i.getAnyString(e.zoomOutText, "Zoom Out");
+            e.clearButtonText = i.getAnyString(e.clearButtonText, "Clear");
+            e.selectFilesText = i.getAnyString(e.selectFilesText, "Select File(s)");
+            e.dragAndDropFilesText = i.getAnyString(e.dragAndDropFilesText, "Drag and drop your file(s) here ...");
+            e.addTypeText = i.getAnyString(e.addTypeText, "Add Type");
+            e.typePlaceholderText = i.getAnyString(e.typePlaceholderText, "Type");
+            e.addButtonText = i.getAnyString(e.addButtonText, "Add");
+            e.removeButtonText = i.getAnyString(e.removeButtonText, "Remove");
+            e.invertText = i.getAnyString(e.invertText, "Invert");
+            e.lineText = i.getAnyString(e.lineText, "Line");
+            e.noLineDataMessage = i.getAnyString(e.noLineDataMessage, "There is currently no data to view.");
+            e.removeTypeText = i.getAnyString(e.removeTypeText, "Remove Type");
+            e.openNewTypeText = i.getAnyString(e.openNewTypeText, "Open new type");
+            e.clearExistingDataText = i.getAnyString(e.clearExistingDataText, "Clear existing data");
+            e.browseButtonText = i.getAnyString(e.browseButtonText, "Browse");
+            e.saveButtonText = i.getAnyString(e.saveButtonText, "Save");
+            e.resetButtonText = i.getAnyString(e.resetButtonText, "Reset");
+            e.copyButtonText = i.getAnyString(e.copyButtonText, "Copy");
+            e.yesButtonText = i.getAnyString(e.yesButtonText, "Yes");
+            e.noButtonText = i.getAnyString(e.noButtonText, "No");
+            e.confirmText = i.getAnyString(e.confirmText, "Confirm");
+            e.clearDataConfirmText = i.getAnyString(e.clearDataConfirmText, "Are you sure you want to clear the data?");
+            e.removeTypeConfirmText = i.getAnyString(e.removeTypeConfirmText, "Are you sure you want to remove this type?");
+            e = r(e);
+            return e;
         }
+        e.getText = n;
         function r(e) {
             if (o.invalidOptionArray(e.monthNames, 12)) {
                 e.monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
@@ -2000,11 +2001,11 @@ var V;
 })(V || (V = {}));
 
 (() => {
-    let x = {};
-    let C = null;
-    let _ = {};
-    function D() {
-        const e = x.domElementTypes;
+    let C = {};
+    let _ = null;
+    let D = {};
+    function x() {
+        const e = C.domElementTypes;
         const t = e.length;
         for (let n = 0; n < t; n++) {
             const t = document.getElementsByTagName(e[n]);
@@ -2022,18 +2023,18 @@ var V;
         if (o.defined(e) && e.hasAttribute(n.Attribute.HEAT_JS)) {
             const r = e.getAttribute(n.Attribute.HEAT_JS);
             if (o.definedString(r)) {
-                const a = i.getObjectFromString(r, x);
+                const a = i.getObjectFromString(r, C);
                 if (a.parsed && o.definedObject(a.object)) {
-                    M(g.Options.getForNewInstance(x, a.object, e));
+                    M(g.Options.getForNewInstance(C, a.object, e));
                 } else {
-                    if (!x.safeMode) {
-                        console.error(x.text.attributeNotValidErrorText.replace("{{attribute_name}}", n.Attribute.HEAT_JS));
+                    if (!C.safeMode) {
+                        console.error(C.text.attributeNotValidErrorText.replace("{{attribute_name}}", n.Attribute.HEAT_JS));
                         t = false;
                     }
                 }
             } else {
-                if (!x.safeMode) {
-                    console.error(x.text.attributeNotSetErrorText.replace("{{attribute_name}}", n.Attribute.HEAT_JS));
+                if (!C.safeMode) {
+                    console.error(C.text.attributeNotSetErrorText.replace("{{attribute_name}}", n.Attribute.HEAT_JS));
                     t = false;
                 }
             }
@@ -2059,7 +2060,7 @@ var V;
     function B(e, t = false, n = false, o = false) {
         l.hide(e);
         if (t) {
-            T.store(e, _[e._currentView.element.id]);
+            T.store(e, D[e._currentView.element.id]);
         }
         e._currentView.yearsAvailable = Ge(e);
         m.View.getScrollPositions(e);
@@ -2078,10 +2079,10 @@ var V;
             be(e, n, o);
         }
         if (e.views.days.enabled && e._currentView.activeView === 4) {
-            xe(e, n);
+            Ce(e, n);
         }
         if (e.views.months.enabled && e._currentView.activeView === 5) {
-            De(e, n);
+            xe(e, n);
         }
         if (e.views.colorRanges.enabled && e._currentView.activeView === 6) {
             Be(e, n);
@@ -2103,19 +2104,19 @@ var V;
             const i = s.create(n, "div", "side-containers");
             const r = s.create(i, "div", "side-container panel");
             const a = s.create(i, "div", "side-container panel");
-            s.createWithHTML(t, "span", "dialog-title-bar-text", x.text.configurationTitleText);
-            s.createWithHTML(r, "div", "side-container-title-text", `${x.text.visibleDaysText}${":"}`);
-            s.createWithHTML(a, "div", "side-container-title-text", `${x.text.visibleMonthsText}${":"}`);
+            s.createWithHTML(t, "span", "dialog-title-bar-text", C.text.configurationTitleText);
+            s.createWithHTML(r, "div", "side-container-title-text", `${C.text.visibleDaysText}${":"}`);
+            s.createWithHTML(a, "div", "side-container-title-text", `${C.text.visibleMonthsText}${":"}`);
             const c = s.create(a, "div", "side-container");
             const u = s.create(a, "div", "side-container");
             const d = s.create(n, "div", "buttons");
-            const w = s.createButton(d, "button", "", x.text.resetButtonText);
-            const g = s.createButton(d, "button", "default", x.text.saveButtonText);
+            const w = s.createButton(d, "button", "", C.text.resetButtonText);
+            const g = s.createButton(d, "button", "default", C.text.saveButtonText);
             o.onclick = () => L(e);
             w.onclick = () => R(e);
             g.onclick = () => A(e);
             for (let t = 0; t < 7; t++) {
-                e._currentView.configurationDialogDayCheckBoxes[t] = s.createCheckBox(r, x.text.dayNames[t], t.toString());
+                e._currentView.configurationDialogDayCheckBoxes[t] = s.createCheckBox(r, C.text.dayNames[t], t.toString());
             }
             let f = c;
             let h = 0;
@@ -2124,13 +2125,13 @@ var V;
                 if (e.startMonth > 0 && t > 11) {
                     n = t - 12;
                 }
-                e._currentView.configurationDialogMonthCheckBoxes[n] = s.createCheckBox(f, x.text.monthNames[n], n.toString());
+                e._currentView.configurationDialogMonthCheckBoxes[n] = s.createCheckBox(f, C.text.monthNames[n], n.toString());
                 h++;
                 if (h > 6) {
                     f = u;
                 }
             }
-            l.add(o, e, x.text.closeButtonText);
+            l.add(o, e, C.text.closeButtonText);
         }
     }
     function N(e) {
@@ -2208,17 +2209,17 @@ var V;
             const t = s.create(e._currentView.exportDialog, "div", "dialog-title-bar");
             const n = s.create(e._currentView.exportDialog, "div", "dialog-contents");
             const o = s.create(t, "div", "dialog-close");
-            s.createWithHTML(t, "span", "dialog-title-bar-text", x.text.selectTypeText);
+            s.createWithHTML(t, "span", "dialog-title-bar-text", C.text.selectTypeText);
             e._currentView.exportDialogExportTypeSelect = s.create(n, "select", "input-box");
             e._currentView.exportDialogExportTypeSelect.name = crypto.randomUUID();
             e._currentView.exportDialogExportFilenameInput = s.create(n, "input", "input-box filename");
             e._currentView.exportDialogExportFilenameInput.name = crypto.randomUUID();
-            e._currentView.exportDialogExportFilenameInput.placeholder = x.text.filenamePlaceholderText;
-            e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox = s.createCheckBox(n, x.text.onlyDataBeingViewedText, crypto.randomUUID());
+            e._currentView.exportDialogExportFilenameInput.placeholder = C.text.filenamePlaceholderText;
+            e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox = s.createCheckBox(n, C.text.onlyDataBeingViewedText, crypto.randomUUID());
             e._currentView.exportDialogExportOnlyDataBeingViewedCheckBox.checked = e.exportOnlyDataBeingViewed;
             const i = s.create(n, "div", "buttons");
-            const r = s.createButton(i, "button", "", x.text.copyButtonText);
-            const a = s.createButton(i, "button", "default", x.text.exportButtonText);
+            const r = s.createButton(i, "button", "", C.text.copyButtonText);
+            const a = s.createButton(i, "button", "default", C.text.exportButtonText);
             F(e);
             e._currentView.exportDialogExportFilenameInput.onkeydown = t => {
                 if (t.key === "Enter") {
@@ -2228,7 +2229,7 @@ var V;
             o.onclick = () => $(e);
             r.onclick = () => H(e, true);
             a.onclick = () => H(e);
-            l.add(o, e, x.text.closeButtonText);
+            l.add(o, e, C.text.closeButtonText);
         }
     }
     function F(e) {
@@ -2273,7 +2274,7 @@ var V;
     function Y(e, t = null, n = null, r = true, a = false) {
         const l = i.getString(t, e.exportType).toLowerCase();
         const u = j(e, r);
-        const d = y.Contents.get(l, u, x, e);
+        const d = y.Contents.get(l, u, C, e);
         if (o.definedString(d)) {
             if (a) {
                 navigator.clipboard.writeText(d);
@@ -2283,7 +2284,7 @@ var V;
                 o.style.display = "none";
                 o.setAttribute("target", "_blank");
                 o.setAttribute("href", `data:${t};charset=utf-8,${encodeURIComponent(d)}`);
-                o.setAttribute("download", y.File.getFilename(x, e, n, l));
+                o.setAttribute("download", y.File.getFilename(C, e, n, l));
                 o.click();
                 document.body.removeChild(o);
             }
@@ -2343,18 +2344,18 @@ var V;
             const t = s.create(e._currentView.importDialog, "div", "dialog-title-bar");
             const n = s.create(e._currentView.importDialog, "div", "dialog-contents");
             const o = s.create(t, "div", "dialog-close");
-            s.createWithHTML(t, "span", "dialog-title-bar-text", x.text.selectFilesText);
-            e._currentView.importDialogDragAndDrop = s.createWithHTML(n, "div", "drag-and-drop-files", x.text.dragAndDropFilesText);
-            e._currentView.importDialogClearExistingData = s.createCheckBox(n, x.text.clearExistingDataText, crypto.randomUUID());
+            s.createWithHTML(t, "span", "dialog-title-bar-text", C.text.selectFilesText);
+            e._currentView.importDialogDragAndDrop = s.createWithHTML(n, "div", "drag-and-drop-files", C.text.dragAndDropFilesText);
+            e._currentView.importDialogClearExistingData = s.createCheckBox(n, C.text.clearExistingDataText, crypto.randomUUID());
             U(e._currentView.importDialogDragAndDrop, e);
             const i = s.create(n, "div", "buttons");
-            const r = s.createButton(i, "button", "", x.text.browseButtonText);
-            e._currentView.importDialogImportButton = s.createButton(i, "button", "default", x.text.importButtonText);
+            const r = s.createButton(i, "button", "", C.text.browseButtonText);
+            e._currentView.importDialogImportButton = s.createButton(i, "button", "default", C.text.importButtonText);
             e._currentView.importDialogImportButton.disabled = true;
             o.onclick = () => z(e);
             r.onclick = () => J(e);
             e._currentView.importDialogImportButton.onclick = () => X(e._currentView.importDialogFileList, e, e._currentView.importDialogClearExistingData.checked);
-            l.add(o, e, x.text.closeButtonText);
+            l.add(o, e, C.text.closeButtonText);
         }
     }
     function P(e) {
@@ -2369,7 +2370,7 @@ var V;
     function z(e) {
         h.Background.hide(e);
         if (o.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "none") {
-            e._currentView.importDialogDragAndDrop.innerHTML = x.text.dragAndDropFilesText;
+            e._currentView.importDialogDragAndDrop.innerHTML = C.text.dragAndDropFilesText;
             e._currentView.importDialogFileList = null;
             e._currentView.importDialogImportButton.disabled = true;
             e._currentView.importDialog.style.display = "none";
@@ -2414,7 +2415,7 @@ var V;
     }
     function G(e, t) {
         if (t.length <= 0) {
-            e._currentView.importDialogDragAndDrop.innerHTML = x.text.dragAndDropFilesText;
+            e._currentView.importDialogDragAndDrop.innerHTML = C.text.dragAndDropFilesText;
             e._currentView.importDialogImportButton.disabled = true;
         } else {
             e._currentView.importDialogFileList = t;
@@ -2425,7 +2426,7 @@ var V;
                 const o = t[n].name;
                 const i = s.createWithHTML(e._currentView.importDialogDragAndDrop, "div", "filename", `<b>${n + 1}</b>. ${o}`);
                 const r = s.create(i, "div", "remove");
-                l.add(r, e, x.text.removeButtonText);
+                l.add(r, e, C.text.removeButtonText);
                 r.onclick = () => Z(e, n);
             }
         }
@@ -2467,7 +2468,7 @@ var V;
         for (let t = 0; t < i; t++) {
             const n = e[t];
             const o = n.name.split(".").pop().toLowerCase();
-            p.file(n, o, s, x);
+            p.file(n, o, s, C);
         }
     }
     function q(e) {
@@ -2477,14 +2478,14 @@ var V;
             const t = s.create(e._currentView.typeAddingDialog, "div", "dialog-title-bar");
             const n = s.create(e._currentView.typeAddingDialog, "div", "dialog-contents");
             const o = s.create(t, "div", "dialog-close");
-            s.createWithHTML(t, "span", "dialog-title-bar-text", x.text.addTypeText);
+            s.createWithHTML(t, "span", "dialog-title-bar-text", C.text.addTypeText);
             e._currentView.typeAddingDialogTypeInput = s.create(n, "input", "input-box type");
             e._currentView.typeAddingDialogTypeInput.name = crypto.randomUUID();
-            e._currentView.typeAddingDialogTypeInput.placeholder = x.text.typePlaceholderText;
-            e._currentView.typeAddingOptionNewType = s.createCheckBox(n, x.text.openNewTypeText, crypto.randomUUID());
+            e._currentView.typeAddingDialogTypeInput.placeholder = C.text.typePlaceholderText;
+            e._currentView.typeAddingOptionNewType = s.createCheckBox(n, C.text.openNewTypeText, crypto.randomUUID());
             e._currentView.typeAddingOptionNewType.checked = true;
             const i = s.create(n, "div", "buttons");
-            const r = s.createButton(i, "button", "default", x.text.addButtonText);
+            const r = s.createButton(i, "button", "default", C.text.addButtonText);
             e._currentView.typeAddingDialogTypeInput.onkeydown = t => {
                 if (t.key === "Enter") {
                     ee(e);
@@ -2492,7 +2493,7 @@ var V;
             };
             o.onclick = () => Q(e);
             r.onclick = () => ee(e);
-            l.add(o, e, x.text.closeButtonText);
+            l.add(o, e, C.text.closeButtonText);
         }
     }
     function K(e) {
@@ -2517,10 +2518,10 @@ var V;
     function ee(e) {
         const t = e._currentView.typeAddingDialogTypeInput.value.trim();
         const n = e._currentView.element.id;
-        if (o.definedString(t) && !Object.prototype.hasOwnProperty.call(_[n].typeData, t)) {
-            if (!Object.prototype.hasOwnProperty.call(_[n].typeData, t)) {
-                _[n].typeData[t] = {};
-                _[n].totalTypes++;
+        if (o.definedString(t) && !Object.prototype.hasOwnProperty.call(D[n].typeData, t)) {
+            if (!Object.prototype.hasOwnProperty.call(D[n].typeData, t)) {
+                D[n].typeData[t] = {};
+                D[n].totalTypes++;
             }
             if (e._currentView.typeAddingOptionNewType.checked) {
                 e._currentView.activeType = t;
@@ -2539,11 +2540,11 @@ var V;
             e._currentView.confirmationDialog = s.create(e._currentView.disabledBackground, "div", "dialog confirmation");
             const t = s.create(e._currentView.confirmationDialog, "div", "dialog-title-bar");
             const n = s.create(e._currentView.confirmationDialog, "div", "dialog-contents");
-            s.createWithHTML(t, "span", "dialog-title-bar-text", x.text.confirmText);
+            s.createWithHTML(t, "span", "dialog-title-bar-text", C.text.confirmText);
             e._currentView.confirmationDialogMessage = s.create(n, "div", "message");
             const o = s.create(n, "div", "buttons");
-            const i = s.createButton(o, "button", "", x.text.noButtonText);
-            e._currentView.confirmationDialogYesButton = s.createButton(o, "button", "default", x.text.yesButtonText);
+            const i = s.createButton(o, "button", "", C.text.noButtonText);
+            e._currentView.confirmationDialogYesButton = s.createButton(o, "button", "default", C.text.yesButtonText);
             i.onclick = () => oe(e);
         }
     }
@@ -2582,7 +2583,7 @@ var V;
                 n.innerHTML += e.title.text;
                 if (e.title.showSectionText) {
                     s.createWithHTML(n, "span", "section-text", "[");
-                    s.createWithHTML(n, "span", "section-text-name", m.View.getText(e, x));
+                    s.createWithHTML(n, "span", "section-text-name", m.View.getText(e, C));
                     s.createWithHTML(n, "span", "section-text", "]");
                 }
             }
@@ -2593,20 +2594,20 @@ var V;
                 const n = s.createIconButton(t, "button", "import", "arrow-up");
                 n.onclick = () => P(e);
                 if (e.title.showToolTips) {
-                    l.add(n, e, x.text.importButtonText);
+                    l.add(n, e, C.text.importButtonText);
                 }
             }
             if (e.title.showExportButton && Je(e)) {
                 const n = s.createIconButton(t, "button", "export", "arrow-down");
                 n.onclick = () => E(e);
                 if (e.title.showToolTips) {
-                    l.add(n, e, x.text.exportButtonText);
+                    l.add(n, e, C.text.exportButtonText);
                 }
             }
             if (e.title.showRefreshButton) {
                 const n = s.createIconButton(t, "button", "refresh", "refresh");
                 if (e.title.showToolTips) {
-                    l.add(n, e, x.text.refreshButtonText);
+                    l.add(n, e, C.text.refreshButtonText);
                 }
                 n.onclick = () => {
                     B(e);
@@ -2616,10 +2617,10 @@ var V;
             if (e.title.showClearButton && qe(e) > 0) {
                 const n = s.createIconButton(t, "button", "clear", "close");
                 if (e.title.showToolTips) {
-                    l.add(n, e, x.text.clearButtonText);
+                    l.add(n, e, C.text.clearButtonText);
                 }
                 n.onclick = () => {
-                    ne(e, x.text.clearDataConfirmText, () => {
+                    ne(e, C.text.clearDataConfirmText, () => {
                         Ze(e);
                         B(e, true);
                     });
@@ -2630,7 +2631,7 @@ var V;
                 n.disabled = o.firstVisibleYear(e, e._currentView.activeYear);
                 n.onclick = () => st(e);
                 if (e.title.showToolTips) {
-                    l.add(n, e, x.text.backButtonText);
+                    l.add(n, e, C.text.backButtonText);
                 }
                 re(e, t);
                 if (e.title.showYearSelectionDropDown) {
@@ -2642,13 +2643,13 @@ var V;
                     const n = s.create(t, "div", "configure");
                     n.onclick = () => N(e);
                     if (e.title.showToolTips) {
-                        l.add(n, e, x.text.configurationButtonText);
+                        l.add(n, e, C.text.configurationButtonText);
                     }
                 }
                 if (e.title.showCurrentYearButton) {
                     const n = s.createIconButton(t, "button", "current-year", "pin");
                     if (e.title.showToolTips) {
-                        l.add(n, e, x.text.currentYearText);
+                        l.add(n, e, C.text.currentYearText);
                     }
                     n.onclick = () => {
                         e._currentView.activeYear = (new Date).getFullYear() - 1;
@@ -2660,7 +2661,7 @@ var V;
                 i.disabled = o.lastVisibleYear(e, e._currentView.activeYear);
                 i.onclick = () => lt(e);
                 if (e.title.showToolTips) {
-                    l.add(i, e, x.text.nextButtonText);
+                    l.add(i, e, C.text.nextButtonText);
                 }
             }
         }
@@ -2680,40 +2681,40 @@ var V;
         const n = s.create(t, "div", "titles-menu-container");
         const i = s.create(n, "div", "titles-menu");
         if (e.title.showTitleDropDownHeaders) {
-            s.createWithHTML(i, "div", "title-menu-header", `${x.text.dataText}${":"}`);
+            s.createWithHTML(i, "div", "title-menu-header", `${C.text.dataText}${":"}`);
         }
         if (e.views.map.enabled) {
-            const t = se(e, i, x.text.mapText);
+            const t = se(e, i, C.text.mapText);
             le(e, t, 1, "map");
         }
         if (e.views.line.enabled) {
-            const t = se(e, i, x.text.lineText);
+            const t = se(e, i, C.text.lineText);
             le(e, t, 2, "line");
         }
         if (e.views.chart.enabled) {
-            const t = se(e, i, x.text.chartText);
+            const t = se(e, i, C.text.chartText);
             le(e, t, 3, "chart");
         }
         let r = null;
         if (e.views.days.enabled) {
             if (e.title.showTitleDropDownHeaders) {
-                r = s.createWithHTML(i, "div", "title-menu-header", `${x.text.yearText}${":"}`);
+                r = s.createWithHTML(i, "div", "title-menu-header", `${C.text.yearText}${":"}`);
             }
-            const t = se(e, i, x.text.daysText);
+            const t = se(e, i, C.text.daysText);
             le(e, t, 4, "days");
         }
         if (e.views.months.enabled) {
             if (e.title.showTitleDropDownHeaders && !o.defined(r)) {
-                r = s.createWithHTML(i, "div", "title-menu-header", `${x.text.yearText}${":"}`);
+                r = s.createWithHTML(i, "div", "title-menu-header", `${C.text.yearText}${":"}`);
             }
-            const t = se(e, i, x.text.monthsText);
+            const t = se(e, i, C.text.monthsText);
             le(e, t, 5, "months");
         }
         if (e.views.colorRanges.enabled) {
             if (e.title.showTitleDropDownHeaders) {
-                s.createWithHTML(i, "div", "title-menu-header", `${x.text.statisticsText}${":"}`);
+                s.createWithHTML(i, "div", "title-menu-header", `${C.text.statisticsText}${":"}`);
             }
-            const t = se(e, i, x.text.colorRangesText);
+            const t = se(e, i, C.text.colorRangesText);
             le(e, t, 6, "color-ranges");
         }
     }
@@ -2789,8 +2790,8 @@ var V;
                 if (!o.defined(c) || !o.dayVisible(l, d)) {
                     c = 0;
                 }
-                const g = n ? r.friendlyNumber(c) : x.text.unavailableText;
-                s.createWithHTML(u, "div", "statistics-box-title", `${x.text.todayText}${":"}`);
+                const g = n ? r.friendlyNumber(c) : C.text.unavailableText;
+                s.createWithHTML(u, "div", "statistics-box-title", `${C.text.todayText}${":"}`);
                 const f = s.createWithHTML(u, "div", "statistics-box-count", g);
                 if (!n) {
                     s.addClass(f, "unavailable");
@@ -2805,9 +2806,9 @@ var V;
                     o.setDate(n.getDate() + 7);
                     t = ge(e, l, c, n, o);
                 }
-                const o = n ? r.friendlyNumber(t) : x.text.unavailableText;
+                const o = n ? r.friendlyNumber(t) : C.text.unavailableText;
                 const u = s.create(i, "div", "statistics-box");
-                s.createWithHTML(u, "div", "statistics-box-title", `${x.text.thisWeekText}${":"}`);
+                s.createWithHTML(u, "div", "statistics-box-title", `${C.text.thisWeekText}${":"}`);
                 const d = s.createWithHTML(u, "div", "statistics-box-count", o);
                 if (!n) {
                     s.addClass(d, "unavailable");
@@ -2821,9 +2822,9 @@ var V;
                     const i = new Date(t.getFullYear(), t.getMonth(), a.getTotalDaysInMonth(t.getFullYear(), t.getMonth()) + 1);
                     o = ge(e, l, c, n, i);
                 }
-                const u = n ? r.friendlyNumber(o) : x.text.unavailableText;
+                const u = n ? r.friendlyNumber(o) : C.text.unavailableText;
                 const d = s.create(i, "div", "statistics-box");
-                s.createWithHTML(d, "div", "statistics-box-title", `${x.text.thisMonthText}${":"}`);
+                s.createWithHTML(d, "div", "statistics-box-title", `${C.text.thisMonthText}${":"}`);
                 const g = s.createWithHTML(d, "div", "statistics-box-count", u);
                 if (!n) {
                     s.addClass(g, "unavailable");
@@ -2832,7 +2833,7 @@ var V;
             }
             if (e.yearlyStatistics.showThisYear) {
                 const e = s.create(i, "div", "statistics-box");
-                s.createWithHTML(e, "div", "statistics-box-title", `${x.text.thisYearText}${":"}`);
+                s.createWithHTML(e, "div", "statistics-box-title", `${C.text.thisYearText}${":"}`);
                 s.createWithHTML(e, "div", "statistics-box-count", r.friendlyNumber(w));
             }
             if (i.innerHTML === "") {
@@ -2870,7 +2871,7 @@ var V;
         e._currentView.mapContents = s.create(e._currentView.mapContentsContainer, "div", "map-contents");
         if (!ye(e)) {
             e._currentView.mapContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
-            const o = s.createWithHTML(e._currentView.mapContents, "div", "no-data-message", x.text.noMapDataMessage);
+            const o = s.createWithHTML(e._currentView.mapContents, "div", "no-data-message", C.text.noMapDataMessage);
             if (t) {
                 s.addClass(o, "view-switch");
             }
@@ -2890,7 +2891,7 @@ var V;
                 }
                 for (let i = 0; i < 7; i++) {
                     if (o.dayVisible(e.views.map.daysToShow, i + 1)) {
-                        const o = !n || i % 3 === 0 ? x.text.dayNames[i] : " ";
+                        const o = !n || i % 3 === 0 ? C.text.dayNames[i] : " ";
                         const r = s.createWithHTML(t, "div", "day-name", o);
                         if (e.views.days.enabled) {
                             r.ondblclick = () => je(e, 4, "days");
@@ -2960,7 +2961,7 @@ var V;
                         let n;
                         const o = t.offsetWidth;
                         const u = new Date(c, i, 1);
-                        let d = x.text.monthNames[i];
+                        let d = C.text.monthNames[i];
                         if (e.startMonth > 0 && e.views.map.showYearsInMonthNames) {
                             d += `${" "}${r}`;
                         }
@@ -3048,7 +3049,7 @@ var V;
         }
         if (e.views.map.showDayDateNumbers) {
             const e = s.createWithHTML(h, "div", "count-date", f.toString());
-            s.createWithHTML(e, "sup", "", a.getDayOrdinal(x, f));
+            s.createWithHTML(e, "sup", "", a.getDayOrdinal(C, f));
         }
         if (e.views.map.showDayCounts && y > 0) {
             s.createWithHTML(h, "div", "count", r.friendlyNumber(y));
@@ -3106,7 +3107,7 @@ var V;
         if (u === 0) {
             e._currentView.lineContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
             r.parentNode.removeChild(r);
-            const o = s.createWithHTML(e._currentView.lineContents, "div", "no-data-message", x.text.noLineDataMessage);
+            const o = s.createWithHTML(e._currentView.lineContents, "div", "no-data-message", C.text.noLineDataMessage);
             if (t) {
                 s.addClass(o, "view-switch");
             }
@@ -3158,7 +3159,7 @@ var V;
                     }
                     if (o.monthVisible(e.views.line.monthsToShow, l)) {
                         const o = new Date(n, l, 1);
-                        let r = x.text.monthNames[l];
+                        let r = C.text.monthNames[l];
                         if (e.startMonth > 0 && e.views.line.showYearsInMonthNames) {
                             r += `${" "}${c}`;
                         }
@@ -3255,7 +3256,7 @@ var V;
         if (d === 0) {
             e._currentView.chartContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
             r.parentNode.removeChild(r);
-            const o = s.createWithHTML(e._currentView.chartContents, "div", "no-data-message", x.text.noChartDataMessage);
+            const o = s.createWithHTML(e._currentView.chartContents, "div", "no-data-message", C.text.noChartDataMessage);
             if (t) {
                 s.addClass(o, "view-switch");
             }
@@ -3317,7 +3318,7 @@ var V;
                     }
                     if (o.monthVisible(e.views.chart.monthsToShow, r)) {
                         const o = new Date(c, r, 1);
-                        let i = x.text.monthNames[r];
+                        let i = C.text.monthNames[r];
                         if (e.startMonth > 0 && e.views.chart.showYearsInMonthNames) {
                             i += `${" "}${l}`;
                         }
@@ -3375,7 +3376,7 @@ var V;
         }
         if (t.views.chart.showLineDateNumbers) {
             const e = s.createWithHTML(p, "div", "count-date", l.toString());
-            s.createWithHTML(e, "sup", "", a.getDayOrdinal(x, l));
+            s.createWithHTML(e, "sup", "", a.getDayOrdinal(C, l));
         }
         if (t.views.chart.showLineCounts && T > 0) {
             s.createWithHTML(p, "div", "count", r.friendlyNumber(T));
@@ -3383,8 +3384,8 @@ var V;
         if (t.views.chart.showDifferences && o.definedString(V)) {
             s.createWithHTML(p, "div", "difference", V);
         }
-        const C = T * f;
-        if (C <= 0) {
+        const _ = T * f;
+        if (_ <= 0) {
             p.style.visibility = "hidden";
         }
         if (o.definedFunction(t.events.onChartDayClick)) {
@@ -3407,17 +3408,17 @@ var V;
         if (t.views.chart.useGradients) {
             s.addGradientEffect(t._currentView.element, p);
         }
-        v.setHeight(t, p, C, h);
+        v.setHeight(t, p, _, h);
         return p;
     }
-    function xe(e, t) {
+    function Ce(e, t) {
         e._currentView.daysContents = s.create(e._currentView.element, "div", "days-contents");
         const i = s.create(e._currentView.daysContents, "div", "days");
         const r = s.create(e._currentView.daysContents, "div", "day-names");
         const l = s.create(i, "div", "y-labels");
         const c = s.create(i, "div", "day-lines");
         const u = w.getAllSorted(e);
-        const d = _e(e, u);
+        const d = De(e, u);
         const g = new Date;
         const f = a.getWeekdayNumber(g) + 1;
         if (t && (!e.views.days.useDifferentOpacities || !e.views.days.showDayCounts)) {
@@ -3439,7 +3440,7 @@ var V;
             e._currentView.daysContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
             i.parentNode.removeChild(i);
             r.parentNode.removeChild(r);
-            const o = s.createWithHTML(e._currentView.daysContents, "div", "no-days-message", x.text.noDaysDataMessage);
+            const o = s.createWithHTML(e._currentView.daysContents, "div", "no-days-message", C.text.noDaysDataMessage);
             if (t) {
                 s.addClass(o, "view-switch");
             }
@@ -3449,9 +3450,9 @@ var V;
             for (const n in d.values) {
                 if (Object.prototype.hasOwnProperty.call(d.values, n) && o.dayVisible(e.views.days.daysToShow, parseInt(n))) {
                     const a = d.valueOpacities[d.values[n].total];
-                    const l = Ce(c, parseInt(n), d.values[n].total, e, i, a, d.totalValue, t);
+                    const l = _e(c, parseInt(n), d.values[n].total, e, i, a, d.totalValue, t);
                     if (e.views.days.showDayNames) {
-                        const t = s.createWithHTML(r, "div", "day-name", x.text.dayNames[parseInt(n) - 1]);
+                        const t = s.createWithHTML(r, "div", "day-name", C.text.dayNames[parseInt(n) - 1]);
                         if (g.getFullYear() === e._currentView.activeYear && f === parseInt(n)) {
                             s.addClass(t, "current");
                         }
@@ -3489,7 +3490,7 @@ var V;
         }
         e._currentView.daysContents.style.display = "none";
     }
-    function Ce(e, t, i, d, w, g, f, h) {
+    function _e(e, t, i, d, w, g, f, h) {
         const m = s.create(e, "div", "day-line");
         const p = i * w;
         let y = null;
@@ -3503,7 +3504,7 @@ var V;
             s.addClass(m, "stacked");
         }
         if (d.views.days.showToolTips) {
-            let e = a.getCustomFormattedDateText(x, d.views.days.dayToolTipText, new Date(d._currentView.activeYear, 0, 1), false, t - 1);
+            let e = a.getCustomFormattedDateText(C, d.views.days.dayToolTipText, new Date(d._currentView.activeYear, 0, 1), false, t - 1);
             e += `${":"}${" "}<b class="tooltip-count">${r.friendlyNumber(i)}</b>`;
             l.add(m, d, e);
         }
@@ -3548,7 +3549,7 @@ var V;
         v.setHeight(d, m, p, h);
         return m;
     }
-    function _e(e, t) {
+    function De(e, t) {
         const n = {
             values: b.largestValueForViewValues(7),
             valueOpacities: {},
@@ -3592,7 +3593,7 @@ var V;
         u.valuesToOpacitiesOrder(n);
         return n;
     }
-    function De(e, t) {
+    function xe(e, t) {
         e._currentView.monthsContents = s.create(e._currentView.element, "div", "months-contents");
         const i = s.create(e._currentView.monthsContents, "div", "months");
         const r = s.create(e._currentView.monthsContents, "div", "month-names");
@@ -3619,7 +3620,7 @@ var V;
             e._currentView.monthsContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
             i.parentNode.removeChild(i);
             r.parentNode.removeChild(r);
-            const o = s.createWithHTML(e._currentView.monthsContents, "div", "no-months-message", x.text.noMonthsDataMessage);
+            const o = s.createWithHTML(e._currentView.monthsContents, "div", "no-months-message", C.text.noMonthsDataMessage);
             if (t) {
                 s.addClass(o, "view-switch");
             }
@@ -3637,7 +3638,7 @@ var V;
                     const n = d.valueOpacities[d.values[f].total];
                     const h = Se(c, f, d.values[f].total, e, i, n, d.totalValue, t);
                     if (e.views.months.showMonthNames) {
-                        const e = s.createWithHTML(r, "div", "month-name", x.text.monthNames[g]);
+                        const e = s.createWithHTML(r, "div", "month-name", C.text.monthNames[g]);
                         const t = new Date(l, g, 1);
                         if (a.isCurrentMonthAndYear(t)) {
                             s.addClass(e, "current");
@@ -3691,7 +3692,7 @@ var V;
             m.style.visibility = "hidden";
         }
         if (d.views.months.showToolTips) {
-            let e = a.getCustomFormattedDateText(x, d.views.months.monthToolTipText, new Date(d._currentView.activeYear, t - 1, 1));
+            let e = a.getCustomFormattedDateText(C, d.views.months.monthToolTipText, new Date(d._currentView.activeYear, t - 1, 1));
             e += `${":"}${" "}<b class="tooltip-count">${r.friendlyNumber(i)}</b>`;
             l.add(m, d, e);
         }
@@ -3815,7 +3816,7 @@ var V;
             e._currentView.colorRangesContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
             i.parentNode.removeChild(i);
             r.parentNode.removeChild(r);
-            const o = s.createWithHTML(e._currentView.colorRangesContents, "div", "no-color-ranges-message", x.text.noColorRangesDataMessage);
+            const o = s.createWithHTML(e._currentView.colorRangesContents, "div", "no-color-ranges-message", C.text.noColorRangesDataMessage);
             if (t) {
                 s.addClass(o, "view-switch");
             }
@@ -3938,25 +3939,25 @@ var V;
         const t = s.create(e._currentView.element, "div", "guide");
         const n = s.create(t, "div", "map-types");
         const i = Pe(e);
-        if (_[e._currentView.element.id].totalTypes > 1) {
+        if (D[e._currentView.element.id].totalTypes > 1) {
             if (o.definedString(e.description.text)) {
                 const n = s.create(e._currentView.element, "div", "description", t);
                 Re(e, n);
             }
-            const r = Object.keys(_[e._currentView.element.id].typeData).sort((e, t) => e.localeCompare(t, void 0, {
+            const r = Object.keys(D[e._currentView.element.id].typeData).sort((e, t) => e.localeCompare(t, void 0, {
                 numeric: true,
                 sensitivity: "base"
             }));
             const a = r.length;
             for (let t = 0; t < a; t++) {
                 const o = r[t];
-                if (o !== x.text.unknownTrendText || i > 0) {
+                if (o !== C.text.unknownTrendText || i > 0) {
                     Le(e, n, o);
                 }
             }
             if (e.guide.allowTypeAdding) {
                 const t = s.createIconButton(n, "button", "add", "plus");
-                l.add(t, e, x.text.addTypeText);
+                l.add(t, e, C.text.addTypeText);
                 t.onclick = () => K(e);
             }
         } else {
@@ -3965,7 +3966,7 @@ var V;
         if (e.guide.enabled) {
             const n = s.create(t, "div", "map-toggles");
             if (e.guide.showInvertLabel) {
-                const t = s.createWithHTML(n, "div", "invert-text", x.text.invertText);
+                const t = s.createWithHTML(n, "div", "invert-text", C.text.invertText);
                 if (e.guide.colorRangeTogglesEnabled) {
                     t.onclick = () => ot(e);
                 } else {
@@ -3973,7 +3974,7 @@ var V;
                 }
             }
             if (e.guide.showLessAndMoreLabels) {
-                const t = s.createWithHTML(n, "div", "less-text", x.text.lessText);
+                const t = s.createWithHTML(n, "div", "less-text", C.text.lessText);
                 if (e.guide.colorRangeTogglesEnabled) {
                     t.onclick = () => nt(e, false);
                 } else {
@@ -3997,7 +3998,7 @@ var V;
                 }
             }
             if (e.guide.showLessAndMoreLabels) {
-                const t = s.createWithHTML(n, "div", "more-text", x.text.moreText);
+                const t = s.createWithHTML(n, "div", "more-text", C.text.moreText);
                 if (e.guide.colorRangeTogglesEnabled) {
                     t.onclick = () => nt(e, true);
                 } else {
@@ -4010,10 +4011,10 @@ var V;
         const o = s.createButton(t, "button", "type", n);
         if (e.guide.allowTypeRemoving) {
             const t = s.create(o, "span", "clear");
-            l.add(t, e, x.text.removeTypeText);
+            l.add(t, e, C.text.removeTypeText);
             t.onclick = t => {
                 s.cancelBubble(t);
-                ne(e, x.text.removeTypeConfirmText, () => {
+                ne(e, C.text.removeTypeConfirmText, () => {
                     Xe(e, n);
                     B(e, true);
                 });
@@ -4068,7 +4069,7 @@ var V;
             let a = null;
             if (e.zooming.showCloseButton) {
                 const t = s.create(i, "div", "zoom-close-button");
-                l.add(t, e, x.text.closeButtonText);
+                l.add(t, e, C.text.closeButtonText);
                 t.onclick = () => {
                     e.zooming.enabled = false;
                     e._currentView.mapContents.style.paddingRight = "0px";
@@ -4077,15 +4078,15 @@ var V;
             }
             if (e.zooming.showResetButton) {
                 a = s.createIconButton(i, "button", "reset", "exclamation-mark");
-                l.add(a, e, x.text.resetButtonText);
+                l.add(a, e, C.text.resetButtonText);
                 a.onclick = () => Ee(e);
             }
             const c = s.createIconButton(i, "button", "zoom-out", "minus");
             const u = s.createWithHTML(i, "span", "zoom-level", `+${r.friendlyNumber(e._currentView.zoomLevel * 10)}%`);
             const w = s.createIconButton(i, "button", "zoom-in", "plus");
             const g = s.getStyleValueByName(document.documentElement, d.Variables.Spacing, true);
-            l.add(w, e, x.text.zoomInText);
-            l.add(c, e, x.text.zoomOutText);
+            l.add(w, e, C.text.zoomInText);
+            l.add(c, e, C.text.zoomOutText);
             i.style.bottom = t.offsetHeight - n.offsetHeight + "px";
             if (e._currentView.zoomLevel === -1) {
                 e._currentView.zoomLevel = 0;
@@ -4172,7 +4173,7 @@ var V;
         if (o.definedFunction(d)) {
             l.add(t, e, c.customEvent(d, e._currentView.element, n, i, w));
         } else {
-            let c = a.getCustomFormattedDateText(x, u, n, true);
+            let c = a.getCustomFormattedDateText(C, u, n, true);
             if (e.showHolidaysInDayToolTips) {
                 const t = o.holiday(e, n);
                 if (t.matched && o.definedString(t.name)) {
@@ -4198,10 +4199,10 @@ var V;
     }
     function We(e) {
         const t = Pe(e);
-        if (_[e._currentView.element.id].totalTypes > 1) {
-            for (const n in _[e._currentView.element.id].typeData) {
-                if (n !== x.text.unknownTrendText || t > 0) {
-                    if (t === 0 && e._currentView.activeType === x.text.unknownTrendText) {
+        if (D[e._currentView.element.id].totalTypes > 1) {
+            for (const n in D[e._currentView.element.id].typeData) {
+                if (n !== C.text.unknownTrendText || t > 0) {
+                    if (t === 0 && e._currentView.activeType === C.text.unknownTrendText) {
                         e._currentView.activeType = n;
                     }
                 }
@@ -4210,8 +4211,8 @@ var V;
     }
     function Pe(e) {
         let t = 0;
-        for (const n in _[e._currentView.element.id].typeData[x.text.unknownTrendText]) {
-            if (Object.prototype.hasOwnProperty.call(_[e._currentView.element.id].typeData[x.text.unknownTrendText], n)) {
+        for (const n in D[e._currentView.element.id].typeData[C.text.unknownTrendText]) {
+            if (Object.prototype.hasOwnProperty.call(D[e._currentView.element.id].typeData[C.text.unknownTrendText], n)) {
                 t++;
                 break;
             }
@@ -4219,18 +4220,18 @@ var V;
         return t;
     }
     function ze(e, t, n = true) {
-        _[e] = {
+        D[e] = {
             options: t,
             typeData: {},
             totalTypes: 1
         };
-        _[e].typeData[x.text.unknownTrendText] = {};
+        D[e].typeData[C.text.unknownTrendText] = {};
         if (n && !t._currentView.isInFetchMode) {
-            T.load(x, t, _[e]);
+            T.load(C, t, D[e]);
         }
     }
     function Ue(e) {
-        return _[e._currentView.element.id].typeData[e._currentView.activeType];
+        return D[e._currentView.element.id].typeData[e._currentView.activeType];
     }
     function Je(e) {
         return Object.keys(Ue(e)).length > 0;
@@ -4273,9 +4274,9 @@ var V;
         c.customEvent(e.events.onClearViewableData, e._currentView.element);
     }
     function Xe(e, t) {
-        delete _[e._currentView.element.id].typeData[t];
-        _[e._currentView.element.id].totalTypes--;
-        const n = Object.keys(_[e._currentView.element.id].typeData).sort((e, t) => e.localeCompare(t, void 0, {
+        delete D[e._currentView.element.id].typeData[t];
+        D[e._currentView.element.id].totalTypes--;
+        const n = Object.keys(D[e._currentView.element.id].typeData).sort((e, t) => e.localeCompare(t, void 0, {
             numeric: true,
             sensitivity: "base"
         }));
@@ -4349,18 +4350,18 @@ var V;
             ze(t, e, false);
             for (const e in n) {
                 if (Object.prototype.hasOwnProperty.call(n, e)) {
-                    if (!Object.prototype.hasOwnProperty.call(_[t].typeData[x.text.unknownTrendText], e)) {
-                        _[t].typeData[x.text.unknownTrendText][e] = 0;
+                    if (!Object.prototype.hasOwnProperty.call(D[t].typeData[C.text.unknownTrendText], e)) {
+                        D[t].typeData[C.text.unknownTrendText][e] = 0;
                     }
-                    _[t].typeData[x.text.unknownTrendText][e] += n[e];
+                    D[t].typeData[C.text.unknownTrendText][e] += n[e];
                 }
             }
         }
     }
     function tt() {
-        for (const e in _) {
-            if (Object.prototype.hasOwnProperty.call(_, e)) {
-                const t = _[e].options;
+        for (const e in D) {
+            if (Object.prototype.hasOwnProperty.call(D, e)) {
+                const t = D[e].options;
                 O(t, false);
                 if (o.defined(t._currentView.isInFetchModeTimer)) {
                     clearInterval(t._currentView.isInFetchModeTimer);
@@ -4368,9 +4369,9 @@ var V;
                 }
             }
         }
-        if (x.observationMode && o.defined(C)) {
-            C.disconnect();
-            C = null;
+        if (C.observationMode && o.defined(_)) {
+            _.disconnect();
+            _ = null;
         }
     }
     function nt(e, t) {
@@ -4521,9 +4522,9 @@ var V;
         c.customEvent(e.events.onDestroy, e._currentView.element);
     }
     function ut() {
-        if (x.observationMode) {
-            if (!o.defined(C)) {
-                C = new MutationObserver(() => {
+        if (C.observationMode) {
+            if (!o.defined(_)) {
+                _ = new MutationObserver(() => {
                     dt.renderAll();
                 });
                 const e = {
@@ -4531,21 +4532,21 @@ var V;
                     childList: true,
                     subtree: true
                 };
-                C.observe(document.body, e);
+                _.observe(document.body, e);
             }
         } else {
-            C.disconnect();
-            C = null;
+            _.disconnect();
+            _ = null;
         }
     }
     const dt = {
         addType: (e, t, n = true) => {
-            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const o = _[e].options;
-                if (!o._currentView.isInFetchMode && !Object.prototype.hasOwnProperty.call(_[e].typeData, t)) {
-                    if (!Object.prototype.hasOwnProperty.call(_[e].typeData, t)) {
-                        _[e].typeData[t] = {};
-                        _[e].totalTypes++;
+            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
+                if (!o._currentView.isInFetchMode && !Object.prototype.hasOwnProperty.call(D[e].typeData, t)) {
+                    if (!Object.prototype.hasOwnProperty.call(D[e].typeData, t)) {
+                        D[e].typeData[t] = {};
+                        D[e].totalTypes++;
                     }
                     c.customEvent(o.events.onAddType, o._currentView.element, t);
                     if (n) {
@@ -4556,9 +4557,9 @@ var V;
             return dt;
         },
         removeType: (e, t, n = true) => {
-            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const o = _[e].options;
-                if (!o._currentView.isInFetchMode && !Object.prototype.hasOwnProperty.call(_[e].typeData, t)) {
+            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
+                if (!o._currentView.isInFetchMode && !Object.prototype.hasOwnProperty.call(D[e].typeData, t)) {
                     Xe(o, t);
                     if (n) {
                         B(o, true);
@@ -4568,10 +4569,10 @@ var V;
             return dt;
         },
         addDates: (e, t, n = null, r = true) => {
-            if (o.definedString(e) && o.definedArray(t) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const o = _[e].options;
+            if (o.definedString(e) && o.definedArray(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
                 if (!o._currentView.isInFetchMode) {
-                    n = i.getString(n, x.text.unknownTrendText);
+                    n = i.getString(n, C.text.unknownTrendText);
                     const a = t.length;
                     for (let o = 0; o < a; o++) {
                         dt.addDate(e, t[o], n, false);
@@ -4584,19 +4585,19 @@ var V;
             return dt;
         },
         addDate: (e, t, n = null, r = true) => {
-            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const o = _[e].options;
+            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
                 if (!o._currentView.isInFetchMode) {
-                    n = i.getString(n, x.text.unknownTrendText);
+                    n = i.getString(n, C.text.unknownTrendText);
                     const s = a.toStorageDate(t);
-                    if (!Object.prototype.hasOwnProperty.call(_[e].typeData, n)) {
-                        _[e].typeData[n] = {};
-                        _[e].totalTypes++;
+                    if (!Object.prototype.hasOwnProperty.call(D[e].typeData, n)) {
+                        D[e].typeData[n] = {};
+                        D[e].totalTypes++;
                     }
-                    if (!Object.prototype.hasOwnProperty.call(_[e].typeData[n], s)) {
-                        _[e].typeData[n][s] = 0;
+                    if (!Object.prototype.hasOwnProperty.call(D[e].typeData[n], s)) {
+                        D[e].typeData[n][s] = 0;
                     }
-                    _[e].typeData[n][s]++;
+                    D[e].typeData[n][s]++;
                     c.customEvent(o.events.onAddDate, o._currentView.element);
                     if (r) {
                         B(o, true);
@@ -4606,13 +4607,13 @@ var V;
             return dt;
         },
         updateDate: (e, t, n, r = null, s = true) => {
-            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const o = _[e].options;
+            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
                 if (!o._currentView.isInFetchMode && n > 0) {
                     const l = a.toStorageDate(t);
-                    if (Object.prototype.hasOwnProperty.call(_[e].typeData, r)) {
-                        r = i.getString(r, x.text.unknownTrendText);
-                        _[e].typeData[r][l] = n;
+                    if (Object.prototype.hasOwnProperty.call(D[e].typeData, r)) {
+                        r = i.getString(r, C.text.unknownTrendText);
+                        D[e].typeData[r][l] = n;
                         c.customEvent(o.events.onUpdateDate, o._currentView.element);
                         if (s) {
                             B(o, true);
@@ -4623,10 +4624,10 @@ var V;
             return dt;
         },
         removeDates: (e, t, n = null, r = true) => {
-            if (o.definedString(e) && o.definedArray(t) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const o = _[e].options;
+            if (o.definedString(e) && o.definedArray(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
                 if (!o._currentView.isInFetchMode) {
-                    n = i.getString(n, x.text.unknownTrendText);
+                    n = i.getString(n, C.text.unknownTrendText);
                     const a = t.length;
                     for (let o = 0; o < a; o++) {
                         dt.removeDate(e, t[o], n, false);
@@ -4639,14 +4640,14 @@ var V;
             return dt;
         },
         removeDate: (e, t, n = null, r = true) => {
-            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const o = _[e].options;
+            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
                 if (!o._currentView.isInFetchMode) {
                     const s = a.toStorageDate(t);
-                    if (Object.prototype.hasOwnProperty.call(_[e].typeData, n) && Object.prototype.hasOwnProperty.call(_[e].typeData[n], s)) {
-                        n = i.getString(n, x.text.unknownTrendText);
-                        if (_[e].typeData[n][s] > 0) {
-                            _[e].typeData[n][s]--;
+                    if (Object.prototype.hasOwnProperty.call(D[e].typeData, n) && Object.prototype.hasOwnProperty.call(D[e].typeData[n], s)) {
+                        n = i.getString(n, C.text.unknownTrendText);
+                        if (D[e].typeData[n][s] > 0) {
+                            D[e].typeData[n][s]--;
                         }
                         c.customEvent(o.events.onRemoveDate, o._currentView.element);
                         if (r) {
@@ -4658,13 +4659,13 @@ var V;
             return dt;
         },
         clearDate: (e, t, n = null, r = true) => {
-            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const o = _[e].options;
+            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
                 if (!o._currentView.isInFetchMode) {
                     const s = a.toStorageDate(t);
-                    if (Object.prototype.hasOwnProperty.call(_[e].typeData, n) && Object.prototype.hasOwnProperty.call(_[e].typeData[n], s)) {
-                        n = i.getString(n, x.text.unknownTrendText);
-                        delete _[e].typeData[n][s];
+                    if (Object.prototype.hasOwnProperty.call(D[e].typeData, n) && Object.prototype.hasOwnProperty.call(D[e].typeData[n], s)) {
+                        n = i.getString(n, C.text.unknownTrendText);
+                        delete D[e].typeData[n][s];
                         c.customEvent(o.events.onClearDate, o._currentView.element);
                         if (r) {
                             B(o, true);
@@ -4675,18 +4676,18 @@ var V;
             return dt;
         },
         resetAll: (e = true) => {
-            for (const t in _) {
-                if (Object.prototype.hasOwnProperty.call(_, t)) {
+            for (const t in D) {
+                if (Object.prototype.hasOwnProperty.call(D, t)) {
                     dt.reset(t, e);
                 }
             }
             return dt;
         },
         reset: (e, t = true) => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const n = _[e].options;
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const n = D[e].options;
                 if (!n._currentView.isInFetchMode) {
-                    n._currentView.activeType = x.text.unknownTrendText;
+                    n._currentView.activeType = C.text.unknownTrendText;
                     ze(e, n, false);
                     c.customEvent(n.events.onReset, n._currentView.element);
                     if (t) {
@@ -4697,34 +4698,34 @@ var V;
             return dt;
         },
         import: (e, t = null) => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(_, e)) {
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
                 if (o.definedArray(t)) {
-                    X(t, _[e].options);
+                    X(t, D[e].options);
                 } else {
-                    J(_[e].options);
+                    J(D[e].options);
                 }
             }
             return dt;
         },
         export: (e, t = null) => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const n = _[e].options;
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const n = D[e].options;
                 Y(n, t, null, n.exportOnlyDataBeingViewed);
             }
             return dt;
         },
         refresh: e => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const t = _[e].options;
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const t = D[e].options;
                 B(t, true);
                 c.customEvent(t.events.onRefresh, t._currentView.element);
             }
             return dt;
         },
         refreshAll: () => {
-            for (const e in _) {
-                if (Object.prototype.hasOwnProperty.call(_, e)) {
-                    const t = _[e].options;
+            for (const e in D) {
+                if (Object.prototype.hasOwnProperty.call(D, e)) {
+                    const t = D[e].options;
                     B(t, true);
                     c.customEvent(t.events.onRefresh, t._currentView.element);
                 }
@@ -4732,8 +4733,8 @@ var V;
             return dt;
         },
         setYear: (e, t) => {
-            if (o.definedString(e) && o.definedNumber(t) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const n = _[e].options;
+            if (o.definedString(e) && o.definedNumber(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const n = D[e].options;
                 n._currentView.activeYear = t;
                 if (!o.yearVisible(n, n._currentView.activeYear)) {
                     lt(n, false);
@@ -4745,8 +4746,8 @@ var V;
             return dt;
         },
         setYearToHighest: e => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const t = _[e].options;
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const t = D[e].options;
                 const n = Ue(t);
                 let i = 0;
                 for (const e in n) {
@@ -4767,8 +4768,8 @@ var V;
             return dt;
         },
         setYearToLowest: e => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const t = _[e].options;
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const t = D[e].options;
                 const n = Ue(t);
                 let i = 9999;
                 for (const e in n) {
@@ -4789,20 +4790,20 @@ var V;
             return dt;
         },
         moveToPreviousYear: e => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(_, e)) {
-                st(_[e].options);
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                st(D[e].options);
             }
             return dt;
         },
         moveToNextYear: e => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(_, e)) {
-                lt(_[e].options);
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                lt(D[e].options);
             }
             return dt;
         },
         moveToCurrentYear: e => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const t = _[e].options;
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const t = D[e].options;
                 t._currentView.activeYear = (new Date).getFullYear();
                 if (!o.yearVisible(t, t._currentView.activeYear)) {
                     lt(t, false);
@@ -4815,24 +4816,24 @@ var V;
         },
         getYear: e => {
             let t = -1;
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(_, e)) {
-                t = _[e].options._currentView.activeYear;
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                t = D[e].options._currentView.activeYear;
             }
             return t;
         },
         render: (e, t) => {
             if (o.definedObject(e) && o.definedObject(t)) {
-                M(g.Options.getForNewInstance(x, t, e));
+                M(g.Options.getForNewInstance(C, t, e));
             }
             return dt;
         },
         renderAll: () => {
-            D();
+            x();
             return dt;
         },
         switchView: (e, t) => {
-            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const n = _[e].options;
+            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const n = D[e].options;
                 const o = m.View.get(t);
                 if (o !== 0 && n._currentView.activeView !== o) {
                     je(n, o, t);
@@ -4841,8 +4842,8 @@ var V;
             return dt;
         },
         switchType: (e, t) => {
-            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(_, e) && Object.prototype.hasOwnProperty.call(_[e].typeData, t)) {
-                const n = _[e].options;
+            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e) && Object.prototype.hasOwnProperty.call(D[e].typeData, t)) {
+                const n = D[e].options;
                 if (n._currentView.activeType !== t) {
                     n._currentView.activeType = t;
                     c.customEvent(n.events.onTypeSwitch, n._currentView.element, t);
@@ -4852,8 +4853,8 @@ var V;
             return dt;
         },
         updateBindingOptions: (e, t) => {
-            if (o.definedString(e) && o.definedObject(t) && Object.prototype.hasOwnProperty.call(_, e)) {
-                const n = _[e].options;
+            if (o.definedString(e) && o.definedObject(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const n = D[e].options;
                 const o = g.Options.get(t);
                 let i = false;
                 for (const e in o) {
@@ -4872,40 +4873,40 @@ var V;
         },
         getActiveView: e => {
             let t = "";
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(_, e)) {
-                t = m.View.getName(_[e].options);
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                t = m.View.getName(D[e].options);
             }
             return t;
         },
         destroyAll: () => {
-            for (const e in _) {
-                if (Object.prototype.hasOwnProperty.call(_, e)) {
-                    ct(_[e].options);
+            for (const e in D) {
+                if (Object.prototype.hasOwnProperty.call(D, e)) {
+                    ct(D[e].options);
                 }
             }
-            _ = {};
+            D = {};
             return dt;
         },
         destroy: e => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(_, e)) {
-                ct(_[e].options);
-                delete _[e];
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                ct(D[e].options);
+                delete D[e];
             }
             return dt;
         },
         setConfiguration: (e, t = true) => {
             if (o.definedObject(e)) {
-                const n = x;
+                const n = C;
                 const o = e;
                 let i = false;
                 for (const e in o) {
-                    if (Object.prototype.hasOwnProperty.call(o, e) && Object.prototype.hasOwnProperty.call(x, e) && n[e] !== o[e]) {
+                    if (Object.prototype.hasOwnProperty.call(o, e) && Object.prototype.hasOwnProperty.call(C, e) && n[e] !== o[e]) {
                         n[e] = o[e];
                         i = true;
                     }
                 }
                 if (i) {
-                    x = f.Options.get(n);
+                    C = f.Options.get(n);
                     ut();
                     if (t) {
                         dt.refreshAll();
@@ -4914,10 +4915,19 @@ var V;
             }
             return dt;
         },
+        setLocale: (e, t = true) => {
+            if (o.definedObject(e)) {
+                C.text = f.Options.getText(e);
+                if (t) {
+                    dt.refreshAll();
+                }
+            }
+            return dt;
+        },
         getIds: () => {
             const e = [];
-            for (const t in _) {
-                if (Object.prototype.hasOwnProperty.call(_, t)) {
+            for (const t in D) {
+                if (Object.prototype.hasOwnProperty.call(D, t)) {
                     e.push(t);
                 }
             }
@@ -4926,9 +4936,9 @@ var V;
         getVersion: () => "5.0.0"
     };
     (() => {
-        x = f.Options.get();
+        C = f.Options.get();
         document.addEventListener("DOMContentLoaded", () => {
-            D();
+            x();
             ut();
         });
         window.addEventListener("pagehide", () => tt());

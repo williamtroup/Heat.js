@@ -13,6 +13,7 @@
 
 import {
     type ConfigurationOptions,
+    type ConfigurationOptionsText,
     type BindingOptionsColorRange,
     type BindingOptions,
     type InstanceTypeDateCount,
@@ -4083,6 +4084,18 @@ import { DocumentElement } from "./ts/area/document-element";
                     if ( triggerRefresh ) {
                         _public.refreshAll();
                     }
+                }
+            }
+    
+            return _public;
+        },
+
+        setLocale: ( configurationOptionsText: ConfigurationOptionsText, triggerRefresh: boolean = true ) : PublicApi => {
+            if ( Is.definedObject( configurationOptionsText ) ) {
+                _configurationOptions.text = Configuration.Options.getText( configurationOptionsText );
+
+                if ( triggerRefresh ) {
+                    _public.refreshAll();
                 }
             }
     
