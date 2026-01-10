@@ -242,6 +242,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         DomElement.create( menuTab, "i", iconCssClass );
     }
 
+    
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Render:  Configuration Dialog
