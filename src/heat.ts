@@ -186,7 +186,7 @@ import { DocumentElement } from "./ts/dom/document-element";
     function createOrRemoveWindowEvents( bindingOptions: BindingOptions, addEvents: boolean = true ) : void {
         const windowFunc: Function = addEvents ? window.addEventListener : window.removeEventListener;
 
-        windowFunc( "blur", () => ToolTip.hide( bindingOptions ) );
+        windowFunc( "blur", () : void => ToolTip.hide( bindingOptions ) );
     }
 
 
@@ -220,9 +220,9 @@ import { DocumentElement } from "./ts/dom/document-element";
             const resetButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.resetButtonText! );
             const saveButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.saveButtonText! );
 
-            closeButton.onclick = () => hideConfigurationDialog( bindingOptions );
-            resetButton.onclick = () => resetConfigurationDialogCheckBoxes( bindingOptions );
-            saveButton.onclick = () => saveConfigurationDialogChanges( bindingOptions );
+            closeButton.onclick = () : void => hideConfigurationDialog( bindingOptions );
+            resetButton.onclick = () : void => resetConfigurationDialogCheckBoxes( bindingOptions );
+            saveButton.onclick = () : void => saveConfigurationDialogChanges( bindingOptions );
 
             for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
                 bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configurationOptions.text!.dayNames![ dayIndex ], dayIndex.toString() );
@@ -271,7 +271,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.bindEvents( () => hideConfigurationDialog( bindingOptions ) );
+        DocumentElement.Dialog.bindEvents( () : void => hideConfigurationDialog( bindingOptions ) );
     }
 
     function hideConfigurationDialog( bindingOptions: BindingOptions ) : void {
@@ -380,9 +380,9 @@ import { DocumentElement } from "./ts/dom/document-element";
                 }
             };
 
-            closeButton.onclick = () => hideExportDialog( bindingOptions );
-            copyButton.onclick = () => exportDataFromExportDialog( bindingOptions, true );
-            exportButton.onclick = () => exportDataFromExportDialog( bindingOptions );
+            closeButton.onclick = () : void => hideExportDialog( bindingOptions );
+            copyButton.onclick = () : void => exportDataFromExportDialog( bindingOptions, true );
+            exportButton.onclick = () : void => exportDataFromExportDialog( bindingOptions );
 
             ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
         }
@@ -420,7 +420,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.bindEvents( () => hideExportDialog( bindingOptions ) );
+        DocumentElement.Dialog.bindEvents( () : void => hideExportDialog( bindingOptions ) );
     }
 
     function hideExportDialog( bindingOptions: BindingOptions ) : void {
@@ -561,9 +561,9 @@ import { DocumentElement } from "./ts/dom/document-element";
             bindingOptions._currentView!.importDialogImportButton = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.importButtonText! );
             bindingOptions._currentView!.importDialogImportButton.disabled = true;
 
-            closeButton.onclick = () => hideImportDialog( bindingOptions );
-            selectFilesButton.onclick = () => importFromFilesSelected( bindingOptions );
-            bindingOptions._currentView!.importDialogImportButton.onclick = () => importFromFiles( bindingOptions._currentView!.importDialogFileList, bindingOptions, bindingOptions._currentView!.importDialogClearExistingData.checked );
+            closeButton.onclick = () : void => hideImportDialog( bindingOptions );
+            selectFilesButton.onclick = () : void => importFromFilesSelected( bindingOptions );
+            bindingOptions._currentView!.importDialogImportButton.onclick = () : void => importFromFiles( bindingOptions._currentView!.importDialogFileList, bindingOptions, bindingOptions._currentView!.importDialogClearExistingData.checked );
 
             ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
         }
@@ -579,7 +579,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.bindEvents( () => hideImportDialog( bindingOptions ) );
+        DocumentElement.Dialog.bindEvents( () : void => hideImportDialog( bindingOptions ) );
     }
 
     function hideImportDialog( bindingOptions: BindingOptions ) : void {
@@ -639,7 +639,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         input.type = "file";
         input.accept = importTypes.join( ", " );
         input.multiple = bindingOptions.allowMultipleFileImports!;
-        input.onchange = () => showImportFilenames( bindingOptions, input.files! );
+        input.onchange = () : void => showImportFilenames( bindingOptions, input.files! );
         input.click();
     }
 
@@ -664,7 +664,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
                 ToolTip.add( removeButton, bindingOptions, _configurationOptions.text!.removeButtonText! );
 
-                removeButton.onclick = () => updateImportFilenamesFromRemoval( bindingOptions, fileIndex );
+                removeButton.onclick = () : void => updateImportFilenamesFromRemoval( bindingOptions, fileIndex );
             }
         }
     }
@@ -755,8 +755,8 @@ import { DocumentElement } from "./ts/dom/document-element";
                 }
             };
 
-            closeButton.onclick = () => hideTypeAddingDialog( bindingOptions );
-            addButton.onclick = () => addNewTypeFromAddTypeDialog( bindingOptions );
+            closeButton.onclick = () : void => hideTypeAddingDialog( bindingOptions );
+            addButton.onclick = () : void => addNewTypeFromAddTypeDialog( bindingOptions );
 
             ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
         }
@@ -774,7 +774,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.bindEvents( () => hideTypeAddingDialog( bindingOptions ) );
+        DocumentElement.Dialog.bindEvents( () : void => hideTypeAddingDialog( bindingOptions ) );
     }
 
     function hideTypeAddingDialog( bindingOptions: BindingOptions ) : void {
@@ -838,7 +838,7 @@ import { DocumentElement } from "./ts/dom/document-element";
             const noButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.noButtonText! );
             bindingOptions._currentView!.confirmationDialogYesButton = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.yesButtonText! );
 
-            noButton.onclick = () => hideConfirmationDialog( bindingOptions );
+            noButton.onclick = () : void => hideConfirmationDialog( bindingOptions );
         }
     }
 
@@ -850,11 +850,11 @@ import { DocumentElement } from "./ts/dom/document-element";
         if ( Is.defined( bindingOptions._currentView!.confirmationDialog ) && bindingOptions._currentView!.confirmationDialog.style.display !== "block" ) {
             bindingOptions._currentView!.confirmationDialog.style.display = "block";
             bindingOptions._currentView!.confirmationDialogMessage.innerHTML = message;
-            bindingOptions._currentView!.confirmationDialogYesButton.onclick = () => yesClickFunc();
+            bindingOptions._currentView!.confirmationDialogYesButton.onclick = () : void => yesClickFunc();
         }
 
         ToolTip.hide( bindingOptions );
-        DocumentElement.Dialog.bindEvents( () => hideConfirmationDialog( bindingOptions ) );
+        DocumentElement.Dialog.bindEvents( () : void => hideConfirmationDialog( bindingOptions ) );
     }
 
     function hideConfirmationDialog( bindingOptions: BindingOptions ) : void {
@@ -906,7 +906,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
             if ( bindingOptions.title!.showImportButton && !bindingOptions._currentView!.isInFetchMode ) {
                 const importData: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "import", "arrow-up" );
-                importData.onclick = () => showImportDialog( bindingOptions );
+                importData.onclick = () : void => showImportDialog( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( importData, bindingOptions, _configurationOptions.text!.importButtonText! );
@@ -915,7 +915,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
             if ( bindingOptions.title!.showExportButton && isDataAvailable( bindingOptions ) ) {
                 const exportData: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "export", "arrow-down" );
-                exportData.onclick = () => showExportDialog( bindingOptions );
+                exportData.onclick = () : void => showExportDialog( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( exportData, bindingOptions, _configurationOptions.text!.exportButtonText! );
@@ -953,7 +953,7 @@ import { DocumentElement } from "./ts/dom/document-element";
             if ( bindingOptions.title!.showYearSelector ) {
                 const back: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "back", "arrow-line-left" );
                 back.disabled = Is.firstVisibleYear( bindingOptions, bindingOptions._currentView!.activeYear );
-                back.onclick = () => moveToPreviousYear( bindingOptions );
+                back.onclick = () : void => moveToPreviousYear( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( back, bindingOptions, _configurationOptions.text!.backButtonText! );
@@ -969,7 +969,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
                 if ( bindingOptions.title!.showConfigurationButton ) {
                     const configureButton: HTMLElement = DomElement.create( titleBar, "div", "configure" );
-                    configureButton.onclick = () => showConfigurationDialog( bindingOptions );
+                    configureButton.onclick = () : void => showConfigurationDialog( bindingOptions );
 
                     if ( bindingOptions.title!.showToolTips ) {
                         ToolTip.add( configureButton, bindingOptions, _configurationOptions.text!.configurationButtonText! );
@@ -993,7 +993,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
                 const next: HTMLButtonElement = DomElement.createIconButton( titleBar, "button", "next", "arrow-line-right" );
                 next.disabled = Is.lastVisibleYear( bindingOptions, bindingOptions._currentView!.activeYear );
-                next.onclick = () => moveToNextYear( bindingOptions );
+                next.onclick = () : void => moveToNextYear( bindingOptions );
 
                 if ( bindingOptions.title!.showToolTips ) {
                     ToolTip.add( next, bindingOptions, _configurationOptions.text!.nextButtonText! );
@@ -1091,7 +1091,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         if ( bindingOptions._currentView!.activeView === viewId ) {
             DomElement.addClass( option, "title-menu-item-active" );
         } else {
-            option.onclick = () => switchView( bindingOptions, viewId, viewName );
+            option.onclick = () : void => switchView( bindingOptions, viewId, viewName );
         }
     }
 
@@ -1304,7 +1304,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
         } else {
             bindingOptions._currentView!.mapContents.style.minHeight = "unset";
-            bindingOptions._currentView!.mapContents.onscroll = () => ToolTip.hide( bindingOptions );
+            bindingOptions._currentView!.mapContents.onscroll = () : void => ToolTip.hide( bindingOptions );
 
             const map: HTMLElement = DomElement.create( bindingOptions._currentView!.mapContents, "div", "map" );
             const currentYear: number = bindingOptions._currentView!.activeYear;
@@ -1327,7 +1327,7 @@ import { DocumentElement } from "./ts/dom/document-element";
                         const dayName: HTMLElement = DomElement.createWithHTML( days, "div", "day-name", dayNameText );
 
                         if ( bindingOptions.views!.days!.enabled ) {
-                            dayName.ondblclick = () => switchView( bindingOptions, ViewId.days, ViewName.days );
+                            dayName.ondblclick = () : void => switchView( bindingOptions, ViewId.days, ViewName.days );
                         }
 
                         if ( !bindingOptions.views!.map!.showSpacing ) {
@@ -1438,7 +1438,7 @@ import { DocumentElement } from "./ts/dom/document-element";
                         }
 
                         if ( bindingOptions.views!.months!.enabled ) {
-                            monthName.ondblclick = () => switchView( bindingOptions, ViewId.months, ViewName.months );
+                            monthName.ondblclick = () : void => switchView( bindingOptions, ViewId.months, ViewName.months );
                         }
                     }
 
@@ -1540,9 +1540,9 @@ import { DocumentElement } from "./ts/dom/document-element";
         } 
 
         if ( Is.definedFunction( bindingOptions.events!.onMapDayClick ) ) {
-            day.onclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
+            day.onclick = () : void => Trigger.customEvent( bindingOptions.events!.onMapDayClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
         } else if ( Is.definedFunction( bindingOptions.events!.onMapDayDblClick ) ) {
-            day.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onMapDayDblClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
+            day.ondblclick = () : void => Trigger.customEvent( bindingOptions.events!.onMapDayDblClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
         } else {
             DomElement.addClass( day, "no-hover" );
         }
@@ -1594,7 +1594,7 @@ import { DocumentElement } from "./ts/dom/document-element";
     function renderLineView( bindingOptions: BindingOptions, isForViewSwitch: boolean, isForViewChange: boolean ) : void {
         bindingOptions._currentView!.lineContentsContainer = DomElement.create( bindingOptions._currentView!.element, "div", "line-contents-container" );
         bindingOptions._currentView!.lineContents = DomElement.create( bindingOptions._currentView!.lineContentsContainer, "div", "line-contents" );
-        bindingOptions._currentView!.lineContents.onscroll = () => ToolTip.hide( bindingOptions );
+        bindingOptions._currentView!.lineContents.onscroll = () : void => ToolTip.hide( bindingOptions );
 
         const line: HTMLElement = DomElement.create( bindingOptions._currentView!.lineContents, "div", "line" );
         const dayLines: HTMLElement = DomElement.create( line, "div", "day-lines" );
@@ -1698,7 +1698,7 @@ import { DocumentElement } from "./ts/dom/document-element";
                         }
 
                         if ( bindingOptions.views!.months!.enabled ) {
-                            monthName.ondblclick = () => switchView( bindingOptions, ViewId.months, ViewName.months );
+                            monthName.ondblclick = () : void => switchView( bindingOptions, ViewId.months, ViewName.months );
                         }
 
                         monthNameAddedIndex++;
@@ -1748,9 +1748,9 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onLineDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onLineDayClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
+            dayLine.onclick = () : void => Trigger.customEvent( bindingOptions.events!.onLineDayClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
         } else if ( Is.definedFunction( bindingOptions.events!.onLineDayDblClick ) ) {
-            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onLineDayDblClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
+            dayLine.ondblclick = () : void => Trigger.customEvent( bindingOptions.events!.onLineDayDblClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -1777,7 +1777,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
     function renderChartView( bindingOptions: BindingOptions, isForViewSwitch: boolean, isForViewChange: boolean ) : void {
         bindingOptions._currentView!.chartContents = DomElement.create( bindingOptions._currentView!.element, "div", "chart-contents" );
-        bindingOptions._currentView!.chartContents.onscroll = () => ToolTip.hide( bindingOptions );
+        bindingOptions._currentView!.chartContents.onscroll = () : void => ToolTip.hide( bindingOptions );
 
         const chart: HTMLElement = DomElement.create( bindingOptions._currentView!.chartContents, "div", "chart" );
         const yAxisLabels: HTMLElement = DomElement.create( chart, "div", "y-labels" );
@@ -1912,7 +1912,7 @@ import { DocumentElement } from "./ts/dom/document-element";
                         }
 
                         if ( bindingOptions.views!.months!.enabled ) {
-                            monthName.ondblclick = () => switchView( bindingOptions, ViewId.months, ViewName.months );
+                            monthName.ondblclick = () : void => switchView( bindingOptions, ViewId.months, ViewName.months );
                         }
 
                         monthNameAddedIndex++;
@@ -1984,9 +1984,9 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onChartDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onChartDayClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
+            dayLine.onclick = () : void => Trigger.customEvent( bindingOptions.events!.onChartDayClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
         } else if ( Is.definedFunction( bindingOptions.events!.onChartDayDblClick ) ) {
-            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onChartDayDblClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
+            dayLine.ondblclick = () : void => Trigger.customEvent( bindingOptions.events!.onChartDayDblClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -2143,9 +2143,9 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
-            dayLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, bindingOptions._currentView!.element, dayNumber, dayCount, bindingOptions._currentView!.activeYear );
+            dayLine.onclick = () : void => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, bindingOptions._currentView!.element, dayNumber, dayCount, bindingOptions._currentView!.activeYear );
         } else if ( Is.definedFunction( bindingOptions.events!.onWeekDayDblClick ) ) {
-            dayLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onWeekDayDblClick!, bindingOptions._currentView!.element, dayNumber, dayCount, bindingOptions._currentView!.activeYear );
+            dayLine.ondblclick = () : void => Trigger.customEvent( bindingOptions.events!.onWeekDayDblClick!, bindingOptions._currentView!.element, dayNumber, dayCount, bindingOptions._currentView!.activeYear );
         } else {
             DomElement.addClass( dayLine, "no-hover" );
         }
@@ -2399,9 +2399,9 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onMonthClick ) ) {
-            monthLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onMonthClick!, bindingOptions._currentView!.element, monthNumber, monthCount, currentYear );
+            monthLine.onclick = () : void => Trigger.customEvent( bindingOptions.events!.onMonthClick!, bindingOptions._currentView!.element, monthNumber, monthCount, currentYear );
         } else if ( Is.definedFunction( bindingOptions.events!.onMonthDblClick ) ) {
-            monthLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onMonthDblClick!, bindingOptions._currentView!.element, monthNumber, monthCount, currentYear );
+            monthLine.ondblclick = () : void => Trigger.customEvent( bindingOptions.events!.onMonthDblClick!, bindingOptions._currentView!.element, monthNumber, monthCount, currentYear );
         } else {
             DomElement.addClass( monthLine, "no-hover" );
         }
@@ -2635,9 +2635,9 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onColorRangeClick ) ) {
-            colorRangeLine.onclick = () => Trigger.customEvent( bindingOptions.events!.onColorRangeClick!, bindingOptions._currentView!.element, useColorRange, colorRangeCount, bindingOptions._currentView!.activeYear );
+            colorRangeLine.onclick = () : void => Trigger.customEvent( bindingOptions.events!.onColorRangeClick!, bindingOptions._currentView!.element, useColorRange, colorRangeCount, bindingOptions._currentView!.activeYear );
         } else if ( Is.definedFunction( bindingOptions.events!.onColorRangeDblClick ) ) {
-            colorRangeLine.ondblclick = () => Trigger.customEvent( bindingOptions.events!.onColorRangeDblClick!, useColorRange, colorRangeCount, bindingOptions._currentView!.activeYear );
+            colorRangeLine.ondblclick = () : void => Trigger.customEvent( bindingOptions.events!.onColorRangeDblClick!, useColorRange, colorRangeCount, bindingOptions._currentView!.activeYear );
         } else {
             DomElement.addClass( colorRangeLine, "no-hover" );
         }
@@ -2747,7 +2747,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
                 ToolTip.add( addTypeButton, bindingOptions, _configurationOptions.text!.addTypeText! );
                 
-                addTypeButton.onclick = () => showTypeAddingDialog( bindingOptions );
+                addTypeButton.onclick = () : void => showTypeAddingDialog( bindingOptions );
             }
 
         } else {
@@ -2761,7 +2761,7 @@ import { DocumentElement } from "./ts/dom/document-element";
                 const invertText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "invert-text", _configurationOptions.text!.invertText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
-                    invertText.onclick = () => invertColorRangeToggles( bindingOptions );
+                    invertText.onclick = () : void => invertColorRangeToggles( bindingOptions );
                 } else {
                     DomElement.addClass( invertText, "no-click" );
                 }
@@ -2771,7 +2771,7 @@ import { DocumentElement } from "./ts/dom/document-element";
                 const lessText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "less-text", _configurationOptions.text!.lessText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
-                    lessText.onclick = () => updateColorRangeToggles( bindingOptions, false );
+                    lessText.onclick = () : void => updateColorRangeToggles( bindingOptions, false );
                 } else {
                     DomElement.addClass( lessText, "no-click" );
                 }
@@ -2802,7 +2802,7 @@ import { DocumentElement } from "./ts/dom/document-element";
                 const moreText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "more-text", _configurationOptions.text!.moreText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
-                    moreText.onclick = () => updateColorRangeToggles( bindingOptions, true );
+                    moreText.onclick = () : void => updateColorRangeToggles( bindingOptions, true );
                 } else {
                     DomElement.addClass( moreText, "no-click" );
                 }
@@ -2861,7 +2861,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
 
         if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
-            toggle.onclick = () => toggleColorRangeVisibleState( bindingOptions, colorRange.id! );
+            toggle.onclick = () : void => toggleColorRangeVisibleState( bindingOptions, colorRange.id! );
         } else {
             DomElement.addClass( toggle, "no-hover" );
         }
@@ -2912,7 +2912,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
                 ToolTip.add( resetButton, bindingOptions, _configurationOptions.text!.resetButtonText! );
 
-                resetButton.onclick = () => zoomReset( bindingOptions );
+                resetButton.onclick = () : void => zoomReset( bindingOptions );
             }
 
             const zoomOutButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-out", "minus" );
@@ -2939,9 +2939,9 @@ import { DocumentElement } from "./ts/dom/document-element";
             }
             
             zoomOutButton.disabled = bindingOptions._currentView!.zoomLevel! === 0;
-            zoomOutButton.onclick = () => zoomOut( bindingOptions );
+            zoomOutButton.onclick = () : void => zoomOut( bindingOptions );
             zoomInButton.disabled = bindingOptions.zooming!.maximumLevel! > 0 && bindingOptions._currentView!.zoomLevel! >= bindingOptions.zooming!.maximumLevel!;
-            zoomInButton.onclick = () => zoomIn( bindingOptions );
+            zoomInButton.onclick = () : void => zoomIn( bindingOptions );
         }
     }
 
@@ -4148,12 +4148,12 @@ import { DocumentElement } from "./ts/dom/document-element";
         };
 
         if ( document.readyState === "loading" ) {
-            document.addEventListener( "DOMContentLoaded", () => onLoadFunc() );
+            document.addEventListener( "DOMContentLoaded", () : void => onLoadFunc() );
         } else {
             onLoadFunc();
         }
 
-        window.addEventListener( "pagehide", () => cancelAllPullDataTimersAndClearWindowEvents() );
+        window.addEventListener( "pagehide", () : void => cancelAllPullDataTimersAndClearWindowEvents() );
 
         if ( !Is.defined( window.$heat ) ) {
             window.$heat = _public;

@@ -80,11 +80,11 @@ export namespace ToolTip {
 
     function assignToEvents( bindingOptions: BindingOptions, add: boolean = true ) : void {
         if ( add ) {
-            window.addEventListener( "mousemove", () => hide( bindingOptions ) );
-            document.addEventListener ( "scroll", () => hide( bindingOptions ) );
+            window.addEventListener( "mousemove", () : void => hide( bindingOptions ) );
+            document.addEventListener ( "scroll", () : void => hide( bindingOptions ) );
         } else {
-            window.removeEventListener( "mousemove", () => hide( bindingOptions ) );
-            document.removeEventListener ( "scroll", () => hide( bindingOptions ) );
+            window.removeEventListener( "mousemove", () : void => hide( bindingOptions ) );
+            document.removeEventListener ( "scroll", () : void => hide( bindingOptions ) );
         }
     }
 }

@@ -44,7 +44,7 @@ export namespace Import {
         const fileReader: FileReader = new FileReader();
         let readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        fileReader.onloadend = () => onLoadEndFunc( file.name, readingObject );
+        fileReader.onloadend = () : void => onLoadEndFunc( file.name, readingObject );
     
         fileReader.onload = ( ev: ProgressEvent<FileReader> ) : void => {
             const json: StringToJson = Default.getObjectFromString( ev.target!.result, configurationOptions );
@@ -61,7 +61,7 @@ export namespace Import {
         const fileReader: FileReader = new FileReader();
         const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        fileReader.onloadend = () => onLoadEndFunc( file.name, readingObject );
+        fileReader.onloadend = () : void => onLoadEndFunc( file.name, readingObject );
     
         fileReader.onload = ( ev: ProgressEvent<FileReader> ) : void => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
@@ -81,7 +81,7 @@ export namespace Import {
         const fileReader: FileReader = new FileReader();
         const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        fileReader.onloadend = () => onLoadEndFunc( file.name, readingObject );
+        fileReader.onloadend = () : void => onLoadEndFunc( file.name, readingObject );
     
         fileReader.onload = ( ev: ProgressEvent<FileReader> ) : void => {
             const data: string = ev.target!.result!.toString().replace( new RegExp( "\"", "g" ), Char.empty );
@@ -102,7 +102,7 @@ export namespace Import {
         const fileReader: FileReader = new FileReader();
         const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        fileReader.onloadend = () => onLoadEndFunc( file.name, readingObject );
+        fileReader.onloadend = () : void => onLoadEndFunc( file.name, readingObject );
     
         fileReader.onload = ( ev: ProgressEvent<FileReader> ) : void => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
@@ -122,7 +122,7 @@ export namespace Import {
         const fileReader: FileReader = new FileReader();
         const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        fileReader.onloadend = () => onLoadEndFunc( file.name, readingObject );
+        fileReader.onloadend = () : void => onLoadEndFunc( file.name, readingObject );
     
         fileReader.onload = ( ev: ProgressEvent<FileReader> ) : void => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
@@ -144,7 +144,7 @@ export namespace Import {
         const fileReader: FileReader = new FileReader();
         const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        fileReader.onloadend = () => onLoadEndFunc( file.name, readingObject );
+        fileReader.onloadend = () : void => onLoadEndFunc( file.name, readingObject );
     
         fileReader.onload = ( ev: ProgressEvent<FileReader> ) : void => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
@@ -164,7 +164,7 @@ export namespace Import {
         const fileReader: FileReader = new FileReader();
         const readingObject: InstanceTypeDateCount = {} as InstanceTypeDateCount;
 
-        fileReader.onloadend = () => onLoadEndFunc( file.name, readingObject );
+        fileReader.onloadend = () : void => onLoadEndFunc( file.name, readingObject );
     
         fileReader.onload = ( ev: ProgressEvent<FileReader> ) : void => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
