@@ -1011,6 +1011,7 @@ var g;
             t.percentageDecimalPoints = i.getNumber(t.percentageDecimalPoints, 2);
             t.chartsAnimationDelay = i.getNumber(t.chartsAnimationDelay, 50);
             t.exportDateTimeFormat = i.getString(t.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}");
+            t.showSideMenu = i.getBoolean(t.showSideMenu, true);
             t.title = c(t);
             t.yearlyStatistics = d(t);
             t.views.map = g(t);
@@ -1049,7 +1050,7 @@ var g;
             e.title.showCurrentYearButton = i.getBoolean(e.title.showCurrentYearButton, true);
             e.title.showSectionText = i.getBoolean(e.title.showSectionText, true);
             e.title.showToolTips = i.getBoolean(e.title.showToolTips, true);
-            e.title.showTitleDropDownMenu = i.getBoolean(e.title.showTitleDropDownMenu, true);
+            e.title.showTitleDropDownMenu = i.getBoolean(e.title.showTitleDropDownMenu, false);
             e.title.showClearButton = i.getBoolean(e.title.showClearButton, false);
             return e.title;
         }
@@ -2228,7 +2229,7 @@ var V;
         n("blur", () => c.hide(e));
     }
     function k(e) {
-        const t = e.title.showTitleDropDownMenu && e._currentView.viewsEnabled > 1;
+        const t = e.showSideMenu && e._currentView.viewsEnabled > 1;
         if (t) {
             if (e.views.map.enabled) {
                 const t = s.create(e._currentView.sideMenu, "div", "menu-tab");

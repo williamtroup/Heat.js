@@ -200,7 +200,7 @@ import { DocumentElement } from "./ts/dom/document-element";
      */
 
     function renderSideMenu( bindingOptions: BindingOptions ) : void {
-        const showTitleDropDownMenu: boolean = bindingOptions.title!.showTitleDropDownMenu! && bindingOptions._currentView!.viewsEnabled > 1;
+        const showTitleDropDownMenu: boolean = bindingOptions.showSideMenu! && bindingOptions._currentView!.viewsEnabled > 1;
 
         if ( showTitleDropDownMenu ) {
             if ( bindingOptions.views!.map!.enabled ) {

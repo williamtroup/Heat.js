@@ -20,6 +20,7 @@
 - Added dynamic colors support from a single hex color!
 - The "Days" (and the new views "Line" and "Months") now have their own custom Color Range CSS class support.
 - The "Statistics" view has been renamed to "Color Ranges" (include internal names and parameter names).
+- Added a brand new side menu, which is now used by default as the the view opener (you can disable it, and re-enable the drop-down title bar menu).
 
 #### **Exporting:**
 - Added support to export all data to YAML (.yaml).
@@ -62,11 +63,12 @@
 - BREAKING: Renamed "colorRanges.statisticsCssClassName" to "colorRanges.colorRangeCssClassName".
 
 #### **Binding Options - New / Updates:**
+- Added a new binding option called "showSideMenu", which states if the side menu is shown (defaults to true).
 - Added a new binding option called "allowMultipleFileImports", which states if multiple file imports are enabled (defaults to true).
 - Added a new binding option called "percentageDecimalPoints", which states the number of decimal points to show for percentages (defaults to 2).
 - Added a new binding option called "chartsAnimationDelay", which states the milliseconds to wait before applying a grow animation to each chart line (for all views, defaults to 50. Set to zero to turn it off).
 - Added a new binding option called "exportDateTimeFormat", which states the format of the export date/time that is included in some of the formats (defaults to "{dddd}, {d}{o} {mmmm} {yyyy}").
-- Added a new binding option called "title.showTitleDropDownMenu", which states if the title drop-down menu should be shown (defaults to true).
+- Added a new binding option called "title.showTitleDropDownMenu", which states if the title drop-down menu should be shown (defaults to false).
 - Added a new binding option called "title.showClearButton", which states if the "Clear" button should be shown (defaults to false).
 - Added a new binding option called "guide.showInvertLabel", which states if the "Invert" label should be shown (inverts the toggle selections, defaults to false).
 - Added a new binding option called "guide.useIncrementToggles", which states if clicking "Less" and "More" in the guide toggles the colors one by one (defaults to false).
