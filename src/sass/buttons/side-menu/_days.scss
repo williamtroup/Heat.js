@@ -5,6 +5,7 @@
     i.days {
         @include button.button-no-before-after;
         border: button.$border;
+        border-bottom: none;;
         width: var(--heat-js-button-icon-size);
         height: var(--heat-js-button-icon-size);
 

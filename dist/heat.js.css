@@ -295,6 +295,7 @@ div.heat-js div.container-side-menu div.menu-tab i.days {
   display: inline-block;
   position: relative;
   border: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+  border-bottom: none;
   width: var(--heat-js-button-icon-size);
   height: var(--heat-js-button-icon-size);
 }
@@ -322,6 +323,7 @@ div.heat-js div.container-side-menu div.menu-tab i.color-ranges {
   display: inline-block;
   position: relative;
   background-color: currentColor;
+  border-radius: 50%;
 }
 div.heat-js div.container-contents {
   display: inline-flex;
