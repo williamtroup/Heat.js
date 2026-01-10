@@ -2771,7 +2771,12 @@ import { DocumentElement } from "./ts/dom/document-element";
                 const lessText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "less-text", _configurationOptions.text!.lessText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
-                    lessText.onclick = () : void => updateColorRangeToggles( bindingOptions, false );
+                    lessText.onclick = () : void => {
+                        if ( ColorRange.updateAllToggles( bindingOptions, false ) ) {
+                            renderContainer( bindingOptions, false, false, true );
+                        }
+                    };
+
                 } else {
                     DomElement.addClass( lessText, "no-click" );
                 }
@@ -2802,7 +2807,12 @@ import { DocumentElement } from "./ts/dom/document-element";
                 const moreText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "more-text", _configurationOptions.text!.moreText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
-                    moreText.onclick = () : void => updateColorRangeToggles( bindingOptions, true );
+                    moreText.onclick = () : void => {
+                        if ( ColorRange.updateAllToggles( bindingOptions, true ) ) {
+                            renderContainer( bindingOptions, false, false, true );
+                        }
+                    };
+
                 } else {
                     DomElement.addClass( moreText, "no-click" );
                 }
@@ -3303,58 +3313,6 @@ import { DocumentElement } from "./ts/dom/document-element";
      * Update Color Ranges
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
-
-    function updateColorRangeToggles( bindingOptions: BindingOptions, flag: boolean ) : void {
-        let renderAgain: boolean = false;
-
-        if ( bindingOptions.guide!.useIncrementToggles ) {
-            const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
-            const colorRangesLength: number = colorRanges.length;
-
-            if ( flag ) {
-                for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
-                    const colorRange: BindingOptionsColorRange = colorRanges[ colorRangeIndex ];
-
-                    if ( !colorRange.visible ) {
-                        colorRange.visible = true;
-                        renderAgain = ColorRange.toggleForActiveView( bindingOptions, colorRange );
-
-                        Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
-                        break;
-                    }
-                }
-
-            } else {
-                for ( let colorRangeIndex: number = colorRangesLength; colorRangeIndex--; ) {
-                    const colorRange: BindingOptionsColorRange = colorRanges[ colorRangeIndex ];
-
-                    if ( colorRange.visible ) {
-                        colorRange.visible = false;
-                        renderAgain = ColorRange.toggleForActiveView( bindingOptions, colorRange );
-
-                        Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
-                        break;
-                    }
-                }
-            }
-
-        } else {
-            const colorRangesLength: number = bindingOptions.colorRanges!.length;
-
-            for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-                const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
-                colorRange.visible = flag;
-
-                renderAgain = ColorRange.toggleForActiveView( bindingOptions, colorRange );
-
-                Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
-            }
-        }
-
-        if ( renderAgain ) {
-            renderContainer( bindingOptions, false, false, true );
-        }
-    }
 
     function invertColorRangeToggles( bindingOptions: BindingOptions ) : void {
         const colorRangesLength: number = bindingOptions.colorRanges!.length;

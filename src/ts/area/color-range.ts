@@ -25,9 +25,60 @@ import { Convert } from "../data/convert";
 import { DomElement } from "../dom/dom";
 import { Css } from "../css";
 import { Str } from "../data/str";
+import { Trigger } from "./trigger";
 
 
 export namespace ColorRange {
+    export function updateAllToggles( bindingOptions: BindingOptions, flag: boolean ) : boolean {
+        let renderRequired: boolean = false;
+
+        if ( bindingOptions.guide!.useIncrementToggles ) {
+            const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
+            const colorRangesLength: number = colorRanges.length;
+
+            if ( flag ) {
+                for ( let colorRangeIndex: number = 0; colorRangeIndex < colorRangesLength; colorRangeIndex++ ) {
+                    const colorRange: BindingOptionsColorRange = colorRanges[ colorRangeIndex ];
+
+                    if ( !colorRange.visible ) {
+                        colorRange.visible = true;
+                        renderRequired = ColorRange.toggleForActiveView( bindingOptions, colorRange );
+
+                        Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
+                        break;
+                    }
+                }
+
+            } else {
+                for ( let colorRangeIndex: number = colorRangesLength; colorRangeIndex--; ) {
+                    const colorRange: BindingOptionsColorRange = colorRanges[ colorRangeIndex ];
+
+                    if ( colorRange.visible ) {
+                        colorRange.visible = false;
+                        renderRequired = ColorRange.toggleForActiveView( bindingOptions, colorRange );
+
+                        Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
+                        break;
+                    }
+                }
+            }
+
+        } else {
+            const colorRangesLength: number = bindingOptions.colorRanges!.length;
+
+            for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+                const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
+                colorRange.visible = flag;
+
+                renderRequired = ColorRange.toggleForActiveView( bindingOptions, colorRange );
+
+                Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
+            }
+        }
+
+        return renderRequired;
+    }
+
     export function isVisible( bindingOptions: BindingOptions, id: string ) : boolean {
         let result: boolean = false;
         
