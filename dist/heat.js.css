@@ -55,7 +55,7 @@
   --heat-js-tooltip-count-background-color: var(--heat-js-day-background-color);
   --heat-js-holiday-background-color: rgba( 210, 43, 43, 0.75 );
   --heat-js-holiday-border-color: rgba( 210, 43, 43, 0.5 );
-  --heat-js-holiday-text-color: var(--heat-js-color-black);
+  --heat-js-holiday-text-color: var(--heat-js-color-white);
   --heat-js-view-opacity-hover: 0.7;
   --heat-js-view-opacity-active: 0.5;
   --heat-js-day-background-color: #2d333b;
