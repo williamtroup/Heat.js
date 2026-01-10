@@ -350,6 +350,10 @@ div.heat-js {
             border-bottom-left-radius: 0;
         }
 
+        &.full-view {
+            border-radius: var(--heat-js-border-radius);
+        }
+
         div.dialog {
             display: none;
             position: absolute;

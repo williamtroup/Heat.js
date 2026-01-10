@@ -365,6 +365,9 @@ div.heat-js div.disabled {
     border-bottom-left-radius: 0;
   }
 }
+div.heat-js div.disabled.full-view {
+  border-radius: var(--heat-js-border-radius);
+}
 div.heat-js div.disabled div.dialog {
   display: none;
   position: absolute;

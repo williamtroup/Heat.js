@@ -21,6 +21,10 @@ export namespace Disabled {
         export function render( bindingOptions: BindingOptions ) : void {
             if ( !Is.definedParentElement( bindingOptions._currentView!.disabledBackground ) ) {
                 bindingOptions._currentView!.disabledBackground = DomElement.create( bindingOptions._currentView!.element, "div", "disabled" );
+
+                if ( bindingOptions.showSideMenu ) {
+                    DomElement.addClass( bindingOptions._currentView!.disabledBackground, "full-view" );
+                }
             }
         }
     

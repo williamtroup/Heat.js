@@ -1508,6 +1508,9 @@ var h;
         function t(e) {
             if (!o.definedParentElement(e._currentView.disabledBackground)) {
                 e._currentView.disabledBackground = s.create(e._currentView.element, "div", "disabled");
+                if (e.showSideMenu) {
+                    s.addClass(e._currentView.disabledBackground, "full-view");
+                }
             }
         }
         e.render = t;
