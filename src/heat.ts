@@ -137,13 +137,16 @@ import { DocumentElement } from "./ts/dom/document-element";
             LocalStorage.store( bindingOptions, _elements_InstanceData[ bindingOptions._currentView!.element.id ] );
         }
 
-        bindingOptions._currentView!.yearsAvailable = getYearsAvailableInData( bindingOptions );
-
         Visible.View.getScrollPositions( bindingOptions );
         ToolTip.render( bindingOptions );
 
+        bindingOptions._currentView!.yearsAvailable = getYearsAvailableInData( bindingOptions );
+        bindingOptions._currentView!.sideMenu = DomElement.create( bindingOptions._currentView!.element, "div", "container-side-menu" );
+        bindingOptions._currentView!.container = DomElement.create( bindingOptions._currentView!.element, "div", "container-contents" );
+
         startDataPullTimer( bindingOptions );
         setupTrendTypes( bindingOptions );
+        renderSideMenu( bindingOptions );
         renderTitleBar( bindingOptions );
         renderYearStatistics( bindingOptions );
 
@@ -189,6 +192,45 @@ import { DocumentElement } from "./ts/dom/document-element";
         windowFunc( "blur", () : void => ToolTip.hide( bindingOptions ) );
     }
 
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Render:  Side Menu
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function renderSideMenu( bindingOptions: BindingOptions ) : void {
+        const showTitleDropDownMenu: boolean = bindingOptions.title!.showTitleDropDownMenu! && bindingOptions._currentView!.viewsEnabled > 1;
+
+        if ( showTitleDropDownMenu ) {
+            if ( bindingOptions.views!.map!.enabled ) {
+                DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+            }
+
+            if ( bindingOptions.views!.line!.enabled ) {
+                DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+            }
+
+            if ( bindingOptions.views!.chart!.enabled ) {
+                DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+            }
+
+            if ( bindingOptions.views!.days!.enabled ) {
+                DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+            }
+
+            if ( bindingOptions.views!.months!.enabled ) {
+                DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+            }
+
+            if ( bindingOptions.views!.colorRanges!.enabled ) {
+                DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+            }
+
+        } else {
+            bindingOptions._currentView!.sideMenu.parentNode!.removeChild( bindingOptions._currentView!.sideMenu );
+        }
+    }
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -877,7 +919,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
     function renderTitleBar( bindingOptions: BindingOptions ) : void {
         if ( bindingOptions.title!.showText || bindingOptions.title!.showYearSelector || bindingOptions.title!.showRefreshButton || bindingOptions.title!.showExportButton || bindingOptions.title!.showImportButton || bindingOptions.title!.showClearButton ) {
-            const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "title-bar" );
+            const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.container, "div", "title-bar" );
             const title: HTMLElement = DomElement.create( titleBar, "div", "title" );
             const showTitleDropDownMenu: boolean = bindingOptions.title!.showTitleDropDownMenu! && bindingOptions._currentView!.viewsEnabled > 1;
 
@@ -1161,7 +1203,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         const isCurrentYear: boolean = bindingOptions._currentView!.activeYear === today.getFullYear();
 
         if ( bindingOptions.yearlyStatistics!.enabled && ( !bindingOptions.yearlyStatistics!.showOnlyForCurrentYear || isCurrentYear ) ) {
-            const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "yearly-statistics" );
+            const yearlyStatistics: HTMLElement = DomElement.create( bindingOptions._currentView!.container, "div", "yearly-statistics" );
             const daysToShow: number[] = Visible.Days.get( bindingOptions );
             const monthsToShow: number[] = Visible.Months.get( bindingOptions );
             const startOfYear: Date = new Date( bindingOptions._currentView!.activeYear, bindingOptions.startMonth!, 1 );
@@ -1290,7 +1332,7 @@ import { DocumentElement } from "./ts/dom/document-element";
      */
 
     function renderMapView( bindingOptions: BindingOptions, isForViewSwitch: boolean = false, isForViewChange: boolean ) : void {
-        bindingOptions._currentView!.mapContentsContainer = DomElement.create( bindingOptions._currentView!.element, "div", "map-contents-container" );
+        bindingOptions._currentView!.mapContentsContainer = DomElement.create( bindingOptions._currentView!.container, "div", "map-contents-container" );
         bindingOptions._currentView!.mapContents = DomElement.create( bindingOptions._currentView!.mapContentsContainer, "div", "map-contents" );
 
         if ( !isDataAvailableForYear( bindingOptions ) ) {
@@ -1592,7 +1634,7 @@ import { DocumentElement } from "./ts/dom/document-element";
      */
 
     function renderLineView( bindingOptions: BindingOptions, isForViewSwitch: boolean, isForViewChange: boolean ) : void {
-        bindingOptions._currentView!.lineContentsContainer = DomElement.create( bindingOptions._currentView!.element, "div", "line-contents-container" );
+        bindingOptions._currentView!.lineContentsContainer = DomElement.create( bindingOptions._currentView!.container, "div", "line-contents-container" );
         bindingOptions._currentView!.lineContents = DomElement.create( bindingOptions._currentView!.lineContentsContainer, "div", "line-contents" );
         bindingOptions._currentView!.lineContents.onscroll = () : void => ToolTip.hide( bindingOptions );
 
@@ -1776,7 +1818,7 @@ import { DocumentElement } from "./ts/dom/document-element";
      */
 
     function renderChartView( bindingOptions: BindingOptions, isForViewSwitch: boolean, isForViewChange: boolean ) : void {
-        bindingOptions._currentView!.chartContents = DomElement.create( bindingOptions._currentView!.element, "div", "chart-contents" );
+        bindingOptions._currentView!.chartContents = DomElement.create( bindingOptions._currentView!.container, "div", "chart-contents" );
         bindingOptions._currentView!.chartContents.onscroll = () : void => ToolTip.hide( bindingOptions );
 
         const chart: HTMLElement = DomElement.create( bindingOptions._currentView!.chartContents, "div", "chart" );
@@ -2020,7 +2062,7 @@ import { DocumentElement } from "./ts/dom/document-element";
      */
 
     function renderDaysView( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
-        bindingOptions._currentView!.daysContents = DomElement.create( bindingOptions._currentView!.element, "div", "days-contents" );
+        bindingOptions._currentView!.daysContents = DomElement.create( bindingOptions._currentView!.container, "div", "days-contents" );
 
         const days: HTMLElement = DomElement.create( bindingOptions._currentView!.daysContents, "div", "days" );
         const dayNames: HTMLElement = DomElement.create( bindingOptions._currentView!.daysContents, "div", "day-names" );
@@ -2261,7 +2303,7 @@ import { DocumentElement } from "./ts/dom/document-element";
      */
 
     function renderMonthsView( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
-        bindingOptions._currentView!.monthsContents = DomElement.create( bindingOptions._currentView!.element, "div", "months-contents" );
+        bindingOptions._currentView!.monthsContents = DomElement.create( bindingOptions._currentView!.container, "div", "months-contents" );
 
         const months: HTMLElement = DomElement.create( bindingOptions._currentView!.monthsContents, "div", "months" );
         const monthNames: HTMLElement = DomElement.create( bindingOptions._currentView!.monthsContents, "div", "month-names" );
@@ -2522,7 +2564,7 @@ import { DocumentElement } from "./ts/dom/document-element";
      */
 
     function renderColorRangesView( bindingOptions: BindingOptions, isForViewSwitch: boolean ) : void {
-        bindingOptions._currentView!.colorRangesContents = DomElement.create( bindingOptions._currentView!.element, "div", "color-ranges-contents" );
+        bindingOptions._currentView!.colorRangesContents = DomElement.create( bindingOptions._currentView!.container, "div", "color-ranges-contents" );
 
         const colorRanges: HTMLElement = DomElement.create( bindingOptions._currentView!.colorRangesContents, "div", "color-ranges" );
         const colorRangeNames: HTMLElement = DomElement.create( bindingOptions._currentView!.colorRangesContents, "div", "color-range-names" );
@@ -2717,13 +2759,13 @@ import { DocumentElement } from "./ts/dom/document-element";
      */
 
     function renderGuide( bindingOptions: BindingOptions ) : void {
-        const guide: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "guide" );
+        const guide: HTMLElement = DomElement.create( bindingOptions._currentView!.container, "div", "guide" );
         const mapTypes: HTMLElement = DomElement.create( guide, "div", "map-types" );
         const noneTypeCount: number = getUnknownTrendTypeCount( bindingOptions );
 
         if ( _elements_InstanceData[ bindingOptions._currentView!.element.id ].totalTypes > 1 ) {
             if ( Is.definedString( bindingOptions.description!.text ) ) {
-                const description: HTMLElement = DomElement.create( bindingOptions._currentView!.element, "div", "description", guide );
+                const description: HTMLElement = DomElement.create( bindingOptions._currentView!.container, "div", "description", guide );
     
                 renderGuideDescription( bindingOptions, description );
             }

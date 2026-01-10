@@ -176,6 +176,8 @@ export type BindingOptions = {
 
 export type BindingOptionsCurrentView = {
     element: HTMLElement;
+    sideMenu: HTMLElement;
+    container: HTMLElement;
     activeYear: number;
     activeType: string;
     activeView: ViewId;

@@ -145,13 +145,12 @@ div.heat-js {
   line-height: normal;
   font-family: var(--heat-js-default-font);
   display: inline-flex;
-  flex-direction: column;
+  flex-direction: row;
   position: relative;
   border-radius: var(--heat-js-border-radius);
   background-color: var(--heat-js-container-background-color);
   color: var(--heat-js-color-white);
   border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-  padding: var(--heat-js-spacing);
   font-size: var(--heat-js-spacing-font-size);
   width: 100%;
   max-width: var(--heat-js-default-width);
@@ -163,11 +162,6 @@ div.heat-js.resizable {
   overflow: auto;
   width: var(--heat-js-default-width);
   max-width: none;
-}
-@media (min-width: 768px) {
-  div.heat-js {
-    border-left-width: var(--heat-js-left-border);
-  }
 }
 div.heat-js button {
   margin-top: 0 !important;
@@ -188,6 +182,35 @@ div.heat-js * {
 div.heat-js *::before, div.heat-js *::after {
   box-sizing: border-box;
   line-height: normal;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Container
+    -------------------------------------------------------------------------
+*/
+div.heat-js div.container-side-menu {
+  display: inline-flex;
+  flex-direction: column;
+  padding: var(--heat-js-spacing);
+  padding-right: 0;
+  background-color: var(--heat-js-container-border-color);
+  gap: var(--heat-js-spacing);
+  border-top-left-radius: var(--heat-js-border-radius);
+  border-bottom-left-radius: var(--heat-js-border-radius);
+}
+div.heat-js div.container-side-menu div.menu-tab {
+  background-color: var(--heat-js-container-background-color);
+  padding: var(--heat-js-spacing);
+  border-top-left-radius: var(--heat-js-border-radius);
+  border-bottom-left-radius: var(--heat-js-border-radius);
+}
+div.heat-js div.container-contents {
+  display: inline-flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: var(--heat-js-spacing);
+  min-width: 0;
 }
 
 /*

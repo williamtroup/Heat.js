@@ -201,13 +201,12 @@ div.heat-js {
     @include styles.box-sizing;
     font-family: var(--heat-js-default-font);
     display: inline-flex;
-    flex-direction: column;
+    flex-direction: row;
     position: relative;
     border-radius: var(--heat-js-border-radius);
     background-color: var(--heat-js-container-background-color);
     color: var(--heat-js-color-white);
     border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-    padding: var(--heat-js-spacing);
     font-size: var(--heat-js-spacing-font-size);
     width: 100%;
     max-width: var(--heat-js-default-width);
@@ -219,10 +218,6 @@ div.heat-js {
         overflow: auto;
         width: var(--heat-js-default-width);
         max-width: none;
-    }
-
-    @media (min-width: styles.$minimum-width) { 
-        border-left-width: var(--heat-js-left-border);
     }
 
     button {
@@ -247,6 +242,41 @@ div.heat-js {
         &::after {
             @include styles.box-sizing;
         }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Container
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.container-side-menu {
+        display: inline-flex;
+        flex-direction: column;
+        padding: var(--heat-js-spacing);
+        padding-right: 0;
+        background-color: var(--heat-js-container-border-color);
+        gap: var(--heat-js-spacing);
+        border-top-left-radius: var(--heat-js-border-radius);
+        border-bottom-left-radius: var(--heat-js-border-radius);
+
+        div.menu-tab {
+            background-color: var(--heat-js-container-background-color);
+            padding: var(--heat-js-spacing);
+            border-top-left-radius: var(--heat-js-border-radius);
+            border-bottom-left-radius: var(--heat-js-border-radius);
+        }
+    }
+
+    div.container-contents {
+        display: inline-flex;
+        flex-direction: column;
+        flex-grow: 1;
+        padding: var(--heat-js-spacing);
+        min-width: 0;
     }
 }
 
