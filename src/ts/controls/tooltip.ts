@@ -11,7 +11,11 @@
  */
 
 
-import { ConfigurationOptions, IsHoliday, type BindingOptions } from "../type";
+import {
+    type ConfigurationOptions,
+    type IsHoliday,
+    type BindingOptions } from "../type";
+    
 import { DomElement } from "../dom/dom";
 import { Is } from "../data/is";
 import { Trigger } from "../area/trigger";
