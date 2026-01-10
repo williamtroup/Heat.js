@@ -48,7 +48,7 @@ import { Build } from "./ts/data/build";
 import { DocumentElement } from "./ts/dom/document-element";
 
 
-( () => {
+( () : void => {
     let _configurationOptions: ConfigurationOptions = {} as ConfigurationOptions;
     let _mutationObserver: MutationObserver = null! as MutationObserver;
     let _elements_InstanceData: InstanceData = {} as InstanceData;
@@ -374,7 +374,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
             renderExportDialogOptions( bindingOptions );
 
-            bindingOptions._currentView!.exportDialogExportFilenameInput.onkeydown = ( ev: KeyboardEvent ) => {
+            bindingOptions._currentView!.exportDialogExportFilenameInput.onkeydown = ( ev: KeyboardEvent ) : void => {
                 if ( ev.key === KeyCode.enter ) {
                     exportDataFromExportDialog( bindingOptions );
                 }
@@ -401,7 +401,7 @@ import { DocumentElement } from "./ts/dom/document-element";
             exportOptions.push( exportOption );
         }
 
-        exportOptions.sort( ( optionA: HTMLOptionElement, optionB: HTMLOptionElement ) => 
+        exportOptions.sort( ( optionA: HTMLOptionElement, optionB: HTMLOptionElement ) : number => 
             optionA.text.toLowerCase().localeCompare( optionB.text.toLowerCase() )
         );
 
@@ -604,7 +604,7 @@ import { DocumentElement } from "./ts/dom/document-element";
             element.ondragenter = DomElement.cancelBubble;
             element.ondragleave = DomElement.cancelBubble;
     
-            element.ondrop = ( ev: DragEvent ) => {
+            element.ondrop = ( ev: DragEvent ) : void => {
                 DomElement.cancelBubble( ev );
     
                 if ( Is.defined( window.FileReader ) && ev.dataTransfer!.files.length > 0 ) {
@@ -749,7 +749,7 @@ import { DocumentElement } from "./ts/dom/document-element";
             const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
             const addButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.addButtonText! );
 
-            bindingOptions._currentView!.typeAddingDialogTypeInput.onkeydown = ( ev: KeyboardEvent ) => {
+            bindingOptions._currentView!.typeAddingDialogTypeInput.onkeydown = ( ev: KeyboardEvent ) : void => {
                 if ( ev.key === KeyCode.enter ) {
                     addNewTypeFromAddTypeDialog( bindingOptions );
                 }
@@ -929,7 +929,7 @@ import { DocumentElement } from "./ts/dom/document-element";
                     ToolTip.add( refresh, bindingOptions, _configurationOptions.text!.refreshButtonText! );
                 }
         
-                refresh.onclick = () => {
+                refresh.onclick = () : void => {
                     renderContainer( bindingOptions );
                     Trigger.customEvent( bindingOptions.events!.onRefresh!, bindingOptions._currentView!.element );
                 };
@@ -942,8 +942,8 @@ import { DocumentElement } from "./ts/dom/document-element";
                     ToolTip.add( clear, bindingOptions, _configurationOptions.text!.clearButtonText! );
                 }
         
-                clear.onclick = () => {
-                    showConfirmationDialog( bindingOptions, _configurationOptions.text!.clearDataConfirmText!, () => {
+                clear.onclick = () : void => {
+                    showConfirmationDialog( bindingOptions, _configurationOptions.text!.clearDataConfirmText!, () : void => {
                         clearViewableData( bindingOptions );
                         renderContainer( bindingOptions, true );
                     } );
@@ -983,7 +983,7 @@ import { DocumentElement } from "./ts/dom/document-element";
                         ToolTip.add( current, bindingOptions, _configurationOptions.text!.currentYearText! );
                     }
     
-                    current.onclick = () => {
+                    current.onclick = () : void => {
                         bindingOptions._currentView!.activeYear = new Date().getFullYear() - 1;
     
                         moveToNextYear( bindingOptions, false );
@@ -1130,7 +1130,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         const year: HTMLElement = DomElement.createWithHTML( years, "div", "year-menu-item", currentYearText );
 
         if ( bindingOptions._currentView!.activeYear !== currentYear ) {
-            year.onclick = () => {
+            year.onclick = () : void => {
                 bindingOptions._currentView!.activeYear = currentYear;
     
                 renderContainer( bindingOptions );
@@ -2818,10 +2818,10 @@ import { DocumentElement } from "./ts/dom/document-element";
 
             ToolTip.add( clear, bindingOptions, _configurationOptions.text!.removeTypeText! );
 
-            clear.onclick = ( ev: MouseEvent ) => {
+            clear.onclick = ( ev: MouseEvent ) : void => {
                 DomElement.cancelBubble( ev );
 
-                showConfirmationDialog( bindingOptions, _configurationOptions.text!.removeTypeConfirmText!, () => {
+                showConfirmationDialog( bindingOptions, _configurationOptions.text!.removeTypeConfirmText!, () : void => {
                     removeType( bindingOptions, type );
                     renderContainer( bindingOptions, true );
                 } );
@@ -2832,7 +2832,7 @@ import { DocumentElement } from "./ts/dom/document-element";
             DomElement.addClass( typeButton, "active" );
         }
 
-        typeButton.onclick = () => {
+        typeButton.onclick = () : void => {
             if ( bindingOptions._currentView!.activeType !== type ) {
                 bindingOptions._currentView!.activeType = type;
 
@@ -2899,7 +2899,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
                 ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
 
-                closeButton.onclick = () => {
+                closeButton.onclick = () : void => {
                     bindingOptions.zooming!.enabled = false;
                     bindingOptions._currentView!.mapContents.style.paddingRight = "0px";
 
@@ -3146,7 +3146,7 @@ import { DocumentElement } from "./ts/dom/document-element";
             }
         }
 
-        years = years.sort( ( yearA: number, yearB: number ) => {
+        years = years.sort( ( yearA: number, yearB: number ) : number => {
             return yearA - yearB;
         } );
 
@@ -3270,7 +3270,7 @@ import { DocumentElement } from "./ts/dom/document-element";
             }
 
             if ( bindingOptions._currentView!.isInFetchModeTimer === 0 ) {
-                bindingOptions._currentView!.isInFetchModeTimer = setInterval( () => {
+                bindingOptions._currentView!.isInFetchModeTimer = setInterval( () : void => {
                     pullDataFromCustomTrigger( bindingOptions );
                     renderContainer( bindingOptions );
                 }, bindingOptions.dataFetchDelay );
@@ -3534,7 +3534,7 @@ import { DocumentElement } from "./ts/dom/document-element";
     function setupObservationMode() : void {
         if ( _configurationOptions.observationMode ) {
             if ( !Is.defined( _mutationObserver ) ) {
-                _mutationObserver = new MutationObserver( () => {
+                _mutationObserver = new MutationObserver( () : void => {
                     _public.renderAll();
                 } );
 
@@ -4139,7 +4139,7 @@ import { DocumentElement } from "./ts/dom/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    ( () => {
+    ( () : void => {
         _configurationOptions = Configuration.Options.get();
 
         const onLoadFunc: Function = () : void => {

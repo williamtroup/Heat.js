@@ -20,7 +20,7 @@ export namespace Animate {
             const heightCss: string = usePercentage ? `${height}%` : `${height}px`
 
             if ( allow && bindingOptions.chartsAnimationDelay! > 0 ) {
-                setTimeout( () => {
+                setTimeout( () : void => {
                     element.style.height = heightCss;
                 }, bindingOptions.chartsAnimationDelay );
 

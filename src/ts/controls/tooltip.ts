@@ -47,7 +47,7 @@ export namespace ToolTip {
         DomElement.cancelBubble( ev );
         hide( bindingOptions );
 
-        _TOOLTIP_TIMER_ID = setTimeout( () => {
+        _TOOLTIP_TIMER_ID = setTimeout( () : void => {
             bindingOptions._currentView!.tooltip.innerHTML = text;
 
             DomElement.showElementAtMousePosition( ev, bindingOptions._currentView!.tooltip, "flex" );

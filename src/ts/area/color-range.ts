@@ -96,7 +96,7 @@ export namespace ColorRange {
     }
 
     export function getAllSorted( bindingOptions: BindingOptions ) : BindingOptionsColorRange[] {
-        return bindingOptions.colorRanges!.sort( ( colorRangeA: BindingOptionsColorRange, colorRangeB: BindingOptionsColorRange ) => {
+        return bindingOptions.colorRanges!.sort( ( colorRangeA: BindingOptionsColorRange, colorRangeB: BindingOptionsColorRange ) : number => {
             return colorRangeA.minimum! - colorRangeB.minimum!;
         } );
     }

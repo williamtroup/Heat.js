@@ -46,7 +46,7 @@ export namespace Import {
 
         fileReader.onloadend = () => onLoadEndFunc( file.name, readingObject );
     
-        fileReader.onload = ( ev: ProgressEvent<FileReader> ) => {
+        fileReader.onload = ( ev: ProgressEvent<FileReader> ) : void => {
             const json: StringToJson = Default.getObjectFromString( ev.target!.result, configurationOptions );
 
             if ( json.parsed && Is.definedObject( json.object ) ) {
@@ -63,7 +63,7 @@ export namespace Import {
 
         fileReader.onloadend = () => onLoadEndFunc( file.name, readingObject );
     
-        fileReader.onload = ( ev: ProgressEvent<FileReader> ) => {
+        fileReader.onload = ( ev: ProgressEvent<FileReader> ) : void => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
             const linesLength: number = lines.length;
 
@@ -83,7 +83,7 @@ export namespace Import {
 
         fileReader.onloadend = () => onLoadEndFunc( file.name, readingObject );
     
-        fileReader.onload = ( ev: ProgressEvent<FileReader> ) => {
+        fileReader.onload = ( ev: ProgressEvent<FileReader> ) : void => {
             const data: string = ev.target!.result!.toString().replace( new RegExp( "\"", "g" ), Char.empty );
             const lines: string[] = data.split( Char.newLine );
             const linesLength: number = lines.length;
@@ -104,7 +104,7 @@ export namespace Import {
 
         fileReader.onloadend = () => onLoadEndFunc( file.name, readingObject );
     
-        fileReader.onload = ( ev: ProgressEvent<FileReader> ) => {
+        fileReader.onload = ( ev: ProgressEvent<FileReader> ) : void => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
             const linesLength: number = lines.length;
 
@@ -124,7 +124,7 @@ export namespace Import {
 
         fileReader.onloadend = () => onLoadEndFunc( file.name, readingObject );
     
-        fileReader.onload = ( ev: ProgressEvent<FileReader> ) => {
+        fileReader.onload = ( ev: ProgressEvent<FileReader> ) : void => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
             const linesLength: number = lines.length;
 
@@ -146,7 +146,7 @@ export namespace Import {
 
         fileReader.onloadend = () => onLoadEndFunc( file.name, readingObject );
     
-        fileReader.onload = ( ev: ProgressEvent<FileReader> ) => {
+        fileReader.onload = ( ev: ProgressEvent<FileReader> ) : void => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
             const linesLength: number = lines.length;
 
@@ -166,7 +166,7 @@ export namespace Import {
 
         fileReader.onloadend = () => onLoadEndFunc( file.name, readingObject );
     
-        fileReader.onload = ( ev: ProgressEvent<FileReader> ) => {
+        fileReader.onload = ( ev: ProgressEvent<FileReader> ) : void => {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
             const linesLength: number = lines.length;
 
