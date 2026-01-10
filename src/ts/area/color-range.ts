@@ -29,7 +29,45 @@ import { Trigger } from "./trigger";
 
 
 export namespace ColorRange {
-    export function updateAllToggles( bindingOptions: BindingOptions, flag: boolean ) : boolean {
+    export function toggleVisibleState( bindingOptions: BindingOptions, id: string ) : boolean {
+        const colorRangesLength: number = bindingOptions.colorRanges!.length;
+        let renderRequired: boolean = false;
+
+        for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+            const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
+
+            if ( colorRange.id === id ) {
+                colorRange.visible = !Default.getBoolean( colorRange.visible, true );
+
+                if ( ColorRange.toggleForActiveView( bindingOptions, colorRange ) ) {
+                    renderRequired = true;
+                }
+
+                Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, colorRange.visible );
+                break;
+            }
+        }
+
+        return renderRequired;
+    }
+
+    export function invertVisibleStates( bindingOptions: BindingOptions ) : boolean {
+        const colorRangesLength: number = bindingOptions.colorRanges!.length;
+        let renderRequired: boolean = false;
+
+        for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
+            const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
+            colorRange.visible = !colorRange.visible;
+
+            renderRequired = ColorRange.toggleForActiveView( bindingOptions, colorRange );
+
+            Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, bindingOptions.colorRanges![ colorRangesIndex ].id, bindingOptions.colorRanges![ colorRangesIndex ].visible );
+        }
+
+        return renderRequired;
+    }
+
+    export function updateAllVisibleStates( bindingOptions: BindingOptions, flag: boolean ) : boolean {
         let renderRequired: boolean = false;
 
         if ( bindingOptions.guide!.useIncrementToggles ) {

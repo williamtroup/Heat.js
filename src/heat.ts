@@ -2761,7 +2761,11 @@ import { DocumentElement } from "./ts/dom/document-element";
                 const invertText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "invert-text", _configurationOptions.text!.invertText! );
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
-                    invertText.onclick = () : void => invertColorRangeToggles( bindingOptions );
+                    invertText.onclick = () : void => {
+                        if ( ColorRange.invertVisibleStates( bindingOptions ) ) {
+                            renderContainer( bindingOptions );
+                        }
+                    };
                 } else {
                     DomElement.addClass( invertText, "no-click" );
                 }
@@ -2772,7 +2776,7 @@ import { DocumentElement } from "./ts/dom/document-element";
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
                     lessText.onclick = () : void => {
-                        if ( ColorRange.updateAllToggles( bindingOptions, false ) ) {
+                        if ( ColorRange.updateAllVisibleStates( bindingOptions, false ) ) {
                             renderContainer( bindingOptions, false, false, true );
                         }
                     };
@@ -2808,7 +2812,7 @@ import { DocumentElement } from "./ts/dom/document-element";
     
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
                     moreText.onclick = () : void => {
-                        if ( ColorRange.updateAllToggles( bindingOptions, true ) ) {
+                        if ( ColorRange.updateAllVisibleStates( bindingOptions, true ) ) {
                             renderContainer( bindingOptions, false, false, true );
                         }
                     };
@@ -2871,7 +2875,12 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
 
         if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
-            toggle.onclick = () : void => toggleColorRangeVisibleState( bindingOptions, colorRange.id! );
+            toggle.onclick = () : void => {
+                if ( ColorRange.toggleVisibleState( bindingOptions, colorRange.id! ) ) {
+                    renderContainer( bindingOptions, false, false, true );
+                }
+            };
+
         } else {
             DomElement.addClass( toggle, "no-hover" );
         }
@@ -3304,50 +3313,6 @@ import { DocumentElement } from "./ts/dom/document-element";
         if ( _configurationOptions.observationMode && Is.defined( _mutationObserver ) ) {
             _mutationObserver.disconnect();
             _mutationObserver = null!;
-        }
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Update Color Ranges
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function invertColorRangeToggles( bindingOptions: BindingOptions ) : void {
-        const colorRangesLength: number = bindingOptions.colorRanges!.length;
-        let renderAgain: boolean = false;
-
-        for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-            const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
-            colorRange.visible = !colorRange.visible;
-
-            renderAgain = ColorRange.toggleForActiveView( bindingOptions, colorRange );
-
-            Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, bindingOptions.colorRanges![ colorRangesIndex ].id, bindingOptions.colorRanges![ colorRangesIndex ].visible );
-        }
-
-        if ( renderAgain ) {
-            renderContainer( bindingOptions );
-        }
-    }
-
-    function toggleColorRangeVisibleState( bindingOptions: BindingOptions, id: string ) : void {
-        const colorRangesLength: number = bindingOptions.colorRanges!.length;
-
-        for ( let colorRangesIndex: number = 0; colorRangesIndex < colorRangesLength; colorRangesIndex++ ) {
-            const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
-
-            if ( colorRange.id === id ) {
-                colorRange.visible = !Default.getBoolean( colorRange.visible, true );
-
-                if ( ColorRange.toggleForActiveView( bindingOptions, colorRange ) ) {
-                    renderContainer( bindingOptions, false, false, true );
-                }
-
-                Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, colorRange.visible );
-                break;
-            }
         }
     }
 

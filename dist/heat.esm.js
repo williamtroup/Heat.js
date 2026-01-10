@@ -693,6 +693,35 @@ var w;
 
 (e => {
     function t(t, n) {
+        const o = t.colorRanges.length;
+        let r = false;
+        for (let a = 0; a < o; a++) {
+            const o = t.colorRanges[a];
+            if (o.id === n) {
+                o.visible = !i.getBoolean(o.visible, true);
+                if (e.toggleForActiveView(t, o)) {
+                    r = true;
+                }
+                l.customEvent(t.events.onColorRangeTypeToggle, t._currentView.element, o.id, o.visible);
+                break;
+            }
+        }
+        return r;
+    }
+    e.toggleVisibleState = t;
+    function a(t) {
+        const n = t.colorRanges.length;
+        let o = false;
+        for (let i = 0; i < n; i++) {
+            const n = t.colorRanges[i];
+            n.visible = !n.visible;
+            o = e.toggleForActiveView(t, n);
+            l.customEvent(t.events.onColorRangeTypeToggle, t._currentView.element, t.colorRanges[i].id, t.colorRanges[i].visible);
+        }
+        return o;
+    }
+    e.invertVisibleStates = a;
+    function c(t, n) {
         let o = false;
         if (t.guide.useIncrementToggles) {
             const i = e.getAllSorted(t);
@@ -729,8 +758,8 @@ var w;
         }
         return o;
     }
-    e.updateAllToggles = t;
-    function a(e, t) {
+    e.updateAllVisibleStates = c;
+    function w(e, t) {
         let o = false;
         if (t === n.COLOR_RANGE_HOLIDAY_ID) {
             o = true;
@@ -746,8 +775,8 @@ var w;
         }
         return o;
     }
-    e.isVisible = a;
-    function c(e, t, i, r = null) {
+    e.isVisible = w;
+    function g(e, t, i, r = null) {
         let a = null;
         if (o.defined(r) && o.holiday(e, r).matched) {
             a = {
@@ -770,8 +799,8 @@ var w;
         }
         return a;
     }
-    e.get = c;
-    function w(e, t) {
+    e.get = g;
+    function f(e, t) {
         const n = e.length;
         let o = null;
         for (let i = 0; i < n; i++) {
@@ -783,12 +812,12 @@ var w;
         }
         return o;
     }
-    e.getByMinimum = w;
-    function g(e) {
+    e.getByMinimum = f;
+    function h(e) {
         return e.colorRanges.sort((e, t) => e.minimum - t.minimum);
     }
-    e.getAllSorted = g;
-    function f(e) {
+    e.getAllSorted = h;
+    function m(e) {
         const t = [];
         const n = d.hexToRgbaValues(e.color);
         const o = 100 / e.totalColors;
@@ -854,8 +883,8 @@ var w;
         T.appendChild(document.createTextNode(l.join("\n")));
         return t;
     }
-    e.buildDynamics = f;
-    function h(e, t) {
+    e.buildDynamics = m;
+    function p(e, t) {
         let n = t.cssClassName;
         if (e.views.map.enabled && e._currentView.activeView === 1 && o.definedString(t.mapCssClassName)) {
             n = t.mapCssClassName;
@@ -872,24 +901,24 @@ var w;
         }
         return n;
     }
-    e.getGuideCssClassName = h;
-    function m(e, t) {
+    e.getGuideCssClassName = p;
+    function y(e, t) {
         let o = false;
         if (e._currentView.activeView === 1) {
-            p(e, t, t.mapCssClassName, n.Attribute.View.Map.HEAT_JS_MINIMUM);
+            v(e, t, t.mapCssClassName, n.Attribute.View.Map.HEAT_JS_MINIMUM);
         } else if (e._currentView.activeView === 2) {
-            p(e, t, t.lineCssClassName, n.Attribute.View.Line.HEAT_JS_MINIMUM);
+            v(e, t, t.lineCssClassName, n.Attribute.View.Line.HEAT_JS_MINIMUM);
         } else if (e._currentView.activeView === 3) {
-            p(e, t, t.chartCssClassName, n.Attribute.View.Chart.HEAT_JS_MINIMUM);
+            v(e, t, t.chartCssClassName, n.Attribute.View.Chart.HEAT_JS_MINIMUM);
         } else if (e._currentView.activeView === 6) {
-            p(e, t, t.colorRangeCssClassName, n.Attribute.View.ColorRanges.HEAT_JS_MINIMUM);
+            v(e, t, t.colorRangeCssClassName, n.Attribute.View.ColorRanges.HEAT_JS_MINIMUM);
         } else {
             o = true;
         }
         return o;
     }
-    e.toggleForActiveView = m;
-    function p(e, t, i, r) {
+    e.toggleForActiveView = y;
+    function v(e, t, i, r) {
         const a = o.definedString(i) ? i : t.cssClassName;
         const l = e._currentView.element.getElementsByTagName("div");
         const c = [].slice.call(l);
@@ -2732,7 +2761,7 @@ var V;
             if (e.title.showYearSelector) {
                 const n = s.createIconButton(t, "button", "back", "arrow-line-left");
                 n.disabled = o.firstVisibleYear(e, e._currentView.activeYear);
-                n.onclick = () => it(e);
+                n.onclick = () => nt(e);
                 if (e.title.showToolTips) {
                     c.add(n, e, _.text.backButtonText);
                 }
@@ -2756,13 +2785,13 @@ var V;
                     }
                     n.onclick = () => {
                         e._currentView.activeYear = (new Date).getFullYear() - 1;
-                        rt(e, false);
+                        ot(e, false);
                         l.customEvent(e.events.onSetYear, e._currentView.element, e._currentView.activeYear);
                     };
                 }
                 const i = s.createIconButton(t, "button", "next", "arrow-line-right");
                 i.disabled = o.lastVisibleYear(e, e._currentView.activeYear);
-                i.onclick = () => rt(e);
+                i.onclick = () => ot(e);
                 if (e.title.showToolTips) {
                     c.add(i, e, _.text.nextButtonText);
                 }
@@ -4071,7 +4100,11 @@ var V;
             if (e.guide.showInvertLabel) {
                 const t = s.createWithHTML(n, "div", "invert-text", _.text.invertText);
                 if (e.guide.colorRangeTogglesEnabled) {
-                    t.onclick = () => nt(e);
+                    t.onclick = () => {
+                        if (w.invertVisibleStates(e)) {
+                            B(e);
+                        }
+                    };
                 } else {
                     s.addClass(t, "no-click");
                 }
@@ -4080,7 +4113,7 @@ var V;
                 const t = s.createWithHTML(n, "div", "less-text", _.text.lessText);
                 if (e.guide.colorRangeTogglesEnabled) {
                     t.onclick = () => {
-                        if (w.updateAllToggles(e, false)) {
+                        if (w.updateAllVisibleStates(e, false)) {
                             B(e, false, false, true);
                         }
                     };
@@ -4108,7 +4141,7 @@ var V;
                 const t = s.createWithHTML(n, "div", "more-text", _.text.moreText);
                 if (e.guide.colorRangeTogglesEnabled) {
                     t.onclick = () => {
-                        if (w.updateAllToggles(e, true)) {
+                        if (w.updateAllVisibleStates(e, true)) {
                             B(e, false, false, true);
                         }
                     };
@@ -4157,7 +4190,11 @@ var V;
             i.innerHTML = `${o.minimum}${"+"}`;
         }
         if (e.guide.colorRangeTogglesEnabled) {
-            i.onclick = () => ot(e, o.id);
+            i.onclick = () => {
+                if (w.toggleVisibleState(e, o.id)) {
+                    B(e, false, false, true);
+                }
+            };
         } else {
             s.addClass(i, "no-hover");
         }
@@ -4471,34 +4508,7 @@ var V;
             C = null;
         }
     }
-    function nt(e) {
-        const t = e.colorRanges.length;
-        let n = false;
-        for (let o = 0; o < t; o++) {
-            const t = e.colorRanges[o];
-            t.visible = !t.visible;
-            n = w.toggleForActiveView(e, t);
-            l.customEvent(e.events.onColorRangeTypeToggle, e._currentView.element, e.colorRanges[o].id, e.colorRanges[o].visible);
-        }
-        if (n) {
-            B(e);
-        }
-    }
-    function ot(e, t) {
-        const n = e.colorRanges.length;
-        for (let o = 0; o < n; o++) {
-            const n = e.colorRanges[o];
-            if (n.id === t) {
-                n.visible = !i.getBoolean(n.visible, true);
-                if (w.toggleForActiveView(e, n)) {
-                    B(e, false, false, true);
-                }
-                l.customEvent(e.events.onColorRangeTypeToggle, e._currentView.element, n.id, n.visible);
-                break;
-            }
-        }
-    }
-    function it(e, t = true) {
+    function nt(e, t = true) {
         let n = true;
         let i = e._currentView.activeYear;
         i--;
@@ -4517,7 +4527,7 @@ var V;
             }
         }
     }
-    function rt(e, t = true) {
+    function ot(e, t = true) {
         let n = true;
         let i = e._currentView.activeYear;
         i++;
@@ -4536,7 +4546,7 @@ var V;
             }
         }
     }
-    function at(e) {
+    function it(e) {
         e._currentView.element.innerHTML = "";
         if (e._currentView.isInFetchMode && o.defined(e._currentView.isInFetchModeTimer)) {
             clearInterval(e._currentView.isInFetchModeTimer);
@@ -4545,11 +4555,11 @@ var V;
         c.remove(e);
         l.customEvent(e.events.onDestroy, e._currentView.element);
     }
-    function st() {
+    function rt() {
         if (_.observationMode) {
             if (!o.defined(C)) {
                 C = new MutationObserver(() => {
-                    lt.renderAll();
+                    at.renderAll();
                 });
                 const e = {
                     attributes: true,
@@ -4563,7 +4573,7 @@ var V;
             C = null;
         }
     }
-    const lt = {
+    const at = {
         addType: (e, t, n = true) => {
             if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e)) {
                 const o = D[e].options;
@@ -4578,7 +4588,7 @@ var V;
                     }
                 }
             }
-            return lt;
+            return at;
         },
         removeType: (e, t, n = true) => {
             if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4590,7 +4600,7 @@ var V;
                     }
                 }
             }
-            return lt;
+            return at;
         },
         addDates: (e, t, n = null, r = true) => {
             if (o.definedString(e) && o.definedArray(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4599,14 +4609,14 @@ var V;
                     n = i.getString(n, _.text.unknownTrendText);
                     const a = t.length;
                     for (let o = 0; o < a; o++) {
-                        lt.addDate(e, t[o], n, false);
+                        at.addDate(e, t[o], n, false);
                     }
                     if (r) {
                         B(o, true);
                     }
                 }
             }
-            return lt;
+            return at;
         },
         addDate: (e, t, n = null, r = true) => {
             if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4628,7 +4638,7 @@ var V;
                     }
                 }
             }
-            return lt;
+            return at;
         },
         updateDate: (e, t, n, r = null, s = true) => {
             if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4645,7 +4655,7 @@ var V;
                     }
                 }
             }
-            return lt;
+            return at;
         },
         removeDates: (e, t, n = null, r = true) => {
             if (o.definedString(e) && o.definedArray(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4654,14 +4664,14 @@ var V;
                     n = i.getString(n, _.text.unknownTrendText);
                     const a = t.length;
                     for (let o = 0; o < a; o++) {
-                        lt.removeDate(e, t[o], n, false);
+                        at.removeDate(e, t[o], n, false);
                     }
                     if (r) {
                         B(o, true);
                     }
                 }
             }
-            return lt;
+            return at;
         },
         removeDate: (e, t, n = null, r = true) => {
             if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4680,7 +4690,7 @@ var V;
                     }
                 }
             }
-            return lt;
+            return at;
         },
         clearDate: (e, t, n = null, r = true) => {
             if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4697,15 +4707,15 @@ var V;
                     }
                 }
             }
-            return lt;
+            return at;
         },
         resetAll: (e = true) => {
             for (const t in D) {
                 if (Object.prototype.hasOwnProperty.call(D, t)) {
-                    lt.reset(t, e);
+                    at.reset(t, e);
                 }
             }
-            return lt;
+            return at;
         },
         reset: (e, t = true) => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4719,7 +4729,7 @@ var V;
                     }
                 }
             }
-            return lt;
+            return at;
         },
         import: (e, t = null) => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4729,14 +4739,14 @@ var V;
                     J(D[e].options);
                 }
             }
-            return lt;
+            return at;
         },
         export: (e, t = null) => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
                 const n = D[e].options;
                 Y(n, t, null, n.exportOnlyDataBeingViewed);
             }
-            return lt;
+            return at;
         },
         refresh: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4744,7 +4754,7 @@ var V;
                 B(t, true);
                 l.customEvent(t.events.onRefresh, t._currentView.element);
             }
-            return lt;
+            return at;
         },
         refreshAll: () => {
             for (const e in D) {
@@ -4754,20 +4764,20 @@ var V;
                     l.customEvent(t.events.onRefresh, t._currentView.element);
                 }
             }
-            return lt;
+            return at;
         },
         setYear: (e, t) => {
             if (o.definedString(e) && o.definedNumber(t) && Object.prototype.hasOwnProperty.call(D, e)) {
                 const n = D[e].options;
                 n._currentView.activeYear = t;
                 if (!o.yearVisible(n, n._currentView.activeYear)) {
-                    rt(n, false);
+                    ot(n, false);
                 } else {
                     B(n);
                 }
                 l.customEvent(n.events.onSetYear, n._currentView.element, n._currentView.activeYear);
             }
-            return lt;
+            return at;
         },
         setYearToHighest: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4782,14 +4792,14 @@ var V;
                 if (i > 0) {
                     t._currentView.activeYear = i;
                     if (!o.yearVisible(t, t._currentView.activeYear)) {
-                        rt(t, false);
+                        ot(t, false);
                     } else {
                         B(t);
                     }
                     l.customEvent(t.events.onSetYear, t._currentView.element, t._currentView.activeYear);
                 }
             }
-            return lt;
+            return at;
         },
         setYearToLowest: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4804,39 +4814,39 @@ var V;
                 if (i < 9999) {
                     t._currentView.activeYear = i;
                     if (!o.yearVisible(t, t._currentView.activeYear)) {
-                        it(t, false);
+                        nt(t, false);
                     } else {
                         B(t);
                     }
                     l.customEvent(t.events.onSetYear, t._currentView.element, t._currentView.activeYear);
                 }
             }
-            return lt;
+            return at;
         },
         moveToPreviousYear: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
-                it(D[e].options);
+                nt(D[e].options);
             }
-            return lt;
+            return at;
         },
         moveToNextYear: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
-                rt(D[e].options);
+                ot(D[e].options);
             }
-            return lt;
+            return at;
         },
         moveToCurrentYear: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
                 const t = D[e].options;
                 t._currentView.activeYear = (new Date).getFullYear();
                 if (!o.yearVisible(t, t._currentView.activeYear)) {
-                    rt(t, false);
+                    ot(t, false);
                 } else {
                     B(t);
                 }
                 l.customEvent(t.events.onSetYear, t._currentView.element, t._currentView.activeYear);
             }
-            return lt;
+            return at;
         },
         getYear: e => {
             let t = -1;
@@ -4849,11 +4859,11 @@ var V;
             if (o.definedObject(e) && o.definedObject(t)) {
                 M(g.Options.getForNewInstance(_, t, e));
             }
-            return lt;
+            return at;
         },
         renderAll: () => {
             x();
-            return lt;
+            return at;
         },
         switchView: (e, t) => {
             if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4862,13 +4872,13 @@ var V;
                     Ye(D[e].options, n, t);
                 }
             }
-            return lt;
+            return at;
         },
         switchType: (e, t) => {
             if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e) && Object.prototype.hasOwnProperty.call(D[e].typeData, t)) {
                 je(D[e].options, t);
             }
-            return lt;
+            return at;
         },
         updateBindingOptions: (e, t) => {
             if (o.definedString(e) && o.definedObject(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4887,7 +4897,7 @@ var V;
                     l.customEvent(n.events.onOptionsUpdate, n._currentView.element, n);
                 }
             }
-            return lt;
+            return at;
         },
         getActiveView: e => {
             let t = "";
@@ -4899,18 +4909,18 @@ var V;
         destroyAll: () => {
             for (const e in D) {
                 if (Object.prototype.hasOwnProperty.call(D, e)) {
-                    at(D[e].options);
+                    it(D[e].options);
                 }
             }
             D = {};
-            return lt;
+            return at;
         },
         destroy: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
-                at(D[e].options);
+                it(D[e].options);
                 delete D[e];
             }
-            return lt;
+            return at;
         },
         setConfiguration: (e, t = true) => {
             if (o.definedObject(e)) {
@@ -4925,22 +4935,22 @@ var V;
                 }
                 if (i) {
                     _ = f.Options.get(n);
-                    st();
+                    rt();
                     if (t) {
-                        lt.refreshAll();
+                        at.refreshAll();
                     }
                 }
             }
-            return lt;
+            return at;
         },
         setLocale: (e, t = true) => {
             if (o.definedObject(e)) {
                 _.text = f.Options.getText(e);
                 if (t) {
-                    lt.refreshAll();
+                    at.refreshAll();
                 }
             }
-            return lt;
+            return at;
         },
         getIds: () => {
             const e = [];
@@ -4957,7 +4967,7 @@ var V;
         _ = f.Options.get();
         const e = () => {
             x();
-            st();
+            rt();
         };
         if (document.readyState === "loading") {
             document.addEventListener("DOMContentLoaded", () => e());
@@ -4966,7 +4976,7 @@ var V;
         }
         window.addEventListener("pagehide", () => tt());
         if (!o.defined(window.$heat)) {
-            window.$heat = lt;
+            window.$heat = at;
         }
     })();
 })();//# sourceMappingURL=heat.esm.js.map
