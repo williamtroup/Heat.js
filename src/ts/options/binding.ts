@@ -499,8 +499,8 @@ export namespace Binding {
             bindingOptions.events!.onSetYear = Default.getFunction( bindingOptions.events!.onSetYear, null! );
             bindingOptions.events!.onTypeSwitch = Default.getFunction( bindingOptions.events!.onTypeSwitch, null! );
             bindingOptions.events!.onMapDayToolTipRender = Default.getFunction( bindingOptions.events!.onMapDayToolTipRender, null! );
-            bindingOptions.events!.onChartDayToolTipRender = Default.getFunction( bindingOptions.events!.onChartDayToolTipRender, bindingOptions.events!.onMapDayToolTipRender! );
             bindingOptions.events!.onLineDayToolTipRender = Default.getFunction( bindingOptions.events!.onLineDayToolTipRender, bindingOptions.events!.onMapDayToolTipRender! );
+            bindingOptions.events!.onChartDayToolTipRender = Default.getFunction( bindingOptions.events!.onChartDayToolTipRender, bindingOptions.events!.onMapDayToolTipRender! );
             bindingOptions.events!.onAddDate = Default.getFunction( bindingOptions.events!.onAddDate, null! );
             bindingOptions.events!.onRemoveDate = Default.getFunction( bindingOptions.events!.onRemoveDate, null! );
             bindingOptions.events!.onReset = Default.getFunction( bindingOptions.events!.onReset, null! );
