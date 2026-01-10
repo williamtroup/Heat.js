@@ -143,6 +143,12 @@ import { DocumentElement } from "./ts/dom/document-element";
         bindingOptions._currentView!.yearsAvailable = getYearsAvailableInData( bindingOptions );
         bindingOptions._currentView!.container = DomElement.create( bindingOptions._currentView!.element, "div", "container-contents" );
 
+        if ( !bindingOptions.showSideMenu ) {
+            DomElement.addClass( bindingOptions._currentView!.element, "no-side-menu" );
+        } else {
+            DomElement.removeClass( bindingOptions._currentView!.element, "no-side-menu" );
+        }
+
         startDataPullTimer( bindingOptions );
         setupTrendTypes( bindingOptions );
         renderSideMenu( bindingOptions );

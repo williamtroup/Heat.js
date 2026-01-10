@@ -159,6 +159,11 @@ div.heat-js {
   margin: 0 !important;
   font-weight: var(--heat-js-text-font-weight-thin);
 }
+@media (min-width: 768px) {
+  div.heat-js.no-side-menu {
+    border-left-width: var(--heat-js-left-border);
+  }
+}
 div.heat-js.resizable {
   resize: horizontal;
   overflow: auto;

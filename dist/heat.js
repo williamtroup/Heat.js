@@ -2202,6 +2202,11 @@ var V;
         c.render(e);
         e._currentView.yearsAvailable = Xe(e);
         e._currentView.container = s.create(e._currentView.element, "div", "container-contents");
+        if (!e.showSideMenu) {
+            s.addClass(e._currentView.element, "no-side-menu");
+        } else {
+            s.removeClass(e._currentView.element, "no-side-menu");
+        }
         tt(e);
         ze(e);
         k(e);

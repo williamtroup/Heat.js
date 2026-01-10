@@ -223,6 +223,12 @@ div.heat-js {
     margin: 0 !important;
     font-weight: var(--heat-js-text-font-weight-thin);
 
+    &.no-side-menu {
+        @media (min-width: styles.$minimum-width) { 
+            border-left-width: var(--heat-js-left-border);
+        }
+    }
+
     &.resizable {
         resize: horizontal;
         overflow: auto;
