@@ -15,7 +15,6 @@
 @use "sass/buttons/pin";
 @use "sass/buttons/plus";
 @use "sass/buttons/refresh";
-
 @use "sass/buttons/side-menu/map";
 @use "sass/buttons/side-menu/line";
 @use "sass/buttons/side-menu/chart";
@@ -58,6 +57,10 @@
     // Containers
     --heat-js-container-background-color: #22272e;
     --heat-js-container-border-color: #454c56;
+
+    // Side-Menu
+    --heat-js-side-menu-text-color: #F5F5F5;
+    --heat-js-side-menu-active-text-color: #F5F5F5;
 
     // Dialogs
     --heat-js-dialog-background-color: var(--heat-js-container-background-color);
@@ -274,11 +277,23 @@ div.heat-js {
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--heat-js-container-background-color);
             padding: var(--heat-js-spacing);
             border-top-left-radius: var(--heat-js-border-radius);
             border-bottom-left-radius: var(--heat-js-border-radius);
-            color: var(--heat-js-color-white);
+            transition: var(--heat-js-transition);
+            color: var(--heat-js-side-menu-text-color);
+            cursor: pointer;
+
+            &.active {
+                background-color: var(--heat-js-container-background-color);
+                color: var(--heat-js-side-menu-active-text-color);
+                cursor: default;
+            }
+
+            &:not(.active):hover {
+                background-color: var(--heat-js-container-background-color);
+                color: var(--heat-js-side-menu-active-text-color);
+            }
 
             @include map.button-icon;
             @include line.button-icon;

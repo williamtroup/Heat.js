@@ -31,6 +31,8 @@
   --heat-js-color-default-dynamic: #4169e1;
   --heat-js-container-background-color: #22272e;
   --heat-js-container-border-color: #454c56;
+  --heat-js-side-menu-text-color: #F5F5F5;
+  --heat-js-side-menu-active-text-color: #F5F5F5;
   --heat-js-dialog-background-color: var(--heat-js-container-background-color);
   --heat-js-dialog-border-color: var(--heat-js-container-border-color);
   --heat-js-dialog-text-color: var(--heat-js-color-white);
@@ -203,11 +205,21 @@ div.heat-js div.container-side-menu div.menu-tab {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--heat-js-container-background-color);
   padding: var(--heat-js-spacing);
   border-top-left-radius: var(--heat-js-border-radius);
   border-bottom-left-radius: var(--heat-js-border-radius);
-  color: var(--heat-js-color-white);
+  transition: var(--heat-js-transition);
+  color: var(--heat-js-side-menu-text-color);
+  cursor: pointer;
+}
+div.heat-js div.container-side-menu div.menu-tab.active {
+  background-color: var(--heat-js-container-background-color);
+  color: var(--heat-js-side-menu-active-text-color);
+  cursor: default;
+}
+div.heat-js div.container-side-menu div.menu-tab:not(.active):hover {
+  background-color: var(--heat-js-container-background-color);
+  color: var(--heat-js-side-menu-active-text-color);
 }
 div.heat-js div.container-side-menu div.menu-tab i.map {
   width: var(--heat-js-button-icon-size);

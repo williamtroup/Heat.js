@@ -24,7 +24,7 @@ import {
     type LargestValuesForEachRangeType } from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
-import { ExportType, Char, Value, ViewId, ViewName, KeyCode, ImportType } from "./ts/data/enum";
+import { ExportType, Char, Value, ViewId, KeyCode, ImportType } from "./ts/data/enum";
 import { Constant } from "./ts/constant";
 import { Is } from "./ts/data/is";
 import { Default } from "./ts/data/default";
@@ -205,38 +205,68 @@ import { DocumentElement } from "./ts/dom/document-element";
         if ( showTitleDropDownMenu ) {
             if ( bindingOptions.views!.map!.enabled ) {
                 const mapView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+                mapView.onclick = () : void => switchView( bindingOptions, ViewId.map );
 
                 DomElement.create( mapView, "i", "map" );
+
+                if ( bindingOptions._currentView!.activeView === ViewId.map ) {
+                    DomElement.addClass( mapView, "active" );
+                }
             }
 
             if ( bindingOptions.views!.line!.enabled ) {
                 const lineView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+                lineView.onclick = () : void => switchView( bindingOptions, ViewId.line );
 
                 DomElement.create( lineView, "i", "line" );
+
+                if ( bindingOptions._currentView!.activeView === ViewId.line ) {
+                    DomElement.addClass( lineView, "active" );
+                }
             }
 
             if ( bindingOptions.views!.chart!.enabled ) {
                 const chartView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+                chartView.onclick = () : void => switchView( bindingOptions, ViewId.chart );
 
                 DomElement.create( chartView, "i", "chart" );
+
+                if ( bindingOptions._currentView!.activeView === ViewId.chart ) {
+                    DomElement.addClass( chartView, "active" );
+                }
             }
 
             if ( bindingOptions.views!.days!.enabled ) {
                 const daysView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+                daysView.onclick = () : void => switchView( bindingOptions, ViewId.days );
 
                 DomElement.create( daysView, "i", "days" );
+
+                if ( bindingOptions._currentView!.activeView === ViewId.days ) {
+                    DomElement.addClass( daysView, "active" );
+                }
             }
 
             if ( bindingOptions.views!.months!.enabled ) {
                 const monthsView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+                monthsView.onclick = () : void => switchView( bindingOptions, ViewId.months );
 
                 DomElement.create( monthsView, "i", "months" );
+
+                if ( bindingOptions._currentView!.activeView === ViewId.months ) {
+                    DomElement.addClass( monthsView, "active" );
+                }
             }
 
             if ( bindingOptions.views!.colorRanges!.enabled ) {
                 const colorRangesView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+                colorRangesView.onclick = () : void => switchView( bindingOptions, ViewId.colorRanges );
 
                 DomElement.create( colorRangesView, "i", "color-ranges" );
+
+                if ( bindingOptions._currentView!.activeView === ViewId.colorRanges ) {
+                    DomElement.addClass( colorRangesView, "active" );
+                }
             }
 
         } else {
@@ -1083,19 +1113,19 @@ import { DocumentElement } from "./ts/dom/document-element";
         if ( bindingOptions.views!.map!.enabled ) {
             const menuItemMap: HTMLElement = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.mapText! );
                 
-            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, ViewId.map, ViewName.map );
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMap, ViewId.map );
         }
 
         if ( bindingOptions.views!.line!.enabled ) {
             const menuItemLine = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.lineText! );
 
-            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemLine, ViewId.line, ViewName.line );
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemLine, ViewId.line );
         }
 
         if ( bindingOptions.views!.chart!.enabled ) {
             const menuItemChart = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.chartText! );
 
-            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, ViewId.chart, ViewName.chart );
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemChart, ViewId.chart );
         }
 
         let yearsHeader: HTMLElement = null!;
@@ -1107,7 +1137,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
             const menuItemDays: HTMLElement = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.daysText! );
 
-            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemDays, ViewId.days, ViewName.days );
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemDays, ViewId.days );
         }
 
         if ( bindingOptions.views!.months!.enabled ) {
@@ -1117,7 +1147,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
             const menuItemMonths: HTMLElement = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.monthsText! );
 
-            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMonths, ViewId.months, ViewName.months );
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemMonths, ViewId.months );
         }
 
         if ( bindingOptions.views!.colorRanges!.enabled ) {
@@ -1127,7 +1157,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
             const menuItemColorRanges: HTMLElement = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.colorRangesText! );
 
-            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemColorRanges, ViewId.colorRanges, ViewName.colorRanges );
+            renderTitleDropDownMenuItemClickEvent( bindingOptions, menuItemColorRanges, ViewId.colorRanges );
         }
     }
 
@@ -1141,11 +1171,11 @@ import { DocumentElement } from "./ts/dom/document-element";
         return menuItemMonths;
     }
 
-    function renderTitleDropDownMenuItemClickEvent( bindingOptions: BindingOptions, option: HTMLElement, viewId: ViewId, viewName: string ) : void {
+    function renderTitleDropDownMenuItemClickEvent( bindingOptions: BindingOptions, option: HTMLElement, viewId: ViewId ) : void {
         if ( bindingOptions._currentView!.activeView === viewId ) {
             DomElement.addClass( option, "title-menu-item-active" );
         } else {
-            option.onclick = () : void => switchView( bindingOptions, viewId, viewName );
+            option.onclick = () : void => switchView( bindingOptions, viewId );
         }
     }
 
@@ -1381,7 +1411,7 @@ import { DocumentElement } from "./ts/dom/document-element";
                         const dayName: HTMLElement = DomElement.createWithHTML( days, "div", "day-name", dayNameText );
 
                         if ( bindingOptions.views!.days!.enabled ) {
-                            dayName.ondblclick = () : void => switchView( bindingOptions, ViewId.days, ViewName.days );
+                            dayName.ondblclick = () : void => switchView( bindingOptions, ViewId.days );
                         }
 
                         if ( !bindingOptions.views!.map!.showSpacing ) {
@@ -1492,7 +1522,7 @@ import { DocumentElement } from "./ts/dom/document-element";
                         }
 
                         if ( bindingOptions.views!.months!.enabled ) {
-                            monthName.ondblclick = () : void => switchView( bindingOptions, ViewId.months, ViewName.months );
+                            monthName.ondblclick = () : void => switchView( bindingOptions, ViewId.months );
                         }
                     }
 
@@ -1752,7 +1782,7 @@ import { DocumentElement } from "./ts/dom/document-element";
                         }
 
                         if ( bindingOptions.views!.months!.enabled ) {
-                            monthName.ondblclick = () : void => switchView( bindingOptions, ViewId.months, ViewName.months );
+                            monthName.ondblclick = () : void => switchView( bindingOptions, ViewId.months );
                         }
 
                         monthNameAddedIndex++;
@@ -1966,7 +1996,7 @@ import { DocumentElement } from "./ts/dom/document-element";
                         }
 
                         if ( bindingOptions.views!.months!.enabled ) {
-                            monthName.ondblclick = () : void => switchView( bindingOptions, ViewId.months, ViewName.months );
+                            monthName.ondblclick = () : void => switchView( bindingOptions, ViewId.months );
                         }
 
                         monthNameAddedIndex++;
@@ -3108,11 +3138,11 @@ import { DocumentElement } from "./ts/dom/document-element";
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function switchView( bindingOptions: BindingOptions, viewId: ViewId, viewName: string ) : void {
+    function switchView( bindingOptions: BindingOptions, viewId: ViewId ) : void {
         if ( bindingOptions._currentView!.activeView !== viewId ) {
             bindingOptions._currentView!.activeView = viewId;
 
-            Trigger.customEvent( bindingOptions.events!.onViewSwitch!, bindingOptions._currentView!.element, viewName );
+            Trigger.customEvent( bindingOptions.events!.onViewSwitch!, bindingOptions._currentView!.element, Visible.View.getName( bindingOptions, viewId ) );
             renderContainer( bindingOptions, false, true );
         }
     }
@@ -3894,7 +3924,7 @@ import { DocumentElement } from "./ts/dom/document-element";
                 const viewId: ViewId = Visible.View.get( viewName );
     
                 if ( viewId !== ViewId.unknown ) {
-                    switchView( _elements_InstanceData[ elementId ].options, viewId, viewName );
+                    switchView( _elements_InstanceData[ elementId ].options, viewId );
                 }
             }
     

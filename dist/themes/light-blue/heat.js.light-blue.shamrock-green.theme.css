@@ -12,6 +12,10 @@
     --heat-js-container-background-color: #D7D7D7;
     --heat-js-container-border-color: var(--heat-js-color-white);
 
+    /* Side-Menu */
+    --heat-js-side-menu-text-color: #F5F5F5;
+    --heat-js-side-menu-active-text-color: #3b3a3a;
+
     /* Title Bar / Drop Down Menu */
     --heat-js-title-opener-text-color-hover: rgb(109, 108, 108);
     --heat-js-title-border-color: var(--heat-js-container-border-color);

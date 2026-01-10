@@ -142,20 +142,21 @@ export namespace Visible {
             return viewId;
         }
 
-        export function getName( bindingOptions: BindingOptions ) : string {
+        export function getName( bindingOptions: BindingOptions, viewId: ViewId = null! ) : string {
             let result: string = Char.empty;
+            const view: ViewId = Is.defined( viewId ) ? viewId : bindingOptions._currentView!.activeView;
             
-            if ( bindingOptions._currentView!.activeView ===  ViewId.map ) {
+            if ( view ===  ViewId.map ) {
                 result = ViewName.map;
-            } else if ( bindingOptions._currentView!.activeView ===  ViewId.line ) {
+            } else if ( view ===  ViewId.line ) {
                 result = ViewName.line;
-            } else if ( bindingOptions._currentView!.activeView ===  ViewId.chart ) {
+            } else if ( view ===  ViewId.chart ) {
                 result = ViewName.chart;
-            } else if ( bindingOptions._currentView!.activeView ===  ViewId.days ) {
+            } else if ( view ===  ViewId.days ) {
                 result = ViewName.days;
-            } else if ( bindingOptions._currentView!.activeView ===  ViewId.months ) {
+            } else if ( view ===  ViewId.months ) {
                 result = ViewName.months;
-            } else if ( bindingOptions._currentView!.activeView ===  ViewId.colorRanges ) {
+            } else if ( view ===  ViewId.colorRanges ) {
                 result = ViewName.colorRanges;
             }
 
