@@ -144,7 +144,8 @@ div.heat-js {
   box-sizing: border-box;
   line-height: normal;
   font-family: var(--heat-js-default-font);
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
   position: relative;
   border-radius: var(--heat-js-border-radius);
   background-color: var(--heat-js-container-background-color);

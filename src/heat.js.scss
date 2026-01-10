@@ -200,7 +200,8 @@ div.heat-js {
     @include styles.no-selection-allowed;
     @include styles.box-sizing;
     font-family: var(--heat-js-default-font);
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
     position: relative;
     border-radius: var(--heat-js-border-radius);
     background-color: var(--heat-js-container-background-color);
