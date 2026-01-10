@@ -2242,13 +2242,16 @@ var V;
                 s.create(t, "i", "chart");
             }
             if (e.views.days.enabled) {
-                s.create(e._currentView.sideMenu, "div", "menu-tab");
+                const t = s.create(e._currentView.sideMenu, "div", "menu-tab");
+                s.create(t, "i", "days");
             }
             if (e.views.months.enabled) {
-                s.create(e._currentView.sideMenu, "div", "menu-tab");
+                const t = s.create(e._currentView.sideMenu, "div", "menu-tab");
+                s.create(t, "i", "months");
             }
             if (e.views.colorRanges.enabled) {
-                s.create(e._currentView.sideMenu, "div", "menu-tab");
+                const t = s.create(e._currentView.sideMenu, "div", "menu-tab");
+                s.create(t, "i", "color-ranges");
             }
         } else {
             e._currentView.sideMenu.parentNode.removeChild(e._currentView.sideMenu);

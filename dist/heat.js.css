@@ -277,6 +277,40 @@ div.heat-js div.container-side-menu div.menu-tab i.chart:before {
   width: calc(var(--heat-js-button-icon-size) / 4);
   bottom: 0;
 }
+div.heat-js div.container-side-menu div.menu-tab i.days {
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
+  display: inline-block;
+  position: relative;
+  border: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
+}
+div.heat-js div.container-side-menu div.menu-tab i.days:before {
+  position: absolute;
+  content: "";
+  left: calc(50% - calc(var(--heat-js-button-icon-size) / 4)/2);
+  transform: translate(-50%);
+  top: 50%;
+  transform: translate(0, -50%);
+  background-color: currentColor;
+  width: calc(var(--heat-js-button-icon-size) / 4);
+  height: calc(var(--heat-js-button-icon-size) / 4);
+}
+div.heat-js div.container-side-menu div.menu-tab i.months {
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
+  display: inline-block;
+  position: relative;
+  border: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+}
+div.heat-js div.container-side-menu div.menu-tab i.color-ranges {
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
+  display: inline-block;
+  position: relative;
+  background-color: currentColor;
+}
 div.heat-js div.container-contents {
   display: inline-flex;
   flex-direction: column;

@@ -222,15 +222,21 @@ import { DocumentElement } from "./ts/dom/document-element";
             }
 
             if ( bindingOptions.views!.days!.enabled ) {
-                DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+                const daysView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+
+                DomElement.create( daysView, "i", "days" );
             }
 
             if ( bindingOptions.views!.months!.enabled ) {
-                DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+                const monthsView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+
+                DomElement.create( monthsView, "i", "months" );
             }
 
             if ( bindingOptions.views!.colorRanges!.enabled ) {
-                DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+                const colorRangesView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+
+                DomElement.create( colorRangesView, "i", "color-ranges" );
             }
 
         } else {

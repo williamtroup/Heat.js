@@ -1,0 +1,9 @@
+@use "../base/button";
+
+
+@mixin button-icon {
+    i.color-ranges {
+        @include button.button-no-before-after;
+        background-color: currentColor;
+    }
+}

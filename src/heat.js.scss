@@ -19,6 +19,9 @@
 @use "sass/buttons/side-menu/map";
 @use "sass/buttons/side-menu/line";
 @use "sass/buttons/side-menu/chart";
+@use "sass/buttons/side-menu/days";
+@use "sass/buttons/side-menu/months";
+@use "sass/buttons/side-menu/color-ranges";
 
 
 :root {
@@ -280,6 +283,9 @@ div.heat-js {
             @include map.button-icon;
             @include line.button-icon;
             @include chart.button-icon;
+            @include days.button-icon;
+            @include months.button-icon;
+            @include color-ranges.button-icon;
         }
     }
 
