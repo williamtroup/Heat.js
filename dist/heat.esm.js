@@ -1215,7 +1215,7 @@ var g;
             e.events.onDataFetch = i.getFunction(e.events.onDataFetch, null);
             e.events.onClearDate = i.getFunction(e.events.onClearDate, null);
             e.events.onUpdateDate = i.getFunction(e.events.onUpdateDate, null);
-            e.events.onOptionsUpdate = i.getFunction(e.events.onOptionsUpdate, null);
+            e.events.onBindingOptionsUpdate = i.getFunction(e.events.onBindingOptionsUpdate, null);
             e.events.onMapDayClick = i.getFunction(e.events.onMapDayClick, null);
             e.events.onMapDayDblClick = i.getFunction(e.events.onMapDayDblClick, null);
             e.events.onLineDayClick = i.getFunction(e.events.onLineDayClick, e.events.onMapDayClick);
@@ -2192,7 +2192,7 @@ var V;
         }
         if (s) {
             B(e);
-            c.customEvent(e.events.onOptionsUpdate, e._currentView.element, e);
+            c.customEvent(e.events.onBindingOptionsUpdate, e._currentView.element, e);
         } else {
             l.hide(e);
         }

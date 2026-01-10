@@ -510,7 +510,7 @@ export namespace Binding {
             bindingOptions.events!.onDataFetch = Default.getFunction( bindingOptions.events!.onDataFetch, null! );
             bindingOptions.events!.onClearDate = Default.getFunction( bindingOptions.events!.onClearDate, null! );
             bindingOptions.events!.onUpdateDate = Default.getFunction( bindingOptions.events!.onUpdateDate, null! );
-            bindingOptions.events!.onOptionsUpdate = Default.getFunction( bindingOptions.events!.onOptionsUpdate, null! );
+            bindingOptions.events!.onBindingOptionsUpdate = Default.getFunction( bindingOptions.events!.onBindingOptionsUpdate, null! );
             bindingOptions.events!.onMapDayClick = Default.getFunction( bindingOptions.events!.onMapDayClick, null! );
             bindingOptions.events!.onMapDayDblClick = Default.getFunction( bindingOptions.events!.onMapDayDblClick, null! );
             bindingOptions.events!.onLineDayClick = Default.getFunction( bindingOptions.events!.onLineDayClick, bindingOptions.events!.onMapDayClick! );

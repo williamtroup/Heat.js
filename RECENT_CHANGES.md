@@ -131,6 +131,7 @@
 - BREAKING: Renamed "events.onRemove" to "events.onRemoveDate".
 - BREAKING: Renamed "events.onUpdate" to "events.onUpdateDate".
 - BREAKING: Renamed "events.onClear" to "events.onClearDate".
+- BREAKING: Renamed "events.onOptionsUpdate" to "events.onBindingOptionsUpdate".
 - BREAKING: Every custom trigger now except the DOM element used for the Heat.js instance as the first parameter.
 
 #### **Binding Options - Custom Triggers - New / Updates:**

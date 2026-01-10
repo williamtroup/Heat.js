@@ -322,7 +322,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
         if ( render ) {
             renderContainer( bindingOptions );
-            Trigger.customEvent( bindingOptions.events!.onOptionsUpdate!, bindingOptions._currentView!.element, bindingOptions );
+            Trigger.customEvent( bindingOptions.events!.onBindingOptionsUpdate!, bindingOptions._currentView!.element, bindingOptions );
             
         } else {
             ToolTip.hide( bindingOptions );
