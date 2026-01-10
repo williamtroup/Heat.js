@@ -1052,7 +1052,6 @@ var g;
             e.title.showCurrentYearButton = i.getBoolean(e.title.showCurrentYearButton, true);
             e.title.showSectionText = i.getBoolean(e.title.showSectionText, true);
             e.title.showToolTips = i.getBoolean(e.title.showToolTips, true);
-            e.title.showTitleDropDownMenu = i.getBoolean(e.title.showTitleDropDownMenu, false);
             e.title.showClearButton = i.getBoolean(e.title.showClearButton, false);
             return e.title;
         }
@@ -2750,7 +2749,7 @@ var V;
         if (e.title.showText || e.title.showYearSelector || e.title.showRefreshButton || e.title.showExportButton || e.title.showImportButton || e.title.showClearButton) {
             const t = s.create(e._currentView.container, "div", "title-bar");
             const n = s.create(t, "div", "title");
-            const i = e.title.showTitleDropDownMenu && e._currentView.viewsEnabled > 1;
+            const i = !e.showSideMenu && e._currentView.viewsEnabled > 1;
             if (i) {
                 if (e.title.showTitleDropDownButton) {
                     s.create(n, "div", "down-arrow");

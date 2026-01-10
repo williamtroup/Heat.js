@@ -252,7 +252,6 @@ export type BindingOptionsTitle = {
     showCurrentYearButton?: boolean;
     showSectionText?: boolean;
     showToolTips?: boolean;
-    showTitleDropDownMenu?: boolean;
     showClearButton?: boolean;
 };
 

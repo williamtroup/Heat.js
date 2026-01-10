@@ -162,7 +162,6 @@ export namespace Binding {
             bindingOptions.title!.showCurrentYearButton = Default.getBoolean( bindingOptions.title!.showCurrentYearButton, true );
             bindingOptions.title!.showSectionText = Default.getBoolean( bindingOptions.title!.showSectionText, true );
             bindingOptions.title!.showToolTips = Default.getBoolean( bindingOptions.title!.showToolTips, true );
-            bindingOptions.title!.showTitleDropDownMenu = Default.getBoolean( bindingOptions.title!.showTitleDropDownMenu, false );
             bindingOptions.title!.showClearButton = Default.getBoolean( bindingOptions.title!.showClearButton, false );
 
             return bindingOptions.title!;

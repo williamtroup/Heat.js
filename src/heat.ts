@@ -205,9 +205,9 @@ import { DocumentElement } from "./ts/dom/document-element";
      */
 
     function renderSideMenu( bindingOptions: BindingOptions ) : void {
-        const showTitleDropDownMenu: boolean = bindingOptions.showSideMenu! && bindingOptions._currentView!.viewsEnabled > 1;
+        const showSideMenu: boolean = bindingOptions.showSideMenu! && bindingOptions._currentView!.viewsEnabled > 1;
 
-        if ( showTitleDropDownMenu ) {
+        if ( showSideMenu ) {
             bindingOptions._currentView!.sideMenu = DomElement.create( bindingOptions._currentView!.element, "div", "container-side-menu", bindingOptions._currentView!.container );
 
             if ( bindingOptions.views!.map!.enabled ) {
@@ -938,7 +938,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         if ( bindingOptions.title!.showText || bindingOptions.title!.showYearSelector || bindingOptions.title!.showRefreshButton || bindingOptions.title!.showExportButton || bindingOptions.title!.showImportButton || bindingOptions.title!.showClearButton ) {
             const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.container, "div", "title-bar" );
             const title: HTMLElement = DomElement.create( titleBar, "div", "title" );
-            const showTitleDropDownMenu: boolean = bindingOptions.title!.showTitleDropDownMenu! && bindingOptions._currentView!.viewsEnabled > 1;
+            const showTitleDropDownMenu: boolean = !bindingOptions.showSideMenu && bindingOptions._currentView!.viewsEnabled > 1;
 
             if ( showTitleDropDownMenu ) {
                 if ( bindingOptions.title!.showTitleDropDownButton ) {

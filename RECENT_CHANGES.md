@@ -68,7 +68,6 @@
 - Added a new binding option called "percentageDecimalPoints", which states the number of decimal points to show for percentages (defaults to 2).
 - Added a new binding option called "chartsAnimationDelay", which states the milliseconds to wait before applying a grow animation to each chart line (for all views, defaults to 50. Set to zero to turn it off).
 - Added a new binding option called "exportDateTimeFormat", which states the format of the export date/time that is included in some of the formats (defaults to "{dddd}, {d}{o} {mmmm} {yyyy}").
-- Added a new binding option called "title.showTitleDropDownMenu", which states if the title drop-down menu should be shown (defaults to false).
 - Added a new binding option called "title.showClearButton", which states if the "Clear" button should be shown (defaults to false).
 - Added a new binding option called "guide.showInvertLabel", which states if the "Invert" label should be shown (inverts the toggle selections, defaults to false).
 - Added a new binding option called "guide.useIncrementToggles", which states if clicking "Less" and "More" in the guide toggles the colors one by one (defaults to false).
