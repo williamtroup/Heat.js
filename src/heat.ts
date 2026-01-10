@@ -204,73 +204,42 @@ import { DocumentElement } from "./ts/dom/document-element";
 
         if ( showTitleDropDownMenu ) {
             if ( bindingOptions.views!.map!.enabled ) {
-                const mapView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
-                mapView.onclick = () : void => switchView( bindingOptions, ViewId.map );
-
-                DomElement.create( mapView, "i", "map" );
-
-                if ( bindingOptions._currentView!.activeView === ViewId.map ) {
-                    DomElement.addClass( mapView, "active" );
-                }
+                renderSideMenuTab( bindingOptions, ViewId.map, "map" );
             }
 
             if ( bindingOptions.views!.line!.enabled ) {
-                const lineView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
-                lineView.onclick = () : void => switchView( bindingOptions, ViewId.line );
-
-                DomElement.create( lineView, "i", "line" );
-
-                if ( bindingOptions._currentView!.activeView === ViewId.line ) {
-                    DomElement.addClass( lineView, "active" );
-                }
+                renderSideMenuTab( bindingOptions, ViewId.line, "line" );
             }
 
             if ( bindingOptions.views!.chart!.enabled ) {
-                const chartView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
-                chartView.onclick = () : void => switchView( bindingOptions, ViewId.chart );
-
-                DomElement.create( chartView, "i", "chart" );
-
-                if ( bindingOptions._currentView!.activeView === ViewId.chart ) {
-                    DomElement.addClass( chartView, "active" );
-                }
+                renderSideMenuTab( bindingOptions, ViewId.chart, "chart" );
             }
 
             if ( bindingOptions.views!.days!.enabled ) {
-                const daysView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
-                daysView.onclick = () : void => switchView( bindingOptions, ViewId.days );
-
-                DomElement.create( daysView, "i", "days" );
-
-                if ( bindingOptions._currentView!.activeView === ViewId.days ) {
-                    DomElement.addClass( daysView, "active" );
-                }
+                renderSideMenuTab( bindingOptions, ViewId.days, "days" );
             }
 
             if ( bindingOptions.views!.months!.enabled ) {
-                const monthsView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
-                monthsView.onclick = () : void => switchView( bindingOptions, ViewId.months );
-
-                DomElement.create( monthsView, "i", "months" );
-
-                if ( bindingOptions._currentView!.activeView === ViewId.months ) {
-                    DomElement.addClass( monthsView, "active" );
-                }
+                renderSideMenuTab( bindingOptions, ViewId.months, "months" );
             }
 
             if ( bindingOptions.views!.colorRanges!.enabled ) {
-                const colorRangesView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
-                colorRangesView.onclick = () : void => switchView( bindingOptions, ViewId.colorRanges );
-
-                DomElement.create( colorRangesView, "i", "color-ranges" );
-
-                if ( bindingOptions._currentView!.activeView === ViewId.colorRanges ) {
-                    DomElement.addClass( colorRangesView, "active" );
-                }
+                renderSideMenuTab( bindingOptions, ViewId.colorRanges, "color-ranges" );
             }
 
         } else {
             bindingOptions._currentView!.sideMenu.parentNode!.removeChild( bindingOptions._currentView!.sideMenu );
+        }
+    }
+
+    function renderSideMenuTab( bindingOptions: BindingOptions, viewId: ViewId, iconCssClass: string ) : void {
+        const menuTab: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+        menuTab.onclick = () : void => switchView( bindingOptions, viewId );
+
+        DomElement.create( menuTab, "i", iconCssClass );
+
+        if ( bindingOptions._currentView!.activeView === viewId ) {
+            DomElement.addClass( menuTab, "active" );
         }
     }
 
