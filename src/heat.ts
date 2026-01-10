@@ -204,27 +204,27 @@ import { DocumentElement } from "./ts/dom/document-element";
 
         if ( showTitleDropDownMenu ) {
             if ( bindingOptions.views!.map!.enabled ) {
-                renderSideMenuTab( bindingOptions, ViewId.map, "map" );
+                renderSideMenuTab( bindingOptions, ViewId.map, "map", _configurationOptions.text!.mapText! );
             }
 
             if ( bindingOptions.views!.line!.enabled ) {
-                renderSideMenuTab( bindingOptions, ViewId.line, "line" );
+                renderSideMenuTab( bindingOptions, ViewId.line, "line", _configurationOptions.text!.lineText! );
             }
 
             if ( bindingOptions.views!.chart!.enabled ) {
-                renderSideMenuTab( bindingOptions, ViewId.chart, "chart" );
+                renderSideMenuTab( bindingOptions, ViewId.chart, "chart", _configurationOptions.text!.chartText! );
             }
 
             if ( bindingOptions.views!.days!.enabled ) {
-                renderSideMenuTab( bindingOptions, ViewId.days, "days" );
+                renderSideMenuTab( bindingOptions, ViewId.days, "days", _configurationOptions.text!.daysText! );
             }
 
             if ( bindingOptions.views!.months!.enabled ) {
-                renderSideMenuTab( bindingOptions, ViewId.months, "months" );
+                renderSideMenuTab( bindingOptions, ViewId.months, "months", _configurationOptions.text!.monthsText! );
             }
 
             if ( bindingOptions.views!.colorRanges!.enabled ) {
-                renderSideMenuTab( bindingOptions, ViewId.colorRanges, "color-ranges" );
+                renderSideMenuTab( bindingOptions, ViewId.colorRanges, "color-ranges", _configurationOptions.text!.colorRangesText! );
             }
 
         } else {
@@ -232,15 +232,16 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
     }
 
-    function renderSideMenuTab( bindingOptions: BindingOptions, viewId: ViewId, iconCssClass: string ) : void {
+    function renderSideMenuTab( bindingOptions: BindingOptions, viewId: ViewId, iconCssClass: string, tooltipText ) : void {
         const menuTab: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
         menuTab.onclick = () : void => switchView( bindingOptions, viewId );
-
-        DomElement.create( menuTab, "i", iconCssClass );
 
         if ( bindingOptions._currentView!.activeView === viewId ) {
             DomElement.addClass( menuTab, "active" );
         }
+
+        ToolTip.add( menuTab, bindingOptions, tooltipText );
+        DomElement.create( menuTab, "i", iconCssClass );
     }
 
     /*

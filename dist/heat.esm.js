@@ -2232,34 +2232,35 @@ var V;
         const t = e.showSideMenu && e._currentView.viewsEnabled > 1;
         if (t) {
             if (e.views.map.enabled) {
-                N(e, 1, "map");
+                N(e, 1, "map", _.text.mapText);
             }
             if (e.views.line.enabled) {
-                N(e, 2, "line");
+                N(e, 2, "line", _.text.lineText);
             }
             if (e.views.chart.enabled) {
-                N(e, 3, "chart");
+                N(e, 3, "chart", _.text.chartText);
             }
             if (e.views.days.enabled) {
-                N(e, 4, "days");
+                N(e, 4, "days", _.text.daysText);
             }
             if (e.views.months.enabled) {
-                N(e, 5, "months");
+                N(e, 5, "months", _.text.monthsText);
             }
             if (e.views.colorRanges.enabled) {
-                N(e, 6, "color-ranges");
+                N(e, 6, "color-ranges", _.text.colorRangesText);
             }
         } else {
             e._currentView.sideMenu.parentNode.removeChild(e._currentView.sideMenu);
         }
     }
-    function N(e, t, n) {
-        const o = s.create(e._currentView.sideMenu, "div", "menu-tab");
-        o.onclick = () => We(e, t);
-        s.create(o, "i", n);
+    function N(e, t, n, o) {
+        const i = s.create(e._currentView.sideMenu, "div", "menu-tab");
+        i.onclick = () => We(e, t);
         if (e._currentView.activeView === t) {
-            s.addClass(o, "active");
+            s.addClass(i, "active");
         }
+        c.add(i, e, o);
+        s.create(i, "i", n);
     }
     function L(e) {
         h.Background.render(e);
