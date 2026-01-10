@@ -15,7 +15,7 @@
 - 😏 Zero-dependencies and extremely lightweight!
 - 🦾 100% TypeScript, allowing greater support for React, Angular, and other libraries!
 - 💻 Full API available via public functions.
-- 🎏 52 languages available!
+- 🎏 60 languages available!
 - 📱 Fully styled in CSS/SASS, fully responsive, and compatible with the Bootstrap library!
 - 🌈 Full CSS theme support (using :root variables), with dark and light themes (31 available by default).
 - 🔍 6 views supported: Map, Line, Chart, Days, Months, and Color Ranges!
@@ -46,6 +46,7 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 ## What languages are supported?
 
 - `af` Afrikaans
+- `am` Amharic
 - `ar` Arabic
 - `hy` Armenian
 - `be` Belarusian
@@ -66,6 +67,8 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `ka` Georgian
 - `de` German
 - `el` Greek
+- `gu` Gujarati
+- `ha` Hausa
 - `he` Hebrew
 - `hi` Hindi
 - `hu` Hungarian
@@ -74,11 +77,14 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `ga` Irish
 - `it` Italian
 - `ja` Japanese
+- `jv` Javanese
+- `kn` Kannada
 - `ko` Korean
 - `lv` Latvian
 - `lt` Lithuanian
 - `lb` Luxembourgish
 - `ms` Malay
+- `mr` Marathi
 - `ne` Nepali
 - `no` Norwegian
 - `pl` Polish
@@ -88,6 +94,7 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `sk` Slovak
 - `sl` Slovenian
 - `es` Spanish
+- `sw` Swahili
 - `sv` Swedish
 - `tl` Tagalog
 - `ta` Tamil
@@ -96,6 +103,7 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `th` Thai
 - `tr` Turkish
 - `uk` Ukrainian
+- `ur` Urdu
 - `vi` Vietnamese
 
 

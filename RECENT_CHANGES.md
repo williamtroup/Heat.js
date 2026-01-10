@@ -8,7 +8,7 @@
 - Added a brand new Import dialog, which is shown (when pressing the Import button) instead of the select files dialog.
 - Added a brand new Add Type dialog, which allows new trend types to be added manually (off by default).
 - More Export and Import options.
-- Added language support for Vietnamese (vi).
+- Added 9 new languages.
 - Added 19 new light themes.
 - Added zooming support to the Map and Line views (off by default).
 - All title bar buttons are now rendered using pure CSS! No more settings, with complete universal device support.
