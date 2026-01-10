@@ -188,7 +188,7 @@ div.heat-js *::before, div.heat-js *::after {
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - Container
+    Heat.js - Side Menu
     -------------------------------------------------------------------------
 */
 div.heat-js div.container-side-menu {
@@ -325,6 +325,12 @@ div.heat-js div.container-side-menu div.menu-tab i.color-ranges {
   background-color: currentColor;
   border-radius: 50%;
 }
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Container
+    -------------------------------------------------------------------------
+*/
 div.heat-js div.container-contents {
   display: inline-flex;
   flex-direction: column;
