@@ -2230,13 +2230,16 @@ var V;
         const t = e.title.showTitleDropDownMenu && e._currentView.viewsEnabled > 1;
         if (t) {
             if (e.views.map.enabled) {
-                s.create(e._currentView.sideMenu, "div", "menu-tab");
+                const t = s.create(e._currentView.sideMenu, "div", "menu-tab");
+                s.create(t, "i", "map");
             }
             if (e.views.line.enabled) {
-                s.create(e._currentView.sideMenu, "div", "menu-tab");
+                const t = s.create(e._currentView.sideMenu, "div", "menu-tab");
+                s.create(t, "i", "line");
             }
             if (e.views.chart.enabled) {
-                s.create(e._currentView.sideMenu, "div", "menu-tab");
+                const t = s.create(e._currentView.sideMenu, "div", "menu-tab");
+                s.create(t, "i", "chart");
             }
             if (e.views.days.enabled) {
                 s.create(e._currentView.sideMenu, "div", "menu-tab");

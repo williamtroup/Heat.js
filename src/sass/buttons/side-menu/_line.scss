@@ -1,0 +1,20 @@
+@use "../base/button";
+
+
+@mixin button-icon {
+    i.line {
+        @include button.button-no-before-after;
+        border-left: button.$border;
+        border-right: button.$border;
+        height: var(--heat-js-button-icon-size);
+
+        &:before {
+            @include button.button-after-before-setup;
+            @include button.left-center;
+            background-color: currentColor;
+            height: 100%;
+            width: button.$border-width;
+            top: 0;
+        }
+    }
+}

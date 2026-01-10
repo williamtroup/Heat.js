@@ -204,15 +204,21 @@ import { DocumentElement } from "./ts/dom/document-element";
 
         if ( showTitleDropDownMenu ) {
             if ( bindingOptions.views!.map!.enabled ) {
-                DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+                const mapView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+
+                DomElement.create( mapView, "i", "map" );
             }
 
             if ( bindingOptions.views!.line!.enabled ) {
-                DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+                const lineView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+
+                DomElement.create( lineView, "i", "line" );
             }
 
             if ( bindingOptions.views!.chart!.enabled ) {
-                DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+                const chartView: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
+
+                DomElement.create( chartView, "i", "chart" );
             }
 
             if ( bindingOptions.views!.days!.enabled ) {

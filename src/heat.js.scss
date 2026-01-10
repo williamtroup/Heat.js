@@ -16,6 +16,10 @@
 @use "sass/buttons/plus";
 @use "sass/buttons/refresh";
 
+@use "sass/buttons/side-menu/map";
+@use "sass/buttons/side-menu/line";
+@use "sass/buttons/side-menu/chart";
+
 
 :root {
     // Fonts
@@ -264,10 +268,18 @@ div.heat-js {
         border-bottom-left-radius: var(--heat-js-border-radius);
 
         div.menu-tab {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background-color: var(--heat-js-container-background-color);
             padding: var(--heat-js-spacing);
             border-top-left-radius: var(--heat-js-border-radius);
             border-bottom-left-radius: var(--heat-js-border-radius);
+            color: var(--heat-js-color-white);
+
+            @include map.button-icon;
+            @include line.button-icon;
+            @include chart.button-icon;
         }
     }
 

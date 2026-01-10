@@ -200,10 +200,82 @@ div.heat-js div.container-side-menu {
   border-bottom-left-radius: var(--heat-js-border-radius);
 }
 div.heat-js div.container-side-menu div.menu-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--heat-js-container-background-color);
   padding: var(--heat-js-spacing);
   border-top-left-radius: var(--heat-js-border-radius);
   border-bottom-left-radius: var(--heat-js-border-radius);
+  color: var(--heat-js-color-white);
+}
+div.heat-js div.container-side-menu div.menu-tab i.map {
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
+  display: inline-block;
+  position: relative;
+}
+div.heat-js div.container-side-menu div.menu-tab i.map::before, div.heat-js div.container-side-menu div.menu-tab i.map::after {
+  position: absolute;
+  content: "";
+}
+div.heat-js div.container-side-menu div.menu-tab i.map:before {
+  border-left: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+  border-left-width: calc(var(--heat-js-button-icon-size) / 2 - 1px);
+  border-right: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+  border-right-width: calc(var(--heat-js-button-icon-size) / 2 - 1px);
+  width: var(--heat-js-button-icon-size);
+  height: calc(var(--heat-js-button-icon-size) / 2 - 1px);
+  left: 0;
+  top: 0;
+}
+div.heat-js div.container-side-menu div.menu-tab i.map:after {
+  border-left: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+  border-left-width: calc(var(--heat-js-button-icon-size) / 2 - 1px);
+  border-right: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+  border-right-width: calc(var(--heat-js-button-icon-size) / 2 - 1px);
+  width: var(--heat-js-button-icon-size);
+  height: calc(var(--heat-js-button-icon-size) / 2 - 1px);
+  left: 0;
+  bottom: 0;
+}
+div.heat-js div.container-side-menu div.menu-tab i.line {
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
+  display: inline-block;
+  position: relative;
+  border-left: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+  border-right: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+  height: var(--heat-js-button-icon-size);
+}
+div.heat-js div.container-side-menu div.menu-tab i.line:before {
+  position: absolute;
+  content: "";
+  left: 50%;
+  transform: translate(-50%);
+  background-color: currentColor;
+  height: 100%;
+  width: calc(var(--heat-js-button-icon-size) / 4);
+  top: 0;
+}
+div.heat-js div.container-side-menu div.menu-tab i.chart {
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
+  display: inline-block;
+  position: relative;
+  border-left: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+  border-right: calc(var(--heat-js-button-icon-size) / 4) solid currentColor;
+  height: var(--heat-js-button-icon-size);
+}
+div.heat-js div.container-side-menu div.menu-tab i.chart:before {
+  position: absolute;
+  content: "";
+  left: 50%;
+  transform: translate(-50%);
+  background-color: currentColor;
+  height: 50%;
+  width: calc(var(--heat-js-button-icon-size) / 4);
+  bottom: 0;
 }
 div.heat-js div.container-contents {
   display: inline-flex;
