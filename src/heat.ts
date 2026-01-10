@@ -141,7 +141,6 @@ import { DocumentElement } from "./ts/dom/document-element";
         ToolTip.render( bindingOptions );
 
         bindingOptions._currentView!.yearsAvailable = getYearsAvailableInData( bindingOptions );
-        bindingOptions._currentView!.sideMenu = DomElement.create( bindingOptions._currentView!.element, "div", "container-side-menu" );
         bindingOptions._currentView!.container = DomElement.create( bindingOptions._currentView!.element, "div", "container-contents" );
 
         startDataPullTimer( bindingOptions );
@@ -203,6 +202,8 @@ import { DocumentElement } from "./ts/dom/document-element";
         const showTitleDropDownMenu: boolean = bindingOptions.showSideMenu! && bindingOptions._currentView!.viewsEnabled > 1;
 
         if ( showTitleDropDownMenu ) {
+            bindingOptions._currentView!.sideMenu = DomElement.create( bindingOptions._currentView!.element, "div", "container-side-menu", bindingOptions._currentView!.container );
+
             if ( bindingOptions.views!.map!.enabled ) {
                 renderSideMenuTab( bindingOptions, ViewId.map, "map", _configurationOptions.text!.mapText! );
             }
@@ -226,9 +227,6 @@ import { DocumentElement } from "./ts/dom/document-element";
             if ( bindingOptions.views!.colorRanges!.enabled ) {
                 renderSideMenuTab( bindingOptions, ViewId.colorRanges, "color-ranges", _configurationOptions.text!.colorRangesText! );
             }
-
-        } else {
-            bindingOptions._currentView!.sideMenu.parentNode!.removeChild( bindingOptions._currentView!.sideMenu );
         }
     }
 

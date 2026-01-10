@@ -2196,7 +2196,6 @@ var V;
         m.View.getScrollPositions(e);
         c.render(e);
         e._currentView.yearsAvailable = Xe(e);
-        e._currentView.sideMenu = s.create(e._currentView.element, "div", "container-side-menu");
         e._currentView.container = s.create(e._currentView.element, "div", "container-contents");
         tt(e);
         ze(e);
@@ -2231,6 +2230,7 @@ var V;
     function k(e) {
         const t = e.showSideMenu && e._currentView.viewsEnabled > 1;
         if (t) {
+            e._currentView.sideMenu = s.create(e._currentView.element, "div", "container-side-menu", e._currentView.container);
             if (e.views.map.enabled) {
                 N(e, 1, "map", _.text.mapText);
             }
@@ -2249,8 +2249,6 @@ var V;
             if (e.views.colorRanges.enabled) {
                 N(e, 6, "color-ranges", _.text.colorRangesText);
             }
-        } else {
-            e._currentView.sideMenu.parentNode.removeChild(e._currentView.sideMenu);
         }
     }
     function N(e, t, n, o) {
