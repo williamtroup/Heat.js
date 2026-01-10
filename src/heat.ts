@@ -3036,10 +3036,21 @@ import { DocumentElement } from "./ts/dom/document-element";
      */
 
     function switchView( bindingOptions: BindingOptions, viewId: ViewId, viewName: string ) : void {
-        bindingOptions._currentView!.activeView = viewId;
+        if ( bindingOptions._currentView!.activeView !== viewId ) {
+            bindingOptions._currentView!.activeView = viewId;
 
-        Trigger.customEvent( bindingOptions.events!.onViewSwitch!, bindingOptions._currentView!.element, viewName );
-        renderContainer( bindingOptions, false, true );
+            Trigger.customEvent( bindingOptions.events!.onViewSwitch!, bindingOptions._currentView!.element, viewName );
+            renderContainer( bindingOptions, false, true );
+        }
+    }
+
+    function switchType( bindingOptions: BindingOptions, type: string ) : void {
+        if ( bindingOptions._currentView!.activeType !== type ) {
+            bindingOptions._currentView!.activeType = type;
+
+            Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
+            renderContainer( bindingOptions );
+        }
     }
 
 
@@ -3943,11 +3954,10 @@ import { DocumentElement } from "./ts/dom/document-element";
 
         switchView: ( elementId: string, viewName: string ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedString( viewName ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
-                const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 const viewId: ViewId = Visible.View.get( viewName );
     
-                if ( viewId !== ViewId.unknown && bindingOptions._currentView!.activeView !== viewId ) {
-                    switchView( bindingOptions, viewId, viewName );
+                if ( viewId !== ViewId.unknown ) {
+                    switchView( _elements_InstanceData[ elementId ].options, viewId, viewName );
                 }
             }
     
@@ -3956,14 +3966,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 
         switchType: ( elementId: string, type: string ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
-                const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-    
-                if ( bindingOptions._currentView!.activeType !== type ) {
-                    bindingOptions._currentView!.activeType = type;
-                
-                    Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
-                    renderContainer( bindingOptions );
-                }
+                switchType( _elements_InstanceData[ elementId ].options, type );
             }
     
             return _public;
