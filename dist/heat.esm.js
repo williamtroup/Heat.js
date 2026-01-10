@@ -692,71 +692,71 @@ var u;
 var w;
 
 (e => {
-    function t(t, n) {
-        const o = t.colorRanges.length;
-        let r = false;
-        for (let a = 0; a < o; a++) {
-            const o = t.colorRanges[a];
-            if (o.id === n) {
-                o.visible = !i.getBoolean(o.visible, true);
-                if (e.toggleForActiveView(t, o)) {
-                    r = true;
+    function t(e, t) {
+        const n = e.colorRanges.length;
+        let o = false;
+        for (let r = 0; r < n; r++) {
+            const n = e.colorRanges[r];
+            if (n.id === t) {
+                n.visible = !i.getBoolean(n.visible, true);
+                if (y(e, n)) {
+                    o = true;
                 }
-                l.customEvent(t.events.onColorRangeTypeToggle, t._currentView.element, o.id, o.visible);
+                l.customEvent(e.events.onColorRangeTypeToggle, e._currentView.element, n.id, n.visible);
                 break;
             }
         }
-        return r;
-    }
-    e.toggleVisibleState = t;
-    function a(t) {
-        const n = t.colorRanges.length;
-        let o = false;
-        for (let i = 0; i < n; i++) {
-            const n = t.colorRanges[i];
-            n.visible = !n.visible;
-            o = e.toggleForActiveView(t, n);
-            l.customEvent(t.events.onColorRangeTypeToggle, t._currentView.element, t.colorRanges[i].id, t.colorRanges[i].visible);
-        }
         return o;
     }
+    e.toggleVisibleState = t;
+    function a(e) {
+        const t = e.colorRanges.length;
+        let n = false;
+        for (let o = 0; o < t; o++) {
+            const t = e.colorRanges[o];
+            t.visible = !t.visible;
+            n = y(e, t);
+            l.customEvent(e.events.onColorRangeTypeToggle, e._currentView.element, e.colorRanges[o].id, e.colorRanges[o].visible);
+        }
+        return n;
+    }
     e.invertVisibleStates = a;
-    function c(t, n) {
-        let o = false;
-        if (t.guide.useIncrementToggles) {
-            const i = e.getAllSorted(t);
-            const r = i.length;
-            if (n) {
-                for (let a = 0; a < r; a++) {
-                    const r = i[a];
-                    if (!r.visible) {
-                        r.visible = true;
-                        o = e.toggleForActiveView(t, r);
-                        l.customEvent(t.events.onColorRangeTypeToggle, t._currentView.element, r.id, n);
+    function c(e, t) {
+        let n = false;
+        if (e.guide.useIncrementToggles) {
+            const o = h(e);
+            const i = o.length;
+            if (t) {
+                for (let r = 0; r < i; r++) {
+                    const i = o[r];
+                    if (!i.visible) {
+                        i.visible = true;
+                        n = y(e, i);
+                        l.customEvent(e.events.onColorRangeTypeToggle, e._currentView.element, i.id, t);
                         break;
                     }
                 }
             } else {
-                for (let a = r; a--; ) {
-                    const r = i[a];
-                    if (r.visible) {
-                        r.visible = false;
-                        o = e.toggleForActiveView(t, r);
-                        l.customEvent(t.events.onColorRangeTypeToggle, t._currentView.element, r.id, n);
+                for (let r = i; r--; ) {
+                    const i = o[r];
+                    if (i.visible) {
+                        i.visible = false;
+                        n = y(e, i);
+                        l.customEvent(e.events.onColorRangeTypeToggle, e._currentView.element, i.id, t);
                         break;
                     }
                 }
             }
         } else {
-            const i = t.colorRanges.length;
-            for (let r = 0; r < i; r++) {
-                const i = t.colorRanges[r];
-                i.visible = n;
-                o = e.toggleForActiveView(t, i);
-                l.customEvent(t.events.onColorRangeTypeToggle, t._currentView.element, i.id, n);
+            const o = e.colorRanges.length;
+            for (let i = 0; i < o; i++) {
+                const o = e.colorRanges[i];
+                o.visible = t;
+                n = y(e, o);
+                l.customEvent(e.events.onColorRangeTypeToggle, e._currentView.element, o.id, t);
             }
         }
-        return o;
+        return n;
     }
     e.updateAllVisibleStates = c;
     function w(e, t) {
@@ -2183,7 +2183,7 @@ var V;
         ze(e._currentView.element.id, e);
         B(e);
         O(e);
-        Fe(e);
+        Ee(e);
         l.customEvent(e.events.onRenderComplete, e._currentView.element);
     }
     function B(e, t = false, n = false, o = false) {
@@ -2241,9 +2241,9 @@ var V;
             const u = s.create(n, "div", "buttons");
             const w = s.createButton(u, "button", "", _.text.resetButtonText);
             const g = s.createButton(u, "button", "default", _.text.saveButtonText);
-            o.onclick = () => A(e);
+            o.onclick = () => L(e);
             w.onclick = () => R(e);
-            g.onclick = () => L(e);
+            g.onclick = () => A(e);
             for (let t = 0; t < 7; t++) {
                 e._currentView.configurationDialogDayCheckBoxes[t] = s.createCheckBox(r, _.text.dayNames[t], t.toString());
             }
@@ -2278,9 +2278,9 @@ var V;
             e._currentView.configurationDialogMonthCheckBoxes[t].checked = o.monthVisible(n, t);
         }
         c.hide(e);
-        V.Dialog.bindEvents(() => A(e));
+        V.Dialog.bindEvents(() => L(e));
     }
-    function A(e) {
+    function L(e) {
         h.Background.hide(e);
         if (o.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "none") {
             e._currentView.configurationDialog.style.display = "none";
@@ -2288,7 +2288,7 @@ var V;
         c.hide(e);
         V.Dialog.unbindEvents();
     }
-    function L(e) {
+    function A(e) {
         h.Background.hide(e);
         if (o.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "none") {
             e._currentView.configurationDialog.style.display = "none";
@@ -2349,7 +2349,7 @@ var V;
             const i = s.create(n, "div", "buttons");
             const r = s.createButton(i, "button", "", _.text.copyButtonText);
             const a = s.createButton(i, "button", "default", _.text.exportButtonText);
-            F(e);
+            E(e);
             e._currentView.exportDialogExportFilenameInput.onkeydown = t => {
                 if (t.key === "Enter") {
                     H(e);
@@ -2361,7 +2361,7 @@ var V;
             c.add(o, e, _.text.closeButtonText);
         }
     }
-    function F(e) {
+    function E(e) {
         let n;
         const o = [];
         for (n in t) {
@@ -2374,7 +2374,7 @@ var V;
         o.sort((e, t) => e.text.toLowerCase().localeCompare(t.text.toLowerCase()));
         o.forEach(t => e._currentView.exportDialogExportTypeSelect.add(t));
     }
-    function E(e) {
+    function F(e) {
         I(e);
         h.Background.show(e);
         if (o.defined(e._currentView.exportDialog) && e._currentView.exportDialog.style.display !== "block") {
@@ -2731,7 +2731,7 @@ var V;
             }
             if (e.title.showExportButton && Je(e)) {
                 const n = s.createIconButton(t, "button", "export", "arrow-down");
-                n.onclick = () => E(e);
+                n.onclick = () => F(e);
                 if (e.title.showToolTips) {
                     c.add(n, e, _.text.exportButtonText);
                 }
@@ -4084,7 +4084,7 @@ var V;
             for (let t = 0; t < a; t++) {
                 const o = r[t];
                 if (o !== _.text.unknownTrendText || i > 0) {
-                    Ae(e, n, o);
+                    Le(e, n, o);
                 }
             }
             if (e.guide.allowTypeAdding) {
@@ -4127,7 +4127,7 @@ var V;
             const a = [];
             let l = 0;
             for (let t = 0; t < r; t++) {
-                const n = Le(e, o, i[t]);
+                const n = Ae(e, o, i[t]);
                 l = Math.max(l, n.offsetWidth);
                 a.push(n);
             }
@@ -4151,7 +4151,7 @@ var V;
             }
         }
     }
-    function Ae(e, t, n) {
+    function Le(e, t, n) {
         const o = s.createButton(t, "button", "type", n);
         if (e.guide.allowTypeRemoving) {
             const t = s.create(o, "span", "clear");
@@ -4175,7 +4175,7 @@ var V;
             }
         };
     }
-    function Le(e, t, o) {
+    function Ae(e, t, o) {
         const i = s.create(t, "div");
         i.className = "toggle";
         i.setAttribute(n.Attribute.Area.ColorRangeToggle.HEAT_JS_MINIMUM, o.minimum.toString());
@@ -4227,7 +4227,7 @@ var V;
             if (e.zooming.showResetButton) {
                 a = s.createIconButton(i, "button", "reset", "exclamation-mark");
                 c.add(a, e, _.text.resetButtonText);
-                a.onclick = () => Ee(e);
+                a.onclick = () => Fe(e);
             }
             const l = s.createIconButton(i, "button", "zoom-out", "minus");
             const d = s.createWithHTML(i, "span", "zoom-level", `+${r.friendlyNumber(e._currentView.zoomLevel * 10)}%`);
@@ -4252,7 +4252,7 @@ var V;
             w.onclick = () => He(e);
         }
     }
-    function Fe(e) {
+    function Ee(e) {
         const t = s.getStyleValueByNameSizingMetic(document.documentElement, u.Variables.DaySize);
         const n = s.getStyleValueByNameSizingMetic(document.documentElement, u.Variables.LineWidth);
         let o = s.getStyleValueByName(document.documentElement, u.Variables.DaySize, true);
@@ -4271,7 +4271,7 @@ var V;
             e._currentView.element.style.setProperty(u.Variables.LineWidth, `${i}${n}`);
         }
     }
-    function Ee(e) {
+    function Fe(e) {
         if (e._currentView.zoomLevel > 0) {
             e._currentView.element.style.removeProperty(u.Variables.DaySize);
             e._currentView.element.style.removeProperty(u.Variables.LineWidth);

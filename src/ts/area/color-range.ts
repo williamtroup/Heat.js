@@ -39,7 +39,7 @@ export namespace ColorRange {
             if ( colorRange.id === id ) {
                 colorRange.visible = !Default.getBoolean( colorRange.visible, true );
 
-                if ( ColorRange.toggleForActiveView( bindingOptions, colorRange ) ) {
+                if ( toggleForActiveView( bindingOptions, colorRange ) ) {
                     renderRequired = true;
                 }
 
@@ -59,7 +59,7 @@ export namespace ColorRange {
             const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
             colorRange.visible = !colorRange.visible;
 
-            renderRequired = ColorRange.toggleForActiveView( bindingOptions, colorRange );
+            renderRequired = toggleForActiveView( bindingOptions, colorRange );
 
             Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, bindingOptions.colorRanges![ colorRangesIndex ].id, bindingOptions.colorRanges![ colorRangesIndex ].visible );
         }
@@ -71,7 +71,7 @@ export namespace ColorRange {
         let renderRequired: boolean = false;
 
         if ( bindingOptions.guide!.useIncrementToggles ) {
-            const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
+            const colorRanges: BindingOptionsColorRange[] = getAllSorted( bindingOptions );
             const colorRangesLength: number = colorRanges.length;
 
             if ( flag ) {
@@ -80,7 +80,7 @@ export namespace ColorRange {
 
                     if ( !colorRange.visible ) {
                         colorRange.visible = true;
-                        renderRequired = ColorRange.toggleForActiveView( bindingOptions, colorRange );
+                        renderRequired = toggleForActiveView( bindingOptions, colorRange );
 
                         Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
                         break;
@@ -93,7 +93,7 @@ export namespace ColorRange {
 
                     if ( colorRange.visible ) {
                         colorRange.visible = false;
-                        renderRequired = ColorRange.toggleForActiveView( bindingOptions, colorRange );
+                        renderRequired = toggleForActiveView( bindingOptions, colorRange );
 
                         Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
                         break;
@@ -108,7 +108,7 @@ export namespace ColorRange {
                 const colorRange: BindingOptionsColorRange = bindingOptions.colorRanges![ colorRangesIndex ];
                 colorRange.visible = flag;
 
-                renderRequired = ColorRange.toggleForActiveView( bindingOptions, colorRange );
+                renderRequired = toggleForActiveView( bindingOptions, colorRange );
 
                 Trigger.customEvent( bindingOptions.events!.onColorRangeTypeToggle!, bindingOptions._currentView!.element, colorRange.id, flag );
             }
