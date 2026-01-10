@@ -232,7 +232,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
     }
 
-    function renderSideMenuTab( bindingOptions: BindingOptions, viewId: ViewId, iconCssClass: string, tooltipText ) : void {
+    function renderSideMenuTab( bindingOptions: BindingOptions, viewId: ViewId, iconCssClass: string, tooltipText: string ) : void {
         const menuTab: HTMLElement = DomElement.create( bindingOptions._currentView!.sideMenu, "div", "menu-tab" );
         menuTab.onclick = () : void => switchView( bindingOptions, viewId );
 
