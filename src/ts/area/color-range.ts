@@ -199,4 +199,44 @@ export namespace ColorRange {
 
         return result;
     }
+
+    export function toggleForActiveView( bindingOptions: BindingOptions, colorRange: BindingOptionsColorRange ) : boolean {
+        let result: boolean = false;
+
+        if ( bindingOptions._currentView!.activeView === ViewId.map ) {
+            toggleActiveViewColorRangeCssClasses( bindingOptions, colorRange, colorRange.mapCssClassName!, Constant.Attribute.View.Map.HEAT_JS_MINIMUM );
+        } else if ( bindingOptions._currentView!.activeView === ViewId.line ) {
+            toggleActiveViewColorRangeCssClasses( bindingOptions, colorRange, colorRange.lineCssClassName!, Constant.Attribute.View.Line.HEAT_JS_MINIMUM );
+        } else if ( bindingOptions._currentView!.activeView === ViewId.chart ) {
+            toggleActiveViewColorRangeCssClasses( bindingOptions, colorRange, colorRange.chartCssClassName!, Constant.Attribute.View.Chart.HEAT_JS_MINIMUM );
+        } else if ( bindingOptions._currentView!.activeView === ViewId.colorRanges ) {
+            toggleActiveViewColorRangeCssClasses( bindingOptions, colorRange, colorRange.colorRangeCssClassName!, Constant.Attribute.View.ColorRanges.HEAT_JS_MINIMUM );
+        } else {
+            result = true;
+        }
+
+        return result;
+    }
+
+    function toggleActiveViewColorRangeCssClasses( bindingOptions: BindingOptions, colorRange: BindingOptionsColorRange, colorRangeCssClassName: string, attributeName: string ) : void {
+        const cssName: string = Is.definedString( colorRangeCssClassName ) ? colorRangeCssClassName! : colorRange.cssClassName!;
+        const dayElements: HTMLCollectionOf<Element> = bindingOptions._currentView!.element!.getElementsByTagName( "div" );
+        const days: HTMLElement[] = [].slice.call( dayElements );
+        const daysLength: number = days.length;
+
+        for ( let daysIndex: number = 0; daysIndex < daysLength; daysIndex++ ) {
+            const element: HTMLElement = days[ daysIndex ];
+            const attributeValue: string = element.getAttribute( attributeName )!;
+            const colorRangeAttributeValue: string = element.getAttribute( Constant.Attribute.Area.ColorRangeToggle.HEAT_JS_MINIMUM )!;
+            const updateCssClass: boolean = Is.definedString( attributeValue ) && attributeValue === colorRange.minimum!.toString();
+
+            if ( updateCssClass || colorRangeAttributeValue === colorRange.minimum!.toString() ) {
+                if ( colorRange.visible ) {
+                    DomElement.addClass( element, cssName );
+                } else {
+                    DomElement.removeClass( element, cssName );
+                }
+            }
+        }
+    }
 }
