@@ -11,9 +11,13 @@
  */
 
 
-import { type BindingOptions } from "../type";
+import { ConfigurationOptions, IsHoliday, type BindingOptions } from "../type";
 import { DomElement } from "../dom/dom";
 import { Is } from "../data/is";
+import { Trigger } from "../area/trigger";
+import { Char } from "../data/enum";
+import { Str } from "../data/str";
+import { DateTime } from "../data/datetime";
 
 
 export namespace ToolTip {
@@ -40,6 +44,37 @@ export namespace ToolTip {
     export function add( element: HTMLElement, bindingOptions: BindingOptions, text: string ) : void {
         if ( element !== null ) {
             element.onmousemove = ( e: MouseEvent ) => show( e, bindingOptions, text );
+        }
+    }
+
+    export function addForDay( configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number, percentageDifferenceText: string, tooltipFormat: string, tooltipRenderFunc: Function, isHoliday: boolean, showCountsInTooltips: boolean, showDifferencesInToolTips: boolean ) : void {
+        if ( Is.definedFunction( tooltipRenderFunc ) ) {
+            add( day, bindingOptions, Trigger.customEvent( tooltipRenderFunc, bindingOptions._currentView!.element, date, dateCount, isHoliday ) );
+        } else {
+
+            let tooltip: string = DateTime.getCustomFormattedDateText( configurationOptions, tooltipFormat, date, true );
+
+            if ( bindingOptions.showHolidaysInDayToolTips ) {
+                const holiday: IsHoliday = Is.holiday( bindingOptions, date );
+
+                if ( holiday.matched && Is.definedString( holiday.name ) ) {
+                    tooltip += `${Char.colon}${Char.space}${holiday.name}`;
+                }
+            }
+
+            if ( showCountsInTooltips || ( showDifferencesInToolTips && Is.definedString( percentageDifferenceText ) ) ) {
+                tooltip += `${Char.colon}${Char.space}`;
+            }
+
+            if ( showCountsInTooltips ) {
+                tooltip += `<b class="tooltip-count">${Str.friendlyNumber( dateCount )}</b>`;
+            }
+
+            if ( showDifferencesInToolTips && Is.definedString( percentageDifferenceText ) ) {
+                tooltip += `<b class="tooltip-difference">${percentageDifferenceText}</b>`;
+            }
+
+            add( day, bindingOptions, tooltip );
         }
     }
 

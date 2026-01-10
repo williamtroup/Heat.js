@@ -1518,7 +1518,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
 
         if ( bindingOptions.views!.map!.showToolTips ) {
-            renderDayToolTip( bindingOptions, day, date, dateCount, percentageText, bindingOptions.views!.map!.dayToolTipText!, bindingOptions.events!.onMapDayToolTipRender!, holiday.matched, bindingOptions.views!.map!.showCountsInToolTips!, bindingOptions.views!.map!.showDifferencesInToolTips! );
+            ToolTip.addForDay( _configurationOptions, bindingOptions, day, date, dateCount, percentageText, bindingOptions.views!.map!.dayToolTipText!, bindingOptions.events!.onMapDayToolTipRender!, holiday.matched, bindingOptions.views!.map!.showCountsInToolTips!, bindingOptions.views!.map!.showDifferencesInToolTips! );
         }
 
         if ( !bindingOptions.views!.map!.showSpacing ) {
@@ -1744,7 +1744,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
 
         if ( bindingOptions.views!.line!.showToolTips ) {
-            renderDayToolTip( bindingOptions, dayLine, date, dateCount, percentageText, bindingOptions.views!.line!.dayToolTipText!, bindingOptions.events!.onLineDayToolTipRender!, holiday.matched, bindingOptions.views!.line!.showCountsInToolTips!, bindingOptions.views!.line!.showDifferencesInToolTips! );
+            ToolTip.addForDay( _configurationOptions, bindingOptions, dayLine, date, dateCount, percentageText, bindingOptions.views!.line!.dayToolTipText!, bindingOptions.events!.onLineDayToolTipRender!, holiday.matched, bindingOptions.views!.line!.showCountsInToolTips!, bindingOptions.views!.line!.showDifferencesInToolTips! );
         }
 
         if ( Is.definedFunction( bindingOptions.events!.onLineDayClick ) ) {
@@ -1956,7 +1956,7 @@ import { DocumentElement } from "./ts/dom/document-element";
         }
 
         if ( bindingOptions.views!.chart!.showToolTips ) {
-            renderDayToolTip( bindingOptions, dayLine, date, dateCount, percentageText, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender!, holiday.matched, bindingOptions.views!.chart!.showCountsInToolTips!, bindingOptions.views!.chart!.showDifferencesInToolTips! );
+            ToolTip.addForDay( _configurationOptions, bindingOptions, dayLine, date, dateCount, percentageText, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender!, holiday.matched, bindingOptions.views!.chart!.showCountsInToolTips!, bindingOptions.views!.chart!.showDifferencesInToolTips! );
         }
 
         if ( bindingOptions.views!.chart!.showLineCounts || bindingOptions.views!.chart!.showLineDateNumbers ) {
@@ -3034,37 +3034,6 @@ import { DocumentElement } from "./ts/dom/document-element";
      * Render:  Shared
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
-
-    function renderDayToolTip( bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number, percentageDifferenceText: string, tooltipFormat: string, tooltipRenderFunc: Function, isHoliday: boolean, showCountsInTooltips: boolean, showDifferencesInToolTips: boolean ) : void {
-        if ( Is.definedFunction( tooltipRenderFunc ) ) {
-            ToolTip.add( day, bindingOptions, Trigger.customEvent( tooltipRenderFunc, bindingOptions._currentView!.element, date, dateCount, isHoliday ) );
-        } else {
-
-            let tooltip: string = DateTime.getCustomFormattedDateText( _configurationOptions, tooltipFormat, date, true );
-
-            if ( bindingOptions.showHolidaysInDayToolTips ) {
-                const holiday: IsHoliday = Is.holiday( bindingOptions, date );
-
-                if ( holiday.matched && Is.definedString( holiday.name ) ) {
-                    tooltip += `${Char.colon}${Char.space}${holiday.name}`;
-                }
-            }
-
-            if ( showCountsInTooltips || ( showDifferencesInToolTips && Is.definedString( percentageDifferenceText ) ) ) {
-                tooltip += `${Char.colon}${Char.space}`;
-            }
-
-            if ( showCountsInTooltips ) {
-                tooltip += `<b class="tooltip-count">${Str.friendlyNumber( dateCount )}</b>`;
-            }
-
-            if ( showDifferencesInToolTips && Is.definedString( percentageDifferenceText ) ) {
-                tooltip += `<b class="tooltip-difference">${percentageDifferenceText}</b>`;
-            }
-
-            ToolTip.add( day, bindingOptions, tooltip );
-        }
-    }
 
     function switchView( bindingOptions: BindingOptions, viewId: ViewId, viewName: string ) : void {
         bindingOptions._currentView!.activeView = viewId;
