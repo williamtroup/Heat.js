@@ -125,7 +125,7 @@
   --heat-js-default-width-with-side-menu: calc( var(--heat-js-default-width) + 50px );
   --heat-js-y-label-spacing: calc( var(--heat-js-spacing) * 2 );
   --heat-js-count-gap: 3px;
-  --heat-js-transition: all .3s;
+  --heat-js-transition: all 0.3s;
   --heat-js-animation-length: 0.5s;
   --heat-js-scroll-bar-size: 4px;
   --heat-js-scroll-bar-thumb-color: #3b434e;
