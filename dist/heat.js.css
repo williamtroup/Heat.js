@@ -121,7 +121,8 @@
   --heat-js-spacing-font-size: 0.85rem;
   --heat-js-spacing-day-font-size: 0.6rem;
   --heat-js-left-border: 8px;
-  --heat-js-default-width: 750px;
+  --heat-js-default-width: 700px;
+  --heat-js-default-width-with-side-menu: calc( var(--heat-js-default-width) + 50px );
   --heat-js-y-label-spacing: calc( var(--heat-js-spacing) * 2 );
   --heat-js-count-gap: 3px;
   --heat-js-transition: all .3s;
@@ -155,9 +156,12 @@ div.heat-js {
   border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   font-size: var(--heat-js-spacing-font-size);
   width: 100%;
-  max-width: var(--heat-js-default-width);
+  max-width: var(--heat-js-default-width-with-side-menu);
   margin: 0 !important;
   font-weight: var(--heat-js-text-font-weight-thin);
+}
+div.heat-js.no-side-menu {
+  max-width: var(--heat-js-default-width);
 }
 @media (min-width: 768px) {
   div.heat-js.no-side-menu {
@@ -167,8 +171,11 @@ div.heat-js {
 div.heat-js.resizable {
   resize: horizontal;
   overflow: auto;
-  width: var(--heat-js-default-width);
+  width: var(--heat-js-default-width-with-side-menu);
   max-width: none;
+}
+div.heat-js.resizable.no-side-menu {
+  width: var(--heat-js-default-width);
 }
 div.heat-js button {
   margin-top: 0 !important;
