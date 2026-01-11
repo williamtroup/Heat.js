@@ -1977,7 +1977,7 @@ div.heat-js {
                     border-radius: var(--heat-js-border-radius-day);
                     min-width: var(--heat-js-guide-day-size);
                     height: var(--heat-js-guide-day-size);
-                    transition: color .3s, background-color .3s, border-color .3s, opacity .3s !important;
+                    transition: color 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.3s !important;
 
                     &:not(.no-hover):hover {
                         cursor: pointer;
