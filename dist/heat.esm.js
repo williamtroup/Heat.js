@@ -1239,10 +1239,11 @@ var g;
             return e.zooming;
         }
         function _(e) {
+            const t = s.getStyleValueByName(document.documentElement, u.Variables.DefaultDynamicColor);
             e.dynamicColorRange = i.getObject(e.dynamicColorRange, {});
             e.dynamicColorRange.enabled = i.getBoolean(e.dynamicColorRange.enabled, false);
             e.dynamicColorRange.maximumMinimum = i.getNumber(e.dynamicColorRange.maximumMinimum, 25);
-            e.dynamicColorRange.color = i.getString(e.dynamicColorRange.color, s.getStyleValueByName(document.documentElement, u.Variables.DefaultDynamicColor));
+            e.dynamicColorRange.color = i.getString(e.dynamicColorRange.color, t);
             e.dynamicColorRange.totalColors = i.getNumber(e.dynamicColorRange.totalColors, 5);
             e.dynamicColorRange.startMinimum = i.getNumber(e.dynamicColorRange.startMinimum, 10);
             return e.dynamicColorRange;

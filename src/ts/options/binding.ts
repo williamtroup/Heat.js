@@ -387,10 +387,12 @@ export namespace Binding {
         }
 
         function getDynamicColorRange( bindingOptions: BindingOptions ) : BindingOptionsDynamicColorRange {
+            const defaultDynamicColor: string = DomElement.getStyleValueByName( document.documentElement, Css.Variables.DefaultDynamicColor ) as string;
+
             bindingOptions.dynamicColorRange = Default.getObject( bindingOptions.dynamicColorRange, {} as BindingOptionsDynamicColorRange );
             bindingOptions.dynamicColorRange!.enabled = Default.getBoolean( bindingOptions.dynamicColorRange!.enabled, false );
             bindingOptions.dynamicColorRange!.maximumMinimum = Default.getNumber( bindingOptions.dynamicColorRange!.maximumMinimum, 25 );
-            bindingOptions.dynamicColorRange!.color = Default.getString( bindingOptions.dynamicColorRange!.color, DomElement.getStyleValueByName( document.documentElement, Css.Variables.DefaultDynamicColor ) as string );
+            bindingOptions.dynamicColorRange!.color = Default.getString( bindingOptions.dynamicColorRange!.color, defaultDynamicColor );
             bindingOptions.dynamicColorRange!.totalColors = Default.getNumber( bindingOptions.dynamicColorRange!.totalColors, 5 );
             bindingOptions.dynamicColorRange!.startMinimum = Default.getNumber( bindingOptions.dynamicColorRange!.startMinimum, 10 );
     
