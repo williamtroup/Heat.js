@@ -4615,7 +4615,7 @@ var _;
         if (u.observationMode) {
             if (!o.defined(C)) {
                 C = new MutationObserver(() => {
-                    ot.renderAll();
+                    x();
                 });
                 const e = {
                     attributes: true,

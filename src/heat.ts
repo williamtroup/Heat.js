@@ -3317,7 +3317,7 @@ import { Zooming } from "./ts/controls/zooming";
         if ( _configurationOptions.observationMode ) {
             if ( !Is.defined( _mutationObserver ) ) {
                 _mutationObserver = new MutationObserver( () : void => {
-                    _public.renderAll();
+                    renderAll();
                 } );
 
                 const observeConfig: MutationObserverInit = {
