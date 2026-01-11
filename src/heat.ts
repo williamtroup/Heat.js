@@ -46,11 +46,11 @@ import { ColorRange } from "./ts/area/color-range";
 import { Build } from "./ts/data/build";
 import { DocumentElement } from "./ts/dom/document-element";
 import { Zooming } from "./ts/controls/zooming";
+import { Observation } from "./ts/area/observation";
 
 
 ( () : void => {
     let _configurationOptions: ConfigurationOptions = {} as ConfigurationOptions;
-    let _mutationObserver: MutationObserver = null! as MutationObserver;
     let _elements_InstanceData: InstanceData = {} as InstanceData;
 
 
@@ -3229,10 +3229,7 @@ import { Zooming } from "./ts/controls/zooming";
             }
         }
 
-        if ( _configurationOptions.observationMode && Is.defined( _mutationObserver ) ) {
-            _mutationObserver.disconnect();
-            _mutationObserver = null!;
-        }
+        Observation.destroy( _configurationOptions );
     }
 
 
@@ -3311,28 +3308,6 @@ import { Zooming } from "./ts/controls/zooming";
         DomElement.removeClass( bindingOptions._currentView!.element, "heat-js" );
         ToolTip.remove( bindingOptions );
         Trigger.customEvent( bindingOptions.events!.onDestroy!, bindingOptions._currentView!.element );
-    }
-
-    function setupObservationMode() : void {
-        if ( _configurationOptions.observationMode ) {
-            if ( !Is.defined( _mutationObserver ) ) {
-                _mutationObserver = new MutationObserver( () : void => {
-                    renderAll();
-                } );
-
-                const observeConfig: MutationObserverInit = {
-                    attributes: true,
-                    childList: true,
-                    subtree: true,
-                } as MutationObserverInit;
-
-                _mutationObserver.observe( document.body, observeConfig );
-            }
-            
-        } else {
-            _mutationObserver.disconnect();
-            _mutationObserver = null!;
-        }
     }
 
 
@@ -3859,7 +3834,9 @@ import { Zooming } from "./ts/controls/zooming";
                 if ( configurationOptionsHaveChanged ) {
                     _configurationOptions = Configuration.Options.get( existingConfigurationOptions );
 
-                    setupObservationMode();
+                    Observation.setup( _configurationOptions, () : void => {
+                        renderAll();
+                    } );
         
                     if ( triggerRefresh ) {
                         _public.refreshAll();
@@ -3918,7 +3895,10 @@ import { Zooming } from "./ts/controls/zooming";
 
         const onLoadFunc: Function = () : void => {
             renderAll();
-            setupObservationMode();
+            
+            Observation.setup( _configurationOptions, () : void => {
+                renderAll();
+            } );
         };
 
         if ( document.readyState === "loading" ) {

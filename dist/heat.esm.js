@@ -2247,9 +2247,40 @@ var _;
     }
 })(_ || (_ = {}));
 
+var C;
+
+(e => {
+    let t = null;
+    function n(e, n) {
+        if (e.observationMode) {
+            if (!o.defined(t)) {
+                t = new MutationObserver(() => {
+                    n();
+                });
+                const e = {
+                    attributes: true,
+                    childList: true,
+                    subtree: true
+                };
+                t.observe(document.body, e);
+            }
+        } else {
+            t.disconnect();
+            t = null;
+        }
+    }
+    e.setup = n;
+    function i(e) {
+        if (e.observationMode && o.defined(t)) {
+            t.disconnect();
+            t = null;
+        }
+    }
+    e.destroy = i;
+})(C || (C = {}));
+
 (() => {
     let u = {};
-    let C = null;
     let D = {};
     function x() {
         const e = u.domElementTypes;
@@ -4559,10 +4590,7 @@ var _;
                 }
             }
         }
-        if (u.observationMode && o.defined(C)) {
-            C.disconnect();
-            C = null;
-        }
+        C.destroy(u);
     }
     function Qe(e, t = true) {
         let n = true;
@@ -4611,25 +4639,7 @@ var _;
         c.remove(e);
         l.customEvent(e.events.onDestroy, e._currentView.element);
     }
-    function nt() {
-        if (u.observationMode) {
-            if (!o.defined(C)) {
-                C = new MutationObserver(() => {
-                    x();
-                });
-                const e = {
-                    attributes: true,
-                    childList: true,
-                    subtree: true
-                };
-                C.observe(document.body, e);
-            }
-        } else {
-            C.disconnect();
-            C = null;
-        }
-    }
-    const ot = {
+    const nt = {
         addType: (e, t, n = true) => {
             if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e)) {
                 const o = D[e].options;
@@ -4644,7 +4654,7 @@ var _;
                     }
                 }
             }
-            return ot;
+            return nt;
         },
         removeType: (e, t, n = true) => {
             if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4656,7 +4666,7 @@ var _;
                     }
                 }
             }
-            return ot;
+            return nt;
         },
         addDates: (e, t, n = null, r = true) => {
             if (o.definedString(e) && o.definedArray(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4665,14 +4675,14 @@ var _;
                     n = i.getString(n, u.text.unknownTrendText);
                     const a = t.length;
                     for (let o = 0; o < a; o++) {
-                        ot.addDate(e, t[o], n, false);
+                        nt.addDate(e, t[o], n, false);
                     }
                     if (r) {
                         B(o, true);
                     }
                 }
             }
-            return ot;
+            return nt;
         },
         addDate: (e, t, n = null, r = true) => {
             if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4694,7 +4704,7 @@ var _;
                     }
                 }
             }
-            return ot;
+            return nt;
         },
         updateDate: (e, t, n, r = null, s = true) => {
             if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4711,7 +4721,7 @@ var _;
                     }
                 }
             }
-            return ot;
+            return nt;
         },
         removeDates: (e, t, n = null, r = true) => {
             if (o.definedString(e) && o.definedArray(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4720,14 +4730,14 @@ var _;
                     n = i.getString(n, u.text.unknownTrendText);
                     const a = t.length;
                     for (let o = 0; o < a; o++) {
-                        ot.removeDate(e, t[o], n, false);
+                        nt.removeDate(e, t[o], n, false);
                     }
                     if (r) {
                         B(o, true);
                     }
                 }
             }
-            return ot;
+            return nt;
         },
         removeDate: (e, t, n = null, r = true) => {
             if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4746,7 +4756,7 @@ var _;
                     }
                 }
             }
-            return ot;
+            return nt;
         },
         clearDate: (e, t, n = null, r = true) => {
             if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4763,15 +4773,15 @@ var _;
                     }
                 }
             }
-            return ot;
+            return nt;
         },
         resetAll: (e = true) => {
             for (const t in D) {
                 if (Object.prototype.hasOwnProperty.call(D, t)) {
-                    ot.reset(t, e);
+                    nt.reset(t, e);
                 }
             }
-            return ot;
+            return nt;
         },
         reset: (e, t = true) => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4785,7 +4795,7 @@ var _;
                     }
                 }
             }
-            return ot;
+            return nt;
         },
         import: (e, t = null) => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4795,14 +4805,14 @@ var _;
                     Z(D[e].options);
                 }
             }
-            return ot;
+            return nt;
         },
         export: (e, t = null) => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
                 const n = D[e].options;
                 W(n, t, null, n.exportOnlyDataBeingViewed);
             }
-            return ot;
+            return nt;
         },
         refresh: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4810,7 +4820,7 @@ var _;
                 B(t, true);
                 l.customEvent(t.events.onRefresh, t._currentView.element);
             }
-            return ot;
+            return nt;
         },
         refreshAll: () => {
             for (const e in D) {
@@ -4820,7 +4830,7 @@ var _;
                     l.customEvent(t.events.onRefresh, t._currentView.element);
                 }
             }
-            return ot;
+            return nt;
         },
         setYear: (e, t) => {
             if (o.definedString(e) && o.definedNumber(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4833,7 +4843,7 @@ var _;
                 }
                 l.customEvent(n.events.onSetYear, n._currentView.element, n._currentView.activeYear);
             }
-            return ot;
+            return nt;
         },
         setYearToHighest: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4855,7 +4865,7 @@ var _;
                     l.customEvent(t.events.onSetYear, t._currentView.element, t._currentView.activeYear);
                 }
             }
-            return ot;
+            return nt;
         },
         setYearToLowest: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4877,19 +4887,19 @@ var _;
                     l.customEvent(t.events.onSetYear, t._currentView.element, t._currentView.activeYear);
                 }
             }
-            return ot;
+            return nt;
         },
         moveToPreviousYear: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
                 Qe(D[e].options);
             }
-            return ot;
+            return nt;
         },
         moveToNextYear: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
                 et(D[e].options);
             }
-            return ot;
+            return nt;
         },
         moveToCurrentYear: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4902,7 +4912,7 @@ var _;
                 }
                 l.customEvent(t.events.onSetYear, t._currentView.element, t._currentView.activeYear);
             }
-            return ot;
+            return nt;
         },
         getYear: e => {
             let t = -1;
@@ -4915,11 +4925,11 @@ var _;
             if (o.definedObject(e) && o.definedObject(t)) {
                 M(g.Options.getForNewInstance(u, t, e));
             }
-            return ot;
+            return nt;
         },
         renderAll: () => {
             x();
-            return ot;
+            return nt;
         },
         switchView: (e, t) => {
             if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4928,13 +4938,13 @@ var _;
                     Fe(D[e].options, n);
                 }
             }
-            return ot;
+            return nt;
         },
         switchType: (e, t) => {
             if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e) && Object.prototype.hasOwnProperty.call(D[e].typeData, t)) {
                 $e(D[e].options, t);
             }
-            return ot;
+            return nt;
         },
         updateBindingOptions: (e, t) => {
             if (o.definedString(e) && o.definedObject(t) && Object.prototype.hasOwnProperty.call(D, e)) {
@@ -4953,7 +4963,7 @@ var _;
                     l.customEvent(n.events.onOptionsUpdate, n._currentView.element, n);
                 }
             }
-            return ot;
+            return nt;
         },
         getActiveView: e => {
             let t = "";
@@ -4969,14 +4979,14 @@ var _;
                 }
             }
             D = {};
-            return ot;
+            return nt;
         },
         destroy: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
                 tt(D[e].options);
                 delete D[e];
             }
-            return ot;
+            return nt;
         },
         setConfiguration: (e, t = true) => {
             if (o.definedObject(e)) {
@@ -4991,22 +5001,24 @@ var _;
                 }
                 if (i) {
                     u = f.Options.get(n);
-                    nt();
+                    C.setup(u, () => {
+                        x();
+                    });
                     if (t) {
-                        ot.refreshAll();
+                        nt.refreshAll();
                     }
                 }
             }
-            return ot;
+            return nt;
         },
         setLocale: (e, t = true) => {
             if (o.definedObject(e)) {
                 u.text = f.Options.getText(e);
                 if (t) {
-                    ot.refreshAll();
+                    nt.refreshAll();
                 }
             }
-            return ot;
+            return nt;
         },
         getIds: () => {
             const e = [];
@@ -5023,7 +5035,9 @@ var _;
         u = f.Options.get();
         const e = () => {
             x();
-            nt();
+            C.setup(u, () => {
+                x();
+            });
         };
         if (document.readyState === "loading") {
             document.addEventListener("DOMContentLoaded", () => e());
@@ -5032,7 +5046,7 @@ var _;
         }
         window.addEventListener("pagehide", () => Ke());
         if (!o.defined(window.$heat)) {
-            window.$heat = ot;
+            window.$heat = nt;
         }
     })();
 })();//# sourceMappingURL=heat.esm.js.map
