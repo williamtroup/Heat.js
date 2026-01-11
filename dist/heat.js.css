@@ -349,6 +349,7 @@ div.heat-js div.container-contents {
   flex-grow: 1;
   padding: var(--heat-js-spacing);
   min-width: 0;
+  gap: var(--heat-js-spacing);
 }
 
 /*
@@ -655,7 +656,7 @@ div.heat-js div.disabled div.confirmation {
 */
 div.heat-js div.title-bar {
   text-align: right;
-  margin-bottom: calc(var(--heat-js-spacing) + var(--heat-js-spacing) / 2);
+  margin-bottom: calc(var(--heat-js-spacing) / 2);
   display: flex;
   align-items: center;
   justify-content: right;
@@ -1197,7 +1198,7 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
     -------------------------------------------------------------------------
 */
 div.heat-js div.yearly-statistics {
-  margin-bottom: calc(var(--heat-js-spacing) + var(--heat-js-spacing) / 2);
+  margin-bottom: calc(var(--heat-js-spacing) / 2);
   display: flex;
 }
 div.heat-js div.yearly-statistics div.statistics-box {
@@ -2459,7 +2460,7 @@ div.heat-js div.color-ranges-contents div.color-range-names div.color-range-name
 */
 div.heat-js div.description {
   text-align: center;
-  margin-top: calc(var(--heat-js-spacing) + var(--heat-js-spacing) / 2);
+  margin-top: calc(var(--heat-js-spacing) / 2);
   text-align: center;
 }
 div.heat-js div.description span.label,
@@ -2492,6 +2493,7 @@ div.heat-js div.description a.label:hover {
 */
 div.heat-js div.guide {
   display: block;
+  margin-top: calc(var(--heat-js-spacing) / 2);
 }
 @media (min-width: 768px) {
   div.heat-js div.guide {
@@ -2500,7 +2502,6 @@ div.heat-js div.guide {
 }
 div.heat-js div.guide div.map-types,
 div.heat-js div.guide div.map-toggles {
-  margin-top: calc(var(--heat-js-spacing) + var(--heat-js-spacing) / 2);
   width: 100%;
 }
 @media (min-width: 768px) {
@@ -2654,6 +2655,7 @@ div.heat-js div.guide div.map-toggles {
   gap: var(--heat-js-spacing);
   flex-wrap: wrap;
   max-width: none;
+  margin-top: var(--heat-js-spacing);
 }
 @media (min-width: 768px) {
   div.heat-js div.guide div.map-toggles {
@@ -2662,6 +2664,7 @@ div.heat-js div.guide div.map-toggles {
     width: auto;
     max-width: 320px;
     min-width: 200px;
+    margin-top: 0;
   }
 }
 div.heat-js div.guide div.map-toggles div.less-text,

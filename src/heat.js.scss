@@ -332,6 +332,7 @@ div.heat-js {
         flex-grow: 1;
         padding: var(--heat-js-spacing);
         min-width: 0;
+        gap: var(--heat-js-spacing);
     }
 }
 
@@ -598,7 +599,7 @@ div.heat-js {
 div.heat-js {
     div.title-bar {
         text-align: right;
-        margin-bottom: calc( var(--heat-js-spacing) + var(--heat-js-spacing) / 2 );
+        margin-bottom: calc( var(--heat-js-spacing) / 2 );
         display: flex;
         align-items: center;
         justify-content: right;
@@ -992,7 +993,7 @@ div.heat-js {
 
 div.heat-js {
     div.yearly-statistics {
-        margin-bottom: calc( var(--heat-js-spacing) + var(--heat-js-spacing) / 2 );
+        margin-bottom: calc( var(--heat-js-spacing) / 2 );
         display: flex;
 
         div.statistics-box {
@@ -1841,7 +1842,7 @@ div.heat-js {
 div.heat-js {
     div.description {
         text-align: center;
-        margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
+        margin-top: calc( var(--heat-js-spacing) / 2 );
 
         @include styles.description;
     }
@@ -1863,6 +1864,7 @@ div.heat-js {
 div.heat-js {
     div.guide {
         display: block;
+        margin-top: calc( var(--heat-js-spacing) / 2 );
     
         @media (min-width: styles.$minimum-width) { 
             display: flex;
@@ -1870,7 +1872,6 @@ div.heat-js {
 
         div.map-types,
         div.map-toggles {
-            margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
             width: 100%;
 
             @media (min-width: styles.$minimum-width) { 
@@ -1921,6 +1922,7 @@ div.heat-js {
             gap: var(--heat-js-spacing);
             flex-wrap: wrap;
             max-width: none;
+            margin-top: var(--heat-js-spacing);
 
             @media (min-width: styles.$minimum-width) { 
                 text-align: right;
@@ -1928,6 +1930,7 @@ div.heat-js {
                 width: auto;
                 max-width: 320px;
                 min-width: 200px;
+                margin-top: 0;
             }
 
             div.less-text,
