@@ -4146,7 +4146,7 @@ var V;
                 if (e.guide.colorRangeTogglesEnabled) {
                     t.onclick = () => {
                         if (w.invertVisibleStates(e)) {
-                            B(e);
+                            B(e, false, false, true);
                         }
                     };
                 } else {

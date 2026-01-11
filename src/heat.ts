@@ -2822,9 +2822,10 @@ import { DocumentElement } from "./ts/dom/document-element";
                 if ( bindingOptions.guide!.colorRangeTogglesEnabled ) {
                     invertText.onclick = () : void => {
                         if ( ColorRange.invertVisibleStates( bindingOptions ) ) {
-                            renderContainer( bindingOptions );
+                            renderContainer( bindingOptions, false, false, true );
                         }
                     };
+                    
                 } else {
                     DomElement.addClass( invertText, "no-click" );
                 }
