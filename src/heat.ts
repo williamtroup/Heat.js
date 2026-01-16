@@ -3751,8 +3751,8 @@ import { Observation } from "./ts/area/observation";
 
         updateBindingOptions: ( elementId: string, bindingOptions: BindingOptions ) : PublicApi => {
             if ( Is.definedString( elementId ) && Is.definedObject( bindingOptions ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
-                const existingBindingOptions: any = _elements_InstanceData[ elementId ].options;
-                const newBindingOptions: any = Binding.Options.get( bindingOptions );
+                const existingBindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
+                const newBindingOptions: BindingOptions = Binding.Options.get( bindingOptions );
                 let optionChanged: boolean = false;
     
                 for ( const propertyName in newBindingOptions ) {
