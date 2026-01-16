@@ -1,4 +1,4 @@
-# Heat.js v5.0.0
+# Heat.js v5.0.0 - Beta 1
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Heat.js%2C%20a%20free%20JavaScript%heat%20map&url=https://github.com/williamtroup/Heat.js&hashtags=javascript,heat,map)
 [![npm](https://img.shields.io/badge/npmjs-v5.0.0-blue)](https://www.npmjs.com/package/jheat.js)
