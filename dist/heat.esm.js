@@ -4960,7 +4960,7 @@ var C;
                 if (i) {
                     B(n, true);
                     l.customEvent(n.events.onRefresh, n._currentView.element);
-                    l.customEvent(n.events.onOptionsUpdate, n._currentView.element, n);
+                    l.customEvent(n.events.onBindingOptionsUpdate, n._currentView.element, n);
                 }
             }
             return nt;

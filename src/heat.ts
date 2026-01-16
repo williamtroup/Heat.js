@@ -3765,7 +3765,7 @@ import { Observation } from "./ts/area/observation";
                 if ( optionChanged ) {
                     renderContainer( existingBindingOptions, true );
                     Trigger.customEvent( existingBindingOptions.events!.onRefresh!, existingBindingOptions._currentView!.element );
-                    Trigger.customEvent( existingBindingOptions.events!.onOptionsUpdate!, existingBindingOptions._currentView!.element, existingBindingOptions );
+                    Trigger.customEvent( existingBindingOptions.events!.onBindingOptionsUpdate!, existingBindingOptions._currentView!.element, existingBindingOptions );
                 }
             }
     
