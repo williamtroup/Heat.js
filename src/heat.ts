@@ -3419,10 +3419,10 @@ import { Observation } from "./ts/area/observation";
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode && count > 0 ) {
-                    const storageDate: string = DateTime.toStorageDate( date );
+                    type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
         
-                    if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {    
-                        type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
+                    if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
+                        const storageDate: string = DateTime.toStorageDate( date );
 
                         _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ] = count;
         

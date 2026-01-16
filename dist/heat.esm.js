@@ -4710,10 +4710,10 @@ var C;
             if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
                 const o = D[e].options;
                 if (!o._currentView.isInFetchMode && n > 0) {
-                    const c = a.toStorageDate(t);
+                    r = i.getString(r, u.text.unknownTrendText);
                     if (Object.prototype.hasOwnProperty.call(D[e].typeData, r)) {
-                        r = i.getString(r, u.text.unknownTrendText);
-                        D[e].typeData[r][c] = n;
+                        const i = a.toStorageDate(t);
+                        D[e].typeData[r][i] = n;
                         l.customEvent(o.events.onUpdateDate, o._currentView.element);
                         if (s) {
                             B(o, true);
