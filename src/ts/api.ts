@@ -421,7 +421,7 @@ export type PublicApi = {
      * @fires       onBindingOptionsUpdate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID.
-     * @param       {Object}    bindingOptions                              The new options to want to apply to the element.
+     * @param       {Object}    bindingOptions                              The new binding options to want to apply to the element.
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
