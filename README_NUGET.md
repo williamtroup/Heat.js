@@ -7,7 +7,7 @@
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Heat.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://william-troup.com/)
 
-> 🌞 A powerful, and customizable, JavaScript library for generating interactive heatmaps. It transforms data points into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance. 
+> 🌞 A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance. 
 
 
 ## What features does Heat.js have?
