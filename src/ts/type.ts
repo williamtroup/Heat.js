@@ -339,7 +339,7 @@ export type BindingOptionsViewsDays = {
     showDayCountPercentages?: boolean;
     showStackedColorRanges?: boolean;
     dayToolTipText?: string;
-}
+};
 
 export type BindingOptionsViewsMonths = {
     enabled?: boolean;
