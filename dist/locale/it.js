@@ -1,4 +1,4 @@
-/*! Heat.js v5.0.0 - Beta 1 - Italian | (c) Bunoon 2025 | MIT License */
+/*! Heat.js v5.0.0 - Beta 2 - Italian | (c) Bunoon 2025 | MIT License */
 /*! Translations provided by Luca Racchetti */
 $heat.setLocale( {
     "stText": "°",

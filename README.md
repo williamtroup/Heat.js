@@ -10,7 +10,7 @@ Heat.js
 </h1>
 
 > <p align="center">🌞 A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.</p>
-> <p align="center">v5.0.0 - Beta 1</p>
+> <p align="center">v5.0.0 - Beta 2</p>
 <br />
 
 ![Heat.js](docs/images/main.png)
