@@ -1,7 +1,7 @@
 /**
  * Heat.js
  * 
- * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
+ * A powerful, and customizable, JavaScript library for generating interactive heatmaps. It transforms data points into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance. 
  * 
  * @file        visible.ts
  * @version     v5.0.0 - Beta 2
