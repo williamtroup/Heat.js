@@ -53,7 +53,7 @@ export namespace ToolTip {
 
     export function addForDay( configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions, day: HTMLElement, date: Date, dateCount: number, percentageDifferenceText: string, tooltipFormat: string, tooltipRenderFunc: Function, isHoliday: boolean, showCountsInTooltips: boolean, showDifferencesInToolTips: boolean ) : void {
         if ( Is.definedFunction( tooltipRenderFunc ) ) {
-            add( day, bindingOptions, Trigger.customEvent( tooltipRenderFunc, bindingOptions._currentView!.element, date, dateCount, isHoliday ) );
+            add( day, bindingOptions, Trigger.customEvent( tooltipRenderFunc, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, isHoliday ) );
         } else {
 
             let tooltip: string = DateTime.getCustomFormattedDateText( configurationOptions, tooltipFormat, date, true );

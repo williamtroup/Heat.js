@@ -564,7 +564,7 @@ var c;
     e.add = i;
     function c(e, t, n, s, c, d, u, w, g, f, h) {
         if (o.definedFunction(w)) {
-            i(n, t, l.customEvent(w, t._currentView.element, s, c, g));
+            i(n, t, l.customEvent(w, t._currentView.element, s, c, t._currentView.activeYear, g));
         } else {
             let l = a.getCustomFormattedDateText(e, u, s, true);
             if (t.showHolidaysInDayToolTips) {
