@@ -809,7 +809,7 @@ import { Observation } from "./ts/area/observation";
             bindingOptions._currentView!.typeAddingOptionNewType.checked = true;
 
             const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-            const addButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.addButtonText! );
+            bindingOptions._currentView!.typeAddingAddButton = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.addButtonText! );
 
             bindingOptions._currentView!.typeAddingDialogTypeInput.onkeydown = ( ev: KeyboardEvent ) : void => {
                 if ( ev.key === KeyCode.enter ) {
@@ -818,13 +818,13 @@ import { Observation } from "./ts/area/observation";
             };
 
             closeButton.onclick = () : void => hideTypeAddingDialog( bindingOptions );
-            addButton.onclick = () : void => addNewTypeFromAddTypeDialog( bindingOptions );
+            bindingOptions._currentView!.typeAddingAddButton.onclick = () : void => addNewTypeFromAddTypeDialog( bindingOptions );
 
             ToolTip.add( closeButton, bindingOptions, _configurationOptions.text!.closeButtonText! );
         }
     }
 
-    function showTypeAddingDialog( bindingOptions: BindingOptions ) : void {
+    function showTypeAddingDialog( bindingOptions: BindingOptions, renamedType: string = null! ) : void {
         renderTypeAddingDialog( bindingOptions );
 
         Disabled.Background.show( bindingOptions );
@@ -832,7 +832,17 @@ import { Observation } from "./ts/area/observation";
         if ( Is.defined( bindingOptions._currentView!.typeAddingDialog ) && bindingOptions._currentView!.typeAddingDialog.style.display !== "block" ) {
             bindingOptions._currentView!.typeAddingDialogTypeInput.value = Char.empty;
             bindingOptions._currentView!.typeAddingDialog.style.display = "block";
+            bindingOptions._currentView!.typeAddingRenameType = renamedType;
             bindingOptions._currentView!.typeAddingDialogTypeInput.focus();
+
+            if ( Is.definedString( renamedType ) ) {
+                bindingOptions._currentView!.typeAddingDialogTypeInput.value = renamedType;
+                bindingOptions._currentView!.typeAddingAddButton.innerText = _configurationOptions.text!.saveButtonText!;
+                bindingOptions._currentView!.typeAddingDialogTypeInput.select();
+                
+            } else {
+                bindingOptions._currentView!.typeAddingAddButton.innerText = _configurationOptions.text!.addButtonText!;
+            }
         }
 
         ToolTip.hide( bindingOptions );
@@ -856,20 +866,32 @@ import { Observation } from "./ts/area/observation";
 
         if ( Is.definedString( type ) && !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
             if ( !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
-                _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
-                _elements_InstanceData[ elementId ].totalTypes++;
+                if ( !Is.definedString( bindingOptions._currentView!.typeAddingRenameType ) ) {
+                    _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
+                    _elements_InstanceData[ elementId ].totalTypes++;
+                } else {
+
+                    const originalData: InstanceTypeDateCount = _elements_InstanceData[ elementId ].typeData[ bindingOptions._currentView!.typeAddingRenameType ];
+
+                    delete _elements_InstanceData[ elementId ].typeData[ bindingOptions._currentView!.typeAddingRenameType ];
+
+                    _elements_InstanceData[ elementId ].typeData[ type ] = originalData;
+                }
+
+                if ( bindingOptions._currentView!.typeAddingOptionNewType.checked ) {
+                    bindingOptions._currentView!.activeType = type;
+
+                    Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
+                }
+                
+                Trigger.customEvent( bindingOptions.events!.onAddType!, bindingOptions._currentView!.element, type );
+
+                hideTypeAddingDialog( bindingOptions );
+                renderContainer( bindingOptions, true );
+
+            } else {
+                hideTypeAddingDialog( bindingOptions );
             }
-
-            if ( bindingOptions._currentView!.typeAddingOptionNewType.checked ) {
-                bindingOptions._currentView!.activeType = type;
-
-                Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
-            }
-            
-            Trigger.customEvent( bindingOptions.events!.onAddType!, bindingOptions._currentView!.element, type );
-
-            hideTypeAddingDialog( bindingOptions );
-            renderContainer( bindingOptions, true );
 
         } else {
             hideTypeAddingDialog( bindingOptions );
@@ -2925,6 +2947,10 @@ import { Observation } from "./ts/area/observation";
                 renderContainer( bindingOptions );
             }
         };
+
+        if ( bindingOptions.guide!.allowTypeAdding ) {
+            typeButton.ondblclick = () : void => showTypeAddingDialog( bindingOptions, type );
+        }
     }
 
     function renderGuideColorRangeToggle( bindingOptions: BindingOptions, toggles: HTMLElement, colorRange: BindingOptionsColorRange ) : HTMLElement {

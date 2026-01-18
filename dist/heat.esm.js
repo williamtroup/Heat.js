@@ -2378,7 +2378,7 @@ var C;
         if (e.views.colorRanges.enabled && e._currentView.activeView === 6) {
             Ne(e, n);
         }
-        Ae(e);
+        Le(e);
         m.View.set(e);
     }
     function O(e, t = true) {
@@ -2390,26 +2390,26 @@ var C;
         if (t) {
             e._currentView.sideMenu = s.create(e._currentView.element, "div", "container-side-menu", e._currentView.container);
             if (e.views.map.enabled) {
-                k(e, 1, "map", u.text.mapText);
+                A(e, 1, "map", u.text.mapText);
             }
             if (e.views.line.enabled) {
-                k(e, 2, "line", u.text.lineText);
+                A(e, 2, "line", u.text.lineText);
             }
             if (e.views.chart.enabled) {
-                k(e, 3, "chart", u.text.chartText);
+                A(e, 3, "chart", u.text.chartText);
             }
             if (e.views.days.enabled) {
-                k(e, 4, "days", u.text.daysText);
+                A(e, 4, "days", u.text.daysText);
             }
             if (e.views.months.enabled) {
-                k(e, 5, "months", u.text.monthsText);
+                A(e, 5, "months", u.text.monthsText);
             }
             if (e.views.colorRanges.enabled) {
-                k(e, 6, "color-ranges", u.text.colorRangesText);
+                A(e, 6, "color-ranges", u.text.colorRangesText);
             }
         }
     }
-    function k(e, t, n, o) {
+    function A(e, t, n, o) {
         const i = s.create(e._currentView.sideMenu, "div", "menu-tab");
         i.onclick = () => Fe(e, t);
         if (e._currentView.activeView === t) {
@@ -2420,7 +2420,7 @@ var C;
         }
         s.create(i, "i", n);
     }
-    function L(e) {
+    function k(e) {
         h.Background.render(e);
         if (!o.definedParentElement(e._currentView.configurationDialog)) {
             e._currentView.configurationDialog = s.create(e._currentView.disabledBackground, "div", "dialog configuration");
@@ -2460,8 +2460,8 @@ var C;
             c.add(o, e, u.text.closeButtonText);
         }
     }
-    function A(e) {
-        L(e);
+    function L(e) {
+        k(e);
         h.Background.show(e);
         if (o.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "block") {
             e._currentView.configurationDialog.style.display = "block";
@@ -2814,24 +2814,32 @@ var C;
             e._currentView.typeAddingOptionNewType = s.createCheckBox(n, u.text.openNewTypeText, crypto.randomUUID());
             e._currentView.typeAddingOptionNewType.checked = true;
             const i = s.create(n, "div", "buttons");
-            const r = s.createButton(i, "button", "default", u.text.addButtonText);
+            e._currentView.typeAddingAddButton = s.createButton(i, "button", "default", u.text.addButtonText);
             e._currentView.typeAddingDialogTypeInput.onkeydown = t => {
                 if (t.key === "Enter") {
                     ne(e);
                 }
             };
             o.onclick = () => te(e);
-            r.onclick = () => ne(e);
+            e._currentView.typeAddingAddButton.onclick = () => ne(e);
             c.add(o, e, u.text.closeButtonText);
         }
     }
-    function ee(e) {
+    function ee(e, t = null) {
         Q(e);
         h.Background.show(e);
         if (o.defined(e._currentView.typeAddingDialog) && e._currentView.typeAddingDialog.style.display !== "block") {
             e._currentView.typeAddingDialogTypeInput.value = "";
             e._currentView.typeAddingDialog.style.display = "block";
+            e._currentView.typeAddingRenameType = t;
             e._currentView.typeAddingDialogTypeInput.focus();
+            if (o.definedString(t)) {
+                e._currentView.typeAddingDialogTypeInput.value = t;
+                e._currentView.typeAddingAddButton.innerText = u.text.saveButtonText;
+                e._currentView.typeAddingDialogTypeInput.select();
+            } else {
+                e._currentView.typeAddingAddButton.innerText = u.text.addButtonText;
+            }
         }
         c.hide(e);
         V.Dialog.bindEvents(() => te(e));
@@ -2849,16 +2857,24 @@ var C;
         const n = e._currentView.element.id;
         if (o.definedString(t) && !Object.prototype.hasOwnProperty.call(D[n].typeData, t)) {
             if (!Object.prototype.hasOwnProperty.call(D[n].typeData, t)) {
-                D[n].typeData[t] = {};
-                D[n].totalTypes++;
+                if (!o.definedString(e._currentView.typeAddingRenameType)) {
+                    D[n].typeData[t] = {};
+                    D[n].totalTypes++;
+                } else {
+                    const o = D[n].typeData[e._currentView.typeAddingRenameType];
+                    delete D[n].typeData[e._currentView.typeAddingRenameType];
+                    D[n].typeData[t] = o;
+                }
+                if (e._currentView.typeAddingOptionNewType.checked) {
+                    e._currentView.activeType = t;
+                    l.customEvent(e.events.onTypeSwitch, e._currentView.element, t);
+                }
+                l.customEvent(e.events.onAddType, e._currentView.element, t);
+                te(e);
+                B(e, true);
+            } else {
+                te(e);
             }
-            if (e._currentView.typeAddingOptionNewType.checked) {
-                e._currentView.activeType = t;
-                l.customEvent(e.events.onTypeSwitch, e._currentView.element, t);
-            }
-            l.customEvent(e.events.onAddType, e._currentView.element, t);
-            te(e);
-            B(e, true);
         } else {
             te(e);
         }
@@ -2970,7 +2986,7 @@ var C;
                 }
                 if (e.title.showConfigurationButton) {
                     const n = s.create(t, "div", "configure");
-                    n.onclick = () => A(e);
+                    n.onclick = () => L(e);
                     if (e.title.showToolTips) {
                         c.add(n, e, u.text.configurationButtonText);
                     }
@@ -4129,7 +4145,7 @@ var C;
         const a = s.create(i, "div", "y-labels");
         const l = s.create(i, "div", "color-range-lines");
         const c = w.getAllSorted(e);
-        const d = Le(e, c);
+        const d = ke(e, c);
         if (t) {
             s.addClass(i, "view-switch");
         }
@@ -4161,7 +4177,7 @@ var C;
             }
             for (const n in d.types) {
                 if (Object.prototype.hasOwnProperty.call(d.types, n)) {
-                    ke(parseInt(n), l, d.types[n], e, c, i, d.totalValue, t);
+                    Ae(parseInt(n), l, d.types[n], e, c, i, d.totalValue, t);
                     const a = w.getByMinimum(c, parseInt(n));
                     if (e.views.colorRanges.showColorRangeLabels) {
                         if (!e.views.colorRanges.useColorRangeNamesForLabels || !o.defined(a) || !o.definedString(a.name)) {
@@ -4182,7 +4198,7 @@ var C;
         }
         e._currentView.colorRangesContents.style.display = "none";
     }
-    function ke(e, t, i, a, d, u, g, f) {
+    function Ae(e, t, i, a, d, u, g, f) {
         const h = s.create(t, "div", "color-range-line");
         const m = i * u;
         const p = w.getByMinimum(d, e);
@@ -4228,7 +4244,7 @@ var C;
         }
         v.setHeight(a, h, m, f);
     }
-    function Le(e, t) {
+    function ke(e, t) {
         const n = We(e);
         const i = e._currentView.activeYear;
         const r = t.length;
@@ -4268,7 +4284,7 @@ var C;
         }
         return s;
     }
-    function Ae(e) {
+    function Le(e) {
         const t = s.create(e._currentView.container, "div", "guide");
         const n = s.create(t, "div", "map-types");
         const i = Ye(e);
@@ -4378,6 +4394,9 @@ var C;
                 B(e);
             }
         };
+        if (e.guide.allowTypeAdding) {
+            o.ondblclick = () => ee(e, n);
+        }
     }
     function Ie(e, t, o) {
         const i = s.create(t, "div");

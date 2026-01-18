@@ -223,6 +223,8 @@ export type BindingOptionsCurrentView = {
     typeAddingDialog: HTMLElement;
     typeAddingDialogTypeInput: HTMLInputElement;
     typeAddingOptionNewType: HTMLInputElement;
+    typeAddingRenameType: string;
+    typeAddingAddButton: HTMLButtonElement;
     confirmationDialog: HTMLElement;
     confirmationDialogMessage: HTMLElement;
     confirmationDialogYesButton: HTMLButtonElement;
