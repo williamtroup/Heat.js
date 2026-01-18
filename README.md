@@ -44,7 +44,7 @@ Heat.js
 
 <h1>Where can I find the documentation?</h1>
 
-All the documentation can be found [here](https://www.william-troup.com/heat-js/documentation/index.html).
+All the documentation can be found [here](https://www.heatjs.com/docs).
 <br>
 <br>
 
@@ -152,7 +152,7 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 
 <h1>What are the most recent changes?</h1>
 
-To see a list of all the most recent changes, click [here](https://william-troup.com/heat-js/documentation/recent-changes.html).
+To see a list of all the most recent changes, click [here](https://www.heatjs.com/docs/information/recentchanges).
 <br>
 <br>
 
@@ -165,7 +165,7 @@ You can install the library with npm into your local modules directory using the
 npm install jheat.js
 ```
 
-Or, you can download the latest zipped up version [here](https://www.william-troup.com/heat-js/download.html).
+Or, you can download the latest zipped up version [here](https://www.heatjs.com/download).
 
 Or, you can also use the following CDN links:
 
@@ -210,9 +210,9 @@ Make sure you include the "DOCTYPE html" tag at the top of your HTML, as follows
 </div>
 ```
 
-To see a list of all the available binding options you can use for "data-heat-js", click [here](https://william-troup.com/heat-js/documentation/binding-options.html).
+To see a list of all the available binding options you can use for "data-heat-js", click [here](https://www.heatjs.com/docs/binding/basicoptions).
 
-To see a list of all the available custom triggers you can use for "data-heat-js", click [here](https://william-troup.com/heat-js/documentation/binding-options-custom-triggers.html).
+To see a list of all the available custom triggers you can use for "data-heat-js", click [here](https://www.heatjs.com/docs/binding/customtriggers).
 
 <br>
 
@@ -248,7 +248,7 @@ To customize, and get more out of Heat.js, please read through the following doc
 
 ### 1. Public Functions:
 
-To see a list of all the public functions available, click [here](https://william-troup.com/heat-js/documentation/public-functions.html).
+To see a list of all the public functions available, click [here](https://www.heatjs.com/docs/api/publicfunctions).
 <br>
 <br>
 
@@ -265,4 +265,4 @@ Configuration options allow you to customize how Heat.js will function.  You can
 </script>
 ```
 
-To see a list of all the available configuration options you can use, click [here](https://william-troup.com/heat-js/documentation/options.html).
+To see a list of all the available configuration options you can use, click [here](https://www.heatjs.com/docs/configuration/mainoptions).

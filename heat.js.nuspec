@@ -6,7 +6,7 @@
         <title>Heat.js</title>
         <description>A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance. </description>
         <authors>William Troup</authors>
-        <projectUrl>https://www.william-troup.com/heat-js/</projectUrl>
+        <projectUrl>https://www.heatjs.com</projectUrl>
         <repository type="git" url="https://github.com/williamtroup/Heat.js" branch="main" />
         <readme>README_NUGET.md</readme>
         <license type="expression">MIT</license>
