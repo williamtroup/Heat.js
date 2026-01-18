@@ -865,33 +865,28 @@ import { Observation } from "./ts/area/observation";
         const elementId: string = bindingOptions._currentView!.element.id;
 
         if ( Is.definedString( type ) && !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
-            if ( !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
-                if ( !Is.definedString( bindingOptions._currentView!.typeAddingRenameType ) ) {
-                    _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
-                    _elements_InstanceData[ elementId ].totalTypes++;
-                } else {
-
-                    const originalData: InstanceTypeDateCount = _elements_InstanceData[ elementId ].typeData[ bindingOptions._currentView!.typeAddingRenameType ];
-
-                    delete _elements_InstanceData[ elementId ].typeData[ bindingOptions._currentView!.typeAddingRenameType ];
-
-                    _elements_InstanceData[ elementId ].typeData[ type ] = originalData;
-                }
-
-                if ( bindingOptions._currentView!.typeAddingOptionNewType.checked ) {
-                    bindingOptions._currentView!.activeType = type;
-
-                    Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
-                }
-                
-                Trigger.customEvent( bindingOptions.events!.onAddType!, bindingOptions._currentView!.element, type );
-
-                hideTypeAddingDialog( bindingOptions );
-                renderContainer( bindingOptions, true );
-
+            if ( !Is.definedString( bindingOptions._currentView!.typeAddingRenameType ) ) {
+                _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
+                _elements_InstanceData[ elementId ].totalTypes++;
             } else {
-                hideTypeAddingDialog( bindingOptions );
+
+                const originalData: InstanceTypeDateCount = _elements_InstanceData[ elementId ].typeData[ bindingOptions._currentView!.typeAddingRenameType ];
+
+                delete _elements_InstanceData[ elementId ].typeData[ bindingOptions._currentView!.typeAddingRenameType ];
+
+                _elements_InstanceData[ elementId ].typeData[ type ] = originalData;
             }
+
+            if ( bindingOptions._currentView!.typeAddingOptionNewType.checked ) {
+                bindingOptions._currentView!.activeType = type;
+
+                Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
+            }
+            
+            Trigger.customEvent( bindingOptions.events!.onAddType!, bindingOptions._currentView!.element, type );
+
+            hideTypeAddingDialog( bindingOptions );
+            renderContainer( bindingOptions, true );
 
         } else {
             hideTypeAddingDialog( bindingOptions );

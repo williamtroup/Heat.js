@@ -2858,25 +2858,21 @@ var C;
         const t = e._currentView.typeAddingDialogTypeInput.value.trim();
         const n = e._currentView.element.id;
         if (o.definedString(t) && !Object.prototype.hasOwnProperty.call(D[n].typeData, t)) {
-            if (!Object.prototype.hasOwnProperty.call(D[n].typeData, t)) {
-                if (!o.definedString(e._currentView.typeAddingRenameType)) {
-                    D[n].typeData[t] = {};
-                    D[n].totalTypes++;
-                } else {
-                    const o = D[n].typeData[e._currentView.typeAddingRenameType];
-                    delete D[n].typeData[e._currentView.typeAddingRenameType];
-                    D[n].typeData[t] = o;
-                }
-                if (e._currentView.typeAddingOptionNewType.checked) {
-                    e._currentView.activeType = t;
-                    l.customEvent(e.events.onTypeSwitch, e._currentView.element, t);
-                }
-                l.customEvent(e.events.onAddType, e._currentView.element, t);
-                te(e);
-                B(e, true);
+            if (!o.definedString(e._currentView.typeAddingRenameType)) {
+                D[n].typeData[t] = {};
+                D[n].totalTypes++;
             } else {
-                te(e);
+                const o = D[n].typeData[e._currentView.typeAddingRenameType];
+                delete D[n].typeData[e._currentView.typeAddingRenameType];
+                D[n].typeData[t] = o;
             }
+            if (e._currentView.typeAddingOptionNewType.checked) {
+                e._currentView.activeType = t;
+                l.customEvent(e.events.onTypeSwitch, e._currentView.element, t);
+            }
+            l.customEvent(e.events.onAddType, e._currentView.element, t);
+            te(e);
+            B(e, true);
         } else {
             te(e);
         }
