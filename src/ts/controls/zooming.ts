@@ -30,7 +30,9 @@ export namespace Zooming {
             if ( bindingOptions.zooming!.showCloseButton ) {
                 const closeButton: HTMLElement = DomElement.create( zooming, "div", "zoom-close-button" ) as HTMLElement;
 
-                ToolTip.add( closeButton, bindingOptions, configurationOptions.text!.closeButtonText! );
+                if ( bindingOptions.zooming!.showToolTips ) {
+                    ToolTip.add( closeButton, bindingOptions, configurationOptions.text!.closeButtonText! );
+                }
 
                 closeButton.onclick = () : void => {
                     bindingOptions.zooming!.enabled = false;
@@ -43,7 +45,9 @@ export namespace Zooming {
             if ( bindingOptions.zooming!.showResetButton ) {
                 resetButton = DomElement.createIconButton( zooming, "button", "reset", "exclamation-mark" );
 
-                ToolTip.add( resetButton, bindingOptions, configurationOptions.text!.resetButtonText! );
+                if ( bindingOptions.zooming!.showToolTips ) {
+                    ToolTip.add( resetButton, bindingOptions, configurationOptions.text!.resetButtonText! );
+                }
 
                 resetButton.onclick = () : void => reset( bindingOptions, renderFunc );
             }
@@ -53,8 +57,10 @@ export namespace Zooming {
             const zoomInButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-in", "plus" );
             const spacing: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.Spacing, true ) as number;
             
-            ToolTip.add( zoomInButton, bindingOptions, configurationOptions.text!.zoomInText! );
-            ToolTip.add( zoomOutButton, bindingOptions, configurationOptions.text!.zoomOutText! );
+            if ( bindingOptions.zooming!.showToolTips ) {
+                ToolTip.add( zoomInButton, bindingOptions, configurationOptions.text!.zoomInText! );
+                ToolTip.add( zoomOutButton, bindingOptions, configurationOptions.text!.zoomOutText! );
+            }
 
             zooming.style.bottom = container.offsetHeight - contents.offsetHeight + "px";
 

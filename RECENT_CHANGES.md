@@ -115,6 +115,7 @@
 - Added a new binding option called "zooming.maximumLevel", which states the maximum zoom level (defaults to 0, which disables it).
 - Added a new binding option called "zooming.showCloseButton", which states if the close button should be shown (defaults to true).
 - Added a new binding option called "zooming.showResetButton", which states if the reset button should be shown (defaults to false).
+- Added a new binding option called "zooming.showToolTips", which states if tooltips should be shown for the buttons (defaults to true).
 - Added a new binding area called "dynamicColorRange".
 - Added a new binding option called "dynamicColorRange.enabled", which states if dynamic colors are enabled (defaults to false).
 - Added a new binding option called "dynamicColorRange.maximumMinimum", which states the maximum minimum level to use (defaults to 25).

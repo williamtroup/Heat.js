@@ -1244,6 +1244,7 @@ var g;
             e.zooming.maximumLevel = i.getNumber(e.zooming.maximumLevel, 0);
             e.zooming.showCloseButton = i.getBoolean(e.zooming.showCloseButton, true);
             e.zooming.showResetButton = i.getBoolean(e.zooming.showResetButton, false);
+            e.zooming.showToolTips = i.getBoolean(e.zooming.showToolTips, true);
             return e.zooming;
         }
         function C(e) {
@@ -2151,7 +2152,9 @@ var _;
             let f = null;
             if (t.zooming.showCloseButton) {
                 const n = s.create(g, "div", "zoom-close-button");
-                c.add(n, t, e.text.closeButtonText);
+                if (t.zooming.showToolTips) {
+                    c.add(n, t, e.text.closeButtonText);
+                }
                 n.onclick = () => {
                     t.zooming.enabled = false;
                     t._currentView.mapContents.style.paddingRight = "0px";
@@ -2160,15 +2163,19 @@ var _;
             }
             if (t.zooming.showResetButton) {
                 f = s.createIconButton(g, "button", "reset", "exclamation-mark");
-                c.add(f, t, e.text.resetButtonText);
+                if (t.zooming.showToolTips) {
+                    c.add(f, t, e.text.resetButtonText);
+                }
                 f.onclick = () => i(t, w);
             }
             const h = s.createIconButton(g, "button", "zoom-out", "minus");
             const m = s.createWithHTML(g, "span", "zoom-level", `+${r.friendlyNumber(t._currentView.zoomLevel * 10)}%`);
             const p = s.createIconButton(g, "button", "zoom-in", "plus");
             const y = s.getStyleValueByName(document.documentElement, u.Variables.Spacing, true);
-            c.add(p, t, e.text.zoomInText);
-            c.add(h, t, e.text.zoomOutText);
+            if (t.zooming.showToolTips) {
+                c.add(p, t, e.text.zoomInText);
+                c.add(h, t, e.text.zoomOutText);
+            }
             g.style.bottom = n.offsetHeight - l.offsetHeight + "px";
             if (t._currentView.zoomLevel === -1) {
                 t._currentView.zoomLevel = 0;
