@@ -17,7 +17,8 @@ import {
     type BindingOptionsColorRange,
     type BindingOptions,
     type InstanceTypeDateCount,
-    type InstanceData, 
+    type InstanceData,
+    type InstanceTypeData,
     type StringToJson,
     type IsHoliday,
     type LargestValueForView, 
@@ -3057,7 +3058,7 @@ import { Observation } from "./ts/area/observation";
             options: bindingOptions,
             typeData: {},
             totalTypes: 1,
-        };
+        } as InstanceTypeData;
 
         _elements_InstanceData[ elementId ].typeData[ _configurationOptions.text!.unknownTrendText! ] = {} as InstanceTypeDateCount;
 
