@@ -486,7 +486,6 @@ export namespace Binding {
     
                 for ( let holidayIndex: number = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
                     const holiday: BindingOptionsHoliday = bindingOptions.holidays![ holidayIndex ];
-                    
                     holiday.date = Default.getString( holiday.date, Char.empty );
                     holiday.name = Default.getString( holiday.name, Char.empty );
                     holiday.showInViews = Default.getBoolean( holiday.showInViews, true );
