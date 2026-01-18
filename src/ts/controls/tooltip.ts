@@ -118,15 +118,11 @@ export namespace ToolTip {
     }
 
     function assignToEvents( bindingOptions: BindingOptions, add: boolean = true ) : void {
-        if ( add ) {
-            window.addEventListener( "mousemove", () : void => hide( bindingOptions ) );
-            window.addEventListener( "blur", () : void => hide( bindingOptions ) );
-            document.addEventListener ( "scroll", () : void => hide( bindingOptions ) );
+        const windowFunc: Function = add ? window.addEventListener : window.removeEventListener;
+        const documentFunc: Function = add ? document.addEventListener : document.removeEventListener;
 
-        } else {
-            window.removeEventListener( "mousemove", () : void => hide( bindingOptions ) );
-            window.removeEventListener( "blur", () : void => hide( bindingOptions ) );
-            document.removeEventListener ( "scroll", () : void => hide( bindingOptions ) );
-        }
+        windowFunc( "mousemove", () : void => hide( bindingOptions ) );
+        windowFunc( "blur", () : void => hide( bindingOptions ) );
+        documentFunc ( "scroll", () : void => hide( bindingOptions ) );
     }
 }

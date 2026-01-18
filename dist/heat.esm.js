@@ -618,15 +618,11 @@ var c;
     }
     e.remove = w;
     function g(e, t = true) {
-        if (t) {
-            window.addEventListener("mousemove", () => u(e));
-            window.addEventListener("blur", () => u(e));
-            document.addEventListener("scroll", () => u(e));
-        } else {
-            window.removeEventListener("mousemove", () => u(e));
-            window.removeEventListener("blur", () => u(e));
-            document.removeEventListener("scroll", () => u(e));
-        }
+        const n = t ? window.addEventListener : window.removeEventListener;
+        const o = t ? document.addEventListener : document.removeEventListener;
+        n("mousemove", () => u(e));
+        n("blur", () => u(e));
+        o("scroll", () => u(e));
     }
 })(c || (c = {}));
 
