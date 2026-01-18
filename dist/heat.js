@@ -2359,7 +2359,7 @@ var C;
         }
         Xe(e);
         He(e);
-        N(e);
+        A(e);
         ae(e);
         ge(e);
         if (e.views.map.enabled && e._currentView.activeView === 1) {
@@ -2378,7 +2378,7 @@ var C;
             Me(e, n);
         }
         if (e.views.colorRanges.enabled && e._currentView.activeView === 6) {
-            Ne(e, n);
+            Ae(e, n);
         }
         Le(e);
         m.View.set(e);
@@ -2387,31 +2387,31 @@ var C;
         const n = t ? window.addEventListener : window.removeEventListener;
         n("blur", () => c.hide(e));
     }
-    function N(e) {
+    function A(e) {
         const t = e.sideMenu.enabled && e._currentView.viewsEnabled > 1;
         if (t) {
             e._currentView.sideMenu = s.create(e._currentView.element, "div", "container-side-menu", e._currentView.container);
             if (e.views.map.enabled) {
-                A(e, 1, "map", u.text.mapText);
+                N(e, 1, "map", u.text.mapText);
             }
             if (e.views.line.enabled) {
-                A(e, 2, "line", u.text.lineText);
+                N(e, 2, "line", u.text.lineText);
             }
             if (e.views.chart.enabled) {
-                A(e, 3, "chart", u.text.chartText);
+                N(e, 3, "chart", u.text.chartText);
             }
             if (e.views.days.enabled) {
-                A(e, 4, "days", u.text.daysText);
+                N(e, 4, "days", u.text.daysText);
             }
             if (e.views.months.enabled) {
-                A(e, 5, "months", u.text.monthsText);
+                N(e, 5, "months", u.text.monthsText);
             }
             if (e.views.colorRanges.enabled) {
-                A(e, 6, "color-ranges", u.text.colorRangesText);
+                N(e, 6, "color-ranges", u.text.colorRangesText);
             }
         }
     }
-    function A(e, t, n, o) {
+    function N(e, t, n, o) {
         const i = s.create(e._currentView.sideMenu, "div", "menu-tab");
         i.onclick = () => Fe(e, t);
         if (e._currentView.activeView === t) {
@@ -2866,7 +2866,7 @@ var C;
                 delete D[n].typeData[e._currentView.typeAddingRenameType];
                 D[n].typeData[t] = o;
             }
-            if (e._currentView.typeAddingOptionNewType.checked) {
+            if (e._currentView.typeAddingOptionNewType.checked || e._currentView.activeType === e._currentView.typeAddingRenameType) {
                 e._currentView.activeType = t;
                 l.customEvent(e.events.onTypeSwitch, e._currentView.element, t);
             }
@@ -4136,7 +4136,7 @@ var C;
         d.valuesToOpacitiesOrder(n);
         return n;
     }
-    function Ne(e, t) {
+    function Ae(e, t) {
         e._currentView.colorRangesContents = s.create(e._currentView.container, "div", "color-ranges-contents");
         const i = s.create(e._currentView.colorRangesContents, "div", "color-ranges");
         const r = s.create(e._currentView.colorRangesContents, "div", "color-range-names");
@@ -4175,7 +4175,7 @@ var C;
             }
             for (const n in d.types) {
                 if (Object.prototype.hasOwnProperty.call(d.types, n)) {
-                    Ae(parseInt(n), l, d.types[n], e, c, i, d.totalValue, t);
+                    Ne(parseInt(n), l, d.types[n], e, c, i, d.totalValue, t);
                     const a = w.getByMinimum(c, parseInt(n));
                     if (e.views.colorRanges.showColorRangeLabels) {
                         if (!e.views.colorRanges.useColorRangeNamesForLabels || !o.defined(a) || !o.definedString(a.name)) {
@@ -4196,7 +4196,7 @@ var C;
         }
         e._currentView.colorRangesContents.style.display = "none";
     }
-    function Ae(e, t, i, a, d, u, g, f) {
+    function Ne(e, t, i, a, d, u, g, f) {
         const h = s.create(t, "div", "color-range-line");
         const m = i * u;
         const p = w.getByMinimum(d, e);

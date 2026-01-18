@@ -877,7 +877,7 @@ import { Observation } from "./ts/area/observation";
                 _elements_InstanceData[ elementId ].typeData[ type ] = originalData;
             }
 
-            if ( bindingOptions._currentView!.typeAddingOptionNewType.checked ) {
+            if ( bindingOptions._currentView!.typeAddingOptionNewType.checked || bindingOptions._currentView!.activeType === bindingOptions._currentView!.typeAddingRenameType ) {
                 bindingOptions._currentView!.activeType = type;
 
                 Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
