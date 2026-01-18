@@ -67,6 +67,7 @@ export type ConfigurationOptions = {
 	safeMode?: boolean;
 	domElementTypes?: string[] | string;
     observationMode?: boolean;
+    allowEmptyBindings?: boolean;
     text?: ConfigurationOptionsText;
 };
 

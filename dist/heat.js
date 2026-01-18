@@ -1417,6 +1417,7 @@ var f;
             t.safeMode = i.getBoolean(t.safeMode, true);
             t.observationMode = i.getBoolean(t.observationMode, true);
             t.domElementTypes = i.getStringOrArray(t.domElementTypes, [ "*" ]);
+            t.allowEmptyBindings = i.getBoolean(t.allowEmptyBindings, true);
             t.text = n(t.text);
             return t;
         }
@@ -2315,7 +2316,7 @@ var C;
         let t = true;
         if (o.defined(e) && e.hasAttribute(n.Attribute.HEAT_JS)) {
             const r = e.getAttribute(n.Attribute.HEAT_JS);
-            if (o.definedString(r)) {
+            if (o.definedString(r) || u.allowEmptyBindings) {
                 const a = i.getObjectFromString(r, u);
                 if (a.parsed && o.definedObject(a.object)) {
                     M(g.Options.getForNewInstance(u, a.object, e));

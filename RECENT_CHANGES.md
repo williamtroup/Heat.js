@@ -157,13 +157,16 @@
 - Added a new "year" parameter for the event "onLineDayClick" and "onLineDayDblClick", which is now passed after the "count" parameter.
 - Added a new "year" parameter for the event "onChartDayClick" and "onChartDayDblClick", which is now passed after the "count" parameter.
 
-#### **Configuration Options - Breaking Changes:**
+#### **Configuration Options:**
+- Added a new configuration option called "allowEmptyBindings" (defaults to true), which will allow empty binding attributes to create new instances.
+
+#### **Configuration Options - Text - Breaking Changes:**
 - BREAKING: Remove all symbol-based text configuration options.
 - BREAKING: Renamed "text.closeToolTipText" to "text.closeButtonText".
 - BREAKING: Renamed "text.configurationToolTipText" to "text.configurationButtonText".
 - BREAKING: Renamed "text.noStatisticsDataMessage" to "text.noColorRangesDataMessage".
 
-#### **Configuration Options:**
+#### **Configuration Options - Text:**
 - Added a new configuration text option called "text.todayText" (defaults to "Today").
 - Added a new configuration text option called "text.thisWeekText" (defaults to "This Week").
 - Added a new configuration text option called "text.thisMonthText" (defaults to "This Month").

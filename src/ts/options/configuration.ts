@@ -19,11 +19,12 @@ import { Is } from "../data/is";
 export namespace Configuration {
     export namespace Options {
         export function get( configurationOptions: ConfigurationOptions = null! ) : ConfigurationOptions {
-            const configuration = Default.getObject( configurationOptions, {} as ConfigurationOptions );
+            const configuration: ConfigurationOptions = Default.getObject( configurationOptions, {} as ConfigurationOptions );
             configuration.safeMode = Default.getBoolean( configuration.safeMode, true );
             configuration.observationMode = Default.getBoolean( configuration.observationMode, true );
             configuration.domElementTypes = Default.getStringOrArray( configuration.domElementTypes, [ "*" ] );
-            configuration.text = getText( configuration.text );
+            configuration.allowEmptyBindings = Default.getBoolean( configuration.allowEmptyBindings, true );
+            configuration.text = getText( configuration.text! );
 
             return configuration;
         }

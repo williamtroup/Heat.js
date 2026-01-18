@@ -82,10 +82,10 @@ import { Observation } from "./ts/area/observation";
         let result: boolean = true;
 
         if ( Is.defined( element ) && element.hasAttribute( Constant.Attribute.HEAT_JS ) ) {
-            const bindingOptionsData: string = element.getAttribute( Constant.Attribute.HEAT_JS )!;
+            const attributeData: string = element.getAttribute( Constant.Attribute.HEAT_JS )!;
 
-            if ( Is.definedString( bindingOptionsData ) ) {
-                const bindingOptions: StringToJson = Default.getObjectFromString( bindingOptionsData, _configurationOptions );
+            if ( Is.definedString( attributeData ) || _configurationOptions.allowEmptyBindings ) {
+                const bindingOptions: StringToJson = Default.getObjectFromString( attributeData, _configurationOptions );
 
                 if ( bindingOptions.parsed && Is.definedObject( bindingOptions.object ) ) {
                     render( Binding.Options.getForNewInstance( _configurationOptions, bindingOptions.object, element ) );
