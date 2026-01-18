@@ -3832,8 +3832,8 @@ import { Observation } from "./ts/area/observation";
 
         setConfiguration: ( configurationOptions: ConfigurationOptions, triggerRefresh: boolean = true ) : PublicApi => {
             if ( Is.definedObject( configurationOptions ) ) {
-                const existingConfigurationOptions: any = _configurationOptions;
-                const newConfigurationOptions: any = configurationOptions;
+                const existingConfigurationOptions: ConfigurationOptions = _configurationOptions;
+                const newConfigurationOptions: ConfigurationOptions = configurationOptions;
                 let configurationOptionsHaveChanged: boolean = false;
             
                 for ( const propertyName in newConfigurationOptions ) {
