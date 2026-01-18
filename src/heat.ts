@@ -2788,7 +2788,7 @@ import { Observation } from "./ts/area/observation";
         const mapTypes: HTMLElement = DomElement.create( guide, "div", "map-types" );
         const noneTypeCount: number = getUnknownTrendTypeCount( bindingOptions );
 
-        if ( _elements_InstanceData[ bindingOptions._currentView!.element.id ].totalTypes > 1 ) {
+        if ( _elements_InstanceData[ bindingOptions._currentView!.element.id ].totalTypes > 1 || bindingOptions.guide!.allowTypeAdding ) {
             if ( Is.definedString( bindingOptions.description!.text ) ) {
                 const description: HTMLElement = DomElement.create( bindingOptions._currentView!.container, "div", "description", guide );
     

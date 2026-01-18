@@ -4272,7 +4272,7 @@ var C;
         const t = s.create(e._currentView.container, "div", "guide");
         const n = s.create(t, "div", "map-types");
         const i = Ye(e);
-        if (D[e._currentView.element.id].totalTypes > 1) {
+        if (D[e._currentView.element.id].totalTypes > 1 || e.guide.allowTypeAdding) {
             if (o.definedString(e.description.text)) {
                 const n = s.create(e._currentView.container, "div", "description", t);
                 Ee(e, n);
