@@ -1533,7 +1533,7 @@ import { Observation } from "./ts/area/observation";
 
             renderMapViewMonthGaps( bindingOptions, months );
 
-            Zooming.render( _configurationOptions, bindingOptions, bindingOptions._currentView!.mapContentsContainer, map, () => {
+            Zooming.render( _configurationOptions, bindingOptions, bindingOptions._currentView!.mapContentsContainer, map, () : void => {
                 renderContainer( bindingOptions, false, false, true );
             } );
             
@@ -1801,7 +1801,7 @@ import { Observation } from "./ts/area/observation";
                 lineMonths.style.width = `${dayLines.offsetWidth}px`;
             }
 
-            Zooming.render( _configurationOptions, bindingOptions, bindingOptions._currentView!.lineContentsContainer, line, () => {
+            Zooming.render( _configurationOptions, bindingOptions, bindingOptions._currentView!.lineContentsContainer, line, () : void => {
                 renderContainer( bindingOptions, false, false, true );
             } );
     
