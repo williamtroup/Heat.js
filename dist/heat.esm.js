@@ -2351,7 +2351,7 @@ var C;
         }
         Xe(e);
         He(e);
-        k(e);
+        N(e);
         ae(e);
         ge(e);
         if (e.views.map.enabled && e._currentView.activeView === 1) {
@@ -2370,7 +2370,7 @@ var C;
             Me(e, n);
         }
         if (e.views.colorRanges.enabled && e._currentView.activeView === 6) {
-            ke(e, n);
+            Ne(e, n);
         }
         Ae(e);
         m.View.set(e);
@@ -2379,31 +2379,31 @@ var C;
         const n = t ? window.addEventListener : window.removeEventListener;
         n("blur", () => c.hide(e));
     }
-    function k(e) {
+    function N(e) {
         const t = e.showSideMenu && e._currentView.viewsEnabled > 1;
         if (t) {
             e._currentView.sideMenu = s.create(e._currentView.element, "div", "container-side-menu", e._currentView.container);
             if (e.views.map.enabled) {
-                N(e, 1, "map", u.text.mapText);
+                k(e, 1, "map", u.text.mapText);
             }
             if (e.views.line.enabled) {
-                N(e, 2, "line", u.text.lineText);
+                k(e, 2, "line", u.text.lineText);
             }
             if (e.views.chart.enabled) {
-                N(e, 3, "chart", u.text.chartText);
+                k(e, 3, "chart", u.text.chartText);
             }
             if (e.views.days.enabled) {
-                N(e, 4, "days", u.text.daysText);
+                k(e, 4, "days", u.text.daysText);
             }
             if (e.views.months.enabled) {
-                N(e, 5, "months", u.text.monthsText);
+                k(e, 5, "months", u.text.monthsText);
             }
             if (e.views.colorRanges.enabled) {
-                N(e, 6, "color-ranges", u.text.colorRangesText);
+                k(e, 6, "color-ranges", u.text.colorRangesText);
             }
         }
     }
-    function N(e, t, n, o) {
+    function k(e, t, n, o) {
         const i = s.create(e._currentView.sideMenu, "div", "menu-tab");
         i.onclick = () => Fe(e, t);
         if (e._currentView.activeView === t) {
@@ -3165,7 +3165,7 @@ var C;
     function fe(e, t, n, o, i) {
         if (i && e.yearlyStatistics.showPercentages) {
             const i = o / n * 100;
-            if (!isNaN(i)) {
+            if (i !== Number.POSITIVE_INFINITY && i !== Number.NEGATIVE_INFINITY && !isNaN(i)) {
                 const n = `${i.toFixed(e.percentageDecimalPoints)}%`;
                 const o = s.create(t, "span", "percentage");
                 s.createWithHTML(o, "span", "percentage-bracket", "(");
@@ -4114,7 +4114,7 @@ var C;
         d.valuesToOpacitiesOrder(n);
         return n;
     }
-    function ke(e, t) {
+    function Ne(e, t) {
         e._currentView.colorRangesContents = s.create(e._currentView.container, "div", "color-ranges-contents");
         const i = s.create(e._currentView.colorRangesContents, "div", "color-ranges");
         const r = s.create(e._currentView.colorRangesContents, "div", "color-range-names");
@@ -4153,7 +4153,7 @@ var C;
             }
             for (const n in d.types) {
                 if (Object.prototype.hasOwnProperty.call(d.types, n)) {
-                    Ne(parseInt(n), l, d.types[n], e, c, i, d.totalValue, t);
+                    ke(parseInt(n), l, d.types[n], e, c, i, d.totalValue, t);
                     const a = w.getByMinimum(c, parseInt(n));
                     if (e.views.colorRanges.showColorRangeLabels) {
                         if (!e.views.colorRanges.useColorRangeNamesForLabels || !o.defined(a) || !o.definedString(a.name)) {
@@ -4174,7 +4174,7 @@ var C;
         }
         e._currentView.colorRangesContents.style.display = "none";
     }
-    function Ne(e, t, i, a, d, u, g, f) {
+    function ke(e, t, i, a, d, u, g, f) {
         const h = s.create(t, "div", "color-range-line");
         const m = i * u;
         const p = w.getByMinimum(d, e);

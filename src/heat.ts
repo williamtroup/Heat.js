@@ -1312,7 +1312,7 @@ import { Observation } from "./ts/area/observation";
         if ( isCurrentYear && bindingOptions.yearlyStatistics!.showPercentages ) {
             const percentage: number = ( count / yearCount ) * 100;
 
-            if ( !isNaN( percentage ) ) {
+            if ( percentage !== Number.POSITIVE_INFINITY && percentage !== Number.NEGATIVE_INFINITY && !isNaN( percentage ) ) {
                 const percentageText: string = `${percentage.toFixed( bindingOptions.percentageDecimalPoints! )}%`;
                 const percentageElement: HTMLSpanElement = DomElement.create( boxCount, "span", "percentage" );
 
