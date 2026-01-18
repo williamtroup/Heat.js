@@ -125,7 +125,6 @@ import { Observation } from "./ts/area/observation";
 
         createInstanceDataForElement( bindingOptions._currentView!.element.id, bindingOptions );
         renderContainer( bindingOptions );
-        createOrRemoveWindowEvents( bindingOptions );
 
         Zooming.setupDefaults( bindingOptions );
         Trigger.customEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView!.element );
@@ -183,19 +182,6 @@ import { Observation } from "./ts/area/observation";
         renderGuide( bindingOptions );
 
         Visible.View.set( bindingOptions );
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Render:  Window Events
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function createOrRemoveWindowEvents( bindingOptions: BindingOptions, addEvents: boolean = true ) : void {
-        const windowFunc: Function = addEvents ? window.addEventListener : window.removeEventListener;
-
-        windowFunc( "blur", () : void => ToolTip.hide( bindingOptions ) );
     }
 
 
@@ -3247,8 +3233,6 @@ import { Observation } from "./ts/area/observation";
         for ( const elementId in _elements_InstanceData ) {
             if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
-
-                createOrRemoveWindowEvents( bindingOptions, false );
 
                 if ( Is.defined( bindingOptions._currentView!.isInFetchModeTimer ) ) {
                     clearInterval( bindingOptions._currentView!.isInFetchModeTimer );
