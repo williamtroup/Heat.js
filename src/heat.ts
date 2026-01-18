@@ -2787,25 +2787,28 @@ import { Observation } from "./ts/area/observation";
         const guide: HTMLElement = DomElement.create( bindingOptions._currentView!.container, "div", "guide" );
         const mapTypes: HTMLElement = DomElement.create( guide, "div", "map-types" );
         const noneTypeCount: number = getUnknownTrendTypeCount( bindingOptions );
+        const totalTypes: number = _elements_InstanceData[ bindingOptions._currentView!.element.id ].totalTypes;
 
-        if ( _elements_InstanceData[ bindingOptions._currentView!.element.id ].totalTypes > 1 || bindingOptions.guide!.allowTypeAdding ) {
+        if ( totalTypes > 1 || bindingOptions.guide!.allowTypeAdding ) {
             if ( Is.definedString( bindingOptions.description!.text ) ) {
                 const description: HTMLElement = DomElement.create( bindingOptions._currentView!.container, "div", "description", guide );
     
                 renderGuideDescription( bindingOptions, description );
             }
 
-            const types: string[] = Object
-                .keys( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData )
-                .sort( ( typeA: string, typeB: string ) => typeA.localeCompare( typeB, undefined, { numeric: true, sensitivity: "base" } ) );
+            if ( totalTypes > 1 ) {
+                const types: string[] = Object
+                    .keys( _elements_InstanceData[ bindingOptions._currentView!.element.id ].typeData )
+                    .sort( ( typeA: string, typeB: string ) => typeA.localeCompare( typeB, undefined, { numeric: true, sensitivity: "base" } ) );
 
-            const typesLength: number = types.length;
+                const typesLength: number = types.length;
 
-            for ( let typeIndex: number = 0; typeIndex < typesLength; typeIndex++ ) {
-                const type: string = types[ typeIndex ];
+                for ( let typeIndex: number = 0; typeIndex < typesLength; typeIndex++ ) {
+                    const type: string = types[ typeIndex ];
 
-                if ( type !== _configurationOptions.text!.unknownTrendText || noneTypeCount > 0 ) {
-                    renderGuideTypeButton( bindingOptions, mapTypes, type );
+                    if ( type !== _configurationOptions.text!.unknownTrendText || noneTypeCount > 0 ) {
+                        renderGuideTypeButton( bindingOptions, mapTypes, type );
+                    }
                 }
             }
 

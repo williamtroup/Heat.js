@@ -4272,20 +4272,23 @@ var C;
         const t = s.create(e._currentView.container, "div", "guide");
         const n = s.create(t, "div", "map-types");
         const i = Ye(e);
-        if (D[e._currentView.element.id].totalTypes > 1 || e.guide.allowTypeAdding) {
+        const r = D[e._currentView.element.id].totalTypes;
+        if (r > 1 || e.guide.allowTypeAdding) {
             if (o.definedString(e.description.text)) {
                 const n = s.create(e._currentView.container, "div", "description", t);
                 Ee(e, n);
             }
-            const r = Object.keys(D[e._currentView.element.id].typeData).sort((e, t) => e.localeCompare(t, void 0, {
-                numeric: true,
-                sensitivity: "base"
-            }));
-            const a = r.length;
-            for (let t = 0; t < a; t++) {
-                const o = r[t];
-                if (o !== u.text.unknownTrendText || i > 0) {
-                    Re(e, n, o);
+            if (r > 1) {
+                const t = Object.keys(D[e._currentView.element.id].typeData).sort((e, t) => e.localeCompare(t, void 0, {
+                    numeric: true,
+                    sensitivity: "base"
+                }));
+                const o = t.length;
+                for (let r = 0; r < o; r++) {
+                    const o = t[r];
+                    if (o !== u.text.unknownTrendText || i > 0) {
+                        Re(e, n, o);
+                    }
                 }
             }
             if (e.guide.allowTypeAdding) {
