@@ -161,7 +161,7 @@ export type BindingOptions = {
     percentageDecimalPoints?: number;
     chartsAnimationDelay?: number;
     exportDateTimeFormat?: string;
-    showSideMenu?: boolean;
+    sideMenu?: BindingOptionsSideMenu;
     dynamicColorRange?: BindingOptionsDynamicColorRange;
     colorRanges?: BindingOptionsColorRange[];
     holidays?: BindingOptionsHoliday[];
@@ -235,6 +235,11 @@ export type BindingOptionsViews = {
     days?: BindingOptionsViewsDays;
     months?: BindingOptionsViewsMonths;
     colorRanges?: BindingOptionsViewsStatistics;
+};
+
+export type BindingOptionsSideMenu = {
+    enabled?: boolean;
+    showToolTips?: boolean;
 };
 
 export type BindingOptionsTitle = {

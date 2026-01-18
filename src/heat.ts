@@ -143,7 +143,7 @@ import { Observation } from "./ts/area/observation";
         bindingOptions._currentView!.yearsAvailable = getYearsAvailableInData( bindingOptions );
         bindingOptions._currentView!.container = DomElement.create( bindingOptions._currentView!.element, "div", "container-contents" );
 
-        if ( !bindingOptions.showSideMenu ) {
+        if ( !bindingOptions.sideMenu!.enabled ) {
             DomElement.addClass( bindingOptions._currentView!.element, "no-side-menu" );
         } else {
             DomElement.removeClass( bindingOptions._currentView!.element, "no-side-menu" );
@@ -205,7 +205,7 @@ import { Observation } from "./ts/area/observation";
      */
 
     function renderSideMenu( bindingOptions: BindingOptions ) : void {
-        const showSideMenu: boolean = bindingOptions.showSideMenu! && bindingOptions._currentView!.viewsEnabled > 1;
+        const showSideMenu: boolean = bindingOptions.sideMenu!.enabled! && bindingOptions._currentView!.viewsEnabled > 1;
 
         if ( showSideMenu ) {
             bindingOptions._currentView!.sideMenu = DomElement.create( bindingOptions._currentView!.element, "div", "container-side-menu", bindingOptions._currentView!.container );
@@ -244,7 +244,10 @@ import { Observation } from "./ts/area/observation";
             DomElement.addClass( menuTab, "active" );
         }
 
-        ToolTip.add( menuTab, bindingOptions, tooltipText );
+        if ( bindingOptions.sideMenu!.showToolTips ) {
+            ToolTip.add( menuTab, bindingOptions, tooltipText );
+        }
+
         DomElement.create( menuTab, "i", iconCssClass );
     }
 
@@ -938,7 +941,7 @@ import { Observation } from "./ts/area/observation";
         if ( bindingOptions.title!.showText || bindingOptions.title!.showYearSelector || bindingOptions.title!.showRefreshButton || bindingOptions.title!.showExportButton || bindingOptions.title!.showImportButton || bindingOptions.title!.showClearButton ) {
             const titleBar: HTMLElement = DomElement.create( bindingOptions._currentView!.container, "div", "title-bar" );
             const title: HTMLElement = DomElement.create( titleBar, "div", "title" );
-            const showTitleDropDownMenu: boolean = !bindingOptions.showSideMenu && bindingOptions._currentView!.viewsEnabled > 1;
+            const showTitleDropDownMenu: boolean = !bindingOptions.sideMenu!.enabled && bindingOptions._currentView!.viewsEnabled > 1;
 
             if ( showTitleDropDownMenu ) {
                 if ( bindingOptions.title!.showTitleDropDownButton ) {

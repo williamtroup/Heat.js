@@ -31,6 +31,7 @@ import {
     type BindingOptionsViewsLine,
     type BindingOptionsZooming,
     type BindingOptionsDynamicColorRange,
+    type BindingOptionsSideMenu,
     type ConfigurationOptions } from "../type";
 
 import { Char, ExportType, Value, ViewId, ViewName } from "../data/enum";
@@ -121,7 +122,7 @@ export namespace Binding {
             bindingOptions.percentageDecimalPoints = Default.getNumber( bindingOptions.percentageDecimalPoints, 2 );
             bindingOptions.chartsAnimationDelay = Default.getNumber( bindingOptions.chartsAnimationDelay, 50 );
             bindingOptions.exportDateTimeFormat = Default.getString( bindingOptions.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}" );
-            bindingOptions.showSideMenu = Default.getBoolean( bindingOptions.showSideMenu, true );
+            bindingOptions.sideMenu = getSideMenu( bindingOptions );
             bindingOptions.title = getTitle( bindingOptions );
             bindingOptions.yearlyStatistics = getYearlyStatistics( bindingOptions );
             bindingOptions.views!.map = getMapView( bindingOptions );
@@ -144,6 +145,14 @@ export namespace Binding {
             }
             
             return bindingOptions;
+        }
+
+        function getSideMenu( bindingOptions: BindingOptions ) : BindingOptionsSideMenu {
+            bindingOptions.sideMenu = Default.getObject( bindingOptions.sideMenu, {} as BindingOptionsSideMenu );
+            bindingOptions.sideMenu!.enabled = Default.getBoolean( bindingOptions.sideMenu!.enabled, true );
+            bindingOptions.sideMenu!.showToolTips = Default.getBoolean( bindingOptions.sideMenu!.showToolTips, true );
+
+            return bindingOptions.sideMenu!;
         }
     
         function getTitle( bindingOptions: BindingOptions ) : BindingOptionsTitle {

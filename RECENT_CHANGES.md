@@ -63,7 +63,6 @@
 - BREAKING: Renamed "colorRanges.statisticsCssClassName" to "colorRanges.colorRangeCssClassName".
 
 #### **Binding Options - New / Updates:**
-- Added a new binding option called "showSideMenu", which states if the side menu is shown (defaults to true).
 - Added a new binding option called "allowMultipleFileImports", which states if multiple file imports are enabled (defaults to true).
 - Added a new binding option called "percentageDecimalPoints", which states the number of decimal points to show for percentages (defaults to 2).
 - Added a new binding option called "chartsAnimationDelay", which states the milliseconds to wait before applying a grow animation to each chart line (for all views, defaults to 50. Set to zero to turn it off).
@@ -121,6 +120,9 @@
 - Added a new binding option called "dynamicColorRange.color", which states the hex color to start with (defaults to an empty string).
 - Added a new binding option called "dynamicColorRange.totalColors", which states the total number of color ranges to create (defaults to 5).
 - Added a new binding option called "dynamicColorRange.startMinimum", which states where the first color range minimum should start (defaults to 10).
+- Added a new binding area called "sideMenu".
+- Added a new binding option called "sideMenu.enabled", which states if the side menu is enabled (defaults to true).
+- Added a new binding option called "sideMenu.showToolTips", which states if tooltips should be shown for the buttons (defaults to true).
 
 #### **Binding Options - Custom Triggers - Breaking:**
 - BREAKING: Renamed "events.onDayClick" to "events.onMapDayClick".

@@ -988,7 +988,7 @@ var g;
                 i._currentView.colorRangesContentsScrollLeft = 0;
                 i._currentView.viewsEnabled++;
             }
-            S(i);
+            M(i);
             return i;
         }
         e.getForNewInstance = a;
@@ -1011,23 +1011,23 @@ var g;
             t.percentageDecimalPoints = i.getNumber(t.percentageDecimalPoints, 2);
             t.chartsAnimationDelay = i.getNumber(t.chartsAnimationDelay, 50);
             t.exportDateTimeFormat = i.getString(t.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}");
-            t.showSideMenu = i.getBoolean(t.showSideMenu, true);
-            t.title = c(t);
-            t.yearlyStatistics = d(t);
-            t.views.map = g(t);
-            t.views.line = f(t);
-            t.views.chart = h(t);
-            t.views.days = m(t);
-            t.views.months = p(t);
-            t.views.colorRanges = y(t);
-            t.description = v(t);
-            t.guide = T(t);
-            t.tooltip = b(t);
-            t.zooming = V(t);
-            t.dynamicColorRange = _(t);
-            t.colorRanges = C(t);
-            t.holidays = D(t);
-            t.events = x(t);
+            t.sideMenu = c(t);
+            t.title = d(t);
+            t.yearlyStatistics = g(t);
+            t.views.map = f(t);
+            t.views.line = h(t);
+            t.views.chart = m(t);
+            t.views.days = p(t);
+            t.views.months = y(t);
+            t.views.colorRanges = v(t);
+            t.description = T(t);
+            t.guide = b(t);
+            t.tooltip = V(t);
+            t.zooming = _(t);
+            t.dynamicColorRange = C(t);
+            t.colorRanges = D(t);
+            t.holidays = x(t);
+            t.events = S(t);
             if (t.startMonth > 0) {
                 t.yearsToHide = [];
             }
@@ -1035,6 +1035,12 @@ var g;
         }
         e.get = l;
         function c(e) {
+            e.sideMenu = i.getObject(e.sideMenu, {});
+            e.sideMenu.enabled = i.getBoolean(e.sideMenu.enabled, true);
+            e.sideMenu.showToolTips = i.getBoolean(e.sideMenu.showToolTips, true);
+            return e.sideMenu;
+        }
+        function d(e) {
             e.title = i.getObject(e.title, {});
             e.title.text = i.getString(e.title.text, "Heat.js");
             e.title.showText = i.getBoolean(e.title.showText, true);
@@ -1053,7 +1059,7 @@ var g;
             e.title.showClearButton = i.getBoolean(e.title.showClearButton, false);
             return e.title;
         }
-        function d(e) {
+        function g(e) {
             e.yearlyStatistics = i.getObject(e.yearlyStatistics, {});
             e.yearlyStatistics.enabled = i.getBoolean(e.yearlyStatistics.enabled, false);
             e.yearlyStatistics.showToday = i.getBoolean(e.yearlyStatistics.showToday, true);
@@ -1064,7 +1070,7 @@ var g;
             e.yearlyStatistics.showPercentages = i.getBoolean(e.yearlyStatistics.showPercentages, true);
             return e.yearlyStatistics;
         }
-        function g(e) {
+        function f(e) {
             e.views.map = i.getObject(e.views.map, {});
             e.views.map.enabled = i.getBoolean(e.views.map.enabled, true);
             e.views.map.showMonthDayGaps = i.getBoolean(e.views.map.showMonthDayGaps, true);
@@ -1093,7 +1099,7 @@ var g;
             }
             return e.views.map;
         }
-        function f(e) {
+        function h(e) {
             e.views.line = i.getObject(e.views.line, {});
             e.views.line.enabled = i.getBoolean(e.views.line.enabled, true);
             e.views.line.showMonthNames = i.getBoolean(e.views.line.showMonthNames, true);
@@ -1112,7 +1118,7 @@ var g;
             }
             return e.views.line;
         }
-        function h(e) {
+        function m(e) {
             e.views.chart = i.getObject(e.views.chart, {});
             e.views.chart.enabled = i.getBoolean(e.views.chart.enabled, true);
             e.views.chart.showChartYLabels = i.getBoolean(e.views.chart.showChartYLabels, true);
@@ -1138,7 +1144,7 @@ var g;
             }
             return e.views.chart;
         }
-        function m(e) {
+        function p(e) {
             e.views.days = i.getObject(e.views.days, {});
             e.views.days.enabled = i.getBoolean(e.views.days.enabled, true);
             e.views.days.showChartYLabels = i.getBoolean(e.views.days.showChartYLabels, true);
@@ -1160,7 +1166,7 @@ var g;
             }
             return e.views.days;
         }
-        function p(e) {
+        function y(e) {
             e.views.months = i.getObject(e.views.months, {});
             e.views.months.enabled = i.getBoolean(e.views.months.enabled, true);
             e.views.months.showChartYLabels = i.getBoolean(e.views.months.showChartYLabels, true);
@@ -1183,7 +1189,7 @@ var g;
             }
             return e.views.months;
         }
-        function y(e) {
+        function v(e) {
             e.views.colorRanges = i.getObject(e.views.colorRanges, {});
             e.views.colorRanges.enabled = i.getBoolean(e.views.colorRanges.enabled, true);
             e.views.colorRanges.showChartYLabels = i.getBoolean(e.views.colorRanges.showChartYLabels, true);
@@ -1204,14 +1210,14 @@ var g;
             }
             return e.views.colorRanges;
         }
-        function v(e) {
+        function T(e) {
             e.description = i.getObject(e.description, {});
             e.description.text = i.getString(e.description.text, "");
             e.description.url = i.getString(e.description.url, "");
             e.description.urlTarget = i.getString(e.description.urlTarget, "_blank");
             return e.description;
         }
-        function T(e) {
+        function b(e) {
             e.guide = i.getObject(e.guide, {});
             e.guide.enabled = i.getBoolean(e.guide.enabled, true);
             e.guide.colorRangeTogglesEnabled = i.getBoolean(e.guide.colorRangeTogglesEnabled, true);
@@ -1224,12 +1230,12 @@ var g;
             e.guide.allowTypeRemoving = i.getBoolean(e.guide.allowTypeRemoving, false);
             return e.guide;
         }
-        function b(e) {
+        function V(e) {
             e.tooltip = i.getObject(e.tooltip, {});
             e.tooltip.delay = i.getNumber(e.tooltip.delay, 750);
             return e.tooltip;
         }
-        function V(e) {
+        function _(e) {
             e.zooming = i.getObject(e.zooming, {});
             e.zooming.enabled = i.getBoolean(e.zooming.enabled, false);
             e.zooming.defaultLevel = i.getNumber(e.zooming.defaultLevel, 0);
@@ -1238,7 +1244,7 @@ var g;
             e.zooming.showResetButton = i.getBoolean(e.zooming.showResetButton, false);
             return e.zooming;
         }
-        function _(e) {
+        function C(e) {
             const t = s.getStyleValueByName(document.documentElement, u.Variables.DefaultDynamicColor);
             e.dynamicColorRange = i.getObject(e.dynamicColorRange, {});
             e.dynamicColorRange.enabled = i.getBoolean(e.dynamicColorRange.enabled, false);
@@ -1248,7 +1254,7 @@ var g;
             e.dynamicColorRange.startMinimum = i.getNumber(e.dynamicColorRange.startMinimum, 10);
             return e.dynamicColorRange;
         }
-        function C(e) {
+        function D(e) {
             let t = [];
             if (e.dynamicColorRange.enabled && o.hexColor(e.dynamicColorRange.color)) {
                 t = w.buildDynamics(e.dynamicColorRange);
@@ -1305,7 +1311,7 @@ var g;
             }
             return t;
         }
-        function D(e) {
+        function x(e) {
             const t = [];
             if (o.definedArray(e.holidays)) {
                 const n = e.holidays.length;
@@ -1319,7 +1325,7 @@ var g;
             }
             return t;
         }
-        function x(e) {
+        function S(e) {
             e.events = i.getObject(e.events, {});
             e.events.onBackYear = i.getFunction(e.events.onBackYear, null);
             e.events.onNextYear = i.getFunction(e.events.onNextYear, null);
@@ -1361,7 +1367,7 @@ var g;
             e.events.onRemoveType = i.getFunction(e.events.onRemoveType, null);
             return e.events;
         }
-        function S(e) {
+        function M(e) {
             if (e.views.map.enabled && e.defaultView === "map") {
                 e._currentView.activeView = 1;
             } else if (e.views.line.enabled && e.defaultView === "line") {
@@ -2344,7 +2350,7 @@ var C;
         c.render(e);
         e._currentView.yearsAvailable = ze(e);
         e._currentView.container = s.create(e._currentView.element, "div", "container-contents");
-        if (!e.showSideMenu) {
+        if (!e.sideMenu.enabled) {
             s.addClass(e._currentView.element, "no-side-menu");
         } else {
             s.removeClass(e._currentView.element, "no-side-menu");
@@ -2380,7 +2386,7 @@ var C;
         n("blur", () => c.hide(e));
     }
     function N(e) {
-        const t = e.showSideMenu && e._currentView.viewsEnabled > 1;
+        const t = e.sideMenu.enabled && e._currentView.viewsEnabled > 1;
         if (t) {
             e._currentView.sideMenu = s.create(e._currentView.element, "div", "container-side-menu", e._currentView.container);
             if (e.views.map.enabled) {
@@ -2409,7 +2415,9 @@ var C;
         if (e._currentView.activeView === t) {
             s.addClass(i, "active");
         }
-        c.add(i, e, o);
+        if (e.sideMenu.showToolTips) {
+            c.add(i, e, o);
+        }
         s.create(i, "i", n);
     }
     function L(e) {
@@ -2892,7 +2900,7 @@ var C;
         if (e.title.showText || e.title.showYearSelector || e.title.showRefreshButton || e.title.showExportButton || e.title.showImportButton || e.title.showClearButton) {
             const t = s.create(e._currentView.container, "div", "title-bar");
             const n = s.create(t, "div", "title");
-            const i = !e.showSideMenu && e._currentView.viewsEnabled > 1;
+            const i = !e.sideMenu.enabled && e._currentView.viewsEnabled > 1;
             if (i) {
                 if (e.title.showTitleDropDownButton) {
                     s.create(n, "div", "down-arrow");
