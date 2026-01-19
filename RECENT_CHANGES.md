@@ -2,11 +2,11 @@
 
 #### **New Features:**
 - Added a new "Yearly Statistics" view (shown under the title bar), which shows some basic stats for the current year (off by default).
-- Added a brand new view called "Months", which shows a bar graph with the total items (per trend) per month (with color range toggle support).
-- Added a brand new view called "Line", which shows a single heat line for the entire year (with color range toggle support).
-- Added a brand new Export dialog, which is shown (when pressing the Export button) instead of using the default export binding option value.
-- Added a brand new Import dialog, which is shown (when pressing the Import button) instead of the select files dialog.
-- Added a brand new Add Type dialog, which allows new trend types to be added manually (off by default).
+- Added a brand-new view called "Months", which shows a bar graph with the total items (per trend) per month (with color range toggle support).
+- Added a brand-new view called "Line", which shows a single heat line for the entire year (with color range toggle support).
+- Added a brand-new Export dialog, which is shown (when pressing the Export button) instead of using the default export binding option value.
+- Added a brand-new Import dialog, which is shown (when pressing the Import button) instead of the select files dialog.
+- Added a brand-new Add Type dialog, which allows new trend types to be added manually (off by default).
 - More Export and Import options.
 - Added 9 new languages.
 - Added 19 new light themes.
@@ -20,7 +20,7 @@
 - Added dynamic colors support from a single hex color!
 - The "Days" (and the new views "Line" and "Months") now have their own custom Color Range CSS class support.
 - The "Statistics" view has been renamed to "Color Ranges" (include internal names and parameter names).
-- Added a brand new side menu, which is now used by default as the view opener (you can disable it, and re-enable the drop-down title bar menu).
+- Added a brand-new side menu, which is now used by default as the view opener (you can disable it, and re-enable the drop-down title bar menu).
 
 #### **Exporting:**
 - Added support to export all data to YAML (.yaml).
@@ -65,7 +65,7 @@
 #### **Binding Options - New / Updates:**
 - Added a new binding option called "allowMultipleFileImports", which states if multiple file imports are enabled (defaults to true).
 - Added a new binding option called "percentageDecimalPoints", which states the number of decimal points to show for percentages (defaults to 2).
-- Added a new binding option called "chartsAnimationDelay", which states the milliseconds to wait before applying a grow animation to each chart line (for all views, defaults to 50. Set to zero to turn it off).
+- Added a new binding option called "chartsAnimationDelay", which states the milliseconds to wait before applying a growth animation to each chart line (for all views, defaults to 50. Set to zero to turn it off).
 - Added a new binding option called "exportDateTimeFormat", which states the format of the export date/time that is included in some of the formats (defaults to "{dddd}, {d}{o} {mmmm} {yyyy}").
 - Added a new binding option called "title.showClearButton", which states if the "Clear" button should be shown (defaults to false).
 - Added a new binding option called "guide.showInvertLabel", which states if the "Invert" label should be shown (inverts the toggle selections, defaults to false).
@@ -110,7 +110,7 @@
 - Added a new binding option called "yearlyStatistics.showOnlyForCurrentYear", which states if the yearly statistics should only be shown for the current year (defaults to false).
 - Added a new binding option called "yearlyStatistics.showPercentages", which states if the yearly statistics should show the value percentages (defaults to true).
 - Added a new binding area called "zooming".
-- Added a new binding option called "zooming.enabled", which states if map zooming in/out is enabled (defaults to false).
+- Added a new binding option called "zooming.enabled", which states if zooming is enabled (defaults to false).
 - Added a new binding option called "zooming.defaultLevel", which states the default zoom level (defaults to 0).
 - Added a new binding option called "zooming.maximumLevel", which states the maximum zoom level (defaults to 0, which disables it).
 - Added a new binding option called "zooming.showCloseButton", which states if the close button should be shown (defaults to true).
