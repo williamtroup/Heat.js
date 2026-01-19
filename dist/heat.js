@@ -4726,7 +4726,7 @@ var C;
                         D[e].typeData[n][s] = 0;
                     }
                     D[e].typeData[n][s]++;
-                    l.customEvent(o.events.onAddDate, o._currentView.element);
+                    l.customEvent(o.events.onAddDate, o._currentView.element, t);
                     if (r) {
                         B(o, true);
                     }
@@ -4742,7 +4742,7 @@ var C;
                     if (Object.prototype.hasOwnProperty.call(D[e].typeData, r)) {
                         const i = a.toStorageDate(t);
                         D[e].typeData[r][i] = n;
-                        l.customEvent(o.events.onUpdateDate, o._currentView.element);
+                        l.customEvent(o.events.onUpdateDate, o._currentView.element, t);
                         if (s) {
                             B(o, true);
                         }
@@ -4777,7 +4777,7 @@ var C;
                         if (D[e].typeData[n][s] > 0) {
                             D[e].typeData[n][s]--;
                         }
-                        l.customEvent(o.events.onRemoveDate, o._currentView.element);
+                        l.customEvent(o.events.onRemoveDate, o._currentView.element, t);
                         if (r) {
                             B(o, true);
                         }
@@ -4794,7 +4794,7 @@ var C;
                     if (Object.prototype.hasOwnProperty.call(D[e].typeData, n) && Object.prototype.hasOwnProperty.call(D[e].typeData[n], s)) {
                         n = i.getString(n, u.text.unknownTrendText);
                         delete D[e].typeData[n][s];
-                        l.customEvent(o.events.onClearDate, o._currentView.element);
+                        l.customEvent(o.events.onClearDate, o._currentView.element, t);
                         if (r) {
                             B(o, true);
                         }

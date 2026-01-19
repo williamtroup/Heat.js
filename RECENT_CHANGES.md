@@ -156,6 +156,7 @@
 - Added a new "year" parameter for the event "onMapDayClick" and "onMapDayDblClick", which is now passed after the "count" parameter.
 - Added a new "year" parameter for the event "onLineDayClick" and "onLineDayDblClick", which is now passed after the "count" parameter.
 - Added a new "year" parameter for the event "onChartDayClick" and "onChartDayDblClick", which is now passed after the "count" parameter.
+- Updated "onAddDate", "onRemoveDate", "onClearDate", and "onUpdateDate" to except the date effected as the second parameter.
 
 #### **Configuration Options:**
 - Added a new configuration option called "allowEmptyBindings" (defaults to true), which will allow empty binding attributes to create new instances.

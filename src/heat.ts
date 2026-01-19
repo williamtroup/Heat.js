@@ -3415,7 +3415,7 @@ import { Observation } from "./ts/area/observation";
             
                     _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ]++;
         
-                    Trigger.customEvent( bindingOptions.events!.onAddDate!, bindingOptions._currentView!.element );
+                    Trigger.customEvent( bindingOptions.events!.onAddDate!, bindingOptions._currentView!.element, date );
         
                     if ( triggerRefresh ) {
                         renderContainer( bindingOptions, true );
@@ -3438,7 +3438,7 @@ import { Observation } from "./ts/area/observation";
 
                         _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ] = count;
         
-                        Trigger.customEvent( bindingOptions.events!.onUpdateDate!, bindingOptions._currentView!.element );
+                        Trigger.customEvent( bindingOptions.events!.onUpdateDate!, bindingOptions._currentView!.element, date );
         
                         if ( triggerRefresh ) {
                             renderContainer( bindingOptions, true );
@@ -3486,7 +3486,7 @@ import { Observation } from "./ts/area/observation";
                             _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ]--;
                         }
         
-                        Trigger.customEvent( bindingOptions.events!.onRemoveDate!, bindingOptions._currentView!.element );
+                        Trigger.customEvent( bindingOptions.events!.onRemoveDate!, bindingOptions._currentView!.element, date );
         
                         if ( triggerRefresh ) {
                             renderContainer( bindingOptions, true );
@@ -3510,7 +3510,7 @@ import { Observation } from "./ts/area/observation";
 
                         delete _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ];
         
-                        Trigger.customEvent( bindingOptions.events!.onClearDate!, bindingOptions._currentView!.element );
+                        Trigger.customEvent( bindingOptions.events!.onClearDate!, bindingOptions._currentView!.element, date );
         
                         if ( triggerRefresh ) {
                             renderContainer( bindingOptions, true );
