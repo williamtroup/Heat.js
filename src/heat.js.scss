@@ -995,6 +995,7 @@ div.heat-js {
     div.yearly-statistics {
         margin-bottom: calc( var(--heat-js-spacing) / 2 );
         display: flex;
+        gap: var(--heat-js-spacing);
 
         div.statistics-box {
             flex: 1;
@@ -1003,7 +1004,6 @@ div.heat-js {
             background-color: var(--heat-js-yearly-statistics-box-background-color);
             border: var(--heat-js-border-size) solid var(--heat-js-yearly-statistics-box-border-color);
             color: var(--heat-js-yearly-statistics-box-text-color);
-            margin-right: var(--heat-js-spacing);
             width: 0;
             overflow: hidden;
 
@@ -1040,10 +1040,6 @@ div.heat-js {
                         font-style: italic;
                     }
                 }
-            }
-
-            &:last-child {
-                margin-right: 0;
             }
         }
     }
