@@ -538,7 +538,6 @@ export namespace Binding {
             bindingOptions.events!.onZoomLevelChange = Default.getFunction( bindingOptions.events!.onZoomLevelChange, null! );
             bindingOptions.events!.onClearViewableData = Default.getFunction( bindingOptions.events!.onClearViewableData, null! );
 
-
             return bindingOptions.events!;
         }
 
