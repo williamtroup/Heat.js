@@ -5055,7 +5055,7 @@ var C;
             }
             return e;
         },
-        getVersion: () => "5.0.0 - Beta 3"
+        getVersion: () => "5.0.0 - Beta 4"
     };
     (() => {
         u = f.Options.get();
