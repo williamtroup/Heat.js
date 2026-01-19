@@ -20,7 +20,7 @@
 - Added dynamic colors support from a single hex color!
 - The "Days" (and the new views "Line" and "Months") now have their own custom Color Range CSS class support.
 - The "Statistics" view has been renamed to "Color Ranges" (include internal names and parameter names).
-- Added a brand new side menu, which is now used by default as the the view opener (you can disable it, and re-enable the drop-down title bar menu).
+- Added a brand new side menu, which is now used by default as the view opener (you can disable it, and re-enable the drop-down title bar menu).
 
 #### **Exporting:**
 - Added support to export all data to YAML (.yaml).
@@ -83,10 +83,10 @@
 - Added a new binding option called "views.chart.showYearsInMonthNames", which states if the year should be shown in the month name (when "startMonth" is set, defaults to true).
 - Added a new binding option called "views.map.showCountsInToolTips", which states if the day counts should be included in the tooltips (defaults to true).
 - Added a new binding option called "views.chart.showCountsInToolTips", which states if the day counts should be included in the tooltips (defaults to true).
-- Added a new binding option called "views.map.showDifferencesInToolTips", which states if the difference percentage with the previous years count should be shown in the tooltips (defaults to true).
-- Added a new binding option called "views.chart.showDifferencesInToolTips", which states if the difference percentage with the previous years count should be shown in the tooltips (defaults to true).
-- Added a new binding option called "views.map.showDifferences", which states if the difference percentage with the previous years count should be shown (defaults to false).
-- Added a new binding option called "views.chart.showDifferences", which states if the difference percentage with the previous years count should be shown (defaults to false).
+- Added a new binding option called "views.map.showDifferencesInToolTips", which states if the difference percentage with the previous year's count should be shown in the tooltips (defaults to true).
+- Added a new binding option called "views.chart.showDifferencesInToolTips", which states if the difference percentage with the previous year's count should be shown in the tooltips (defaults to true).
+- Added a new binding option called "views.map.showDifferences", which states if the difference percentage with the previous year's count should be shown (defaults to false).
+- Added a new binding option called "views.chart.showDifferences", which states if the difference percentage with the previous year's count should be shown (defaults to false).
 - Added a new binding option called "views.days.showDayCountPercentages", which states if the count percentages should be shown (when count displays are enabled, defaults to true).
 - Added a new binding option called "views.days.showStackedColorRanges", which states if the bar should show the stacked color range levels (defaults to true).
 - Added a new binding option called "views.colorRanges.showRangeCountPercentages", which states if the count percentages should be shown (when count displays are enabled, defaults to true).
@@ -156,7 +156,7 @@
 - Added a new "year" parameter for the event "onMapDayClick" and "onMapDayDblClick", which is now passed after the "count" parameter.
 - Added a new "year" parameter for the event "onLineDayClick" and "onLineDayDblClick", which is now passed after the "count" parameter.
 - Added a new "year" parameter for the event "onChartDayClick" and "onChartDayDblClick", which is now passed after the "count" parameter.
-- Updated "onAddDate", "onRemoveDate", "onClearDate", and "onUpdateDate" to except the date effected as the second parameter.
+- Updated "onAddDate", "onRemoveDate", "onClearDate", and "onUpdateDate" to accept the date affected as the second parameter.
 
 #### **Configuration Options:**
 - Added a new configuration option called "allowEmptyBindings" (defaults to true), which will allow empty binding attributes to create new instances.
@@ -210,7 +210,7 @@
 - Added a new public function called "getActiveView()", which returns the active view name for a specific element ID instance.
 - Added a new public function called "addType()", which adds a new trend type.
 - Added a new public function called "removeType()", which removed an existing trend type.
-- Added a new public function called "setLocale()", which allows you to set the current language options without effecting any other configuration options.
+- Added a new public function called "setLocale()", which allows you to set the current language options without affecting any other configuration options.
 
 #### **Security:**
 - All eval() references have been removed from the code base. When using a binding, if you are using custom events, you will need to pass the bindings via a function.
