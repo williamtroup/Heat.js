@@ -499,34 +499,36 @@ export namespace Binding {
     
         function getCustomTriggers( bindingOptions : BindingOptions ) : BindingOptionsEvents {
             bindingOptions.events = Default.getObject( bindingOptions.events, {} as BindingOptionsEvents );
-            bindingOptions.events!.onBackYear = Default.getFunction( bindingOptions.events!.onBackYear, null! );
-            bindingOptions.events!.onNextYear = Default.getFunction( bindingOptions.events!.onNextYear, null! );
-            bindingOptions.events!.onRefresh = Default.getFunction( bindingOptions.events!.onRefresh, null! );
             bindingOptions.events!.onBeforeRender = Default.getFunction( bindingOptions.events!.onBeforeRender, null! );
             bindingOptions.events!.onRenderComplete = Default.getFunction( bindingOptions.events!.onRenderComplete, null! );
+            bindingOptions.events!.onBackYear = Default.getFunction( bindingOptions.events!.onBackYear, null! );
+            bindingOptions.events!.onNextYear = Default.getFunction( bindingOptions.events!.onNextYear, null! );
+            bindingOptions.events!.onSetYear = Default.getFunction( bindingOptions.events!.onSetYear, null! );
+            bindingOptions.events!.onRefresh = Default.getFunction( bindingOptions.events!.onRefresh, null! );
             bindingOptions.events!.onDestroy = Default.getFunction( bindingOptions.events!.onDestroy, null! );
             bindingOptions.events!.onExport = Default.getFunction( bindingOptions.events!.onExport, null! );
-            bindingOptions.events!.onSetYear = Default.getFunction( bindingOptions.events!.onSetYear, null! );
+            bindingOptions.events!.onImport = Default.getFunction( bindingOptions.events!.onImport, null! );
+            bindingOptions.events!.onReset = Default.getFunction( bindingOptions.events!.onReset, null! );
             bindingOptions.events!.onTypeSwitch = Default.getFunction( bindingOptions.events!.onTypeSwitch, null! );
-            bindingOptions.events!.onMapDayToolTipRender = Default.getFunction( bindingOptions.events!.onMapDayToolTipRender, null! );
-            bindingOptions.events!.onLineDayToolTipRender = Default.getFunction( bindingOptions.events!.onLineDayToolTipRender, bindingOptions.events!.onMapDayToolTipRender! );
-            bindingOptions.events!.onChartDayToolTipRender = Default.getFunction( bindingOptions.events!.onChartDayToolTipRender, bindingOptions.events!.onMapDayToolTipRender! );
+            bindingOptions.events!.onViewSwitch = Default.getFunction( bindingOptions.events!.onViewSwitch, null! );
+            bindingOptions.events!.onAddType = Default.getFunction( bindingOptions.events!.onAddType, null! );
+            bindingOptions.events!.onRemoveType = Default.getFunction( bindingOptions.events!.onRemoveType, null! );
             bindingOptions.events!.onAddDate = Default.getFunction( bindingOptions.events!.onAddDate, null! );
             bindingOptions.events!.onRemoveDate = Default.getFunction( bindingOptions.events!.onRemoveDate, null! );
-            bindingOptions.events!.onReset = Default.getFunction( bindingOptions.events!.onReset, null! );
-            bindingOptions.events!.onViewSwitch = Default.getFunction( bindingOptions.events!.onViewSwitch, null! );
             bindingOptions.events!.onColorRangeTypeToggle = Default.getFunction( bindingOptions.events!.onColorRangeTypeToggle, null! );
-            bindingOptions.events!.onImport = Default.getFunction( bindingOptions.events!.onImport, null! );
             bindingOptions.events!.onDataFetch = Default.getFunction( bindingOptions.events!.onDataFetch, null! );
             bindingOptions.events!.onClearDate = Default.getFunction( bindingOptions.events!.onClearDate, null! );
             bindingOptions.events!.onUpdateDate = Default.getFunction( bindingOptions.events!.onUpdateDate, null! );
             bindingOptions.events!.onBindingOptionsUpdate = Default.getFunction( bindingOptions.events!.onBindingOptionsUpdate, null! );
             bindingOptions.events!.onMapDayClick = Default.getFunction( bindingOptions.events!.onMapDayClick, null! );
             bindingOptions.events!.onMapDayDblClick = Default.getFunction( bindingOptions.events!.onMapDayDblClick, null! );
+            bindingOptions.events!.onMapDayToolTipRender = Default.getFunction( bindingOptions.events!.onMapDayToolTipRender, null! );
             bindingOptions.events!.onLineDayClick = Default.getFunction( bindingOptions.events!.onLineDayClick, bindingOptions.events!.onMapDayClick! );
             bindingOptions.events!.onLineDayDblClick = Default.getFunction( bindingOptions.events!.onLineDayDblClick, bindingOptions.events!.onMapDayDblClick! );
+            bindingOptions.events!.onLineDayToolTipRender = Default.getFunction( bindingOptions.events!.onLineDayToolTipRender, bindingOptions.events!.onMapDayToolTipRender! );
             bindingOptions.events!.onChartDayClick = Default.getFunction( bindingOptions.events!.onChartDayClick, bindingOptions.events!.onMapDayClick! );
             bindingOptions.events!.onChartDayDblClick = Default.getFunction( bindingOptions.events!.onChartDayDblClick, bindingOptions.events!.onMapDayDblClick! );
+            bindingOptions.events!.onChartDayToolTipRender = Default.getFunction( bindingOptions.events!.onChartDayToolTipRender, bindingOptions.events!.onMapDayToolTipRender! );
             bindingOptions.events!.onWeekDayClick = Default.getFunction( bindingOptions.events!.onWeekDayClick, null! );
             bindingOptions.events!.onWeekDayDblClick = Default.getFunction( bindingOptions.events!.onWeekDayDblClick, null! );
             bindingOptions.events!.onMonthClick = Default.getFunction( bindingOptions.events!.onMonthClick, null! );
@@ -535,8 +537,7 @@ export namespace Binding {
             bindingOptions.events!.onColorRangeDblClick = Default.getFunction( bindingOptions.events!.onColorRangeDblClick, null! );
             bindingOptions.events!.onZoomLevelChange = Default.getFunction( bindingOptions.events!.onZoomLevelChange, null! );
             bindingOptions.events!.onClearViewableData = Default.getFunction( bindingOptions.events!.onClearViewableData, null! );
-            bindingOptions.events!.onAddType = Default.getFunction( bindingOptions.events!.onAddType, null! );
-            bindingOptions.events!.onRemoveType = Default.getFunction( bindingOptions.events!.onRemoveType, null! );
+
 
             return bindingOptions.events!;
         }
