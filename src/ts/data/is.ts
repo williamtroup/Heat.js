@@ -7,7 +7,7 @@
  * @version     v5.0.0 - Beta 5
  * @author      Bunoon
  * @license     MIT License
- * @copyright   Bunoon 2025
+ * @copyright   Bunoon 2026
  */
 
 
