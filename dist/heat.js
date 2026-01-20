@@ -5037,9 +5037,7 @@ var C;
                 }
                 if (i) {
                     u = f.Options.get(n);
-                    C.setup(u, () => {
-                        D();
-                    });
+                    C.setup(u, () => D());
                     if (t) {
                         tt.refreshAll();
                     }

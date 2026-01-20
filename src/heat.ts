@@ -3839,9 +3839,7 @@ import { Observation } from "./ts/area/observation";
                 if ( configurationOptionsHaveChanged ) {
                     _configurationOptions = Configuration.Options.get( existingConfigurationOptions );
 
-                    Observation.setup( _configurationOptions, () : void => {
-                        renderAll();
-                    } );
+                    Observation.setup( _configurationOptions, () : void => renderAll() );
         
                     if ( triggerRefresh ) {
                         _public.refreshAll();
