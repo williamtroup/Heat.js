@@ -22,7 +22,7 @@ export namespace Disabled {
             if ( !Is.definedParentElement( bindingOptions._currentView!.disabledBackground ) ) {
                 bindingOptions._currentView!.disabledBackground = DomElement.create( bindingOptions._currentView!.element, "div", "disabled" );
 
-                if ( bindingOptions.showSideMenu ) {
+                if ( bindingOptions.sideMenu!.enabled ) {
                     DomElement.addClass( bindingOptions._currentView!.disabledBackground, "full-view" );
                 }
             }

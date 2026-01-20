@@ -1512,7 +1512,7 @@ var h;
         function t(e) {
             if (!o.definedParentElement(e._currentView.disabledBackground)) {
                 e._currentView.disabledBackground = s.create(e._currentView.element, "div", "disabled");
-                if (e.showSideMenu) {
+                if (e.sideMenu.enabled) {
                     s.addClass(e._currentView.disabledBackground, "full-view");
                 }
             }
@@ -2280,9 +2280,7 @@ var C;
     function n(e, n) {
         if (e.observationMode) {
             if (!o.defined(t)) {
-                t = new MutationObserver(() => {
-                    n();
-                });
+                t = new MutationObserver(() => n());
                 const e = {
                     attributes: true,
                     childList: true,

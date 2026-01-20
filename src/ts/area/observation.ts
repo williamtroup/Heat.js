@@ -21,9 +21,7 @@ export namespace Observation {
     export function setup( configurationOptions: ConfigurationOptions, mutationFunc: Function ) {
         if ( configurationOptions.observationMode ) {
             if ( !Is.defined( _mutationObserver ) ) {
-                _mutationObserver = new MutationObserver( () : void => {
-                    mutationFunc();
-                } );
+                _mutationObserver = new MutationObserver( () : void => mutationFunc() );
 
                 const observeConfig: MutationObserverInit = {
                     attributes: true,
