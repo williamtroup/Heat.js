@@ -10,7 +10,7 @@ Heat.js
 </h1>
 
 > <p align="center">🌞 A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance. </p>
-> <p align="center">v5.0.0 - Beta 4</p>
+> <p align="center">v5.0.0 - Beta 5</p>
 <br />
 
 ![Heat.js](docs/images/main.png)
