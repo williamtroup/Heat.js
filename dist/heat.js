@@ -2146,6 +2146,14 @@ var V;
             }
         }
     })(t = e.Dialog || (e.Dialog = {}));
+    function n(e) {
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", () => e());
+        } else {
+            e();
+        }
+    }
+    e.onContentLoaded = n;
 })(V || (V = {}));
 
 var _;
@@ -5061,17 +5069,12 @@ var C;
     };
     (() => {
         u = f.Options.get();
-        const e = () => {
+        V.onContentLoaded(() => {
             D();
             C.setup(u, () => {
                 D();
             });
-        };
-        if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", () => e());
-        } else {
-            e();
-        }
+        });
         window.addEventListener("pagehide", () => qe());
         if (!o.defined(window.$heat)) {
             window.$heat = tt;

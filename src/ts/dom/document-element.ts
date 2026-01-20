@@ -34,4 +34,12 @@ export namespace DocumentElement {
             }
         }
     }
+
+    export function onContentLoaded( onLoadFunc: Function ) : void {
+        if ( document.readyState === "loading" ) {
+            document.addEventListener( "DOMContentLoaded", () : void => onLoadFunc() );
+        } else {
+            onLoadFunc();
+        }
+    }
 }

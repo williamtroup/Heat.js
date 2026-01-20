@@ -3898,19 +3898,13 @@ import { Observation } from "./ts/area/observation";
     ( () : void => {
         _configurationOptions = Configuration.Options.get();
 
-        const onLoadFunc: Function = () : void => {
+        DocumentElement.onContentLoaded( () : void => {
             renderAll();
             
             Observation.setup( _configurationOptions, () : void => {
                 renderAll();
             } );
-        };
-
-        if ( document.readyState === "loading" ) {
-            document.addEventListener( "DOMContentLoaded", () : void => onLoadFunc() );
-        } else {
-            onLoadFunc();
-        }
+        } );
 
         window.addEventListener( "pagehide", () : void => cancelAllPullDataTimersAndClearWindowEvents() );
 
