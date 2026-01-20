@@ -117,6 +117,10 @@ export namespace Visible {
 
             if ( bindingOptions._currentView!.element.innerHTML !== Char.empty ) {
                 bindingOptions._currentView!.element.style.height = `${bindingOptions._currentView!.element.offsetHeight}px`;
+
+                if ( !bindingOptions.resizable ) {
+                    bindingOptions._currentView!.element.style.width = `${bindingOptions._currentView!.element.offsetWidth}px`;
+                }
             }
             
             bindingOptions._currentView!.element.innerHTML = Char.empty;
@@ -199,6 +203,10 @@ export namespace Visible {
             }
 
             bindingOptions._currentView!.element.style.removeProperty( "height" );
+
+            if ( !bindingOptions.resizable ) {
+                bindingOptions._currentView!.element.style.removeProperty( "width" );
+            }
         }
     }
 }

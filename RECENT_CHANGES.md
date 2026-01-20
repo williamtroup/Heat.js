@@ -287,7 +287,7 @@
 - Fixed a fault that would cause the bar graph lines (in all views) to sometimes be misaligned.
 - Fixed a fault that would cause the bar graph lines to overlap their top containers by 0.5px.
 - Fixed a fault that caused the guide toggle buttons to appear with different widths when numbers are enabled.
-- Fixed a fault that would cause the main browser's scroll position to jump to the top when switching views or years.
+- Fixed a fault that would cause the main browser's vertical scroll position to jump to the top when switching views or years.
 - Fixed a fault that caused the tooltips to remain visible when the Map / Chart views are scrolled.
 - Fixed a fault that caused the month names in the "Chart" view to be misaligned when the binding option "views!.chart!.showInReverseOrder" is enabled.
 - Fixed the title bar buttons jumping around slightly when switching between years.
@@ -302,3 +302,4 @@
 - Fixed the color range toggles not being responsive in the guide when a lot are used.
 - Fixed the order of the Y Label names in all Bar Chart views (label-0 is at the bottom, label-100 is at the top).
 - Fixed a fault rendering failures to occur when the DOM has already loaded (and bindings have been used).
+- Fixed a fault that would cause the main browser's horizontal scroll position to jump to the left when switching views or years.
