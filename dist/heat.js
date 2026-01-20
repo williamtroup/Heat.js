@@ -5071,9 +5071,7 @@ var C;
         u = f.Options.get();
         V.onContentLoaded(() => {
             D();
-            C.setup(u, () => {
-                D();
-            });
+            C.setup(u, () => D());
         });
         window.addEventListener("pagehide", () => qe());
         if (!o.defined(window.$heat)) {

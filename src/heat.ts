@@ -3901,9 +3901,7 @@ import { Observation } from "./ts/area/observation";
         DocumentElement.onContentLoaded( () : void => {
             renderAll();
             
-            Observation.setup( _configurationOptions, () : void => {
-                renderAll();
-            } );
+            Observation.setup( _configurationOptions, () : void => renderAll() );
         } );
 
         window.addEventListener( "pagehide", () : void => cancelAllPullDataTimersAndClearWindowEvents() );
