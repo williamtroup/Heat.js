@@ -4392,13 +4392,7 @@ var C;
         if (e._currentView.activeType === n) {
             s.addClass(o, "active");
         }
-        o.onclick = () => {
-            if (e._currentView.activeType !== n) {
-                e._currentView.activeType = n;
-                l.customEvent(e.events.onTypeSwitch, e._currentView.element, n);
-                B(e);
-            }
-        };
+        o.onclick = () => Fe(e, n);
         if (e.guide.allowTypeAdding) {
             o.ondblclick = () => Q(e, n);
         }

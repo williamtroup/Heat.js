@@ -2921,14 +2921,7 @@ import { Observation } from "./ts/area/observation";
             DomElement.addClass( typeButton, "active" );
         }
 
-        typeButton.onclick = () : void => {
-            if ( bindingOptions._currentView!.activeType !== type ) {
-                bindingOptions._currentView!.activeType = type;
-
-                Trigger.customEvent( bindingOptions.events!.onTypeSwitch!, bindingOptions._currentView!.element, type );
-                renderContainer( bindingOptions );
-            }
-        };
+        typeButton.onclick = () : void => switchType( bindingOptions, type );
 
         if ( bindingOptions.guide!.allowTypeAdding ) {
             typeButton.ondblclick = () : void => showTypeAddingDialog( bindingOptions, type );
