@@ -484,7 +484,7 @@ div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button {
   padding-top: var(--heat-js-spacing);
   padding-bottom: var(--heat-js-spacing);
   margin-right: var(--heat-js-spacing);
-  min-width: 80px;
+  min-width: 90px;
 }
 div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button:last-child {
   margin-right: 0;
