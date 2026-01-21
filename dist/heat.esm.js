@@ -1226,6 +1226,7 @@ var g;
             e.guide.useIncrementToggles = i.getBoolean(e.guide.useIncrementToggles, false);
             e.guide.allowTypeAdding = i.getBoolean(e.guide.allowTypeAdding, false);
             e.guide.allowTypeRemoving = i.getBoolean(e.guide.allowTypeRemoving, false);
+            e.guide.showColorRangeTogglesInReverseOrder = i.getBoolean(e.guide.showColorRangeTogglesInReverseOrder, false);
             return e.guide;
         }
         function V(e) {
@@ -4365,6 +4366,9 @@ var C;
                 for (let t = 0; t < e; t++) {
                     a[t].style.width = `${l}px`;
                 }
+            }
+            if (e.guide.showColorRangeTogglesInReverseOrder) {
+                s.reverseChildrenOrder(o);
             }
             if (e.guide.showLessAndMoreLabels) {
                 const t = s.createWithHTML(n, "div", "more-text", u.text.moreText);

@@ -2882,6 +2882,10 @@ import { Observation } from "./ts/area/observation";
                 }
             }
 
+            if ( bindingOptions.guide!.showColorRangeTogglesInReverseOrder ) {
+                DomElement.reverseChildrenOrder( toggles );
+            }
+
             if ( bindingOptions.guide!.showLessAndMoreLabels ) {
                 const moreText: HTMLElement = DomElement.createWithHTML( mapToggles, "div", "more-text", _configurationOptions.text!.moreText! );
     
@@ -3497,7 +3501,7 @@ import { Observation } from "./ts/area/observation";
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
                     type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
-                    
+
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData[ type ], storageDate ) ) {

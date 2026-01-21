@@ -372,6 +372,7 @@ export namespace Binding {
             bindingOptions.guide!.useIncrementToggles = Default.getBoolean( bindingOptions.guide!.useIncrementToggles, false );
             bindingOptions.guide!.allowTypeAdding = Default.getBoolean( bindingOptions.guide!.allowTypeAdding, false );
             bindingOptions.guide!.allowTypeRemoving = Default.getBoolean( bindingOptions.guide!.allowTypeRemoving, false );
+            bindingOptions.guide!.showColorRangeTogglesInReverseOrder = Default.getBoolean( bindingOptions.guide!.showColorRangeTogglesInReverseOrder, false );
 
             return bindingOptions.guide!;
         }

@@ -72,6 +72,7 @@
 - Added a new binding option called "guide.useIncrementToggles", which states if clicking "Less" and "More" in the guide toggles the colors one by one (defaults to false).
 - Added a new binding option called "guide.allowTypeAdding", which states if trend types can be added manually (defaults to false).
 - Added a new binding option called "guide.allowTypeRemoving", which states if trend types can be removed manually (defaults to false).
+- Added a new binding option called "guide.showColorRangeTogglesInReverseOrder", which states if the color range toggles should be shown in reverse order (defaults to false).
 - Added a new binding option called "colorRanges.lineCssClassName", which states a CSS class name to use for items in the "Lines" view (overrides the "cssClassName" property).
 - Added a new binding option called "colorRanges.daysCssClassName", which states a CSS class name to use for items in the "Days" view (overrides the "cssClassName" property).
 - Added a new binding option called "colorRanges.monthsCssClassName", which states a CSS class name to use for items in the "Months" view (overrides the "cssClassName" property).

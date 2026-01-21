@@ -399,6 +399,7 @@ export type BindingOptionsGuide = {
     useIncrementToggles?: boolean;
     allowTypeAdding?: boolean;
     allowTypeRemoving?: boolean;
+    showColorRangeTogglesInReverseOrder?: boolean;
 };
 
 export type BindingOptionsZooming = {
