@@ -25,7 +25,7 @@ import {
     type LargestValuesForEachRangeType } from "./ts/type";
 
 import { type PublicApi } from "./ts/api";
-import { ExportType, Char, Value, ViewId, KeyCode, ImportType } from "./ts/data/enum";
+import { ExportType, Char, Value, ViewId, KeyCode, ImportType, ViewName } from "./ts/data/enum";
 import { Constant } from "./ts/constant";
 import { Is } from "./ts/data/is";
 import { Default } from "./ts/data/default";
@@ -198,27 +198,27 @@ import { Observation } from "./ts/area/observation";
             bindingOptions._currentView!.sideMenu = DomElement.create( bindingOptions._currentView!.element, "div", "container-side-menu", bindingOptions._currentView!.container );
 
             if ( bindingOptions.views!.map!.enabled ) {
-                renderSideMenuTab( bindingOptions, ViewId.map, "map", _configurationOptions.text!.mapText! );
+                renderSideMenuTab( bindingOptions, ViewId.map, ViewName.map, _configurationOptions.text!.mapText! );
             }
 
             if ( bindingOptions.views!.line!.enabled ) {
-                renderSideMenuTab( bindingOptions, ViewId.line, "line", _configurationOptions.text!.lineText! );
+                renderSideMenuTab( bindingOptions, ViewId.line, ViewName.line, _configurationOptions.text!.lineText! );
             }
 
             if ( bindingOptions.views!.chart!.enabled ) {
-                renderSideMenuTab( bindingOptions, ViewId.chart, "chart", _configurationOptions.text!.chartText! );
+                renderSideMenuTab( bindingOptions, ViewId.chart, ViewName.chart, _configurationOptions.text!.chartText! );
             }
 
             if ( bindingOptions.views!.days!.enabled ) {
-                renderSideMenuTab( bindingOptions, ViewId.days, "days", _configurationOptions.text!.daysText! );
+                renderSideMenuTab( bindingOptions, ViewId.days, ViewName.days, _configurationOptions.text!.daysText! );
             }
 
             if ( bindingOptions.views!.months!.enabled ) {
-                renderSideMenuTab( bindingOptions, ViewId.months, "months", _configurationOptions.text!.monthsText! );
+                renderSideMenuTab( bindingOptions, ViewId.months, ViewName.months, _configurationOptions.text!.monthsText! );
             }
 
             if ( bindingOptions.views!.colorRanges!.enabled ) {
-                renderSideMenuTab( bindingOptions, ViewId.colorRanges, "color-ranges", _configurationOptions.text!.colorRangesText! );
+                renderSideMenuTab( bindingOptions, ViewId.colorRanges, ViewName.colorRanges, _configurationOptions.text!.colorRangesText! );
             }
         }
     }
