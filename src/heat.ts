@@ -3470,11 +3470,11 @@ import { Observation } from "./ts/area/observation";
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
+                    type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
+
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData[ type ], storageDate ) ) {
-                        type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
-
                         if ( _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ] > 0 ) {
                             _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ]--;
                         }
@@ -3496,11 +3496,11 @@ import { Observation } from "./ts/area/observation";
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
                 if ( !bindingOptions._currentView!.isInFetchMode ) {
+                    type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
+                    
                     const storageDate: string = DateTime.toStorageDate( date );
         
                     if ( Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData[ type ], storageDate ) ) {
-                        type = Default.getString( type, _configurationOptions.text!.unknownTrendText! );
-
                         delete _elements_InstanceData[ elementId ].typeData[ type ][ storageDate ];
         
                         Trigger.customEvent( bindingOptions.events!.onClearDate!, bindingOptions._currentView!.element, date );

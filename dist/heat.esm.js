@@ -4775,9 +4775,9 @@ var C;
             if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(x, e)) {
                 const o = x[e].options;
                 if (!o._currentView.isInFetchMode) {
+                    n = i.getString(n, u.text.unknownTrendText);
                     const s = a.toStorageDate(t);
                     if (Object.prototype.hasOwnProperty.call(x[e].typeData, n) && Object.prototype.hasOwnProperty.call(x[e].typeData[n], s)) {
-                        n = i.getString(n, u.text.unknownTrendText);
                         if (x[e].typeData[n][s] > 0) {
                             x[e].typeData[n][s]--;
                         }
@@ -4794,9 +4794,9 @@ var C;
             if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(x, e)) {
                 const o = x[e].options;
                 if (!o._currentView.isInFetchMode) {
+                    n = i.getString(n, u.text.unknownTrendText);
                     const s = a.toStorageDate(t);
                     if (Object.prototype.hasOwnProperty.call(x[e].typeData, n) && Object.prototype.hasOwnProperty.call(x[e].typeData[n], s)) {
-                        n = i.getString(n, u.text.unknownTrendText);
                         delete x[e].typeData[n][s];
                         l.customEvent(o.events.onClearDate, o._currentView.element, t);
                         if (r) {

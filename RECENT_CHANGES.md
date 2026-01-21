@@ -297,7 +297,7 @@
 - Fixed a fault that would cause the data stored in local storage to be loaded for any Heat.js instance (no matter the element ID).
 - Fixed a fault that would cause the month name spacer to float under the month names in the "Chart" view (when specific settings are disabled).
 - Fixed a fault that prevented the type buttons (in the guide) from using the correct font size.
-- Fixed a fault that prevented "updateDate()" from working when passing null to the "type" parameter.
+- Fixed a fault that prevented "updateDate()", "removeDate()", and "clearDate()" from working when passing null to the "type" parameter.
 - Fixed some missing CSS variables from the light themes.
 - Fixed the color range toggles not being responsive in the guide when a lot are used.
 - Fixed the order of the Y Label names in all Bar Chart views (label-0 is at the bottom, label-100 is at the top).
