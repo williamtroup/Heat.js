@@ -413,6 +413,8 @@ export type BindingOptionsZooming = {
 
 export type BindingOptionsTooltip = {
     overrideTitle?: boolean;
+    customAttributeName?: string;
+    customAttributeValue?: string;
     delay?: number;
 };
 

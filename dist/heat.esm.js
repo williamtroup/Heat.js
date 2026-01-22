@@ -562,6 +562,9 @@ var c;
                 e.onmousemove = e => d(e, t, n);
             } else {
                 e.title = n.replace(/<\/?[^>]+(>|$)/g, "");
+                if (o.definedString(t.tooltip.customAttributeName) && o.definedString(t.tooltip.customAttributeValue)) {
+                    e.setAttribute(t.tooltip.customAttributeName, t.tooltip.customAttributeValue);
+                }
             }
         }
     }
@@ -1239,6 +1242,8 @@ var g;
         function V(e) {
             e.tooltip = i.getObject(e.tooltip, {});
             e.tooltip.overrideTitle = i.getBoolean(e.tooltip.overrideTitle, true);
+            e.tooltip.customAttributeName = i.getString(e.tooltip.customAttributeName, "");
+            e.tooltip.customAttributeValue = i.getString(e.tooltip.customAttributeValue, "");
             e.tooltip.delay = i.getNumber(e.tooltip.delay, 750);
             return e.tooltip;
         }

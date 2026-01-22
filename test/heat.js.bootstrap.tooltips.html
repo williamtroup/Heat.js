@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Heat.js - Bootstrap Tooltips</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="../dist/heat.js.css">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css" integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.bundle.min.js" integrity="sha512-HvOjJrdwNpDbkGJIG2ZNqDlVqMo77qbs4Me4cah0HoDrfhrbA+8SBlZn1KrvAQw7cILLPFJvdwIgphzQmMm+Pw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="../dist/heat.js"></script>
+        <script src="js/scripts.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <div class="header-contents">
+                <img src="images/icon.png" alt="Heat.js">
+                <div>
+                    <h1 id="header"></h1>
+                    <p>This is a basic example of how to use Heat.js to create a basic heatmap, alongside Bootstrap with custom tooltips.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contents">
+            <div class="mt-5" id="heat-map-1" data-heat-js="getBindingOptions()"></div>
+        </div>
+    </body>
+
+    <script>
+        function getBindingOptions() {
+            return {
+                "events": {
+                    "onChange": onChange,
+                },
+                "tooltip": {
+                    "overrideTitle": false,
+                    "customAttributeName": "data-bs-toggle",
+                    "customAttributeValue": "tooltip",
+                },
+            }
+        }
+
+        function onChange( element ) {
+            const tooltipTriggerList = [].slice.call( element.querySelectorAll( '[data-bs-toggle="tooltip"]' ) );
+
+            const tooltipList = tooltipTriggerList.map( function ( tooltipTriggerEl ) {
+                return new bootstrap.Tooltip( tooltipTriggerEl );
+            } );
+        }
+
+        addStartUpBasicData();
+    </script>
+</html>

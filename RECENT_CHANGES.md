@@ -96,7 +96,9 @@
 - Added a new binding option called "views.colorRanges.showRangeNamesInToolTips", which states if the range names should be shown in the tooltips (if available, defaults to true).
 - Added a new binding option called "views.chart.addMonthSpacing", which states if spacing and a divider line should be added between each month (defaults to false).
 - Added a new binding option called "views.days.dayToolTipText", which states the tooltip format to use for a Days day (defaults to "{dddd} {yyyy}").
-- Added a new binding option called "tooltip.overrideTitle", which states if the built-in custom tooltip layout should be used instead of the "title" attribute  (defaults to true).
+- Added a new binding option called "tooltip.overrideTitle", which states if the built-in custom tooltip layout should be used instead of the "title" attribute (defaults to true).
+- Added a new binding option called "tooltip.customAttributeName", which states the name of a custom attribute to apply against all elements that used a "title" tooltip attribute (defaults to empty string).
+- Added a new binding option called "tooltip.customAttributeValue", which states the value to use for the custom attribute applied against all elements that used a "title" tooltip attribute (defaults to empty string).
 - The "view.map" binding options "showDayDateNumbers" and "showDayCounts" can now be used at the same time.
 - The "view.chart" binding options "showLineDateNumbers" and "showLineCounts" can now be used at the same time.
 

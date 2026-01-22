@@ -49,8 +49,13 @@ export namespace ToolTip {
         if ( Is.defined( element ) ) {
             if ( bindingOptions.tooltip!.overrideTitle ) {
                 element.onmousemove = ( e: MouseEvent ) => show( e, bindingOptions, text );
+
             } else {
                 element.title = text.replace( /<\/?[^>]+(>|$)/g, Char.empty );
+
+                if ( Is.definedString( bindingOptions.tooltip!.customAttributeName ) && Is.definedString( bindingOptions.tooltip!.customAttributeValue ) ) {
+                    element.setAttribute( bindingOptions.tooltip!.customAttributeName!, bindingOptions.tooltip!.customAttributeValue! );
+                }
             }
         }
     }
