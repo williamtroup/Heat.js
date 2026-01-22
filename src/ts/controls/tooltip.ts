@@ -28,7 +28,7 @@ export namespace ToolTip {
     let _TOOLTIP_TIMER_ID: number = 0;
 
     export function render( bindingOptions: BindingOptions ) : void {
-        if ( !Is.defined( bindingOptions._currentView!.tooltip ) ) {
+        if ( !Is.defined( bindingOptions._currentView!.tooltip ) && bindingOptions.tooltip!.overrideTitle ) {
             const tooltipElements: HTMLCollectionOf<Element> = document.getElementsByClassName( "heat-js-tooltip" );
             const tooltips: HTMLElement[] = [].slice.call( tooltipElements );
 
@@ -46,8 +46,12 @@ export namespace ToolTip {
     }
 
     export function add( element: HTMLElement, bindingOptions: BindingOptions, text: string ) : void {
-        if ( element !== null ) {
-            element.onmousemove = ( e: MouseEvent ) => show( e, bindingOptions, text );
+        if ( Is.defined( element ) ) {
+            if ( bindingOptions.tooltip!.overrideTitle ) {
+                element.onmousemove = ( e: MouseEvent ) => show( e, bindingOptions, text );
+            } else {
+                element.title = text.replace( /<\/?[^>]+(>|$)/g, Char.empty );
+            }
         }
     }
 
@@ -75,6 +79,10 @@ export namespace ToolTip {
             }
 
             if ( showDifferencesInToolTips && Is.definedString( percentageDifferenceText ) ) {
+                if ( showCountsInTooltips && !bindingOptions.tooltip!.overrideTitle ) {
+                    tooltip += Char.space;
+                }
+
                 tooltip += `<b class="tooltip-difference">${percentageDifferenceText}</b>`;
             }
 

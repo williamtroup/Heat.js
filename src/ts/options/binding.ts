@@ -379,6 +379,7 @@ export namespace Binding {
     
         function getToolTip( bindingOptions: BindingOptions ) : BindingOptionsTooltip {
             bindingOptions.tooltip = Default.getObject( bindingOptions.tooltip, {} as BindingOptionsTooltip );
+            bindingOptions.tooltip!.overrideTitle = Default.getBoolean( bindingOptions.tooltip!.overrideTitle, true );
             bindingOptions.tooltip!.delay = Default.getNumber( bindingOptions.tooltip!.delay, 750 );
     
             return bindingOptions.tooltip!;

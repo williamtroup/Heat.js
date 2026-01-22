@@ -543,7 +543,7 @@ var c;
 (e => {
     let t = 0;
     function n(e) {
-        if (!o.defined(e._currentView.tooltip)) {
+        if (!o.defined(e._currentView.tooltip) && e.tooltip.overrideTitle) {
             const t = document.getElementsByClassName("heat-js-tooltip");
             const n = [].slice.call(t);
             if (n.length > 0) {
@@ -557,8 +557,12 @@ var c;
     }
     e.render = n;
     function i(e, t, n) {
-        if (e !== null) {
-            e.onmousemove = e => d(e, t, n);
+        if (o.defined(e)) {
+            if (t.tooltip.overrideTitle) {
+                e.onmousemove = e => d(e, t, n);
+            } else {
+                e.title = n.replace(/<\/?[^>]+(>|$)/g, "");
+            }
         }
     }
     e.add = i;
@@ -580,6 +584,9 @@ var c;
                 l += `<b class="tooltip-count">${r.friendlyNumber(c)}</b>`;
             }
             if (h && o.definedString(d)) {
+                if (f && !t.tooltip.overrideTitle) {
+                    l += " ";
+                }
                 l += `<b class="tooltip-difference">${d}</b>`;
             }
             i(n, t, l);
@@ -1231,6 +1238,7 @@ var g;
         }
         function V(e) {
             e.tooltip = i.getObject(e.tooltip, {});
+            e.tooltip.overrideTitle = i.getBoolean(e.tooltip.overrideTitle, true);
             e.tooltip.delay = i.getNumber(e.tooltip.delay, 750);
             return e.tooltip;
         }
