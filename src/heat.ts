@@ -182,6 +182,7 @@ import { Observation } from "./ts/area/observation";
         renderGuide( bindingOptions );
 
         Visible.View.set( bindingOptions );
+        Trigger.customEvent( bindingOptions.events!.onChange!, bindingOptions._currentView!.element );
     }
 
 

@@ -501,6 +501,7 @@ export namespace Binding {
     
         function getCustomTriggers( bindingOptions : BindingOptions ) : BindingOptionsEvents {
             bindingOptions.events = Default.getObject( bindingOptions.events, {} as BindingOptionsEvents );
+            bindingOptions.events!.onChange = Default.getFunction( bindingOptions.events!.onChange, null! );
             bindingOptions.events!.onBeforeRender = Default.getFunction( bindingOptions.events!.onBeforeRender, null! );
             bindingOptions.events!.onRenderComplete = Default.getFunction( bindingOptions.events!.onRenderComplete, null! );
             bindingOptions.events!.onBackYear = Default.getFunction( bindingOptions.events!.onBackYear, null! );

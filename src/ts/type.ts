@@ -446,6 +446,7 @@ export type BindingOptionsHoliday = {
 };
 
 export type BindingOptionsEvents = {
+    onChange?: ( element: HTMLElement ) => void;
     onBeforeRender?: ( element: HTMLElement ) => void;
     onRenderComplete?: ( element: HTMLElement ) => void;
     onBackYear?: ( element: HTMLElement, year: number ) => void;

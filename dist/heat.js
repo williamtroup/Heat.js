@@ -1337,6 +1337,7 @@ var g;
         }
         function S(e) {
             e.events = i.getObject(e.events, {});
+            e.events.onChange = i.getFunction(e.events.onChange, null);
             e.events.onBeforeRender = i.getFunction(e.events.onBeforeRender, null);
             e.events.onRenderComplete = i.getFunction(e.events.onRenderComplete, null);
             e.events.onBackYear = i.getFunction(e.events.onBackYear, null);
@@ -2408,6 +2409,7 @@ var C;
         }
         ke(e);
         m.View.set(e);
+        l.customEvent(e.events.onChange, e._currentView.element);
     }
     function O(e) {
         const t = e.sideMenu.enabled && e._currentView.viewsEnabled > 1;
