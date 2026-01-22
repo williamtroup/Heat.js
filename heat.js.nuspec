@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>jHeat.js</id>
-        <version>5.0.0 - Beta 5</version>
+        <version>5.0.0 - Beta 6</version>
         <title>Heat.js</title>
         <description>A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance. </description>
         <authors>William Troup</authors>

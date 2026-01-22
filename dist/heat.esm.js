@@ -5063,7 +5063,7 @@ var C;
             }
             return e;
         },
-        getVersion: () => "5.0.0 - Beta 5"
+        getVersion: () => "5.0.0 - Beta 6"
     };
     (() => {
         u = f.Options.get();
