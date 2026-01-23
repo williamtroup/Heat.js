@@ -128,6 +128,8 @@ import { Observation } from "./ts/area/observation";
 
         Zooming.setupDefaults( bindingOptions );
         Trigger.customEvent( bindingOptions.events!.onRenderComplete!, bindingOptions._currentView!.element );
+
+        bindingOptions._currentView!.initialized = true;
     }
 
     function renderContainer( bindingOptions: BindingOptions, isForDataRefresh: boolean = false, isForViewSwitch: boolean = false, isForViewChange: boolean = false ) : void {
@@ -182,7 +184,10 @@ import { Observation } from "./ts/area/observation";
         renderGuide( bindingOptions );
 
         Visible.View.set( bindingOptions );
-        Trigger.customEvent( bindingOptions.events!.onChange!, bindingOptions._currentView!.element );
+
+        if ( bindingOptions._currentView!.initialized ) {
+            Trigger.customEvent( bindingOptions.events!.onChange!, bindingOptions._currentView!.element );
+        }
     }
 
 

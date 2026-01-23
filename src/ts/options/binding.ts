@@ -51,6 +51,7 @@ export namespace Binding {
         export function getForNewInstance( configurationOptions: ConfigurationOptions, data: unknown, element: HTMLElement ) : BindingOptions {
             const bindingOptions: BindingOptions = get( data );
             bindingOptions._currentView = {} as BindingOptionsCurrentView;
+            bindingOptions._currentView.initialized = false;
             bindingOptions._currentView.element = element;
             bindingOptions._currentView.activeYear = bindingOptions.defaultYear!;
             bindingOptions._currentView.activeType = configurationOptions.text!.unknownTrendText!;

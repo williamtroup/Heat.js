@@ -957,6 +957,7 @@ var g;
         function a(e, t, n) {
             const i = l(t);
             i._currentView = {};
+            i._currentView.initialized = false;
             i._currentView.element = n;
             i._currentView.activeYear = i.defaultYear;
             i._currentView.activeType = e.text.unknownTrendText;
@@ -2372,6 +2373,7 @@ var C;
         B(e);
         _.setupDefaults(e);
         l.customEvent(e.events.onRenderComplete, e._currentView.element);
+        e._currentView.initialized = true;
     }
     function B(e, t = false, n = false, o = false) {
         c.hide(e);
@@ -2412,7 +2414,9 @@ var C;
         }
         ke(e);
         m.View.set(e);
-        l.customEvent(e.events.onChange, e._currentView.element);
+        if (e._currentView.initialized) {
+            l.customEvent(e.events.onChange, e._currentView.element);
+        }
     }
     function O(e) {
         const t = e.sideMenu.enabled && e._currentView.viewsEnabled > 1;

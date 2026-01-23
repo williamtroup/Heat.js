@@ -177,6 +177,7 @@ export type BindingOptions = {
 };
 
 export type BindingOptionsCurrentView = {
+    initialized: boolean;
     element: HTMLElement;
     sideMenu: HTMLElement;
     container: HTMLElement;
