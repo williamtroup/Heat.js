@@ -3836,12 +3836,11 @@ import { Observation } from "./ts/area/observation";
         setConfiguration: ( configurationOptions: ConfigurationOptions, triggerRefresh: boolean = true ) : PublicApi => {
             if ( Is.definedObject( configurationOptions ) ) {
                 const existingConfigurationOptions: ConfigurationOptions = _configurationOptions;
-                const newConfigurationOptions: ConfigurationOptions = configurationOptions;
                 let configurationOptionsHaveChanged: boolean = false;
             
-                for ( const propertyName in newConfigurationOptions ) {
-                    if ( Object.prototype.hasOwnProperty.call( newConfigurationOptions, propertyName ) && Object.prototype.hasOwnProperty.call( _configurationOptions, propertyName ) && existingConfigurationOptions[ propertyName ] !== newConfigurationOptions[ propertyName ] ) {
-                        existingConfigurationOptions[ propertyName ] = newConfigurationOptions[ propertyName ];
+                for ( const propertyName in configurationOptions ) {
+                    if ( Object.prototype.hasOwnProperty.call( configurationOptions, propertyName ) && Object.prototype.hasOwnProperty.call( _configurationOptions, propertyName ) && existingConfigurationOptions[ propertyName ] !== configurationOptions[ propertyName ] ) {
+                        existingConfigurationOptions[ propertyName ] = configurationOptions[ propertyName ];
                         configurationOptionsHaveChanged = true;
                     }
                 }
