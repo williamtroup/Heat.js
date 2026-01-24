@@ -197,12 +197,12 @@ export type BindingOptionsCurrentView = {
     lineContentsScrollLeft: number;
     chartContents: HTMLElement;
     chartContentsScrollLeft: number;
-    colorRangesContents: HTMLElement;
-    colorRangesContentsScrollLeft: number;
     daysContents: HTMLElement;
     daysContentsScrollLeft: number;
     monthsContents: HTMLElement;
     monthsContentsScrollLeft: number;
+    colorRangesContents: HTMLElement;
+    colorRangesContentsScrollLeft: number;
     yearText: HTMLElement;
     yearTextWidth: number;
     tooltip: HTMLElement;
