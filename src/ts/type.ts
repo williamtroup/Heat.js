@@ -191,6 +191,7 @@ export type BindingOptionsCurrentView = {
     mapContentsContainer: HTMLElement;
     mapContents: HTMLElement;
     mapContentsScrollLeft: number;
+    mapDayWidth: number;
     lineContentsContainer: HTMLElement;
     lineContents: HTMLElement;
     lineContentsScrollLeft: number;
@@ -209,14 +210,13 @@ export type BindingOptionsCurrentView = {
     configurationDialogDayCheckBoxes: HTMLInputElement[];
     configurationDialogMonthCheckBoxes: HTMLInputElement[];
     disabledBackground: HTMLElement;
-    dayWidth: number;
     exportDialog: HTMLElement;
     exportDialogExportTypeSelect: HTMLSelectElement;
     exportDialogExportFilenameInput: HTMLInputElement;
     exportDialogExportOnlyDataBeingViewedCheckBox: HTMLInputElement;
     zoomLevel: number;
-    mapZoomIncrement: number;
-    lineZoomIncrement: number;
+    zoomMapViewIncrement: number;
+    zoomLineViewIncrement: number;
     importDialog: HTMLElement;
     importDialogDragAndDrop: HTMLElement;
     importDialogFileList: FileList;

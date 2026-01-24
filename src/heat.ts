@@ -1468,11 +1468,11 @@ import { Observation } from "./ts/area/observation";
                                 currentDayColumn = DomElement.create( dayColumns, "div", "day-column" );
                                 actualDay = 0;
     
-                                if ( bindingOptions._currentView!.dayWidth === 0 && Is.defined( day ) ) {
+                                if ( bindingOptions._currentView!.mapDayWidth === 0 && Is.defined( day ) ) {
                                     const marginLeft: number = DomElement.getStyleValueByName( day, "margin-left", true ) as number;
                                     const marginRight: number = DomElement.getStyleValueByName( day, "margin-right", true ) as number;
                                     
-                                    bindingOptions._currentView!.dayWidth = day.offsetWidth + marginLeft + marginRight;
+                                    bindingOptions._currentView!.mapDayWidth = day.offsetWidth + marginLeft + marginRight;
                                 }
                             }
                         }
@@ -1502,7 +1502,7 @@ import { Observation } from "./ts/area/observation";
                         if ( bindingOptions.views!.map!.showMonthDayGaps ) {
                             monthName.style.width = `${monthWidth}px`;
                         } else {
-                            monthName.style.width = `${monthWidth - bindingOptions._currentView!.dayWidth}px`;
+                            monthName.style.width = `${monthWidth - bindingOptions._currentView!.mapDayWidth}px`;
                         }
 
                         if ( DateTime.isCurrentMonthAndYear( date ) ) {
@@ -1570,9 +1570,9 @@ import { Observation } from "./ts/area/observation";
             const disabledDaysElements: HTMLCollectionOf<Element> = dayColumns[ 0 ].getElementsByClassName( "day-disabled" );
 
             if ( !bindingOptions.views!.map!.showMonthDayGaps && disabledDaysElements.length > 0 ) {
-                monthElement.style.marginLeft = `${-bindingOptions._currentView!.dayWidth}px`;
+                monthElement.style.marginLeft = `${-bindingOptions._currentView!.mapDayWidth}px`;
             } else if ( bindingOptions.views!.map!.showMonthDayGaps && disabledDaysElements.length === 0 ) {
-                monthElement.style.marginLeft = `${bindingOptions._currentView!.dayWidth}px`;
+                monthElement.style.marginLeft = `${bindingOptions._currentView!.mapDayWidth}px`;
             }
         }
     }

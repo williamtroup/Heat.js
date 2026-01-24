@@ -863,8 +863,8 @@ var w;
                 tooltipText: `Day Color ${d}`,
                 visible: true
             };
-            const x = Math.round(n.red / 100 * (d * o));
-            const D = Math.round(n.green / 100 * (d * o));
+            const D = Math.round(n.red / 100 * (d * o));
+            const x = Math.round(n.green / 100 * (d * o));
             const S = Math.round(n.blue / 100 * (d * o));
             if (s === e.totalColors - 1) {
                 l.push(`:root {`);
@@ -872,12 +872,12 @@ var w;
                 l.push(`${"\t"}${u.Variables.YearMenuCurrent}: ${T};`);
                 l.push("}");
             } else {
-                c = n.red + x;
-                w = n.green + D;
+                c = n.red + D;
+                w = n.green + x;
                 g = n.blue + S;
                 f += i;
-                h = n.red - x;
-                m = n.green - D;
+                h = n.red - D;
+                m = n.green - x;
                 p = n.blue - S;
                 y += a;
                 if (y > e.maximumMinimum) {
@@ -967,10 +967,10 @@ var g;
             i._currentView.isInFetchMode = o.definedFunction(i.events.onDataFetch);
             i._currentView.isInFetchModeTimer = 0;
             i._currentView.yearsAvailable = [];
-            i._currentView.dayWidth = 0;
+            i._currentView.mapDayWidth = 0;
             i._currentView.zoomLevel = -1;
-            i._currentView.mapZoomIncrement = -1;
-            i._currentView.lineZoomIncrement = -1;
+            i._currentView.zoomMapViewIncrement = -1;
+            i._currentView.zoomLineViewIncrement = -1;
             i._currentView.yearTextWidth = 0;
             i._currentView.viewsEnabled = 0;
             if (i.views.map.enabled) {
@@ -1034,8 +1034,8 @@ var g;
             t.tooltip = V(t);
             t.zooming = _(t);
             t.dynamicColorRange = C(t);
-            t.colorRanges = x(t);
-            t.holidays = D(t);
+            t.colorRanges = D(t);
+            t.holidays = x(t);
             t.events = S(t);
             if (t.startMonth > 0) {
                 t.yearsToHide = [];
@@ -1268,7 +1268,7 @@ var g;
             e.dynamicColorRange.startMinimum = i.getNumber(e.dynamicColorRange.startMinimum, 10);
             return e.dynamicColorRange;
         }
-        function x(e) {
+        function D(e) {
             let t = [];
             if (e.dynamicColorRange.enabled && o.hexColor(e.dynamicColorRange.color)) {
                 t = w.buildDynamics(e.dynamicColorRange);
@@ -1325,7 +1325,7 @@ var g;
             }
             return t;
         }
-        function D(e) {
+        function x(e) {
             const t = [];
             if (o.definedArray(e.holidays)) {
                 const n = e.holidays.length;
@@ -2226,15 +2226,15 @@ var _;
         const n = s.getStyleValueByNameSizingMetic(document.documentElement, u.Variables.LineWidth);
         let o = s.getStyleValueByName(document.documentElement, u.Variables.DaySize, true);
         let i = s.getStyleValueByName(document.documentElement, u.Variables.LineWidth, true);
-        if (e._currentView.mapZoomIncrement === -1) {
-            e._currentView.mapZoomIncrement = o / 10;
+        if (e._currentView.zoomMapViewIncrement === -1) {
+            e._currentView.zoomMapViewIncrement = o / 10;
         }
-        if (e._currentView.lineZoomIncrement === -1) {
-            e._currentView.lineZoomIncrement = i / 10;
+        if (e._currentView.zoomLineViewIncrement === -1) {
+            e._currentView.zoomLineViewIncrement = i / 10;
         }
         if (e.zooming.defaultLevel > 0 && e._currentView.zoomLevel === -1) {
-            o += parseFloat((e.zooming.defaultLevel * e._currentView.mapZoomIncrement).toFixed(1));
-            i += parseFloat((e.zooming.defaultLevel * e._currentView.lineZoomIncrement).toFixed(1));
+            o += parseFloat((e.zooming.defaultLevel * e._currentView.zoomMapViewIncrement).toFixed(1));
+            i += parseFloat((e.zooming.defaultLevel * e._currentView.zoomLineViewIncrement).toFixed(1));
             e._currentView.zoomLevel = e.zooming.defaultLevel;
             e._currentView.element.style.setProperty(u.Variables.DaySize, `${o}${t}`);
             e._currentView.element.style.setProperty(u.Variables.LineWidth, `${i}${n}`);
@@ -2246,7 +2246,7 @@ var _;
             e._currentView.element.style.removeProperty(u.Variables.DaySize);
             e._currentView.element.style.removeProperty(u.Variables.LineWidth);
             e._currentView.zoomLevel = 0;
-            e._currentView.dayWidth = 0;
+            e._currentView.mapDayWidth = 0;
             l.customEvent(e.events.onZoomLevelChange, e._currentView.element, e._currentView.zoomLevel);
             t();
         }
@@ -2257,14 +2257,14 @@ var _;
             const o = s.getStyleValueByNameSizingMetic(document.documentElement, u.Variables.LineWidth);
             let i = s.getStyleValueByName(e._currentView.element, u.Variables.DaySize, true);
             let r = s.getStyleValueByName(e._currentView.element, u.Variables.LineWidth, true);
-            i -= e._currentView.mapZoomIncrement;
+            i -= e._currentView.zoomMapViewIncrement;
             i = parseFloat(i.toFixed(1));
-            r -= e._currentView.lineZoomIncrement;
+            r -= e._currentView.zoomLineViewIncrement;
             r = parseFloat(r.toFixed(1));
             e._currentView.zoomLevel--;
             e._currentView.element.style.setProperty(u.Variables.DaySize, `${i}${n}`);
             e._currentView.element.style.setProperty(u.Variables.LineWidth, `${r}${o}`);
-            e._currentView.dayWidth = 0;
+            e._currentView.mapDayWidth = 0;
             l.customEvent(e.events.onZoomLevelChange, e._currentView.element, e._currentView.zoomLevel);
             t();
         }
@@ -2275,14 +2275,14 @@ var _;
             const o = s.getStyleValueByNameSizingMetic(document.documentElement, u.Variables.LineWidth);
             let i = s.getStyleValueByName(e._currentView.element, u.Variables.DaySize, true);
             let r = s.getStyleValueByName(e._currentView.element, u.Variables.LineWidth, true);
-            i += e._currentView.mapZoomIncrement;
+            i += e._currentView.zoomMapViewIncrement;
             i = parseFloat(i.toFixed(1));
-            r += e._currentView.lineZoomIncrement;
+            r += e._currentView.zoomLineViewIncrement;
             r = parseFloat(r.toFixed(1));
             e._currentView.zoomLevel++;
             e._currentView.element.style.setProperty(u.Variables.DaySize, `${i}${n}`);
             e._currentView.element.style.setProperty(u.Variables.LineWidth, `${r}${o}`);
-            e._currentView.dayWidth = 0;
+            e._currentView.mapDayWidth = 0;
             l.customEvent(e.events.onZoomLevelChange, e._currentView.element, e._currentView.zoomLevel);
             t();
         }
@@ -2321,8 +2321,8 @@ var C;
 
 (() => {
     let u = {};
-    let x = {};
-    function D() {
+    let D = {};
+    function x() {
         const e = u.domElementTypes;
         const t = e.length;
         for (let n = 0; n < t; n++) {
@@ -2378,7 +2378,7 @@ var C;
     function B(e, t = false, n = false, o = false) {
         c.hide(e);
         if (t) {
-            T.store(e, x[e._currentView.element.id]);
+            T.store(e, D[e._currentView.element.id]);
         }
         m.View.getScrollPositions(e);
         c.render(e);
@@ -2888,14 +2888,14 @@ var C;
     function te(e) {
         const t = e._currentView.typeAddingDialogTypeInput.value.trim();
         const n = e._currentView.element.id;
-        if (o.definedString(t) && !Object.prototype.hasOwnProperty.call(x[n].typeData, t)) {
+        if (o.definedString(t) && !Object.prototype.hasOwnProperty.call(D[n].typeData, t)) {
             if (!o.definedString(e._currentView.typeAddingRenameType)) {
-                x[n].typeData[t] = {};
-                x[n].totalTypes++;
+                D[n].typeData[t] = {};
+                D[n].totalTypes++;
             } else {
-                const o = x[n].typeData[e._currentView.typeAddingRenameType];
-                delete x[n].typeData[e._currentView.typeAddingRenameType];
-                x[n].typeData[t] = o;
+                const o = D[n].typeData[e._currentView.typeAddingRenameType];
+                delete D[n].typeData[e._currentView.typeAddingRenameType];
+                D[n].typeData[t] = o;
             }
             if (e._currentView.typeAddingOptionNewType.checked || e._currentView.activeType === e._currentView.typeAddingRenameType) {
                 e._currentView.activeType = t;
@@ -3321,10 +3321,10 @@ var C;
                                 }
                                 m = s.create(c, "div", "day-column");
                                 y = 0;
-                                if (e._currentView.dayWidth === 0 && o.defined(n)) {
+                                if (e._currentView.mapDayWidth === 0 && o.defined(n)) {
                                     const t = s.getStyleValueByName(n, "margin-left", true);
                                     const o = s.getStyleValueByName(n, "margin-right", true);
-                                    e._currentView.dayWidth = n.offsetWidth + t + o;
+                                    e._currentView.mapDayWidth = n.offsetWidth + t + o;
                                 }
                             }
                         }
@@ -3347,7 +3347,7 @@ var C;
                         if (e.views.map.showMonthDayGaps) {
                             n.style.width = `${o}px`;
                         } else {
-                            n.style.width = `${o - e._currentView.dayWidth}px`;
+                            n.style.width = `${o - e._currentView.mapDayWidth}px`;
                         }
                         if (a.isCurrentMonthAndYear(d)) {
                             s.addClass(n, "current");
@@ -3399,9 +3399,9 @@ var C;
             const r = [].slice.call(i);
             const a = r[0].getElementsByClassName("day-disabled");
             if (!e.views.map.showMonthDayGaps && a.length > 0) {
-                n.style.marginLeft = `${-e._currentView.dayWidth}px`;
+                n.style.marginLeft = `${-e._currentView.mapDayWidth}px`;
             } else if (e.views.map.showMonthDayGaps && a.length === 0) {
-                n.style.marginLeft = `${e._currentView.dayWidth}px`;
+                n.style.marginLeft = `${e._currentView.mapDayWidth}px`;
             }
         }
     }
@@ -3762,8 +3762,8 @@ var C;
         if (t.views.chart.showDifferences && o.definedString(C)) {
             s.createWithHTML(T, "div", "difference", C);
         }
-        const x = V * m;
-        if (x <= 0) {
+        const D = V * m;
+        if (D <= 0) {
             T.style.visibility = "hidden";
         }
         if (o.definedFunction(t.events.onChartDayClick)) {
@@ -3786,7 +3786,7 @@ var C;
         if (t.views.chart.useGradients) {
             s.addGradientEffect(t._currentView.element, T);
         }
-        v.setHeight(t, T, x, p);
+        v.setHeight(t, T, D, p);
         return T;
     }
     function Ce(e, t) {
@@ -3796,7 +3796,7 @@ var C;
         const l = s.create(i, "div", "y-labels");
         const c = s.create(i, "div", "day-lines");
         const d = w.getAllSorted(e);
-        const g = De(e, d);
+        const g = xe(e, d);
         const f = new Date;
         const h = a.getWeekdayNumber(f) + 1;
         if (t && (!e.views.days.useDifferentOpacities || !e.views.days.showDayCounts)) {
@@ -3828,7 +3828,7 @@ var C;
             for (const n in g.values) {
                 if (Object.prototype.hasOwnProperty.call(g.values, n) && o.dayVisible(e.views.days.daysToShow, parseInt(n))) {
                     const a = g.valueOpacities[g.values[n].total];
-                    const l = xe(c, parseInt(n), g.values[n].total, e, i, a, g.totalValue, t);
+                    const l = De(c, parseInt(n), g.values[n].total, e, i, a, g.totalValue, t);
                     if (e.views.days.showDayNames) {
                         const t = s.createWithHTML(r, "div", "day-name", u.text.dayNames[parseInt(n) - 1]);
                         if (f.getFullYear() === e._currentView.activeYear && h === parseInt(n)) {
@@ -3868,7 +3868,7 @@ var C;
         }
         e._currentView.daysContents.style.display = "none";
     }
-    function xe(e, t, i, w, g, f, h, m) {
+    function De(e, t, i, w, g, f, h, m) {
         const p = s.create(e, "div", "day-line");
         const y = i * g;
         let T = null;
@@ -3927,7 +3927,7 @@ var C;
         v.setHeight(w, p, y, m);
         return p;
     }
-    function De(e, t) {
+    function xe(e, t) {
         const n = {
             values: b.largestValueForViewValues(7),
             valueOpacities: {},
@@ -4317,14 +4317,14 @@ var C;
         const t = s.create(e._currentView.container, "div", "guide");
         const n = s.create(t, "div", "map-types");
         const i = He(e);
-        const r = x[e._currentView.element.id].totalTypes;
+        const r = D[e._currentView.element.id].totalTypes;
         if (r > 1 || e.guide.allowTypeAdding) {
             if (o.definedString(e.description.text)) {
                 const n = s.create(e._currentView.container, "div", "description", t);
                 Ie(e, n);
             }
             if (r > 1) {
-                const t = Object.keys(x[e._currentView.element.id].typeData).sort((e, t) => e.localeCompare(t, void 0, {
+                const t = Object.keys(D[e._currentView.element.id].typeData).sort((e, t) => e.localeCompare(t, void 0, {
                     numeric: true,
                     sensitivity: "base"
                 }));
@@ -4476,8 +4476,8 @@ var C;
     }
     function $e(e) {
         const t = He(e);
-        if (x[e._currentView.element.id].totalTypes > 1) {
-            for (const n in x[e._currentView.element.id].typeData) {
+        if (D[e._currentView.element.id].totalTypes > 1) {
+            for (const n in D[e._currentView.element.id].typeData) {
                 if (n !== u.text.unknownTrendText || t > 0) {
                     if (t === 0 && e._currentView.activeType === u.text.unknownTrendText) {
                         e._currentView.activeType = n;
@@ -4488,8 +4488,8 @@ var C;
     }
     function He(e) {
         let t = 0;
-        for (const n in x[e._currentView.element.id].typeData[u.text.unknownTrendText]) {
-            if (Object.prototype.hasOwnProperty.call(x[e._currentView.element.id].typeData[u.text.unknownTrendText], n)) {
+        for (const n in D[e._currentView.element.id].typeData[u.text.unknownTrendText]) {
+            if (Object.prototype.hasOwnProperty.call(D[e._currentView.element.id].typeData[u.text.unknownTrendText], n)) {
                 t++;
                 break;
             }
@@ -4497,18 +4497,18 @@ var C;
         return t;
     }
     function Ye(e, t, n = true) {
-        x[e] = {
+        D[e] = {
             options: t,
             typeData: {},
             totalTypes: 1
         };
-        x[e].typeData[u.text.unknownTrendText] = {};
+        D[e].typeData[u.text.unknownTrendText] = {};
         if (n && !t._currentView.isInFetchMode) {
-            T.load(u, t, x[e]);
+            T.load(u, t, D[e]);
         }
     }
     function je(e) {
-        return x[e._currentView.element.id].typeData[e._currentView.activeType];
+        return D[e._currentView.element.id].typeData[e._currentView.activeType];
     }
     function We(e) {
         return Object.keys(je(e)).length > 0;
@@ -4551,9 +4551,9 @@ var C;
         l.customEvent(e.events.onClearViewableData, e._currentView.element);
     }
     function Ue(e, t) {
-        delete x[e._currentView.element.id].typeData[t];
-        x[e._currentView.element.id].totalTypes--;
-        const n = Object.keys(x[e._currentView.element.id].typeData).sort((e, t) => e.localeCompare(t, void 0, {
+        delete D[e._currentView.element.id].typeData[t];
+        D[e._currentView.element.id].totalTypes--;
+        const n = Object.keys(D[e._currentView.element.id].typeData).sort((e, t) => e.localeCompare(t, void 0, {
             numeric: true,
             sensitivity: "base"
         }));
@@ -4627,18 +4627,18 @@ var C;
             Ye(t, e, false);
             for (const e in n) {
                 if (Object.prototype.hasOwnProperty.call(n, e)) {
-                    if (!Object.prototype.hasOwnProperty.call(x[t].typeData[u.text.unknownTrendText], e)) {
-                        x[t].typeData[u.text.unknownTrendText][e] = 0;
+                    if (!Object.prototype.hasOwnProperty.call(D[t].typeData[u.text.unknownTrendText], e)) {
+                        D[t].typeData[u.text.unknownTrendText][e] = 0;
                     }
-                    x[t].typeData[u.text.unknownTrendText][e] += n[e];
+                    D[t].typeData[u.text.unknownTrendText][e] += n[e];
                 }
             }
         }
     }
     function qe() {
-        for (const e in x) {
-            if (Object.prototype.hasOwnProperty.call(x, e)) {
-                const t = x[e].options;
+        for (const e in D) {
+            if (Object.prototype.hasOwnProperty.call(D, e)) {
+                const t = D[e].options;
                 if (o.defined(t._currentView.isInFetchModeTimer)) {
                     clearInterval(t._currentView.isInFetchModeTimer);
                     t._currentView.isInFetchModeTimer = 0;
@@ -4696,12 +4696,12 @@ var C;
     }
     const tt = {
         addType: (e, t, n = true) => {
-            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const o = x[e].options;
-                if (!o._currentView.isInFetchMode && !Object.prototype.hasOwnProperty.call(x[e].typeData, t)) {
-                    if (!Object.prototype.hasOwnProperty.call(x[e].typeData, t)) {
-                        x[e].typeData[t] = {};
-                        x[e].totalTypes++;
+            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
+                if (!o._currentView.isInFetchMode && !Object.prototype.hasOwnProperty.call(D[e].typeData, t)) {
+                    if (!Object.prototype.hasOwnProperty.call(D[e].typeData, t)) {
+                        D[e].typeData[t] = {};
+                        D[e].totalTypes++;
                     }
                     l.customEvent(o.events.onAddType, o._currentView.element, t);
                     if (n) {
@@ -4712,9 +4712,9 @@ var C;
             return tt;
         },
         removeType: (e, t, n = true) => {
-            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const o = x[e].options;
-                if (!o._currentView.isInFetchMode && !Object.prototype.hasOwnProperty.call(x[e].typeData, t)) {
+            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
+                if (!o._currentView.isInFetchMode && !Object.prototype.hasOwnProperty.call(D[e].typeData, t)) {
                     Ue(o, t);
                     if (n) {
                         B(o, true);
@@ -4724,8 +4724,8 @@ var C;
             return tt;
         },
         addDates: (e, t, n = null, r = true) => {
-            if (o.definedString(e) && o.definedArray(t) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const o = x[e].options;
+            if (o.definedString(e) && o.definedArray(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
                 if (!o._currentView.isInFetchMode) {
                     n = i.getString(n, u.text.unknownTrendText);
                     const a = t.length;
@@ -4740,19 +4740,19 @@ var C;
             return tt;
         },
         addDate: (e, t, n = null, r = true) => {
-            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const o = x[e].options;
+            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
                 if (!o._currentView.isInFetchMode) {
                     n = i.getString(n, u.text.unknownTrendText);
                     const s = a.toStorageDate(t);
-                    if (!Object.prototype.hasOwnProperty.call(x[e].typeData, n)) {
-                        x[e].typeData[n] = {};
-                        x[e].totalTypes++;
+                    if (!Object.prototype.hasOwnProperty.call(D[e].typeData, n)) {
+                        D[e].typeData[n] = {};
+                        D[e].totalTypes++;
                     }
-                    if (!Object.prototype.hasOwnProperty.call(x[e].typeData[n], s)) {
-                        x[e].typeData[n][s] = 0;
+                    if (!Object.prototype.hasOwnProperty.call(D[e].typeData[n], s)) {
+                        D[e].typeData[n][s] = 0;
                     }
-                    x[e].typeData[n][s]++;
+                    D[e].typeData[n][s]++;
                     l.customEvent(o.events.onAddDate, o._currentView.element, t);
                     if (r) {
                         B(o, true);
@@ -4762,13 +4762,13 @@ var C;
             return tt;
         },
         updateDate: (e, t, n, r = null, s = true) => {
-            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const o = x[e].options;
+            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
                 if (!o._currentView.isInFetchMode && n > 0) {
                     r = i.getString(r, u.text.unknownTrendText);
-                    if (Object.prototype.hasOwnProperty.call(x[e].typeData, r)) {
+                    if (Object.prototype.hasOwnProperty.call(D[e].typeData, r)) {
                         const i = a.toStorageDate(t);
-                        x[e].typeData[r][i] = n;
+                        D[e].typeData[r][i] = n;
                         l.customEvent(o.events.onUpdateDate, o._currentView.element, t);
                         if (s) {
                             B(o, true);
@@ -4779,8 +4779,8 @@ var C;
             return tt;
         },
         removeDates: (e, t, n = null, r = true) => {
-            if (o.definedString(e) && o.definedArray(t) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const o = x[e].options;
+            if (o.definedString(e) && o.definedArray(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
                 if (!o._currentView.isInFetchMode) {
                     n = i.getString(n, u.text.unknownTrendText);
                     const a = t.length;
@@ -4795,14 +4795,14 @@ var C;
             return tt;
         },
         removeDate: (e, t, n = null, r = true) => {
-            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const o = x[e].options;
+            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
                 if (!o._currentView.isInFetchMode) {
                     n = i.getString(n, u.text.unknownTrendText);
                     const s = a.toStorageDate(t);
-                    if (Object.prototype.hasOwnProperty.call(x[e].typeData, n) && Object.prototype.hasOwnProperty.call(x[e].typeData[n], s)) {
-                        if (x[e].typeData[n][s] > 0) {
-                            x[e].typeData[n][s]--;
+                    if (Object.prototype.hasOwnProperty.call(D[e].typeData, n) && Object.prototype.hasOwnProperty.call(D[e].typeData[n], s)) {
+                        if (D[e].typeData[n][s] > 0) {
+                            D[e].typeData[n][s]--;
                         }
                         l.customEvent(o.events.onRemoveDate, o._currentView.element, t);
                         if (r) {
@@ -4814,13 +4814,13 @@ var C;
             return tt;
         },
         clearDate: (e, t, n = null, r = true) => {
-            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const o = x[e].options;
+            if (o.definedString(e) && o.definedDate(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const o = D[e].options;
                 if (!o._currentView.isInFetchMode) {
                     n = i.getString(n, u.text.unknownTrendText);
                     const s = a.toStorageDate(t);
-                    if (Object.prototype.hasOwnProperty.call(x[e].typeData, n) && Object.prototype.hasOwnProperty.call(x[e].typeData[n], s)) {
-                        delete x[e].typeData[n][s];
+                    if (Object.prototype.hasOwnProperty.call(D[e].typeData, n) && Object.prototype.hasOwnProperty.call(D[e].typeData[n], s)) {
+                        delete D[e].typeData[n][s];
                         l.customEvent(o.events.onClearDate, o._currentView.element, t);
                         if (r) {
                             B(o, true);
@@ -4831,16 +4831,16 @@ var C;
             return tt;
         },
         resetAll: (e = true) => {
-            for (const t in x) {
-                if (Object.prototype.hasOwnProperty.call(x, t)) {
+            for (const t in D) {
+                if (Object.prototype.hasOwnProperty.call(D, t)) {
                     tt.reset(t, e);
                 }
             }
             return tt;
         },
         reset: (e, t = true) => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const n = x[e].options;
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const n = D[e].options;
                 if (!n._currentView.isInFetchMode) {
                     n._currentView.activeType = u.text.unknownTrendText;
                     Ye(e, n, false);
@@ -4853,34 +4853,34 @@ var C;
             return tt;
         },
         import: (e, t = null) => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(x, e)) {
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
                 if (o.definedArray(t)) {
-                    q(t, x[e].options);
+                    q(t, D[e].options);
                 } else {
-                    G(x[e].options);
+                    G(D[e].options);
                 }
             }
             return tt;
         },
         export: (e, t = null) => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const n = x[e].options;
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const n = D[e].options;
                 j(n, t, null, n.exportOnlyDataBeingViewed);
             }
             return tt;
         },
         refresh: e => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const t = x[e].options;
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const t = D[e].options;
                 B(t, true);
                 l.customEvent(t.events.onRefresh, t._currentView.element);
             }
             return tt;
         },
         refreshAll: () => {
-            for (const e in x) {
-                if (Object.prototype.hasOwnProperty.call(x, e)) {
-                    const t = x[e].options;
+            for (const e in D) {
+                if (Object.prototype.hasOwnProperty.call(D, e)) {
+                    const t = D[e].options;
                     B(t, true);
                     l.customEvent(t.events.onRefresh, t._currentView.element);
                 }
@@ -4888,8 +4888,8 @@ var C;
             return tt;
         },
         setYear: (e, t) => {
-            if (o.definedString(e) && o.definedNumber(t) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const n = x[e].options;
+            if (o.definedString(e) && o.definedNumber(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const n = D[e].options;
                 n._currentView.activeYear = t;
                 if (!o.yearVisible(n, n._currentView.activeYear)) {
                     Qe(n, false);
@@ -4901,8 +4901,8 @@ var C;
             return tt;
         },
         setYearToHighest: e => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const t = x[e].options;
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const t = D[e].options;
                 const n = je(t);
                 let i = 0;
                 for (const e in n) {
@@ -4923,8 +4923,8 @@ var C;
             return tt;
         },
         setYearToLowest: e => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const t = x[e].options;
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const t = D[e].options;
                 const n = je(t);
                 let i = 9999;
                 for (const e in n) {
@@ -4945,20 +4945,20 @@ var C;
             return tt;
         },
         moveToPreviousYear: e => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(x, e)) {
-                Ke(x[e].options);
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                Ke(D[e].options);
             }
             return tt;
         },
         moveToNextYear: e => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(x, e)) {
-                Qe(x[e].options);
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                Qe(D[e].options);
             }
             return tt;
         },
         moveToCurrentYear: e => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const t = x[e].options;
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const t = D[e].options;
                 t._currentView.activeYear = (new Date).getFullYear();
                 if (!o.yearVisible(t, t._currentView.activeYear)) {
                     Qe(t, false);
@@ -4971,8 +4971,8 @@ var C;
         },
         getYear: e => {
             let t = -1;
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(x, e)) {
-                t = x[e].options._currentView.activeYear;
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                t = D[e].options._currentView.activeYear;
             }
             return t;
         },
@@ -4983,27 +4983,27 @@ var C;
             return tt;
         },
         renderAll: () => {
-            D();
+            x();
             return tt;
         },
         switchView: (e, t) => {
-            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(x, e)) {
+            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e)) {
                 const n = m.View.get(t);
                 if (n !== 0) {
-                    Ee(x[e].options, n);
+                    Ee(D[e].options, n);
                 }
             }
             return tt;
         },
         switchType: (e, t) => {
-            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(x, e) && Object.prototype.hasOwnProperty.call(x[e].typeData, t)) {
-                Fe(x[e].options, t);
+            if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e) && Object.prototype.hasOwnProperty.call(D[e].typeData, t)) {
+                Fe(D[e].options, t);
             }
             return tt;
         },
         updateBindingOptions: (e, t) => {
-            if (o.definedString(e) && o.definedObject(t) && Object.prototype.hasOwnProperty.call(x, e)) {
-                const n = x[e].options;
+            if (o.definedString(e) && o.definedObject(t) && Object.prototype.hasOwnProperty.call(D, e)) {
+                const n = D[e].options;
                 const o = g.Options.get(t);
                 let i = false;
                 for (const e in o) {
@@ -5022,24 +5022,24 @@ var C;
         },
         getActiveView: e => {
             let t = "";
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(x, e)) {
-                t = m.View.getName(x[e].options);
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                t = m.View.getName(D[e].options);
             }
             return t;
         },
         destroyAll: () => {
-            for (const e in x) {
-                if (Object.prototype.hasOwnProperty.call(x, e)) {
-                    et(x[e].options);
+            for (const e in D) {
+                if (Object.prototype.hasOwnProperty.call(D, e)) {
+                    et(D[e].options);
                 }
             }
-            x = {};
+            D = {};
             return tt;
         },
         destroy: e => {
-            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(x, e)) {
-                et(x[e].options);
-                delete x[e];
+            if (o.definedString(e) && Object.prototype.hasOwnProperty.call(D, e)) {
+                et(D[e].options);
+                delete D[e];
             }
             return tt;
         },
@@ -5055,7 +5055,7 @@ var C;
                 }
                 if (o) {
                     u = f.Options.get(n);
-                    C.setup(u, () => D());
+                    C.setup(u, () => x());
                     if (t) {
                         tt.refreshAll();
                     }
@@ -5074,8 +5074,8 @@ var C;
         },
         getIds: () => {
             const e = [];
-            for (const t in x) {
-                if (Object.prototype.hasOwnProperty.call(x, t)) {
+            for (const t in D) {
+                if (Object.prototype.hasOwnProperty.call(D, t)) {
                     e.push(t);
                 }
             }
@@ -5086,8 +5086,8 @@ var C;
     (() => {
         u = f.Options.get();
         V.onContentLoaded(() => {
-            D();
-            C.setup(u, () => D());
+            x();
+            C.setup(u, () => x());
         });
         window.addEventListener("pagehide", () => qe());
         if (!o.defined(window.$heat)) {

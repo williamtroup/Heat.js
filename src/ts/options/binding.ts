@@ -61,10 +61,10 @@ export namespace Binding {
             bindingOptions._currentView.isInFetchMode = Is.definedFunction( bindingOptions.events!.onDataFetch );
             bindingOptions._currentView.isInFetchModeTimer = 0;
             bindingOptions._currentView.yearsAvailable = [];
-            bindingOptions._currentView.dayWidth = 0;
+            bindingOptions._currentView.mapDayWidth = 0;
             bindingOptions._currentView.zoomLevel = Value.notFound;
-            bindingOptions._currentView.mapZoomIncrement = Value.notFound;
-            bindingOptions._currentView.lineZoomIncrement = Value.notFound;
+            bindingOptions._currentView.zoomMapViewIncrement = Value.notFound;
+            bindingOptions._currentView.zoomLineViewIncrement = Value.notFound;
             bindingOptions._currentView.yearTextWidth = 0;
             bindingOptions._currentView.viewsEnabled = 0;
 

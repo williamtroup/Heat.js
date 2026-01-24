@@ -90,17 +90,17 @@ export namespace Zooming {
         let daySize: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.DaySize, true ) as number;
         let lineWidth: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.LineWidth, true ) as number;
 
-        if ( bindingOptions._currentView!.mapZoomIncrement === Value.notFound ) {
-            bindingOptions._currentView!.mapZoomIncrement = daySize / 10;
+        if ( bindingOptions._currentView!.zoomMapViewIncrement === Value.notFound ) {
+            bindingOptions._currentView!.zoomMapViewIncrement = daySize / 10;
         }
 
-        if ( bindingOptions._currentView!.lineZoomIncrement === Value.notFound ) {
-            bindingOptions._currentView!.lineZoomIncrement = lineWidth / 10;
+        if ( bindingOptions._currentView!.zoomLineViewIncrement === Value.notFound ) {
+            bindingOptions._currentView!.zoomLineViewIncrement = lineWidth / 10;
         }
 
         if ( bindingOptions.zooming!.defaultLevel! > 0 && bindingOptions._currentView!.zoomLevel! === Value.notFound ) {
-            daySize += parseFloat( ( bindingOptions.zooming!.defaultLevel! * bindingOptions._currentView!.mapZoomIncrement ).toFixed( 1 ) );
-            lineWidth += parseFloat( ( bindingOptions.zooming!.defaultLevel! * bindingOptions._currentView!.lineZoomIncrement ).toFixed( 1 ) );
+            daySize += parseFloat( ( bindingOptions.zooming!.defaultLevel! * bindingOptions._currentView!.zoomMapViewIncrement ).toFixed( 1 ) );
+            lineWidth += parseFloat( ( bindingOptions.zooming!.defaultLevel! * bindingOptions._currentView!.zoomLineViewIncrement ).toFixed( 1 ) );
 
             bindingOptions._currentView!.zoomLevel = bindingOptions.zooming!.defaultLevel!;
             bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${daySizeSizingMetric}` );
@@ -114,7 +114,7 @@ export namespace Zooming {
             bindingOptions._currentView!.element.style.removeProperty( Css.Variables.LineWidth );
 
             bindingOptions._currentView!.zoomLevel = 0;
-            bindingOptions._currentView!.dayWidth = 0;
+            bindingOptions._currentView!.mapDayWidth = 0;
 
             Trigger.customEvent( bindingOptions.events!.onZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.zoomLevel );
             renderFunc();
@@ -128,16 +128,16 @@ export namespace Zooming {
             let daySize: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.DaySize, true ) as number;
             let lineWidth: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.LineWidth, true ) as number;
 
-            daySize -= bindingOptions._currentView!.mapZoomIncrement;
+            daySize -= bindingOptions._currentView!.zoomMapViewIncrement;
             daySize = parseFloat( daySize.toFixed( 1 ) );
 
-            lineWidth -= bindingOptions._currentView!.lineZoomIncrement;
+            lineWidth -= bindingOptions._currentView!.zoomLineViewIncrement;
             lineWidth = parseFloat( lineWidth.toFixed( 1 ) );
 
             bindingOptions._currentView!.zoomLevel--;
             bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${daySizeSizingMetric}` );
             bindingOptions._currentView!.element.style.setProperty( Css.Variables.LineWidth, `${lineWidth}${lineWidthSizingMetric}` );
-            bindingOptions._currentView!.dayWidth = 0;
+            bindingOptions._currentView!.mapDayWidth = 0;
 
             Trigger.customEvent( bindingOptions.events!.onZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.zoomLevel );
             renderFunc();
@@ -151,16 +151,16 @@ export namespace Zooming {
             let daySize: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.DaySize, true ) as number;
             let lineWidth: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.LineWidth, true ) as number;
 
-            daySize += bindingOptions._currentView!.mapZoomIncrement;
+            daySize += bindingOptions._currentView!.zoomMapViewIncrement;
             daySize = parseFloat( daySize.toFixed( 1 ) );
 
-            lineWidth += bindingOptions._currentView!.lineZoomIncrement;
+            lineWidth += bindingOptions._currentView!.zoomLineViewIncrement;
             lineWidth = parseFloat( lineWidth.toFixed( 1 ) );
 
             bindingOptions._currentView!.zoomLevel++;
             bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${daySizeSizingMetric}` );
             bindingOptions._currentView!.element.style.setProperty( Css.Variables.LineWidth, `${lineWidth}${lineWidthSizingMetric}` );
-            bindingOptions._currentView!.dayWidth = 0;
+            bindingOptions._currentView!.mapDayWidth = 0;
 
             Trigger.customEvent( bindingOptions.events!.onZoomLevelChange!, bindingOptions._currentView!.element, bindingOptions._currentView!.zoomLevel );
             renderFunc();
