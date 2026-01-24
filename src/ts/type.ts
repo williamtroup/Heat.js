@@ -234,8 +234,8 @@ export type BindingOptionsCurrentView = {
 
 export type BindingOptionsViews = {
     map?: BindingOptionsViewsMap;
-    chart?: BindingOptionsViewsChart;
     line?: BindingOptionsViewsLine;
+    chart?: BindingOptionsViewsChart;
     days?: BindingOptionsViewsDays;
     months?: BindingOptionsViewsMonths;
     colorRanges?: BindingOptionsViewsStatistics;
