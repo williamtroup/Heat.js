@@ -654,7 +654,7 @@ import { Observation } from "./ts/area/observation";
     }
 
     function makeAreaDroppable( element: HTMLElement, bindingOptions: BindingOptions ) : void {
-        if ( bindingOptions.allowFileImports && !bindingOptions._currentView!.isInFetchMode ) {
+        if ( !bindingOptions._currentView!.isInFetchMode ) {
             element.ondragover = DomElement.cancelBubble;
             element.ondragenter = DomElement.cancelBubble;
             element.ondragleave = DomElement.cancelBubble;
@@ -665,7 +665,7 @@ import { Observation } from "./ts/area/observation";
                 if ( Is.defined( window.FileReader ) && ev.dataTransfer!.files.length > 0 ) {
                     const dataTransfer: DataTransfer = new DataTransfer();
 
-                    if ( !bindingOptions.allowFileImports ) {
+                    if ( !bindingOptions.allowMultipleFileImports ) {
                         dataTransfer.items.add( ev.dataTransfer!.files[ 0 ] );
                     } else {
 

@@ -1009,7 +1009,6 @@ var g;
             t.defaultView = i.getString(t.defaultView, "map");
             t.exportType = i.getString(t.exportType, "json");
             t.useLocalStorageForData = i.getBoolean(t.useLocalStorageForData, false);
-            t.allowFileImports = i.getBoolean(t.allowFileImports, true);
             t.yearsToHide = i.getArray(t.yearsToHide, []);
             t.dataFetchDelay = i.getNumber(t.dataFetchDelay, 6e4);
             t.showOnlyDataForYearsAvailable = i.getBoolean(t.showOnlyDataForYearsAvailable, false);
@@ -2740,7 +2739,7 @@ var C;
         V.Dialog.unbindEvents();
     }
     function J(e, t) {
-        if (t.allowFileImports && !t._currentView.isInFetchMode) {
+        if (!t._currentView.isInFetchMode) {
             e.ondragover = s.cancelBubble;
             e.ondragenter = s.cancelBubble;
             e.ondragleave = s.cancelBubble;
@@ -2748,7 +2747,7 @@ var C;
                 s.cancelBubble(e);
                 if (o.defined(window.FileReader) && e.dataTransfer.files.length > 0) {
                     const n = new DataTransfer;
-                    if (!t.allowFileImports) {
+                    if (!t.allowMultipleFileImports) {
                         n.items.add(e.dataTransfer.files[0]);
                     } else {
                         const t = e.dataTransfer.files.length;

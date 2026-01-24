@@ -55,6 +55,7 @@
 #### **Binding Options - Breaking Changes:**
 - BREAKING: The binding option "tooltip.dayText" has been removed.
 - BREAKING: The binding option "views.map.showNoDataMessageWhenDataIsNotAvailable" has been removed.
+- BREAKING: The binding option "allowFileImports" has been removed.
 - BREAKING: Renamed "views.days.useDifferentBackgroundOpacities" to "views.days.useDifferentOpacities".
 - BREAKING: Renamed "views.map.showDayNumbers" to "views.map.showDayCounts".
 - BREAKING: Renamed "views.chart.showLineNumbers" to "views.chart.showLineCounts".

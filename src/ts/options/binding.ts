@@ -111,7 +111,6 @@ export namespace Binding {
             bindingOptions.defaultView = Default.getString( bindingOptions.defaultView, ViewName.map );
             bindingOptions.exportType = Default.getString( bindingOptions.exportType, ExportType.json );
             bindingOptions.useLocalStorageForData = Default.getBoolean( bindingOptions.useLocalStorageForData, false );
-            bindingOptions.allowFileImports = Default.getBoolean( bindingOptions.allowFileImports, true );
             bindingOptions.yearsToHide = Default.getArray( bindingOptions.yearsToHide, [] );
             bindingOptions.dataFetchDelay = Default.getNumber( bindingOptions.dataFetchDelay, 60000 );
             bindingOptions.showOnlyDataForYearsAvailable = Default.getBoolean( bindingOptions.showOnlyDataForYearsAvailable, false );

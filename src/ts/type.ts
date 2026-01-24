@@ -151,7 +151,6 @@ export type BindingOptions = {
     defaultView?: string;
     exportType?: string;
     useLocalStorageForData?: boolean;
-    allowFileImports?: boolean;
     yearsToHide?: number[];
     dataFetchDelay?: number;
     showOnlyDataForYearsAvailable?: boolean;
