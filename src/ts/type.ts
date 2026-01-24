@@ -191,11 +191,11 @@ export type BindingOptionsCurrentView = {
     mapContentsContainer: HTMLElement;
     mapContents: HTMLElement;
     mapContentsScrollLeft: number;
-    chartContents: HTMLElement;
-    chartContentsScrollLeft: number;
     lineContentsContainer: HTMLElement;
     lineContents: HTMLElement;
     lineContentsScrollLeft: number;
+    chartContents: HTMLElement;
+    chartContentsScrollLeft: number;
     colorRangesContents: HTMLElement;
     colorRangesContentsScrollLeft: number;
     daysContents: HTMLElement;
