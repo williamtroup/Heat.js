@@ -3839,7 +3839,7 @@ import { Observation } from "./ts/area/observation";
                 let configurationOptionsHaveChanged: boolean = false;
             
                 for ( const propertyName in configurationOptions ) {
-                    if ( Object.prototype.hasOwnProperty.call( configurationOptions, propertyName ) && Object.prototype.hasOwnProperty.call( _configurationOptions, propertyName ) && existingConfigurationOptions[ propertyName ] !== configurationOptions[ propertyName ] ) {
+                    if ( Object.prototype.hasOwnProperty.call( configurationOptions, propertyName ) && Object.prototype.hasOwnProperty.call( existingConfigurationOptions, propertyName ) && existingConfigurationOptions[ propertyName ] !== configurationOptions[ propertyName ] ) {
                         existingConfigurationOptions[ propertyName ] = configurationOptions[ propertyName ];
                         configurationOptionsHaveChanged = true;
                     }

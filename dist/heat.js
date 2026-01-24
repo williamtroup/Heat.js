@@ -5050,7 +5050,7 @@ var C;
                 const n = u;
                 let o = false;
                 for (const t in e) {
-                    if (Object.prototype.hasOwnProperty.call(e, t) && Object.prototype.hasOwnProperty.call(u, t) && n[t] !== e[t]) {
+                    if (Object.prototype.hasOwnProperty.call(e, t) && Object.prototype.hasOwnProperty.call(n, t) && n[t] !== e[t]) {
                         n[t] = e[t];
                         o = true;
                     }
