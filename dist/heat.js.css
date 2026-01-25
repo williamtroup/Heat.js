@@ -119,12 +119,13 @@
   --heat-js-border-size-day: 1px;
   --heat-js-spacing: 10px;
   --heat-js-spacing-half: calc( var(--heat-js-spacing) / 2 );
+  --heat-js-spacing-double: calc( var(--heat-js-spacing) * 2 );
   --heat-js-spacing-font-size: 0.85rem;
   --heat-js-spacing-day-font-size: 0.6rem;
   --heat-js-left-border: 8px;
   --heat-js-default-width: 700px;
   --heat-js-default-width-with-side-menu: calc( var(--heat-js-default-width) + 50px );
-  --heat-js-y-label-spacing: calc( var(--heat-js-spacing) * 2 );
+  --heat-js-y-label-spacing: var(--heat-js-spacing-double);
   --heat-js-count-gap: 3px;
   --heat-js-transition: all 0.3s;
   --heat-js-animation-length: 0.5s;
@@ -389,7 +390,7 @@ div.heat-js div.disabled div.dialog {
   top: 50%;
   transform: translate(-50%, -50%);
   max-width: 450px;
-  width: calc(100% - var(--heat-js-spacing) * 2);
+  width: calc(100% - var(--heat-js-spacing-double));
   background-color: var(--heat-js-dialog-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-dialog-border-color);
   color: var(--heat-js-dialog-text-color);
@@ -441,7 +442,7 @@ div.heat-js div.disabled div.dialog div.dialog-contents {
 }
 div.heat-js div.disabled div.dialog div.dialog-contents div.buttons {
   text-align: right;
-  margin-top: calc(var(--heat-js-spacing) * 2);
+  margin-top: var(--heat-js-spacing-double);
 }
 div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button {
   background-color: var(--heat-js-button-background-color);
@@ -557,8 +558,8 @@ div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files 
   text-align: center;
   min-height: 150px;
   overflow-y: auto;
-  padding-top: calc(var(--heat-js-spacing) * 2);
-  padding-bottom: calc(var(--heat-js-spacing) * 2);
+  padding-top: var(--heat-js-spacing-double);
+  padding-bottom: var(--heat-js-spacing-double);
 }
 div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files::-webkit-scrollbar {
   width: var(--heat-js-scroll-bar-size);
@@ -580,8 +581,8 @@ div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files:
 }
 div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files div.no-files {
   font-style: italic;
-  padding-left: calc(var(--heat-js-spacing) * 2);
-  padding-right: calc(var(--heat-js-spacing) * 2);
+  padding-left: var(--heat-js-spacing-double);
+  padding-right: var(--heat-js-spacing-double);
 }
 div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files div.filename {
   position: relative;
@@ -591,8 +592,8 @@ div.heat-js div.disabled div.import div.dialog-contents div.drag-and-drop-files 
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
-  padding-left: calc(var(--heat-js-spacing) * 2);
-  padding-right: calc(var(--heat-js-spacing) * 2);
+  padding-left: var(--heat-js-spacing-double);
+  padding-right: var(--heat-js-spacing-double);
   margin-bottom: 3px;
   font-style: normal;
 }
@@ -701,7 +702,7 @@ div.heat-js div.title-bar button {
   height: var(--heat-js-button-height) !important;
 }
 div.heat-js div.title-bar button.back {
-  margin-left: calc(var(--heat-js-spacing) * 2) !important;
+  margin-left: var(--heat-js-spacing-double) !important;
 }
 div.heat-js div.title-bar button.back .arrow-line-left {
   width: var(--heat-js-button-icon-size);
@@ -1168,8 +1169,8 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
   transition: var(--heat-js-transition);
   scroll-snap-align: start;
   white-space: nowrap;
-  padding-left: calc(var(--heat-js-spacing) * 2);
-  padding-right: calc(var(--heat-js-spacing) * 2);
+  padding-left: var(--heat-js-spacing-double);
+  padding-right: var(--heat-js-spacing-double);
   border-top-right-radius: var(--heat-js-border-radius);
   border-bottom-right-radius: var(--heat-js-border-radius);
 }
