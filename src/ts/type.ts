@@ -231,15 +231,6 @@ export type BindingOptionsCurrentView = {
     confirmationDialogYesButton: HTMLButtonElement;
 };
 
-export type BindingOptionsViews = {
-    map?: BindingOptionsViewsMap;
-    line?: BindingOptionsViewsLine;
-    chart?: BindingOptionsViewsChart;
-    days?: BindingOptionsViewsDays;
-    months?: BindingOptionsViewsMonths;
-    colorRanges?: BindingOptionsViewsColorRanges;
-};
-
 export type BindingOptionsSideMenu = {
     enabled?: boolean;
     showToolTips?: boolean;
@@ -271,6 +262,15 @@ export type BindingOptionsYearlyStatistics = {
     showThisYear?: boolean;
     showOnlyForCurrentYear?: boolean;
     showPercentages?: boolean;
+};
+
+export type BindingOptionsViews = {
+    map?: BindingOptionsViewsMap;
+    line?: BindingOptionsViewsLine;
+    chart?: BindingOptionsViewsChart;
+    days?: BindingOptionsViewsDays;
+    months?: BindingOptionsViewsMonths;
+    colorRanges?: BindingOptionsViewsColorRanges;
 };
 
 export type BindingOptionsViewsMap = {
