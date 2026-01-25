@@ -1130,11 +1130,13 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
   border-radius: var(--heat-js-border-radius);
   background-color: var(--heat-js-years-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-years-border-color);
+  border-right-width: var(--heat-js-left-border);
   color: var(--heat-js-years-text-color);
   height: 100%;
   max-height: calc(var(--heat-js-years-menu-item-height) * var(--heat-js-years-menu-total-rows-in-view));
   overflow-y: auto;
   scroll-snap-type: y mandatory;
+  padding-right: var(--heat-js-spacing);
 }
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu::-webkit-scrollbar {
   width: var(--heat-js-scroll-bar-size);
@@ -1160,7 +1162,6 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
   justify-items: center;
   color: var(--heat-js-color-white);
   font-weight: var(--heat-js-text-font-weight-thin);
-  border-bottom: var(--heat-js-border-size) dashed var(--heat-js-container-border-color);
   width: 100%;
   height: var(--heat-js-years-menu-item-height);
   transition: var(--heat-js-transition);
@@ -1168,6 +1169,8 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
   white-space: nowrap;
   padding-left: calc(var(--heat-js-spacing) * 2);
   padding-right: calc(var(--heat-js-spacing) * 2);
+  border-top-right-radius: var(--heat-js-border-radius);
+  border-bottom-right-radius: var(--heat-js-border-radius);
 }
 div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu div.year-menu-item:not(.year-menu-item-active):active {
   opacity: 0.5 !important;
