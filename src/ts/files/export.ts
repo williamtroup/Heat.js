@@ -255,7 +255,7 @@ export namespace Export {
         }
 
         function getCsvValueLine( csvValues: string[] ) : string {
-            return csvValues.join( "," );
+            return csvValues.join( Char.comma );
         }
     }
 }

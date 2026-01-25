@@ -27,7 +27,7 @@ export namespace Convert {
             .replace( "rgba(", Char.empty )
             .replace( "rgb(", Char.empty )
             .replace( ")", Char.empty )
-            .split( "," );
+            .split( Char.comma );
 
         if ( newColor.startsWith( "rgba" ) ) {
             colorParts[ colorParts.length - 1 ] = opacity.toString();
