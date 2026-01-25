@@ -933,7 +933,7 @@ div.heat-js {
                     border-right-width: var(--heat-js-left-border);
                     color: var(--heat-js-years-text-color);
                     height: 100%;
-                    max-height: calc( ( var(--heat-js-border-size) * 2 + ( ( var(--heat-js-years-menu-item-height) + var(--heat-js-spacing-half) ) * var(--heat-js-years-menu-total-rows-in-view) ) ) - var(--heat-js-spacing-half) );
+                    max-height: calc( ( ( var(--heat-js-spacing-half) + var(--heat-js-border-size) ) * 2 + ( ( var(--heat-js-years-menu-item-height) + var(--heat-js-spacing-half) ) * var(--heat-js-years-menu-total-rows-in-view) ) ) - var(--heat-js-spacing-half) );
                     overflow-y: auto;
                     scroll-snap-type: y mandatory;
                     padding-right: var(--heat-js-spacing);
@@ -950,6 +950,7 @@ div.heat-js {
                         height: var(--heat-js-years-menu-item-height);
                         transition: var(--heat-js-transition);
                         scroll-snap-align: start;
+                        scroll-margin: var(--heat-js-spacing-half);
                         white-space: nowrap;
                         padding-left: var(--heat-js-spacing-double);
                         padding-right: var(--heat-js-spacing-double);
@@ -966,10 +967,13 @@ div.heat-js {
                             background-color: var(--heat-js-years-background-color-hover);
                             color: var(--heat-js-years-text-color-hover);
                         }
+
+                        &:first-child {
+                            margin-top: var(--heat-js-spacing-half);
+                        }
     
                         &:last-child {
                             border-bottom: none;
-                            margin-bottom: 0;
                         }
                     }
 
