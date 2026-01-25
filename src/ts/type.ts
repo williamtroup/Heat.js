@@ -237,7 +237,7 @@ export type BindingOptionsViews = {
     chart?: BindingOptionsViewsChart;
     days?: BindingOptionsViewsDays;
     months?: BindingOptionsViewsMonths;
-    colorRanges?: BindingOptionsViewsStatistics;
+    colorRanges?: BindingOptionsViewsColorRanges;
 };
 
 export type BindingOptionsSideMenu = {
@@ -367,7 +367,7 @@ export type BindingOptionsViewsMonths = {
     monthToolTipText?: string;
 };
 
-export type BindingOptionsViewsStatistics = {
+export type BindingOptionsViewsColorRanges = {
     enabled?: boolean;
     showChartYLabels?: boolean;
     showColorRangeLabels?: boolean;

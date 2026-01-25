@@ -18,17 +18,17 @@ import {
     type BindingOptionsGuide,
     type BindingOptionsTitle,
     type BindingOptionsTooltip,
+    type BindingOptionsViews,
     type BindingOptionsViewsMap,
-    type BindingOptionsHoliday,
+    type BindingOptionsViewsLine,
     type BindingOptionsViewsChart,
     type BindingOptionsViewsDays,
-    type BindingOptionsViewsStatistics,
+    type BindingOptionsViewsMonths,
+    type BindingOptionsViewsColorRanges,
+    type BindingOptionsHoliday,
     type BindingOptionsEvents, 
     type BindingOptionsCurrentView, 
-    type BindingOptionsViews,
     type BindingOptionsYearlyStatistics,
-    type BindingOptionsViewsMonths,
-    type BindingOptionsViewsLine,
     type BindingOptionsZooming,
     type BindingOptionsDynamicColorRange,
     type BindingOptionsSideMenu,
@@ -327,8 +327,8 @@ export namespace Binding {
             return bindingOptions.views!.months!;
         }
     
-        function getColorRangesView( bindingOptions: BindingOptions ) : BindingOptionsViewsStatistics {
-            bindingOptions.views!.colorRanges = Default.getObject( bindingOptions.views!.colorRanges, {} as BindingOptionsViewsStatistics );
+        function getColorRangesView( bindingOptions: BindingOptions ) : BindingOptionsViewsColorRanges {
+            bindingOptions.views!.colorRanges = Default.getObject( bindingOptions.views!.colorRanges, {} as BindingOptionsViewsColorRanges );
             bindingOptions.views!.colorRanges!.enabled = Default.getBoolean( bindingOptions.views!.colorRanges!.enabled, true );
             bindingOptions.views!.colorRanges!.showChartYLabels = Default.getBoolean( bindingOptions.views!.colorRanges!.showChartYLabels, true );
             bindingOptions.views!.colorRanges!.showColorRangeLabels = Default.getBoolean( bindingOptions.views!.colorRanges!.showColorRangeLabels, true );
