@@ -118,6 +118,7 @@
   --heat-js-border-size: 0.5px;
   --heat-js-border-size-day: 1px;
   --heat-js-spacing: 10px;
+  --heat-js-spacing-half: calc( var(--heat-js-spacing) / 2 );
   --heat-js-spacing-font-size: 0.85rem;
   --heat-js-spacing-day-font-size: 0.6rem;
   --heat-js-left-border: 8px;
@@ -656,7 +657,7 @@ div.heat-js div.disabled div.confirmation {
 */
 div.heat-js div.title-bar {
   text-align: right;
-  margin-bottom: calc(var(--heat-js-spacing) / 2);
+  margin-bottom: var(--heat-js-spacing-half);
   display: flex;
   align-items: center;
   justify-content: right;
@@ -870,13 +871,13 @@ div.heat-js div.title-bar button.current-year i.pin::after {
   bottom: 0;
 }
 div.heat-js div.title-bar button.current-year {
-  margin-right: calc(var(--heat-js-spacing) / 2) !important;
+  margin-right: var(--heat-js-spacing-half) !important;
 }
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.import,
 div.heat-js div.title-bar button.refresh,
 div.heat-js div.title-bar button.clear {
-  margin-left: calc(var(--heat-js-spacing) / 2) !important;
+  margin-left: var(--heat-js-spacing-half) !important;
 }
 div.heat-js div.title-bar button.export,
 div.heat-js div.title-bar button.refresh,
@@ -999,7 +1000,7 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu {
   overflow: hidden;
 }
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu:has(> div.indented) {
-  padding-bottom: calc(var(--heat-js-spacing) / 2);
+  padding-bottom: var(--heat-js-spacing-half);
 }
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-header,
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item {
@@ -1032,7 +1033,7 @@ div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu di
   margin-left: var(--heat-js-spacing);
   border-top-left-radius: var(--heat-js-border-radius);
   border-bottom-left-radius: var(--heat-js-border-radius);
-  margin-bottom: calc(var(--heat-js-spacing) / 2);
+  margin-bottom: var(--heat-js-spacing-half);
 }
 div.heat-js div.title-bar div.title div.titles-menu-container div.titles-menu div.title-menu-item.indented:before {
   left: var(--heat-js-spacing) !important;
@@ -1114,7 +1115,7 @@ div.heat-js div.title-bar div.year-text div.down-arrow {
   border-right: 6px solid transparent;
   border-top: 9px solid var(--heat-js-color-white);
   transition: var(--heat-js-transition);
-  margin-left: calc(var(--heat-js-spacing) / 2);
+  margin-left: var(--heat-js-spacing-half);
 }
 div.heat-js div.title-bar div.year-text div.years-menu-container {
   animation: fade-in-animation var(--heat-js-animation-length);
@@ -1201,7 +1202,7 @@ div.heat-js div.title-bar div.year-text div.years-menu-container div.years-menu 
     -------------------------------------------------------------------------
 */
 div.heat-js div.yearly-statistics {
-  margin-bottom: calc(var(--heat-js-spacing) / 2);
+  margin-bottom: var(--heat-js-spacing-half);
   display: flex;
   gap: var(--heat-js-spacing);
 }
@@ -1218,7 +1219,7 @@ div.heat-js div.yearly-statistics div.statistics-box {
 div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-title {
   text-align: center;
   font-weight: var(--heat-js-text-font-weight-heavy);
-  margin-bottom: calc(var(--heat-js-spacing) / 2);
+  margin-bottom: var(--heat-js-spacing-half);
 }
 div.heat-js div.yearly-statistics div.statistics-box div.statistics-box-count {
   text-align: center;
@@ -1923,7 +1924,7 @@ div.heat-js div.chart-contents div.chart div.day-lines div.today {
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count {
   font-size: var(--heat-js-spacing-day-font-size);
-  padding: calc(var(--heat-js-spacing) / 2);
+  padding: var(--heat-js-spacing-half);
   overflow: hidden;
   flex-direction: column;
   gap: var(--heat-js-count-gap);
@@ -1961,10 +1962,10 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   height: 0;
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line:first-child {
-  margin-left: calc(var(--heat-js-spacing) / 2);
+  margin-left: var(--heat-js-spacing-half);
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line:last-child {
-  margin-right: calc(var(--heat-js-spacing) / 2);
+  margin-right: var(--heat-js-spacing-half);
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line:not(.no-hover):active {
   opacity: var(--heat-js-view-opacity-active) !important;
@@ -2081,8 +2082,8 @@ div.heat-js div.days-contents div.days div.day-lines div.day-line-count div.coun
   transform: translate(-50%, -50%);
   color: var(--heat-js-view-days-text-color);
   text-align: center;
-  padding-left: calc(var(--heat-js-spacing) / 2);
-  padding-right: calc(var(--heat-js-spacing) / 2);
+  padding-left: var(--heat-js-spacing-half);
+  padding-right: var(--heat-js-spacing-half);
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line-count div.count.blend-colors {
   mix-blend-mode: difference;
@@ -2125,10 +2126,10 @@ div.heat-js div.days-contents div.days div.day-lines div.day-line div.stacked-co
   border-top-right-radius: 0 !important;
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line:first-child {
-  margin-left: calc(var(--heat-js-spacing) / 2);
+  margin-left: var(--heat-js-spacing-half);
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line:last-child {
-  margin-right: calc(var(--heat-js-spacing) / 2);
+  margin-right: var(--heat-js-spacing-half);
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line:not(.no-hover):active {
   opacity: var(--heat-js-view-opacity-active) !important;
@@ -2245,8 +2246,8 @@ div.heat-js div.months-contents div.months div.month-lines div.month-line-count 
   transform: translate(-50%, -50%);
   color: var(--heat-js-view-months-text-color);
   text-align: center;
-  padding-left: calc(var(--heat-js-spacing) / 2);
-  padding-right: calc(var(--heat-js-spacing) / 2);
+  padding-left: var(--heat-js-spacing-half);
+  padding-right: var(--heat-js-spacing-half);
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line-count div.count.blend-colors {
   mix-blend-mode: difference;
@@ -2289,10 +2290,10 @@ div.heat-js div.months-contents div.months div.month-lines div.month-line div.st
   border-top-right-radius: 0 !important;
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line:first-child {
-  margin-left: calc(var(--heat-js-spacing) / 2);
+  margin-left: var(--heat-js-spacing-half);
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line:last-child {
-  margin-right: calc(var(--heat-js-spacing) / 2);
+  margin-right: var(--heat-js-spacing-half);
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line:not(.no-hover):active {
   opacity: var(--heat-js-view-opacity-active) !important;
@@ -2396,7 +2397,7 @@ div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines {
 }
 div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line-count {
   font-size: var(--heat-js-spacing-day-font-size);
-  padding: calc(var(--heat-js-spacing) / 2);
+  padding: var(--heat-js-spacing-half);
   position: relative;
   overflow: hidden;
 }
@@ -2424,10 +2425,10 @@ div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div
   height: 0;
 }
 div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line:first-child {
-  margin-left: calc(var(--heat-js-spacing) / 2);
+  margin-left: var(--heat-js-spacing-half);
 }
 div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line:last-child {
-  margin-right: calc(var(--heat-js-spacing) / 2);
+  margin-right: var(--heat-js-spacing-half);
 }
 div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line:not(.no-hover):active {
   opacity: var(--heat-js-view-opacity-active) !important;
@@ -2460,7 +2461,7 @@ div.heat-js div.color-ranges-contents div.color-range-names div.color-range-name
 */
 div.heat-js div.description {
   text-align: center;
-  margin-top: calc(var(--heat-js-spacing) / 2);
+  margin-top: var(--heat-js-spacing-half);
   text-align: center;
 }
 div.heat-js div.description span.label,
@@ -2493,7 +2494,7 @@ div.heat-js div.description a.label:hover {
 */
 div.heat-js div.guide {
   display: block;
-  margin-top: calc(var(--heat-js-spacing) / 2);
+  margin-top: var(--heat-js-spacing-half);
 }
 @media (min-width: 768px) {
   div.heat-js div.guide {
@@ -2515,7 +2516,7 @@ div.heat-js div.guide div.map-types {
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
-  gap: calc(var(--heat-js-spacing) / 2);
+  gap: var(--heat-js-spacing-half);
 }
 div.heat-js div.guide div.map-types button {
   background-color: var(--heat-js-button-background-color);
@@ -2691,7 +2692,7 @@ div.heat-js div.guide div.map-toggles div.toggles {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: calc(var(--heat-js-spacing) / 2);
+  gap: var(--heat-js-spacing-half);
 }
 @media (min-width: 768px) {
   div.heat-js div.guide div.map-toggles div.toggles {
@@ -2705,8 +2706,8 @@ div.heat-js div.guide div.map-toggles div.toggles div.toggle-number {
   overflow: hidden;
   text-align: center;
   font-size: var(--heat-js-spacing-day-font-size);
-  padding-left: calc(var(--heat-js-spacing) / 2);
-  padding-right: calc(var(--heat-js-spacing) / 2);
+  padding-left: var(--heat-js-spacing-half);
+  padding-right: var(--heat-js-spacing-half);
 }
 div.heat-js div.guide div.map-toggles div.toggles div.toggle {
   background-color: var(--heat-js-day-background-color);
@@ -2885,29 +2886,29 @@ div.heat-js-tooltip {
   display: none;
 }
 div.heat-js-tooltip:has(b.tooltip-count) {
-  padding-right: calc(var(--heat-js-spacing) / 2);
+  padding-right: var(--heat-js-spacing-half);
 }
 div.heat-js-tooltip:has(b.tooltip-difference) {
-  padding-right: calc(var(--heat-js-spacing) / 2);
+  padding-right: var(--heat-js-spacing-half);
 }
 div.heat-js-tooltip sup {
   top: 0;
   padding-bottom: 8px;
-  margin-right: calc(var(--heat-js-spacing) / 2);
+  margin-right: var(--heat-js-spacing-half);
 }
 div.heat-js-tooltip b.tooltip-count,
 div.heat-js-tooltip b.tooltip-difference {
-  padding: calc(var(--heat-js-spacing) / 2);
+  padding: var(--heat-js-spacing-half);
   padding-left: var(--heat-js-spacing);
   padding-right: var(--heat-js-spacing);
   border-radius: var(--heat-js-border-radius);
   background-color: var(--heat-js-tooltip-count-background-color);
   margin-left: var(--heat-js-spacing);
-  margin-right: calc(var(--heat-js-spacing) / 2);
+  margin-right: var(--heat-js-spacing-half);
 }
 div.heat-js-tooltip b.tooltip-count + b,
 div.heat-js-tooltip b.tooltip-difference + b {
-  margin-left: calc(var(--heat-js-spacing) / 2);
+  margin-left: var(--heat-js-spacing-half);
 }
 div.heat-js-tooltip b.tooltip-difference {
   font-style: italic;

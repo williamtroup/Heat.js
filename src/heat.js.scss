@@ -182,6 +182,7 @@
 
     // Sizes
     --heat-js-spacing: 10px;
+    --heat-js-spacing-half: calc( var(--heat-js-spacing) / 2 );
     --heat-js-spacing-font-size: 0.85rem;
     --heat-js-spacing-day-font-size: 0.6rem;
     --heat-js-left-border: 8px;
@@ -599,7 +600,7 @@ div.heat-js {
 div.heat-js {
     div.title-bar {
         text-align: right;
-        margin-bottom: calc( var(--heat-js-spacing) / 2 );
+        margin-bottom: var(--heat-js-spacing-half);
         display: flex;
         align-items: center;
         justify-content: right;
@@ -643,14 +644,14 @@ div.heat-js {
         button.current-year {
             @include pin.button-icon;
 
-            margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
+            margin-right: var(--heat-js-spacing-half) !important;
         }
 
         button.export,
         button.import,
         button.refresh,
         button.clear {
-            margin-left: calc( var(--heat-js-spacing) / 2 ) !important;
+            margin-left: var(--heat-js-spacing-half) !important;
         }
 
         button.export,
@@ -780,7 +781,7 @@ div.heat-js {
                     overflow: hidden;
 
                     &:has(> div.indented) {
-                        padding-bottom: calc( var(--heat-js-spacing) / 2 );
+                        padding-bottom: var(--heat-js-spacing-half);
                     }
 
                     div.title-menu-header,
@@ -816,7 +817,7 @@ div.heat-js {
                             margin-left: var(--heat-js-spacing);
                             border-top-left-radius: var(--heat-js-border-radius);
                             border-bottom-left-radius: var(--heat-js-border-radius);
-                            margin-bottom: calc( var(--heat-js-spacing) / 2 );
+                            margin-bottom: var(--heat-js-spacing-half);
 
                             &:before {
                                 left: var(--heat-js-spacing) !important;
@@ -912,7 +913,7 @@ div.heat-js {
                 display: block !important;
             }
 
-            @include styles.down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );
+            @include styles.down-arrow( 6px, 9px, false, var(--heat-js-spacing-half) );
 
             div.years-menu-container {
                 animation: fade-in-animation var(--heat-js-animation-length);
@@ -996,7 +997,7 @@ div.heat-js {
 
 div.heat-js {
     div.yearly-statistics {
-        margin-bottom: calc( var(--heat-js-spacing) / 2 );
+        margin-bottom: var(--heat-js-spacing-half);
         display: flex;
         gap: var(--heat-js-spacing);
 
@@ -1013,7 +1014,7 @@ div.heat-js {
             div.statistics-box-title {
                 text-align: center;
                 font-weight: var(--heat-js-text-font-weight-heavy);
-                margin-bottom: calc( var(--heat-js-spacing) / 2 );
+                margin-bottom: var(--heat-js-spacing-half);
             }
 
             div.statistics-box-count {
@@ -1350,7 +1351,7 @@ div.heat-js {
 
                 div.day-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
-                    padding: calc( var(--heat-js-spacing) / 2 );
+                    padding: var(--heat-js-spacing-half);
                     overflow: hidden;
                     flex-direction: column;
                     gap: var(--heat-js-count-gap);
@@ -1393,11 +1394,11 @@ div.heat-js {
                     height: 0;
 
                     &:first-child {
-                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                        margin-left: var(--heat-js-spacing-half);
                     }
     
                     &:last-child {
-                        margin-right: calc( var(--heat-js-spacing) / 2 );
+                        margin-right: var(--heat-js-spacing-half);
                     }
 
                     &:not(.no-hover):active {
@@ -1485,8 +1486,8 @@ div.heat-js {
                         transform: translate( -50%, -50% );
                         color: var(--heat-js-view-days-text-color);
                         text-align: center;
-                        padding-left: calc( var(--heat-js-spacing) / 2 );
-                        padding-right: calc( var(--heat-js-spacing) / 2 );
+                        padding-left: var(--heat-js-spacing-half);
+                        padding-right: var(--heat-js-spacing-half);
                         
                         &.blend-colors {
                             mix-blend-mode: difference;
@@ -1537,11 +1538,11 @@ div.heat-js {
                     }
 
                     &:first-child {
-                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                        margin-left: var(--heat-js-spacing-half);
                     }
     
                     &:last-child {
-                        margin-right: calc( var(--heat-js-spacing) / 2 );
+                        margin-right: var(--heat-js-spacing-half);
                     }
 
                     &:not(.no-hover):active {
@@ -1630,8 +1631,8 @@ div.heat-js {
                         transform: translate( -50%, -50% );
                         color: var(--heat-js-view-months-text-color);
                         text-align: center;
-                        padding-left: calc( var(--heat-js-spacing) / 2 );
-                        padding-right: calc( var(--heat-js-spacing) / 2 );
+                        padding-left: var(--heat-js-spacing-half);
+                        padding-right: var(--heat-js-spacing-half);
                         
                         &.blend-colors {
                             mix-blend-mode: difference;
@@ -1682,11 +1683,11 @@ div.heat-js {
                     }
 
                     &:first-child {
-                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                        margin-left: var(--heat-js-spacing-half);
                     }
     
                     &:last-child {
-                        margin-right: calc( var(--heat-js-spacing) / 2 );
+                        margin-right: var(--heat-js-spacing-half);
                     }
 
                     &:not(.no-hover):active {
@@ -1761,7 +1762,7 @@ div.heat-js {
 
                 div.color-range-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
-                    padding: calc( var(--heat-js-spacing) / 2 );
+                    padding: var(--heat-js-spacing-half);
                     position: relative;
                     overflow: hidden;
 
@@ -1792,11 +1793,11 @@ div.heat-js {
                     height: 0;
 
                     &:first-child {
-                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                        margin-left: var(--heat-js-spacing-half);
                     }
     
                     &:last-child {
-                        margin-right: calc( var(--heat-js-spacing) / 2 );
+                        margin-right: var(--heat-js-spacing-half);
                     }
 
                     &:not(.no-hover):active {
@@ -1841,7 +1842,7 @@ div.heat-js {
 div.heat-js {
     div.description {
         text-align: center;
-        margin-top: calc( var(--heat-js-spacing) / 2 );
+        margin-top: var(--heat-js-spacing-half);
 
         @include styles.description;
     }
@@ -1863,7 +1864,7 @@ div.heat-js {
 div.heat-js {
     div.guide {
         display: block;
-        margin-top: calc( var(--heat-js-spacing) / 2 );
+        margin-top: var(--heat-js-spacing-half);
     
         @media (min-width: styles.$minimum-width) { 
             display: flex;
@@ -1883,7 +1884,7 @@ div.heat-js {
             align-items: center;
             flex-wrap: wrap;
             justify-content: center;
-            gap: calc( var(--heat-js-spacing) / 2 );
+            gap: var(--heat-js-spacing-half);
 
             @include styles.buttons;
             @include styles.description;
@@ -1955,7 +1956,7 @@ div.heat-js {
                 align-items: center;
                 justify-content: center;
                 flex-wrap: wrap;
-                gap: calc( var(--heat-js-spacing) / 2 );
+                gap: var(--heat-js-spacing-half);
 
                 @media (min-width: styles.$minimum-width) { 
                     justify-content: right;
@@ -1968,8 +1969,8 @@ div.heat-js {
                     overflow: hidden;
                     text-align: center;
                     font-size: var(--heat-js-spacing-day-font-size);
-                    padding-left: calc( var(--heat-js-spacing) / 2 );
-                    padding-right: calc( var(--heat-js-spacing) / 2 );
+                    padding-left: var(--heat-js-spacing-half);
+                    padding-right: var(--heat-js-spacing-half);
                 }
 
                 div.toggle {
@@ -2170,31 +2171,31 @@ div.heat-js-tooltip {
     display: none;
 
     &:has(b.tooltip-count) {
-        padding-right: calc( var(--heat-js-spacing) / 2 );
+        padding-right: var(--heat-js-spacing-half);
     }
 
     &:has(b.tooltip-difference) {
-        padding-right: calc( var(--heat-js-spacing) / 2 );
+        padding-right: var(--heat-js-spacing-half);
     }
 
     sup {
         top: 0;
         padding-bottom: 8px;
-        margin-right: calc( var(--heat-js-spacing) / 2 );
+        margin-right: var(--heat-js-spacing-half);
     }
 
     b.tooltip-count,
     b.tooltip-difference {
-        padding: calc( var(--heat-js-spacing) / 2 );
+        padding: var(--heat-js-spacing-half);
         padding-left: var(--heat-js-spacing);
         padding-right: var(--heat-js-spacing);
         border-radius: var(--heat-js-border-radius);
         background-color: var(--heat-js-tooltip-count-background-color);
         margin-left: var(--heat-js-spacing);
-        margin-right: calc( var(--heat-js-spacing) / 2 );
+        margin-right: var(--heat-js-spacing-half);
 
         + b {
-            margin-left: calc( var(--heat-js-spacing) / 2 );
+            margin-left: var(--heat-js-spacing-half);
         }
     }
 
