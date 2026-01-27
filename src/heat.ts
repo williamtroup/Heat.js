@@ -3343,7 +3343,7 @@ import { Observation } from "./ts/area/observation";
             if ( Is.definedString( elementId ) && Is.definedString( type ) && Object.prototype.hasOwnProperty.call( _elements_InstanceData, elementId ) ) {
                 const bindingOptions: BindingOptions = _elements_InstanceData[ elementId ].options;
                 
-                if ( !bindingOptions._currentView!.isInFetchMode && !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
+                if ( !bindingOptions._currentView!.isInFetchMode ) {
                     if ( !Object.prototype.hasOwnProperty.call( _elements_InstanceData[ elementId ].typeData, type ) ) {
                         _elements_InstanceData[ elementId ].typeData[ type ] = {} as InstanceTypeDateCount;
                         _elements_InstanceData[ elementId ].totalTypes++;

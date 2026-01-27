@@ -4697,7 +4697,7 @@ var C;
         addType: (e, t, n = true) => {
             if (o.definedString(e) && o.definedString(t) && Object.prototype.hasOwnProperty.call(D, e)) {
                 const o = D[e].options;
-                if (!o._currentView.isInFetchMode && !Object.prototype.hasOwnProperty.call(D[e].typeData, t)) {
+                if (!o._currentView.isInFetchMode) {
                     if (!Object.prototype.hasOwnProperty.call(D[e].typeData, t)) {
                         D[e].typeData[t] = {};
                         D[e].totalTypes++;
