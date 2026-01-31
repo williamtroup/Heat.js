@@ -963,7 +963,7 @@ import { Observation } from "./ts/area/observation";
             }
 
             if ( bindingOptions.title!.showText ) {
-                title.innerHTML += bindingOptions.title!.text;
+                title.innerHTML = `${title.innerHTML}${bindingOptions.title!.text}`;
 
                 if ( bindingOptions.title!.showSectionText ) {
                     DomElement.createWithHTML( title, "span", "section-text", "[" );
@@ -1078,7 +1078,7 @@ import { Observation } from "./ts/area/observation";
         let yearText: string = bindingOptions._currentView!.activeYear.toString();
 
         if ( bindingOptions.startMonth! > 0 ) {
-            yearText += ` / ${bindingOptions._currentView!.activeYear + 1}`;
+            yearText = `${yearText} / ${bindingOptions._currentView!.activeYear + 1}`;
         }
 
         bindingOptions._currentView!.yearText = DomElement.createWithHTML( titleBar, "div", "year-text", yearText );
@@ -1490,7 +1490,7 @@ import { Observation } from "./ts/area/observation";
                         let monthNameText: string = _configurationOptions.text!.monthNames![ actualMonthIndex ];
 
                         if ( bindingOptions.startMonth! > 0 && bindingOptions.views!.map!.showYearsInMonthNames ) {
-                            monthNameText += `${Char.space}${actualYear}`;
+                            monthNameText = `${monthNameText}${Char.space}${actualYear}`;
                         }
     
                         if ( !bindingOptions.views!.map!.placeMonthNamesOnTheBottom ) {
@@ -1753,7 +1753,7 @@ import { Observation } from "./ts/area/observation";
                         let monthNameText: string = _configurationOptions.text!.monthNames![ actualMonthIndex ];
 
                         if ( bindingOptions.startMonth! > 0 && bindingOptions.views!.line!.showYearsInMonthNames ) {
-                            monthNameText += `${Char.space}${actualYear}`;
+                            monthNameText = `${monthNameText}${Char.space}${actualYear}`;
                         }
 
                         const monthName: HTMLElement = DomElement.createWithHTML( lineMonths, "div", "month-name", monthNameText );
@@ -1969,7 +1969,7 @@ import { Observation } from "./ts/area/observation";
                         let monthNameText: string = _configurationOptions.text!.monthNames![ actualMonthIndex ];
 
                         if ( bindingOptions.startMonth! > 0 && bindingOptions.views!.chart!.showYearsInMonthNames ) {
-                            monthNameText += `${Char.space}${actualYear}`;
+                            monthNameText = `${monthNameText}${Char.space}${actualYear}`;
                         }
 
                         const monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", monthNameText );
@@ -2214,7 +2214,7 @@ import { Observation } from "./ts/area/observation";
 
         if ( bindingOptions.views!.days!.showToolTips ) {
             let tooltip: string = DateTime.getCustomFormattedDateText( _configurationOptions, bindingOptions.views!.days!.dayToolTipText!, new Date( bindingOptions._currentView!.activeYear, 0, 1 ), false, dayNumber - 1 );
-            tooltip += `${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( dayCount )}</b>`;
+            tooltip = `${tooltip}${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( dayCount )}</b>`;
 
             ToolTip.add( dayLine, bindingOptions, tooltip );
         }
@@ -2464,7 +2464,7 @@ import { Observation } from "./ts/area/observation";
 
         if ( bindingOptions.views!.months!.showToolTips ) {
             let tooltip: string = DateTime.getCustomFormattedDateText( _configurationOptions, bindingOptions.views!.months!.monthToolTipText!, new Date( bindingOptions._currentView!.activeYear, monthNumber - 1, 1 ) );
-            tooltip += `${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( monthCount )}</b>`;
+            tooltip = `${tooltip}${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( monthCount )}</b>`;
 
             ToolTip.add( monthLine, bindingOptions, tooltip );
         }

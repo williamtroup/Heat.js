@@ -65,33 +65,33 @@ export namespace ToolTip {
             add( day, bindingOptions, Trigger.customEvent( tooltipRenderFunc, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, isHoliday ) );
         } else {
 
-            let tooltip: string = DateTime.getCustomFormattedDateText( configurationOptions, tooltipFormat, date, true );
+            const tooltip: string[] = [ DateTime.getCustomFormattedDateText( configurationOptions, tooltipFormat, date, true ) ];
 
             if ( bindingOptions.showHolidaysInDayToolTips ) {
                 const holiday: IsHoliday = Is.holiday( bindingOptions, date );
 
                 if ( holiday.matched && Is.definedString( holiday.name ) ) {
-                    tooltip += `${Char.colon}${Char.space}${holiday.name}`;
+                    tooltip.push(`${Char.colon}${Char.space}${holiday.name}`);
                 }
             }
 
             if ( showCountsInTooltips || ( showDifferencesInToolTips && Is.definedString( percentageDifferenceText ) ) ) {
-                tooltip += `${Char.colon}${Char.space}`;
+                tooltip.push(`${Char.colon}${Char.space}`);
             }
 
             if ( showCountsInTooltips ) {
-                tooltip += `<b class="tooltip-count">${Str.friendlyNumber( dateCount )}</b>`;
+                tooltip.push(`<b class="tooltip-count">${Str.friendlyNumber( dateCount )}</b>`);
             }
 
             if ( showDifferencesInToolTips && Is.definedString( percentageDifferenceText ) ) {
                 if ( showCountsInTooltips && !bindingOptions.tooltip!.overrideTitle ) {
-                    tooltip += Char.space;
+                    tooltip.push(Char.space);
                 }
 
-                tooltip += `<b class="tooltip-difference">${percentageDifferenceText}</b>`;
+                tooltip.push(`<b class="tooltip-difference">${percentageDifferenceText}</b>`);
             }
 
-            add( day, bindingOptions, tooltip );
+            add( day, bindingOptions, tooltip.join( Char.empty ) );
         }
     }
 

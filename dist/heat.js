@@ -575,26 +575,26 @@ var c;
         if (o.definedFunction(w)) {
             i(n, t, l.customEvent(w, t._currentView.element, s, c, t._currentView.activeYear, g));
         } else {
-            let l = a.getCustomFormattedDateText(e, u, s, true);
+            const l = [ a.getCustomFormattedDateText(e, u, s, true) ];
             if (t.showHolidaysInDayToolTips) {
                 const e = o.holiday(t, s);
                 if (e.matched && o.definedString(e.name)) {
-                    l += `${":"}${" "}${e.name}`;
+                    l.push(`${":"}${" "}${e.name}`);
                 }
             }
             if (f || h && o.definedString(d)) {
-                l += `${":"}${" "}`;
+                l.push(`${":"}${" "}`);
             }
             if (f) {
-                l += `<b class="tooltip-count">${r.friendlyNumber(c)}</b>`;
+                l.push(`<b class="tooltip-count">${r.friendlyNumber(c)}</b>`);
             }
             if (h && o.definedString(d)) {
                 if (f && !t.tooltip.overrideTitle) {
-                    l += " ";
+                    l.push(" ");
                 }
-                l += `<b class="tooltip-difference">${d}</b>`;
+                l.push(`<b class="tooltip-difference">${d}</b>`);
             }
-            i(n, t, l);
+            i(n, t, l.join(""));
         }
     }
     e.addForDay = c;
@@ -2955,7 +2955,7 @@ var C;
                 s.addClass(n, "no-click");
             }
             if (e.title.showText) {
-                n.innerHTML += e.title.text;
+                n.innerHTML = `${n.innerHTML}${e.title.text}`;
                 if (e.title.showSectionText) {
                     s.createWithHTML(n, "span", "section-text", "[");
                     s.createWithHTML(n, "span", "section-text-name", m.View.getText(e, u));
@@ -3044,7 +3044,7 @@ var C;
     function ae(e, t) {
         let n = e._currentView.activeYear.toString();
         if (e.startMonth > 0) {
-            n += ` / ${e._currentView.activeYear + 1}`;
+            n = `${n} / ${e._currentView.activeYear + 1}`;
         }
         e._currentView.yearText = s.createWithHTML(t, "div", "year-text", n);
         if (e._currentView.yearTextWidth === 0) {
@@ -3338,7 +3338,7 @@ var C;
                         const d = new Date(l, i, 1);
                         let w = u.text.monthNames[i];
                         if (e.startMonth > 0 && e.views.map.showYearsInMonthNames) {
-                            w += `${" "}${r}`;
+                            w = `${w}${" "}${r}`;
                         }
                         if (!e.views.map.placeMonthNamesOnTheBottom) {
                             n = s.createWithHTML(t, "div", "month-name", w, c);
@@ -3538,7 +3538,7 @@ var C;
                         const o = new Date(n, l, 1);
                         let r = u.text.monthNames[l];
                         if (e.startMonth > 0 && e.views.line.showYearsInMonthNames) {
-                            r += `${" "}${c}`;
+                            r = `${r}${" "}${c}`;
                         }
                         const w = s.createWithHTML(t, "div", "month-name", r);
                         if (e.views.line.showInReverseOrder) {
@@ -3699,7 +3699,7 @@ var C;
                         const o = new Date(c, r, 1);
                         let i = u.text.monthNames[r];
                         if (e.startMonth > 0 && e.views.chart.showYearsInMonthNames) {
-                            i += `${" "}${l}`;
+                            i = `${i}${" "}${l}`;
                         }
                         const d = s.createWithHTML(t, "div", "month-name", i);
                         if (e.views.chart.showInReverseOrder) {
@@ -3884,7 +3884,7 @@ var C;
         }
         if (w.views.days.showToolTips) {
             let e = a.getCustomFormattedDateText(u, w.views.days.dayToolTipText, new Date(w._currentView.activeYear, 0, 1), false, t - 1);
-            e += `${":"}${" "}<b class="tooltip-count">${r.friendlyNumber(i)}</b>`;
+            e = `${e}${":"}${" "}<b class="tooltip-count">${r.friendlyNumber(i)}</b>`;
             c.add(p, w, e);
         }
         if (o.definedFunction(w.events.onWeekDayClick)) {
@@ -4072,7 +4072,7 @@ var C;
         }
         if (w.views.months.showToolTips) {
             let e = a.getCustomFormattedDateText(u, w.views.months.monthToolTipText, new Date(w._currentView.activeYear, t - 1, 1));
-            e += `${":"}${" "}<b class="tooltip-count">${r.friendlyNumber(i)}</b>`;
+            e = `${e}${":"}${" "}<b class="tooltip-count">${r.friendlyNumber(i)}</b>`;
             c.add(p, w, e);
         }
         let V = w._currentView.activeYear;
