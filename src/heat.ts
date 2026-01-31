@@ -2213,7 +2213,7 @@ import { Observation } from "./ts/area/observation";
         }
 
         if ( bindingOptions.views!.days!.showToolTips ) {
-            let tooltip: string = DateTime.getCustomFormattedDateText( _configurationOptions, bindingOptions.views!.days!.dayToolTipText!, new Date( bindingOptions._currentView!.activeYear, 0, 1 ), false, dayNumber - 1 );
+            let tooltip: string = DateTime.getCustomFormattedDateText( bindingOptions, _configurationOptions, bindingOptions.views!.days!.dayToolTipText!, new Date( bindingOptions._currentView!.activeYear, 0, 1 ), false, dayNumber - 1 );
             tooltip = `${tooltip}${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( dayCount )}</b>`;
 
             ToolTip.add( dayLine, bindingOptions, tooltip );
@@ -2463,7 +2463,7 @@ import { Observation } from "./ts/area/observation";
         }
 
         if ( bindingOptions.views!.months!.showToolTips ) {
-            let tooltip: string = DateTime.getCustomFormattedDateText( _configurationOptions, bindingOptions.views!.months!.monthToolTipText!, new Date( bindingOptions._currentView!.activeYear, monthNumber - 1, 1 ) );
+            let tooltip: string = DateTime.getCustomFormattedDateText( bindingOptions, _configurationOptions, bindingOptions.views!.months!.monthToolTipText!, new Date( bindingOptions._currentView!.activeYear, monthNumber - 1, 1 ) );
             tooltip = `${tooltip}${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( monthCount )}</b>`;
 
             ToolTip.add( monthLine, bindingOptions, tooltip );

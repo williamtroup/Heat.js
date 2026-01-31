@@ -121,7 +121,7 @@ export namespace Export {
         }
 
         function xml( typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions ) : string {
-            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configurationOptions, bindingOptions.exportDateTimeFormat!, new Date() );
+            const exportedDateTime: string = DateTime.getCustomFormattedDateText( bindingOptions, configurationOptions, bindingOptions.exportDateTimeFormat!, new Date() );
             const contents: string[] = [];
 
             contents.push( "<?xml version=\"1.0\" ?>" );
@@ -145,7 +145,7 @@ export namespace Export {
         }
 
         function txt( typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions  ) : string {
-            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configurationOptions, bindingOptions.exportDateTimeFormat!, new Date() );
+            const exportedDateTime: string = DateTime.getCustomFormattedDateText( bindingOptions, configurationOptions, bindingOptions.exportDateTimeFormat!, new Date() );
 
             const contents: string[] = [];
             contents.push( `Last-Modified${Char.colon}${Char.space}${exportedDateTime}` );
@@ -161,7 +161,7 @@ export namespace Export {
 
         function html( typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions ) : string {
             const contents: string[] = [];
-            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configurationOptions, bindingOptions.exportDateTimeFormat!, new Date() );
+            const exportedDateTime: string = DateTime.getCustomFormattedDateText( bindingOptions, configurationOptions, bindingOptions.exportDateTimeFormat!, new Date() );
 
             contents.push( "<!DOCTYPE html>" );
             contents.push( "<html>" );
@@ -216,7 +216,7 @@ export namespace Export {
 
         function yaml( typeDateCounts: InstanceTypeDateCount, configuration: ConfigurationOptions, bindingOptions: BindingOptions ) : string {
             const contents: string[] = [];
-            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configuration, bindingOptions.exportDateTimeFormat!, new Date() );
+            const exportedDateTime: string = DateTime.getCustomFormattedDateText( bindingOptions, configuration, bindingOptions.exportDateTimeFormat!, new Date() );
 
             contents.push( `Last-Modified:${Char.space}${exportedDateTime}` );
 
@@ -231,7 +231,7 @@ export namespace Export {
 
         function toml( typeDateCounts: InstanceTypeDateCount, configuration: ConfigurationOptions, bindingOptions: BindingOptions ) : string {
             const contents: string[] = [];
-            const exportedDateTime: string = DateTime.getCustomFormattedDateText( configuration, bindingOptions.exportDateTimeFormat!, new Date() );
+            const exportedDateTime: string = DateTime.getCustomFormattedDateText( bindingOptions, configuration, bindingOptions.exportDateTimeFormat!, new Date() );
 
             contents.push( `last_modified = "${exportedDateTime}"` );
             contents.push( Char.empty );

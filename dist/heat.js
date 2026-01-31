@@ -322,33 +322,42 @@ var a;
         return n;
     }
     e.getDayOrdinal = i;
-    function a(e, t, a, s = false, l = null) {
-        let c = t;
-        const d = o.definedNumber(l) ? l : n(a);
-        const u = w(a);
-        const g = i(e, a.getDate());
-        c = c.replace("{dddd}", e.text.dayNames[d]);
-        c = c.replace("{dd}", r.padNumber(a.getDate()));
-        c = c.replace("{d}", a.getDate().toString());
-        c = c.replace("{ww}", r.padNumber(u));
-        c = c.replace("{w}", u.toString());
-        if (s) {
-            if (o.definedString(g)) {
-                c = c.replace("{o}", `<sup>${g}</sup>`);
+    function a(e, t, a, s, l = false, c = null) {
+        let d = a;
+        const u = o.definedNumber(c) ? c : n(s);
+        const g = w(s);
+        const f = i(t, s.getDate());
+        d = d.replace("{dddd}", t.text.dayNames[u]);
+        d = d.replace("{dd}", r.padNumber(s.getDate()));
+        d = d.replace("{d}", s.getDate().toString());
+        d = d.replace("{ww}", r.padNumber(g));
+        d = d.replace("{w}", g.toString());
+        if (l) {
+            if (o.definedString(f)) {
+                d = d.replace("{o}", `<sup>${f}</sup>`);
             } else {
-                c = c.replace("{o}", "");
+                d = d.replace("{o}", "");
             }
         } else {
-            c = c.replace("{o}", g);
+            d = d.replace("{o}", f);
         }
-        c = c.replace("{mmmm}", e.text.monthNames[a.getMonth()]);
-        c = c.replace("{mm}", r.padNumber(a.getMonth() + 1));
-        c = c.replace("{m}", (a.getMonth() + 1).toString());
-        c = c.replace("{yyyy}", a.getFullYear().toString());
-        c = c.replace("{yyy}", a.getFullYear().toString().substring(1));
-        c = c.replace("{yy}", a.getFullYear().toString().substring(2));
-        c = c.replace("{y}", parseInt(a.getFullYear().toString().substring(2)).toString());
-        return c;
+        if (d.indexOf("{hh}") >= 0) {
+            const t = o.holiday(e, s);
+            if (t.matched) {
+                d = d.replace("{hh}", t.name);
+            } else {
+                d = d.replace("{hh}", "");
+            }
+        }
+        d = d.replace("{mmmm}", t.text.monthNames[s.getMonth()]);
+        d = d.replace("{mm}", r.padNumber(s.getMonth() + 1));
+        d = d.replace("{m}", (s.getMonth() + 1).toString());
+        d = d.replace("{yyyy}", s.getFullYear().toString());
+        d = d.replace("{yyy}", s.getFullYear().toString().substring(1));
+        d = d.replace("{yy}", s.getFullYear().toString().substring(2));
+        d = d.replace("{y}", parseInt(s.getFullYear().toString().substring(2)).toString());
+        d = d.trim();
+        return d;
     }
     e.getCustomFormattedDateText = a;
     function s(e) {
@@ -575,7 +584,7 @@ var c;
         if (o.definedFunction(w)) {
             i(n, t, l.customEvent(w, t._currentView.element, s, c, t._currentView.activeYear, g));
         } else {
-            const l = [ a.getCustomFormattedDateText(e, u, s, true) ];
+            const l = [ a.getCustomFormattedDateText(t, e, u, s, true) ];
             if (t.showHolidaysInDayToolTips) {
                 const e = o.holiday(t, s);
                 if (e.matched && o.definedString(e.name)) {
@@ -1943,7 +1952,7 @@ var y;
             return JSON.stringify(e, null, 2);
         }
         function i(e, t, n) {
-            const o = a.getCustomFormattedDateText(t, n.exportDateTimeFormat, new Date);
+            const o = a.getCustomFormattedDateText(n, t, n.exportDateTimeFormat, new Date);
             const i = [];
             i.push('<?xml version="1.0" ?>');
             i.push("<LastModified>");
@@ -1962,7 +1971,7 @@ var y;
             return i.join("\n");
         }
         function r(e, t, n) {
-            const o = a.getCustomFormattedDateText(t, n.exportDateTimeFormat, new Date);
+            const o = a.getCustomFormattedDateText(n, t, n.exportDateTimeFormat, new Date);
             const i = [];
             i.push(`Last-Modified${":"}${" "}${o}`);
             for (const t in e) {
@@ -1974,7 +1983,7 @@ var y;
         }
         function s(e, t, n) {
             const o = [];
-            const i = a.getCustomFormattedDateText(t, n.exportDateTimeFormat, new Date);
+            const i = a.getCustomFormattedDateText(n, t, n.exportDateTimeFormat, new Date);
             o.push("<!DOCTYPE html>");
             o.push("<html>");
             o.push("<head>");
@@ -2016,7 +2025,7 @@ var y;
         }
         function d(e, t, n) {
             const o = [];
-            const i = a.getCustomFormattedDateText(t, n.exportDateTimeFormat, new Date);
+            const i = a.getCustomFormattedDateText(n, t, n.exportDateTimeFormat, new Date);
             o.push(`Last-Modified:${" "}${i}`);
             for (const t in e) {
                 if (Object.prototype.hasOwnProperty.call(e, t)) {
@@ -2027,7 +2036,7 @@ var y;
         }
         function u(e, t, n) {
             const o = [];
-            const i = a.getCustomFormattedDateText(t, n.exportDateTimeFormat, new Date);
+            const i = a.getCustomFormattedDateText(n, t, n.exportDateTimeFormat, new Date);
             o.push(`last_modified = "${i}"`);
             o.push("");
             o.push("[dates]");
@@ -3883,7 +3892,7 @@ var C;
             s.addClass(p, "stacked");
         }
         if (w.views.days.showToolTips) {
-            let e = a.getCustomFormattedDateText(u, w.views.days.dayToolTipText, new Date(w._currentView.activeYear, 0, 1), false, t - 1);
+            let e = a.getCustomFormattedDateText(w, u, w.views.days.dayToolTipText, new Date(w._currentView.activeYear, 0, 1), false, t - 1);
             e = `${e}${":"}${" "}<b class="tooltip-count">${r.friendlyNumber(i)}</b>`;
             c.add(p, w, e);
         }
@@ -4071,7 +4080,7 @@ var C;
             p.style.visibility = "hidden";
         }
         if (w.views.months.showToolTips) {
-            let e = a.getCustomFormattedDateText(u, w.views.months.monthToolTipText, new Date(w._currentView.activeYear, t - 1, 1));
+            let e = a.getCustomFormattedDateText(w, u, w.views.months.monthToolTipText, new Date(w._currentView.activeYear, t - 1, 1));
             e = `${e}${":"}${" "}<b class="tooltip-count">${r.friendlyNumber(i)}</b>`;
             c.add(p, w, e);
         }

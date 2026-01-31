@@ -65,7 +65,7 @@ export namespace ToolTip {
             add( day, bindingOptions, Trigger.customEvent( tooltipRenderFunc, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, isHoliday ) );
         } else {
 
-            const tooltip: string[] = [ DateTime.getCustomFormattedDateText( configurationOptions, tooltipFormat, date, true ) ];
+            const tooltip: string[] = [ DateTime.getCustomFormattedDateText( bindingOptions, configurationOptions, tooltipFormat, date, true ) ];
 
             if ( bindingOptions.showHolidaysInDayToolTips ) {
                 const holiday: IsHoliday = Is.holiday( bindingOptions, date );

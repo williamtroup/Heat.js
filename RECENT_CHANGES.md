@@ -255,6 +255,7 @@
 - Added week number support to all date formatter binding options.
 - Translations have been renamed to locales, and the "dist/translations" folder has been renamed to "locale" (with JS file renames).
 - The years drop-down menu has been restyled to use a less sharp design.
+- Added holiday name support to all date formatter binding options.
 
 #### **Library:**
 - Updated all the NPM packages to the latest versions.

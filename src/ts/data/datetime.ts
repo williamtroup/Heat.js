@@ -11,7 +11,7 @@
  */
 
 
-import { type ConfigurationOptions } from "../type";
+import { type IsHoliday, type BindingOptions, type ConfigurationOptions } from "../type";
 import { Char } from "./enum";
 import { Is } from "./is";
 import { Str } from "./str";
@@ -40,7 +40,7 @@ export namespace DateTime {
         return result;
     }
 
-    export function getCustomFormattedDateText( configurationOptions: ConfigurationOptions, dateFormat: string, date: Date, allowHtml: boolean = false, weekDayNumberOverride: number = null! ) : string {
+    export function getCustomFormattedDateText( bindingOptions: BindingOptions, configurationOptions: ConfigurationOptions, dateFormat: string, date: Date, allowHtml: boolean = false, weekDayNumberOverride: number = null! ) : string {
         let result: string = dateFormat;
         const weekDayNumber: number = Is.definedNumber( weekDayNumberOverride ) ? weekDayNumberOverride : getWeekdayNumber( date );
         const weekNumber: number = getWeekNumber( date );
@@ -64,6 +64,16 @@ export namespace DateTime {
             result = result.replace( "{o}", dayOrdinal );
         }
 
+        if ( result.indexOf( "{hh}" ) >= 0 ) {
+            const holiday: IsHoliday = Is.holiday( bindingOptions, date );
+
+            if ( holiday.matched ) {
+                result = result.replace( "{hh}", holiday.name! );
+            } else {
+                result = result.replace( "{hh}", Char.empty );
+            }
+        }
+
         result = result.replace( "{mmmm}", configurationOptions.text!.monthNames![ date.getMonth() ] );
         result = result.replace( "{mm}", Str.padNumber( date.getMonth() + 1 ) );
         result = result.replace( "{m}", ( date.getMonth() + 1 ).toString() );
@@ -72,6 +82,8 @@ export namespace DateTime {
         result = result.replace( "{yyy}", date.getFullYear().toString().substring( 1 ) );
         result = result.replace( "{yy}", date.getFullYear().toString().substring( 2 ) );
         result = result.replace( "{y}", parseInt( date.getFullYear().toString().substring( 2 ) ).toString() );
+
+        result = result.trim();
 
         return result;
     }
