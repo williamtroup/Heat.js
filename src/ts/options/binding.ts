@@ -19,6 +19,7 @@ import {
     type BindingOptionsTitle,
     type BindingOptionsTooltip,
     type BindingOptionsViews,
+    type BindingOptionsView,
     type BindingOptionsViewsMap,
     type BindingOptionsViewsLine,
     type BindingOptionsViewsChart,
@@ -210,13 +211,7 @@ export namespace Binding {
             bindingOptions.views!.map!.showDifferences = Default.getBoolean( bindingOptions.views!.map!.showDifferences, false );
             bindingOptions.views!.map!.showDifferencesInToolTips = Default.getBoolean( bindingOptions.views!.map!.showDifferencesInToolTips, true );
 
-            if ( Is.invalidOptionArray( bindingOptions.views!.map!.monthsToShow! ) ) {
-                bindingOptions.views!.map!.monthsToShow = _default_MonthsToShow;
-            }
-    
-            if ( Is.invalidOptionArray( bindingOptions.views!.map!.daysToShow! ) ) {
-                bindingOptions.views!.map!.daysToShow = _default_DaysToShow;
-            }
+            setVisibleDateOptionsForView( bindingOptions.views!.map! );
     
             return bindingOptions.views!.map!;
         }
@@ -233,13 +228,7 @@ export namespace Binding {
             bindingOptions.views!.line!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.line!.showCountsInToolTips, true );
             bindingOptions.views!.line!.showDifferencesInToolTips = Default.getBoolean( bindingOptions.views!.line!.showDifferencesInToolTips, true );
 
-            if ( Is.invalidOptionArray( bindingOptions.views!.line!.monthsToShow! ) ) {
-                bindingOptions.views!.line!.monthsToShow = _default_MonthsToShow;
-            }
-    
-            if ( Is.invalidOptionArray( bindingOptions.views!.line!.daysToShow! ) ) {
-                bindingOptions.views!.line!.daysToShow = _default_DaysToShow;
-            }
+            setVisibleDateOptionsForView( bindingOptions.views!.line! );
     
             return bindingOptions.views!.line!;
         }
@@ -263,13 +252,7 @@ export namespace Binding {
             bindingOptions.views!.chart!.showDifferences = Default.getBoolean( bindingOptions.views!.chart!.showDifferences, false );
             bindingOptions.views!.chart!.showDifferencesInToolTips = Default.getBoolean( bindingOptions.views!.chart!.showDifferencesInToolTips, true );
 
-            if ( Is.invalidOptionArray( bindingOptions.views!.chart!.monthsToShow! ) ) {
-                bindingOptions.views!.chart!.monthsToShow = _default_MonthsToShow;
-            }
-    
-            if ( Is.invalidOptionArray( bindingOptions.views!.chart!.daysToShow! ) ) {
-                bindingOptions.views!.chart!.daysToShow = _default_DaysToShow;
-            }
+            setVisibleDateOptionsForView( bindingOptions.views!.chart! );
     
             return bindingOptions.views!.chart!;
         }
@@ -289,13 +272,7 @@ export namespace Binding {
             bindingOptions.views!.days!.showStackedColorRanges = Default.getBoolean( bindingOptions.views!.days!.showStackedColorRanges, true );
             bindingOptions.views!.days!.dayToolTipText = Default.getString( bindingOptions.views!.days!.dayToolTipText, "{dddd} {yyyy}" );
     
-            if ( Is.invalidOptionArray( bindingOptions.views!.days!.monthsToShow! ) ) {
-                bindingOptions.views!.days!.monthsToShow = _default_MonthsToShow;
-            }
-    
-            if ( Is.invalidOptionArray( bindingOptions.views!.days!.daysToShow! ) ) {
-                bindingOptions.views!.days!.daysToShow = _default_DaysToShow;
-            }
+            setVisibleDateOptionsForView( bindingOptions.views!.days! );
     
             return bindingOptions.views!.days!;
         }
@@ -316,13 +293,7 @@ export namespace Binding {
             bindingOptions.views!.months!.showStackedColorRanges = Default.getBoolean( bindingOptions.views!.months!.showStackedColorRanges, true );
             bindingOptions.views!.months!.monthToolTipText = Default.getString( bindingOptions.views!.months!.monthToolTipText, "{mmmm} {yyyy}" );
     
-            if ( Is.invalidOptionArray( bindingOptions.views!.months!.monthsToShow! ) ) {
-                bindingOptions.views!.months!.monthsToShow = _default_MonthsToShow;
-            }
-    
-            if ( Is.invalidOptionArray( bindingOptions.views!.months!.daysToShow! ) ) {
-                bindingOptions.views!.months!.daysToShow = _default_DaysToShow;
-            }
+            setVisibleDateOptionsForView( bindingOptions.views!.months! );
     
             return bindingOptions.views!.months!;
         }
@@ -341,13 +312,7 @@ export namespace Binding {
             bindingOptions.views!.colorRanges!.showRangeCountPercentages = Default.getBoolean( bindingOptions.views!.colorRanges!.showRangeCountPercentages, true );
             bindingOptions.views!.colorRanges!.showRangeNamesInToolTips = Default.getBoolean( bindingOptions.views!.colorRanges!.showRangeNamesInToolTips, true );
 
-            if ( Is.invalidOptionArray( bindingOptions.views!.colorRanges!.monthsToShow! ) ) {
-                bindingOptions.views!.colorRanges!.monthsToShow = _default_MonthsToShow;
-            }
-    
-            if ( Is.invalidOptionArray( bindingOptions.views!.colorRanges!.daysToShow! ) ) {
-                bindingOptions.views!.colorRanges!.daysToShow = _default_DaysToShow;
-            }
+            setVisibleDateOptionsForView( bindingOptions.views!.colorRanges! );
     
             return bindingOptions.views!.colorRanges!;
         }
@@ -544,6 +509,16 @@ export namespace Binding {
             bindingOptions.events!.onClearViewableData = Default.getFunction( bindingOptions.events!.onClearViewableData, null! );
 
             return bindingOptions.events!;
+        }
+
+        function setVisibleDateOptionsForView( view: BindingOptionsView ) : void {
+            if ( Is.invalidOptionArray( view.monthsToShow! ) ) {
+                view.monthsToShow = _default_MonthsToShow;
+            }
+    
+            if ( Is.invalidOptionArray( view.daysToShow! ) ) {
+                view.daysToShow = _default_DaysToShow;
+            }
         }
 
         function getDefaultView( bindingOptions: BindingOptions ) : void {

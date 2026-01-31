@@ -1006,7 +1006,7 @@ var g;
                 i._currentView.colorRangesContentsScrollLeft = 0;
                 i._currentView.viewsEnabled++;
             }
-            M(i);
+            B(i);
             return i;
         }
         e.getForNewInstance = a;
@@ -1108,12 +1108,7 @@ var g;
             e.views.map.showSpacing = i.getBoolean(e.views.map.showSpacing, true);
             e.views.map.showDifferences = i.getBoolean(e.views.map.showDifferences, false);
             e.views.map.showDifferencesInToolTips = i.getBoolean(e.views.map.showDifferencesInToolTips, true);
-            if (o.invalidOptionArray(e.views.map.monthsToShow)) {
-                e.views.map.monthsToShow = t;
-            }
-            if (o.invalidOptionArray(e.views.map.daysToShow)) {
-                e.views.map.daysToShow = n;
-            }
+            M(e.views.map);
             return e.views.map;
         }
         function h(e) {
@@ -1127,12 +1122,7 @@ var g;
             e.views.line.dayToolTipText = i.getString(e.views.line.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}");
             e.views.line.showCountsInToolTips = i.getBoolean(e.views.line.showCountsInToolTips, true);
             e.views.line.showDifferencesInToolTips = i.getBoolean(e.views.line.showDifferencesInToolTips, true);
-            if (o.invalidOptionArray(e.views.line.monthsToShow)) {
-                e.views.line.monthsToShow = t;
-            }
-            if (o.invalidOptionArray(e.views.line.daysToShow)) {
-                e.views.line.daysToShow = n;
-            }
+            M(e.views.line);
             return e.views.line;
         }
         function m(e) {
@@ -1153,12 +1143,7 @@ var g;
             e.views.chart.addMonthSpacing = i.getBoolean(e.views.chart.addMonthSpacing, false);
             e.views.chart.showDifferences = i.getBoolean(e.views.chart.showDifferences, false);
             e.views.chart.showDifferencesInToolTips = i.getBoolean(e.views.chart.showDifferencesInToolTips, true);
-            if (o.invalidOptionArray(e.views.chart.monthsToShow)) {
-                e.views.chart.monthsToShow = t;
-            }
-            if (o.invalidOptionArray(e.views.chart.daysToShow)) {
-                e.views.chart.daysToShow = n;
-            }
+            M(e.views.chart);
             return e.views.chart;
         }
         function p(e) {
@@ -1175,12 +1160,7 @@ var g;
             e.views.days.showDayCountPercentages = i.getBoolean(e.views.days.showDayCountPercentages, true);
             e.views.days.showStackedColorRanges = i.getBoolean(e.views.days.showStackedColorRanges, true);
             e.views.days.dayToolTipText = i.getString(e.views.days.dayToolTipText, "{dddd} {yyyy}");
-            if (o.invalidOptionArray(e.views.days.monthsToShow)) {
-                e.views.days.monthsToShow = t;
-            }
-            if (o.invalidOptionArray(e.views.days.daysToShow)) {
-                e.views.days.daysToShow = n;
-            }
+            M(e.views.days);
             return e.views.days;
         }
         function y(e) {
@@ -1198,12 +1178,7 @@ var g;
             e.views.months.showMonthCountPercentages = i.getBoolean(e.views.months.showMonthCountPercentages, true);
             e.views.months.showStackedColorRanges = i.getBoolean(e.views.months.showStackedColorRanges, true);
             e.views.months.monthToolTipText = i.getString(e.views.months.monthToolTipText, "{mmmm} {yyyy}");
-            if (o.invalidOptionArray(e.views.months.monthsToShow)) {
-                e.views.months.monthsToShow = t;
-            }
-            if (o.invalidOptionArray(e.views.months.daysToShow)) {
-                e.views.months.daysToShow = n;
-            }
+            M(e.views.months);
             return e.views.months;
         }
         function v(e) {
@@ -1219,12 +1194,7 @@ var g;
             e.views.colorRanges.useGradients = i.getBoolean(e.views.colorRanges.useGradients, false);
             e.views.colorRanges.showRangeCountPercentages = i.getBoolean(e.views.colorRanges.showRangeCountPercentages, true);
             e.views.colorRanges.showRangeNamesInToolTips = i.getBoolean(e.views.colorRanges.showRangeNamesInToolTips, true);
-            if (o.invalidOptionArray(e.views.colorRanges.monthsToShow)) {
-                e.views.colorRanges.monthsToShow = t;
-            }
-            if (o.invalidOptionArray(e.views.colorRanges.daysToShow)) {
-                e.views.colorRanges.daysToShow = n;
-            }
+            M(e.views.colorRanges);
             return e.views.colorRanges;
         }
         function T(e) {
@@ -1391,6 +1361,14 @@ var g;
             return e.events;
         }
         function M(e) {
+            if (o.invalidOptionArray(e.monthsToShow)) {
+                e.monthsToShow = t;
+            }
+            if (o.invalidOptionArray(e.daysToShow)) {
+                e.daysToShow = n;
+            }
+        }
+        function B(e) {
             if (e.views.map.enabled && e.defaultView === "map") {
                 e._currentView.activeView = 1;
             } else if (e.views.line.enabled && e.defaultView === "line") {
@@ -2431,26 +2409,26 @@ var C;
         if (t) {
             e._currentView.sideMenu = s.create(e._currentView.element, "div", "container-side-menu", e._currentView.container);
             if (e.views.map.enabled) {
-                A(e, 1, "map", u.text.mapText);
+                N(e, 1, "map", u.text.mapText);
             }
             if (e.views.line.enabled) {
-                A(e, 2, "line", u.text.lineText);
+                N(e, 2, "line", u.text.lineText);
             }
             if (e.views.chart.enabled) {
-                A(e, 3, "chart", u.text.chartText);
+                N(e, 3, "chart", u.text.chartText);
             }
             if (e.views.days.enabled) {
-                A(e, 4, "days", u.text.daysText);
+                N(e, 4, "days", u.text.daysText);
             }
             if (e.views.months.enabled) {
-                A(e, 5, "months", u.text.monthsText);
+                N(e, 5, "months", u.text.monthsText);
             }
             if (e.views.colorRanges.enabled) {
-                A(e, 6, "color-ranges", u.text.colorRangesText);
+                N(e, 6, "color-ranges", u.text.colorRangesText);
             }
         }
     }
-    function A(e, t, n, o) {
+    function N(e, t, n, o) {
         const i = s.create(e._currentView.sideMenu, "div", "menu-tab");
         i.onclick = () => Ee(e, t);
         if (e._currentView.activeView === t) {
@@ -2461,7 +2439,7 @@ var C;
         }
         s.create(i, "i", n);
     }
-    function N(e) {
+    function A(e) {
         h.Background.render(e);
         if (!o.definedParentElement(e._currentView.configurationDialog)) {
             e._currentView.configurationDialog = s.create(e._currentView.disabledBackground, "div", "dialog configuration");
@@ -2502,7 +2480,7 @@ var C;
         }
     }
     function k(e) {
-        N(e);
+        A(e);
         h.Background.show(e);
         if (o.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "block") {
             e._currentView.configurationDialog.style.display = "block";
@@ -4182,7 +4160,7 @@ var C;
         const a = s.create(i, "div", "y-labels");
         const l = s.create(i, "div", "color-range-lines");
         const c = w.getAllSorted(e);
-        const d = Ne(e, c);
+        const d = Ae(e, c);
         if (t) {
             s.addClass(i, "view-switch");
         }
@@ -4214,7 +4192,7 @@ var C;
             }
             for (const n in d.types) {
                 if (Object.prototype.hasOwnProperty.call(d.types, n)) {
-                    Ae(parseInt(n), l, d.types[n], e, c, i, d.totalValue, t);
+                    Ne(parseInt(n), l, d.types[n], e, c, i, d.totalValue, t);
                     const a = w.getByMinimum(c, parseInt(n));
                     if (e.views.colorRanges.showColorRangeLabels) {
                         if (!e.views.colorRanges.useColorRangeNamesForLabels || !o.defined(a) || !o.definedString(a.name)) {
@@ -4235,7 +4213,7 @@ var C;
         }
         e._currentView.colorRangesContents.style.display = "none";
     }
-    function Ae(e, t, i, a, d, u, g, f) {
+    function Ne(e, t, i, a, d, u, g, f) {
         const h = s.create(t, "div", "color-range-line");
         const m = i * u;
         const p = w.getByMinimum(d, e);
@@ -4281,7 +4259,7 @@ var C;
         }
         v.setHeight(a, h, m, f);
     }
-    function Ne(e, t) {
+    function Ae(e, t) {
         const n = je(e);
         const i = e._currentView.activeYear;
         const r = t.length;
