@@ -59,10 +59,10 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.2",
-    "@swc/core": "^1.15.10",
-    "@typescript-eslint/eslint-plugin": "^8.53.1",
-    "@typescript-eslint/parser": "^8.53.1",
-    "sass": "^1.97.2",
+    "@swc/core": "^1.15.11",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/parser": "^8.54.0",
+    "sass": "^1.97.3",
     "terser": "^5.46.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
