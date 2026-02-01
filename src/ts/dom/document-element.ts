@@ -21,15 +21,15 @@ export namespace DocumentElement {
         export function bindEvents( hideFunc: Function ) : void {
             _BINDING_KEYDOWN_FUNC = hideFunc;
 
-            document.addEventListener( "keydown", ( event: KeyboardEvent ) : void => onKeyDown( event ) );
+            document.addEventListener( "keydown", ( ev: KeyboardEvent ) : void => onKeyDown( ev ) );
         }
 
         export function unbindEvents() : void {
             document.removeEventListener( "keydown", onKeyDown );
         }
 
-        function onKeyDown( event: KeyboardEvent ) : void {
-            if ( event.key === KeyCode.escape ) {
+        function onKeyDown( ev: KeyboardEvent ) : void {
+            if ( ev.key === KeyCode.escape ) {
                 _BINDING_KEYDOWN_FUNC();
             }
         }
