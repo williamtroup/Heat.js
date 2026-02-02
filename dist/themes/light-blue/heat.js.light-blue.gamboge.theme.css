@@ -1,0 +1,78 @@
+/*! Heat.js v5.0.0 | (c) Bunoon 2026 | MIT License */
+:root {
+    /* Colors */
+    --heat-js-color-black: #F5F5F5;
+    --heat-js-color-white: #030A3B;
+    --heat-js-color-snow-white: #F5F5F5;
+    --heat-js-color-gray: #AAAAAA;
+    --heat-js-color-highlight: 59, 58, 58;
+    --heat-js-color-black-dark: #FFFFFF;
+
+    /* Containers */
+    --heat-js-container-background-color: #D7D7D7;
+    --heat-js-container-border-color: var(--heat-js-color-white);
+
+    /* Side-Menu */
+    --heat-js-side-menu-text-color: #F5F5F5;
+    --heat-js-side-menu-active-text-color: #3b3a3a;
+
+    /* Title Bar / Drop Down Menu */
+    --heat-js-title-opener-text-color-hover: rgb(109, 108, 108);
+    --heat-js-title-border-color: var(--heat-js-container-border-color);
+    --heat-js-title-text-color: var(--heat-js-color-black);
+    --heat-js-title-background-color-hover: var(--heat-js-color-gray);
+    --heat-js-title-text-color-hover: var(--heat-js-color-white);
+
+    /* Title Bar - Year Drop Down Menu */
+    --heat-js-years-background-color: var(--heat-js-color-black-dark);
+    --heat-js-years-border-color: var(--heat-js-container-border-color);
+    --heat-js-years-text-color: var(--heat-js-color-black);
+    --heat-js-years-background-color-hover: var(--heat-js-color-gray);
+    --heat-js-years-text-color-hover: var(--heat-js-color-white);
+
+    /* ToolTips */
+    --heat-js-tooltip-background-color: var(--heat-js-color-black-dark);
+    --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
+    --heat-js-tooltip-text-color: var(--heat-js-color-white);
+    --heat-js-tooltip-count-background-color: #cbc7c7;
+
+    /* Holidays */
+    --heat-js-holiday-background-color: rgba( 31, 81, 255, 0.75 );
+    --heat-js-holiday-border-color: rgba( 31, 81, 255, 0.5 );
+    --heat-js-holiday-text-color: var(--heat-js-color-black);
+
+    /* View - Map / Chart - Day - Defaults */
+    --heat-js-day-background-color: var(--heat-js-color-black);
+    --heat-js-day-border-color: var(--heat-js-color-gray);
+    --heat-js-day-background-color-hover: var(--heat-js-color-gray);
+
+    /* View - Map / Chart - Day - Colors */
+    --heat-js-day-color-1-background-color: rgba( 228, 155, 15, 0.25 );
+    --heat-js-day-color-1-border-color: rgba( 228, 155, 15, 0.15 );
+    --heat-js-day-color-1-text-color: var(--heat-js-color-white);
+    --heat-js-day-color-2-background-color: rgba( 228, 155, 15, 0.50 );
+    --heat-js-day-color-2-border-color: rgba( 228, 155, 15, 0.25 );
+    --heat-js-day-color-2-text-color: var(--heat-js-color-white);
+    --heat-js-day-color-3-background-color: rgba( 228, 155, 15, 0.75 );
+    --heat-js-day-color-3-border-color: rgba( 228, 155, 15, 0.50 );
+    --heat-js-day-color-3-text-color: var(--heat-js-color-black);
+    --heat-js-day-color-4-background-color: rgba( 228, 155, 15, 1 );
+    --heat-js-day-color-4-border-color: rgba( 228, 155, 15, 0.75 );
+    --heat-js-day-color-4-text-color: var(--heat-js-color-black);
+
+    /* Buttons */
+    --heat-js-button-background-color: var(--heat-js-color-white);
+    --heat-js-button-border-color: var(--heat-js-container-border-color);
+    --heat-js-button-text-color: var(--heat-js-color-black);
+    --heat-js-button-background-color-hover: #6e7988;
+    --heat-js-button-text-color-hover: var(--heat-js-color-snow-white);
+    --heat-js-button-background-color-active: #616b79;
+    --heat-js-button-color-disabled: #7e7d7d;
+    --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
+
+    /* CheckBoxes */
+    --heat-js-checkbox-background-color-checked: var(--heat-js-day-color-4-background-color);
+
+    /* Scroll Bars */
+    --heat-js-scroll-bar-thumb-color: var(--heat-js-color-black);
+}

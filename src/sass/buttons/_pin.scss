@@ -1,0 +1,31 @@
+@use "base/button";
+
+
+@mixin button-icon {
+    i.pin {
+        @include button.button;
+        height: var(--heat-js-button-icon-size);
+        border-top: button.$border;
+        border-top-left-radius: 50%;
+        border-top-right-radius: 50%;
+
+        &::before {
+            @include button.left-center;
+            background-color: currentColor;
+            width: button.$border-width;
+            height: calc( var(--heat-js-button-icon-size) - ( button.$border-width ) - 3.5px );
+            border-bottom-left-radius: 50%;
+            border-bottom-right-radius: 50%;
+            top: 0;
+        }
+
+        &::after {
+            @include button.left-center;
+            background-color: currentColor;
+            width: button.$border-width;
+            height: button.$border-width;
+            border-radius: 50%;
+            bottom: 0;
+        }
+    }
+}

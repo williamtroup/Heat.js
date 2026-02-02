@@ -1,49 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Heat.js - Local Storage</title>
         <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet" href="../dist/heat.js.css">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
         <script src="../dist/heat.js"></script>
+        <script src="js/scripts.js"></script>
     </head>
 
     <body>
         <div class="header">
-            <h1 id="header">Heat.js - Local Storage</h1>
-            <p>This is a basic example of how to use Heat.js to create a basic heatmap that stores all data using local storage.</p>
+            <div class="header-contents">
+                <img src="images/icon.png" alt="Heat.js">
+                <div>
+                    <h1 id="header"></h1>
+                    <p>This is a basic example of how to use Heat.js to create a basic heatmap that stores all data using local storage.</p>
+                </div>
+            </div>
         </div>
 
         <div class="contents">
-            <div id="heat-map-1" data-heat-js="{ 'useLocalStorageForData': true, 'description': { 'text': 'A basic example of how to use Heat.js.' } }"></div>
+            <div id="heat-map-1" data-heat-js="{ 'useLocalStorageForData': true, 'description': { 'text': 'A basic example of how to use Heat.js.' }, 'title': { 'showRefreshButton': true, 'showExportButton': true, 'showImportButton': true, 'showClearButton': true } }"></div>
+            <br />
+            <br />
+            <div id="heat-map-2" data-heat-js="{ 'useLocalStorageForData': true, 'description': { 'text': 'A basic example of how to use Heat.js.' }, 'title': { 'showRefreshButton': true, 'showExportButton': true, 'showImportButton': true, 'showClearButton': true } }"></div>
         </div>
 
         <div class="contents">
             <h2>Manage Dates:</h2>
-            <button onclick="addData();">Add Data</button>
-            <button onclick="$heat.reset( 'heat-map-1', true );">Clear Data</button>
-            <br>
+            <button onclick="addBasicData( 500, 8000, null, true, 'heat-map-1' );">Add Data (1)</button>
+            <button onclick="addBasicData( 500, 8000, null, true, 'heat-map-2' );">Add Data (2)</button>
+            <br />
+            <button onclick="$heat.reset( 'heat-map-1', true );">Reset (1)</button>
+            <button onclick="$heat.reset( 'heat-map-2', true );">Reset (2)</button>
         </div>
     </body>
-
-    <script>
-        document.title += " - v" + $heat.getVersion();
-        document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
-
-        function addData() {
-            const date = new Date( new Date().getFullYear(), 0, 1 );
-
-            for ( let dayNumber = 0; dayNumber < 8000; dayNumber++ ) {
-                const daysToIncrease = Math.floor( Math.random() * 500 );
-                let newDate = new Date( date );
-
-                newDate.setDate( newDate.getDate() + daysToIncrease );
-
-                $heat.addDate( "heat-map-1", newDate, null, false );
-            }
-
-            $heat.refreshAll();
-        }
-    </script>
 </html>

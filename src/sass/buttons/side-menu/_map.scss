@@ -1,0 +1,32 @@
+@use "../base/button";
+
+
+@mixin button-icon {
+    i.map {
+        @include button.button;
+
+        $button-part-side: calc( ( var(--heat-js-button-icon-size) / 2 ) - 1px );
+
+        &:before {
+            border-left: button.$border;
+            border-left-width: $button-part-side;
+            border-right: button.$border;
+            border-right-width: $button-part-side;
+            width: var(--heat-js-button-icon-size);
+            height: $button-part-side;
+            left: 0;
+            top: 0;
+        }
+
+        &:after {
+            border-left: button.$border;
+            border-left-width: $button-part-side;
+            border-right: button.$border;
+            border-right-width: $button-part-side;
+            width: var(--heat-js-button-icon-size);
+            height: $button-part-side;
+            left: 0;
+            bottom: 0;
+        }
+    }
+}

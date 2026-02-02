@@ -13,22 +13,10 @@ Install the packages using the following NPM commands:
 npm install -g typescript
 ```
 
-### 2. Install tsup:
+### 2. Install packages:
 
 ```markdown
-npm i tsup -D
-```
-
-### 3. Install terser:
-
-```markdown
-npm install terser -D
-```
-
-### 4. Install swc/core (if ES5 is required):
-
-```markdown
-npm install @swc/core -D
+npm install
 ```
 
 
@@ -48,10 +36,16 @@ To build the SASS, run the following command:
 npm run build-sass
 ```
 
-To build the everything, run the following command:
+To build everything, run the following command:
 
 ```markdown
-npm run build
+npm run build-all
+```
+
+To build everything and verify via ESLint, run the following command:
+
+```markdown
+npm run build-all-verify
 ```
 
 ### 2. Minimized Build:
@@ -68,7 +62,7 @@ To build the SASS, run the following command:
 npm run build-minimized-sass
 ```
 
-To build the everything, run the following command:
+To build everything minimized, run the following command:
 
 ```markdown
 npm run build-minimized
@@ -80,4 +74,12 @@ To build the TypeScript, run the following command:
 
 ```markdown
 npm run build-typescript-esm
+```
+
+## Step 3: Run ESLint:
+
+To verify the code follows all the pre-configured style rules, run the following command:
+
+```markdown
+npx eslint '**/*.ts'
 ```

@@ -1,5 +1,19 @@
 :root {
-    /* View: Map */
+    /* View: Line */
+    --heat-js-line-color-1-background-color: rgba( 128, 0, 128, 0.25 );
+    --heat-js-line-color-1-border-color: rgba( 128, 0, 128, 0.15 );
+    --heat-js-line-color-1-text-color: var(--heat-js-color-white);
+    --heat-js-line-color-2-background-color: rgba( 128, 0, 128, 0.50 );
+    --heat-js-line-color-2-border-color: rgba( 128, 0, 128, 0.25 );
+    --heat-js-line-color-2-text-color: var(--heat-js-color-white);
+    --heat-js-line-color-3-background-color: rgba( 128, 0, 128, 0.75 );
+    --heat-js-line-color-3-border-color: rgba( 128, 0, 128, 0.50 );
+    --heat-js-line-color-3-text-color: var(--heat-js-color-black);
+    --heat-js-line-color-4-background-color: rgba( 128, 0, 128, 1 );
+    --heat-js-line-color-4-border-color: rgba( 128, 0, 128, 0.75 );
+    --heat-js-line-color-4-text-color: var(--heat-js-color-black);
+
+    /* View: Chart */
     --heat-js-chart-color-1-background-color: rgba( 0, 150, 255, 0.25 );
     --heat-js-chart-color-1-border-color: rgba( 0, 150, 255, 0.15 );
     --heat-js-chart-color-1-text-color: var(--heat-js-color-white);
@@ -13,19 +27,93 @@
     --heat-js-chart-color-4-border-color: rgba( 0, 150, 255, 0.75 );
     --heat-js-chart-color-4-text-color: var(--heat-js-color-black);
 
-    /* View: Statistics */
-    --heat-js-statistics-color-1-background-color: rgba( 255, 172, 28, 0.25 );
-    --heat-js-statistics-color-1-border-color: rgba( 255, 172, 28, 0.15 );
-    --heat-js-statistics-color-1-text-color: var(--heat-js-color-white);
-    --heat-js-statistics-color-2-background-color: rgba( 255, 172, 28, 0.50 );
-    --heat-js-statistics-color-2-border-color: rgba( 255, 172, 28, 0.25 );
-    --heat-js-statistics-color-2-text-color: var(--heat-js-color-white);
-    --heat-js-statistics-color-3-background-color: rgba( 255, 172, 28, 0.75 );
-    --heat-js-statistics-color-3-border-color: rgba( 255, 172, 28, 0.50 );
-    --heat-js-statistics-color-3-text-color: var(--heat-js-color-black);
-    --heat-js-statistics-color-4-background-color: rgba( 255, 172, 28, 1 );
-    --heat-js-statistics-color-4-border-color: rgba( 255, 172, 28, 0.75 );
-    --heat-js-statistics-color-4-text-color: var(--heat-js-color-black);
+    /* View: Days */
+    --heat-js-days-color-1-background-color: rgba( 255, 191, 0, 0.25 );
+    --heat-js-days-color-1-border-color: rgba( 255, 191, 0, 0.15 );
+    --heat-js-days-color-1-text-color: var(--heat-js-color-white);
+    --heat-js-days-color-2-background-color: rgba( 255, 191, 0, 0.50 );
+    --heat-js-days-color-2-border-color: rgba( 255, 191, 0, 0.25 );
+    --heat-js-days-color-2-text-color: var(--heat-js-color-white);
+    --heat-js-days-color-3-background-color: rgba( 255, 191, 0, 0.75 );
+    --heat-js-days-color-3-border-color: rgba( 255, 191, 0, 0.50 );
+    --heat-js-days-color-3-text-color: var(--heat-js-color-black);
+    --heat-js-days-color-4-background-color: rgba( 255, 191, 0, 1 );
+    --heat-js-days-color-4-border-color: rgba( 255, 191, 0, 0.75 );
+    --heat-js-days-color-4-text-color: var(--heat-js-color-black);
+
+    /* View: Months */
+    --heat-js-months-color-1-background-color: rgba( 210, 4, 45, 0.25 );
+    --heat-js-months-color-1-border-color: rgba( 210, 4, 45, 0.15 );
+    --heat-js-months-color-1-text-color: var(--heat-js-color-white);
+    --heat-js-months-color-2-background-color: rgba( 210, 4, 45, 0.50 );
+    --heat-js-months-color-2-border-color: rgba( 210, 4, 45, 0.25 );
+    --heat-js-months-color-2-text-color: var(--heat-js-color-white);
+    --heat-js-months-color-3-background-color: rgba( 210, 4, 45, 0.75 );
+    --heat-js-months-color-3-border-color: rgba( 210, 4, 45, 0.50 );
+    --heat-js-months-color-3-text-color: var(--heat-js-color-black);
+    --heat-js-months-color-4-background-color: rgba( 210, 4, 45, 1 );
+    --heat-js-months-color-4-border-color: rgba( 210, 4, 45, 0.75 );
+    --heat-js-months-color-4-text-color: var(--heat-js-color-black);
+
+    /* View: Color Ranges */
+    --heat-js-color-range-color-1-background-color: rgba( 255, 172, 28, 0.25 );
+    --heat-js-color-range-color-1-border-color: rgba( 255, 172, 28, 0.15 );
+    --heat-js-color-range-color-1-text-color: var(--heat-js-color-white);
+    --heat-js-color-range-color-2-background-color: rgba( 255, 172, 28, 0.50 );
+    --heat-js-color-range-color-2-border-color: rgba( 255, 172, 28, 0.25 );
+    --heat-js-color-range-color-2-text-color: var(--heat-js-color-white);
+    --heat-js-color-range-color-3-background-color: rgba( 255, 172, 28, 0.75 );
+    --heat-js-color-range-color-3-border-color: rgba( 255, 172, 28, 0.50 );
+    --heat-js-color-range-color-3-text-color: var(--heat-js-color-black);
+    --heat-js-color-range-color-4-background-color: rgba( 255, 172, 28, 1 );
+    --heat-js-color-range-color-4-border-color: rgba( 255, 172, 28, 0.75 );
+    --heat-js-color-range-color-4-text-color: var(--heat-js-color-black);
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - View: Line
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js div.line-color-1:not(.no-hover):active,
+div.heat-js div.line-color-2:not(.no-hover):active,
+div.heat-js div.line-color-3:not(.no-hover):active,
+div.heat-js div.line-color-4:not(.no-hover):active {
+    opacity: var(--heat-js-day-opacity-active) !important;
+}
+
+div.heat-js div.line-color-1:not(.no-hover):hover,
+div.heat-js div.line-color-2:not(.no-hover):hover,
+div.heat-js div.line-color-3:not(.no-hover):hover,
+div.heat-js div.line-color-4:not(.no-hover):hover {
+    cursor: pointer;
+    opacity: var(--heat-js-day-opacity-hover);
+}
+
+div.heat-js div.line-color-1 {
+    background-color: var(--heat-js-line-color-1-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-line-color-1-border-color) !important;
+    color: var(--heat-js-line-color-1-text-color);
+}
+
+div.heat-js div.line-color-2 {
+    background-color: var(--heat-js-line-color-2-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-line-color-2-border-color) !important;
+    color: var(--heat-js-line-color-2-text-color);
+}
+
+div.heat-js div.line-color-3 {
+    background-color: var(--heat-js-line-color-3-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-line-color-3-border-color) !important;
+    color: var(--heat-js-line-color-3-text-color);
+}
+
+div.heat-js div.line-color-4 {
+    background-color: var(--heat-js-line-color-4-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-line-color-4-border-color) !important;
+    color: var(--heat-js-line-color-4-text-color);
 }
 
 
@@ -77,45 +165,137 @@ div.heat-js div.chart-color-4 {
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - View: Statistics
+    Heat.js - View: Days
     -------------------------------------------------------------------------
 */
 
-div.heat-js div.statistics-color-1:not(.no-hover):active,
-div.heat-js div.statistics-color-2:not(.no-hover):active,
-div.heat-js div.statistics-color-3:not(.no-hover):active,
-div.heat-js div.statistics-color-4:not(.no-hover):active {
+div.heat-js div.days-color-1:not(.no-hover):active,
+div.heat-js div.days-color-2:not(.no-hover):active,
+div.heat-js div.days-color-3:not(.no-hover):active,
+div.heat-js div.days-color-4:not(.no-hover):active {
     opacity: var(--heat-js-day-opacity-active) !important;
 }
 
-div.heat-js div.statistics-color-1:not(.no-hover):hover,
-div.heat-js div.statistics-color-2:not(.no-hover):hover,
-div.heat-js div.statistics-color-3:not(.no-hover):hover,
-div.heat-js div.statistics-color-4:not(.no-hover):hover {
+div.heat-js div.days-color-1:not(.no-hover):hover,
+div.heat-js div.days-color-2:not(.no-hover):hover,
+div.heat-js div.days-color-3:not(.no-hover):hover,
+div.heat-js div.days-color-4:not(.no-hover):hover {
     cursor: pointer;
     opacity: var(--heat-js-day-opacity-hover);
 }
 
-div.heat-js div.statistics-color-1 {
-    background-color: var(--heat-js-statistics-color-1-background-color) !important;
-    border: var(--heat-js-border-size-day) solid var(--heat-js-statistics-color-1-border-color) !important;
-    color: var(--heat-js-statistics-color-1-text-color);
+div.heat-js div.days-color-1 {
+    background-color: var(--heat-js-days-color-1-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-days-color-1-border-color) !important;
+    color: var(--heat-js-days-color-1-text-color);
 }
 
-div.heat-js div.statistics-color-2 {
-    background-color: var(--heat-js-statistics-color-2-background-color) !important;
-    border: var(--heat-js-border-size-day) solid var(--heat-js-statistics-color-2-border-color) !important;
-    color: var(--heat-js-statistics-color-2-text-color);
+div.heat-js div.days-color-2 {
+    background-color: var(--heat-js-days-color-2-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-days-color-2-border-color) !important;
+    color: var(--heat-js-days-color-2-text-color);
 }
 
-div.heat-js div.statistics-color-3 {
-    background-color: var(--heat-js-statistics-color-3-background-color) !important;
-    border: var(--heat-js-border-size-day) solid var(--heat-js-statistics-color-3-border-color) !important;
-    color: var(--heat-js-statistics-color-3-text-color);
+div.heat-js div.days-color-3 {
+    background-color: var(--heat-js-days-color-3-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-days-color-3-border-color) !important;
+    color: var(--heat-js-days-color-3-text-color);
 }
 
-div.heat-js div.statistics-color-4 {
-    background-color: var(--heat-js-statistics-color-4-background-color) !important;
-    border: var(--heat-js-border-size-day) solid var(--heat-js-statistics-color-4-border-color) !important;
-    color: var(--heat-js-statistics-color-4-text-color);
+div.heat-js div.days-color-4 {
+    background-color: var(--heat-js-days-color-4-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-days-color-4-border-color) !important;
+    color: var(--heat-js-days-color-4-text-color);
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - View: Months
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js div.months-color-1:not(.no-hover):active,
+div.heat-js div.months-color-2:not(.no-hover):active,
+div.heat-js div.months-color-3:not(.no-hover):active,
+div.heat-js div.months-color-4:not(.no-hover):active {
+    opacity: var(--heat-js-day-opacity-active) !important;
+}
+
+div.heat-js div.months-color-1:not(.no-hover):hover,
+div.heat-js div.months-color-2:not(.no-hover):hover,
+div.heat-js div.months-color-3:not(.no-hover):hover,
+div.heat-js div.months-color-4:not(.no-hover):hover {
+    cursor: pointer;
+    opacity: var(--heat-js-day-opacity-hover);
+}
+
+div.heat-js div.months-color-1 {
+    background-color: var(--heat-js-months-color-1-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-months-color-1-border-color) !important;
+    color: var(--heat-js-months-color-1-text-color);
+}
+
+div.heat-js div.months-color-2 {
+    background-color: var(--heat-js-months-color-2-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-months-color-2-border-color) !important;
+    color: var(--heat-js-months-color-2-text-color);
+}
+
+div.heat-js div.months-color-3 {
+    background-color: var(--heat-js-months-color-3-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-months-color-3-border-color) !important;
+    color: var(--heat-js-months-color-3-text-color);
+}
+
+div.heat-js div.months-color-4 {
+    background-color: var(--heat-js-months-color-4-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-months-color-4-border-color) !important;
+    color: var(--heat-js-months-color-4-text-color);
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - View: Color Ranges
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js div.color-range-color-1:not(.no-hover):active,
+div.heat-js div.color-range-color-2:not(.no-hover):active,
+div.heat-js div.color-range-color-3:not(.no-hover):active,
+div.heat-js div.color-range-color-4:not(.no-hover):active {
+    opacity: var(--heat-js-day-opacity-active) !important;
+}
+
+div.heat-js div.color-range-color-1:not(.no-hover):hover,
+div.heat-js div.color-range-color-2:not(.no-hover):hover,
+div.heat-js div.color-range-color-3:not(.no-hover):hover,
+div.heat-js div.color-range-color-4:not(.no-hover):hover {
+    cursor: pointer;
+    opacity: var(--heat-js-day-opacity-hover);
+}
+
+div.heat-js div.color-range-color-1 {
+    background-color: var(--heat-js-color-range-color-1-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-color-range-color-1-border-color) !important;
+    color: var(--heat-js-color-range-color-1-text-color);
+}
+
+div.heat-js div.color-range-color-2 {
+    background-color: var(--heat-js-color-range-color-2-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-color-range-color-2-border-color) !important;
+    color: var(--heat-js-color-range-color-2-text-color);
+}
+
+div.heat-js div.color-range-color-3 {
+    background-color: var(--heat-js-color-range-color-3-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-color-range-color-3-border-color) !important;
+    color: var(--heat-js-color-range-color-3-text-color);
+}
+
+div.heat-js div.color-range-color-4 {
+    background-color: var(--heat-js-color-range-color-4-background-color) !important;
+    border: var(--heat-js-border-size-day) solid var(--heat-js-color-range-color-4-border-color) !important;
+    color: var(--heat-js-color-range-color-4-text-color);
 }

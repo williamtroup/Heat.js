@@ -1,17 +1,17 @@
 /**
  * Heat.js
  * 
- * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
+ * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        enum.ts
- * @version     v4.5.3
+ * @version     v5.0.0
  * @author      Bunoon
  * @license     MIT License
- * @copyright   Bunoon 2025
+ * @copyright   Bunoon 2026
  */
 
 
-export const enum Char {
+export enum Char {
     empty = "",
     space = " ",
     newLine = "\n",
@@ -22,27 +22,47 @@ export const enum Char {
     colon = ":",
     comma = ",",
     tab = "\t",
+    pipe = "|",
+    hash = "#",
+    equals = "=",
+    dot = ".",
+    doubleSpace = "  ",
 }
 
-export const enum Value {
+export enum Value {
     notFound = -1,
 }
 
-export const enum ViewId {
+export enum ViewId {
+    unknown = 0,
     map = 1,
-    chart = 2,
-    days = 3,
-    statistics = 4,
+    line = 2,
+    chart = 3,
+    days = 4,
+    months = 5,
+    colorRanges = 6, 
 }
 
-export const enum ViewName {
+export enum ViewName {
     map = "map",
+    line = "line",
     chart = "chart",
     days = "days",
-    statistics = "statistics",
+    months = "months",
+    colorRanges = "color-ranges",
 }
 
-export const enum ExportType {
+export enum ImportType {
+    csv = "csv",
+    json = "json",
+    txt = "txt",
+    md = "md",
+    tsv = "tsv",
+    yaml = "yaml",
+    toml = "toml",
+}
+
+export enum ExportType {
     csv = "csv",
     json = "json",
     xml = "xml",
@@ -50,4 +70,11 @@ export const enum ExportType {
     html = "html",
     md = "md",
     tsv = "tsv",
+    yaml = "yaml",
+    toml = "toml",
+}
+
+export enum KeyCode {
+    enter = "Enter",
+    escape = "Escape",
 }

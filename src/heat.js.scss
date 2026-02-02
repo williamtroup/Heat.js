@@ -1,12 +1,27 @@
 /*
- * Heat.js Library v4.5.3
+ * Heat.js Library v5.0.0
  *
- * Copyright 2025 Bunoon
+ * Copyright 2026 Bunoon
  * Released under the MIT License
  */
 
 
 @use "sass/styles";
+@use "sass/buttons/arrow-down";
+@use "sass/buttons/arrow-line-left";
+@use "sass/buttons/arrow-line-right";
+@use "sass/buttons/arrow-up";
+@use "sass/buttons/close";
+@use "sass/buttons/pin";
+@use "sass/buttons/plus";
+@use "sass/buttons/refresh";
+@use "sass/buttons/side-menu/map";
+@use "sass/buttons/side-menu/line";
+@use "sass/buttons/side-menu/chart";
+@use "sass/buttons/side-menu/days";
+@use "sass/buttons/side-menu/months";
+@use "sass/buttons/side-menu/color-ranges";
+
 
 :root {
     // Fonts
@@ -24,10 +39,10 @@
                             "Segoe UI Symbol",
                             "Noto Color Emoji";
                             
-    --heat-js-text-bold-weight: 400;
-    --heat-js-title-bold-weight: 900;
-    --heat-js-sub-title-bold-weight: 700;
-    --heat-js-text-bold-weight-active: 900;
+    // Font Weights
+    --heat-js-text-font-weight-thin: 400;
+    --heat-js-text-font-weight-heavy: 900;
+    --heat-js-text-font-weight-medium: 700;
 
     // Colors
     --heat-js-color-black: #3b3a3a;
@@ -35,52 +50,68 @@
     --heat-js-color-snow-white: #F5F5F5;
     --heat-js-color-gray: #AAAAAA;
     --heat-js-color-light-gray: #BBBBBB;
+    --heat-js-color-highlight: 245, 245, 245;
+    --heat-js-color-black-dark: #11161e;
+    --heat-js-color-default-dynamic: #4169e1;
 
     // Containers
     --heat-js-container-background-color: #22272e;
     --heat-js-container-border-color: #454c56;
 
-    // Dialog
+    // Side-Menu
+    --heat-js-side-menu-text-color: var(--heat-js-color-snow-white);
+    --heat-js-side-menu-active-text-color: var(--heat-js-color-snow-white);
+
+    // Dialogs
     --heat-js-dialog-background-color: var(--heat-js-container-background-color);
     --heat-js-dialog-border-color: var(--heat-js-container-border-color);
     --heat-js-dialog-text-color: var(--heat-js-color-white);
 
-    // Year
-    --heat-js-years-background-color: #11161e;
-    --heat-js-years-border-color: var(--heat-js-container-border-color);
-    --heat-js-years-text-color: var(--heat-js-color-white);
-    --heat-js-years-background-color-hover: var(--heat-js-button-background-color-hover);
-    --heat-js-years-text-color-hover: var(--heat-js-color-snow-white);
-
-    // Title
+    // Title Bar / Drop Down Menu
     --heat-js-title-opener-text-color-hover: var(--heat-js-color-gray);
-    --heat-js-title-background-color: var(--heat-js-years-background-color);
+    --heat-js-title-background-color: var(--heat-js-color-black-dark);
     --heat-js-title-border-color: var(--heat-js-container-border-color);
     --heat-js-title-text-color: var(--heat-js-color-white);
     --heat-js-title-background-color-hover: var(--heat-js-button-background-color-hover);
     --heat-js-title-text-color-hover: var(--heat-js-color-snow-white);
+    --heat-js-title-menu-item-height: 36px;
 
-    // ToolTip
-    --heat-js-tooltip-background-color: var(--heat-js-years-background-color);
+    // Title Bar - Year Drop Down Menu
+    --heat-js-years-background-color: var(--heat-js-color-black-dark);
+    --heat-js-years-border-color: var(--heat-js-container-border-color);
+    --heat-js-years-text-color: var(--heat-js-color-white);
+    --heat-js-years-background-color-hover: var(--heat-js-button-background-color-hover);
+    --heat-js-years-text-color-hover: var(--heat-js-color-snow-white);
+    --heat-js-years-current-color: var(--heat-js-day-color-4-background-color);
+    --heat-js-years-menu-item-height: 36px;
+    --heat-js-years-menu-total-rows-in-view: 7;
+
+    // ToolTips
+    --heat-js-tooltip-background-color: var(--heat-js-color-black-dark);
     --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
     --heat-js-tooltip-text-color: var(--heat-js-color-white);
+    --heat-js-tooltip-count-background-color: var(--heat-js-day-background-color);
 
     // Holidays
     --heat-js-holiday-background-color: rgba( 210, 43, 43, 0.75 );
     --heat-js-holiday-border-color: rgba( 210, 43, 43, 0.5 );
-    --heat-js-holiday-text-color: var(--heat-js-color-black);
+    --heat-js-holiday-text-color: var(--heat-js-color-white);
 
-    // Days
+    // Views
+    --heat-js-view-opacity-hover: 0.7;
+    --heat-js-view-opacity-active: 0.5;
+
+    // View - Map / Chart / Line - Day - Defaults
     --heat-js-day-background-color: #2d333b;
     --heat-js-day-border-color: var(--heat-js-container-border-color);
     --heat-js-day-background-color-hover: var(--heat-js-container-border-color);
-    --heat-js-day-spacing: 6.3px;
-    --heat-js-day-opacity-hover: 0.7;
-    --heat-js-day-opacity-active: 0.5;
-    --heat-js-day-size: 1.2rem;
+    --heat-js-day-spacing: 5px;
+    --heat-js-day-size: 20px;
     --heat-js-day-chart-width: 12px;
+    --heat-js-day-chart-spacing: 3px;
+    --heat-js-day-line-width: 3px;
 
-    // Days - Colors
+    // View - Map / Chart - Day - Colors
     --heat-js-day-color-1-background-color: rgba( 80, 200, 120, 0.25 );
     --heat-js-day-color-1-border-color: rgba( 80, 200, 120, 0.15 );
     --heat-js-day-color-1-text-color: var(--heat-js-color-white);
@@ -94,21 +125,44 @@
     --heat-js-day-color-4-border-color: rgba( 80, 200, 120, 0.75 );
     --heat-js-day-color-4-text-color: var(--heat-js-color-black);
 
-    // Views - Colors
+    // View - Days - Colors
     --heat-js-view-days-background-color: var(--heat-js-day-color-4-background-color);
     --heat-js-view-days-border-color: var(--heat-js-day-color-4-border-color);
     --heat-js-view-days-text-color: var(--heat-js-day-color-4-text-color);
 
-    // Button
+    // View - Months - Colors
+    --heat-js-view-months-background-color: var(--heat-js-day-color-4-background-color);
+    --heat-js-view-months-border-color: var(--heat-js-day-color-4-border-color);
+    --heat-js-view-months-text-color: var(--heat-js-day-color-4-text-color);
+
+    // Guide
+    --heat-js-guide-day-size: var(--heat-js-day-size);
+    --heat-js-guide-day-spacing: 6.3px;
+
+    // Buttons
     --heat-js-button-background-color: var(--heat-js-day-background-color);
     --heat-js-button-border-color: var(--heat-js-container-border-color);
     --heat-js-button-text-color: var(--heat-js-color-white);
     --heat-js-button-background-color-hover: var(--heat-js-container-border-color);
     --heat-js-button-text-color-hover: var(--heat-js-color-snow-white);
     --heat-js-button-background-color-active: #616b79;
+    --heat-js-button-color-disabled: #616060;
     --heat-js-button-text-color-active: var(--heat-js-color-snow-white);
+    --heat-js-button-icon-size: 12px;
+    --heat-js-button-icon-width: 32px;
+    --heat-js-button-height: 30px;
 
-    // CheckBox
+    // Inputs/Selects
+    --heat-js-input-background-color: var(--heat-js-day-background-color);
+    --heat-js-input-border-color: var(--heat-js-container-border-color);
+    --heat-js-input-text-color: var(--heat-js-color-white);
+
+    // Yearly Statistics Box
+    --heat-js-yearly-statistics-box-background-color: var(--heat-js-day-background-color);
+    --heat-js-yearly-statistics-box-border-color: var(--heat-js-container-border-color);
+    --heat-js-yearly-statistics-box-text-color: var(--heat-js-color-white);
+
+    // CheckBoxes
     --heat-js-checkbox-background-color-checked: var(--heat-js-day-color-4-background-color);
     --heat-js-checkbox-background-color: var(--heat-js-color-black);
     --heat-js-checkbox-border-color-checked: var(--heat-js-checkbox-background-color-checked);
@@ -128,14 +182,18 @@
 
     // Sizes
     --heat-js-spacing: 10px;
+    --heat-js-spacing-half: calc( var(--heat-js-spacing) / 2 );
+    --heat-js-spacing-double: calc( var(--heat-js-spacing) * 2 );
     --heat-js-spacing-font-size: 0.85rem;
     --heat-js-spacing-day-font-size: 0.6rem;
     --heat-js-left-border: 8px;
     --heat-js-default-width: 700px;
-    --heat-js-y-label-spacing: calc( var(--heat-js-spacing) * 2 );
+    --heat-js-default-width-with-side-menu: calc( var(--heat-js-default-width) + 50px );
+    --heat-js-y-label-spacing: var(--heat-js-spacing-double);
+    --heat-js-count-gap: 3px;
 
     // Transitions
-    --heat-js-transition: all .3s;
+    --heat-js-transition: all 0.3s;
     --heat-js-animation-length: 0.5s;
 
     // Scroll Bars
@@ -155,33 +213,43 @@ div.heat-js {
     @include styles.no-selection-allowed;
     @include styles.box-sizing;
     font-family: var(--heat-js-default-font);
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: row;
     position: relative;
     border-radius: var(--heat-js-border-radius);
     background-color: var(--heat-js-container-background-color);
     color: var(--heat-js-color-white);
     border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-    padding: var(--heat-js-spacing);
     font-size: var(--heat-js-spacing-font-size);
     width: 100%;
-    max-width: var(--heat-js-default-width);
+    max-width: var(--heat-js-default-width-with-side-menu);
     margin: 0 !important;
+    font-weight: var(--heat-js-text-font-weight-thin);
+
+    &.no-side-menu {
+        max-width: var(--heat-js-default-width);
+
+        @media (min-width: styles.$minimum-width) { 
+            border-left-width: var(--heat-js-left-border);
+        }
+    }
 
     &.resizable {
         resize: horizontal;
         overflow: auto;
-        width: var(--heat-js-default-width);
+        width: var(--heat-js-default-width-with-side-menu);
         max-width: none;
-    }
 
-    @media (min-width: styles.$minimum-width) { 
-        border-left-width: var(--heat-js-left-border);
+        &.no-side-menu {
+            width: var(--heat-js-default-width);
+        }
     }
 
     button {
         margin-top: 0 !important;
         margin-bottom: 0 !important;
         font-family: var(--heat-js-default-font);
+        font-size: var(--heat-js-spacing-font-size);
     }
 
     div.view-switch {
@@ -205,6 +273,74 @@ div.heat-js {
 
 /*
     -------------------------------------------------------------------------
+    Heat.js - Side Menu
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.container-side-menu {
+        display: inline-flex;
+        flex-direction: column;
+        padding: var(--heat-js-spacing);
+        padding-right: 0;
+        background-color: var(--heat-js-container-border-color);
+        gap: var(--heat-js-spacing);
+        border-top-left-radius: var(--heat-js-border-radius);
+        border-bottom-left-radius: var(--heat-js-border-radius);
+
+        div.menu-tab {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--heat-js-spacing);
+            border-top-left-radius: var(--heat-js-border-radius);
+            border-bottom-left-radius: var(--heat-js-border-radius);
+            transition: var(--heat-js-transition);
+            color: var(--heat-js-side-menu-text-color);
+            cursor: pointer;
+
+            &.active {
+                background-color: var(--heat-js-container-background-color);
+                color: var(--heat-js-side-menu-active-text-color);
+                cursor: default;
+            }
+
+            &:not(.active):hover {
+                background-color: var(--heat-js-container-background-color);
+                color: var(--heat-js-side-menu-active-text-color);
+            }
+
+            @include map.button-icon;
+            @include line.button-icon;
+            @include chart.button-icon;
+            @include days.button-icon;
+            @include months.button-icon;
+            @include color-ranges.button-icon;
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Container
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.container-contents {
+        display: inline-flex;
+        flex-direction: column;
+        flex-grow: 1;
+        padding: var(--heat-js-spacing);
+        min-width: 0;
+        gap: var(--heat-js-spacing);
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
     Heat.js - Disabled Background
     -------------------------------------------------------------------------
 */
@@ -214,12 +350,25 @@ div.heat-js {
         display: none;
         z-index: 1000;
         position: absolute;
-        background-color: rgba( 0, 0, 0, 0.3 );
+        background-color: rgba( 0, 0, 0, 0.6 );
         top: 0;
         left: 0;
         height: 100%;
         width: 100%;
         animation: fade-in-animation var(--heat-js-animation-length);
+        border-top-right-radius: var(--heat-js-border-radius);
+        border-bottom-right-radius: var(--heat-js-border-radius);
+        border-top-left-radius: var(--heat-js-border-radius);
+        border-bottom-left-radius: var(--heat-js-border-radius);
+
+        @media (min-width: styles.$minimum-width) { 
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        &.full-view {
+            border-radius: var(--heat-js-border-radius);
+        }
 
         div.dialog {
             display: none;
@@ -228,7 +377,7 @@ div.heat-js {
             top: 50%;
             transform: translate( -50%, -50% );
             max-width: 450px;
-            width: calc( 100% - ( var(--heat-js-spacing) * 2 ) );
+            width: calc( 100% - var(--heat-js-spacing-double) );
             background-color: var(--heat-js-dialog-background-color);
             border: var(--heat-js-border-size) solid var(--heat-js-dialog-border-color);
             color: var(--heat-js-dialog-text-color);
@@ -245,50 +394,25 @@ div.heat-js {
                 border-radius: var(--heat-js-border-radius);
 
                 span.dialog-title-bar-text {
-                    font-weight: var(--heat-js-title-bold-weight);
+                    font-weight: var(--heat-js-text-font-weight-heavy);
                 }
 
                 div.dialog-close {
-                    $close-button-size: 16px;
-                    $close-button-width: 3px;
-
-                    float: right;
-                    width: $close-button-size;
-                    height: $close-button-size;
-                    position: relative;
-                    cursor: pointer;
-
-                    &::before,
-                    &::after {
-                        content: "";
-                        position: absolute;
-                        height: $close-button-size;
-                        width: $close-button-width;
-                        left: calc( ( $close-button-size / 2 ) - ( $close-button-width / 2 ) );
-                        top: 0;
-                        background-color: var(--heat-js-color-white);
-                        border-radius: var(--heat-js-border-radius);
-                        transition: var(--heat-js-transition);
-                    }
-
-                    &::before {
-                        transform: rotate( 45deg );
-                    }
-
-                    &::after {
-                        transform: rotate( -45deg );
-                    }
-
-                    &:hover::before,
-                    &:hover::after {
-                        background-color: var(--heat-js-color-gray);
-                    }
+                    @include styles.close-button;
                 }
             }
 
             div.dialog-contents {
                 padding: var(--heat-js-spacing);
                 overflow: hidden;
+
+                div.buttons {
+                    text-align: right;
+                    margin-top: var(--heat-js-spacing-double);
+
+                    @include styles.buttons;
+                    @include styles.dialog-buttons;
+                }
             }
         }
     }
@@ -311,29 +435,158 @@ div.heat-js {
                     padding: var(--heat-js-spacing);
                 }
 
-                div.side-container {
-                    vertical-align: top;
-                    display: inline-block;
-                    width: calc( 50% - var(--heat-js-spacing) );
-                    margin-right: var(--heat-js-spacing);
-                    text-align: left !important;
+                div.side-containers {
+                    div.side-container {
+                        vertical-align: top;
+                        display: inline-block;
+                        width: calc( 50% - var(--heat-js-spacing) );
+                        margin-right: var(--heat-js-spacing);
+                        text-align: left !important;
 
-                    &:last-child {
-                        margin-right: 0;
-                        width: calc( 50% );
-                    }
+                        &:last-child {
+                            margin-right: 0;
+                            width: calc( 50% );
+                        }
 
-                    div.side-container-title-text {
-                        margin-bottom: var(--heat-js-spacing);
-                        font-weight: var(--heat-js-sub-title-bold-weight);
-                    }
+                        div.side-container-title-text {
+                            margin-bottom: var(--heat-js-spacing);
+                            font-weight: var(--heat-js-text-font-weight-medium);
+                        }
 
-                    label.checkbox {
-                        margin-left: var(--heat-js-spacing);
-                        margin-bottom: 6px;
+                        label.checkbox {
+                            margin-left: var(--heat-js-spacing);
+                            margin-bottom: 6px;
+                        }
                     }
                 }
             }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Export Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.disabled {
+        div.export {
+            max-width: 270px;
+
+            div.dialog-contents {
+                input.filename,
+                label.checkbox {
+                    margin-top: var(--heat-js-spacing);
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Import Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.disabled {
+        div.import {
+            max-width: 350px;
+
+            div.dialog-contents {
+                label.checkbox {
+                    margin-top: var(--heat-js-spacing);
+                }
+
+                div.drag-and-drop-files {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: var(--heat-js-border-radius);
+                    background-color: var(--heat-js-input-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-input-border-color);
+                    text-align: center;
+                    min-height: 150px;
+                    overflow-y: auto;
+                    padding-top: var(--heat-js-spacing-double);
+                    padding-bottom: var(--heat-js-spacing-double);
+
+                    @include styles.scroll-bars;
+
+                    div.no-files {
+                        font-style: italic;
+                        padding-left: var(--heat-js-spacing-double);
+                        padding-right: var(--heat-js-spacing-double);
+                    }
+
+                    div.filename {
+                        position: relative;
+                        text-align: left;
+                        padding-right: 21px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        width: 100%;
+                        padding-left: var(--heat-js-spacing-double);
+                        padding-right: var(--heat-js-spacing-double);
+                        margin-bottom: 3px;
+                        font-style: normal;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        div.remove {
+                            position: absolute;
+                            right: 0;
+
+                            @include styles.close-button;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Add Type Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.disabled {
+        div.add-type {
+            max-width: 250px;
+
+            div.dialog-contents {
+                label.checkbox {
+                    margin-top: var(--heat-js-spacing);
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Confirmation Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.disabled {
+        div.confirmation {
+            max-width: 300px;
         }
     }
 }
@@ -348,46 +601,85 @@ div.heat-js {
 div.heat-js {
     div.title-bar {
         text-align: right;
-        margin-bottom: calc( var(--heat-js-spacing) + var(--heat-js-spacing) / 2 );
+        margin-bottom: var(--heat-js-spacing-half);
         display: flex;
         align-items: center;
         justify-content: right;
 
-        @include styles.buttons;
+        @include styles.buttons(false);
 
         button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-weight: var(--heat-js-title-bold-weight);
-            width: 35px;
-            height: 30px;
+            font-weight: var(--heat-js-text-font-weight-heavy);
+            @include styles.icon-button-size;
         }
 
         button.back {
-            margin-left: calc( var(--heat-js-spacing) * 2 ) !important;
+            margin-left: var(--heat-js-spacing-double) !important;
+
+            @include arrow-line-left.button-icon;
+        }
+
+        button.next {
+            @include arrow-line-right.button-icon;
+        }
+
+        button.import {
+            @include arrow-up.button-icon;
+        }
+
+        button.export {
+            @include arrow-down.button-icon;
+        }
+
+        button.refresh {
+            @include refresh.button-icon;
+        }
+
+        button.clear {
+            @include close.button-icon;
+        }
+
+        button.current-year {
+            @include pin.button-icon;
+
+            margin-right: var(--heat-js-spacing-half) !important;
         }
 
         button.export,
         button.import,
-        button.current {
-            margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
+        button.refresh,
+        button.clear {
+            margin-left: var(--heat-js-spacing-half) !important;
+        }
+
+        button.export,
+        button.refresh,
+        button.import,
+        button.clear {
+            display: none;
+    
+            @media (min-width: styles.$minimum-width) { 
+                display: inline-flex;
+            }
         }
 
         div.configure {
-            $button-size: 8.5px;
-
+            $button-size: 9px;
+            margin-top: 1px;
             display: inline-block;
             width: $button-size;
             height: $button-size;
             position: relative;
             margin-right: var(--heat-js-spacing);
             transition: var(--heat-js-transition);
+            cursor: pointer;
             
             &:hover::before,
             &:hover::after {
                 border-color: var(--heat-js-title-opener-text-color-hover);
-                cursor: pointer;
             }
 
             &::before {
@@ -396,7 +688,7 @@ div.heat-js {
                 height: $button-size;
                 width: $button-size;
                 border-color: var(--heat-js-color-white);
-                border-width: 2px;
+                border-width: 2.5px;
                 border-style: solid;
                 transform: rotate( -45deg );
                 top: 0;
@@ -410,22 +702,12 @@ div.heat-js {
                 height: $button-size;
                 width: $button-size;
                 border-color: var(--heat-js-color-white);
-                border-width: 2px;
+                border-width: 2.5px;
                 border-style: solid;
                 transform: rotate( 90deg );
                 top: 0;
                 left: 0;
                 transition: var(--heat-js-transition);
-            }
-        }
-
-        button.export,
-        button.refresh,
-        button.import {
-            display: none;
-    
-            @media (min-width: styles.$minimum-width) { 
-                display: inline-block;
             }
         }
     }
@@ -440,12 +722,10 @@ div.heat-js {
 
 div.heat-js {
     div.title-bar {
-        vertical-align: middle;
-
         div.title {
             $title-margin: 3px;
 
-            font-weight: var(--heat-js-title-bold-weight);
+            font-weight: var(--heat-js-text-font-weight-heavy);
             font-size: 1.3rem;
             padding-bottom: $title-margin;
             transition: var(--heat-js-transition);
@@ -468,7 +748,7 @@ div.heat-js {
                 }
             }
 
-            &:hover {
+            &:not(.no-hover):hover {
                 color: var(--heat-js-title-opener-text-color-hover);
 
                 div.titles-menu-container {
@@ -493,17 +773,27 @@ div.heat-js {
                 z-index: 1000;
 
                 div.titles-menu {
+                    $section-icon-size: 9px;
+
                     border-radius: var(--heat-js-border-radius);
                     background-color: var(--heat-js-title-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-title-border-color);
                     color: var(--heat-js-title-text-color);
                     overflow: hidden;
 
+                    &:has(> div.indented) {
+                        padding-bottom: var(--heat-js-spacing-half);
+                    }
+
+                    div.title-menu-header,
+                    div.title-menu-item {
+                        padding-right: calc( var(--heat-js-spacing) * 4 ) !important;
+                    }
+
                     div.title-menu-header {
                         color: var(--heat-js-color-white);
-                        font-weight: var(--heat-js-title-bold-weight);
+                        font-weight: var(--heat-js-text-font-weight-heavy);
                         padding: var(--heat-js-spacing);
-                        padding-right: calc( var(--heat-js-spacing) * 3 );
                         text-align: left;
                         width: 100%;
                         font-size: var(--heat-js-spacing-font-size) !important;
@@ -511,26 +801,39 @@ div.heat-js {
                     }
 
                     div.title-menu-item {
+                        display: flex;
+                        align-items: center;
+                        justify-items: center;
+                        position: relative;
                         color: var(--heat-js-color-white);
-                        font-weight: var(--heat-js-text-bold-weight);
-                        padding: var(--heat-js-spacing);
-                        padding-right: calc( var(--heat-js-spacing) * 3 );
+                        font-weight: var(--heat-js-text-font-weight-thin);
                         padding-left: calc( var(--heat-js-spacing) * 3 );
                         text-align: left;
+                        height: var(--heat-js-title-menu-item-height);
                         width: 100%;
                         transition: var(--heat-js-transition);
                         font-size: var(--heat-js-spacing-font-size) !important;
-                        position: relative;
 
-                        &::before {
+                        &.indented {
+                            margin-left: var(--heat-js-spacing);
+                            border-top-left-radius: var(--heat-js-border-radius);
+                            border-bottom-left-radius: var(--heat-js-border-radius);
+                            margin-bottom: var(--heat-js-spacing-half);
+
+                            &:before {
+                                left: var(--heat-js-spacing) !important;
+                            }
+                        }
+
+                        &:not(.title-menu-item-active)::before {
                             content: "";
                             position: absolute;
                             left: var(--heat-js-spacing);
                             top: 50%;
                             transform: translate( 0, -50% );
                             border-radius: 50%;
-                            width: 8px;
-                            height: 8px;
+                            width: $section-icon-size;
+                            height: $section-icon-size;
                             background-color: var(--heat-js-color-white);
                         }
     
@@ -550,13 +853,22 @@ div.heat-js {
                     }
 
                     div.title-menu-item-active {
+                        position: relative;
                         background-color: var(--heat-js-title-background-color-hover);
                         color: var(--heat-js-title-text-color-hover);
-                        font-weight: var(--heat-js-text-bold-weight-active);
+                        font-weight: var(--heat-js-text-font-weight-heavy);
                         cursor: default !important;
 
                         &::before {
-                            background-color: var(--heat-js-title-text-color-hover);
+                            content: "";
+                            position: absolute;
+                            border-top: calc( $section-icon-size / 2 ) solid transparent;
+                            border-bottom: calc( $section-icon-size / 2 ) solid transparent;
+                            border-left: $section-icon-size solid var(--heat-js-title-text-color-hover);
+                            left: var(--heat-js-spacing);
+                            top: 50%;
+                            transform: translate( 0, -50% );
+                            background-color: transparent;
                         }
                     }
                 }
@@ -580,12 +892,13 @@ div.heat-js {
             margin-left: var(--heat-js-spacing);
             margin-right: var(--heat-js-spacing);
             display: inline-block;
-            font-weight: var(--heat-js-title-bold-weight);
+            font-weight: var(--heat-js-text-font-weight-heavy);
             position: relative;
             padding-top: $year-margin;
             padding-bottom: $year-margin;
             transition: var(--heat-js-transition);
             white-space: nowrap;
+            text-align: center;
             cursor: pointer;
 
             &:hover {
@@ -593,7 +906,7 @@ div.heat-js {
             }
 
             &:hover div.down-arrow {
-                border-top-color:  var(--heat-js-title-opener-text-color-hover);
+                border-top-color: var(--heat-js-title-opener-text-color-hover);
                 transform: rotate( -180deg );
             }
 
@@ -601,7 +914,7 @@ div.heat-js {
                 display: block !important;
             }
 
-            @include styles.down-arrow( 6px, 9px, false, calc( var(--heat-js-spacing) / 2 ) );
+            @include styles.down-arrow( 6px, 9px, false, var(--heat-js-spacing-half) );
 
             div.years-menu-container {
                 animation: fade-in-animation var(--heat-js-animation-length);
@@ -617,26 +930,33 @@ div.heat-js {
                     border-radius: var(--heat-js-border-radius);
                     background-color: var(--heat-js-years-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-years-border-color);
+                    border-right-width: var(--heat-js-left-border);
                     color: var(--heat-js-years-text-color);
-                    max-height: 183px;
                     height: 100%;
+                    max-height: calc( ( ( var(--heat-js-spacing-half) + var(--heat-js-border-size) ) * 2 + ( ( var(--heat-js-years-menu-item-height) + var(--heat-js-spacing-half) ) * var(--heat-js-years-menu-total-rows-in-view) ) ) - var(--heat-js-spacing-half) );
                     overflow-y: auto;
                     scroll-snap-type: y mandatory;
+                    padding-right: var(--heat-js-spacing);
 
                     @include styles.scroll-bars;
 
                     div.year-menu-item {
+                        display: flex;
+                        align-items: center;
+                        justify-items: center;
                         color: var(--heat-js-color-white);
-                        font-weight: var(--heat-js-text-bold-weight);
-                        border-bottom: var(--heat-js-border-size) dashed var(--heat-js-container-border-color);
-                        padding: var(--heat-js-spacing);
-                        text-align: center;
+                        font-weight: var(--heat-js-text-font-weight-thin);
                         width: 100%;
+                        height: var(--heat-js-years-menu-item-height);
                         transition: var(--heat-js-transition);
                         scroll-snap-align: start;
+                        scroll-margin: var(--heat-js-spacing-half);
                         white-space: nowrap;
-                        padding-left: calc( var(--heat-js-spacing) * 2 );
-                        padding-right: calc( var(--heat-js-spacing) * 2 );
+                        padding-left: var(--heat-js-spacing-double);
+                        padding-right: var(--heat-js-spacing-double);
+                        border-top-right-radius: var(--heat-js-border-radius);
+                        border-bottom-right-radius: var(--heat-js-border-radius);
+                        margin-bottom: var(--heat-js-spacing-half);
     
                         &:not(.year-menu-item-active):active {
                             opacity: 0.5 !important;
@@ -647,6 +967,10 @@ div.heat-js {
                             background-color: var(--heat-js-years-background-color-hover);
                             color: var(--heat-js-years-text-color-hover);
                         }
+
+                        &:first-child {
+                            margin-top: var(--heat-js-spacing-half);
+                        }
     
                         &:last-child {
                             border-bottom: none;
@@ -656,14 +980,75 @@ div.heat-js {
                     div.year-menu-item-active {
                         background-color: var(--heat-js-years-background-color-hover);
                         color: var(--heat-js-years-text-color-hover);
-                        font-weight: var(--heat-js-text-bold-weight-active);
+                        font-weight: var(--heat-js-text-font-weight-heavy);
                         cursor: default !important;
                     }
 
                     div.year-menu-item-current {
                         font-style: italic;
-                        font-weight: var(--heat-js-text-bold-weight-active);
-                        color: var(--heat-js-day-color-4-background-color);
+                        font-weight: var(--heat-js-text-font-weight-heavy);
+                        color: var(--heat-js-years-current-color);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - Yearly Statistics
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.yearly-statistics {
+        margin-bottom: var(--heat-js-spacing-half);
+        display: flex;
+        gap: var(--heat-js-spacing);
+
+        div.statistics-box {
+            flex: 1;
+            padding: var(--heat-js-spacing);
+            border-radius: var(--heat-js-border-radius);
+            background-color: var(--heat-js-yearly-statistics-box-background-color);
+            border: var(--heat-js-border-size) solid var(--heat-js-yearly-statistics-box-border-color);
+            color: var(--heat-js-yearly-statistics-box-text-color);
+            width: 0;
+            overflow: hidden;
+
+            div.statistics-box-title {
+                text-align: center;
+                font-weight: var(--heat-js-text-font-weight-heavy);
+                margin-bottom: var(--heat-js-spacing-half);
+            }
+
+            div.statistics-box-count {
+                text-align: center;
+                font-weight: var(--heat-js-text-font-weight-thin);
+
+                &.unavailable {
+                    font-style: italic;
+                }
+
+                span.percentage {
+                    display: block;
+
+                    @media (min-width: styles.$minimum-width-smaller) { 
+                        display: inline;
+                    }
+
+                    span.percentage-bracket {
+                        margin-left: calc( var(--heat-js-spacing) / 3 );
+
+                        &:last-of-type {
+                            margin-left: 0;
+                        }
+                    }
+
+                    span.percentage-text {
+                        font-style: italic;
                     }
                 }
             }
@@ -679,121 +1064,249 @@ div.heat-js {
 */
 
 div.heat-js {
-    div.map-contents {
-        overflow-x: auto;
-        overflow-y: hidden;
-        min-height: 191px;
+    div.map-contents-container {
         position: relative;
-        padding-bottom: var(--heat-js-spacing);
 
-        @include styles.scroll-bars;
+        @include styles.zooming;    
 
-        div.no-data-message {
-            @include styles.centered-label;
-        }
+        div.map-contents {
+            overflow-x: auto;
+            overflow-y: hidden;
+            position: relative;
+            padding-bottom: var(--heat-js-spacing);
 
-        div.map {
-            display: inline-flex;
-            flex-direction: row;
-    
-            div.days,
-            div.days-months-bottom {
-                background-color: var(--heat-js-container-background-color);
-                padding-right: var(--heat-js-y-label-spacing);
-                padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
-                position: sticky;
-                left: 0;
-                z-index: 50;
+            @include styles.scroll-bars;
+
+            div.no-data-message {
+                @include styles.centered-label;
+            }
+
+            div.map {
+                display: inline-flex;
+                flex-direction: row;
         
-                div.day-name {
-                    font-weight: var(--heat-js-text-bold-weight);
-                    text-align: left !important;
-                    height: var(--heat-js-day-size);
-                    margin-bottom: var(--heat-js-day-spacing);
-                    display: flex;
-                    justify-content: center;
-                    flex-direction: column;
+                div.days,
+                div.days-months-bottom {
+                    background-color: var(--heat-js-container-background-color);
+                    padding-right: var(--heat-js-y-label-spacing);
+                    padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
+                    position: sticky;
+                    left: 0;
+                    z-index: 50;
+            
+                    div.day-name {
+                        font-weight: var(--heat-js-text-font-weight-thin);
+                        text-align: left !important;
+                        height: var(--heat-js-day-size);
+                        margin-bottom: var(--heat-js-day-spacing);
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+
+                        &.no-spacing {
+                            margin-bottom: 0 !important;
+                        }
+                    }
                 }
-            }
 
-            div.days-months-bottom {
-                padding-top: 0 !important;
-            }
+                div.days-months-bottom {
+                    padding-top: 0 !important;
+                }
+            
+                div.months {
+                    display: flex;
+                    justify-content: space-between;
+                    flex-grow: 1;
+            
+                    div.month {
+                        flex: 1;
+            
+                        &:last-child {
+                            div.day-columns {
+                                div.day-column {
+                                    &:last-child {
+                                        div.day {
+                                            margin-right: 0 !important;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+            
+                        div.month-name,
+                        div.month-name-bottom {
+                            font-weight: var(--heat-js-text-font-weight-thin);
+                            text-align: left !important;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+
+                            &.current {
+                                font-weight: var(--heat-js-text-font-weight-heavy);
+                            }
+                        }
         
-            div.months {
-                display: flex;
-                justify-content: space-between;
-                flex-grow: 1;
+                        div.month-name {
+                            margin-bottom: var(--heat-js-spacing);
+                        }
         
-                div.month {
-                    flex: 1;
-                    pointer-events: none;
-        
-                    &:last-child {
+                        div.month-name-bottom {
+                            margin-top: var(--heat-js-spacing);
+                        }
+            
                         div.day-columns {
+                            display: flex;
+                            justify-content: space-between;
+            
                             div.day-column {
-                                &:last-child {
-                                    div.day {
+                                div.today {
+                                    animation: highlight-effect 2s infinite;
+                                }
+
+                                div.day,
+                                div.day-disabled {
+                                    display: flex;
+                                    border-radius: var(--heat-js-border-radius-day);
+                                    width: var(--heat-js-day-size);
+                                    height: var(--heat-js-day-size);
+                                    margin-right: var(--heat-js-day-spacing);
+                                    margin-bottom: var(--heat-js-day-spacing);
+                                    font-size: var(--heat-js-spacing-day-font-size);
+                                    justify-content: center;
+                                    align-items: center;
+                                    overflow: hidden;
+                                    gap: var(--heat-js-count-gap);
+
+                                    &.no-spacing {
+                                        border-radius: 0 !important;
                                         margin-right: 0 !important;
+                                        margin-bottom: 0 !important;
+                                    }
+            
+                                    &:last-child {
+                                        margin-bottom: 0;
+                                    }
+                                }
+            
+                                div.day {
+                                    position: relative;
+                                    pointer-events: all;
+                                    background-color: var(--heat-js-day-background-color);
+                                    border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+                                    transition: var(--heat-js-transition);
+                                    transition-property: opacity, background-color, color, border-color;
+                                    flex-direction: column;
+                                    z-index: 5;
+
+                                    div.count-date,
+                                    div.count,
+                                    div.difference {
+                                        display: block;
+                                    }
+
+                                    div.difference {
+                                        font-style: italic;
+                                    }
+
+                                    div.count-date {
+                                        font-weight: var(--heat-js-text-font-weight-medium);
+                                    }
+
+                                    &:not(.no-hover):active {
+                                        opacity: var(--heat-js-view-opacity-active) !important;
+                                    }
+
+                                    &:not(.no-hover):hover {
+                                        cursor: pointer;
+                                        background: var(--heat-js-day-background-color-hover);
                                     }
                                 }
                             }
                         }
                     }
-        
-                    div.month-name,
-                    div.month-name-bottom {
-                        font-weight: var(--heat-js-text-bold-weight);
-                        text-align: left !important;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                    }
-    
-                    div.month-name {
-                        margin-bottom: var(--heat-js-spacing);
-                    }
-    
-                    div.month-name-bottom {
-                        margin-top: var(--heat-js-spacing);
-                    }
-        
-                    div.day-columns {
-                        display: flex;
-                        justify-content: space-between;
-        
-                        div.day-column {
-                            div.day,
-                            div.day-disabled {
-                                display: flex;
-                                border-radius: var(--heat-js-border-radius-day);
-                                width: var(--heat-js-day-size);
-                                height: var(--heat-js-day-size);
-                                margin-right: var(--heat-js-day-spacing);
-                                margin-bottom: var(--heat-js-day-spacing);
-                                font-size: var(--heat-js-spacing-day-font-size);
-                                justify-content: center;
-                                align-items: center;
-                                overflow: hidden;
-        
-                                &:last-child {
-                                    margin-bottom: 0;
-                                }
-                            }
-        
-                            div.day {
-                                pointer-events: all;
-                                background-color: var(--heat-js-day-background-color);
-                                border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
-                                transition: var(--heat-js-transition);
-                                transition-property: opacity, background-color, color, border-color;
+                }
+            }
+        }
+    }
+}
 
-                                &:not(.no-hover):hover {
-                                    cursor: pointer;
-                                    background: var(--heat-js-day-background-color-hover);
-                                }
-                            }
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - View - Line
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.line-contents-container {
+        position: relative;
+
+        @include styles.zooming;
+
+        div.line-contents {
+            overflow-x: auto;
+            overflow-y: hidden;
+            text-wrap: nowrap;
+            white-space: nowrap;
+            position: relative;
+            padding-bottom: var(--heat-js-spacing);
+            border-top-left-radius: var(--heat-js-border-radius-day);
+            border-top-right-radius: var(--heat-js-border-radius-day);
+
+            @include styles.scroll-bars;
+
+            div.no-data-message {
+                @include styles.centered-label;
+            }
+
+            div.line {
+                display: inline-flex;
+                flex-direction: row;
+
+                div.day-lines {
+                    display: flex;
+                    align-items: flex-end;
+                    flex: 1;
+                    border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+                    height: 173.5px !important;
+                    overflow: hidden;
+
+                    div.day-line {
+                        background-color: var(--heat-js-day-background-color);
+                        border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+                        border-bottom: none !important;
+                        min-width: var(--heat-js-day-line-width);
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 0;
+                        border: none !important;
+                        transition: var(--heat-js-transition);
+
+                        &:not(.no-hover):active {
+                            opacity: var(--heat-js-view-opacity-active) !important;
                         }
+
+                        &:not(.no-hover):hover {
+                            cursor: pointer;
+                            background: var(--heat-js-day-background-color-hover);
+                        }
+                    }
+                }
+            }
+
+            div.line-months {
+                position: relative;
+                height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) );
+
+                div.month-name {
+                    font-weight: var(--heat-js-text-font-weight-thin);
+                    text-align: left !important;
+                    position: absolute;
+                    bottom: 0;
+
+                    &.current {
+                        font-weight: var(--heat-js-text-font-weight-heavy);
                     }
                 }
             }
@@ -810,7 +1323,6 @@ div.heat-js {
 
 div.heat-js {
     div.chart-contents {
-        display: flex;
         overflow-x: auto;
         overflow-y: hidden;
         text-wrap: nowrap;
@@ -833,13 +1345,45 @@ div.heat-js {
             }
 
             div.day-lines {
+                display: flex;
+                align-items: flex-end;
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+                height: 173px !important;
+                overflow: hidden;
 
-                div.day-line-number {
+                div.today {
+                    animation: highlight-effect 2s infinite;
+                }
+
+                div.day-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
-                    padding: calc( var(--heat-js-spacing) / 2 );
+                    padding: var(--heat-js-spacing-half);
                     overflow: hidden;
+                    flex-direction: column;
+                    gap: var(--heat-js-count-gap);
+
+                    div.count-date,
+                    div.count,
+                    div.difference {
+                        display: block;
+                    }
+
+                    div.difference {
+                        font-style: italic;
+                    }
+
+                    div.count-date {
+                        font-weight: var(--heat-js-text-font-weight-medium);
+                    }
+                }
+
+                div.month-spacing {
+                    height: 100%;
+                    width: var(--heat-js-border-size);
+                    background-color: var(--heat-js-container-border-color);
+                    margin-left: var(--heat-js-spacing);
+                    margin-right: calc( var(--heat-js-spacing) + var(--heat-js-day-chart-spacing) );
                 }
 
                 div.day-line {
@@ -848,20 +1392,24 @@ div.heat-js {
                     background-color: var(--heat-js-day-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     border-bottom: none !important;
-                    vertical-align: bottom;
                     min-width: var(--heat-js-day-chart-width);
-                    margin-right: 2px;
+                    margin-right: var(--heat-js-day-chart-spacing);
                     display: inline-flex;
                     transition: var(--heat-js-transition);
                     align-items: center;
                     justify-content: center;
+                    height: 0;
 
                     &:first-child {
-                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                        margin-left: var(--heat-js-spacing-half);
                     }
     
                     &:last-child {
-                        margin-right: calc( var(--heat-js-spacing) / 2 );
+                        margin-right: var(--heat-js-spacing-half);
+                    }
+
+                    &:not(.no-hover):active {
+                        opacity: var(--heat-js-view-opacity-active) !important;
                     }
 
                     &:not(.no-hover):hover {
@@ -878,10 +1426,14 @@ div.heat-js {
 
             div.month-name,
             div.month-name-space {
-                font-weight: var(--heat-js-text-bold-weight);
+                font-weight: var(--heat-js-text-font-weight-thin);
                 text-align: left !important;
                 position: absolute;
                 bottom: 0;
+
+                &.current {
+                    font-weight: var(--heat-js-text-font-weight-heavy);
+                }
             }
 
             div.month-name-space {
@@ -889,6 +1441,7 @@ div.heat-js {
                 top: 0;
                 position: sticky;
                 background-color: var(--heat-js-container-background-color);
+                z-index: 10;
             }
         }
     }
@@ -903,8 +1456,6 @@ div.heat-js {
 
 div.heat-js {
     div.days-contents {
-        display: flex;
-        overflow: hidden;
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
@@ -923,14 +1474,15 @@ div.heat-js {
 
             div.day-lines {
                 display: flex;
-                align-items: baseline;
+                align-items: flex-end;
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
                 justify-content: space-between;
+                height: 187px !important;
+                overflow: hidden;
 
-                div.day-line-number {
+                div.day-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
-                    padding: calc( var(--heat-js-spacing) / 2 );
                     position: relative;
                     overflow: hidden;
 
@@ -940,32 +1492,73 @@ div.heat-js {
                         left: 50%;
                         transform: translate( -50%, -50% );
                         color: var(--heat-js-view-days-text-color);
+                        text-align: center;
+                        padding-left: var(--heat-js-spacing-half);
+                        padding-right: var(--heat-js-spacing-half);
+                        
+                        &.blend-colors {
+                            mix-blend-mode: difference;
+                        }
+
+                        div.percentage {
+                            margin-top: var(--heat-js-count-gap);
+                            font-style: italic;
+                        }
                     }
                 }
 
                 div.day-line {
+                    display: inline-flex;
+                    flex-direction: column;
                     border-top-left-radius: var(--heat-js-border-radius-day);
                     border-top-right-radius: var(--heat-js-border-radius-day);
-                    background-color: var(--heat-js-view-days-background-color);
-                    border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
+                    background-color: var(--heat-js-day-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     border-bottom: none !important;
-                    vertical-align: bottom;
                     flex: 1 100%;
                     margin-right: var(--heat-js-spacing);
-                    display: inline-block;
                     transition: var(--heat-js-transition);
+                    height: 0;
+                    overflow: hidden;
+
+                    &.stacked {
+                        border: none !important;
+                    }
+
+                    &.non-stacked {
+                        background-color: var(--heat-js-view-days-background-color);
+                        border: var(--heat-js-border-size) solid var(--heat-js-view-days-border-color);
+                    }
+
+                    div.stacked-color-range {
+                        border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+                        pointer-events: none;
+                        border-bottom: none !important;
+                        border-top-left-radius: var(--heat-js-border-radius-day);
+                        border-top-right-radius: var(--heat-js-border-radius-day);
+
+                        &:not(:first-of-type) {
+                            border-top: none !important;
+                            border-top-left-radius: 0 !important;
+                            border-top-right-radius: 0 !important;
+                        }
+                    }
 
                     &:first-child {
-                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                        margin-left: var(--heat-js-spacing-half);
                     }
     
                     &:last-child {
-                        margin-right: calc( var(--heat-js-spacing) / 2 );
+                        margin-right: var(--heat-js-spacing-half);
+                    }
+
+                    &:not(.no-hover):active {
+                        opacity: var(--heat-js-view-opacity-active) !important;
                     }
 
                     &:not(.no-hover):hover {
                         cursor: pointer;
-                        opacity: var(--heat-js-day-opacity-hover);
+                        opacity: var(--heat-js-view-opacity-hover);
                     }
                 }
             }
@@ -982,10 +1575,14 @@ div.heat-js {
             div.day-name {
                 flex: 1 100%;
                 margin-top: var(--heat-js-spacing);
-                font-weight: var(--heat-js-text-bold-weight);
+                font-weight: var(--heat-js-text-font-weight-thin);
                 text-align: center !important;
                 overflow: hidden;
                 text-overflow: ellipsis;
+
+                &.current {
+                    font-weight: var(--heat-js-text-font-weight-heavy);
+                }
             }
         }
     }
@@ -994,23 +1591,21 @@ div.heat-js {
 
 /*
     -------------------------------------------------------------------------
-    Heat.js - View - Statistics
+    Heat.js - View - Months
     -------------------------------------------------------------------------
 */
 
 div.heat-js {
-    div.statistics-contents {
-        display: flex;
-        overflow: hidden;
+    div.months-contents {
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
 
-        div.no-statistics-message {
+        div.no-months-message {
             @include styles.centered-label;
         }
 
-        div.statistics {
+        div.months {
             display: flex;
             flex-direction: row;
 
@@ -1018,16 +1613,21 @@ div.heat-js {
                 @include styles.labels;
             }
 
-            div.range-lines {
+            div.month-lines {
                 display: flex;
-                align-items: baseline;
+                align-items: flex-end;
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
                 justify-content: space-between;
+                height: 187px !important;
+                overflow: hidden;
 
-                div.range-line-number {
+                div.today {
+                    animation: highlight-effect 2s infinite;
+                }
+
+                div.month-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
-                    padding: calc( var(--heat-js-spacing) / 2 );
                     position: relative;
                     overflow: hidden;
 
@@ -1036,27 +1636,179 @@ div.heat-js {
                         top: 50%;
                         left: 50%;
                         transform: translate( -50%, -50% );
+                        color: var(--heat-js-view-months-text-color);
+                        text-align: center;
+                        padding-left: var(--heat-js-spacing-half);
+                        padding-right: var(--heat-js-spacing-half);
+                        
+                        &.blend-colors {
+                            mix-blend-mode: difference;
+                        }
+
+                        div.percentage {
+                            margin-top: var(--heat-js-count-gap);
+                            font-style: italic;
+                        }
                     }
                 }
 
-                div.range-line {
+                div.month-line {
+                    display: inline-flex;
+                    flex-direction: column;
                     border-top-left-radius: var(--heat-js-border-radius-day);
                     border-top-right-radius: var(--heat-js-border-radius-day);
                     background-color: var(--heat-js-day-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     border-bottom: none !important;
-                    vertical-align: bottom;
+                    flex: 1 100%;
+                    margin-right: var(--heat-js-spacing);
+                    transition: var(--heat-js-transition);
+                    height: 0;
+                    overflow: hidden;
+
+                    &.stacked {
+                        border: none !important;
+                    }
+
+                    &.non-stacked {
+                        background-color: var(--heat-js-view-months-background-color);
+                        border: var(--heat-js-border-size) solid var(--heat-js-view-months-border-color);
+                    }
+
+                    div.stacked-color-range {
+                        border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+                        pointer-events: none;
+                        border-bottom: none !important;
+                        border-top-left-radius: var(--heat-js-border-radius-day);
+                        border-top-right-radius: var(--heat-js-border-radius-day);
+
+                        &:not(:first-of-type) {
+                            border-top: none !important;
+                            border-top-left-radius: 0 !important;
+                            border-top-right-radius: 0 !important;
+                        }
+                    }
+
+                    &:first-child {
+                        margin-left: var(--heat-js-spacing-half);
+                    }
+    
+                    &:last-child {
+                        margin-right: var(--heat-js-spacing-half);
+                    }
+
+                    &:not(.no-hover):active {
+                        opacity: var(--heat-js-view-opacity-active) !important;
+                    }
+
+                    &:not(.no-hover):hover {
+                        cursor: pointer;
+                        opacity: var(--heat-js-view-opacity-hover);
+                    }
+                }
+            }
+        }
+
+        div.month-names {
+            display: flex;
+            flex: 1;
+            position: relative;
+            justify-content: space-between;
+            align-items: baseline;
+            height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 3px );
+
+            div.month-name {
+                flex: 1 100%;
+                margin-top: var(--heat-js-spacing);
+                font-weight: var(--heat-js-text-font-weight-thin);
+                text-align: center !important;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                &.current {
+                    font-weight: var(--heat-js-text-font-weight-heavy);
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Heat.js - View - Color Ranges
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    div.color-ranges-contents {
+        text-wrap: nowrap;
+        white-space: nowrap;
+        position: relative;
+
+        div.no-color-ranges-message {
+            @include styles.centered-label;
+        }
+
+        div.color-ranges {
+            display: flex;
+            flex-direction: row;
+
+            div.y-labels {
+                @include styles.labels;
+            }
+
+            div.color-range-lines {
+                display: flex;
+                align-items: flex-end;
+                flex: 1;
+                border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+                justify-content: space-between;
+                height: 187px !important;
+                overflow: hidden;
+
+                div.color-range-line-count {
+                    font-size: var(--heat-js-spacing-day-font-size);
+                    padding: var(--heat-js-spacing-half);
+                    position: relative;
+                    overflow: hidden;
+
+                    div.count {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate( -50%, -50% );
+                        text-align: center;
+
+                        div.percentage {
+                            margin-top: var(--heat-js-count-gap);
+                            font-style: italic;
+                        }
+                    }
+                }
+
+                div.color-range-line {
+                    border-top-left-radius: var(--heat-js-border-radius-day);
+                    border-top-right-radius: var(--heat-js-border-radius-day);
+                    background-color: var(--heat-js-day-background-color);
+                    border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+                    border-bottom: none !important;
                     flex: 1 100%;
                     margin-right: var(--heat-js-spacing);
                     display: inline-block;
                     transition: var(--heat-js-transition);
+                    height: 0;
 
                     &:first-child {
-                        margin-left: calc( var(--heat-js-spacing) / 2 );
+                        margin-left: var(--heat-js-spacing-half);
                     }
     
                     &:last-child {
-                        margin-right: calc( var(--heat-js-spacing) / 2 );
+                        margin-right: var(--heat-js-spacing-half);
+                    }
+
+                    &:not(.no-hover):active {
+                        opacity: var(--heat-js-view-opacity-active) !important;
                     }
 
                     &:not(.no-hover):hover {
@@ -1067,7 +1819,7 @@ div.heat-js {
             }
         }
 
-        div.statistics-ranges {
+        div.color-range-names {
             display: flex;
             flex: 1;
             position: relative;
@@ -1075,10 +1827,10 @@ div.heat-js {
             align-items: baseline;
             height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 3px );
 
-            div.range-name {
+            div.color-range-name {
                 flex: 1 100%;
                 margin-top: var(--heat-js-spacing);
-                font-weight: var(--heat-js-text-bold-weight);
+                font-weight: var(--heat-js-text-font-weight-thin);
                 text-align: center !important;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -1097,7 +1849,7 @@ div.heat-js {
 div.heat-js {
     div.description {
         text-align: center;
-        margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
+        margin-top: var(--heat-js-spacing-half);
 
         @include styles.description;
     }
@@ -1119,6 +1871,7 @@ div.heat-js {
 div.heat-js {
     div.guide {
         display: block;
+        margin-top: var(--heat-js-spacing-half);
     
         @media (min-width: styles.$minimum-width) { 
             display: flex;
@@ -1126,7 +1879,6 @@ div.heat-js {
 
         div.map-types,
         div.map-toggles {
-            margin-top: calc( var(--heat-js-spacing) + ( var(--heat-js-spacing) / 2 ) );
             width: 100%;
 
             @media (min-width: styles.$minimum-width) { 
@@ -1135,26 +1887,37 @@ div.heat-js {
         }
 
         div.map-types {
-            text-align: center;
-            flex-grow: unset;
-            margin-right: 0;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--heat-js-spacing-half);
 
             @include styles.buttons;
             @include styles.description;
 
-            button {
-                margin-left: 0 !important;
-                margin-right: calc( var(--heat-js-spacing) / 2 ) !important;
+            button.add {
+                @include plus.button-icon;
+                @include styles.icon-button-size;
             }
-        }
 
-        div.map-types {
+            button {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                height: var(--heat-js-button-height);
+
+                span.clear {
+                    margin-left: var(--heat-js-spacing);
+                    @include styles.close-button($close-button-size: 12px, $button-color: currentColor);
+                }
+            }
+
             @media (min-width: styles.$minimum-width) { 
-                text-align: left;
+                justify-content: left;
                 width: unset;
                 flex-grow: 1;
                 margin-right: var(--heat-js-spacing);
-                text-align: left;
             }
         }
 
@@ -1163,17 +1926,25 @@ div.heat-js {
             align-items: center;
             justify-content: center;
             text-align: center;
+            gap: var(--heat-js-spacing);
+            flex-wrap: wrap;
+            max-width: none;
+            margin-top: var(--heat-js-spacing);
 
             @media (min-width: styles.$minimum-width) { 
                 text-align: right;
                 justify-content: right;
                 width: auto;
+                max-width: 320px;
+                min-width: 200px;
+                margin-top: 0;
             }
 
             div.less-text,
-            div.more-text {
+            div.more-text,
+            div.invert-text {
                 display: inline-block;
-                font-weight: var(--heat-js-text-bold-weight);
+                font-weight: var(--heat-js-text-font-weight-thin);
                 transition: var(--heat-js-transition);
                 border-bottom: 1px solid transparent;
 
@@ -1187,43 +1958,36 @@ div.heat-js {
                 }
             }
     
-            div.less-text {
-                margin-right: var(--heat-js-spacing);
-            }
-    
-            div.more-text {
-                margin-left: var(--heat-js-spacing);
-            }
-    
-            div.days {
+            div.toggles {
                 display: inline-flex;
                 align-items: center;
-                justify-content: right;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: var(--heat-js-spacing-half);
 
-                div.day-number {
+                @media (min-width: styles.$minimum-width) { 
+                    justify-content: right;
+                }
+
+                div.toggle-number {
                     display: inline-flex !important;
                     justify-content: center;
                     align-items: center;
                     overflow: hidden;
                     text-align: center;
                     font-size: var(--heat-js-spacing-day-font-size);
-                    padding-left: calc( var(--heat-js-spacing) / 2 );
-                    padding-right: calc( var(--heat-js-spacing) / 2 );
+                    padding-left: var(--heat-js-spacing-half);
+                    padding-right: var(--heat-js-spacing-half);
                 }
 
-                div.day {
+                div.toggle {
                     background-color: var(--heat-js-day-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
                     display: inline-block;
                     border-radius: var(--heat-js-border-radius-day);
-                    min-width: var(--heat-js-day-size);
-                    height: var(--heat-js-day-size);
-                    margin-right: var(--heat-js-day-spacing);
-                    transition: var(--heat-js-transition);
-    
-                    &:last-child {
-                        margin-right: 0;
-                    }
+                    min-width: var(--heat-js-guide-day-size);
+                    height: var(--heat-js-guide-day-size);
+                    transition: color 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.3s !important;
 
                     &:not(.no-hover):hover {
                         cursor: pointer;
@@ -1311,6 +2075,32 @@ div.heat-js {
 
 /*
     -------------------------------------------------------------------------
+    Heat.js - Input/Select
+    -------------------------------------------------------------------------
+*/
+
+div.heat-js {
+    select.input-box,
+    input.input-box {
+        background-color: var(--heat-js-input-background-color) !important;
+        outline: 0 !important;
+        box-shadow: none !important;
+        border-radius: var(--heat-js-border-radius);
+        padding: var(--heat-js-spacing);
+        border: var(--heat-js-border-size) solid var(--heat-js-input-border-color);
+        color: var(--heat-js-input-text-color) !important;
+        width: 100%;
+        appearance: none;
+
+        &::placeholder {
+            font-style: italic;
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
     Heat.js - Colors
     -------------------------------------------------------------------------
 */
@@ -1322,12 +2112,12 @@ div.heat-js {
     div.day-color-4,
     div.holiday {
         &:not(.no-hover):active {
-            opacity: var(--heat-js-day-opacity-active) !important;
+            opacity: var(--heat-js-view-opacity-active) !important;
         }
 
         &:not(.no-hover):hover {
             cursor: pointer;
-            opacity: var(--heat-js-day-opacity-hover);
+            opacity: var(--heat-js-view-opacity-hover);
         }
     }
 
@@ -1375,16 +2165,50 @@ div.heat-js-tooltip {
     font-family: var(--heat-js-default-font);
     animation: fade-in-animation var(--heat-js-animation-length);
     position: absolute;
+    align-items: center;
     background-color: var(--heat-js-tooltip-background-color);
     border: var(--heat-js-border-size) solid var(--heat-js-tooltip-border-color);
     color: var(--heat-js-tooltip-text-color);
     border-radius: var(--heat-js-border-radius);
     z-index: 2000;
-    max-width: 300px;
+    max-width: 350px;
     padding: var(--heat-js-spacing);
     font-size: var(--heat-js-spacing-font-size);
-    font-weight: var(--heat-js-text-bold-weight);
+    font-weight: var(--heat-js-text-font-weight-thin);
     display: none;
+
+    &:has(b.tooltip-count) {
+        padding-right: var(--heat-js-spacing-half);
+    }
+
+    &:has(b.tooltip-difference) {
+        padding-right: var(--heat-js-spacing-half);
+    }
+
+    sup {
+        top: 0;
+        padding-bottom: 8px;
+        margin-right: var(--heat-js-spacing-half);
+    }
+
+    b.tooltip-count,
+    b.tooltip-difference {
+        padding: var(--heat-js-spacing-half);
+        padding-left: var(--heat-js-spacing);
+        padding-right: var(--heat-js-spacing);
+        border-radius: var(--heat-js-border-radius);
+        background-color: var(--heat-js-tooltip-count-background-color);
+        margin-left: var(--heat-js-spacing);
+        margin-right: var(--heat-js-spacing-half);
+
+        + b {
+            margin-left: var(--heat-js-spacing-half);
+        }
+    }
+
+    b.tooltip-difference {
+        font-style: italic;
+    }
 }
 
 
@@ -1400,5 +2224,19 @@ div.heat-js-tooltip {
     }
     100% { 
         opacity: 1;
+    }
+}
+
+@keyframes highlight-effect {
+    0% {
+        box-shadow: 0 0 0 0 rgba(var(--heat-js-color-highlight), 0.5);
+    }
+
+    70% {
+        box-shadow: 0 0 0 var(--heat-js-spacing) rgba(var(--heat-js-color-highlight), 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(var(--heat-js-color-highlight), 0);
     }
 }

@@ -1,17 +1,20 @@
 /**
  * Heat.js
  * 
- * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
+ * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        api.ts
- * @version     v4.5.3
+ * @version     v5.0.0
  * @author      Bunoon
  * @license     MIT License
- * @copyright   Bunoon 2025
+ * @copyright   Bunoon 2026
  */
 
 
-import { type BindingOptions } from "./type";
+import {
+    type ConfigurationOptions,
+    type ConfigurationOptionsText,
+    type BindingOptions } from "./type";
 
     
 export type PublicApi = {
@@ -20,6 +23,38 @@ export type PublicApi = {
      * Public API Functions:  Manage Dates
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
+
+    /**
+     * addType().
+     * 
+     * Adds a new empty trend type.
+     * 
+     * @public
+     * @fires       onAddType
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should show the new trend type.
+     * @param       {string}    type                                        The trend type.
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    addType: ( elementId: string, type: string, triggerRefresh?: boolean ) => PublicApi;
+
+    /**
+     * removeType().
+     * 
+     * Removes an existing trend type.
+     * 
+     * @public
+     * @fires       onRemoveType
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID that should remove the existing trend type.
+     * @param       {string}    type                                        The trend type.
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for the element ID should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    removeType: ( elementId: string, type: string, triggerRefresh?: boolean ) => PublicApi;
     
     /**
      * addDates().
@@ -27,7 +62,7 @@ export type PublicApi = {
      * Adds an array of dates for a specific element ID, and refreshes the UI (if specified). If the dates already exist, their values are increased by one.
      * 
      * @public
-     * @fires       onAdd
+     * @fires       onAddDate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
      * @param       {Date[]}    dates                                       The dates to add.
@@ -44,7 +79,7 @@ export type PublicApi = {
      * Adds a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is increased by one.
      * 
      * @public
-     * @fires       onAdd
+     * @fires       onAddDate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the new date.
      * @param       {Date}      date                                        The date to add.
@@ -61,7 +96,7 @@ export type PublicApi = {
      * Updates a date for a specific element ID, and refreshes the UI (if specified).
      * 
      * @public
-     * @fires       onUpdate
+     * @fires       onUpdateDate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date}      date                                        The date to update.
@@ -79,7 +114,7 @@ export type PublicApi = {
      * Removes an array of dates for a specific element ID, and refreshes the UI (if specified). If the dates already exist, their values are decreased by one.
      * 
      * @public
-     * @fires       onRemove
+     * @fires       onRemoveDate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date[]}    dates                                       The dates to removed.
@@ -96,7 +131,7 @@ export type PublicApi = {
      * Removes a date for a specific element ID, and refreshes the UI (if specified). If the date already exists, its value is decreased by one.
      * 
      * @public
-     * @fires       onRemove
+     * @fires       onRemoveDate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date}      date                                        The date to removed.
@@ -113,7 +148,7 @@ export type PublicApi = {
      * Clears a date for a specific element ID, and refreshes the UI (if specified).
      * 
      * @public
-     * @fires       onClear
+     * @fires       onClearDate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID that should show the updated date.
      * @param       {Date}      date                                        The date to clear.
@@ -184,7 +219,7 @@ export type PublicApi = {
      * @fires       onExport
      * 
      * @param       {string}    elementId                                   The Heat.js element ID whose data should be exported.
-     * @param       {string}    [exportType]                                The export type to use (defaults to "csv", also accepts "json", "xml", and "txt").
+     * @param       {string}    [exportType]                                The export type to use (defaults to "json", also accepts "csv", "xml", "txt", "md", "html", "tsv", "yaml", and "toml").
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
@@ -329,11 +364,11 @@ export type PublicApi = {
      * @public
      * 
      * @param       {Object}    element                                     The element to convert to a heat map.
-     * @param       {Object}    options                                     The options to use (refer to "Binding Options" documentation for properties).
+     * @param       {Object}    bindingOptions                              The options to use (refer to "Binding Options" documentation for properties).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    render: ( element: HTMLElement, options: BindingOptions ) => PublicApi;
+    render: ( element: HTMLElement, bindingOptions: BindingOptions ) => PublicApi;
 
     /**
      * renderAll().
@@ -349,13 +384,13 @@ export type PublicApi = {
     /**
      * switchView().
      * 
-     * Switches the view on an element to either Map, Chart, or Statistics.
+     * Switches the active view on an element.
      * 
      * @public
      * @fires       onViewSwitch
      * 
      * @param       {string}    elementId                                   The Heat.js element ID.
-     * @param       {string}    viewName                                    The name of the view to switch to (either "map", "chart", or "statistics").
+     * @param       {string}    viewName                                    The name of the view to switch to (either "map", "line", "chart", "days", "months", or "color-ranges").
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
@@ -377,21 +412,34 @@ export type PublicApi = {
     switchType: ( elementId: string, type: string ) => PublicApi;
 
     /**
-     * updateOptions().
+     * updateBindingOptions().
      * 
      * Updates the original binding options for an element and refreshes it.
      * 
      * @public
      * @fires       onRefresh
-     * @fires       onOptionsUpdate
+     * @fires       onBindingOptionsUpdate
      * 
      * @param       {string}    elementId                                   The Heat.js element ID.
-     * @param       {Object}    newOptions                                  The new options to want to apply to the element.
+     * @param       {Object}    bindingOptions                              The new binding options to want to apply to the element.
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    updateOptions: ( elementId: string, newOptions: BindingOptions ) => PublicApi;
+    updateBindingOptions: ( elementId: string, bindingOptions: BindingOptions ) => PublicApi;
 
+    /**
+     * getActiveView().
+     * 
+     * Gets the active view being displayed.
+     * 
+     * @public
+     * 
+     * @param       {string}    elementId                                   The Heat.js element ID.
+     * 
+     * @returns     {string}                                                The view being displayed.
+     */
+    getActiveView: ( elementId: string ) => string;
+    
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -440,12 +488,27 @@ export type PublicApi = {
      * @public
      * @fires       onRefresh
      * 
-     * @param       {Object}    newConfiguration                            All the configuration options that should be set (refer to "Configuration Options" documentation for properties).
+     * @param       {Object}    configurationOptions                        All the configuration options that should be set (refer to "Configuration Options" documentation for properties).
      * @param       {boolean}   [triggerRefresh]                            States if the UI for each element should be refreshed (defaults to true).
      * 
      * @returns     {Object}                                                The Heat.js class instance.
      */
-    setConfiguration: ( newConfiguration: any, triggerRefresh?: boolean ) => PublicApi;
+    setConfiguration: ( configurationOptions: ConfigurationOptions, triggerRefresh?: boolean ) => PublicApi;
+
+    /**
+     * setLocale().
+     * 
+     * Sets the locale configuration options that should be used.
+     * 
+     * @public
+     * @fires       onRefresh
+     * 
+     * @param       {Object}    configurationOptionsText                    All the locale configuration text options that should be set (refer to "Configuration Options" documentation for properties).
+     * @param       {boolean}   [triggerRefresh]                            States if the UI for each element should be refreshed (defaults to true).
+     * 
+     * @returns     {Object}                                                The Heat.js class instance.
+     */
+    setLocale: ( configurationOptionsText: ConfigurationOptionsText, triggerRefresh?: boolean ) => PublicApi;
 
 
     /*

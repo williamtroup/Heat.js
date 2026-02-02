@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Heat.js - Locales</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="../dist/heat.js.css">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+        <script src="../dist/heat.js"></script>
+        <script src="../dist/locale/de.js"></script>
+        <script src="js/scripts.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <div class="header-contents">
+                <img src="images/icon.png" alt="Heat.js">
+                <div>
+                    <h1 id="header"></h1>
+                    <p>This is a basic example of how to use Heat.js to create a basic heatmap using a different locale.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contents">
+            <div id="heat-map-1" data-heat-js="getBindingOptions()"></div>
+        </div>
+    </body>
+
+    <script>
+        function getBindingOptions() {
+            return {
+                "holidays": [
+                    {
+                        "date": "25/12",
+                        "name": "Christmas Day",
+                        "showInViews": true,
+                    }
+                ],
+                "events": {
+                    "onMapDayClick": onMapDayClick,
+                },
+                "description": {
+                    "text": "A basic example of how to use Heat.js.",
+                },
+                "views": {
+                    "map": {
+                        "showDayCounts": true,
+                    }
+                },
+                "title": {
+                    "showRefreshButton": true,
+                    "showExportButton": true,
+                    "showImportButton": true,
+                    "showClearButton": true,
+                },
+                "yearlyStatistics": {
+                    "enabled": true,
+                },
+                "zooming": {
+                    "enabled": true,
+                    "defaultLevel": 0,
+                    "maximumLevel": 0,
+                },
+                "guide": {
+                    "allowTypeAdding": true,
+                    "allowTypeRemoving": true,
+                },
+            }
+        }
+
+        addStartUpBasicData();
+    </script>
+</html>

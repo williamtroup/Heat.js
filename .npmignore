@@ -17,3 +17,4 @@ tsup.build.esm.config.ts
 tsup.build.min.config.ts
 BUILD_INSTRUCTIONS.md
 *.nupkg
+eslint.config.mjs

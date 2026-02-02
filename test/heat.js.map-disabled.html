@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Heat.js - Map Disabled</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="../dist/heat.js.css">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+        <script src="../dist/heat.js"></script>
+        <script src="js/scripts.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <div class="header-contents">
+                <img src="images/icon.png" alt="Heat.js">
+                <div>
+                    <h1 id="header"></h1>
+                    <p>This is a basic example of how to use Heat.js to create a basic heatmap (with the map view disabled).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contents">
+            <div id="heat-map-1" data-heat-js="getBindingOptions()"></div>
+        </div>
+    </body>
+
+    <script>
+        function getBindingOptions() {
+            return {
+                "views": {
+                    "map": {
+                        "enabled": false,
+                    }
+                },
+                "description": {
+                    "text": "A basic example of how to use Heat.js.",
+                },
+            }
+        }
+
+        addStartUpBasicData();
+    </script>
+</html>

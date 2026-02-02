@@ -1,0 +1,21 @@
+@use "../base/button";
+
+
+@mixin button-icon {
+    i.days {
+        @include button.button-no-before-after;
+        border: button.$border;
+        border-bottom: none;;
+        width: var(--heat-js-button-icon-size);
+        height: var(--heat-js-button-icon-size);
+
+        &:before {
+            @include button.button-after-before-setup;
+            @include button.left-center-minus( button.$border-width / 2 );
+            @include button.top-center;
+            background-color: currentColor;
+            width: button.$border-width;
+            height: button.$border-width;
+        }
+    }
+}

@@ -1,29 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Heat.js - Bootstrap</title>
         <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet" href="../dist/heat.js.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css" integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.bundle.min.js" integrity="sha512-HvOjJrdwNpDbkGJIG2ZNqDlVqMo77qbs4Me4cah0HoDrfhrbA+8SBlZn1KrvAQw7cILLPFJvdwIgphzQmMm+Pw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="../dist/heat.js"></script>
+        <script src="js/scripts.js"></script>
     </head>
 
     <body>
         <div class="header">
-            <h1 id="header">Heat.js - Bootstrap</h1>
-            <p>This is a basic example of how to use Heat.js to create a basic heatmap, alongside Bootstrap.</p>
+            <div class="header-contents">
+                <img src="images/icon.png" alt="Heat.js">
+                <div>
+                    <h1 id="header"></h1>
+                    <p>This is a basic example of how to use Heat.js to create a basic heatmap, alongside Bootstrap.</p>
+                </div>
+            </div>
         </div>
 
         <div class="contents">
-            <div class="mt-5" id="heat-map-1" data-heat-js="{ 'resizable': false, 'holidays': [ { 'date': '25/12', 'name': 'Christmas Day', 'showInViews': true } ], 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': true } }, 'description': { 'text': 'A basic example of how to use Heat.js.', 'url': 'https://william-troup.com/heat-js/examples/basic.html' } }"></div>
+            <div class="mt-5" id="heat-map-1" data-heat-js="getBindingOptions1()"></div>
             <br>
             <br>
-            <div id="heat-map-2" data-heat-js="{ 'exportType': 'json', 'resizable': false, 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': false, 'placeMonthNamesOnTheBottom': true, 'showDayDateNumbers': false }, 'chart': { 'showLineDateNumbers': false } }, 'title': { 'showRefreshButton': true, 'showExportButton': true, 'showImportButton': true }, 'year': __CURRENT_YEAR + 1, 'onDayToolTipRender': onDayToolTipRenderEvent }"></div>
+            <div id="heat-map-2" data-heat-js="getBindingOptions2()"></div>
             <br>
             <br>
-            <div id="heat-map-3" data-heat-js="{ 'resizable': false, 'events': { 'onDayClick': onDayClick, 'onStatisticClick': onStatisticClick, 'onWeekDayClick': onWeekDayClick }, 'views': { 'map': { 'showMonthDayGaps': true } }, 'view': 'chart', 'yearsToHide': [ 2026 ], 'title': { 'showTitleDropDownHeaders': false, 'showSectionText': false } }"></div>
+            <div id="heat-map-3" data-heat-js="getBindingOptions3()"></div>
             <br>
             <br>
             <div id="heat-map-4"></div>
@@ -35,6 +43,11 @@
             <button class="btn btn-primary" onclick="updateDatesFixed( false );">Add Dates [Fixed]</button>
             <button class="btn btn-primary" onclick="updateDates( true );">Remove Dates</button>
             <button class="btn btn-primary" onclick="updateDatesFixed( true );">Remove Dates [Fixed]</button>
+            <br>
+            <button class="btn btn-primary" onclick="$heat.addType( 'heat-map-1', 'Test 1' );">Add Type (1)</button>
+            <button class="btn btn-primary" onclick="$heat.addType( 'heat-map-2', 'Test 1' );">Add Type (2)</button>
+            <button class="btn btn-primary" onclick="$heat.addType( 'heat-map-3', 'Test 1' );">Add Type (3)</button>
+            <button class="btn btn-primary" onclick="$heat.addType( 'heat-map-4', 'Test 1' );">Add Type (4)</button>
             <br>
             <button class="btn btn-primary" onclick="$heat.reset( 'heat-map-1' );">Reset (1)</button>
             <button class="btn btn-primary" onclick="$heat.reset( 'heat-map-2' );">Reset (2)</button>
@@ -116,15 +129,25 @@
             <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-3', 'chart' );">Switch View - Chart (3)</button>
             <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-4', 'chart' );">Switch View - Chart (4)</button>
             <br />
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-1', 'line' );">Switch View - Line (1)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-2', 'line' );">Switch View - Line (2)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-3', 'line' );">Switch View - Line (3)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-4', 'line' );">Switch View - Line (4)</button>
+            <br />
             <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-1', 'days' );">Switch View - Days (1)</button>
             <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-2', 'days' );">Switch View - Days (2)</button>
             <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-3', 'days' );">Switch View - Days (3)</button>
             <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-4', 'days' );">Switch View - Days (4)</button>
             <br />
-            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-1', 'statistics' );">Switch View - Statistics (1)</button>
-            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-2', 'statistics' );">Switch View - Statistics (2)</button>
-            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-3', 'statistics' );">Switch View - Statistics (3)</button>
-            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-4', 'statistics' );">Switch View - Statistics (4)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-1', 'months' );">Switch View - Months (1)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-2', 'months' );">Switch View - Months (2)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-3', 'months' );">Switch View - Months (3)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-4', 'months' );">Switch View - Months (4)</button>
+            <br />
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-1', 'color-ranges' );">Switch View - Color Ranges (1)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-2', 'color-ranges' );">Switch View - Color Ranges (2)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-3', 'color-ranges' );">Switch View - Color Ranges (3)</button>
+            <button class="btn btn-primary" onclick="$heat.switchView( 'heat-map-4', 'color-ranges' );">Switch View - Color Ranges (4)</button>
             <br />
             <button class="btn btn-primary" onclick="$heat.switchType( 'heat-map-1', 'Type 1' );">Switch Type - Type 1 (1)</button>
             <button class="btn btn-primary" onclick="$heat.switchType( 'heat-map-2', 'Type 1' );">Switch Type - Type 1 (2)</button>
@@ -136,11 +159,15 @@
             <button class="btn btn-primary" onclick="$heat.switchType( 'heat-map-3', 'Type 2' );">Switch Type - Type 2 (3)</button>
             <button class="btn btn-primary" onclick="$heat.switchType( 'heat-map-4', 'Type 2' );">Switch Type - Type 2 (4)</button>
             <br />
-            <button class="btn btn-primary" onclick="$heat.updateOptions( 'heat-map-1', { 'title': { 'showText': false } } );">Update Options (1)</button>
-            <button class="btn btn-primary" onclick="$heat.updateOptions( 'heat-map-2', { 'title': { 'showText': false } } );">Update Options (2)</button>
-            <button class="btn btn-primary" onclick="$heat.updateOptions( 'heat-map-3', { 'title': { 'showText': false } } );">Update Options (3)</button>
-            <button class="btn btn-primary" onclick="$heat.updateOptions( 'heat-map-4', { 'title': { 'showText': false } } );">Update Options (4)</button>
-            <br />
+            <button class="btn btn-primary" onclick="$heat.updateBindingOptions( 'heat-map-1', { 'title': { 'showText': false } } );">Update Binding Options (1)</button>
+            <button class="btn btn-primary" onclick="$heat.updateBindingOptions( 'heat-map-2', { 'title': { 'showText': false } } );">Update Binding Options (2)</button>
+            <button class="btn btn-primary" onclick="$heat.updateBindingOptions( 'heat-map-3', { 'title': { 'showText': false } } );">Update Binding Options (3)</button>
+            <button class="btn btn-primary" onclick="$heat.updateBindingOptions( 'heat-map-4', { 'title': { 'showText': false } } );">Update Binding Options (4)</button>
+            <br>
+            <button class="btn btn-primary" onclick="console.log( $heat.getActiveView( 'heat-map-1' ) );">Get Active Year (1)</button>
+            <button class="btn btn-primary" onclick="console.log( $heat.getActiveView( 'heat-map-2' ) );">Get Active Year (2)</button>
+            <button class="btn btn-primary" onclick="console.log( $heat.getActiveView( 'heat-map-3' ) );">Get Active Year (3)</button>
+            <button class="btn btn-primary" onclick="console.log( $heat.getActiveView( 'heat-map-4' ) );">Get Active Year (4)</button>
 
             <h2>Destroy:</h2>
             <button class="btn btn-primary" onclick="$heat.destroy( 'heat-map-1' );">Destroy (1)</button>
@@ -164,13 +191,112 @@
     <script>
         const __CURRENT_YEAR = new Date().getFullYear();
 
-        document.title += " - v" + $heat.getVersion();
-        document.getElementById( "header" ).innerText += " - v" + $heat.getVersion();
+        function getBindingOptions1() {
+            return {
+                "resizable": false,
+                "holidays": [
+                    {
+                        "date": "25/12",
+                        "name": "Christmas Day",
+                        "showInViews": true,
+                    }
+                ],
+                "events": {
+                    "onMapDayClick": onMapDayClick,
+                    "onColorRangeClick": onColorRangeClick,
+                    "onWeekDayClick": onWeekDayClick,
+                    "onMonthClick": onMonthClick,
+                    "onViewSwitch": onViewSwitch,
+                },
+                "views": {
+                    "map": {
+                        "showMonthDayGaps": true,
+                    }
+                },
+                "description": {
+                    "text": "A basic example of how to use Heat.js.",
+                    "url": "https://william-troup.com/heat-js/examples/basic.html",
+                },
+            }
+        }
+
+        function getBindingOptions2() {
+            return {
+                "exportType": "json",
+                "resizable": false,
+                "holidays": [
+                    {
+                        "date": "25/12",
+                        "name": "Christmas Day",
+                        "showInViews": true,
+                    }
+                ],
+                "events": {
+                    "onMapDayClick": onMapDayClick,
+                    "onColorRangeClick": onColorRangeClick,
+                    "onWeekDayClick": onWeekDayClick,
+                    "onMonthClick": onMonthClick,
+                    "onViewSwitch": onViewSwitch,
+                    "onMapDayToolTipRender": onMapDayToolTipRenderEvent
+                },
+                "views": {
+                    "map": {
+                        "showMonthDayGaps": false,
+                        "placeMonthNamesOnTheBottom": true,
+                        "showDayDateNumbers": false
+                    },
+                    "chart": {
+                        "showLineDateNumbers": false,
+                        "addMonthSpacing": true,
+                    }
+                },
+                "title": {
+                    "showRefreshButton": true,
+                    "showExportButton": true,
+                    "showImportButton": true,
+                    "showClearButton": true
+                },
+                "year": __CURRENT_YEAR + 1
+            }
+        }
+
+        function getBindingOptions3() {
+            return {
+                "resizable": false,
+                "holidays": [
+                    {
+                        "date": "25/12",
+                        "name": "Christmas Day",
+                        "showInViews": true,
+                    }
+                ],
+                "events": {
+                    "onMapDayClick": onMapDayClick,
+                    "onColorRangeClick": onColorRangeClick,
+                    "onWeekDayClick": onWeekDayClick,
+                    "onMonthClick": onMonthClick,
+                    "onViewSwitch": onViewSwitch,
+                },
+                "views": {
+                    "map": {
+                        "showMonthDayGaps": true,
+                    }
+                },
+                "defaultView": "chart",
+                "yearsToHide": [ 2026 ],
+                "title": {
+                    "showTitleDropDownHeaders": false,
+                    "showSectionText": false,
+                },
+            }
+        }
 
         function setupConfiguration() {
             $heat.setConfiguration( {
                 safeMode: false,
-                refreshButtonText: "Force Refresh"
+                text: {
+                    refreshButtonText: "Force Refresh",
+                },
             } );
         }
 
@@ -191,19 +317,17 @@
         }
 
         function updateDates( remove ) {
-            const types = [ "Type 1", "Type 2" ];
-            const typesLength = types.length;
-
-            for ( let typeIndex = 0; typeIndex < typesLength; typeIndex++ ) {
+            for ( let typeIndex = 0; typeIndex < 2; typeIndex++ ) {
                 let date = new Date( new Date().getFullYear(), 0, 1 );
 
                 for ( let dayNumber = 0; dayNumber < 8000; dayNumber++ ) {
                     const daysToIncrease = Math.floor( Math.random() * 500 );
+                    const typeName = "Type " + ( typeIndex + 1 );
                     let newDate = new Date( date );
 
                     newDate.setDate( newDate.getDate() + daysToIncrease );
 
-                    addRemoveDates( newDate, remove, types[ typeIndex ] );
+                    addRemoveDates( newDate, remove, typeName );
                 }
             }
 
@@ -222,19 +346,7 @@
             }
         }
 
-        function onDayClick( date, count, isHoliday ) {
-            console.log( "Day clicked for: " + date.toString() + ", Count: " + count + ", Is Holiday: " + isHoliday.toString() );
-        }
-
-        function onStatisticClick( colorRange, count, year ) {
-            console.log( "Statistic clicked for: " + JSON.stringify( colorRange ) + ", Count: " + count + ", Year: " + year );
-        }
-
-        function onWeekDayClick( day, count, year ) {
-            console.log( "Week day clicked for: " + day + ", Count: " + count + ", Year: " + year );
-        }
-
-        function onDayToolTipRenderEvent( date, count ) {
+        function onMapDayToolTipRenderEvent( _, date, count, isHoliday ) {
             return "This date '" + date.toString() + "' has " + count.toString() + " events in it.";
         }
 

@@ -1,4 +1,11 @@
+@use "buttons/exclamation-mark";
+@use "buttons/minus";
+@use "buttons/plus";
+
+
 $minimum-width: 768px;
+$minimum-width-smaller: 450px;
+
 
 @mixin no-selection-allowed {
     -moz-user-select: none;
@@ -9,21 +16,28 @@ $minimum-width: 768px;
     cursor: default;
 }
 
-@mixin buttons {
+@mixin buttons($apply-padding: true) {
     button {
         background-color: var(--heat-js-button-background-color);
         border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
         color: var(--heat-js-button-text-color);
         border-radius: var(--heat-js-border-radius);
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 9px;
-        padding-right: 9px;
         outline: none;
         transition: var(--heat-js-transition);
 
+        &.default {
+            font-weight: 700;
+        }
+
+        @if $apply-padding {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 9px;
+            padding-right: 9px;
+        }
+
         &:disabled {
-            color: var(--heat-js-button-border-color);
+            color: var(--heat-js-button-color-disabled);
         }
 
         &:not(.active):not(:disabled):active {
@@ -43,7 +57,22 @@ $minimum-width: 768px;
         background: var(--heat-js-button-background-color-hover);
         color: var(--heat-js-button-text-color-hover);
         transition: var(--heat-js-transition);
-        font-weight: var(--heat-js-text-bold-weight-active);
+        font-weight: var(--heat-js-text-font-weight-medium);
+    }
+}
+
+@mixin dialog-buttons {
+    button {
+        padding-left: calc( var(--heat-js-spacing) + 5px );
+        padding-right: calc( var(--heat-js-spacing) + 5px );
+        padding-top: var(--heat-js-spacing);
+        padding-bottom: var(--heat-js-spacing);
+        margin-right: var(--heat-js-spacing);
+        min-width: 90px;
+
+        &:last-child {
+            margin-right: 0;
+        }
     }
 }
 
@@ -75,11 +104,11 @@ $minimum-width: 768px;
     border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
     z-index: 50;
 
-    div.label-0,
-    div.label-25,
-    div.label-50,
+    div.label-100,
     div.label-75,
-    div.label-100 {
+    div.label-50,
+    div.label-25,
+    div.label-0 {
         font-weight: var(--heat-js-text-bold-weight);
         text-align: left !important;
         height: var(--heat-js-day-size);
@@ -91,11 +120,11 @@ $minimum-width: 768px;
         padding-right: var(--heat-js-y-label-spacing);
     }
 
-    div.label-0 {
+    div.label-100 {
         top: 0;
     }
 
-    div.label-25 {
+    div.label-75 {
         top: 25%;
         transform: translateY( -25% );
     }
@@ -105,12 +134,12 @@ $minimum-width: 768px;
         transform: translateY( -50% );
     }
 
-    div.label-75 {
+    div.label-25 {
         top: 75%;
         transform: translateY( -75% );
     }
 
-    div.label-100 {
+    div.label-0 {
         bottom: 0;
     }
 }
@@ -121,6 +150,7 @@ $minimum-width: 768px;
     top: 50%;
     transform: translate( -50%, -50% );
     font-weight: var(--heat-js-text-bold-weight);
+    font-style: italic;
 }
 
 @mixin description {
@@ -175,5 +205,99 @@ $minimum-width: 768px;
 
     &::-webkit-scrollbar-corner {
         background-color: transparent;
+    }
+}
+
+@mixin close-button($float: right, $close-button-size: 16px, $button-color: var(--heat-js-color-white)) {
+    $close-button-width: 3px;
+    float: $float;
+    width: $close-button-size;
+    height: $close-button-size;
+    position: relative;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        height: $close-button-size;
+        width: $close-button-width;
+        left: calc( ( $close-button-size / 2 ) - ( $close-button-width / 2 ) );
+        top: 0;
+        background-color: $button-color;
+        border-radius: var(--heat-js-border-radius);
+        transition: var(--heat-js-transition);
+    }
+
+    &::before {
+        transform: rotate( 45deg );
+    }
+
+    &::after {
+        transform: rotate( -45deg );
+    }
+
+    &:hover::before,
+    &:hover::after {
+        background-color: var(--heat-js-color-gray);
+    }
+}
+
+@mixin icon-button-size {
+    width: var(--heat-js-button-icon-width) !important;
+    height: var(--heat-js-button-height) !important;
+}
+
+@mixin zooming {
+    div.zooming {
+        position: absolute;
+        display: flex;
+        right: 0;
+        white-space: nowrap;
+        align-items: center;
+        padding: calc( var(--heat-js-spacing) / 2 );
+        border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+        border-radius: var(--heat-js-border-radius);
+        background-color: var(--heat-js-container-background-color);
+        z-index: 100;
+
+        @include buttons(false);
+
+        button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: calc( var(--heat-js-spacing) / 2 );
+            font-weight: var(--heat-js-title-bold-weight);
+            margin-right: 0;
+            @include icon-button-size;
+        }
+
+        div.zoom-close-button {
+            @include close-button(unset, 12px);
+            
+            display: inline-block;
+            margin-right: var(--heat-js-spacing);
+            margin-left: calc( var(--heat-js-spacing) / 2 );
+        }
+
+        button.reset {
+            @include exclamation-mark.button-icon;
+            margin-right: calc( var(--heat-js-spacing) / 2 );
+        }
+
+        button.zoom-out {
+            @include minus.button-icon;
+        }
+
+        span.zoom-level {
+            margin-left: var(--heat-js-spacing);
+            margin-right: var(--heat-js-spacing);
+            color: var(--heat-js-color-white);
+        }
+
+        button.zoom-in {
+            @include plus.button-icon;
+        }
     }
 }

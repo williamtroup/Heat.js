@@ -1,0 +1,26 @@
+@use "base/button";
+
+@mixin button-icon {
+    i.exclamation-mark {
+        @include button.button;
+
+        &:before {
+            @include button.left-center;
+            background-color: currentColor;
+            width: button.$border-width;
+            height: calc( 100% - button.$border-width - ( button.$border-width / 3 ) );
+            border-bottom-left-radius: 50%;
+            border-bottom-right-radius: 50%;
+            top: 0;
+        }
+
+        &:after {   
+            @include button.left-center;
+            background-color: currentColor;
+            width: button.$border-width;
+            height: button.$border-width;
+            border-radius: 50%;
+            bottom: 0;
+        }
+    }
+}

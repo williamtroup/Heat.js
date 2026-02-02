@@ -4,11 +4,11 @@ import { defineConfig } from "tsup";
 export default defineConfig( [
   {
     entry: [
-      "src/heat.ts"
+      "src/heat.ts",
     ],
     platform: "neutral",
     format: [
-      "cjs"
+      "cjs",
     ],
     outDir: "./dist",
     dts: true,
@@ -21,8 +21,8 @@ export default defineConfig( [
       sourceMap: true,
       format: {
         beautify: true,
-        comments: false
-      }
-    }
-  }
+        comments: false,
+      },
+    },
+  },
 ] );

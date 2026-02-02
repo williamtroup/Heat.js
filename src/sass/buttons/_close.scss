@@ -1,0 +1,26 @@
+@use "base/button";
+
+
+@mixin button-icon {
+    i.close {
+        @include button.button;
+
+        &::before,
+        &::after {
+            width: button.$border-width;
+            height: calc( var(--heat-js-button-icon-size) + ( button.$border-width / 2 ) );
+            background-color: currentColor;
+            border-radius: button.$border-radius;
+            left: calc( ( var(--heat-js-button-icon-size) / 2 ) - ( button.$border-width / 2 ) );
+            top: -calc( button.$border-width / 4 );
+        }
+
+        &::before {
+            @include button.transform-rotate( 45deg );
+        }
+
+        &::after {
+            @include button.transform-rotate( -45deg );
+        }
+    }
+}

@@ -1,5 +1,17 @@
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: system-ui,
+                -apple-system,
+                "Segoe UI",
+                Roboto,
+                "Helvetica Neue",
+                "Noto Sans",
+                "Liberation Sans",
+                Arial,
+                sans-serif,
+                "Apple Color Emoji",
+                "Segoe UI Emoji",
+                "Segoe UI Symbol",
+                "Noto Color Emoji";
     margin: 0;
     background-color: #DDDDDD !important;
 }
@@ -13,21 +25,43 @@ div.header {
     background-color: #AAAAAA !important;
     color: black !important;
     padding: 10px !important;
-    border-bottom: 1px black solid !important;
+    border-bottom: 0.5px black solid !important;
     margin-block-start: 0 !important;
     margin-block-end: 0 !important;
     margin: 0 !important;
 }
 
-div.header h1,
-div.header p {
+div.header div.header-contents h1,
+div.header div.header-contents p {
     margin: 0;
     padding: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 
-div.header h1 {
-    margin-bottom: 8px;
+div.header div.header-contents {
+    display: flex;
+    align-items: center;
+}
+
+div.header div.header-contents img {
+    height: 60px;
+    margin-right: 15px;
+    padding: 10px;
+    background-color: #22272e;
+    border-radius: 0.5rem;
+    box-sizing: content-box !important;
+}
+
+div.header div.header-contents h1 {
+    font-size: calc(1.375rem + 1.5vw);
     font-weight: 700;
+}
+
+div.header div.header-contents p {
+    margin-top: 5px;
+    font-weight: 350;
+    font-size: 1rem !important;
 }
 
 h2 {

@@ -1,21 +1,21 @@
-/*! Heat.js v4.5.3 | (c) Bunoon 2025 | MIT License */
+/*! Heat.js v5.0.0 | (c) Bunoon 2026 | MIT License */
 :root {
     /* Holidays */
     --heat-js-holiday-background-color: rgba( 210, 43, 43, 0.75 );
     --heat-js-holiday-border-color: rgba( 210, 43, 43, 0.5 );
     --heat-js-holiday-text-color: var(--heat-js-color-white);
 
-    /* Days - Colors */
-    --heat-js-day-color-1-background-color: rgba( 0, 150, 255, 0.25 );
-    --heat-js-day-color-1-border-color: rgba( 0, 150, 255, 0.15 );
+    /* View - Map / Chart - Day - Colors */
+    --heat-js-day-color-1-background-color: rgba( 0, 191, 255, 0.14 );
+    --heat-js-day-color-1-border-color: rgba( 0, 191, 255, 0.29 );
     --heat-js-day-color-1-text-color: var(--heat-js-color-white);
-    --heat-js-day-color-2-background-color: rgba( 0, 150, 255, 0.50 );
-    --heat-js-day-color-2-border-color: rgba( 0, 150, 255, 0.25 );
+    --heat-js-day-color-2-background-color: rgba( 0, 191, 255, 0.43 );
+    --heat-js-day-color-2-border-color: rgba( 0, 191, 255, 0.57 );
     --heat-js-day-color-2-text-color: var(--heat-js-color-white);
-    --heat-js-day-color-3-background-color: rgba( 0, 150, 255, 0.75 );
-    --heat-js-day-color-3-border-color: rgba( 0, 150, 255, 0.50 );
+    --heat-js-day-color-3-background-color: rgba( 0, 191, 255, 0.71 );
+    --heat-js-day-color-3-border-color: rgba( 0, 191, 255, 0.86 );
     --heat-js-day-color-3-text-color: var(--heat-js-color-black);
-    --heat-js-day-color-4-background-color: rgba( 0, 150, 255, 1 );
-    --heat-js-day-color-4-border-color: rgba( 0, 150, 255, 0.75 );
+    --heat-js-day-color-4-background-color: rgba( 0, 191, 255, 1 );
+    --heat-js-day-color-4-border-color: rgba( 0, 191, 255, 1 );
     --heat-js-day-color-4-text-color: var(--heat-js-color-black);
 }

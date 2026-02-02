@@ -1,0 +1,9 @@
+@use "../base/button";
+
+
+@mixin button-icon {
+    i.months {
+        @include button.button-no-before-after;
+        border: button.$border;
+    }
+}

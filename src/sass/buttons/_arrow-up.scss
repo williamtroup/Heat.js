@@ -1,0 +1,13 @@
+@use "base/button";
+
+
+@mixin button-icon {
+    i.arrow-up {
+        @include button.button-no-before-after;
+        width: 0; 
+        height: 0;
+        border-left: calc( var(--heat-js-button-icon-size) / 2 ) solid transparent;
+        border-right: calc( var(--heat-js-button-icon-size) / 2 ) solid transparent;
+        border-bottom: var(--heat-js-button-icon-size) solid currentColor;
+    }
+}

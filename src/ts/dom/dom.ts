@@ -1,13 +1,13 @@
 /**
  * Heat.js
  * 
- * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
+ * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        dom.ts
- * @version     v4.5.3
+ * @version     v5.0.0
  * @author      Bunoon
  * @license     MIT License
- * @copyright   Bunoon 2025
+ * @copyright   Bunoon 2026
  */
 
 
@@ -19,18 +19,14 @@ import { Is } from "../data/is";
 export namespace DomElement {
     export function createWithNoContainer( type: string ) : HTMLElement {
         const nodeType: string = type.toLowerCase();
-        const isText: boolean = nodeType === "text";
-
-        let result: any = isText ? document.createTextNode( Char.empty ) : document.createElement( nodeType );
+        const result: HTMLElement = document.createElement( nodeType );
 
         return result;
     }
 
     export function create( container: HTMLElement, type: string, className: string = Char.empty, beforeNode: HTMLElement = null! ) : HTMLElement {
         const nodeType: string = type.toLowerCase();
-        const isText: boolean = nodeType === "text";
-
-        let result: any = isText ? document.createTextNode( Char.empty ) : document.createElement( nodeType );
+        const result: HTMLElement = document.createElement( nodeType );
 
         if ( Is.defined( className ) ) {
             result.className = className;
@@ -49,18 +45,52 @@ export namespace DomElement {
         const element: HTMLElement = create( container, type, className, beforeNode );
         element.innerHTML = html;
 
+        if ( type === "button" ) {
+            const buttonElement: HTMLButtonElement = element as HTMLButtonElement;
+            buttonElement.type = "button";
+        }
+
         return element;
     }
 
-    export function getStyleValueByName( element: any, stylePropertyName: string, toNumber: boolean = false ) : any {
+    export function createButton( container: HTMLElement, type: string, className: string, html: string = null!, beforeNode: HTMLElement = null! ) : HTMLButtonElement {
+        const element: HTMLButtonElement = create( container, type, className, beforeNode ) as HTMLButtonElement;
+        element.type = "button";
+
+        if ( Is.defined( html ) ) {
+            element.innerHTML = html;
+        }
+
+        return element;
+    }
+
+    export function createIconButton( container: HTMLElement, type: string, className: string, iClassName: string, beforeNode: HTMLElement = null! ) : HTMLButtonElement {
+        const element: HTMLButtonElement = create( container, type, className, beforeNode ) as HTMLButtonElement;
+        element.type = "button";
+
+        DomElement.create( element, "i", iClassName );
+
+        return element;
+    }
+
+    export function getStyleValueByName( element: HTMLElement, stylePropertyName: string, toNumber: boolean = false ) : string | number {
         const styles: CSSStyleDeclaration = getComputedStyle( element );
-        let style: any = styles.getPropertyValue( stylePropertyName );
+        let style: string | number = styles.getPropertyValue( stylePropertyName );
         
         if ( toNumber ) {
             style = parseFloat( style );
+            style = isNaN( style ) ? 0 : style;
         }
 
         return style;
+    }
+
+    export function getStyleValueByNameSizingMetic( element: HTMLElement, stylePropertyName: string ) : string {
+        const styles: CSSStyleDeclaration = getComputedStyle( element );
+        const style: string = styles.getPropertyValue( stylePropertyName );
+        const value: number = parseFloat( style );
+
+        return style.replace( value.toString(), Char.empty );
     }
 
     export function addClass( element: HTMLElement, className: string ) : void {
@@ -87,12 +117,12 @@ export namespace DomElement {
         return result;
     }
 
-    export function showElementAtMousePosition( ev: MouseEvent, element: HTMLElement ) : void {
+    export function showElementAtMousePosition( ev: MouseEvent, element: HTMLElement, displayStyle: string = "block" ) : void {
         let left: number = ev.pageX;
         let top: number = ev.pageY;
         const scrollPosition: Position = getScrollPosition();
 
-        element.style.display = "block";
+        element.style.display = displayStyle;
 
         if ( left + element.offsetWidth > window.innerWidth ) {
             left -= element.offsetWidth;
@@ -119,12 +149,10 @@ export namespace DomElement {
     }
 
     export function reverseChildrenOrder( parent: HTMLElement ) : void {
-        const children: HTMLCollection = parent.children;
-        let childrenLength: number = children.length - 1;
+        const elementsArray: Element[] = Array.from( parent.children );
 
-        for ( ; childrenLength--; ) {
-            parent.appendChild( children[ childrenLength ] );
-        }
+        elementsArray.reverse();
+        elementsArray.forEach( ( element: Element ) => parent.appendChild( element ) );
     }
 
     export function createCheckBox( container: HTMLElement, labelText: string, name: string ) : HTMLInputElement {
@@ -141,9 +169,9 @@ export namespace DomElement {
         return input;
     }
 
-    export function adGradientEffect( container: HTMLElement, element: HTMLElement ) : void {
-        const backgroundColor: string = DomElement.getStyleValueByName( container, "background-color" ) ;
-        const lineBackgroundColor: string = DomElement.getStyleValueByName( element, "background-color" ) ;
+    export function addGradientEffect( container: HTMLElement, element: HTMLElement ) : void {
+        const backgroundColor: string | number = DomElement.getStyleValueByName( container, "background-color" ) ;
+        const lineBackgroundColor: string | number = DomElement.getStyleValueByName( element, "background-color" ) ;
 
         element.style.background = `linear-gradient(to top, ${backgroundColor}, ${lineBackgroundColor})`;
     }

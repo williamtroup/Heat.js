@@ -1,0 +1,50 @@
+$border-width: calc( var(--heat-js-button-icon-size) / 4 );
+$border-radius: $border-width;
+$border: $border-width solid currentColor;
+
+
+@mixin button-size {
+    width: var(--heat-js-button-icon-size);
+    height: var(--heat-js-button-icon-size);
+    display: inline-block;
+    position: relative;
+}
+
+@mixin button-no-before-after {
+    @include button-size;
+}
+
+@mixin button {
+    @include button-no-before-after;
+
+    &::before,
+    &::after {
+        @include button-after-before-setup;
+    }
+}
+
+@mixin button-after-before-setup {
+    position: absolute;
+    content: "";
+}
+
+@mixin left-center {
+    left: 50%;
+    transform: translate( -50% );
+}
+
+@mixin left-center-minus( $minus-value ) {
+    left: calc( 50% - $minus-value );
+    transform: translate( -50% );
+}
+
+@mixin top-center {
+    top: 50%;
+    transform: translate( 0, -50% );
+}
+
+@mixin transform-rotate( $property ) {
+    -webkit-transform: rotate( $property );
+    -ms-transform: rotate( $property );
+    transform: rotate( $property );
+}

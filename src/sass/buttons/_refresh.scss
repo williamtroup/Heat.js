@@ -1,0 +1,28 @@
+@use "base/button";
+
+
+@mixin button-icon {
+    i.refresh {
+        @include button.button;
+        
+        &::before {
+            border-top: button.$border;
+            border-left: button.$border;
+            border-radius: button.$border-radius;
+            width: calc( ( var(--heat-js-button-icon-size) - button.$border-width - 1px ) );
+            height: var(--heat-js-button-icon-size);
+            left: 0;
+            top: 0;
+        }
+
+        &::after {
+            border-bottom: button.$border;
+            border-right: button.$border;
+            border-radius: button.$border-radius;
+            width: calc( ( var(--heat-js-button-icon-size) - button.$border-width - 1px ) );
+            height: var(--heat-js-button-icon-size);
+            right: 0;
+            top: 0;
+        }
+    }
+}

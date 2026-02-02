@@ -1,17 +1,17 @@
 /**
  * Heat.js
  * 
- * A lightweight JavaScript library that generates customizable heat maps, charts, and statistics to visualize date-based activity and trends.
+ * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        default.ts
- * @version     v4.5.3
+ * @version     v5.0.0
  * @author      Bunoon
  * @license     MIT License
- * @copyright   Bunoon 2025
+ * @copyright   Bunoon 2026
  */
 
 
-import { type Configuration, type StringToJson } from "../type";
+import { type ConfigurationOptions, type StringToJson } from "../type";
 import { Char } from "./enum";
 import { Is } from "./is";
 
@@ -31,6 +31,10 @@ export namespace Default {
 
     export function getNumber( value: any, defaultValue: number ) : number {
         return Is.definedNumber( value ) ? value : defaultValue;
+    }
+
+    export function getNumberInRange( value: any, minimum: number, maximum: number, defaultValue: number ) : number {
+        return Is.definedNumber( value ) ? ( value >= minimum && value <= maximum ? value : defaultValue ) : defaultValue;
     }
 
     export function getFunction( value: any, defaultValue: object ) : any {
@@ -64,7 +68,7 @@ export namespace Default {
         return result;
     }
 
-    export function getObjectFromString( objectString: any, configuration: Configuration ) : StringToJson {
+    export function getObjectFromString( objectString: any, configurationOptions: ConfigurationOptions ) : StringToJson {
         const result: StringToJson = {
             parsed: true,
             object: null
@@ -72,25 +76,64 @@ export namespace Default {
 
         try {
             if ( Is.definedString( objectString ) ) {
-                result.object = JSON.parse( objectString );
+                try {
+                    result.object = JSON.parse( objectString );
+                } catch {
+                    result.object = JSON.parse( objectString.replace( /'/g, '"' ) );
+                }
             }
 
-        } catch ( e1: any ) {
+        } catch ( e2: any ) {
             try {
-                result.object = eval( `(${objectString})` );
-
-                if ( Is.definedFunction( result.object ) ) {
-                    result.object = result.object();
-                }
+                result.object = getObjectFromFunction( objectString );
                 
-            } catch ( e2: any ) {
-                if ( !configuration.safeMode ) {
-                    console.error( configuration.text!.objectErrorText!.replace( "{{error_1}}",  e1.message ).replace( "{{error_2}}",  e2.message ) );
+            } catch ( e3: any ) {
+                if ( !configurationOptions.safeMode ) {
+                    console.error( configurationOptions.text!.objectErrorText!.replace( "{{error_1}}", e2.message ).replace( "{{error_2}}", e3.message ) );
                     result.parsed = false;
                 }
                 
                 result.object = null;
             }
+        }
+
+        return result;
+    }
+
+    function getObjectFromFunction( functionName: string ) : any {
+        let result: any = null;
+
+        const functionNameParts: string[] = functionName.split( "(" );
+        let functionNameArguments: string[] = [];
+
+        if ( functionNameParts.length > 1 ) {
+            functionNameArguments = functionNameParts[ 1 ]
+                .replace( ")", Char.empty )
+                .replace( ";", Char.empty )
+                .trim()
+                .split( Char.comma );
+
+            if ( functionNameArguments.length === 1 && functionNameArguments[ 0 ] === Char.empty ) {
+                functionNameArguments = [];
+            }
+        }
+
+        const namespaces: string[] = functionNameParts[ 0 ].split( Char.dot );
+        const onlyFunctionName: string = namespaces.pop()!;
+        let context: any = globalThis;
+        let contextFound: boolean = true;
+
+        for ( const namespace of namespaces ) {
+            context = context[ namespace ];
+            
+            if ( !Is.defined( context ) ) {
+                contextFound = false;
+                break;
+            }
+        }
+
+        if ( contextFound && Is.definedFunction( context[ onlyFunctionName ] ) ) {
+            result = context[ onlyFunctionName ].apply( context, functionNameArguments );
         }
 
         return result;
