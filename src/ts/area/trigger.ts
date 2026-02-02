@@ -4,7 +4,7 @@
  * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        trigger.ts
- * @version     v5.0.0 - Beta 9
+ * @version     v5.0.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2026
