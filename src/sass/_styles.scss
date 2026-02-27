@@ -25,17 +25,6 @@ $minimum-width-smaller: 450px;
         outline: none;
         transition: var(--heat-js-transition);
 
-        &.default {
-            font-weight: 700;
-        }
-
-        @if $apply-padding {
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-left: 9px;
-            padding-right: 9px;
-        }
-
         &:disabled {
             color: var(--heat-js-button-color-disabled);
         }
@@ -49,6 +38,43 @@ $minimum-width-smaller: 450px;
             cursor: pointer;
             background: var(--heat-js-button-background-color-hover);
             color: var(--heat-js-button-text-color-hover);
+        }
+
+        &.yes {
+            background-color: var(--heat-js-button-color-yes);
+            border-color: var(--heat-js-button-color-yes-border);
+
+            &:not(.active):not(:disabled):active {
+                background: var(--heat-js-button-color-yes-active) !important;
+            }
+
+            &:not(.active):not(:disabled):hover {
+                background-color: var(--heat-js-button-color-yes-border);
+            }
+        }
+
+        &.no {
+            background-color: var(--heat-js-button-color-no);
+            border-color: var(--heat-js-button-color-no-border);
+
+            &:not(.active):not(:disabled):active {
+                background: var(--heat-js-button-color-no-active) !important;
+            }
+
+            &:not(.active):not(:disabled):hover {
+                background-color: var(--heat-js-button-color-no-border);
+            }
+        }
+
+        &.default {
+            font-weight: 700;
+        }
+
+        @if $apply-padding {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 9px;
+            padding-right: 9px;
         }
     }
 

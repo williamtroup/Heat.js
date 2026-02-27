@@ -2903,8 +2903,8 @@ var C;
             s.createWithHTML(t, "span", "dialog-title-bar-text", u.text.confirmText);
             e._currentView.confirmationDialogMessage = s.create(n, "div", "message");
             const o = s.create(n, "div", "buttons");
-            const i = s.createButton(o, "button", "", u.text.noButtonText);
-            e._currentView.confirmationDialogYesButton = s.createButton(o, "button", "default", u.text.yesButtonText);
+            const i = s.createButton(o, "button", "no", u.text.noButtonText);
+            e._currentView.confirmationDialogYesButton = s.createButton(o, "button", "default yes", u.text.yesButtonText);
             i.onclick = () => ie(e);
         }
     }

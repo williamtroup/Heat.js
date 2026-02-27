@@ -907,8 +907,8 @@ import { Observation } from "./ts/area/observation";
             bindingOptions._currentView!.confirmationDialogMessage = DomElement.create( contents, "div", "message" );
 
             const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-            const noButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.noButtonText! );
-            bindingOptions._currentView!.confirmationDialogYesButton = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.yesButtonText! );
+            const noButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "no", _configurationOptions.text!.noButtonText! );
+            bindingOptions._currentView!.confirmationDialogYesButton = DomElement.createButton( buttons, "button", "default yes", _configurationOptions.text!.yesButtonText! );
 
             noButton.onclick = () : void => hideConfirmationDialog( bindingOptions );
         }
