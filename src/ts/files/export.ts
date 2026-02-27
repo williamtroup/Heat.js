@@ -88,7 +88,7 @@ export namespace Export {
             } else if ( contentExportType === ExportType.html ) {
                 contents = html( typeDateCounts, configurationOptions, bindingOptions );
             } else if ( contentExportType === ExportType.md ) {
-                contents = md( typeDateCounts );
+                contents = md( typeDateCounts, configurationOptions, bindingOptions );
             } else if ( contentExportType === ExportType.tsv ) {
                 contents = tsv( typeDateCounts );
             } else if ( contentExportType === ExportType.yaml ) {
@@ -187,9 +187,12 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        function md( typeDateCounts: InstanceTypeDateCount ) : string {
+        function md( typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions ) : string {
             const contents: string[] = [];
+            const exportedDateTime: string = DateTime.getCustomFormattedDateText( bindingOptions, configurationOptions, bindingOptions.exportDateTimeFormat!, new Date() );
 
+            contents.push( `# Last Modified: ${exportedDateTime}` );
+            contents.push( Char.empty );
             contents.push( "| Full Date | Count |" );
             contents.push( "| --- | --- |" );
 

@@ -128,7 +128,7 @@ export namespace Import {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
             const linesLength: number = lines.length;
 
-            for ( let lineIndex: number = 2; lineIndex < linesLength; lineIndex++ ) {
+            for ( let lineIndex: number = 4; lineIndex < linesLength; lineIndex++ ) {
                 const line: string = lines[ lineIndex ].trim();
                 const lineContents: string = line.substring( 1, line.length - 1 ).trim();
                 const lineParts: string[] = lineContents.split( Char.pipe );

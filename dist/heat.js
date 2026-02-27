@@ -1801,7 +1801,7 @@ var p;
         n.onload = e => {
             const t = e.target.result.toString().split("\n");
             const n = t.length;
-            for (let e = 2; e < n; e++) {
+            for (let e = 4; e < n; e++) {
                 const n = t[e].trim();
                 const i = n.substring(1, n.length - 1).trim();
                 const r = i.split("|");
@@ -1902,7 +1902,7 @@ var y;
             } else if (e === "html") {
                 g = s(t, a, w);
             } else if (e === "md") {
-                g = l(t);
+                g = l(t, a, w);
             } else if (e === "tsv") {
                 g = c(t);
             } else if (e === "yaml") {
@@ -1981,16 +1981,19 @@ var y;
             o.push("</html>");
             return o.join("\n");
         }
-        function l(e) {
-            const t = [];
-            t.push("| Full Date | Count |");
-            t.push("| --- | --- |");
-            for (const n in e) {
-                if (Object.prototype.hasOwnProperty.call(e, n)) {
-                    t.push(`| ${n} | ${e[n].toString()} |`);
+        function l(e, t, n) {
+            const o = [];
+            const i = a.getCustomFormattedDateText(n, t, n.exportDateTimeFormat, new Date);
+            o.push(`# Last Modified: ${i}`);
+            o.push("");
+            o.push("| Full Date | Count |");
+            o.push("| --- | --- |");
+            for (const t in e) {
+                if (Object.prototype.hasOwnProperty.call(e, t)) {
+                    o.push(`| ${t} | ${e[t].toString()} |`);
                 }
             }
-            return t.join("\n");
+            return o.join("\n");
         }
         function c(e) {
             const t = [];
