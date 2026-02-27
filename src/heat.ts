@@ -4,7 +4,7 @@
  * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        heat.ts
- * @version     v5.0.0
+ * @version     v5.0.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2026
@@ -3891,7 +3891,7 @@ import { Observation } from "./ts/area/observation";
         },
 
         getVersion: () : string => {
-            return "5.0.0";
+            return "5.0.1";
         }
     };
 
