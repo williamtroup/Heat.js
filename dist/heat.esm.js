@@ -212,11 +212,9 @@ var i;
     function d(e, t) {
         let n = t;
         if (o.definedString(e)) {
-            const o = e.toString().split(" ");
-            if (o.length === 0) {
-                e = t;
-            } else {
-                n = o;
+            const t = e.toString().split(" ");
+            if (t.length !== 0) {
+                n = t;
             }
         } else {
             n = l(e, t);
@@ -599,7 +597,8 @@ var c;
                 if (f && !t.tooltip.overrideTitle) {
                     l.push(" ");
                 }
-                l.push(`<b class="tooltip-difference">${d}</b>`);
+                const e = !d.startsWith("-") ? "positive" : "negative";
+                l.push(`<b class="tooltip-difference ${e}">${d}</b>`);
             }
             i(n, t, l.join(""));
         }
@@ -1800,7 +1799,7 @@ var p;
         n.onload = e => {
             const t = e.target.result.toString().split("\n");
             const n = t.length;
-            for (let e = 2; e < n; e++) {
+            for (let e = 4; e < n; e++) {
                 const n = t[e].trim();
                 const i = n.substring(1, n.length - 1).trim();
                 const r = i.split("|");
@@ -1869,7 +1868,7 @@ var y;
         }
         e.getMimeType = t;
         function n(e, t, n, i) {
-            let a = null;
+            let a;
             if (o.definedString(n)) {
                 a = `${n}.${i.toLowerCase()}`;
             } else {
@@ -1901,7 +1900,7 @@ var y;
             } else if (e === "html") {
                 g = s(t, a, w);
             } else if (e === "md") {
-                g = l(t);
+                g = l(t, a, w);
             } else if (e === "tsv") {
                 g = c(t);
             } else if (e === "yaml") {
@@ -1961,10 +1960,12 @@ var y;
             const o = [];
             const i = a.getCustomFormattedDateText(n, t, n.exportDateTimeFormat, new Date);
             o.push("<!DOCTYPE html>");
-            o.push("<html>");
+            o.push('<html lang="en">');
             o.push("<head>");
-            o.push(`${"  "}<meta charset="utf-8" />`);
-            o.push(`${"  "}<meta http-equiv="Last-Modified" content="${i} GMT" />`);
+            o.push(`${"  "}<title>${i}</title>`);
+            o.push(`${"  "}<meta name="viewport" content="width=device-width, initial-scale=1">`);
+            o.push(`${"  "}<meta charset="utf-8">`);
+            o.push(`${"  "}<meta http-equiv="Last-Modified" content="${i} GMT">`);
             o.push("</head>");
             o.push("<body>");
             o.push(`${"  "}<ul>`);
@@ -1978,16 +1979,19 @@ var y;
             o.push("</html>");
             return o.join("\n");
         }
-        function l(e) {
-            const t = [];
-            t.push("| Full Date | Count |");
-            t.push("| --- | --- |");
-            for (const n in e) {
-                if (Object.prototype.hasOwnProperty.call(e, n)) {
-                    t.push(`| ${n} | ${e[n].toString()} |`);
+        function l(e, t, n) {
+            const o = [];
+            const i = a.getCustomFormattedDateText(n, t, n.exportDateTimeFormat, new Date);
+            o.push(`# Last Modified: ${i}`);
+            o.push("");
+            o.push("| Full Date | Count |");
+            o.push("| --- | --- |");
+            for (const t in e) {
+                if (Object.prototype.hasOwnProperty.call(e, t)) {
+                    o.push(`| ${t} | ${e[t].toString()} |`);
                 }
             }
-            return t.join("\n");
+            return o.join("\n");
         }
         function c(e) {
             const t = [];
@@ -2903,8 +2907,8 @@ var C;
             s.createWithHTML(t, "span", "dialog-title-bar-text", u.text.confirmText);
             e._currentView.confirmationDialogMessage = s.create(n, "div", "message");
             const o = s.create(n, "div", "buttons");
-            const i = s.createButton(o, "button", "", u.text.noButtonText);
-            e._currentView.confirmationDialogYesButton = s.createButton(o, "button", "default", u.text.yesButtonText);
+            const i = s.createButton(o, "button", "no", u.text.noButtonText);
+            e._currentView.confirmationDialogYesButton = s.createButton(o, "button", "default yes", u.text.yesButtonText);
             i.onclick = () => ie(e);
         }
     }
@@ -3065,7 +3069,7 @@ var C;
         }
         if (e.views.months.enabled) {
             if (e.title.showTitleDropDownHeaders && !o.defined(r)) {
-                r = s.createWithHTML(i, "div", "title-menu-header", `${u.text.yearText}${":"}`);
+                s.createWithHTML(i, "div", "title-menu-header", `${u.text.yearText}${":"}`);
             }
             const t = le(e, i, u.text.monthsText);
             ce(e, t, 5);
@@ -5067,7 +5071,7 @@ var C;
             }
             return e;
         },
-        getVersion: () => "5.0.0"
+        getVersion: () => "5.0.1"
     };
     (() => {
         u = f.Options.get();

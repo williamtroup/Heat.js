@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v5.0.0
+ * Heat.js Library v5.0.1
  *
  * Copyright 2026 Bunoon
  * Released under the MIT License
@@ -54,6 +54,14 @@
     --heat-js-color-black-dark: #11161e;
     --heat-js-color-default-dynamic: #4169e1;
 
+    // Colors - Buttons
+    --heat-js-button-color-yes: #2D4A3B;
+    --heat-js-button-color-yes-border: #2D5D3B;
+    --heat-js-button-color-yes-active: #2D6D3B;
+    --heat-js-button-color-no: #44333B;
+    --heat-js-button-color-no-border: #5B333B;
+    --heat-js-button-color-no-active: #6D333B;
+
     // Containers
     --heat-js-container-background-color: #22272e;
     --heat-js-container-border-color: #454c56;
@@ -91,6 +99,8 @@
     --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
     --heat-js-tooltip-text-color: var(--heat-js-color-white);
     --heat-js-tooltip-count-background-color: var(--heat-js-day-background-color);
+    --heat-js-tooltip-color-positive: #90ee90;
+    --heat-js-tooltip-color-negative: #ce2029;
 
     // Holidays
     --heat-js-holiday-background-color: rgba( 210, 43, 43, 0.75 );
@@ -2208,6 +2218,14 @@ div.heat-js-tooltip {
 
     b.tooltip-difference {
         font-style: italic;
+
+        &.positive {
+            color: var(--heat-js-tooltip-color-positive);
+        }
+
+        &.negative {
+            color: var(--heat-js-tooltip-color-negative);
+        }
     }
 }
 

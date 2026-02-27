@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v5.0.0
+ * Heat.js Library v5.0.1
  *
  * Copyright 2026 Bunoon
  * Released under the MIT License
@@ -29,6 +29,12 @@
   --heat-js-color-highlight: 245, 245, 245;
   --heat-js-color-black-dark: #11161e;
   --heat-js-color-default-dynamic: #4169e1;
+  --heat-js-button-color-yes: #2D4A3B;
+  --heat-js-button-color-yes-border: #2D5D3B;
+  --heat-js-button-color-yes-active: #2D6D3B;
+  --heat-js-button-color-no: #44333B;
+  --heat-js-button-color-no-border: #5B333B;
+  --heat-js-button-color-no-active: #6D333B;
   --heat-js-container-background-color: #22272e;
   --heat-js-container-border-color: #454c56;
   --heat-js-side-menu-text-color: var(--heat-js-color-snow-white);
@@ -55,6 +61,8 @@
   --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
   --heat-js-tooltip-text-color: var(--heat-js-color-white);
   --heat-js-tooltip-count-background-color: var(--heat-js-day-background-color);
+  --heat-js-tooltip-color-positive: #90ee90;
+  --heat-js-tooltip-color-negative: #ce2029;
   --heat-js-holiday-background-color: rgba( 210, 43, 43, 0.75 );
   --heat-js-holiday-border-color: rgba( 210, 43, 43, 0.5 );
   --heat-js-holiday-text-color: var(--heat-js-color-white);
@@ -452,15 +460,6 @@ div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button {
   outline: none;
   transition: var(--heat-js-transition);
 }
-div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button.default {
-  font-weight: 700;
-}
-div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 9px;
-  padding-right: 9px;
-}
 div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button:disabled {
   color: var(--heat-js-button-color-disabled);
 }
@@ -472,6 +471,35 @@ div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button:not(.
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
   color: var(--heat-js-button-text-color-hover);
+}
+div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button.yes {
+  background-color: var(--heat-js-button-color-yes);
+  border-color: var(--heat-js-button-color-yes-border);
+}
+div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button.yes:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-color-yes-active) !important;
+}
+div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button.yes:not(.active):not(:disabled):hover {
+  background-color: var(--heat-js-button-color-yes-border);
+}
+div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button.no {
+  background-color: var(--heat-js-button-color-no);
+  border-color: var(--heat-js-button-color-no-border);
+}
+div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button.no:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-color-no-active) !important;
+}
+div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button.no:not(.active):not(:disabled):hover {
+  background-color: var(--heat-js-button-color-no-border);
+}
+div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button.default {
+  font-weight: 700;
+}
+div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 9px;
+  padding-right: 9px;
 }
 div.heat-js div.disabled div.dialog div.dialog-contents div.buttons button.active {
   cursor: default;
@@ -671,9 +699,6 @@ div.heat-js div.title-bar button {
   outline: none;
   transition: var(--heat-js-transition);
 }
-div.heat-js div.title-bar button.default {
-  font-weight: 700;
-}
 div.heat-js div.title-bar button:disabled {
   color: var(--heat-js-button-color-disabled);
 }
@@ -685,6 +710,29 @@ div.heat-js div.title-bar button:not(.active):not(:disabled):hover {
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
   color: var(--heat-js-button-text-color-hover);
+}
+div.heat-js div.title-bar button.yes {
+  background-color: var(--heat-js-button-color-yes);
+  border-color: var(--heat-js-button-color-yes-border);
+}
+div.heat-js div.title-bar button.yes:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-color-yes-active) !important;
+}
+div.heat-js div.title-bar button.yes:not(.active):not(:disabled):hover {
+  background-color: var(--heat-js-button-color-yes-border);
+}
+div.heat-js div.title-bar button.no {
+  background-color: var(--heat-js-button-color-no);
+  border-color: var(--heat-js-button-color-no-border);
+}
+div.heat-js div.title-bar button.no:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-color-no-active) !important;
+}
+div.heat-js div.title-bar button.no:not(.active):not(:disabled):hover {
+  background-color: var(--heat-js-button-color-no-border);
+}
+div.heat-js div.title-bar button.default {
+  font-weight: 700;
 }
 div.heat-js div.title-bar button.active {
   cursor: default;
@@ -1280,9 +1328,6 @@ div.heat-js div.map-contents-container div.zooming button {
   outline: none;
   transition: var(--heat-js-transition);
 }
-div.heat-js div.map-contents-container div.zooming button.default {
-  font-weight: 700;
-}
 div.heat-js div.map-contents-container div.zooming button:disabled {
   color: var(--heat-js-button-color-disabled);
 }
@@ -1294,6 +1339,29 @@ div.heat-js div.map-contents-container div.zooming button:not(.active):not(:disa
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
   color: var(--heat-js-button-text-color-hover);
+}
+div.heat-js div.map-contents-container div.zooming button.yes {
+  background-color: var(--heat-js-button-color-yes);
+  border-color: var(--heat-js-button-color-yes-border);
+}
+div.heat-js div.map-contents-container div.zooming button.yes:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-color-yes-active) !important;
+}
+div.heat-js div.map-contents-container div.zooming button.yes:not(.active):not(:disabled):hover {
+  background-color: var(--heat-js-button-color-yes-border);
+}
+div.heat-js div.map-contents-container div.zooming button.no {
+  background-color: var(--heat-js-button-color-no);
+  border-color: var(--heat-js-button-color-no-border);
+}
+div.heat-js div.map-contents-container div.zooming button.no:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-color-no-active) !important;
+}
+div.heat-js div.map-contents-container div.zooming button.no:not(.active):not(:disabled):hover {
+  background-color: var(--heat-js-button-color-no-border);
+}
+div.heat-js div.map-contents-container div.zooming button.default {
+  font-weight: 700;
 }
 div.heat-js div.map-contents-container div.zooming button.active {
   cursor: default;
@@ -1605,9 +1673,6 @@ div.heat-js div.line-contents-container div.zooming button {
   outline: none;
   transition: var(--heat-js-transition);
 }
-div.heat-js div.line-contents-container div.zooming button.default {
-  font-weight: 700;
-}
 div.heat-js div.line-contents-container div.zooming button:disabled {
   color: var(--heat-js-button-color-disabled);
 }
@@ -1619,6 +1684,29 @@ div.heat-js div.line-contents-container div.zooming button:not(.active):not(:dis
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
   color: var(--heat-js-button-text-color-hover);
+}
+div.heat-js div.line-contents-container div.zooming button.yes {
+  background-color: var(--heat-js-button-color-yes);
+  border-color: var(--heat-js-button-color-yes-border);
+}
+div.heat-js div.line-contents-container div.zooming button.yes:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-color-yes-active) !important;
+}
+div.heat-js div.line-contents-container div.zooming button.yes:not(.active):not(:disabled):hover {
+  background-color: var(--heat-js-button-color-yes-border);
+}
+div.heat-js div.line-contents-container div.zooming button.no {
+  background-color: var(--heat-js-button-color-no);
+  border-color: var(--heat-js-button-color-no-border);
+}
+div.heat-js div.line-contents-container div.zooming button.no:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-color-no-active) !important;
+}
+div.heat-js div.line-contents-container div.zooming button.no:not(.active):not(:disabled):hover {
+  background-color: var(--heat-js-button-color-no-border);
+}
+div.heat-js div.line-contents-container div.zooming button.default {
+  font-weight: 700;
 }
 div.heat-js div.line-contents-container div.zooming button.active {
   cursor: default;
@@ -2532,15 +2620,6 @@ div.heat-js div.guide div.map-types button {
   outline: none;
   transition: var(--heat-js-transition);
 }
-div.heat-js div.guide div.map-types button.default {
-  font-weight: 700;
-}
-div.heat-js div.guide div.map-types button {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 9px;
-  padding-right: 9px;
-}
 div.heat-js div.guide div.map-types button:disabled {
   color: var(--heat-js-button-color-disabled);
 }
@@ -2552,6 +2631,35 @@ div.heat-js div.guide div.map-types button:not(.active):not(:disabled):hover {
   cursor: pointer;
   background: var(--heat-js-button-background-color-hover);
   color: var(--heat-js-button-text-color-hover);
+}
+div.heat-js div.guide div.map-types button.yes {
+  background-color: var(--heat-js-button-color-yes);
+  border-color: var(--heat-js-button-color-yes-border);
+}
+div.heat-js div.guide div.map-types button.yes:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-color-yes-active) !important;
+}
+div.heat-js div.guide div.map-types button.yes:not(.active):not(:disabled):hover {
+  background-color: var(--heat-js-button-color-yes-border);
+}
+div.heat-js div.guide div.map-types button.no {
+  background-color: var(--heat-js-button-color-no);
+  border-color: var(--heat-js-button-color-no-border);
+}
+div.heat-js div.guide div.map-types button.no:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-color-no-active) !important;
+}
+div.heat-js div.guide div.map-types button.no:not(.active):not(:disabled):hover {
+  background-color: var(--heat-js-button-color-no-border);
+}
+div.heat-js div.guide div.map-types button.default {
+  font-weight: 700;
+}
+div.heat-js div.guide div.map-types button {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 9px;
+  padding-right: 9px;
 }
 div.heat-js div.guide div.map-types button.active {
   cursor: default;
@@ -2918,6 +3026,12 @@ div.heat-js-tooltip b.tooltip-difference + b {
 }
 div.heat-js-tooltip b.tooltip-difference {
   font-style: italic;
+}
+div.heat-js-tooltip b.tooltip-difference.positive {
+  color: var(--heat-js-tooltip-color-positive);
+}
+div.heat-js-tooltip b.tooltip-difference.negative {
+  color: var(--heat-js-tooltip-color-negative);
 }
 
 /*

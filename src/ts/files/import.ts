@@ -4,7 +4,7 @@
  * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        import.ts
- * @version     v5.0.0
+ * @version     v5.0.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2026
@@ -128,7 +128,7 @@ export namespace Import {
             const lines: string[] = ev.target!.result!.toString().split( Char.newLine );
             const linesLength: number = lines.length;
 
-            for ( let lineIndex: number = 2; lineIndex < linesLength; lineIndex++ ) {
+            for ( let lineIndex: number = 4; lineIndex < linesLength; lineIndex++ ) {
                 const line: string = lines[ lineIndex ].trim();
                 const lineContents: string = line.substring( 1, line.length - 1 ).trim();
                 const lineParts: string[] = lineContents.split( Char.pipe );

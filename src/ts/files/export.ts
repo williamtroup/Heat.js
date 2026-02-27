@@ -4,7 +4,7 @@
  * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        export.ts
- * @version     v5.0.0
+ * @version     v5.0.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2026
@@ -51,7 +51,7 @@ export namespace Export {
         }
 
         export function getFilename( configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions, exportFilename: string, contentExportType: string ) : string {
-            let filename: string = null!;
+            let filename: string;
 
             if ( Is.definedString( exportFilename ) ) {
                 filename = `${exportFilename}.${contentExportType.toLowerCase()}`;
@@ -88,7 +88,7 @@ export namespace Export {
             } else if ( contentExportType === ExportType.html ) {
                 contents = html( typeDateCounts, configurationOptions, bindingOptions );
             } else if ( contentExportType === ExportType.md ) {
-                contents = md( typeDateCounts );
+                contents = md( typeDateCounts, configurationOptions, bindingOptions );
             } else if ( contentExportType === ExportType.tsv ) {
                 contents = tsv( typeDateCounts );
             } else if ( contentExportType === ExportType.yaml ) {
@@ -164,10 +164,12 @@ export namespace Export {
             const exportedDateTime: string = DateTime.getCustomFormattedDateText( bindingOptions, configurationOptions, bindingOptions.exportDateTimeFormat!, new Date() );
 
             contents.push( "<!DOCTYPE html>" );
-            contents.push( "<html>" );
+            contents.push( "<html lang=\"en\">" );
             contents.push( "<head>" );
-            contents.push( `${Char.doubleSpace}<meta charset="utf-8" />` );
-            contents.push( `${Char.doubleSpace}<meta http-equiv="Last-Modified" content="${exportedDateTime} GMT" />` );
+            contents.push( `${Char.doubleSpace}<title>${exportedDateTime}</title>` );
+            contents.push( `${Char.doubleSpace}<meta name="viewport" content="width=device-width, initial-scale=1">` )
+            contents.push( `${Char.doubleSpace}<meta charset="utf-8">` );
+            contents.push( `${Char.doubleSpace}<meta http-equiv="Last-Modified" content="${exportedDateTime} GMT">` );
             contents.push( "</head>" );
             contents.push( "<body>" );
             contents.push( `${Char.doubleSpace}<ul>` );
@@ -185,9 +187,12 @@ export namespace Export {
             return contents.join( Char.newLine );
         }
 
-        function md( typeDateCounts: InstanceTypeDateCount ) : string {
+        function md( typeDateCounts: InstanceTypeDateCount, configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions ) : string {
             const contents: string[] = [];
+            const exportedDateTime: string = DateTime.getCustomFormattedDateText( bindingOptions, configurationOptions, bindingOptions.exportDateTimeFormat!, new Date() );
 
+            contents.push( `# Last Modified: ${exportedDateTime}` );
+            contents.push( Char.empty );
             contents.push( "| Full Date | Count |" );
             contents.push( "| --- | --- |" );
 

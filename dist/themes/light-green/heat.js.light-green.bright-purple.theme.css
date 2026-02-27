@@ -1,4 +1,4 @@
-/*! Heat.js v5.0.0 | (c) Bunoon 2026 | MIT License */
+/*! Heat.js v5.0.1 | (c) Bunoon 2026 | MIT License */
 :root {
     /* Colors */
     --heat-js-color-black: #F5F5F5;
@@ -7,6 +7,14 @@
     --heat-js-color-gray: #AAAAAA;
     --heat-js-color-highlight: 59, 58, 58;
     --heat-js-color-black-dark: #FFFFFF;
+
+    /* Colors - Buttons */
+    --heat-js-button-color-yes: #2D6D3B;
+    --heat-js-button-color-yes-border: #2D803B;
+    --heat-js-button-color-yes-active: #2D913B;
+    --heat-js-button-color-no: #6B333B;
+    --heat-js-button-color-no-border: #7E333B;
+    --heat-js-button-color-no-active: #97333B;
 
     /* Containers */
     --heat-js-container-background-color: #EBE5E5;
@@ -35,7 +43,9 @@
     --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
     --heat-js-tooltip-text-color: var(--heat-js-color-white);
     --heat-js-tooltip-count-background-color: #cbc7c7;
-
+    --heat-js-tooltip-color-positive: #489648;
+    --heat-js-tooltip-color-negative: #ce2029;
+    
     /* Holidays */
     --heat-js-holiday-background-color: rgba( 31, 81, 255, 0.75 );
     --heat-js-holiday-border-color: rgba( 31, 81, 255, 0.5 );

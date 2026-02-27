@@ -4,7 +4,7 @@
  * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        heat.ts
- * @version     v5.0.0
+ * @version     v5.0.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2026
@@ -907,8 +907,8 @@ import { Observation } from "./ts/area/observation";
             bindingOptions._currentView!.confirmationDialogMessage = DomElement.create( contents, "div", "message" );
 
             const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-            const noButton: HTMLButtonElement = DomElement.createButton( buttons, "button", Char.empty, _configurationOptions.text!.noButtonText! );
-            bindingOptions._currentView!.confirmationDialogYesButton = DomElement.createButton( buttons, "button", "default", _configurationOptions.text!.yesButtonText! );
+            const noButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "no", _configurationOptions.text!.noButtonText! );
+            bindingOptions._currentView!.confirmationDialogYesButton = DomElement.createButton( buttons, "button", "default yes", _configurationOptions.text!.yesButtonText! );
 
             noButton.onclick = () : void => hideConfirmationDialog( bindingOptions );
         }
@@ -1130,7 +1130,7 @@ import { Observation } from "./ts/area/observation";
 
         if ( bindingOptions.views!.months!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders && !Is.defined( yearsHeader ) ) {
-                yearsHeader = DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configurationOptions.text!.yearText}${Char.colon}` );
+                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configurationOptions.text!.yearText}${Char.colon}` );
             }
 
             const menuItemMonths: HTMLElement = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.monthsText! );
@@ -3891,7 +3891,7 @@ import { Observation } from "./ts/area/observation";
         },
 
         getVersion: () : string => {
-            return "5.0.0";
+            return "5.0.1";
         }
     };
 

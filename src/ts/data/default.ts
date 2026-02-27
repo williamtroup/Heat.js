@@ -4,7 +4,7 @@
  * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        default.ts
- * @version     v5.0.0
+ * @version     v5.0.1
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2026
@@ -55,9 +55,7 @@ export namespace Default {
         if ( Is.definedString( value ) ) {
             const values: string[] = value.toString().split( Char.space );
 
-            if ( values.length === 0 ) {
-                value = defaultValue;
-            } else {
+            if ( values.length !== 0 ) {
                 result = values;
             }
 
