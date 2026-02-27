@@ -51,7 +51,7 @@ export namespace Export {
         }
 
         export function getFilename( configurationOptions: ConfigurationOptions, bindingOptions: BindingOptions, exportFilename: string, contentExportType: string ) : string {
-            let filename: string = null!;
+            let filename: string;
 
             if ( Is.definedString( exportFilename ) ) {
                 filename = `${exportFilename}.${contentExportType.toLowerCase()}`;

@@ -212,11 +212,9 @@ var i;
     function d(e, t) {
         let n = t;
         if (o.definedString(e)) {
-            const o = e.toString().split(" ");
-            if (o.length === 0) {
-                e = t;
-            } else {
-                n = o;
+            const t = e.toString().split(" ");
+            if (t.length !== 0) {
+                n = t;
             }
         } else {
             n = l(e, t);
@@ -1869,7 +1867,7 @@ var y;
         }
         e.getMimeType = t;
         function n(e, t, n, i) {
-            let a = null;
+            let a;
             if (o.definedString(n)) {
                 a = `${n}.${i.toLowerCase()}`;
             } else {
@@ -3065,7 +3063,7 @@ var C;
         }
         if (e.views.months.enabled) {
             if (e.title.showTitleDropDownHeaders && !o.defined(r)) {
-                r = s.createWithHTML(i, "div", "title-menu-header", `${u.text.yearText}${":"}`);
+                s.createWithHTML(i, "div", "title-menu-header", `${u.text.yearText}${":"}`);
             }
             const t = le(e, i, u.text.monthsText);
             ce(e, t, 5);

@@ -55,9 +55,7 @@ export namespace Default {
         if ( Is.definedString( value ) ) {
             const values: string[] = value.toString().split( Char.space );
 
-            if ( values.length === 0 ) {
-                value = defaultValue;
-            } else {
+            if ( values.length !== 0 ) {
                 result = values;
             }
 

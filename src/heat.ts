@@ -1130,7 +1130,7 @@ import { Observation } from "./ts/area/observation";
 
         if ( bindingOptions.views!.months!.enabled ) {
             if ( bindingOptions.title!.showTitleDropDownHeaders && !Is.defined( yearsHeader ) ) {
-                yearsHeader = DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configurationOptions.text!.yearText}${Char.colon}` );
+                DomElement.createWithHTML( titlesMenu, "div", "title-menu-header", `${_configurationOptions.text!.yearText}${Char.colon}` );
             }
 
             const menuItemMonths: HTMLElement = renderTitleDropDownMenuItem( bindingOptions, titlesMenu, _configurationOptions.text!.monthsText! );
