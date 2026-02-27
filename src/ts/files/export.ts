@@ -164,10 +164,12 @@ export namespace Export {
             const exportedDateTime: string = DateTime.getCustomFormattedDateText( bindingOptions, configurationOptions, bindingOptions.exportDateTimeFormat!, new Date() );
 
             contents.push( "<!DOCTYPE html>" );
-            contents.push( "<html>" );
+            contents.push( "<html lang=\"en\">" );
             contents.push( "<head>" );
-            contents.push( `${Char.doubleSpace}<meta charset="utf-8" />` );
-            contents.push( `${Char.doubleSpace}<meta http-equiv="Last-Modified" content="${exportedDateTime} GMT" />` );
+            contents.push( `${Char.doubleSpace}<title>${exportedDateTime}</title>` );
+            contents.push( `${Char.doubleSpace}<meta name="viewport" content="width=device-width, initial-scale=1">` )
+            contents.push( `${Char.doubleSpace}<meta charset="utf-8">` );
+            contents.push( `${Char.doubleSpace}<meta http-equiv="Last-Modified" content="${exportedDateTime} GMT">` );
             contents.push( "</head>" );
             contents.push( "<body>" );
             contents.push( `${Char.doubleSpace}<ul>` );
