@@ -43,7 +43,9 @@
     --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
     --heat-js-tooltip-text-color: var(--heat-js-color-white);
     --heat-js-tooltip-count-background-color: #cbc7c7;
-
+    --heat-js-tooltip-color-positive: #489648;
+    --heat-js-tooltip-color-negative: #ce2029;
+    
     /* Holidays */
     --heat-js-holiday-background-color: rgba( 31, 81, 255, 0.75 );
     --heat-js-holiday-border-color: rgba( 31, 81, 255, 0.5 );

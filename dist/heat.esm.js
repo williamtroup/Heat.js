@@ -597,7 +597,8 @@ var c;
                 if (f && !t.tooltip.overrideTitle) {
                     l.push(" ");
                 }
-                l.push(`<b class="tooltip-difference">${d}</b>`);
+                const e = !d.startsWith("-") ? "positive" : "negative";
+                l.push(`<b class="tooltip-difference ${e}">${d}</b>`);
             }
             i(n, t, l.join(""));
         }

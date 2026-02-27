@@ -99,6 +99,8 @@
     --heat-js-tooltip-border-color: var(--heat-js-container-border-color);
     --heat-js-tooltip-text-color: var(--heat-js-color-white);
     --heat-js-tooltip-count-background-color: var(--heat-js-day-background-color);
+    --heat-js-tooltip-color-positive: #90ee90;
+    --heat-js-tooltip-color-negative: #ce2029;
 
     // Holidays
     --heat-js-holiday-background-color: rgba( 210, 43, 43, 0.75 );
@@ -2216,6 +2218,14 @@ div.heat-js-tooltip {
 
     b.tooltip-difference {
         font-style: italic;
+
+        &.positive {
+            color: var(--heat-js-tooltip-color-positive);
+        }
+
+        &.negative {
+            color: var(--heat-js-tooltip-color-negative);
+        }
     }
 }
 

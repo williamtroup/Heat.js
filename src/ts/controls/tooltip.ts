@@ -88,7 +88,9 @@ export namespace ToolTip {
                     tooltip.push(Char.space);
                 }
 
-                tooltip.push(`<b class="tooltip-difference">${percentageDifferenceText}</b>`);
+                const differentClass = !percentageDifferenceText.startsWith( Char.dash ) ? "positive" : "negative";
+
+                tooltip.push(`<b class="tooltip-difference ${differentClass}">${percentageDifferenceText}</b>`);
             }
 
             add( day, bindingOptions, tooltip.join( Char.empty ) );
