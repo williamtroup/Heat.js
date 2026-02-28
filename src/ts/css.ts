@@ -19,5 +19,6 @@ export namespace Css {
         export const CheckBoxCheckedColor: string = "--heat-js-checkbox-background-color-checked";
         export const YearMenuCurrent: string = "--heat-js-years-current-color";
         export const DefaultDynamicColor: string = "--heat-js-color-default-dynamic";
+        export const ChartViewLineDefaultWidth: string = "--heat-js-day-chart-width";
     }
 }

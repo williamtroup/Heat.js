@@ -48,6 +48,7 @@ import { Build } from "./ts/data/build";
 import { DocumentElement } from "./ts/dom/document-element";
 import { Zooming } from "./ts/controls/zooming";
 import { Observation } from "./ts/area/observation";
+import { Css } from "./ts/css";
 
 
 ( () : void => {
@@ -2039,26 +2040,39 @@ import { Observation } from "./ts/area/observation";
             const holiday: IsHoliday = Is.holiday( bindingOptions, date );
             const percentageText: string = getPercentageDifferenceWithLastYearsCount( bindingOptions, date, dateCount );
 
+            if ( bindingOptions.views!.chart!.usePoints ) {
+                DomElement.addClass( dayLine, "day-point" );
+
+                const minHeight: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.ChartViewLineDefaultWidth, true ) as number;
+                const marginBottom: number = dayLineHeight - minHeight;
+
+                if ( marginBottom >= 0 ) {
+                    dayLine.style.marginBottom = `${marginBottom}px`;
+                }
+            }
+
             if ( bindingOptions.views!.chart!.showToolTips ) {
                 ToolTip.addForDay( _configurationOptions, bindingOptions, dayLine, date, dateCount, percentageText, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender!, holiday.matched, bindingOptions.views!.chart!.showCountsInToolTips!, bindingOptions.views!.chart!.showDifferencesInToolTips! );
             }
 
-            if ( bindingOptions.views!.chart!.showLineCounts || bindingOptions.views!.chart!.showLineDateNumbers ) {
-                DomElement.addClass( dayLine, "day-line-count" );
-            }
+            if ( !bindingOptions.views!.chart!.usePoints ) {
+                if ( bindingOptions.views!.chart!.showLineCounts || bindingOptions.views!.chart!.showLineDateNumbers ) {
+                    DomElement.addClass( dayLine, "day-line-count" );
+                }
 
-            if ( bindingOptions.views!.chart!.showLineDateNumbers ) {
-                const countDate: HTMLElement = DomElement.createWithHTML( dayLine, "div", "count-date", day.toString() );
+                if ( bindingOptions.views!.chart!.showLineDateNumbers ) {
+                    const countDate: HTMLElement = DomElement.createWithHTML( dayLine, "div", "count-date", day.toString() );
 
-                DomElement.createWithHTML( countDate, "sup", Char.empty, DateTime.getDayOrdinal( _configurationOptions, day ) );
-            }
+                    DomElement.createWithHTML( countDate, "sup", Char.empty, DateTime.getDayOrdinal( _configurationOptions, day ) );
+                }
 
-            if ( bindingOptions.views!.chart!.showLineCounts && dateCount > 0 ) {
-                DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dateCount ) );
-            }
+                if ( bindingOptions.views!.chart!.showLineCounts && dateCount > 0 ) {
+                    DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dateCount ) );
+                }
 
-            if ( bindingOptions.views!.chart!.showDifferences && Is.definedString( percentageText ) ) {
-                DomElement.createWithHTML( dayLine, "div", "difference", percentageText );
+                if ( bindingOptions.views!.chart!.showDifferences && Is.definedString( percentageText ) ) {
+                    DomElement.createWithHTML( dayLine, "div", "difference", percentageText );
+                }
             }
 
             if ( Is.definedFunction( bindingOptions.events!.onChartDayClick ) ) {
@@ -2086,7 +2100,9 @@ import { Observation } from "./ts/area/observation";
             }
         }
 
-        Animate.setHeight( bindingOptions, dayLine, dayLineHeight, isForViewSwitch );
+        if ( !bindingOptions.views!.chart!.usePoints ) {
+            Animate.setHeight( bindingOptions, dayLine, dayLineHeight, isForViewSwitch );
+        }
 
         return dayLine;
     }

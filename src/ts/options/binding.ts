@@ -251,6 +251,7 @@ export namespace Binding {
             bindingOptions.views!.chart!.addMonthSpacing = Default.getBoolean( bindingOptions.views!.chart!.addMonthSpacing, false );
             bindingOptions.views!.chart!.showDifferences = Default.getBoolean( bindingOptions.views!.chart!.showDifferences, false );
             bindingOptions.views!.chart!.showDifferencesInToolTips = Default.getBoolean( bindingOptions.views!.chart!.showDifferencesInToolTips, true );
+            bindingOptions.views!.chart!.usePoints = Default.getBoolean( bindingOptions.views!.chart!.usePoints, false );
 
             setVisibleDateOptionsForView( bindingOptions.views!.chart! );
     

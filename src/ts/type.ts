@@ -327,6 +327,7 @@ export type BindingOptionsViewsChart = BindingOptionsView & {
     addMonthSpacing?: boolean;
     showDifferences?: boolean;
     showDifferencesInToolTips?: boolean;
+    usePoints?: boolean;
 };
 
 export type BindingOptionsViewsDays = BindingOptionsView & {

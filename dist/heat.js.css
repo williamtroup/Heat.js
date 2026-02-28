@@ -2046,14 +2046,20 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   border-top-right-radius: var(--heat-js-border-radius-day);
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
-  border-bottom: none !important;
   min-width: var(--heat-js-day-chart-width);
   margin-right: var(--heat-js-day-chart-spacing);
   display: inline-flex;
   transition: var(--heat-js-transition);
   align-items: center;
   justify-content: center;
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line:not(.day-point) {
+  border-bottom: none !important;
   height: 0;
+}
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line.day-point {
+  min-height: var(--heat-js-day-chart-width);
+  border-radius: var(--heat-js-border-radius-day);
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line:first-child {
   margin-left: var(--heat-js-spacing-half);
