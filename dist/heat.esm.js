@@ -5071,7 +5071,7 @@ var C;
             }
             return e;
         },
-        getVersion: () => "5.0.1"
+        getVersion: () => "5.1.0"
     };
     (() => {
         u = f.Options.get();

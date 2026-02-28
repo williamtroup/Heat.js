@@ -1,4 +1,4 @@
-## Version 5.0.1:
+## Version 5.1.0:
 
 #### **New Features:**
 - Added a new "Yearly Statistics" view (shown under the title bar), which shows some basic stats for the current year (off by default).
