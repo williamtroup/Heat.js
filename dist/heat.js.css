@@ -2270,6 +2270,7 @@ div.heat-js div.days-contents div.days div.day-lines div.day-line {
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line.stacked {
   border: none !important;
+  background-color: transparent !important;
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line.non-stacked {
   background-color: var(--heat-js-view-days-background-color);
@@ -2465,6 +2466,7 @@ div.heat-js div.months-contents div.months div.month-lines div.month-line {
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line.stacked {
   border: none !important;
+  background-color: transparent !important;
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line.non-stacked {
   background-color: var(--heat-js-view-months-background-color);
