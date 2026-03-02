@@ -1339,6 +1339,7 @@ div.heat-js {
         white-space: nowrap;
         position: relative;
         padding-bottom: var(--heat-js-spacing);
+        padding-top: var(--heat-js-spacing);
 
         @include styles.scroll-bars;
 
@@ -1359,7 +1360,7 @@ div.heat-js {
                 align-items: flex-end;
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-                height: 173px !important;
+                height: calc( 173px - var(--heat-js-spacing) ) !important;
                 overflow: hidden;
 
                 @include styles.chart-lines;
@@ -1480,6 +1481,7 @@ div.heat-js {
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
+        padding-top: var(--heat-js-spacing);
 
         div.no-days-message {
             @include styles.centered-label;
@@ -1499,7 +1501,7 @@ div.heat-js {
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
                 justify-content: space-between;
-                height: 187px !important;
+                height: calc( 187px - var(--heat-js-spacing) ) !important;
                 overflow: hidden;
 
                 @include styles.chart-lines;
@@ -1625,6 +1627,7 @@ div.heat-js {
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
+        padding-top: var(--heat-js-spacing);
 
         div.no-months-message {
             @include styles.centered-label;
@@ -1644,7 +1647,7 @@ div.heat-js {
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
                 justify-content: space-between;
-                height: 187px !important;
+                height: calc( 187px - var(--heat-js-spacing) ) !important;
                 overflow: hidden;
 
                 @include styles.chart-lines;
@@ -1774,6 +1777,7 @@ div.heat-js {
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
+        padding-top: var(--heat-js-spacing);
 
         div.no-color-ranges-message {
             @include styles.centered-label;
@@ -1793,7 +1797,7 @@ div.heat-js {
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
                 justify-content: space-between;
-                height: 187px !important;
+                height: calc( 187px - var(--heat-js-spacing) ) !important;
                 overflow: hidden;
 
                 @include styles.chart-lines;

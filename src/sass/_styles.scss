@@ -148,11 +148,12 @@ $minimum-width-smaller: 450px;
 
     div.label-100 {
         top: 0;
+        transform: translateY( -50% );
     }
 
     div.label-75 {
         top: 25%;
-        transform: translateY( -25% );
+        transform: translateY( -50% );
     }
 
     div.label-50 {
@@ -162,11 +163,12 @@ $minimum-width-smaller: 450px;
 
     div.label-25 {
         top: 75%;
-        transform: translateY( -75% );
+        transform: translateY( -50% );
     }
 
     div.label-0 {
         bottom: 0;
+        transform: translateY( 50% );
     }
 }
 
