@@ -1362,6 +1362,8 @@ div.heat-js {
                 height: 173px !important;
                 overflow: hidden;
 
+                @include styles.chart-lines;
+
                 div.today {
                     animation: highlight-effect 2s infinite;
                 }
@@ -1407,6 +1409,7 @@ div.heat-js {
                     transition: var(--heat-js-transition);
                     align-items: center;
                     justify-content: center;
+                    z-index: 1;
                     
                     &:not(.day-point) {
                         border-bottom: none !important;
@@ -1418,11 +1421,11 @@ div.heat-js {
                         border-radius: var(--heat-js-border-radius-day);
                     }
 
-                    &:first-child {
+                    &:first-of-type{
                         margin-left: var(--heat-js-spacing-half);
                     }
     
-                    &:last-child {
+                    &:last-of-type {
                         margin-right: var(--heat-js-spacing-half);
                     }
 
@@ -1499,6 +1502,8 @@ div.heat-js {
                 height: 187px !important;
                 overflow: hidden;
 
+                @include styles.chart-lines;
+
                 div.day-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
                     position: relative;
@@ -1538,6 +1543,7 @@ div.heat-js {
                     transition: var(--heat-js-transition);
                     height: 0;
                     overflow: hidden;
+                    z-index: 1;
 
                     &.stacked {
                         border: none !important;
@@ -1562,11 +1568,11 @@ div.heat-js {
                         }
                     }
 
-                    &:first-child {
+                    &:first-of-type {
                         margin-left: var(--heat-js-spacing-half);
                     }
     
-                    &:last-child {
+                    &:last-of-type {
                         margin-right: var(--heat-js-spacing-half);
                     }
 
@@ -1640,6 +1646,8 @@ div.heat-js {
                 height: 187px !important;
                 overflow: hidden;
 
+                @include styles.chart-lines;
+
                 div.today {
                     animation: highlight-effect 2s infinite;
                 }
@@ -1683,6 +1691,7 @@ div.heat-js {
                     transition: var(--heat-js-transition);
                     height: 0;
                     overflow: hidden;
+                    z-index: 1;
 
                     &.stacked {
                         border: none !important;
@@ -1707,11 +1716,11 @@ div.heat-js {
                         }
                     }
 
-                    &:first-child {
+                    &:first-of-type {
                         margin-left: var(--heat-js-spacing-half);
                     }
     
-                    &:last-child {
+                    &:last-of-type {
                         margin-right: var(--heat-js-spacing-half);
                     }
 
@@ -1785,6 +1794,8 @@ div.heat-js {
                 height: 187px !important;
                 overflow: hidden;
 
+                @include styles.chart-lines;
+
                 div.color-range-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
                     padding: var(--heat-js-spacing-half);
@@ -1816,12 +1827,13 @@ div.heat-js {
                     display: inline-block;
                     transition: var(--heat-js-transition);
                     height: 0;
+                    z-index: 1;
 
-                    &:first-child {
+                    &:first-of-type {
                         margin-left: var(--heat-js-spacing-half);
                     }
     
-                    &:last-child {
+                    &:last-of-type {
                         margin-right: var(--heat-js-spacing-half);
                     }
 

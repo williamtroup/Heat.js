@@ -328,6 +328,7 @@ export type BindingOptionsViewsChart = BindingOptionsView & {
     showDifferences?: boolean;
     showDifferencesInToolTips?: boolean;
     usePoints?: boolean;
+    showHorizontalChartLines?: boolean;
 };
 
 export type BindingOptionsViewsDays = BindingOptionsView & {
@@ -342,6 +343,7 @@ export type BindingOptionsViewsDays = BindingOptionsView & {
     showDayCountPercentages?: boolean;
     showStackedColorRanges?: boolean;
     dayToolTipText?: string;
+    showHorizontalChartLines?: boolean;
 };
 
 export type BindingOptionsViewsMonths = BindingOptionsView & {
@@ -357,6 +359,7 @@ export type BindingOptionsViewsMonths = BindingOptionsView & {
     showMonthCountPercentages?: boolean;
     showStackedColorRanges?: boolean;
     monthToolTipText?: string;
+    showHorizontalChartLines?: boolean;
 };
 
 export type BindingOptionsViewsColorRanges = BindingOptionsView & {
@@ -370,6 +373,7 @@ export type BindingOptionsViewsColorRanges = BindingOptionsView & {
     useGradients?: boolean;
     showRangeCountPercentages?: boolean;
     showRangeNamesInToolTips?: boolean;
+    showHorizontalChartLines?: boolean;
 };
 
 export type BindingOptionsDescription = {

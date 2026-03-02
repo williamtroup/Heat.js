@@ -170,6 +170,44 @@ $minimum-width-smaller: 450px;
     }
 }
 
+@mixin chart-lines {
+    &.chart-lines {
+        position: relative;
+
+        span.line-100,
+        span.line-75,
+        span.line-50,
+        span.line-25 {
+            position: absolute;
+            left: 0;
+            height: var(--heat-js-border-size);
+            width: 100%;
+            background-color: var(--heat-js-container-border-color);
+            z-index: 0;
+            display: block;
+        }
+
+        span.line-100 {
+            top: 0;
+        }
+
+        span.line-75 {
+            top: 25%;
+            transform: translateY( -25% );
+        }
+
+        span.line-50 {
+            top: 50%;
+            transform: translateY( -50% );
+        }
+
+        span.line-25 {
+            top: 75%;
+            transform: translateY( -75% );
+        }
+    }
+}
+
 @mixin centered-label {
     position: absolute;
     left: 50%;

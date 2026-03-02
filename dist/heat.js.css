@@ -2013,6 +2013,36 @@ div.heat-js div.chart-contents div.chart div.day-lines {
   height: 173px !important;
   overflow: hidden;
 }
+div.heat-js div.chart-contents div.chart div.day-lines.chart-lines {
+  position: relative;
+}
+div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-100,
+div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-75,
+div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-50,
+div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-25 {
+  position: absolute;
+  left: 0;
+  height: var(--heat-js-border-size);
+  width: 100%;
+  background-color: var(--heat-js-container-border-color);
+  z-index: 0;
+  display: block;
+}
+div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-100 {
+  top: 0;
+}
+div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-75 {
+  top: 25%;
+  transform: translateY(-25%);
+}
+div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-50 {
+  top: 50%;
+  transform: translateY(-50%);
+}
+div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-25 {
+  top: 75%;
+  transform: translateY(-75%);
+}
 div.heat-js div.chart-contents div.chart div.day-lines div.today {
   animation: highlight-effect 2s infinite;
 }
@@ -2052,6 +2082,7 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   transition: var(--heat-js-transition);
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line:not(.day-point) {
   border-bottom: none !important;
@@ -2061,10 +2092,10 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line.day-point {
   min-height: var(--heat-js-day-chart-width);
   border-radius: var(--heat-js-border-radius-day);
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line:first-child {
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line:first-of-type {
   margin-left: var(--heat-js-spacing-half);
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line:last-child {
+div.heat-js div.chart-contents div.chart div.day-lines div.day-line:last-of-type {
   margin-right: var(--heat-js-spacing-half);
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line:not(.no-hover):active {
@@ -2170,6 +2201,36 @@ div.heat-js div.days-contents div.days div.day-lines {
   height: 187px !important;
   overflow: hidden;
 }
+div.heat-js div.days-contents div.days div.day-lines.chart-lines {
+  position: relative;
+}
+div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-100,
+div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-75,
+div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-50,
+div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-25 {
+  position: absolute;
+  left: 0;
+  height: var(--heat-js-border-size);
+  width: 100%;
+  background-color: var(--heat-js-container-border-color);
+  z-index: 0;
+  display: block;
+}
+div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-100 {
+  top: 0;
+}
+div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-75 {
+  top: 25%;
+  transform: translateY(-25%);
+}
+div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-50 {
+  top: 50%;
+  transform: translateY(-50%);
+}
+div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-25 {
+  top: 75%;
+  transform: translateY(-75%);
+}
 div.heat-js div.days-contents div.days div.day-lines div.day-line-count {
   font-size: var(--heat-js-spacing-day-font-size);
   position: relative;
@@ -2205,6 +2266,7 @@ div.heat-js div.days-contents div.days div.day-lines div.day-line {
   transition: var(--heat-js-transition);
   height: 0;
   overflow: hidden;
+  z-index: 1;
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line.stacked {
   border: none !important;
@@ -2225,10 +2287,10 @@ div.heat-js div.days-contents div.days div.day-lines div.day-line div.stacked-co
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
 }
-div.heat-js div.days-contents div.days div.day-lines div.day-line:first-child {
+div.heat-js div.days-contents div.days div.day-lines div.day-line:first-of-type {
   margin-left: var(--heat-js-spacing-half);
 }
-div.heat-js div.days-contents div.days div.day-lines div.day-line:last-child {
+div.heat-js div.days-contents div.days div.day-lines div.day-line:last-of-type {
   margin-right: var(--heat-js-spacing-half);
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line:not(.no-hover):active {
@@ -2331,6 +2393,36 @@ div.heat-js div.months-contents div.months div.month-lines {
   height: 187px !important;
   overflow: hidden;
 }
+div.heat-js div.months-contents div.months div.month-lines.chart-lines {
+  position: relative;
+}
+div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-100,
+div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-75,
+div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-50,
+div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-25 {
+  position: absolute;
+  left: 0;
+  height: var(--heat-js-border-size);
+  width: 100%;
+  background-color: var(--heat-js-container-border-color);
+  z-index: 0;
+  display: block;
+}
+div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-100 {
+  top: 0;
+}
+div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-75 {
+  top: 25%;
+  transform: translateY(-25%);
+}
+div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-50 {
+  top: 50%;
+  transform: translateY(-50%);
+}
+div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-25 {
+  top: 75%;
+  transform: translateY(-75%);
+}
 div.heat-js div.months-contents div.months div.month-lines div.today {
   animation: highlight-effect 2s infinite;
 }
@@ -2369,6 +2461,7 @@ div.heat-js div.months-contents div.months div.month-lines div.month-line {
   transition: var(--heat-js-transition);
   height: 0;
   overflow: hidden;
+  z-index: 1;
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line.stacked {
   border: none !important;
@@ -2389,10 +2482,10 @@ div.heat-js div.months-contents div.months div.month-lines div.month-line div.st
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
 }
-div.heat-js div.months-contents div.months div.month-lines div.month-line:first-child {
+div.heat-js div.months-contents div.months div.month-lines div.month-line:first-of-type {
   margin-left: var(--heat-js-spacing-half);
 }
-div.heat-js div.months-contents div.months div.month-lines div.month-line:last-child {
+div.heat-js div.months-contents div.months div.month-lines div.month-line:last-of-type {
   margin-right: var(--heat-js-spacing-half);
 }
 div.heat-js div.months-contents div.months div.month-lines div.month-line:not(.no-hover):active {
@@ -2495,6 +2588,36 @@ div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines {
   height: 187px !important;
   overflow: hidden;
 }
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines {
+  position: relative;
+}
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-100,
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-75,
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-50,
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-25 {
+  position: absolute;
+  left: 0;
+  height: var(--heat-js-border-size);
+  width: 100%;
+  background-color: var(--heat-js-container-border-color);
+  z-index: 0;
+  display: block;
+}
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-100 {
+  top: 0;
+}
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-75 {
+  top: 25%;
+  transform: translateY(-25%);
+}
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-50 {
+  top: 50%;
+  transform: translateY(-50%);
+}
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-25 {
+  top: 75%;
+  transform: translateY(-75%);
+}
 div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line-count {
   font-size: var(--heat-js-spacing-day-font-size);
   padding: var(--heat-js-spacing-half);
@@ -2523,11 +2646,12 @@ div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div
   display: inline-block;
   transition: var(--heat-js-transition);
   height: 0;
+  z-index: 1;
 }
-div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line:first-child {
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line:first-of-type {
   margin-left: var(--heat-js-spacing-half);
 }
-div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line:last-child {
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line:last-of-type {
   margin-right: var(--heat-js-spacing-half);
 }
 div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line:not(.no-hover):active {

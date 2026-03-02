@@ -2010,6 +2010,14 @@ import { Css } from "./ts/css";
 
                 chartMonths.style.width = `${dayLines.offsetWidth}px`;
             }
+
+            if ( bindingOptions.views!.chart!.showHorizontalChartLines ) {
+                DomElement.addClass( dayLines, "chart-lines" );
+                DomElement.create( dayLines, "span", "line-100" );
+                DomElement.create( dayLines, "span", "line-75" );
+                DomElement.create( dayLines, "span", "line-50" );
+                DomElement.create( dayLines, "span", "line-25" );
+            }
     
             if ( bindingOptions.views!.chart!.keepScrollPositions || isForViewChange ) {
                 bindingOptions._currentView!.chartContents.scrollLeft = bindingOptions._currentView!.chartContentsScrollLeft;
@@ -2203,6 +2211,14 @@ import { Css } from "./ts/css";
             if ( bindingOptions.views!.days!.showInReverseOrder ) {
                 DomElement.reverseChildrenOrder( dayLines );
                 DomElement.reverseChildrenOrder( dayNames );
+            }
+
+            if ( bindingOptions.views!.days!.showHorizontalChartLines ) {
+                DomElement.addClass( dayLines, "chart-lines" );
+                DomElement.create( dayLines, "span", "line-100" );
+                DomElement.create( dayLines, "span", "line-75" );
+                DomElement.create( dayLines, "span", "line-50" );
+                DomElement.create( dayLines, "span", "line-25" );
             }
 
             if ( bindingOptions.views!.days!.keepScrollPositions ) {
@@ -2457,6 +2473,14 @@ import { Css } from "./ts/css";
                 DomElement.reverseChildrenOrder( monthNames );
             }
 
+            if ( bindingOptions.views!.months!.showHorizontalChartLines ) {
+                DomElement.addClass( monthLines, "chart-lines" );
+                DomElement.create( monthLines, "span", "line-100" );
+                DomElement.create( monthLines, "span", "line-75" );
+                DomElement.create( monthLines, "span", "line-50" );
+                DomElement.create( monthLines, "span", "line-25" );
+            }
+
             if ( bindingOptions.views!.months!.keepScrollPositions ) {
                 bindingOptions._currentView!.monthsContents.scrollLeft = bindingOptions._currentView!.monthsContentsScrollLeft;
             }
@@ -2690,6 +2714,14 @@ import { Css } from "./ts/css";
             if ( bindingOptions.views!.colorRanges!.showInReverseOrder ) {
                 DomElement.reverseChildrenOrder( colorRangeLines );
                 DomElement.reverseChildrenOrder( colorRangeNames );
+            }
+
+            if ( bindingOptions.views!.colorRanges!.showHorizontalChartLines ) {
+                DomElement.addClass( colorRangeLines, "chart-lines" );
+                DomElement.create( colorRangeLines, "span", "line-100" );
+                DomElement.create( colorRangeLines, "span", "line-75" );
+                DomElement.create( colorRangeLines, "span", "line-50" );
+                DomElement.create( colorRangeLines, "span", "line-25" );
             }
     
             if ( bindingOptions.views!.colorRanges!.keepScrollPositions ) {
