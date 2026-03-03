@@ -2327,7 +2327,7 @@ var x;
         function t(e, t, n) {
             let o = 0;
             if (t > 0) {
-                const i = t / n - 1;
+                const i = t / n;
                 const r = 100 / (n - 1);
                 let s;
                 for (let o = 0; o < n; o++) {
@@ -2342,7 +2342,7 @@ var x;
                         l.style.transform = "translateY( -50% )";
                         s = l;
                     } else {
-                        l.innerHTML = Math.floor(i * o).toString();
+                        l.innerHTML = Math.floor(i * (o + 1)).toString();
                         l.style.top = `${100 - r * o}%`;
                         l.style.transform = "translateY( -50% )";
                     }
