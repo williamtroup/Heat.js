@@ -1166,7 +1166,7 @@ var g;
             e.views.days.showStackedColorRanges = i.getBoolean(e.views.days.showStackedColorRanges, true);
             e.views.days.dayToolTipText = i.getString(e.views.days.dayToolTipText, "{dddd} {yyyy}");
             e.views.days.showHorizontalChartLines = i.getBoolean(e.views.days.showHorizontalChartLines, true);
-            e.views.days.totalYAxisLabels = i.getNumber(e.views.days.totalYAxisLabels, 5);
+            e.views.days.totalYAxisLabels = i.getNumber(e.views.days.totalYAxisLabels, 7);
             M(e.views.days);
             return e.views.days;
         }
@@ -1186,7 +1186,7 @@ var g;
             e.views.months.showStackedColorRanges = i.getBoolean(e.views.months.showStackedColorRanges, true);
             e.views.months.monthToolTipText = i.getString(e.views.months.monthToolTipText, "{mmmm} {yyyy}");
             e.views.months.showHorizontalChartLines = i.getBoolean(e.views.months.showHorizontalChartLines, true);
-            e.views.months.totalYAxisLabels = i.getNumber(e.views.months.totalYAxisLabels, 5);
+            e.views.months.totalYAxisLabels = i.getNumber(e.views.months.totalYAxisLabels, 7);
             M(e.views.months);
             return e.views.months;
         }
@@ -1204,7 +1204,7 @@ var g;
             e.views.colorRanges.showRangeCountPercentages = i.getBoolean(e.views.colorRanges.showRangeCountPercentages, true);
             e.views.colorRanges.showRangeNamesInToolTips = i.getBoolean(e.views.colorRanges.showRangeNamesInToolTips, true);
             e.views.colorRanges.showHorizontalChartLines = i.getBoolean(e.views.colorRanges.showHorizontalChartLines, true);
-            e.views.colorRanges.totalYAxisLabels = i.getNumber(e.views.colorRanges.totalYAxisLabels, 5);
+            e.views.colorRanges.totalYAxisLabels = i.getNumber(e.views.colorRanges.totalYAxisLabels, 7);
             M(e.views.colorRanges);
             return e.views.colorRanges;
         }
@@ -2329,7 +2329,7 @@ var x;
         function t(e, t, n) {
             let o = 0;
             if (t > 0) {
-                const i = t / n;
+                const i = t / (n - 1);
                 const r = 100 / (n - 1);
                 let s;
                 for (let o = 0; o < n; o++) {
@@ -2344,7 +2344,7 @@ var x;
                         l.style.transform = "translateY( -50% )";
                         s = l;
                     } else {
-                        l.innerHTML = Math.floor(i * (o + 1)).toString();
+                        l.innerHTML = Math.floor(i * o).toString();
                         l.style.top = `${100 - r * o}%`;
                         l.style.transform = "translateY( -50% )";
                     }
@@ -2361,14 +2361,10 @@ var x;
             if (t > 0) {
                 a.addClass(e, "chart-y-lines");
                 const n = 100 / (t - 1);
-                for (let o = 0; o < t; o++) {
+                for (let o = 1; o < t; o++) {
                     const i = a.create(e, "span", "chart-y-line");
-                    if (o === 0) {
-                        i.style.bottom = "0";
-                        i.style.transform = "translateY( 50% )";
-                    } else if (o === t - 1) {
+                    if (o === t - 1) {
                         i.style.top = "0";
-                        i.style.transform = "translateY( -50% )";
                     } else {
                         i.style.top = `${100 - n * o}%`;
                         i.style.transform = "translateY( -50% )";

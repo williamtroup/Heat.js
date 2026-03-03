@@ -21,7 +21,7 @@ export namespace Chart {
             let labelsWidth: number = 0;
 
             if ( largestValue > 0 ) {
-                const valueIncrease: number = largestValue / maximumLabels;
+                const valueIncrease: number = largestValue / ( maximumLabels - 1 );
                 const positionIncrease: number = 100 / ( maximumLabels - 1 );
                 let topLabel: HTMLElement;
 
@@ -40,7 +40,7 @@ export namespace Chart {
                         topLabel = newLabel;
 
                     } else {
-                        newLabel.innerHTML = Math.floor( valueIncrease * ( labelIndex + 1 ) ).toString();
+                        newLabel.innerHTML = Math.floor( valueIncrease * labelIndex ).toString();
                         newLabel.style.top = `${100 - ( positionIncrease * labelIndex )}%`;
                         newLabel.style.transform = "translateY( -50% )";
                     }
@@ -62,16 +62,11 @@ export namespace Chart {
 
                 const positionIncrease: number = 100 / ( maximumLabels - 1 );
 
-                for ( let labelIndex = 0; labelIndex < maximumLabels; labelIndex++ ) {
+                for ( let labelIndex = 1; labelIndex < maximumLabels; labelIndex++ ) {
                     const newLine: HTMLElement = DomElement.create( lines, "span", "chart-y-line" );
 
-                    if ( labelIndex === 0 ) {
-                        newLine.style.bottom = "0";
-                        newLine.style.transform = "translateY( 50% )";
-
-                    } else if ( labelIndex === maximumLabels - 1 ) {
+                    if ( labelIndex === maximumLabels - 1 ) {
                         newLine.style.top = "0";
-                        newLine.style.transform = "translateY( -50% )";
 
                     } else {
                         newLine.style.top = `${100 - ( positionIncrease * labelIndex )}%`;
