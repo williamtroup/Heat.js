@@ -1966,43 +1966,18 @@ div.heat-js div.chart-contents div.chart {
 }
 div.heat-js div.chart-contents div.chart div.y-labels {
   background-color: var(--heat-js-container-background-color);
-  padding-right: calc(var(--heat-js-spacing) * 3);
   padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
   position: sticky;
   left: 0;
   border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   z-index: 50;
 }
-div.heat-js div.chart-contents div.chart div.y-labels div.label-100,
-div.heat-js div.chart-contents div.chart div.y-labels div.label-75,
-div.heat-js div.chart-contents div.chart div.y-labels div.label-50,
-div.heat-js div.chart-contents div.chart div.y-labels div.label-25,
-div.heat-js div.chart-contents div.chart div.y-labels div.label-0 {
+div.heat-js div.chart-contents div.chart div.y-labels div.chart-y-label {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
   position: absolute;
   left: 0;
   padding-right: var(--heat-js-y-label-spacing);
-}
-div.heat-js div.chart-contents div.chart div.y-labels div.label-100 {
-  top: 0;
-  transform: translateY(-50%);
-}
-div.heat-js div.chart-contents div.chart div.y-labels div.label-75 {
-  top: 25%;
-  transform: translateY(-50%);
-}
-div.heat-js div.chart-contents div.chart div.y-labels div.label-50 {
-  top: 50%;
-  transform: translateY(-50%);
-}
-div.heat-js div.chart-contents div.chart div.y-labels div.label-25 {
-  top: 75%;
-  transform: translateY(-50%);
-}
-div.heat-js div.chart-contents div.chart div.y-labels div.label-0 {
-  bottom: 0;
-  transform: translateY(50%);
 }
 div.heat-js div.chart-contents div.chart div.day-lines {
   display: flex;
@@ -2012,13 +1987,10 @@ div.heat-js div.chart-contents div.chart div.day-lines {
   height: calc(173px - var(--heat-js-spacing)) !important;
   overflow: hidden;
 }
-div.heat-js div.chart-contents div.chart div.day-lines.chart-lines {
+div.heat-js div.chart-contents div.chart div.day-lines.chart-y-lines {
   position: relative;
 }
-div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-100,
-div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-75,
-div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-50,
-div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-25 {
+div.heat-js div.chart-contents div.chart div.day-lines.chart-y-lines span.chart-y-line {
   position: absolute;
   left: 0;
   height: var(--heat-js-border-size);
@@ -2026,21 +1998,6 @@ div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-25 
   background-color: var(--heat-js-container-border-color);
   z-index: 0;
   display: block;
-}
-div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-100 {
-  top: 0;
-}
-div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-75 {
-  top: 25%;
-  transform: translateY(-50%);
-}
-div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-50 {
-  top: 50%;
-  transform: translateY(-50%);
-}
-div.heat-js div.chart-contents div.chart div.day-lines.chart-lines span.line-25 {
-  top: 75%;
-  transform: translateY(-50%);
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.today {
   animation: highlight-effect 2s infinite;
@@ -2152,43 +2109,18 @@ div.heat-js div.days-contents div.days {
 }
 div.heat-js div.days-contents div.days div.y-labels {
   background-color: var(--heat-js-container-background-color);
-  padding-right: calc(var(--heat-js-spacing) * 3);
   padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
   position: sticky;
   left: 0;
   border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   z-index: 50;
 }
-div.heat-js div.days-contents div.days div.y-labels div.label-100,
-div.heat-js div.days-contents div.days div.y-labels div.label-75,
-div.heat-js div.days-contents div.days div.y-labels div.label-50,
-div.heat-js div.days-contents div.days div.y-labels div.label-25,
-div.heat-js div.days-contents div.days div.y-labels div.label-0 {
+div.heat-js div.days-contents div.days div.y-labels div.chart-y-label {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
   position: absolute;
   left: 0;
   padding-right: var(--heat-js-y-label-spacing);
-}
-div.heat-js div.days-contents div.days div.y-labels div.label-100 {
-  top: 0;
-  transform: translateY(-50%);
-}
-div.heat-js div.days-contents div.days div.y-labels div.label-75 {
-  top: 25%;
-  transform: translateY(-50%);
-}
-div.heat-js div.days-contents div.days div.y-labels div.label-50 {
-  top: 50%;
-  transform: translateY(-50%);
-}
-div.heat-js div.days-contents div.days div.y-labels div.label-25 {
-  top: 75%;
-  transform: translateY(-50%);
-}
-div.heat-js div.days-contents div.days div.y-labels div.label-0 {
-  bottom: 0;
-  transform: translateY(50%);
 }
 div.heat-js div.days-contents div.days div.day-lines {
   display: flex;
@@ -2199,13 +2131,10 @@ div.heat-js div.days-contents div.days div.day-lines {
   height: calc(187px - var(--heat-js-spacing)) !important;
   overflow: hidden;
 }
-div.heat-js div.days-contents div.days div.day-lines.chart-lines {
+div.heat-js div.days-contents div.days div.day-lines.chart-y-lines {
   position: relative;
 }
-div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-100,
-div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-75,
-div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-50,
-div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-25 {
+div.heat-js div.days-contents div.days div.day-lines.chart-y-lines span.chart-y-line {
   position: absolute;
   left: 0;
   height: var(--heat-js-border-size);
@@ -2213,21 +2142,6 @@ div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-25 {
   background-color: var(--heat-js-container-border-color);
   z-index: 0;
   display: block;
-}
-div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-100 {
-  top: 0;
-}
-div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-75 {
-  top: 25%;
-  transform: translateY(-50%);
-}
-div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-50 {
-  top: 50%;
-  transform: translateY(-50%);
-}
-div.heat-js div.days-contents div.days div.day-lines.chart-lines span.line-25 {
-  top: 75%;
-  transform: translateY(-50%);
 }
 div.heat-js div.days-contents div.days div.day-lines div.day-line-count {
   font-size: var(--heat-js-spacing-day-font-size);
@@ -2344,43 +2258,18 @@ div.heat-js div.months-contents div.months {
 }
 div.heat-js div.months-contents div.months div.y-labels {
   background-color: var(--heat-js-container-background-color);
-  padding-right: calc(var(--heat-js-spacing) * 3);
   padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
   position: sticky;
   left: 0;
   border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   z-index: 50;
 }
-div.heat-js div.months-contents div.months div.y-labels div.label-100,
-div.heat-js div.months-contents div.months div.y-labels div.label-75,
-div.heat-js div.months-contents div.months div.y-labels div.label-50,
-div.heat-js div.months-contents div.months div.y-labels div.label-25,
-div.heat-js div.months-contents div.months div.y-labels div.label-0 {
+div.heat-js div.months-contents div.months div.y-labels div.chart-y-label {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
   position: absolute;
   left: 0;
   padding-right: var(--heat-js-y-label-spacing);
-}
-div.heat-js div.months-contents div.months div.y-labels div.label-100 {
-  top: 0;
-  transform: translateY(-50%);
-}
-div.heat-js div.months-contents div.months div.y-labels div.label-75 {
-  top: 25%;
-  transform: translateY(-50%);
-}
-div.heat-js div.months-contents div.months div.y-labels div.label-50 {
-  top: 50%;
-  transform: translateY(-50%);
-}
-div.heat-js div.months-contents div.months div.y-labels div.label-25 {
-  top: 75%;
-  transform: translateY(-50%);
-}
-div.heat-js div.months-contents div.months div.y-labels div.label-0 {
-  bottom: 0;
-  transform: translateY(50%);
 }
 div.heat-js div.months-contents div.months div.month-lines {
   display: flex;
@@ -2391,13 +2280,10 @@ div.heat-js div.months-contents div.months div.month-lines {
   height: calc(187px - var(--heat-js-spacing)) !important;
   overflow: hidden;
 }
-div.heat-js div.months-contents div.months div.month-lines.chart-lines {
+div.heat-js div.months-contents div.months div.month-lines.chart-y-lines {
   position: relative;
 }
-div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-100,
-div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-75,
-div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-50,
-div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-25 {
+div.heat-js div.months-contents div.months div.month-lines.chart-y-lines span.chart-y-line {
   position: absolute;
   left: 0;
   height: var(--heat-js-border-size);
@@ -2405,21 +2291,6 @@ div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line
   background-color: var(--heat-js-container-border-color);
   z-index: 0;
   display: block;
-}
-div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-100 {
-  top: 0;
-}
-div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-75 {
-  top: 25%;
-  transform: translateY(-50%);
-}
-div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-50 {
-  top: 50%;
-  transform: translateY(-50%);
-}
-div.heat-js div.months-contents div.months div.month-lines.chart-lines span.line-25 {
-  top: 75%;
-  transform: translateY(-50%);
 }
 div.heat-js div.months-contents div.months div.month-lines div.today {
   animation: highlight-effect 2s infinite;
@@ -2539,43 +2410,18 @@ div.heat-js div.color-ranges-contents div.color-ranges {
 }
 div.heat-js div.color-ranges-contents div.color-ranges div.y-labels {
   background-color: var(--heat-js-container-background-color);
-  padding-right: calc(var(--heat-js-spacing) * 3);
   padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
   position: sticky;
   left: 0;
   border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
   z-index: 50;
 }
-div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-100,
-div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-75,
-div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-50,
-div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-25,
-div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-0 {
+div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.chart-y-label {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
   position: absolute;
   left: 0;
   padding-right: var(--heat-js-y-label-spacing);
-}
-div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-100 {
-  top: 0;
-  transform: translateY(-50%);
-}
-div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-75 {
-  top: 25%;
-  transform: translateY(-50%);
-}
-div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-50 {
-  top: 50%;
-  transform: translateY(-50%);
-}
-div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-25 {
-  top: 75%;
-  transform: translateY(-50%);
-}
-div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-0 {
-  bottom: 0;
-  transform: translateY(50%);
 }
 div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines {
   display: flex;
@@ -2586,13 +2432,10 @@ div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines {
   height: calc(187px - var(--heat-js-spacing)) !important;
   overflow: hidden;
 }
-div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines {
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-y-lines {
   position: relative;
 }
-div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-100,
-div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-75,
-div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-50,
-div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-25 {
+div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-y-lines span.chart-y-line {
   position: absolute;
   left: 0;
   height: var(--heat-js-border-size);
@@ -2600,21 +2443,6 @@ div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.cha
   background-color: var(--heat-js-container-border-color);
   z-index: 0;
   display: block;
-}
-div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-100 {
-  top: 0;
-}
-div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-75 {
-  top: 25%;
-  transform: translateY(-50%);
-}
-div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-50 {
-  top: 50%;
-  transform: translateY(-50%);
-}
-div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines.chart-lines span.line-25 {
-  top: 75%;
-  transform: translateY(-50%);
 }
 div.heat-js div.color-ranges-contents div.color-ranges div.color-range-lines div.color-range-line-count {
   font-size: var(--heat-js-spacing-day-font-size);

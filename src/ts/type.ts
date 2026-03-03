@@ -329,6 +329,7 @@ export type BindingOptionsViewsChart = BindingOptionsView & {
     showDifferencesInToolTips?: boolean;
     usePoints?: boolean;
     showHorizontalChartLines?: boolean;
+    totalYAxisLabels?: number;
 };
 
 export type BindingOptionsViewsDays = BindingOptionsView & {
@@ -344,6 +345,7 @@ export type BindingOptionsViewsDays = BindingOptionsView & {
     showStackedColorRanges?: boolean;
     dayToolTipText?: string;
     showHorizontalChartLines?: boolean;
+    totalYAxisLabels?: number;
 };
 
 export type BindingOptionsViewsMonths = BindingOptionsView & {
@@ -360,6 +362,7 @@ export type BindingOptionsViewsMonths = BindingOptionsView & {
     showStackedColorRanges?: boolean;
     monthToolTipText?: string;
     showHorizontalChartLines?: boolean;
+    totalYAxisLabels?: number;
 };
 
 export type BindingOptionsViewsColorRanges = BindingOptionsView & {
@@ -374,6 +377,7 @@ export type BindingOptionsViewsColorRanges = BindingOptionsView & {
     showRangeCountPercentages?: boolean;
     showRangeNamesInToolTips?: boolean;
     showHorizontalChartLines?: boolean;
+    totalYAxisLabels?: number;
 };
 
 export type BindingOptionsDescription = {

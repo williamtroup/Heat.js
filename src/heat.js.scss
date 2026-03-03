@@ -1352,7 +1352,7 @@ div.heat-js {
             flex-direction: row;
 
             div.y-labels {
-                @include styles.labels;
+                @include styles.chart-y-labels;
             }
 
             div.day-lines {
@@ -1363,7 +1363,7 @@ div.heat-js {
                 height: calc( 173px - var(--heat-js-spacing) ) !important;
                 overflow: hidden;
 
-                @include styles.chart-lines;
+                @include styles.chart-y-lines;
 
                 div.today {
                     animation: highlight-effect 2s infinite;
@@ -1492,7 +1492,7 @@ div.heat-js {
             flex-direction: row;
 
             div.y-labels {
-                @include styles.labels;
+                @include styles.chart-y-labels;
             }
 
             div.day-lines {
@@ -1504,7 +1504,7 @@ div.heat-js {
                 height: calc( 187px - var(--heat-js-spacing) ) !important;
                 overflow: hidden;
 
-                @include styles.chart-lines;
+                @include styles.chart-y-lines;
 
                 div.day-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
@@ -1638,7 +1638,7 @@ div.heat-js {
             flex-direction: row;
 
             div.y-labels {
-                @include styles.labels;
+                @include styles.chart-y-labels;
             }
 
             div.month-lines {
@@ -1650,7 +1650,7 @@ div.heat-js {
                 height: calc( 187px - var(--heat-js-spacing) ) !important;
                 overflow: hidden;
 
-                @include styles.chart-lines;
+                @include styles.chart-y-lines;
 
                 div.today {
                     animation: highlight-effect 2s infinite;
@@ -1788,7 +1788,7 @@ div.heat-js {
             flex-direction: row;
 
             div.y-labels {
-                @include styles.labels;
+                @include styles.chart-y-labels;
             }
 
             div.color-range-lines {
@@ -1800,7 +1800,7 @@ div.heat-js {
                 height: calc( 187px - var(--heat-js-spacing) ) !important;
                 overflow: hidden;
 
-                @include styles.chart-lines;
+                @include styles.chart-y-lines;
 
                 div.color-range-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);

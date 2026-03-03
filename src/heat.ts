@@ -49,6 +49,7 @@ import { DocumentElement } from "./ts/dom/document-element";
 import { Zooming } from "./ts/controls/zooming";
 import { Observation } from "./ts/area/observation";
 import { Css } from "./ts/css";
+import { Chart } from "./ts/area/chart";
 
 
 ( () : void => {
@@ -1867,20 +1868,8 @@ import { Css } from "./ts/css";
             DomElement.addClass( chart, "view-switch" );
         }
 
-        if ( largestValueForCurrentYear > 0 && bindingOptions.views!.chart!.showChartYLabels ) {
-            const topLabel: HTMLElement = DomElement.createWithHTML( yAxisLabels, "div", "label-100", largestValueForCurrentYear.toString() );
-            const marginRight: number = DomElement.getStyleValueByName( yAxisLabels, "margin-right", true ) as number;
-
-            DomElement.createWithHTML( yAxisLabels, "div", "label-75", ( Math.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-50", Math.floor( largestValueForCurrentYear / 2 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-25", Math.floor( largestValueForCurrentYear / 4 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-0", Char.zero );
-
-            yAxisLabels.style.width = `${topLabel.offsetWidth}px`;
-            labelsWidth = yAxisLabels.offsetWidth + marginRight;
-
-        } else {
-            yAxisLabels.parentNode!.removeChild( yAxisLabels );
+        if ( bindingOptions.views!.chart!.showChartYLabels! ) {
+            labelsWidth = Chart.YAxis.createLabels( yAxisLabels, largestValueForCurrentYear, bindingOptions.views!.chart!.totalYAxisLabels! );
         }
 
         if ( largestValueForCurrentYear === 0 ) {
@@ -2012,11 +2001,7 @@ import { Css } from "./ts/css";
             }
 
             if ( bindingOptions.views!.chart!.showHorizontalChartLines ) {
-                DomElement.addClass( dayLines, "chart-lines" );
-                DomElement.create( dayLines, "span", "line-100" );
-                DomElement.create( dayLines, "span", "line-75" );
-                DomElement.create( dayLines, "span", "line-50" );
-                DomElement.create( dayLines, "span", "line-25" );
+                Chart.YAxis.createLines( dayLines, bindingOptions.views!.chart!.totalYAxisLabels! );
             }
     
             if ( bindingOptions.views!.chart!.keepScrollPositions || isForViewChange ) {
@@ -2138,20 +2123,12 @@ import { Css } from "./ts/css";
             DomElement.addClass( days, "view-switch" );
         }
 
-        if ( dayValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.days!.showChartYLabels ) {
-            const topLabel: HTMLElement = DomElement.createWithHTML( yAxisLabels, "div", "label-100", dayValuesForCurrentYear.largestValue.toString() );
-            const marginRight: number = DomElement.getStyleValueByName( yAxisLabels, "margin-right", true ) as number;
+        if ( bindingOptions.views!.days!.showChartYLabels! ) {
+            const labelsWidth: number = Chart.YAxis.createLabels( yAxisLabels, dayValuesForCurrentYear.largestValue, bindingOptions.views!.days!.totalYAxisLabels! );
 
-            DomElement.createWithHTML( yAxisLabels, "div", "label-75", ( Math.floor( dayValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-50", Math.floor( dayValuesForCurrentYear.largestValue / 2 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-25", Math.floor( dayValuesForCurrentYear.largestValue / 4 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-0", Char.zero );
-
-            yAxisLabels.style.width = `${topLabel.offsetWidth}px`;
-            dayNames.style.paddingLeft = `${yAxisLabels.offsetWidth + marginRight}px`;
-
-        } else {
-            yAxisLabels.parentNode!.removeChild( yAxisLabels );
+            if ( labelsWidth > 0 ) {
+                dayNames.style.paddingLeft = `${labelsWidth}px`;
+            }
         }
 
         if ( dayValuesForCurrentYear.largestValue === 0 ) {
@@ -2214,11 +2191,7 @@ import { Css } from "./ts/css";
             }
 
             if ( bindingOptions.views!.days!.showHorizontalChartLines ) {
-                DomElement.addClass( dayLines, "chart-lines" );
-                DomElement.create( dayLines, "span", "line-100" );
-                DomElement.create( dayLines, "span", "line-75" );
-                DomElement.create( dayLines, "span", "line-50" );
-                DomElement.create( dayLines, "span", "line-25" );
+                Chart.YAxis.createLines( dayLines, bindingOptions.views!.days!.totalYAxisLabels! );
             }
 
             if ( bindingOptions.views!.days!.keepScrollPositions ) {
@@ -2388,20 +2361,12 @@ import { Css } from "./ts/css";
             DomElement.addClass( months, "view-switch" );
         }
 
-        if ( monthValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.months!.showChartYLabels ) {
-            const topLabel: HTMLElement = DomElement.createWithHTML( yAxisLabels, "div", "label-100", monthValuesForCurrentYear.largestValue.toString() );
-            const marginRight: number = DomElement.getStyleValueByName( yAxisLabels, "margin-right", true ) as number;
+        if ( bindingOptions.views!.months!.showChartYLabels! ) {
+            const labelsWidth: number = Chart.YAxis.createLabels( yAxisLabels, monthValuesForCurrentYear.largestValue, bindingOptions.views!.months!.totalYAxisLabels! );
 
-            DomElement.createWithHTML( yAxisLabels, "div", "label-75", ( Math.floor( monthValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-50", Math.floor( monthValuesForCurrentYear.largestValue / 2 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-25", Math.floor( monthValuesForCurrentYear.largestValue / 4 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-0", Char.zero );
-
-            yAxisLabels.style.width = `${topLabel.offsetWidth}px`;
-            monthNames.style.paddingLeft = `${yAxisLabels.offsetWidth + marginRight}px`;
-
-        } else {
-            yAxisLabels.parentNode!.removeChild( yAxisLabels );
+            if ( labelsWidth > 0 ) {
+                monthNames.style.paddingLeft = `${labelsWidth}px`;
+            }
         }
 
         if ( monthValuesForCurrentYear.largestValue === 0 ) {
@@ -2474,11 +2439,7 @@ import { Css } from "./ts/css";
             }
 
             if ( bindingOptions.views!.months!.showHorizontalChartLines ) {
-                DomElement.addClass( monthLines, "chart-lines" );
-                DomElement.create( monthLines, "span", "line-100" );
-                DomElement.create( monthLines, "span", "line-75" );
-                DomElement.create( monthLines, "span", "line-50" );
-                DomElement.create( monthLines, "span", "line-25" );
+                Chart.YAxis.createLines( monthLines, bindingOptions.views!.months!.totalYAxisLabels! );
             }
 
             if ( bindingOptions.views!.months!.keepScrollPositions ) {
@@ -2660,20 +2621,12 @@ import { Css } from "./ts/css";
             DomElement.addClass( colorRanges, "view-switch" );
         }
 
-        if ( colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.colorRanges!.showChartYLabels ) {
-            const topLabel: HTMLElement = DomElement.createWithHTML( yAxisLabels, "div", "label-100", colorRangeValuesForCurrentYear.largestValue.toString() );
-            const marginRight: number = DomElement.getStyleValueByName( yAxisLabels, "margin-right", true ) as number;
+        if ( bindingOptions.views!.colorRanges!.showChartYLabels! ) {
+            const labelsWidth: number = Chart.YAxis.createLabels( yAxisLabels, colorRangeValuesForCurrentYear.largestValue, bindingOptions.views!.colorRanges!.totalYAxisLabels! );
 
-            DomElement.createWithHTML( yAxisLabels, "div", "label-75", ( Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-50", Math.floor( colorRangeValuesForCurrentYear.largestValue / 2 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-25", Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-0", Char.zero );
-
-            yAxisLabels.style.width = `${topLabel.offsetWidth}px`;
-            colorRangeNames.style.paddingLeft = `${yAxisLabels.offsetWidth + marginRight}px`;
-
-        } else {
-            yAxisLabels.parentNode!.removeChild( yAxisLabels );
+            if ( labelsWidth > 0 ) {
+                colorRangeNames.style.paddingLeft = `${labelsWidth}px`;
+            }
         }
 
         if ( colorRangeValuesForCurrentYear.largestValue === 0 ) {
@@ -2717,11 +2670,7 @@ import { Css } from "./ts/css";
             }
 
             if ( bindingOptions.views!.colorRanges!.showHorizontalChartLines ) {
-                DomElement.addClass( colorRangeLines, "chart-lines" );
-                DomElement.create( colorRangeLines, "span", "line-100" );
-                DomElement.create( colorRangeLines, "span", "line-75" );
-                DomElement.create( colorRangeLines, "span", "line-50" );
-                DomElement.create( colorRangeLines, "span", "line-25" );
+                Chart.YAxis.createLines( colorRangeLines, bindingOptions.views!.colorRanges!.totalYAxisLabels! );
             }
     
             if ( bindingOptions.views!.colorRanges!.keepScrollPositions ) {

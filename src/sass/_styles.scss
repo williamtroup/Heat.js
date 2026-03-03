@@ -121,61 +121,28 @@ $minimum-width-smaller: 450px;
     }
 }
 
-@mixin labels {
+@mixin chart-y-labels {
     background-color: var(--heat-js-container-background-color);
-    padding-right: calc( var(--heat-js-spacing) * 3 );
     padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
     position: sticky;
     left: 0;
     border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
     z-index: 50;
 
-    div.label-100,
-    div.label-75,
-    div.label-50,
-    div.label-25,
-    div.label-0 {
+    div.chart-y-label {
         font-weight: var(--heat-js-text-bold-weight);
         text-align: left !important;
         position: absolute;
         left: 0;
         padding-right: var(--heat-js-y-label-spacing);
     }
-
-    div.label-100 {
-        top: 0;
-        transform: translateY( -50% );
-    }
-
-    div.label-75 {
-        top: 25%;
-        transform: translateY( -50% );
-    }
-
-    div.label-50 {
-        top: 50%;
-        transform: translateY( -50% );
-    }
-
-    div.label-25 {
-        top: 75%;
-        transform: translateY( -50% );
-    }
-
-    div.label-0 {
-        bottom: 0;
-        transform: translateY( 50% );
-    }
 }
 
-@mixin chart-lines {
-    &.chart-lines {
+@mixin chart-y-lines {
+    &.chart-y-lines {
         position: relative;
 
-        span.line-100,
-        span.line-75,
-        span.line-50,
-        span.line-25 {
+        span.chart-y-line {
             position: absolute;
             left: 0;
             height: var(--heat-js-border-size);
@@ -183,25 +150,6 @@ $minimum-width-smaller: 450px;
             background-color: var(--heat-js-container-border-color);
             z-index: 0;
             display: block;
-        }
-
-        span.line-100 {
-            top: 0;
-        }
-
-        span.line-75 {
-            top: 25%;
-            transform: translateY( -50% );
-        }
-
-        span.line-50 {
-            top: 50%;
-            transform: translateY( -50% );
-        }
-
-        span.line-25 {
-            top: 75%;
-            transform: translateY( -50% );
         }
     }
 }
