@@ -137,10 +137,6 @@ $minimum-width-smaller: 450px;
     div.label-0 {
         font-weight: var(--heat-js-text-bold-weight);
         text-align: left !important;
-        height: var(--heat-js-day-size);
-        display: inline-flex;
-        justify-content: center;
-        flex-direction: column;
         position: absolute;
         left: 0;
         padding-right: var(--heat-js-y-label-spacing);

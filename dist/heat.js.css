@@ -1980,10 +1980,6 @@ div.heat-js div.chart-contents div.chart div.y-labels div.label-25,
 div.heat-js div.chart-contents div.chart div.y-labels div.label-0 {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
-  height: var(--heat-js-day-size);
-  display: inline-flex;
-  justify-content: center;
-  flex-direction: column;
   position: absolute;
   left: 0;
   padding-right: var(--heat-js-y-label-spacing);
@@ -2170,10 +2166,6 @@ div.heat-js div.days-contents div.days div.y-labels div.label-25,
 div.heat-js div.days-contents div.days div.y-labels div.label-0 {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
-  height: var(--heat-js-day-size);
-  display: inline-flex;
-  justify-content: center;
-  flex-direction: column;
   position: absolute;
   left: 0;
   padding-right: var(--heat-js-y-label-spacing);
@@ -2366,10 +2358,6 @@ div.heat-js div.months-contents div.months div.y-labels div.label-25,
 div.heat-js div.months-contents div.months div.y-labels div.label-0 {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
-  height: var(--heat-js-day-size);
-  display: inline-flex;
-  justify-content: center;
-  flex-direction: column;
   position: absolute;
   left: 0;
   padding-right: var(--heat-js-y-label-spacing);
@@ -2565,10 +2553,6 @@ div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-25
 div.heat-js div.color-ranges-contents div.color-ranges div.y-labels div.label-0 {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
-  height: var(--heat-js-day-size);
-  display: inline-flex;
-  justify-content: center;
-  flex-direction: column;
   position: absolute;
   left: 0;
   padding-right: var(--heat-js-y-label-spacing);
