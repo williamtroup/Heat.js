@@ -17,7 +17,7 @@ import { type BindingOptions } from "../type";
 export namespace Animate {
     export function setHeight( bindingOptions: BindingOptions, element: HTMLElement, height: number, allow: boolean = true, usePercentage: boolean = false ) : void {
         if ( height > 0 ) {
-            const heightCss: string = usePercentage ? `${height}%` : `${height}px`
+            const heightCss: string = usePercentage ? `${height}%` : `${height}px`;
 
             if ( allow && bindingOptions.chartsAnimationDelay! > 0 ) {
                 setTimeout( () : void => {
