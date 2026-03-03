@@ -2037,7 +2037,7 @@ import { Chart } from "./ts/area/chart";
                 DomElement.addClass( dayLine, "day-point" );
 
                 const minHeight: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.ChartViewLineDefaultWidth, true ) as number;
-                const marginBottom: number = dayLineHeight - minHeight;
+                const marginBottom: number = dayLineHeight - ( minHeight / 2 );
 
                 if ( marginBottom >= 0 ) {
                     dayLine.style.marginBottom = `${marginBottom}px`;
