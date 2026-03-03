@@ -252,7 +252,7 @@ export namespace Binding {
             bindingOptions.views!.chart!.showDifferences = Default.getBoolean( bindingOptions.views!.chart!.showDifferences, false );
             bindingOptions.views!.chart!.showDifferencesInToolTips = Default.getBoolean( bindingOptions.views!.chart!.showDifferencesInToolTips, true );
             bindingOptions.views!.chart!.usePoints = Default.getBoolean( bindingOptions.views!.chart!.usePoints, false );
-            bindingOptions.views!.chart!.showHorizontalChartLines = Default.getBoolean( bindingOptions.views!.chart!.showHorizontalChartLines, true );
+            bindingOptions.views!.chart!.showHorizontalChartLines = Default.getBoolean( bindingOptions.views!.chart!.showHorizontalChartLines, false );
             bindingOptions.views!.chart!.totalYAxisLabels = Default.getNumber( bindingOptions.views!.chart!.totalYAxisLabels, 7 );
 
             setVisibleDateOptionsForView( bindingOptions.views!.chart! );
@@ -274,7 +274,7 @@ export namespace Binding {
             bindingOptions.views!.days!.showDayCountPercentages = Default.getBoolean( bindingOptions.views!.days!.showDayCountPercentages, true );
             bindingOptions.views!.days!.showStackedColorRanges = Default.getBoolean( bindingOptions.views!.days!.showStackedColorRanges, true );
             bindingOptions.views!.days!.dayToolTipText = Default.getString( bindingOptions.views!.days!.dayToolTipText, "{dddd} {yyyy}" );
-            bindingOptions.views!.days!.showHorizontalChartLines = Default.getBoolean( bindingOptions.views!.days!.showHorizontalChartLines, true );
+            bindingOptions.views!.days!.showHorizontalChartLines = Default.getBoolean( bindingOptions.views!.days!.showHorizontalChartLines, false );
             bindingOptions.views!.days!.totalYAxisLabels = Default.getNumber( bindingOptions.views!.days!.totalYAxisLabels, 7 );
     
             setVisibleDateOptionsForView( bindingOptions.views!.days! );
@@ -297,7 +297,7 @@ export namespace Binding {
             bindingOptions.views!.months!.showMonthCountPercentages = Default.getBoolean( bindingOptions.views!.months!.showMonthCountPercentages, true );
             bindingOptions.views!.months!.showStackedColorRanges = Default.getBoolean( bindingOptions.views!.months!.showStackedColorRanges, true );
             bindingOptions.views!.months!.monthToolTipText = Default.getString( bindingOptions.views!.months!.monthToolTipText, "{mmmm} {yyyy}" );
-            bindingOptions.views!.months!.showHorizontalChartLines = Default.getBoolean( bindingOptions.views!.months!.showHorizontalChartLines, true );
+            bindingOptions.views!.months!.showHorizontalChartLines = Default.getBoolean( bindingOptions.views!.months!.showHorizontalChartLines, false );
             bindingOptions.views!.months!.totalYAxisLabels = Default.getNumber( bindingOptions.views!.months!.totalYAxisLabels, 7 );
     
             setVisibleDateOptionsForView( bindingOptions.views!.months! );
@@ -318,7 +318,7 @@ export namespace Binding {
             bindingOptions.views!.colorRanges!.useGradients = Default.getBoolean( bindingOptions.views!.colorRanges!.useGradients, false );
             bindingOptions.views!.colorRanges!.showRangeCountPercentages = Default.getBoolean( bindingOptions.views!.colorRanges!.showRangeCountPercentages, true );
             bindingOptions.views!.colorRanges!.showRangeNamesInToolTips = Default.getBoolean( bindingOptions.views!.colorRanges!.showRangeNamesInToolTips, true );
-            bindingOptions.views!.colorRanges!.showHorizontalChartLines = Default.getBoolean( bindingOptions.views!.colorRanges!.showHorizontalChartLines, true );
+            bindingOptions.views!.colorRanges!.showHorizontalChartLines = Default.getBoolean( bindingOptions.views!.colorRanges!.showHorizontalChartLines, false );
             bindingOptions.views!.colorRanges!.totalYAxisLabels = Default.getNumber( bindingOptions.views!.colorRanges!.totalYAxisLabels, 7 );
 
             setVisibleDateOptionsForView( bindingOptions.views!.colorRanges! );
