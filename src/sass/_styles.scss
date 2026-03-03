@@ -123,7 +123,6 @@ $minimum-width-smaller: 450px;
 
 @mixin chart-y-labels {
     background-color: var(--heat-js-container-background-color);
-    padding-top: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px );
     position: sticky;
     left: 0;
     border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);

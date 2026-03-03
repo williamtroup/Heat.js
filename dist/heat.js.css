@@ -1966,7 +1966,6 @@ div.heat-js div.chart-contents div.chart {
 }
 div.heat-js div.chart-contents div.chart div.y-labels {
   background-color: var(--heat-js-container-background-color);
-  padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
   position: sticky;
   left: 0;
   border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
@@ -2109,7 +2108,6 @@ div.heat-js div.days-contents div.days {
 }
 div.heat-js div.days-contents div.days div.y-labels {
   background-color: var(--heat-js-container-background-color);
-  padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
   position: sticky;
   left: 0;
   border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
@@ -2258,7 +2256,6 @@ div.heat-js div.months-contents div.months {
 }
 div.heat-js div.months-contents div.months div.y-labels {
   background-color: var(--heat-js-container-background-color);
-  padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
   position: sticky;
   left: 0;
   border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
@@ -2410,7 +2407,6 @@ div.heat-js div.color-ranges-contents div.color-ranges {
 }
 div.heat-js div.color-ranges-contents div.color-ranges div.y-labels {
   background-color: var(--heat-js-container-background-color);
-  padding-top: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing) + 1px);
   position: sticky;
   left: 0;
   border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
