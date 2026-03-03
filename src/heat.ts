@@ -909,8 +909,8 @@ import { Chart } from "./ts/area/chart";
             bindingOptions._currentView!.confirmationDialogMessage = DomElement.create( contents, "div", "message" );
 
             const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-            const noButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "no", _configurationOptions.text!.noButtonText! );
             bindingOptions._currentView!.confirmationDialogYesButton = DomElement.createButton( buttons, "button", "default yes", _configurationOptions.text!.yesButtonText! );
+            const noButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "no", _configurationOptions.text!.noButtonText! );
 
             noButton.onclick = () : void => hideConfirmationDialog( bindingOptions );
         }

@@ -2972,8 +2972,8 @@ var x;
             a.createWithHTML(t, "span", "dialog-title-bar-text", D.text.confirmText);
             e._currentView.confirmationDialogMessage = a.create(n, "div", "message");
             const o = a.create(n, "div", "buttons");
-            const i = a.createButton(o, "button", "no", D.text.noButtonText);
             e._currentView.confirmationDialogYesButton = a.createButton(o, "button", "default yes", D.text.yesButtonText);
+            const i = a.createButton(o, "button", "no", D.text.noButtonText);
             i.onclick = () => se(e);
         }
     }
