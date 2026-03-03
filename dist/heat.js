@@ -3732,10 +3732,12 @@ var x;
             if (e.views.chart.showMonthNames) {
                 const t = a.create(e._currentView.chartContents, "div", "chart-months");
                 let n = 0;
-                const i = a.create(t, "div", "month-name-space");
-                i.style.height = `${t.offsetHeight}px`;
-                i.style.width = `${g}px`;
-                const r = i => {
+                setTimeout(() => {
+                    const e = a.create(t, "div", "month-name-space");
+                    e.style.height = `${t.offsetHeight}px`;
+                    e.style.width = `${g}px`;
+                }, 500);
+                const i = i => {
                     let r = i + e.startMonth;
                     let l = c;
                     if (e.startMonth > 0 && r > 11) {
@@ -3768,11 +3770,11 @@ var x;
                 };
                 if (e.views.chart.showInReverseOrder) {
                     for (let e = 12; e--; ) {
-                        r(e);
+                        i(e);
                     }
                 } else {
                     for (let e = 0; e < 12; e++) {
-                        r(e);
+                        i(e);
                     }
                 }
                 t.style.width = `${u.offsetWidth}px`;

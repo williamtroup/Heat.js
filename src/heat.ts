@@ -1941,9 +1941,11 @@ import { Chart } from "./ts/area/chart";
                 const chartMonths: HTMLElement = DomElement.create( bindingOptions._currentView!.chartContents, "div", "chart-months" );
                 let monthNameAddedIndex: number = 0;
 
-                const monthNameSpace: HTMLElement = DomElement.create( chartMonths, "div", "month-name-space" );
-                monthNameSpace.style.height = `${chartMonths.offsetHeight}px`;
-                monthNameSpace.style.width = `${labelsWidth}px`;
+                setTimeout( () => {
+                    const monthNameSpace: HTMLElement = DomElement.create( chartMonths, "div", "month-name-space" );
+                    monthNameSpace.style.height = `${chartMonths.offsetHeight}px`;
+                    monthNameSpace.style.width = `${labelsWidth}px`;
+                }, 500 );
 
                 const addMonthName: Function = ( addMonthNameIndex: number ) : void => {
                     let actualMonthIndex: number = addMonthNameIndex + bindingOptions.startMonth!;
