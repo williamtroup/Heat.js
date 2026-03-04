@@ -2327,32 +2327,38 @@ var x;
         function t(e, t, n) {
             let o = 0;
             if (t > 0) {
-                const i = t / (n - 1);
-                const r = 100 / (n - 1);
-                const s = [];
-                let l = 0;
+                const i = a.getStyleValueByName(e, "border-bottom-width", true);
+                const r = t / (n - 1);
+                const s = 100 / (n - 1);
+                const l = [];
+                let c = 0;
                 for (let o = 0; o < n; o++) {
-                    const c = a.create(e, "div", "chart-y-label");
+                    const u = a.create(e, "div", "chart-y-label");
+                    const d = a.create(e, "span", "chart-y-label-line");
                     if (o === 0) {
-                        c.innerHTML = "0";
-                        c.style.bottom = "0";
-                        c.style.transform = "translateY( 50% )";
+                        u.innerHTML = "0";
+                        u.style.bottom = "0";
+                        u.style.transform = "translateY( 50% )";
+                        d.style.bottom = `${-i}px`;
                     } else if (o === n - 1) {
-                        c.innerHTML = t.toString();
-                        c.style.top = "0";
-                        c.style.transform = "translateY( -50% )";
+                        u.innerHTML = t.toString();
+                        u.style.top = "0";
+                        u.style.transform = "translateY( -50% )";
+                        d.style.top = "0";
                     } else {
-                        c.innerHTML = Math.floor(i * o).toString();
-                        c.style.top = `${100 - r * o}%`;
-                        c.style.transform = "translateY( -50% )";
+                        u.innerHTML = Math.floor(r * o).toString();
+                        u.style.top = `${100 - s * o}%`;
+                        u.style.transform = "translateY( -50% )";
+                        d.style.top = `${100 - s * o}%`;
+                        d.style.transform = "translateY( -50% )";
                     }
-                    s.push(c);
-                    l = Math.max(l, c.offsetWidth);
+                    l.push(u);
+                    c = Math.max(c, u.offsetWidth);
                 }
                 for (let e = 0; e < n; e++) {
-                    s[e].style.width = `${l}px`;
+                    l[e].style.width = `${c}px`;
                 }
-                e.style.width = `${l}px`;
+                e.style.width = `${c}px`;
                 o = e.offsetWidth;
             } else {
                 e.parentNode.removeChild(e);

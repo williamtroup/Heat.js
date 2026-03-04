@@ -126,6 +126,7 @@ $minimum-width-smaller: 450px;
     position: sticky;
     left: 0;
     border-right: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+    border-bottom: var(--heat-js-border-size) solid transparent;
     z-index: 50;
 
     div.chart-y-label {
@@ -134,6 +135,14 @@ $minimum-width-smaller: 450px;
         position: absolute;
         left: 0;
         padding-right: var(--heat-js-y-label-spacing);
+    }
+
+    span.chart-y-label-line {
+        position: absolute;
+        right: 0;
+        background-color: var(--heat-js-container-border-color);
+        height: var(--heat-js-border-size);
+        width: var(--heat-js-spacing);
     }
 }
 

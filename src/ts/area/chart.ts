@@ -17,32 +17,38 @@ import { DomElement } from "../dom/dom";
 
 export namespace Chart {
     export namespace YAxis {
-        export function createLabels( yAxisLabels: HTMLElement, largestValue: number, maximumLabels: number ) : number {
+        export function createLabels( container: HTMLElement, largestValue: number, maximumLabels: number ) : number {
             let labelsWidth: number = 0;
 
             if ( largestValue > 0 ) {
+                const borderBottom: number = DomElement.getStyleValueByName( container, "border-bottom-width", true ) as number;
                 const valueIncrease: number = largestValue / ( maximumLabels - 1 );
                 const positionIncrease: number = 100 / ( maximumLabels - 1 );
                 const allYLabels: HTMLElement[] = [];
                 let maximumWidth: number = 0;
 
                 for ( let yLabelIndex = 0; yLabelIndex < maximumLabels; yLabelIndex++ ) {
-                    const newYLabel: HTMLElement = DomElement.create( yAxisLabels, "div", "chart-y-label" );
+                    const newYLabel: HTMLElement = DomElement.create( container, "div", "chart-y-label" );
+                    const newYLabelLine: HTMLElement = DomElement.create( container, "span", "chart-y-label-line" );
 
                     if ( yLabelIndex === 0 ) {
                         newYLabel.innerHTML = Char.zero;
                         newYLabel.style.bottom = "0";
                         newYLabel.style.transform = "translateY( 50% )";
+                        newYLabelLine.style.bottom = `${-borderBottom}px`;
 
                     } else if ( yLabelIndex === maximumLabels - 1 ) {
                         newYLabel.innerHTML = largestValue.toString();
                         newYLabel.style.top = "0";
                         newYLabel.style.transform = "translateY( -50% )";
+                        newYLabelLine.style.top = "0";
 
                     } else {
                         newYLabel.innerHTML = Math.floor( valueIncrease * yLabelIndex ).toString();
                         newYLabel.style.top = `${100 - ( positionIncrease * yLabelIndex )}%`;
                         newYLabel.style.transform = "translateY( -50% )";
+                        newYLabelLine.style.top = `${100 - ( positionIncrease * yLabelIndex )}%`;
+                        newYLabelLine.style.transform = "translateY( -50% )";
                     }
 
                     allYLabels.push( newYLabel );
@@ -53,26 +59,26 @@ export namespace Chart {
                     allYLabels[ yLabelIndex ].style.width = `${maximumWidth}px`;
                 }
 
-                yAxisLabels.style.width = `${maximumWidth}px`;
-                labelsWidth = yAxisLabels.offsetWidth;
+                container.style.width = `${maximumWidth}px`;
+                labelsWidth = container.offsetWidth;
 
             } else {
-                yAxisLabels.parentNode!.removeChild( yAxisLabels );
+                container.parentNode!.removeChild( container );
             }
 
             return labelsWidth;
         }
 
-        export function createLines( lines: HTMLElement, maximumLabels: number ) : void {
-            if ( maximumLabels > 0 ) {
-                DomElement.addClass( lines, "chart-y-lines" );
+        export function createLines( container: HTMLElement, maximumLines: number ) : void {
+            if ( maximumLines > 0 ) {
+                DomElement.addClass( container, "chart-y-lines" );
 
-                const positionIncrease: number = 100 / ( maximumLabels - 1 );
+                const positionIncrease: number = 100 / ( maximumLines - 1 );
 
-                for ( let yLineIndex = 1; yLineIndex < maximumLabels; yLineIndex++ ) {
-                    const newYLine: HTMLElement = DomElement.create( lines, "span", "chart-y-line" );
+                for ( let yLineIndex = 1; yLineIndex < maximumLines; yLineIndex++ ) {
+                    const newYLine: HTMLElement = DomElement.create( container, "span", "chart-y-line" );
 
-                    if ( yLineIndex === maximumLabels - 1 ) {
+                    if ( yLineIndex === maximumLines - 1 ) {
                         newYLine.style.top = "0";
 
                     } else {
