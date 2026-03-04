@@ -1887,6 +1887,7 @@ import { Chart } from "./ts/area/chart";
             const borderBottomWidth: number = DomElement.getStyleValueByName( dayLines, "border-bottom-width", true ) as number;
             const pixelsPerNumbers: number = ( dayLines.offsetHeight - borderBottomWidth ) / largestValueForCurrentYear;
             const currentYear: number = bindingOptions._currentView!.activeYear;
+            const allDayLines: HTMLElement[] = [];
             let firstMonthDayLines: HTMLElement[] = [];
             let firstMonthAdded: boolean = false;
 
@@ -1910,6 +1911,8 @@ import { Chart } from "./ts/area/chart";
                         
                         if ( Is.dayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
                             const dayLine: HTMLElement = renderChartViewDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, pixelsPerNumbers, isForViewSwitch );
+
+                            allDayLines.push( dayLine );
 
                             if ( !firstDayAdded && firstMonthAdded && bindingOptions.views!.chart!.addMonthSpacing! ) {
                                 DomElement.create( dayLines, "div", "month-spacing", dayLine );
@@ -2004,6 +2007,30 @@ import { Chart } from "./ts/area/chart";
 
             if ( bindingOptions.views!.chart!.showHorizontalChartLines ) {
                 Chart.YAxis.createLines( dayLines, bindingOptions.views!.chart!.totalYAxisLabels! );
+            }
+
+            if ( bindingOptions.views!.chart!.usePointLines ) {
+                const allDayLinesLength: number = allDayLines.length;
+
+                for ( let dayLineIndex: number = bindingOptions.startMonth!; dayLineIndex < allDayLinesLength - 1; dayLineIndex++ ) {
+                    const dayLineElement2: HTMLElement = allDayLines[ dayLineIndex + 1 ];
+                    const dayLineElement2Minimum: string = dayLineElement2.getAttribute( Constant.Attribute.View.Chart.HEAT_JS_MINIMUM )!;
+                    const line: HTMLElement = DomElement.drawLineBetweenElements( dayLines, allDayLines[ dayLineIndex ], dayLineElement2 );
+
+                    if ( Is.definedString( dayLineElement2Minimum ) ) {
+                        const colorRange: BindingOptionsColorRange = ColorRange.getByMinimum( colorRanges, parseInt( dayLineElement2Minimum ) );
+
+                        if ( Is.defined( colorRange ) ) {
+                            line.setAttribute( Constant.Attribute.View.Chart.HEAT_JS_MINIMUM, dayLineElement2Minimum );
+
+                            if ( Is.definedString( colorRange.chartCssClassName ) ) {
+                                DomElement.addClass( line, colorRange.chartCssClassName! );
+                            } else {
+                                DomElement.addClass( line, colorRange.cssClassName! );
+                            }
+                        }
+                    }
+                }
             }
     
             if ( bindingOptions.views!.chart!.keepScrollPositions || isForViewChange ) {

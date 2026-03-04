@@ -328,6 +328,7 @@ export type BindingOptionsViewsChart = BindingOptionsView & {
     showDifferences?: boolean;
     showDifferencesInToolTips?: boolean;
     usePoints?: boolean;
+    usePointLines?: boolean;
     showHorizontalChartLines?: boolean;
     totalYAxisLabels?: number;
 };

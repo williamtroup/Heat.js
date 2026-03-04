@@ -175,4 +175,26 @@ export namespace DomElement {
 
         element.style.background = `linear-gradient(to top, ${backgroundColor}, ${lineBackgroundColor})`;
     }
+
+    export function drawLineBetweenElements( container: HTMLElement, element1: HTMLElement, element2: HTMLElement ) : HTMLElement {
+        let line: HTMLElement = null!;
+
+        if ( Is.defined( element1 ) && Is.defined( element2 ) ) {
+            const element1Left: number = element1.offsetLeft + ( element1.offsetWidth / 2 );
+            const element1Top: number = element1.offsetTop + ( element1.offsetHeight / 2 );
+            const element2Left: number = element2.offsetLeft + ( element2.offsetWidth / 2 );
+            const element2Top: number = element2.offsetTop + ( element2.offsetWidth / 2 );
+
+            const width: number = Math.hypot( element2Left - element1Left, element2Top - element1Top );
+            const angle: number = Math.atan2( element2Top - element1Top, element2Left - element1Left ) * ( 180 / Math.PI );
+
+            line = create( container, "div", "day-point-line" );
+            line.style.width = `${width}px`;
+            line.style.transform = `rotate( ${angle}deg )`;
+            line.style.left = `${element1Left}px`;
+            line.style.top = `${element1Top}px`;
+        }
+
+        return line;
+    }
 }

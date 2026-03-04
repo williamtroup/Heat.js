@@ -252,6 +252,7 @@ export namespace Binding {
             bindingOptions.views!.chart!.showDifferences = Default.getBoolean( bindingOptions.views!.chart!.showDifferences, false );
             bindingOptions.views!.chart!.showDifferencesInToolTips = Default.getBoolean( bindingOptions.views!.chart!.showDifferencesInToolTips, true );
             bindingOptions.views!.chart!.usePoints = Default.getBoolean( bindingOptions.views!.chart!.usePoints, false );
+            bindingOptions.views!.chart!.usePointLines = Default.getBoolean( bindingOptions.views!.chart!.usePointLines, false );
             bindingOptions.views!.chart!.showHorizontalChartLines = Default.getBoolean( bindingOptions.views!.chart!.showHorizontalChartLines, false );
             bindingOptions.views!.chart!.totalYAxisLabels = Default.getNumber( bindingOptions.views!.chart!.totalYAxisLabels, 7 );
 
