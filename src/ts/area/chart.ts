@@ -69,14 +69,14 @@ export namespace Chart {
 
                 const positionIncrease: number = 100 / ( maximumLabels - 1 );
 
-                for ( let labelIndex = 1; labelIndex < maximumLabels; labelIndex++ ) {
+                for ( let yLineIndex = 1; yLineIndex < maximumLabels; yLineIndex++ ) {
                     const newYLine: HTMLElement = DomElement.create( lines, "span", "chart-y-line" );
 
-                    if ( labelIndex === maximumLabels - 1 ) {
+                    if ( yLineIndex === maximumLabels - 1 ) {
                         newYLine.style.top = "0";
 
                     } else {
-                        newYLine.style.top = `${100 - ( positionIncrease * labelIndex )}%`;
+                        newYLine.style.top = `${100 - ( positionIncrease * yLineIndex )}%`;
                         newYLine.style.transform = "translateY( -50% )";
                     }
                 }
