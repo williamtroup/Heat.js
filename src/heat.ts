@@ -2174,6 +2174,8 @@ import { Chart } from "./ts/area/chart";
                                     stackedValue.style.height = `${stackedDayLineHeight}px`;
 
                                     if ( Is.defined( colorRange ) ) {
+                                        stackedValue.setAttribute( Constant.Attribute.View.Days.HEAT_JS_MINIMUM, colorRange.minimum!.toString() );
+
                                         if ( Is.definedString( colorRange.daysCssClassName ) ) {
                                             DomElement.addClass( stackedValue, colorRange.daysCssClassName! );
                                         } else {
@@ -2422,6 +2424,8 @@ import { Chart } from "./ts/area/chart";
                                     stackedValue.style.height = `${stackedDayLineHeight}px`;
 
                                     if ( Is.defined( colorRange ) ) {
+                                        stackedValue.setAttribute( Constant.Attribute.View.Month.HEAT_JS_MINIMUM, colorRange.minimum!.toString() );
+
                                         if ( Is.definedString( colorRange.monthsCssClassName ) ) {
                                             DomElement.addClass( stackedValue, colorRange.monthsCssClassName! );
                                         } else {

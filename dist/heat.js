@@ -55,10 +55,12 @@ var n;
             let i;
             (e => {
                 e.HEAT_JS_NUMBER = "data-heat-js-day-number";
+                e.HEAT_JS_MINIMUM = "data-heat-js-day-minimum";
             })(i = e.Days || (e.Days = {}));
             let r;
             (e => {
                 e.HEAT_JS_NUMBER = "data-heat-js-month-number";
+                e.HEAT_JS_MINIMUM = "data-heat-js-month-minimum";
             })(r = e.Month || (e.Month = {}));
             let s;
             (e => {
@@ -3895,33 +3897,34 @@ var x;
                 a.addClass(o, "view-switch");
             }
         } else {
-            const n = a.getStyleValueByName(c, "border-bottom-width", true);
-            const i = (c.offsetHeight - n) / d.largestValue;
-            for (const n in d.values) {
-                if (Object.prototype.hasOwnProperty.call(d.values, n) && o.dayVisible(e.views.days.daysToShow, parseInt(n))) {
-                    const s = d.valueOpacities[d.values[n].total];
-                    const l = Se(c, parseInt(n), d.values[n].total, e, i, s, d.totalValue, t);
+            const i = a.getStyleValueByName(c, "border-bottom-width", true);
+            const s = (c.offsetHeight - i) / d.largestValue;
+            for (const i in d.values) {
+                if (Object.prototype.hasOwnProperty.call(d.values, i) && o.dayVisible(e.views.days.daysToShow, parseInt(i))) {
+                    const l = d.valueOpacities[d.values[i].total];
+                    const h = Se(c, parseInt(i), d.values[i].total, e, s, l, d.totalValue, t);
                     if (e.views.days.showDayNames) {
-                        const t = a.createWithHTML(r, "div", "day-name", D.text.dayNames[parseInt(n) - 1]);
-                        if (g.getFullYear() === e._currentView.activeYear && f === parseInt(n)) {
+                        const t = a.createWithHTML(r, "div", "day-name", D.text.dayNames[parseInt(i) - 1]);
+                        if (g.getFullYear() === e._currentView.activeYear && f === parseInt(i)) {
                             a.addClass(t, "current");
                         }
                     }
                     if (e.views.days.showStackedColorRanges) {
-                        for (const e in d.values[n].typeTotals) {
-                            if (Object.prototype.hasOwnProperty.call(d.values[n].typeTotals, e)) {
-                                const t = d.values[n].typeTotals[e];
-                                const r = t * i;
-                                const s = w.getByMinimum(u, parseInt(e));
+                        for (const e in d.values[i].typeTotals) {
+                            if (Object.prototype.hasOwnProperty.call(d.values[i].typeTotals, e)) {
+                                const t = d.values[i].typeTotals[e];
+                                const r = t * s;
+                                const l = w.getByMinimum(u, parseInt(e));
                                 if (r > 0) {
-                                    const e = l.children.length > 0 ? l.children[0] : null;
-                                    const t = a.create(l, "div", "stacked-color-range", e);
+                                    const e = h.children.length > 0 ? h.children[0] : null;
+                                    const t = a.create(h, "div", "stacked-color-range", e);
                                     t.style.height = `${r}px`;
-                                    if (o.defined(s)) {
-                                        if (o.definedString(s.daysCssClassName)) {
-                                            a.addClass(t, s.daysCssClassName);
+                                    if (o.defined(l)) {
+                                        t.setAttribute(n.Attribute.View.Days.HEAT_JS_MINIMUM, l.minimum.toString());
+                                        if (o.definedString(l.daysCssClassName)) {
+                                            a.addClass(t, l.daysCssClassName);
                                         } else {
-                                            a.addClass(t, s.cssClassName);
+                                            a.addClass(t, l.cssClassName);
                                         }
                                     }
                                 }
@@ -4074,36 +4077,37 @@ var x;
                 a.addClass(o, "view-switch");
             }
         } else {
-            const n = a.getStyleValueByName(c, "border-bottom-width", true);
-            const i = (c.offsetHeight - n) / d.largestValue;
-            const l = e._currentView.activeYear;
-            for (let n = e.startMonth; n < 12 + e.startMonth; n++) {
-                let g = n;
-                if (e.startMonth > 0 && n > 11) {
-                    g = n - 12;
+            const i = a.getStyleValueByName(c, "border-bottom-width", true);
+            const l = (c.offsetHeight - i) / d.largestValue;
+            const g = e._currentView.activeYear;
+            for (let i = e.startMonth; i < 12 + e.startMonth; i++) {
+                let f = i;
+                if (e.startMonth > 0 && i > 11) {
+                    f = i - 12;
                 }
-                const f = g + 1;
-                if (Object.prototype.hasOwnProperty.call(d.values, f) && o.monthVisible(e.views.months.monthsToShow, g)) {
-                    const n = d.valueOpacities[d.values[f].total];
-                    const h = Ae(c, f, d.values[f].total, e, i, n, d.totalValue, t);
+                const h = f + 1;
+                if (Object.prototype.hasOwnProperty.call(d.values, h) && o.monthVisible(e.views.months.monthsToShow, f)) {
+                    const i = d.valueOpacities[d.values[h].total];
+                    const m = Ae(c, h, d.values[h].total, e, l, i, d.totalValue, t);
                     if (e.views.months.showMonthNames) {
-                        const e = a.createWithHTML(r, "div", "month-name", D.text.monthNames[g]);
-                        const t = new Date(l, g, 1);
+                        const e = a.createWithHTML(r, "div", "month-name", D.text.monthNames[f]);
+                        const t = new Date(g, f, 1);
                         if (s.isCurrentMonthAndYear(t)) {
                             a.addClass(e, "current");
                         }
                     }
                     if (e.views.months.showStackedColorRanges) {
-                        for (const e in d.values[f].typeTotals) {
-                            if (Object.prototype.hasOwnProperty.call(d.values[f].typeTotals, e)) {
-                                const t = d.values[f].typeTotals[e];
-                                const n = t * i;
+                        for (const e in d.values[h].typeTotals) {
+                            if (Object.prototype.hasOwnProperty.call(d.values[h].typeTotals, e)) {
+                                const t = d.values[h].typeTotals[e];
+                                const i = t * l;
                                 const r = w.getByMinimum(u, parseInt(e));
-                                if (n > 0) {
-                                    const e = h.children.length > 0 ? h.children[0] : null;
-                                    const t = a.create(h, "div", "stacked-color-range", e);
-                                    t.style.height = `${n}px`;
+                                if (i > 0) {
+                                    const e = m.children.length > 0 ? m.children[0] : null;
+                                    const t = a.create(m, "div", "stacked-color-range", e);
+                                    t.style.height = `${i}px`;
                                     if (o.defined(r)) {
+                                        t.setAttribute(n.Attribute.View.Month.HEAT_JS_MINIMUM, r.minimum.toString());
                                         if (o.definedString(r.monthsCssClassName)) {
                                             a.addClass(t, r.monthsCssClassName);
                                         } else {

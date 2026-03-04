@@ -39,10 +39,12 @@ export namespace Constant {
 
             export namespace Days {
                 export const HEAT_JS_NUMBER: string = "data-heat-js-day-number";
+                export const HEAT_JS_MINIMUM: string = "data-heat-js-day-minimum";
             }
 
             export namespace Month {
                 export const HEAT_JS_NUMBER: string = "data-heat-js-month-number";
+                export const HEAT_JS_MINIMUM: string = "data-heat-js-month-minimum";
             }
 
             export namespace ColorRanges {
