@@ -2331,25 +2331,30 @@ var x;
             if (t > 0) {
                 const i = t / (n - 1);
                 const r = 100 / (n - 1);
-                let s;
+                const s = [];
+                let l = 0;
                 for (let o = 0; o < n; o++) {
-                    const l = a.create(e, "div", "chart-y-label");
+                    const c = a.create(e, "div", "chart-y-label");
                     if (o === 0) {
-                        l.innerHTML = "0";
-                        l.style.bottom = "0";
-                        l.style.transform = "translateY( 50% )";
+                        c.innerHTML = "0";
+                        c.style.bottom = "0";
+                        c.style.transform = "translateY( 50% )";
                     } else if (o === n - 1) {
-                        l.innerHTML = t.toString();
-                        l.style.top = "0";
-                        l.style.transform = "translateY( -50% )";
-                        s = l;
+                        c.innerHTML = t.toString();
+                        c.style.top = "0";
+                        c.style.transform = "translateY( -50% )";
                     } else {
-                        l.innerHTML = Math.floor(i * o).toString();
-                        l.style.top = `${100 - r * o}%`;
-                        l.style.transform = "translateY( -50% )";
+                        c.innerHTML = Math.floor(i * o).toString();
+                        c.style.top = `${100 - r * o}%`;
+                        c.style.transform = "translateY( -50% )";
                     }
+                    s.push(c);
+                    l = Math.max(l, c.offsetWidth);
                 }
-                e.style.width = `${s.offsetWidth}px`;
+                for (let e = 0; e < n; e++) {
+                    s[e].style.width = `${l}px`;
+                }
+                e.style.width = `${l}px`;
                 o = e.offsetWidth;
             } else {
                 e.parentNode.removeChild(e);

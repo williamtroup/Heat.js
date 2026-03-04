@@ -23,30 +23,37 @@ export namespace Chart {
             if ( largestValue > 0 ) {
                 const valueIncrease: number = largestValue / ( maximumLabels - 1 );
                 const positionIncrease: number = 100 / ( maximumLabels - 1 );
-                let topYLabel: HTMLElement;
+                const allYLabels: HTMLElement[] = [];
+                let maximumWidth: number = 0;
 
-                for ( let labelIndex = 0; labelIndex < maximumLabels; labelIndex++ ) {
+                for ( let yLabelIndex = 0; yLabelIndex < maximumLabels; yLabelIndex++ ) {
                     const newYLabel: HTMLElement = DomElement.create( yAxisLabels, "div", "chart-y-label" );
 
-                    if ( labelIndex === 0 ) {
+                    if ( yLabelIndex === 0 ) {
                         newYLabel.innerHTML = Char.zero;
                         newYLabel.style.bottom = "0";
                         newYLabel.style.transform = "translateY( 50% )";
 
-                    } else if ( labelIndex === maximumLabels - 1 ) {
+                    } else if ( yLabelIndex === maximumLabels - 1 ) {
                         newYLabel.innerHTML = largestValue.toString();
                         newYLabel.style.top = "0";
                         newYLabel.style.transform = "translateY( -50% )";
-                        topYLabel = newYLabel;
 
                     } else {
-                        newYLabel.innerHTML = Math.floor( valueIncrease * labelIndex ).toString();
-                        newYLabel.style.top = `${100 - ( positionIncrease * labelIndex )}%`;
+                        newYLabel.innerHTML = Math.floor( valueIncrease * yLabelIndex ).toString();
+                        newYLabel.style.top = `${100 - ( positionIncrease * yLabelIndex )}%`;
                         newYLabel.style.transform = "translateY( -50% )";
                     }
+
+                    allYLabels.push( newYLabel );
+                    maximumWidth = Math.max( maximumWidth, newYLabel.offsetWidth );
                 }
 
-                yAxisLabels.style.width = `${topYLabel!.offsetWidth}px`;
+                for ( let yLabelIndex = 0; yLabelIndex < maximumLabels; yLabelIndex++ ) {
+                    allYLabels[ yLabelIndex ].style.width = `${maximumWidth}px`;
+                }
+
+                yAxisLabels.style.width = `${maximumWidth}px`;
                 labelsWidth = yAxisLabels.offsetWidth;
 
             } else {
