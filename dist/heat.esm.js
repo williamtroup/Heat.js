@@ -886,10 +886,10 @@ var w;
             l.push("}");
             const C = {
                 id: r.padNumber(u),
-                name: `Day Color ${u}`,
+                name: `${e.startName} ${u}`,
                 minimum: Math.round(y),
                 cssClassName: _,
-                tooltipText: `Day Color ${u}`,
+                tooltipText: `${e.startName} ${u}`,
                 visible: true
             };
             const x = Math.round(n.red / 100 * (u * o));
@@ -1275,6 +1275,7 @@ var g;
             e.dynamicColorRange.totalColors = i.getNumber(e.dynamicColorRange.totalColors, 5);
             e.dynamicColorRange.startMinimum = i.getNumber(e.dynamicColorRange.startMinimum, 10);
             e.dynamicColorRange.hoverOpacity = i.getNumber(e.dynamicColorRange.hoverOpacity, .7);
+            e.dynamicColorRange.startName = i.getString(e.dynamicColorRange.startName, "Day Color");
             return e.dynamicColorRange;
         }
         function x(e) {

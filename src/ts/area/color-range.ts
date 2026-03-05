@@ -226,10 +226,10 @@ export namespace ColorRange {
 
             const colorRange: BindingOptionsColorRange = {
                 id: Str.padNumber( actualColorIndex ),
-                name: `Day Color ${actualColorIndex}`,
+                name: `${dynamicColorRange!.startName!} ${actualColorIndex}`,
                 minimum: Math.round( currentMinimum ),
                 cssClassName: cssName,
-                tooltipText: `Day Color ${actualColorIndex}`,
+                tooltipText: `${dynamicColorRange!.startName!} ${actualColorIndex}`,
                 visible: true,
             } as BindingOptionsColorRange;
 

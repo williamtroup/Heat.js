@@ -384,6 +384,7 @@ export namespace Binding {
             bindingOptions.dynamicColorRange!.totalColors = Default.getNumber( bindingOptions.dynamicColorRange!.totalColors, 5 );
             bindingOptions.dynamicColorRange!.startMinimum = Default.getNumber( bindingOptions.dynamicColorRange!.startMinimum, 10 );
             bindingOptions.dynamicColorRange!.hoverOpacity = Default.getNumber( bindingOptions.dynamicColorRange!.hoverOpacity, 0.7 );
+            bindingOptions.dynamicColorRange!.startName = Default.getString( bindingOptions.dynamicColorRange!.startName, "Day Color" );
     
             return bindingOptions.dynamicColorRange!;
         }
