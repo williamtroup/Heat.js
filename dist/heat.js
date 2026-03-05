@@ -3847,7 +3847,7 @@ var x;
             if (t.views.chart.usePoints) {
                 a.addClass(T, "day-point");
                 const e = a.getStyleValueByName(document.documentElement, d.Variables.ChartViewLineDefaultWidth, true);
-                const t = _ - e / 2;
+                const t = _ - e;
                 if (t >= 0) {
                     T.style.marginBottom = `${t}px`;
                 }
