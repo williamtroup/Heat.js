@@ -437,6 +437,7 @@ export type BindingOptionsDynamicColorRange = {
     color?: string;
     totalColors?: number;
     startMinimum?: number;
+    hoverOpacity?: number;
 };
 
 export type BindingOptionsHoliday = {

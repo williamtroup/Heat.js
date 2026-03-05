@@ -882,7 +882,7 @@ var w;
             l.push(`${"\t"}color: ${V} !important;`);
             l.push("}");
             l.push(`div.${_}:not(.no-hover):hover {`);
-            l.push(`${"\t"}opacity: 0.7 !important;`);
+            l.push(`${"\t"}opacity: ${e.hoverOpacity} !important;`);
             l.push("}");
             const C = {
                 id: r.padNumber(u),
@@ -1274,6 +1274,7 @@ var g;
             e.dynamicColorRange.color = i.getString(e.dynamicColorRange.color, t);
             e.dynamicColorRange.totalColors = i.getNumber(e.dynamicColorRange.totalColors, 5);
             e.dynamicColorRange.startMinimum = i.getNumber(e.dynamicColorRange.startMinimum, 10);
+            e.dynamicColorRange.hoverOpacity = i.getNumber(e.dynamicColorRange.hoverOpacity, .7);
             return e.dynamicColorRange;
         }
         function x(e) {
@@ -2457,12 +2458,12 @@ var x;
         }
         e._currentView.element.removeAttribute(n.Attribute.HEAT_JS);
         We(e._currentView.element.id, e);
-        L(e);
+        O(e);
         _.setupDefaults(e);
         l.customEvent(e.events.onRenderComplete, e._currentView.element);
         e._currentView.initialized = true;
     }
-    function L(e, t = false, n = false, o = false) {
+    function O(e, t = false, n = false, o = false) {
         c.hide(e);
         if (t) {
             T.store(e, S[e._currentView.element.id]);
@@ -2478,7 +2479,7 @@ var x;
         }
         Ke(e);
         je(e);
-        O(e);
+        L(e);
         ae(e);
         fe(e);
         if (e.views.map.enabled && e._currentView.activeView === 1) {
@@ -2505,7 +2506,7 @@ var x;
             l.customEvent(e.events.onChange, e._currentView.element);
         }
     }
-    function O(e) {
+    function L(e) {
         const t = e.sideMenu.enabled && e._currentView.viewsEnabled > 1;
         if (t) {
             e._currentView.sideMenu = a.create(e._currentView.element, "div", "container-side-menu", e._currentView.container);
@@ -2634,7 +2635,7 @@ var x;
             s = true;
         }
         if (s) {
-            L(e);
+            O(e);
             l.customEvent(e.events.onBindingOptionsUpdate, e._currentView.element, e);
         } else {
             c.hide(e);
@@ -2911,7 +2912,7 @@ var x;
             }
             if (r.length === i) {
                 l.customEvent(t.events.onImport, t._currentView.element);
-                L(t, true);
+                O(t, true);
             }
         };
         for (let t = 0; t < i; t++) {
@@ -2990,7 +2991,7 @@ var x;
             }
             l.customEvent(e.events.onAddType, e._currentView.element, t);
             ne(e);
-            L(e, true);
+            O(e, true);
         } else {
             ne(e);
         }
@@ -3071,7 +3072,7 @@ var x;
                     c.add(n, e, D.text.refreshButtonText);
                 }
                 n.onclick = () => {
-                    L(e);
+                    O(e);
                     l.customEvent(e.events.onRefresh, e._currentView.element);
                 };
             }
@@ -3083,7 +3084,7 @@ var x;
                 n.onclick = () => {
                     re(e, D.text.clearDataConfirmText, () => {
                         Ge(e);
-                        L(e, true);
+                        O(e, true);
                     });
                 };
             }
@@ -3222,7 +3223,7 @@ var x;
         if (e._currentView.activeYear !== n) {
             s.onclick = () => {
                 e._currentView.activeYear = n;
-                L(e);
+                O(e);
                 l.customEvent(e.events.onSetYear, e._currentView.element, e._currentView.activeYear);
             };
             if (n === o) {
@@ -3453,7 +3454,7 @@ var x;
             }
             ve(e, u);
             _.render(D, e, e._currentView.mapContentsContainer, r, () => {
-                L(e, false, false, true);
+                O(e, false, false, true);
             });
             if (e.views.map.keepScrollPositions || i) {
                 e._currentView.mapContents.scrollLeft = e._currentView.mapContentsScrollLeft;
@@ -3656,7 +3657,7 @@ var x;
                 t.style.width = `${l.offsetWidth}px`;
             }
             _.render(D, e, e._currentView.lineContentsContainer, r, () => {
-                L(e, false, false, true);
+                O(e, false, false, true);
             });
             if (e.views.line.keepScrollPositions || i) {
                 e._currentView.lineContents.scrollLeft = e._currentView.lineContentsScrollLeft;
@@ -4100,7 +4101,7 @@ var x;
         const l = a.create(i, "div", "y-labels");
         const c = a.create(i, "div", "month-lines");
         const u = w.getAllSorted(e);
-        const d = Oe(e, u);
+        const d = Le(e, u);
         if (t && (!e.views.months.useDifferentOpacities || !e.views.months.showMonthCounts)) {
             a.addClass(i, "view-switch");
         }
@@ -4130,7 +4131,7 @@ var x;
                 const h = f + 1;
                 if (Object.prototype.hasOwnProperty.call(d.values, h) && o.monthVisible(e.views.months.monthsToShow, f)) {
                     const i = d.valueOpacities[d.values[h].total];
-                    const m = Le(c, h, d.values[h].total, e, l, i, d.totalValue, t);
+                    const m = Oe(c, h, d.values[h].total, e, l, i, d.totalValue, t);
                     if (e.views.months.showMonthNames) {
                         const e = a.createWithHTML(r, "div", "month-name", D.text.monthNames[f]);
                         const t = new Date(g, f, 1);
@@ -4175,7 +4176,7 @@ var x;
         }
         e._currentView.monthsContents.style.display = "none";
     }
-    function Le(e, t, i, d, w, g, f, h) {
+    function Oe(e, t, i, d, w, g, f, h) {
         const m = a.create(e, "div", "month-line");
         const p = i * w;
         m.setAttribute(n.Attribute.View.Month.HEAT_JS_NUMBER, t.toString());
@@ -4244,7 +4245,7 @@ var x;
         v.setHeight(d, m, p, h);
         return m;
     }
-    function Oe(e, t) {
+    function Le(e, t) {
         const n = {
             values: b.largestValueForViewValues(12),
             valueOpacities: {},
@@ -4472,7 +4473,7 @@ var x;
                 if (e.guide.colorRangeTogglesEnabled) {
                     t.onclick = () => {
                         if (w.invertVisibleStates(e)) {
-                            L(e, false, false, true);
+                            O(e, false, false, true);
                         }
                     };
                 } else {
@@ -4484,7 +4485,7 @@ var x;
                 if (e.guide.colorRangeTogglesEnabled) {
                     t.onclick = () => {
                         if (w.updateAllVisibleStates(e, false)) {
-                            L(e, false, false, true);
+                            O(e, false, false, true);
                         }
                     };
                 } else {
@@ -4515,7 +4516,7 @@ var x;
                 if (e.guide.colorRangeTogglesEnabled) {
                     t.onclick = () => {
                         if (w.updateAllVisibleStates(e, true)) {
-                            L(e, false, false, true);
+                            O(e, false, false, true);
                         }
                     };
                 } else {
@@ -4533,7 +4534,7 @@ var x;
                 a.cancelBubble(t);
                 re(e, D.text.removeTypeConfirmText, () => {
                     Ze(e, n);
-                    L(e, true);
+                    O(e, true);
                 });
             };
         }
@@ -4562,7 +4563,7 @@ var x;
         if (e.guide.colorRangeTogglesEnabled) {
             i.onclick = () => {
                 if (w.toggleVisibleState(e, o.id)) {
-                    L(e, false, false, true);
+                    O(e, false, false, true);
                 }
             };
         } else {
@@ -4585,14 +4586,14 @@ var x;
         if (e._currentView.activeView !== t) {
             e._currentView.activeView = t;
             l.customEvent(e.events.onViewSwitch, e._currentView.element, m.View.getName(e, t));
-            L(e, false, true);
+            O(e, false, true);
         }
     }
     function He(e, t) {
         if (e._currentView.activeType !== t) {
             e._currentView.activeType = t;
             l.customEvent(e.events.onTypeSwitch, e._currentView.element, t);
-            L(e);
+            O(e);
         }
     }
     function je(e) {
@@ -4736,7 +4737,7 @@ var x;
             if (e._currentView.isInFetchModeTimer === 0) {
                 e._currentView.isInFetchModeTimer = setInterval(() => {
                     Qe(e);
-                    L(e);
+                    O(e);
                 }, e.dataFetchDelay);
             }
         }
@@ -4781,7 +4782,7 @@ var x;
         }
         if (n) {
             e._currentView.activeYear = i;
-            L(e);
+            O(e);
             if (t) {
                 l.customEvent(e.events.onBackYear, e._currentView.element, e._currentView.activeYear);
             }
@@ -4800,7 +4801,7 @@ var x;
         }
         if (n) {
             e._currentView.activeYear = i;
-            L(e);
+            O(e);
             if (t) {
                 l.customEvent(e.events.onNextYear, e._currentView.element, e._currentView.activeYear);
             }
@@ -4826,7 +4827,7 @@ var x;
                     }
                     l.customEvent(o.events.onAddType, o._currentView.element, t);
                     if (n) {
-                        L(o, true);
+                        O(o, true);
                     }
                 }
             }
@@ -4838,7 +4839,7 @@ var x;
                 if (!o._currentView.isInFetchMode && !Object.prototype.hasOwnProperty.call(S[e].typeData, t)) {
                     Ze(o, t);
                     if (n) {
-                        L(o, true);
+                        O(o, true);
                     }
                 }
             }
@@ -4854,7 +4855,7 @@ var x;
                         it.addDate(e, t[o], n, false);
                     }
                     if (r) {
-                        L(o, true);
+                        O(o, true);
                     }
                 }
             }
@@ -4876,7 +4877,7 @@ var x;
                     S[e].typeData[n][a]++;
                     l.customEvent(o.events.onAddDate, o._currentView.element, t);
                     if (r) {
-                        L(o, true);
+                        O(o, true);
                     }
                 }
             }
@@ -4892,7 +4893,7 @@ var x;
                         S[e].typeData[r][i] = n;
                         l.customEvent(o.events.onUpdateDate, o._currentView.element, t);
                         if (a) {
-                            L(o, true);
+                            O(o, true);
                         }
                     }
                 }
@@ -4909,7 +4910,7 @@ var x;
                         it.removeDate(e, t[o], n, false);
                     }
                     if (r) {
-                        L(o, true);
+                        O(o, true);
                     }
                 }
             }
@@ -4927,7 +4928,7 @@ var x;
                         }
                         l.customEvent(o.events.onRemoveDate, o._currentView.element, t);
                         if (r) {
-                            L(o, true);
+                            O(o, true);
                         }
                     }
                 }
@@ -4944,7 +4945,7 @@ var x;
                         delete S[e].typeData[n][a];
                         l.customEvent(o.events.onClearDate, o._currentView.element, t);
                         if (r) {
-                            L(o, true);
+                            O(o, true);
                         }
                     }
                 }
@@ -4967,7 +4968,7 @@ var x;
                     We(e, n, false);
                     l.customEvent(n.events.onReset, n._currentView.element);
                     if (t) {
-                        L(n, true);
+                        O(n, true);
                     }
                 }
             }
@@ -4993,7 +4994,7 @@ var x;
         refresh: e => {
             if (o.definedString(e) && Object.prototype.hasOwnProperty.call(S, e)) {
                 const t = S[e].options;
-                L(t, true);
+                O(t, true);
                 l.customEvent(t.events.onRefresh, t._currentView.element);
             }
             return it;
@@ -5002,7 +5003,7 @@ var x;
             for (const e in S) {
                 if (Object.prototype.hasOwnProperty.call(S, e)) {
                     const t = S[e].options;
-                    L(t, true);
+                    O(t, true);
                     l.customEvent(t.events.onRefresh, t._currentView.element);
                 }
             }
@@ -5015,7 +5016,7 @@ var x;
                 if (!o.yearVisible(n, n._currentView.activeYear)) {
                     nt(n, false);
                 } else {
-                    L(n);
+                    O(n);
                 }
                 l.customEvent(n.events.onSetYear, n._currentView.element, n._currentView.activeYear);
             }
@@ -5036,7 +5037,7 @@ var x;
                     if (!o.yearVisible(t, t._currentView.activeYear)) {
                         nt(t, false);
                     } else {
-                        L(t);
+                        O(t);
                     }
                     l.customEvent(t.events.onSetYear, t._currentView.element, t._currentView.activeYear);
                 }
@@ -5058,7 +5059,7 @@ var x;
                     if (!o.yearVisible(t, t._currentView.activeYear)) {
                         tt(t, false);
                     } else {
-                        L(t);
+                        O(t);
                     }
                     l.customEvent(t.events.onSetYear, t._currentView.element, t._currentView.activeYear);
                 }
@@ -5084,7 +5085,7 @@ var x;
                 if (!o.yearVisible(t, t._currentView.activeYear)) {
                     nt(t, false);
                 } else {
-                    L(t);
+                    O(t);
                 }
                 l.customEvent(t.events.onSetYear, t._currentView.element, t._currentView.activeYear);
             }
@@ -5134,7 +5135,7 @@ var x;
                     }
                 }
                 if (i) {
-                    L(n, true);
+                    O(n, true);
                     l.customEvent(n.events.onRefresh, n._currentView.element);
                     l.customEvent(n.events.onBindingOptionsUpdate, n._currentView.element, n);
                 }

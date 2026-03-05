@@ -221,7 +221,7 @@ export namespace ColorRange {
             cssLines.push( `${Char.tab}color: ${colorRgb} !important;` );
             cssLines.push( "}" );
             cssLines.push( `div.${cssName}:not(.no-hover):hover {` );
-            cssLines.push( `${Char.tab}opacity: 0.7 !important;` );
+            cssLines.push( `${Char.tab}opacity: ${dynamicColorRange!.hoverOpacity!} !important;` );
             cssLines.push( "}" );
 
             const colorRange: BindingOptionsColorRange = {

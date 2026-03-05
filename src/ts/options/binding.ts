@@ -383,6 +383,7 @@ export namespace Binding {
             bindingOptions.dynamicColorRange!.color = Default.getString( bindingOptions.dynamicColorRange!.color, defaultDynamicColor );
             bindingOptions.dynamicColorRange!.totalColors = Default.getNumber( bindingOptions.dynamicColorRange!.totalColors, 5 );
             bindingOptions.dynamicColorRange!.startMinimum = Default.getNumber( bindingOptions.dynamicColorRange!.startMinimum, 10 );
+            bindingOptions.dynamicColorRange!.hoverOpacity = Default.getNumber( bindingOptions.dynamicColorRange!.hoverOpacity, 0.7 );
     
             return bindingOptions.dynamicColorRange!;
         }
