@@ -2040,6 +2040,7 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-point-line {
   height: var(--heat-js-border-size);
   background-color: var(--heat-js-container-border-color);
   border: none !important;
+  animation: fade-in-animation var(--heat-js-animation-length);
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   border-top-left-radius: var(--heat-js-border-radius-day);
