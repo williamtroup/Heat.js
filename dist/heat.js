@@ -3816,7 +3816,7 @@ var x;
             if (e.views.chart.showHorizontalChartLines) {
                 x.YAxis.createLines(u, e.views.chart.totalYAxisLabels);
             }
-            if (e.views.chart.usePointLines) {
+            if (e.views.chart.usePoints && e.views.chart.usePointLines) {
                 const t = f.length;
                 for (let o = e.startMonth; o < t - 1; o++) {
                     De(e, u, f[o], f[o + 1], n);

@@ -2009,7 +2009,7 @@ import { Chart } from "./ts/area/chart";
                 Chart.YAxis.createLines( dayLines, bindingOptions.views!.chart!.totalYAxisLabels! );
             }
 
-            if ( bindingOptions.views!.chart!.usePointLines ) {
+            if ( bindingOptions.views!.chart!.usePoints && bindingOptions.views!.chart!.usePointLines ) {
                 const allDayLinesLength: number = allDayLines.length;
 
                 for ( let dayLineIndex: number = bindingOptions.startMonth!; dayLineIndex < allDayLinesLength - 1; dayLineIndex++ ) {
