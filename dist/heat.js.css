@@ -2041,6 +2041,7 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-point-line {
   background-color: var(--heat-js-container-border-color);
   border: none !important;
   animation: fade-in-animation var(--heat-js-animation-length);
+  pointer-events: none !important;
 }
 div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   border-top-left-radius: var(--heat-js-border-radius-day);

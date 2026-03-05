@@ -1406,6 +1406,7 @@ div.heat-js {
                     background-color: var(--heat-js-container-border-color);
                     border: none !important;
                     animation: fade-in-animation var(--heat-js-animation-length);
+                    pointer-events: none !important;
                 }
 
                 div.day-line {
