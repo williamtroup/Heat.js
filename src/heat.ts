@@ -2013,7 +2013,7 @@ import { Chart } from "./ts/area/chart";
                 const allDayLinesLength: number = allDayLines.length;
 
                 for ( let dayLineIndex: number = bindingOptions.startMonth!; dayLineIndex < allDayLinesLength - 1; dayLineIndex++ ) {
-                    renderChartViewDayPointLine( bindingOptions, dayLines, allDayLines[ dayLineIndex ], allDayLines[ dayLineIndex + 1 ], colorRanges );
+                    renderChartViewDayPointToPointLine( bindingOptions, dayLines, allDayLines[ dayLineIndex ], allDayLines[ dayLineIndex + 1 ], colorRanges );
                 }
             }
     
@@ -2113,7 +2113,7 @@ import { Chart } from "./ts/area/chart";
         return dayLine;
     }
 
-    function renderChartViewDayPointLine( bindingOptions: BindingOptions, dayLines: HTMLElement, dayLineElement1: HTMLElement, dayLineElement2: HTMLElement, colorRanges: BindingOptionsColorRange[] ) : void {
+    function renderChartViewDayPointToPointLine( bindingOptions: BindingOptions, dayLines: HTMLElement, dayLineElement1: HTMLElement, dayLineElement2: HTMLElement, colorRanges: BindingOptionsColorRange[] ) : void {
         setTimeout( () => {
             const dayLineElement2Minimum: string = dayLineElement2.getAttribute( Constant.Attribute.View.Chart.HEAT_JS_MINIMUM )!;
             const line: HTMLElement = DomElement.drawLineBetweenElements( dayLines, dayLineElement1, dayLineElement2 );
