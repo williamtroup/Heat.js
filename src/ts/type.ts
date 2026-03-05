@@ -439,6 +439,7 @@ export type BindingOptionsDynamicColorRange = {
     startMinimum?: number;
     hoverOpacity?: number;
     startName?: string;
+    overrideCheckBoxColors?: boolean;
 };
 
 export type BindingOptionsHoliday = {

@@ -877,27 +877,27 @@ var w;
             const T = `rgba(${c}, ${w}, ${g}, ${f.toFixed(2)})`;
             const b = `rgba(${c}, ${w}, ${g}, ${v.toFixed(2)})`;
             const V = `rgb(${h}, ${m}, ${p})`;
-            const _ = `day-color-${r.padNumber(u)}`;
-            l.push(`div.${_} {`);
+            const C = `day-color-${r.padNumber(u)}`;
+            l.push(`div.${C} {`);
             l.push(`${"\t"}background-color: ${T} !important;`);
             l.push(`${"\t"}border-color: ${b} !important;`);
             l.push(`${"\t"}color: ${V} !important;`);
             l.push("}");
-            l.push(`div.${_}:not(.no-hover):hover {`);
+            l.push(`div.${C}:not(.no-hover):hover {`);
             l.push(`${"\t"}opacity: ${e.hoverOpacity} !important;`);
             l.push("}");
-            const C = {
+            const _ = {
                 id: r.padNumber(u),
                 name: `${e.startName} ${u}`,
                 minimum: Math.round(y),
-                cssClassName: _,
+                cssClassName: C,
                 tooltipText: `${e.startName} ${u}`,
                 visible: true
             };
             const x = Math.round(n.red / 100 * (u * o));
             const D = Math.round(n.green / 100 * (u * o));
             const S = Math.round(n.blue / 100 * (u * o));
-            if (a === e.totalColors - 1) {
+            if (a === e.totalColors - 1 && e.overrideCheckBoxColors) {
                 l.push(`:root {`);
                 l.push(`${"\t"}${d.Variables.CheckBoxCheckedColor}: ${T};`);
                 l.push(`${"\t"}${d.Variables.YearMenuCurrent}: ${T};`);
@@ -915,7 +915,7 @@ var w;
                     y = e.maximumMinimum;
                 }
             }
-            t.push(C);
+            t.push(_);
         }
         const v = document.getElementsByTagName("head")[0];
         const T = a.create(v, "style");
@@ -1062,8 +1062,8 @@ var g;
             t.description = T(t);
             t.guide = b(t);
             t.tooltip = V(t);
-            t.zooming = _(t);
-            t.dynamicColorRange = C(t);
+            t.zooming = C(t);
+            t.dynamicColorRange = _(t);
             t.colorRanges = x(t);
             t.holidays = D(t);
             t.events = S(t);
@@ -1258,7 +1258,7 @@ var g;
             e.tooltip.delay = i.getNumber(e.tooltip.delay, 750);
             return e.tooltip;
         }
-        function _(e) {
+        function C(e) {
             e.zooming = i.getObject(e.zooming, {});
             e.zooming.enabled = i.getBoolean(e.zooming.enabled, false);
             e.zooming.defaultLevel = i.getNumber(e.zooming.defaultLevel, 0);
@@ -1268,7 +1268,7 @@ var g;
             e.zooming.showToolTips = i.getBoolean(e.zooming.showToolTips, true);
             return e.zooming;
         }
-        function C(e) {
+        function _(e) {
             const t = a.getStyleValueByName(document.documentElement, d.Variables.DefaultDynamicColor);
             e.dynamicColorRange = i.getObject(e.dynamicColorRange, {});
             e.dynamicColorRange.enabled = i.getBoolean(e.dynamicColorRange.enabled, false);
@@ -1278,6 +1278,7 @@ var g;
             e.dynamicColorRange.startMinimum = i.getNumber(e.dynamicColorRange.startMinimum, 10);
             e.dynamicColorRange.hoverOpacity = i.getNumber(e.dynamicColorRange.hoverOpacity, .7);
             e.dynamicColorRange.startName = i.getString(e.dynamicColorRange.startName, "Day Color");
+            e.dynamicColorRange.overrideCheckBoxColors = i.getBoolean(e.dynamicColorRange.overrideCheckBoxColors, true);
             return e.dynamicColorRange;
         }
         function x(e) {
@@ -2195,7 +2196,7 @@ var V;
     e.onContentLoaded = n;
 })(V || (V = {}));
 
-var _;
+var C;
 
 (e => {
     function t(e, t, n, l, w) {
@@ -2312,9 +2313,9 @@ var _;
             t();
         }
     }
-})(_ || (_ = {}));
+})(C || (C = {}));
 
-var C;
+var _;
 
 (e => {
     let t = null;
@@ -2342,7 +2343,7 @@ var C;
         }
     }
     e.destroy = i;
-})(C || (C = {}));
+})(_ || (_ = {}));
 
 var x;
 
@@ -2462,7 +2463,7 @@ var x;
         e._currentView.element.removeAttribute(n.Attribute.HEAT_JS);
         We(e._currentView.element.id, e);
         O(e);
-        _.setupDefaults(e);
+        C.setupDefaults(e);
         l.customEvent(e.events.onRenderComplete, e._currentView.element);
         e._currentView.initialized = true;
     }
@@ -2492,7 +2493,7 @@ var x;
             Ve(e, n, o);
         }
         if (e.views.chart.enabled && e._currentView.activeView === 3) {
-            Ce(e, n, o);
+            _e(e, n, o);
         }
         if (e.views.days.enabled && e._currentView.activeView === 4) {
             Se(e, n);
@@ -3456,7 +3457,7 @@ var x;
                 a.reverseChildrenOrder(u);
             }
             ve(e, u);
-            _.render(D, e, e._currentView.mapContentsContainer, r, () => {
+            C.render(D, e, e._currentView.mapContentsContainer, r, () => {
                 O(e, false, false, true);
             });
             if (e.views.map.keepScrollPositions || i) {
@@ -3597,7 +3598,7 @@ var x;
                         const n = new Date(a, r, i);
                         const g = s.getWeekdayNumber(n) + 1;
                         if (o.dayVisible(e.views.line.daysToShow, g)) {
-                            const n = _e(l, e, w + 1, r, a, c, t);
+                            const n = Ce(l, e, w + 1, r, a, c, t);
                             if (!d) {
                                 u.push(n);
                                 d = true;
@@ -3659,7 +3660,7 @@ var x;
                 }
                 t.style.width = `${l.offsetWidth}px`;
             }
-            _.render(D, e, e._currentView.lineContentsContainer, r, () => {
+            C.render(D, e, e._currentView.lineContentsContainer, r, () => {
                 O(e, false, false, true);
             });
             if (e.views.line.keepScrollPositions || i) {
@@ -3668,7 +3669,7 @@ var x;
         }
         e._currentView.lineContentsContainer.style.display = "none";
     }
-    function _e(e, t, u, d, g, f, h) {
+    function Ce(e, t, u, d, g, f, h) {
         const m = new Date(g, d, u);
         const p = a.create(e, "div", "day-line");
         const y = o.holiday(t, m);
@@ -3699,7 +3700,7 @@ var x;
         v.setHeight(t, p, 100, h, true);
         return p;
     }
-    function Ce(e, t, i) {
+    function _e(e, t, i) {
         e._currentView.chartContents = a.create(e._currentView.container, "div", "chart-contents");
         e._currentView.chartContents.onscroll = () => c.hide(e);
         const r = a.create(e._currentView.chartContents, "div", "chart");
@@ -3835,21 +3836,21 @@ var x;
         const T = a.create(e, "div", "day-line");
         const b = i.getNumber(ze(t)[s.toStorageDate(y)], 0);
         const V = w.get(t, h, b, y);
-        const _ = b * m;
+        const C = b * m;
         T.setAttribute(n.Attribute.View.Chart.HEAT_JS_DATE, `${r.padNumber(u)}-${r.padNumber(g + 1)}-${f}`);
-        if (_ <= 0) {
+        if (C <= 0) {
             T.style.visibility = "hidden";
         }
         if (o.defined(V)) {
             T.setAttribute(n.Attribute.View.Chart.HEAT_JS_MINIMUM, V.minimum.toString());
         }
-        if (_ > 0) {
+        if (C > 0) {
             const e = o.holiday(t, y);
             const n = qe(t, y, b);
             if (t.views.chart.usePoints) {
                 a.addClass(T, "day-point");
                 const e = a.getStyleValueByName(document.documentElement, d.Variables.ChartViewLineDefaultWidth, true);
-                const t = _ - e;
+                const t = C - e;
                 if (t >= 0) {
                     T.style.marginBottom = `${t}px`;
                 }
@@ -3894,7 +3895,7 @@ var x;
             }
         }
         if (!t.views.chart.usePoints) {
-            v.setHeight(t, T, _, p);
+            v.setHeight(t, T, C, p);
         }
         return T;
     }
@@ -4770,7 +4771,7 @@ var x;
                 }
             }
         }
-        C.destroy(D);
+        _.destroy(D);
     }
     function tt(e, t = true) {
         let n = true;
@@ -5180,7 +5181,7 @@ var x;
                 }
                 if (o) {
                     D = f.Options.get(n);
-                    C.setup(D, () => M());
+                    _.setup(D, () => M());
                     if (t) {
                         it.refreshAll();
                     }
@@ -5212,7 +5213,7 @@ var x;
         D = f.Options.get();
         V.onContentLoaded(() => {
             M();
-            C.setup(D, () => M());
+            _.setup(D, () => M());
         });
         window.addEventListener("pagehide", () => et());
         if (!o.defined(window.$heat)) {

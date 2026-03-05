@@ -385,6 +385,7 @@ export namespace Binding {
             bindingOptions.dynamicColorRange!.startMinimum = Default.getNumber( bindingOptions.dynamicColorRange!.startMinimum, 10 );
             bindingOptions.dynamicColorRange!.hoverOpacity = Default.getNumber( bindingOptions.dynamicColorRange!.hoverOpacity, 0.7 );
             bindingOptions.dynamicColorRange!.startName = Default.getString( bindingOptions.dynamicColorRange!.startName, "Day Color" );
+            bindingOptions.dynamicColorRange!.overrideCheckBoxColors = Default.getBoolean( bindingOptions.dynamicColorRange!.overrideCheckBoxColors, true );
     
             return bindingOptions.dynamicColorRange!;
         }

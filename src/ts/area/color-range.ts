@@ -237,7 +237,7 @@ export namespace ColorRange {
             const greenPercentage = Math.round( rgbaColor.green / 100 * ( actualColorIndex * incrementPercentage ) );
             const bluePercentage = Math.round( rgbaColor.blue / 100 * ( actualColorIndex * incrementPercentage ) );
 
-            if ( colorIndex === dynamicColorRange!.totalColors! - 1 ) {
+            if ( colorIndex === dynamicColorRange!.totalColors! - 1 && dynamicColorRange!.overrideCheckBoxColors ) {
                 cssLines.push( `:root {` );
                 cssLines.push( `${Char.tab}${Css.Variables.CheckBoxCheckedColor}: ${rgba};` );
                 cssLines.push( `${Char.tab}${Css.Variables.YearMenuCurrent}: ${rgba};` );
