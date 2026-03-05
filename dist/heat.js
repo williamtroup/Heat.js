@@ -1168,7 +1168,7 @@ var g;
             e.views.chart.usePoints = i.getBoolean(e.views.chart.usePoints, false);
             e.views.chart.usePointLines = i.getBoolean(e.views.chart.usePointLines, false);
             e.views.chart.showHorizontalChartLines = i.getBoolean(e.views.chart.showHorizontalChartLines, false);
-            e.views.chart.totalYAxisLabels = i.getNumber(e.views.chart.totalYAxisLabels, 7);
+            e.views.chart.totalYAxisLabels = i.getNumberInRange(e.views.chart.totalYAxisLabels, 2, 10, 7);
             M(e.views.chart);
             return e.views.chart;
         }
@@ -1187,7 +1187,7 @@ var g;
             e.views.days.showStackedColorRanges = i.getBoolean(e.views.days.showStackedColorRanges, true);
             e.views.days.dayToolTipText = i.getString(e.views.days.dayToolTipText, "{dddd} {yyyy}");
             e.views.days.showHorizontalChartLines = i.getBoolean(e.views.days.showHorizontalChartLines, false);
-            e.views.days.totalYAxisLabels = i.getNumber(e.views.days.totalYAxisLabels, 7);
+            e.views.days.totalYAxisLabels = i.getNumberInRange(e.views.days.totalYAxisLabels, 2, 10, 7);
             M(e.views.days);
             return e.views.days;
         }
@@ -1207,7 +1207,7 @@ var g;
             e.views.months.showStackedColorRanges = i.getBoolean(e.views.months.showStackedColorRanges, true);
             e.views.months.monthToolTipText = i.getString(e.views.months.monthToolTipText, "{mmmm} {yyyy}");
             e.views.months.showHorizontalChartLines = i.getBoolean(e.views.months.showHorizontalChartLines, false);
-            e.views.months.totalYAxisLabels = i.getNumber(e.views.months.totalYAxisLabels, 7);
+            e.views.months.totalYAxisLabels = i.getNumberInRange(e.views.months.totalYAxisLabels, 2, 10, 7);
             M(e.views.months);
             return e.views.months;
         }
@@ -1225,7 +1225,7 @@ var g;
             e.views.colorRanges.showRangeCountPercentages = i.getBoolean(e.views.colorRanges.showRangeCountPercentages, true);
             e.views.colorRanges.showRangeNamesInToolTips = i.getBoolean(e.views.colorRanges.showRangeNamesInToolTips, true);
             e.views.colorRanges.showHorizontalChartLines = i.getBoolean(e.views.colorRanges.showHorizontalChartLines, false);
-            e.views.colorRanges.totalYAxisLabels = i.getNumber(e.views.colorRanges.totalYAxisLabels, 7);
+            e.views.colorRanges.totalYAxisLabels = i.getNumberInRange(e.views.colorRanges.totalYAxisLabels, 2, 10, 7);
             M(e.views.colorRanges);
             return e.views.colorRanges;
         }
