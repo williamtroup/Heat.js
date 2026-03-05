@@ -71,7 +71,7 @@ export namespace ToolTip {
                 const holiday: IsHoliday = Is.holiday( bindingOptions, date );
 
                 if ( holiday.matched && Is.definedString( holiday.name ) ) {
-                    tooltip.push(`${Char.colon}${Char.space}${holiday.name}`);
+                    tooltip.push( `${Char.colon}${Char.space}${holiday.name}` );
                 }
             }
 
@@ -80,7 +80,7 @@ export namespace ToolTip {
             }
 
             if ( showCountsInTooltips ) {
-                tooltip.push(`<b class="tooltip-count">${Str.friendlyNumber( dateCount )}</b>`);
+                tooltip.push( `<b class="tooltip-count">${Str.friendlyNumber( dateCount )}</b>` );
             }
 
             if ( showDifferencesInToolTips && Is.definedString( percentageDifferenceText ) ) {
@@ -90,7 +90,7 @@ export namespace ToolTip {
 
                 const differentClass = !percentageDifferenceText.startsWith( Char.dash ) ? "positive" : "negative";
 
-                tooltip.push(`<b class="tooltip-difference ${differentClass}">${percentageDifferenceText}</b>`);
+                tooltip.push( `<b class="tooltip-difference ${differentClass}">${percentageDifferenceText}</b>` );
             }
 
             add( day, bindingOptions, tooltip.join( Char.empty ) );
