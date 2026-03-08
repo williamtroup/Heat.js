@@ -20,5 +20,9 @@ export namespace Css {
         export const YearMenuCurrent: string = "--heat-js-years-current-color";
         export const DefaultDynamicColor: string = "--heat-js-color-default-dynamic";
         export const ChartViewLineDefaultWidth: string = "--heat-js-day-chart-width";
+        export const DaysBackgroundColor: string = "--heat-js-view-days-background-color";
+        export const DaysBorderColor: string = "--heat-js-view-days-border-color";
+        export const MonthsBackgroundColor: string = "--heat-js-view-months-background-color";
+        export const MonthsBorderColor: string = "--heat-js-view-months-border-color";
     }
 }

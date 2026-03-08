@@ -241,6 +241,10 @@ export namespace ColorRange {
                 cssLines.push( `:root {` );
                 cssLines.push( `${Char.tab}${Css.Variables.CheckBoxCheckedColor}: ${rgba};` );
                 cssLines.push( `${Char.tab}${Css.Variables.YearMenuCurrent}: ${rgba};` );
+                cssLines.push( `${Char.tab}${Css.Variables.DaysBackgroundColor}: ${rgba};` );
+                cssLines.push( `${Char.tab}${Css.Variables.DaysBorderColor}: ${rgbaBorder};` );
+                cssLines.push( `${Char.tab}${Css.Variables.MonthsBackgroundColor}: ${rgba};` );
+                cssLines.push( `${Char.tab}${Css.Variables.MonthsBorderColor}: ${rgbaBorder};` );
                 cssLines.push( "}" );
 
             } else {
