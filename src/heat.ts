@@ -1455,6 +1455,7 @@ import { Chart } from "./ts/area/chart";
                                     date.setDate( date.getDate() - Math.abs( dayIndex - firstDayNumberInMonth ) );
 
                                     day = renderMapViewMonthDay( bindingOptions, currentDayColumn, date.getDate(), date.getMonth(), date.getFullYear(), colorRanges );
+                                    
                                 } else {
                                     day = DomElement.create( currentDayColumn, "div", "day-disabled" );
                                 }
