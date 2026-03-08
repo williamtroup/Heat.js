@@ -1417,8 +1417,9 @@ import { Chart } from "./ts/area/chart";
     
             const months: HTMLElement = DomElement.create( map, "div", "months" );
             const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
+            const maximumMonths: number = ( 12 + bindingOptions.startMonth! );
     
-            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < maximumMonths; monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
                 let actualYear: number = currentYear;
 
@@ -1447,7 +1448,16 @@ import { Chart } from "./ts/area/chart";
         
                         } else {
                             if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
-                                const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day-disabled" );
+                                let day: HTMLElement;
+
+                                if ( bindingOptions.views!.map!.showStartEndYearDays && !bindingOptions.views!.map!.showMonthDayGaps && monthIndex === bindingOptions.startMonth! ) {
+                                    const date: Date = new Date( actualYear, actualMonthIndex, 1 );
+                                    date.setDate( date.getDate() - Math.abs( dayIndex - firstDayNumberInMonth ) );
+
+                                    day = renderMapViewMonthDay( bindingOptions, currentDayColumn, date.getDate(), date.getMonth(), date.getFullYear(), colorRanges );
+                                } else {
+                                    day = DomElement.create( currentDayColumn, "div", "day-disabled" );
+                                }
 
                                 if ( !bindingOptions.views!.map!.showSpacing ) {
                                     DomElement.addClass( day, "no-spacing" );
@@ -1482,7 +1492,7 @@ import { Chart } from "./ts/area/chart";
                         actualDay++;
                     }
 
-                    renderMapViewRemainingDaysForMonth( bindingOptions, actualDay, currentDayColumn );
+                    renderMapViewRemainingDaysForMonth( bindingOptions, colorRanges, actualDay, currentDayColumn, monthIndex, monthIndex === ( maximumMonths - 1 ) );
     
                     if ( bindingOptions.views!.map!.showMonthNames ) {
                         let monthName: HTMLElement;
@@ -1540,13 +1550,22 @@ import { Chart } from "./ts/area/chart";
         bindingOptions._currentView!.mapContentsContainer.style.display = "none";
     }
 
-    function renderMapViewRemainingDaysForMonth( bindingOptions: BindingOptions, actualDay: number, currentDayColumn: HTMLElement ) : void {
+    function renderMapViewRemainingDaysForMonth( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], actualDay: number, currentDayColumn: HTMLElement, monthIndex: number, isLastMonth: boolean ) : void {
         const remainingDays: number = 7 - currentDayColumn.children.length;
+        const date: Date = new Date( bindingOptions._currentView!.activeYear, monthIndex + 1, 1 );
 
         if ( remainingDays > 0 && remainingDays < 7 ) {
             for ( let dayIndex: number = 0; dayIndex < remainingDays; dayIndex++ ) {
                 if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
-                    const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day-disabled" );
+                    let day: HTMLElement;
+
+                    if ( isLastMonth && bindingOptions.views!.map!.showStartEndYearDays && !bindingOptions.views!.map!.showMonthDayGaps ) {
+                        day = renderMapViewMonthDay( bindingOptions, currentDayColumn, date.getDate() - 1, date.getMonth(), date.getFullYear(), colorRanges );
+                        date.setDate( date.getDate() + 1 );
+
+                    } else {
+                        day = DomElement.create( currentDayColumn, "div", "day-disabled" );
+                    }
 
                     if ( !bindingOptions.views!.map!.showSpacing ) {
                         DomElement.addClass( day, "no-spacing" );

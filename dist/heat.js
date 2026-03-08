@@ -1138,6 +1138,7 @@ var g;
             e.views.map.showSpacing = i.getBoolean(e.views.map.showSpacing, true);
             e.views.map.showDifferences = i.getBoolean(e.views.map.showDifferences, false);
             e.views.map.showDifferencesInToolTips = i.getBoolean(e.views.map.showDifferencesInToolTips, true);
+            e.views.map.showStartEndYearDays = i.getBoolean(e.views.map.showStartEndYearDays, true);
             M(e.views.map);
             return e.views.map;
         }
@@ -2572,8 +2573,8 @@ var x;
             const w = a.createButton(u, "button", "", D.text.resetButtonText);
             const g = a.createButton(u, "button", "default", D.text.saveButtonText);
             o.onclick = () => I(e);
-            w.onclick = () => E(e);
-            g.onclick = () => $(e);
+            w.onclick = () => $(e);
+            g.onclick = () => E(e);
             for (let t = 0; t < 7; t++) {
                 e._currentView.configurationDialogDayCheckBoxes[t] = a.createCheckBox(r, D.text.dayNames[t], t.toString());
             }
@@ -2618,7 +2619,7 @@ var x;
         c.hide(e);
         V.Dialog.unbindEvents();
     }
-    function $(e) {
+    function E(e) {
         h.Background.hide(e);
         if (o.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "none") {
             e._currentView.configurationDialog.style.display = "none";
@@ -2653,7 +2654,7 @@ var x;
             c.hide(e);
         }
     }
-    function E(e) {
+    function $(e) {
         for (let t = 0; t < 7; t++) {
             e._currentView.configurationDialogDayCheckBoxes[t].checked = true;
         }
@@ -3381,7 +3382,8 @@ var x;
             }
             const d = a.create(r, "div", "months");
             const u = w.getAllSorted(e);
-            for (let t = e.startMonth; t < 12 + e.startMonth; t++) {
+            const g = 12 + e.startMonth;
+            for (let t = e.startMonth; t < g; t++) {
                 let i = t;
                 let r = l;
                 if (e.startMonth > 0 && t > 11) {
@@ -3389,75 +3391,82 @@ var x;
                     r++;
                 }
                 if (o.monthVisible(e.views.map.monthsToShow, i)) {
-                    const t = a.create(d, "div", "month");
-                    const c = a.create(t, "div", "day-columns");
-                    const w = new Date(r, i, 1);
-                    const g = s.getWeekdayNumber(w);
-                    let f = s.getTotalDaysInMonth(r, i);
-                    let h = a.create(c, "div", "day-column");
-                    let m = false;
-                    let p = 1;
-                    t.setAttribute(n.Attribute.View.Map.HEAT_JS_MONTH_NUMBER, `${i + 1}`);
-                    f += g;
-                    for (let t = 0; t < f; t++) {
-                        if (t >= g) {
-                            m = true;
+                    const c = a.create(d, "div", "month");
+                    const w = a.create(c, "div", "day-columns");
+                    const f = new Date(r, i, 1);
+                    const h = s.getWeekdayNumber(f);
+                    let m = s.getTotalDaysInMonth(r, i);
+                    let p = a.create(w, "div", "day-column");
+                    let y = false;
+                    let v = 1;
+                    c.setAttribute(n.Attribute.View.Map.HEAT_JS_MONTH_NUMBER, `${i + 1}`);
+                    m += h;
+                    for (let n = 0; n < m; n++) {
+                        if (n >= h) {
+                            y = true;
                         } else {
-                            if (o.dayVisible(e.views.map.daysToShow, p)) {
-                                const t = a.create(h, "div", "day-disabled");
+                            if (o.dayVisible(e.views.map.daysToShow, v)) {
+                                let o;
+                                if (e.views.map.showStartEndYearDays && !e.views.map.showMonthDayGaps && t === e.startMonth) {
+                                    const t = new Date(r, i, 1);
+                                    t.setDate(t.getDate() - Math.abs(n - h));
+                                    o = be(e, p, t.getDate(), t.getMonth(), t.getFullYear(), u);
+                                } else {
+                                    o = a.create(p, "div", "day-disabled");
+                                }
                                 if (!e.views.map.showSpacing) {
-                                    a.addClass(t, "no-spacing");
+                                    a.addClass(o, "no-spacing");
                                 }
                             }
                         }
-                        if (m) {
-                            let n = null;
-                            if (o.dayVisible(e.views.map.daysToShow, p)) {
-                                n = be(e, h, t - g, i, r, u);
+                        if (y) {
+                            let t = null;
+                            if (o.dayVisible(e.views.map.daysToShow, v)) {
+                                t = be(e, p, n - h, i, r, u);
                             }
-                            if ((t + 1) % 7 === 0) {
+                            if ((n + 1) % 7 === 0) {
                                 if (e.views.map.showDaysInReverseOrder) {
-                                    a.reverseChildrenOrder(h);
+                                    a.reverseChildrenOrder(p);
                                 }
-                                h = a.create(c, "div", "day-column");
-                                p = 0;
-                                if (e._currentView.mapDayWidth === 0 && o.defined(n)) {
-                                    const t = a.getStyleValueByName(n, "margin-left", true);
-                                    const o = a.getStyleValueByName(n, "margin-right", true);
-                                    e._currentView.mapDayWidth = n.offsetWidth + t + o;
+                                p = a.create(w, "div", "day-column");
+                                v = 0;
+                                if (e._currentView.mapDayWidth === 0 && o.defined(t)) {
+                                    const n = a.getStyleValueByName(t, "margin-left", true);
+                                    const o = a.getStyleValueByName(t, "margin-right", true);
+                                    e._currentView.mapDayWidth = t.offsetWidth + n + o;
                                 }
                             }
                         }
-                        p++;
+                        v++;
                     }
-                    ye(e, p, h);
+                    ye(e, u, v, p, t, t === g - 1);
                     if (e.views.map.showMonthNames) {
-                        let n;
-                        const o = t.offsetWidth;
-                        const d = new Date(l, i, 1);
-                        let u = D.text.monthNames[i];
+                        let t;
+                        const n = c.offsetWidth;
+                        const o = new Date(l, i, 1);
+                        let d = D.text.monthNames[i];
                         if (e.startMonth > 0 && e.views.map.showYearsInMonthNames) {
-                            u = `${u}${" "}${r}`;
+                            d = `${d}${" "}${r}`;
                         }
                         if (!e.views.map.placeMonthNamesOnTheBottom) {
-                            n = a.createWithHTML(t, "div", "month-name", u, c);
+                            t = a.createWithHTML(c, "div", "month-name", d, w);
                         } else {
-                            n = a.createWithHTML(t, "div", "month-name-bottom", u);
+                            t = a.createWithHTML(c, "div", "month-name-bottom", d);
                         }
                         if (e.views.map.showMonthDayGaps) {
-                            n.style.width = `${o}px`;
+                            t.style.width = `${n}px`;
                         } else {
-                            n.style.width = `${o - e._currentView.mapDayWidth}px`;
+                            t.style.width = `${n - e._currentView.mapDayWidth}px`;
                         }
-                        if (s.isCurrentMonthAndYear(d)) {
-                            a.addClass(n, "current");
+                        if (s.isCurrentMonthAndYear(o)) {
+                            a.addClass(t, "current");
                         }
                         if (e.views.months.enabled) {
-                            n.ondblclick = () => Ye(e, 5);
+                            t.ondblclick = () => Ye(e, 5);
                         }
                     }
                     if (e.views.map.showMonthsInReverseOrder) {
-                        a.reverseChildrenOrder(c);
+                        a.reverseChildrenOrder(w);
                     }
                 }
             }
@@ -3474,21 +3483,28 @@ var x;
         }
         e._currentView.mapContentsContainer.style.display = "none";
     }
-    function ye(e, t, n) {
-        const i = 7 - n.children.length;
-        if (i > 0 && i < 7) {
-            for (let r = 0; r < i; r++) {
-                if (o.dayVisible(e.views.map.daysToShow, t)) {
-                    const t = a.create(n, "div", "day-disabled");
+    function ye(e, t, n, i, r, s) {
+        const l = 7 - i.children.length;
+        const c = new Date(e._currentView.activeYear, r + 1, 1);
+        if (l > 0 && l < 7) {
+            for (let r = 0; r < l; r++) {
+                if (o.dayVisible(e.views.map.daysToShow, n)) {
+                    let n;
+                    if (s && e.views.map.showStartEndYearDays && !e.views.map.showMonthDayGaps) {
+                        n = be(e, i, c.getDate() - 1, c.getMonth(), c.getFullYear(), t);
+                        c.setDate(c.getDate() + 1);
+                    } else {
+                        n = a.create(i, "div", "day-disabled");
+                    }
                     if (!e.views.map.showSpacing) {
-                        a.addClass(t, "no-spacing");
+                        a.addClass(n, "no-spacing");
                     }
                 }
-                t++;
+                n++;
             }
         }
         if (e.views.map.showDaysInReverseOrder) {
-            a.reverseChildrenOrder(n);
+            a.reverseChildrenOrder(i);
         }
     }
     function ve(e, t) {
@@ -4466,7 +4482,7 @@ var x;
                 for (let r = 0; r < o; r++) {
                     const o = t[r];
                     if (o !== D.text.unknownTrendText || i > 0) {
-                        $e(e, n, o);
+                        Ee(e, n, o);
                     }
                 }
             }
@@ -4510,7 +4526,7 @@ var x;
             const s = [];
             let l = 0;
             for (let t = 0; t < r; t++) {
-                const n = Ee(e, o, i[t]);
+                const n = $e(e, o, i[t]);
                 l = Math.max(l, n.offsetWidth);
                 s.push(n);
             }
@@ -4537,7 +4553,7 @@ var x;
             }
         }
     }
-    function $e(e, t, n) {
+    function Ee(e, t, n) {
         const o = a.createButton(t, "button", "type", n);
         if (e.guide.allowTypeRemoving) {
             const t = a.create(o, "span", "clear");
@@ -4558,7 +4574,7 @@ var x;
             o.ondblclick = () => te(e, n);
         }
     }
-    function Ee(e, t, o) {
+    function $e(e, t, o) {
         const i = a.create(t, "div");
         i.className = "toggle";
         i.setAttribute(n.Attribute.Area.ColorRangeToggle.HEAT_JS_MINIMUM, o.minimum.toString());

@@ -298,6 +298,7 @@ export type BindingOptionsViewsMap = BindingOptionsView & {
     showSpacing?: boolean;
     showDifferences?: boolean;
     showDifferencesInToolTips?: boolean;
+    showStartEndYearDays?: boolean;
 };
 
 export type BindingOptionsViewsLine = BindingOptionsView & {

@@ -210,6 +210,7 @@ export namespace Binding {
             bindingOptions.views!.map!.showSpacing = Default.getBoolean( bindingOptions.views!.map!.showSpacing, true );
             bindingOptions.views!.map!.showDifferences = Default.getBoolean( bindingOptions.views!.map!.showDifferences, false );
             bindingOptions.views!.map!.showDifferencesInToolTips = Default.getBoolean( bindingOptions.views!.map!.showDifferencesInToolTips, true );
+            bindingOptions.views!.map!.showStartEndYearDays = Default.getBoolean( bindingOptions.views!.map!.showStartEndYearDays, true );
 
             setVisibleDateOptionsForView( bindingOptions.views!.map! );
     
