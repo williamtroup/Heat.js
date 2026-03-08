@@ -21,7 +21,7 @@ export namespace DocumentElement {
         export function bindEvents( hideFunc: Function ) : void {
             _BINDING_KEYDOWN_FUNC = hideFunc;
 
-            document.addEventListener( "keydown", ( ev: KeyboardEvent ) : void => onKeyDown( ev ) );
+            document.addEventListener( "keydown", onKeyDown );
         }
 
         export function unbindEvents() : void {

@@ -2182,7 +2182,7 @@ var V;
         let t = null;
         function n(e) {
             t = e;
-            document.addEventListener("keydown", e => i(e));
+            document.addEventListener("keydown", i);
         }
         e.bindEvents = n;
         function o() {
