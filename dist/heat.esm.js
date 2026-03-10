@@ -3407,7 +3407,7 @@ var x;
                                 let o;
                                 if (e.views.map.showStartEndYearDays && !e.views.map.showMonthDayGaps && t === e.startMonth) {
                                     const t = new Date(r, i, 1);
-                                    t.setDate(t.getDate() - Math.abs(n - h));
+                                    t.setDate(t.getDate() - (Math.abs(n - h) + 1));
                                     o = be(e, p, t.getDate(), t.getMonth(), t.getFullYear(), u);
                                 } else {
                                     o = a.create(p, "div", "day-disabled");

@@ -1452,7 +1452,7 @@ import { Chart } from "./ts/area/chart";
 
                                 if ( bindingOptions.views!.map!.showStartEndYearDays && !bindingOptions.views!.map!.showMonthDayGaps && monthIndex === bindingOptions.startMonth! ) {
                                     const date: Date = new Date( actualYear, actualMonthIndex, 1 );
-                                    date.setDate( date.getDate() - Math.abs( dayIndex - firstDayNumberInMonth ) );
+                                    date.setDate( date.getDate() - ( Math.abs( dayIndex - firstDayNumberInMonth ) + 1 ) );
 
                                     day = renderMapViewMonthDay( bindingOptions, currentDayColumn, date.getDate(), date.getMonth(), date.getFullYear(), colorRanges );
                                     
