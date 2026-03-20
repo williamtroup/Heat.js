@@ -58,13 +58,13 @@
     "build-sass-minimized": "sass src/heat.js.scss dist/heat.js.min.css --style=compressed --no-source-map"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.4",
+    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
     "@swc/core": "^1.15.18",
-    "@typescript-eslint/eslint-plugin": "^8.56.1",
-    "@typescript-eslint/parser": "^8.56.1",
-    "sass": "^1.97.3",
-    "terser": "^5.46.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
+    "sass": "^1.98.0",
+    "terser": "^5.46.1",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   }
