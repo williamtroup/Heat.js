@@ -1,5 +1,5 @@
 /*
- * Heat.js Library v5.0.1
+ * Heat.js Library v5.1.0
  *
  * Copyright 2026 Bunoon
  * Released under the MIT License
@@ -1339,6 +1339,7 @@ div.heat-js {
         white-space: nowrap;
         position: relative;
         padding-bottom: var(--heat-js-spacing);
+        padding-top: var(--heat-js-spacing);
 
         @include styles.scroll-bars;
 
@@ -1351,7 +1352,7 @@ div.heat-js {
             flex-direction: row;
 
             div.y-labels {
-                @include styles.labels;
+                @include styles.chart-y-labels;
             }
 
             div.day-lines {
@@ -1359,8 +1360,10 @@ div.heat-js {
                 align-items: flex-end;
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-                height: 173px !important;
+                height: calc( 173px - var(--heat-js-spacing) ) !important;
                 overflow: hidden;
+
+                @include styles.chart-y-lines;
 
                 div.today {
                     animation: highlight-effect 2s infinite;
@@ -1396,25 +1399,44 @@ div.heat-js {
                     margin-right: calc( var(--heat-js-spacing) + var(--heat-js-day-chart-spacing) );
                 }
 
+                div.day-point-line {
+                    position: absolute;
+                    transform-origin: 0 0;
+                    height: var(--heat-js-border-size);
+                    background-color: var(--heat-js-container-border-color);
+                    border: none !important;
+                    animation: fade-in-animation var(--heat-js-animation-length);
+                    pointer-events: none !important;
+                }
+
                 div.day-line {
                     border-top-left-radius: var(--heat-js-border-radius-day);
                     border-top-right-radius: var(--heat-js-border-radius-day);
                     background-color: var(--heat-js-day-background-color);
                     border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
-                    border-bottom: none !important;
                     min-width: var(--heat-js-day-chart-width);
                     margin-right: var(--heat-js-day-chart-spacing);
                     display: inline-flex;
                     transition: var(--heat-js-transition);
                     align-items: center;
                     justify-content: center;
-                    height: 0;
+                    z-index: 1;
+                    
+                    &:not(.day-point) {
+                        border-bottom: none !important;
+                        height: 0;
+                    }
 
-                    &:first-child {
+                    &.day-point {
+                        min-height: var(--heat-js-day-chart-width);
+                        border-radius: var(--heat-js-border-radius-day);
+                    }
+
+                    &:first-of-type{
                         margin-left: var(--heat-js-spacing-half);
                     }
     
-                    &:last-child {
+                    &:last-of-type {
                         margin-right: var(--heat-js-spacing-half);
                     }
 
@@ -1469,6 +1491,7 @@ div.heat-js {
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
+        padding-top: var(--heat-js-spacing);
 
         div.no-days-message {
             @include styles.centered-label;
@@ -1479,7 +1502,7 @@ div.heat-js {
             flex-direction: row;
 
             div.y-labels {
-                @include styles.labels;
+                @include styles.chart-y-labels;
             }
 
             div.day-lines {
@@ -1488,8 +1511,10 @@ div.heat-js {
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
                 justify-content: space-between;
-                height: 187px !important;
+                height: calc( 187px - var(--heat-js-spacing) ) !important;
                 overflow: hidden;
+
+                @include styles.chart-y-lines;
 
                 div.day-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
@@ -1530,9 +1555,11 @@ div.heat-js {
                     transition: var(--heat-js-transition);
                     height: 0;
                     overflow: hidden;
+                    z-index: 1;
 
                     &.stacked {
                         border: none !important;
+                        background-color: transparent !important;
                     }
 
                     &.non-stacked {
@@ -1554,11 +1581,11 @@ div.heat-js {
                         }
                     }
 
-                    &:first-child {
+                    &:first-of-type {
                         margin-left: var(--heat-js-spacing-half);
                     }
     
-                    &:last-child {
+                    &:last-of-type {
                         margin-right: var(--heat-js-spacing-half);
                     }
 
@@ -1610,6 +1637,7 @@ div.heat-js {
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
+        padding-top: var(--heat-js-spacing);
 
         div.no-months-message {
             @include styles.centered-label;
@@ -1620,7 +1648,7 @@ div.heat-js {
             flex-direction: row;
 
             div.y-labels {
-                @include styles.labels;
+                @include styles.chart-y-labels;
             }
 
             div.month-lines {
@@ -1629,8 +1657,10 @@ div.heat-js {
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
                 justify-content: space-between;
-                height: 187px !important;
+                height: calc( 187px - var(--heat-js-spacing) ) !important;
                 overflow: hidden;
+
+                @include styles.chart-y-lines;
 
                 div.today {
                     animation: highlight-effect 2s infinite;
@@ -1675,9 +1705,11 @@ div.heat-js {
                     transition: var(--heat-js-transition);
                     height: 0;
                     overflow: hidden;
+                    z-index: 1;
 
                     &.stacked {
                         border: none !important;
+                        background-color: transparent !important;
                     }
 
                     &.non-stacked {
@@ -1699,11 +1731,11 @@ div.heat-js {
                         }
                     }
 
-                    &:first-child {
+                    &:first-of-type {
                         margin-left: var(--heat-js-spacing-half);
                     }
     
-                    &:last-child {
+                    &:last-of-type {
                         margin-right: var(--heat-js-spacing-half);
                     }
 
@@ -1755,6 +1787,7 @@ div.heat-js {
         text-wrap: nowrap;
         white-space: nowrap;
         position: relative;
+        padding-top: var(--heat-js-spacing);
 
         div.no-color-ranges-message {
             @include styles.centered-label;
@@ -1765,7 +1798,7 @@ div.heat-js {
             flex-direction: row;
 
             div.y-labels {
-                @include styles.labels;
+                @include styles.chart-y-labels;
             }
 
             div.color-range-lines {
@@ -1774,8 +1807,10 @@ div.heat-js {
                 flex: 1;
                 border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
                 justify-content: space-between;
-                height: 187px !important;
+                height: calc( 187px - var(--heat-js-spacing) ) !important;
                 overflow: hidden;
+
+                @include styles.chart-y-lines;
 
                 div.color-range-line-count {
                     font-size: var(--heat-js-spacing-day-font-size);
@@ -1808,12 +1843,13 @@ div.heat-js {
                     display: inline-block;
                     transition: var(--heat-js-transition);
                     height: 0;
+                    z-index: 1;
 
-                    &:first-child {
+                    &:first-of-type {
                         margin-left: var(--heat-js-spacing-half);
                     }
     
-                    &:last-child {
+                    &:last-of-type {
                         margin-right: var(--heat-js-spacing-half);
                     }
 

@@ -2,7 +2,7 @@
   "name": "jheat.js",
   "title": "Heat.js",
   "description": "A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "homepage": "https://www.heatjs.com",
   "author": {
     "name": "Bunoon"
@@ -46,6 +46,7 @@
   "main": "dist/heat.js",
   "types": "dist/heat.d.ts",
   "scripts": {
+    "build-all-verify-and-fix": "npx eslint '**/*.ts' --fix && npm run build-all",
     "build-all-verify": "npx eslint '**/*.ts' && npm run build-all",
     "build-all": "npm run build && npm run build-minimized",
     "build": "tsup --config tsup.build.config.ts && tsup --config tsup.build.esm.config.ts && sass src/heat.js.scss dist/heat.js.css",
@@ -57,13 +58,13 @@
     "build-sass-minimized": "sass src/heat.js.scss dist/heat.js.min.css --style=compressed --no-source-map"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.4",
+    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
-    "@swc/core": "^1.15.17",
-    "@typescript-eslint/eslint-plugin": "^8.56.1",
-    "@typescript-eslint/parser": "^8.56.1",
-    "sass": "^1.97.3",
-    "terser": "^5.46.0",
+    "@swc/core": "^1.15.18",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
+    "sass": "^1.98.0",
+    "terser": "^5.46.1",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   }

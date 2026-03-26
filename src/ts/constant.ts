@@ -4,7 +4,7 @@
  * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        constant.ts
- * @version     v5.0.1
+ * @version     v5.1.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2026
@@ -39,10 +39,12 @@ export namespace Constant {
 
             export namespace Days {
                 export const HEAT_JS_NUMBER: string = "data-heat-js-day-number";
+                export const HEAT_JS_MINIMUM: string = "data-heat-js-day-minimum";
             }
 
             export namespace Month {
                 export const HEAT_JS_NUMBER: string = "data-heat-js-month-number";
+                export const HEAT_JS_MINIMUM: string = "data-heat-js-month-minimum";
             }
 
             export namespace ColorRanges {

@@ -4,7 +4,7 @@
  * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        type.ts
- * @version     v5.0.1
+ * @version     v5.1.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2026
@@ -298,6 +298,7 @@ export type BindingOptionsViewsMap = BindingOptionsView & {
     showSpacing?: boolean;
     showDifferences?: boolean;
     showDifferencesInToolTips?: boolean;
+    showStartEndYearDays?: boolean;
 };
 
 export type BindingOptionsViewsLine = BindingOptionsView & {
@@ -327,6 +328,10 @@ export type BindingOptionsViewsChart = BindingOptionsView & {
     addMonthSpacing?: boolean;
     showDifferences?: boolean;
     showDifferencesInToolTips?: boolean;
+    usePoints?: boolean;
+    usePointLines?: boolean;
+    showHorizontalChartLines?: boolean;
+    totalYAxisLabels?: number;
 };
 
 export type BindingOptionsViewsDays = BindingOptionsView & {
@@ -341,6 +346,8 @@ export type BindingOptionsViewsDays = BindingOptionsView & {
     showDayCountPercentages?: boolean;
     showStackedColorRanges?: boolean;
     dayToolTipText?: string;
+    showHorizontalChartLines?: boolean;
+    totalYAxisLabels?: number;
 };
 
 export type BindingOptionsViewsMonths = BindingOptionsView & {
@@ -356,6 +363,8 @@ export type BindingOptionsViewsMonths = BindingOptionsView & {
     showMonthCountPercentages?: boolean;
     showStackedColorRanges?: boolean;
     monthToolTipText?: string;
+    showHorizontalChartLines?: boolean;
+    totalYAxisLabels?: number;
 };
 
 export type BindingOptionsViewsColorRanges = BindingOptionsView & {
@@ -369,6 +378,8 @@ export type BindingOptionsViewsColorRanges = BindingOptionsView & {
     useGradients?: boolean;
     showRangeCountPercentages?: boolean;
     showRangeNamesInToolTips?: boolean;
+    showHorizontalChartLines?: boolean;
+    totalYAxisLabels?: number;
 };
 
 export type BindingOptionsDescription = {
@@ -427,6 +438,9 @@ export type BindingOptionsDynamicColorRange = {
     color?: string;
     totalColors?: number;
     startMinimum?: number;
+    hoverOpacity?: number;
+    startName?: string;
+    overrideCheckBoxColors?: boolean;
 };
 
 export type BindingOptionsHoliday = {

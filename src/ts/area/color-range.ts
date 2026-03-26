@@ -4,7 +4,7 @@
  * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        color-range.ts
- * @version     v5.0.1
+ * @version     v5.1.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2026
@@ -221,15 +221,15 @@ export namespace ColorRange {
             cssLines.push( `${Char.tab}color: ${colorRgb} !important;` );
             cssLines.push( "}" );
             cssLines.push( `div.${cssName}:not(.no-hover):hover {` );
-            cssLines.push( `${Char.tab}opacity: 0.7 !important;` );
+            cssLines.push( `${Char.tab}opacity: ${dynamicColorRange!.hoverOpacity!} !important;` );
             cssLines.push( "}" );
 
             const colorRange: BindingOptionsColorRange = {
                 id: Str.padNumber( actualColorIndex ),
-                name: `Day Color ${actualColorIndex}`,
+                name: `${dynamicColorRange!.startName!} ${actualColorIndex}`,
                 minimum: Math.round( currentMinimum ),
                 cssClassName: cssName,
-                tooltipText: `Day Color ${actualColorIndex}`,
+                tooltipText: `${dynamicColorRange!.startName!} ${actualColorIndex}`,
                 visible: true,
             } as BindingOptionsColorRange;
 
@@ -237,10 +237,14 @@ export namespace ColorRange {
             const greenPercentage = Math.round( rgbaColor.green / 100 * ( actualColorIndex * incrementPercentage ) );
             const bluePercentage = Math.round( rgbaColor.blue / 100 * ( actualColorIndex * incrementPercentage ) );
 
-            if ( colorIndex === dynamicColorRange!.totalColors! - 1 ) {
+            if ( colorIndex === dynamicColorRange!.totalColors! - 1 && dynamicColorRange!.overrideCheckBoxColors ) {
                 cssLines.push( `:root {` );
                 cssLines.push( `${Char.tab}${Css.Variables.CheckBoxCheckedColor}: ${rgba};` );
                 cssLines.push( `${Char.tab}${Css.Variables.YearMenuCurrent}: ${rgba};` );
+                cssLines.push( `${Char.tab}${Css.Variables.DaysBackgroundColor}: ${rgba};` );
+                cssLines.push( `${Char.tab}${Css.Variables.DaysBorderColor}: ${rgbaBorder};` );
+                cssLines.push( `${Char.tab}${Css.Variables.MonthsBackgroundColor}: ${rgba};` );
+                cssLines.push( `${Char.tab}${Css.Variables.MonthsBorderColor}: ${rgbaBorder};` );
                 cssLines.push( "}" );
 
             } else {

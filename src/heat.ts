@@ -4,7 +4,7 @@
  * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        heat.ts
- * @version     v5.0.1
+ * @version     v5.1.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2026
@@ -48,6 +48,8 @@ import { Build } from "./ts/data/build";
 import { DocumentElement } from "./ts/dom/document-element";
 import { Zooming } from "./ts/controls/zooming";
 import { Observation } from "./ts/area/observation";
+import { Css } from "./ts/css";
+import { Chart } from "./ts/area/chart";
 
 
 ( () : void => {
@@ -907,8 +909,8 @@ import { Observation } from "./ts/area/observation";
             bindingOptions._currentView!.confirmationDialogMessage = DomElement.create( contents, "div", "message" );
 
             const buttons: HTMLElement = DomElement.create( contents, "div", "buttons" );
-            const noButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "no", _configurationOptions.text!.noButtonText! );
             bindingOptions._currentView!.confirmationDialogYesButton = DomElement.createButton( buttons, "button", "default yes", _configurationOptions.text!.yesButtonText! );
+            const noButton: HTMLButtonElement = DomElement.createButton( buttons, "button", "no", _configurationOptions.text!.noButtonText! );
 
             noButton.onclick = () : void => hideConfirmationDialog( bindingOptions );
         }
@@ -1415,8 +1417,9 @@ import { Observation } from "./ts/area/observation";
     
             const months: HTMLElement = DomElement.create( map, "div", "months" );
             const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
+            const maximumMonths: number = ( 12 + bindingOptions.startMonth! );
     
-            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < maximumMonths; monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
                 let actualYear: number = currentYear;
 
@@ -1445,7 +1448,17 @@ import { Observation } from "./ts/area/observation";
         
                         } else {
                             if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
-                                const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day-disabled" );
+                                let day: HTMLElement;
+
+                                if ( bindingOptions.views!.map!.showStartEndYearDays && !bindingOptions.views!.map!.showMonthDayGaps && monthIndex === bindingOptions.startMonth! ) {
+                                    const date: Date = new Date( actualYear, actualMonthIndex, 1 );
+                                    date.setDate( date.getDate() - ( Math.abs( dayIndex - firstDayNumberInMonth ) + 1 ) );
+
+                                    day = renderMapViewMonthDay( bindingOptions, currentDayColumn, date.getDate(), date.getMonth(), date.getFullYear(), colorRanges );
+                                    
+                                } else {
+                                    day = DomElement.create( currentDayColumn, "div", "day-disabled" );
+                                }
 
                                 if ( !bindingOptions.views!.map!.showSpacing ) {
                                     DomElement.addClass( day, "no-spacing" );
@@ -1480,7 +1493,7 @@ import { Observation } from "./ts/area/observation";
                         actualDay++;
                     }
 
-                    renderMapViewRemainingDaysForMonth( bindingOptions, actualDay, currentDayColumn );
+                    renderMapViewRemainingDaysForMonth( bindingOptions, colorRanges, actualDay, currentDayColumn, monthIndex, monthIndex === ( maximumMonths - 1 ) );
     
                     if ( bindingOptions.views!.map!.showMonthNames ) {
                         let monthName: HTMLElement;
@@ -1538,13 +1551,22 @@ import { Observation } from "./ts/area/observation";
         bindingOptions._currentView!.mapContentsContainer.style.display = "none";
     }
 
-    function renderMapViewRemainingDaysForMonth( bindingOptions: BindingOptions, actualDay: number, currentDayColumn: HTMLElement ) : void {
+    function renderMapViewRemainingDaysForMonth( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], actualDay: number, currentDayColumn: HTMLElement, monthIndex: number, isLastMonth: boolean ) : void {
         const remainingDays: number = 7 - currentDayColumn.children.length;
+        const date: Date = new Date( bindingOptions._currentView!.activeYear, monthIndex + 1, 1 );
 
         if ( remainingDays > 0 && remainingDays < 7 ) {
             for ( let dayIndex: number = 0; dayIndex < remainingDays; dayIndex++ ) {
                 if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
-                    const day: HTMLElement = DomElement.create( currentDayColumn, "div", "day-disabled" );
+                    let day: HTMLElement;
+
+                    if ( isLastMonth && bindingOptions.views!.map!.showStartEndYearDays && !bindingOptions.views!.map!.showMonthDayGaps ) {
+                        day = renderMapViewMonthDay( bindingOptions, currentDayColumn, date.getDate() - 1, date.getMonth(), date.getFullYear(), colorRanges );
+                        date.setDate( date.getDate() + 1 );
+
+                    } else {
+                        day = DomElement.create( currentDayColumn, "div", "day-disabled" );
+                    }
 
                     if ( !bindingOptions.views!.map!.showSpacing ) {
                         DomElement.addClass( day, "no-spacing" );
@@ -1866,20 +1888,8 @@ import { Observation } from "./ts/area/observation";
             DomElement.addClass( chart, "view-switch" );
         }
 
-        if ( largestValueForCurrentYear > 0 && bindingOptions.views!.chart!.showChartYLabels ) {
-            const topLabel: HTMLElement = DomElement.createWithHTML( yAxisLabels, "div", "label-100", largestValueForCurrentYear.toString() );
-            const marginRight: number = DomElement.getStyleValueByName( yAxisLabels, "margin-right", true ) as number;
-
-            DomElement.createWithHTML( yAxisLabels, "div", "label-75", ( Math.floor( largestValueForCurrentYear / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-50", Math.floor( largestValueForCurrentYear / 2 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-25", Math.floor( largestValueForCurrentYear / 4 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-0", Char.zero );
-
-            yAxisLabels.style.width = `${topLabel.offsetWidth}px`;
-            labelsWidth = yAxisLabels.offsetWidth + marginRight;
-
-        } else {
-            yAxisLabels.parentNode!.removeChild( yAxisLabels );
+        if ( bindingOptions.views!.chart!.showChartYLabels! ) {
+            labelsWidth = Chart.YAxis.createLabels( yAxisLabels, largestValueForCurrentYear, bindingOptions.views!.chart!.totalYAxisLabels! );
         }
 
         if ( largestValueForCurrentYear === 0 ) {
@@ -1897,6 +1907,7 @@ import { Observation } from "./ts/area/observation";
             const borderBottomWidth: number = DomElement.getStyleValueByName( dayLines, "border-bottom-width", true ) as number;
             const pixelsPerNumbers: number = ( dayLines.offsetHeight - borderBottomWidth ) / largestValueForCurrentYear;
             const currentYear: number = bindingOptions._currentView!.activeYear;
+            const allDayLines: HTMLElement[] = [];
             let firstMonthDayLines: HTMLElement[] = [];
             let firstMonthAdded: boolean = false;
 
@@ -1920,6 +1931,8 @@ import { Observation } from "./ts/area/observation";
                         
                         if ( Is.dayVisible( bindingOptions.views!.chart!.daysToShow!, weekdayNumber ) ) {
                             const dayLine: HTMLElement = renderChartViewDay( dayLines, bindingOptions, dayIndex + 1, actualMonthIndex, actualYear, colorRanges, pixelsPerNumbers, isForViewSwitch );
+
+                            allDayLines.push( dayLine );
 
                             if ( !firstDayAdded && firstMonthAdded && bindingOptions.views!.chart!.addMonthSpacing! ) {
                                 DomElement.create( dayLines, "div", "month-spacing", dayLine );
@@ -1951,9 +1964,11 @@ import { Observation } from "./ts/area/observation";
                 const chartMonths: HTMLElement = DomElement.create( bindingOptions._currentView!.chartContents, "div", "chart-months" );
                 let monthNameAddedIndex: number = 0;
 
-                const monthNameSpace: HTMLElement = DomElement.create( chartMonths, "div", "month-name-space" );
-                monthNameSpace.style.height = `${chartMonths.offsetHeight}px`;
-                monthNameSpace.style.width = `${labelsWidth}px`;
+                setTimeout( () => {
+                    const monthNameSpace: HTMLElement = DomElement.create( chartMonths, "div", "month-name-space" );
+                    monthNameSpace.style.height = `${chartMonths.offsetHeight}px`;
+                    monthNameSpace.style.width = `${labelsWidth}px`;
+                }, 500 );
 
                 const addMonthName: Function = ( addMonthNameIndex: number ) : void => {
                     let actualMonthIndex: number = addMonthNameIndex + bindingOptions.startMonth!;
@@ -2009,6 +2024,18 @@ import { Observation } from "./ts/area/observation";
 
                 chartMonths.style.width = `${dayLines.offsetWidth}px`;
             }
+
+            if ( bindingOptions.views!.chart!.showHorizontalChartLines ) {
+                Chart.YAxis.createLines( dayLines, bindingOptions.views!.chart!.totalYAxisLabels! );
+            }
+
+            if ( bindingOptions.views!.chart!.usePoints && bindingOptions.views!.chart!.usePointLines ) {
+                const allDayLinesLength: number = allDayLines.length;
+
+                for ( let dayLineIndex: number = bindingOptions.startMonth!; dayLineIndex < allDayLinesLength - 1; dayLineIndex++ ) {
+                    renderChartViewDayPointToPointLine( bindingOptions, dayLines, allDayLines[ dayLineIndex ], allDayLines[ dayLineIndex + 1 ], colorRanges );
+                }
+            }
     
             if ( bindingOptions.views!.chart!.keepScrollPositions || isForViewChange ) {
                 bindingOptions._currentView!.chartContents.scrollLeft = bindingOptions._currentView!.chartContentsScrollLeft;
@@ -2021,72 +2048,110 @@ import { Observation } from "./ts/area/observation";
     function renderChartViewDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, isForViewSwitch: boolean ) : HTMLElement {
         const date: Date = new Date( year, month, day );
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
-        const holiday: IsHoliday = Is.holiday( bindingOptions, date );
         const dateCount: number = Default.getNumber( getCurrentViewData( bindingOptions )[ DateTime.toStorageDate( date ) ] , 0 );
         const useColorRange: BindingOptionsColorRange = ColorRange.get( bindingOptions, colorRanges, dateCount, date );
-        const percentageText: string = getPercentageDifferenceWithLastYearsCount( bindingOptions, date, dateCount );
+        const dayLineHeight: number = dateCount * pixelsPerNumbers;
 
         dayLine.setAttribute( Constant.Attribute.View.Chart.HEAT_JS_DATE, `${Str.padNumber( day )}-${Str.padNumber( month + 1 )}-${year}` );
-
-        if ( Is.defined( useColorRange ) ) {
-            dayLine.setAttribute( Constant.Attribute.View.Chart.HEAT_JS_MINIMUM, useColorRange.minimum!.toString() );
-        }
-
-        if ( bindingOptions.views!.chart!.showToolTips ) {
-            ToolTip.addForDay( _configurationOptions, bindingOptions, dayLine, date, dateCount, percentageText, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender!, holiday.matched, bindingOptions.views!.chart!.showCountsInToolTips!, bindingOptions.views!.chart!.showDifferencesInToolTips! );
-        }
-
-        if ( bindingOptions.views!.chart!.showLineCounts || bindingOptions.views!.chart!.showLineDateNumbers ) {
-            DomElement.addClass( dayLine, "day-line-count" );
-        }
-
-        if ( bindingOptions.views!.chart!.showLineDateNumbers ) {
-            const countDate: HTMLElement = DomElement.createWithHTML( dayLine, "div", "count-date", day.toString() );
-
-            DomElement.createWithHTML( countDate, "sup", Char.empty, DateTime.getDayOrdinal( _configurationOptions, day ) );
-        }
-
-        if ( bindingOptions.views!.chart!.showLineCounts && dateCount > 0 ) {
-            DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dateCount ) );
-        }
-
-        if ( bindingOptions.views!.chart!.showDifferences && Is.definedString( percentageText ) ) {
-            DomElement.createWithHTML( dayLine, "div", "difference", percentageText );
-        } 
-
-        const dayLineHeight: number = dateCount * pixelsPerNumbers;
 
         if ( dayLineHeight <= 0 ) {
             dayLine.style.visibility = "hidden";
         }
 
-        if ( Is.definedFunction( bindingOptions.events!.onChartDayClick ) ) {
-            dayLine.onclick = () : void => Trigger.customEvent( bindingOptions.events!.onChartDayClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
-        } else if ( Is.definedFunction( bindingOptions.events!.onChartDayDblClick ) ) {
-            dayLine.ondblclick = () : void => Trigger.customEvent( bindingOptions.events!.onChartDayDblClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
-        } else {
-            DomElement.addClass( dayLine, "no-hover" );
+        if ( Is.defined( useColorRange ) ) {
+            dayLine.setAttribute( Constant.Attribute.View.Chart.HEAT_JS_MINIMUM, useColorRange.minimum!.toString() );
         }
 
-        if ( Is.defined( useColorRange ) && ColorRange.isVisible( bindingOptions, useColorRange.id! ) ) {
-            if ( Is.definedString( useColorRange.chartCssClassName ) ) {
-                DomElement.addClass( dayLine, useColorRange.chartCssClassName! );
+        if ( dayLineHeight > 0 ) {
+            const holiday: IsHoliday = Is.holiday( bindingOptions, date );
+            const percentageText: string = getPercentageDifferenceWithLastYearsCount( bindingOptions, date, dateCount );
+
+            if ( bindingOptions.views!.chart!.usePoints ) {
+                DomElement.addClass( dayLine, "day-point" );
+
+                const minHeight: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.ChartViewLineDefaultWidth, true ) as number;
+                const marginBottom: number = dayLineHeight - minHeight;
+
+                if ( marginBottom >= 0 ) {
+                    dayLine.style.marginBottom = `${marginBottom}px`;
+                }
+            }
+
+            if ( bindingOptions.views!.chart!.showToolTips ) {
+                ToolTip.addForDay( _configurationOptions, bindingOptions, dayLine, date, dateCount, percentageText, bindingOptions.views!.chart!.dayToolTipText!, bindingOptions.events!.onChartDayToolTipRender!, holiday.matched, bindingOptions.views!.chart!.showCountsInToolTips!, bindingOptions.views!.chart!.showDifferencesInToolTips! );
+            }
+
+            if ( !bindingOptions.views!.chart!.usePoints ) {
+                if ( bindingOptions.views!.chart!.showLineCounts || bindingOptions.views!.chart!.showLineDateNumbers ) {
+                    DomElement.addClass( dayLine, "day-line-count" );
+                }
+
+                if ( bindingOptions.views!.chart!.showLineDateNumbers ) {
+                    const countDate: HTMLElement = DomElement.createWithHTML( dayLine, "div", "count-date", day.toString() );
+
+                    DomElement.createWithHTML( countDate, "sup", Char.empty, DateTime.getDayOrdinal( _configurationOptions, day ) );
+                }
+
+                if ( bindingOptions.views!.chart!.showLineCounts && dateCount > 0 ) {
+                    DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dateCount ) );
+                }
+
+                if ( bindingOptions.views!.chart!.showDifferences && Is.definedString( percentageText ) ) {
+                    DomElement.createWithHTML( dayLine, "div", "difference", percentageText );
+                }
+            }
+
+            if ( Is.definedFunction( bindingOptions.events!.onChartDayClick ) ) {
+                dayLine.onclick = () : void => Trigger.customEvent( bindingOptions.events!.onChartDayClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
+            } else if ( Is.definedFunction( bindingOptions.events!.onChartDayDblClick ) ) {
+                dayLine.ondblclick = () : void => Trigger.customEvent( bindingOptions.events!.onChartDayDblClick!, bindingOptions._currentView!.element, date, dateCount, bindingOptions._currentView!.activeYear, holiday.matched );
             } else {
-                DomElement.addClass( dayLine, useColorRange.cssClassName! );
+                DomElement.addClass( dayLine, "no-hover" );
+            }
+
+            if ( Is.defined( useColorRange ) && ColorRange.isVisible( bindingOptions, useColorRange.id! ) ) {
+                if ( Is.definedString( useColorRange.chartCssClassName ) ) {
+                    DomElement.addClass( dayLine, useColorRange.chartCssClassName! );
+                } else {
+                    DomElement.addClass( dayLine, useColorRange.cssClassName! );
+                }
+            }
+
+            if ( bindingOptions.views!.chart!.highlightCurrentDay && DateTime.isToday( date ) ) {
+                DomElement.addClass( dayLine, "today" );
+            }
+
+            if ( bindingOptions.views!.chart!.useGradients ) {
+                DomElement.addGradientEffect( bindingOptions._currentView!.element, dayLine );
             }
         }
 
-        if ( bindingOptions.views!.chart!.highlightCurrentDay && DateTime.isToday( date ) ) {
-            DomElement.addClass( dayLine, "today" );
+        if ( !bindingOptions.views!.chart!.usePoints ) {
+            Animate.setHeight( bindingOptions, dayLine, dayLineHeight, isForViewSwitch );
         }
-
-        if ( bindingOptions.views!.chart!.useGradients ) {
-            DomElement.addGradientEffect( bindingOptions._currentView!.element, dayLine );
-        }
-
-        Animate.setHeight( bindingOptions, dayLine, dayLineHeight, isForViewSwitch );
 
         return dayLine;
+    }
+
+    function renderChartViewDayPointToPointLine( bindingOptions: BindingOptions, dayLines: HTMLElement, dayLineElement1: HTMLElement, dayLineElement2: HTMLElement, colorRanges: BindingOptionsColorRange[] ) : void {
+        setTimeout( () => {
+            const dayLineElement2Minimum: string = dayLineElement2.getAttribute( Constant.Attribute.View.Chart.HEAT_JS_MINIMUM )!;
+            const line: HTMLElement = DomElement.drawLineBetweenElements( dayLines, dayLineElement1, dayLineElement2 );
+
+            if ( Is.definedString( dayLineElement2Minimum ) ) {
+                const colorRange: BindingOptionsColorRange = ColorRange.getByMinimum( colorRanges, parseInt( dayLineElement2Minimum ) );
+
+                if ( Is.defined( colorRange ) ) {
+                    line.setAttribute( Constant.Attribute.View.Chart.HEAT_JS_MINIMUM, dayLineElement2Minimum );
+
+                    if ( Is.definedString( colorRange.chartCssClassName ) ) {
+                        DomElement.addClass( line, colorRange.chartCssClassName! );
+                    } else {
+                        DomElement.addClass( line, colorRange.cssClassName! );
+                    }
+                }
+            }
+        }, bindingOptions.chartsAnimationDelay );
     }
 
 
@@ -2112,20 +2177,12 @@ import { Observation } from "./ts/area/observation";
             DomElement.addClass( days, "view-switch" );
         }
 
-        if ( dayValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.days!.showChartYLabels ) {
-            const topLabel: HTMLElement = DomElement.createWithHTML( yAxisLabels, "div", "label-100", dayValuesForCurrentYear.largestValue.toString() );
-            const marginRight: number = DomElement.getStyleValueByName( yAxisLabels, "margin-right", true ) as number;
+        if ( bindingOptions.views!.days!.showChartYLabels! ) {
+            const labelsWidth: number = Chart.YAxis.createLabels( yAxisLabels, dayValuesForCurrentYear.largestValue, bindingOptions.views!.days!.totalYAxisLabels! );
 
-            DomElement.createWithHTML( yAxisLabels, "div", "label-75", ( Math.floor( dayValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-50", Math.floor( dayValuesForCurrentYear.largestValue / 2 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-25", Math.floor( dayValuesForCurrentYear.largestValue / 4 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-0", Char.zero );
-
-            yAxisLabels.style.width = `${topLabel.offsetWidth}px`;
-            dayNames.style.paddingLeft = `${yAxisLabels.offsetWidth + marginRight}px`;
-
-        } else {
-            yAxisLabels.parentNode!.removeChild( yAxisLabels );
+            if ( labelsWidth > 0 ) {
+                dayNames.style.paddingLeft = `${labelsWidth}px`;
+            }
         }
 
         if ( dayValuesForCurrentYear.largestValue === 0 ) {
@@ -2169,6 +2226,8 @@ import { Observation } from "./ts/area/observation";
                                     stackedValue.style.height = `${stackedDayLineHeight}px`;
 
                                     if ( Is.defined( colorRange ) ) {
+                                        stackedValue.setAttribute( Constant.Attribute.View.Days.HEAT_JS_MINIMUM, colorRange.minimum!.toString() );
+
                                         if ( Is.definedString( colorRange.daysCssClassName ) ) {
                                             DomElement.addClass( stackedValue, colorRange.daysCssClassName! );
                                         } else {
@@ -2187,6 +2246,10 @@ import { Observation } from "./ts/area/observation";
                 DomElement.reverseChildrenOrder( dayNames );
             }
 
+            if ( bindingOptions.views!.days!.showHorizontalChartLines ) {
+                Chart.YAxis.createLines( dayLines, bindingOptions.views!.days!.totalYAxisLabels! );
+            }
+
             if ( bindingOptions.views!.days!.keepScrollPositions ) {
                 bindingOptions._currentView!.daysContents.scrollLeft = bindingOptions._currentView!.daysContentsScrollLeft;
             }
@@ -2198,7 +2261,6 @@ import { Observation } from "./ts/area/observation";
     function renderDaysViewLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number, isForViewSwitch: boolean ) : HTMLElement {
         const dayLine: HTMLElement = DomElement.create( dayLines, "div", "day-line" );
         const dayLineHeight: number = dayCount * pixelsPerNumbers;
-        let count: HTMLElement = null!;
 
         dayLine.setAttribute( Constant.Attribute.View.Days.HEAT_JS_NUMBER, dayNumber.toString() );
 
@@ -2206,63 +2268,67 @@ import { Observation } from "./ts/area/observation";
             dayLine.style.visibility = "hidden";
         }
 
-        if ( !bindingOptions.views!.days!.showStackedColorRanges ) {
-            DomElement.addClass( dayLine, "non-stacked" );
-        } else {
-            DomElement.addClass( dayLine, "stacked" );
-        }
+        if ( dayLineHeight > 0 ) {
+            let count: HTMLElement = null!;
 
-        if ( bindingOptions.views!.days!.showToolTips ) {
-            let tooltip: string = DateTime.getCustomFormattedDateText( bindingOptions, _configurationOptions, bindingOptions.views!.days!.dayToolTipText!, new Date( bindingOptions._currentView!.activeYear, 0, 1 ), false, dayNumber - 1 );
-            tooltip = `${tooltip}${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( dayCount )}</b>`;
-
-            ToolTip.add( dayLine, bindingOptions, tooltip );
-        }
-
-        if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
-            dayLine.onclick = () : void => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, bindingOptions._currentView!.element, dayNumber, dayCount, bindingOptions._currentView!.activeYear );
-        } else if ( Is.definedFunction( bindingOptions.events!.onWeekDayDblClick ) ) {
-            dayLine.ondblclick = () : void => Trigger.customEvent( bindingOptions.events!.onWeekDayDblClick!, bindingOptions._currentView!.element, dayNumber, dayCount, bindingOptions._currentView!.activeYear );
-        } else {
-            DomElement.addClass( dayLine, "no-hover" );
-        }
-
-        if ( bindingOptions.views!.days!.showDayCounts && dayCount > 0 ) {
-            DomElement.addClass( dayLine, "day-line-count" );
-            
-            count = DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dayCount ) );
-
-            if ( bindingOptions.views!.days!.showDayCountPercentages ) {
-                DomElement.createWithHTML( count, "div", "percentage", `${( ( dayCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
+            if ( !bindingOptions.views!.days!.showStackedColorRanges ) {
+                DomElement.addClass( dayLine, "non-stacked" );
+            } else {
+                DomElement.addClass( dayLine, "stacked" );
             }
-        }
 
-        if ( !bindingOptions.views!.days!.showStackedColorRanges ) {
-            if ( bindingOptions.views!.days!.useGradients ) {
-                DomElement.addGradientEffect( bindingOptions._currentView!.element, dayLine );
+            if ( bindingOptions.views!.days!.showToolTips ) {
+                let tooltip: string = DateTime.getCustomFormattedDateText( bindingOptions, _configurationOptions, bindingOptions.views!.days!.dayToolTipText!, new Date( bindingOptions._currentView!.activeYear, 0, 1 ), false, dayNumber - 1 );
+                tooltip = `${tooltip}${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( dayCount )}</b>`;
 
-                if ( Is.defined( count ) ) {
-                    DomElement.addClass( count, "blend-colors" );
+                ToolTip.add( dayLine, bindingOptions, tooltip );
+            }
+
+            if ( Is.definedFunction( bindingOptions.events!.onWeekDayClick ) ) {
+                dayLine.onclick = () : void => Trigger.customEvent( bindingOptions.events!.onWeekDayClick!, bindingOptions._currentView!.element, dayNumber, dayCount, bindingOptions._currentView!.activeYear );
+            } else if ( Is.definedFunction( bindingOptions.events!.onWeekDayDblClick ) ) {
+                dayLine.ondblclick = () : void => Trigger.customEvent( bindingOptions.events!.onWeekDayDblClick!, bindingOptions._currentView!.element, dayNumber, dayCount, bindingOptions._currentView!.activeYear );
+            } else {
+                DomElement.addClass( dayLine, "no-hover" );
+            }
+
+            if ( bindingOptions.views!.days!.showDayCounts && dayCount > 0 ) {
+                DomElement.addClass( dayLine, "day-line-count" );
+                
+                count = DomElement.createWithHTML( dayLine, "div", "count", Str.friendlyNumber( dayCount ) );
+
+                if ( bindingOptions.views!.days!.showDayCountPercentages ) {
+                    DomElement.createWithHTML( count, "div", "percentage", `${( ( dayCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
                 }
+            }
 
-            } else if ( bindingOptions.views!.days!.useDifferentOpacities ) {
-                const backgroundColor: string = DomElement.getStyleValueByName( dayLine, "background-color" ) as string;
-                const borderColor: string = DomElement.getStyleValueByName( dayLine, "border-color" ) as string;
+            if ( !bindingOptions.views!.days!.showStackedColorRanges ) {
+                if ( bindingOptions.views!.days!.useGradients ) {
+                    DomElement.addGradientEffect( bindingOptions._currentView!.element, dayLine );
 
-                if ( Is.defined( count ) ) {
-                    DomElement.addClass( count, "blend-colors" );
-                }
+                    if ( Is.defined( count ) ) {
+                        DomElement.addClass( count, "blend-colors" );
+                    }
 
-                if ( Is.rgbColor( backgroundColor ) ) {
-                    dayLine.style.backgroundColor = Convert.toRgbOpacityColor( backgroundColor, opacityIncrease );
-                } else if ( Is.hexColor( backgroundColor ) ) {
-                    dayLine.style.backgroundColor = Convert.toRgbOpacityColor( Convert.hexToRgba( backgroundColor ), opacityIncrease );
-                }
+                } else if ( bindingOptions.views!.days!.useDifferentOpacities ) {
+                    const backgroundColor: string = DomElement.getStyleValueByName( dayLine, "background-color" ) as string;
+                    const borderColor: string = DomElement.getStyleValueByName( dayLine, "border-color" ) as string;
 
-                if ( Is.rgbColor( borderColor ) ) {
-                    dayLine.style.borderColor = Convert.toRgbOpacityColor( borderColor, opacityIncrease );
-                } else if ( Is.hexColor( borderColor ) ) {
-                    dayLine.style.borderColor = Convert.toRgbOpacityColor( Convert.hexToRgba( borderColor ), opacityIncrease );
+                    if ( Is.defined( count ) ) {
+                        DomElement.addClass( count, "blend-colors" );
+                    }
+
+                    if ( Is.rgbColor( backgroundColor ) ) {
+                        dayLine.style.backgroundColor = Convert.toRgbOpacityColor( backgroundColor, opacityIncrease );
+                    } else if ( Is.hexColor( backgroundColor ) ) {
+                        dayLine.style.backgroundColor = Convert.toRgbOpacityColor( Convert.hexToRgba( backgroundColor ), opacityIncrease );
+                    }
+
+                    if ( Is.rgbColor( borderColor ) ) {
+                        dayLine.style.borderColor = Convert.toRgbOpacityColor( borderColor, opacityIncrease );
+                    } else if ( Is.hexColor( borderColor ) ) {
+                        dayLine.style.borderColor = Convert.toRgbOpacityColor( Convert.hexToRgba( borderColor ), opacityIncrease );
+                    }
                 }
             }
         }
@@ -2351,20 +2417,12 @@ import { Observation } from "./ts/area/observation";
             DomElement.addClass( months, "view-switch" );
         }
 
-        if ( monthValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.months!.showChartYLabels ) {
-            const topLabel: HTMLElement = DomElement.createWithHTML( yAxisLabels, "div", "label-100", monthValuesForCurrentYear.largestValue.toString() );
-            const marginRight: number = DomElement.getStyleValueByName( yAxisLabels, "margin-right", true ) as number;
+        if ( bindingOptions.views!.months!.showChartYLabels! ) {
+            const labelsWidth: number = Chart.YAxis.createLabels( yAxisLabels, monthValuesForCurrentYear.largestValue, bindingOptions.views!.months!.totalYAxisLabels! );
 
-            DomElement.createWithHTML( yAxisLabels, "div", "label-75", ( Math.floor( monthValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-50", Math.floor( monthValuesForCurrentYear.largestValue / 2 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-25", Math.floor( monthValuesForCurrentYear.largestValue / 4 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-0", Char.zero );
-
-            yAxisLabels.style.width = `${topLabel.offsetWidth}px`;
-            monthNames.style.paddingLeft = `${yAxisLabels.offsetWidth + marginRight}px`;
-
-        } else {
-            yAxisLabels.parentNode!.removeChild( yAxisLabels );
+            if ( labelsWidth > 0 ) {
+                monthNames.style.paddingLeft = `${labelsWidth}px`;
+            }
         }
 
         if ( monthValuesForCurrentYear.largestValue === 0 ) {
@@ -2418,6 +2476,8 @@ import { Observation } from "./ts/area/observation";
                                     stackedValue.style.height = `${stackedDayLineHeight}px`;
 
                                     if ( Is.defined( colorRange ) ) {
+                                        stackedValue.setAttribute( Constant.Attribute.View.Month.HEAT_JS_MINIMUM, colorRange.minimum!.toString() );
+
                                         if ( Is.definedString( colorRange.monthsCssClassName ) ) {
                                             DomElement.addClass( stackedValue, colorRange.monthsCssClassName! );
                                         } else {
@@ -2436,6 +2496,10 @@ import { Observation } from "./ts/area/observation";
                 DomElement.reverseChildrenOrder( monthNames );
             }
 
+            if ( bindingOptions.views!.months!.showHorizontalChartLines ) {
+                Chart.YAxis.createLines( monthLines, bindingOptions.views!.months!.totalYAxisLabels! );
+            }
+
             if ( bindingOptions.views!.months!.keepScrollPositions ) {
                 bindingOptions._currentView!.monthsContents.scrollLeft = bindingOptions._currentView!.monthsContentsScrollLeft;
             }
@@ -2447,82 +2511,85 @@ import { Observation } from "./ts/area/observation";
     function renderMonthsViewLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number, isForViewSwitch: boolean ) : HTMLElement {
         const monthLine: HTMLElement = DomElement.create( monthLines, "div", "month-line" );
         const monthLineHeight: number = monthCount * pixelsPerNumbers;
-        const today: Date = new Date();
-        let count: HTMLElement = null!;
 
         monthLine.setAttribute( Constant.Attribute.View.Month.HEAT_JS_NUMBER, monthNumber.toString() );
-
-        if ( !bindingOptions.views!.months!.showStackedColorRanges ) {
-            DomElement.addClass( monthLine, "non-stacked" );
-        } else {
-            DomElement.addClass( monthLine, "stacked" );
-        }
 
         if ( monthLineHeight <= 0 ) {
             monthLine.style.visibility = "hidden";
         }
 
-        if ( bindingOptions.views!.months!.showToolTips ) {
-            let tooltip: string = DateTime.getCustomFormattedDateText( bindingOptions, _configurationOptions, bindingOptions.views!.months!.monthToolTipText!, new Date( bindingOptions._currentView!.activeYear, monthNumber - 1, 1 ) );
-            tooltip = `${tooltip}${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( monthCount )}</b>`;
+        if ( monthLineHeight > 0 ) {
+            const today: Date = new Date();
+            let count: HTMLElement = null!;
 
-            ToolTip.add( monthLine, bindingOptions, tooltip );
-        }
-
-        let currentYear: number = bindingOptions._currentView!.activeYear;
-
-        if ( bindingOptions.startMonth! > 0 && monthNumber - 1 < bindingOptions.startMonth! ) {
-            currentYear++;
-        }
-
-        if ( Is.definedFunction( bindingOptions.events!.onMonthClick ) ) {
-            monthLine.onclick = () : void => Trigger.customEvent( bindingOptions.events!.onMonthClick!, bindingOptions._currentView!.element, monthNumber, monthCount, currentYear );
-        } else if ( Is.definedFunction( bindingOptions.events!.onMonthDblClick ) ) {
-            monthLine.ondblclick = () : void => Trigger.customEvent( bindingOptions.events!.onMonthDblClick!, bindingOptions._currentView!.element, monthNumber, monthCount, currentYear );
-        } else {
-            DomElement.addClass( monthLine, "no-hover" );
-        }
-
-        if ( bindingOptions.views!.months!.showMonthCounts && monthCount > 0 ) {
-            DomElement.addClass( monthLine, "month-line-count" );
-
-            count = DomElement.createWithHTML( monthLine, "div", "count", Str.friendlyNumber( monthCount ) );
-
-            if ( bindingOptions.views!.months!.showMonthCountPercentages ) {
-                DomElement.createWithHTML( count, "div", "percentage", `${( ( monthCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
+            if ( !bindingOptions.views!.months!.showStackedColorRanges ) {
+                DomElement.addClass( monthLine, "non-stacked" );
+            } else {
+                DomElement.addClass( monthLine, "stacked" );
             }
-        }
 
-        if ( bindingOptions.views!.months!.highlightCurrentMonth && today.getMonth() === ( monthNumber - 1 ) && bindingOptions._currentView!.activeYear === today.getFullYear() ) {
-            DomElement.addClass( monthLine, "today" );
-        }
+            if ( bindingOptions.views!.months!.showToolTips ) {
+                let tooltip: string = DateTime.getCustomFormattedDateText( bindingOptions, _configurationOptions, bindingOptions.views!.months!.monthToolTipText!, new Date( bindingOptions._currentView!.activeYear, monthNumber - 1, 1 ) );
+                tooltip = `${tooltip}${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( monthCount )}</b>`;
 
-        if ( !bindingOptions.views!.months!.showStackedColorRanges ) {
-            if ( bindingOptions.views!.months!.useGradients ) {
-                DomElement.addGradientEffect( bindingOptions._currentView!.element, monthLine );
+                ToolTip.add( monthLine, bindingOptions, tooltip );
+            }
 
-                if ( Is.defined( count ) ) {
-                    DomElement.addClass( count, "blend-colors" );
+            let currentYear: number = bindingOptions._currentView!.activeYear;
+
+            if ( bindingOptions.startMonth! > 0 && monthNumber - 1 < bindingOptions.startMonth! ) {
+                currentYear++;
+            }
+
+            if ( Is.definedFunction( bindingOptions.events!.onMonthClick ) ) {
+                monthLine.onclick = () : void => Trigger.customEvent( bindingOptions.events!.onMonthClick!, bindingOptions._currentView!.element, monthNumber, monthCount, currentYear );
+            } else if ( Is.definedFunction( bindingOptions.events!.onMonthDblClick ) ) {
+                monthLine.ondblclick = () : void => Trigger.customEvent( bindingOptions.events!.onMonthDblClick!, bindingOptions._currentView!.element, monthNumber, monthCount, currentYear );
+            } else {
+                DomElement.addClass( monthLine, "no-hover" );
+            }
+
+            if ( bindingOptions.views!.months!.showMonthCounts && monthCount > 0 && monthLineHeight > 0 ) {
+                DomElement.addClass( monthLine, "month-line-count" );
+
+                count = DomElement.createWithHTML( monthLine, "div", "count", Str.friendlyNumber( monthCount ) );
+
+                if ( bindingOptions.views!.months!.showMonthCountPercentages ) {
+                    DomElement.createWithHTML( count, "div", "percentage", `${( ( monthCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
                 }
+            }
 
-            } else if ( bindingOptions.views!.months!.useDifferentOpacities ) {
-                const backgroundColor: string = DomElement.getStyleValueByName( monthLine, "background-color" ) as string;
-                const borderColor: string = DomElement.getStyleValueByName( monthLine, "border-color" ) as string;
+            if ( bindingOptions.views!.months!.highlightCurrentMonth && today.getMonth() === ( monthNumber - 1 ) && bindingOptions._currentView!.activeYear === today.getFullYear() ) {
+                DomElement.addClass( monthLine, "today" );
+            }
 
-                if ( Is.defined( count ) ) {
-                    DomElement.addClass( count, "blend-colors" );
-                }
+            if ( !bindingOptions.views!.months!.showStackedColorRanges ) {
+                if ( bindingOptions.views!.months!.useGradients ) {
+                    DomElement.addGradientEffect( bindingOptions._currentView!.element, monthLine );
 
-                if ( Is.rgbColor( backgroundColor ) ) {
-                    monthLine.style.backgroundColor = Convert.toRgbOpacityColor( backgroundColor, opacityIncrease );
-                } else if ( Is.hexColor( backgroundColor ) ) {
-                    monthLine.style.backgroundColor = Convert.toRgbOpacityColor( Convert.hexToRgba( backgroundColor ), opacityIncrease );
-                }
+                    if ( Is.defined( count ) ) {
+                        DomElement.addClass( count, "blend-colors" );
+                    }
 
-                if ( Is.rgbColor( borderColor ) ) {
-                    monthLine.style.borderColor = Convert.toRgbOpacityColor( borderColor, opacityIncrease );
-                } else if ( Is.hexColor( borderColor ) ) {
-                    monthLine.style.borderColor = Convert.toRgbOpacityColor( Convert.hexToRgba( borderColor ), opacityIncrease );
+                } else if ( bindingOptions.views!.months!.useDifferentOpacities ) {
+                    const backgroundColor: string = DomElement.getStyleValueByName( monthLine, "background-color" ) as string;
+                    const borderColor: string = DomElement.getStyleValueByName( monthLine, "border-color" ) as string;
+
+                    if ( Is.defined( count ) ) {
+                        DomElement.addClass( count, "blend-colors" );
+                    }
+
+                    if ( Is.rgbColor( backgroundColor ) ) {
+                        monthLine.style.backgroundColor = Convert.toRgbOpacityColor( backgroundColor, opacityIncrease );
+                    } else if ( Is.hexColor( backgroundColor ) ) {
+                        monthLine.style.backgroundColor = Convert.toRgbOpacityColor( Convert.hexToRgba( backgroundColor ), opacityIncrease );
+                    }
+
+                    if ( Is.rgbColor( borderColor ) ) {
+                        monthLine.style.borderColor = Convert.toRgbOpacityColor( borderColor, opacityIncrease );
+                    } else if ( Is.hexColor( borderColor ) ) {
+                        monthLine.style.borderColor = Convert.toRgbOpacityColor( Convert.hexToRgba( borderColor ), opacityIncrease );
+                    }
                 }
             }
         }
@@ -2612,20 +2679,12 @@ import { Observation } from "./ts/area/observation";
             DomElement.addClass( colorRanges, "view-switch" );
         }
 
-        if ( colorRangeValuesForCurrentYear.largestValue > 0 && bindingOptions.views!.colorRanges!.showChartYLabels ) {
-            const topLabel: HTMLElement = DomElement.createWithHTML( yAxisLabels, "div", "label-100", colorRangeValuesForCurrentYear.largestValue.toString() );
-            const marginRight: number = DomElement.getStyleValueByName( yAxisLabels, "margin-right", true ) as number;
+        if ( bindingOptions.views!.colorRanges!.showChartYLabels! ) {
+            const labelsWidth: number = Chart.YAxis.createLabels( yAxisLabels, colorRangeValuesForCurrentYear.largestValue, bindingOptions.views!.colorRanges!.totalYAxisLabels! );
 
-            DomElement.createWithHTML( yAxisLabels, "div", "label-75", ( Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ) * 3 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-50", Math.floor( colorRangeValuesForCurrentYear.largestValue / 2 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-25", Math.floor( colorRangeValuesForCurrentYear.largestValue / 4 ).toString() );
-            DomElement.createWithHTML( yAxisLabels, "div", "label-0", Char.zero );
-
-            yAxisLabels.style.width = `${topLabel.offsetWidth}px`;
-            colorRangeNames.style.paddingLeft = `${yAxisLabels.offsetWidth + marginRight}px`;
-
-        } else {
-            yAxisLabels.parentNode!.removeChild( yAxisLabels );
+            if ( labelsWidth > 0 ) {
+                colorRangeNames.style.paddingLeft = `${labelsWidth}px`;
+            }
         }
 
         if ( colorRangeValuesForCurrentYear.largestValue === 0 ) {
@@ -2667,6 +2726,10 @@ import { Observation } from "./ts/area/observation";
                 DomElement.reverseChildrenOrder( colorRangeLines );
                 DomElement.reverseChildrenOrder( colorRangeNames );
             }
+
+            if ( bindingOptions.views!.colorRanges!.showHorizontalChartLines ) {
+                Chart.YAxis.createLines( colorRangeLines, bindingOptions.views!.colorRanges!.totalYAxisLabels! );
+            }
     
             if ( bindingOptions.views!.colorRanges!.keepScrollPositions ) {
                 bindingOptions._currentView!.colorRangesContents.scrollLeft = bindingOptions._currentView!.colorRangesContentsScrollLeft;
@@ -2690,45 +2753,47 @@ import { Observation } from "./ts/area/observation";
             colorRangeLine.style.visibility = "hidden";
         }
 
-        if ( bindingOptions.views!.colorRanges!.showToolTips ) {
-            let tooltip: string;
+        if ( colorRangeLineHeight > 0 ) {
+            if ( bindingOptions.views!.colorRanges!.showToolTips ) {
+                let tooltip: string;
 
-            if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) && bindingOptions.views!.colorRanges!.showRangeNamesInToolTips ) {
-                tooltip = `${useColorRange.name}${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( colorRangeCount )}</b>`;
+                if ( Is.defined( useColorRange ) && Is.definedString( useColorRange.name ) && bindingOptions.views!.colorRanges!.showRangeNamesInToolTips ) {
+                    tooltip = `${useColorRange.name}${Char.colon}${Char.space}<b class="tooltip-count">${Str.friendlyNumber( colorRangeCount )}</b>`;
+                } else {
+                    tooltip = Str.friendlyNumber( colorRangeCount );
+                }
+
+                ToolTip.add( colorRangeLine, bindingOptions, tooltip );
+            }
+
+            if ( bindingOptions.views!.colorRanges!.showRangeCounts && colorRangeCount > 0 && colorRangeLineHeight > 0 ) {
+                DomElement.addClass( colorRangeLine, "color-range-line-count" );
+                const count: HTMLElement = DomElement.createWithHTML( colorRangeLine, "div", "count", Str.friendlyNumber( colorRangeCount ) );
+
+                if ( bindingOptions.views!.colorRanges!.showRangeCountPercentages ) {
+                    DomElement.createWithHTML( count, "div", "percentage", `${( ( colorRangeCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
+                }
+            }
+
+            if ( Is.definedFunction( bindingOptions.events!.onColorRangeClick ) ) {
+                colorRangeLine.onclick = () : void => Trigger.customEvent( bindingOptions.events!.onColorRangeClick!, bindingOptions._currentView!.element, useColorRange, colorRangeCount, bindingOptions._currentView!.activeYear );
+            } else if ( Is.definedFunction( bindingOptions.events!.onColorRangeDblClick ) ) {
+                colorRangeLine.ondblclick = () : void => Trigger.customEvent( bindingOptions.events!.onColorRangeDblClick!, useColorRange, colorRangeCount, bindingOptions._currentView!.activeYear );
             } else {
-                tooltip = Str.friendlyNumber( colorRangeCount );
+                DomElement.addClass( colorRangeLine, "no-hover" );
             }
 
-            ToolTip.add( colorRangeLine, bindingOptions, tooltip );
-        }
-
-        if ( bindingOptions.views!.colorRanges!.showRangeCounts && colorRangeCount > 0 ) {
-            DomElement.addClass( colorRangeLine, "color-range-line-count" );
-            const count: HTMLElement = DomElement.createWithHTML( colorRangeLine, "div", "count", Str.friendlyNumber( colorRangeCount ) );
-
-            if ( bindingOptions.views!.colorRanges!.showRangeCountPercentages ) {
-                DomElement.createWithHTML( count, "div", "percentage", `${( ( colorRangeCount / totalValue ) * 100 ).toFixed( bindingOptions.percentageDecimalPoints! )}%` );
+            if ( Is.defined( useColorRange ) && ColorRange.isVisible( bindingOptions, useColorRange.id! ) ) {
+                if ( Is.definedString( useColorRange.colorRangeCssClassName ) ) {
+                    DomElement.addClass( colorRangeLine, useColorRange.colorRangeCssClassName! );
+                } else {
+                    DomElement.addClass( colorRangeLine, useColorRange.cssClassName! );
+                }
             }
-        }
 
-        if ( Is.definedFunction( bindingOptions.events!.onColorRangeClick ) ) {
-            colorRangeLine.onclick = () : void => Trigger.customEvent( bindingOptions.events!.onColorRangeClick!, bindingOptions._currentView!.element, useColorRange, colorRangeCount, bindingOptions._currentView!.activeYear );
-        } else if ( Is.definedFunction( bindingOptions.events!.onColorRangeDblClick ) ) {
-            colorRangeLine.ondblclick = () : void => Trigger.customEvent( bindingOptions.events!.onColorRangeDblClick!, useColorRange, colorRangeCount, bindingOptions._currentView!.activeYear );
-        } else {
-            DomElement.addClass( colorRangeLine, "no-hover" );
-        }
-
-        if ( Is.defined( useColorRange ) && ColorRange.isVisible( bindingOptions, useColorRange.id! ) ) {
-            if ( Is.definedString( useColorRange.colorRangeCssClassName ) ) {
-                DomElement.addClass( colorRangeLine, useColorRange.colorRangeCssClassName! );
-            } else {
-                DomElement.addClass( colorRangeLine, useColorRange.cssClassName! );
+            if ( bindingOptions.views!.colorRanges!.useGradients ) {
+                DomElement.addGradientEffect( bindingOptions._currentView!.element, colorRangeLine );
             }
-        }
-
-        if ( bindingOptions.views!.colorRanges!.useGradients ) {
-            DomElement.addGradientEffect( bindingOptions._currentView!.element, colorRangeLine );
         }
 
         Animate.setHeight( bindingOptions, colorRangeLine, colorRangeLineHeight, isForViewSwitch );
@@ -3891,7 +3956,7 @@ import { Observation } from "./ts/area/observation";
         },
 
         getVersion: () : string => {
-            return "5.0.1";
+            return "5.1.0";
         }
     };
 

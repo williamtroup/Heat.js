@@ -4,7 +4,7 @@
  * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        binding.ts
- * @version     v5.0.1
+ * @version     v5.1.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2026
@@ -210,6 +210,7 @@ export namespace Binding {
             bindingOptions.views!.map!.showSpacing = Default.getBoolean( bindingOptions.views!.map!.showSpacing, true );
             bindingOptions.views!.map!.showDifferences = Default.getBoolean( bindingOptions.views!.map!.showDifferences, false );
             bindingOptions.views!.map!.showDifferencesInToolTips = Default.getBoolean( bindingOptions.views!.map!.showDifferencesInToolTips, true );
+            bindingOptions.views!.map!.showStartEndYearDays = Default.getBoolean( bindingOptions.views!.map!.showStartEndYearDays, true );
 
             setVisibleDateOptionsForView( bindingOptions.views!.map! );
     
@@ -251,6 +252,10 @@ export namespace Binding {
             bindingOptions.views!.chart!.addMonthSpacing = Default.getBoolean( bindingOptions.views!.chart!.addMonthSpacing, false );
             bindingOptions.views!.chart!.showDifferences = Default.getBoolean( bindingOptions.views!.chart!.showDifferences, false );
             bindingOptions.views!.chart!.showDifferencesInToolTips = Default.getBoolean( bindingOptions.views!.chart!.showDifferencesInToolTips, true );
+            bindingOptions.views!.chart!.usePoints = Default.getBoolean( bindingOptions.views!.chart!.usePoints, false );
+            bindingOptions.views!.chart!.usePointLines = Default.getBoolean( bindingOptions.views!.chart!.usePointLines, false );
+            bindingOptions.views!.chart!.showHorizontalChartLines = Default.getBoolean( bindingOptions.views!.chart!.showHorizontalChartLines, false );
+            bindingOptions.views!.chart!.totalYAxisLabels = Default.getNumberInRange( bindingOptions.views!.chart!.totalYAxisLabels, 2, 10, 7 );
 
             setVisibleDateOptionsForView( bindingOptions.views!.chart! );
     
@@ -271,6 +276,8 @@ export namespace Binding {
             bindingOptions.views!.days!.showDayCountPercentages = Default.getBoolean( bindingOptions.views!.days!.showDayCountPercentages, true );
             bindingOptions.views!.days!.showStackedColorRanges = Default.getBoolean( bindingOptions.views!.days!.showStackedColorRanges, true );
             bindingOptions.views!.days!.dayToolTipText = Default.getString( bindingOptions.views!.days!.dayToolTipText, "{dddd} {yyyy}" );
+            bindingOptions.views!.days!.showHorizontalChartLines = Default.getBoolean( bindingOptions.views!.days!.showHorizontalChartLines, false );
+            bindingOptions.views!.days!.totalYAxisLabels = Default.getNumberInRange( bindingOptions.views!.days!.totalYAxisLabels, 2, 10, 7 );
     
             setVisibleDateOptionsForView( bindingOptions.views!.days! );
     
@@ -292,6 +299,8 @@ export namespace Binding {
             bindingOptions.views!.months!.showMonthCountPercentages = Default.getBoolean( bindingOptions.views!.months!.showMonthCountPercentages, true );
             bindingOptions.views!.months!.showStackedColorRanges = Default.getBoolean( bindingOptions.views!.months!.showStackedColorRanges, true );
             bindingOptions.views!.months!.monthToolTipText = Default.getString( bindingOptions.views!.months!.monthToolTipText, "{mmmm} {yyyy}" );
+            bindingOptions.views!.months!.showHorizontalChartLines = Default.getBoolean( bindingOptions.views!.months!.showHorizontalChartLines, false );
+            bindingOptions.views!.months!.totalYAxisLabels = Default.getNumberInRange( bindingOptions.views!.months!.totalYAxisLabels, 2, 10, 7 );
     
             setVisibleDateOptionsForView( bindingOptions.views!.months! );
     
@@ -311,6 +320,8 @@ export namespace Binding {
             bindingOptions.views!.colorRanges!.useGradients = Default.getBoolean( bindingOptions.views!.colorRanges!.useGradients, false );
             bindingOptions.views!.colorRanges!.showRangeCountPercentages = Default.getBoolean( bindingOptions.views!.colorRanges!.showRangeCountPercentages, true );
             bindingOptions.views!.colorRanges!.showRangeNamesInToolTips = Default.getBoolean( bindingOptions.views!.colorRanges!.showRangeNamesInToolTips, true );
+            bindingOptions.views!.colorRanges!.showHorizontalChartLines = Default.getBoolean( bindingOptions.views!.colorRanges!.showHorizontalChartLines, false );
+            bindingOptions.views!.colorRanges!.totalYAxisLabels = Default.getNumberInRange( bindingOptions.views!.colorRanges!.totalYAxisLabels, 2, 10, 7 );
 
             setVisibleDateOptionsForView( bindingOptions.views!.colorRanges! );
     
@@ -373,6 +384,9 @@ export namespace Binding {
             bindingOptions.dynamicColorRange!.color = Default.getString( bindingOptions.dynamicColorRange!.color, defaultDynamicColor );
             bindingOptions.dynamicColorRange!.totalColors = Default.getNumber( bindingOptions.dynamicColorRange!.totalColors, 5 );
             bindingOptions.dynamicColorRange!.startMinimum = Default.getNumber( bindingOptions.dynamicColorRange!.startMinimum, 10 );
+            bindingOptions.dynamicColorRange!.hoverOpacity = Default.getNumber( bindingOptions.dynamicColorRange!.hoverOpacity, 0.7 );
+            bindingOptions.dynamicColorRange!.startName = Default.getString( bindingOptions.dynamicColorRange!.startName, "Day Color" );
+            bindingOptions.dynamicColorRange!.overrideCheckBoxColors = Default.getBoolean( bindingOptions.dynamicColorRange!.overrideCheckBoxColors, true );
     
             return bindingOptions.dynamicColorRange!;
         }
