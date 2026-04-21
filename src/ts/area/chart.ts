@@ -27,7 +27,7 @@ export namespace Chart {
                 const allYLabels: HTMLElement[] = [];
                 let maximumWidth: number = 0;
 
-                for ( let yLabelIndex = 0; yLabelIndex < maximumLabels; yLabelIndex++ ) {
+                for ( let yLabelIndex: number = 0; yLabelIndex < maximumLabels; yLabelIndex++ ) {
                     const newYLabel: HTMLElement = DomElement.create( container, "div", "chart-y-label" );
                     const newYLabelLine: HTMLElement = DomElement.create( container, "span", "chart-y-label-line" );
 
@@ -55,7 +55,7 @@ export namespace Chart {
                     maximumWidth = Math.max( maximumWidth, newYLabel.offsetWidth );
                 }
 
-                for ( let yLabelIndex = 0; yLabelIndex < maximumLabels; yLabelIndex++ ) {
+                for ( let yLabelIndex: number = 0; yLabelIndex < maximumLabels; yLabelIndex++ ) {
                     allYLabels[ yLabelIndex ].style.width = `${maximumWidth}px`;
                 }
 
