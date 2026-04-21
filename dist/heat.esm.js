@@ -5229,7 +5229,7 @@ var x;
             }
             return e;
         },
-        getVersion: () => "5.1.0"
+        getVersion: () => "5.1.1"
     };
     (() => {
         D = f.Options.get();
