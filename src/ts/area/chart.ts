@@ -75,7 +75,7 @@ export namespace Chart {
 
                 const positionIncrease: number = 100 / ( maximumLines - 1 );
 
-                for ( let yLineIndex = 1; yLineIndex < maximumLines; yLineIndex++ ) {
+                for ( let yLineIndex: number = 1; yLineIndex < maximumLines; yLineIndex++ ) {
                     const newYLine: HTMLElement = DomElement.create( container, "span", "chart-y-line" );
 
                     if ( yLineIndex === maximumLines - 1 ) {
