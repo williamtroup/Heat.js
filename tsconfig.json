@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "target": "ES2022",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "classic",
     "declaration": true,
     "outDir": "./build",
     "esModuleInterop": true,
