@@ -187,21 +187,7 @@ export namespace Visible {
             return result;
         }
 
-        export function set( bindingOptions: BindingOptions ) : void {
-            if ( bindingOptions.views!.map!.enabled && bindingOptions._currentView!.activeView === ViewId.map ) {
-                bindingOptions._currentView!.mapContentsContainer.style.display = "block";
-            } else if ( bindingOptions.views!.line!.enabled && bindingOptions._currentView!.activeView === ViewId.line ) {
-                bindingOptions._currentView!.lineContentsContainer.style.display = "block";
-            } else if ( bindingOptions.views!.chart!.enabled && bindingOptions._currentView!.activeView === ViewId.chart ) {
-                bindingOptions._currentView!.chartContents.style.display = "block";
-            } else if ( bindingOptions.views!.days!.enabled && bindingOptions._currentView!.activeView === ViewId.days ) {
-                bindingOptions._currentView!.daysContents.style.display = "block";
-            } else if ( bindingOptions.views!.months!.enabled && bindingOptions._currentView!.activeView === ViewId.months ) {
-                bindingOptions._currentView!.monthsContents.style.display = "block";
-            } else if ( bindingOptions.views!.colorRanges!.enabled && bindingOptions._currentView!.activeView === ViewId.colorRanges ) {
-                bindingOptions._currentView!.colorRangesContents.style.display = "block";
-            }
-
+        export function removeSizeProperties( bindingOptions: BindingOptions ) : void {
             bindingOptions._currentView!.element.style.removeProperty( "height" );
 
             if ( !bindingOptions.resizable ) {

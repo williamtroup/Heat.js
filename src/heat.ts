@@ -185,7 +185,7 @@ import { Chart } from "./ts/area/chart";
 
         renderGuide( bindingOptions );
 
-        Visible.View.set( bindingOptions );
+        Visible.View.removeSizeProperties( bindingOptions );
 
         if ( bindingOptions._currentView!.initialized ) {
             Trigger.customEvent( bindingOptions.events!.onChange!, bindingOptions._currentView!.element );
@@ -1551,8 +1551,6 @@ import { Chart } from "./ts/area/chart";
                 bindingOptions._currentView!.mapContents.scrollLeft = bindingOptions._currentView!.mapContentsScrollLeft;
             }
         }
-
-        bindingOptions._currentView!.mapContentsContainer.style.display = "none";
     }
 
     function renderMapViewRemainingDaysForMonth( bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], actualDay: number, currentDayColumn: HTMLElement, monthIndex: number, isLastMonth: boolean ) : void {
@@ -1832,8 +1830,6 @@ import { Chart } from "./ts/area/chart";
                 bindingOptions._currentView!.lineContents.scrollLeft = bindingOptions._currentView!.lineContentsScrollLeft;
             }
         }
-
-        bindingOptions._currentView!.lineContentsContainer.style.display = "none";
     }
 
     function renderLineViewDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], isForViewSwitch ) : HTMLElement {
@@ -2053,8 +2049,6 @@ import { Chart } from "./ts/area/chart";
                 bindingOptions._currentView!.chartContents.scrollLeft = bindingOptions._currentView!.chartContentsScrollLeft;
             }
         }
-
-        bindingOptions._currentView!.chartContents.style.display = "none";
     }
 
     function renderChartViewDay( dayLines: HTMLElement, bindingOptions: BindingOptions, day: number, month: number, year: number, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, isForViewSwitch: boolean ) : HTMLElement {
@@ -2266,8 +2260,6 @@ import { Chart } from "./ts/area/chart";
                 bindingOptions._currentView!.daysContents.scrollLeft = bindingOptions._currentView!.daysContentsScrollLeft;
             }
         }
-
-        bindingOptions._currentView!.daysContents.style.display = "none";
     }
 
     function renderDaysViewLine( dayLines: HTMLElement, dayNumber: number, dayCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number, isForViewSwitch: boolean ) : HTMLElement {
@@ -2516,8 +2508,6 @@ import { Chart } from "./ts/area/chart";
                 bindingOptions._currentView!.monthsContents.scrollLeft = bindingOptions._currentView!.monthsContentsScrollLeft;
             }
         }
-
-        bindingOptions._currentView!.monthsContents.style.display = "none";
     }
 
     function renderMonthsViewLine( monthLines: HTMLElement, monthNumber: number, monthCount: number, bindingOptions: BindingOptions, pixelsPerNumbers: number, opacityIncrease: number, totalValue: number, isForViewSwitch: boolean ) : HTMLElement {
@@ -2747,8 +2737,6 @@ import { Chart } from "./ts/area/chart";
                 bindingOptions._currentView!.colorRangesContents.scrollLeft = bindingOptions._currentView!.colorRangesContentsScrollLeft;
             }
         }
-
-        bindingOptions._currentView!.colorRangesContents.style.display = "none";
     }
 
     function renderColorRangesViewLine( colorRangeMinimum: number, colorRangeLines: HTMLElement, colorRangeCount: number, bindingOptions: BindingOptions, colorRanges: BindingOptionsColorRange[], pixelsPerNumbers: number, totalValue: number, isForViewSwitch: boolean ) : void {
