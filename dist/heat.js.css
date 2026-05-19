@@ -997,13 +997,12 @@ div.heat-js div.title-bar div.title {
   cursor: pointer;
 }
 div.heat-js div.title-bar div.title span.title-text {
-  margin-right: var(--heat-js-spacing);
-  margin-right: 5px;
+  margin-right: var(--heat-js-spacing-half);
 }
 div.heat-js div.title-bar div.title span.section-text,
 div.heat-js div.title-bar div.title span.section-text-name {
   font-weight: 100;
-  margin-left: 5px;
+  margin-left: var(--heat-js-spacing-half);
   display: none;
 }
 div.heat-js div.title-bar div.title span.section-text:first-child,

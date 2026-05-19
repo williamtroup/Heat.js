@@ -744,14 +744,13 @@ div.heat-js {
             cursor: pointer;
 
             span.title-text {
-                margin-right: var(--heat-js-spacing);
-                margin-right: 5px;
+                margin-right: var(--heat-js-spacing-half);
             }
 
             span.section-text,
             span.section-text-name {
                 font-weight: 100;
-                margin-left: 5px;
+                margin-left: var(--heat-js-spacing-half);
                 display: none;
 
                 &:first-child {
