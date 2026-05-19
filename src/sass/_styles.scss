@@ -67,7 +67,7 @@ $minimum-width-smaller: 450px;
         }
 
         &.default {
-            font-weight: 700;
+            font-weight: var(--heat-js-text-font-weight-heavy);
         }
 
         @if $apply-padding {
