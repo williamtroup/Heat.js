@@ -1503,7 +1503,11 @@ import { Chart } from "./ts/area/chart";
                         let monthNameText: string = _configurationOptions.text!.monthNames![ actualMonthIndex ];
 
                         if ( bindingOptions.startMonth! > 0 && bindingOptions.views!.map!.showYearsInMonthNames ) {
-                            monthNameText = `${monthNameText}${Char.space}${actualYear}`;
+                            if ( bindingOptions.views!.map!.showShortYearsInMonthNames ) {
+                                monthNameText = `${monthNameText} ${actualYear.toString().substring( 2 )}`;
+                            } else {
+                                monthNameText = `${monthNameText}${Char.space}${actualYear}`;
+                            }
                         }
     
                         if ( !bindingOptions.views!.map!.placeMonthNamesOnTheBottom ) {
@@ -1775,7 +1779,11 @@ import { Chart } from "./ts/area/chart";
                         let monthNameText: string = _configurationOptions.text!.monthNames![ actualMonthIndex ];
 
                         if ( bindingOptions.startMonth! > 0 && bindingOptions.views!.line!.showYearsInMonthNames ) {
-                            monthNameText = `${monthNameText}${Char.space}${actualYear}`;
+                            if ( bindingOptions.views!.line!.showShortYearsInMonthNames ) {
+                                monthNameText = `${monthNameText} ${actualYear.toString().substring( 2 )}`;
+                            } else {
+                                monthNameText = `${monthNameText}${Char.space}${actualYear}`;
+                            }
                         }
 
                         const monthName: HTMLElement = DomElement.createWithHTML( lineMonths, "div", "month-name", monthNameText );
@@ -1984,7 +1992,11 @@ import { Chart } from "./ts/area/chart";
                         let monthNameText: string = _configurationOptions.text!.monthNames![ actualMonthIndex ];
 
                         if ( bindingOptions.startMonth! > 0 && bindingOptions.views!.chart!.showYearsInMonthNames ) {
-                            monthNameText = `${monthNameText}${Char.space}${actualYear}`;
+                            if ( bindingOptions.views!.chart!.showShortYearsInMonthNames ) {
+                                monthNameText = `${monthNameText} ${actualYear.toString().substring( 2 )}`;
+                            } else {
+                                monthNameText = `${monthNameText}${Char.space}${actualYear}`;
+                            }
                         }
 
                         const monthName: HTMLElement = DomElement.createWithHTML( chartMonths, "div", "month-name", monthNameText );

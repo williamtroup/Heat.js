@@ -294,6 +294,7 @@ export type BindingOptionsViewsMap = BindingOptionsView & {
     highlightCurrentDay?: boolean;
     dayToolTipText?: string;
     showYearsInMonthNames?: boolean;
+    showShortYearsInMonthNames?: boolean;
     showCountsInToolTips?: boolean;
     showSpacing?: boolean;
     showDifferences?: boolean;
@@ -306,6 +307,7 @@ export type BindingOptionsViewsLine = BindingOptionsView & {
     showInReverseOrder?: boolean;
     keepScrollPositions?: boolean;
     showYearsInMonthNames?: boolean;
+    showShortYearsInMonthNames?: boolean;
     dayToolTipText?: string;
     showToolTips?: boolean;
     showCountsInToolTips?: boolean;
@@ -324,6 +326,7 @@ export type BindingOptionsViewsChart = BindingOptionsView & {
     highlightCurrentDay?: boolean;
     dayToolTipText?: string;
     showYearsInMonthNames?: boolean;
+    showShortYearsInMonthNames?: boolean;
     showCountsInToolTips?: boolean;
     addMonthSpacing?: boolean;
     showDifferences?: boolean;

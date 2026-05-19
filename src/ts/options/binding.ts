@@ -206,6 +206,7 @@ export namespace Binding {
             bindingOptions.views!.map!.highlightCurrentDay = Default.getBoolean( bindingOptions.views!.map!.highlightCurrentDay, false );
             bindingOptions.views!.map!.dayToolTipText = Default.getString( bindingOptions.views!.map!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.views!.map!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.map!.showYearsInMonthNames, true );
+            bindingOptions.views!.map!.showShortYearsInMonthNames = Default.getBoolean( bindingOptions.views!.map!.showShortYearsInMonthNames, false );
             bindingOptions.views!.map!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.map!.showCountsInToolTips, true );
             bindingOptions.views!.map!.showSpacing = Default.getBoolean( bindingOptions.views!.map!.showSpacing, true );
             bindingOptions.views!.map!.showDifferences = Default.getBoolean( bindingOptions.views!.map!.showDifferences, false );
@@ -224,6 +225,7 @@ export namespace Binding {
             bindingOptions.views!.line!.showInReverseOrder = Default.getBoolean( bindingOptions.views!.line!.showInReverseOrder, false );
             bindingOptions.views!.line!.keepScrollPositions = Default.getBoolean( bindingOptions.views!.line!.keepScrollPositions, false );
             bindingOptions.views!.line!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.line!.showYearsInMonthNames, true );
+            bindingOptions.views!.line!.showShortYearsInMonthNames = Default.getBoolean( bindingOptions.views!.line!.showShortYearsInMonthNames, false );
             bindingOptions.views!.line!.showToolTips = Default.getBoolean( bindingOptions.views!.line!.showToolTips, true );
             bindingOptions.views!.line!.dayToolTipText = Default.getString( bindingOptions.views!.line!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.views!.line!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.line!.showCountsInToolTips, true );
@@ -248,6 +250,7 @@ export namespace Binding {
             bindingOptions.views!.chart!.highlightCurrentDay = Default.getBoolean( bindingOptions.views!.chart!.highlightCurrentDay, false );
             bindingOptions.views!.chart!.dayToolTipText = Default.getString( bindingOptions.views!.chart!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.views!.chart!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.chart!.showYearsInMonthNames, true );
+            bindingOptions.views!.chart!.showShortYearsInMonthNames = Default.getBoolean( bindingOptions.views!.chart!.showShortYearsInMonthNames, false );
             bindingOptions.views!.chart!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.chart!.showCountsInToolTips, true );
             bindingOptions.views!.chart!.addMonthSpacing = Default.getBoolean( bindingOptions.views!.chart!.addMonthSpacing, false );
             bindingOptions.views!.chart!.showDifferences = Default.getBoolean( bindingOptions.views!.chart!.showDifferences, false );
