@@ -965,13 +965,13 @@ import { Chart } from "./ts/area/chart";
             }
 
             if ( bindingOptions.title!.showText ) {
-                title.innerHTML = `${title.innerHTML}${bindingOptions.title!.text}`;
+                DomElement.createWithHTML( title, "span", "title-text", bindingOptions.title!.text! );
+            }
 
-                if ( bindingOptions.title!.showSectionText ) {
-                    DomElement.createWithHTML( title, "span", "section-text", "[" );
-                    DomElement.createWithHTML( title, "span", "section-text-name", Visible.View.getText( bindingOptions, _configurationOptions ) );
-                    DomElement.createWithHTML( title, "span", "section-text", "]" );
-                }
+            if ( bindingOptions.title!.showSectionText ) {
+                DomElement.createWithHTML( title, "span", "section-text", "[" );
+                DomElement.createWithHTML( title, "span", "section-text-name", Visible.View.getText( bindingOptions, _configurationOptions ) );
+                DomElement.createWithHTML( title, "span", "section-text", "]" );
             }
 
             if ( showTitleDropDownMenu ) {

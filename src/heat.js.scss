@@ -743,14 +743,19 @@ div.heat-js {
             white-space: nowrap;
             cursor: pointer;
 
+            span.title-text {
+                margin-right: var(--heat-js-spacing);
+                margin-right: 5px;
+            }
+
             span.section-text,
             span.section-text-name {
                 font-weight: 100;
                 margin-left: 5px;
                 display: none;
 
-                &:first-of-type {
-                    margin-left: 10px;
+                &:first-child {
+                    margin-left: 0;
                 }
 
                 @media (min-width: styles.$minimum-width) { 

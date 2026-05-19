@@ -3053,12 +3053,12 @@ var x;
                 a.addClass(n, "no-click");
             }
             if (e.title.showText) {
-                n.innerHTML = `${n.innerHTML}${e.title.text}`;
-                if (e.title.showSectionText) {
-                    a.createWithHTML(n, "span", "section-text", "[");
-                    a.createWithHTML(n, "span", "section-text-name", m.View.getText(e, D));
-                    a.createWithHTML(n, "span", "section-text", "]");
-                }
+                a.createWithHTML(n, "span", "title-text", e.title.text);
+            }
+            if (e.title.showSectionText) {
+                a.createWithHTML(n, "span", "section-text", "[");
+                a.createWithHTML(n, "span", "section-text-name", m.View.getText(e, D));
+                a.createWithHTML(n, "span", "section-text", "]");
             }
             if (i) {
                 ce(e, n);

@@ -996,15 +996,19 @@ div.heat-js div.title-bar div.title {
   white-space: nowrap;
   cursor: pointer;
 }
+div.heat-js div.title-bar div.title span.title-text {
+  margin-right: var(--heat-js-spacing);
+  margin-right: 5px;
+}
 div.heat-js div.title-bar div.title span.section-text,
 div.heat-js div.title-bar div.title span.section-text-name {
   font-weight: 100;
   margin-left: 5px;
   display: none;
 }
-div.heat-js div.title-bar div.title span.section-text:first-of-type,
-div.heat-js div.title-bar div.title span.section-text-name:first-of-type {
-  margin-left: 10px;
+div.heat-js div.title-bar div.title span.section-text:first-child,
+div.heat-js div.title-bar div.title span.section-text-name:first-child {
+  margin-left: 0;
 }
 @media (min-width: 768px) {
   div.heat-js div.title-bar div.title span.section-text,
