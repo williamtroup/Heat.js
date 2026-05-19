@@ -117,6 +117,8 @@ export namespace ToolTip {
     
             if ( bindingOptions._currentView!.tooltip.style.display !== "none" ) {
                 bindingOptions._currentView!.tooltip.style.display = "none";
+                bindingOptions._currentView!.tooltip.style.removeProperty( "top" );
+                bindingOptions._currentView!.tooltip.style.removeProperty( "left" );
             }
         }
     }

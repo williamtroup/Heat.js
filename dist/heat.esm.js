@@ -641,6 +641,8 @@ var c;
             }
             if (e._currentView.tooltip.style.display !== "none") {
                 e._currentView.tooltip.style.display = "none";
+                e._currentView.tooltip.style.removeProperty("top");
+                e._currentView.tooltip.style.removeProperty("left");
             }
         }
     }
