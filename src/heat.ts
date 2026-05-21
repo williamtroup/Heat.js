@@ -1779,8 +1779,8 @@ import { Chart } from "./ts/area/chart";
                     let actualMonthIndex: number = addMonthNameIndex + bindingOptions.startMonth!;
                     let actualYear: number = currentYear;
 
-                    if ( bindingOptions.startMonth! > Months.january && actualMonthIndex > 11 ) {
-                        actualMonthIndex -= 12;
+                    if ( bindingOptions.startMonth! > Months.january && actualMonthIndex > Months.december ) {
+                        actualMonthIndex -= VisibleMonths.december;
                         actualYear++;
                     }
 
@@ -1991,8 +1991,8 @@ import { Chart } from "./ts/area/chart";
                     let actualMonthIndex: number = addMonthNameIndex + bindingOptions.startMonth!;
                     let actualYear: number = currentYear;
 
-                    if ( bindingOptions.startMonth! > Months.january && actualMonthIndex > 11 ) {
-                        actualMonthIndex -= 12;
+                    if ( bindingOptions.startMonth! > Months.january && actualMonthIndex > Months.december ) {
+                        actualMonthIndex -= VisibleMonths.december;
                         actualYear++;
                     }
 
