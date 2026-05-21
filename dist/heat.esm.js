@@ -154,14 +154,14 @@ var o;
         return e.indexOf(t) > -1;
     }
     e.dayVisible = g;
-    function f(e, t) {
+    function h(e, t) {
         return e.yearsToHide.indexOf(t) === -1 && (e._currentView.yearsAvailable.length === 0 || e._currentView.yearsAvailable.indexOf(t) > -1);
     }
-    e.yearVisible = f;
-    function h(e, t) {
+    e.yearVisible = h;
+    function f(e, t) {
         return e._currentView.yearsAvailable.length > 0 && t <= e._currentView.yearsAvailable[0];
     }
-    e.firstVisibleYear = h;
+    e.firstVisibleYear = f;
     function m(e, t) {
         return e._currentView.yearsAvailable.length > 0 && t >= e._currentView.yearsAvailable[e._currentView.yearsAvailable.length - 1];
     }
@@ -324,20 +324,20 @@ var s;
         let u = s;
         const d = o.definedNumber(c) ? c : n(a);
         const g = w(a);
-        const f = i(t, a.getDate());
+        const h = i(t, a.getDate());
         u = u.replace("{dddd}", t.text.dayNames[d]);
         u = u.replace("{dd}", r.padNumber(a.getDate()));
         u = u.replace("{d}", a.getDate().toString());
         u = u.replace("{ww}", r.padNumber(g));
         u = u.replace("{w}", g.toString());
         if (l) {
-            if (o.definedString(f)) {
-                u = u.replace("{o}", `<sup>${f}</sup>`);
+            if (o.definedString(h)) {
+                u = u.replace("{o}", `<sup>${h}</sup>`);
             } else {
                 u = u.replace("{o}", "");
             }
         } else {
-            u = u.replace("{o}", f);
+            u = u.replace("{o}", h);
         }
         if (u.indexOf("{hh}") >= 0) {
             const t = o.holiday(e, a);
@@ -509,13 +509,13 @@ var a;
         t.style.top = `${i}px`;
     }
     e.showElementAtMousePosition = g;
-    function f(e) {
+    function h(e) {
         const t = Array.from(e.children);
         t.reverse();
         t.forEach(t => e.appendChild(t));
     }
-    e.reverseChildrenOrder = f;
-    function h(e, t, o) {
+    e.reverseChildrenOrder = h;
+    function f(e, t, o) {
         const r = n(e, "div");
         const s = n(r, "label", "checkbox");
         const a = n(s, "input");
@@ -525,7 +525,7 @@ var a;
         i(s, "span", "text", t);
         return a;
     }
-    e.createCheckBox = h;
+    e.createCheckBox = f;
     function m(t, n) {
         const o = e.getStyleValueByName(t, "background-color");
         const i = e.getStyleValueByName(n, "background-color");
@@ -596,7 +596,7 @@ var c;
         }
     }
     e.add = i;
-    function c(e, t, n, a, c, u, d, w, g, f, h) {
+    function c(e, t, n, a, c, u, d, w, g, h, f) {
         if (o.definedFunction(w)) {
             i(n, t, l.customEvent(w, t._currentView.element, a, c, t._currentView.activeYear, g));
         } else {
@@ -607,14 +607,14 @@ var c;
                     l.push(`${":"}${" "}${e.name}`);
                 }
             }
-            if (f || h && o.definedString(u)) {
+            if (h || f && o.definedString(u)) {
                 l.push(`${":"}${" "}`);
             }
-            if (f) {
+            if (h) {
                 l.push(`<b class="tooltip-count">${r.friendlyNumber(c)}</b>`);
             }
-            if (h && o.definedString(u)) {
-                if (f && !t.tooltip.overrideTitle) {
+            if (f && o.definedString(u)) {
+                if (h && !t.tooltip.overrideTitle) {
                     l.push(" ");
                 }
                 const e = !u.startsWith("-") ? "positive" : "negative";
@@ -721,6 +721,7 @@ var d;
         e.DaySize = "--heat-js-day-size";
         e.Spacing = "--heat-js-spacing";
         e.LineWidth = "--heat-js-day-line-width";
+        e.ChartWidth = "--heat-js-day-chart-width";
         e.CheckBoxCheckedColor = "--heat-js-checkbox-background-color-checked";
         e.YearMenuCurrent = "--heat-js-years-current-color";
         e.DefaultDynamicColor = "--heat-js-color-default-dynamic";
@@ -767,7 +768,7 @@ var w;
     function c(e, t) {
         let n = false;
         if (e.guide.useIncrementToggles) {
-            const o = h(e);
+            const o = f(e);
             const i = o.length;
             if (t) {
                 for (let r = 0; r < i; r++) {
@@ -843,7 +844,7 @@ var w;
         return s;
     }
     e.get = g;
-    function f(e, t) {
+    function h(e, t) {
         const n = e.length;
         let o = null;
         for (let i = 0; i < n; i++) {
@@ -855,11 +856,11 @@ var w;
         }
         return o;
     }
-    e.getByMinimum = f;
-    function h(e) {
+    e.getByMinimum = h;
+    function f(e) {
         return e.colorRanges.sort((e, t) => e.minimum - t.minimum);
     }
-    e.getAllSorted = h;
+    e.getAllSorted = f;
     function m(e) {
         const t = [];
         const n = u.hexToRgbaValues(e.color);
@@ -870,21 +871,21 @@ var w;
         let c = n.red;
         let w = n.green;
         let g = n.blue;
-        let f = i;
-        let h = n.red;
+        let h = i;
+        let f = n.red;
         let m = n.green;
         let p = n.blue;
         let y = e.startMinimum;
         for (let a = 0; a < e.totalColors; a++) {
             const u = a + 1;
-            const v = f + i > 1 ? 1 : f + i;
-            const T = `rgba(${c}, ${w}, ${g}, ${f.toFixed(2)})`;
-            const b = `rgba(${c}, ${w}, ${g}, ${v.toFixed(2)})`;
-            const V = `rgb(${h}, ${m}, ${p})`;
+            const v = h + i > 1 ? 1 : h + i;
+            const b = `rgba(${c}, ${w}, ${g}, ${h.toFixed(2)})`;
+            const T = `rgba(${c}, ${w}, ${g}, ${v.toFixed(2)})`;
+            const V = `rgb(${f}, ${m}, ${p})`;
             const C = `day-color-${r.padNumber(u)}`;
             l.push(`div.${C} {`);
-            l.push(`${"\t"}background-color: ${T} !important;`);
-            l.push(`${"\t"}border-color: ${b} !important;`);
+            l.push(`${"\t"}background-color: ${b} !important;`);
+            l.push(`${"\t"}border-color: ${T} !important;`);
             l.push(`${"\t"}color: ${V} !important;`);
             l.push("}");
             l.push(`div.${C}:not(.no-hover):hover {`);
@@ -903,19 +904,19 @@ var w;
             const S = Math.round(n.blue / 100 * (u * o));
             if (a === e.totalColors - 1 && e.overrideCheckBoxColors) {
                 l.push(`:root {`);
-                l.push(`${"\t"}${d.Variables.CheckBoxCheckedColor}: ${T};`);
-                l.push(`${"\t"}${d.Variables.YearMenuCurrent}: ${T};`);
-                l.push(`${"\t"}${d.Variables.DaysBackgroundColor}: ${T};`);
-                l.push(`${"\t"}${d.Variables.DaysBorderColor}: ${b};`);
-                l.push(`${"\t"}${d.Variables.MonthsBackgroundColor}: ${T};`);
-                l.push(`${"\t"}${d.Variables.MonthsBorderColor}: ${b};`);
+                l.push(`${"\t"}${d.Variables.CheckBoxCheckedColor}: ${b};`);
+                l.push(`${"\t"}${d.Variables.YearMenuCurrent}: ${b};`);
+                l.push(`${"\t"}${d.Variables.DaysBackgroundColor}: ${b};`);
+                l.push(`${"\t"}${d.Variables.DaysBorderColor}: ${T};`);
+                l.push(`${"\t"}${d.Variables.MonthsBackgroundColor}: ${b};`);
+                l.push(`${"\t"}${d.Variables.MonthsBorderColor}: ${T};`);
                 l.push("}");
             } else {
                 c = n.red + x;
                 w = n.green + D;
                 g = n.blue + S;
-                f += i;
-                h = n.red - x;
+                h += i;
+                f = n.red - x;
                 m = n.green - D;
                 p = n.blue - S;
                 y += s;
@@ -926,8 +927,8 @@ var w;
             t.push(_);
         }
         const v = document.getElementsByTagName("head")[0];
-        const T = a.create(v, "style");
-        T.appendChild(document.createTextNode(l.join("\n")));
+        const b = a.create(v, "style");
+        b.appendChild(document.createTextNode(l.join("\n")));
         return t;
     }
     e.buildDynamics = m;
@@ -1010,6 +1011,7 @@ var g;
             i._currentView.zoomLevel = -1;
             i._currentView.zoomMapViewIncrement = -1;
             i._currentView.zoomLineViewIncrement = -1;
+            i._currentView.zoomChartViewIncrement = -1;
             i._currentView.yearTextWidth = 0;
             i._currentView.viewsEnabled = 0;
             if (i.views.map.enabled) {
@@ -1061,14 +1063,14 @@ var g;
             t.sideMenu = c(t);
             t.title = u(t);
             t.yearlyStatistics = g(t);
-            t.views.map = f(t);
-            t.views.line = h(t);
+            t.views.map = h(t);
+            t.views.line = f(t);
             t.views.chart = m(t);
             t.views.days = p(t);
             t.views.months = y(t);
             t.views.colorRanges = v(t);
-            t.description = T(t);
-            t.guide = b(t);
+            t.description = b(t);
+            t.guide = T(t);
             t.tooltip = V(t);
             t.zooming = C(t);
             t.dynamicColorRange = _(t);
@@ -1117,7 +1119,7 @@ var g;
             e.yearlyStatistics.showPercentages = i.getBoolean(e.yearlyStatistics.showPercentages, true);
             return e.yearlyStatistics;
         }
-        function f(e) {
+        function h(e) {
             e.views.map = i.getObject(e.views.map, {});
             e.views.map.enabled = i.getBoolean(e.views.map.enabled, true);
             e.views.map.showMonthDayGaps = i.getBoolean(e.views.map.showMonthDayGaps, true);
@@ -1143,7 +1145,7 @@ var g;
             M(e.views.map);
             return e.views.map;
         }
-        function h(e) {
+        function f(e) {
             e.views.line = i.getObject(e.views.line, {});
             e.views.line.enabled = i.getBoolean(e.views.line.enabled, true);
             e.views.line.showMonthNames = i.getBoolean(e.views.line.showMonthNames, true);
@@ -1241,14 +1243,14 @@ var g;
             M(e.views.colorRanges);
             return e.views.colorRanges;
         }
-        function T(e) {
+        function b(e) {
             e.description = i.getObject(e.description, {});
             e.description.text = i.getString(e.description.text, "");
             e.description.url = i.getString(e.description.url, "");
             e.description.urlTarget = i.getString(e.description.urlTarget, "_blank");
             return e.description;
         }
-        function b(e) {
+        function T(e) {
             e.guide = i.getObject(e.guide, {});
             e.guide.enabled = i.getBoolean(e.guide.enabled, true);
             e.guide.colorRangeTogglesEnabled = i.getBoolean(e.guide.colorRangeTogglesEnabled, true);
@@ -1452,7 +1454,7 @@ var g;
     })(t = e.Options || (e.Options = {}));
 })(g || (g = {}));
 
-var f;
+var h;
 
 (e => {
     let t;
@@ -1551,9 +1553,9 @@ var f;
             return e;
         }
     })(t = e.Options || (e.Options = {}));
-})(f || (f = {}));
+})(h || (h = {}));
 
-var h;
+var f;
 
 (e => {
     let t;
@@ -1580,7 +1582,7 @@ var h;
         }
         e.hide = i;
     })(t = e.Background || (e.Background = {}));
-})(h || (h = {}));
+})(f || (f = {}));
 
 var m;
 
@@ -2092,7 +2094,7 @@ var v;
     e.setHeight = t;
 })(v || (v = {}));
 
-var T;
+var b;
 
 (e => {
     function t(e, t, o) {
@@ -2146,9 +2148,9 @@ var T;
         }
     }
     e.clear = s;
-})(T || (T = {}));
+})(b || (b = {}));
 
-var b;
+var T;
 
 (e => {
     function t(e) {
@@ -2162,7 +2164,7 @@ var b;
         return t;
     }
     e.largestValueForViewValues = t;
-})(b || (b = {}));
+})(T || (T = {}));
 
 var V;
 
@@ -2201,7 +2203,7 @@ var C;
     function t(e, t, n, l, w) {
         if (t.zooming.enabled) {
             const g = a.create(n, "div", "zooming");
-            let f = null;
+            let h = null;
             if (t.zooming.showCloseButton) {
                 const n = a.create(g, "div", "zoom-close-button");
                 if (t.zooming.showToolTips) {
@@ -2214,21 +2216,21 @@ var C;
                 };
             }
             if (t.zooming.showResetButton) {
-                f = a.createIconButton(g, "button", "reset", "exclamation-mark");
+                h = a.createIconButton(g, "button", "reset", "exclamation-mark");
                 if (t.zooming.showToolTips) {
-                    c.add(f, t, e.text.resetButtonText);
+                    c.add(h, t, e.text.resetButtonText);
                 }
-                f.onclick = () => i(t, w);
+                h.onclick = () => i(t, w);
             }
-            const h = a.createIconButton(g, "button", "zoom-out", "minus");
+            const f = a.createIconButton(g, "button", "zoom-out", "minus");
             const m = a.createWithHTML(g, "span", "zoom-level", `+${r.friendlyNumber(t._currentView.zoomLevel * 10)}%`);
             const p = a.createIconButton(g, "button", "zoom-in", "plus");
             const y = a.getStyleValueByName(document.documentElement, d.Variables.Spacing, true);
             if (t.zooming.showToolTips) {
                 c.add(p, t, e.text.zoomInText);
-                c.add(h, t, e.text.zoomOutText);
+                c.add(f, t, e.text.zoomOutText);
             }
-            g.style.bottom = n.offsetHeight - l.offsetHeight + "px";
+            g.style.bottom = n.offsetHeight - (l.offsetHeight + l.offsetTop) + "px";
             if (t._currentView.zoomLevel === -1) {
                 t._currentView.zoomLevel = 0;
                 m.innerText = `+${r.friendlyNumber(t._currentView.zoomLevel * 10)}%`;
@@ -2237,10 +2239,10 @@ var C;
                 t._currentView.mapContents.style.paddingRight = `${g.offsetWidth + y}px`;
             }
             if (t.zooming.showResetButton) {
-                f.disabled = t._currentView.zoomLevel === 0;
+                h.disabled = t._currentView.zoomLevel === 0;
             }
-            h.disabled = t._currentView.zoomLevel === 0;
-            h.onclick = () => s(t, w);
+            f.disabled = t._currentView.zoomLevel === 0;
+            f.onclick = () => s(t, w);
             p.disabled = t.zooming.maximumLevel > 0 && t._currentView.zoomLevel >= t.zooming.maximumLevel;
             p.onclick = () => u(t, w);
         }
@@ -2249,20 +2251,27 @@ var C;
     function n(e) {
         const t = a.getStyleValueByNameSizingMetic(document.documentElement, d.Variables.DaySize);
         const n = a.getStyleValueByNameSizingMetic(document.documentElement, d.Variables.LineWidth);
-        let o = a.getStyleValueByName(document.documentElement, d.Variables.DaySize, true);
-        let i = a.getStyleValueByName(document.documentElement, d.Variables.LineWidth, true);
+        const o = a.getStyleValueByNameSizingMetic(document.documentElement, d.Variables.ChartWidth);
+        let i = a.getStyleValueByName(document.documentElement, d.Variables.DaySize, true);
+        let r = a.getStyleValueByName(document.documentElement, d.Variables.LineWidth, true);
+        let s = a.getStyleValueByName(document.documentElement, d.Variables.ChartWidth, true);
         if (e._currentView.zoomMapViewIncrement === -1) {
-            e._currentView.zoomMapViewIncrement = o / 10;
+            e._currentView.zoomMapViewIncrement = i / 10;
         }
         if (e._currentView.zoomLineViewIncrement === -1) {
-            e._currentView.zoomLineViewIncrement = i / 10;
+            e._currentView.zoomLineViewIncrement = r / 10;
+        }
+        if (e._currentView.zoomChartViewIncrement === -1) {
+            e._currentView.zoomChartViewIncrement = s / 10;
         }
         if (e.zooming.defaultLevel > 0 && e._currentView.zoomLevel === -1) {
-            o += parseFloat((e.zooming.defaultLevel * e._currentView.zoomMapViewIncrement).toFixed(1));
-            i += parseFloat((e.zooming.defaultLevel * e._currentView.zoomLineViewIncrement).toFixed(1));
+            i += parseFloat((e.zooming.defaultLevel * e._currentView.zoomMapViewIncrement).toFixed(1));
+            r += parseFloat((e.zooming.defaultLevel * e._currentView.zoomLineViewIncrement).toFixed(1));
+            s += parseFloat((e.zooming.defaultLevel * e._currentView.zoomChartViewIncrement).toFixed(1));
             e._currentView.zoomLevel = e.zooming.defaultLevel;
-            e._currentView.element.style.setProperty(d.Variables.DaySize, `${o}${t}`);
-            e._currentView.element.style.setProperty(d.Variables.LineWidth, `${i}${n}`);
+            e._currentView.element.style.setProperty(d.Variables.DaySize, `${i}${t}`);
+            e._currentView.element.style.setProperty(d.Variables.LineWidth, `${r}${n}`);
+            e._currentView.element.style.setProperty(d.Variables.ChartWidth, `${s}${o}`);
         }
     }
     e.setupDefaults = n;
@@ -2270,6 +2279,7 @@ var C;
         if (e._currentView.zoomLevel > 0) {
             e._currentView.element.style.removeProperty(d.Variables.DaySize);
             e._currentView.element.style.removeProperty(d.Variables.LineWidth);
+            e._currentView.element.style.removeProperty(d.Variables.ChartWidth);
             e._currentView.zoomLevel = 0;
             e._currentView.mapDayWidth = 0;
             l.customEvent(e.events.onZoomLevelChange, e._currentView.element, e._currentView.zoomLevel);
@@ -2280,15 +2290,20 @@ var C;
         if (e._currentView.zoomLevel > 0) {
             const n = a.getStyleValueByNameSizingMetic(document.documentElement, d.Variables.DaySize);
             const o = a.getStyleValueByNameSizingMetic(document.documentElement, d.Variables.LineWidth);
-            let i = a.getStyleValueByName(e._currentView.element, d.Variables.DaySize, true);
-            let r = a.getStyleValueByName(e._currentView.element, d.Variables.LineWidth, true);
-            i -= e._currentView.zoomMapViewIncrement;
-            i = parseFloat(i.toFixed(1));
-            r -= e._currentView.zoomLineViewIncrement;
+            const i = a.getStyleValueByNameSizingMetic(document.documentElement, d.Variables.ChartWidth);
+            let r = a.getStyleValueByName(e._currentView.element, d.Variables.DaySize, true);
+            let s = a.getStyleValueByName(e._currentView.element, d.Variables.LineWidth, true);
+            let c = a.getStyleValueByName(e._currentView.element, d.Variables.ChartWidth, true);
+            r -= e._currentView.zoomMapViewIncrement;
             r = parseFloat(r.toFixed(1));
+            s -= e._currentView.zoomLineViewIncrement;
+            s = parseFloat(s.toFixed(1));
+            c -= e._currentView.zoomChartViewIncrement;
+            c = parseFloat(c.toFixed(1));
             e._currentView.zoomLevel--;
-            e._currentView.element.style.setProperty(d.Variables.DaySize, `${i}${n}`);
-            e._currentView.element.style.setProperty(d.Variables.LineWidth, `${r}${o}`);
+            e._currentView.element.style.setProperty(d.Variables.DaySize, `${r}${n}`);
+            e._currentView.element.style.setProperty(d.Variables.LineWidth, `${s}${o}`);
+            e._currentView.element.style.setProperty(d.Variables.ChartWidth, `${c}${i}`);
             e._currentView.mapDayWidth = 0;
             l.customEvent(e.events.onZoomLevelChange, e._currentView.element, e._currentView.zoomLevel);
             t();
@@ -2298,15 +2313,20 @@ var C;
         if (e.zooming.maximumLevel === 0 || e._currentView.zoomLevel < e.zooming.maximumLevel) {
             const n = a.getStyleValueByNameSizingMetic(document.documentElement, d.Variables.DaySize);
             const o = a.getStyleValueByNameSizingMetic(document.documentElement, d.Variables.LineWidth);
-            let i = a.getStyleValueByName(e._currentView.element, d.Variables.DaySize, true);
-            let r = a.getStyleValueByName(e._currentView.element, d.Variables.LineWidth, true);
-            i += e._currentView.zoomMapViewIncrement;
-            i = parseFloat(i.toFixed(1));
-            r += e._currentView.zoomLineViewIncrement;
+            const i = a.getStyleValueByNameSizingMetic(document.documentElement, d.Variables.ChartWidth);
+            let r = a.getStyleValueByName(e._currentView.element, d.Variables.DaySize, true);
+            let s = a.getStyleValueByName(e._currentView.element, d.Variables.LineWidth, true);
+            let c = a.getStyleValueByName(e._currentView.element, d.Variables.ChartWidth, true);
+            r += e._currentView.zoomMapViewIncrement;
             r = parseFloat(r.toFixed(1));
+            s += e._currentView.zoomLineViewIncrement;
+            s = parseFloat(s.toFixed(1));
+            c += e._currentView.zoomChartViewIncrement;
+            c = parseFloat(c.toFixed(1));
             e._currentView.zoomLevel++;
-            e._currentView.element.style.setProperty(d.Variables.DaySize, `${i}${n}`);
-            e._currentView.element.style.setProperty(d.Variables.LineWidth, `${r}${o}`);
+            e._currentView.element.style.setProperty(d.Variables.DaySize, `${r}${n}`);
+            e._currentView.element.style.setProperty(d.Variables.LineWidth, `${s}${o}`);
+            e._currentView.element.style.setProperty(d.Variables.ChartWidth, `${c}${i}`);
             e._currentView.mapDayWidth = 0;
             l.customEvent(e.events.onZoomLevelChange, e._currentView.element, e._currentView.zoomLevel);
             t();
@@ -2469,7 +2489,7 @@ var x;
     function N(e, t = false, n = false, o = false) {
         c.hide(e);
         if (t) {
-            T.store(e, S[e._currentView.element.id]);
+            b.store(e, S[e._currentView.element.id]);
         }
         m.View.getScrollPositions(e);
         c.render(e);
@@ -2484,7 +2504,7 @@ var x;
         je(e);
         O(e);
         ae(e);
-        fe(e);
+        he(e);
         if (e.views.map.enabled && e._currentView.activeView === 1) {
             pe(e, n, o);
         }
@@ -2503,7 +2523,7 @@ var x;
         if (e.views.colorRanges.enabled && e._currentView.activeView === 6) {
             Le(e, n);
         }
-        Ie(e);
+        Re(e);
         m.View.removeSizeProperties(e);
         if (e._currentView.initialized) {
             l.customEvent(e.events.onChange, e._currentView.element);
@@ -2545,7 +2565,7 @@ var x;
         a.create(i, "i", n);
     }
     function k(e) {
-        h.Background.render(e);
+        f.Background.render(e);
         if (!o.definedParentElement(e._currentView.configurationDialog)) {
             e._currentView.configurationDialog = a.create(e._currentView.disabledBackground, "div", "dialog configuration");
             const t = a.create(e._currentView.configurationDialog, "div", "dialog-title-bar");
@@ -2562,31 +2582,31 @@ var x;
             const d = a.create(n, "div", "buttons");
             const w = a.createButton(d, "button", "", D.text.resetButtonText);
             const g = a.createButton(d, "button", "default", D.text.saveButtonText);
-            o.onclick = () => I(e);
+            o.onclick = () => R(e);
             w.onclick = () => E(e);
             g.onclick = () => $(e);
             for (let t = 0; t < 7; t++) {
                 e._currentView.configurationDialogDayCheckBoxes[t] = a.createCheckBox(r, D.text.dayNames[t], t.toString());
             }
-            let f = l;
-            let h = 0;
+            let h = l;
+            let f = 0;
             for (let t = e.startMonth; t < 12 + e.startMonth; t++) {
                 let n = t;
                 if (e.startMonth > 0 && t > 11) {
                     n = t - 12;
                 }
-                e._currentView.configurationDialogMonthCheckBoxes[n] = a.createCheckBox(f, D.text.monthNames[n], n.toString());
-                h++;
-                if (h > 6) {
-                    f = u;
+                e._currentView.configurationDialogMonthCheckBoxes[n] = a.createCheckBox(h, D.text.monthNames[n], n.toString());
+                f++;
+                if (f > 6) {
+                    h = u;
                 }
             }
             c.add(o, e, D.text.closeButtonText);
         }
     }
-    function R(e) {
+    function I(e) {
         k(e);
-        h.Background.show(e);
+        f.Background.show(e);
         if (o.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "block") {
             e._currentView.configurationDialog.style.display = "block";
         }
@@ -2599,10 +2619,10 @@ var x;
             e._currentView.configurationDialogMonthCheckBoxes[t].checked = o.monthVisible(n, t);
         }
         c.hide(e);
-        V.Dialog.bindEvents(() => I(e));
+        V.Dialog.bindEvents(() => R(e));
     }
-    function I(e) {
-        h.Background.hide(e);
+    function R(e) {
+        f.Background.hide(e);
         if (o.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "none") {
             e._currentView.configurationDialog.style.display = "none";
         }
@@ -2610,7 +2630,7 @@ var x;
         V.Dialog.unbindEvents();
     }
     function $(e) {
-        h.Background.hide(e);
+        f.Background.hide(e);
         if (o.defined(e._currentView.configurationDialog) && e._currentView.configurationDialog.style.display !== "none") {
             e._currentView.configurationDialog.style.display = "none";
         }
@@ -2653,7 +2673,7 @@ var x;
         }
     }
     function F(e) {
-        h.Background.render(e);
+        f.Background.render(e);
         if (!o.definedParentElement(e._currentView.exportDialog)) {
             e._currentView.exportDialog = a.create(e._currentView.disabledBackground, "div", "dialog export");
             const t = a.create(e._currentView.exportDialog, "div", "dialog-title-bar");
@@ -2697,7 +2717,7 @@ var x;
     }
     function H(e) {
         F(e);
-        h.Background.show(e);
+        f.Background.show(e);
         if (o.defined(e._currentView.exportDialog) && e._currentView.exportDialog.style.display !== "block") {
             e._currentView.exportDialogExportFilenameInput.value = "";
             e._currentView.exportDialog.style.display = "block";
@@ -2707,7 +2727,7 @@ var x;
         V.Dialog.bindEvents(() => j(e));
     }
     function j(e) {
-        h.Background.hide(e);
+        f.Background.hide(e);
         if (o.defined(e._currentView.exportDialog) && e._currentView.exportDialog.style.display !== "none") {
             e._currentView.exportDialog.style.display = "none";
         }
@@ -2788,7 +2808,7 @@ var x;
         return n;
     }
     function U(e) {
-        h.Background.render(e);
+        f.Background.render(e);
         if (!o.definedParentElement(e._currentView.importDialog)) {
             e._currentView.importDialog = a.create(e._currentView.disabledBackground, "div", "dialog import");
             const t = a.create(e._currentView.importDialog, "div", "dialog-title-bar");
@@ -2811,7 +2831,7 @@ var x;
     }
     function J(e) {
         U(e);
-        h.Background.show(e);
+        f.Background.show(e);
         if (o.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "block") {
             e._currentView.importDialog.style.display = "block";
         }
@@ -2819,7 +2839,7 @@ var x;
         V.Dialog.bindEvents(() => G(e));
     }
     function G(e) {
-        h.Background.hide(e);
+        f.Background.hide(e);
         if (o.defined(e._currentView.importDialog) && e._currentView.importDialog.style.display !== "none") {
             e._currentView.importDialogDragAndDrop.innerHTML = "";
             e._currentView.importDialogFileList = null;
@@ -2925,7 +2945,7 @@ var x;
         }
     }
     function ee(e) {
-        h.Background.render(e);
+        f.Background.render(e);
         if (!o.definedParentElement(e._currentView.typeAddingDialog)) {
             e._currentView.typeAddingDialog = a.create(e._currentView.disabledBackground, "div", "dialog add-type");
             const t = a.create(e._currentView.typeAddingDialog, "div", "dialog-title-bar");
@@ -2951,7 +2971,7 @@ var x;
     }
     function te(e, t = null) {
         ee(e);
-        h.Background.show(e);
+        f.Background.show(e);
         if (o.defined(e._currentView.typeAddingDialog) && e._currentView.typeAddingDialog.style.display !== "block") {
             e._currentView.typeAddingDialogTypeInput.value = "";
             e._currentView.typeAddingDialog.style.display = "block";
@@ -2969,7 +2989,7 @@ var x;
         V.Dialog.bindEvents(() => ne(e));
     }
     function ne(e) {
-        h.Background.hide(e);
+        f.Background.hide(e);
         if (o.defined(e._currentView.typeAddingDialog) && e._currentView.typeAddingDialog.style.display !== "none") {
             e._currentView.typeAddingDialog.style.display = "none";
         }
@@ -3000,7 +3020,7 @@ var x;
         }
     }
     function ie(e) {
-        h.Background.render(e);
+        f.Background.render(e);
         if (!o.definedParentElement(e._currentView.confirmationDialog)) {
             e._currentView.confirmationDialog = a.create(e._currentView.disabledBackground, "div", "dialog confirmation");
             const t = a.create(e._currentView.confirmationDialog, "div", "dialog-title-bar");
@@ -3015,7 +3035,7 @@ var x;
     }
     function re(e, t, n) {
         ie(e);
-        h.Background.show(e);
+        f.Background.show(e);
         if (o.defined(e._currentView.confirmationDialog) && e._currentView.confirmationDialog.style.display !== "block") {
             e._currentView.confirmationDialog.style.display = "block";
             e._currentView.confirmationDialogMessage.innerHTML = t;
@@ -3025,7 +3045,7 @@ var x;
         V.Dialog.bindEvents(() => se(e));
     }
     function se(e) {
-        h.Background.hide(e);
+        f.Background.hide(e);
         if (o.defined(e._currentView.confirmationDialog) && e._currentView.confirmationDialog.style.display !== "none") {
             e._currentView.confirmationDialog.style.display = "none";
         }
@@ -3106,7 +3126,7 @@ var x;
                 }
                 if (e.title.showConfigurationButton) {
                     const n = a.create(t, "div", "configure");
-                    n.onclick = () => R(e);
+                    n.onclick = () => I(e);
                     if (e.title.showToolTips) {
                         c.add(n, e, D.text.configurationButtonText);
                     }
@@ -3238,7 +3258,7 @@ var x;
         }
         return i;
     }
-    function fe(e) {
+    function he(e) {
         const t = new Date;
         const n = e._currentView.activeYear === t.getFullYear();
         if (e.yearlyStatistics.enabled && (!e.yearlyStatistics.showOnlyForCurrentYear || n)) {
@@ -3257,11 +3277,11 @@ var x;
                 }
                 const g = n ? r.friendlyNumber(c) : D.text.unavailableText;
                 a.createWithHTML(u, "div", "statistics-box-title", `${D.text.todayText}${":"}`);
-                const f = a.createWithHTML(u, "div", "statistics-box-count", g);
+                const h = a.createWithHTML(u, "div", "statistics-box-count", g);
                 if (!n) {
-                    a.addClass(f, "unavailable");
+                    a.addClass(h, "unavailable");
                 }
-                he(e, f, w, c, n);
+                fe(e, h, w, c, n);
             }
             if (e.yearlyStatistics.showThisWeek) {
                 let t = 0;
@@ -3278,7 +3298,7 @@ var x;
                 if (!n) {
                     a.addClass(d, "unavailable");
                 }
-                he(e, d, w, t, n);
+                fe(e, d, w, t, n);
             }
             if (e.yearlyStatistics.showThisMonth) {
                 let o = 0;
@@ -3294,7 +3314,7 @@ var x;
                 if (!n) {
                     a.addClass(g, "unavailable");
                 }
-                he(e, g, w, o, n);
+                fe(e, g, w, o, n);
             }
             if (e.yearlyStatistics.showThisYear) {
                 const e = a.create(i, "div", "statistics-box");
@@ -3306,7 +3326,7 @@ var x;
             }
         }
     }
-    function he(e, t, n, o, i) {
+    function fe(e, t, n, o, i) {
         if (i && e.yearlyStatistics.showPercentages) {
             const i = o / n * 100;
             if (i !== Number.POSITIVE_INFINITY && i !== Number.NEGATIVE_INFINITY && !isNaN(i)) {
@@ -3334,7 +3354,7 @@ var x;
     function pe(e, t = false, i) {
         e._currentView.mapContentsContainer = a.create(e._currentView.container, "div", "map-contents-container");
         e._currentView.mapContents = a.create(e._currentView.mapContentsContainer, "div", "map-contents");
-        if (!be(e)) {
+        if (!Te(e)) {
             e._currentView.mapContents.style.minHeight = `${n.DEFAULT_MINIMUM_HEIGHT}px`;
             const o = a.createWithHTML(e._currentView.mapContents, "div", "no-data-message", D.text.noMapDataMessage);
             if (t) {
@@ -3383,24 +3403,24 @@ var x;
                 if (o.monthVisible(e.views.map.monthsToShow, i)) {
                     const c = a.create(u, "div", "month");
                     const w = a.create(c, "div", "day-columns");
-                    const f = new Date(r, i, 1);
-                    const h = s.getWeekdayNumber(f);
+                    const h = new Date(r, i, 1);
+                    const f = s.getWeekdayNumber(h);
                     let m = s.getTotalDaysInMonth(r, i);
                     let p = a.create(w, "div", "day-column");
                     let y = false;
                     let v = 1;
                     c.setAttribute(n.Attribute.View.Map.HEAT_JS_MONTH_NUMBER, `${i + 1}`);
-                    m += h;
+                    m += f;
                     for (let n = 0; n < m; n++) {
-                        if (n >= h) {
+                        if (n >= f) {
                             y = true;
                         } else {
                             if (o.dayVisible(e.views.map.daysToShow, v)) {
                                 let o;
                                 if (e.views.map.showStartEndYearDays && !e.views.map.showMonthDayGaps && t === e.startMonth) {
                                     const t = new Date(r, i, 1);
-                                    t.setDate(t.getDate() - (Math.abs(n - h) + 1));
-                                    o = Te(e, p, t.getDate(), t.getMonth(), t.getFullYear(), d);
+                                    t.setDate(t.getDate() - (Math.abs(n - f) + 1));
+                                    o = be(e, p, t.getDate(), t.getMonth(), t.getFullYear(), d);
                                 } else {
                                     o = a.create(p, "div", "day-disabled");
                                 }
@@ -3412,7 +3432,7 @@ var x;
                         if (y) {
                             let t = null;
                             if (o.dayVisible(e.views.map.daysToShow, v)) {
-                                t = Te(e, p, n - h, i, r, d);
+                                t = be(e, p, n - f, i, r, d);
                             }
                             if ((n + 1) % 7 === 0) {
                                 if (e.views.map.showDaysInReverseOrder) {
@@ -3484,7 +3504,7 @@ var x;
                 if (o.dayVisible(e.views.map.daysToShow, n)) {
                     let n;
                     if (s && e.views.map.showStartEndYearDays && !e.views.map.showMonthDayGaps) {
-                        n = Te(e, i, c.getDate() - 1, c.getMonth(), c.getFullYear(), t);
+                        n = be(e, i, c.getDate() - 1, c.getMonth(), c.getFullYear(), t);
                         c.setDate(c.getDate() + 1);
                     } else {
                         n = a.create(i, "div", "day-disabled");
@@ -3514,33 +3534,33 @@ var x;
             }
         }
     }
-    function Te(e, t, u, d, g, f) {
-        const h = u + 1;
+    function be(e, t, u, d, g, h) {
+        const f = u + 1;
         const m = a.create(t, "div", "day");
-        const p = new Date(g, d, h);
+        const p = new Date(g, d, f);
         const y = o.holiday(e, p);
         const v = i.getNumber(ze(e)[s.toStorageDate(p)], 0);
-        const T = w.get(e, f, v, p);
-        const b = qe(e, p, v);
-        m.setAttribute(n.Attribute.View.Map.HEAT_JS_DATE, `${r.padNumber(h)}-${r.padNumber(d + 1)}-${g}`);
-        if (o.defined(T)) {
-            m.setAttribute(n.Attribute.View.Map.HEAT_JS_MINIMUM, T.minimum.toString());
+        const b = w.get(e, h, v, p);
+        const T = qe(e, p, v);
+        m.setAttribute(n.Attribute.View.Map.HEAT_JS_DATE, `${r.padNumber(f)}-${r.padNumber(d + 1)}-${g}`);
+        if (o.defined(b)) {
+            m.setAttribute(n.Attribute.View.Map.HEAT_JS_MINIMUM, b.minimum.toString());
         }
         if (e.views.map.showToolTips) {
-            c.addForDay(D, e, m, p, v, b, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, y.matched, e.views.map.showCountsInToolTips, e.views.map.showDifferencesInToolTips);
+            c.addForDay(D, e, m, p, v, T, e.views.map.dayToolTipText, e.events.onMapDayToolTipRender, y.matched, e.views.map.showCountsInToolTips, e.views.map.showDifferencesInToolTips);
         }
         if (!e.views.map.showSpacing) {
             a.addClass(m, "no-spacing");
         }
         if (e.views.map.showDayDateNumbers) {
-            const e = a.createWithHTML(m, "div", "count-date", h.toString());
-            a.createWithHTML(e, "sup", "", s.getDayOrdinal(D, h));
+            const e = a.createWithHTML(m, "div", "count-date", f.toString());
+            a.createWithHTML(e, "sup", "", s.getDayOrdinal(D, f));
         }
         if (e.views.map.showDayCounts && v > 0) {
             a.createWithHTML(m, "div", "count", r.friendlyNumber(v));
         }
-        if (e.views.map.showDifferences && o.definedString(b)) {
-            a.createWithHTML(m, "div", "difference", b);
+        if (e.views.map.showDifferences && o.definedString(T)) {
+            a.createWithHTML(m, "div", "difference", T);
         }
         if (o.definedFunction(e.events.onMapDayClick)) {
             m.onclick = () => l.customEvent(e.events.onMapDayClick, e._currentView.element, p, v, e._currentView.activeYear, y.matched);
@@ -3549,11 +3569,11 @@ var x;
         } else {
             a.addClass(m, "no-hover");
         }
-        if (o.defined(T) && w.isVisible(e, T.id)) {
-            if (o.definedString(T.mapCssClassName)) {
-                a.addClass(m, T.mapCssClassName);
+        if (o.defined(b) && w.isVisible(e, b.id)) {
+            if (o.definedString(b.mapCssClassName)) {
+                a.addClass(m, b.mapCssClassName);
             } else {
-                a.addClass(m, T.cssClassName);
+                a.addClass(m, b.cssClassName);
             }
         }
         if (e.views.map.highlightCurrentDay && s.isToday(p)) {
@@ -3561,7 +3581,7 @@ var x;
         }
         return m;
     }
-    function be(e) {
+    function Te(e) {
         let t = false;
         const n = ze(e);
         const o = e._currentView.activeYear.toString();
@@ -3689,39 +3709,40 @@ var x;
             }
         }
     }
-    function Ce(e, t, u, d, g, f, h) {
+    function Ce(e, t, u, d, g, h, f) {
         const m = new Date(g, d, u);
         const p = a.create(e, "div", "day-line");
         const y = o.holiday(t, m);
-        const T = i.getNumber(ze(t)[s.toStorageDate(m)], 0);
-        const b = w.get(t, f, T, m);
-        const V = qe(t, m, T);
+        const b = i.getNumber(ze(t)[s.toStorageDate(m)], 0);
+        const T = w.get(t, h, b, m);
+        const V = qe(t, m, b);
         p.setAttribute(n.Attribute.View.Line.HEAT_JS_DATE, `${r.padNumber(u)}-${r.padNumber(d + 1)}-${g}`);
-        if (o.defined(b)) {
-            p.setAttribute(n.Attribute.View.Line.HEAT_JS_MINIMUM, b.minimum.toString());
+        if (o.defined(T)) {
+            p.setAttribute(n.Attribute.View.Line.HEAT_JS_MINIMUM, T.minimum.toString());
         }
         if (t.views.line.showToolTips) {
-            c.addForDay(D, t, p, m, T, V, t.views.line.dayToolTipText, t.events.onLineDayToolTipRender, y.matched, t.views.line.showCountsInToolTips, t.views.line.showDifferencesInToolTips);
+            c.addForDay(D, t, p, m, b, V, t.views.line.dayToolTipText, t.events.onLineDayToolTipRender, y.matched, t.views.line.showCountsInToolTips, t.views.line.showDifferencesInToolTips);
         }
         if (o.definedFunction(t.events.onLineDayClick)) {
-            p.onclick = () => l.customEvent(t.events.onLineDayClick, t._currentView.element, m, T, t._currentView.activeYear, y.matched);
+            p.onclick = () => l.customEvent(t.events.onLineDayClick, t._currentView.element, m, b, t._currentView.activeYear, y.matched);
         } else if (o.definedFunction(t.events.onLineDayDblClick)) {
-            p.ondblclick = () => l.customEvent(t.events.onLineDayDblClick, t._currentView.element, m, T, t._currentView.activeYear, y.matched);
+            p.ondblclick = () => l.customEvent(t.events.onLineDayDblClick, t._currentView.element, m, b, t._currentView.activeYear, y.matched);
         } else {
             a.addClass(p, "no-hover");
         }
-        if (o.defined(b) && w.isVisible(t, b.id)) {
-            if (o.definedString(b.lineCssClassName)) {
-                a.addClass(p, b.lineCssClassName);
+        if (o.defined(T) && w.isVisible(t, T.id)) {
+            if (o.definedString(T.lineCssClassName)) {
+                a.addClass(p, T.lineCssClassName);
             } else {
-                a.addClass(p, b.cssClassName);
+                a.addClass(p, T.cssClassName);
             }
         }
-        v.setHeight(t, p, 100, h, true);
+        v.setHeight(t, p, 100, f, true);
         return p;
     }
     function _e(e, t, i) {
-        e._currentView.chartContents = a.create(e._currentView.container, "div", "chart-contents");
+        e._currentView.chartContentsContainer = a.create(e._currentView.container, "div", "chart-contents-container");
+        e._currentView.chartContents = a.create(e._currentView.chartContentsContainer, "div", "chart-contents");
         e._currentView.chartContents.onscroll = () => c.hide(e);
         const r = a.create(e._currentView.chartContents, "div", "chart");
         const l = a.create(r, "div", "y-labels");
@@ -3743,48 +3764,48 @@ var x;
             }
         } else {
             const n = w.getAllSorted(e);
-            const r = a.getStyleValueByName(u, "border-bottom-width", true);
-            const l = (u.offsetHeight - r) / d;
-            const c = e._currentView.activeYear;
+            const l = a.getStyleValueByName(u, "border-bottom-width", true);
+            const c = (u.offsetHeight - l) / d;
+            const h = e._currentView.activeYear;
             const f = [];
-            let h = [];
-            let m = false;
+            let m = [];
+            let p = false;
             for (let i = e.startMonth; i < 12 + e.startMonth; i++) {
                 let r = i;
-                let d = c;
+                let l = h;
                 if (e.startMonth > 0 && i > 11) {
                     r = i - 12;
-                    d++;
+                    l++;
                 }
                 if (o.monthVisible(e.views.chart.monthsToShow, r)) {
-                    const i = s.getTotalDaysInMonth(d, r);
-                    let c = 1;
+                    const i = s.getTotalDaysInMonth(l, r);
+                    let d = 1;
                     let w = false;
                     for (let g = 0; g < i; g++) {
-                        const i = new Date(d, r, c);
-                        const p = s.getWeekdayNumber(i) + 1;
-                        if (o.dayVisible(e.views.chart.daysToShow, p)) {
-                            const o = xe(u, e, g + 1, r, d, n, l, t);
+                        const i = new Date(l, r, d);
+                        const h = s.getWeekdayNumber(i) + 1;
+                        if (o.dayVisible(e.views.chart.daysToShow, h)) {
+                            const o = xe(u, e, g + 1, r, l, n, c, t);
                             f.push(o);
-                            if (!w && m && e.views.chart.addMonthSpacing) {
+                            if (!w && p && e.views.chart.addMonthSpacing) {
                                 a.create(u, "div", "month-spacing", o);
                             }
                             if (!w) {
-                                h.push(o);
+                                m.push(o);
                                 w = true;
                             }
                         }
                         if ((g + 1) % 7 === 0) {
-                            c = 0;
+                            d = 0;
                         }
-                        c++;
+                        d++;
                     }
                 }
-                m = true;
+                p = true;
             }
             if (e.views.chart.showInReverseOrder) {
                 a.reverseChildrenOrder(u);
-                h = h.reverse();
+                m = m.reverse();
             }
             if (e.views.chart.showMonthNames) {
                 const t = a.create(e._currentView.chartContents, "div", "chart-months");
@@ -3796,13 +3817,13 @@ var x;
                 }, 500);
                 const i = i => {
                     let r = i + e.startMonth;
-                    let l = c;
+                    let l = h;
                     if (e.startMonth > 0 && r > 11) {
                         r -= 12;
                         l++;
                     }
                     if (o.monthVisible(e.views.chart.monthsToShow, r)) {
-                        const o = new Date(c, r, 1);
+                        const o = new Date(h, r, 1);
                         let i = D.text.monthNames[r];
                         if (e.startMonth > 0 && e.views.chart.showYearsInMonthNames) {
                             if (e.views.chart.showShortYearsInMonthNames) {
@@ -3811,20 +3832,20 @@ var x;
                                 i = `${i}${" "}${l}`;
                             }
                         }
-                        const u = a.createWithHTML(t, "div", "month-name", i);
+                        const c = a.createWithHTML(t, "div", "month-name", i);
                         if (e.views.chart.showInReverseOrder) {
-                            let e = h[n].offsetLeft;
-                            e -= u.offsetWidth;
-                            e += h[n].offsetWidth;
-                            u.style.left = `${e}px`;
+                            let e = m[n].offsetLeft;
+                            e -= c.offsetWidth;
+                            e += m[n].offsetWidth;
+                            c.style.left = `${e}px`;
                         } else {
-                            u.style.left = `${h[n].offsetLeft}px`;
+                            c.style.left = `${m[n].offsetLeft}px`;
                         }
                         if (s.isCurrentMonthAndYear(o)) {
-                            a.addClass(u, "current");
+                            a.addClass(c, "current");
                         }
                         if (e.views.months.enabled) {
-                            u.ondblclick = () => Ye(e, 5);
+                            c.ondblclick = () => Ye(e, 5);
                         }
                         n++;
                     }
@@ -3849,78 +3870,81 @@ var x;
                     De(e, u, f[o], f[o + 1], n);
                 }
             }
+            C.render(D, e, e._currentView.chartContentsContainer, r, () => {
+                N(e, false, false, true);
+            });
             if (e.views.chart.keepScrollPositions || i) {
                 e._currentView.chartContents.scrollLeft = e._currentView.chartContentsScrollLeft;
             }
         }
     }
-    function xe(e, t, u, g, f, h, m, p) {
-        const y = new Date(f, g, u);
-        const T = a.create(e, "div", "day-line");
-        const b = i.getNumber(ze(t)[s.toStorageDate(y)], 0);
-        const V = w.get(t, h, b, y);
-        const C = b * m;
-        T.setAttribute(n.Attribute.View.Chart.HEAT_JS_DATE, `${r.padNumber(u)}-${r.padNumber(g + 1)}-${f}`);
+    function xe(e, t, u, g, h, f, m, p) {
+        const y = new Date(h, g, u);
+        const b = a.create(e, "div", "day-line");
+        const T = i.getNumber(ze(t)[s.toStorageDate(y)], 0);
+        const V = w.get(t, f, T, y);
+        const C = T * m;
+        b.setAttribute(n.Attribute.View.Chart.HEAT_JS_DATE, `${r.padNumber(u)}-${r.padNumber(g + 1)}-${h}`);
         if (C <= 0) {
-            T.style.visibility = "hidden";
+            b.style.visibility = "hidden";
         }
         if (o.defined(V)) {
-            T.setAttribute(n.Attribute.View.Chart.HEAT_JS_MINIMUM, V.minimum.toString());
+            b.setAttribute(n.Attribute.View.Chart.HEAT_JS_MINIMUM, V.minimum.toString());
         }
         if (C > 0) {
             const e = o.holiday(t, y);
-            const n = qe(t, y, b);
+            const n = qe(t, y, T);
             if (t.views.chart.usePoints) {
-                a.addClass(T, "day-point");
+                a.addClass(b, "day-point");
                 const e = a.getStyleValueByName(document.documentElement, d.Variables.ChartViewLineDefaultWidth, true);
                 const t = C - e;
                 if (t >= 0) {
-                    T.style.marginBottom = `${t}px`;
+                    b.style.marginBottom = `${t}px`;
                 }
             }
             if (t.views.chart.showToolTips) {
-                c.addForDay(D, t, T, y, b, n, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, e.matched, t.views.chart.showCountsInToolTips, t.views.chart.showDifferencesInToolTips);
+                c.addForDay(D, t, b, y, T, n, t.views.chart.dayToolTipText, t.events.onChartDayToolTipRender, e.matched, t.views.chart.showCountsInToolTips, t.views.chart.showDifferencesInToolTips);
             }
             if (!t.views.chart.usePoints) {
                 if (t.views.chart.showLineCounts || t.views.chart.showLineDateNumbers) {
-                    a.addClass(T, "day-line-count");
+                    a.addClass(b, "day-line-count");
                 }
                 if (t.views.chart.showLineDateNumbers) {
-                    const e = a.createWithHTML(T, "div", "count-date", u.toString());
+                    const e = a.createWithHTML(b, "div", "count-date", u.toString());
                     a.createWithHTML(e, "sup", "", s.getDayOrdinal(D, u));
                 }
-                if (t.views.chart.showLineCounts && b > 0) {
-                    a.createWithHTML(T, "div", "count", r.friendlyNumber(b));
+                if (t.views.chart.showLineCounts && T > 0) {
+                    a.createWithHTML(b, "div", "count", r.friendlyNumber(T));
                 }
                 if (t.views.chart.showDifferences && o.definedString(n)) {
-                    a.createWithHTML(T, "div", "difference", n);
+                    a.createWithHTML(b, "div", "difference", n);
                 }
             }
             if (o.definedFunction(t.events.onChartDayClick)) {
-                T.onclick = () => l.customEvent(t.events.onChartDayClick, t._currentView.element, y, b, t._currentView.activeYear, e.matched);
+                b.onclick = () => l.customEvent(t.events.onChartDayClick, t._currentView.element, y, T, t._currentView.activeYear, e.matched);
             } else if (o.definedFunction(t.events.onChartDayDblClick)) {
-                T.ondblclick = () => l.customEvent(t.events.onChartDayDblClick, t._currentView.element, y, b, t._currentView.activeYear, e.matched);
+                b.ondblclick = () => l.customEvent(t.events.onChartDayDblClick, t._currentView.element, y, T, t._currentView.activeYear, e.matched);
             } else {
-                a.addClass(T, "no-hover");
+                a.addClass(b, "no-hover");
             }
             if (o.defined(V) && w.isVisible(t, V.id)) {
                 if (o.definedString(V.chartCssClassName)) {
-                    a.addClass(T, V.chartCssClassName);
+                    a.addClass(b, V.chartCssClassName);
                 } else {
-                    a.addClass(T, V.cssClassName);
+                    a.addClass(b, V.cssClassName);
                 }
             }
             if (t.views.chart.highlightCurrentDay && s.isToday(y)) {
-                a.addClass(T, "today");
+                a.addClass(b, "today");
             }
             if (t.views.chart.useGradients) {
-                a.addGradientEffect(t._currentView.element, T);
+                a.addGradientEffect(t._currentView.element, b);
             }
         }
         if (!t.views.chart.usePoints) {
-            v.setHeight(t, T, C, p);
+            v.setHeight(t, b, C, p);
         }
-        return T;
+        return b;
     }
     function De(e, t, i, r, s) {
         setTimeout(() => {
@@ -3948,7 +3972,7 @@ var x;
         const u = w.getAllSorted(e);
         const d = Be(e, u);
         const g = new Date;
-        const f = s.getWeekdayNumber(g) + 1;
+        const h = s.getWeekdayNumber(g) + 1;
         if (t && (!e.views.days.useDifferentOpacities || !e.views.days.showDayCounts)) {
             a.addClass(i, "view-switch");
         }
@@ -3972,10 +3996,10 @@ var x;
             for (const i in d.values) {
                 if (Object.prototype.hasOwnProperty.call(d.values, i) && o.dayVisible(e.views.days.daysToShow, parseInt(i))) {
                     const l = d.valueOpacities[d.values[i].total];
-                    const h = Me(c, parseInt(i), d.values[i].total, e, s, l, d.totalValue, t);
+                    const f = Me(c, parseInt(i), d.values[i].total, e, s, l, d.totalValue, t);
                     if (e.views.days.showDayNames) {
                         const t = a.createWithHTML(r, "div", "day-name", D.text.dayNames[parseInt(i) - 1]);
-                        if (g.getFullYear() === e._currentView.activeYear && f === parseInt(i)) {
+                        if (g.getFullYear() === e._currentView.activeYear && h === parseInt(i)) {
                             a.addClass(t, "current");
                         }
                     }
@@ -3986,8 +4010,8 @@ var x;
                                 const r = t * s;
                                 const l = w.getByMinimum(u, parseInt(e));
                                 if (r > 0) {
-                                    const e = h.children.length > 0 ? h.children[0] : null;
-                                    const t = a.create(h, "div", "stacked-color-range", e);
+                                    const e = f.children.length > 0 ? f.children[0] : null;
+                                    const t = a.create(f, "div", "stacked-color-range", e);
                                     t.style.height = `${r}px`;
                                     if (o.defined(l)) {
                                         t.setAttribute(n.Attribute.View.Days.HEAT_JS_MINIMUM, l.minimum.toString());
@@ -4015,7 +4039,7 @@ var x;
             }
         }
     }
-    function Me(e, t, i, d, w, g, f, h) {
+    function Me(e, t, i, d, w, g, h, f) {
         const m = a.create(e, "div", "day-line");
         const p = i * w;
         m.setAttribute(n.Attribute.View.Days.HEAT_JS_NUMBER, t.toString());
@@ -4045,7 +4069,7 @@ var x;
                 a.addClass(m, "day-line-count");
                 e = a.createWithHTML(m, "div", "count", r.friendlyNumber(i));
                 if (d.views.days.showDayCountPercentages) {
-                    a.createWithHTML(e, "div", "percentage", `${(i / f * 100).toFixed(d.percentageDecimalPoints)}%`);
+                    a.createWithHTML(e, "div", "percentage", `${(i / h * 100).toFixed(d.percentageDecimalPoints)}%`);
                 }
             }
             if (!d.views.days.showStackedColorRanges) {
@@ -4073,12 +4097,12 @@ var x;
                 }
             }
         }
-        v.setHeight(d, m, p, h);
+        v.setHeight(d, m, p, f);
         return m;
     }
     function Be(e, t) {
         const n = {
-            values: b.largestValueForViewValues(7),
+            values: T.largestValueForViewValues(7),
             valueOpacities: {},
             largestValue: 0,
             totalValue: 0
@@ -4150,25 +4174,25 @@ var x;
             const l = (c.offsetHeight - i) / d.largestValue;
             const g = e._currentView.activeYear;
             for (let i = e.startMonth; i < 12 + e.startMonth; i++) {
-                let f = i;
+                let h = i;
                 if (e.startMonth > 0 && i > 11) {
-                    f = i - 12;
+                    h = i - 12;
                 }
-                const h = f + 1;
-                if (Object.prototype.hasOwnProperty.call(d.values, h) && o.monthVisible(e.views.months.monthsToShow, f)) {
-                    const i = d.valueOpacities[d.values[h].total];
-                    const m = Ne(c, h, d.values[h].total, e, l, i, d.totalValue, t);
+                const f = h + 1;
+                if (Object.prototype.hasOwnProperty.call(d.values, f) && o.monthVisible(e.views.months.monthsToShow, h)) {
+                    const i = d.valueOpacities[d.values[f].total];
+                    const m = Ne(c, f, d.values[f].total, e, l, i, d.totalValue, t);
                     if (e.views.months.showMonthNames) {
-                        const e = a.createWithHTML(r, "div", "month-name", D.text.monthNames[f]);
-                        const t = new Date(g, f, 1);
+                        const e = a.createWithHTML(r, "div", "month-name", D.text.monthNames[h]);
+                        const t = new Date(g, h, 1);
                         if (s.isCurrentMonthAndYear(t)) {
                             a.addClass(e, "current");
                         }
                     }
                     if (e.views.months.showStackedColorRanges) {
-                        for (const e in d.values[h].typeTotals) {
-                            if (Object.prototype.hasOwnProperty.call(d.values[h].typeTotals, e)) {
-                                const t = d.values[h].typeTotals[e];
+                        for (const e in d.values[f].typeTotals) {
+                            if (Object.prototype.hasOwnProperty.call(d.values[f].typeTotals, e)) {
+                                const t = d.values[f].typeTotals[e];
                                 const i = t * l;
                                 const r = w.getByMinimum(u, parseInt(e));
                                 if (i > 0) {
@@ -4201,7 +4225,7 @@ var x;
             }
         }
     }
-    function Ne(e, t, i, d, w, g, f, h) {
+    function Ne(e, t, i, d, w, g, h, f) {
         const m = a.create(e, "div", "month-line");
         const p = i * w;
         m.setAttribute(n.Attribute.View.Month.HEAT_JS_NUMBER, t.toString());
@@ -4236,7 +4260,7 @@ var x;
                 a.addClass(m, "month-line-count");
                 n = a.createWithHTML(m, "div", "count", r.friendlyNumber(i));
                 if (d.views.months.showMonthCountPercentages) {
-                    a.createWithHTML(n, "div", "percentage", `${(i / f * 100).toFixed(d.percentageDecimalPoints)}%`);
+                    a.createWithHTML(n, "div", "percentage", `${(i / h * 100).toFixed(d.percentageDecimalPoints)}%`);
                 }
             }
             if (d.views.months.highlightCurrentMonth && e.getMonth() === t - 1 && d._currentView.activeYear === e.getFullYear()) {
@@ -4267,12 +4291,12 @@ var x;
                 }
             }
         }
-        v.setHeight(d, m, p, h);
+        v.setHeight(d, m, p, f);
         return m;
     }
     function Oe(e, t) {
         const n = {
-            values: b.largestValueForViewValues(12),
+            values: T.largestValueForViewValues(12),
             valueOpacities: {},
             largestValue: 0,
             totalValue: 0
@@ -4322,7 +4346,7 @@ var x;
         const s = a.create(i, "div", "y-labels");
         const l = a.create(i, "div", "color-range-lines");
         const c = w.getAllSorted(e);
-        const u = Re(e, c);
+        const u = Ie(e, c);
         if (t) {
             a.addClass(i, "view-switch");
         }
@@ -4371,16 +4395,16 @@ var x;
             }
         }
     }
-    function ke(e, t, i, s, u, d, g, f) {
-        const h = a.create(t, "div", "color-range-line");
+    function ke(e, t, i, s, u, d, g, h) {
+        const f = a.create(t, "div", "color-range-line");
         const m = i * d;
         const p = w.getByMinimum(u, e);
         if (o.defined(p) && o.definedString(p.name)) {
-            h.setAttribute(n.Attribute.View.ColorRanges.HEAT_JS_COLOR_RANGE_NAME, p.name);
-            h.setAttribute(n.Attribute.View.ColorRanges.HEAT_JS_MINIMUM, p.minimum.toString());
+            f.setAttribute(n.Attribute.View.ColorRanges.HEAT_JS_COLOR_RANGE_NAME, p.name);
+            f.setAttribute(n.Attribute.View.ColorRanges.HEAT_JS_MINIMUM, p.minimum.toString());
         }
         if (m <= 0) {
-            h.style.visibility = "hidden";
+            f.style.visibility = "hidden";
         }
         if (m > 0) {
             if (s.views.colorRanges.showToolTips) {
@@ -4390,36 +4414,36 @@ var x;
                 } else {
                     e = r.friendlyNumber(i);
                 }
-                c.add(h, s, e);
+                c.add(f, s, e);
             }
             if (s.views.colorRanges.showRangeCounts && i > 0 && m > 0) {
-                a.addClass(h, "color-range-line-count");
-                const e = a.createWithHTML(h, "div", "count", r.friendlyNumber(i));
+                a.addClass(f, "color-range-line-count");
+                const e = a.createWithHTML(f, "div", "count", r.friendlyNumber(i));
                 if (s.views.colorRanges.showRangeCountPercentages) {
                     a.createWithHTML(e, "div", "percentage", `${(i / g * 100).toFixed(s.percentageDecimalPoints)}%`);
                 }
             }
             if (o.definedFunction(s.events.onColorRangeClick)) {
-                h.onclick = () => l.customEvent(s.events.onColorRangeClick, s._currentView.element, p, i, s._currentView.activeYear);
+                f.onclick = () => l.customEvent(s.events.onColorRangeClick, s._currentView.element, p, i, s._currentView.activeYear);
             } else if (o.definedFunction(s.events.onColorRangeDblClick)) {
-                h.ondblclick = () => l.customEvent(s.events.onColorRangeDblClick, p, i, s._currentView.activeYear);
+                f.ondblclick = () => l.customEvent(s.events.onColorRangeDblClick, p, i, s._currentView.activeYear);
             } else {
-                a.addClass(h, "no-hover");
+                a.addClass(f, "no-hover");
             }
             if (o.defined(p) && w.isVisible(s, p.id)) {
                 if (o.definedString(p.colorRangeCssClassName)) {
-                    a.addClass(h, p.colorRangeCssClassName);
+                    a.addClass(f, p.colorRangeCssClassName);
                 } else {
-                    a.addClass(h, p.cssClassName);
+                    a.addClass(f, p.cssClassName);
                 }
             }
             if (s.views.colorRanges.useGradients) {
-                a.addGradientEffect(s._currentView.element, h);
+                a.addGradientEffect(s._currentView.element, f);
             }
         }
-        v.setHeight(s, h, m, f);
+        v.setHeight(s, f, m, h);
     }
-    function Re(e, t) {
+    function Ie(e, t) {
         const n = ze(e);
         const i = e._currentView.activeYear;
         const r = t.length;
@@ -4459,7 +4483,7 @@ var x;
         }
         return a;
     }
-    function Ie(e) {
+    function Re(e) {
         const t = a.create(e._currentView.container, "div", "guide");
         const n = a.create(t, "div", "map-types");
         const i = Pe(e);
@@ -4650,7 +4674,7 @@ var x;
         };
         S[e].typeData[D.text.unknownTrendText] = {};
         if (n && !t._currentView.isInFetchMode) {
-            T.load(D, t, S[e]);
+            b.load(D, t, S[e]);
         }
     }
     function ze(e) {
@@ -5200,7 +5224,7 @@ var x;
                     }
                 }
                 if (o) {
-                    D = f.Options.get(n);
+                    D = h.Options.get(n);
                     _.setup(D, () => M());
                     if (t) {
                         it.refreshAll();
@@ -5211,7 +5235,7 @@ var x;
         },
         setLocale: (e, t = true) => {
             if (o.definedObject(e)) {
-                D.text = f.Options.getText(e);
+                D.text = h.Options.getText(e);
                 if (t) {
                     it.refreshAll();
                 }
@@ -5230,7 +5254,7 @@ var x;
         getVersion: () => "5.1.1"
     };
     (() => {
-        D = f.Options.get();
+        D = h.Options.get();
         V.onContentLoaded(() => {
             M();
             _.setup(D, () => M());

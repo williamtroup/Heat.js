@@ -1336,148 +1336,154 @@ div.heat-js {
 */
 
 div.heat-js {
-    div.chart-contents {
-        overflow-x: auto;
-        overflow-y: hidden;
-        text-wrap: nowrap;
-        white-space: nowrap;
+    div.chart-contents-container {
         position: relative;
-        padding-bottom: var(--heat-js-spacing);
-        padding-top: var(--heat-js-spacing);
 
-        @include styles.scroll-bars;
+        @include styles.zooming;
 
-        div.no-data-message {
-            @include styles.centered-label;
-        }
-
-        div.chart {
-            display: inline-flex;
-            flex-direction: row;
-
-            div.y-labels {
-                @include styles.chart-y-labels;
-            }
-
-            div.day-lines {
-                display: flex;
-                align-items: flex-end;
-                flex: 1;
-                border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
-                height: calc( 173px - var(--heat-js-spacing) ) !important;
-                overflow: hidden;
-
-                @include styles.chart-y-lines;
-
-                div.today {
-                    animation: highlight-effect 2s infinite;
-                }
-
-                div.day-line-count {
-                    font-size: var(--heat-js-spacing-day-font-size);
-                    padding: var(--heat-js-spacing-half);
-                    overflow: hidden;
-                    flex-direction: column;
-                    gap: var(--heat-js-count-gap);
-
-                    div.count-date,
-                    div.count,
-                    div.difference {
-                        display: block;
-                    }
-
-                    div.difference {
-                        font-style: italic;
-                    }
-
-                    div.count-date {
-                        font-weight: var(--heat-js-text-font-weight-medium);
-                    }
-                }
-
-                div.month-spacing {
-                    height: 100%;
-                    width: var(--heat-js-border-size);
-                    background-color: var(--heat-js-container-border-color);
-                    margin-left: var(--heat-js-spacing);
-                    margin-right: calc( var(--heat-js-spacing) + var(--heat-js-day-chart-spacing) );
-                }
-
-                div.day-point-line {
-                    position: absolute;
-                    transform-origin: 0 0;
-                    height: var(--heat-js-border-size);
-                    background-color: var(--heat-js-container-border-color);
-                    border: none !important;
-                    animation: fade-in-animation var(--heat-js-animation-length);
-                    pointer-events: none !important;
-                }
-
-                div.day-line {
-                    border-top-left-radius: var(--heat-js-border-radius-day);
-                    border-top-right-radius: var(--heat-js-border-radius-day);
-                    background-color: var(--heat-js-day-background-color);
-                    border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
-                    min-width: var(--heat-js-day-chart-width);
-                    margin-right: var(--heat-js-day-chart-spacing);
-                    display: inline-flex;
-                    transition: var(--heat-js-transition);
-                    align-items: center;
-                    justify-content: center;
-                    z-index: 1;
-                    
-                    &:not(.day-point) {
-                        border-bottom: none !important;
-                        height: 0;
-                    }
-
-                    &.day-point {
-                        min-height: var(--heat-js-day-chart-width);
-                        border-radius: var(--heat-js-border-radius-day);
-                    }
-
-                    &:first-of-type{
-                        margin-left: var(--heat-js-spacing-half);
-                    }
-    
-                    &:last-of-type {
-                        margin-right: var(--heat-js-spacing-half);
-                    }
-
-                    &:not(.no-hover):active {
-                        opacity: var(--heat-js-view-opacity-active) !important;
-                    }
-
-                    &:not(.no-hover):hover {
-                        cursor: pointer;
-                        background: var(--heat-js-day-background-color-hover);
-                    }
-                }
-            }
-        }
-
-        div.chart-months {
+        div.chart-contents {
+            overflow-x: auto;
+            overflow-y: hidden;
+            text-wrap: nowrap;
+            white-space: nowrap;
             position: relative;
-            height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) );
+            padding-bottom: var(--heat-js-spacing);
+            padding-top: var(--heat-js-spacing);
 
-            div.month-name,
-            div.month-name-space {
-                font-weight: var(--heat-js-text-font-weight-thin);
-                text-align: left !important;
-                position: absolute;
-                bottom: 0;
+            @include styles.scroll-bars;
 
-                &.current {
-                    font-weight: var(--heat-js-text-font-weight-heavy);
+            div.no-data-message {
+                @include styles.centered-label;
+            }
+
+            div.chart {
+                display: inline-flex;
+                flex-direction: row;
+
+                div.y-labels {
+                    @include styles.chart-y-labels;
+                }
+
+                div.day-lines {
+                    display: flex;
+                    align-items: flex-end;
+                    flex: 1;
+                    border-bottom: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+                    height: calc( 173px - var(--heat-js-spacing) ) !important;
+                    overflow: hidden;
+
+                    @include styles.chart-y-lines;
+
+                    div.today {
+                        animation: highlight-effect 2s infinite;
+                    }
+
+                    div.day-line-count {
+                        font-size: var(--heat-js-spacing-day-font-size);
+                        padding: var(--heat-js-spacing-half);
+                        overflow: hidden;
+                        flex-direction: column;
+                        gap: var(--heat-js-count-gap);
+
+                        div.count-date,
+                        div.count,
+                        div.difference {
+                            display: block;
+                        }
+
+                        div.difference {
+                            font-style: italic;
+                        }
+
+                        div.count-date {
+                            font-weight: var(--heat-js-text-font-weight-medium);
+                        }
+                    }
+
+                    div.month-spacing {
+                        height: 100%;
+                        width: var(--heat-js-border-size);
+                        background-color: var(--heat-js-container-border-color);
+                        margin-left: var(--heat-js-spacing);
+                        margin-right: calc( var(--heat-js-spacing) + var(--heat-js-day-chart-spacing) );
+                    }
+
+                    div.day-point-line {
+                        position: absolute;
+                        transform-origin: 0 0;
+                        height: var(--heat-js-border-size);
+                        background-color: var(--heat-js-container-border-color);
+                        border: none !important;
+                        animation: fade-in-animation var(--heat-js-animation-length);
+                        pointer-events: none !important;
+                    }
+
+                    div.day-line {
+                        border-top-left-radius: calc( var(--heat-js-day-chart-width) / 2 );
+                        border-top-right-radius: calc( var(--heat-js-day-chart-width) / 2 );
+                        background-color: var(--heat-js-day-background-color);
+                        border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
+                        min-width: var(--heat-js-day-chart-width);
+                        margin-right: var(--heat-js-day-chart-spacing);
+                        display: inline-flex;
+                        transition: var(--heat-js-transition);
+                        align-items: center;
+                        justify-content: center;
+                        z-index: 1;
+                        
+                        &:not(.day-point) {
+                            border-bottom: none !important;
+                            height: 0;
+                        }
+
+                        &.day-point {
+                            min-height: var(--heat-js-day-chart-width);
+                            border-radius: var(--heat-js-border-radius-day);
+                        }
+
+                        &:first-of-type{
+                            margin-left: var(--heat-js-spacing-half);
+                        }
+        
+                        &:last-of-type {
+                            margin-right: var(--heat-js-spacing-half);
+                        }
+
+                        &:not(.no-hover):active {
+                            opacity: var(--heat-js-view-opacity-active) !important;
+                        }
+
+                        &:not(.no-hover):hover {
+                            cursor: pointer;
+                            background: var(--heat-js-day-background-color-hover);
+                        }
+                    }
                 }
             }
 
-            div.month-name-space {
-                left: 0;
-                top: 0;
-                position: sticky;
-                background-color: var(--heat-js-container-background-color);
-                z-index: 10;
+            div.chart-months {
+                position: relative;
+                height: calc( var(--heat-js-spacing-font-size) + var(--heat-js-spacing) );
+
+                div.month-name,
+                div.month-name-space {
+                    font-weight: var(--heat-js-text-font-weight-thin);
+                    text-align: left !important;
+                    position: absolute;
+                    bottom: 0;
+
+                    &.current {
+                        font-weight: var(--heat-js-text-font-weight-heavy);
+                    }
+                }
+
+                div.month-name-space {
+                    left: 0;
+                    top: 0;
+                    position: sticky;
+                    background-color: var(--heat-js-container-background-color);
+                    z-index: 10;
+                }
             }
         }
     }

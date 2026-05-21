@@ -194,6 +194,7 @@ export type BindingOptionsCurrentView = {
     lineContentsContainer: HTMLElement;
     lineContents: HTMLElement;
     lineContentsScrollLeft: number;
+    chartContentsContainer: HTMLElement;
     chartContents: HTMLElement;
     chartContentsScrollLeft: number;
     daysContents: HTMLElement;
@@ -216,6 +217,7 @@ export type BindingOptionsCurrentView = {
     zoomLevel: number;
     zoomMapViewIncrement: number;
     zoomLineViewIncrement: number;
+    zoomChartViewIncrement: number;
     importDialog: HTMLElement;
     importDialogDragAndDrop: HTMLElement;
     importDialogFileList: FileList;

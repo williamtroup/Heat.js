@@ -66,6 +66,7 @@ export namespace Binding {
             bindingOptions._currentView.zoomLevel = Value.notFound;
             bindingOptions._currentView.zoomMapViewIncrement = Value.notFound;
             bindingOptions._currentView.zoomLineViewIncrement = Value.notFound;
+            bindingOptions._currentView.zoomChartViewIncrement = Value.notFound;
             bindingOptions._currentView.yearTextWidth = 0;
             bindingOptions._currentView.viewsEnabled = 0;
 

@@ -1879,7 +1879,8 @@ import { Chart } from "./ts/area/chart";
      */
 
     function renderChartView( bindingOptions: BindingOptions, isForViewSwitch: boolean, isForViewChange: boolean ) : void {
-        bindingOptions._currentView!.chartContents = DomElement.create( bindingOptions._currentView!.container, "div", "chart-contents" );
+        bindingOptions._currentView!.chartContentsContainer = DomElement.create( bindingOptions._currentView!.container, "div", "chart-contents-container" );
+        bindingOptions._currentView!.chartContents = DomElement.create( bindingOptions._currentView!.chartContentsContainer, "div", "chart-contents" );
         bindingOptions._currentView!.chartContents.onscroll = () : void => ToolTip.hide( bindingOptions );
 
         const chart: HTMLElement = DomElement.create( bindingOptions._currentView!.chartContents, "div", "chart" );
@@ -2044,6 +2045,10 @@ import { Chart } from "./ts/area/chart";
                     renderChartViewDayPointToPointLine( bindingOptions, dayLines, allDayLines[ dayLineIndex ], allDayLines[ dayLineIndex + 1 ], colorRanges );
                 }
             }
+
+            Zooming.render( _configurationOptions, bindingOptions, bindingOptions._currentView!.chartContentsContainer, chart, () : void => {
+                renderContainer( bindingOptions, false, false, true );
+            } );
     
             if ( bindingOptions.views!.chart!.keepScrollPositions || isForViewChange ) {
                 bindingOptions._currentView!.chartContents.scrollLeft = bindingOptions._currentView!.chartContentsScrollLeft;

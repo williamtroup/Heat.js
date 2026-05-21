@@ -1928,7 +1928,196 @@ div.heat-js div.line-contents-container div.line-contents div.line-months div.mo
     Heat.js - View - Chart
     -------------------------------------------------------------------------
 */
-div.heat-js div.chart-contents {
+div.heat-js div.chart-contents-container {
+  position: relative;
+}
+div.heat-js div.chart-contents-container div.zooming {
+  position: absolute;
+  display: flex;
+  right: 0;
+  white-space: nowrap;
+  align-items: center;
+  padding: calc(var(--heat-js-spacing) / 2);
+  border: var(--heat-js-border-size) solid var(--heat-js-container-border-color);
+  border-radius: var(--heat-js-border-radius);
+  background-color: var(--heat-js-container-background-color);
+  z-index: 100;
+}
+div.heat-js div.chart-contents-container div.zooming button {
+  background-color: var(--heat-js-button-background-color);
+  border: var(--heat-js-border-size) solid var(--heat-js-button-border-color);
+  color: var(--heat-js-button-text-color);
+  border-radius: var(--heat-js-border-radius);
+  outline: none;
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.chart-contents-container div.zooming button:disabled {
+  color: var(--heat-js-button-color-disabled);
+}
+div.heat-js div.chart-contents-container div.zooming button:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-background-color-active) !important;
+  color: var(--heat-js-button-text-color-active) !important;
+}
+div.heat-js div.chart-contents-container div.zooming button:not(.active):not(:disabled):hover {
+  cursor: pointer;
+  background: var(--heat-js-button-background-color-hover);
+  color: var(--heat-js-button-text-color-hover);
+}
+div.heat-js div.chart-contents-container div.zooming button.yes {
+  background-color: var(--heat-js-button-color-yes);
+  border-color: var(--heat-js-button-color-yes-border);
+}
+div.heat-js div.chart-contents-container div.zooming button.yes:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-color-yes-active) !important;
+}
+div.heat-js div.chart-contents-container div.zooming button.yes:not(.active):not(:disabled):hover {
+  background-color: var(--heat-js-button-color-yes-border);
+}
+div.heat-js div.chart-contents-container div.zooming button.no {
+  background-color: var(--heat-js-button-color-no);
+  border-color: var(--heat-js-button-color-no-border);
+}
+div.heat-js div.chart-contents-container div.zooming button.no:not(.active):not(:disabled):active {
+  background: var(--heat-js-button-color-no-active) !important;
+}
+div.heat-js div.chart-contents-container div.zooming button.no:not(.active):not(:disabled):hover {
+  background-color: var(--heat-js-button-color-no-border);
+}
+div.heat-js div.chart-contents-container div.zooming button.default {
+  font-weight: var(--heat-js-text-font-weight-heavy);
+}
+div.heat-js div.chart-contents-container div.zooming button.active {
+  cursor: default;
+  background: var(--heat-js-button-background-color-hover);
+  color: var(--heat-js-button-text-color-hover);
+  transition: var(--heat-js-transition);
+  font-weight: var(--heat-js-text-font-weight-heavy);
+}
+div.heat-js div.chart-contents-container div.zooming button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: calc(var(--heat-js-spacing) / 2);
+  font-weight: var(--heat-js-title-bold-weight);
+  margin-right: 0;
+  width: var(--heat-js-button-icon-width) !important;
+  height: var(--heat-js-button-height) !important;
+}
+div.heat-js div.chart-contents-container div.zooming div.zoom-close-button {
+  float: unset;
+  width: 12px;
+  height: 12px;
+  position: relative;
+  cursor: pointer;
+}
+div.heat-js div.chart-contents-container div.zooming div.zoom-close-button::before, div.heat-js div.chart-contents-container div.zooming div.zoom-close-button::after {
+  content: "";
+  position: absolute;
+  height: 12px;
+  width: 3px;
+  left: 4.5px;
+  top: 0;
+  background-color: var(--heat-js-color-white);
+  border-radius: var(--heat-js-border-radius);
+  transition: var(--heat-js-transition);
+}
+div.heat-js div.chart-contents-container div.zooming div.zoom-close-button::before {
+  transform: rotate(45deg);
+}
+div.heat-js div.chart-contents-container div.zooming div.zoom-close-button::after {
+  transform: rotate(-45deg);
+}
+div.heat-js div.chart-contents-container div.zooming div.zoom-close-button:hover::before, div.heat-js div.chart-contents-container div.zooming div.zoom-close-button:hover::after {
+  background-color: var(--heat-js-color-gray);
+}
+div.heat-js div.chart-contents-container div.zooming div.zoom-close-button {
+  display: inline-block;
+  margin-right: var(--heat-js-spacing);
+  margin-left: calc(var(--heat-js-spacing) / 2);
+}
+div.heat-js div.chart-contents-container div.zooming button.reset i.exclamation-mark {
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
+  display: inline-block;
+  position: relative;
+}
+div.heat-js div.chart-contents-container div.zooming button.reset i.exclamation-mark::before, div.heat-js div.chart-contents-container div.zooming button.reset i.exclamation-mark::after {
+  position: absolute;
+  content: "";
+}
+div.heat-js div.chart-contents-container div.zooming button.reset i.exclamation-mark:before {
+  left: 50%;
+  transform: translate(-50%);
+  background-color: currentColor;
+  width: calc(var(--heat-js-button-icon-size) / 4);
+  height: calc(100% - var(--heat-js-button-icon-size) / 4 - var(--heat-js-button-icon-size) / 4 / 3);
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  top: 0;
+}
+div.heat-js div.chart-contents-container div.zooming button.reset i.exclamation-mark:after {
+  left: 50%;
+  transform: translate(-50%);
+  background-color: currentColor;
+  width: calc(var(--heat-js-button-icon-size) / 4);
+  height: calc(var(--heat-js-button-icon-size) / 4);
+  border-radius: 50%;
+  bottom: 0;
+}
+div.heat-js div.chart-contents-container div.zooming button.reset {
+  margin-right: calc(var(--heat-js-spacing) / 2);
+}
+div.heat-js div.chart-contents-container div.zooming button.zoom-out i.minus {
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
+  display: inline-block;
+  position: relative;
+}
+div.heat-js div.chart-contents-container div.zooming button.zoom-out i.minus::before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  transform: translate(0, -50%);
+  background-color: currentColor;
+  width: 100%;
+  height: calc(var(--heat-js-button-icon-size) / 4);
+  border-radius: calc(var(--heat-js-button-icon-size) / 4);
+  left: 0;
+}
+div.heat-js div.chart-contents-container div.zooming span.zoom-level {
+  margin-left: var(--heat-js-spacing);
+  margin-right: var(--heat-js-spacing);
+  color: var(--heat-js-color-white);
+}
+div.heat-js div.chart-contents-container div.zooming button.zoom-in i.plus {
+  width: var(--heat-js-button-icon-size);
+  height: var(--heat-js-button-icon-size);
+  display: inline-block;
+  position: relative;
+}
+div.heat-js div.chart-contents-container div.zooming button.zoom-in i.plus::before, div.heat-js div.chart-contents-container div.zooming button.zoom-in i.plus::after {
+  position: absolute;
+  content: "";
+}
+div.heat-js div.chart-contents-container div.zooming button.zoom-in i.plus::before {
+  left: 50%;
+  transform: translate(-50%);
+  background-color: currentColor;
+  width: calc(var(--heat-js-button-icon-size) / 4);
+  height: 100%;
+  border-radius: calc(var(--heat-js-button-icon-size) / 4);
+  top: 0;
+}
+div.heat-js div.chart-contents-container div.zooming button.zoom-in i.plus::after {
+  top: 50%;
+  transform: translate(0, -50%);
+  background-color: currentColor;
+  width: 100%;
+  height: calc(var(--heat-js-button-icon-size) / 4);
+  border-radius: calc(var(--heat-js-button-icon-size) / 4);
+  left: 0;
+}
+div.heat-js div.chart-contents-container div.chart-contents {
   overflow-x: auto;
   overflow-y: hidden;
   text-wrap: nowrap;
@@ -1937,25 +2126,25 @@ div.heat-js div.chart-contents {
   padding-bottom: var(--heat-js-spacing);
   padding-top: var(--heat-js-spacing);
 }
-div.heat-js div.chart-contents::-webkit-scrollbar {
+div.heat-js div.chart-contents-container div.chart-contents::-webkit-scrollbar {
   width: var(--heat-js-scroll-bar-size);
   height: var(--heat-js-scroll-bar-size);
   border-radius: var(--heat-js-scroll-bar-border-radius);
 }
-div.heat-js div.chart-contents::-webkit-scrollbar-track {
+div.heat-js div.chart-contents-container div.chart-contents::-webkit-scrollbar-track {
   border-radius: var(--heat-js-scroll-bar-border-radius);
 }
-div.heat-js div.chart-contents::-webkit-scrollbar-thumb {
+div.heat-js div.chart-contents-container div.chart-contents::-webkit-scrollbar-thumb {
   background: var(--heat-js-scroll-bar-thumb-color);
   border-radius: var(--heat-js-scroll-bar-border-radius);
 }
-div.heat-js div.chart-contents::-webkit-scrollbar-thumb:active {
+div.heat-js div.chart-contents-container div.chart-contents::-webkit-scrollbar-thumb:active {
   background-color: var(--heat-js-color-light-gray);
 }
-div.heat-js div.chart-contents::-webkit-scrollbar-corner {
+div.heat-js div.chart-contents-container div.chart-contents::-webkit-scrollbar-corner {
   background-color: transparent;
 }
-div.heat-js div.chart-contents div.no-data-message {
+div.heat-js div.chart-contents-container div.chart-contents div.no-data-message {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -1963,11 +2152,11 @@ div.heat-js div.chart-contents div.no-data-message {
   font-weight: var(--heat-js-text-bold-weight);
   font-style: italic;
 }
-div.heat-js div.chart-contents div.chart {
+div.heat-js div.chart-contents-container div.chart-contents div.chart {
   display: inline-flex;
   flex-direction: row;
 }
-div.heat-js div.chart-contents div.chart div.y-labels {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.y-labels {
   background-color: var(--heat-js-container-background-color);
   position: sticky;
   left: 0;
@@ -1975,21 +2164,21 @@ div.heat-js div.chart-contents div.chart div.y-labels {
   border-bottom: var(--heat-js-border-size) solid transparent;
   z-index: 50;
 }
-div.heat-js div.chart-contents div.chart div.y-labels div.chart-y-label {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.y-labels div.chart-y-label {
   font-weight: var(--heat-js-text-bold-weight);
   text-align: left !important;
   position: absolute;
   left: 0;
   padding-right: var(--heat-js-y-label-spacing);
 }
-div.heat-js div.chart-contents div.chart div.y-labels span.chart-y-label-line {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.y-labels span.chart-y-label-line {
   position: absolute;
   right: 0;
   background-color: var(--heat-js-container-border-color);
   height: var(--heat-js-border-size);
   width: var(--heat-js-spacing);
 }
-div.heat-js div.chart-contents div.chart div.day-lines {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines {
   display: flex;
   align-items: flex-end;
   flex: 1;
@@ -1997,10 +2186,10 @@ div.heat-js div.chart-contents div.chart div.day-lines {
   height: calc(173px - var(--heat-js-spacing)) !important;
   overflow: hidden;
 }
-div.heat-js div.chart-contents div.chart div.day-lines.chart-y-lines {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines.chart-y-lines {
   position: relative;
 }
-div.heat-js div.chart-contents div.chart div.day-lines.chart-y-lines span.chart-y-line {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines.chart-y-lines span.chart-y-line {
   position: absolute;
   left: 0;
   height: var(--heat-js-border-size);
@@ -2009,35 +2198,35 @@ div.heat-js div.chart-contents div.chart div.day-lines.chart-y-lines span.chart-
   z-index: 0;
   display: block;
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.today {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.today {
   animation: highlight-effect 2s infinite;
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.day-line-count {
   font-size: var(--heat-js-spacing-day-font-size);
   padding: var(--heat-js-spacing-half);
   overflow: hidden;
   flex-direction: column;
   gap: var(--heat-js-count-gap);
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.count-date,
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.count,
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.difference {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.day-line-count div.count-date,
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.day-line-count div.count,
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.day-line-count div.difference {
   display: block;
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.difference {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.day-line-count div.difference {
   font-style: italic;
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line-count div.count-date {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.day-line-count div.count-date {
   font-weight: var(--heat-js-text-font-weight-medium);
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.month-spacing {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.month-spacing {
   height: 100%;
   width: var(--heat-js-border-size);
   background-color: var(--heat-js-container-border-color);
   margin-left: var(--heat-js-spacing);
   margin-right: calc(var(--heat-js-spacing) + var(--heat-js-day-chart-spacing));
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-point-line {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.day-point-line {
   position: absolute;
   transform-origin: 0 0;
   height: var(--heat-js-border-size);
@@ -2046,9 +2235,9 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-point-line {
   animation: fade-in-animation var(--heat-js-animation-length);
   pointer-events: none !important;
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
-  border-top-left-radius: var(--heat-js-border-radius-day);
-  border-top-right-radius: var(--heat-js-border-radius-day);
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.day-line {
+  border-top-left-radius: calc(var(--heat-js-day-chart-width) / 2);
+  border-top-right-radius: calc(var(--heat-js-day-chart-width) / 2);
   background-color: var(--heat-js-day-background-color);
   border: var(--heat-js-border-size) solid var(--heat-js-day-border-color);
   min-width: var(--heat-js-day-chart-width);
@@ -2059,43 +2248,43 @@ div.heat-js div.chart-contents div.chart div.day-lines div.day-line {
   justify-content: center;
   z-index: 1;
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line:not(.day-point) {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.day-line:not(.day-point) {
   border-bottom: none !important;
   height: 0;
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line.day-point {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.day-line.day-point {
   min-height: var(--heat-js-day-chart-width);
   border-radius: var(--heat-js-border-radius-day);
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line:first-of-type {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.day-line:first-of-type {
   margin-left: var(--heat-js-spacing-half);
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line:last-of-type {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.day-line:last-of-type {
   margin-right: var(--heat-js-spacing-half);
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line:not(.no-hover):active {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.day-line:not(.no-hover):active {
   opacity: var(--heat-js-view-opacity-active) !important;
 }
-div.heat-js div.chart-contents div.chart div.day-lines div.day-line:not(.no-hover):hover {
+div.heat-js div.chart-contents-container div.chart-contents div.chart div.day-lines div.day-line:not(.no-hover):hover {
   cursor: pointer;
   background: var(--heat-js-day-background-color-hover);
 }
-div.heat-js div.chart-contents div.chart-months {
+div.heat-js div.chart-contents-container div.chart-contents div.chart-months {
   position: relative;
   height: calc(var(--heat-js-spacing-font-size) + var(--heat-js-spacing));
 }
-div.heat-js div.chart-contents div.chart-months div.month-name,
-div.heat-js div.chart-contents div.chart-months div.month-name-space {
+div.heat-js div.chart-contents-container div.chart-contents div.chart-months div.month-name,
+div.heat-js div.chart-contents-container div.chart-contents div.chart-months div.month-name-space {
   font-weight: var(--heat-js-text-font-weight-thin);
   text-align: left !important;
   position: absolute;
   bottom: 0;
 }
-div.heat-js div.chart-contents div.chart-months div.month-name.current,
-div.heat-js div.chart-contents div.chart-months div.month-name-space.current {
+div.heat-js div.chart-contents-container div.chart-contents div.chart-months div.month-name.current,
+div.heat-js div.chart-contents-container div.chart-contents div.chart-months div.month-name-space.current {
   font-weight: var(--heat-js-text-font-weight-heavy);
 }
-div.heat-js div.chart-contents div.chart-months div.month-name-space {
+div.heat-js div.chart-contents-container div.chart-contents div.chart-months div.month-name-space {
   left: 0;
   top: 0;
   position: sticky;
