@@ -2038,7 +2038,7 @@ import { Chart } from "./ts/area/chart";
                     }
                     
                 } else {
-                    for ( let monthIndex: number = 0; monthIndex < Months.december + 1; monthIndex++ ) {
+                    for ( let monthIndex: number = Months.january; monthIndex < Months.december + 1; monthIndex++ ) {
                         addMonthName( monthIndex );
                     }
                 }
