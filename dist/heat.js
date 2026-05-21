@@ -2228,7 +2228,7 @@ var C;
                 h.onclick = () => i(t, w);
             }
             const f = a.createIconButton(g, "button", "zoom-out", "minus");
-            const m = a.createWithHTML(g, "span", "zoom-level", `+${r.friendlyNumber(t._currentView.zoomLevel * 10)}%`);
+            const m = a.createWithHTML(g, "span", "zoom-level", `+${r.friendlyNumber(t._currentView.zoomLevel * t.zooming.incrementDivision)}%`);
             const p = a.createIconButton(g, "button", "zoom-in", "plus");
             const y = a.getStyleValueByName(document.documentElement, d.Variables.Spacing, true);
             if (t.zooming.showToolTips) {
@@ -2238,7 +2238,7 @@ var C;
             g.style.bottom = n.offsetHeight - (l.offsetHeight + l.offsetTop) + "px";
             if (t._currentView.zoomLevel === -1) {
                 t._currentView.zoomLevel = 0;
-                m.innerText = `+${r.friendlyNumber(t._currentView.zoomLevel * 10)}%`;
+                m.innerText = `+${r.friendlyNumber(t._currentView.zoomLevel * t.zooming.incrementDivision)}%`;
             }
             if (o.defined(t._currentView.mapContents)) {
                 t._currentView.mapContents.style.paddingRight = `${g.offsetWidth + y}px`;

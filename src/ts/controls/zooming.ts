@@ -53,7 +53,7 @@ export namespace Zooming {
             }
 
             const zoomOutButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-out", "minus" );
-            const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `+${Str.friendlyNumber( bindingOptions._currentView!.zoomLevel * 10 )}%` ) as HTMLSpanElement;
+            const zoomLevel: HTMLSpanElement = DomElement.createWithHTML( zooming, "span", "zoom-level", `+${Str.friendlyNumber( bindingOptions._currentView!.zoomLevel * bindingOptions.zooming!.incrementDivision! )}%` ) as HTMLSpanElement;
             const zoomInButton: HTMLButtonElement = DomElement.createIconButton( zooming, "button", "zoom-in", "plus" );
             const spacing: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.Spacing, true ) as number;
             
@@ -66,7 +66,7 @@ export namespace Zooming {
 
             if ( bindingOptions._currentView!.zoomLevel! === Value.notFound ) {
                 bindingOptions._currentView!.zoomLevel = 0;
-                zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.zoomLevel * 10 )}%`;
+                zoomLevel.innerText = `+${Str.friendlyNumber( bindingOptions._currentView!.zoomLevel * bindingOptions.zooming!.incrementDivision! )}%`;
             }
 
             if ( Is.defined( bindingOptions._currentView!.mapContents ) ) {
