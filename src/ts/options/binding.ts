@@ -35,7 +35,16 @@ import {
     type BindingOptionsSideMenu,
     type ConfigurationOptions } from "../type";
 
-import { Char, ExportType, Months, Value, ViewId, ViewName, VisibleDays, VisibleMonths } from "../data/enum";
+import {
+    Char,
+    ExportType,
+    Months,
+    Value,
+    ViewId,
+    ViewName,
+    VisibleDays,
+    VisibleMonths } from "../data/enum";
+    
 import { Default } from "../data/default";
 import { Is } from "../data/is";
 import { ColorRange } from "../area/color-range";
