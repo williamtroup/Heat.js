@@ -219,7 +219,7 @@ div.heat-js div.container-side-menu {
   padding: var(--heat-js-spacing);
   padding-right: 0;
   background-color: var(--heat-js-container-border-color);
-  gap: var(--heat-js-spacing);
+  gap: var(--heat-js-spacing-half);
   border-top-left-radius: var(--heat-js-border-radius);
   border-bottom-left-radius: var(--heat-js-border-radius);
 }
