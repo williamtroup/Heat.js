@@ -1062,6 +1062,7 @@ var g;
             t.percentageDecimalPoints = i.getNumber(t.percentageDecimalPoints, 2);
             t.chartsAnimationDelay = i.getNumber(t.chartsAnimationDelay, 50);
             t.exportDateTimeFormat = i.getString(t.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}");
+            t.yearsSeparator = i.getString(t.yearsSeparator, "/");
             t.sideMenu = c(t);
             t.title = u(t);
             t.yearlyStatistics = g(t);
@@ -3156,7 +3157,7 @@ var x;
     function le(e, t) {
         let n = e._currentView.activeYear.toString();
         if (e.startMonth > 0) {
-            n = `${n} / ${e._currentView.activeYear + 1}`;
+            n = `${n} ${e.yearsSeparator} ${e._currentView.activeYear + 1}`;
         }
         e._currentView.yearText = a.createWithHTML(t, "div", "year-text", n);
         if (e._currentView.yearTextWidth === 0) {
@@ -3243,7 +3244,7 @@ var x;
     }
     function ge(e, t, n, o) {
         let i = null;
-        const r = e.startMonth === 0 ? n.toString() : `${n} / ${n + 1}`;
+        const r = e.startMonth === 0 ? n.toString() : `${n} ${e.yearsSeparator} ${n + 1}`;
         const s = a.createWithHTML(t, "div", "year-menu-item", r);
         if (e._currentView.activeYear !== n) {
             s.onclick = () => {

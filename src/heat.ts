@@ -1080,7 +1080,7 @@ import { Chart } from "./ts/area/chart";
         let yearText: string = bindingOptions._currentView!.activeYear.toString();
 
         if ( bindingOptions.startMonth! > 0 ) {
-            yearText = `${yearText} / ${bindingOptions._currentView!.activeYear + 1}`;
+            yearText = `${yearText} ${bindingOptions.yearsSeparator} ${bindingOptions._currentView!.activeYear + 1}`;
         }
 
         bindingOptions._currentView!.yearText = DomElement.createWithHTML( titleBar, "div", "year-text", yearText );
@@ -1200,7 +1200,7 @@ import { Chart } from "./ts/area/chart";
 
     function renderYearDropDownMenuItem( bindingOptions: BindingOptions, years: HTMLElement, currentYear: number, actualYear: number ) : HTMLElement {
         let result: HTMLElement = null!;
-        const currentYearText: string = bindingOptions.startMonth === 0 ? currentYear.toString() : `${currentYear} / ${currentYear + 1}`;
+        const currentYearText: string = bindingOptions.startMonth === 0 ? currentYear.toString() : `${currentYear} ${bindingOptions.yearsSeparator} ${currentYear + 1}`;
         const year: HTMLElement = DomElement.createWithHTML( years, "div", "year-menu-item", currentYearText );
 
         if ( bindingOptions._currentView!.activeYear !== currentYear ) {

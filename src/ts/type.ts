@@ -161,6 +161,7 @@ export type BindingOptions = {
     percentageDecimalPoints?: number;
     chartsAnimationDelay?: number;
     exportDateTimeFormat?: string;
+    yearsSeparator?: string;
     sideMenu?: BindingOptionsSideMenu;
     dynamicColorRange?: BindingOptionsDynamicColorRange;
     colorRanges?: BindingOptionsColorRange[];

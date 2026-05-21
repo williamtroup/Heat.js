@@ -123,6 +123,7 @@ export namespace Binding {
             bindingOptions.percentageDecimalPoints = Default.getNumber( bindingOptions.percentageDecimalPoints, 2 );
             bindingOptions.chartsAnimationDelay = Default.getNumber( bindingOptions.chartsAnimationDelay, 50 );
             bindingOptions.exportDateTimeFormat = Default.getString( bindingOptions.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}" );
+            bindingOptions.yearsSeparator = Default.getString( bindingOptions.yearsSeparator, "/" );
             bindingOptions.sideMenu = getSideMenu( bindingOptions );
             bindingOptions.title = getTitle( bindingOptions );
             bindingOptions.yearlyStatistics = getYearlyStatistics( bindingOptions );
