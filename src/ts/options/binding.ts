@@ -35,7 +35,7 @@ import {
     type BindingOptionsSideMenu,
     type ConfigurationOptions } from "../type";
 
-import { Char, ExportType, Value, ViewId, ViewName } from "../data/enum";
+import { Char, ExportType, Months, Value, ViewId, ViewName, VisibleDays, VisibleMonths } from "../data/enum";
 import { Default } from "../data/default";
 import { Is } from "../data/is";
 import { ColorRange } from "../area/color-range";
@@ -46,8 +46,30 @@ import { Css } from "../css";
 
 export namespace Binding {
     export namespace Options {
-        const _default_MonthsToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
-        const _default_DaysToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7 ];
+        const _default_MonthsToShow: number[] = [
+            VisibleMonths.january,
+            VisibleMonths.february,
+            VisibleMonths.march,
+            VisibleMonths.april,
+            VisibleMonths.may,
+            VisibleMonths.june,
+            VisibleMonths.july,
+            VisibleMonths.august,
+            VisibleMonths.september,
+            VisibleMonths.october,
+            VisibleMonths.november,
+            VisibleMonths.december,
+        ];
+
+        const _default_DaysToShow: number[] = [
+            VisibleDays.monday,
+            VisibleDays.tuesday,
+            VisibleDays.wednesday,
+            VisibleDays.thursday,
+            VisibleDays.friday,
+            VisibleDays.saturday,
+            VisibleDays.sunday,
+        ];
 
         export function getForNewInstance( configurationOptions: ConfigurationOptions, data: unknown, element: HTMLElement ) : BindingOptions {
             const bindingOptions: BindingOptions = get( data );
@@ -118,7 +140,7 @@ export namespace Binding {
             bindingOptions.showOnlyDataForYearsAvailable = Default.getBoolean( bindingOptions.showOnlyDataForYearsAvailable, false );
             bindingOptions.showHolidaysInDayToolTips = Default.getBoolean( bindingOptions.showHolidaysInDayToolTips, false );
             bindingOptions.resizable = Default.getBoolean( bindingOptions.resizable, false );
-            bindingOptions.startMonth = Default.getNumberInRange( bindingOptions.startMonth, 0, 11, 0 );
+            bindingOptions.startMonth = Default.getNumberInRange( bindingOptions.startMonth, Months.january, Months.december, Months.january );
             bindingOptions.allowMultipleFileImports = Default.getBoolean( bindingOptions.allowMultipleFileImports, true );
             bindingOptions.percentageDecimalPoints = Default.getNumber( bindingOptions.percentageDecimalPoints, 2 );
             bindingOptions.chartsAnimationDelay = Default.getNumber( bindingOptions.chartsAnimationDelay, 50 );
