@@ -414,6 +414,7 @@ export type BindingOptionsZooming = {
     showCloseButton?: boolean;
     showResetButton?: boolean;
     showToolTips?: boolean;
+    incrementDivision?: number;
 };
 
 export type BindingOptionsTooltip = {

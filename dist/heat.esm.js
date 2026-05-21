@@ -1281,6 +1281,7 @@ var g;
             e.zooming.showCloseButton = i.getBoolean(e.zooming.showCloseButton, true);
             e.zooming.showResetButton = i.getBoolean(e.zooming.showResetButton, false);
             e.zooming.showToolTips = i.getBoolean(e.zooming.showToolTips, true);
+            e.zooming.incrementDivision = i.getNumber(e.zooming.incrementDivision, 10);
             return e.zooming;
         }
         function _(e) {
@@ -2257,13 +2258,13 @@ var C;
         let r = a.getStyleValueByName(document.documentElement, d.Variables.LineWidth, true);
         let s = a.getStyleValueByName(document.documentElement, d.Variables.ChartWidth, true);
         if (e._currentView.zoomMapViewIncrement === -1) {
-            e._currentView.zoomMapViewIncrement = i / 10;
+            e._currentView.zoomMapViewIncrement = i / e.zooming.incrementDivision;
         }
         if (e._currentView.zoomLineViewIncrement === -1) {
-            e._currentView.zoomLineViewIncrement = r / 10;
+            e._currentView.zoomLineViewIncrement = r / e.zooming.incrementDivision;
         }
         if (e._currentView.zoomChartViewIncrement === -1) {
-            e._currentView.zoomChartViewIncrement = s / 10;
+            e._currentView.zoomChartViewIncrement = s / e.zooming.incrementDivision;
         }
         if (e.zooming.defaultLevel > 0 && e._currentView.zoomLevel === -1) {
             i += parseFloat((e.zooming.defaultLevel * e._currentView.zoomMapViewIncrement).toFixed(1));

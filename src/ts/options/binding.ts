@@ -407,6 +407,7 @@ export namespace Binding {
             bindingOptions.zooming!.showCloseButton = Default.getBoolean( bindingOptions.zooming!.showCloseButton, true );
             bindingOptions.zooming!.showResetButton = Default.getBoolean( bindingOptions.zooming!.showResetButton, false );
             bindingOptions.zooming!.showToolTips = Default.getBoolean( bindingOptions.zooming!.showToolTips, true );
+            bindingOptions.zooming!.incrementDivision = Default.getNumber( bindingOptions.zooming!.incrementDivision, 10 );
     
             return bindingOptions.zooming!;
         }

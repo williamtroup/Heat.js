@@ -93,15 +93,15 @@ export namespace Zooming {
         let chartWidth: number = DomElement.getStyleValueByName( document.documentElement, Css.Variables.ChartWidth, true ) as number;
 
         if ( bindingOptions._currentView!.zoomMapViewIncrement === Value.notFound ) {
-            bindingOptions._currentView!.zoomMapViewIncrement = daySize / 10;
+            bindingOptions._currentView!.zoomMapViewIncrement = daySize / bindingOptions.zooming!.incrementDivision!;
         }
 
         if ( bindingOptions._currentView!.zoomLineViewIncrement === Value.notFound ) {
-            bindingOptions._currentView!.zoomLineViewIncrement = lineWidth / 10;
+            bindingOptions._currentView!.zoomLineViewIncrement = lineWidth / bindingOptions.zooming!.incrementDivision!;
         }
 
         if ( bindingOptions._currentView!.zoomChartViewIncrement === Value.notFound ) {
-            bindingOptions._currentView!.zoomChartViewIncrement = chartWidth / 10;
+            bindingOptions._currentView!.zoomChartViewIncrement = chartWidth / bindingOptions.zooming!.incrementDivision!;
         }
 
         if ( bindingOptions.zooming!.defaultLevel! > 0 && bindingOptions._currentView!.zoomLevel! === Value.notFound ) {
