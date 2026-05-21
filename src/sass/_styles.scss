@@ -71,10 +71,10 @@ $minimum-width-smaller: 450px;
         }
 
         @if $apply-padding {
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-left: 9px;
-            padding-right: 9px;
+            padding-top: var(--heat-js-spacing-half);
+            padding-bottom: var(--heat-js-spacing-half);
+            padding-left: var(--heat-js-spacing);
+            padding-right: var(--heat-js-spacing);
         }
     }
 
