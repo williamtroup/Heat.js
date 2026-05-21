@@ -105,9 +105,9 @@ export namespace Zooming {
         }
 
         if ( bindingOptions.zooming!.defaultLevel! > 0 && bindingOptions._currentView!.zoomLevel! === Value.notFound ) {
-            daySize += parseFloat( ( bindingOptions.zooming!.defaultLevel! * bindingOptions._currentView!.zoomMapViewIncrement ).toFixed( 1 ) );
-            lineWidth += parseFloat( ( bindingOptions.zooming!.defaultLevel! * bindingOptions._currentView!.zoomLineViewIncrement ).toFixed( 1 ) );
-            chartWidth += parseFloat( ( bindingOptions.zooming!.defaultLevel! * bindingOptions._currentView!.zoomChartViewIncrement ).toFixed( 1 ) );
+            daySize += parseFloat( ( bindingOptions.zooming!.defaultLevel! * bindingOptions._currentView!.zoomMapViewIncrement ).toFixed( bindingOptions.zooming!.cssDecimalPoints! ) );
+            lineWidth += parseFloat( ( bindingOptions.zooming!.defaultLevel! * bindingOptions._currentView!.zoomLineViewIncrement ).toFixed( bindingOptions.zooming!.cssDecimalPoints! ) );
+            chartWidth += parseFloat( ( bindingOptions.zooming!.defaultLevel! * bindingOptions._currentView!.zoomChartViewIncrement ).toFixed( bindingOptions.zooming!.cssDecimalPoints! ) );
 
             bindingOptions._currentView!.zoomLevel = bindingOptions.zooming!.defaultLevel!;
             bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${daySizeSizingMetric}` );
@@ -140,13 +140,13 @@ export namespace Zooming {
             let chartWidth: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.ChartWidth, true ) as number;
 
             daySize -= bindingOptions._currentView!.zoomMapViewIncrement;
-            daySize = parseFloat( daySize.toFixed( 1 ) );
+            daySize = parseFloat( daySize.toFixed( bindingOptions.zooming!.cssDecimalPoints! ) );
 
             lineWidth -= bindingOptions._currentView!.zoomLineViewIncrement;
-            lineWidth = parseFloat( lineWidth.toFixed( 1 ) );
+            lineWidth = parseFloat( lineWidth.toFixed( bindingOptions.zooming!.cssDecimalPoints! ) );
 
             chartWidth -= bindingOptions._currentView!.zoomChartViewIncrement;
-            chartWidth = parseFloat( chartWidth.toFixed( 1 ) );
+            chartWidth = parseFloat( chartWidth.toFixed( bindingOptions.zooming!.cssDecimalPoints! ) );
 
             bindingOptions._currentView!.zoomLevel--;
             bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${daySizeSizingMetric}` );
@@ -169,13 +169,13 @@ export namespace Zooming {
             let chartWidth: number = DomElement.getStyleValueByName( bindingOptions._currentView!.element, Css.Variables.ChartWidth, true ) as number;
 
             daySize += bindingOptions._currentView!.zoomMapViewIncrement;
-            daySize = parseFloat( daySize.toFixed( 1 ) );
+            daySize = parseFloat( daySize.toFixed( bindingOptions.zooming!.cssDecimalPoints! ) );
 
             lineWidth += bindingOptions._currentView!.zoomLineViewIncrement;
-            lineWidth = parseFloat( lineWidth.toFixed( 1 ) );
+            lineWidth = parseFloat( lineWidth.toFixed( bindingOptions.zooming!.cssDecimalPoints! ) );
 
             chartWidth += bindingOptions._currentView!.zoomChartViewIncrement;
-            chartWidth = parseFloat( chartWidth.toFixed( 1 ) );
+            chartWidth = parseFloat( chartWidth.toFixed( bindingOptions.zooming!.cssDecimalPoints! ) );
 
             bindingOptions._currentView!.zoomLevel++;
             bindingOptions._currentView!.element.style.setProperty( Css.Variables.DaySize, `${daySize}${daySizeSizingMetric}` );

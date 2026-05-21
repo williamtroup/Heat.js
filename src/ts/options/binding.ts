@@ -408,6 +408,7 @@ export namespace Binding {
             bindingOptions.zooming!.showResetButton = Default.getBoolean( bindingOptions.zooming!.showResetButton, false );
             bindingOptions.zooming!.showToolTips = Default.getBoolean( bindingOptions.zooming!.showToolTips, true );
             bindingOptions.zooming!.incrementDivision = Default.getNumber( bindingOptions.zooming!.incrementDivision, 10 );
+            bindingOptions.zooming!.cssDecimalPoints = Default.getNumber( bindingOptions.zooming!.cssDecimalPoints, 2 );
     
             return bindingOptions.zooming!;
         }
