@@ -5253,7 +5253,7 @@ var x;
             }
             return e;
         },
-        getVersion: () => "5.1.1"
+        getVersion: () => "5.2.0"
     };
     (() => {
         D = h.Options.get();
