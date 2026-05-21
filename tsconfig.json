@@ -6,6 +6,7 @@
     "moduleResolution": "classic",
     "declaration": true,
     "outDir": "./build",
+    "rootDir": "./src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
