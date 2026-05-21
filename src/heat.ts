@@ -24,8 +24,19 @@ import {
     type LargestValueForView, 
     type LargestValuesForEachRangeType } from "./ts/type";
 
+
+import {
+    ExportType,
+    Char,
+    Value,
+    ViewId,
+    KeyCode,
+    ImportType,
+    ViewName,
+    Months,
+    VisibleMonths } from "./ts/data/enum";
+
 import { type PublicApi } from "./ts/api";
-import { ExportType, Char, Value, ViewId, KeyCode, ImportType, ViewName } from "./ts/data/enum";
 import { Constant } from "./ts/constant";
 import { Is } from "./ts/data/is";
 import { Default } from "./ts/data/default";
@@ -288,11 +299,11 @@ import { Chart } from "./ts/area/chart";
             let monthContainer: HTMLElement = months1Container;
             let monthContainerIndex: number = 0;
 
-            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( VisibleMonths.december + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
 
-                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
-                    actualMonthIndex = monthIndex - 12;
+                if ( bindingOptions.startMonth! > Months.january && monthIndex > Months.december ) {
+                    actualMonthIndex = monthIndex - VisibleMonths.december;
                 }
 
                 bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ actualMonthIndex ] = DomElement.createCheckBox( monthContainer, _configurationOptions.text!.monthNames![ actualMonthIndex ], actualMonthIndex.toString() );
@@ -535,12 +546,12 @@ import { Chart } from "./ts/area/chart";
             const daysToShow: number[] = Visible.Days.get( bindingOptions );
             const monthsToShow: number[] = Visible.Months.get( bindingOptions );
 
-            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( VisibleMonths.december + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
                 let actualYear: number = currentYear;
 
-                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
-                    actualMonthIndex = monthIndex - 12;
+                if ( bindingOptions.startMonth! > Months.january && monthIndex > Months.december ) {
+                    actualMonthIndex = monthIndex - VisibleMonths.december;
                     actualYear++;
                 }
 
@@ -1079,7 +1090,7 @@ import { Chart } from "./ts/area/chart";
     function renderTitleBarYearText( bindingOptions: BindingOptions, titleBar: HTMLElement ) : void {
         let yearText: string = bindingOptions._currentView!.activeYear.toString();
 
-        if ( bindingOptions.startMonth! > 0 ) {
+        if ( bindingOptions.startMonth! > Months.january ) {
             yearText = `${yearText} ${bindingOptions.yearsSeparator} ${bindingOptions._currentView!.activeYear + 1}`;
         }
 
@@ -1417,14 +1428,14 @@ import { Chart } from "./ts/area/chart";
     
             const months: HTMLElement = DomElement.create( map, "div", "months" );
             const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
-            const maximumMonths: number = ( 12 + bindingOptions.startMonth! );
+            const maximumMonths: number = VisibleMonths.december + bindingOptions.startMonth!;
     
             for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < maximumMonths; monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
                 let actualYear: number = currentYear;
 
-                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
-                    actualMonthIndex = monthIndex - 12;
+                if ( bindingOptions.startMonth! > Months.january && monthIndex > Months.december ) {
+                    actualMonthIndex = monthIndex - VisibleMonths.december;
                     actualYear++;
                 }
 
@@ -1502,7 +1513,7 @@ import { Chart } from "./ts/area/chart";
 
                         let monthNameText: string = _configurationOptions.text!.monthNames![ actualMonthIndex ];
 
-                        if ( bindingOptions.startMonth! > 0 && bindingOptions.views!.map!.showYearsInMonthNames ) {
+                        if ( bindingOptions.startMonth! > Months.january && bindingOptions.views!.map!.showYearsInMonthNames ) {
                             if ( bindingOptions.views!.map!.showShortYearsInMonthNames ) {
                                 monthNameText = `${monthNameText} ${actualYear.toString().substring( 2 )}`;
                             } else {
@@ -1673,7 +1684,7 @@ import { Chart } from "./ts/area/chart";
                     result = true;
                     break;
                     
-                } else if ( bindingOptions.startMonth! > 0 && DateTime.getStorageDateYear( storageDate ) === checkNextYear ) {
+                } else if ( bindingOptions.startMonth! > Months.january && DateTime.getStorageDateYear( storageDate ) === checkNextYear ) {
                     result = true;
                     break;
                 }
@@ -1718,12 +1729,12 @@ import { Chart } from "./ts/area/chart";
             const colorRanges: BindingOptionsColorRange[] = ColorRange.getAllSorted( bindingOptions );
             let firstMonthDayLines: HTMLElement[] = [];
 
-            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( VisibleMonths.december + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
                 let actualYear: number = currentYear;
 
-                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
-                    actualMonthIndex = monthIndex - 12;
+                if ( bindingOptions.startMonth! > Months.january && monthIndex > Months.december ) {
+                    actualMonthIndex = monthIndex - VisibleMonths.december;
                     actualYear++;
                 }
 
@@ -1767,7 +1778,7 @@ import { Chart } from "./ts/area/chart";
                     let actualMonthIndex: number = addMonthNameIndex + bindingOptions.startMonth!;
                     let actualYear: number = currentYear;
 
-                    if ( bindingOptions.startMonth! > 0 && actualMonthIndex > 11 ) {
+                    if ( bindingOptions.startMonth! > Months.january && actualMonthIndex > 11 ) {
                         actualMonthIndex -= 12;
                         actualYear++;
                     }
@@ -1776,7 +1787,7 @@ import { Chart } from "./ts/area/chart";
                         const date: Date = new Date( currentYear, actualMonthIndex, 1 );
                         let monthNameText: string = _configurationOptions.text!.monthNames![ actualMonthIndex ];
 
-                        if ( bindingOptions.startMonth! > 0 && bindingOptions.views!.line!.showYearsInMonthNames ) {
+                        if ( bindingOptions.startMonth! > Months.january && bindingOptions.views!.line!.showYearsInMonthNames ) {
                             if ( bindingOptions.views!.line!.showShortYearsInMonthNames ) {
                                 monthNameText = `${monthNameText} ${actualYear.toString().substring( 2 )}`;
                             } else {
@@ -1916,12 +1927,12 @@ import { Chart } from "./ts/area/chart";
             let firstMonthDayLines: HTMLElement[] = [];
             let firstMonthAdded: boolean = false;
 
-            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( VisibleMonths.december + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
                 let actualYear: number = currentYear;
 
-                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
-                    actualMonthIndex = monthIndex - 12;
+                if ( bindingOptions.startMonth! > Months.january && monthIndex > Months.december ) {
+                    actualMonthIndex = monthIndex - VisibleMonths.december;
                     actualYear++;
                 }
 
@@ -1979,7 +1990,7 @@ import { Chart } from "./ts/area/chart";
                     let actualMonthIndex: number = addMonthNameIndex + bindingOptions.startMonth!;
                     let actualYear: number = currentYear;
 
-                    if ( bindingOptions.startMonth! > 0 && actualMonthIndex > 11 ) {
+                    if ( bindingOptions.startMonth! > Months.january && actualMonthIndex > 11 ) {
                         actualMonthIndex -= 12;
                         actualYear++;
                     }
@@ -1988,7 +1999,7 @@ import { Chart } from "./ts/area/chart";
                         const date: Date = new Date( currentYear, actualMonthIndex, 1 );
                         let monthNameText: string = _configurationOptions.text!.monthNames![ actualMonthIndex ];
 
-                        if ( bindingOptions.startMonth! > 0 && bindingOptions.views!.chart!.showYearsInMonthNames ) {
+                        if ( bindingOptions.startMonth! > Months.january && bindingOptions.views!.chart!.showYearsInMonthNames ) {
                             if ( bindingOptions.views!.chart!.showShortYearsInMonthNames ) {
                                 monthNameText = `${monthNameText} ${actualYear.toString().substring( 2 )}`;
                             } else {
@@ -2358,12 +2369,12 @@ import { Chart } from "./ts/area/chart";
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
         const currentYear: number = bindingOptions._currentView!.activeYear;
 
-        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( VisibleMonths.december + bindingOptions.startMonth! ); monthIndex++ ) {
             let actualMonthIndex: number = monthIndex;
             let actualYear: number = currentYear;
 
-            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
-                actualMonthIndex = monthIndex - 12;
+            if ( bindingOptions.startMonth! > Months.january && monthIndex > Months.december ) {
+                actualMonthIndex = monthIndex - VisibleMonths.december;
                 actualYear++;
             }
 
@@ -2450,11 +2461,11 @@ import { Chart } from "./ts/area/chart";
             const pixelsPerNumbers: number = ( monthLines.offsetHeight - borderBottomWidth ) / monthValuesForCurrentYear.largestValue;
             const currentYear: number = bindingOptions._currentView!.activeYear;
 
-            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+            for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( VisibleMonths.december + bindingOptions.startMonth! ); monthIndex++ ) {
                 let actualMonthIndex: number = monthIndex;
 
-                if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
-                    actualMonthIndex = monthIndex - 12;
+                if ( bindingOptions.startMonth! > Months.january && monthIndex > Months.december ) {
+                    actualMonthIndex = monthIndex - VisibleMonths.december;
                 }
 
                 const monthToShow: number = actualMonthIndex + 1;
@@ -2544,7 +2555,7 @@ import { Chart } from "./ts/area/chart";
 
             let currentYear: number = bindingOptions._currentView!.activeYear;
 
-            if ( bindingOptions.startMonth! > 0 && monthNumber - 1 < bindingOptions.startMonth! ) {
+            if ( bindingOptions.startMonth! > Months.january && monthNumber - 1 < bindingOptions.startMonth! ) {
                 currentYear++;
             }
 
@@ -2617,12 +2628,12 @@ import { Chart } from "./ts/area/chart";
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
         const currentYear: number = bindingOptions._currentView!.activeYear;
 
-        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( VisibleMonths.december + bindingOptions.startMonth! ); monthIndex++ ) {
             let actualMonthIndex: number = monthIndex;
             let actualYear: number = currentYear;
 
-            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
-                actualMonthIndex = monthIndex - 12;
+            if ( bindingOptions.startMonth! > Months.january && monthIndex > Months.december ) {
+                actualMonthIndex = monthIndex - VisibleMonths.december;
                 actualYear++;
             }
 
@@ -2821,12 +2832,12 @@ import { Chart } from "./ts/area/chart";
             result.types[ colorRanges[ colorRangesIndex ].minimum!.toString() ] = 0;
         }
 
-        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( VisibleMonths.december + bindingOptions.startMonth! ); monthIndex++ ) {
             let actualMonthIndex: number = monthIndex;
             let actualYear: number = currentYear;
 
-            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
-                actualMonthIndex = monthIndex - 12;
+            if ( bindingOptions.startMonth! > Months.january && monthIndex > Months.december ) {
+                actualMonthIndex = monthIndex - VisibleMonths.december;
                 actualYear++;
             }
 
@@ -3162,12 +3173,12 @@ import { Chart } from "./ts/area/chart";
         const currentYear: number = bindingOptions._currentView!.activeYear;
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
 
-        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( VisibleMonths.december + bindingOptions.startMonth! ); monthIndex++ ) {
             let actualMonthIndex: number = monthIndex;
             let actualYear: number = currentYear;
 
-            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
-                actualMonthIndex = monthIndex - 12;
+            if ( bindingOptions.startMonth! > Months.january && monthIndex > Months.december ) {
+                actualMonthIndex = monthIndex - VisibleMonths.december;
                 actualYear++;
             }
 
@@ -3205,12 +3216,12 @@ import { Chart } from "./ts/area/chart";
         const typeDateCounts: InstanceTypeDateCount = getCurrentViewData( bindingOptions );
         const currentYear: number = bindingOptions._currentView!.activeYear;
 
-        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( 12 + bindingOptions.startMonth! ); monthIndex++ ) {
+        for ( let monthIndex: number = bindingOptions.startMonth!; monthIndex < ( VisibleMonths.december + bindingOptions.startMonth! ); monthIndex++ ) {
             let actualMonthIndex: number = monthIndex;
             let actualYear: number = currentYear;
 
-            if ( bindingOptions.startMonth! > 0 && monthIndex > 11 ) {
-                actualMonthIndex = monthIndex - 12;
+            if ( bindingOptions.startMonth! > Months.january && monthIndex > Months.december ) {
+                actualMonthIndex = monthIndex - VisibleMonths.december;
                 actualYear++;
             }
 

@@ -173,7 +173,7 @@ export namespace Binding {
             bindingOptions.holidays = getHolidays( bindingOptions );
             bindingOptions.events = getCustomTriggers( bindingOptions );
 
-            if ( bindingOptions.startMonth > 0 ) {
+            if ( bindingOptions.startMonth > Months.january ) {
                 bindingOptions.yearsToHide = [];
             }
             
