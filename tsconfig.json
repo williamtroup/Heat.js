@@ -3,7 +3,6 @@
     "ignoreDeprecations": "6.0",
     "target": "ES2022",
     "module": "ESNext",
-    "moduleResolution": "classic",
     "declaration": true,
     "outDir": "./build",
     "rootDir": "./src",
