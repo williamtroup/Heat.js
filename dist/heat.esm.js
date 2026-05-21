@@ -2586,7 +2586,7 @@ var x;
             o.onclick = () => R(e);
             w.onclick = () => E(e);
             g.onclick = () => $(e);
-            for (let t = 0; t < 7; t++) {
+            for (let t = 0; t < 6 + 1; t++) {
                 e._currentView.configurationDialogDayCheckBoxes[t] = a.createCheckBox(r, D.text.dayNames[t], t.toString());
             }
             let h = l;
@@ -2613,10 +2613,10 @@ var x;
         }
         const t = m.Days.get(e);
         const n = m.Months.get(e);
-        for (let n = 0; n < 7; n++) {
+        for (let n = 0; n < 6 + 1; n++) {
             e._currentView.configurationDialogDayCheckBoxes[n].checked = o.dayVisible(t, n + 1);
         }
-        for (let t = 0; t < 12; t++) {
+        for (let t = 0; t < 11 + 1; t++) {
             e._currentView.configurationDialogMonthCheckBoxes[t].checked = o.monthVisible(n, t);
         }
         c.hide(e);
@@ -2640,12 +2640,12 @@ var x;
         const i = [];
         const r = [];
         let s = false;
-        for (let t = 0; t < 7; t++) {
+        for (let t = 0; t < 6 + 1; t++) {
             if (e._currentView.configurationDialogDayCheckBoxes[t].checked) {
                 i.push(t + 1);
             }
         }
-        for (let t = 0; t < 12; t++) {
+        for (let t = 0; t < 11 + 1; t++) {
             if (e._currentView.configurationDialogMonthCheckBoxes[t].checked) {
                 r.push(t + 1);
             }
@@ -2666,10 +2666,10 @@ var x;
         }
     }
     function E(e) {
-        for (let t = 0; t < 7; t++) {
+        for (let t = 0; t < 6 + 1; t++) {
             e._currentView.configurationDialogDayCheckBoxes[t].checked = true;
         }
-        for (let t = 0; t < 12; t++) {
+        for (let t = 0; t < 11 + 1; t++) {
             e._currentView.configurationDialogMonthCheckBoxes[t].checked = true;
         }
     }
@@ -3375,7 +3375,7 @@ var x;
                 if (!e.views.map.showMonthNames || e.views.map.placeMonthNamesOnTheBottom) {
                     t.className = "days-months-bottom";
                 }
-                for (let i = 0; i < 7; i++) {
+                for (let i = 0; i < 6 + 1; i++) {
                     if (o.dayVisible(e.views.map.daysToShow, i + 1)) {
                         const o = !n || i % 3 === 0 ? D.text.dayNames[i] : " ";
                         const r = a.createWithHTML(t, "div", "day-name", o);
@@ -3500,7 +3500,7 @@ var x;
     function ye(e, t, n, i, r, s) {
         const l = 7 - i.children.length;
         const c = new Date(e._currentView.activeYear, r + 1, 1);
-        if (l > 0 && l < 7) {
+        if (l > 0 && l < 6) {
             for (let r = 0; r < l; r++) {
                 if (o.dayVisible(e.views.map.daysToShow, n)) {
                     let n;
@@ -3692,11 +3692,11 @@ var x;
                     }
                 };
                 if (e.views.line.showInReverseOrder) {
-                    for (let e = 12; e--; ) {
+                    for (let e = 11 + 1; e--; ) {
                         r(e);
                     }
                 } else {
-                    for (let e = 0; e < 12; e++) {
+                    for (let e = 0; e < 11 + 1; e++) {
                         r(e);
                     }
                 }
@@ -3852,11 +3852,11 @@ var x;
                     }
                 };
                 if (e.views.chart.showInReverseOrder) {
-                    for (let e = 12; e--; ) {
+                    for (let e = 11 + 1; e--; ) {
                         i(e);
                     }
                 } else {
-                    for (let e = 0; e < 12; e++) {
+                    for (let e = 0; e < 11 + 1; e++) {
                         i(e);
                     }
                 }

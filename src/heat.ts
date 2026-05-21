@@ -34,7 +34,8 @@ import {
     ImportType,
     ViewName,
     Months,
-    VisibleMonths } from "./ts/data/enum";
+    VisibleMonths, 
+    Days} from "./ts/data/enum";
 
 import { type PublicApi } from "./ts/api";
 import { Constant } from "./ts/constant";
@@ -292,7 +293,7 @@ import { Chart } from "./ts/area/chart";
             resetButton.onclick = () : void => resetConfigurationDialogCheckBoxes( bindingOptions );
             saveButton.onclick = () : void => saveConfigurationDialogChanges( bindingOptions );
 
-            for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
+            for ( let dayIndex: number = Days.monday; dayIndex < Days.sunday + 1; dayIndex++ ) {
                 bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ] = DomElement.createCheckBox( daysContainer, _configurationOptions.text!.dayNames![ dayIndex ], dayIndex.toString() );
             }
 
@@ -330,11 +331,11 @@ import { Chart } from "./ts/area/chart";
         const daysToShow: number[] = Visible.Days.get( bindingOptions );
         const monthsToShow: number[] = Visible.Months.get( bindingOptions );
 
-        for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
+        for ( let dayIndex: number = Days.monday; dayIndex < Days.sunday + 1; dayIndex++ ) {
             bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ].checked = Is.dayVisible( daysToShow, dayIndex + 1 );
         }
 
-        for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
+        for ( let monthIndex: number = Months.january; monthIndex < Months.december + 1; monthIndex++ ) {
             bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ monthIndex ].checked = Is.monthVisible( monthsToShow, monthIndex );
         }
 
@@ -366,13 +367,13 @@ import { Chart } from "./ts/area/chart";
         const updatedMonthsToShow: number[] = [];
         let render: boolean = false;
 
-        for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
+        for ( let dayIndex: number = Days.monday; dayIndex < Days.sunday + 1; dayIndex++ ) {
             if ( bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ].checked ) {
                 updatedDaysToShow.push( dayIndex + 1 );
             }
         }
 
-        for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
+        for ( let monthIndex: number = Months.january; monthIndex < Months.december + 1; monthIndex++ ) {
             if ( bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ monthIndex ].checked ) {
                 updatedMonthsToShow.push( monthIndex + 1 );
             }
@@ -398,11 +399,11 @@ import { Chart } from "./ts/area/chart";
     }
 
     function resetConfigurationDialogCheckBoxes( bindingOptions: BindingOptions ) : void {
-        for ( let dayIndex: number = 0; dayIndex < 7; dayIndex++ ) {
+        for ( let dayIndex: number = Days.monday; dayIndex < Days.sunday + 1; dayIndex++ ) {
             bindingOptions._currentView!.configurationDialogDayCheckBoxes[ dayIndex ].checked = true;
         }
 
-        for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
+        for ( let monthIndex: number = Months.january; monthIndex < Months.december + 1; monthIndex++ ) {
             bindingOptions._currentView!.configurationDialogMonthCheckBoxes[ monthIndex ].checked = true;
         }
     }
@@ -1406,7 +1407,7 @@ import { Chart } from "./ts/area/chart";
                     days.className = "days-months-bottom";
                 }
         
-                for ( let dayNameIndex: number = 0; dayNameIndex < 7; dayNameIndex++ ) {
+                for ( let dayNameIndex: number = Days.monday; dayNameIndex < Days.sunday + 1; dayNameIndex++ ) {
                     if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, dayNameIndex + 1 ) ) {
                         const dayNameText: string = !showMinimalDays || dayNameIndex % 3 === 0 ? _configurationOptions.text!.dayNames![ dayNameIndex ] : Char.space;
                         const dayName: HTMLElement = DomElement.createWithHTML( days, "div", "day-name", dayNameText );
@@ -1568,8 +1569,8 @@ import { Chart } from "./ts/area/chart";
         const remainingDays: number = 7 - currentDayColumn.children.length;
         const date: Date = new Date( bindingOptions._currentView!.activeYear, monthIndex + 1, 1 );
 
-        if ( remainingDays > 0 && remainingDays < 7 ) {
-            for ( let dayIndex: number = 0; dayIndex < remainingDays; dayIndex++ ) {
+        if ( remainingDays > 0 && remainingDays < Days.sunday ) {
+            for ( let dayIndex: number = Days.monday; dayIndex < remainingDays; dayIndex++ ) {
                 if ( Is.dayVisible( bindingOptions.views!.map!.daysToShow!, actualDay ) ) {
                     let day: HTMLElement;
 
@@ -1820,12 +1821,12 @@ import { Chart } from "./ts/area/chart";
                 };
 
                 if ( bindingOptions.views!.line!.showInReverseOrder ) {
-                    for ( let monthIndex: number = 12; monthIndex--; ) {
+                    for ( let monthIndex: number = Months.december + 1; monthIndex--; ) {
                         addMonthName( monthIndex );
                     }
                     
                 } else {
-                    for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
+                    for ( let monthIndex: number = Months.january; monthIndex < Months.december + 1; monthIndex++ ) {
                         addMonthName( monthIndex );
                     }
                 }
@@ -2032,12 +2033,12 @@ import { Chart } from "./ts/area/chart";
                 };
 
                 if ( bindingOptions.views!.chart!.showInReverseOrder ) {
-                    for ( let monthIndex: number = 12; monthIndex--; ) {
+                    for ( let monthIndex: number = Months.december + 1; monthIndex--; ) {
                         addMonthName( monthIndex );
                     }
                     
                 } else {
-                    for ( let monthIndex: number = 0; monthIndex < 12; monthIndex++ ) {
+                    for ( let monthIndex: number = 0; monthIndex < Months.december + 1; monthIndex++ ) {
                         addMonthName( monthIndex );
                     }
                 }

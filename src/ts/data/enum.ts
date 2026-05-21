@@ -104,6 +104,16 @@ export enum VisibleMonths {
     december = 12,
 }
 
+export enum Days {
+    monday = 0,
+    tuesday = 1,
+    wednesday = 2,
+    thursday = 3,
+    friday = 4,
+    saturday = 5,
+    sunday = 6,
+}
+
 export enum Months {
     january = 0,
     february = 1,
