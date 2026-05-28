@@ -1383,6 +1383,9 @@ div.heat-js div.map-contents-container div.zooming button {
   width: var(--heat-js-button-icon-width) !important;
   height: var(--heat-js-button-height) !important;
 }
+div.heat-js div.map-contents-container div.zooming button:disabled {
+  transition: none !important;
+}
 div.heat-js div.map-contents-container div.zooming div.zoom-close-button {
   float: unset;
   width: 12px;
@@ -1728,6 +1731,9 @@ div.heat-js div.line-contents-container div.zooming button {
   width: var(--heat-js-button-icon-width) !important;
   height: var(--heat-js-button-height) !important;
 }
+div.heat-js div.line-contents-container div.zooming button:disabled {
+  transition: none !important;
+}
 div.heat-js div.line-contents-container div.zooming div.zoom-close-button {
   float: unset;
   width: 12px;
@@ -2002,6 +2008,9 @@ div.heat-js div.chart-contents-container div.zooming button {
   margin-right: 0;
   width: var(--heat-js-button-icon-width) !important;
   height: var(--heat-js-button-height) !important;
+}
+div.heat-js div.chart-contents-container div.zooming button:disabled {
+  transition: none !important;
 }
 div.heat-js div.chart-contents-container div.zooming div.zoom-close-button {
   float: unset;

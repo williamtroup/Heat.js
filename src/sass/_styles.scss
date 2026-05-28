@@ -289,6 +289,10 @@ $minimum-width-smaller: 450px;
             font-weight: var(--heat-js-title-bold-weight);
             margin-right: 0;
             @include icon-button-size;
+
+            &:disabled {
+                transition: none !important;
+            }
         }
 
         div.zoom-close-button {
