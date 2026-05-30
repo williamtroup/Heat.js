@@ -67,14 +67,14 @@ $minimum-width-smaller: 450px;
         }
 
         &.default {
-            font-weight: 700;
+            font-weight: var(--heat-js-text-font-weight-heavy);
         }
 
         @if $apply-padding {
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-left: 9px;
-            padding-right: 9px;
+            padding-top: var(--heat-js-spacing-half);
+            padding-bottom: var(--heat-js-spacing-half);
+            padding-left: var(--heat-js-spacing);
+            padding-right: var(--heat-js-spacing);
         }
     }
 
@@ -83,7 +83,7 @@ $minimum-width-smaller: 450px;
         background: var(--heat-js-button-background-color-hover);
         color: var(--heat-js-button-text-color-hover);
         transition: var(--heat-js-transition);
-        font-weight: var(--heat-js-text-font-weight-medium);
+        font-weight: var(--heat-js-text-font-weight-heavy);
     }
 }
 
@@ -289,6 +289,10 @@ $minimum-width-smaller: 450px;
             font-weight: var(--heat-js-title-bold-weight);
             margin-right: 0;
             @include icon-button-size;
+
+            &:disabled {
+                transition: none !important;
+            }
         }
 
         div.zoom-close-button {

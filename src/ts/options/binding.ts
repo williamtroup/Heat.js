@@ -4,7 +4,7 @@
  * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        binding.ts
- * @version     v5.1.0
+ * @version     v5.2.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2026
@@ -35,7 +35,16 @@ import {
     type BindingOptionsSideMenu,
     type ConfigurationOptions } from "../type";
 
-import { Char, ExportType, Value, ViewId, ViewName } from "../data/enum";
+import {
+    Char,
+    ExportType,
+    Months,
+    Value,
+    ViewId,
+    ViewName,
+    VisibleDays,
+    VisibleMonths } from "../data/enum";
+    
 import { Default } from "../data/default";
 import { Is } from "../data/is";
 import { ColorRange } from "../area/color-range";
@@ -46,8 +55,30 @@ import { Css } from "../css";
 
 export namespace Binding {
     export namespace Options {
-        const _default_MonthsToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
-        const _default_DaysToShow: number[] = [ 1, 2, 3, 4, 5, 6, 7 ];
+        const _default_MonthsToShow: number[] = [
+            VisibleMonths.january,
+            VisibleMonths.february,
+            VisibleMonths.march,
+            VisibleMonths.april,
+            VisibleMonths.may,
+            VisibleMonths.june,
+            VisibleMonths.july,
+            VisibleMonths.august,
+            VisibleMonths.september,
+            VisibleMonths.october,
+            VisibleMonths.november,
+            VisibleMonths.december,
+        ];
+
+        const _default_DaysToShow: number[] = [
+            VisibleDays.monday,
+            VisibleDays.tuesday,
+            VisibleDays.wednesday,
+            VisibleDays.thursday,
+            VisibleDays.friday,
+            VisibleDays.saturday,
+            VisibleDays.sunday,
+        ];
 
         export function getForNewInstance( configurationOptions: ConfigurationOptions, data: unknown, element: HTMLElement ) : BindingOptions {
             const bindingOptions: BindingOptions = get( data );
@@ -66,6 +97,7 @@ export namespace Binding {
             bindingOptions._currentView.zoomLevel = Value.notFound;
             bindingOptions._currentView.zoomMapViewIncrement = Value.notFound;
             bindingOptions._currentView.zoomLineViewIncrement = Value.notFound;
+            bindingOptions._currentView.zoomChartViewIncrement = Value.notFound;
             bindingOptions._currentView.yearTextWidth = 0;
             bindingOptions._currentView.viewsEnabled = 0;
 
@@ -117,11 +149,12 @@ export namespace Binding {
             bindingOptions.showOnlyDataForYearsAvailable = Default.getBoolean( bindingOptions.showOnlyDataForYearsAvailable, false );
             bindingOptions.showHolidaysInDayToolTips = Default.getBoolean( bindingOptions.showHolidaysInDayToolTips, false );
             bindingOptions.resizable = Default.getBoolean( bindingOptions.resizable, false );
-            bindingOptions.startMonth = Default.getNumberInRange( bindingOptions.startMonth, 0, 11, 0 );
+            bindingOptions.startMonth = Default.getNumberInRange( bindingOptions.startMonth, Months.january, Months.december, Months.january );
             bindingOptions.allowMultipleFileImports = Default.getBoolean( bindingOptions.allowMultipleFileImports, true );
             bindingOptions.percentageDecimalPoints = Default.getNumber( bindingOptions.percentageDecimalPoints, 2 );
             bindingOptions.chartsAnimationDelay = Default.getNumber( bindingOptions.chartsAnimationDelay, 50 );
             bindingOptions.exportDateTimeFormat = Default.getString( bindingOptions.exportDateTimeFormat, "{dddd}, {d}{o} {mmmm} {yyyy}" );
+            bindingOptions.yearsSeparator = Default.getString( bindingOptions.yearsSeparator, "/" );
             bindingOptions.sideMenu = getSideMenu( bindingOptions );
             bindingOptions.title = getTitle( bindingOptions );
             bindingOptions.yearlyStatistics = getYearlyStatistics( bindingOptions );
@@ -140,7 +173,7 @@ export namespace Binding {
             bindingOptions.holidays = getHolidays( bindingOptions );
             bindingOptions.events = getCustomTriggers( bindingOptions );
 
-            if ( bindingOptions.startMonth > 0 ) {
+            if ( bindingOptions.startMonth > Months.january ) {
                 bindingOptions.yearsToHide = [];
             }
             
@@ -206,6 +239,7 @@ export namespace Binding {
             bindingOptions.views!.map!.highlightCurrentDay = Default.getBoolean( bindingOptions.views!.map!.highlightCurrentDay, false );
             bindingOptions.views!.map!.dayToolTipText = Default.getString( bindingOptions.views!.map!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.views!.map!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.map!.showYearsInMonthNames, true );
+            bindingOptions.views!.map!.showShortYearsInMonthNames = Default.getBoolean( bindingOptions.views!.map!.showShortYearsInMonthNames, false );
             bindingOptions.views!.map!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.map!.showCountsInToolTips, true );
             bindingOptions.views!.map!.showSpacing = Default.getBoolean( bindingOptions.views!.map!.showSpacing, true );
             bindingOptions.views!.map!.showDifferences = Default.getBoolean( bindingOptions.views!.map!.showDifferences, false );
@@ -224,6 +258,7 @@ export namespace Binding {
             bindingOptions.views!.line!.showInReverseOrder = Default.getBoolean( bindingOptions.views!.line!.showInReverseOrder, false );
             bindingOptions.views!.line!.keepScrollPositions = Default.getBoolean( bindingOptions.views!.line!.keepScrollPositions, false );
             bindingOptions.views!.line!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.line!.showYearsInMonthNames, true );
+            bindingOptions.views!.line!.showShortYearsInMonthNames = Default.getBoolean( bindingOptions.views!.line!.showShortYearsInMonthNames, false );
             bindingOptions.views!.line!.showToolTips = Default.getBoolean( bindingOptions.views!.line!.showToolTips, true );
             bindingOptions.views!.line!.dayToolTipText = Default.getString( bindingOptions.views!.line!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.views!.line!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.line!.showCountsInToolTips, true );
@@ -248,6 +283,7 @@ export namespace Binding {
             bindingOptions.views!.chart!.highlightCurrentDay = Default.getBoolean( bindingOptions.views!.chart!.highlightCurrentDay, false );
             bindingOptions.views!.chart!.dayToolTipText = Default.getString( bindingOptions.views!.chart!.dayToolTipText, "{dddd}, {d}{o} {mmmm} {yyyy}" );
             bindingOptions.views!.chart!.showYearsInMonthNames = Default.getBoolean( bindingOptions.views!.chart!.showYearsInMonthNames, true );
+            bindingOptions.views!.chart!.showShortYearsInMonthNames = Default.getBoolean( bindingOptions.views!.chart!.showShortYearsInMonthNames, false );
             bindingOptions.views!.chart!.showCountsInToolTips = Default.getBoolean( bindingOptions.views!.chart!.showCountsInToolTips, true );
             bindingOptions.views!.chart!.addMonthSpacing = Default.getBoolean( bindingOptions.views!.chart!.addMonthSpacing, false );
             bindingOptions.views!.chart!.showDifferences = Default.getBoolean( bindingOptions.views!.chart!.showDifferences, false );
@@ -371,6 +407,8 @@ export namespace Binding {
             bindingOptions.zooming!.showCloseButton = Default.getBoolean( bindingOptions.zooming!.showCloseButton, true );
             bindingOptions.zooming!.showResetButton = Default.getBoolean( bindingOptions.zooming!.showResetButton, false );
             bindingOptions.zooming!.showToolTips = Default.getBoolean( bindingOptions.zooming!.showToolTips, true );
+            bindingOptions.zooming!.incrementDivision = Default.getNumber( bindingOptions.zooming!.incrementDivision, 10 );
+            bindingOptions.zooming!.cssDecimalPoints = Default.getNumber( bindingOptions.zooming!.cssDecimalPoints, 2 );
     
             return bindingOptions.zooming!;
         }

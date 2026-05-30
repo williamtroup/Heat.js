@@ -1,4 +1,4 @@
-/*! Heat.js v5.1.0 - Urdu | (c) Bunoon 2026 | MIT License */
+/*! Heat.js v5.2.0 - Urdu | (c) Bunoon 2026 | MIT License */
 $heat.setLocale( {
     "stText": "",
     "ndText": "",

@@ -4,7 +4,7 @@
  * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        type.ts
- * @version     v5.1.0
+ * @version     v5.2.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2026
@@ -161,6 +161,7 @@ export type BindingOptions = {
     percentageDecimalPoints?: number;
     chartsAnimationDelay?: number;
     exportDateTimeFormat?: string;
+    yearsSeparator?: string;
     sideMenu?: BindingOptionsSideMenu;
     dynamicColorRange?: BindingOptionsDynamicColorRange;
     colorRanges?: BindingOptionsColorRange[];
@@ -194,6 +195,7 @@ export type BindingOptionsCurrentView = {
     lineContentsContainer: HTMLElement;
     lineContents: HTMLElement;
     lineContentsScrollLeft: number;
+    chartContentsContainer: HTMLElement;
     chartContents: HTMLElement;
     chartContentsScrollLeft: number;
     daysContents: HTMLElement;
@@ -216,6 +218,7 @@ export type BindingOptionsCurrentView = {
     zoomLevel: number;
     zoomMapViewIncrement: number;
     zoomLineViewIncrement: number;
+    zoomChartViewIncrement: number;
     importDialog: HTMLElement;
     importDialogDragAndDrop: HTMLElement;
     importDialogFileList: FileList;
@@ -294,6 +297,7 @@ export type BindingOptionsViewsMap = BindingOptionsView & {
     highlightCurrentDay?: boolean;
     dayToolTipText?: string;
     showYearsInMonthNames?: boolean;
+    showShortYearsInMonthNames?: boolean;
     showCountsInToolTips?: boolean;
     showSpacing?: boolean;
     showDifferences?: boolean;
@@ -306,6 +310,7 @@ export type BindingOptionsViewsLine = BindingOptionsView & {
     showInReverseOrder?: boolean;
     keepScrollPositions?: boolean;
     showYearsInMonthNames?: boolean;
+    showShortYearsInMonthNames?: boolean;
     dayToolTipText?: string;
     showToolTips?: boolean;
     showCountsInToolTips?: boolean;
@@ -324,6 +329,7 @@ export type BindingOptionsViewsChart = BindingOptionsView & {
     highlightCurrentDay?: boolean;
     dayToolTipText?: string;
     showYearsInMonthNames?: boolean;
+    showShortYearsInMonthNames?: boolean;
     showCountsInToolTips?: boolean;
     addMonthSpacing?: boolean;
     showDifferences?: boolean;
@@ -408,6 +414,8 @@ export type BindingOptionsZooming = {
     showCloseButton?: boolean;
     showResetButton?: boolean;
     showToolTips?: boolean;
+    incrementDivision?: number;
+    cssDecimalPoints?: number;
 };
 
 export type BindingOptionsTooltip = {

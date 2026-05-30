@@ -4,7 +4,7 @@
  * A highly customizable JavaScript library for generating interactive heatmaps. It transforms data into smooth, visually intuitive heat layers, making patterns and intensity easy to spot at a glance.
  * 
  * @file        chart.ts
- * @version     v5.1.0
+ * @version     v5.2.0
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2026
@@ -27,7 +27,7 @@ export namespace Chart {
                 const allYLabels: HTMLElement[] = [];
                 let maximumWidth: number = 0;
 
-                for ( let yLabelIndex = 0; yLabelIndex < maximumLabels; yLabelIndex++ ) {
+                for ( let yLabelIndex: number = 0; yLabelIndex < maximumLabels; yLabelIndex++ ) {
                     const newYLabel: HTMLElement = DomElement.create( container, "div", "chart-y-label" );
                     const newYLabelLine: HTMLElement = DomElement.create( container, "span", "chart-y-label-line" );
 
@@ -55,7 +55,7 @@ export namespace Chart {
                     maximumWidth = Math.max( maximumWidth, newYLabel.offsetWidth );
                 }
 
-                for ( let yLabelIndex = 0; yLabelIndex < maximumLabels; yLabelIndex++ ) {
+                for ( let yLabelIndex: number = 0; yLabelIndex < maximumLabels; yLabelIndex++ ) {
                     allYLabels[ yLabelIndex ].style.width = `${maximumWidth}px`;
                 }
 
@@ -75,7 +75,7 @@ export namespace Chart {
 
                 const positionIncrease: number = 100 / ( maximumLines - 1 );
 
-                for ( let yLineIndex = 1; yLineIndex < maximumLines; yLineIndex++ ) {
+                for ( let yLineIndex: number = 1; yLineIndex < maximumLines; yLineIndex++ ) {
                     const newYLine: HTMLElement = DomElement.create( container, "span", "chart-y-line" );
 
                     if ( yLineIndex === maximumLines - 1 ) {
